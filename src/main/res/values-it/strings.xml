@@ -403,6 +403,12 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="take_a_picture">Scatta un foto</string>
 	<string name="pick_from_gallery">Scegli dalla libreria</string>
 	<string name="pick_from_storage">Scegli dalla memoria</string>
+	<string name="privacy">Riservatezza</string>
+	<string name="privacy_policy">Norme Riservatezza</string>
+	<string name="send_anonymous_statistics">Migliora Attività</string>
+	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
+	<string name="anonymous_usage_blurb">Vengono raccolte statistiche d\'uso anonime</string>
+	<string name="opt_out">Usc-opz</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

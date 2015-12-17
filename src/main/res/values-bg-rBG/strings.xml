@@ -412,6 +412,8 @@
 	<string name="privacy">Поверителност</string>
 	<string name="privacy_policy">Декларация за поверителност</string>
 	<string name="send_anonymous_statistics">Подобряване на Tasks</string>
+	<string name="send_anonymous_statistics_summary">Изпрати анонимна статистика за използването и отчети за грешки за да помогнеш да се подобри Tasks. Няма да бъдат събирани персонални данни.</string>
+	<string name="anonymous_usage_blurb">Събира се анонимна статистика относно използването</string>
 	<string name="opt_out">Отказване от</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
