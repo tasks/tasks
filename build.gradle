@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
+    gradleVersion = '2.9'
 }
 
 buildscript {
@@ -94,8 +94,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
-    googleplayCompile 'com.google.android.gms:play-services-location:8.3.0'
-    googleplayCompile 'com.google.android.gms:play-services-analytics:8.3.0'
+    googleplayCompile 'com.google.android.gms:play-services-location:8.4.0'
+    googleplayCompile 'com.google.android.gms:play-services-analytics:8.4.0'
     googleplayCompile('com.google.apis:google-api-services-tasks:v1-rev41-1.21.0') {
         exclude group: 'org.apache.httpcomponents', module: 'httpclient'
     }
