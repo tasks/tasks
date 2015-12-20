@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
@@ -68,7 +67,7 @@ import timber.log.Timber;
 import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
-public class TaskListActivity extends AstridActivity implements OnPageChangeListener, OnFilterItemClickedListener {
+public class TaskListActivity extends AstridActivity implements OnFilterItemClickedListener {
 
     @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
@@ -410,17 +409,6 @@ public class TaskListActivity extends AstridActivity implements OnPageChangeList
     public void setSelectedItem(Filter item) {
         getSupportActionBar().setTitle(item.listingTitle);
     }
-
-    @Override
-    public void onPageSelected(int position) {
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset,
-            int positionOffsetPixels) { /* Nothing */ }
-
-    @Override
-    public void onPageScrollStateChanged(int state) { /* Nothing */ }
 
     @Override
     public void onBackPressed() {
