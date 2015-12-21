@@ -13,10 +13,14 @@ import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -58,6 +62,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
 
     @Bind(R.id.tag_name) EditText tagName;
     @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.tag_error) TextView tagError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,38 +95,54 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
             tagName.setText(autopopulateName);
             getIntent().removeExtra(TOKEN_AUTOPOPULATE_NAME);
         }
+
+        tagName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tagError.setVisibility(clashes() ? View.VISIBLE : View.GONE);
+            }
+        });
+    }
+
+    private String getNewName() {
+        return tagName.getText().toString().trim();
+    }
+
+    private boolean clashes() {
+        String newName = getNewName();
+        TagData existing = tagDataDao.getTagByName(newName, TagData.PROPERTIES);
+        return existing != null && tagData.getId() != existing.getId();
     }
 
     private void save() {
         String oldName = tagData.getName();
-        String newName = tagName.getText().toString().trim();
+        String newName = getNewName();
 
         if (isEmpty(newName)) {
             return;
         }
 
-        boolean nameChanged = !oldName.equals(newName);
-        if (nameChanged) {
-            if (oldName.equalsIgnoreCase(newName)) { // Change the capitalization of a list manually
-                tagData.setName(newName);
-                tagService.rename(tagData.getUuid(), newName);
-            } else { // Rename list--check for existing name
-                newName = tagService.getTagWithCase(newName);
-                tagName.setText(newName);
-                if (!newName.equals(oldName)) {
-                    tagData.setName(newName);
-                    tagService.rename(tagData.getUuid(), newName);
-                }
-            }
+        if (clashes()) {
+            return;
+        }
 
+        if (isNewTag) {
+            tagData.setName(newName);
             tagDataDao.persist(tagData);
-
-            if (isNewTag) {
-                setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER,
-                        TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
-            } else {
-                setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED).putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid()));
-            }
+            setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER, TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
+        } else if (!oldName.equals(newName)) {
+            tagData.setName(newName);
+            tagService.rename(tagData.getUuid(), newName);
+            tagDataDao.persist(tagData);
+            setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED).putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid()));
         }
 
         finish();
@@ -185,7 +206,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
     }
 
     private void discard() {
-        String tagName = this.tagName.getText().toString().trim();
+        String tagName = getNewName();
         if ((isNewTag && isEmpty(tagName)) ||
                 (!isNewTag && tagData.getName().equals(tagName))) {
             finish();

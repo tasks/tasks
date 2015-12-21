@@ -45,6 +45,19 @@
                     android:textColor="?attr/asTextColorHint"
                     android:textColorHint="?attr/asTextColorHint"
                     android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tag_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/tag_name"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/tag_already_exists"
+                    android:textColor="@color/overdue"
+                    android:textStyle="italic"
+                    android:visibility="gone" />
             </RelativeLayout>
         </ScrollView>
     </FrameLayout>

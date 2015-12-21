@@ -20,8 +20,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.google.api.client.repackaged.com.google.common.base.Strings;
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -38,11 +42,17 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nullable;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
+import static com.google.common.collect.Sets.difference;
+import static com.google.common.collect.Sets.newHashSet;
 
 /**
  * Control set to manage adding and removing tags
@@ -61,7 +71,6 @@ public final class TagsControlSet extends PopupControlSet {
     private LinearLayout newTags;
     private ListView selectedTags;
     private boolean populated = false;
-    private HashMap<String, Integer> tagIndices;
 
     //private final LinearLayout tagsContainer;
     private final TextView tagsDisplay;
@@ -78,34 +87,12 @@ public final class TagsControlSet extends PopupControlSet {
         tagsDisplay = (TextView) getView().findViewById(R.id.display_row_edit);
     }
 
-    private TagData[] getTagArray() {
-        List<TagData> tagList = tagService.getTagList();
-        return tagList.toArray(new TagData[tagList.size()]);
-    }
-
-    private HashMap<String, Integer> buildTagIndices(ArrayList<String> tagNames) {
-        HashMap<String, Integer> indices = new HashMap<>();
-        for (int i = 0; i < tagNames.size(); i++) {
-            indices.put(tagNames.get(i), i);
-        }
-        return indices;
-    }
-
-    private ArrayList<String> getTagNames(TagData[] tags) {
-        ArrayList<String> names = new ArrayList<>();
-        for (TagData tag : tags) {
-            if (!names.contains(tag.getName())) {
-                names.add(tag.getName());
-            }
-        }
-        return names;
-    }
-
     private String buildTagString() {
         StringBuilder builder = new StringBuilder();
 
-        LinkedHashSet<String> tags = getTagSet();
-        for (String tag : tags) {
+        List<String> tagList = getTagList();
+        Collections.sort(tagList);
+        for (String tag : tagList) {
             if (tag.trim().length() == 0) {
                 continue;
             }
@@ -118,41 +105,50 @@ public final class TagsControlSet extends PopupControlSet {
         return builder.toString();
     }
 
-
     private void setTagSelected(String tag) {
-        Integer index = tagIndices.get(tag);
-        if (index != null) {
+        int index = allTagNames.indexOf(tag);
+        if (index >= 0) {
             selectedTags.setItemChecked(index, true);
         } else {
             allTagNames.add(tag);
-            tagIndices.put(tag, allTagNames.size() - 1);
             ((ArrayAdapter<String>)selectedTags.getAdapter()).notifyDataSetChanged();
         }
     }
 
-    private LinkedHashSet<String> getTagSet() {
-        LinkedHashSet<String> tags = new LinkedHashSet<>();
+    private List<String> getTagList() {
+        Set<String> tags = new LinkedHashSet<>();
         if (initialized) {
             for(int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
                 if (selectedTags.isItemChecked(i)) {
                     tags.add(allTagNames.get(i));
                 }
             }
-
-            for(int i = 0; i < newTags.getChildCount(); i++) {
+            for (int i = newTags.getChildCount() - 1 ; i >= 0 ; i--) {
                 TextView tagName = (TextView) newTags.getChildAt(i).findViewById(R.id.text1);
-                if(tagName.getText().length() == 0) {
+                final String text = tagName.getText().toString();
+                if (Strings.isNullOrEmpty(text)) {
                     continue;
                 }
-
-                tags.add(tagName.getText().toString());
+                TagData tagByName = tagDataDao.getTagByName(text, TagData.PROPERTIES);
+                if (tagByName != null) {
+                    setTagSelected(tagByName.getName());
+                    tags.add(tagByName.getName());
+                    newTags.removeViewAt(i);
+                } else if (!Iterables.any(tags, new Predicate<String>() {
+                    @Override
+                    public boolean apply(@Nullable String input) {
+                        return text.equalsIgnoreCase(input);
+                    }
+                })) {
+                    tags.add(text);
+                }
             }
         } else {
             if (model.getTransitory(TRANSITORY_TAGS) != null) {
-                return (LinkedHashSet<String>) model.getTransitory(TRANSITORY_TAGS);
+                return (List<String>) model.getTransitory(TRANSITORY_TAGS);
             }
         }
-        return tags;
+        return newArrayList(tags);
     }
 
     /** Adds a tag to the tag field */
@@ -245,7 +241,7 @@ public final class TagsControlSet extends PopupControlSet {
     public void readFromTask(Task task) {
         super.readFromTask(task);
         if(model.getId() != AbstractModel.NO_ID) {
-            model.putTransitory(TRANSITORY_TAGS, new LinkedHashSet<>(tagService.getTagNames(model.getId())));
+            model.putTransitory(TRANSITORY_TAGS, tagService.getTagNames(model.getId()));
             refreshDisplayView();
         }
     }
@@ -271,7 +267,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     private void selectTagsFromModel() {
-        LinkedHashSet<String> tags = (LinkedHashSet<String>) model.getTransitory(TRANSITORY_TAGS);
+        List<String> tags = (List<String>) model.getTransitory(TRANSITORY_TAGS);
         if (tags != null) {
             for (String tag : tags) {
                 setTagSelected(tag);
@@ -281,16 +277,18 @@ public final class TagsControlSet extends PopupControlSet {
 
     @Override
     protected void afterInflate() {
-        TagData[] allTags = getTagArray();
-        allTagNames = getTagNames(allTags);
-        tagIndices = buildTagIndices(allTagNames);
+        allTagNames = newArrayList(ImmutableSet.copyOf(transform(tagService.getTagList(), new Function<TagData, String>() {
+            @Override
+            public String apply(TagData tagData) {
+                return tagData.getName();
+            }
+        })));
 
         selectedTags = (ListView) getDialogView().findViewById(R.id.existingTags);
         selectedTags.setAdapter(new ArrayAdapter<>(activity,
                 R.layout.simple_list_item_multiple_choice_themed, allTagNames));
         selectedTags.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-        this.newTags = (LinearLayout) getDialogView().findViewById(R.id.newTags);
+        newTags = (LinearLayout) getDialogView().findViewById(R.id.newTags);
     }
 
     @Override
@@ -300,9 +298,7 @@ public final class TagsControlSet extends PopupControlSet {
             return;
         }
 
-        LinkedHashSet<String> tags = getTagSet();
-
-        synchronizeTags(task.getId(), task.getUUID(), tags);
+        synchronizeTags(task.getId(), task.getUUID());
         Flags.set(Flags.TAGS_CHANGED);
         task.setModificationDate(DateUtilities.now());
     }
@@ -322,57 +318,61 @@ public final class TagsControlSet extends PopupControlSet {
     /**
      * Save the given array of tags into the database
      */
-    private void synchronizeTags(long taskId, String taskUuid, Set<String> tags) {
+    private void synchronizeTags(long taskId, String taskUuid) {
         Query query = Query.select(Metadata.PROPERTIES).where(
                 Criterion.and(
                         TaskToTagMetadata.TASK_UUID.eq(taskUuid),
                         Metadata.DELETION_DATE.eq(0))
         );
-        final HashSet<String> existingLinks = new HashSet<>();
-        metadataDao.query(query, new Callback<Metadata>() {
+        Set<String> existingTagIds = newHashSet(transform(metadataDao.toList(query), new Function<Metadata, String>() {
             @Override
-            public void apply(Metadata link) {
-                existingLinks.add(link.getValue(TaskToTagMetadata.TAG_UUID));
+            public String apply(Metadata tagData) {
+                return tagData.getValue(TaskToTagMetadata.TAG_UUID);
             }
-        });
-
+        }));
+        List<String> tags = getTagList();
+        // create missing tags
         for (String tag : tags) {
-            if (tag.trim().length() == 0) {
-                continue;
-            }
-            TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME, TagData.UUID);
+            TagData tagData = tagDataDao.getTagByName(tag, TagData.ID);
             if (tagData == null) {
                 tagData = new TagData();
                 tagData.setName(tag);
                 tagDataDao.persist(tagData);
             }
-            if (existingLinks.contains(tagData.getUUID())) {
-                existingLinks.remove(tagData.getUUID());
-            } else {
-                Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getUUID());
+        }
+        List<TagData> selectedTags = newArrayList(transform(tags, new Function<String, TagData>() {
+            @Override
+            public TagData apply(String tag) {
+                return tagDataDao.getTagByName(tag, TagData.PROPERTIES);
+            }
+        }));
+        deleteLinks(taskId, taskUuid, difference(existingTagIds, newHashSet(Iterables.transform(selectedTags, new Function<TagData, String>() {
+            @Override
+            public String apply(TagData tagData) {
+                return tagData.getUUID();
+            }
+        }))));
+        for (TagData tagData : selectedTags) {
+            if (!existingTagIds.contains(tagData.getUUID())) {
+                Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tagData.getName(), tagData.getUUID());
                 metadataDao.createNew(newLink);
             }
         }
-
-        // Mark as deleted links that don't exist anymore
-        deleteLinks(taskId, taskUuid, existingLinks.toArray(new String[existingLinks.size()]));
     }
 
     /**
      * Delete all links between the specified task and the list of tags
      */
-    private void deleteLinks(long taskId, String taskUuid, String[] tagUuids) {
+    private void deleteLinks(long taskId, String taskUuid, Iterable<String> tagUuids) {
         Metadata deleteTemplate = new Metadata();
         deleteTemplate.setTask(taskId); // Need this for recording changes in outstanding table
         deleteTemplate.setDeletionDate(DateUtilities.now());
-        if (tagUuids != null) {
-            for (String uuid : tagUuids) {
-                // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
-                // the outstanding entry correctly. If possible, this should be improved to a single query
-                deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, uuid); // Need this for recording changes in outstanding table
-                metadataDao.update(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
-                        TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
-            }
+        for (String uuid : tagUuids) {
+            // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
+            // the outstanding entry correctly. If possible, this should be improved to a single query
+            deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, uuid); // Need this for recording changes in outstanding table
+            metadataDao.update(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
+                    TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(uuid)), deleteTemplate);
         }
     }
 }
