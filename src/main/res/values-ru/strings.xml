@@ -116,7 +116,6 @@
 	<string name="CRA_dont_invite">Нет, спасибо</string>
 	<string name="CRA_list_created_title">Список создан!</string>
 	<string name="CRA_default_list_name">Пункты события: %s</string>
-	<string name="EPr_title">Tasks: Настройки</string>
 	<string name="none">Пусто</string>
 	<string name="EPr_appearance_header">Интерфейс</string>
 	<string name="EPr_filters_to_show_title">Показать фильтры</string>
@@ -412,6 +411,7 @@
 	<string name="send_anonymous_statistics_summary">Высылать анонимную статистику и отчёты об ошибках, чтобы помочь улучшить Tasks. Персональная информация собираться не будет.</string>
 	<string name="anonymous_usage_blurb">Собрана анонимная статистика использования</string>
 	<string name="opt_out">Отказаться</string>
+	<string name="tag_already_exists">Тег уже существует</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

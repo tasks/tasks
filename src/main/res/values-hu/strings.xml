@@ -42,7 +42,6 @@
 	<string name="MCA_return_call">Hívás most</string>
 	<string name="MCA_add_task">Hívás később</string>
 	<string name="missed_calls">Nem fogadott hívások</string>
-	<string name="EPr_title">Beállítások</string>
 	<string name="TWi_loading">Betöltés...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all

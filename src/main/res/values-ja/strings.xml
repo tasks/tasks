@@ -116,7 +116,6 @@
 	<string name="CRA_dont_invite">いいえ結構です</string>
 	<string name="CRA_list_created_title">リストが作成されました!</string>
 	<string name="CRA_default_list_name">アクションアイテム: %s</string>
-	<string name="EPr_title">Tasks: 設定</string>
 	<string name="none">なし</string>
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
@@ -413,6 +412,7 @@
 	<string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
 	<string name="anonymous_usage_blurb">匿名の使用統計が収集されます</string>
 	<string name="opt_out">拒否</string>
+	<string name="tag_already_exists">タグは既に存在します</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

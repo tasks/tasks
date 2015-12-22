@@ -77,7 +77,6 @@
 	<string name="CRA_ignore_this">只忽略该事件</string>
 	<string name="CRA_create_list">创建列表</string>
 	<string name="CRA_postpone">也许以后</string>
-	<string name="EPr_title">清单小助理：设置</string>
 	<string name="EPr_appearance_header">外观</string>
 	<string name="EPr_beastMode_desc">自定义设定菜单屏幕</string>
 	<string name="EPr_beastMode_reset">恢复默认值</string>

@@ -109,7 +109,6 @@
 	<string name="CRA_dont_invite">Ne, hvala</string>
 	<string name="CRA_list_created_title">Seznam ustvarjen!</string>
 	<string name="CRA_default_list_name">Število izvedbenih opravil: %s</string>
-	<string name="EPr_title">Nastavitve</string>
 	<string name="EPr_appearance_header">Izgled</string>
 	<string name="EPr_filters_to_show_title">Filtri za prikaz</string>
 	<string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>

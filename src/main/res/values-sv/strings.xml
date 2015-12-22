@@ -106,7 +106,6 @@
 	<string name="CRA_dont_invite">Nej tack</string>
 	<string name="CRA_list_created_title">Listan skapades!</string>
 	<string name="CRA_default_list_name">Saker att göra: %s</string>
-	<string name="EPr_title">Inställningar</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_filters_to_show_title">Filter att visa</string>
 	<string name="EPr_edit_screen_options">Ändra skärminställningar</string>

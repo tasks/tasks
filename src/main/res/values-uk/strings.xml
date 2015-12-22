@@ -109,7 +109,6 @@
 	<string name="CRA_dont_invite">Ні, дякую</string>
 	<string name="CRA_list_created_title">Список створений!</string>
 	<string name="CRA_default_list_name">Список дій: %s</string>
-	<string name="EPr_title">Налаштування</string>
 	<string name="EPr_appearance_header">Інтерфейс</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>

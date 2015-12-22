@@ -105,7 +105,6 @@
 	<string name="CRA_dont_invite">לא תודה</string>
 	<string name="CRA_list_created_title">רשימה נוצרה!</string>
 	<string name="CRA_default_list_name">פריטי פעולה: %s</string>
-	<string name="EPr_title">הגדרות אסטריד</string>
 	<string name="EPr_appearance_header">חזות</string>
 	<string name="EPr_filters_to_show_title">אילו מַסְנְנִים להציג</string>
 	<string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>

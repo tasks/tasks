@@ -112,7 +112,6 @@
 	<string name="CRA_dont_invite">Nein danke</string>
 	<string name="CRA_list_created_title">Liste erstellt</string>
 	<string name="CRA_default_list_name">Einzelaufgaben: %s</string>
-	<string name="EPr_title">Tasks: Einstellungen</string>
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>

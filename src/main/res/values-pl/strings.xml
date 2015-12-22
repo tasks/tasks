@@ -106,7 +106,6 @@
 	<string name="CRA_dont_invite">Nie, dziękuję</string>
 	<string name="CRA_list_created_title">Lista utworzona!</string>
 	<string name="CRA_default_list_name">Wydarzenia aktywne: %s</string>
-	<string name="EPr_title">Tasks: Właściwości</string>
 	<string name="EPr_appearance_header">Wygląd</string>
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>

@@ -114,7 +114,6 @@
 	<string name="CRA_dont_invite">Nie, ďakujem</string>
 	<string name="CRA_list_created_title">Zoznam vytvorený!</string>
 	<string name="CRA_default_list_name">Položky akcie: %s</string>
-	<string name="EPr_title">Nastavenia</string>
 	<string name="EPr_appearance_header">Vzhľad</string>
 	<string name="EPr_filters_to_show_title">Filtre pre zobrazenie</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>

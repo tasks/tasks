@@ -119,7 +119,6 @@
 	<string name="CRA_dont_invite">아니요 괜찮습니다</string>
 	<string name="CRA_list_created_title">목록을 만들었습니다!</string>
 	<string name="CRA_default_list_name">활동 아이템: %s</string>
-	<string name="EPr_title">설정</string>
 	<string name="none">없음</string>
 	<string name="EPr_appearance_header">보기 설정</string>
 	<string name="EPr_filters_to_show_title">표시할 필터</string>

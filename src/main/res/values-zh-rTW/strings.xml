@@ -103,7 +103,6 @@
 	<string name="CRA_dont_invite">不了，謝啦！</string>
 	<string name="CRA_list_created_title">列表建立了！</string>
 	<string name="CRA_default_list_name">行動事項：%s</string>
-	<string name="EPr_title">Tasks: 偏好</string>
 	<string name="EPr_appearance_header">外觀</string>
 	<string name="EPr_edit_screen_options">編輯畫面選項</string>
 	<string name="EPr_beastMode_desc">自定義設定菜單屏幕</string>

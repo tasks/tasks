@@ -116,7 +116,6 @@
 	<string name="CRA_dont_invite">No, grazie</string>
 	<string name="CRA_list_created_title">Lista creata!</string>
 	<string name="CRA_default_list_name">Azioni: %s</string>
-	<string name="EPr_title">Tasks: Preferenze</string>
 	<string name="none">Nessuna</string>
 	<string name="EPr_appearance_header">Aspetto</string>
 	<string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
@@ -408,6 +407,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
 	<string name="anonymous_usage_blurb">Vengono raccolte statistiche d\'uso anonime</string>
 	<string name="opt_out">Usc-opz</string>
+	<string name="tag_already_exists">Etichetta già presente</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

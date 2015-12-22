@@ -77,7 +77,6 @@
 	<string name="MCA_ignore">Ignora</string>
 	<string name="MCA_task_title_name">Retorna la trucada a en/na %1$s a %2$s</string>
 	<string name="MCA_task_title_no_name">Retorna la trucada a %s</string>
-	<string name="EPr_title">Tasks: Paràmetres</string>
 	<string name="EPr_appearance_header">Aparença</string>
 	<string name="EPr_beastMode_reset">Restableix els valors predeterminats</string>
 	<string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>

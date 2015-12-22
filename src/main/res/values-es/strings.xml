@@ -115,7 +115,6 @@
 	<string name="CRA_dont_invite">No, gracias</string>
 	<string name="CRA_list_created_title">Lista creada</string>
 	<string name="CRA_default_list_name">Acciones: %s</string>
-	<string name="EPr_title">Tasks: Preferencias</string>
 	<string name="none">Ninguna</string>
 	<string name="EPr_appearance_header">Apariencia</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>

@@ -275,9 +275,6 @@
   
   <!-- ================================================== EditPreferences == -->
     
-  <!-- slide 31g: Preference Window Title -->
-  <string name="EPr_title">Settings</string>
-  
   <string name="none">None</string>
 
   <!-- slide 30i: Preference Category: Appearance Title -->
