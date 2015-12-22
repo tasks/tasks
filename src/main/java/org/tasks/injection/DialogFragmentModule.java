@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 
-import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
-import org.tasks.dialogs.LocationPickerDialog;
 import org.tasks.reminders.MissedCallDialog;
 import org.tasks.reminders.NotificationDialog;
 import org.tasks.reminders.SnoozeDialog;
@@ -18,7 +16,6 @@ import dagger.Provides;
 
 @Module(addsTo = TasksModule.class,
         injects = {
-                LocationPickerDialog.class,
                 NotificationDialog.class,
                 SnoozeDialog.class,
                 MissedCallDialog.class,

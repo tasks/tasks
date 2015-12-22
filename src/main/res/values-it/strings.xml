@@ -363,7 +363,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="pick_a_time">Scegli un\'ora</string>
 	<string name="pick_a_date_and_time">Scegli data e ora</string>
 	<string name="pick_a_location">Seleziona una posizione</string>
-	<string name="type_a_location">Inserisci posizione</string>
 	<string name="when_overdue">Quando scaduta</string>
 	<string name="when_due">Alla scadenza</string>
 	<string name="geofence_radius_title">Raggio (metri)</string>

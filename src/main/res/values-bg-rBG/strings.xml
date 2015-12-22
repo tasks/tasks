@@ -369,7 +369,6 @@
 	<string name="pick_a_time">Избери време</string>
 	<string name="pick_a_date_and_time">Избери дата и време</string>
 	<string name="pick_a_location">Избери местоположение</string>
-	<string name="type_a_location">Въведи местоположение</string>
 	<string name="when_overdue">След крайния срок</string>
 	<string name="when_due">При краен срок</string>
 	<string name="geofence_radius_title">Радиус (метри)</string>

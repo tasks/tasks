@@ -360,7 +360,6 @@
 	<string name="pick_a_time">Elegir hora</string>
 	<string name="pick_a_date_and_time">Elegir fecha y hora</string>
 	<string name="pick_a_location">Elegir ubicación</string>
-	<string name="type_a_location">Escribe la ubicación</string>
 	<string name="when_overdue">Cuando atrasada</string>
 	<string name="when_due">Cuando vencimiento</string>
 	<string name="geofence_radius_title">Radio (metros)</string>

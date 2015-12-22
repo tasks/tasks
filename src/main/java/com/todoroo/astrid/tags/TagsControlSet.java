@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.google.api.client.repackaged.com.google.common.base.Strings;
+import com.google.common.base.Strings;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
@@ -46,8 +46,6 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.annotation.Nullable;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
@@ -136,7 +134,7 @@ public final class TagsControlSet extends PopupControlSet {
                     newTags.removeViewAt(i);
                 } else if (!Iterables.any(tags, new Predicate<String>() {
                     @Override
-                    public boolean apply(@Nullable String input) {
+                    public boolean apply(String input) {
                         return text.equalsIgnoreCase(input);
                     }
                 })) {

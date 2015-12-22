@@ -34,7 +34,6 @@ import org.tasks.activities.DonationActivity;
 import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
-import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.activities.ResetPreferencesActivity;
 import org.tasks.activities.SortActivity;
@@ -89,7 +88,6 @@ import dagger.Provides;
                 ReminderPreferences.class,
                 AppearancePreferences.class,
                 BackupPreferences.class,
-                LocationPickerActivity.class,
                 NotificationActivity.class,
                 HelpAndFeedbackActivity.class,
                 DateShortcutPreferences.class,

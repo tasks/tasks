@@ -368,7 +368,6 @@
 	<string name="pick_a_time">時間を選択</string>
 	<string name="pick_a_date_and_time">日付と時間を選択</string>
 	<string name="pick_a_location">場所を選択</string>
-	<string name="type_a_location">場所を入力</string>
 	<string name="when_overdue">期限を過ぎたとき</string>
 	<string name="when_due">期限に</string>
 	<string name="geofence_radius_title">半径 (メートル)</string>

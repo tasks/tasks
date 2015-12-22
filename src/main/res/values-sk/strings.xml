@@ -352,7 +352,6 @@
 	<string name="pick_a_time">Vybrať čas</string>
 	<string name="pick_a_date_and_time">Vybrať dátum a čas</string>
 	<string name="pick_a_location">Vybrať lokalitu</string>
-	<string name="type_a_location">Typ lokalizácie</string>
 	<string name="when_overdue">Keď po termíne</string>
 	<string name="when_due">Keď v termíne</string>
 	<string name="geofence_radius_title">Okruh (v metroch)</string>

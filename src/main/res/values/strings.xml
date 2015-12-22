@@ -91,7 +91,6 @@
     <string name="pick_a_time">Pick a time</string>
     <string name="pick_a_date_and_time">Pick a date and time</string>
     <string name="pick_a_location">Pick a location</string>
-    <string name="type_a_location">Type a location</string>
     <string name="when_overdue">When overdue</string>
     <string name="when_due">When due</string>
     <string name="geofence_radius_title">Radius (meters)</string>

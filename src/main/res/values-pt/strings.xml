@@ -360,7 +360,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="pick_a_time">Escolha a hora</string>
 	<string name="pick_a_date_and_time">Escolha a data e a hora</string>
 	<string name="pick_a_location">Escolha o local</string>
-	<string name="type_a_location">Escreva o local</string>
 	<string name="when_overdue">Se data limite ultrapassada</string>
 	<string name="when_due">Na data limite</string>
 	<string name="geofence_radius_title">Raio (metros)</string>

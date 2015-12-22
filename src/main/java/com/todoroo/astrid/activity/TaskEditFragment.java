@@ -71,12 +71,12 @@ import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;
-import org.tasks.activities.LocationPickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
+import org.tasks.location.PlacePicker;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.PermissionRequestor;
@@ -827,12 +827,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             } else {
                 Timber.e("Invalid timestamp");
             }
-        } else if (requestCode == ReminderControlSet.REQUEST_LOCATION_REMINDER && resultCode == Activity.RESULT_OK) {
-            Geofence geofence = (Geofence) data.getSerializableExtra(LocationPickerActivity.EXTRA_GEOFENCE);
-            if (geofence != null) {
-                reminderControlSet.addGeolocationReminder(geofence);
-            } else {
-                Timber.e("Invalid geofence");
+        } else if (requestCode == ReminderControlSet.REQUEST_LOCATION_REMINDER) {
+            if (resultCode == Activity.RESULT_OK) {
+                Geofence geofence = PlacePicker.getPlace(getActivity(), data, preferences);
+                if (geofence != null) {
+                    reminderControlSet.addGeolocationReminder(geofence);
+                } else {
+                    Timber.e("Invalid geofence");
+                }
             }
         } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;

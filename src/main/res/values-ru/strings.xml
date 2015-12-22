@@ -367,7 +367,6 @@
 	<string name="pick_a_time">Время</string>
 	<string name="pick_a_date_and_time">Дата и время</string>
 	<string name="pick_a_location">По местонахождению</string>
-	<string name="type_a_location">Введите рвсположение</string>
 	<string name="when_overdue">Когда просрочено</string>
 	<string name="when_due">В срок</string>
 	<string name="geofence_radius_title">Радиус (в метрах)</string>

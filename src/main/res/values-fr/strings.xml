@@ -351,7 +351,6 @@
 	<string name="pick_a_time">Choisir une heure</string>
 	<string name="pick_a_date_and_time">Choisir date et heure</string>
 	<string name="pick_a_location">Choisir une localisation</string>
-	<string name="type_a_location">Entrer une localisation</string>
 	<string name="when_overdue">En cas de retard</string>
 	<string name="when_due">A l\'échéance</string>
 	<string name="geofence_radius_title">Rayon (mètres)</string>

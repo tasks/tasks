@@ -362,7 +362,6 @@
 	<string name="pick_a_time">Kies een tijd</string>
 	<string name="pick_a_date_and_time">Kies een datum en tijd</string>
 	<string name="pick_a_location">Kies een locatie</string>
-	<string name="type_a_location">Type een locatie</string>
 	<string name="when_overdue">Na de einddatum</string>
 	<string name="when_due">Op de eindtijd</string>
 	<string name="geofence_responsiveness_title">Antwoord tijd (hogere waarde verbruikt meer batterij)</string>

@@ -28,9 +28,9 @@ import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
-import org.tasks.activities.LocationPickerActivity;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
+import org.tasks.location.PlacePicker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
@@ -391,7 +391,10 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     }
 
     public void pickLocation() {
-        taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), LocationPickerActivity.class), REQUEST_LOCATION_REMINDER);
+        Intent intent = PlacePicker.getIntent(taskEditFragment.getActivity());
+        if (intent != null) {
+            taskEditFragment.startActivityForResult(intent, REQUEST_LOCATION_REMINDER);
+        }
     }
 
     @Override

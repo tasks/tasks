@@ -348,7 +348,6 @@
 	<string name="pick_a_time">Uhrzeit auswählen</string>
 	<string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
 	<string name="pick_a_location">Ort auswählen</string>
-	<string name="type_a_location">Ort festlegen</string>
 	<string name="when_overdue">Wenn überfällig</string>
 	<string name="when_due">Wenn fällig</string>
 	<string name="geofence_radius_title">Radius (Meter)</string>

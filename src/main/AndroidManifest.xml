@@ -107,10 +107,6 @@
             android:taskAffinity="" />
 
         <activity
-            android:name=".activities.LocationPickerActivity"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
             android:name=".activities.SortActivity"
             android:theme="@style/TranslucentDialog" />
 

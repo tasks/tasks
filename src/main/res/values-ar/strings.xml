@@ -221,7 +221,6 @@
 	<string name="randomly">عشوائياً</string>
 	<string name="pick_a_date_and_time">اختر تاريخ و وقت</string>
 	<string name="pick_a_location">أختر الموقع</string>
-	<string name="type_a_location">أدخل الموقع</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>تعطيل</item>
 		<item>كل 15 دقيقة</item>
