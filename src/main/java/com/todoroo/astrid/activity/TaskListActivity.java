@@ -36,7 +36,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.BuiltInFilters;
+import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -73,7 +73,6 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
     @Inject ActivityPreferences preferences;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject VoiceInputAssistant voiceInputAssistant;
-    @Inject BuiltInFilters builtInFilters;
     @Inject Tracker tracker;
 
     private static final int REQUEST_EDIT_TAG = 11543;
@@ -153,7 +152,7 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (savedFilter == null) {
-            savedFilter = builtInFilters.getMyTasks();
+            savedFilter = getDefaultFilter();
             extras.putAll(configureIntentAndExtrasWithFilter(getIntent(), savedFilter));
         }
 
@@ -250,6 +249,10 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
             }
         });
         return true;
+    }
+
+    protected Filter getDefaultFilter() {
+        return BuiltInFilterExposer.getMyTasksFilter(getResources());
     }
 
     @Override
@@ -501,7 +504,7 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
                             activeUuid = tagData.getUuid();
                         }
                         if (activeUuid.equals(uuid)) {
-                            getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, builtInFilters.getMyTasks()); // Handle in onPostResume()
+                            getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources())); // Handle in onPostResume()
                             navigationDrawer.clear(); // Should auto refresh
                         } else {
                             tlf.refresh();
@@ -518,7 +521,7 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
                     CustomFilter customFilter = data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER);
                     getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, customFilter);
                 } else if(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
-                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, builtInFilters.getMyTasks());
+                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources()));
                 }
 
                 navigationDrawer.refresh();

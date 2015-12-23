@@ -45,7 +45,7 @@ import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.core.BuiltInFilters;
+import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -136,7 +136,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject Injector injector;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
-    @Inject BuiltInFilters builtInFilters;
 
     protected Resources resources;
     protected TaskAdapter taskAdapter = null;
@@ -361,13 +360,13 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             filter = extras.getParcelable(TOKEN_FILTER);
             extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {
-            filter = builtInFilters.getMyTasks();
+            filter = BuiltInFilterExposer.getMyTasksFilter(resources);
         }
         filter.setFilterQueryOverride(null);
-        isInbox = builtInFilters.isMyTasksFilter(filter);
+        isInbox = BuiltInFilterExposer.isInbox(context, filter);
         isTodayFilter = false;
         if (!isInbox) {
-            isTodayFilter = builtInFilters.isTodayFilter(filter);
+            isTodayFilter = BuiltInFilterExposer.isTodayFilter(context, filter);
         }
 
         initializeTaskListMetadata();

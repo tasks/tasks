@@ -2,7 +2,6 @@ package org.tasks;
 
 import android.util.Log;
 
-import com.todoroo.astrid.core.BuiltInFilters;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -56,7 +55,6 @@ public class Tasks extends InjectingApplication {
     @Inject SyncThrottle syncThrottle;
     @Inject Preferences preferences;
     @Inject Tracker tracker;
-    @Inject BuiltInFilters builtInFilters;
 
     @Override
     public void onCreate() {
