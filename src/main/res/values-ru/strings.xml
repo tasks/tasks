@@ -28,7 +28,7 @@
 	<string name="DLG_upgrading">Обновление ваших задач…</string>
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
 	<string name="DLG_undo">Отмена</string>
-	<string name="WID_dateButtonUnset">Нажмите для установки</string>
+	<string name="WID_dateButtonUnset">Установить</string>
 	<string name="TLA_no_items">Нет задач! \n Добавить?</string>
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_search">Поиск</string>
@@ -56,8 +56,8 @@
 	<string name="TEA_hideUntil_label">Скрыть до</string>
 	<string name="TEA_hideUntil_display">Скрыть до %s</string>
 	<string name="TEA_note_label">Описание</string>
-	<string name="TEA_estimatedDuration_label">Сколько времени это займёт?</string>
-	<string name="TEA_elapsedDuration_label">Время уже потраченное на задачу</string>
+	<string name="TEA_estimatedDuration_label">Требуемое время</string>
+	<string name="TEA_elapsedDuration_label">Затраченное время</string>
 	<string name="TEA_menu_save">Сохранить изменения</string>
 	<string name="save">Сохранить </string>
 	<string name="TEA_menu_discard_changes">Отменить изменения?</string>
