@@ -18,7 +18,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,6 @@ import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
-import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -86,8 +84,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final AstridActivity activity;
 
     private final int cameraButton;
-
-    private static boolean respondToPicture = false;
 
     private final List<UpdatesChangedListener> listeners = new LinkedList<>();
 
@@ -242,7 +238,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 } else {
                     actFmCameraModule.showPictureLauncher(null);
                 }
-                respondToPicture = true;
             }
         });
         if(!TextUtils.isEmpty(task.getNotes())) {
@@ -464,8 +459,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     @Override
     public void timerStarted(Task t) {
         addComment(String.format("%s %s",  //$NON-NLS-1$
-                getContext().getString(R.string.TEA_timer_comment_started),
-                DateUtilities.getTimeString(getContext(), newDateTime())),
+                        getContext().getString(R.string.TEA_timer_comment_started),
+                        DateUtilities.getTimeString(getContext(), newDateTime())),
                 UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
                 false);
@@ -483,29 +478,13 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 false);
     }
 
-    /*
-     * Call back from edit task when picture is added
-     */
-    public boolean activityResult(int requestCode, int resultCode, Intent data) {
-
-        if (respondToPicture) {
-            respondToPicture = false;
-            CameraResultCallback callback = new CameraResultCallback() {
-                @Override
-                public void handleCameraResult(Uri uri) {
-                    if (activity != null) {
-                        activity.getIntent().putExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS, uri.toString());
-                    }
-                    pendingCommentPicture = uri;
-                    setPictureButtonToPendingPicture();
-                    commentField.requestFocus();
-                }
-            };
-
-            return actFmCameraModule.activityResult(requestCode, resultCode, data, callback);
-        } else {
-            return false;
+    public void setPictureUri(Uri uri) {
+        if (activity != null) {
+            activity.getIntent().putExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS, uri.toString());
         }
+        pendingCommentPicture = uri;
+        setPictureButtonToPendingPicture();
+        commentField.requestFocus();
     }
 
     private void setPictureButtonToPendingPicture() {

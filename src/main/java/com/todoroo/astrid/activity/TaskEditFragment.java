@@ -31,12 +31,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
-import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -71,6 +69,7 @@ import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;
+import org.tasks.activities.CameraActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingFragment;
@@ -96,7 +95,6 @@ import butterknife.ButterKnife;
 import timber.log.Timber;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preGingerbreadMR1;
-import static org.tasks.files.FileHelper.getPathFromUri;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -145,6 +143,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final int REQUEST_CODE_RECORD = 30;
     public static final int REQUEST_ADD_ATTACHMENT = 50;
+    public static final int REQUEST_CODE_CAMERA = 60;
 
     // --- result codes
 
@@ -728,18 +727,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
     }
 
-    private void attachImage(Uri uri) {
-        try {
-            String path = getPathFromUri(getActivity(), uri);
-            File file = new File(path);
-            String extension = path.substring(path.lastIndexOf('.') + 1);
-            filesControlSet.createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
-        } catch (Exception e) {
-            Timber.e(e, e.getMessage());
-            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
-        }
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         hideKeyboard();
@@ -836,8 +823,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     Timber.e("Invalid geofence");
                 }
             }
-        } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
-            return;
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
@@ -847,15 +832,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             File file = new File(path);
             String extension = path.substring(path.lastIndexOf('.') + 1);
             filesControlSet.createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
-        }
-        actFmCameraModule.activityResult(requestCode, resultCode, data, new CameraResultCallback() {
-            @Override
-            public void handleCameraResult(Uri uri) {
-                attachImage(uri);
+        } else if (requestCode == REQUEST_CODE_CAMERA) {
+            if (editNotes != null && resultCode == Activity.RESULT_OK) {
+                Uri uri = data.getParcelableExtra(CameraActivity.EXTRA_URI);
+                editNotes.setPictureUri(uri);
             }
-        });
-
-        super.onActivityResult(requestCode, resultCode, data);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override

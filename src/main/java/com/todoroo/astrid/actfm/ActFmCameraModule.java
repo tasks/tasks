@@ -5,38 +5,26 @@
  */
 package com.todoroo.astrid.actfm;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
+
+import com.todoroo.astrid.activity.TaskEditFragment;
 
 import org.tasks.R;
+import org.tasks.activities.CameraActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.DeviceInfo;
-import org.tasks.preferences.Preferences;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
 public class ActFmCameraModule {
 
-    protected static final int REQUEST_CODE_CAMERA = 1;
-
-    private static File lastTempFile = null;
-
     private final Fragment fragment;
-    private final Preferences preferences;
     private DeviceInfo deviceInfo;
     private DialogBuilder dialogBuilder;
 
@@ -45,9 +33,8 @@ public class ActFmCameraModule {
     }
 
     @Inject
-    public ActFmCameraModule(Fragment fragment, Preferences preferences, DeviceInfo deviceInfo, DialogBuilder dialogBuilder) {
+    public ActFmCameraModule(Fragment fragment, DeviceInfo deviceInfo, DialogBuilder dialogBuilder) {
         this.fragment = fragment;
-        this.preferences = preferences;
         this.deviceInfo = deviceInfo;
         this.dialogBuilder = dialogBuilder;
     }
@@ -61,14 +48,7 @@ public class ActFmCameraModule {
             runnables.add(new Runnable() {
                 @Override
                 public void run() {
-                    lastTempFile = getFilename(".jpeg");
-                    if (lastTempFile == null) {
-                        Toast.makeText(fragment.getActivity(), R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
-                    } else {
-                        final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
-                        fragment.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
-                    }
+                    fragment.startActivityForResult(new Intent(fragment.getActivity(), CameraActivity.class), TaskEditFragment.REQUEST_CODE_CAMERA);
                 }
             });
             options.add(fragment.getString(R.string.take_a_picture));
@@ -103,42 +83,5 @@ public class ActFmCameraModule {
                     .setAdapter(adapter, listener)
                     .show().setOwnerActivity(fragment.getActivity());
         }
-    }
-
-    private File getFilename(String extension) {
-        AtomicReference<String> nameRef = new AtomicReference<>();
-        if (!extension.startsWith(".")) {
-            extension = "." + extension;
-        }
-        try {
-            String path = preferences.getNewAttachmentPath(extension, nameRef);
-            File file = new File(path);
-            file.getParentFile().mkdirs();
-            if (!file.createNewFile()) {
-                throw new RuntimeException("Failed to create " + file.getPath());
-            }
-            return file;
-        } catch (IOException e) {
-            Timber.e(e, e.getMessage());
-        }
-        return null;
-    }
-
-    public interface CameraResultCallback {
-        void handleCameraResult(Uri uri);
-    }
-
-    public boolean activityResult(int requestCode, int resultCode, Intent data,
-            CameraResultCallback cameraResult) {
-        if(requestCode == ActFmCameraModule.REQUEST_CODE_CAMERA && resultCode == Activity.RESULT_OK) {
-            if (lastTempFile != null) {
-                Uri uri = Uri.fromFile(lastTempFile);
-                lastTempFile = null;
-                fragment.getActivity().setResult(Activity.RESULT_OK);
-                cameraResult.handleCameraResult(uri);
-            }
-            return true;
-        }
-        return false;
     }
 }

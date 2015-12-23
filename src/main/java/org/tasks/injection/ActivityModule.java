@@ -25,6 +25,7 @@ import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionActivity;
+import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ClearAllDataActivity;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
@@ -98,7 +99,8 @@ import dagger.Provides;
                 UpgradeActivity.class,
                 CalendarSelectionActivity.class,
                 AddAttachmentActivity.class,
-                ShortcutActivity.class
+                ShortcutActivity.class,
+                CameraActivity.class
         })
 public class ActivityModule {
 

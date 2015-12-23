@@ -1,6 +1,5 @@
 package org.tasks.activities;
 
-import android.content.ClipData;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,8 +28,6 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-
 public class AddAttachmentActivity extends InjectingAppCompatActivity implements DialogInterface.OnCancelListener, AddAttachmentDialog.AddAttachmentCallback {
 
     private static final String FRAG_TAG_ATTACHMENT_DIALOG = "frag_tag_attachment_dialog";
@@ -39,8 +36,6 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
     private static final int REQUEST_STORAGE = 12122;
 
     public static final String EXTRA_PATH = "extra_path";
-
-    @Deprecated private static File lastTempFile = null;
 
     @Inject Preferences preferences;
 
@@ -65,20 +60,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
 
     @Override
     public void takePicture() {
-        lastTempFile = getFilename(".jpeg");
-        if (lastTempFile == null) {
-            Toast.makeText(this, R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
-        } else {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            Uri uri = Uri.fromFile(lastTempFile);
-            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            if (atLeastLollipop()) {
-                intent.setClipData(ClipData.newRawUri(null, uri));
-            }
-            startActivityForResult(intent, REQUEST_CAMERA);
-        }
+        startActivityForResult(new Intent(this, CameraActivity.class), REQUEST_CAMERA);
     }
 
     @Override
@@ -100,13 +82,12 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         if (requestCode == REQUEST_CAMERA) {
             if (resultCode == RESULT_OK) {
-                if (lastTempFile != null) {
-                    Timber.i("Saved %s", lastTempFile.getAbsolutePath());
-                    setResult(RESULT_OK, new Intent() {{
-                        putExtra(EXTRA_PATH, lastTempFile.getAbsolutePath());
-                    }});
-                    lastTempFile = null;
-                }
+                Uri uri = data.getParcelableExtra(CameraActivity.EXTRA_URI);
+                final File file = new File(uri.getPath());
+                Timber.i("Saved %s", file.getAbsolutePath());
+                setResult(RESULT_OK, new Intent() {{
+                    putExtra(EXTRA_PATH, file.getAbsolutePath());
+                }});
             }
             finish();
         } else if (requestCode == REQUEST_GALLERY) {
