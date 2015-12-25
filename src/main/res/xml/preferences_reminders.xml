@@ -33,6 +33,11 @@
         android:showDefault="true"
         android:showSilent="true"
         android:title="@string/sound" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_disable_notification_light"
+        android:title="@string/disable_notification_light" />
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:defaultValue="true"
         android:dependency="@string/p_rmd_enabled"

@@ -137,6 +137,7 @@
     <string name="anonymous_usage_blurb">Anonymous usage statistics are collected</string>
     <string name="opt_out">Opt-out</string>
     <string name="tag_already_exists">Tag already exists</string>
+    <string name="disable_notification_light">Disable notification light</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

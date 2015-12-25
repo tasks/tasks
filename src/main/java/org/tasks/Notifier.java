@@ -270,12 +270,16 @@ public class Notifier {
 
     private void activateNotification(int ringTimes, int notificationId, Notification notification, String text) {
         if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
-            notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_SHOW_LIGHTS;
+            notification.flags |= Notification.FLAG_NO_CLEAR;
+        }
+        if (preferences.getBoolean(R.string.p_disable_notification_light, false)) {
+            notification.ledOffMS = 0;
+            notification.ledOnMS = 0;
+        } else {
+            notification.flags |= Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;
             notification.ledOnMS = 700;
             notification.ledARGB = Color.YELLOW;
-        } else {
-            notification.defaults = Notification.DEFAULT_LIGHTS;
         }
 
         if (atLeastJellybean()) {
