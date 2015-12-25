@@ -251,9 +251,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="rmd_EPr_quiet_hours_end_title">Fim das horas de silêncio</string>
 	<string name="rmd_EPr_rmd_time_title">Lembrete predefinido</string>
 	<string name="rmd_EPr_rmd_time_desc">As notificações para tarefas sem data limite aparecerão em %s</string>
-	<string name="rmd_EPr_persistent_title">Persistência da notificação</string>
-	<string name="rmd_EPr_persistent_desc_true">Deve ver as notificações individualmente para as poder remover</string>
-	<string name="rmd_EPr_persistent_desc_false">As notificações serão removidas no botão \"Limpar tudo\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com vários toques</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">O Tasks irá amplificar o volume para lembretes com vários toques</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>

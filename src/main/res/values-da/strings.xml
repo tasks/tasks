@@ -120,7 +120,6 @@
 	<string name="rmd_NoA_snooze">Slumrefunktion...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stille timer start</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Stille timer slut</string>
-	<string name="rmd_EPr_persistent_desc_true">Påmindelser skal vises individuelt for at blive ryddet</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>
 	<string name="repeat_enabled">Gentagelser</string>
 	<string name="repeat_every">Hver %d</string>

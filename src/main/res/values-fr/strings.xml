@@ -244,9 +244,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Fin des heures de repos</string>
 	<string name="rmd_EPr_rmd_time_title">Rappel par défaut</string>
 	<string name="rmd_EPr_rmd_time_desc">Les notifications pour les tâches sans échéances apparaîtront à %s</string>
-	<string name="rmd_EPr_persistent_title">Persistance de la notification</string>
-	<string name="rmd_EPr_persistent_desc_true">Les notifications doivent être affichées séparément afin d\'être purgées</string>
-	<string name="rmd_EPr_persistent_desc_false">Les notifications peuvent être purgées grâce au bouton « Tout purger »</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume maximum pour les rappels multi sonneries</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks va maximiser le volume de multiples anneaux rappels</string>
 	<string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>

@@ -257,9 +257,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Конец тихих часов</string>
 	<string name="rmd_EPr_rmd_time_title">Напоминание по умолчанию</string>
 	<string name="rmd_EPr_rmd_time_desc">Уведомления для задач без срока выполнения появятся в %s</string>
-	<string name="rmd_EPr_persistent_title">Постоянность уведомления</string>
-	<string name="rmd_EPr_persistent_desc_true">Каждое уведомление должно быть просмотрено перед очисткой</string>
-	<string name="rmd_EPr_persistent_desc_false">Уведомления можно очистить кнопкой \"Очистить все\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимальная громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks будет увеличивать громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>

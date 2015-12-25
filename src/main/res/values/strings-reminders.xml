@@ -42,11 +42,9 @@
   <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
 
   <!-- Reminder Preference: Notification Persistence Title -->
-  <string name="rmd_EPr_persistent_title">Notification persistence</string>
+  <string name="persistent_notifications">Persistent notifications</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->
-  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
-  <!-- Reminder Preference: Notification Persistence Description (false) -->
-  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  <string name="persistent_notifications_description">Persistent notifications cannot be cleared</string>
 
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>

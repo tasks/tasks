@@ -261,9 +261,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="rmd_EPr_quiet_hours_end_title">알림 꺼짐 종료 시간</string>
 	<string name="rmd_EPr_rmd_time_title">기본 알림 설정</string>
 	<string name="rmd_EPr_rmd_time_desc">마감일이 없는 일정 알림은 %s 에 나타날 것입니다.</string>
-	<string name="rmd_EPr_persistent_title">알림 지속 시간</string>
-	<string name="rmd_EPr_persistent_desc_true">알림은 반드시 개별적으로 봐야 지워집니다.</string>
-	<string name="rmd_EPr_persistent_desc_false">\"모두 지우기\" 버튼으로 알림을 일괄삭제합니다.</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">다중-링 알림의 최대 볼륨</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks는 다중-링 알림을 최대 볼륨으로 출력합니다</string>
 	<string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>

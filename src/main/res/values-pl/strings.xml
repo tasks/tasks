@@ -232,9 +232,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="rmd_EPr_quiet_hours_end_title">Koniec czasu wyciszenia</string>
 	<string name="rmd_EPr_rmd_time_title">Domyślne przypomnienie</string>
 	<string name="rmd_EPr_rmd_time_desc">Powiadomienia zadań bez odpowiedniego czasu pojawi się na %s</string>
-	<string name="rmd_EPr_persistent_title">Wytrwałość powiadomienia</string>
-	<string name="rmd_EPr_persistent_desc_true">Powiadomienia muszą być wyświetlane pojedyńczo aby były wyczyszczone</string>
-	<string name="rmd_EPr_persistent_desc_false">Powiadomienia mogą zostać wyczyszczone przyciskiem \"Wyczyść wszystkie\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maksymalna głośność dla wielu dzwonków przypomnień</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ustawi maksymalną głośność dla wielu dzwonków przypomnień</string>
 	<string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>

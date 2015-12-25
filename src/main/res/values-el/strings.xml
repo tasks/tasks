@@ -229,9 +229,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Τέλος ώρας κοινής ησυχίας</string>
 	<string name="rmd_EPr_rmd_time_title">Προκαθορισμένη υπενθύμιση</string>
 	<string name="rmd_EPr_rmd_time_desc">Ειδοποιήσεις για εργασίες χωρίς ώρα λήξης θα φαίνονται στις %s</string>
-	<string name="rmd_EPr_persistent_title">Επιμονή ειδοποίησης</string>
-	<string name="rmd_EPr_persistent_desc_true">Οι ειδοποιήσεις πρέπει να προβληθούν χωριστά για να καθαριστούν</string>
-	<string name="rmd_EPr_persistent_desc_false">Οι ειδοποιήσεις μπορούν να καθαριστούν με το κουμπί \"Καθαρισμός Όλων\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Μέγιστος ήχος για πολλαπλούς ήχους υπενθυμίσεων</string>
 	<string name="rmd_EPr_defaultRemind_title">Τυχαίες υπενθυμίσεις</string>
 	<string-array name="EPr_reminder_random">

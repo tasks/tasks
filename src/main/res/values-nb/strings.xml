@@ -110,9 +110,6 @@
 	<string name="rmd_NoA_snooze">Slumre</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stilletimer start</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Stilletimer slutt</string>
-	<string name="rmd_EPr_persistent_title">Påminnelse intensitet</string>
-	<string name="rmd_EPr_persistent_desc_true">Varsler må ses individuelt for å kunne fjernes</string>
-	<string name="rmd_EPr_persistent_desc_false">Varsler kan slettes ved \"Slett alt\"-knappen</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfeldige påminnelser</string>
 	<string name="repeat_enabled">Gjentakelser</string>
 	<string name="repeat_every">Hver %d</string>

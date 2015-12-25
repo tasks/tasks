@@ -37,9 +37,8 @@
         android:defaultValue="true"
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_persistent"
-        android:summaryOff="@string/rmd_EPr_persistent_desc_false"
-        android:summaryOn="@string/rmd_EPr_persistent_desc_true"
-        android:title="@string/rmd_EPr_persistent_title" />
+        android:summary="@string/persistent_notifications_description"
+        android:title="@string/persistent_notifications" />
     <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="@string/p_rmd_enabled"

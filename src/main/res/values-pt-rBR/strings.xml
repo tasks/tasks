@@ -228,9 +228,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Fim das horas calmas</string>
 	<string name="rmd_EPr_rmd_time_title">Lembrete padrão</string>
 	<string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer em %s</string>
-	<string name="rmd_EPr_persistent_title">Notificação persistente</string>
-	<string name="rmd_EPr_persistent_desc_true">Cada notificação precisa ser vista individualmente</string>
-	<string name="rmd_EPr_persistent_desc_false">Notificações podem ser eliminadas com o botão \"Eliminar Todas\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com múltiplos sons</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks irá aumentar o volume para alertas com múltiplos sons</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>

@@ -254,9 +254,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_EPr_quiet_hours_end_title">Ora fine silenzio</string>
 	<string name="rmd_EPr_rmd_time_title">Promemoria predefiniti</string>
 	<string name="rmd_EPr_rmd_time_desc">Le notifiche per le attività senza scadenza appariranno alle %s</string>
-	<string name="rmd_EPr_persistent_title">Notifica Persistente</string>
-	<string name="rmd_EPr_persistent_desc_true">Le notifiche devono essere visualizzate singolarmente per essere cancellate</string>
-	<string name="rmd_EPr_persistent_desc_false">Le notifiche possono essere cancellate attraverso il pulsante \"Canella tutto\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume massimo per promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks metterà il volume al massimo per i promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>

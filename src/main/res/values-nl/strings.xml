@@ -255,9 +255,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Rustperiode eindigt</string>
 	<string name="rmd_EPr_rmd_time_title">Standaard herinnering</string>
 	<string name="rmd_EPr_rmd_time_desc">Waarschuwingen voor taken zonder eindtijd verschijnen om %s</string>
-	<string name="rmd_EPr_persistent_title">Herinneringen aanhouden</string>
-	<string name="rmd_EPr_persistent_desc_true">Herinneringen moeten individueel worden gewist</string>
-	<string name="rmd_EPr_persistent_desc_false">Herinneringen kunnen met de \"Alles wissen\" knop worden uitgezet</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Max. volume voor multiple-ring herinneringen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks zal het volume voor multi-ring herinneringen maximaliseren</string>
 	<string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>

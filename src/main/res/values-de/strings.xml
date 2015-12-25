@@ -240,9 +240,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Ruhezeiten enden</string>
 	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
-	<string name="rmd_EPr_persistent_title">Hartnäckigkeit von Meldungen</string>
-	<string name="rmd_EPr_persistent_desc_true">Benachrichtigungen müssen einzeln angesehen werden um sie zu löschen</string>
-	<string name="rmd_EPr_persistent_desc_false">Erinnerungen können mit dem \"Alle Löschen\" Button gelöscht werden</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximalisieren</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>

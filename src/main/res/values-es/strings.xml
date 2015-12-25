@@ -251,9 +251,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">El horario en silencio termina</string>
 	<string name="rmd_EPr_rmd_time_title">Aviso por defecto</string>
 	<string name="rmd_EPr_rmd_time_desc">Notificaciones para tareas sin fecha límites aparecerán a %s</string>
-	<string name="rmd_EPr_persistent_title">Persistencia de notificación</string>
-	<string name="rmd_EPr_persistent_desc_true">Las notificaciones deben verse individualmente para quitarlas</string>
-	<string name="rmd_EPr_persistent_desc_false">Las notificaciones se pueden borrar con el botón \"Borrar Todo\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Máximo volumen para recordatorios con tonos múltiples</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks fijará el volumen máximo para avisos con tonos múltiples</string>
 	<string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
