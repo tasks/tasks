@@ -32,6 +32,7 @@ import org.tasks.injection.InjectingFragment;
 import org.tasks.location.GeofenceService;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.Preferences;
+import org.tasks.scheduling.AlarmSchedulingIntentService;
 
 import javax.inject.Inject;
 
@@ -96,6 +97,9 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 }
             } else if (data.getBooleanExtra(ReminderPreferences.RESET_GEOFENCES, false)) {
                 geofenceService.setupGeofences();
+            } else if (data.getBooleanExtra(ReminderPreferences.RESCHEDULE_ALARMS, false)) {
+                Context context = getContext();
+                context.startService(new Intent(context, AlarmSchedulingIntentService.class));
             }
 
             if (data.getBooleanExtra(AppearancePreferences.FILTERS_CHANGED, false)) {

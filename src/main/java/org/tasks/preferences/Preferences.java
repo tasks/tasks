@@ -29,6 +29,7 @@ import timber.log.Timber;
 
 import static android.content.SharedPreferences.Editor;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 public class Preferences {
 
@@ -97,6 +98,10 @@ public class Preferences {
 
     public String getDefaultCalendar() {
         return getStringValue(R.string.gcal_p_default);
+    }
+
+    public boolean isDozeNotificationEnabled() {
+        return atLeastMarshmallow() && getBoolean(R.string.p_doze_notifications, false);
     }
 
     public boolean geofencesEnabled() {

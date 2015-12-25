@@ -27,6 +27,7 @@ import org.tasks.ui.TimePreference;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.preJellybean;
 
 public class ReminderPreferences extends InjectingPreferenceActivity {
@@ -38,6 +39,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
     public static String RESET_GEOFENCES = "reset_geofences";
     public static String TOGGLE_GEOFENCES = "toggle_geofences";
+    public static String RESCHEDULE_ALARMS = "reschedule_alarms";
     private Bundle result;
 
     @Inject DeviceInfo deviceInfo;
@@ -58,6 +60,11 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         if (preJellybean()) {
             preferenceScreen.removePreference(findPreference(getString(R.string.p_rmd_notif_actions_enabled)));
             preferenceScreen.removePreference(findPreference(getString(R.string.p_notification_priority)));
+        }
+        if (atLeastMarshmallow()) {
+            setExtraOnChange(R.string.p_doze_notifications, RESCHEDULE_ALARMS);
+        } else {
+            preferenceScreen.removePreference(findPreference(getString(R.string.p_doze_notifications)));
         }
 
         if (deviceInfo.supportsLocationServices()) {

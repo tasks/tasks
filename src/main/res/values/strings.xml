@@ -138,6 +138,9 @@
     <string name="opt_out">Opt-out</string>
     <string name="tag_already_exists">Tag already exists</string>
     <string name="disable_notification_light">Disable notification light</string>
+    <string name="doze_notifications">Interrupt Doze mode for notifications</string>
+    <string name="doze_notifications_off">Android will significantly delay notifications while device is in Doze mode</string>
+    <string name="doze_notifications_on">Android will allow limited interruptions while device is in Doze mode</string>
 
     <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

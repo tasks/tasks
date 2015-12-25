@@ -44,6 +44,13 @@
         android:key="@string/p_rmd_persistent"
         android:summary="@string/persistent_notifications_description"
         android:title="@string/persistent_notifications" />
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="false"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_doze_notifications"
+        android:summaryOff="@string/doze_notifications_off"
+        android:summaryOn="@string/doze_notifications_on"
+        android:title="@string/doze_notifications" />
     <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="@string/p_rmd_enabled"
