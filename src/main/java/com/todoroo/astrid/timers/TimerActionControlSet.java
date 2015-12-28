@@ -5,8 +5,8 @@
  */
 package com.todoroo.astrid.timers;
 
+import android.app.Activity;
 import android.os.SystemClock;
-import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +33,7 @@ public class TimerActionControlSet extends TaskEditControlSetBase {
     private boolean timerActive;
     private final List<TimerActionListener> listeners = new LinkedList<>();
 
-    public TimerActionControlSet(final NotificationManager notificationManager, final TaskService taskService, final FragmentActivity activity, View parent) {
+    public TimerActionControlSet(final NotificationManager notificationManager, final TaskService taskService, final Activity activity, View parent) {
         super(activity, -1);
 
         LinearLayout timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);

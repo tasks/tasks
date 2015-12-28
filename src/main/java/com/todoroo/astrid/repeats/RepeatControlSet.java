@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.repeats;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -96,7 +96,7 @@ public class RepeatControlSet extends PopupControlSet {
 
     // --- implementation
 
-    public RepeatControlSet(ActivityPreferences preferences, FragmentActivity activity, DialogBuilder dialogBuilder) {
+    public RepeatControlSet(ActivityPreferences preferences, Activity activity, DialogBuilder dialogBuilder) {
         super(preferences, activity, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled, dialogBuilder);
     }
 

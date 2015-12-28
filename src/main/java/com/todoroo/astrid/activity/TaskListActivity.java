@@ -6,13 +6,13 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -162,7 +162,7 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
     }
 
     public NavigationDrawerFragment getNavigationDrawerFragment() {
-        return (NavigationDrawerFragment) getSupportFragmentManager()
+        return (NavigationDrawerFragment) getFragmentManager()
                 .findFragmentById(NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
     }
 
@@ -295,14 +295,14 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
         TaskListFragment newFragment = TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customTaskList);
 
         try {
-            FragmentManager manager = getSupportFragmentManager();
+            FragmentManager manager = getFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.tasklist_fragment_container, newFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT);
             transaction.commit();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    getSupportFragmentManager().executePendingTransactions();
+                    getFragmentManager().executePendingTransactions();
                 }
             });
         } catch (Exception e) {

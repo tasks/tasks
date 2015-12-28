@@ -1,8 +1,7 @@
 package org.tasks.injection;
 
 import android.app.Activity;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
+import android.app.DialogFragment;
 
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.dialogs.AccountSelectionDialog;
@@ -29,11 +28,6 @@ public class DialogFragmentModule {
 
     public DialogFragmentModule(DialogFragment dialogFragment) {
         this.dialogFragment = dialogFragment;
-    }
-
-    @Provides
-    public FragmentActivity getFragmentActivity() {
-        return dialogFragment.getActivity();
     }
 
     @Provides

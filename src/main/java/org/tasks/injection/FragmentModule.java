@@ -1,8 +1,8 @@
 package org.tasks.injection;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -12,7 +12,6 @@ import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.ui.QuickAddBar;
 
-import org.tasks.reminders.MissedCallDialog;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import javax.inject.Singleton;

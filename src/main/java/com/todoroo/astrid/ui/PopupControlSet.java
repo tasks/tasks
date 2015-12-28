@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.ui;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,7 +45,7 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
         }
     };
 
-    public PopupControlSet(ActivityPreferences preferences, FragmentActivity activity, int viewLayout,
+    public PopupControlSet(ActivityPreferences preferences, Activity activity, int viewLayout,
                            int taskEditViewLayout, final int title, DialogBuilder dialogBuilder) {
         super(activity, viewLayout, false);
         this.preferences = preferences;

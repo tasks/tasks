@@ -1,8 +1,8 @@
 package org.tasks.activities;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.gcal.AndroidCalendar;
 
@@ -19,12 +19,12 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
+        FragmentManager fragmentManager = getFragmentManager();
+        CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         if (fragmentByTag == null) {
             fragmentByTag = new CalendarSelectionDialog();
             fragmentByTag.enableNone();
-            fragmentByTag.show(supportFragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
+            fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         }
         fragmentByTag.setCalendarSelectionHandler(this);
     }

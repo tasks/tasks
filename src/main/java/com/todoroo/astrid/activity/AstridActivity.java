@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.activity;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -48,12 +48,12 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
     protected int fragmentLayout = LAYOUT_SINGLE;
 
     public TaskListFragment getTaskListFragment() {
-        return (TaskListFragment) getSupportFragmentManager()
+        return (TaskListFragment) getFragmentManager()
                 .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
     }
 
     public TaskEditFragment getTaskEditFragment() {
-        return (TaskEditFragment) getSupportFragmentManager()
+        return (TaskEditFragment) getFragmentManager()
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
     }
 
@@ -117,7 +117,7 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
 
             if(editActivity == null) {
                 editActivity = new TaskEditFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.add(R.id.taskedit_fragment_container, editActivity, TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -125,7 +125,7 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
                     @Override
                     public void run() {
                         // Force the transaction to occur so that we can be guaranteed of the fragment existing if we try to present it
-                        getSupportFragmentManager().executePendingTransactions();
+                        getFragmentManager().executePendingTransactions();
                     }
                 });
             } else {

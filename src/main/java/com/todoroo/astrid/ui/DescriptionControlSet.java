@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
 import android.widget.EditText;
 
 import com.todoroo.astrid.data.Task;
@@ -17,7 +17,7 @@ public class DescriptionControlSet extends TaskEditControlSetBase {
 
     protected EditText editText;
 
-    public DescriptionControlSet(FragmentActivity activity) {
+    public DescriptionControlSet(Activity activity) {
         super(activity, R.layout.control_set_description);
     }
 

@@ -5,8 +5,8 @@
  */
 package com.todoroo.astrid.helper;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -39,7 +39,7 @@ public class SyncActionHelper {
 
     // --- boilerplate
 
-    public SyncActionHelper(GtasksPreferenceService gtasksPreferenceService, SyncV2Service syncService, final FragmentActivity activity, Preferences preferences) {
+    public SyncActionHelper(GtasksPreferenceService gtasksPreferenceService, SyncV2Service syncService, final Activity activity, Preferences preferences) {
         this.syncService = syncService;
         this.preferences = preferences;
         syncResultCallback = new IndeterminateProgressBarSyncResultCallback(gtasksPreferenceService, activity, new Runnable() {

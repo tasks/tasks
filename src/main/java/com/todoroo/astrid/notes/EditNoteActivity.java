@@ -6,11 +6,11 @@
 package com.todoroo.astrid.notes;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;

@@ -1,12 +1,12 @@
 package org.tasks.activities;
 
+import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -43,11 +43,11 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        AddAttachmentDialog dialog = (AddAttachmentDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_ATTACHMENT_DIALOG);
+        FragmentManager fragmentManager = getFragmentManager();
+        AddAttachmentDialog dialog = (AddAttachmentDialog) fragmentManager.findFragmentByTag(FRAG_TAG_ATTACHMENT_DIALOG);
         if (dialog == null) {
             dialog = new AddAttachmentDialog();
-            dialog.show(supportFragmentManager, FRAG_TAG_ATTACHMENT_DIALOG);
+            dialog.show(fragmentManager, FRAG_TAG_ATTACHMENT_DIALOG);
         }
         dialog.setOnCancelListener(this);
         dialog.setAddAttachmentCallback(this);

@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.support.v4.app.FragmentActivity;
+import android.app.Activity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -40,7 +40,7 @@ public class ImportanceControlSet extends TaskEditControlSetBase {
         void importanceChanged(int i);
     }
 
-    public ImportanceControlSet(FragmentActivity activity) {
+    public ImportanceControlSet(Activity activity) {
         super(activity, R.layout.control_set_importance);
         colors = Task.getImportanceColors(activity.getResources());
     }

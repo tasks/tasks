@@ -38,12 +38,12 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
 
         initial = new DateTime(getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()));
 
-        FragmentManager supportFragmentManager = getFragmentManager();
-        MyTimePickerDialog dialog = (MyTimePickerDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
+        FragmentManager fragmentManager = getFragmentManager();
+        MyTimePickerDialog dialog = (MyTimePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
         if (dialog == null) {
             dialog = new MyTimePickerDialog();
             dialog.initialize(null, initial.getHourOfDay(), initial.getMinuteOfHour(), 0, DateFormat.is24HourFormat(this));
-            dialog.show(supportFragmentManager, FRAG_TAG_TIME_PICKER);
+            dialog.show(fragmentManager, FRAG_TAG_TIME_PICKER);
         }
         dialog.setOnDismissListener(this);
         dialog.setOnTimeSetListener(this);

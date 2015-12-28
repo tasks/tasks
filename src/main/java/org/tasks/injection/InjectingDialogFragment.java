@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
 import android.app.Activity;
-import android.support.v4.app.DialogFragment;
+import android.app.DialogFragment;
 
 public class InjectingDialogFragment extends DialogFragment {
     private boolean injected;

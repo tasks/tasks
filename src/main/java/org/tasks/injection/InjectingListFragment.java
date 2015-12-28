@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
 import android.app.Activity;
-import android.support.v4.app.ListFragment;
+import android.app.ListFragment;
 
 import dagger.ObjectGraph;
 

@@ -1,8 +1,8 @@
 package org.tasks.ui;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -53,7 +53,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
     private final String todayString;
     private final String tomorrowString;
 
-    private FragmentActivity activity;
+    private Activity activity;
     private ActivityPreferences preferences;
     private Spinner dueDateSpinner;
     private Spinner dueTimeSpinner;
@@ -63,7 +63,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
     private long date = 0;
     private int time = -1;
 
-    public DeadlineControlSet(FragmentActivity activity, ActivityPreferences preferences) {
+    public DeadlineControlSet(Activity activity, ActivityPreferences preferences) {
         super(activity, R.layout.control_set_deadline);
         this.activity = activity;
         this.preferences = preferences;

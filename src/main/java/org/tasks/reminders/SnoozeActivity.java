@@ -1,9 +1,9 @@
 package org.tasks.reminders;
 
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.SnoozeCallback;
@@ -59,11 +59,11 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
 
         startupService.onStartupApplication(this);
 
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        SnoozeDialog fragmentByTag = (SnoozeDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_SNOOZE_DIALOG);
+        FragmentManager fragmentManager = getFragmentManager();
+        SnoozeDialog fragmentByTag = (SnoozeDialog) fragmentManager.findFragmentByTag(FRAG_TAG_SNOOZE_DIALOG);
         if (fragmentByTag == null) {
             fragmentByTag = new SnoozeDialog();
-            fragmentByTag.show(supportFragmentManager, FRAG_TAG_SNOOZE_DIALOG);
+            fragmentByTag.show(fragmentManager, FRAG_TAG_SNOOZE_DIALOG);
         }
         fragmentByTag.setOnCancelListener(this);
         fragmentByTag.setSnoozeCallback(this);
