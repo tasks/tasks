@@ -2,7 +2,7 @@
 <resources>
     <dimen name="navigation_drawer_width">260dp</dimen>
     <dimen name="navigation_drawer_horizontal_margins">16dp</dimen>
-    <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_margin">0dp</dimen>
 
     <dimen name="task_list_footer_height">88dp</dimen>
     <dimen name="task_list_fab_margin">16dp</dimen>

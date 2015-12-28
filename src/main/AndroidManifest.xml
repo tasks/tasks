@@ -259,8 +259,6 @@
 
         <!-- ======================================================== Services = -->
 
-        <service android:name="com.todoroo.astrid.widget.WidgetUpdateService" />
-
         <service
             android:name=".widget.ScrollableWidgetUpdateService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
@@ -470,18 +468,7 @@
         <receiver android:name=".receivers.FirstLaunchReceiver"/>
         <receiver android:name=".receivers.CompleteTaskReceiver"/>
 
-        <receiver
-            android:name=".receivers.PackageReplacedReceiver"
-            android:enabled="@bool/at_most_honeycomb">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
-        <receiver
-            android:name=".receivers.MyPackageReplacedReceiver"
-            android:enabled="@bool/at_least_honeycomb_mr1">
+        <receiver android:name=".receivers.MyPackageReplacedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>

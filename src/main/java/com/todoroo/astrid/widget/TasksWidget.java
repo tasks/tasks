@@ -26,7 +26,6 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_REFRESH;
 import static org.tasks.intents.TaskIntents.getEditTaskStack;
 
@@ -67,15 +66,10 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         try {
             super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-            if (preIceCreamSandwich()) {
-                // Start in service to prevent Application Not Responding timeout
-                updateWidgets(context);
-            } else {
-                ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
-                int[] ids = appWidgetManager.getAppWidgetIds(thisWidget);
-                for (int id : ids) {
-                    appWidgetManager.updateAppWidget(id, widgetHelper.createScrollableWidget(context, id));
-                }
+            ComponentName thisWidget = new ComponentName(context, TasksWidget.class);
+            int[] ids = appWidgetManager.getAppWidgetIds(thisWidget);
+            for (int id : ids) {
+                appWidgetManager.updateAppWidget(id, widgetHelper.createScrollableWidget(context, id));
             }
         } catch (Exception e) {
             Timber.e(e, e.getMessage());
@@ -88,11 +82,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         }
         suppressUpdateFlag = 0;
 
-        if (preIceCreamSandwich()) {
-            context.startService(new Intent(context, WidgetUpdateService.class));
-        } else {
-            updateScrollableWidgets(context, null);
-        }
+        updateScrollableWidgets(context, null);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)

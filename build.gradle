@@ -29,7 +29,7 @@ android {
     defaultConfig {
         versionCode 381
         versionName "4.8.1"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 23
     }
 

@@ -331,36 +331,12 @@ public class AndroidUtilities {
         }
     }
 
-    public static boolean preGingerbreadMR1() {
-        return !atLeastGingerbreadMR1();
-    }
-
-    public static boolean preIceCreamSandwich() {
-        return !atLeastIceCreamSandwich();
-    }
-
-    public static boolean preHoneycomb() {
-        return !atLeastHoneycomb();
-    }
-
     public static boolean preJellybean() {
         return !atLeastJellybean();
     }
 
     public static boolean preLollipop() {
         return !atLeastLollipop();
-    }
-
-    public static boolean atLeastGingerbreadMR1() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1;
-    }
-
-    public static boolean atLeastHoneycomb() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
-    }
-
-    public static boolean atLeastIceCreamSandwich() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
     public static boolean atLeastJellybean() {

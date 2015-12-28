@@ -94,8 +94,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.preGingerbreadMR1;
-
 /**
  * This activity is responsible for creating new tasks and editing existing
  * ones. It saves a task when it is paused (screen rotated, back button pressed)
@@ -761,11 +759,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         menu.clear();
         inflater.inflate(R.menu.task_edit_fragment, menu);
         MenuColorizer.colorMenu(getActivity(), menu, getResources().getColor(android.R.color.white));
-        if (preGingerbreadMR1()) {
-            // media recorder aac support requires api level 10
-            // approximately 1% of current installs are using api level 7-9
-            menu.findItem(R.id.menu_record_note).setVisible(false);
-        }
         if (preferences.useTabletLayout()) {
             menu.findItem(R.id.menu_save).setVisible(true);
         }

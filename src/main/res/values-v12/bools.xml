@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <bool name="at_most_honeycomb">false</bool>
-    <bool name="at_least_honeycomb_mr1">true</bool>
-</resources>

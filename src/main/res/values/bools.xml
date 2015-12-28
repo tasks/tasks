@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <bool name="two_pane_layout">false</bool>
-    <bool name="at_most_honeycomb">true</bool>
-    <bool name="at_least_honeycomb_mr1">false</bool>
     <bool name="sync_enabled">false</bool>
     <bool name="location_enabled">false</bool>
     <bool name="google_play_store_available">false</bool>

@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastHoneycomb;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -181,25 +180,12 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 }
                 TextView tv = (TextView) LayoutInflater.from(activity).inflate(android.R.layout.simple_spinner_item, parent, false);
                 tv.setText(dueDateOptions.get(selectedItemPosition));
-                if (atLeastHoneycomb()) {
-                    if (date == 0) {
-                        dueDateSpinner.setAlpha(0.5f);
-                        dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
-                    } else {
-                        dueDateSpinner.setAlpha(1.0f);
-                        if (date < newDateTime().startOfDay().getMillis()) {
-                            dueDateSpinner.setBackgroundDrawable(getRedUnderline());
-                            tv.setTextColor(activity.getResources().getColor(R.color.overdue));
-                        } else {
-                            dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
-                            tv.setTextColor(themeColor);
-                        }
-                    }
+                if (date == 0) {
+                    dueDateSpinner.setAlpha(0.5f);
+                    dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
                 } else {
-                    if (date == 0) {
-                        dueDateSpinner.setBackgroundDrawable(getThemedUnderline());
-                        tv.setTextColor(unsetColor);
-                    } else if (date < newDateTime().startOfDay().getMillis()) {
+                    dueDateSpinner.setAlpha(1.0f);
+                    if (date < newDateTime().startOfDay().getMillis()) {
                         dueDateSpinner.setBackgroundDrawable(getRedUnderline());
                         tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                     } else {
@@ -242,25 +228,12 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 }
                 TextView tv = (TextView) LayoutInflater.from(activity).inflate(android.R.layout.simple_spinner_item, parent, false);
                 tv.setText(dueTimeOptions.get(selectedItemPosition));
-                if (atLeastHoneycomb()) {
-                    if (time == -1) {
-                        dueTimeSpinner.setAlpha(0.5f);
-                        dueTimeSpinner.setBackgroundDrawable(getThemedUnderline());
-                    } else {
-                        dueTimeSpinner.setAlpha(1.0f);
-                        if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
-                            dueTimeSpinner.setBackgroundDrawable(getRedUnderline());
-                            tv.setTextColor(activity.getResources().getColor(R.color.overdue));
-                        } else {
-                            dueTimeSpinner.setBackgroundDrawable(getThemedUnderline());
-                            tv.setTextColor(themeColor);
-                        }
-                    }
+                if (time == -1) {
+                    dueTimeSpinner.setAlpha(0.5f);
+                    dueTimeSpinner.setBackgroundDrawable(getThemedUnderline());
                 } else {
-                    if (time == -1) {
-                        dueTimeSpinner.setBackgroundDrawable(getThemedUnderline());
-                        tv.setTextColor(unsetColor);
-                    } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
+                    dueTimeSpinner.setAlpha(1.0f);
+                    if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
                         dueTimeSpinner.setBackgroundDrawable(getRedUnderline());
                         tv.setTextColor(activity.getResources().getColor(R.color.overdue));
                     } else {

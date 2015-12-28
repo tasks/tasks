@@ -30,9 +30,6 @@ import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.preHoneycomb;
-import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
-
 public class WidgetConfigActivity extends InjectingListActivity {
 
     public static final String PREF_TITLE = "widget-title-";
@@ -57,15 +54,9 @@ public class WidgetConfigActivity extends InjectingListActivity {
     @Inject FilterProvider filterProvider;
 
     private void updateWidget() {
-        if (preIceCreamSandwich()) {
-            Intent intent = new Intent(this, WidgetUpdateService.class);
-            intent.putExtra(WidgetUpdateService.EXTRA_WIDGET_ID, mAppWidgetId);
-            startService(intent);
-        } else {
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-            appWidgetManager.updateAppWidget(mAppWidgetId, widgetHelper.createScrollableWidget(this, mAppWidgetId));
-            TasksWidget.updateScrollableWidgets(this, new int[]{mAppWidgetId});
-        }
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        appWidgetManager.updateAppWidget(mAppWidgetId, widgetHelper.createScrollableWidget(this, mAppWidgetId));
+        TasksWidget.updateScrollableWidgets(this, new int[]{mAppWidgetId});
     }
 
     @Override
@@ -74,10 +65,6 @@ public class WidgetConfigActivity extends InjectingListActivity {
         preferences.applyLightStatusBarColor();
         // Set the view layout resource to use.
         setContentView(R.layout.widget_config_activity);
-
-        if (preHoneycomb()) {
-            findViewById(R.id.hideCheckboxes).setVisibility(View.GONE);
-        }
 
         setTitle(R.string.WCA_title);
 

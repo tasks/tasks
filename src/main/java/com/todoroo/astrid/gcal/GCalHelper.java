@@ -30,8 +30,6 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastIceCreamSandwich;
-import static com.todoroo.andlib.utility.AndroidUtilities.preIceCreamSandwich;
 import static com.todoroo.astrid.gcal.Calendars.getCalendarContentUri;
 
 public class GCalHelper {
@@ -100,10 +98,6 @@ public class GCalHelper {
             values.put("title", task.getTitle());
             values.put("description", task.getNotes());
             values.put("hasAlarm", 0);
-            if (preIceCreamSandwich()) {
-                values.put("transparency", 0);
-                values.put("visibility", 0);
-            }
             boolean valuesContainCalendarId = (values.containsKey(CALENDAR_ID_COLUMN) &&
                     !TextUtils.isEmpty(values.getAsString(CALENDAR_ID_COLUMN)));
             if (!valuesContainCalendarId) {
@@ -231,16 +225,10 @@ public class GCalHelper {
             values.put("dtend", tzCorrectedDueDateNow);
             values.put("allDay", "1");
         }
-        adjustDateForIcs(values);
-    }
-
-    private static void adjustDateForIcs(ContentValues values) {
-        if (atLeastIceCreamSandwich()) {
-            if ("1".equals(values.get("allDay"))) {
-                values.put("eventTimezone", Time.TIMEZONE_UTC);
-            } else {
-                values.put("eventTimezone", TimeZone.getDefault().getID());
-            }
+        if ("1".equals(values.get("allDay"))) {
+            values.put("eventTimezone", Time.TIMEZONE_UTC);
+        } else {
+            values.put("eventTimezone", TimeZone.getDefault().getID());
         }
     }
 
