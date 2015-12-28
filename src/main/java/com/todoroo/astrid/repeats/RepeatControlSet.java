@@ -22,7 +22,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
@@ -32,6 +31,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.ui.PopupControlSet;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -134,14 +134,14 @@ public class RepeatControlSet extends PopupControlSet {
             public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
                 setRepeatUntilValue(new DateTime(year, month + 1, day, 0, 0, 0, 0).getMillis());
             }
-        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), false);
+        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 setRepeatUntilValue(repeatUntilValue);
             }
         });
-        dialog.show(activity.getSupportFragmentManager(), FRAG_TAG_REPEAT_UNTIL);
+        dialog.show(activity.getFragmentManager(), FRAG_TAG_REPEAT_UNTIL);
     }
 
     public void addListener(RepeatChangedListener listener) {

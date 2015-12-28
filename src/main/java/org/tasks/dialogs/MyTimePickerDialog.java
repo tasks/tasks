@@ -2,7 +2,7 @@ package org.tasks.dialogs;
 
 import android.content.DialogInterface;
 
-import com.sleepbot.datetimepicker.time.TimePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 public class MyTimePickerDialog extends TimePickerDialog {
 

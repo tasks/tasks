@@ -2,7 +2,7 @@ package org.tasks.dialogs;
 
 import android.content.DialogInterface;
 
-import com.fourmob.datetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 public class MyDatePickerDialog extends DatePickerDialog {
 

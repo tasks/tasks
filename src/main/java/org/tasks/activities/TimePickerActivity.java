@@ -1,26 +1,31 @@
 package org.tasks.activities;
 
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
 
-import com.sleepbot.datetimepicker.time.RadialPickerLayout;
-import com.sleepbot.datetimepicker.time.TimePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import org.tasks.time.DateTime;
 import org.tasks.dialogs.MyTimePickerDialog;
+import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.ActivityPreferences;
+import org.tasks.time.DateTime;
+
+import javax.inject.Inject;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 
-public class TimePickerActivity extends FragmentActivity implements TimePickerDialog.OnTimeSetListener, DialogInterface.OnDismissListener {
+public class TimePickerActivity extends InjectingAppCompatActivity implements TimePickerDialog.OnTimeSetListener, DialogInterface.OnDismissListener {
 
     private static final String FRAG_TAG_TIME_PICKER = "frag_tag_time_picker";
 
     public static final String EXTRA_TIMESTAMP = "extra_timestamp";
+
+    @Inject ActivityPreferences preferences;
 
     private DateTime initial;
     private boolean isChangingConfigurations;
@@ -29,13 +34,15 @@ public class TimePickerActivity extends FragmentActivity implements TimePickerDi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        preferences.applyTheme();
+
         initial = new DateTime(getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()));
 
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentManager supportFragmentManager = getFragmentManager();
         MyTimePickerDialog dialog = (MyTimePickerDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
         if (dialog == null) {
             dialog = new MyTimePickerDialog();
-            dialog.initialize(null, initial.getHourOfDay(), initial.getMinuteOfHour(), DateFormat.is24HourFormat(this), false);
+            dialog.initialize(null, initial.getHourOfDay(), initial.getMinuteOfHour(), 0, DateFormat.is24HourFormat(this));
             dialog.show(supportFragmentManager, FRAG_TAG_TIME_PICKER);
         }
         dialog.setOnDismissListener(this);
@@ -43,7 +50,7 @@ public class TimePickerActivity extends FragmentActivity implements TimePickerDi
     }
 
     @Override
-    public void onTimeSet(RadialPickerLayout radialPickerLayout, final int hours, final int minutes) {
+    public void onTimeSet(RadialPickerLayout radialPickerLayout, final int hours, final int minutes, int seconds) {
         setResult(RESULT_OK, new Intent() {{
             putExtra(EXTRA_TIMESTAMP, initial
                     .startOfDay()
@@ -54,9 +61,9 @@ public class TimePickerActivity extends FragmentActivity implements TimePickerDi
     }
 
     @Override
-    public Object onRetainCustomNonConfigurationInstance() {
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         isChangingConfigurations = true;
-        return super.onRetainCustomNonConfigurationInstance();
     }
 
     @Override

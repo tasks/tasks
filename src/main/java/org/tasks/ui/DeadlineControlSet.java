@@ -13,12 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.fourmob.datetimepicker.date.DatePickerDialog;
-import com.sleepbot.datetimepicker.time.RadialPickerLayout;
-import com.sleepbot.datetimepicker.time.TimePickerDialog;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSetBase;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.tasks.R;
 import org.tasks.dialogs.MyDatePickerDialog;
@@ -292,14 +292,14 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                             public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
                                 setDate(new DateTime(year, month + 1, day, 0, 0, 0, 0).getMillis());
                             }
-                        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), false);
+                        }, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
                         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                             @Override
                             public void onCancel(DialogInterface dialog) {
                                 refreshDisplayView();
                             }
                         });
-                        dialog.show(activity.getSupportFragmentManager(), FRAG_TAG_PICK_A_DATE);
+                        dialog.show(activity.getFragmentManager(), FRAG_TAG_PICK_A_DATE);
                         break;
                 }
             }
@@ -342,17 +342,17 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                         }
                         dialog.initialize(new TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int minute) {
+                            public void onTimeSet(RadialPickerLayout radialPickerLayout, int hour, int minute, int seconds) {
                                 setTime((int) TimeUnit.HOURS.toMillis(hour) + (int) TimeUnit.MINUTES.toMillis(minute));
                             }
-                        }, initialHours, initialMinutes, DateFormat.is24HourFormat(activity), false);
+                        }, initialHours, initialMinutes, 0, DateFormat.is24HourFormat(activity));
                         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialog) {
                                 refreshDisplayView();
                             }
                         });
-                        dialog.show(activity.getSupportFragmentManager(), FRAG_TAG_PICK_A_TIME);
+                        dialog.show(activity.getFragmentManager(), FRAG_TAG_PICK_A_TIME);
                         break;
                 }
             }

@@ -90,7 +90,7 @@ dependencies {
     compile ('org.scala-saddle:google-rfc-2445:20110304') {
         transitive = false
     }
-    compile ('com.github.flavienlaurent.datetimepicker:library:0.0.2') {
+    compile ('com.wdullaer:materialdatetimepicker:2.1.1') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 

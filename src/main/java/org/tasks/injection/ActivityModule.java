@@ -28,6 +28,7 @@ import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ClearAllDataActivity;
 import org.tasks.activities.ClearGtaskDataActivity;
+import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
 import org.tasks.activities.DeleteCompletedActivity;
 import org.tasks.activities.DeleteCompletedEventsActivity;
@@ -38,6 +39,7 @@ import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.activities.ResetPreferencesActivity;
 import org.tasks.activities.SortActivity;
+import org.tasks.activities.TimePickerActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
@@ -100,7 +102,9 @@ import dagger.Provides;
                 CalendarSelectionActivity.class,
                 AddAttachmentActivity.class,
                 ShortcutActivity.class,
-                CameraActivity.class
+                CameraActivity.class,
+                TimePickerActivity.class,
+                DateAndTimePickerActivity.class
         })
 public class ActivityModule {
 

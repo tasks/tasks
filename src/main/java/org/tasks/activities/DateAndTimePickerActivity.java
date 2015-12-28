@@ -1,24 +1,29 @@
 package org.tasks.activities;
 
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 
-import com.fourmob.datetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import org.tasks.time.DateTime;
 import org.tasks.dialogs.MyDatePickerDialog;
+import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.ActivityPreferences;
+import org.tasks.time.DateTime;
+
+import javax.inject.Inject;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-public class DateAndTimePickerActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener {
+public class DateAndTimePickerActivity extends InjectingAppCompatActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener {
 
     private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
 
     private static final String EXTRA_DATE_SELECTED = "extra_date_selected";
     public static final String EXTRA_TIMESTAMP = "extra_timestamp";
+
+    @Inject ActivityPreferences preferences;
 
     private DateTime initial;
     private boolean dateSelected;
@@ -26,6 +31,8 @@ public class DateAndTimePickerActivity extends FragmentActivity implements DateP
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences.applyTheme();
 
         initial = new DateTime(getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()));
 
@@ -36,12 +43,12 @@ public class DateAndTimePickerActivity extends FragmentActivity implements DateP
             }
         }
 
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        MyDatePickerDialog datePickerDialog = (MyDatePickerDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER);
+        FragmentManager fragmentManager = getFragmentManager();
+        MyDatePickerDialog datePickerDialog = (MyDatePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER);
         if (datePickerDialog == null) {
             datePickerDialog = new MyDatePickerDialog();
-            datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth(), false);
-            datePickerDialog.show(supportFragmentManager, FRAG_TAG_DATE_PICKER);
+            datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
+            datePickerDialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
         datePickerDialog.setOnCancelListener(this);
         datePickerDialog.setOnDateSetListener(this);
