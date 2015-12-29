@@ -6,6 +6,7 @@ env:
     - ANDROID_SDKS=android-23,sysimg-19 ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
 android:
   components:
+    - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - android-23
     - platform-tools-23.1
     - build-tools-23.0.2
