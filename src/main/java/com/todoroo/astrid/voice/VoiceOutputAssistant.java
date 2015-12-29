@@ -53,7 +53,7 @@ public class VoiceOutputAssistant implements OnInitListener {
             mTts.setOnUtteranceCompletedListener(new TextToSpeech.OnUtteranceCompletedListener() {
                 @Override
                 public void onUtteranceCompleted(String utteranceId) {
-                    Timber.d("%s: onUtteranceCompleted %s", utteranceId);
+                    Timber.d("%s: onUtteranceCompleted", utteranceId);
                     if(utteranceId.equals(id)) {
                         shutdown();
                     }

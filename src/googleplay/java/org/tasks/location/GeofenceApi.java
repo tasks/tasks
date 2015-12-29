@@ -1,5 +1,6 @@
 package org.tasks.location;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -50,6 +51,8 @@ public class GeofenceApi {
         newClient(new GoogleApi.GoogleApiClientConnectionHandler() {
             @Override
             public void onConnect(final GoogleApiClient client) {
+                @SuppressWarnings("ResourceType")
+                @SuppressLint("MissingPermission")
                 PendingResult<Status> result = LocationServices.GeofencingApi.addGeofences(
                         client,
                         getRequests(geofences),

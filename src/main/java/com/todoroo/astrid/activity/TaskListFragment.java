@@ -291,11 +291,12 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     private void setupRefresh(SwipeRefreshLayout layout) {
         layout.setOnRefreshListener(this);
-        layout.setColorScheme(
-                R.color.importance_1,
-                R.color.importance_2,
-                R.color.importance_3,
-                R.color.importance_4);
+        Resources resources = getResources();
+        layout.setColorSchemeColors(
+                resources.getColor(R.color.importance_1),
+                resources.getColor(R.color.importance_2),
+                resources.getColor(R.color.importance_3),
+                resources.getColor(R.color.importance_4));
     }
 
     @Override
