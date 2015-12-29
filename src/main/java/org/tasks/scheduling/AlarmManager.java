@@ -6,6 +6,7 @@ import android.content.Context;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
+import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,10 @@ public class AlarmManager {
 
     public void cancel(PendingIntent pendingIntent) {
         alarmManager.cancel(pendingIntent);
+    }
+
+    public void wakeupAdjustingForQuietHours(long time, PendingIntent pendingIntent) {
+        wakeup(adjustForQuietHours(time), pendingIntent);
     }
 
     public void wakeup(long time, PendingIntent pendingIntent) {
@@ -48,5 +53,25 @@ public class AlarmManager {
 
     public void setInexactRepeating(long interval, PendingIntent pendingIntent) {
         alarmManager.setInexactRepeating(android.app.AlarmManager.RTC, 0, interval, pendingIntent);
+    }
+
+    long adjustForQuietHours(long time) {
+        if (preferences.quietHoursEnabled()) {
+            DateTime dateTime = new DateTime(time);
+            DateTime start = dateTime.withMillisOfDay(preferences.getInt(R.string.p_rmd_quietStart));
+            DateTime end = dateTime.withMillisOfDay(preferences.getInt(R.string.p_rmd_quietEnd));
+            if (start.isAfter(end)) {
+                if (dateTime.isBefore(end)) {
+                    return end.getMillis();
+                } else if (dateTime.isAfter(start)) {
+                    return end.plusDays(1).getMillis();
+                }
+            } else {
+                if (dateTime.isAfter(start) && dateTime.isBefore(end)) {
+                    return end.getMillis();
+                }
+            }
+        }
+        return time;
     }
 }

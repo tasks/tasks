@@ -333,7 +333,6 @@
 	<string name="help_and_feedback">Aide et retours</string>
 	<string name="contact_developer">Contacter le développeur</string>
 	<string name="rate_tasks">Noter Tasks</string>
-	<string name="quiet_hours_summary">Ni sonnerie ni vibreur pendant les heures de repos</string>
 	<string name="TLA_menu_donate">Remercier</string>
 	<string name="error">Erreur</string>
 	<string name="select_amount">Choisir le montant</string>

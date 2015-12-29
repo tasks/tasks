@@ -34,7 +34,6 @@ import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.reminders.MissedCallActivity;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
-import org.tasks.time.DateTime;
 
 import java.io.InputStream;
 
@@ -322,7 +321,7 @@ public class Notifier {
 
         boolean soundIntervalOk = checkLastNotificationSound();
 
-        if (!isQuietHours(preferences) && telephonyManager.callStateIdle()) {
+        if (telephonyManager.callStateIdle()) {
             String notificationPreference = preferences.getStringValue(R.string.p_rmd_ringtone);
             if (audioManager.notificationsMuted()) {
                 notification.sound = null;
@@ -344,7 +343,7 @@ public class Notifier {
             notification.vibrate = null;
         }
 
-        if (isQuietHours(preferences) || !telephonyManager.callStateIdle()) {
+        if (!telephonyManager.callStateIdle()) {
             notification.sound = null;
             notification.vibrate = null;
             voiceReminder = false;
@@ -386,28 +385,6 @@ public class Notifier {
         if (now - lastNotificationSound > 10000) {
             lastNotificationSound = now;
             return true;
-        }
-        return false;
-    }
-
-    /**
-     * @return whether we're in quiet hours
-     */
-    static boolean isQuietHours(Preferences preferences) {
-        boolean quietHoursEnabled = preferences.quietHoursEnabled();
-        if (quietHoursEnabled) {
-            long quietHoursStart = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietStart)).getMillis();
-            long quietHoursEnd = new DateTime().withMillisOfDay(preferences.getInt(R.string.p_rmd_quietEnd)).getMillis();
-            long now = currentTimeMillis();
-            if (quietHoursStart <= quietHoursEnd) {
-                if (now >= quietHoursStart && now < quietHoursEnd) {
-                    return true;
-                }
-            } else { // wrap across 24/hour boundary
-                if (now >= quietHoursStart || now < quietHoursEnd) {
-                    return true;
-                }
-            }
         }
         return false;
     }

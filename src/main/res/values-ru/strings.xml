@@ -349,7 +349,6 @@
 	<string name="help_and_feedback">Помощь и обратная связь</string>
 	<string name="contact_developer">Связь с разработчиком</string>
 	<string name="rate_tasks">Оставить отзыв</string>
-	<string name="quiet_hours_summary">Выкл. звук или вибрацию в тихие часы</string>
 	<string name="TLA_menu_donate">Поддержать автора ($)</string>
 	<string name="error">Ошибка</string>
 	<string name="select_amount">Выберите количество</string>

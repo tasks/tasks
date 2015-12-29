@@ -17,6 +17,10 @@ public class DateTime {
     private final TimeZone timeZone;
     private final long timestamp;
 
+    public DateTime(int year, int month, int day, int hour, int minute) {
+        this(year, month, day, hour, minute, 0, 0);
+    }
+
     public DateTime(int year, int month, int day, int hour, int minute, int second) {
         this(year, month, day, hour, minute, second, 0);
     }
@@ -169,6 +173,10 @@ public class DateTime {
 
     public DateTime plusMinutes(int minutes) {
         return add(Calendar.MINUTE, minutes);
+    }
+
+    public DateTime plusSeconds(int seconds) {
+        return add(Calendar.SECOND, seconds);
     }
 
     public DateTime minusDays(int days) {

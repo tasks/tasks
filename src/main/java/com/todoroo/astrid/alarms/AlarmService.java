@@ -155,7 +155,7 @@ public class AlarmService {
         if(time == 0 || time == NO_ALARM) {
             alarmManager.cancel(pendingIntent);
         } else if(time > DateUtilities.now()) {
-            alarmManager.wakeup(time, pendingIntent);
+            alarmManager.wakeupAdjustingForQuietHours(time, pendingIntent);
         }
     }
 

@@ -352,7 +352,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="help_and_feedback">도움말 &amp; 피드백</string>
 	<string name="contact_developer">개발자와 연락</string>
 	<string name="rate_tasks">Tasks 평가하기</string>
-	<string name="quiet_hours_summary">무음 시간대에는 소리나 진동 해제</string>
 	<string name="TLA_menu_donate">기부하기</string>
 	<string name="error">오류</string>
 	<string name="select_amount">숫자 선택</string>

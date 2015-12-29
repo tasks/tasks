@@ -53,7 +53,7 @@ public abstract class RecurringIntervalIntentService extends InjectingIntentServ
         }
 
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, new Intent(this, this.getClass()), PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.noWakeup(nextRun, pendingIntent);
+        alarmManager.wakeup(nextRun, pendingIntent);
     }
 
     abstract void run();
