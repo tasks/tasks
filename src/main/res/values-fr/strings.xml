@@ -10,6 +10,7 @@
 	<string name="name">Nom</string>
 	<string name="enter_tag_name">Entrer le nom du tag</string>
 	<string name="enter_filter_name">Entrer le nom du filtre</string>
+	<string name="choose_google_account">Choisir un compte Google</string>
 	<string name="backup_BPr_header">Sauvegardes</string>
 	<string name="backup_BAc_import">Importer des tâches</string>
 	<string name="backup_BAc_export">Exporter des tâches</string>
@@ -113,6 +114,7 @@
 	<string name="CRA_dont_invite">Non merci</string>
 	<string name="CRA_list_created_title">Liste créée !</string>
 	<string name="CRA_default_list_name">Choix d\'actions: %s</string>
+	<string name="none">Aucun</string>
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
@@ -133,6 +135,10 @@
 	<string name="EPr_manage_purge_deleted">Purger les tâches supprimées</string>
 	<string name="EPr_manage_purge_deleted_message">Voulez vous vraiment purger toutes vos tâches supprimées ?\n\nCes tâches seront perdues pour toujours !</string>
 	<string name="EPr_manage_purge_deleted_status">%d tâches purgées!</string>
+	<string name="EPr_reset_preferences">Réinitialiser les préférences</string>
+	<string name="EPr_reset_preferences_warning">Les préférences seront réinitialisées à leur valeur par défaut</string>
+	<string name="EPr_delete_task_data">Supprimer les données de la tâche</string>
+	<string name="EPr_delete_task_data_warning">Toutes les tâches seront supprimées de façon permanente</string>
 	<string name="EPr_manage_delete_completed_gcal">Supprimer les entrées de calendrier des tâches terminées</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Voulez-vous réellement supprimer tous les événements pour les tâches complétées?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d événements du calendrier ont été supprimés!</string>
@@ -203,6 +209,7 @@
 	<string name="CFC_title_contains_text">Titre contient: ?</string>
 	<string name="gcal_TEA_error">Erreur d\'ajout de tâche à l\'agenda !</string>
 	<string name="gcal_TEA_addToCalendar_label">Créer un évènement d\'agenda</string>
+	<string name="choose_calendar">Choisir un calendrier</string>
 	<string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
 	<string name="gcal_completed_title">%s (complété)</string>
 	<string name="CFC_gtasks_list_text">Dans la liste : ?</string>
@@ -244,6 +251,8 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Fin des heures de repos</string>
 	<string name="rmd_EPr_rmd_time_title">Rappel par défaut</string>
 	<string name="rmd_EPr_rmd_time_desc">Les notifications pour les tâches sans échéances apparaîtront à %s</string>
+	<string name="persistent_notifications">Notifications persistantes</string>
+	<string name="persistent_notifications_description">Les notifications persistantes ne peuvent pas être supprimées</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume maximum pour les rappels multi sonneries</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks va maximiser le volume de multiples anneaux rappels</string>
 	<string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
@@ -333,6 +342,7 @@
 	<string name="help_and_feedback">Aide et retours</string>
 	<string name="contact_developer">Contacter le développeur</string>
 	<string name="rate_tasks">Noter Tasks</string>
+	<string name="quiet_hours_summary">Pas de rappels pendant les heures silencieuses</string>
 	<string name="TLA_menu_donate">Remercier</string>
 	<string name="error">Erreur</string>
 	<string name="select_amount">Choisir le montant</string>
@@ -369,8 +379,32 @@
 	<string name="filter_settings">Paramètres du filtre</string>
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>
+	<string name="reverse">Inverse</string>
 	<string name="task_count">%s Tâches</string>
 	<string name="get_plugins">Obtenir des plugins</string>
+	<string name="no_application_found">Aucune application trouvée pour ouvrir la pièce jointe</string>
+	<string name="add_attachment">Ajouter une pièce jointe</string>
+	<string name="high_priority">Haute</string>
+	<string name="default_priority">Par défaut</string>
+	<string name="low_priority">Basse</string>
+	<string name="notification_priority">Priorité de notification</string>
+	<string name="vibration_count">Nombre de vibrations</string>
+	<string name="vibration_duration">Durée de chaque vibration (millisecondes)</string>
+	<string name="vibration_pause">Pause entre les vibrations (millisecondes)</string>
+	<string name="take_a_picture">Prendre une photo</string>
+	<string name="pick_from_gallery">Choisir depuis la galerie</string>
+	<string name="pick_from_storage">Choisir depuis le stockage</string>
+	<string name="privacy">Vie privée</string>
+	<string name="privacy_policy">Politique de vie privée</string>
+	<string name="send_anonymous_statistics">Améliorer Tasks</string>
+	<string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
+	<string name="anonymous_usage_blurb">Les statistiques d\'usage anonymes ont été collectées</string>
+	<string name="opt_out">Annuler l\'abonnement</string>
+	<string name="tag_already_exists">Le tag existe déjà</string>
+	<string name="disable_notification_light">Désactiver la lumière des notifications</string>
+	<string name="doze_notifications">Interrompt le Doze mode pour les notifications</string>
+	<string name="doze_notifications_off">Android va différer les notifications de façon importante lorsque l\'appareil sera en Doze mode</string>
+	<string name="doze_notifications_on">Android autorisera des interruptions limitées lorsque l\'appareil sera en Doze mode</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>désactiver</item>
 		<item>toutes les quinze minutes</item>

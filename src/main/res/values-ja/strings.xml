@@ -82,7 +82,7 @@
 	<string name="TEA_control_reminders">リマインダー</string>
 	<string name="TEA_control_timer">タイマーコントロール</string>
 	<string name="TEA_control_hidden_section">----常に隠す----</string>
-	<string name="hide_until_prompt">私のリストに表示</string>
+	<string name="hide_until_prompt">マイ リストに表示</string>
 	<string name="TEA_load_more">さらに読み込む...</string>
 	<string name="missed_call">%s から不在着信</string>
 	<string name="MCA_return_call">いますぐ呼び出し</string>
@@ -185,7 +185,7 @@
 		<item>期限を過ぎたとき</item>
 		<item>期限または期限を過ぎて</item>
 	</string-array>
-	<string name="BFE_Active">私のタスク</string>
+	<string name="BFE_Active">マイ タスク</string>
 	<string name="BFE_Recent">最近編集したタスク</string>
 	<string name="CFA_universe_all">進行中のタスク</string>
 	<string name="CFA_type_add">または</string>
@@ -258,6 +258,8 @@
 	<string name="rmd_EPr_quiet_hours_end_title">消音時間の終わり</string>
 	<string name="rmd_EPr_rmd_time_title">標準リマインダー</string>
 	<string name="rmd_EPr_rmd_time_desc">期限の時間がないタスクの通知は %s に表示されます</string>
+	<string name="persistent_notifications">永続的な通知</string>
+	<string name="persistent_notifications_description">永続的な通知はクリアできません</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">複数の通知音の最大音量</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks は複数の通知音の最大音量です</string>
 	<string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
@@ -350,6 +352,7 @@
 	<string name="help_and_feedback">ヘルプ &amp; フィードバック</string>
 	<string name="contact_developer">開発者に連絡</string>
 	<string name="rate_tasks">Tasks を評価</string>
+	<string name="quiet_hours_summary">消音時間の間はリマインダーは動作しません</string>
 	<string name="TLA_menu_donate">寄付</string>
 	<string name="error">エラー</string>
 	<string name="select_amount">金額を選択</string>
@@ -409,6 +412,10 @@
 	<string name="anonymous_usage_blurb">匿名の使用統計が収集されます</string>
 	<string name="opt_out">拒否</string>
 	<string name="tag_already_exists">タグは既に存在します</string>
+	<string name="disable_notification_light">通知ライトを無効にする</string>
+	<string name="doze_notifications">通知の Doze モード割り込み</string>
+	<string name="doze_notifications_off">デバイスが Doze モードの間、Android は通知を大幅に遅らせます</string>
+	<string name="doze_notifications_on">デバイスが Doze モードの間、Android は限定された割り込みを許可します</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

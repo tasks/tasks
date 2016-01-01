@@ -259,6 +259,8 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Тихи часове край</string>
 	<string name="rmd_EPr_rmd_time_title">Напомняне по подразбиране</string>
 	<string name="rmd_EPr_rmd_time_desc">Уведомления за задачи без крайни срокове ще се показват на %s</string>
+	<string name="persistent_notifications">Постоянни уведомления</string>
+	<string name="persistent_notifications_description">Постоянни уведомления не могат да бъдат изчиствани</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимизирай нивото на звука при няколкократни напомняния</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ще максимизира нивото на звука при няколкократни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайни напомняния</string>
@@ -351,6 +353,7 @@
 	<string name="help_and_feedback">Помощ &amp; Обратна връзка</string>
 	<string name="contact_developer">Свържи се с разработчика</string>
 	<string name="rate_tasks">Гласувайте за Tasks</string>
+	<string name="quiet_hours_summary">Без напомняния по време на тихи часове</string>
 	<string name="TLA_menu_donate">Дарете</string>
 	<string name="error">Грешка</string>
 	<string name="select_amount">Изберете размер</string>
@@ -410,6 +413,10 @@
 	<string name="anonymous_usage_blurb">Събира се анонимна статистика относно използването</string>
 	<string name="opt_out">Отказване от</string>
 	<string name="tag_already_exists">Този таг вече съществува</string>
+	<string name="disable_notification_light">Деактивиране на светлина за уведомления</string>
+	<string name="doze_notifications">Прекъсване на Doze режим за уведомления</string>
+	<string name="doze_notifications_off">Android значително ще забави уведомленията когато устройството е в Doze режим</string>
+	<string name="doze_notifications_on">Android ще позволява ограничен брой прекъсвания когато устройството е в Doze режим</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>

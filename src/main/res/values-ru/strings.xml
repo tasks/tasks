@@ -257,6 +257,8 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Конец тихих часов</string>
 	<string name="rmd_EPr_rmd_time_title">Напоминание по умолчанию</string>
 	<string name="rmd_EPr_rmd_time_desc">Уведомления для задач без срока выполнения появятся в %s</string>
+	<string name="persistent_notifications">Постоянные напоминания</string>
+	<string name="persistent_notifications_description">Постоянные напоминания не могут быть удалены</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимальная громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks будет увеличивать громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
@@ -349,6 +351,7 @@
 	<string name="help_and_feedback">Помощь и обратная связь</string>
 	<string name="contact_developer">Связь с разработчиком</string>
 	<string name="rate_tasks">Оставить отзыв</string>
+	<string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
 	<string name="TLA_menu_donate">Поддержать автора ($)</string>
 	<string name="error">Ошибка</string>
 	<string name="select_amount">Выберите количество</string>
@@ -391,9 +394,9 @@
 	<string name="get_plugins">Получить плагины</string>
 	<string name="no_application_found">Не найдено приложение, позволяющее открыть прикреплённый файл</string>
 	<string name="add_attachment">Прикрепить файл</string>
-	<string name="high_priority">Высокая</string>
+	<string name="high_priority">Высокий</string>
 	<string name="default_priority">По умолчанию</string>
-	<string name="low_priority">Низкая</string>
+	<string name="low_priority">Низкий</string>
 	<string name="notification_priority">Приоритет уведомлений</string>
 	<string name="vibration_count">Количество вибраций</string>
 	<string name="vibration_duration">Продолжительность каждой вибрации (миллисекунды)</string>
@@ -408,6 +411,10 @@
 	<string name="anonymous_usage_blurb">Собрана анонимная статистика использования</string>
 	<string name="opt_out">Отказаться</string>
 	<string name="tag_already_exists">Тег уже существует</string>
+	<string name="disable_notification_light">Не использовать световой индикатор для напоминаний</string>
+	<string name="doze_notifications">Прерывать спящий режим для уведомлений</string>
+	<string name="doze_notifications_off">Android будет сильно задерживать уведомления, если устройство находится в спящем режиме</string>
+	<string name="doze_notifications_on">Android разрешит ограниченные прерывания, если устройство находится в спящем режиме</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>
