@@ -114,8 +114,7 @@ class Android
 
   def self.src_files(cmd, type)
     if cmd == :export && type == "master"
-      %x[./scripts/catxml src/main/res/values/strings*.xml > #{self.tmp_files[0]}]
-      lambda { |l| ["translations/strings.xml"] }
+      lambda { |l| ["src/main/res/values/strings.xml"] }
     else
       lambda { |l| ["src/main/res/values-#{l}/strings.xml"] }
     end
