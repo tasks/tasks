@@ -300,7 +300,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                             }
                         });
                         if (preferences.isDarkTheme()) {
-                            dialog.setAccentColor(activity.getColor(R.color.black_text_hint));
+                            dialog.setAccentColor(activity.getResources().getColor(R.color.black_text_hint));
                         }
                         dialog.show(activity.getFragmentManager(), FRAG_TAG_PICK_A_DATE);
                         break;
@@ -356,7 +356,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                             }
                         });
                         if (preferences.isDarkTheme()) {
-                            dialog.setAccentColor(activity.getColor(R.color.black_text_hint));
+                            dialog.setAccentColor(activity.getResources().getColor(R.color.black_text_hint));
                         }
                         dialog.show(activity.getFragmentManager(), FRAG_TAG_PICK_A_TIME);
                         break;
