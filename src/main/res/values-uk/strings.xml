@@ -58,6 +58,7 @@
 	<string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
 	<string name="TEA_elapsedDuration_label">Час вже потрачео</string>
 	<string name="TEA_menu_save">Зберегти зміни</string>
+	<string name="TEA_menu_discard_changes">Відмінити зміни</string>
 	<string name="TEA_tab_activity">Активність</string>
 	<string name="TEA_timer_est">Зал. %s</string>
 	<string name="TEA_timer_elap">Час, що минув %s</string>
@@ -79,9 +80,11 @@
 	<string name="TEA_control_hidden_section">----Приховувати завжди----</string>
 	<string name="hide_until_prompt">Показувати в мому списку</string>
 	<string name="TEA_load_more">Завантажити більше...</string>
+	<string name="missed_call">Пропущений дзвінок від %s</string>
 	<string name="MCA_return_call">Зателефонувати зараз</string>
 	<string name="MCA_add_task">Зателефонувати пізніше</string>
 	<string name="MCA_ignore">Ігнорувати</string>
+	<string name="missed_calls">Пропущені виклики</string>
 	<string name="MCA_task_title_name">Перетелефонувати  %1$s о %2$s</string>
 	<string name="MCA_task_title_no_name">Перетелефонувати %s </string>
 	<string name="CRA_ignore">Ігнорувати</string>
@@ -128,6 +131,10 @@
 	<string name="EPr_manage_purge_deleted">Очистити видалені завдання</string>
 	<string name="EPr_manage_purge_deleted_message">Ви дійсно хочете очистити всі видалені завдання?\n\nЦя операція незворотна!</string>
 	<string name="EPr_manage_purge_deleted_status">Очищено %d завдань!</string>
+	<string name="EPr_reset_preferences">Скинути налаштування</string>
+	<string name="EPr_reset_preferences_warning">Налаштування буде скинуто в стандартні значення</string>
+	<string name="EPr_delete_task_data">Видалити данні завдання</string>
+	<string name="EPr_delete_task_data_warning">Всі завдання буде видалено</string>
 	<string name="EPr_manage_delete_completed_gcal">Видалити календарні події для завершених завдань</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Ви дійсно хочете видалити всі події для виконаних завданнь?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Видалено %d календарних подій!</string>
@@ -155,7 +162,7 @@
 		<item>o (найменший)</item>
 	</string-array>
 	<string-array name="EPr_default_urgency">
-		<item>No deadline</item>
+		<item>Немає дедлайну</item>
 		<item>Сьогодні</item>
 		<item>Завтра</item>
 		<item>Післязавтра</item>
@@ -163,13 +170,13 @@
 	</string-array>
 	<string-array name="EPr_default_hideUntil">
 		<item>Не приховувати</item>
-		<item>Task is due</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
+		<item>Термін виконання</item>
+		<item>за день до </item>
+		<item>за тиждень до</item>
 	</string-array>
 	<string-array name="EPr_default_reminders">
 		<item>Нема нагадувань</item>
-		<item>At deadline</item>
+		<item>Під час дедлайну</item>
 		<item>Коли прострочено</item>
 		<item>Вчасно або прострочено</item>
 	</string-array>
@@ -186,7 +193,7 @@
 	<string name="CFC_dueBefore_text">Кінцевий термін: ?</string>
 	<string name="CFC_dueBefore_name">Кінцевий термін...</string>
 	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
+		<item>Немає терміну виконання</item>
 		<item>Вчора</item>
 		<item>Сьогодні</item>
 		<item>Завтра</item>
@@ -215,6 +222,7 @@
 	<string name="audio_recording_title">Запис аудіо</string>
 	<string name="audio_stop_recording">Зупинити запис</string>
 	<string name="file_type_unhandled">Вибачте! Не знайдено програму для перегляду файлів цього типу.</string>
+	<string name="back">Назад</string>
 	<string name="file_browser_title">Вибрати файл</string>
 	<string name="dir_browser_title">Вибрати каталог</string>
 	<string name="file_browser_err_permissions">Помилка доступу! Будь ласка переконайтеся, що ви не заблокували Tasks для доступу до SD карти.</string>
@@ -262,10 +270,14 @@
 	<string name="tag_FEx_untagged">Без категорії</string>
 	<string name="TPl_notification">Для %s діють таймери!</string>
 	<string name="TEA_timer_controls">Таймер</string>
+	<string name="TEA_timer_comment_started">Завдання розпочато:</string>
+	<string name="TEA_timer_comment_stopped">виконання завдання завершено:</string>
+	<string name="TEA_timer_comment_spent">Часу витрачено:</string>
 	<string name="voice_create_prompt">Горовіть щоб створити завдання</string>
 	<string name="EPr_voiceInputEnabled_title">Голосове введення</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосові нагадування</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks повинен вимовляти назву завдань під час нагадувань</string>
+	<string name="EPr_use_dark_theme">Темна тема</string>
 	<string name="delete_task">Видалити завдання</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 завдання</item>
@@ -281,6 +293,43 @@
 	<string name="sync_status_success">Остання синхр.:\n%s</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
 	<string name="sync_SPr_forget">Вийти</string>
+	<string name="vibrations">Вібрації</string>
+	<string name="backup_directory">Папка резервної копії</string>
+	<string name="source_code">Вихідний код</string>
+	<string name="translations">Переклади</string>
+	<string name="report_an_issue">Повідомити про помилку</string>
+	<string name="help_and_feedback">Допомога і відгуки</string>
+	<string name="contact_developer">Зв\'язатися з розробником</string>
+	<string name="rate_tasks">Оцінити Tasks</string>
+	<string name="quiet_hours_summary">Без нагадуваннь під час тихих годин</string>
+	<string name="notification_actions">Дії нагадування</string>
+	<string name="pick_a_date">Вибрати дату</string>
+	<string name="pick_a_time">Вибрати час</string>
+	<string name="geofence_radius_title">Радіус (метри)</string>
+	<string name="geofence_responsiveness_title">Час відклику (вище значення зберігає заряд батареї)</string>
+	<string name="geolocation_reminders">Геолокаційні нагадування</string>
+	<string name="tags">Теги</string>
+	<string name="filters">Фільтр</string>
+	<string name="filter_settings">Налаштування фільтру</string>
+	<string name="show_hidden">Показати приховані</string>
+	<string name="show_completed">Показати завершені</string>
+	<string name="reverse">Реверс</string>
+	<string name="get_plugins">Отримати розширення</string>
+	<string name="no_application_found">Не знайдено програми для відкриття вкладення</string>
+	<string name="add_attachment">Додати вкладення</string>
+	<string name="high_priority">Високий</string>
+	<string name="low_priority">Низький</string>
+	<string name="notification_priority">Пріоритет нагадування</string>
+	<string name="vibration_count">Кількість вібрацій</string>
+	<string name="vibration_duration">Довжина кожної вібрації (мілісекунди)</string>
+	<string name="vibration_pause">Пауза між вібраціями (мілісекунди)</string>
+	<string name="send_anonymous_statistics">Поліпшити Tasks</string>
+	<string name="send_anonymous_statistics_summary">Відсилати анонімну статистику використання і звіти про помилки щоб покращити Tasks. Жодних персональних даних не буде передано.</string>
+	<string name="anonymous_usage_blurb">Анонімну статистику зібрано</string>
+	<string name="tag_already_exists">Тег вже існує</string>
+	<string name="doze_notifications">Переривати режим \"Doze\" для повідомленнь</string>
+	<string name="doze_notifications_off">Андроїд зазвичай буде значно відкладати повідомлення коли пристрій в режимі \"Doze\"</string>
+	<string name="doze_notifications_on">Android дозволить деякі переривання в режимі \"Doze\"</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>вимкнути</item>
 		<item>що 15 хвилин</item>

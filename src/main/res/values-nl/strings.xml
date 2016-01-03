@@ -255,6 +255,8 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Rustperiode eindigt</string>
 	<string name="rmd_EPr_rmd_time_title">Standaard herinnering</string>
 	<string name="rmd_EPr_rmd_time_desc">Waarschuwingen voor taken zonder eindtijd verschijnen om %s</string>
+	<string name="persistent_notifications">Aanhoudende notificaties</string>
+	<string name="persistent_notifications_description">Aanhoudende notificaties kunnen niet worden gewist</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Max. volume voor multiple-ring herinneringen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks zal het volume voor multi-ring herinneringen maximaliseren</string>
 	<string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
@@ -331,6 +333,7 @@
 	<string name="notifications">Notificaties</string>
 	<string name="silent">Stil</string>
 	<string name="sound">Geluid</string>
+	<string name="vibrations">Trillingen</string>
 	<string name="quiet_hours">Rustperiode</string>
 	<string name="attachment_directory">Bijlage directory</string>
 	<string name="miscellaneous">Diversen</string>
@@ -344,6 +347,7 @@
 	<string name="help_and_feedback">Help &amp; Terugkoppeling</string>
 	<string name="contact_developer">Contact ontwikkelaar</string>
 	<string name="rate_tasks">Beoordeel Taken</string>
+	<string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>
 	<string name="TLA_menu_donate">Doneer</string>
 	<string name="error">Fout</string>
 	<string name="select_amount">Selecteer aantal</string>
@@ -382,6 +386,27 @@
 	<string name="reverse">Omgekeerde</string>
 	<string name="task_count">%s Taken</string>
 	<string name="get_plugins">Plug-ins ophalen</string>
+	<string name="no_application_found">Geen applicatie gevonden om de bijlage te openen</string>
+	<string name="add_attachment">Bijlage toevoegen</string>
+	<string name="high_priority">Hoog</string>
+	<string name="default_priority">Standaard</string>
+	<string name="low_priority">Laag</string>
+	<string name="notification_priority">Notificatie prioriteit</string>
+	<string name="vibration_count">Aantal trillingen</string>
+	<string name="vibration_duration">Lengte van elke trilling (miliseconden)</string>
+	<string name="vibration_pause">Pauze tussen trillingen (miliseconden)</string>
+	<string name="take_a_picture">Maak een foto</string>
+	<string name="pick_from_gallery">Kies uit de gallerij</string>
+	<string name="pick_from_storage">Kies van opslag</string>
+	<string name="privacy_policy">Privacy regels</string>
+	<string name="send_anonymous_statistics">Taak verbeteren</string>
+	<string name="send_anonymous_statistics_summary">Verstuur anoniem gebruikersstatistieken en crash rapporten om Tasks te verbeteren. Er worden geen persoonlijke gegevens verzameld.</string>
+	<string name="anonymous_usage_blurb">Anonieme gebruik statistieken zijn verzameld</string>
+	<string name="tag_already_exists">Label bestaat reeds</string>
+	<string name="disable_notification_light">Deactiveer notificatie licht</string>
+	<string name="doze_notifications">Onderbreek Snooze mode voor notificaties</string>
+	<string name="doze_notifications_off">Android zal vertraagd notificaties weergeven in Snooze mode</string>
+	<string name="doze_notifications_on">Android zal gelimiteerd onderbreken in Snooze mode</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>uitschakelen</item>
 		<item>elke 15 min.</item>

@@ -50,7 +50,7 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
             datePickerDialog = new MyDatePickerDialog();
             datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
             if (preferences.isDarkTheme()) {
-                datePickerDialog.setAccentColor(getColor(R.color.black_text_hint));
+                datePickerDialog.setAccentColor(getResources().getColor(R.color.black_text_hint));
             }
             datePickerDialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
