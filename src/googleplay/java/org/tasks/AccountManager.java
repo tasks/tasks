@@ -42,7 +42,7 @@ public class AccountManager {
     }
 
     public interface AuthResultHandler {
-        void authenticationSuccessful(String accountName, String authToken);
+        void authenticationSuccessful(String accountName);
         void authenticationFailed(String message);
     }
 
@@ -85,7 +85,8 @@ public class AccountManager {
                     @Override
                     public void run() {
                         try {
-                            handler.authenticationSuccessful(accountName, GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null));
+                            GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null);
+                            handler.authenticationSuccessful(accountName);
                         } catch(UserRecoverableAuthException e) {
                             Timber.e(e, e.getMessage());
                             activity.startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);

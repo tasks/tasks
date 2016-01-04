@@ -131,10 +131,6 @@ public final class TaskAttachment extends RemoteModel {
         setValue(CONTENT_TYPE, contentType);
     }
 
-    public String getUUID() {
-        return getValue(UUID);
-    }
-
     public String getFilePath() {
         return getValue(FILE_PATH);
     }

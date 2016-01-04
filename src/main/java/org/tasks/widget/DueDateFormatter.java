@@ -16,8 +16,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDate;
-
 public class DueDateFormatter {
 
     private final Map<Long, String> dateCache = new HashMap<>();

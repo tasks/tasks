@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.CustomFilter;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;

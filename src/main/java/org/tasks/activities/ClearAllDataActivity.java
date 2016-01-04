@@ -8,7 +8,6 @@ import com.todoroo.astrid.dao.Database;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 

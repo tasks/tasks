@@ -72,7 +72,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
     private void getAuthToken(String a, final ProgressDialog pd) {
         accountManager.getAuthToken(this, a, new AccountManager.AuthResultHandler() {
             @Override
-            public void authenticationSuccessful(String accountName, String authToken) {
+            public void authenticationSuccessful(String accountName) {
                 gtasksPreferenceService.setUserName(accountName);
                 gtasksInvoker.setUserName(accountName);
                 setResult(RESULT_OK);

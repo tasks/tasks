@@ -16,9 +16,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
-import org.tasks.R;
-import org.tasks.preferences.Preferences;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;

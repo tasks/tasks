@@ -260,37 +260,6 @@ public class AndroidUtilities {
         }
     }
 
-
-
-
-    /**
-     * Turn ContentValues into a string
-     */
-    public static ContentValues contentValuesFromString(String string) {
-        if(string == null) {
-            return null;
-        }
-
-        String[] pairs = string.split("=");
-        ContentValues result = new ContentValues();
-        String key = null;
-        for(int i = 0; i < pairs.length; i++) {
-            String newKey;
-            int lastSpace = pairs[i].lastIndexOf(' ');
-            if(lastSpace != -1) {
-                newKey = pairs[i].substring(lastSpace + 1);
-                pairs[i] = pairs[i].substring(0, lastSpace);
-            } else {
-                newKey =  pairs[i];
-            }
-            if(key != null) {
-                result.put(key.trim(), pairs[i].trim());
-            }
-            key = newKey;
-        }
-        return result;
-    }
-
     /**
      * Copy a file from one place to another
      * @throws Exception

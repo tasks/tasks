@@ -86,9 +86,5 @@ public class StoreObjectDao {
     public void createNew(StoreObject storeObject) {
         dao.createNew(storeObject);
     }
-
-    public StoreObject getById(long id) {
-        return dao.fetch(id, StoreObject.PROPERTIES);
-    }
 }
 

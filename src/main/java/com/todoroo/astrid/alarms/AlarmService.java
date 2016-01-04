@@ -51,12 +51,6 @@ public class AlarmService {
     private final MetadataDao metadataDao;
     private final Context context;
     private final AlarmManager alarmManager;
-    private final Callback<Metadata> scheduleAlarm = new Callback<Metadata>() {
-        @Override
-        public void apply(Metadata alarm) {
-            scheduleAlarm(alarm);
-        }
-    };
 
     @Inject
     public AlarmService(MetadataDao metadataDao, @ForApplication Context context, AlarmManager alarmManager) {
@@ -119,14 +113,24 @@ public class AlarmService {
      * Schedules all alarms
      */
     public void scheduleAllAlarms() {
-        getActiveAlarms(scheduleAlarm);
+        getActiveAlarms(new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata alarm) {
+                scheduleAlarm(alarm);
+            }
+        });
     }
 
     /**
      * Schedules alarms for a single task
      */
     private void scheduleAlarms(long taskId) {
-        getActiveAlarmsForTask(taskId, scheduleAlarm);
+        getActiveAlarmsForTask(taskId, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata alarm) {
+                scheduleAlarm(alarm);
+            }
+        });
     }
 
     private PendingIntent pendingIntentForAlarm(Metadata alarm, long taskId) {

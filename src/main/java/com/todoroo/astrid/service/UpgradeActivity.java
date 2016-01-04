@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Environment;
 
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 import org.tasks.R;

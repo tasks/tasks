@@ -177,7 +177,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private EditNoteActivity editNotes;
     private HideUntilControlSet hideUntilControls;
     private ReminderControlSet reminderControlSet;
-    private GCalControlSet gcalControl;
 
     @Bind(R.id.title) EditText title;
     @Bind(R.id.pager) ViewPager mPager;
@@ -350,7 +349,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity(), dialogBuilder);
         controlSetMap.put(getString(R.string.TEA_ctrl_repeat_pref), repeatControls);
 
-        gcalControl = new GCalControlSet(gcalHelper, preferences, this, permissionRequestor);
+        GCalControlSet gcalControl = new GCalControlSet(gcalHelper, preferences, this, permissionRequestor);
         controlSetMap.put(getString(R.string.TEA_ctrl_gcal), gcalControl);
 
         // The deadline control set contains the repeat controls and the
@@ -799,7 +798,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             } else {
                 Timber.e("Invalid timestamp");
             }
-            return;
         } else if (requestCode == ReminderControlSet.REQUEST_NEW_ALARM && resultCode == Activity.RESULT_OK) {
             long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
             if (timestamp > 0) {

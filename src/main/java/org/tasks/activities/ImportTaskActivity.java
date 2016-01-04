@@ -11,7 +11,6 @@ import com.todoroo.astrid.utility.Flags;
 import org.tasks.R;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 

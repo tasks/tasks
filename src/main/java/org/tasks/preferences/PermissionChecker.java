@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 public class PermissionChecker {
 
@@ -50,7 +51,7 @@ public class PermissionChecker {
     }
 
     private boolean checkPermission(String permission) {
-        return checkPermissions(asList(permission));
+        return checkPermissions(singletonList(permission));
     }
 
     private boolean checkPermissions(List<String> permissions) {
