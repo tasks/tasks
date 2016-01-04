@@ -99,7 +99,6 @@ public class DateUtilities {
         return Arrays.binarySearch(sortedValues, search) >= 0;
     }
 
-
     public static String getLongDateString(DateTime date) {
         return getDateString("MMMM", date);
     }
@@ -115,40 +114,6 @@ public class DateUtilities {
     private static String getDateString(String simpleDateFormat, DateTime date) {
         String month = date.toString(simpleDateFormat);
         String value;
-        String standardDate;
-        Locale locale = Locale.getDefault();
-        if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
-                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US")) {
-            value = "'#' d'$'";
-        } else {
-            value = "d'$' '#'";
-        }
-        value += ", yyyy";
-        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
-            standardDate = date.toString(value).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
-        }else if ("ko".equals(Locale.getDefault().getLanguage())){
-            standardDate = date.toString(value).replace("#", month).replace("$", "\uC77C"); //$NON-NLS-1$
-        }else{
-            standardDate = date.toString(value).replace("#", month).replace("$", "");
-        }
-        return standardDate;
-    }
-
-    public static String getLongDateStringHideYear(DateTime date) {
-        return getDateStringHideYear("MMMM", date);
-    }
-
-    /**
-     * @param date date to format
-     * @return date, with month, day, and year
-     */
-    public static String getDateStringHideYear(DateTime date) {
-        return getDateStringHideYear("MMM", date);
-    }
-
-    private static String getDateStringHideYear(String simpleDateFormat, DateTime date) {
-        String month = date.toString(simpleDateFormat);
-        String value;
         Locale locale = Locale.getDefault();
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
                 || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US")) {
@@ -157,15 +122,14 @@ public class DateUtilities {
             value = "d '#'";
         }
 
-        if (date.getYear() !=  (newDateTime()).getYear()) {
-            value = value + "\nyyyy";
+        if (date.getYear() != newDateTime().getYear()) {
+            value = value + ", yyyy";
         }
-        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) //$NON-NLS-1$
-        {
-            return date.toString(value).replace("#", month) + "\u65E5"; //$NON-NLS-1$
-        } else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
-        {
-            return date.toString(value).replace("#", month) + "\uC77C"; //$NON-NLS-1$
+
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) {
+            return date.toString(value).replace("#", month) + "\u65E5";
+        } else if ("ko".equals(Locale.getDefault().getLanguage())) {
+            return date.toString(value).replace("#", month) + "\uC77C";
         } else {
             return date.toString(value).replace("#", month);
         }
@@ -185,12 +149,14 @@ public class DateUtilities {
         return date.toString("EEE");
     }
 
-    public static String getDateStringWithTime(Context context, long timestamp) {
-        return getDateStringWithTime(context, newDateTime(timestamp));
+    public static String getLongDateStringWithTime(Context context, long timestamp) {
+        DateTime date = newDateTime(timestamp);
+        return getLongDateString(date) + ", " + getTimeString(context, date);
     }
 
-    public static String getDateStringWithTime(Context context, DateTime date) {
-        return getDateString(date) + " " + getTimeString(context, date);
+    public static String getDateStringWithTime(Context context, long timestamp) {
+        DateTime date = newDateTime(timestamp);
+        return getDateString(date) + ", " + getTimeString(context, date);
     }
 
     /**
@@ -216,7 +182,7 @@ public class DateUtilities {
             return abbreviated ? DateUtilities.getWeekdayShort(newDateTime(date)) : DateUtilities.getWeekday(newDateTime(date));
         }
 
-        return DateUtilities.getDateStringHideYear(newDateTime(date));
+        return getDateString(newDateTime(date));
     }
 
     public static long getStartOfDay(long time) {

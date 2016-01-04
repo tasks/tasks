@@ -32,7 +32,6 @@ import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
-import org.tasks.time.DateTime;
 import org.tasks.ui.HiddenTopArrayAdapter;
 
 import java.util.ArrayList;
@@ -42,6 +41,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
+import static com.todoroo.andlib.utility.DateUtilities.getLongDateStringWithTime;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -109,7 +109,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     }
 
     public void addAlarmRow(final Long timestamp) {
-        final View alertItem = addAlarmRow(getDisplayString(timestamp), timestamp, null);
+        final View alertItem = addAlarmRow(getLongDateStringWithTime(activity, timestamp), timestamp, null);
         TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
         display.setOnClickListener(new OnClickListener() {
             @Override
@@ -336,14 +336,6 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         if (geofenceService.synchronizeGeofences(task.getId(), geofences)) {
             task.setModificationDate(DateUtilities.now());
         }
-    }
-
-    private String getDisplayString(long forDate) {
-        DateTime dateTime = newDateTime(forDate);
-        return (dateTime.getYear() == newDateTime().getYear()
-                ? DateUtilities.getLongDateStringHideYear(dateTime)
-                : DateUtilities.getLongDateString(dateTime)) +
-                ", " + DateUtilities.getTimeString(activity, dateTime);
     }
 
     @Override

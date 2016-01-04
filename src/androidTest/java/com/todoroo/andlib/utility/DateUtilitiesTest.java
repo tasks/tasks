@@ -16,7 +16,6 @@ import java.util.Locale;
 
 import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
 import static com.todoroo.andlib.utility.DateUtilities.getDateString;
-import static com.todoroo.andlib.utility.DateUtilities.getDateStringHideYear;
 import static com.todoroo.andlib.utility.DateUtilities.getStartOfDay;
 import static com.todoroo.andlib.utility.DateUtilities.getTimeString;
 import static com.todoroo.andlib.utility.DateUtilities.getWeekday;
@@ -115,13 +114,13 @@ public class DateUtilitiesTest extends AndroidTestCase {
 
     public void testGetDateStringHidingYear() {
         freezeAt(newDate(2014, 1, 1)).thawAfter(new Snippet() {{
-            assertEquals("Jan 1", getDateStringHideYear(newDateTime()));
+            assertEquals("Jan 1", getDateString(newDateTime()));
         }});
     }
 
     public void testGetDateStringWithDifferentYear() {
         freezeAt(newDate(2013, 12, 31)).thawAfter(new Snippet() {{
-            assertEquals("Jan 1\n2014", getDateStringHideYear(new DateTime(2014, 1, 1, 0, 0, 0)));
+            assertEquals("Jan 1, 2014", getDateString(new DateTime(2014, 1, 1, 0, 0, 0)));
         }});
     }
 

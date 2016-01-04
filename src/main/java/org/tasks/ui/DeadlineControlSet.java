@@ -125,7 +125,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
             } else if (date == today.plusWeeks(1).getMillis()) {
                 dueDateOptions.set(0, nextWeekString);
             } else {
-                dueDateOptions.set(0, DateUtilities.getLongDateStringHideYear(newDateTime(date)));
+                dueDateOptions.set(0, DateUtilities.getLongDateString(newDateTime(date)));
             }
         }
         dueDateOptions.set(3, nextWeekString);

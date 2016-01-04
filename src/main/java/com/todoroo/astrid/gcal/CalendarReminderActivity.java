@@ -194,7 +194,7 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         createNewList(tag.getName() + " "
-                                + DateUtilities.getDateStringHideYear(newDateTime(startTime)));
+                                + DateUtilities.getDateString(newDateTime(startTime)));
                     }
                 })
                 .setNegativeButton(R.string.CRA_use_existing, new DialogInterface.OnClickListener() {
