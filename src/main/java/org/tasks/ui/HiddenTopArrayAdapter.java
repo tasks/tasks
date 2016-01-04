@@ -12,15 +12,15 @@ import org.tasks.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HiddenTopArrayAdapter extends ArrayAdapter<String> {
+public class HiddenTopArrayAdapter<T> extends ArrayAdapter<T> {
 
     private List<String> hints;
 
-    public HiddenTopArrayAdapter(Context context, int resources, List<String> objects) {
+    public HiddenTopArrayAdapter(Context context, int resources, List<T> objects) {
         this(context, resources, objects, new ArrayList<String>());
     }
 
-    public HiddenTopArrayAdapter(Context context, int resource, List<String> objects, List<String> hints) {
+    public HiddenTopArrayAdapter(Context context, int resource, List<T> objects, List<String> hints) {
         super(context, resource, objects);
         this.hints = hints;
     }
@@ -36,7 +36,7 @@ public class HiddenTopArrayAdapter extends ArrayAdapter<String> {
             v = tv;
         } else {
             ViewGroup vg = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.simple_spinner_dropdown_item, parent, false);
-            ((TextView) vg.findViewById(R.id.text1)).setText(getItem(position));
+            ((TextView) vg.findViewById(R.id.text1)).setText(getItem(position).toString());
             if (position < hints.size()) {
                 ((TextView) vg.findViewById(R.id.text2)).setText(hints.get(position));
             }
