@@ -84,7 +84,6 @@
 	<string name="TEA_control_reminders">Напомняния</string>
 	<string name="TEA_control_timer">Управление на таймера</string>
 	<string name="TEA_control_hidden_section">----Винаги скрито----</string>
-	<string name="hide_until_prompt">Покажи в моят списък</string>
 	<string name="TEA_load_more">Зареди повече...</string>
 	<string name="missed_call">Пропуснато обаждане от %s</string>
 	<string name="MCA_return_call">Обади се сега</string>
@@ -218,7 +217,6 @@
 	<string name="CFC_title_contains_text">Името съдържа: ?</string>
 	<string name="gcal_TEA_error">Грешка при добавяне на задачата към каледнара!</string>
 	<string name="gcal_TEA_addToCalendar_label">Добави към календара</string>
-	<string name="choose_calendar">Избери календар</string>
 	<string name="gcal_TEA_showCalendar_label">Добави събитие към календара</string>
 	<string name="gcal_completed_title">%s (завършено)</string>
 	<string name="CFC_gtasks_list_text">В списък: ?</string>

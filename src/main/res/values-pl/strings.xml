@@ -74,7 +74,6 @@
 	<string name="TEA_control_reminders">Przypomnienia</string>
 	<string name="TEA_control_timer">Sterowanie zegara</string>
 	<string name="TEA_control_hidden_section">----Zawsze Ukryte----</string>
-	<string name="hide_until_prompt">Pokaż na mojej liście</string>
 	<string name="TEA_load_more">Wczytaj więcej...</string>
 	<string name="MCA_return_call">Zadzwoń teraz</string>
 	<string name="MCA_add_task">Zadzwoń później</string>

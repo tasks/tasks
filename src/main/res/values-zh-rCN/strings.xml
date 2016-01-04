@@ -63,7 +63,6 @@
 	<string name="TEA_control_reminders">提醒</string>
 	<string name="TEA_control_timer">定时器控件</string>
 	<string name="TEA_control_hidden_section">----始终隐藏----</string>
-	<string name="hide_until_prompt">在我的列表中显示</string>
 	<string name="TEA_load_more">加载更多……</string>
 	<string name="MCA_return_call">现在回电</string>
 	<string name="MCA_add_task">稍后回电</string>

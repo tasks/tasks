@@ -73,7 +73,6 @@
 	<string name="TEA_control_reminders">תזכורות</string>
 	<string name="TEA_control_timer">הערכת זמן</string>
 	<string name="TEA_control_hidden_section">----מוסתר תמיד----</string>
-	<string name="hide_until_prompt">הצג ברשימה שלי</string>
 	<string name="TEA_load_more">טען עוד...</string>
 	<string name="MCA_return_call">התקשר כעת</string>
 	<string name="MCA_add_task">התקשר מאוחר יותר</string>

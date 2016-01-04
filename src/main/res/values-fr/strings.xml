@@ -80,7 +80,6 @@
 	<string name="TEA_control_reminders">Rappels</string>
 	<string name="TEA_control_timer">Contrôle de rappel</string>
 	<string name="TEA_control_hidden_section">---- Toujours masquer ----</string>
-	<string name="hide_until_prompt">Montrer dans ma liste</string>
 	<string name="TEA_load_more">Charger plus...</string>
 	<string name="missed_call">Appel manqué de %s</string>
 	<string name="MCA_return_call">Appeler maintenant</string>
@@ -209,7 +208,6 @@
 	<string name="CFC_title_contains_text">Titre contient: ?</string>
 	<string name="gcal_TEA_error">Erreur d\'ajout de tâche à l\'agenda !</string>
 	<string name="gcal_TEA_addToCalendar_label">Créer un évènement d\'agenda</string>
-	<string name="choose_calendar">Choisir un calendrier</string>
 	<string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
 	<string name="gcal_completed_title">%s (complété)</string>
 	<string name="CFC_gtasks_list_text">Dans la liste : ?</string>

@@ -82,7 +82,6 @@
 	<string name="TEA_control_reminders">Lembretes</string>
 	<string name="TEA_control_timer">Controlos temporais</string>
 	<string name="TEA_control_hidden_section">----Ocultar sempre----</string>
-	<string name="hide_until_prompt">Mostrar na minha lista</string>
 	<string name="TEA_load_more">Carregar mais...</string>
 	<string name="missed_call">Chamada perdida de %s</string>
 	<string name="MCA_return_call">Chamar agora</string>

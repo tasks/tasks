@@ -78,7 +78,6 @@
 	<string name="TEA_control_reminders">Нагадування</string>
 	<string name="TEA_control_timer">Таймер Управління</string>
 	<string name="TEA_control_hidden_section">----Приховувати завжди----</string>
-	<string name="hide_until_prompt">Показувати в мому списку</string>
 	<string name="TEA_load_more">Завантажити більше...</string>
 	<string name="missed_call">Пропущений дзвінок від %s</string>
 	<string name="MCA_return_call">Зателефонувати зараз</string>

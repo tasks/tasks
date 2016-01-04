@@ -51,7 +51,6 @@
 	<string name="TEA_control_notes">Notater</string>
 	<string name="TEA_control_files">Filer</string>
 	<string name="TEA_control_reminders">Påminnelser</string>
-	<string name="hide_until_prompt">Vis i min liste</string>
 	<string name="MCA_ignore">Ignorer</string>
 	<string name="CRA_create_list">Opprett liste</string>
 	<string name="CRA_create_new">Opprett ny</string>

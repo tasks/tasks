@@ -75,7 +75,6 @@
 	<string name="TEA_control_reminders">Upomínky</string>
 	<string name="TEA_control_timer">Ovladač časovače</string>
 	<string name="TEA_control_hidden_section">-----Vždy skrývat----</string>
-	<string name="hide_until_prompt">Zobrazit v mém seznamu</string>
 	<string name="TEA_load_more">Více...</string>
 	<string name="MCA_return_call">Hned zavolat</string>
 	<string name="MCA_add_task">Zavolat později</string>

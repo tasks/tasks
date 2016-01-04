@@ -33,8 +33,6 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  */
 public class HideUntilControlSet extends TaskEditControlSetBase implements OnItemSelectedListener {
 
-    private static final int title = R.string.hide_until_prompt;
-
     private static final int SPECIFIC_DATE = -1;
     private static final int EXISTING_TIME_UNSET = -2;
     public static final int REQUEST_HIDE_UNTIL = 11011;
@@ -188,7 +186,6 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         });
         this.spinner = (Spinner) getView().findViewById(R.id.hideUntil);
         this.spinner.setOnItemSelectedListener(this);
-        this.spinner.setPromptId(title);
     }
 
     @Override

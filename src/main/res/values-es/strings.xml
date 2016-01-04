@@ -81,7 +81,6 @@
 	<string name="TEA_control_reminders">Recordatorios</string>
 	<string name="TEA_control_timer">Controles de tiempo</string>
 	<string name="TEA_control_hidden_section">---Ocultar Siempre---</string>
-	<string name="hide_until_prompt">Mostrar en mi lista</string>
 	<string name="TEA_load_more">Cargar mas...</string>
 	<string name="missed_call">Llamada perdida de %s</string>
 	<string name="MCA_return_call">Llamar ahora</string>
@@ -210,7 +209,6 @@
 	<string name="CFC_title_contains_text">Título contiene: ?</string>
 	<string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>
 	<string name="gcal_TEA_addToCalendar_label">Agregar al calendario</string>
-	<string name="choose_calendar">Elegir Calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
 	<string name="gcal_completed_title">%s (completado)</string>
 	<string name="CFC_gtasks_list_text">En la Lista: ?</string>

@@ -82,7 +82,6 @@
 	<string name="TEA_control_reminders">リマインダー</string>
 	<string name="TEA_control_timer">タイマーコントロール</string>
 	<string name="TEA_control_hidden_section">----常に隠す----</string>
-	<string name="hide_until_prompt">マイ リストに表示</string>
 	<string name="TEA_load_more">さらに読み込む...</string>
 	<string name="missed_call">%s から不在着信</string>
 	<string name="MCA_return_call">いますぐ呼び出し</string>
@@ -216,7 +215,6 @@
 	<string name="CFC_title_contains_text">タイトルに ? を含む</string>
 	<string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>
 	<string name="gcal_TEA_addToCalendar_label">カレンダーに登録</string>
-	<string name="choose_calendar">カレンダーを選択</string>
 	<string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
 	<string name="gcal_completed_title">%s（完了）</string>
 	<string name="CFC_gtasks_list_text">リストにありますか ?</string>

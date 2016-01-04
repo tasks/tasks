@@ -52,7 +52,6 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
                 android.R.layout.simple_list_item_1, calendarNames);
 
         AlertDialog.Builder builder = dialogBuilder.newDialog()
-                .setTitle(R.string.choose_calendar)
                 .setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, final int which) {

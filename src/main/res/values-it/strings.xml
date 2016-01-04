@@ -82,7 +82,6 @@
 	<string name="TEA_control_reminders">Promemoria</string>
 	<string name="TEA_control_timer">Regolazioni Tempo</string>
 	<string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
-	<string name="hide_until_prompt">Mostra nella mia lista</string>
 	<string name="TEA_load_more">Caricane altri...</string>
 	<string name="missed_call">Chiamate perse da %s</string>
 	<string name="MCA_return_call">Chiama ora</string>
@@ -212,7 +211,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="CFC_title_contains_text">Il titolo contiene: ?</string>
 	<string name="gcal_TEA_error">Errore durante l\'aggiunta dell\'attività al calendario!</string>
 	<string name="gcal_TEA_addToCalendar_label">Aggiungi al Calendario</string>
-	<string name="choose_calendar">Scegli calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
 	<string name="gcal_completed_title">%s (completato)</string>
 	<string name="CFC_gtasks_list_text">Nella lista: ?</string>

@@ -82,7 +82,6 @@
 	<string name="TEA_control_reminders">Напоминания</string>
 	<string name="TEA_control_timer">Учет времени</string>
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
-	<string name="hide_until_prompt">Показать в моем листе</string>
 	<string name="TEA_load_more">Загрузить больше...</string>
 	<string name="missed_call">Пропущенный звонок от %s</string>
 	<string name="MCA_return_call">Позвонить сейчас</string>
@@ -216,7 +215,6 @@
 	<string name="CFC_title_contains_text">Название содержит: ?</string>
 	<string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
 	<string name="gcal_TEA_addToCalendar_label">Добавить в календарь</string>
-	<string name="choose_calendar">Выберите календарь</string>
 	<string name="gcal_TEA_showCalendar_label">Открыть событие календаря</string>
 	<string name="gcal_completed_title">%s (выполнено)</string>
 	<string name="CFC_gtasks_list_text">В Списке: ?</string>

@@ -63,7 +63,6 @@
 	<string name="TEA_control_reminders">Hatırlatmalar</string>
 	<string name="TEA_control_timer">Geri Sayım Denetimleri</string>
 	<string name="TEA_control_hidden_section">----Her Zaman Gizle----</string>
-	<string name="hide_until_prompt">Listemde göster</string>
 	<string name="TEA_load_more">Daha yükle...</string>
 	<string name="MCA_return_call">Şimdi ara</string>
 	<string name="MCA_add_task">Sonra ara</string>

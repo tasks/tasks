@@ -74,7 +74,6 @@
 	<string name="TEA_control_reminders">Υπενθυμίσεις</string>
 	<string name="TEA_control_timer">Χειριστήρια χρονοδιακόπτη</string>
 	<string name="TEA_control_hidden_section">-----Απόκρυψη πάντα-----</string>
-	<string name="hide_until_prompt">Εμφάνιση στην λίστα μου</string>
 	<string name="TEA_load_more">Φόρτωση περισσότερων</string>
 	<string name="MCA_return_call">Κάλεσε τώρα</string>
 	<string name="MCA_add_task">Κάλεσε αργότερα</string>

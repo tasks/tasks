@@ -61,7 +61,6 @@
 	<string name="TEA_control_reminders">یادآوری ها</string>
 	<string name="TEA_control_timer">کنترل تایمر</string>
 	<string name="TEA_control_hidden_section">----همیشه مخفی----</string>
-	<string name="hide_until_prompt">نمایش در لیست من</string>
 	<string name="TEA_load_more">بارگزاری بیشتر</string>
 	<string name="MCA_return_call">اکنون تماس بگیر</string>
 	<string name="MCA_add_task">بعدا تماس بگیر</string>

@@ -82,7 +82,6 @@
 	<string name="TEA_control_reminders">Herinneringen</string>
 	<string name="TEA_control_timer">Tijd Controlers</string>
 	<string name="TEA_control_hidden_section">----Altijd Verbergen----</string>
-	<string name="hide_until_prompt">Laat zien in mijn lijst</string>
 	<string name="TEA_load_more">Laad meer...</string>
 	<string name="missed_call">Gemiste oproepen van %s</string>
 	<string name="MCA_return_call">Bel nu</string>
@@ -213,7 +212,6 @@
 	<string name="CFC_title_contains_text">Naam bevat: ?</string>
 	<string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
 	<string name="gcal_TEA_addToCalendar_label">Toevoegen aan Agenda</string>
-	<string name="choose_calendar">Kies kalendar</string>
 	<string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
 	<string name="gcal_completed_title">%s (voltooid)</string>
 	<string name="CFC_gtasks_list_text">In lijst: ?</string>

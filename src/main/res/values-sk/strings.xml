@@ -80,7 +80,6 @@
 	<string name="TEA_control_reminders">Pripomienky</string>
 	<string name="TEA_control_timer">Ovládač časovača</string>
 	<string name="TEA_control_hidden_section">----Skryť vždy----</string>
-	<string name="hide_until_prompt">Zobraziť v mojom zozname</string>
 	<string name="TEA_load_more">Načítať viac</string>
 	<string name="missed_call">Zmeškaný hovor od %s</string>
 	<string name="MCA_return_call">Volať teraz</string>
