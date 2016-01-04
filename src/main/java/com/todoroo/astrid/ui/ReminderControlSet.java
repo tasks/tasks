@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -34,6 +33,7 @@ import org.tasks.location.PlacePicker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
+import org.tasks.ui.HiddenTopArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -197,30 +197,8 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         });
         addSpinner = (Spinner) getView().findViewById(R.id.alarms_add_spinner);
         addSpinner.setOnItemSelectedListener(ReminderControlSet.this);
-        remindAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, spinnerOptions) {
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                View v;
-
-                // If this is the initial dummy entry, make it hidden
-                if (position == 0) {
-                    TextView tv = new TextView(getContext());
-                    tv.setHeight(0);
-                    tv.setVisibility(View.GONE);
-                    v = tv;
-                }
-                else {
-                    // Pass convertView as null to prevent reuse of special case views
-                    v = super.getDropDownView(position, null, parent);
-                }
-
-                // Hide scroll bar because it appears sometimes unnecessarily, this does not prevent scrolling
-                parent.setVerticalScrollBarEnabled(false);
-                return v;
-            }
-        };
+        remindAdapter = new HiddenTopArrayAdapter(activity, android.R.layout.simple_spinner_item, spinnerOptions);
         addSpinner.setAdapter(remindAdapter);
-        remindAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         modeDisplay = (TextView) getView().findViewById(R.id.reminder_alarm_display);
         mode = (Spinner) getView().findViewById(R.id.reminder_alarm);
         modeDisplay.setOnClickListener(new OnClickListener() {

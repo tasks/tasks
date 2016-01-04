@@ -1,0 +1,49 @@
+package org.tasks.ui;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import org.tasks.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class HiddenTopArrayAdapter extends ArrayAdapter<String> {
+
+    private List<String> hints;
+
+    public HiddenTopArrayAdapter(Context context, int resources, List<String> objects) {
+        this(context, resources, objects, new ArrayList<String>());
+    }
+
+    public HiddenTopArrayAdapter(Context context, int resource, List<String> objects, List<String> hints) {
+        super(context, resource, objects);
+        this.hints = hints;
+    }
+
+    @Override
+    public View getDropDownView(final int position, final View convertView, final ViewGroup parent) {
+        View v;
+
+        if (position == 0) {
+            TextView tv = new TextView(getContext());
+            tv.setHeight(0);
+            tv.setVisibility(View.GONE);
+            v = tv;
+        } else {
+            ViewGroup vg = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.simple_spinner_dropdown_item, parent, false);
+            ((TextView) vg.findViewById(R.id.text1)).setText(getItem(position));
+            if (position < hints.size()) {
+                ((TextView) vg.findViewById(R.id.text2)).setText(hints.get(position));
+            }
+            v = vg;
+        }
+
+        parent.setVerticalScrollBarEnabled(false);
+        return v;
+    }
+}

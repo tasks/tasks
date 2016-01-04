@@ -171,7 +171,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
             }
         });
         dueDateSpinner = (Spinner) view.findViewById(R.id.due_date);
-        dueDateAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, dueDateOptions) {
+        dueDateAdapter = new HiddenTopArrayAdapter(activity, android.R.layout.simple_spinner_item, dueDateOptions) {
             @Override
             public View getView(final int position, final View convertView, final ViewGroup parent) {
                 int selectedItemPosition = position;
@@ -195,31 +195,11 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                 }
                 return tv;
             }
-
-            @Override
-            public View getDropDownView(final int position, final View convertView, final ViewGroup parent) {
-                View v;
-
-                if (position == 0) {
-                    TextView tv = new TextView(getContext());
-                    tv.setHeight(0);
-                    tv.setVisibility(View.GONE);
-                    v = tv;
-                } else {
-                    TextView tv = (TextView) LayoutInflater.from(activity).inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
-                    tv.setText(dueDateOptions.get(position));
-                    tv.setTextColor(themeColor);
-                    v = tv;
-                }
-
-                parent.setVerticalScrollBarEnabled(false);
-                return v;
-            }
         };
         dueDateSpinner.setAdapter(dueDateAdapter);
 
         dueTimeSpinner = (Spinner) view.findViewById(R.id.due_time);
-        dueTimeAdapter = new ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, dueTimeOptions) {
+        dueTimeAdapter = new HiddenTopArrayAdapter(activity, android.R.layout.simple_spinner_item, dueTimeOptions, dueTimeHint) {
             @Override
             public View getView(final int position, final View convertView, final ViewGroup parent) {
                 int selectedItemPosition = position;
@@ -242,28 +222,6 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
                     }
                 }
                 return tv;
-            }
-
-            @Override
-            public View getDropDownView(final int position, final View convertView, final ViewGroup parent) {
-                View v;
-
-                if (position == 0) {
-                    TextView tv = new TextView(getContext());
-                    tv.setHeight(0);
-                    tv.setVisibility(View.GONE);
-                    v = tv;
-                } else {
-                    ViewGroup vg = (ViewGroup) LayoutInflater.from(activity).inflate(R.layout.simple_spinner_dropdown_item, parent, false);
-                    ((TextView) vg.findViewById(R.id.text1)).setText(dueTimeOptions.get(position));
-                    if (position < dueTimeHint.size()) {
-                        ((TextView) vg.findViewById(R.id.text2)).setText(dueTimeHint.get(position));
-                    }
-                    v = vg;
-                }
-
-                parent.setVerticalScrollBarEnabled(false);
-                return v;
             }
         };
         dueTimeSpinner.setAdapter(dueTimeAdapter);
