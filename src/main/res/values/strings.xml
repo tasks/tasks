@@ -207,15 +207,10 @@ File %1$s contained %2$s.\n\n
 
     <string name="TEA_no_time">No time</string>
 
-    <string-array name="TEA_hideUntil">
-        <!-- hideUntil: labels for edit page. -->
-        <item>Never</item>
-        <item>Due date</item>
-        <item>Due time</item>
-        <item>Day before due</item>
-        <item>Week before due</item>
-        <item>Specific day/time</item>
-    </string-array>
+    <string name="due_date">Due date</string>
+    <string name="due_time">Due time</string>
+    <string name="day_before_due">Day before due</string>
+    <string name="week_before_due">Week before due</string>
 
     <!-- Task edit control set descriptors -->
 
@@ -460,17 +455,7 @@ File %1$s contained %2$s.\n\n
         <item>Next week</item>
     </string-array>
 
-    <string-array name="EPr_default_hideUntil">
-        <!-- hideUntil: labels for "Task Defaults" preference item. -->
-        <!-- slide 42a -->
-        <item>Don\'t hide</item>
-        <!-- slide 42b -->
-        <item>Task is due</item>
-        <!-- slide 42c -->
-        <item>Day before due</item>
-        <!-- slide 42d-->
-        <item>Week before due</item>
-    </string-array>
+    <string name="dont_hide">Don\'t hide</string>
 
     <string-array name="EPr_default_reminders">
         <!-- reminders: labels for "Task Defaults" preference item. -->

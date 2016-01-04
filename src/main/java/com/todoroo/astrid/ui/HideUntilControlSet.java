@@ -93,11 +93,11 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         // set up base values
         String[] labels = activity.getResources().getStringArray(R.array.TEA_hideUntil);
         spinnerItems.addAll(new ArrayList<>(asList(
-                new HideUntilValue(labels[1], Task.HIDE_UNTIL_DUE),
-                new HideUntilValue(labels[2], Task.HIDE_UNTIL_DUE_TIME),
-                new HideUntilValue(labels[3], Task.HIDE_UNTIL_DAY_BEFORE),
-                new HideUntilValue(labels[4], Task.HIDE_UNTIL_WEEK_BEFORE),
-                new HideUntilValue(labels[5], Task.HIDE_UNTIL_SPECIFIC_DAY, -1))));
+                new HideUntilValue(labels[0], Task.HIDE_UNTIL_DUE),
+                new HideUntilValue(labels[1], Task.HIDE_UNTIL_DUE_TIME),
+                new HideUntilValue(labels[2], Task.HIDE_UNTIL_DAY_BEFORE),
+                new HideUntilValue(labels[3], Task.HIDE_UNTIL_WEEK_BEFORE),
+                new HideUntilValue(labels[4], Task.HIDE_UNTIL_SPECIFIC_DAY, -1))));
 
         if(specificDate > 0) {
             DateTime hideUntilAsDate = newDateTime(specificDate);
@@ -110,7 +110,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
             }
             existingDate = specificDate;
         } else {
-            spinnerItems.add(0, new HideUntilValue(labels[0], Task.HIDE_UNTIL_NONE));
+            spinnerItems.add(0, new HideUntilValue("", Task.HIDE_UNTIL_NONE));
             existingDate = EXISTING_TIME_UNSET;
         }
         adapter.notifyDataSetChanged();

@@ -58,14 +58,9 @@
 	<string name="TEA_tab_activity">פעילות</string>
 	<string name="TEA_timer_elap">זמן שעבר %s</string>
 	<string name="TEA_no_time">ללא שעה מסויימת</string>
-	<string-array name="TEA_hideUntil">
-		<item>אף פעם</item>
-		<item>עד ה</item>
-		<item>Due time</item>
-		<item>יום לפני מועד היעד</item>
-		<item>שבוע לפני מועד היעד</item>
-		<item>תאריך/שעה מסוימים</item>
-	</string-array>
+	<string name="due_date">עד ה</string>
+	<string name="day_before_due">יום לפני מועד היעד</string>
+	<string name="week_before_due">שבוע לפני מועד היעד</string>
 	<string name="TEA_control_when">מתי</string>
 	<string name="TEA_control_importance">עדיפות</string>
 	<string name="TEA_control_notes">תיאור</string>
@@ -152,12 +147,7 @@
 		<item>מחרתיים</item>
 		<item>בשבוע הבא</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>אל תסתיר</item>
-		<item>מועד היעד של המשימה הגיע</item>
-		<item>יום לפני תאריך היעד</item>
-		<item>שבוע לפני תאריך היעד</item>
-	</string-array>
+	<string name="dont_hide">אל תסתיר</string>
 	<string-array name="EPr_default_reminders">
 		<item>ללא תזכורות במועד הסף</item>
 		<item>במועד הסף</item>

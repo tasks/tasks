@@ -65,14 +65,10 @@
 	<string name="TEA_timer_est">Stima %s</string>
 	<string name="TEA_timer_elap">Trascorso %s</string>
 	<string name="TEA_no_time">Senza ora</string>
-	<string-array name="TEA_hideUntil">
-		<item>Mai</item>
-		<item>Data di scadenza</item>
-		<item>Ora scadenza</item>
-		<item>Giorni alla scadenza</item>
-		<item>Settimane alla scadenza</item>
-		<item>Giorno/Ora Specifici</item>
-	</string-array>
+	<string name="due_date">Data di scadenza</string>
+	<string name="due_time">Ora scadenza</string>
+	<string name="day_before_due">Giorni alla scadenza</string>
+	<string name="week_before_due">Settimane alla scadenza</string>
 	<string name="TEA_control_when">Quando</string>
 	<string name="TEA_control_repeat">Ripeti</string>
 	<string name="TEA_control_gcal">Calendario</string>
@@ -170,12 +166,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Dopodomani</item>
 		<item>Settimana successiva</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Non nascondere</item>
-		<item>Attività completata</item>
-		<item>Giorno prima della scadenza</item>
-		<item>Settimana prima della scadenza</item>
-	</string-array>
+	<string name="dont_hide">Non nascondere</string>
 	<string-array name="EPr_default_reminders">
 		<item>Nessun promemoria scadenza</item>
 		<item>Alla scadenza</item>

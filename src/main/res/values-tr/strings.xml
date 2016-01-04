@@ -49,14 +49,6 @@
 	<string name="TEA_menu_save">Değişiklikleri Kaydet</string>
 	<string name="TEA_tab_activity">Etkinlik</string>
 	<string name="TEA_no_time">Zaman yok</string>
-	<string-array name="TEA_hideUntil">
-		<item>Never</item>
-		<item>Due date</item>
-		<item>Due time</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
-		<item>Belirli Gün/Zamanda</item>
-	</string-array>
 	<string name="TEA_control_when">Ne Zaman</string>
 	<string name="TEA_control_notes">Açıklama</string>
 	<string name="TEA_control_files">Dosyalar</string>
@@ -134,12 +126,7 @@
 		<item>Yarından Sonra</item>
 		<item>Gelecek Hafta</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Gizleme</item>
-		<item>Görev günü</item>
-		<item>Son günden bir gün önce</item>
-		<item>Son günden bir hafta önce</item>
-	</string-array>
+	<string name="dont_hide">Gizleme</string>
 	<string-array name="EPr_default_reminders">
 		<item>Son gün hatırlatması yok</item>
 		<item>Son tarihte</item>

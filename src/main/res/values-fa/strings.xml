@@ -44,14 +44,10 @@
 	<string name="TEA_menu_discard_changes">رد تغییرات</string>
 	<string name="TEA_tab_activity">فعالیت</string>
 	<string name="TEA_no_time">بدون زمان</string>
-	<string-array name="TEA_hideUntil">
-		<item>هرگز</item>
-		<item>تاریخ موعود</item>
-		<item>زمان موعود</item>
-		<item>روز قبل از موعود</item>
-		<item>هفته قبل از موعود</item>
-		<item>روز یا زمان خاص</item>
-	</string-array>
+	<string name="due_date">تاریخ موعود</string>
+	<string name="due_time">زمان موعود</string>
+	<string name="day_before_due">روز قبل از موعود</string>
+	<string name="week_before_due">هفته قبل از موعود</string>
 	<string name="TEA_control_when">زمانی که</string>
 	<string name="TEA_control_repeat">تکرار</string>
 	<string name="TEA_control_gcal">تقویم</string>
@@ -112,12 +108,7 @@
 		<item>پس فردا</item>
 		<item>هفته بعد</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>مخفی نکن</item>
-		<item>موعود وظیفه رسیده</item>
-		<item>روز قبل از موعود</item>
-		<item>هفته قبل از موعود</item>
-	</string-array>
+	<string name="dont_hide">مخفی نکن</string>
 	<string-array name="EPr_default_reminders">
 		<item>بدون یادآور موعود</item>
 		<item>روز موعود</item>

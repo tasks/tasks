@@ -64,14 +64,10 @@
 	<string name="TEA_tab_activity">Actividad</string>
 	<string name="TEA_timer_elap">Transcurrido %s</string>
 	<string name="TEA_no_time">Sin horario</string>
-	<string-array name="TEA_hideUntil">
-		<item>Nunca</item>
-		<item>Fecha de vencimiento</item>
-		<item>Hora de vencimiento</item>
-		<item>Día previo al vencimiento</item>
-		<item>Semana previa al vencimiento</item>
-		<item>Día/Hora específicos</item>
-	</string-array>
+	<string name="due_date">Fecha de vencimiento</string>
+	<string name="due_time">Hora de vencimiento</string>
+	<string name="day_before_due">Día previo al vencimiento</string>
+	<string name="week_before_due">Semana previa al vencimiento</string>
 	<string name="TEA_control_when">Cuando</string>
 	<string name="TEA_control_repeat">Repetir</string>
 	<string name="TEA_control_gcal">Calendario</string>
@@ -168,12 +164,7 @@
 		<item>Pasado mañana</item>
 		<item>Semana siguiente</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>No ocultar</item>
-		<item>Tarea vencida</item>
-		<item>Día previo al vencimiento</item>
-		<item>Semana previa al vencimiento</item>
-	</string-array>
+	<string name="dont_hide">No ocultar</string>
 	<string-array name="EPr_default_reminders">
 		<item>Sin recordatorios del vencimiento</item>
 		<item>En la fecha de vencimiento</item>

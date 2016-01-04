@@ -67,14 +67,10 @@
 	<string name="TEA_timer_est">Приблизително %s</string>
 	<string name="TEA_timer_elap">Изминали %s</string>
 	<string name="TEA_no_time">Без време</string>
-	<string-array name="TEA_hideUntil">
-		<item>Никога</item>
-		<item>Краен срок</item>
-		<item>До време</item>
-		<item>Ден преди крайния срок</item>
-		<item>Седмица преди крайния срок</item>
-		<item>Определен ден/час</item>
-	</string-array>
+	<string name="due_date">Краен срок</string>
+	<string name="due_time">До време</string>
+	<string name="day_before_due">Ден преди крайния срок</string>
+	<string name="week_before_due">Седмица преди крайния срок</string>
 	<string name="TEA_control_when">Кога</string>
 	<string name="TEA_control_repeat">Повторение</string>
 	<string name="TEA_control_gcal">Календар</string>
@@ -174,12 +170,7 @@
 		<item>Ден след утрешния</item>
 		<item>Следваща седмица</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Не скривай</item>
-		<item>Задачата е до</item>
-		<item>Ден преди крайния срок</item>
-		<item>Седмица преди крайния срок</item>
-	</string-array>
+	<string name="dont_hide">Не скривай</string>
 	<string-array name="EPr_default_reminders">
 		<item>Няма напомняния за краен срок</item>
 		<item>При краен срок</item>

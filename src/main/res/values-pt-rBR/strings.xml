@@ -58,14 +58,10 @@
 	<string name="TEA_tab_activity">Atividades</string>
 	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string name="TEA_no_time">Sem horário</string>
-	<string-array name="TEA_hideUntil">
-		<item>Nunca</item>
-		<item>Data de vencimento</item>
-		<item>No tempo devido</item>
-		<item>Dias antes do vencimento</item>
-		<item>Semanas antes do vencimento</item>
-		<item>Dia/Hora específica</item>
-	</string-array>
+	<string name="due_date">Data de vencimento</string>
+	<string name="due_time">No tempo devido</string>
+	<string name="day_before_due">Dias antes do vencimento</string>
+	<string name="week_before_due">Semanas antes do vencimento</string>
 	<string name="TEA_control_when">Quando</string>
 	<string name="TEA_control_importance">Prioridade</string>
 	<string name="TEA_control_notes">Descrição</string>
@@ -151,12 +147,7 @@
 		<item>Depois de amanhã</item>
 		<item>Próxima semana</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Não ocultar</item>
-		<item>O dia do vencimento</item>
-		<item>1 dia antes do vencimento</item>
-		<item>1 semana antes do vencimento</item>
-	</string-array>
+	<string name="dont_hide">Não ocultar</string>
 	<string-array name="EPr_default_reminders">
 		<item>Sem lembretes no vencimento</item>
 		<item>No vencimento</item>

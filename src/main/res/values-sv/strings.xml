@@ -59,14 +59,7 @@
 	<string name="TEA_timer_est">Ung. %s</string>
 	<string name="TEA_timer_elap">Förfluten %s</string>
 	<string name="TEA_no_time">Ingen tid</string>
-	<string-array name="TEA_hideUntil">
-		<item>Aldrig</item>
-		<item>Förfallodatum</item>
-		<item>Due time</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
-		<item>Specifik dag/tid</item>
-	</string-array>
+	<string name="due_date">Förfallodatum</string>
 	<string name="TEA_control_when">När</string>
 	<string name="TEA_control_importance">Prioritet</string>
 	<string name="TEA_control_notes">Beskrivning</string>
@@ -151,12 +144,7 @@ och återställer dina aktuella uppgifter från en backup
 		<item>I övermorgon</item>
 		<item>Nästa vecka</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Dölj inte</item>
-		<item>Uppgiften förfaller</item>
-		<item>Dagen före förfall</item>
-		<item>Veckan före förfall</item>
-	</string-array>
+	<string name="dont_hide">Dölj inte</string>
 	<string-array name="EPr_default_reminders">
 		<item>Inga varsel om förfall</item>
 		<item>Vid förfallodagen</item>

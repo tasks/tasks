@@ -63,14 +63,10 @@
 	<string name="TEA_timer_est">Spolu %s</string>
 	<string name="TEA_timer_elap">Uplynulo %s</string>
 	<string name="TEA_no_time">Bez času</string>
-	<string-array name="TEA_hideUntil">
-		<item>Nikdy</item>
-		<item>Do termínu</item>
-		<item>Čas dokončenia</item>
-		<item>Deň pre ukončením</item>
-		<item>Týždeň pred ukončením</item>
-		<item>Určitý deň/čas</item>
-	</string-array>
+	<string name="due_date">Do termínu</string>
+	<string name="due_time">Čas dokončenia</string>
+	<string name="day_before_due">Deň pre ukončením</string>
+	<string name="week_before_due">Týždeň pred ukončením</string>
 	<string name="TEA_control_when">Kedy</string>
 	<string name="TEA_control_repeat">Opakovať</string>
 	<string name="TEA_control_gcal">Kalendár</string>
@@ -163,12 +159,7 @@
 		<item>Pozajtra</item>
 		<item>Nasledujúci týždeň</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Neskrývať</item>
-		<item>Nastal termín úlohy</item>
-		<item>Deň pred termínom</item>
-		<item>Týždeň pred termínom</item>
-	</string-array>
+	<string name="dont_hide">Neskrývať</string>
 	<string-array name="EPr_default_reminders">
 		<item>Žiadne pripomienky v termíne</item>
 		<item>V termíne</item>

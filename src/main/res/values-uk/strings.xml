@@ -63,14 +63,10 @@
 	<string name="TEA_timer_est">Зал. %s</string>
 	<string name="TEA_timer_elap">Час, що минув %s</string>
 	<string name="TEA_no_time">Без часу</string>
-	<string-array name="TEA_hideUntil">
-		<item>Ніколи</item>
-		<item>до дати</item>
-		<item>до часу</item>
-		<item>за день до </item>
-		<item>за тиждень до</item>
-		<item>Вказати день/час</item>
-	</string-array>
+	<string name="due_date">до дати</string>
+	<string name="due_time">до часу</string>
+	<string name="day_before_due">за день до </string>
+	<string name="week_before_due">за тиждень до</string>
 	<string name="TEA_control_when">Коли</string>
 	<string name="TEA_control_importance">Пріоритет</string>
 	<string name="TEA_control_notes">Опис</string>
@@ -167,12 +163,7 @@
 		<item>Післязавтра</item>
 		<item>Наступного тижня</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Не приховувати</item>
-		<item>Термін виконання</item>
-		<item>за день до </item>
-		<item>за тиждень до</item>
-	</string-array>
+	<string name="dont_hide">Не приховувати</string>
 	<string-array name="EPr_default_reminders">
 		<item>Нема нагадувань</item>
 		<item>Під час дедлайну</item>

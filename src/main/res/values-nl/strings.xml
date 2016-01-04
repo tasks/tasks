@@ -65,14 +65,10 @@
 	<string name="TEA_timer_est">Gesch. %s</string>
 	<string name="TEA_timer_elap">Verstreken %s</string>
 	<string name="TEA_no_time">Geen tijd</string>
-	<string-array name="TEA_hideUntil">
-		<item>Nooit</item>
-		<item>Einddatum </item>
-		<item>Eindtijd</item>
-		<item>Dag voor einddatum</item>
-		<item>Week voor einddatum</item>
-		<item>Specifieke dag/tijd</item>
-	</string-array>
+	<string name="due_date">Einddatum </string>
+	<string name="due_time">Eindtijd</string>
+	<string name="day_before_due">Dag voor einddatum</string>
+	<string name="week_before_due">Week voor einddatum</string>
 	<string name="TEA_control_when">Wanneer</string>
 	<string name="TEA_control_repeat">Herhaal</string>
 	<string name="TEA_control_gcal">Kalender</string>
@@ -169,12 +165,7 @@
 		<item>Overmorgen</item>
 		<item>Volgende week</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Niet verbergen</item>
-		<item>Taak heeft einddatum</item>
-		<item>Dag voor einddatum</item>
-		<item>Week voor einddatum</item>
-	</string-array>
+	<string name="dont_hide">Niet verbergen</string>
 	<string-array name="EPr_default_reminders">
 		<item>Herinneringen zonder einddatum</item>
 		<item>Op de einddatum</item>

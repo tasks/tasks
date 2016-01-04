@@ -62,14 +62,10 @@
 	<string name="TEA_timer_est">Cca. %s</string>
 	<string name="TEA_timer_elap">%s je potekel</string>
 	<string name="TEA_no_time">Čas ni določen</string>
-	<string-array name="TEA_hideUntil">
-		<item>Nikoli</item>
-		<item>Dospelost po datumu</item>
-		<item>Dospelost po času</item>
-		<item>Dan pred dospelostjo</item>
-		<item>Teden pred dospelostjo</item>
-		<item>Določene/ga ure/dne</item>
-	</string-array>
+	<string name="due_date">Dospelost po datumu</string>
+	<string name="due_time">Dospelost po času</string>
+	<string name="day_before_due">Dan pred dospelostjo</string>
+	<string name="week_before_due">Teden pred dospelostjo</string>
 	<string name="TEA_control_when">Kdaj</string>
 	<string name="TEA_control_importance">Prioriteta</string>
 	<string name="TEA_control_notes">Opis</string>
@@ -155,12 +151,7 @@
 		<item>Pojutrišnjem</item>
 		<item>Naslednji teden</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Ne skrij</item>
-		<item>Opravek dospe</item>
-		<item>Dan pred dospelostjo</item>
-		<item>Teden pred dospelostjo</item>
-	</string-array>
+	<string name="dont_hide">Ne skrij</string>
 	<string-array name="EPr_default_reminders">
 		<item>Brez opomnikov o dospelosti</item>
 		<item>Ob dospelosti</item>

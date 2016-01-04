@@ -49,14 +49,6 @@
 	<string name="TEA_menu_save">保存更改</string>
 	<string name="TEA_tab_activity">活动</string>
 	<string name="TEA_no_time">没有时间</string>
-	<string-array name="TEA_hideUntil">
-		<item>Never</item>
-		<item>Due date</item>
-		<item>Due time</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
-		<item>指定日期/时间</item>
-	</string-array>
 	<string name="TEA_control_when">时间</string>
 	<string name="TEA_control_notes">描述</string>
 	<string name="TEA_control_files">文件</string>
@@ -114,12 +106,7 @@
 		<item>后天</item>
 		<item>下周</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>不隐藏</item>
-		<item>任务到期</item>
-		<item>截止期前一天</item>
-		<item>截止期前一周</item>
-	</string-array>
+	<string name="dont_hide">不隐藏</string>
 	<string-array name="EPr_default_reminders">
 		<item>无截止期限提醒</item>
 		<item>截止期限时</item>

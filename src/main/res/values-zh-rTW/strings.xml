@@ -56,14 +56,6 @@
 	<string name="TEA_tab_activity">活動</string>
 	<string name="TEA_timer_elap">已經過 %s</string>
 	<string name="TEA_no_time">沒有時間</string>
-	<string-array name="TEA_hideUntil">
-		<item>Never</item>
-		<item>Due date</item>
-		<item>Due time</item>
-		<item>Day before due</item>
-		<item>Week before due</item>
-		<item>指定日期/時間</item>
-	</string-array>
 	<string name="TEA_control_when">時間</string>
 	<string name="TEA_control_importance">優先權</string>
 	<string name="TEA_control_notes">描述</string>
@@ -142,12 +134,7 @@
 		<item>後天</item>
 		<item>下週</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>不隱藏</item>
-		<item>工作到期</item>
-		<item>到期前天數</item>
-		<item>到期前週數</item>
-	</string-array>
+	<string name="dont_hide">不隱藏</string>
 	<string-array name="EPr_default_reminders">
 		<item>無截止期限提醒</item>
 		<item>在截止期限時</item>

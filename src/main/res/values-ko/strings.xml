@@ -68,14 +68,10 @@
 	<string name="TEA_timer_est">동부표준시 %s</string>
 	<string name="TEA_timer_elap">경과 시간: %s</string>
 	<string name="TEA_no_time">시한 없음</string>
-	<string-array name="TEA_hideUntil">
-		<item>사용안함</item>
-		<item>마감일</item>
-		<item>마감 시간</item>
-		<item>마감 하루 전</item>
-		<item>마감 일주일 전</item>
-		<item>특정한 요일/시간</item>
-	</string-array>
+	<string name="due_date">마감일</string>
+	<string name="due_time">마감 시간</string>
+	<string name="day_before_due">마감 하루 전</string>
+	<string name="week_before_due">마감 일주일 전</string>
 	<string name="TEA_control_when">언제</string>
 	<string name="TEA_control_repeat">반복</string>
 	<string name="TEA_control_gcal">달력</string>
@@ -175,12 +171,7 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 		<item>모레</item>
 		<item>다음 주</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>숨기지 않기</item>
-		<item>일정 마감일입니다</item>
-		<item>마감일 하루 전</item>
-		<item>마감일 1주일 전</item>
-	</string-array>
+	<string name="dont_hide">숨기지 않기</string>
 	<string-array name="EPr_default_reminders">
 		<item>기한 알림 없음</item>
 		<item>완료일에</item>

@@ -36,14 +36,10 @@
 	<string name="TEA_estimatedDuration_label">كم من الوقت ستأخذ؟</string>
 	<string name="TEA_menu_save">حفظ التغيرات</string>
 	<string name="TEA_tab_activity">نشاط</string>
-	<string-array name="TEA_hideUntil">
-		<item>قط</item>
-		<item>التاريخ المحدد</item>
-		<item>الوقت المحدد</item>
-		<item>يوم قبل الموعد</item>
-		<item>أسبوع قبل الموعد</item>
-		<item>يوم/وقت محدد</item>
-	</string-array>
+	<string name="due_date">التاريخ المحدد</string>
+	<string name="due_time">الوقت المحدد</string>
+	<string name="day_before_due">يوم قبل الموعد</string>
+	<string name="week_before_due">أسبوع قبل الموعد</string>
 	<string name="TEA_control_when">متى</string>
 	<string name="TEA_control_repeat">إعادة</string>
 	<string name="TEA_control_gcal">تقويم</string>
@@ -103,12 +99,7 @@
 		<item>بعد غد</item>
 		<item>الأسبوع القادم</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>لا تُخبئ</item>
-		<item>Task is due</item>
-		<item>يوم قبل الموعد</item>
-		<item>أسبوع قبل الموعد</item>
-	</string-array>
+	<string name="dont_hide">لا تُخبئ</string>
 	<string name="BFE_Active">مهامي</string>
 	<string name="BFE_Recent">ما تم تعديله مؤخرا</string>
 	<string name="CFA_universe_all">مهام نشطة</string>

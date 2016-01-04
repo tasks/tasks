@@ -64,14 +64,10 @@
 	<string name="TEA_timer_est">Restant %s</string>
 	<string name="TEA_timer_elap">Passé %s</string>
 	<string name="TEA_no_time">Pas d\'heure</string>
-	<string-array name="TEA_hideUntil">
-		<item>Jamais</item>
-		<item>Date d\'échéance</item>
-		<item>Heure d\'échéance</item>
-		<item>Jour avant échéance</item>
-		<item>Semaine avant échéance</item>
-		<item>Jour/horaire spécifique</item>
-	</string-array>
+	<string name="due_date">Date d\'échéance</string>
+	<string name="due_time">Heure d\'échéance</string>
+	<string name="day_before_due">Jour avant échéance</string>
+	<string name="week_before_due">Semaine avant échéance</string>
 	<string name="TEA_control_when">Quand</string>
 	<string name="TEA_control_repeat">Répéter</string>
 	<string name="TEA_control_gcal">Calendrier</string>
@@ -167,12 +163,7 @@
 		<item>Après-demain</item>
 		<item>La semaine prochaine</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Ne pas masquer</item>
-		<item>La tâche est échue</item>
-		<item>Jour avant échéance</item>
-		<item>Semaine avant échéance</item>
-	</string-array>
+	<string name="dont_hide">Ne pas masquer</string>
 	<string-array name="EPr_default_reminders">
 		<item>Pas de rappel de date limite</item>
 		<item>À la date limite</item>

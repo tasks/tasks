@@ -65,14 +65,10 @@
 	<string name="TEA_timer_est">予定 %s</string>
 	<string name="TEA_timer_elap">経過時間 %s</string>
 	<string name="TEA_no_time">時間がありません</string>
-	<string-array name="TEA_hideUntil">
-		<item>しない</item>
-		<item>期限日</item>
-		<item>期限時間</item>
-		<item>期限の前日から</item>
-		<item>期限の一週間前から</item>
-		<item>日時を指定</item>
-	</string-array>
+	<string name="due_date">期限日</string>
+	<string name="due_time">期限時間</string>
+	<string name="day_before_due">期限の前日から</string>
+	<string name="week_before_due">期限の一週間前から</string>
 	<string name="TEA_control_when">いつ</string>
 	<string name="TEA_control_repeat">繰り返し</string>
 	<string name="TEA_control_gcal">カレンダー</string>
@@ -172,12 +168,7 @@
 		<item>明後日</item>
 		<item>来週</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>常に表示する</item>
-		<item>期限の日から</item>
-		<item>期限の前日から</item>
-		<item>期限の一週間前から</item>
-	</string-array>
+	<string name="dont_hide">常に表示する</string>
 	<string-array name="EPr_default_reminders">
 		<item>期限を通知しない</item>
 		<item>期限に</item>

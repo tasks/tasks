@@ -65,14 +65,10 @@
 	<string name="TEA_timer_est">Ост. %s</string>
 	<string name="TEA_timer_elap">Прошло %s</string>
 	<string name="TEA_no_time">Без времени</string>
-	<string-array name="TEA_hideUntil">
-		<item>Никогда</item>
-		<item>Намеченная дата</item>
-		<item>Намеченное время</item>
-		<item>Сутки до намеченной даты</item>
-		<item>Неделя до намеченной даты</item>
-		<item>Определённая дата/время</item>
-	</string-array>
+	<string name="due_date">Намеченная дата</string>
+	<string name="due_time">Намеченное время</string>
+	<string name="day_before_due">Сутки до намеченной даты</string>
+	<string name="week_before_due">Неделя до намеченной даты</string>
 	<string name="TEA_control_when">Когда</string>
 	<string name="TEA_control_repeat">Повторение</string>
 	<string name="TEA_control_gcal">Календарь</string>
@@ -160,7 +156,7 @@
 	<string name="EPr_default_addtocalendar_title">Добавлять в календарь по умолчанию</string>
 	<string name="EPr_default_reminders_mode_title">Тип звонка/вибрации по умолчанию</string>
 	<string-array name="EPr_default_importance">
-		<item>!!! (Высший)</item>
+		<item>!!! (Высшая)</item>
 		<item>!!</item>
 		<item>!</item>
 		<item>o (Низший)</item>
@@ -172,12 +168,7 @@
 		<item>Через день</item>
 		<item>Следующая неделя</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Не скрывать</item>
-		<item>До намеченного срока</item>
-		<item>За день до намеченного срока</item>
-		<item>За неделю до намеченного срока</item>
-	</string-array>
+	<string name="dont_hide">Не скрывать</string>
 	<string-array name="EPr_default_reminders">
 		<item>Нет напоминаний</item>
 		<item>В срок</item>

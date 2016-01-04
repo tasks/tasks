@@ -59,14 +59,9 @@
 	<string name="TEA_tab_activity">Aktywność</string>
 	<string name="TEA_timer_elap">Minęło %s</string>
 	<string name="TEA_no_time">Bez godziny</string>
-	<string-array name="TEA_hideUntil">
-		<item>Nigdy</item>
-		<item>W terminie</item>
-		<item>Termin</item>
-		<item>Day before due</item>
-		<item>Tydzień przed terminem</item>
-		<item>Konkretny dzień/godzina</item>
-	</string-array>
+	<string name="due_date">W terminie</string>
+	<string name="due_time">Termin</string>
+	<string name="week_before_due">Tydzień przed terminem</string>
 	<string name="TEA_control_when">Kiedy</string>
 	<string name="TEA_control_importance">Priorytet</string>
 	<string name="TEA_control_notes">Opis</string>
@@ -155,12 +150,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>Pojutrze</item>
 		<item>Przyszły tydzień</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Nie ukrywaj</item>
-		<item>Do terminu zadania</item>
-		<item>Do dnia przed terminem</item>
-		<item>Do tygodnia przed terminem</item>
-	</string-array>
+	<string name="dont_hide">Nie ukrywaj</string>
 	<string-array name="EPr_default_reminders">
 		<item>Brak przypomnień dla terminu nieprzekraczalnego</item>
 		<item>W dniu terminu nieprzekraczalnego</item>

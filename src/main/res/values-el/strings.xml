@@ -59,14 +59,10 @@
 	<string name="TEA_timer_est">Εκτιμώμενο %s</string>
 	<string name="TEA_timer_elap">Πέρασε %s</string>
 	<string name="TEA_no_time">Χωρίς ώρα</string>
-	<string-array name="TEA_hideUntil">
-		<item>Ποτέ</item>
-		<item>Ημερομηνία λήξης</item>
-		<item>Ώρα λήξης</item>
-		<item>Μια ημέρα πριν τη λήξη</item>
-		<item>Εβδομάδα πριν τη λήξη</item>
-		<item>Συγκεκριμένη ημέρα/ώρα</item>
-	</string-array>
+	<string name="due_date">Ημερομηνία λήξης</string>
+	<string name="due_time">Ώρα λήξης</string>
+	<string name="day_before_due">Μια ημέρα πριν τη λήξη</string>
+	<string name="week_before_due">Εβδομάδα πριν τη λήξη</string>
 	<string name="TEA_control_when">Όταν</string>
 	<string name="TEA_control_importance">Προτεραιότητα</string>
 	<string name="TEA_control_notes">Περιγραφή</string>
@@ -155,12 +151,7 @@
 		<item>Μεθαύριο</item>
 		<item>Επόμενη εβδομάδα</item>
 	</string-array>
-	<string-array name="EPr_default_hideUntil">
-		<item>Μη απόκρυψη</item>
-		<item>Η εργασία λήγει </item>
-		<item>Μια μέρα πρίν την λήξη</item>
-		<item>Μια εβδομάδα πρίν ληξει</item>
-	</string-array>
+	<string name="dont_hide">Μη απόκρυψη</string>
 	<string-array name="EPr_default_reminders">
 		<item>Όχι υπενθυμίσεις προθεσμίας</item>
 		<item>Στην προθεσμία</item>
