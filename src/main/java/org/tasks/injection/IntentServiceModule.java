@@ -7,7 +7,7 @@ import dagger.Module;
 
 @Module(addsTo = TasksModule.class,
         injects = {
-                AlarmSchedulingIntentService.class,
+                GeofenceSchedulingIntentService.class,
                 BackupIntentService.class,
                 GtasksBackgroundService.class,
                 MidnightRefreshService.class,

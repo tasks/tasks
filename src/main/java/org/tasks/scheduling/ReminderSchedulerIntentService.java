@@ -2,6 +2,7 @@ package org.tasks.scheduling;
 
 import android.content.Intent;
 
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.reminders.ReminderService;
 
@@ -13,6 +14,7 @@ import timber.log.Timber;
 
 public class ReminderSchedulerIntentService extends InjectingIntentService {
 
+    @Inject AlarmService alarmService;
     @Inject ReminderService reminderService;
     @Inject TaskDao taskDao;
 
@@ -27,5 +29,6 @@ public class ReminderSchedulerIntentService extends InjectingIntentService {
         Timber.d("onHandleIntent(%s)", intent);
 
         reminderService.scheduleAllAlarms(taskDao);
+        alarmService.scheduleAllAlarms();
     }
 }

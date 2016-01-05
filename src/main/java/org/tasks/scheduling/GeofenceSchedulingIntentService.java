@@ -2,8 +2,6 @@ package org.tasks.scheduling;
 
 import android.content.Intent;
 
-import com.todoroo.astrid.alarms.AlarmService;
-
 import org.tasks.injection.InjectingIntentService;
 import org.tasks.location.GeofenceService;
 
@@ -11,13 +9,12 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public class AlarmSchedulingIntentService extends InjectingIntentService {
+public class GeofenceSchedulingIntentService extends InjectingIntentService {
 
-    @Inject AlarmService alarmService;
     @Inject GeofenceService geofenceService;
 
-    public AlarmSchedulingIntentService() {
-        super(AlarmSchedulingIntentService.class.getSimpleName());
+    public GeofenceSchedulingIntentService() {
+        super(GeofenceSchedulingIntentService.class.getSimpleName());
     }
 
     @Override
@@ -26,7 +23,7 @@ public class AlarmSchedulingIntentService extends InjectingIntentService {
 
         Timber.d("onHandleIntent(%s)", intent);
 
-        alarmService.scheduleAllAlarms();
+        geofenceService.cancelGeofences();
         geofenceService.setupGeofences();
     }
 }

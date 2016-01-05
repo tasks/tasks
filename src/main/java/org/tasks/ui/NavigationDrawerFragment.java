@@ -22,17 +22,13 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.InjectingFragment;
-import org.tasks.location.GeofenceService;
 import org.tasks.preferences.AppearancePreferences;
-import org.tasks.preferences.Preferences;
-import org.tasks.scheduling.AlarmSchedulingIntentService;
 
 import javax.inject.Inject;
 
@@ -65,8 +61,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     @Inject FilterCounter filterCounter;
     @Inject FilterProvider filterProvider;
-    @Inject GeofenceService geofenceService;
-    @Inject Preferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,19 +83,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == FilterAdapter.REQUEST_SETTINGS && resultCode == Activity.RESULT_OK && data != null) {
-            if (data.getBooleanExtra(ReminderPreferences.TOGGLE_GEOFENCES, false)) {
-                if (preferences.geofencesEnabled()) {
-                    geofenceService.setupGeofences();
-                } else {
-                    geofenceService.cancelGeofences();
-                }
-            } else if (data.getBooleanExtra(ReminderPreferences.RESET_GEOFENCES, false)) {
-                geofenceService.setupGeofences();
-            } else if (data.getBooleanExtra(ReminderPreferences.RESCHEDULE_ALARMS, false)) {
-                Context context = getContext();
-                context.startService(new Intent(context, AlarmSchedulingIntentService.class));
-            }
-
             if (data.getBooleanExtra(AppearancePreferences.FILTERS_CHANGED, false)) {
                 refresh();
             }

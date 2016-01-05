@@ -18,7 +18,7 @@ public class BackgroundScheduler {
 
     public void scheduleEverything() {
         context.startService(new Intent(context, RefreshSchedulerIntentService.class));
-        context.startService(new Intent(context, AlarmSchedulingIntentService.class));
+        context.startService(new Intent(context, GeofenceSchedulingIntentService.class));
         context.startService(new Intent(context, ReminderSchedulerIntentService.class));
         scheduleBackupService();
         scheduleMidnightRefresh();

@@ -2,6 +2,7 @@ package org.tasks.injection;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceScreen;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -71,5 +72,14 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
         super.onResume();
 
         tracker.showScreen(getClass().getSimpleName());
+    }
+
+    protected void requires(boolean passesCheck, int... resIds) {
+        if (!passesCheck) {
+            PreferenceScreen preferenceScreen = getPreferenceScreen();
+            for (int resId : resIds) {
+                preferenceScreen.removePreference(findPreference(getString(resId)));
+            }
+        }
     }
 }

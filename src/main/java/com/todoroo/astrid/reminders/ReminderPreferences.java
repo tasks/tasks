@@ -14,33 +14,28 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.preference.PreferenceScreen;
 
-import org.tasks.preferences.PermissionChecker;
-import org.tasks.preferences.PermissionRequestor;
-import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.DeviceInfo;
+import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.PermissionRequestor;
+import org.tasks.scheduling.GeofenceSchedulingIntentService;
+import org.tasks.scheduling.ReminderSchedulerIntentService;
+import org.tasks.time.DateTime;
 import org.tasks.ui.TimePreference;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
-import static com.todoroo.andlib.utility.AndroidUtilities.preJellybean;
 
 public class ReminderPreferences extends InjectingPreferenceActivity {
 
     private static final int REQUEST_QUIET_START = 10001;
     private static final int REQUEST_QUIET_END = 10002;
     private static final int REQUEST_DEFAULT_REMIND = 10003;
-    private static final String EXTRA_RESULT = "extra_result";
-
-    public static String RESET_GEOFENCES = "reset_geofences";
-    public static String TOGGLE_GEOFENCES = "toggle_geofences";
-    public static String RESCHEDULE_ALARMS = "reschedule_alarms";
-    private Bundle result;
 
     @Inject DeviceInfo deviceInfo;
     @Inject PermissionRequestor permissionRequestor;
@@ -52,28 +47,18 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        result = savedInstanceState == null ? new Bundle() : savedInstanceState.getBundle(EXTRA_RESULT);
-
         addPreferencesFromResource(R.xml.preferences_reminders);
 
-        PreferenceScreen preferenceScreen = getPreferenceScreen();
-        if (preJellybean()) {
-            preferenceScreen.removePreference(findPreference(getString(R.string.p_rmd_notif_actions_enabled)));
-            preferenceScreen.removePreference(findPreference(getString(R.string.p_notification_priority)));
-        }
-        if (atLeastMarshmallow()) {
-            setExtraOnChange(R.string.p_doze_notifications, RESCHEDULE_ALARMS);
-        } else {
-            preferenceScreen.removePreference(findPreference(getString(R.string.p_doze_notifications)));
-        }
-
-        if (deviceInfo.supportsLocationServices()) {
-            setExtraOnChange(R.string.p_geofence_radius, RESET_GEOFENCES);
-            setExtraOnChange(R.string.p_geofence_responsiveness, RESET_GEOFENCES);
-            setExtraOnChange(R.string.p_geofence_reminders_enabled, TOGGLE_GEOFENCES);
-        } else {
-            preferenceScreen.removePreference(findPreference(getString(R.string.geolocation_reminders)));
-        }
+        rescheduleNotificationsOnChange(
+                R.string.p_rmd_time,
+                R.string.p_doze_notifications,
+                R.string.p_rmd_enable_quiet,
+                R.string.p_rmd_quietStart,
+                R.string.p_rmd_quietEnd);
+        resetGeofencesOnChange(
+                R.string.p_geofence_radius,
+                R.string.p_geofence_responsiveness,
+                R.string.p_geofence_reminders_enabled);
 
         fieldMissedCalls = (CheckBoxPreference) findPreference(getString(R.string.p_field_missed_calls));
         fieldMissedCalls.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -88,6 +73,34 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         initializeTimePreference(getDefaultRemindTimePreference(), REQUEST_DEFAULT_REMIND);
         initializeTimePreference(getQuietStartPreference(), REQUEST_QUIET_START);
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
+
+        requires(atLeastJellybean(), R.string.p_rmd_notif_actions_enabled, R.string.p_notification_priority);
+        requires(atLeastMarshmallow(), R.string.p_doze_notifications);
+        requires(deviceInfo.supportsLocationServices(), R.string.geolocation_reminders);
+    }
+
+    private void rescheduleNotificationsOnChange(int... resIds) {
+        for (int resId : resIds) {
+            findPreference(getString(resId)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    startService(new Intent(ReminderPreferences.this, ReminderSchedulerIntentService.class));
+                    return true;
+                }
+            });
+        }
+    }
+
+    private void resetGeofencesOnChange(int... resIds) {
+        for (int resId : resIds) {
+            findPreference(getString(resId)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    startService(new Intent(ReminderPreferences.this, GeofenceSchedulingIntentService.class));
+                    return true;
+                }
+            });
+        }
     }
 
     @Override
@@ -102,12 +115,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBundle(EXTRA_RESULT, result);
     }
 
     private void initializeTimePreference(final TimePreference preference, final int requestCode) {
@@ -178,16 +185,5 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
     private TimePreference getTimePreference(int resId) {
         return (TimePreference) findPreference(getString(resId));
-    }
-
-    private void setExtraOnChange(int resId, final String extra) {
-        findPreference(getString(resId)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                result.putBoolean(extra, true);
-                setResult(RESULT_OK, new Intent().putExtras(result));
-                return true;
-            }
-        });
     }
 }

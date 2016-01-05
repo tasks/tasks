@@ -300,10 +300,6 @@ public class AndroidUtilities {
         }
     }
 
-    public static boolean preJellybean() {
-        return !atLeastJellybean();
-    }
-
     public static boolean preLollipop() {
         return !atLeastLollipop();
     }

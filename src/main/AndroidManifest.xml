@@ -475,7 +475,7 @@
         </receiver>
 
         <service
-            android:name=".scheduling.AlarmSchedulingIntentService"
+            android:name=".scheduling.GeofenceSchedulingIntentService"
             android:exported="false" />
         <service
             android:name=".scheduling.BackupIntentService"
