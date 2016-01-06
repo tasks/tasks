@@ -203,7 +203,7 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
             completed.setEnabled(false);
         } else if(tlf instanceof TagViewFragment) {
             menu.findItem(R.id.menu_tag_settings).setVisible(true);
-        } else {
+        } else if (tlf != null) {
             Filter filter = tlf.getFilter();
             if(filter != null && filter instanceof CustomFilter && ((CustomFilter) filter).getId() > 0) {
                 menu.findItem(R.id.menu_filter_settings).setVisible(true);
