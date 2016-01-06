@@ -118,7 +118,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="25dip"
                 android:layout_weight="1"
-                android:background="#00000000"
                 android:gravity="center_vertical|center_horizontal"
                 android:paddingRight="5dip"
                 android:paddingLeft="5dip"
@@ -130,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
-                android:textColor="?attr/asThemeTextColor"
+                android:textColor="@android:color/white"
                 android:textSize="10sp"
                 android:visibility="visible" />
         </LinearLayout>

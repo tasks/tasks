@@ -27,16 +27,19 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class TimerPlugin {
 
+    public static void startTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task) {
+        updateTimer(notificationManager, taskService, context, task, true);
+    }
+
+    public static void stopTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task) {
+        updateTimer(notificationManager, taskService, context, task, false);
+    }
+
     /**
      * toggles timer and updates elapsed time.
      * @param start if true, start timer. else, stop it
      */
-    public static void updateTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task, boolean start) {
-        // if this call comes from tasklist, then we need to fill in the gaps to handle this correctly
-        // this is needed just for stopping a task
-        if (!task.containsNonNullValue(Task.TIMER_START)) {
-            task = taskService.fetchById(task.getId(), Task.ID, Task.TIMER_START, Task.ELAPSED_SECONDS);
-        }
+    private static void updateTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task, boolean start) {
         if (task == null) {
             return;
         }
@@ -46,6 +49,15 @@ public class TimerPlugin {
                 task.setTimerStart(DateUtilities.now());
             }
         } else {
+            // if this call comes from tasklist, then we need to fill in the gaps to handle this correctly
+            // this is needed just for stopping a task
+            if (!task.containsNonNullValue(Task.TIMER_START)) {
+                task = taskService.fetchById(task.getId(), Task.ID, Task.TIMER_START, Task.ELAPSED_SECONDS);
+            }
+            if (task == null) {
+                return;
+            }
+
             if(task.getTimerStart() > 0) {
                 int newElapsed = (int)((DateUtilities.now() - task.getTimerStart()) / 1000L);
                 task.setTimerStart(0L);
@@ -80,7 +92,7 @@ public class TimerPlugin {
                     .setContentTitle(appName)
                     .setContentText(text)
                     .setWhen(currentTimeMillis())
-                    .setSmallIcon(R.drawable.timers_notification)
+                    .setSmallIcon(R.drawable.ic_timer_white_24dp)
                     .setAutoCancel(false)
                     .setOngoing(true)
                     .build();

@@ -37,6 +37,6 @@ public class TimerTaskCompleteListener extends InjectingBroadcastReceiver {
             return;
         }
 
-        TimerPlugin.updateTimer(notificationManager, taskService, context, task, false);
+        TimerPlugin.stopTimer(notificationManager, taskService, context, task);
     }
 }

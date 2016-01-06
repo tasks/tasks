@@ -680,7 +680,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // abandon editing in this case
         if (title.getText().toString().trim().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
             if (isNewTask) {
-                TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
+                TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
                 taskDeleter.delete(model);
                 if (getActivity() instanceof TaskListActivity) {
                     TaskListActivity tla = (TaskListActivity) getActivity();
@@ -698,7 +698,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), model, false);
+                        TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
                         taskDeleter.delete(model);
                         shouldSaveState = false;
 

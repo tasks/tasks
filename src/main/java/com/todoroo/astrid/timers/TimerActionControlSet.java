@@ -6,7 +6,9 @@
 package com.todoroo.astrid.timers;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,14 +44,14 @@ public class TimerActionControlSet extends TaskEditControlSetBase {
             @Override
             public void onClick(View v) {
                 if (timerActive) {
-                    TimerPlugin.updateTimer(notificationManager, taskService, activity, model, false);
+                    TimerPlugin.stopTimer(notificationManager, taskService, activity, model);
 
                     for (TimerActionListener listener : listeners) {
                         listener.timerStopped(model);
                     }
                     chronometer.stop();
                 } else {
-                    TimerPlugin.updateTimer(notificationManager, taskService, activity, model, true);
+                    TimerPlugin.startTimer(notificationManager, taskService, activity, model);
                     for (TimerActionListener listener : listeners) {
                         listener.timerStarted(model);
                     }
@@ -81,14 +83,10 @@ public class TimerActionControlSet extends TaskEditControlSetBase {
     }
 
     private void updateDisplay() {
-        final int drawable;
-        if(timerActive) {
-            drawable = R.drawable.icn_timer_stop;
-        } else {
-            drawable = R.drawable.icn_edit_timer;
-        }
-        timerButton.setImageResource(drawable);
-
+        int drawableRes = timerActive ? R.drawable.ic_pause_24dp : R.drawable.ic_play_arrow_24dp;
+        final Drawable drawable = DrawableCompat.wrap(activity.getResources().getDrawable(drawableRes));
+        DrawableCompat.setTint(drawable, activity.getResources().getColor(android.R.color.white));
+        timerButton.setImageDrawable(drawable);
 
         long elapsed = model.getElapsedSeconds() * 1000L;
         if (timerActive) {

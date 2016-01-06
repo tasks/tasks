@@ -795,7 +795,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 }
             }
         }
-        TimerPlugin.updateTimer(notificationManager, taskService, context, task, false);
+        TimerPlugin.stopTimer(notificationManager, taskService, context, task);
     }
 
     public void refreshFilterCount() {
@@ -853,7 +853,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             itemId = item.getGroupId();
             Task task = new Task();
             task.setId(itemId);
-            TimerPlugin.updateTimer(notificationManager, taskService, getActivity(), task, false);
+            TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), task);
             taskDeleter.purge(itemId);
             loadTaskListContent();
             return true;
