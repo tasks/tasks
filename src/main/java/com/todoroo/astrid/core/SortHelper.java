@@ -84,7 +84,7 @@ public class SortHelper {
             order = Order.desc(Task.MODIFICATION_DATE);
             break;
         case SORT_WIDGET:
-            order = defaultWidgetTaskOrder();
+            order = defaultTaskOrder();
             break;
         default:
             order = defaultTaskOrder();
@@ -100,13 +100,6 @@ public class SortHelper {
      * Returns SQL task ordering that is astrid's default algorithm
      */
     public static Order defaultTaskOrder() {
-        return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                Functions.now() + "*2",
-                adjustedDueDateFunction()) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
-                Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
-    }
-
-    public static Order defaultWidgetTaskOrder() {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                 Functions.now() + "*2",
                 adjustedDueDateFunction()) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
