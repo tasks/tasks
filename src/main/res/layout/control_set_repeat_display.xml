@@ -11,5 +11,5 @@
     android:gravity="start"
     android:textColor="?attr/asThemeTextColor"
     android:textSize="@dimen/task_edit_text_size"
-    android:paddingRight="@dimen/task_edit_padding_right"
-    android:paddingEnd="@dimen/task_edit_padding_right" />
+    android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
+    android:paddingEnd="@dimen/task_edit_drawable_padding_left_right" />

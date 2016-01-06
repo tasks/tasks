@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.os.Build;
 import android.text.TextUtils;
@@ -15,7 +16,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
@@ -28,12 +28,17 @@ import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.WidgetCheckBoxes;
+
+import java.util.List;
 
 import timber.log.Timber;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
+    private final WidgetCheckBoxes checkBoxes;
     private final Database database;
     private final TaskService taskService;
     private final SubtasksHelper subtasksHelper;
@@ -64,6 +69,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.database = database;
         this.taskService = taskService;
 
+        checkBoxes = new WidgetCheckBoxes(context);
         dueDateFormatter = new DueDateFormatter(context);
         dark = preferences.useDarkWidgetTheme(widgetId);
         showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
@@ -117,20 +123,14 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         return true;
     }
 
-    private int getCheckbox(Task task) {
-        boolean completed = task.isCompleted();
-
-        int value = task.getImportance();
-        if (value >= TaskAdapter.IMPORTANCE_RESOURCES.length) {
-            value = TaskAdapter.IMPORTANCE_RESOURCES.length - 1;
-        }
-        int[] boxes;
-        if (!TextUtils.isEmpty(task.getRecurrence())) {
-            boxes = completed ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES;
+    private Bitmap getCheckbox(Task task) {
+        if (task.isCompleted()) {
+            return checkBoxes.getCompletedCheckbox(task.getImportance());
+        } else if (TextUtils.isEmpty(task.getRecurrence())) {
+            return checkBoxes.getCheckBox(task.getImportance());
         } else {
-            boxes = completed ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES;
+            return checkBoxes.getRepeatingCheckBox(task.getImportance());
         }
-        return boxes[value];
     }
 
     public RemoteViews buildUpdate(int position) {
@@ -163,7 +163,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
             row.setTextViewText(R.id.text, textContent);
             row.setTextColor(R.id.text, textColor);
-            row.setImageViewResource(R.id.completeBox, getCheckbox(task));
+            row.setImageViewBitmap(R.id.completeBox, getCheckbox(task));
 
             Intent editIntent = new Intent();
             editIntent.setAction(TasksWidget.EDIT_TASK);

@@ -9,8 +9,8 @@
     android:gravity="center_vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingRight="@dimen/task_edit_padding_right"
-    android:paddingEnd="@dimen/task_edit_padding_right">
+    android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
+    android:paddingEnd="@dimen/task_edit_drawable_padding_left_right">
 
     <TextView
         android:id="@+id/display_row_edit"

@@ -9,8 +9,10 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/task_edit_title_padding_top_bottom"
     android:paddingBottom="@dimen/task_edit_title_padding_top_bottom"
-    android:paddingLeft="@dimen/task_edit_padding_left"
-    android:paddingRight="@dimen/task_edit_padding_right"
+    android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"
+    android:paddingStart="@dimen/task_edit_drawable_padding_left_right"
+    android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
+    android:paddingEnd="@dimen/task_edit_drawable_padding_left_right"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
 

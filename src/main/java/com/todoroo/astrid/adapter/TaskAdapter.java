@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -20,8 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -51,6 +48,7 @@ import com.todoroo.astrid.ui.CheckableImageView;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.ui.CheckBoxes;
 
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
@@ -95,41 +93,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         FILE_ID_PROPERTY // File id
     };
 
-    public static final int[] IMPORTANCE_RESOURCES = new int[] {
-        R.drawable.check_box_1,
-        R.drawable.check_box_2,
-        R.drawable.check_box_3,
-        R.drawable.check_box_4,
-    };
-
-    public static final int[] IMPORTANCE_RESOURCES_CHECKED = new int[] {
-        R.drawable.check_box_checked_1,
-        R.drawable.check_box_checked_2,
-        R.drawable.check_box_checked_3,
-        R.drawable.check_box_checked_4,
-    };
-
-    public static final int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
-        R.drawable.check_box_repeat_1,
-        R.drawable.check_box_repeat_2,
-        R.drawable.check_box_repeat_3,
-        R.drawable.check_box_repeat_4,
-    };
-
-    public static final int[] IMPORTANCE_REPEAT_RESOURCES_CHECKED = new int[] {
-        R.drawable.check_box_repeat_checked_1,
-        R.drawable.check_box_repeat_checked_2,
-        R.drawable.check_box_repeat_checked_3,
-        R.drawable.check_box_repeat_checked_4,
-    };
-
-    public static final Drawable[] IMPORTANCE_DRAWABLES = new Drawable[IMPORTANCE_RESOURCES.length];
-    public static final Drawable[] IMPORTANCE_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_RESOURCES_CHECKED.length];
-    public static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES = new Drawable[IMPORTANCE_REPEAT_RESOURCES.length];
-    public static final Drawable[] IMPORTANCE_REPEAT_DRAWABLES_CHECKED = new Drawable[IMPORTANCE_REPEAT_RESOURCES_CHECKED.length];
-
     // --- instance variables
 
+    private final CheckBoxes checkBoxes;
     private final ActivityPreferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
@@ -141,7 +107,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     protected final LayoutInflater inflater;
     private int fontSize;
-    private final ScaleAnimation scaleAnimation;
 
     private final AtomicReference<String> query;
 
@@ -155,6 +120,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
                        DialogBuilder dialogBuilder) {
         super(context, c, false);
+        this.checkBoxes = new CheckBoxes(context);
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
@@ -173,21 +139,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         this.minRowHeight = computeMinRowHeight();
-
-        scaleAnimation = new ScaleAnimation(1.4f, 1.0f, 1.4f, 1.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimation.setDuration(100);
-
-        preloadDrawables(IMPORTANCE_RESOURCES, IMPORTANCE_DRAWABLES);
-        preloadDrawables(IMPORTANCE_RESOURCES_CHECKED, IMPORTANCE_DRAWABLES_CHECKED);
-        preloadDrawables(IMPORTANCE_REPEAT_RESOURCES, IMPORTANCE_REPEAT_DRAWABLES);
-        preloadDrawables(IMPORTANCE_REPEAT_RESOURCES_CHECKED, IMPORTANCE_REPEAT_DRAWABLES_CHECKED);
-    }
-
-    private void preloadDrawables(int[] resourceIds, Drawable[] drawables) {
-        for (int i = 0; i < resourceIds.length; i++) {
-            drawables[i] = resources.getDrawable(resourceIds[i]);
-        }
     }
 
     protected int computeMinRowHeight() {
@@ -483,7 +434,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             int[] location = new int[2];
             v.getLocationOnScreen(location);
             ViewHolder viewHolder = getTagFromCheckBox(v);
@@ -499,9 +449,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             // set check box to actual action item state
             setTaskAppearance(viewHolder, task);
-            if (viewHolder.completeBox.getVisibility() == View.VISIBLE) {
-                viewHolder.completeBox.startAnimation(scaleAnimation);
-            }
         }
     };
 
@@ -554,27 +501,20 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void setupCompleteBox(ViewHolder viewHolder) {
-     // complete box
+        // complete box
         final Task task = viewHolder.task;
-        final CheckableImageView checkBoxView = viewHolder.completeBox; {
-            boolean completed = task.isCompleted();
-            checkBoxView.setChecked(completed);
-            checkBoxView.setEnabled(true);
+        final CheckableImageView checkBoxView = viewHolder.completeBox;
+        boolean completed = task.isCompleted();
+        checkBoxView.setChecked(completed);
 
-            int value = task.getImportance();
-            if (value >= IMPORTANCE_RESOURCES.length) {
-                value = IMPORTANCE_RESOURCES.length - 1;
-            }
-            Drawable[] boxes;
-            if (!TextUtils.isEmpty(task.getRecurrence())) {
-                boxes = completed ? IMPORTANCE_REPEAT_DRAWABLES_CHECKED : IMPORTANCE_REPEAT_DRAWABLES;
-            } else {
-                boxes = completed ? IMPORTANCE_DRAWABLES_CHECKED : IMPORTANCE_DRAWABLES;
-            }
-            checkBoxView.setImageDrawable(boxes[value]);
-
-            checkBoxView.setVisibility(View.VISIBLE);
+        if (completed) {
+            checkBoxView.setImageDrawable(checkBoxes.getCompletedCheckbox(task.getImportance()));
+        } else if (TextUtils.isEmpty(task.getRecurrence())) {
+            checkBoxView.setImageDrawable(checkBoxes.getCheckBox(task.getImportance()));
+        } else {
+            checkBoxView.setImageDrawable(checkBoxes.getRepeatingCheckBox(task.getImportance()));
         }
+        checkBoxView.invalidate();
     }
 
     // Returns due date text width

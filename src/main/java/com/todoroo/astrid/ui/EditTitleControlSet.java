@@ -12,19 +12,18 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet.RepeatChangedListener;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.ImportanceControlSet.ImportanceChangedListener;
+
+import org.tasks.ui.CheckBoxes;
 
 /**
  * Control set for mapping a Property to an EditText
@@ -36,12 +35,14 @@ public class EditTitleControlSet implements TaskEditControlSet, ImportanceChange
     private final EditText editText;
     private CheckableImageView completeBox;
 
+    private final CheckBoxes checkBoxes;
     private boolean isRepeating;
     private int importanceValue;
     private Task model;
     private final TaskService taskService;
 
     public EditTitleControlSet(TaskService taskService, final Activity activity, final EditText editText, CheckableImageView completeBox) {
+        this.checkBoxes = new CheckBoxes(activity);
         this.editText = editText;
         this.completeBox = completeBox;
         this.taskService = taskService;
@@ -81,11 +82,7 @@ public class EditTitleControlSet implements TaskEditControlSet, ImportanceChange
         completeBox.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScaleAnimation scaleAnimation = new ScaleAnimation(1.5f, 1.0f, 1.5f, 1.0f,
-                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                scaleAnimation.setDuration(100);
                 // set check box to actual action item state
-                completeBox.startAnimation(scaleAnimation);
                 updateCompleteBox();
             }
         });
@@ -114,18 +111,13 @@ public class EditTitleControlSet implements TaskEditControlSet, ImportanceChange
 
     private void updateCompleteBox() {
         boolean checked = completeBox.isChecked();
-        int[] resourceArray = isRepeating ? (checked ? TaskAdapter.IMPORTANCE_REPEAT_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_REPEAT_RESOURCES)
-                                          : (checked ? TaskAdapter.IMPORTANCE_RESOURCES_CHECKED : TaskAdapter.IMPORTANCE_RESOURCES);
-        int valueToUse = importanceValue;
-        if (valueToUse >= resourceArray.length) {
-            valueToUse = resourceArray.length - 1;
-        }
-        if(valueToUse < resourceArray.length) {
-            if (isRepeating) {
-                completeBox.setImageResource(resourceArray[valueToUse]);
-            } else {
-                completeBox.setImageResource(resourceArray[valueToUse]);
-            }
+
+        if (checked) {
+            completeBox.setImageDrawable(checkBoxes.getCompletedCheckbox(importanceValue));
+        } else if (isRepeating) {
+            completeBox.setImageDrawable(checkBoxes.getRepeatingCheckBox(importanceValue));
+        } else {
+            completeBox.setImageDrawable(checkBoxes.getCheckBox(importanceValue));
         }
 
         if (checked) {
