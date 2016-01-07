@@ -194,6 +194,7 @@ public class RepeatControlSet extends PopupControlSet {
             }
         }
         doRepeat = recurrence.length() > 0;
+        getDialogView();
         refreshDisplayView();
     }
 
@@ -277,7 +278,6 @@ public class RepeatControlSet extends PopupControlSet {
             public void onClick(View v) {
                 doRepeat = false;
                 refreshDisplayView();
-                dialog.dismiss();
 
                 for (RepeatChangedListener l : listeners) {
                     l.repeatChanged(doRepeat);
