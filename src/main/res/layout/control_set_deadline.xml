@@ -27,22 +27,6 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/clear_due_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:alpha="@dimen/drawer_icon_alpha"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:contentDescription="@android:string/cancel"
-        android:paddingEnd="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingStart="10dp"
-        android:src="@drawable/ic_cancel_24dp"
-        android:tint="?attr/icon_tint"
-        android:visibility="gone" />
+    <include layout="@layout/control_set_clear_button" />
 
 </LinearLayout>

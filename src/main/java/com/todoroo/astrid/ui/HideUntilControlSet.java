@@ -180,7 +180,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
     @Override
     protected void afterInflate() {
         textDisplay = (TextView) getView().findViewById(R.id.display_row_edit);
-        clearButton = (ImageView) getView().findViewById(R.id.clear_hide_date);
+        clearButton = (ImageView) getView().findViewById(R.id.clear);
         clearButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

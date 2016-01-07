@@ -18,19 +18,6 @@
         android:layout_weight="100"
         android:textColor="?attr/asTextColor" />
 
-    <ImageView
-        android:id="@+id/remove_file"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:alpha="@dimen/drawer_icon_alpha"
-        android:paddingEnd="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingStart="10dp"
-        android:src="@drawable/ic_cancel_24dp"
-        android:tint="?attr/icon_tint" />
+    <include layout="@layout/control_set_clear_button" />
+
 </LinearLayout>

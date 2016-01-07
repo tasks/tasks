@@ -149,7 +149,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         alertItem.setTag(timestamp);
         TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
         display.setText(text);
-        alertItem.findViewById(R.id.button1).setOnClickListener(new OnClickListener() {
+        alertItem.findViewById(R.id.clear).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertContainer.removeView(alertItem);

@@ -25,21 +25,6 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/clear_calendar"
-        android:src="@drawable/ic_cancel_24dp"
-        android:tint="?attr/icon_tint"
-        android:layout_gravity="center"
-        android:contentDescription="@android:string/cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:alpha="@dimen/drawer_icon_alpha"
-        android:paddingStart="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingEnd="10dp" />
+    <include layout="@layout/control_set_clear_button" />
 
 </LinearLayout>

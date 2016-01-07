@@ -80,7 +80,7 @@ public class FilesControlSet extends TaskEditControlSetBase {
                 showFile(taskAttachment);
             }
         });
-        View clearFile = fileRow.findViewById(R.id.remove_file);
+        View clearFile = fileRow.findViewById(R.id.clear);
         clearFile.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

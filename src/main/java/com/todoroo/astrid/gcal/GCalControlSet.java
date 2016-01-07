@@ -67,7 +67,7 @@ public class GCalControlSet extends TaskEditControlSetBase implements CalendarSe
     protected void afterInflate() {
         View view = getView();
         calendar = (TextView) view.findViewById(R.id.calendar_display_which);
-        cancelButton = (ImageView) view.findViewById(R.id.clear_calendar);
+        cancelButton = (ImageView) view.findViewById(R.id.clear);
         calendar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

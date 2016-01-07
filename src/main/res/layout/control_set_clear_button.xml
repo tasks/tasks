@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clear"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:alpha="@dimen/drawer_icon_alpha"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:paddingEnd="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingStart="10dp"
+    android:src="@drawable/ic_cancel_24dp"
+    android:tint="?attr/icon_tint" />

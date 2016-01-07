@@ -161,7 +161,7 @@ public class DeadlineControlSet extends TaskEditControlSetBase {
     @Override
     protected void afterInflate() {
         View view = getView();
-        clearButton = view.findViewById(R.id.clear_due_date);
+        clearButton = view.findViewById(R.id.clear);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
