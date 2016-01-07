@@ -8,6 +8,8 @@ package com.todoroo.andlib.utility;
 import android.content.Context;
 import android.text.format.DateFormat;
 
+import com.todoroo.astrid.data.Task;
+
 import org.tasks.R;
 import org.tasks.time.DateTime;
 
@@ -157,6 +159,15 @@ public class DateUtilities {
     public static String getDateStringWithTime(Context context, long timestamp) {
         DateTime date = newDateTime(timestamp);
         return getDateString(date) + ", " + getTimeString(context, date);
+    }
+
+    public static String getRelativeDateStringWithTime(Context context, long timestamp) {
+        String string = DateUtilities.getRelativeDay(context, timestamp, false);
+        if (Task.hasDueTime(timestamp)) {
+            string = String.format("%s %s", string, //$NON-NLS-1$
+                    DateUtilities.getTimeString(context, timestamp));
+        }
+        return string;
     }
 
     /**

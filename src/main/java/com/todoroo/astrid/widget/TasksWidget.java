@@ -5,12 +5,10 @@
  */
 package com.todoroo.astrid.widget;
 
-import android.annotation.TargetApi;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -85,7 +83,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         updateScrollableWidgets(context, null);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static void updateScrollableWidgets(Context context, int[] widgetIds) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         if (widgetIds == null) {

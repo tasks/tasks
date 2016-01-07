@@ -50,7 +50,6 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.CheckBoxes;
 
-import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
@@ -400,28 +399,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     /* ======================================================================
-     * ============================================================== details
-     * ====================================================================== */
-
-    private final HashMap<Long, String> dateCache = new HashMap<>(8);
-
-    private String formatDate(long date) {
-        if(dateCache.containsKey(date)) {
-            return dateCache.get(date);
-        }
-
-        String formatString = "%s %s";
-        String string = DateUtilities.getRelativeDay(fragment.getActivity(), date, true);
-        if(Task.hasDueTime(date)) {
-            string = String.format(formatString, string, //$NON-NLS-1$
-                    DateUtilities.getTimeString(fragment.getActivity(), date));
-        }
-
-        dateCache.put(date, string);
-        return string;
-    }
-
-    /* ======================================================================
      * ======================================================= event handlers
      * ====================================================================== */
 
@@ -530,11 +507,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     } else {
                         dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate);
                     }
-                    String dateValue = formatDate(dueDate);
+                    String dateValue = DateUtilities.getRelativeDateStringWithTime(context, dueDate);
                     dueDateView.setText(dateValue);
                     dueDateView.setVisibility(View.VISIBLE);
                 } else if(task.isCompleted()) {
-                    String dateValue = formatDate(task.getCompletionDate());
+                    String dateValue = DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate());
                     dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Completed);
                     dueDateView.setVisibility(View.VISIBLE);

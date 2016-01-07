@@ -13,6 +13,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -28,10 +29,7 @@ import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.WidgetCheckBoxes;
-
-import java.util.List;
 
 import timber.log.Timber;
 
@@ -49,7 +47,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private final boolean dark;
     private final boolean showDueDates;
     private final boolean hideCheckboxes;
-    private final DueDateFormatter dueDateFormatter;
 
     private TodorooCursor<Task> cursor;
 
@@ -70,7 +67,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.taskService = taskService;
 
         checkBoxes = new WidgetCheckBoxes(context);
-        dueDateFormatter = new DueDateFormatter(context);
         dark = preferences.useDarkWidgetTheme(widgetId);
         showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
         hideCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + widgetId, false);
@@ -156,7 +152,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             }
 
             if (showDueDates) {
-                dueDateFormatter.formatDueDate(row, task, textColor);
+                formatDueDate(row, task, textColor);
             } else if (task.hasDueDate() && task.isOverdue()) {
                 textColor = r.getColor(R.color.overdue);
             }
@@ -215,5 +211,18 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
 
         return subtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, 0);
+    }
+
+    public void formatDueDate(RemoteViews row, Task task, int textColor) {
+        if (task.hasDueDate()) {
+            Resources resources = context.getResources();
+            row.setViewVisibility(R.id.dueDate, View.VISIBLE);
+            row.setTextViewText(R.id.dueDate, task.isCompleted()
+                    ? resources.getString(R.string.TAd_completed, DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate()))
+                    : DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
+            row.setTextColor(R.id.dueDate, task.isOverdue() ? resources.getColor(R.color.overdue) : textColor);
+        } else {
+            row.setViewVisibility(R.id.dueDate, View.GONE);
+        }
     }
 }
