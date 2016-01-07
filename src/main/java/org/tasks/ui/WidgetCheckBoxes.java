@@ -12,7 +12,6 @@ import org.tasks.injection.ForApplication;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import timber.log.Timber;
@@ -53,7 +52,6 @@ public class WidgetCheckBoxes {
 
     private static List<Bitmap> convertToBitmap(final List<Drawable> drawables) {
         return newArrayList(transform(drawables, new Function<Drawable, Bitmap>() {
-            @Nullable
             @Override
             public Bitmap apply(Drawable drawable) {
                 if (drawable instanceof BitmapDrawable) {
