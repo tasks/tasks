@@ -155,12 +155,6 @@
 	<string name="EPr_default_reminders_title">標準リマインダー</string>
 	<string name="EPr_default_addtocalendar_title">デフォルトでカレンダーに登録</string>
 	<string name="EPr_default_reminders_mode_title">標準の通知音、振動種類</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (最高)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (最低)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>期限なし</item>
 		<item>今日</item>

@@ -113,12 +113,6 @@
 	<string name="EPr_default_reminders_title">Öntanımlı Hatırlatmalar</string>
 	<string name="EPr_default_addtocalendar_title">Öntanımlı olarak Takvime Ekle</string>
 	<string name="EPr_default_reminders_mode_title">Varsayılan Zil/Titreşim tipi</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (En yüksek)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (En Düşük)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Son tarih yok</item>
 		<item>Bugün</item>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/display_row_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
+        android:text="@string/TEA_importance_label"
+        android:textColor="?attr/asTextColor"
+        android:textSize="@dimen/task_edit_text_size" />
+
+    <RadioGroup
+        android:id="@+id/importance_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingStart="@dimen/task_edit_drawable_padding_left_right">
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/importance_3"
+            style="@style/priority_button"
+            android:tag="3" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/importance_2"
+            style="@style/priority_button"
+            android:tag="2" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/importance_1"
+            style="@style/priority_button"
+            android:tag="1" />
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/importance_0"
+            style="@style/priority_button"
+            android:tag="0" />
+    </RadioGroup>
+
+</LinearLayout>

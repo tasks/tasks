@@ -62,7 +62,6 @@ import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.ui.DescriptionControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
-import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.utility.Flags;
@@ -81,6 +80,7 @@ import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.MenuColorizer;
+import org.tasks.ui.PriorityControlSet;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -366,7 +366,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(deadlineControl);
         controls.add(gcalControl);
 
-        ImportanceControlSet importanceControl = new ImportanceControlSet(getActivity());
+        PriorityControlSet importanceControl = new PriorityControlSet(getActivity());
         controls.add(importanceControl);
         importanceControl.addListener(editTitle);
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),

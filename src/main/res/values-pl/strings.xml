@@ -137,12 +137,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
 	<string name="EPr_default_addtocalendar_title">Domyślnie dodawaj do kalendarza</string>
 	<string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Najwyższy)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Najniższy)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Bez nieprzekraczalnego terminu</item>
 		<item>Dzisiaj</item>

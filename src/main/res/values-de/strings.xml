@@ -143,12 +143,6 @@
 	<string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
 	<string name="EPr_default_addtocalendar_title">Standardmäßig in Kalender eintragen</string>
 	<string name="EPr_default_reminders_mode_title">Standard-Alarm/Vibrationssignal</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Höchste)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Niedrigste)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Keine Fälligkeit</item>
 		<item>Heute</item>

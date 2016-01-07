@@ -134,12 +134,6 @@
 	<string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
 	<string name="EPr_default_addtocalendar_title">הוספה ליומן כברירת מחדל</string>
 	<string name="EPr_default_reminders_mode_title">ברירת מחדל לסוג צלצול/רטט</string>
-	<string-array name="EPr_default_importance">
-		<item>!!!</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (נמוכה ביותר)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>ללא מועד סף</item>
 		<item>היום</item>

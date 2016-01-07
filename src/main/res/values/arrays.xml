@@ -55,4 +55,11 @@
         <item>@string/week_before_due</item>
     </string-array>
 
+    <string-array name="EPr_default_importance">
+        <item>@string/priority_high</item>
+        <item>@string/priority_medium</item>
+        <item>@string/priority_low</item>
+        <item>@string/none</item>
+    </string-array>
+
 </resources>

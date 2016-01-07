@@ -132,12 +132,6 @@
 	<string name="EPr_default_reminders_title">Výchozí připomenutí</string>
 	<string name="EPr_default_addtocalendar_title">Výchozí přidání do kalendáře</string>
 	<string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vybrace</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Nejvyšší)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Nejnižší)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Žádný termín</item>
 		<item>Dnes</item>

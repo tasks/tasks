@@ -24,7 +24,6 @@
     <attr name="asEditTextBackground" format="reference" />
     <attr name="asAbBackgroundColor" format="color" />
     <attr name="fab_tint" format="color"/>
-    <attr name="importance_background_selected" format="reference" />
     <attr name="icon_tint" format="color"/>
     <attr name="toolbarSeparatorHeight" format="dimension" />
     <attr name="separatorHeight" format="dimension" />

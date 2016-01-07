@@ -153,12 +153,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="EPr_default_reminders_title">Promemoria predefiniti</string>
 	<string name="EPr_default_addtocalendar_title">Aggiungi automaticamente al calendario</string>
 	<string name="EPr_default_reminders_mode_title">Tipo di squillo/vibrazione predefinito</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Massima)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Minima)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Nessun Termine</item>
 		<item>Oggi</item>

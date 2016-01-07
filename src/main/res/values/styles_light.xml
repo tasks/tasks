@@ -36,7 +36,6 @@
         <item name="asAbBackgroundColor">#607d8b</item>
         <item name="icon_tint">@android:color/black</item>
         <item name="fab_tint">@android:color/white</item>
-        <item name="importance_background_selected">@drawable/importance_background_selected</item>
         <item name="task_edit_divider">@color/task_edit_divider</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
     </style>

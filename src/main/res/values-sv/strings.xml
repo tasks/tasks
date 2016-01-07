@@ -131,12 +131,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="EPr_default_reminders_title">Standardpåminnelser</string>
 	<string name="EPr_default_addtocalendar_title">Standardkalender för att lägga till händelser</string>
 	<string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Högst)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Lägst)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Ingen frist</item>
 		<item>Idag</item>

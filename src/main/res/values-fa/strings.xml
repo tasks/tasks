@@ -96,11 +96,6 @@
       your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="task_defaults">پیش فرض های وظیفه</string>
 	<string name="EPr_default_urgency_title">موعود پیش فرض</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (بالاترین)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Lowest)</item>	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>بدون موعود</item>
 		<item>امروز</item>

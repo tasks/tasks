@@ -146,12 +146,6 @@
 	<string name="EPr_default_reminders_title">Predvolené pripomienky</string>
 	<string name="EPr_default_addtocalendar_title">Predvoliť pridanie do kalendára</string>
 	<string name="EPr_default_reminders_mode_title">Východzie vyzváňanie/vybrovanie</string>
-	<string-array name="EPr_default_importance">
-		<item>!!!(Najvyššie)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Najnižšie)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Žiaden termín</item>
 		<item>Dnes</item>

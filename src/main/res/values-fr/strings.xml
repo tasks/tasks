@@ -150,12 +150,6 @@
 	<string name="EPr_default_reminders_title">Rappels par défaut</string>
 	<string name="EPr_default_addtocalendar_title">Ajout au calendrier par défaut</string>
 	<string name="EPr_default_reminders_mode_title">Type de sonnerie/vibration par défaut</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (la plus haute)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (la plus basse)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Aucune échéance</item>
 		<item>Aujourd\'hui</item>

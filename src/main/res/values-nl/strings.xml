@@ -152,12 +152,6 @@
 	<string name="EPr_default_reminders_title">Standaard herinneringen</string>
 	<string name="EPr_default_addtocalendar_title">Standaard Toevoegen aan Agenda</string>
 	<string name="EPr_default_reminders_mode_title">Standaard toon/tril type</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Hoogste)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Laagste)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Geen einddatum</item>
 		<item>Vandaag</item>

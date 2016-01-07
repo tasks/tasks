@@ -155,9 +155,7 @@ public class Task extends RemoteModel {
                 r.getColor(R.color.importance_1),
                 r.getColor(R.color.importance_2),
                 r.getColor(R.color.importance_3),
-                r.getColor(R.color.importance_4),
-                r.getColor(R.color.importance_5),
-                r.getColor(R.color.importance_6),
+                r.getColor(R.color.importance_4)
         };
     }
 

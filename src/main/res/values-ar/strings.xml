@@ -87,11 +87,6 @@
 	<string name="EPr_default_reminders_title">منبهات افتراضية</string>
 	<string name="EPr_default_addtocalendar_title">أضف إلى التقويم بشكل افتراضي</string>
 	<string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (الأعلى)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Lowest)</item>	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>اليوم</item>

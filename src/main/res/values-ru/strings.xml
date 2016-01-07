@@ -155,12 +155,6 @@
 	<string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
 	<string name="EPr_default_addtocalendar_title">Добавлять в календарь по умолчанию</string>
 	<string name="EPr_default_reminders_mode_title">Тип звонка/вибрации по умолчанию</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Высшая)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Низший)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Без срока выполнения</item>
 		<item>Сегодня</item>

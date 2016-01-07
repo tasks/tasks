@@ -151,12 +151,6 @@
 	<string name="EPr_default_reminders_title">Recordatorios por defecto</string>
 	<string name="EPr_default_addtocalendar_title">Por defecto, agregar al calendario</string>
 	<string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (máximo)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Mínimo)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Sin vencimiento</item>
 		<item>Hoy</item>

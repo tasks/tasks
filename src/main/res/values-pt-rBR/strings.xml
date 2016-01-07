@@ -134,12 +134,6 @@
 	<string name="EPr_default_reminders_title">Lembretes</string>
 	<string name="EPr_default_addtocalendar_title">Padrão de Inserir no Calendário</string>
 	<string name="EPr_default_reminders_mode_title">Tipo de toque/vibração padrão</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Máxima)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (baixa)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Sem prazo</item>
 		<item>Hoje</item>

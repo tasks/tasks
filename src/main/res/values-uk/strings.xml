@@ -150,12 +150,6 @@
 	<string name="EPr_default_reminders_title">Нагадування по замовчуванню</string>
 	<string name="EPr_default_addtocalendar_title">Додавати в календар по замовчуванню</string>
 	<string name="EPr_default_reminders_mode_title">Тип дзвінка/вібрація по замовчуванню</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (найвищий)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (найменший)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Немає дедлайну</item>
 		<item>Сьогодні</item>

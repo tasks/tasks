@@ -157,12 +157,6 @@
 	<string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
 	<string name="EPr_default_addtocalendar_title">Добави към календара по подразбиране</string>
 	<string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Най-висок)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Най-нисък)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Без краен срок</item>
 		<item>Днес</item>

@@ -121,12 +121,6 @@
 	<string name="EPr_default_reminders_title">預設提醒</string>
 	<string name="EPr_default_addtocalendar_title">默認添加到日曆</string>
 	<string name="EPr_default_reminders_mode_title">默認鈴聲／振動類型</string>
-	<string-array name="EPr_default_importance">
-		<item>!!!（最高級別）</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o（最低級別）</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>無截止日</item>
 		<item>今天</item>

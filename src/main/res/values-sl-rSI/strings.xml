@@ -138,12 +138,6 @@
 	<string name="EPr_default_reminders_title">Privzeti opomniki</string>
 	<string name="EPr_default_addtocalendar_title">Privzeto dodati na koledar</string>
 	<string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Najvišja)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>o (Najnižja)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Brez dospelosti</item>
 		<item>Danes</item>

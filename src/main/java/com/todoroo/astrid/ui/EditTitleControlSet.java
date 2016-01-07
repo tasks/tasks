@@ -21,9 +21,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet.RepeatChangedListener;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.ui.ImportanceControlSet.ImportanceChangedListener;
 
 import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.PriorityControlSet.ImportanceChangedListener;
 
 /**
  * Control set for mapping a Property to an EditText

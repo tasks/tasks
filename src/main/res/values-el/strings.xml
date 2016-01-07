@@ -138,12 +138,6 @@
 	<string name="EPr_default_reminders_title">Προκαθορισμένες υπενθυμίσεις</string>
 	<string name="EPr_default_addtocalendar_title">Προκαθορισμένη προσθήκη σε ημερολόγιο</string>
 	<string name="EPr_default_reminders_mode_title">Προκαθορισμένος ήχος/τύπος δόνησης</string>
-	<string-array name="EPr_default_importance">
-		<item>!!! (Υψηλότερο)</item>
-		<item>!!</item>
-		<item>!</item>
-		<item>0 (χαμηλότερο)</item>
-	</string-array>
 	<string-array name="EPr_default_urgency">
 		<item>Χωρίς προθεσμία</item>
 		<item>Σήμερα</item>

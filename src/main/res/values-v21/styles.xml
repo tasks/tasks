@@ -4,4 +4,7 @@
     <style name="edit_text_style">
     </style>
 
+    <style name="priority_button" parent="priority_button_base">
+    </style>
+
 </resources>
