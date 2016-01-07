@@ -250,7 +250,6 @@
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetición</string>
 	<string name="repeat_never">Sin repetir</string>
-	<string name="repeat_dont">No repetir</string>
 	<string-array name="repeat_interval">
 		<item>Día(s)</item>
 		<item>Semana(s)</item>

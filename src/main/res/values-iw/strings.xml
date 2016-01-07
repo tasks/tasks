@@ -227,7 +227,6 @@
 	<string name="repeat_enabled">חזרה</string>
 	<string name="repeat_every">כל %d</string>
 	<string name="repeat_interval_prompt">אינטרוול חזרות</string>
-	<string name="repeat_dont">ללא חזרות</string>
 	<string-array name="repeat_interval">
 		<item>יום/ימים</item>
 		<item>שבוע/(ות)</item>

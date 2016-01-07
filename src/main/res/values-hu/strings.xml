@@ -105,7 +105,6 @@
 	<string name="repeat_every">Minden %d</string>
 	<string name="repeat_interval_prompt">Ismétlési időköz</string>
 	<string name="repeat_never">Nem ismétlődő</string>
-	<string name="repeat_dont">Ne legyen ismétlés</string>
 	<string name="repeat_detail_duedate">Minden %s</string>
 	<string name="repeat_detail_duedate_until">Minden %1$s\neddig: %2$s</string>
 	<string name="repeat_forever">Ismétlés örökké</string>

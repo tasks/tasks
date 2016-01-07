@@ -251,7 +251,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetição</string>
 	<string name="repeat_never">Não repete</string>
-	<string name="repeat_dont">Não repete</string>
 	<string-array name="repeat_interval">
 		<item>Dia(s)</item>
 		<item>Semana(s)</item>

@@ -240,7 +240,6 @@
 	<string name="repeat_every">Jeden %d</string>
 	<string name="repeat_interval_prompt">Wiederholungsintervall</string>
 	<string name="repeat_never">Nicht wiederholen</string>
-	<string name="repeat_dont">Nicht wiederholen</string>
 	<string-array name="repeat_interval">
 		<item>Tag(e)</item>
 		<item>Woche(n)</item>

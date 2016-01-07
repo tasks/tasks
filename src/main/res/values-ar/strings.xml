@@ -148,7 +148,6 @@
 		<item>شهري</item>
 		<item>مرتين في الشهر</item>
 	</string-array>
-	<string name="repeat_dont">لا تكرر</string>
 	<string-array name="repeat_interval">
 		<item>أيام</item>
 		<item>أسابيع</item>

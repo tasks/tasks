@@ -223,7 +223,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_every">Varje %d</string>
 	<string name="repeat_interval_prompt">Upprepningsintervall</string>
 	<string name="repeat_never">Inte upprepande</string>
-	<string name="repeat_dont">Upprepa inte</string>
 	<string-array name="repeat_interval">
 		<item>Dag(ar)</item>
 		<item>Vecka (veckor)</item>

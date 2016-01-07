@@ -259,7 +259,6 @@
 	<string name="repeat_every">%d 毎</string>
 	<string name="repeat_interval_prompt">繰り返し間隔</string>
 	<string name="repeat_never">繰り返しなし</string>
-	<string name="repeat_dont">繰り返ししない</string>
 	<string-array name="repeat_interval">
 		<item>日毎</item>
 		<item>週毎</item>

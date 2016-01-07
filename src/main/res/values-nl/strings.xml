@@ -256,7 +256,6 @@
 	<string name="repeat_every">Elke %d</string>
 	<string name="repeat_interval_prompt">Herhaal interval</string>
 	<string name="repeat_never">Niet herhalend</string>
-	<string name="repeat_dont">Niet herhalen</string>
 	<string-array name="repeat_interval">
 		<item>Dag(en)</item>
 		<item>week/weken</item>

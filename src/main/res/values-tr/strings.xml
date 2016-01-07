@@ -202,7 +202,6 @@
 	<string name="repeat_enabled">Tekrarlar</string>
 	<string name="repeat_every">Her %d</string>
 	<string name="repeat_interval_prompt">Yineleme Aralığı</string>
-	<string name="repeat_dont">Yineleme Yapma</string>
 	<string-array name="repeat_interval">
 		<item>Gün</item>
 		<item>Hafta</item>

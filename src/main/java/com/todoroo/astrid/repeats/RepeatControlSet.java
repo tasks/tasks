@@ -8,7 +8,6 @@ package com.todoroo.astrid.repeats;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -18,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -77,6 +77,7 @@ public class RepeatControlSet extends PopupControlSet {
     private Spinner interval;
     private Spinner type;
     private Spinner repeatUntil;
+    private ImageView clear;
     private ArrayAdapter<String> repeatUntilAdapter;
     private final List<String> repeatUntilOptions = new ArrayList<>();
     private LinearLayout daysOfWeekContainer;
@@ -86,7 +87,6 @@ public class RepeatControlSet extends PopupControlSet {
     private int repeatValue;
     private int intervalValue;
     private long repeatUntilValue;
-
 
     private final List<RepeatChangedListener> listeners = new LinkedList<>();
 
@@ -98,6 +98,8 @@ public class RepeatControlSet extends PopupControlSet {
 
     public RepeatControlSet(ActivityPreferences preferences, Activity activity, DialogBuilder dialogBuilder) {
         super(preferences, activity, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled, dialogBuilder);
+
+        clear = (ImageView) getView().findViewById(R.id.clear);
     }
 
     /** Set up the repeat value button */
@@ -270,7 +272,18 @@ public class RepeatControlSet extends PopupControlSet {
         repeatUntil.setAdapter(repeatUntilAdapter);
         setRepeatValue(1);
         setRepeatUntilValue(0);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doRepeat = false;
+                refreshDisplayView();
+                dialog.dismiss();
 
+                for (RepeatChangedListener l : listeners) {
+                    l.repeatChanged(doRepeat);
+                }
+            }
+        });
         // set up days of week
         DateFormatSymbols dfs = new DateFormatSymbols();
         Calendar calendar = Calendar.getInstance();
@@ -404,9 +417,11 @@ public class RepeatControlSet extends PopupControlSet {
         if (doRepeat) {
             repeatDisplay.setText(getRepeatString());
             repeatDisplay.setTextColor(themeColor);
+            clear.setVisibility(View.VISIBLE);
         } else {
             repeatDisplay.setTextColor(unsetColor);
             repeatDisplay.setText(R.string.repeat_never);
+            clear.setVisibility(View.GONE);
         }
     }
 
@@ -438,24 +453,6 @@ public class RepeatControlSet extends PopupControlSet {
         };
 
         return super.buildDialog(title, doRepeatButton, cancelListener);
-    }
-
-    @Override
-    protected void additionalDialogSetup(AlertDialog.Builder builder) {
-        super.additionalDialogSetup(builder);
-
-        builder.setNeutralButton(R.string.repeat_dont, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doRepeat = false;
-                refreshDisplayView();
-                dialog.dismiss();
-
-                for (RepeatChangedListener l : listeners) {
-                    l.repeatChanged(doRepeat);
-                }
-            }
-        });
     }
 
     private void updateRepeatUntilOptions() {

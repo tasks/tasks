@@ -707,8 +707,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- slide 19b-->
     <string name="repeat_never">Not repeating</string>
-    <!-- slide 20f-->
-    <string name="repeat_dont">Don\'t repeat</string>
 
     <string-array name="repeat_interval">
         <!-- slide 20e: repeat interval (days,weeks,months,hours,minutes,years) -->

@@ -232,7 +232,6 @@
 	<string name="repeat_every">Vsakih %d</string>
 	<string name="repeat_interval_prompt">Pogostost ponovitev</string>
 	<string name="repeat_never">Brez ponovitev</string>
-	<string name="repeat_dont">Ne ponovi</string>
 	<string-array name="repeat_interval">
 		<item>Dan/dni</item>
 		<item>V tednih</item>

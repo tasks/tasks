@@ -124,7 +124,6 @@
 	<string name="repeat_every">Hver %d</string>
 	<string name="repeat_interval_prompt">Interval for gentagelse</string>
 	<string name="repeat_never">Gentages ikke</string>
-	<string name="repeat_dont">Gentag ikke</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="repeat_detail_duedate_until">Hver %1$s\nindtil %2$s</string>
 	<string name="repeat_forever">Gentag uendeligt</string>

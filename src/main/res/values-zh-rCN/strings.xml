@@ -181,7 +181,6 @@
 	<string name="repeat_enabled">重复</string>
 	<string name="repeat_every">每 %d</string>
 	<string name="repeat_interval_prompt">重复间隔</string>
-	<string name="repeat_dont">不重复</string>
 	<string-array name="repeat_interval">
 		<item>日</item>
 		<item>星期</item>

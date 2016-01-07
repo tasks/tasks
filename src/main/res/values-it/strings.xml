@@ -253,7 +253,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_every">Ogni %d</string>
 	<string name="repeat_interval_prompt">Intervallo di ripetizione</string>
 	<string name="repeat_never">Non ricorrente</string>
-	<string name="repeat_dont">Non ripetere</string>
 	<string-array name="repeat_interval">
 		<item>Giorno(i)</item>
 		<item>Settimana(e)</item>

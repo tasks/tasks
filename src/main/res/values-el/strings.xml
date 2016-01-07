@@ -228,7 +228,6 @@
 	<string name="repeat_every">Κάθε %d</string>
 	<string name="repeat_interval_prompt">Διάστημα επανάληψης</string>
 	<string name="repeat_never">Μή επαναλαμβανόμενα</string>
-	<string name="repeat_dont">Να μήν επαναληφθεί</string>
 	<string-array name="repeat_interval">
 		<item>Μέρα(ες)</item>
 		<item>Εβδομαδα(ές)</item>

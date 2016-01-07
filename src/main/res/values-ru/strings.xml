@@ -258,7 +258,6 @@
 	<string name="repeat_every">С интервалом в %d</string>
 	<string name="repeat_interval_prompt">Интервал повтора</string>
 	<string name="repeat_never">Без повторений</string>
-	<string name="repeat_dont">Не повторять</string>
 	<string-array name="repeat_interval">
 		<item>День(дней)</item>
 		<item>Неделя(ль)</item>

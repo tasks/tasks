@@ -113,7 +113,6 @@
 	<string name="repeat_enabled">Gjentakelser</string>
 	<string name="repeat_every">Hver %d</string>
 	<string name="repeat_interval_prompt">Gjentakelsesintervall</string>
-	<string name="repeat_dont">Ikke gjenta</string>
 	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="TPl_notification">Tidtaker aktiv for %s!</string>
 	<string name="TFE_workingOn">Oppgaver med tidtaker</string>

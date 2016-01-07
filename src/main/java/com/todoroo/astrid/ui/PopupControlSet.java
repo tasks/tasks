@@ -84,8 +84,6 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
                     }
                 })
                 .setOnCancelListener(cancelClickListener);
-
-        additionalDialogSetup(builder);
         dialog = builder.show();
         return dialog;
     }
@@ -100,11 +98,6 @@ public abstract class PopupControlSet extends TaskEditControlSetBase {
                 dialog.show();
             }
         };
-    }
-
-    protected void additionalDialogSetup(AlertDialog.Builder builder) {
-        // Will be called after dialog is set up.
-        // Subclasses can override
     }
 
     protected void onOkClick() {

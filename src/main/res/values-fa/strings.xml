@@ -181,7 +181,6 @@
 	<string name="repeat_enabled">تکرارها</string>
 	<string name="repeat_interval_prompt">دوره تکرار</string>
 	<string name="repeat_never">بدون تکرار</string>
-	<string name="repeat_dont">تکرار نشود</string>
 	<string-array name="repeat_interval">
 		<item>روز(ها)</item>
 		<item>هفته(ها)</item>

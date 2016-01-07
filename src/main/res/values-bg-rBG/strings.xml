@@ -260,7 +260,6 @@
 	<string name="repeat_every">Всеки %d</string>
 	<string name="repeat_interval_prompt">Интервал на повторение</string>
 	<string name="repeat_never">Без повторение</string>
-	<string name="repeat_dont">Не повтаряй</string>
 	<string-array name="repeat_interval">
 		<item>Ден(дни)</item>
 		<item>Седмица(и)</item>

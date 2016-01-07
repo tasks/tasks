@@ -225,7 +225,6 @@
 	<string name="repeat_every">Každý %d</string>
 	<string name="repeat_interval_prompt">Opakovací interval</string>
 	<string name="repeat_never">Bez opakování</string>
-	<string name="repeat_dont">Neopakujte</string>
 	<string-array name="repeat_interval">
 		<item>Dnů</item>
 		<item>Týdnů</item>

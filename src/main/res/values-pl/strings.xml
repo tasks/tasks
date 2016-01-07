@@ -231,7 +231,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_every">Co %d</string>
 	<string name="repeat_interval_prompt">Odstęp powtarzania</string>
 	<string name="repeat_never">Jednorazowo</string>
-	<string name="repeat_dont">Nie powtarzaj</string>
 	<string-array name="repeat_interval">
 		<item>Dzień/Dni</item>
 		<item>Tydzień/Tygodni(e)</item>
