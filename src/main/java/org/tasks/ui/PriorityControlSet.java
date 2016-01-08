@@ -85,6 +85,10 @@ public class PriorityControlSet extends TaskEditControlSetBase {
     }
 
     private void setSelected(int importance) {
+        if (radioGroup == null) {
+            return;
+        }
+
         for (int i = 0; i < radioGroup.getChildCount(); i++) {
             AppCompatRadioButton radioButton = (AppCompatRadioButton) radioGroup.getChildAt(i);
             if (importance == getImportance(radioButton)) {

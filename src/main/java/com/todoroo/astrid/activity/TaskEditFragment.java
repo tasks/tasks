@@ -102,8 +102,7 @@ import timber.log.Timber;
  * @author timsu
  *
  */
-public final class TaskEditFragment extends InjectingFragment implements
-ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
+public final class TaskEditFragment extends InjectingFragment implements EditNoteActivity.UpdatesChangedListener {
 
     public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
 
@@ -258,8 +257,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         AstridActivity activity = (AstridActivity) getActivity();
 
-        setUpUIComponents();
-
         overrideFinishAnim = false;
         if (activity != null) {
             if (activity.getIntent() != null) {
@@ -267,70 +264,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                         OVERRIDE_FINISH_ANIM, true);
             }
         }
-    }
 
-    private void instantiateEditNotes() {
-        if (showEditComments) {
-            long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
-            editNotes = new EditNoteActivity(actFmCameraModule, preferences, metadataDao, userActivityDao,
-                    taskService, this, getView(), idParam);
-            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.WRAP_CONTENT));
-
-            editNotes.addListener(this);
-        }
-    }
-
-    private void loadMoreContainer() {
-        long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
-
-        int tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
-
-        if (!showEditComments) {
-            tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
-        }
-
-        if (editNotes == null) {
-            instantiateEditNotes();
-        } else {
-            editNotes.loadViewForTaskID(idParam);
-        }
-
-        if (timerAction != null && editNotes != null) {
-            timerAction.removeListener(editNotes);
-            timerAction.addListener(editNotes);
-        }
-
-        if (editNotes != null) {
-            editNotes.addListener(this);
-        }
-
-        if (tabStyle == 0) {
-            return;
-        }
-
-        TaskEditViewPager adapter = new TaskEditViewPager(getActivity(), tabStyle);
-        adapter.parent = this;
-
-        mPager.setAdapter(adapter);
-
-        setCurrentTab(TAB_VIEW_UPDATES);
-        setPagerHeightForPosition();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                updatesChanged();
-            }
-        }, 500L);
-    }
-
-    private void setCurrentTab(int position) {
-        mPager.setCurrentItem(position);
-    }
-
-    /** Initialize UI components */
-    private void setUpUIComponents() {
         // populate control set
         EditTitleControlSet editTitle = new EditTitleControlSet(
                 taskService,
@@ -408,6 +342,66 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // Load task data in background
         new TaskEditBackgroundLoader().start();
+    }
+
+    private void instantiateEditNotes() {
+        if (showEditComments) {
+            long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
+            editNotes = new EditNoteActivity(actFmCameraModule, preferences, metadataDao, userActivityDao,
+                    taskService, this, getView(), idParam);
+            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                    LayoutParams.WRAP_CONTENT));
+
+            editNotes.addListener(this);
+        }
+    }
+
+    private void loadMoreContainer() {
+        long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
+
+        int tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
+
+        if (!showEditComments) {
+            tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
+        }
+
+        if (editNotes == null) {
+            instantiateEditNotes();
+        } else {
+            editNotes.loadViewForTaskID(idParam);
+        }
+
+        if (timerAction != null && editNotes != null) {
+            timerAction.removeListener(editNotes);
+            timerAction.addListener(editNotes);
+        }
+
+        if (editNotes != null) {
+            editNotes.addListener(this);
+        }
+
+        if (tabStyle == 0) {
+            return;
+        }
+
+        TaskEditViewPager adapter = new TaskEditViewPager(getActivity(), tabStyle);
+        adapter.parent = this;
+
+        mPager.setAdapter(adapter);
+
+        setCurrentTab(TAB_VIEW_UPDATES);
+        setPagerHeightForPosition();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updatesChanged();
+            }
+        }, 500L);
+    }
+
+    private void setCurrentTab(int position) {
+        mPager.setCurrentItem(position);
     }
 
     private void loadEditPageOrder() {
@@ -869,21 +863,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             pagerParams.height = height;
             mPager.setLayoutParams(pagerParams);
         }
-    }
-
-    // Tab Page listener when page/tab changes
-    @Override
-    public void onPageScrolled(int position, float positionOffset,
-            int positionOffsetPixels) {
-    }
-
-    @Override
-    public void onPageSelected(final int position) {
-        setPagerHeightForPosition();
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
     }
 
     // EditNoteActivity Listener when there are new updates/comments
