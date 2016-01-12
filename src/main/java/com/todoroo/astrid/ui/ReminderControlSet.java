@@ -6,7 +6,6 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,8 +29,8 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
+import org.tasks.preferences.DeviceInfo;
 import org.tasks.preferences.PermissionRequestor;
-import org.tasks.preferences.Preferences;
 import org.tasks.ui.HiddenTopArrayAdapter;
 
 import java.util.ArrayList;
@@ -66,21 +65,21 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     private AlarmService alarmService;
     private GeofenceService geofenceService;
     private TaskEditFragment taskEditFragment;
-    private Preferences preferences;
     private PermissionRequestor permissionRequestor;
+    private DeviceInfo deviceInfo;
     private List<String> spinnerOptions = new ArrayList<>();
     private ArrayAdapter<String> remindAdapter;
 
 
     public ReminderControlSet(AlarmService alarmService, GeofenceService geofenceService,
-                              TaskEditFragment taskEditFragment, Preferences preferences,
-                              PermissionRequestor permissionRequestor) {
+                              TaskEditFragment taskEditFragment, PermissionRequestor permissionRequestor,
+                              DeviceInfo deviceInfo) {
         super(taskEditFragment.getActivity(), R.layout.control_set_reminders);
         this.alarmService = alarmService;
         this.geofenceService = geofenceService;
         this.taskEditFragment = taskEditFragment;
-        this.preferences = preferences;
         this.permissionRequestor = permissionRequestor;
+        this.deviceInfo = deviceInfo;
     }
 
     public int getValue() {
@@ -132,10 +131,6 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
             }
         });
         alertItem.setTag(geofence);
-        if (!preferences.geofencesEnabled()) {
-            TextView alarmString = (TextView) alertItem.findViewById(R.id.alarm_string);
-            alarmString.setPaintFlags(alarmString.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        }
     }
 
     private View addAlarmRow(String text, Long timestamp, final OnClickListener onRemove) {
@@ -175,7 +170,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         if (randomControlSet == null) {
             spinnerOptions.add(taskEditFragment.getString(R.string.randomly));
         }
-        if (preferences.geofencesEnabled()) {
+        if (deviceInfo.supportsLocationServices()) {
             spinnerOptions.add(taskEditFragment.getString(R.string.pick_a_location));
         }
         spinnerOptions.add(taskEditFragment.getString(R.string.pick_a_date_and_time));

@@ -44,7 +44,7 @@ public class GeofenceApi {
     }
 
     public void register(final List<Geofence> geofences) {
-        if (geofences.isEmpty() || !preferences.geofencesEnabled() || !permissionChecker.canAccessLocation()) {
+        if (geofences.isEmpty() || !permissionChecker.canAccessLocation()) {
             return;
         }
 

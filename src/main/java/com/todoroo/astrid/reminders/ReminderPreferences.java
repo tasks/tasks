@@ -57,8 +57,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
                 R.string.p_rmd_quietEnd);
         resetGeofencesOnChange(
                 R.string.p_geofence_radius,
-                R.string.p_geofence_responsiveness,
-                R.string.p_geofence_reminders_enabled);
+                R.string.p_geofence_responsiveness);
 
         fieldMissedCalls = (CheckBoxPreference) findPreference(getString(R.string.p_field_missed_calls));
         fieldMissedCalls.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

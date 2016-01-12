@@ -38,15 +38,13 @@ public class Preferences {
     private static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
 
     protected final Context context;
-    private final DeviceInfo deviceInfo;
     private final PermissionChecker permissionChecker;
     private final SharedPreferences prefs;
     private final SharedPreferences publicPrefs;
 
     @Inject
-    public Preferences(@ForApplication Context context, DeviceInfo deviceInfo, PermissionChecker permissionChecker) {
+    public Preferences(@ForApplication Context context, PermissionChecker permissionChecker) {
         this.context = context;
-        this.deviceInfo = deviceInfo;
         this.permissionChecker = permissionChecker;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_WORLD_READABLE);
@@ -102,10 +100,6 @@ public class Preferences {
 
     public boolean isDozeNotificationEnabled() {
         return atLeastMarshmallow() && getBoolean(R.string.p_doze_notifications, false);
-    }
-
-    public boolean geofencesEnabled() {
-        return deviceInfo.supportsLocationServices() && getBoolean(R.string.p_geofence_reminders_enabled, true);
     }
 
     public void clear() {

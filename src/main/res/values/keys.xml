@@ -237,7 +237,6 @@
     <string name="p_rmd_notif_actions_enabled">p_rmd_notif_actions_enabled</string>
   <string name="p_geofence_radius">geolocation_radius</string>
   <string name="p_geofence_responsiveness">geofence_responsiveness</string>
-  <string name="p_geofence_reminders_enabled">geofence_reminders_enabled</string>
   <string name="p_show_hidden_tasks">show_hidden_tasks</string>
   <string name="p_show_completed_tasks">show_completed_tasks</string>
   <string name="p_reverse_sort">reverse_sort</string>
