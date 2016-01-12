@@ -29,7 +29,6 @@
 	<string name="DLG_hour_minutes">Temps (heures : minutes)</string>
 	<string name="DLG_undo">Annuler Action</string>
 	<string name="WID_dateButtonUnset">Cliquez pour définir</string>
-	<string name="TLA_no_items">Aucune tâche ! \n Voulez-vous en créer une ?</string>
 	<string name="TLA_menu_sort">Trier</string>
 	<string name="TLA_menu_search">Rechercher</string>
 	<string name="TLA_menu_settings">Paramètres</string>

@@ -18,7 +18,6 @@
 	<string name="DLG_hour_minutes">الوقت (ساعة : دقيقة)</string>
 	<string name="DLG_undo">تراجع</string>
 	<string name="WID_dateButtonUnset">اضغط لتعيين</string>
-	<string name="TLA_no_items">لا يوجد لديك مهام! \n هل تريد أن تضيف شيئا؟</string>
 	<string name="TLA_menu_sort">رتب</string>
 	<string name="TLA_menu_search">ابحث</string>
 	<string name="TLA_menu_settings">إعدادات</string>

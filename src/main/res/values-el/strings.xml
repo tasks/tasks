@@ -28,7 +28,6 @@
 	<string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>
 	<string name="DLG_undo">Αναίρεση</string>
 	<string name="WID_dateButtonUnset">Κλικ για καθορισμό</string>
-	<string name="TLA_no_items">Δεν έχεις εργασίες! \n Θέλεις να προσθέσεις κάτι:</string>
 	<string name="TLA_menu_sort">Ταξινόμηση</string>
 	<string name="TLA_menu_search">Αναζήτηση</string>
 	<string name="TLA_menu_settings">Ρυθμίσεις</string>

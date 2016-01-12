@@ -25,7 +25,6 @@
 	<string name="DLG_hour_minutes">時間 (小時:分鐘)</string>
 	<string name="DLG_undo">撤消</string>
 	<string name="WID_dateButtonUnset">點選</string>
-	<string name="TLA_no_items">無工作!</string>
 	<string name="TLA_menu_sort">排序</string>
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>

@@ -25,7 +25,6 @@
 	<string name="DLG_hour_minutes">זמן (שעות : דקות)</string>
 	<string name="DLG_undo">בטל פעולה אחרונה</string>
 	<string name="WID_dateButtonUnset">הקלק כדי לקבוע</string>
-	<string name="TLA_no_items">אין לך משימות!\n הֲתִּרְצֶה להוסיף משימה?</string>
 	<string name="TLA_menu_sort">מיון</string>
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>

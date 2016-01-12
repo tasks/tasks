@@ -24,7 +24,6 @@
 	<string name="DLG_hour_minutes">Horário (horas:minutos)</string>
 	<string name="DLG_undo">Desfazer</string>
 	<string name="WID_dateButtonUnset">Toque para definir</string>
-	<string name="TLA_no_items">Você não tem tarefas! \n Deseja inserir alguma?</string>
 	<string name="TLA_menu_sort">Ordenar</string>
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configurações</string>

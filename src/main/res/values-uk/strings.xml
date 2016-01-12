@@ -28,7 +28,6 @@
 	<string name="DLG_hour_minutes">Час (години : хвилини)</string>
 	<string name="DLG_undo">Відмінити</string>
 	<string name="WID_dateButtonUnset">Натисніть для установки</string>
-	<string name="TLA_no_items">У Вас немає завдань! \n Бажаєте щось додати?</string>
 	<string name="TLA_menu_sort">Сортувати</string>
 	<string name="TLA_menu_search">Пошук</string>
 	<string name="TLA_menu_settings">Налаштування</string>

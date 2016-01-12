@@ -29,7 +29,6 @@
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
 	<string name="DLG_undo">Отмена</string>
 	<string name="WID_dateButtonUnset">Установить</string>
-	<string name="TLA_no_items">Нет задач! \n Добавить?</string>
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>

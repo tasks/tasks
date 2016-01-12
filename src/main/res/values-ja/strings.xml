@@ -29,7 +29,6 @@
 	<string name="DLG_hour_minutes">時間 (時:分)</string>
 	<string name="DLG_undo">動作を取り消す</string>
 	<string name="WID_dateButtonUnset">入力する</string>
-	<string name="TLA_no_items">タスクなし</string>
 	<string name="TLA_menu_sort">ソート</string>
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>

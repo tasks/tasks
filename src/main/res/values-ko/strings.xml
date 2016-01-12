@@ -32,7 +32,6 @@
 	<string name="DLG_hour_minutes">시간 (시 : 분)</string>
 	<string name="DLG_undo">실행 취소</string>
 	<string name="WID_dateButtonUnset">누르세요</string>
-	<string name="TLA_no_items">일정이 없네요!\n추가할까요?</string>
 	<string name="TLA_menu_sort">정렬</string>
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>

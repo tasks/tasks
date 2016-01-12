@@ -25,7 +25,6 @@
 	<string name="DLG_hour_minutes">Czas (godziny : minuty)</string>
 	<string name="DLG_undo">Cofnij</string>
 	<string name="WID_dateButtonUnset">Kliknij, aby ustawić</string>
-	<string name="TLA_no_items">Brak zadań!</string>
 	<string name="TLA_menu_sort">Sortowanie</string>
 	<string name="TLA_menu_search">Szukaj</string>
 	<string name="TLA_menu_settings">Ustawienia</string>

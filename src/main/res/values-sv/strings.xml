@@ -25,7 +25,6 @@
 	<string name="DLG_hour_minutes">Tid (timmar : minuter)</string>
 	<string name="DLG_undo">Ångra</string>
 	<string name="WID_dateButtonUnset">Klicka för att ställa</string>
-	<string name="TLA_no_items">Du har inga uppgifter!\n Vill du lägga till någonting?</string>
 	<string name="TLA_menu_sort">Sortera</string>
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>

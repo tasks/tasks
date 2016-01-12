@@ -97,7 +97,7 @@ File %1$s contained %2$s.\n\n
     <!-- ================================================= TaskListActivity == -->
 
     <!-- slide 8b: Task List: Displayed instead of list when no items present -->
-    <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+    <string name="TLA_no_items">There are no tasks here.</string>
 
     <!-- Menu: Adjust Sort and Hidden Task Settings -->
     <string name="TLA_menu_sort">Sort</string>

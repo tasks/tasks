@@ -13,7 +13,6 @@
 	<string name="DLG_delete_this_task_question">ลบงานนี้?</string>
 	<string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
 	<string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
-	<string name="TLA_no_items">ไม่มีแผนงานใดๆ !</string>
 	<string name="TLA_menu_sort">Sort &amp; Hidden</string>
 	<string name="TAd_actionEditTask">แก้ไข</string>
 	<string name="TAd_contextUndeleteTask">แผนงานที่ลบไม่ได้</string>

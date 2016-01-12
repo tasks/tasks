@@ -25,7 +25,6 @@
 	<string name="DLG_hour_minutes">Zaman (saat : dakika)</string>
 	<string name="DLG_undo">Geri al</string>
 	<string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
-	<string name="TLA_no_items">Hiç göreviniz yok! \n Bir şeyler eklemek nasıl olur?</string>
 	<string name="TLA_menu_search">Ara</string>
 	<string name="TLA_menu_settings">Ayarlar</string>
 	<string name="TAd_hiddenFormat">%s [gizli]</string>

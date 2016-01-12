@@ -13,6 +13,8 @@
     <dimen name="task_edit_drawable_padding_left_right">20dp</dimen>
     <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
     <dimen name="task_edit_text_size">16sp</dimen>
-    <item name="drawer_icon_alpha" format="float" type="dimen">0.54</item>
-    <item name="drawer_text_alpha" format="float" type="dimen">0.87</item>
+    <item name="alpha_text" format="float" type="dimen">0.87</item>
+    <item name="alpha_secondary_text_icons" format="float" type="dimen">0.54</item>
+    <item name="alpha_disabled_hint_text" format="float" type="dimen">0.38</item>
+    <item name="alpha_dividers" format="float" type="dimen">0.12</item>
 </resources>

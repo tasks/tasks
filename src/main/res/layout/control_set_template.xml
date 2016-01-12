@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:tint="?attr/icon_tint"
-        android:alpha="@dimen/drawer_icon_alpha"
+        android:alpha="@dimen/alpha_secondary_text_icons"
         android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
         android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
         android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"

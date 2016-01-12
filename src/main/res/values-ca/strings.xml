@@ -23,7 +23,6 @@
 	<string name="DLG_hour_minutes">Temps (hores : minuts)</string>
 	<string name="DLG_undo">Desfés</string>
 	<string name="WID_dateButtonUnset">Prem per establir</string>
-	<string name="TLA_no_items">No teniu tasques! \n Voleu afegir alguna cosa?</string>
 	<string name="TLA_menu_sort">Ordenació i subtasques</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Paràmetres</string>

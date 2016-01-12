@@ -28,7 +28,6 @@
 	<string name="DLG_hour_minutes">Čas (ure : minute)</string>
 	<string name="DLG_undo">Razveljavi</string>
 	<string name="WID_dateButtonUnset">Klikni za nastavitev</string>
-	<string name="TLA_no_items">Nimate zabeleženih opravkov!\n Dodava kakega?</string>
 	<string name="TLA_menu_sort">Razvrsti</string>
 	<string name="TLA_menu_search">Iskanje</string>
 	<string name="TLA_menu_settings">Nastavitve</string>
