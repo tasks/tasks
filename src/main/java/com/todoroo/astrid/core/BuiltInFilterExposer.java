@@ -107,7 +107,7 @@ public final class BuiltInFilterExposer {
     private static Filter getRecentlyModifiedFilter(Resources r) {
         return new Filter(r.getString(R.string.BFE_Recent),
                 new QueryTemplate().where(
-                        Criterion.all).orderBy(
+                        TaskCriteria.notDeleted()).orderBy(
                         Order.desc(Task.MODIFICATION_DATE)).limit(15),
                 null);
     }
