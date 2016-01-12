@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingDialogFragment;
-import org.tasks.preferences.DeviceInfo;
+import org.tasks.preferences.Device;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
     }
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject DeviceInfo deviceInfo;
+    @Inject Device device;
 
     private AddAttachmentCallback callback;
     private DialogInterface.OnCancelListener onCancelListener;
@@ -34,7 +34,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         List<String> entries = newArrayList();
         final List<Runnable> actions = newArrayList();
-        if (deviceInfo.hasCamera()) {
+        if (device.hasCamera()) {
             entries.add(getString(R.string.take_a_picture));
             actions.add(new Runnable() {
                 @Override
@@ -43,7 +43,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
                 }
             });
         }
-        if (deviceInfo.hasGallery()) {
+        if (device.hasGallery()) {
             entries.add(getString(R.string.pick_from_gallery));
             actions.add(new Runnable() {
                 @Override

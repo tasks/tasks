@@ -16,30 +16,33 @@ import org.tasks.injection.ForApplication;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
 import static java.util.Arrays.asList;
 
-@Singleton
-public class DeviceInfo {
+public class Device {
 
     private Context context;
-    private Boolean isPlayStoreAvailable;
-    private String debugInfo;
 
     @Inject
-    public DeviceInfo(@ForApplication Context context) {
+    public Device(@ForApplication Context context) {
         this.context = context;
     }
 
     public boolean isPlayStoreAvailable() {
-        if (isPlayStoreAvailable == null) {
-            isPlayStoreAvailable = checkForPlayStore();
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
+            for (PackageInfo packageInfo : packages) {
+                if ("com.google.market".equals(packageInfo.packageName) || "com.android.vending".equals(packageInfo.packageName)) {
+                    return true;
+                }
+            }
+        } catch(Exception e) {
+            Timber.e(e, e.getMessage());
         }
-
-        return isPlayStoreAvailable;
+        return false;
     }
 
     public boolean hasCamera() {
@@ -57,14 +60,6 @@ public class DeviceInfo {
     }
 
     public String getDebugInfo() {
-        if (debugInfo == null) {
-            debugInfo = buildDebugString();
-        }
-
-        return debugInfo;
-    }
-
-    private String buildDebugString() {
         try {
             return Joiner.on("\n").join(asList(
                     "",
@@ -81,20 +76,5 @@ public class DeviceInfo {
             Timber.e(e, e.getMessage());
         }
         return "";
-    }
-
-    private boolean checkForPlayStore() {
-        try {
-            PackageManager packageManager = context.getPackageManager();
-            List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
-            for (PackageInfo packageInfo : packages) {
-                if ("com.google.market".equals(packageInfo.packageName) || "com.android.vending".equals(packageInfo.packageName)) {
-                    return true;
-                }
-            }
-        } catch(Exception e) {
-            Timber.e(e, e.getMessage());
-        }
-        return false;
     }
 }

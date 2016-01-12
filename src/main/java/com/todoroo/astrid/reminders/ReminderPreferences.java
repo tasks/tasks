@@ -18,7 +18,7 @@ import android.preference.PreferenceManager;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
-import org.tasks.preferences.DeviceInfo;
+import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
@@ -37,7 +37,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private static final int REQUEST_QUIET_END = 10002;
     private static final int REQUEST_DEFAULT_REMIND = 10003;
 
-    @Inject DeviceInfo deviceInfo;
+    @Inject Device device;
     @Inject PermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
 
@@ -75,7 +75,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
         requires(atLeastJellybean(), R.string.p_rmd_notif_actions_enabled, R.string.p_notification_priority);
         requires(atLeastMarshmallow(), R.string.p_doze_notifications);
-        requires(deviceInfo.supportsLocationServices(), R.string.geolocation_reminders);
+        requires(device.supportsLocationServices(), R.string.geolocation_reminders);
     }
 
     private void rescheduleNotificationsOnChange(int... resIds) {

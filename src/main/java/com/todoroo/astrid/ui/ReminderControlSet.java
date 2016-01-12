@@ -29,7 +29,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
-import org.tasks.preferences.DeviceInfo;
+import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.ui.HiddenTopArrayAdapter;
 
@@ -66,20 +66,20 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
     private GeofenceService geofenceService;
     private TaskEditFragment taskEditFragment;
     private PermissionRequestor permissionRequestor;
-    private DeviceInfo deviceInfo;
+    private Device device;
     private List<String> spinnerOptions = new ArrayList<>();
     private ArrayAdapter<String> remindAdapter;
 
 
     public ReminderControlSet(AlarmService alarmService, GeofenceService geofenceService,
                               TaskEditFragment taskEditFragment, PermissionRequestor permissionRequestor,
-                              DeviceInfo deviceInfo) {
+                              Device device) {
         super(taskEditFragment.getActivity(), R.layout.control_set_reminders);
         this.alarmService = alarmService;
         this.geofenceService = geofenceService;
         this.taskEditFragment = taskEditFragment;
         this.permissionRequestor = permissionRequestor;
-        this.deviceInfo = deviceInfo;
+        this.device = device;
     }
 
     public int getValue() {
@@ -170,7 +170,7 @@ public class ReminderControlSet extends TaskEditControlSetBase implements Adapte
         if (randomControlSet == null) {
             spinnerOptions.add(taskEditFragment.getString(R.string.randomly));
         }
-        if (deviceInfo.supportsLocationServices()) {
+        if (device.supportsLocationServices()) {
             spinnerOptions.add(taskEditFragment.getString(R.string.pick_a_location));
         }
         spinnerOptions.add(taskEditFragment.getString(R.string.pick_a_date_and_time));

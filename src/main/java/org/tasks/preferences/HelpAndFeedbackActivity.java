@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
 
-    @Inject DeviceInfo deviceInfo;
+    @Inject Device device;
     @Inject Preferences preferences;
 
     @Override
@@ -23,9 +23,9 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
         findPreference(getString(R.string.contact_developer)).setIntent(
                 new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null)) {{
                     putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
-                    putExtra(Intent.EXTRA_TEXT, deviceInfo.getDebugInfo());
+                    putExtra(Intent.EXTRA_TEXT, device.getDebugInfo());
                 }});
-        if (!deviceInfo.isPlayStoreAvailable()) {
+        if (!device.isPlayStoreAvailable()) {
             remove(R.string.rate_tasks);
         }
     }

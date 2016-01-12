@@ -77,7 +77,7 @@ import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.DeviceInfo;
+import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.MenuColorizer;
@@ -168,7 +168,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     @Inject GeofenceService geofenceService;
     @Inject DialogBuilder dialogBuilder;
     @Inject PermissionRequestor permissionRequestor;
-    @Inject DeviceInfo deviceInfo;
+    @Inject Device device;
 
     // --- UI components
 
@@ -313,7 +313,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
                 notesControlSet);
 
-        reminderControlSet = new ReminderControlSet(alarmService, geofenceService, this, permissionRequestor, deviceInfo);
+        reminderControlSet = new ReminderControlSet(alarmService, geofenceService, this, permissionRequestor, device);
         controls.add(reminderControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControlSet);
 

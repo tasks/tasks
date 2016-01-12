@@ -15,7 +15,7 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.preferences.DeviceInfo;
+import org.tasks.preferences.Device;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import javax.inject.Inject;
 public class ActFmCameraModule {
 
     private final Fragment fragment;
-    private DeviceInfo deviceInfo;
+    private Device device;
     private DialogBuilder dialogBuilder;
 
     public interface ClearImageCallback {
@@ -33,9 +33,9 @@ public class ActFmCameraModule {
     }
 
     @Inject
-    public ActFmCameraModule(Fragment fragment, DeviceInfo deviceInfo, DialogBuilder dialogBuilder) {
+    public ActFmCameraModule(Fragment fragment, Device device, DialogBuilder dialogBuilder) {
         this.fragment = fragment;
-        this.deviceInfo = deviceInfo;
+        this.device = device;
         this.dialogBuilder = dialogBuilder;
     }
 
@@ -43,7 +43,7 @@ public class ActFmCameraModule {
         final List<Runnable> runnables = new ArrayList<>();
         List<String> options = new ArrayList<>();
 
-        final boolean cameraAvailable = deviceInfo.hasCamera();
+        final boolean cameraAvailable = device.hasCamera();
         if (cameraAvailable) {
             runnables.add(new Runnable() {
                 @Override
