@@ -116,7 +116,6 @@
 	<string name="EPr_appearance_header">Изглед</string>
 	<string name="EPr_filters_to_show_title">Филтри за показване</string>
 	<string name="EPr_edit_screen_options">Редактиране на опциите екрана</string>
-	<string name="EPr_show_timer_shortcut">Покажи прекия път към таймера</string>
 	<string name="EPr_beastMode_desc">Настройване изгледа на екрана за редактиране на задача</string>
 	<string name="EPr_beastMode_reset">Възстанови по подразбиране</string>
 	<string name="EPr_beastMode_hint">Настройване изгледа на екрана за редактиране на задача чрез изтегляне на елементите във всеки ред</string>
@@ -255,7 +254,6 @@
 		<item>месечно</item>
 		<item>на два месеца</item>
 	</string-array>
-	<string name="repeat_enabled">Повторения</string>
 	<string name="repeat_every">Всеки %d</string>
 	<string name="repeat_interval_prompt">Интервал на повторение</string>
 	<string name="repeat_never">Без повторение</string>
@@ -276,7 +274,6 @@
 	<string name="repeat_forever">Повтаряй завинаги</string>
 	<string name="repeat_until">Повтаряй до %s</string>
 	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
-	<string name="TEA_tags_label_long">Добави към списъци</string>
 	<string name="new_tag">Нов таг</string>
 	<string name="tag_no_title_error">Моля, първо въведете име за този списък!</string>
 	<string name="tag_FEx_untagged">Без категория</string>

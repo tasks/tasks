@@ -73,7 +73,9 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
     }
 
     private void startCalendarSelectionActivity() {
-        startActivityForResult(new Intent(DefaultsPreferences.this, CalendarSelectionActivity.class), REQUEST_CALENDAR_SELECTION);
+        startActivityForResult(new Intent(DefaultsPreferences.this, CalendarSelectionActivity.class) {{
+            putExtra(CalendarSelectionActivity.EXTRA_SHOW_NONE, true);
+        }}, REQUEST_CALENDAR_SELECTION);
     }
 
     @Override

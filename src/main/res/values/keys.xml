@@ -112,8 +112,6 @@
   
   <string name="p_fullTaskTitle">fullTaskTitle</string>
   
-  <string name="p_show_timer_shortcut">p_show_timer_shortcut</string>
-
   <!-- ========================================================= DEFAULTS == -->
   
   <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  

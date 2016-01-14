@@ -65,7 +65,6 @@
 	<string name="CRA_list_created_title">أنشئت القائمة</string>
 	<string name="EPr_appearance_header">ظهور</string>
 	<string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
-	<string name="EPr_show_timer_shortcut">إظهار إختصار المنبه</string>
 	<string name="EPr_beastMode_reset">الإعادة إلى الإفتراضي</string>
 	<string name="EPr_fullTask_title">إظهار عنوان المهمه</string>
 	<string name="task_list_options">خيارات قائمة المهام</string>
@@ -159,7 +158,6 @@
 		<item>من تاريخ الموعد</item>
 		<item>من تاريخ الاتمام</item>
 	</string-array>
-	<string name="TEA_tags_label_long">أضف للقائمة</string>
 	<string name="tag_no_title_error">أدخل اسم للقائمة أولاً</string>
 	<string name="tag_FEx_untagged">غير مصنف</string>
 	<string name="TEA_timer_controls">مؤقت</string>

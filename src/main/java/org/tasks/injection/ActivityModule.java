@@ -29,6 +29,7 @@ import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ClearAllDataActivity;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
+import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
 import org.tasks.activities.DeleteCompletedActivity;
 import org.tasks.activities.DeleteCompletedEventsActivity;
@@ -103,6 +104,7 @@ import dagger.Provides;
                 AddAttachmentActivity.class,
                 ShortcutActivity.class,
                 CameraActivity.class,
+                DatePickerActivity.class,
                 TimePickerActivity.class,
                 DateAndTimePickerActivity.class
         })

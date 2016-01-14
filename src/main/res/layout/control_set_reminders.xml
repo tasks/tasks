@@ -50,19 +50,14 @@
             android:gravity="end"
             android:layout_weight="50">
 
-            <TextView
-                android:id="@+id/reminder_alarm_display"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/task_edit_text_size"
-                android:paddingRight="10dip"
-                android:paddingEnd="10dip"
-                android:textColor="?attr/asTextColor" />
-
             <Spinner
                 android:id="@+id/reminder_alarm"
-                android:layout_width="0dip"
-                android:layout_height="0dip" />
+                android:background="@null"
+                android:gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"/>
 
         </LinearLayout>
 

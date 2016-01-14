@@ -7,53 +7,85 @@ package com.todoroo.astrid.ui;
 
 import android.app.Activity;
 import android.graphics.Paint;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.repeats.RepeatControlSet.RepeatChangedListener;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.R;
 import org.tasks.ui.CheckBoxes;
-import org.tasks.ui.PriorityControlSet.ImportanceChangedListener;
+import org.tasks.ui.TaskEditControlFragment;
+
+import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Control set for mapping a Property to an EditText
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditTitleControlSet implements TaskEditControlSet, ImportanceChangedListener, RepeatChangedListener {
+public class EditTitleControlSet extends TaskEditControlFragment {
 
-    private final EditText editText;
-    private CheckableImageView completeBox;
+    private static final String EXTRA_COMPLETE = "extra_complete";
+    private static final String EXTRA_TITLE = "extra_title";
+    private static final String EXTRA_REPEATING = "extra_repeating";
+    private static final String EXTRA_PRIORITY = "extra_priority";
 
-    private final CheckBoxes checkBoxes;
+    @Inject TaskService taskService;
+
+    @Bind(R.id.title) EditText editText;
+    @Bind(R.id.completeBox) CheckableImageView completeBox;
+
+    private CheckBoxes checkBoxes;
+    private boolean isComplete;
     private boolean isRepeating;
     private int importanceValue;
-    private Task model;
-    private final TaskService taskService;
+    private boolean isNewTask;
+    private String title;
 
-    public EditTitleControlSet(TaskService taskService, final Activity activity, final EditText editText, CheckableImageView completeBox) {
-        this.checkBoxes = new CheckBoxes(activity);
-        this.editText = editText;
-        this.completeBox = completeBox;
-        this.taskService = taskService;
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
+        checkBoxes = new CheckBoxes(activity);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(getLayout(), null);
+        ButterKnife.bind(this, view);
+        if (savedInstanceState != null) {
+            isComplete = savedInstanceState.getBoolean(EXTRA_COMPLETE);
+            title = savedInstanceState.getString(EXTRA_TITLE);
+            isRepeating = savedInstanceState.getBoolean(EXTRA_REPEATING);
+            importanceValue = savedInstanceState.getInt(EXTRA_PRIORITY);
+        }
+        completeBox.setChecked(isComplete);
+        editText.setTextKeepState(title);
         editText.setHorizontallyScrolling(false);
         editText.setMaxLines(Integer.MAX_VALUE);
         editText.setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    AndroidUtilities.hideSoftInputForViews(activity, editText);
+                    AndroidUtilities.hideSoftInputForViews(getActivity(), editText);
                     return true;
                 }
                 return false;
@@ -74,39 +106,46 @@ public class EditTitleControlSet implements TaskEditControlSet, ImportanceChange
                 return false;
             }
         });
-    }
-
-    protected void readFromTaskOnInitialize() {
-        editText.setTextKeepState(model.getTitle());
-        completeBox.setChecked(model.isCompleted());
-        completeBox.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // set check box to actual action item state
-                updateCompleteBox();
-            }
-        });
+        updateCompleteBox();
+        return view;
     }
 
     @Override
-    public void importanceChanged(int i) {
-        importanceValue = i;
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(EXTRA_COMPLETE, completeBox.isChecked());
+        outState.putString(EXTRA_TITLE, getTitle());
+        outState.putBoolean(EXTRA_REPEATING, isRepeating);
+        outState.putInt(EXTRA_PRIORITY, importanceValue);
+    }
+
+    @OnClick(R.id.completeBox)
+    void toggleComplete(View view) {
         updateCompleteBox();
     }
 
-
     @Override
+    public void onStart() {
+        super.onStart();
+
+        if (isNewTask) {
+            editText.requestFocus();
+            editText.setCursorVisible(true);
+            getActivity().getWindow()
+                    .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                            | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        }
+    }
+
+    public void setPriority(int priority) {
+        importanceValue = priority;
+        updateCompleteBox();
+    }
+
     public void repeatChanged(boolean repeat) {
         isRepeating = repeat;
         updateCompleteBox();
-    }
-
-    @Override
-    public void readFromTask(Task task) {
-        this.model = task;
-        readFromTaskOnInitialize();
-        isRepeating = !TextUtils.isEmpty(task.getRecurrence());
-        importanceValue = model.getImportance();
     }
 
     private void updateCompleteBox() {
@@ -128,12 +167,8 @@ public class EditTitleControlSet implements TaskEditControlSet, ImportanceChange
     }
 
     @Override
-    public void writeToModel(Task task) {
-        task.setTitle(editText.getText().toString());
-        boolean newState = completeBox.isChecked();
-        if (newState != task.isCompleted()) {
-            taskService.setComplete(task, newState);
-        }
+    protected int getLayout() {
+        return R.layout.control_set_title;
     }
 
     @Override
@@ -142,7 +177,30 @@ public class EditTitleControlSet implements TaskEditControlSet, ImportanceChange
     }
 
     @Override
-    public View getView() {
-        throw new RuntimeException();
+    public void initialize(boolean isNewTask, Task task) {
+        this.isNewTask = isNewTask;
+
+        isComplete = task.isCompleted();
+        title = task.getTitle();
+        isRepeating = !TextUtils.isEmpty(task.getRecurrence());
+        importanceValue = task.getImportance();
+    }
+
+    @Override
+    public void apply(Task task) {
+        task.setTitle(getTitle());
+        boolean newState = completeBox.isChecked();
+        if (newState != task.isCompleted()) {
+            taskService.setComplete(task, newState);
+        }
+    }
+
+    public String getTitle() {
+        return editText.getText().toString();
+    }
+
+    public void hideKeyboard() {
+        AndroidUtilities.hideSoftInputForViews(getActivity(), editText);
+        editText.setCursorVisible(false);
     }
 }

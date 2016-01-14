@@ -194,7 +194,7 @@ public class GCalHelper {
         return eventDeleted;
     }
 
-    void createStartAndEndDate(Task task, ContentValues values) {
+    public void createStartAndEndDate(Task task, ContentValues values) {
         long dueDate = task.getDueDate();
         long tzCorrectedDueDate = dueDate + TimeZone.getDefault().getOffset(dueDate);
         long tzCorrectedDueDateNow = DateUtilities.now() + TimeZone.getDefault().getOffset(DateUtilities.now());
@@ -230,6 +230,26 @@ public class GCalHelper {
         } else {
             values.put("eventTimezone", TimeZone.getDefault().getID());
         }
+    }
+
+    public AndroidCalendar getCalendar(String id) {
+        ContentResolver cr = context.getContentResolver();
+
+        Cursor c = cr.query(getCalendarContentUri(Calendars.CALENDAR_CONTENT_CALENDARS), Calendars.CALENDARS_PROJECTION,
+                Calendars.CALENDARS_WHERE + " AND Calendars._id=" + id, null, Calendars.CALENDARS_SORT);
+        try {
+            if (c.moveToFirst()) {
+                int nameColumn = c.getColumnIndex(Calendars.CALENDARS_DISPLAY_COL);
+                String name = c.getString(nameColumn);
+                return new AndroidCalendar(id, name);
+            }
+        } finally {
+            if(c != null) {
+                c.close();
+            }
+        }
+
+        return null;
     }
 
     /**

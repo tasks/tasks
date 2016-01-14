@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -20,27 +20,20 @@ import org.tasks.preferences.ActivityPreferences;
 
 public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnClickListener {
 
-    private final Activity activity;
+    private final Context context;
     private final TextView timeButton;
     private int timeDuration;
     private int[] initialValues = null;
     private NNumberPickerDialog dialog = null;
-    private Task model;
-    private final IntegerProperty property;
     private ActivityPreferences activityPreferences;
 
-    public TimeDurationControlSet(Activity activity, View view, IntegerProperty property,
+    public TimeDurationControlSet(Context context, View view,
             int timeButtonId, ActivityPreferences activityPreferences) {
-        this.activity = activity;
-        this.property = property;
+        this.context = context;
         this.activityPreferences = activityPreferences;
 
         timeButton = (TextView)view.findViewById(timeButtonId);
         ((View) timeButton.getParent()).setOnClickListener(this);
-    }
-
-    public void setModel(Task model) {
-        this.model = model;
     }
 
     public int getTimeDurationInSeconds() {
@@ -54,7 +47,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
 
         timeDuration = timeDurationInSeconds;
 
-        Resources r = activity.getResources();
+        Resources r = context.getResources();
         if(timeDurationInSeconds == 0) {
             timeButton.setText(r.getString(R.string.WID_dateButtonUnset));
             return;
@@ -65,10 +58,6 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
         int hours = timeDuration / 3600;
         int minutes = timeDuration / 60 - 60 * hours;
         initialValues = new int[] { hours, minutes };
-
-        if (model != null) {
-            model.setValue(property, timeDuration);
-        }
     }
 
     /** Called when NumberPicker activity is completed */
@@ -81,8 +70,8 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     @Override
     public void onClick(View v) {
         if(dialog == null) {
-            dialog = new NNumberPickerDialog(activity, activityPreferences.getDialogTheme(), this,
-                    activity.getResources().getString(R.string.DLG_hour_minutes),
+            dialog = new NNumberPickerDialog(context, activityPreferences.getDialogTheme(), this,
+                    context.getResources().getString(R.string.DLG_hour_minutes),
                     new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
                     new int[] {999, 59}, new String[] {":", null});
             final NumberPicker hourPicker = dialog.getPicker(0);

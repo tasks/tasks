@@ -25,10 +25,12 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.injection.InjectingContentProvider;
+import org.tasks.ui.CheckBoxes;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -80,6 +82,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	@Inject Lazy<TaskService> taskService;
     @Inject Lazy<TagService> tagService;
+	@Inject Lazy<CheckBoxes> checkBoxes;
 
 	static {
 		URI_MATCHER.addURI(AUTHORITY, "tasks", URI_TASKS);
@@ -167,7 +170,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
                 TaskCriteria.isVisible())).
                 orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
 		try {
-    		int[] importanceColors = Task.getImportanceColors(getContext().getResources());
+    		List<Integer> importanceColors = checkBoxes.get().getPriorityColors();
     		for (int i = 0; i < cursor.getCount(); i++) {
     			cursor.moveToNext();
                 Task task = new Task(cursor);
@@ -176,7 +179,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
     			Object[] values = new Object[7];
     			values[0] = task.getTitle();
-    			values[1] = importanceColors[task.getImportance()];
+    			values[1] = importanceColors.get(task.getImportance());
     			values[2] = task.getDueDate();
     			values[3] = task.getDueDate();
     			values[4] = task.getImportance();

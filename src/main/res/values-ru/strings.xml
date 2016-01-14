@@ -114,7 +114,6 @@
 	<string name="EPr_appearance_header">Интерфейс</string>
 	<string name="EPr_filters_to_show_title">Показать фильтры</string>
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
-	<string name="EPr_show_timer_shortcut">Показать вкладку таймера</string>
 	<string name="EPr_beastMode_desc">Настроить внешний вид экрана правки задачи</string>
 	<string name="EPr_beastMode_reset">Настройки по умолчанию</string>
 	<string name="EPr_beastMode_hint">Настройте экран редактирования задачи, перетаскивая элементы</string>
@@ -253,7 +252,6 @@
 		<item>ежемесячно</item>
 		<item>каждые два месяца</item>
 	</string-array>
-	<string name="repeat_enabled">Повторения</string>
 	<string name="repeat_every">С интервалом в %d</string>
 	<string name="repeat_interval_prompt">Интервал повтора</string>
 	<string name="repeat_never">Без повторений</string>
@@ -274,7 +272,6 @@
 	<string name="repeat_forever">Повторять всегда</string>
 	<string name="repeat_until">Повторять до %s</string>
 	<string name="repeat_snackbar">«%1$s» перенесено на %2$s</string>
-	<string name="TEA_tags_label_long">Добавить в список</string>
 	<string name="new_tag">Новый тег</string>
 	<string name="tag_no_title_error">Пожалуйста, для начала введите название списка!</string>
 	<string name="tag_FEx_untagged">Без тега</string>

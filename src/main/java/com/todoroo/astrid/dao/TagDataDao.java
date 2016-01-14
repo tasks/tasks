@@ -55,6 +55,10 @@ public class TagDataDao {
                 .orderBy(Order.asc(TagData.ID)));
     }
 
+    public TagData getByUuid(String uuid) {
+        return getByUuid(uuid, TagData.PROPERTIES);
+    }
+
     public TagData getByUuid(String uuid, Property<?>... properties) {
         return dao.getFirst(Query.select(properties).where(TagData.UUID.eq(uuid)));
     }

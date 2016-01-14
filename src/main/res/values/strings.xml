@@ -344,8 +344,6 @@ File %1$s contained %2$s.\n\n
     <!-- Edit screen preference category -->
     <string name="EPr_edit_screen_options">Edit screen options</string>
 
-    <string name="EPr_show_timer_shortcut">Show timer shortcut</string>
-
     <!-- slide 35h -->
     <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
     <!-- slide 35j -->
@@ -696,9 +694,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- Resources for built-in repeat plug-in -->
 
-    <!-- slide 20a: checkbox for turning on/off repeats -->
-    <string name="repeat_enabled">Repeats</string>
-
     <!-- slide 20b: button for "every x" part of repeat (%d -> repeat value)  -->
     <string name="repeat_every">Every %d</string>
 
@@ -739,13 +734,7 @@ File %1$s contained %2$s.\n\n
 
     <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
 
-
-    <!-- =============================================== Task Edit Controls == -->
-
-    <!-- Tags label long version -->
-    <string name="TEA_tags_label_long">Add to lists</string>
-
-    <!-- ========================================================== Extras == -->
+   <!-- ========================================================== Extras == -->
 
     <string name="new_tag">New Tag</string>
 

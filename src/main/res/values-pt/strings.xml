@@ -113,7 +113,6 @@
 	<string name="EPr_appearance_header">Aspeto</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Opções do ecrã de edição</string>
-	<string name="EPr_show_timer_shortcut">Mostrar atalho do temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar o esquema do ecrã de edição de tarefas</string>
 	<string name="EPr_beastMode_reset">Restaurar definições originas</string>
 	<string name="EPr_beastMode_hint">Personalize o ecrã de edição de tarefas arrastando a guia em cada linha</string>
@@ -246,7 +245,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 		<item>mensal</item>
 		<item>bimensal</item>
 	</string-array>
-	<string name="repeat_enabled">Repete</string>
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetição</string>
 	<string name="repeat_never">Não repete</string>
@@ -267,7 +265,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="repeat_forever">Repetir eternamente</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_snackbar">%1$s agendada para %2$s</string>
-	<string name="TEA_tags_label_long">Adicionar às listas</string>
 	<string name="new_tag">Nova etiqueta</string>
 	<string name="tag_no_title_error">Introduza o nome para esta lista!</string>
 	<string name="tag_FEx_untagged">Sem categoria</string>

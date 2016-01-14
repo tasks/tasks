@@ -113,7 +113,6 @@
 	<string name="EPr_appearance_header">Apariencia</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Editar opciones de pantalla</string>
-	<string name="EPr_show_timer_shortcut">Mostrar atajo del temporizador</string>
 	<string name="EPr_beastMode_desc">Personalizar la disposición de la pantalla de edición de tareas</string>
 	<string name="EPr_beastMode_reset">Restablecer valores predeterminados</string>
 	<string name="EPr_beastMode_hint">Personalice su pantalla de edición de tareas arrastrando el asa izquierda en cada fila</string>
@@ -245,7 +244,6 @@
 		<item>mensualmente</item>
 		<item>bimensualmente</item>
 	</string-array>
-	<string name="repeat_enabled">Repeticiones</string>
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetición</string>
 	<string name="repeat_never">Sin repetir</string>
@@ -266,7 +264,6 @@
 	<string name="repeat_forever">Repetir por siempre</string>
 	<string name="repeat_until">Repetir hasta %s</string>
 	<string name="repeat_snackbar">%1$s He reprogramado esta tarea recurrente para %2$s</string>
-	<string name="TEA_tags_label_long">Añadir a listas</string>
 	<string name="new_tag">Nueva Etiqueta</string>
 	<string name="tag_no_title_error">Por favor, ¡introduce un nombre para la primera lista!</string>
 	<string name="tag_FEx_untagged">Sin Categoría</string>

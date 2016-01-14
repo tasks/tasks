@@ -28,14 +28,16 @@
                 android:id="@+id/repeatValue"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="?attr/asTextColor"/>
 
             <Spinner
                 android:id="@+id/repeatInterval"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:prompt="@string/repeat_interval_prompt" />
+                android:prompt="@string/repeat_interval_prompt"
+                android:textColor="?attr/asTextColor" />
 
         </LinearLayout>
 
@@ -44,7 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp" />
+            android:paddingTop="5dp"
+            android:textColor="?attr/asTextColor" />
 
         <LinearLayout
             android:id="@+id/repeatDayOfWeekContainer"
@@ -53,7 +56,58 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="5dp"
-            android:paddingTop="5dp" />
+            android:paddingTop="5dp">
+
+            <CheckBox
+                style="@style/TextAppearance"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                style="@style/TextAppearance"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                style="@style/TextAppearance"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                style="@style/TextAppearance"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                style="@style/TextAppearance"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                style="@style/TextAppearance"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                style="@style/TextAppearance"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <Spinner
@@ -61,7 +115,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
-        android:paddingTop="5dp" />
+        android:paddingTop="5dp"
+        android:textColor="?attr/asTextColor" />
 
 </LinearLayout>
 

@@ -17,7 +17,6 @@
         android:textSize="@dimen/task_edit_text_size" />
 
     <RadioGroup
-        android:id="@+id/importance_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
@@ -27,24 +26,20 @@
         android:paddingStart="@dimen/task_edit_drawable_padding_left_right">
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/importance_3"
-            style="@style/priority_button"
-            android:tag="3" />
+            android:id="@+id/priority_none"
+            style="@style/priority_button"/>
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/importance_2"
-            style="@style/priority_button"
-            android:tag="2" />
+            android:id="@+id/priority_low"
+            style="@style/priority_button"/>
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/importance_1"
-            style="@style/priority_button"
-            android:tag="1" />
+            android:id="@+id/priority_medium"
+            style="@style/priority_button"/>
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/importance_0"
-            style="@style/priority_button"
-            android:tag="0" />
+            android:id="@+id/priority_high"
+            style="@style/priority_button"/>
     </RadioGroup>
 
 </LinearLayout>

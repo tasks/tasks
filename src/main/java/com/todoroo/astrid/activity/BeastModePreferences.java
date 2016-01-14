@@ -145,8 +145,7 @@ public class BeastModePreferences extends InjectingListActivity {
         }
 
         for (String s : itemsArray) {
-            if (!s.equals(context.getString(R.string.TEA_ctrl_title_pref)) &&
-                    !s.equals(context.getString(R.string.TEA_ctrl_share_pref)) &&
+            if (!s.equals(context.getString(R.string.TEA_ctrl_share_pref)) &&
                     !s.equals(context.getString(R.string.TEA_ctrl_more_pref))) {
                 list.add(s);
             }

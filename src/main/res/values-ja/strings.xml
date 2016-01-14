@@ -114,7 +114,6 @@
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
 	<string name="EPr_edit_screen_options">編集画面オプション</string>
-	<string name="EPr_show_timer_shortcut">タイマーのショートカットを表示</string>
 	<string name="EPr_beastMode_desc">タスク編集画面のレイアウトをカスタマイズ</string>
 	<string name="EPr_beastMode_reset">デフォルトにリセット</string>
 	<string name="EPr_beastMode_hint">各行の左側をドラッグしてタスク編集画面をカスタマイズしてください</string>
@@ -254,7 +253,6 @@
 		<item>毎月</item>
 		<item>一ヶ月おき</item>
 	</string-array>
-	<string name="repeat_enabled">繰り返し</string>
 	<string name="repeat_every">%d 毎</string>
 	<string name="repeat_interval_prompt">繰り返し間隔</string>
 	<string name="repeat_never">繰り返しなし</string>
@@ -275,7 +273,6 @@
 	<string name="repeat_forever">永久に繰り返す</string>
 	<string name="repeat_until">%s まで繰り返す</string>
 	<string name="repeat_snackbar">%1$s を %2$s にスケジュール変更しました</string>
-	<string name="TEA_tags_label_long">リストに追加</string>
 	<string name="new_tag">新しいタグ</string>
 	<string name="tag_no_title_error">まずリスト名を記入してください!</string>
 	<string name="tag_FEx_untagged">未分類</string>

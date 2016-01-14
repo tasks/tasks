@@ -98,6 +98,10 @@
         <!-- ====================================================== Activities = -->
 
         <activity
+            android:name=".activities.DatePickerActivity"
+            android:theme="@style/Theme.AppCompat.Dialog" />
+
+        <activity
             android:name=".activities.TimePickerActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
 
@@ -377,7 +381,7 @@
 
         <activity
             android:name=".activities.CalendarSelectionActivity"
-            android:theme="@style/TranslucentDialog" />
+            android:theme="@style/Theme.AppCompat.Dialog" />
 
         <activity
             android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"

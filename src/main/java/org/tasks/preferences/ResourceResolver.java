@@ -1,6 +1,7 @@
 package org.tasks.preferences;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.TypedValue;
 
 import javax.inject.Inject;
@@ -21,19 +22,9 @@ public class ResourceResolver {
         return getData(activity, attr);
     }
 
-    public int getResource(int attr) {
-        return getResource(activity, attr);
-    }
-
-    public static int getResource(Activity activity, int attr) {
+    public static int getData(Context context, int attr) {
         TypedValue typedValue = new TypedValue();
-        activity.getTheme().resolveAttribute(attr, typedValue, true);
-        return typedValue.resourceId;
-    }
-
-    public static int getData(Activity activity, int attr) {
-        TypedValue typedValue = new TypedValue();
-        activity.getTheme().resolveAttribute(attr, typedValue, true);
+        context.getTheme().resolveAttribute(attr, typedValue, true);
         return typedValue.data;
     }
 }

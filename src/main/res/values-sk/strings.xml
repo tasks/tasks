@@ -111,7 +111,6 @@
 	<string name="EPr_appearance_header">Vzhľad</string>
 	<string name="EPr_filters_to_show_title">Filtre pre zobrazenie</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>
-	<string name="EPr_show_timer_shortcut">Zobraziť skratku časovača</string>
 	<string name="EPr_beastMode_desc">Prispôsobiť rozvrhnutie zobrazenia úpravy úloh</string>
 	<string name="EPr_beastMode_reset">Obnoviť na predvolené</string>
 	<string name="EPr_beastMode_hint">Prispôsob si rozvrhnutie zobrazenia úpravy úloh potiahnutím ľavej rukoväte na každom riadku</string>
@@ -239,7 +238,6 @@
 		<item>mesačne</item>
 		<item>každý druhý mesiac</item>
 	</string-array>
-	<string name="repeat_enabled">Opakovanie</string>
 	<string name="repeat_every">Každý %d</string>
 	<string name="repeat_interval_prompt">Interval opakovania</string>
 	<string name="repeat_never">Neopakovať</string>
@@ -260,7 +258,6 @@
 	<string name="repeat_forever">Opakovať donekonečna</string>
 	<string name="repeat_until">Opakovať do %s</string>
 	<string name="repeat_snackbar">%1$s preplánované na %2$s</string>
-	<string name="TEA_tags_label_long">Pridať do zoznamov</string>
 	<string name="new_tag">Nasledujúci tag</string>
 	<string name="tag_no_title_error">Prosím, uveďte najprv názov pre tento zoznam!</string>
 	<string name="tag_FEx_untagged">Nezaradené</string>

@@ -110,7 +110,6 @@
 	<string name="rmd_EPr_quiet_hours_start_title">Stilletimer start</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Stilletimer slutt</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfeldige påminnelser</string>
-	<string name="repeat_enabled">Gjentakelser</string>
 	<string name="repeat_every">Hver %d</string>
 	<string name="repeat_interval_prompt">Gjentakelsesintervall</string>
 	<string name="repeat_detail_duedate">Hver %s</string>

@@ -223,7 +223,6 @@
 		<item>חודשי</item>
 		<item>דו חודשי</item>
 	</string-array>
-	<string name="repeat_enabled">חזרה</string>
 	<string name="repeat_every">כל %d</string>
 	<string name="repeat_interval_prompt">אינטרוול חזרות</string>
 	<string-array name="repeat_interval">
@@ -242,7 +241,6 @@
 	<string name="repeat_detail_duedate_until">כל %1$s\nעד %2$s</string>
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
-	<string name="TEA_tags_label_long">הוסף לרשימות</string>
 	<string name="tag_no_title_error">אנא הכנס שם לרשימה זו</string>
 	<string name="TPl_notification">קוצב זמן הופעל עבור %s משימות</string>
 	<string name="TFE_workingOn">משימות עם הערכת זמן</string>

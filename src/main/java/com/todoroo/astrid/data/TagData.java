@@ -110,6 +110,7 @@ public final class TagData extends RemoteModel {
         setValue(LAST_AUTOSYNC, lastAutosync);
     }
 
+    // TODO: remove?
     public String getUUID() {
         return getValue(UUID);
     }

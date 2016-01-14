@@ -44,11 +44,10 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
+import com.todoroo.astrid.timers.TimerActionListener;
 
 import org.json.JSONObject;
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,14 +66,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private Task task;
 
     private ActFmCameraModule actFmCameraModule;
-    private final Preferences preferences;
     private final MetadataDao metadataDao;
     private final UserActivityDao userActivityDao;
     private final TaskService taskService;
     private final ArrayList<NoteOrUpdate> items = new ArrayList<>();
     private EditText commentField;
     private final View commentsBar;
-    private View timerView;
     private View commentButton;
     private int commentItems = 10;
     private ImageButton pictureButton;
@@ -94,7 +91,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public EditNoteActivity(
             ActFmCameraModule actFmCameraModule,
-            Preferences preferences,
             MetadataDao metadataDao,
             UserActivityDao userActivityDao,
             TaskService taskService,
@@ -103,7 +99,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             long t) {
         super(fragment.getActivity());
         this.actFmCameraModule = actFmCameraModule;
-        this.preferences = preferences;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.taskService = taskService;
@@ -141,26 +136,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     // --- UI preparation
 
     private void setUpInterface() {
-        timerView = commentsBar.findViewById(R.id.timer_container);
         commentButton = commentsBar.findViewById(R.id.commentButton);
         commentField = (EditText) commentsBar.findViewById(R.id.commentField);
 
-        final boolean showTimerShortcut = preferences.getBoolean(R.string.p_show_timer_shortcut, false);
-
-        if (showTimerShortcut) {
-            commentField.setOnFocusChangeListener(new OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        timerView.setVisibility(View.GONE);
-                        commentButton.setVisibility(View.VISIBLE);
-                    } else {
-                        timerView.setVisibility(View.VISIBLE);
-                        commentButton.setVisibility(View.GONE);
-                    }
-                }
-            });
-        }
         commentField.setHorizontallyScrolling(false);
         commentField.setMaxLines(Integer.MAX_VALUE);
         commentField.setOnKeyListener(new OnKeyListener() {
@@ -185,10 +163,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             public void afterTextChanged(Editable s) {
                 commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
                         : View.GONE);
-                if (showTimerShortcut) {
-                    timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE
-                            : View.VISIBLE);
-                }
             }
 
             @Override
@@ -241,7 +215,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             }
         });
         if(!TextUtils.isEmpty(task.getNotes())) {
-            TextView notes = new TextView(getContext());
+            TextView notes = new TextView(activity);
             notes.setLinkTextColor(Color.rgb(100, 160, 255));
             notes.setTextSize(18);
             notes.setText(task.getNotes());
@@ -294,7 +268,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         if (items.size() > commentItems) {
-            Button loadMore = new Button(getContext());
+            Button loadMore = new Button(activity);
             loadMore.setText(R.string.TEA_load_more);
             loadMore.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
             loadMore.setBackgroundColor(Color.alpha(0));
@@ -315,7 +289,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
-        View convertView = ((Activity)getContext()).getLayoutInflater().inflate(
+        View convertView = ((Activity)activity).getLayoutInflater().inflate(
                     R.layout.comment_adapter_row, parent, false);
         bindView(convertView, note);
         return convertView;
@@ -364,7 +338,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private void addComment() {
         addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), true);
-        AndroidUtilities.hideSoftInputForViews(getContext(), commentField);
+        AndroidUtilities.hideSoftInputForViews(activity, commentField);
         commentField.setCursorVisible(false);
     }
 
@@ -459,8 +433,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     @Override
     public void timerStarted(Task t) {
         addComment(String.format("%s %s",  //$NON-NLS-1$
-                        getContext().getString(R.string.TEA_timer_comment_started),
-                        DateUtilities.getTimeString(getContext(), newDateTime())),
+                        activity.getString(R.string.TEA_timer_comment_started),
+                        DateUtilities.getTimeString(activity, newDateTime())),
                 UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
                 false);
@@ -470,9 +444,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     public void timerStopped(Task t) {
         String elapsedTime = DateUtils.formatElapsedTime(t.getElapsedSeconds());
         addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
-                getContext().getString(R.string.TEA_timer_comment_stopped),
-                DateUtilities.getTimeString(getContext(), newDateTime()),
-                getContext().getString(R.string.TEA_timer_comment_spent),
+                activity.getString(R.string.TEA_timer_comment_stopped),
+                DateUtilities.getTimeString(activity, newDateTime()),
+                activity.getString(R.string.TEA_timer_comment_spent),
                 elapsedTime), UserActivity.ACTION_TASK_COMMENT,
                 t.getUuid(),
                 false);

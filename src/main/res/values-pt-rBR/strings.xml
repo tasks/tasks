@@ -102,7 +102,6 @@
 	<string name="EPr_appearance_header">Aparência</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Editar opções da tela</string>
-	<string name="EPr_show_timer_shortcut">Exibir atalho para temporizador</string>
 	<string name="EPr_beastMode_desc">Personalize o layout da tela de edição</string>
 	<string name="EPr_beastMode_reset">Restaurar valores padrão</string>
 	<string name="EPr_beastMode_hint">Personalize suas tarefas na tela de edição arrastando-as para a esquerda</string>
@@ -223,7 +222,6 @@
 		<item>mensalmente</item>
 		<item>a cada dois meses</item>
 	</string-array>
-	<string name="repeat_enabled">Repetir</string>
 	<string name="repeat_every">A cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetição</string>
 	<string name="repeat_never">Não repetir</string>
@@ -243,7 +241,6 @@
 	<string name="repeat_detail_duedate_until">Todo %1$s\naté %2$s</string>
 	<string name="repeat_forever">Repetir para sempre</string>
 	<string name="repeat_until">Repetir até %s</string>
-	<string name="TEA_tags_label_long">Adicionar às listas</string>
 	<string name="tag_no_title_error">Entre com o nome da lista primeiro!</string>
 	<string name="tag_FEx_untagged">Sem categoria</string>
 	<string name="TPl_notification">Temporizador ativado para %s!</string>

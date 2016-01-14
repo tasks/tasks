@@ -82,14 +82,14 @@ public final class TagService {
         return tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
     }
 
-    public List<String> getTagNames(long taskId) {
+    public ArrayList<String> getTagNames(long taskId) {
         Query query = Query.select(TaskToTagMetadata.TAG_NAME, TaskToTagMetadata.TAG_UUID).where(
                 Criterion.and(
                     MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                     Metadata.DELETION_DATE.eq(0),
                     MetadataCriteria.byTask(taskId)))
                 .orderBy(Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME)));
-        final List<String> tagNames = new ArrayList<>();
+        final ArrayList<String> tagNames = new ArrayList<>();
         metadataDao.query(query,  new Callback<Metadata>() {
             @Override
             public void apply(Metadata entry) {

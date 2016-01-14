@@ -7,12 +7,23 @@ import android.content.Context;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
+import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
+import com.todoroo.astrid.tags.TagsControlSet;
+import com.todoroo.astrid.timers.TimerControlSet;
+import com.todoroo.astrid.ui.EditTitleControlSet;
+import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.QuickAddBar;
+import com.todoroo.astrid.ui.ReminderControlSet;
 
+import org.tasks.ui.CalendarControlSet;
+import org.tasks.ui.DeadlineControlSet;
+import org.tasks.ui.DescriptionControlSet;
 import org.tasks.ui.NavigationDrawerFragment;
+import org.tasks.ui.PriorityControlSet;
 
 import javax.inject.Singleton;
 
@@ -28,7 +39,18 @@ import dagger.Provides;
                 TagViewFragment.class,
                 TaskEditFragment.class,
                 NavigationDrawerFragment.class,
-                QuickAddBar.class
+                QuickAddBar.class,
+                CalendarControlSet.class,
+                DeadlineControlSet.class,
+                PriorityControlSet.class,
+                DescriptionControlSet.class,
+                HideUntilControlSet.class,
+                ReminderControlSet.class,
+                FilesControlSet.class,
+                EditTitleControlSet.class,
+                TimerControlSet.class,
+                TagsControlSet.class,
+                RepeatControlSet.class
         })
 public class FragmentModule {
 

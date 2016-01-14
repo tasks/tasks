@@ -15,8 +15,12 @@ import android.view.KeyEvent;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 
+import org.tasks.ui.CalendarControlSet;
+import org.tasks.ui.DescriptionControlSet;
+
 import org.tasks.R;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.ui.PriorityControlSet;
 
 import javax.inject.Inject;
 

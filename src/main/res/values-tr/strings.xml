@@ -198,7 +198,6 @@
 		<item>ayda bir</item>
 		<item>ayda 2 kez</item>
 	</string-array>
-	<string name="repeat_enabled">Tekrarlar</string>
 	<string name="repeat_every">Her %d</string>
 	<string name="repeat_interval_prompt">Yineleme Aralığı</string>
 	<string-array name="repeat_interval">

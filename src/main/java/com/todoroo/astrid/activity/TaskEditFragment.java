@@ -6,8 +6,10 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,75 +27,61 @@ import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
-import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.gcal.GCalControlSet;
-import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsControlSet;
-import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.timers.TimerPlugin;
-import com.todoroo.astrid.ui.CheckableImageView;
-import com.todoroo.astrid.ui.DescriptionControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
-import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
-import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CameraActivity;
-import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingFragment;
-import org.tasks.location.Geofence;
-import org.tasks.location.GeofenceService;
-import org.tasks.location.PlacePicker;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.Device;
-import org.tasks.preferences.PermissionRequestor;
+import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
+import org.tasks.ui.DescriptionControlSet;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.PriorityControlSet;
+import org.tasks.ui.TaskEditControlFragment;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import timber.log.Timber;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -120,8 +108,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      */
     public static final String TOKEN_VALUES = "v"; //$NON-NLS-1$
 
-    public static final String TOKEN_OPEN_CONTROL = "open_control"; //$NON-NLS-1$
-
     /**
      * Task in progress (during orientation change)
      */
@@ -139,8 +125,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
 
     // --- request codes
 
-    public static final int REQUEST_CODE_RECORD = 30;
-    public static final int REQUEST_ADD_ATTACHMENT = 50;
+    public static final int REQUEST_CODE_RECORD = 30; // TODO: move this to file control set
     public static final int REQUEST_CODE_CAMERA = 60;
 
     // --- result codes
@@ -154,41 +139,26 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     public static final int TAB_VIEW_UPDATES = 0;
 
     @Inject TaskService taskService;
-    @Inject TaskAttachmentDao taskAttachmentDao;
-    @Inject TagService tagService;
     @Inject MetadataDao metadataDao;
     @Inject UserActivityDao userActivityDao;
     @Inject TaskDeleter taskDeleter;
     @Inject NotificationManager notificationManager;
-    @Inject AlarmService alarmService;
-    @Inject GCalHelper gcalHelper;
     @Inject ActivityPreferences preferences;
-    @Inject TagDataDao tagDataDao;
     @Inject ActFmCameraModule actFmCameraModule;
-    @Inject GeofenceService geofenceService;
     @Inject DialogBuilder dialogBuilder;
-    @Inject PermissionRequestor permissionRequestor;
-    @Inject Device device;
+    @Inject @ForActivity Context context;
 
     // --- UI components
 
-    private final HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<>();
-    private FilesControlSet filesControlSet;
-    private TimerActionControlSet timerAction;
+    private final Map<String, Integer> controlSetFragments = new HashMap<>();
+    private final List<Integer> displayedFragments = new ArrayList<>();
     private EditNoteActivity editNotes;
-    private HideUntilControlSet hideUntilControls;
-    private ReminderControlSet reminderControlSet;
 
-    @Bind(R.id.title) EditText title;
     @Bind(R.id.pager) ViewPager mPager;
     @Bind(R.id.updatesFooter) View commentsBar;
-    @Bind(R.id.completeBox) CheckableImageView checkbox;
-    @Bind(R.id.timer_container) LinearLayout timerShortcut;
     @Bind(R.id.basic_controls) LinearLayout basicControls;
     @Bind(R.id.edit_scroll) ScrollView scrollView;
     @Bind(R.id.commentField) EditText commentField;
-
-    private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
     // --- other instance variables
 
@@ -206,7 +176,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     private String uuid = RemoteModel.NO_UUID;
 
     private boolean showEditComments;
-    private boolean showTimerShortcut;
 
     /*
      * ======================================================================
@@ -231,9 +200,8 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         }
 
         showEditComments = preferences.getBoolean(R.string.p_show_task_edit_comments, true);
-        showTimerShortcut = preferences.getBoolean(R.string.p_show_timer_shortcut, false);
 
-        getActivity().setResult(Activity.RESULT_OK);
+        getActivity().setResult(RESULT_OK);
     }
 
     /*
@@ -247,7 +215,88 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.task_edit_activity, container, false);
         ButterKnife.bind(this, view);
+
+        loadItem(getActivity().getIntent());
+
+        registerFragment(R.string.TEA_ctrl_title_pref);
+        registerFragment(R.string.TEA_ctrl_when_pref);
+        registerFragment(R.string.TEA_ctrl_gcal);
+        registerFragment(R.string.TEA_ctrl_importance_pref);
+        registerFragment(R.string.TEA_ctrl_notes_pref);
+        registerFragment(R.string.TEA_ctrl_hide_until_pref);
+        registerFragment(R.string.TEA_ctrl_reminders_pref);
+        registerFragment(R.string.TEA_ctrl_files_pref);
+        registerFragment(R.string.TEA_ctrl_timer_pref);
+        registerFragment(R.string.TEA_ctrl_lists_pref);
+        registerFragment(R.string.TEA_ctrl_repeat_pref);
+        
+        ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(preferences, getActivity());
+        controlOrder.add(0, getString(R.string.TEA_ctrl_title_pref));
+
+        String hideAlwaysTrigger = getString(R.string.TEA_ctrl_hide_section_pref);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        for (String item : controlOrder) {
+            if (item.equals(hideAlwaysTrigger)) {
+                break;
+            }
+            Integer fragmentId = controlSetFragments.get(item);
+            if (fragmentId == null) {
+                Timber.e("Unknown task edit control %s", item);
+                continue;
+            }
+            displayedFragments.add(fragmentId);
+            if (fragmentManager.findFragmentByTag(item) == null) {
+                TaskEditControlFragment fragment = createFragment(controlSetFragments.get(item));
+                if (fragment != null) {
+                    fragment.initialize(isNewTask, model);
+                    fragmentTransaction.add(basicControls.getId(), fragment, item);
+                }
+            }
+        }
+
+        fragmentTransaction.commit();
+
+        if (!showEditComments) {
+            commentsBar.setVisibility(View.GONE);
+        }
+
         return view;
+    }
+
+    private void registerFragment(int resId) {
+        controlSetFragments.put(getString(resId), resId);
+    }
+
+    private TaskEditControlFragment createFragment(int fragmentId) {
+        switch (fragmentId) {
+            case R.string.TEA_ctrl_title_pref:
+                return new EditTitleControlSet();
+            case R.string.TEA_ctrl_when_pref:
+                return new DeadlineControlSet();
+            case R.string.TEA_ctrl_importance_pref:
+                return new PriorityControlSet();
+            case R.string.TEA_ctrl_notes_pref:
+                return new DescriptionControlSet();
+            case R.string.TEA_ctrl_gcal:
+                return new CalendarControlSet();
+            case R.string.TEA_ctrl_hide_until_pref:
+                return new HideUntilControlSet();
+            case R.string.TEA_ctrl_reminders_pref:
+                return new ReminderControlSet();
+            case R.string.TEA_ctrl_files_pref:
+                return new FilesControlSet();
+            case R.string.TEA_ctrl_timer_pref:
+                return new TimerControlSet();
+            case R.string.TEA_ctrl_lists_pref:
+                return new TagsControlSet();
+            case R.string.TEA_ctrl_repeat_pref:
+                return new RepeatControlSet();
+            default:
+                throw new RuntimeException("Unsupported fragment");
+        }
     }
 
     @Override
@@ -267,81 +316,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
             }
         }
 
-        // populate control set
-        EditTitleControlSet editTitle = new EditTitleControlSet(
-                taskService,
-                getActivity(),
-                title,
-                checkbox);
-        controls.add(editTitle);
-
-        timerAction = new TimerActionControlSet(notificationManager, taskService, getActivity(), getView());
-        controls.add(timerAction);
-
-        TagsControlSet tagsControlSet = new TagsControlSet(metadataDao, tagDataDao, preferences, tagService, getActivity(), dialogBuilder);
-        controls.add(tagsControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControlSet);
-
-        RepeatControlSet repeatControls = new RepeatControlSet(preferences, getActivity(), dialogBuilder);
-        controlSetMap.put(getString(R.string.TEA_ctrl_repeat_pref), repeatControls);
-
-        GCalControlSet gcalControl = new GCalControlSet(gcalHelper, preferences, this, permissionRequestor);
-        controlSetMap.put(getString(R.string.TEA_ctrl_gcal), gcalControl);
-
-        // The deadline control set contains the repeat controls and the
-        // calendar controls.
-        // NOTE: we add the gcalControl AFTER the
-        // deadline control, because
-        // otherwise the correct date may not be written to the calendar event.
-        // Order matters!
-        DeadlineControlSet deadlineControl = new DeadlineControlSet(getActivity(), preferences);
-        controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), deadlineControl);
-        controls.add(repeatControls);
-
-        repeatControls.addListener(editTitle);
-        controls.add(deadlineControl);
-        controls.add(gcalControl);
-
-        PriorityControlSet importanceControl = new PriorityControlSet(getActivity());
-        controls.add(importanceControl);
-        importanceControl.addListener(editTitle);
-        controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),
-                importanceControl);
-
-        DescriptionControlSet notesControlSet = new DescriptionControlSet(getActivity());
-        controls.add(notesControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
-                notesControlSet);
-
-        reminderControlSet = new ReminderControlSet(alarmService, geofenceService, this, permissionRequestor, device);
-        controls.add(reminderControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControlSet);
-
-        hideUntilControls = new HideUntilControlSet(this);
-        controls.add(hideUntilControls);
-        controlSetMap.put(getString(R.string.TEA_ctrl_hide_until_pref), hideUntilControls);
-
-        // TODO: Fix the fact that hideUntil doesn't update accordingly with date changes when lazy loaded. Until then, don't lazy load.
-        hideUntilControls.getView();
-
-        TimerControlSet timerControl = new TimerControlSet(preferences, getActivity(), dialogBuilder);
-        timerAction.addListener(timerControl);
-        controls.add(timerControl);
-        controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
-
-        filesControlSet = new FilesControlSet(preferences, taskAttachmentDao, this);
-        controls.add(filesControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
-
-        loadEditPageOrder();
-
-        if (!showEditComments) {
-            commentsBar.setVisibility(View.GONE);
-        }
-        if (!showTimerShortcut) {
-            timerShortcut.setVisibility(View.GONE);
-        }
-
         // Load task data in background
         new TaskEditBackgroundLoader().start();
     }
@@ -349,7 +323,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     private void instantiateEditNotes() {
         if (showEditComments) {
             long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
-            editNotes = new EditNoteActivity(actFmCameraModule, preferences, metadataDao, userActivityDao,
+            editNotes = new EditNoteActivity(actFmCameraModule, metadataDao, userActivityDao,
                     taskService, this, getView(), idParam);
             editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.WRAP_CONTENT));
@@ -373,12 +347,11 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
             editNotes.loadViewForTaskID(idParam);
         }
 
-        if (timerAction != null && editNotes != null) {
-            timerAction.removeListener(editNotes);
-            timerAction.addListener(editNotes);
-        }
-
         if (editNotes != null) {
+            TimerControlSet timerControl = getTimerControl();
+            if (timerControl != null) {
+                timerControl.setEditNotes(editNotes);
+            }
             editNotes.addListener(this);
         }
 
@@ -406,40 +379,14 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         mPager.setCurrentItem(position);
     }
 
-    private void loadEditPageOrder() {
-        ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(preferences, getActivity());
-        String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
+    public Task stopTimer() {
+        TimerPlugin.stopTimer(notificationManager, taskService, context, model);
+        return model;
+    }
 
-        String hideAlwaysTrigger = getString(R.string.TEA_ctrl_hide_section_pref);
-
-        Class<?> openControl = (Class<?>) getActivity().getIntent().getSerializableExtra(TOKEN_OPEN_CONTROL);
-
-        for (String item : itemOrder) {
-            if (item.equals(hideAlwaysTrigger)) {
-                break; // As soon as we hit the hide section, we're done
-            } else {
-                View controlSet = null;
-                TaskEditControlSet curr = controlSetMap.get(item);
-
-                if (curr != null) {
-                    controlSet = curr.getView();
-                }
-
-                if (controlSet != null) {
-                    ImageView icon = (ImageView) controlSet.findViewById(R.id.icon);
-                    if (icon != null) {
-                        icon.setImageResource(curr.getIcon());
-                    }
-                    basicControls.addView(controlSet);
-                }
-
-                if (curr != null && curr.getClass().equals(openControl) && curr instanceof PopupControlSet) {
-                    curr.getView().performClick();
-                }
-            }
-        }
-
-        getActivity().getIntent().removeExtra(TOKEN_OPEN_CONTROL);
+    public Task startTimer() {
+        TimerPlugin.startTimer(notificationManager, taskService, context, model);
+        return model;
     }
 
     /**
@@ -538,61 +485,44 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     public void repopulateFromScratch(Intent intent) {
         model = null;
         uuid = RemoteModel.NO_UUID;
-        populateFields(intent);
         loadMoreContainer();
     }
 
-    /** Populate UI component values from the model */
-    public void populateFields(Intent intent) {
-        loadItem(intent);
-
-        synchronized (controls) {
-            for (TaskEditControlSet controlSet : controls) {
-                controlSet.readFromTask(model);
-            }
-        }
+    private String getTitle() {
+        return getEditTitleControlSet().getTitle();
     }
 
     /** Save task model from values in UI components */
     public void save(boolean onPause) {
+        String title = getTitle();
         if (title == null) {
             return;
         }
 
-        if (title.getText().length() > 0) {
+        if (title.length() > 0) {
             model.setDeletionDate(0L);
         }
 
-        if (title.getText().length() == 0) {
+        if (title.length() == 0) {
             return;
         }
 
-        synchronized (controls) {
-            for (TaskEditControlSet controlSet : controls) {
-                if (controlSet instanceof PopupControlSet) { // Save open control set
-                    PopupControlSet popup = (PopupControlSet) controlSet;
-                    Dialog d = popup.getDialog();
-                    if (d != null && d.isShowing()) {
-                        getActivity().getIntent().putExtra(TOKEN_OPEN_CONTROL, popup.getClass());
-                    }
-                }
-                controlSet.writeToModel(model);
-            }
-        }
-
-        boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
-        model.putTransitory(TaskService.TRANS_EDIT_SAVE, true); // TODO: not used?
-        taskService.save(model);
-
         if (!onPause) {
+            for (Integer fragmentId : displayedFragments) {
+                getFragment(fragmentId).apply(model);
+            }
+            taskService.save(model);
+
             boolean taskEditActivity = (getActivity() instanceof TaskEditActivity);
+
+            boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
 
             if (taskEditActivity) {
                 Intent data = new Intent();
                 data.putExtra(TOKEN_TAGS_CHANGED, tagsChanged);
                 data.putExtra(TOKEN_ID, model.getId());
                 data.putExtra(TOKEN_UUID, model.getUuid());
-                getActivity().setResult(Activity.RESULT_OK, data);
+                getActivity().setResult(RESULT_OK, data);
 
             } else {
                 // Notify task list fragment in multi-column case
@@ -611,13 +541,29 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
             removeExtrasFromIntent(getActivity().getIntent());
             shouldSaveState = false;
             getActivity().onBackPressed();
-
         }
+    }
+
+    private EditTitleControlSet getEditTitleControlSet() {
+        return getFragment(R.string.TEA_ctrl_title_pref);
+    }
+
+    private FilesControlSet getFilesControlSet() {
+        return getFragment(R.string.TEA_ctrl_files_pref);
+    }
+
+    private TimerControlSet getTimerControl() {
+        return getFragment(R.string.TEA_ctrl_timer_pref);
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T extends TaskEditControlFragment> T getFragment(int tag) {
+        return (T) getFragmentManager().findFragmentByTag(getString(tag));
     }
 
     public boolean onKeyDown(int keyCode) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if(title.getText().length() == 0) {
+            if(getTitle().length() == 0) {
                 discardButtonClick();
             } else {
                 saveButtonClick();
@@ -640,11 +586,11 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         }
 
         if (activity instanceof TaskListActivity) {
-            if (title.getText().length() == 0 && isNewTask && model != null && model.isSaved()) {
+            if (getTitle().length() == 0 && isNewTask && model != null && model.isSaved()) {
                 taskDeleter.delete(model);
             }
         } else if (activity instanceof TaskEditActivity) {
-            if (title.getText().length() == 0 && isNewTask && model != null && model.isSaved()) {
+            if (getTitle().length() == 0 && isNewTask && model != null && model.isSaved()) {
                 taskDeleter.delete(model);
             }
         }
@@ -674,7 +620,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         shouldSaveState = false;
 
         // abandon editing in this case
-        if (title.getText().toString().trim().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
+        if (getTitle().trim().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
             if (isNewTask) {
                 TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
                 taskDeleter.delete(model);
@@ -700,7 +646,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
 
                         Activity a = getActivity();
                         if (a instanceof TaskEditActivity) {
-                            getActivity().setResult(Activity.RESULT_OK);
+                            getActivity().setResult(RESULT_OK);
                             getActivity().onBackPressed();
                         } else if (a instanceof TaskListActivity) {
                             discardButtonClick();
@@ -738,7 +684,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
             deleteButtonClick();
             return true;
         case android.R.id.home:
-            if (title.getText().toString().trim().length() == 0) {
+            if (getTitle().trim().length() == 0) {
                 discardButtonClick();
             } else {
                 saveButtonClick();
@@ -769,58 +715,17 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        populateFields(getActivity().getIntent());
-        if (isNewTask) {
-            title.requestFocus();
-            title.setCursorVisible(true);
-            getActivity().getWindow()
-                    .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
-                            | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        }
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (editNotes == null) {
             instantiateEditNotes();
         }
 
-        if (requestCode == HideUntilControlSet.REQUEST_HIDE_UNTIL && resultCode == Activity.RESULT_OK) {
-            long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
-            if (timestamp > 0) {
-                hideUntilControls.setCustomDate(timestamp);
-            } else {
-                Timber.e("Invalid timestamp");
-            }
-        } else if (requestCode == ReminderControlSet.REQUEST_NEW_ALARM && resultCode == Activity.RESULT_OK) {
-            long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
-            if (timestamp > 0) {
-                reminderControlSet.addAlarmRow(timestamp);
-            } else {
-                Timber.e("Invalid timestamp");
-            }
-        } else if (requestCode == ReminderControlSet.REQUEST_LOCATION_REMINDER) {
-            if (resultCode == Activity.RESULT_OK) {
-                Geofence geofence = PlacePicker.getPlace(getActivity(), data, preferences);
-                if (geofence != null) {
-                    reminderControlSet.addGeolocationReminder(geofence);
-                } else {
-                    Timber.e("Invalid geofence");
-                }
-            }
-        } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CODE_RECORD && resultCode == RESULT_OK) {
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
-            filesControlSet.createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
-        } else if (requestCode == REQUEST_ADD_ATTACHMENT && resultCode == Activity.RESULT_OK) {
-            String path = data.getStringExtra(AddAttachmentActivity.EXTRA_PATH);
-            File file = new File(path);
-            String extension = path.substring(path.lastIndexOf('.') + 1);
-            filesControlSet.createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
+            getFilesControlSet().createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_CAMERA) {
-            if (editNotes != null && resultCode == Activity.RESULT_OK) {
+            if (editNotes != null && resultCode == RESULT_OK) {
                 Uri uri = data.getParcelableExtra(CameraActivity.EXTRA_URI);
                 editNotes.setPictureUri(uri);
             }
@@ -901,8 +806,16 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     }
 
     private void hideKeyboard() {
-        AndroidUtilities.hideSoftInputForViews(getActivity(), title, commentField);
-        title.setCursorVisible(false);
+        getEditTitleControlSet().hideKeyboard();
+        AndroidUtilities.hideSoftInputForViews(getActivity(), commentField);
         commentField.setCursorVisible(false);
+    }
+
+    public void onPriorityChange(int priority) {
+        getEditTitleControlSet().setPriority(priority);
+    }
+
+    public void onRepeatChanged(boolean repeat) {
+        getEditTitleControlSet().repeatChanged(repeat);
     }
 }

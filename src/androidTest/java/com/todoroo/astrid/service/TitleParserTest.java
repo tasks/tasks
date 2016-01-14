@@ -233,14 +233,14 @@ public class TitleParserTest extends DatabaseTestCase {
             String title = "Jog " + acceptedString;
             task.setTitle(title); //test at end of task. should set importance.
             taskService.createWithValues(task, null, title);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_LEAST);
+            assertEquals((int)task.getImportance(), Task.IMPORTANCE_NONE);
         }
         for (String acceptedString:acceptedStrings){
             task = new Task();
             String title = acceptedString + " jog";
             task.setTitle(title); //test at beginning of task. should not set importance.
             taskService.createWithValues(task, null, title);
-            assertNotSame(task.getImportance(),Task.IMPORTANCE_LEAST);
+            assertNotSame(task.getImportance(),Task.IMPORTANCE_NONE);
         }
     }
 

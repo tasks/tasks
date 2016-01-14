@@ -102,7 +102,6 @@
 	<string name="EPr_appearance_header">Wygląd</string>
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
-	<string name="EPr_show_timer_shortcut">Pokaż skrót minutnika</string>
 	<string name="EPr_beastMode_desc">Dostosuj układ strony edycji zadania</string>
 	<string name="EPr_beastMode_reset">Przywróć domyślne</string>
 	<string name="EPr_beastMode_hint">Dostosuj swój ekran edycji zadania przez przeciąganie za uchwyt po prawej w każdym wierszu</string>
@@ -226,7 +225,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 		<item>raz w miesiącu</item>
 		<item>raz na dwa miesiące</item>
 	</string-array>
-	<string name="repeat_enabled">Powtarza się</string>
 	<string name="repeat_every">Co %d</string>
 	<string name="repeat_interval_prompt">Odstęp powtarzania</string>
 	<string name="repeat_never">Jednorazowo</string>
@@ -246,7 +244,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_detail_duedate_until">Co %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
-	<string name="TEA_tags_label_long">Dodaj do list</string>
 	<string name="tag_no_title_error">Wpisz nazwę dla tej listy najpierw!</string>
 	<string name="tag_FEx_untagged">Na żadnej liście</string>
 	<string name="TPl_notification">Minutnkiki aktywne przez %s!</string>

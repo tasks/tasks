@@ -6,17 +6,20 @@
 package com.todoroo.astrid.files;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,46 +27,112 @@ import android.widget.Toast;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.injection.ForActivity;
+import org.tasks.ui.TaskEditControlFragment;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 import timber.log.Timber;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
-public class FilesControlSet extends TaskEditControlSetBase {
+public class FilesControlSet extends TaskEditControlFragment {
 
-    private final ArrayList<TaskAttachment> files = new ArrayList<>();
-    private final LayoutInflater inflater;
-    private final TaskAttachmentDao taskAttachmentDao;
-    private final Fragment fragment;
-    private final DialogBuilder dialogBuilder;
-    private LinearLayout attachmentContainer;
-    private TextView addAttachment;
+    private static final int REQUEST_ADD_ATTACHMENT = 50;
+    private static final String EXTRA_UUID = "extra_uuid";
 
-    public FilesControlSet(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao,
-                           Fragment fragment) {
-        super(fragment.getActivity(), R.layout.control_set_files);
-        this.taskAttachmentDao = taskAttachmentDao;
-        this.fragment = fragment;
-        this.dialogBuilder = new DialogBuilder(activity, preferences);
-        inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+    @Inject TaskAttachmentDao taskAttachmentDao;
+    @Inject DialogBuilder dialogBuilder;
+    @Inject @ForActivity Context context;
+
+    @Bind(R.id.attachment_container) LinearLayout attachmentContainer;
+    @Bind(R.id.add_attachment) TextView addAttachment;
+
+    private String taskUuid;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+
+        if (savedInstanceState != null) {
+            taskUuid = savedInstanceState.getString(EXTRA_UUID);
+        }
+
+        final List<TaskAttachment> files = new ArrayList<>();
+        taskAttachmentDao.getAttachments(taskUuid, new Callback<TaskAttachment>() {
+            @Override
+            public void apply(TaskAttachment attachment) {
+                files.add(attachment);
+                addAttachment(attachment);
+            }
+        });
+        validateFiles(files);
+        return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(EXTRA_UUID, taskUuid);
+    }
+
+    @OnClick(R.id.add_attachment)
+    void addAttachment(View view) {
+        startActivityForResult(new Intent(context, AddAttachmentActivity.class), REQUEST_ADD_ATTACHMENT);
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.control_set_files;
+    }
+
+    @Override
+    public int getIcon() {
+        return R.drawable.ic_attachment_24dp;
+    }
+
+    @Override
+    public void initialize(boolean isNewTask, Task task) {
+        taskUuid = task.getUuid();
+    }
+
+    @Override
+    public void apply(Task task) {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_ADD_ATTACHMENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                String path = data.getStringExtra(AddAttachmentActivity.EXTRA_PATH);
+                File file = new File(path);
+                String extension = path.substring(path.lastIndexOf('.') + 1);
+                createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void addAttachment(TaskAttachment taskAttachment) {
-        View fileRow = inflater.inflate(R.layout.file_row, null);
+        View fileRow = getActivity().getLayoutInflater().inflate(R.layout.file_row, null);
         fileRow.setTag(taskAttachment);
         attachmentContainer.addView(fileRow);
         addAttachment(taskAttachment, fileRow);
@@ -71,7 +140,6 @@ public class FilesControlSet extends TaskEditControlSetBase {
 
     private void addAttachment(final TaskAttachment taskAttachment, final View fileRow) {
         TextView nameView = (TextView) fileRow.findViewById(R.id.file_text);
-        nameView.setTextColor(themeColor);
         String name = taskAttachment.getName();
         nameView.setText(name);
         nameView.setOnClickListener(new OnClickListener() {
@@ -93,7 +161,6 @@ public class FilesControlSet extends TaskEditControlSetBase {
                                     File f = new File(taskAttachment.getFilePath());
                                     f.delete();
                                 }
-                                files.remove(taskAttachment);
                                 attachmentContainer.removeView(fileRow);
                             }
                         })
@@ -103,28 +170,7 @@ public class FilesControlSet extends TaskEditControlSetBase {
         });
     }
 
-    @Override
-    public int getIcon() {
-        return R.drawable.ic_attachment_24dp;
-    }
-
-    public void refreshMetadata() {
-        if (model != null) {
-            files.clear();
-            taskAttachmentDao.getAttachments(model.getUuid(), new Callback<TaskAttachment>() {
-                @Override
-                public void apply(TaskAttachment attachment) {
-                    files.add(attachment);
-                }
-            });
-            validateFiles();
-            if (initialized) {
-                afterInflate();
-            }
-        }
-    }
-
-    private void validateFiles() {
+    private void validateFiles(List<TaskAttachment> files) {
         for (int i = 0; i < files.size(); i++) {
             TaskAttachment m = files.get(i);
             if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
@@ -138,34 +184,6 @@ public class FilesControlSet extends TaskEditControlSetBase {
                 }
             }
         }
-    }
-
-    @Override
-    protected void readFromTaskOnInitialize() {
-        attachmentContainer.removeAllViews();
-        taskAttachmentDao.getAttachments(model.getUuid(), new Callback<TaskAttachment>() {
-            @Override
-            public void apply(TaskAttachment entry) {
-                addAttachment(entry);
-            }
-        });
-    }
-
-    @Override
-    protected void writeToModelAfterInitialized(Task task) {
-        // Nothing to write
-    }
-
-    @Override
-    protected void afterInflate() {
-        attachmentContainer = (LinearLayout) getView().findViewById(R.id.attachment_container);
-        addAttachment = (TextView) getView().findViewById(R.id.add_attachment);
-        addAttachment.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                fragment.startActivityForResult(new Intent(activity, AddAttachmentActivity.class), TaskEditFragment.REQUEST_ADD_ATTACHMENT);
-            }
-        });
     }
 
     public void hideAddAttachmentButton() {
@@ -210,10 +228,10 @@ public class FilesControlSet extends TaskEditControlSetBase {
                 if (atLeastLollipop()) {
                     intent.setClipData(ClipData.newRawUri(null, uri));
                 }
-                activity.startActivity(intent);
+                getActivity().startActivity(intent);
             } catch(ActivityNotFoundException e) {
                 Timber.e(e, e.getMessage());
-                Toast.makeText(activity, R.string.no_application_found, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.no_application_found, Toast.LENGTH_SHORT).show();
             }
         } else {
             String useType = fileType;
@@ -240,17 +258,16 @@ public class FilesControlSet extends TaskEditControlSetBase {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.fromFile(new File(file)), type);
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            activity.startActivity(intent);
+            getActivity().startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Timber.e(e, e.getMessage());
-            Toast.makeText(activity, R.string.file_type_unhandled, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.file_type_unhandled, Toast.LENGTH_LONG).show();
         }
     }
 
     public void createNewFileAttachment(String path, String fileName, String fileType) {
-        TaskAttachment attachment = TaskAttachment.createNewAttachment(model.getUuid(), path, fileName, fileType);
+        TaskAttachment attachment = TaskAttachment.createNewAttachment(taskUuid, path, fileName, fileType);
         taskAttachmentDao.createNew(attachment);
-        refreshMetadata();
         addAttachment(attachment);
     }
 }

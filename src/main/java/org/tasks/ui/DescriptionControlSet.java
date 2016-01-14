@@ -1,0 +1,70 @@
+package org.tasks.ui;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+
+import com.google.common.base.Strings;
+import com.todoroo.astrid.data.Task;
+
+import org.tasks.R;
+
+import butterknife.Bind;
+import butterknife.OnTextChanged;
+
+public class DescriptionControlSet extends TaskEditControlFragment {
+
+    private static final String EXTRA_DESCRIPTION = "extra_description";
+
+    @Bind(R.id.notes) EditText editText;
+
+    private String description;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        if (savedInstanceState != null) {
+            description = savedInstanceState.getString(EXTRA_DESCRIPTION);
+        }
+        if (!Strings.isNullOrEmpty(description)) {
+            editText.setTextKeepState(description);
+        }
+        return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(EXTRA_DESCRIPTION, description);
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.control_set_description;
+    }
+
+    @Override
+    protected int getIcon() {
+        return R.drawable.ic_event_note_24dp;
+    }
+
+    @OnTextChanged(R.id.notes)
+    void textChanged(CharSequence text) {
+        description = text.toString().trim();
+    }
+
+    @Override
+    public void initialize(boolean isNewTask, Task task) {
+        description = task.getNotes();
+    }
+
+    @Override
+    public void apply(Task task) {
+        task.setNotes(description);
+    }
+}

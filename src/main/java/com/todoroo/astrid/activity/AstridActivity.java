@@ -14,13 +14,17 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.UpgradeActivity;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.timers.TimerControlSet;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.ui.NavigationDrawerFragment;
+import org.tasks.ui.PriorityControlSet;
 
 import javax.inject.Inject;
 
@@ -37,8 +41,11 @@ import timber.log.Timber;
  * @author Arne
  *
  */
-public abstract class AstridActivity extends InjectingAppCompatActivity
-    implements TaskListFragment.OnTaskListItemClickedListener {
+public abstract class AstridActivity extends InjectingAppCompatActivity implements
+        TaskListFragment.OnTaskListItemClickedListener,
+        PriorityControlSet.OnPriorityChanged,
+        TimerControlSet.TimerControlSetCallback,
+        RepeatControlSet.RepeatChangedListener {
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
@@ -150,14 +157,36 @@ public abstract class AstridActivity extends InjectingAppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_UPGRADE && resultCode == RESULT_OK) {
-            if (data != null && data.getBooleanExtra(UpgradeActivity.EXTRA_RESTART, false)) {
-                Timber.w("Upgrade requires restart");
-                finish();
-                startActivity(getIntent());
+        if (requestCode == REQUEST_UPGRADE) {
+            if (resultCode == RESULT_OK) {
+                if (data != null && data.getBooleanExtra(UpgradeActivity.EXTRA_RESTART, false)) {
+                    Timber.w("Upgrade requires restart");
+                    finish();
+                    startActivity(getIntent());
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onPriorityChange(int priority) {
+        getTaskEditFragment().onPriorityChange(priority);
+    }
+
+    @Override
+    public void repeatChanged(boolean repeat) {
+        getTaskEditFragment().onRepeatChanged(repeat);
+    }
+
+    @Override
+    public Task stopTimer() {
+        return getTaskEditFragment().stopTimer();
+    }
+
+    @Override
+    public Task startTimer() {
+        return getTaskEditFragment().startTimer();
     }
 }

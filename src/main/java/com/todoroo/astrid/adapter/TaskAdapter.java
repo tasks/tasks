@@ -391,11 +391,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void showFilesDialog(Task task) {
-        FilesControlSet filesControlSet = new FilesControlSet(
-                preferences, taskAttachmentDao, fragment);
-        filesControlSet.hideAddAttachmentButton();
-        filesControlSet.readFromTask(task);
-        filesControlSet.getView().performClick();
+        // TODO: reimplement this
+//        FilesControlSet filesControlSet = new FilesControlSet();
+//        filesControlSet.hideAddAttachmentButton();
+//        filesControlSet.readFromTask(task);
+//        filesControlSet.getView().performClick();
     }
 
     /* ======================================================================

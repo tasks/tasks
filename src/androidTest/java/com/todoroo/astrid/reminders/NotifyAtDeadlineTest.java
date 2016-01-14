@@ -19,7 +19,7 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
 
     @Override
     public void setUp() {
-        Preferences preferences = new Preferences(getContext(), null, null);
+        Preferences preferences = new Preferences(getContext(), null);
         reminderService = new ReminderService(getContext(), preferences, mock(AlarmManager.class));
         freezeAt(new DateTime(2014, 1, 24, 17, 23, 37));
     }

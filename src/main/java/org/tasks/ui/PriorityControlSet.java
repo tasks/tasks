@@ -1,104 +1,115 @@
 package org.tasks.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.ColorStateList;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RadioGroup;
+import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
-import com.google.common.primitives.Ints;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import javax.inject.Inject;
 
-public class PriorityControlSet extends TaskEditControlSetBase {
+import butterknife.Bind;
+import butterknife.OnClick;
 
-    private final List<Integer> colors;
-    private final List<ImportanceChangedListener> listeners = new LinkedList<>();
-    private RadioGroup radioGroup;
+public class PriorityControlSet extends TaskEditControlFragment {
 
-    public interface ImportanceChangedListener {
-        void importanceChanged(int i);
+    public interface OnPriorityChanged {
+        void onPriorityChange(int priority);
     }
 
-    public PriorityControlSet(Activity activity) {
-        super(activity, R.layout.control_set_priority);
-        colors = Ints.asList(Task.getImportanceColors(activity.getResources()));
-        Collections.reverse(colors);
+    private static final String EXTRA_PRIORITY = "extra_priority";
+
+    @Inject CheckBoxes checkBoxes;
+
+    @Bind(R.id.priority_high) AppCompatRadioButton priorityHigh;
+    @Bind(R.id.priority_medium) AppCompatRadioButton priorityMedium;
+    @Bind(R.id.priority_low) AppCompatRadioButton priorityLow;
+    @Bind(R.id.priority_none) AppCompatRadioButton priorityNone;
+
+    private OnPriorityChanged callback;
+    private int priority;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        callback = (OnPriorityChanged) activity;
     }
 
-    public void notifyImportanceChange(Integer i) {
-        for (ImportanceChangedListener l : listeners) {
-            l.importanceChanged(i);
+    @OnClick({R.id.priority_high, R.id.priority_medium, R.id.priority_low, R.id.priority_none})
+    void onImportanceChanged(CompoundButton button) {
+        callback.onPriorityChange(getPriority());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View view = super.onCreateView(inflater, container, savedInstanceState);
+        if (savedInstanceState != null) {
+            priority = savedInstanceState.getInt(EXTRA_PRIORITY);
         }
-    }
-
-    private Integer getImportance(int checkedId) {
-        return getImportance(getView().findViewById(checkedId));
-    }
-
-    private Integer getImportance(View view) {
-        return Integer.parseInt((String) view.getTag());
-    }
-
-    public void addListener(ImportanceChangedListener listener) {
-        listeners.add(listener);
-    }
-
-    @Override
-    protected void afterInflate() {
-        final View view = getView();
-        radioGroup = (RadioGroup) view.findViewById(R.id.importance_group);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                notifyImportanceChange(getImportance(checkedId));
-            }
-        });
-        for (int i = 0; i < radioGroup.getChildCount(); i++) {
-            AppCompatRadioButton radioButton = (AppCompatRadioButton) radioGroup.getChildAt(i);
-            radioButton.setSupportButtonTintList(new ColorStateList(new int[][]{
-                    new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}},
-                    new int[]{colors.get(i), colors.get(i)}));
+        if (priority == 0) {
+            priorityHigh.setChecked(true);
+        } else if(priority == 1) {
+            priorityMedium.setChecked(true);
+        } else if(priority == 2) {
+            priorityLow.setChecked(true);
+        } else {
+            priorityNone.setChecked(true);
         }
+        tintRadioButton(priorityHigh, 0);
+        tintRadioButton(priorityMedium, 1);
+        tintRadioButton(priorityLow, 2);
+        tintRadioButton(priorityNone, 3);
+        return view;
     }
 
     @Override
-    public void readFromTask(Task task) {
-        super.readFromTask(task);
-        setSelected(model.getImportance());
+    protected int getLayout() {
+        return R.layout.control_set_priority;
     }
 
     @Override
-    public int getIcon() {
+    protected int getIcon() {
         return R.drawable.ic_flag_24dp;
     }
 
     @Override
-    protected void readFromTaskOnInitialize() {
-        setSelected(model.getImportance());
-    }
-
-    private void setSelected(int importance) {
-        if (radioGroup == null) {
-            return;
-        }
-
-        for (int i = 0; i < radioGroup.getChildCount(); i++) {
-            AppCompatRadioButton radioButton = (AppCompatRadioButton) radioGroup.getChildAt(i);
-            if (importance == getImportance(radioButton)) {
-                radioButton.setChecked(true);
-            }
-        }
+    public void initialize(boolean isNewTask, Task task) {
+        priority = task.getImportance();
     }
 
     @Override
-    protected void writeToModelAfterInitialized(Task task) {
-        task.setImportance(getImportance(radioGroup.getCheckedRadioButtonId()));
+    public void apply(Task task) {
+        task.setImportance(getPriority());
+    }
+
+    private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
+        int color = checkBoxes.getPriorityColors().get(priority);
+        radioButton.setSupportButtonTintList(new ColorStateList(new int[][]{
+                new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}},
+                new int[]{color, color}));
+    }
+
+    private int getPriority() {
+        if (priorityHigh.isChecked()) {
+            return 0;
+        }
+        if (priorityMedium.isChecked()) {
+            return 1;
+        }
+        if (priorityLow.isChecked()) {
+            return 2;
+        }
+        return 3;
     }
 }

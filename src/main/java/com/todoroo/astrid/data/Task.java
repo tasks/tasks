@@ -150,17 +150,6 @@ public class Task extends RemoteModel {
     /**
      * @return colors that correspond to importance values
      */
-    public static int[] getImportanceColors(Resources r) {
-        return new int[] {
-                r.getColor(R.color.importance_1),
-                r.getColor(R.color.importance_2),
-                r.getColor(R.color.importance_3),
-                r.getColor(R.color.importance_4)
-        };
-    }
-
-    public static int IMPORTANCE_MOST = IMPORTANCE_DO_OR_DIE;
-    public static int IMPORTANCE_LEAST = IMPORTANCE_NONE;
 
     // --- defaults
 
@@ -544,8 +533,12 @@ public class Task extends RemoteModel {
         return getValue(ESTIMATED_SECONDS);
     }
 
-    public void setELAPSED_SECONDS(Integer elapsedSeconds) {
+    public void setElapsedSeconds(Integer elapsedSeconds) {
         setValue(ELAPSED_SECONDS, elapsedSeconds);
+    }
+
+    public void setEstimatedSeconds(Integer estimatedSeconds) {
+        setValue(ESTIMATED_SECONDS, estimatedSeconds);
     }
 
     public void setCalendarUri(String calendarUri) {

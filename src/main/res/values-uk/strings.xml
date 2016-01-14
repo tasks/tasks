@@ -109,7 +109,6 @@
 	<string name="EPr_appearance_header">Інтерфейс</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
-	<string name="EPr_show_timer_shortcut">Показати ярлик таймера</string>
 	<string name="EPr_beastMode_desc">Налаштувати зовнішній вигляд екрану редагування завдань</string>
 	<string name="EPr_beastMode_reset">Налаштування за замовчуванням</string>
 	<string name="EPr_beastMode_hint">Налаштуйте Ваш екран редагування нотатки перетягуванням лівої частини рядків</string>
@@ -239,7 +238,6 @@
 		<item>щомісяця</item>
 		<item>два рази на місяць</item>
 	</string-array>
-	<string name="repeat_enabled">Повторення</string>
 	<string name="repeat_every">З інтервалом в %d</string>
 	<string name="repeat_interval_prompt">Інтервал повторення</string>
 	<string name="repeat_never">Не повторювати</string>
@@ -247,7 +245,6 @@
 	<string name="repeat_detail_duedate_until">Кожні %1$s\nпоки %2$s</string>
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
-	<string name="TEA_tags_label_long">Додати до списку</string>
 	<string name="tag_no_title_error">Введіть назву списку спочатку!</string>
 	<string name="tag_FEx_untagged">Без категорії</string>
 	<string name="TPl_notification">Для %s діють таймери!</string>

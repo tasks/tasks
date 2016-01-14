@@ -5,9 +5,14 @@
  */
 package com.todoroo.astrid.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -16,17 +21,23 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSetBase;
 
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
+import org.tasks.activities.TimePickerActivity;
+import org.tasks.injection.ForActivity;
 import org.tasks.time.DateTime;
 import org.tasks.ui.HiddenTopArrayAdapter;
+import org.tasks.ui.TaskEditControlFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -37,29 +48,145 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class HideUntilControlSet extends TaskEditControlSetBase implements OnItemSelectedListener {
+public class HideUntilControlSet extends TaskEditControlFragment implements OnItemSelectedListener {
+
+    private static String EXTRA_CUSTOM = "extra_custom";
+    private static String EXTRA_SELECTION = "extra_selection";
 
     private static final int SPECIFIC_DATE = -1;
     private static final int EXISTING_TIME_UNSET = -2;
-    public static final int REQUEST_HIDE_UNTIL = 11011;
+    private static final int REQUEST_HIDE_UNTIL = 11011;
+
+    @Inject @ForActivity Context context;
 
     //private final CheckBox enabled;
-    private Spinner spinner;
-    private int previousSetting = Task.HIDE_UNTIL_NONE;
-    private int selection;
-
-    private long existingDate = EXISTING_TIME_UNSET;
-    private TaskEditFragment taskEditFragment;
-    private TextView textDisplay;
-    private ImageView clearButton;
-    private final List<HideUntilValue> spinnerItems = new ArrayList<>();
-
-    public HideUntilControlSet(TaskEditFragment taskEditFragment) {
-        super(taskEditFragment.getActivity(), R.layout.control_set_hide);
-        this.taskEditFragment = taskEditFragment;
-    }
+    @Bind(R.id.hideUntil) Spinner spinner;
+    @Bind(R.id.clear) ImageView clearButton;
 
     private ArrayAdapter<HideUntilValue> adapter;
+    private long initialHideUntil;
+
+    private int previousSetting = Task.HIDE_UNTIL_NONE;
+    private int selection;
+    private long existingDate = EXISTING_TIME_UNSET;
+    private final List<HideUntilValue> spinnerItems = new ArrayList<>();
+
+    @OnClick(R.id.clear)
+    void clearHideUntil(View view) {
+        updateSpinnerOptions(0);
+        selection = 0;
+        spinner.setSelection(selection);
+        refreshDisplayView();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        adapter = new HiddenTopArrayAdapter<HideUntilValue>(context, android.R.layout.simple_spinner_item, spinnerItems) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                int selectedItemPosition = position;
+                if (parent instanceof AdapterView) {
+                    selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
+                }
+                TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+                HideUntilValue value = getItem(selectedItemPosition);
+                if (value.setting == Task.HIDE_UNTIL_NONE) {
+                    clearButton.setVisibility(View.GONE);
+                    tv.setText(value.label);
+                } else {
+                    String display = value.label;
+                    if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
+                        display = display.toLowerCase();
+                    }
+                    tv.setText(getString(R.string.TEA_hideUntil_display, display));
+                }
+                return tv;
+            }
+        };
+        if (savedInstanceState == null) {
+            updateSpinnerOptions(initialHideUntil);
+        } else {
+            updateSpinnerOptions(savedInstanceState.getLong(EXTRA_CUSTOM));
+            selection = savedInstanceState.getInt(EXTRA_SELECTION);
+        }
+        spinner.setAdapter(adapter);
+        spinner.setSelection(selection);
+        spinner.setOnItemSelectedListener(this);
+        refreshDisplayView();
+        return view;
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.control_set_hide;
+    }
+
+    @Override
+    protected int getIcon() {
+        return R.drawable.ic_visibility_off_24dp;
+    }
+
+    @Override
+    public void initialize(boolean isNewTask, Task task) {
+        long dueDate = task.getDueDate();
+        long hideUntil = task.getHideUntil();
+
+        DateTime dueDay = newDateTime(dueDate)
+                .withHourOfDay(0)
+                .withMinuteOfHour(0)
+                .withSecondOfMinute(0)
+                .withMillisOfSecond(0);
+
+        // For the hide until due case, we need the time component
+        long dueTime = dueDate/1000L*1000L;
+
+        if(hideUntil == 0) {
+            selection = 0;
+            hideUntil = 0;
+        } else if(hideUntil == dueDay.getMillis()) {
+            selection = 1;
+            hideUntil = 0;
+        } else if (hideUntil == dueTime){
+            selection = 2;
+            hideUntil = 0;
+        } else if(hideUntil + DateUtilities.ONE_DAY == dueDay.getMillis()) {
+            selection = 3;
+            hideUntil = 0;
+        } else if(hideUntil + DateUtilities.ONE_WEEK == dueDay.getMillis()) {
+            selection = 4;
+            hideUntil = 0;
+        }
+
+        initialHideUntil = hideUntil;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_HIDE_UNTIL) {
+            if (resultCode == Activity.RESULT_OK) {
+                setCustomDate(data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L));
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void apply(Task task) {
+        HideUntilValue selectedItem = (HideUntilValue) spinner.getSelectedItem();
+        long hideUntil = task.createHideUntil(selectedItem.setting, selectedItem.date);
+        task.setHideUntil(hideUntil);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putLong(EXTRA_CUSTOM, existingDate);
+        outState.putInt(EXTRA_SELECTION, selection);
+    }
 
     /**
      * Container class for urgencies
@@ -91,7 +218,7 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
     private void updateSpinnerOptions(long specificDate) {
         spinnerItems.clear();
         // set up base values
-        String[] labels = activity.getResources().getStringArray(R.array.TEA_hideUntil);
+        String[] labels = getResources().getStringArray(R.array.TEA_hideUntil);
         spinnerItems.addAll(new ArrayList<>(asList(
                 new HideUntilValue(labels[0], Task.HIDE_UNTIL_DUE),
                 new HideUntilValue(labels[1], Task.HIDE_UNTIL_DUE_TIME),
@@ -100,20 +227,24 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
                 new HideUntilValue(labels[4], Task.HIDE_UNTIL_SPECIFIC_DAY, -1))));
 
         if(specificDate > 0) {
-            DateTime hideUntilAsDate = newDateTime(specificDate);
-            if(hideUntilAsDate.getHourOfDay() == 0 && hideUntilAsDate.getMinuteOfHour() == 0 && hideUntilAsDate.getSecondOfMinute() == 0) {
-                spinnerItems.add(0, new HideUntilValue(DateUtilities.getDateString(newDateTime(specificDate)),
-                        Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate));
-            } else {
-                spinnerItems.add(0, new HideUntilValue(DateUtilities.getDateStringWithTime(activity, specificDate),
-                        Task.HIDE_UNTIL_SPECIFIC_DAY_TIME, specificDate));
-            }
+            spinnerItems.add(0, getHideUntilValue(specificDate));
             existingDate = specificDate;
         } else {
-            spinnerItems.add(0, new HideUntilValue("", Task.HIDE_UNTIL_NONE));
+            spinnerItems.add(0, new HideUntilValue(getString(R.string.TEA_hideUntil_label), Task.HIDE_UNTIL_NONE));
             existingDate = EXISTING_TIME_UNSET;
         }
         adapter.notifyDataSetChanged();
+    }
+
+    private HideUntilValue getHideUntilValue(long timestamp) {
+        DateTime hideUntilAsDate = newDateTime(timestamp);
+        if(hideUntilAsDate.getHourOfDay() == 0 && hideUntilAsDate.getMinuteOfHour() == 0 && hideUntilAsDate.getSecondOfMinute() == 0) {
+            return new HideUntilValue(DateUtilities.getDateString(newDateTime(timestamp)),
+                    Task.HIDE_UNTIL_SPECIFIC_DAY, timestamp);
+        } else {
+            return new HideUntilValue(DateUtilities.getDateStringWithTime(context, timestamp),
+                    Task.HIDE_UNTIL_SPECIFIC_DAY_TIME, timestamp);
+        }
     }
 
     // --- listening for events
@@ -124,11 +255,12 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         // ... at conclusion of dialog, update our list
         HideUntilValue item = adapter.getItem(position);
         if(item.date == SPECIFIC_DATE) {
-            customDate =
+            final DateTime customDate =
                     newDateTime(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate)
                             .withSecondOfMinute(0);
 
-            taskEditFragment.startActivityForResult(new Intent(taskEditFragment.getActivity(), DateAndTimePickerActivity.class) {{
+            final Activity activity = getActivity();
+            startActivityForResult(new Intent(activity, DateAndTimePickerActivity.class) {{
                 putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, customDate.getMillis());
             }}, REQUEST_HIDE_UNTIL);
             spinner.setSelection(previousSetting);
@@ -140,8 +272,9 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
     }
 
     public void setCustomDate(long timestamp) {
-        customDate = new DateTime(timestamp);
-        customDateFinished();
+        updateSpinnerOptions(timestamp);
+        spinner.setSelection(0);
+        refreshDisplayView();
     }
 
     @Override
@@ -149,121 +282,16 @@ public class HideUntilControlSet extends TaskEditControlSetBase implements OnIte
         // ignore
     }
 
-    DateTime customDate;
-
-    private void customDateFinished() {
-        updateSpinnerOptions(customDate.getMillis());
-        spinner.setSelection(0);
-        refreshDisplayView();
-    }
-
     // --- setting up values
 
     private void refreshDisplayView() {
         HideUntilValue value = adapter.getItem(selection);
         if (value.setting == Task.HIDE_UNTIL_NONE) {
-            textDisplay.setText(R.string.TEA_hideUntil_label);
-            textDisplay.setTextColor(unsetColor);
+            spinner.setAlpha(0.5f);
             clearButton.setVisibility(View.GONE);
         } else {
-            String display = value.toString();
-            if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
-                display = display.toLowerCase();
-            }
-
-            textDisplay.setText(activity.getString(R.string.TEA_hideUntil_display, display));
-            textDisplay.setTextColor(themeColor);
+            spinner.setAlpha(1.0f);
             clearButton.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    protected void afterInflate() {
-        textDisplay = (TextView) getView().findViewById(R.id.display_row_edit);
-        clearButton = (ImageView) getView().findViewById(R.id.clear);
-        clearButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateSpinnerOptions(0);
-                selection = 0;
-                spinner.setSelection(selection);
-                refreshDisplayView();
-            }
-        });
-        textDisplay.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (spinner == null) {
-                    getView();
-                }
-                spinner.performClick();
-            }
-        });
-        this.spinner = (Spinner) getView().findViewById(R.id.hideUntil);
-        adapter = new HiddenTopArrayAdapter<>(activity, android.R.layout.simple_spinner_item, spinnerItems);
-        spinner.setAdapter(adapter);
-        this.spinner.setOnItemSelectedListener(this);
-    }
-
-    @Override
-    public void readFromTask(Task task) {
-        long date = task.getHideUntil();
-
-        DateTime dueDay = newDateTime(task.getDueDate())
-                .withHourOfDay(0)
-                .withMinuteOfHour(0)
-                .withSecondOfMinute(0)
-                .withMillisOfSecond(0);
-
-        // For the hide until due case, we need the time component
-        long dueTime = task.getDueDate()/1000L*1000L;
-
-        if(date == 0) {
-            selection = 0;
-            date = 0;
-        } else if(date == dueDay.getMillis()) {
-            selection = 1;
-            date = 0;
-        } else if (date == dueTime){
-            selection = 2;
-            date = 0;
-        } else if(date + DateUtilities.ONE_DAY == dueDay.getMillis()) {
-            selection = 3;
-            date = 0;
-        } else if(date + DateUtilities.ONE_WEEK == dueDay.getMillis()) {
-            selection = 4;
-            date = 0;
-        }
-
-        updateSpinnerOptions(date);
-
-        super.readFromTask(task);
-    }
-
-    @Override
-    public int getIcon() {
-        return R.drawable.ic_visibility_off_24dp;
-    }
-
-    @Override
-    protected void readFromTaskOnInitialize() {
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
-        spinner.setSelection(selection);
-        refreshDisplayView();
-    }
-
-    @Override
-    protected void writeToModelAfterInitialized(Task task) {
-        if(adapter == null || spinner == null) {
-            return;
-        }
-        HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
-        if(item == null) {
-            return;
-        }
-        long value = task.createHideUntil(item.setting, item.date);
-        task.setHideUntil(value);
     }
 }

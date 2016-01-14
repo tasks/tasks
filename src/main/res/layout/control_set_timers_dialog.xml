@@ -32,7 +32,7 @@
              android:layout_weight="1"
              android:gravity="right"
              android:paddingLeft="10dip"
-             android:textColor="?attr/asThemeTextColor" />
+             android:textColor="?attr/asTextColor" />
     </LinearLayout>
     <View
           android:id="@+id/TEA_Separator"
@@ -59,7 +59,7 @@
              android:layout_weight="1"
              android:gravity="right"
              android:paddingLeft="10dip"
-             android:textColor="?attr/asThemeTextColor" />
+             android:textColor="?attr/asTextColor" />
     </LinearLayout>
 
 </LinearLayout>

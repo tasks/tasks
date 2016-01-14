@@ -114,7 +114,6 @@
 	<string name="EPr_appearance_header">Uiterlijk</string>
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
-	<string name="EPr_show_timer_shortcut">Toon timer snelkoppeling</string>
 	<string name="EPr_beastMode_desc">Pas de layout van het Taak Wijzigingsscherm aan</string>
 	<string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
 	<string name="EPr_beastMode_hint">Pas uw taak bewerken scherm aan door de linker handle van elke rij te verslepen</string>
@@ -251,7 +250,6 @@
 		<item>maandelijks</item>
 		<item>tweemaandelijks</item>
 	</string-array>
-	<string name="repeat_enabled">Herhalingen</string>
 	<string name="repeat_every">Elke %d</string>
 	<string name="repeat_interval_prompt">Herhaal interval</string>
 	<string name="repeat_never">Niet herhalend</string>
@@ -272,7 +270,6 @@
 	<string name="repeat_forever">Altijd herhalen</string>
 	<string name="repeat_until">Herhalen tot %s</string>
 	<string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
-	<string name="TEA_tags_label_long">Voeg toe aan lijsten</string>
 	<string name="new_tag">Nieuwe Label</string>
 	<string name="tag_no_title_error">Voer a.u.b. eerst een naam in voor deze lijst!</string>
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>

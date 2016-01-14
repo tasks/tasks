@@ -49,8 +49,6 @@ import timber.log.Timber;
 @Singleton
 public class TaskService {
 
-    public static final String TRANS_EDIT_SAVE = "task-edit-save"; //$NON-NLS-1$
-
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
 
     private final TagDataDao tagDataDao;

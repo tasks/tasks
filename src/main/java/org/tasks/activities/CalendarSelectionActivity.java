@@ -2,11 +2,16 @@ package org.tasks.activities;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.todoroo.astrid.gcal.AndroidCalendar;
 
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.PermissionRequestor;
+
+import javax.inject.Inject;
 
 public class CalendarSelectionActivity extends InjectingAppCompatActivity implements CalendarSelectionDialog.CalendarSelectionHandler {
 
@@ -14,19 +19,20 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
 
     public static final String EXTRA_CALENDAR_ID = "extra_calendar_id";
     public static final String EXTRA_CALENDAR_NAME = "extra_calendar_name";
+    public static final String EXTRA_SHOW_NONE = "extra_show_none";
+
+    @Inject PermissionRequestor permissionRequestor;
+    @Inject ActivityPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
-        if (fragmentByTag == null) {
-            fragmentByTag = new CalendarSelectionDialog();
-            fragmentByTag.enableNone();
-            fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
+        preferences.applyTheme();
+
+        if (permissionRequestor.requestCalendarPermissions()) {
+            showDialog();
         }
-        fragmentByTag.setCalendarSelectionHandler(this);
     }
 
     @Override
@@ -40,5 +46,31 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
     @Override
     public void dismiss() {
         finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                showDialog();
+            } else {
+                finish();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    private void showDialog() {
+        FragmentManager fragmentManager = getFragmentManager();
+        CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
+        if (fragmentByTag == null) {
+            fragmentByTag = new CalendarSelectionDialog();
+            if (getIntent().getBooleanExtra(EXTRA_SHOW_NONE, false)) {
+                fragmentByTag.enableNone();
+            }
+            fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
+        }
+        fragmentByTag.setCalendarSelectionHandler(this);
     }
 }

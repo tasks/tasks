@@ -177,7 +177,6 @@
 		<item>每月</item>
 		<item>每两个月</item>
 	</string-array>
-	<string name="repeat_enabled">重复</string>
 	<string name="repeat_every">每 %d</string>
 	<string name="repeat_interval_prompt">重复间隔</string>
 	<string-array name="repeat_interval">

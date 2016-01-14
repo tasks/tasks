@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 
+import com.google.common.collect.ImmutableList;
+
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
@@ -14,8 +16,6 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static java.util.Arrays.asList;
-
 public class CheckBoxes {
 
     private static final int MAX_IMPORTANCE_INDEX = 3;
@@ -24,6 +24,7 @@ public class CheckBoxes {
     private static List<Drawable> checkboxes;
     private static List<Drawable> repeatingCheckboxes;
     private static List<Drawable> completedCheckboxes;
+    private static List<Integer> priorityColors;
 
     @Inject
     public CheckBoxes(@ForApplication Context context) {
@@ -32,8 +33,17 @@ public class CheckBoxes {
             checkboxes = wrapDrawable(context, R.drawable.ic_check_box_outline_blank_24dp);
             repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_repeat_24dp);
             completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
+            priorityColors = ImmutableList.of(
+                    context.getResources().getColor(R.color.importance_1),
+                    context.getResources().getColor(R.color.importance_2),
+                    context.getResources().getColor(R.color.importance_3),
+                    context.getResources().getColor(R.color.importance_4));
             initialized = true;
         }
+    }
+
+    public List<Integer> getPriorityColors() {
+        return priorityColors;
     }
 
     List<Drawable> getCheckBoxes() {
@@ -49,7 +59,7 @@ public class CheckBoxes {
     }
 
     private static List<Drawable> wrapDrawable(Context context, int resId) {
-        return asList(
+        return ImmutableList.of(
                 getDrawable(context, resId, 0),
                 getDrawable(context, resId, 1),
                 getDrawable(context, resId, 2),

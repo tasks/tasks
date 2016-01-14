@@ -61,8 +61,7 @@ public class TimerPlugin {
             if(task.getTimerStart() > 0) {
                 int newElapsed = (int)((DateUtilities.now() - task.getTimerStart()) / 1000L);
                 task.setTimerStart(0L);
-                task.setELAPSED_SECONDS(
-                        task.getElapsedSeconds() + newElapsed);
+                task.setElapsedSeconds(task.getElapsedSeconds() + newElapsed);
             }
         }
         taskService.save(task);

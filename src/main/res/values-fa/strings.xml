@@ -80,7 +80,6 @@
 	<string name="EPr_appearance_header">ظاهر</string>
 	<string name="EPr_filters_to_show_title">فیلترها برای نمایش</string>
 	<string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
-	<string name="EPr_show_timer_shortcut">نمایش میانبر تایمر</string>
 	<string name="EPr_beastMode_desc">شخصی سازی قالب صفحه ویرایش وظیفه</string>
 	<string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
 	<string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
@@ -178,7 +177,6 @@
 		<item>هر ماه</item>
 		<item>یک ماه درمیان</item>
 	</string-array>
-	<string name="repeat_enabled">تکرارها</string>
 	<string name="repeat_interval_prompt">دوره تکرار</string>
 	<string name="repeat_never">بدون تکرار</string>
 	<string-array name="repeat_interval">
@@ -194,7 +192,6 @@
 		<item>از تاریخ اتمام</item>
 	</string-array>
 	<string name="repeat_forever">تکرار بینهایت</string>
-	<string name="TEA_tags_label_long">اضافه به لیست</string>
 	<string name="new_tag">تگ جدید</string>
 	<string name="tag_no_title_error">لطفا ابتدا یک نام برای لیست انتخاب نمایید</string>
 	<string name="tag_FEx_untagged">دسته بندی نشده</string>

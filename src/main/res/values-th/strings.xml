@@ -65,7 +65,6 @@
 	<string name="gcal_completed_title">%s (เสร็จสิ้นแล้ว)</string>
 	<string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว!</string>
 	<string name="rmd_NoA_snooze">หลับ..</string>
-	<string name="repeat_enabled">การเกิดซ้ำ</string>
 	<string name="today">วันนี้</string>
 	<string name="tomorrow">พรุ่งนี้</string>
 	<string name="yesterday">เมื่อวาน</string>

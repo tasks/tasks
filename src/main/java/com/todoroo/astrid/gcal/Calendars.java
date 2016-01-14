@@ -19,7 +19,6 @@ public class Calendars {
 
 	public static final String ID_COLUMN_NAME = "_id";
 	public static final String CALENDARS_DISPLAY_COL = CalendarContract.Calendars.CALENDAR_DISPLAY_NAME;
-	public static final String CALENDARS_ACCESS_LEVEL_COL = CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL;
 	public static final String EVENTS_DTSTART_COL = CalendarContract.Events.DTSTART;
 	public static final String EVENTS_DTEND_COL = CalendarContract.Events.DTEND;
 	public static final String EVENTS_NAME_COL = CalendarContract.Events.TITLE;
@@ -34,7 +33,7 @@ public class Calendars {
 
 	// Only show calendars that the user can modify. Access level 500
 	// corresponds to Calendars.CONTRIBUTOR_ACCESS
-	public static final String CALENDARS_WHERE = CALENDARS_ACCESS_LEVEL_COL + ">= 500";
+	public static final String CALENDARS_WHERE = CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL + ">= 500";
 
 	public static final String CALENDARS_SORT = CALENDARS_DISPLAY_COL + " ASC";
 

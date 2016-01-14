@@ -112,7 +112,6 @@
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
-	<string name="EPr_show_timer_shortcut">Afficher le raccourci de minuterie</string>
 	<string name="EPr_beastMode_desc">Personnaliser la disposition de l\'écran d\'édition de tâche</string>
 	<string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
 	<string name="EPr_beastMode_hint">Personnalisez votre écran d\'ajout de tâche en faisant glisser chaque ligne vers la gauche</string>
@@ -247,7 +246,6 @@
 		<item>mensuel</item>
 		<item>bi-mensuel</item>
 	</string-array>
-	<string name="repeat_enabled">Répétitions</string>
 	<string name="repeat_every">Tous les %d</string>
 	<string name="repeat_interval_prompt">Interval de répétition</string>
 	<string name="repeat_never">Une fois seulement</string>
@@ -268,7 +266,6 @@
 	<string name="repeat_forever">Répéter indéfiniment</string>
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
 	<string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
-	<string name="TEA_tags_label_long">Ajouter à la liste</string>
 	<string name="new_tag">Nouveau tag</string>
 	<string name="tag_no_title_error">Veuillez d\'abord entrer un nom pour cette liste.</string>
 	<string name="tag_FEx_untagged">Non classé</string>

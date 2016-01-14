@@ -114,7 +114,6 @@
 	<string name="EPr_appearance_header">Aspetto</string>
 	<string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
 	<string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
-	<string name="EPr_show_timer_shortcut">Mostra scorciatoia timer</string>
 	<string name="EPr_beastMode_desc">Personalizza il layout della schermata di modifica attività</string>
 	<string name="EPr_beastMode_reset">Ripristina predefiniti</string>
 	<string name="EPr_beastMode_hint">Personalizza la schermata di modifica attività trascinando l’indicatore a sinistra di ogni riga</string>
@@ -248,7 +247,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>mensilmente</item>
 		<item>bi-mensilmente</item>
 	</string-array>
-	<string name="repeat_enabled">Ripetizioni</string>
 	<string name="repeat_every">Ogni %d</string>
 	<string name="repeat_interval_prompt">Intervallo di ripetizione</string>
 	<string name="repeat_never">Non ricorrente</string>
@@ -269,7 +267,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_forever">Ripeti all\'infinito</string>
 	<string name="repeat_until">Ripeti fino %s</string>
 	<string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
-	<string name="TEA_tags_label_long">Aggiungi alle liste</string>
 	<string name="new_tag">Nuova etichetta</string>
 	<string name="tag_no_title_error">Per cortesia, prima inserisci un nome per questa lista</string>
 	<string name="tag_FEx_untagged">Non classificato</string>

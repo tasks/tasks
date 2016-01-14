@@ -1,26 +1,46 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
- *
+ * <p/>
  * See the file "LICENSE" for the full license governing this code.
  */
 package com.todoroo.astrid.timers;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.TaskEditControlSetBase;
-import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
-import com.todoroo.astrid.ui.PopupControlSet;
+import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ForActivity;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.ui.TaskEditControlFragment;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Control Set for managing repeats
@@ -28,41 +48,122 @@ import org.tasks.preferences.ActivityPreferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TimerControlSet extends PopupControlSet implements TimerActionListener {
+public class TimerControlSet extends TaskEditControlFragment {
 
-    TimeDurationTaskEditControlSet estimated, elapsed;
-    private final TextView displayEdit;
-    private ActivityPreferences preferences;
-
-    public TimerControlSet(ActivityPreferences preferences, final Activity activity, DialogBuilder dialogBuilder) {
-        super(preferences, activity, R.layout.control_set_timers_dialog, R.layout.control_set_timers, R.string.TEA_timer_controls, dialogBuilder);
-        this.preferences = preferences;
-
-        displayEdit = (TextView) getView().findViewById(R.id.display_row_edit);
-        displayEdit.setText(R.string.TEA_timer_controls);
-        displayEdit.setTextColor(unsetColor);
-
-        estimated = new TimeDurationTaskEditControlSet(activity, getDialogView(), Task.ESTIMATED_SECONDS,R.id.estimatedDuration);
-        elapsed = new TimeDurationTaskEditControlSet(activity, getDialogView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration);
+    public interface TimerControlSetCallback {
+        Task stopTimer();
+        Task startTimer();
     }
 
-    @Override
-    protected void readFromTaskOnInitialize() {
-        estimated.readFromTask(model);
-        elapsed.readFromTask(model);
-    }
+    private static final String EXTRA_STARTED = "extra_started";
+    private static final String EXTRA_ESTIMATED = "extra_estimated";
+    private static final String EXTRA_ELAPSED = "extra_elapsed";
 
-    @Override
-    protected void afterInflate() {
-        // Nothing to do here
-    }
+    @Inject ActivityPreferences preferences;
+    @Inject DialogBuilder dialogBuilder;
+    @Inject @ForActivity Context context;
 
+    @Bind(R.id.display_row_edit) TextView displayEdit;
+    @Bind(R.id.timer) Chronometer chronometer;
+    @Bind(R.id.timer_button) ImageView timerButton;
+
+    private TimeDurationControlSet estimated;
+    private TimeDurationControlSet elapsed;
+    private long timerStarted;
+    private final List<TimerActionListener> listeners = new LinkedList<>();
+    protected AlertDialog dialog;
+    private View dialogView;
+    private int elapsedSeconds;
+    private int estimatedSeconds;
+    private TimerControlSetCallback callback;
+
+    @Nullable
     @Override
-    protected void writeToModelAfterInitialized(Task task) {
-        if (initialized) {
-            estimated.writeToModel(task);
-            elapsed.writeToModel(task);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        if (savedInstanceState != null) {
+            timerStarted = savedInstanceState.getLong(EXTRA_STARTED);
+            elapsedSeconds = savedInstanceState.getInt(EXTRA_ELAPSED);
+            estimatedSeconds = savedInstanceState.getInt(EXTRA_ESTIMATED);
         }
+
+        dialogView = inflater.inflate(R.layout.control_set_timers_dialog, null);
+        estimated = new TimeDurationControlSet(context, dialogView, R.id.estimatedDuration, preferences);
+        elapsed = new TimeDurationControlSet(context, dialogView, R.id.elapsedDuration, preferences);
+        estimated.setTimeDuration(estimatedSeconds);
+        elapsed.setTimeDuration(elapsedSeconds);
+        refresh();
+        return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        callback = (TimerControlSetCallback) activity;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(EXTRA_ELAPSED, elapsed.getTimeDurationInSeconds());
+        outState.putInt(EXTRA_ESTIMATED, estimated.getTimeDurationInSeconds());
+        outState.putLong(EXTRA_STARTED, timerStarted);
+    }
+
+    @OnClick(R.id.display_row_edit)
+    void openPopup(View view) {
+        if (dialog == null) {
+            buildDialog();
+        }
+        dialog.show();
+    }
+
+    protected Dialog buildDialog() {
+        AlertDialog.Builder builder = dialogBuilder.newDialog()
+                .setView(dialogView)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        refreshDisplayView();
+                    }
+                })
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        refreshDisplayView();
+                    }
+                });
+        dialog = builder.show();
+        return dialog;
+    }
+
+    @OnClick(R.id.timer_container)
+    void timerClicked(View view) {
+        if (timerActive()) {
+            Task task = callback.stopTimer();
+            elapsed.setTimeDuration(task.getElapsedSeconds());
+            timerStarted = 0;
+            for (TimerActionListener listener : listeners) {
+                listener.timerStopped(task);
+            }
+            chronometer.stop();
+            refreshDisplayView();
+        } else {
+            Task task = callback.startTimer();
+            timerStarted = task.getTimerStart();
+            chronometer.start();
+            for (TimerActionListener listener : listeners) {
+                listener.timerStarted(task);
+            }
+        }
+        updateChronometer();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.control_set_timers;
     }
 
     @Override
@@ -70,62 +171,39 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         return R.drawable.ic_timer_24dp;
     }
 
-    // --- TimeDurationTaskEditControlSet
-
-    /**
-     * Control set for mapping a Property to a TimeDurationControlSet
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public class TimeDurationTaskEditControlSet extends TaskEditControlSetBase {
-        private final TimeDurationControlSet controlSet;
-        private final IntegerProperty property;
-
-        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId) {
-            super(activity, -1);
-            this.property = property;
-            this.controlSet = new TimeDurationControlSet(activity, v, property, timeButtonId, preferences);
-        }
-
-        @Override
-        public void readFromTaskOnInitialize() {
-            controlSet.setModel(model);
-            controlSet.setTimeDuration(model.getValue(property));
-        }
-
-        @Override
-        protected void afterInflate() {
-            // Nothing
-        }
-
-        @Override
-        protected void writeToModelAfterInitialized(Task task) {
-            task.setValue(property, controlSet.getTimeDurationInSeconds());
-        }
-
-        public String getDisplayString() {
-            int seconds = controlSet.getTimeDurationInSeconds();
-            if (seconds > 0) {
-                return DateUtils.formatElapsedTime(controlSet.getTimeDurationInSeconds());
-            }
-            return null;
-        }
-
-        @Override
-        public int getIcon() {
-            return -1;
-        }
+    @Override
+    public void initialize(boolean isNewTask, Task task) {
+        timerStarted = task.getTimerStart();
+        elapsedSeconds = task.getElapsedSeconds();
+        estimatedSeconds = task.getEstimatedSeconds();
     }
 
     @Override
-    protected void refreshDisplayView() {
-        String est = estimated.getDisplayString();
-        if (!TextUtils.isEmpty(est)) {
-            est = activity.getString(R.string.TEA_timer_est, est);
+    public void apply(Task task) {
+        task.setElapsedSeconds(elapsed.getTimeDurationInSeconds());
+        task.setEstimatedSeconds(estimated.getTimeDurationInSeconds());
+    }
+
+    public void setEditNotes(EditNoteActivity editNotes) {
+        removeListener(editNotes);
+        addListener(editNotes);
+    }
+
+    private void refresh() {
+        refreshDisplayView();
+        updateChronometer();
+    }
+
+    private void refreshDisplayView() {
+        String est = null;
+        int estimatedSeconds = estimated.getTimeDurationInSeconds();
+        if (estimatedSeconds > 0) {
+            est = getString(R.string.TEA_timer_est, DateUtils.formatElapsedTime(estimatedSeconds));
         }
-        String elap = elapsed.getDisplayString();
-        if (!TextUtils.isEmpty(elap)) {
-            elap = activity.getString(R.string.TEA_timer_elap, elap);
+        String elap = null;
+        int elapsedSeconds = elapsed.getTimeDurationInSeconds();
+        if (elapsedSeconds > 0) {
+            elap = getString(R.string.TEA_timer_elap, DateUtils.formatElapsedTime(elapsedSeconds));
         }
 
         String toDisplay;
@@ -142,20 +220,51 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
 
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
-            displayEdit.setTextColor(themeColor);
+            displayEdit.setAlpha(1.0f);
         } else {
             displayEdit.setText(R.string.TEA_timer_controls);
-            displayEdit.setTextColor(unsetColor);
+            displayEdit.setAlpha(0.5f);
         }
     }
 
-    @Override
-    public void timerStopped(Task task) {
-        elapsed.readFromTask(task);
+    private void updateChronometer() {
+        timerButton.setImageResource(timerActive()
+                ? R.drawable.ic_pause_24dp
+                : R.drawable.ic_play_arrow_24dp);
+
+        long elapsed = this.elapsed.getTimeDurationInSeconds() * 1000L;
+        if (timerActive()) {
+            chronometer.setVisibility(View.VISIBLE);
+            elapsed += DateUtilities.now() - timerStarted;
+            chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
+            if (elapsed > DateUtilities.ONE_DAY) {
+                chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                    @Override
+                    public void onChronometerTick(Chronometer cArg) {
+                        long t = SystemClock.elapsedRealtime() - cArg.getBase();
+                        cArg.setText(DateFormat.format("d'd' h:mm", t)); //$NON-NLS-1$
+                    }
+                });
+
+            }
+            chronometer.start();
+        } else {
+            chronometer.setVisibility(View.GONE);
+            chronometer.stop();
+        }
     }
 
-    @Override
-    public void timerStarted(Task task) {
+    public void addListener(TimerActionListener listener) {
+        this.listeners.add(listener);
     }
 
+    public void removeListener(TimerActionListener listener) {
+        if (listeners.contains(listener)) {
+            listeners.remove(listener);
+        }
+    }
+
+    private boolean timerActive() {
+        return timerStarted > 0;
+    }
 }

@@ -54,7 +54,6 @@
 	<string name="gtasks_GLA_errorIOAuth">Valitettavasti meillä on yhteysongelmia Google palvelimiin.  Ole hyvä ja yritä myöhemmin uudestaa.</string>
 	<string name="gtasks_GPr_header">Google tehtävät</string>
 	<string name="rmd_EPr_defaultRemind_title">Satunnainen muistutus</string>
-	<string name="repeat_enabled">Ei toistoa</string>
 	<string name="repeat_every">Toista %d</string>
 	<string name="repeat_interval_prompt">Toistoväli</string>
 	<string name="repeat_never">Ei toistuva</string>
@@ -62,7 +61,6 @@
 	<string name="repeat_detail_duedate_until">Joka %1$s\nkunnes %2$s</string>
 	<string name="repeat_forever">Toista loputtomiin</string>
 	<string name="repeat_until">Toista kunnes %s</string>
-	<string name="TEA_tags_label_long">Lisää listaan</string>
 	<string name="tag_no_title_error">Ole hyvä syötä ensin nimi tälle listalle!</string>
 	<string name="delete_task">Poista tehtävä</string>
 	<string name="source_code">Lähdekoodi</string>

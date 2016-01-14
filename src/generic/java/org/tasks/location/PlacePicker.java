@@ -1,6 +1,7 @@
 package org.tasks.location;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 
 import org.tasks.preferences.Preferences;
@@ -10,7 +11,7 @@ public class PlacePicker {
         return null;
     }
 
-    public static Geofence getPlace(Activity activity, Intent data, Preferences preferences) {
+    public static Geofence getPlace(Context context, Intent data, Preferences preferences) {
         return null;
     }
 }
