@@ -360,33 +360,6 @@ public class TaskListActivity extends AstridActivity implements OnFilterItemClic
         if (getIntent().getBooleanExtra(TOKEN_CREATE_NEW_LIST, false)) {
             newListFromLaunch();
         }
-
-        if (getResources().getBoolean(R.bool.google_play_store_available) &&
-                !preferences.getBoolean(R.string.p_collect_statistics_notification, false)) {
-            try {
-                View taskList = findViewById(R.id.task_list_coordinator);
-                String text = getString(R.string.anonymous_usage_blurb);
-                //noinspection ResourceType
-                Snackbar.make(taskList, text, 10000)
-                        .setActionTextColor(getResources().getColor(R.color.snackbar_undo))
-                        .setCallback(new Snackbar.Callback() {
-                            @Override
-                            public void onDismissed(Snackbar snackbar, int event) {
-                                preferences.setBoolean(R.string.p_collect_statistics_notification, true);
-                            }
-                        })
-                        .setAction(R.string.opt_out, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                startActivityForResult(new Intent(TaskListActivity.this, BasicPreferences.class), FilterAdapter.REQUEST_SETTINGS);
-                            }
-                        })
-                        .show();
-            } catch (Exception e) {
-                Timber.e(e, e.getMessage());
-                tracker.reportException(e);
-            }
-        }
     }
 
     private void newListFromLaunch() {

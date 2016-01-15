@@ -379,8 +379,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="privacy_policy">Norme Riservatezza</string>
 	<string name="send_anonymous_statistics">Migliora Attività</string>
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
-	<string name="anonymous_usage_blurb">Vengono raccolte statistiche d\'uso anonime</string>
-	<string name="opt_out">Usc-opz</string>
 	<string name="tag_already_exists">Etichetta già presente</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>

@@ -376,8 +376,6 @@
 	<string name="privacy_policy">Politique de vie privée</string>
 	<string name="send_anonymous_statistics">Améliorer Tasks</string>
 	<string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
-	<string name="anonymous_usage_blurb">Les statistiques d\'usage anonymes ont été collectées</string>
-	<string name="opt_out">Annuler l\'abonnement</string>
 	<string name="tag_already_exists">Le tag existe déjà</string>
 	<string name="disable_notification_light">Désactiver la lumière des notifications</string>
 	<string name="doze_notifications">Interrompt le Doze mode pour les notifications</string>

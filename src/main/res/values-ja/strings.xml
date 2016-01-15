@@ -387,8 +387,6 @@
 	<string name="privacy_policy">プライバシーポリシー</string>
 	<string name="send_anonymous_statistics">Tasks を改善</string>
 	<string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
-	<string name="anonymous_usage_blurb">匿名の使用統計が収集されます</string>
-	<string name="opt_out">拒否</string>
 	<string name="tag_already_exists">タグは既に存在します</string>
 	<string name="disable_notification_light">通知ライトを無効にする</string>
 	<string name="doze_notifications">通知の Doze モード割り込み</string>

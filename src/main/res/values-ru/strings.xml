@@ -386,8 +386,6 @@
 	<string name="privacy_policy">Политика конфиденциальности</string>
 	<string name="send_anonymous_statistics">Улучшить Tasks</string>
 	<string name="send_anonymous_statistics_summary">Высылать анонимную статистику и отчёты об ошибках, чтобы помочь улучшить Tasks. Персональная информация собираться не будет.</string>
-	<string name="anonymous_usage_blurb">Собрана анонимная статистика использования</string>
-	<string name="opt_out">Отказаться</string>
 	<string name="tag_already_exists">Тег уже существует</string>
 	<string name="disable_notification_light">Не использовать световой индикатор для напоминаний</string>
 	<string name="doze_notifications">Прерывать спящий режим для уведомлений</string>

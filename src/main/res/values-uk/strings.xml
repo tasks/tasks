@@ -304,7 +304,6 @@
 	<string name="vibration_pause">Пауза між вібраціями (мілісекунди)</string>
 	<string name="send_anonymous_statistics">Поліпшити Tasks</string>
 	<string name="send_anonymous_statistics_summary">Відсилати анонімну статистику використання і звіти про помилки щоб покращити Tasks. Жодних персональних даних не буде передано.</string>
-	<string name="anonymous_usage_blurb">Анонімну статистику зібрано</string>
 	<string name="tag_already_exists">Тег вже існує</string>
 	<string name="doze_notifications">Переривати режим \"Doze\" для повідомленнь</string>
 	<string name="doze_notifications_off">Андроїд зазвичай буде значно відкладати повідомлення коли пристрій в режимі \"Doze\"</string>
