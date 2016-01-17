@@ -7,63 +7,58 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.injection.InjectingAppCompatActivity;
+
 import javax.inject.Inject;
+
+import static org.tasks.intents.TaskIntents.getEditTaskStack;
 
 /**
  * @author joshuagross
  *
  * Create a new task based on incoming links from the "share" menu
  */
-public final class ShareLinkActivity extends TaskListActivity {
+public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
+    @Inject StartupService startupService;
     @Inject TaskService taskService;
     @Inject TaskCreator taskCreator;
-
-    private String subject;
-    private boolean handled;
-
-    private static final String TOKEN_LINK_HANDLED = "linkHandled"; //$NON-NLS-1$
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent callerIntent = getIntent();
+        startupService.onStartupApplication(this);
 
-        subject = callerIntent.getStringExtra(Intent.EXTRA_SUBJECT);
-        if(subject == null) {
-            subject = ""; //$NON-NLS-1$
+        readIntent();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        setIntent(intent);
+
+        readIntent();
+    }
+
+    private void readIntent() {
+        Intent intent = getIntent();
+        String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        if (subject == null) {
+            subject = "";
         }
-    }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        if (!handled) {
-            Intent callerIntent = getIntent();
-
-            Task task = taskCreator.basicQuickAddTask(subject);
-            if (task != null) {
-                task.setNotes(callerIntent.getStringExtra(Intent.EXTRA_TEXT));
-                taskService.save(task);
-                handled = true;
-                onTaskListItemClicked(task.getId());
-            }
+        Task task = taskCreator.basicQuickAddTask(subject);
+        if (task != null) {
+            task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
+            taskService.save(task);
+            getEditTaskStack(this, null, task.getId()).startActivities();
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(TOKEN_LINK_HANDLED, handled);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        handled = savedInstanceState.getBoolean(TOKEN_LINK_HANDLED);
+        finish();
     }
 }
