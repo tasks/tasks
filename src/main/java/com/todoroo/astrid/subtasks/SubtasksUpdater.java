@@ -31,9 +31,8 @@ public abstract class SubtasksUpdater<T> extends AstridOrderedListUpdater<T> {
         String query = filter.getSqlQuery();
 
         query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY %s, %s, %s, %s",
-                Task.DELETION_DATE, Task.COMPLETION_DATE,
-                getOrderString(), Task.CREATION_DATE);
+        query = query + String.format(" ORDER BY %s, %s, %s",
+                Task.DELETION_DATE, getOrderString(), Task.CREATION_DATE);
         query = query.replace(TaskCriteria.isVisible().toString(),
                 Criterion.all.toString());
 

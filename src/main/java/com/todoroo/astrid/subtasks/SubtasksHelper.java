@@ -78,9 +78,8 @@ public class SubtasksHelper {
             }
 
             query = query.replaceAll("ORDER BY .*", "");
-            query = query + String.format(" ORDER BY %s, %s, %s, %s",
-                    Task.DELETION_DATE, Task.COMPLETION_DATE,
-                    getOrderString(tagData, tlm), Task.CREATION_DATE);
+            query = query + String.format(" ORDER BY %s, %s, %s",
+                    Task.DELETION_DATE, getOrderString(tagData, tlm), Task.CREATION_DATE);
             if (limit > 0) {
                 query = query + " LIMIT " + limit;
             }
