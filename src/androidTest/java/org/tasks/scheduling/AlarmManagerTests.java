@@ -19,7 +19,7 @@ public class AlarmManagerTests extends AndroidTestCase {
 
     @Override
     public void setUp() {
-        preferences = new Preferences(getContext(), null, null);
+        preferences = new Preferences(getContext(), null);
         preferences.clear();
         preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
         alarmManager = new AlarmManager(getContext(), preferences);
