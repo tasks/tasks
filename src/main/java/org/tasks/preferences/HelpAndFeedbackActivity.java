@@ -25,7 +25,7 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
                     putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
                     putExtra(Intent.EXTRA_TEXT, device.getDebugInfo());
                 }});
-        if (!device.isPlayStoreAvailable()) {
+        if (!getResources().getBoolean(R.bool.google_play_store_available)) {
             remove(R.string.rate_tasks);
         }
     }

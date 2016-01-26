@@ -2,8 +2,6 @@ package org.tasks.preferences;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.provider.MediaStore;
 
@@ -12,8 +10,6 @@ import com.google.common.base.Joiner;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,21 +24,6 @@ public class Device {
     @Inject
     public Device(@ForApplication Context context) {
         this.context = context;
-    }
-
-    public boolean isPlayStoreAvailable() {
-        try {
-            PackageManager packageManager = context.getPackageManager();
-            List<PackageInfo> packages = packageManager.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
-            for (PackageInfo packageInfo : packages) {
-                if ("com.google.market".equals(packageInfo.packageName) || "com.android.vending".equals(packageInfo.packageName)) {
-                    return true;
-                }
-            }
-        } catch(Exception e) {
-            Timber.e(e, e.getMessage());
-        }
-        return false;
     }
 
     public boolean hasCamera() {
