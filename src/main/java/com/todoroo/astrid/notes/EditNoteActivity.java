@@ -35,8 +35,8 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
-import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
@@ -78,7 +78,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private Uri pendingCommentPicture = null;
     private final Fragment fragment;
 
-    private final AstridActivity activity;
+    private final TaskListActivity activity;
 
     private final int cameraButton;
 
@@ -105,7 +105,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         this.fragment = fragment;
 
-        this.activity = (AstridActivity) fragment.getActivity();
+        this.activity = (TaskListActivity) fragment.getActivity();
 
         cameraButton = R.drawable.ic_camera_alt_white_24dp;
 

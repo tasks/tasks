@@ -345,18 +345,6 @@ public class AndroidUtilities {
     }
 
     /**
-     * If you want to set a transition, please use this method rather than <code>callApiMethod</code> to ensure
-     * you really pass an Activity-instance.
-     *
-     * @param activity the activity-instance for which to set the finish-transition
-     * @param enterAnim the incoming-transition of the next activity
-     * @param exitAnim the outgoing-transition of this activity
-     */
-    public static void callOverridePendingTransition(Activity activity, int enterAnim, int exitAnim) {
-        activity.overridePendingTransition(enterAnim, exitAnim);
-    }
-
-    /**
      * Capitalize the first character
      */
     public static String capitalize(String string) {

@@ -22,11 +22,6 @@ public class Flags {
     public static final int TAGS_CHANGED = 1 << 1;
 
     /**
-     * If set, indicates that the edit popover was dismissed by the edit fragment/back button
-     */
-    public static final int TLA_DISMISSED_FROM_TASK_EDIT = 1 << 5;
-
-    /**
      * If set, indicates that TaskListFragmentPager should not intercept touch events
      */
     public static final int TLFP_NO_INTERCEPT_TOUCH = 1 << 7;

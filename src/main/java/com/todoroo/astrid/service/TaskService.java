@@ -31,7 +31,6 @@ import org.tasks.filters.FilterCounter;
 import org.tasks.scheduling.RefreshScheduler;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
@@ -202,21 +201,6 @@ public class TaskService {
         }
     }
 
-    /**
-     * Save task, parsing quick-add mark-up:
-     * <ul>
-     * <li>#tag - add the tag "tag"
-     * <li>@context - add the tag "@context"
-     * <li>!4 - set priority to !!!!
-     */
-    private void quickAdd(Task task, List<String> tags) {
-        saveWithoutPublishingFilterUpdate(task);
-        for(String tag : tags) {
-            createLink(task, tag);
-        }
-        broadcastFilterListUpdated();
-    }
-
     private void broadcastFilterListUpdated() {
         filterCounter.refreshFilterCounts(new Runnable() {
             @Override
@@ -239,17 +223,12 @@ public class TaskService {
      * doesn't need to start with a base task model.
      */
     public Task createWithValues(ContentValues values, String title) {
-        Task task = new Task();
-        return createWithValues(task, values, title);
+        return createWithValues(new Task(), values, title);
     }
 
-    /**
-     * Create task from the given content values, saving it.
-     * @param task base task to start with
-     */
-    public Task createWithValues(Task task, ContentValues values, String title) {
+    Task createWithValues(Task task, ContentValues values, String title) {
         if (title != null) {
-            task.setTitle(title);
+            task.setTitle(title.trim());
         }
 
         ArrayList<String> tags = new ArrayList<>();
@@ -282,7 +261,10 @@ public class TaskService {
             task.mergeWithoutReplacement(forTask);
         }
 
-        quickAdd(task, tags);
+        saveWithoutPublishingFilterUpdate(task);
+        for(String tag : tags) {
+            createLink(task, tag);
+        }
 
         if (forMetadata != null && forMetadata.size() > 0) {
             Metadata metadata = new Metadata();

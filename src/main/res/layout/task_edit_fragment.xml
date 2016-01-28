@@ -24,11 +24,71 @@
             android:orientation="vertical"
             android:gravity="center_horizontal" >
 
-            <LinearLayout
-                android:id="@+id/basic_controls"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"/>
+            <FrameLayout
+                android:id="@+id/row_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
+
+            <FrameLayout
+                android:id="@+id/row_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/asContentBackground" />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"

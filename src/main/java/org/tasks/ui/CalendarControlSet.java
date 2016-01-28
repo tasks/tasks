@@ -35,6 +35,8 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class CalendarControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_gcal;
+
     private static final int REQUEST_CODE_CALENDAR = 70;
     private static final String EXTRA_URI = "extra_uri";
     private static final String EXTRA_ID = "extra_id";
@@ -86,6 +88,11 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Override
     protected int getIcon() {
         return R.drawable.ic_event_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @Override

@@ -34,19 +34,22 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.preferences.ResourceResolver.getData;
 
 public class DeadlineControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_when_pref;
+
     private static final int REQUEST_DATE = 504;
     private static final int REQUEST_TIME = 505;
     private static final String EXTRA_DATE = "extra_date";
     private static final String EXTRA_TIME = "extra_time";
 
-    private final List<String> dueDateOptions = new ArrayList<>();
-    private final List<String> dueTimeOptions = new ArrayList<>();
+    private List<String> dueDateOptions = new ArrayList<>();
+    private List<String> dueTimeOptions = new ArrayList<>();
     private List<String> dueTimeHint = new ArrayList<>();
     private int dateShortcutMorning;
     private int dateShortcutAfternoon;
@@ -94,20 +97,20 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         noTimeString = activity.getString(R.string.TEA_no_time);
         todayString = activity.getString(R.string.today);
         tomorrowString = activity.getString(R.string.tomorrow);
-        dueDateOptions.addAll(asList(
+        dueDateOptions = newArrayList(
                 "",
                 todayString,
                 tomorrowString,
                 "",
-                activity.getString(R.string.pick_a_date)));
-        dueTimeOptions.addAll(asList(
+                activity.getString(R.string.pick_a_date));
+        dueTimeOptions = newArrayList(
                 "",
                 noTimeString,
                 morningString,
                 afternoonString,
                 eveningString,
                 nightString,
-                activity.getString(R.string.pick_a_time)));
+                activity.getString(R.string.pick_a_time));
     }
 
     @Nullable
@@ -245,6 +248,11 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     @Override
     protected int getIcon() {
         return R.drawable.ic_schedule_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @Override

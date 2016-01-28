@@ -38,14 +38,14 @@ public class TaskCreator {
         title = title.trim();
 
         Task task = taskService.createWithValues(null, title);
-        addToCalendar(task, title);
+        addToCalendar(task);
 
         return task;
     }
 
-    public void addToCalendar(Task task, String title) {
+    public void addToCalendar(Task task) {
         boolean gcalCreateEventEnabled = preferences.isDefaultCalendarSet() && task.hasDueDate(); //$NON-NLS-1$
-        if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
+        if (!TextUtils.isEmpty(task.getTitle()) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
             Uri calendarUri = gcalHelper.createTaskEvent(task,
                     context.getContentResolver(), new ContentValues());
             task.setCalendarUri(calendarUri.toString());

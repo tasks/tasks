@@ -72,7 +72,6 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
         @Override
         public void onClick(View v) {
             finish();
-            AndroidUtilities.callOverridePendingTransition(CalendarReminderActivity.this, 0, android.R.anim.fade_out);
         }
     };
 

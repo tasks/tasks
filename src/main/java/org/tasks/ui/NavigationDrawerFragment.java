@@ -103,7 +103,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 getActivity().getIntent().putExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER, newList);
                 clear();
             }
-
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -224,7 +223,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     public interface OnFilterItemClickedListener {
-        boolean onFilterItemClicked(FilterListItem item);
+        void onFilterItemClicked(FilterListItem item);
     }
 
     public void clear() {

@@ -164,7 +164,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             Intent editIntent = new Intent();
             editIntent.setAction(TasksWidget.EDIT_TASK);
             editIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            editIntent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
+            editIntent.putExtra(TasksWidget.TOKEN_ID, task.getId());
             editIntent.putExtra(TaskListActivity.OPEN_TASK, task.getId());
             row.setOnClickFillInIntent(R.id.text, editIntent);
 
@@ -173,7 +173,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             } else {
                 Intent completeIntent = new Intent();
                 completeIntent.setAction(TasksWidget.COMPLETE_TASK);
-                completeIntent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
+                completeIntent.putExtra(TasksWidget.TOKEN_ID, task.getId());
                 row.setOnClickFillInIntent(R.id.completeBox, completeIntent);
             }
 

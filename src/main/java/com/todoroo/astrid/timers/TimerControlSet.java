@@ -50,6 +50,8 @@ import butterknife.OnClick;
  */
 public class TimerControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_timer_pref;
+
     public interface TimerControlSetCallback {
         Task stopTimer();
         Task startTimer();
@@ -169,6 +171,11 @@ public class TimerControlSet extends TaskEditControlFragment {
     @Override
     public int getIcon() {
         return R.drawable.ic_timer_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @Override

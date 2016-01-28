@@ -23,7 +23,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -153,7 +152,6 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
         super.finish();
-        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     @Override

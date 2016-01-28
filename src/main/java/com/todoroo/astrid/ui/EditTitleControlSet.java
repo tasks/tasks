@@ -6,20 +6,16 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
@@ -41,6 +37,8 @@ import butterknife.OnClick;
  *
  */
 public class EditTitleControlSet extends TaskEditControlFragment {
+
+    public static final int TAG = R.string.TEA_ctrl_title_pref;
 
     private static final String EXTRA_COMPLETE = "extra_complete";
     private static final String EXTRA_TITLE = "extra_title";
@@ -81,31 +79,6 @@ public class EditTitleControlSet extends TaskEditControlFragment {
         editText.setTextKeepState(title);
         editText.setHorizontallyScrolling(false);
         editText.setMaxLines(Integer.MAX_VALUE);
-        editText.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    AndroidUtilities.hideSoftInputForViews(getActivity(), editText);
-                    return true;
-                }
-                return false;
-            }
-        });
-        editText.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editText.setCursorVisible(true);
-            }
-        });
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    editText.setCursorVisible(false);
-                }
-                return false;
-            }
-        });
         updateCompleteBox();
         return view;
     }
@@ -126,15 +99,13 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
 
         if (isNewTask) {
             editText.requestFocus();
-            editText.setCursorVisible(true);
-            getActivity().getWindow()
-                    .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
-                            | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
@@ -177,6 +148,11 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     }
 
     @Override
+    public int controlId() {
+        return TAG;
+    }
+
+    @Override
     public void initialize(boolean isNewTask, Task task) {
         this.isNewTask = isNewTask;
 
@@ -201,6 +177,5 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
     public void hideKeyboard() {
         AndroidUtilities.hideSoftInputForViews(getActivity(), editText);
-        editText.setCursorVisible(false);
     }
 }

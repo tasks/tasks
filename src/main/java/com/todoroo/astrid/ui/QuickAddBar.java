@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -29,22 +28,13 @@ import timber.log.Timber;
 public class QuickAddBar {
 
     @Inject TaskService taskService;
-    @Inject TaskCreator taskCreator;
     @Inject DialogBuilder dialogBuilder;
 
-    private TaskListActivity activity;
     private TaskListFragment fragment;
 
-    public void initialize(Injector injector, TaskListActivity myActivity, TaskListFragment myFragment) {
+    public void initialize(Injector injector, TaskListFragment myFragment) {
         injector.inject(this); // TODO: get rid of this
-        activity = myActivity;
         fragment = myFragment;
-    }
-
-    // --- quick add task logic
-
-    public Task quickAddTask() {
-        return quickAddTask("");
     }
 
     /**
@@ -52,8 +42,7 @@ public class QuickAddBar {
      */
     public Task quickAddTask(String title) {
         TagData tagData = fragment.getActiveTagData();
-        if(tagData != null && (!tagData.containsNonNullValue(TagData.NAME) ||
-                tagData.getName().length() == 0)) {
+        if(tagData != null && (!tagData.containsNonNullValue(TagData.NAME) || tagData.getName().length() == 0)) {
             dialogBuilder.newMessageDialog(R.string.tag_no_title_error)
                     .setPositiveButton(android.R.string.ok, null)
                     .show();
@@ -61,25 +50,7 @@ public class QuickAddBar {
         }
 
         try {
-            if (title != null) {
-                title = title.trim();
-            }
-
-            Task task = new Task();
-            if (title != null) {
-                task.setTitle(title); // need this for calendar
-            }
-
-            taskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
-
-            taskCreator.addToCalendar(task, title);
-
-            fragment.loadTaskListContent();
-            fragment.selectCustomId(task.getId());
-            activity.onTaskListItemClicked(task.getId());
-
-            fragment.onTaskCreated(task.getId(), task.getUUID());
-            return task;
+            return taskService.createWithValues(fragment.getFilter().valuesForNewTasks, title);
         } catch (Exception e) {
             Timber.e(e, e.getMessage());
         }

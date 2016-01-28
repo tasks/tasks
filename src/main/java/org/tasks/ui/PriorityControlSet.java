@@ -22,6 +22,8 @@ import butterknife.OnClick;
 
 public class PriorityControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_importance_pref;
+
     public interface OnPriorityChanged {
         void onPriorityChange(int priority);
     }
@@ -81,6 +83,11 @@ public class PriorityControlSet extends TaskEditControlFragment {
     @Override
     protected int getIcon() {
         return R.drawable.ic_flag_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @Override

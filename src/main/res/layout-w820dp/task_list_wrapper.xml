@@ -26,7 +26,7 @@
 
             <!-- Task List -->
             <FrameLayout
-                android:id="@+id/tasklist_fragment_container"
+                android:id="@+id/master_dual"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="60" />
@@ -38,11 +38,10 @@
 
             <!-- Task Edit -->
             <FrameLayout
-                android:id="@+id/taskedit_fragment_container"
+                android:id="@+id/detail_dual"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="40"
-                android:visibility="invisible" />
+                android:layout_weight="40" />
 
         </LinearLayout>
 

@@ -174,26 +174,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Activity that creates or edits tasks -->
-        <activity
-            android:name="com.todoroo.astrid.activity.TaskEditActivity"
-            android:parentActivityName="com.todoroo.astrid.activity.TaskListActivity"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.todoroo.astrid.activity.TaskListActivity" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/task" />
-            </intent-filter>
-        </activity>
-
         <!-- Activity for preferences -->
 
         <activity

@@ -65,6 +65,8 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  */
 public class ReminderControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_reminders_pref;
+
     private static final int REQUEST_NEW_ALARM = 12152;
     private static final int REQUEST_LOCATION_REMINDER = 12153;
 
@@ -170,6 +172,11 @@ public class ReminderControlSet extends TaskEditControlFragment {
     @Override
     public int getIcon() {
         return R.drawable.ic_notifications_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @Override

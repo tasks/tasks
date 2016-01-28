@@ -221,7 +221,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(filterName.getWindowToken(), 0);
         super.finish();
-        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
 

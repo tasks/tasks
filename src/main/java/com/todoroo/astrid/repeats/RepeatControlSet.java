@@ -67,6 +67,8 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  */
 public class RepeatControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_repeat_pref;
+
     public interface RepeatChangedListener {
         void repeatChanged(boolean repeat);
     }
@@ -272,6 +274,11 @@ public class RepeatControlSet extends TaskEditControlFragment {
     @Override
     public int getIcon() {
         return R.drawable.ic_repeat_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @Override

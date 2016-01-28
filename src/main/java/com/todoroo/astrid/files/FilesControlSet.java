@@ -52,6 +52,8 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class FilesControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_files_pref;
+
     private static final int REQUEST_ADD_ATTACHMENT = 50;
     private static final String EXTRA_UUID = "extra_uuid";
 
@@ -105,6 +107,11 @@ public class FilesControlSet extends TaskEditControlFragment {
     @Override
     public int getIcon() {
         return R.drawable.ic_attachment_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @Override

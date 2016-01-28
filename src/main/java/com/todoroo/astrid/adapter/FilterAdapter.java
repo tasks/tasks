@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -155,8 +155,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                 populateItem(viewHolder);
 
                 Filter selected = null;
-                if (activity instanceof AstridActivity) {
-                    TaskListFragment tlf = ((AstridActivity) activity).getTaskListFragment();
+                if (activity instanceof TaskListActivity) {
+                    TaskListFragment tlf = ((TaskListActivity) activity).getTaskListFragment();
                     selected = tlf.getFilter();
                 }
 

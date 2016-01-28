@@ -8,7 +8,6 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.ShortcutActivity;
-import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
@@ -60,7 +59,6 @@ import dagger.Provides;
 @Module(addsTo = TasksModule.class,
         injects = {
                 TaskListActivity.class,
-                TaskEditActivity.class,
                 ShareLinkActivity.class,
                 TagSettingsActivity.class,
                 FilterSettingsActivity.class,

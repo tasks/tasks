@@ -14,7 +14,7 @@
         <include layout="@layout/toolbar_separator" />
 
         <FrameLayout
-            android:id="@+id/tasklist_fragment_container"
+            android:id="@+id/single_pane"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/asContentBackground" />

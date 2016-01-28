@@ -53,7 +53,6 @@ public class CalendarAlarmListCreator extends InjectingAppCompatActivity {
 
     private void dismissWithAnimation() {
         finish();
-        AndroidUtilities.callOverridePendingTransition(CalendarAlarmListCreator.this, 0, android.R.anim.fade_out);
     }
 
     @Override

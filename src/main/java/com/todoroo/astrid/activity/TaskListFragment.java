@@ -6,7 +6,6 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -44,7 +43,6 @@ import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -77,7 +75,6 @@ import org.tasks.injection.InjectingListFragment;
 import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -86,8 +83,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
 
 import timber.log.Timber;
-
-import static org.tasks.intents.TaskIntents.getNewTaskIntent;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
@@ -105,7 +100,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     public static final long AUTOSYNC_INTERVAL = 90000L;
     private static final long BACKGROUND_REFRESH_INTERVAL = 120000L;
     private static final long WAIT_BEFORE_AUTOSYNC = 2000L;
-    public static final int ACTIVITY_EDIT_TASK = 0;
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     // --- menu codes
@@ -120,7 +114,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
-    private static final String TOKEN_EXTRAS = "extras"; //$NON-NLS-1$
+    public static final String TOKEN_EXTRAS = "extras"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -137,7 +131,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
 
-    protected Resources resources;
     protected TaskAdapter taskAdapter = null;
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
@@ -153,7 +146,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     // --- fragment handling variables
     protected OnTaskListItemClickedListener mListener;
-    private boolean mDualFragments = false;
 
     protected SwipeRefreshLayout listView;
     protected SwipeRefreshLayout emptyView;
@@ -163,43 +155,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      * ======================================================= initialization
      * ======================================================================
      */
-
-    /**
-     * Instantiates and returns an instance of TaskListFragment (or some subclass). Custom types of
-     * TaskListFragment can be created, with the following precedence:
-     *
-     * --If the filter is of type {@link FilterWithCustomIntent}, the task list type it specifies will be used
-     * --Otherwise, the specified customComponent will be used
-     *
-     * See also: instantiateWithFilterAndExtras(Filter, Bundle) which uses TaskListFragment as the default
-     * custom component.
-     */
-    public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras, Class<?> customComponent) {
-        Class<?> component = customComponent;
-        if (filter instanceof FilterWithCustomIntent && component == null) {
-            try {
-                component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
-            } catch (Exception e) {
-                // Invalid
-                Timber.e(e, e.getMessage());
-            }
-        }
-        if (component == null) {
-            component = TaskListFragment.class;
-        }
-
-        TaskListFragment newFragment;
-        try {
-            newFragment = (TaskListFragment) component.newInstance();
-        } catch (java.lang.InstantiationException | IllegalAccessException e) {
-            Timber.e(e, e.getMessage());
-            newFragment = new TaskListFragment();
-        }
-        Bundle args = new Bundle();
-        args.putBundle(TOKEN_EXTRAS, extras);
-        newFragment.setArguments(args);
-        return newFragment;
-    }
 
     @Override
     public void onRefresh() {
@@ -224,14 +179,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        // Check that the container activity has implemented the callback
-        // interface
-        try {
-            mListener = (OnTaskListItemClickedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnTaskListItemClickedListener"); //$NON-NLS-1$
-        }
+
+        mListener = (OnTaskListItemClickedListener) activity;
     }
 
     /**
@@ -262,12 +211,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         parent.findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getResources().getBoolean(R.bool.two_pane_layout)) {
-                    Task task = quickAddBar.quickAddTask();
-                    onTaskListItemClicked(task.getId());
-                } else {
-                    ((AstridActivity) getActivity()).startEditActivity(getNewTaskIntent(getActivity(), filter));
-                }
+                Task task = quickAddBar.quickAddTask("");
+                onTaskListItemClicked(task.getId());
             }
         });
         View body = getListBody(parent);
@@ -303,19 +248,13 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
-        resources = getResources();
         setHasOptionsMenu(true);
         syncActionHelper = new SyncActionHelper(gtasksPreferenceService, syncService, getActivity(), preferences);
         setUpUiComponents();
         initializeData();
-        quickAddBar.initialize(injector, (TaskListActivity) getActivity(), this);
+        quickAddBar.initialize(injector, this);
 
-        Fragment filterlistFrame = getFragmentManager().findFragmentById(
-                NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
-        mDualFragments = (filterlistFrame != null)
-                && filterlistFrame.isInLayout();
-
-        if (mDualFragments) {
+        if (getResources().getBoolean(R.bool.two_pane_layout)) {
             // In dual-pane mode, the list view highlights the selected item.
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             getListView().setItemsCanFocus(false);
@@ -352,9 +291,9 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     protected void initializeData() {
         if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
-            extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
+//            extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {
-            filter = BuiltInFilterExposer.getMyTasksFilter(resources);
+            filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
         }
         filter.setFilterQueryOverride(null);
         isInbox = BuiltInFilterExposer.isInbox(context, filter);
@@ -366,7 +305,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         initializeTaskListMetadata();
 
         setUpTaskList();
-        ((AstridActivity) getActivity()).setupActivityFragment(getActiveTagData());
     }
 
     protected void initializeTaskListMetadata() {
@@ -450,11 +388,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         });
     }
 
-    public void transitionForTaskEdit() {
-        AndroidUtilities.callOverridePendingTransition(getActivity(),
-                R.anim.slide_left_in, R.anim.slide_left_out);
-    }
-
     private void setUpBackgroundJobs() {
         backgroundTimer = new Timer();
 
@@ -503,7 +436,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     protected boolean isCurrentTaskListFragment() {
-        AstridActivity activity = (AstridActivity) getActivity();
+        TaskListActivity activity = (TaskListActivity) getActivity();
         if (activity != null) {
             return activity.getTaskListFragment() == this;
         }
@@ -511,11 +444,11 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     public final void initiateAutomaticSync() {
-        final AstridActivity activity = (AstridActivity) getActivity();
+        final TaskListActivity activity = (TaskListActivity) getActivity();
         if (activity == null) {
             return;
         }
-        if (activity.fragmentLayout != AstridActivity.LAYOUT_SINGLE) {
+        if (activity.isDoublePaneLayout()) {
             initiateAutomaticSyncImpl();
         } else {
             // In single fragment case, we're using swipe between lists,
@@ -584,16 +517,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      * broadcast. Subclasses should override this.
      */
     protected void refresh() {
-        try {
-            AstridActivity astridActivity = (AstridActivity) getActivity();
-            TaskEditFragment taskEditFragment = astridActivity == null ? null : astridActivity.getTaskEditFragment();
-            Task model = taskEditFragment == null ? null : taskEditFragment.model;
-            taskDeleter.deleteTasksWithEmptyTitles(model == null ? null : model.getId());
-        } catch(Exception e) {
-            Timber.e(e, e.getMessage());
-        }
         loadTaskListContent();
-        setSyncOngoing(false);
     }
 
     /*
@@ -623,6 +547,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 getListView().setSelection(oldListItemSelected);
             }
         }
+
+        setSyncOngoing(gtasksPreferenceService.isOngoing());
     }
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
@@ -786,8 +712,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     protected void onTaskDelete(Task task) {
         Activity a = getActivity();
-        if (a instanceof AstridActivity) {
-            AstridActivity activity = (AstridActivity) a;
+        if (a instanceof TaskListActivity) {
+            TaskListActivity activity = (TaskListActivity) a;
             TaskEditFragment tef = activity.getTaskEditFragment();
             if (tef != null) {
                 if (task.getId() == tef.model.getId()) {
@@ -807,7 +733,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if (mDualFragments) {
+        if (getResources().getBoolean(R.bool.two_pane_layout)) {
             setSelection(position);
         }
     }
@@ -865,12 +791,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     protected void duplicateTask(long itemId) {
         long cloneId = taskDuplicator.duplicateTask(itemId);
-
-        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
-        intent.putExtra(TaskEditFragment.TOKEN_ID, cloneId);
-        intent.putExtra(TOKEN_FILTER, filter);
-        getActivity().startActivityForResult(intent, ACTIVITY_EDIT_TASK);
-        transitionForTaskEdit();
+        onTaskListItemClicked(cloneId);
     }
 
     public void onTaskListItemClicked(long taskId) {

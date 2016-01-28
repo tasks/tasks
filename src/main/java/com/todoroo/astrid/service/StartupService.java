@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteException;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.DatabaseUpdateListener;
@@ -123,7 +123,7 @@ public class StartupService {
             if(lastVersion > 0) {
                 activity.startActivityForResult(new Intent(activity, UpgradeActivity.class) {{
                     putExtra(UpgradeActivity.TOKEN_FROM_VERSION, lastVersion);
-                }}, AstridActivity.REQUEST_UPGRADE);
+                }}, TaskListActivity.REQUEST_UPGRADE);
             }
             preferences.setDefaults();
             preferences.setCurrentVersion(currentVersion);

@@ -17,6 +17,7 @@ import butterknife.OnTextChanged;
 
 public class DescriptionControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_notes_pref;
     private static final String EXTRA_DESCRIPTION = "extra_description";
 
     @Bind(R.id.notes) EditText editText;
@@ -51,6 +52,11 @@ public class DescriptionControlSet extends TaskEditControlFragment {
     @Override
     protected int getIcon() {
         return R.drawable.ic_event_note_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @OnTextChanged(R.id.notes)

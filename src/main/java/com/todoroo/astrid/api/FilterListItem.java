@@ -59,4 +59,11 @@ abstract public class FilterListItem implements Parcelable {
         source.createStringArray(); // old context menu labels
         source.createTypedArray(Intent.CREATOR); // old context menu intents
     }
+
+    @Override
+    public String toString() {
+        return "FilterListItem{" +
+                "listingTitle='" + listingTitle + '\'' +
+                '}';
+    }
 }

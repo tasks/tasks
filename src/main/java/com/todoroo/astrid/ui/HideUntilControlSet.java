@@ -50,6 +50,8 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  */
 public class HideUntilControlSet extends TaskEditControlFragment implements OnItemSelectedListener {
 
+    public static final int TAG = R.string.TEA_ctrl_hide_until_pref;
+
     private static String EXTRA_CUSTOM = "extra_custom";
     private static String EXTRA_SELECTION = "extra_selection";
 
@@ -126,6 +128,11 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     @Override
     protected int getIcon() {
         return R.drawable.ic_visibility_off_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     @Override

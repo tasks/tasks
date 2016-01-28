@@ -7,7 +7,6 @@ package com.todoroo.astrid.data;
 
 
 import android.content.ContentValues;
-import android.content.res.Resources;
 import android.net.Uri;
 
 import com.todoroo.andlib.data.Property;
@@ -19,7 +18,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.BuildConfig;
-import org.tasks.R;
 import org.tasks.time.DateTime;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;

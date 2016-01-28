@@ -70,6 +70,8 @@ import static com.google.common.collect.Sets.newHashSet;
  */
 public final class TagsControlSet extends TaskEditControlFragment {
 
+    public static final int TAG = R.string.TEA_ctrl_lists_pref;
+
     private static final String EXTRA_TAGS = "extra_tags";
 
     @Inject MetadataDao metadataDao;
@@ -313,6 +315,11 @@ public final class TagsControlSet extends TaskEditControlFragment {
     @Override
     public int getIcon() {
         return R.drawable.ic_label_24dp;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
     }
 
     protected void refreshDisplayView() {

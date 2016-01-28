@@ -33,6 +33,8 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
 
     protected abstract int getIcon();
 
+    public abstract int controlId();
+
     public abstract void initialize(boolean isNewTask, Task task);
 
     public abstract void apply(Task task);
