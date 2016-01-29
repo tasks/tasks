@@ -19,7 +19,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -688,7 +687,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 return true;
             case R.id.menu_tag_settings:
                 startActivityForResult(new Intent(this, TagSettingsActivity.class) {{
-                    putExtra(TagViewFragment.EXTRA_TAG_DATA, getTaskListFragment().getActiveTagData());
+                    putExtra(TagSettingsActivity.EXTRA_TAG_DATA, getTaskListFragment().getActiveTagData());
                 }}, REQUEST_EDIT_TAG);
                 return true;
             case R.id.menu_show_hidden:
@@ -710,18 +709,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            TaskEditFragment tef = getTaskEditFragment();
-            if (tef != null) {
-                tef.onBackPressed();
-                return true;
-            }
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     public TaskListFragment getTaskListFragment() {

@@ -49,6 +49,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
+    public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
 
     private boolean isNewTag;
     private TagData tagData;
@@ -70,7 +71,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
         setContentView(R.layout.tag_settings_activity);
         ButterKnife.bind(this);
 
-        tagData = getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
+        tagData = getIntent().getParcelableExtra(EXTRA_TAG_DATA);
         if (tagData == null) {
             isNewTag = true;
             tagData = new TagData();

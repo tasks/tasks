@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -96,6 +95,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      */
     private static final String EXTRA_TASK = "extra_task"; //$NON-NLS-1$
     private static final String EXTRA_APPLY_MODEL = "extra_apply_model";
+    private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
 
     /**
      * Token for saving a bitmap in the intent before it has been added with a comment
@@ -170,6 +170,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         if (savedInstanceState != null) {
             model = savedInstanceState.getParcelable(EXTRA_TASK);
             applyModel = savedInstanceState.getBoolean(EXTRA_APPLY_MODEL);
+            isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
        }
 
         showEditComments = preferences.getBoolean(R.string.p_show_task_edit_comments, true);
@@ -409,16 +410,9 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      */
 
     protected void discardButtonClick() {
-        // abandon editing in this case
-        if (getTitle().trim().length() == 0 || TextUtils.isEmpty(model.getTitle())) {
-            if (isNewTask) {
-                TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
-                taskDeleter.delete(model);
-                if (getActivity() instanceof TaskListActivity) {
-                    TaskListActivity tla = (TaskListActivity) getActivity();
-                    tla.refreshTaskList();
-                }
-            }
+        if (isNewTask) {
+            TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
+            taskDeleter.delete(model);
         }
 
         removeExtrasFromIntent(getActivity().getIntent());
@@ -513,6 +507,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
 
         outState.putParcelable(EXTRA_TASK, model);
         outState.putBoolean(EXTRA_APPLY_MODEL, applyModel);
+        outState.putBoolean(EXTRA_IS_NEW_TASK, isNewTask);
     }
 
     /*

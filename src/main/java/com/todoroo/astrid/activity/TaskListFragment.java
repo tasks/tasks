@@ -711,14 +711,11 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     protected void onTaskDelete(Task task) {
-        Activity a = getActivity();
-        if (a instanceof TaskListActivity) {
-            TaskListActivity activity = (TaskListActivity) a;
-            TaskEditFragment tef = activity.getTaskEditFragment();
-            if (tef != null) {
-                if (task.getId() == tef.model.getId()) {
-                    tef.discardButtonClick();
-                }
+        TaskListActivity activity = (TaskListActivity) getActivity();
+        TaskEditFragment tef = activity.getTaskEditFragment();
+        if (tef != null) {
+            if (task.getId() == tef.model.getId()) {
+                tef.discardButtonClick();
             }
         }
         TimerPlugin.stopTimer(notificationManager, taskService, context, task);
