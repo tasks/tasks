@@ -199,14 +199,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (intent.hasExtra(TaskListFragment.TOKEN_FILTER)) {
             Filter filter = intent.getParcelableExtra(TaskListFragment.TOKEN_FILTER);
             extras.putAll(configureIntentAndExtrasWithFilter(intent, filter));
-            setListsTitle(filter.listingTitle);
             taskListFragment = newTaskListFragment(filter, extras);
         } else {
             taskListFragment = getTaskListFragment();
             if (taskListFragment == null) {
                 Filter filter = getDefaultFilter();
                 extras.putAll(configureIntentAndExtrasWithFilter(intent, filter));
-                setListsTitle(filter.listingTitle);
                 taskListFragment = newTaskListFragment(filter, extras);
             }
         }
@@ -231,6 +229,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     private void loadTaskListFragment(boolean onCreate, TaskListFragment taskListFragment) {
+        Filter filter = taskListFragment.getFilter();
+        getSupportActionBar().setTitle(filter.listingTitle);
         FragmentManager fragmentManager = getFragmentManager();
         if (onCreate) {
             fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -368,9 +368,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             getTaskEditFragment().onBackPressed();
         }
 
-        if ((item instanceof Filter)) {
-            setSelectedItem((Filter) item);
-        }
         // If showing both fragments, directly update the tasklist-fragment
         Intent intent = getIntent();
 
@@ -518,14 +515,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             default:
                 throw new RuntimeException("Unsupported fragment");
         }
-    }
-
-    public void setListsTitle(String title) {
-        getSupportActionBar().setTitle(title);
-    }
-
-    public void setSelectedItem(Filter item) {
-        getSupportActionBar().setTitle(item.listingTitle);
     }
 
     @Override
