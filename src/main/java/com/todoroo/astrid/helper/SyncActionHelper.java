@@ -18,6 +18,8 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 
+import javax.inject.Inject;
+
 /**
  * SyncActionHelper is a helper class for encapsulating UI actions
  * responsible for performing sync and prompting user to sign up for a new
@@ -39,6 +41,7 @@ public class SyncActionHelper {
 
     // --- boilerplate
 
+    @Inject
     public SyncActionHelper(GtasksPreferenceService gtasksPreferenceService, SyncV2Service syncService, final Activity activity, Preferences preferences) {
         this.syncService = syncService;
         this.preferences = preferences;

@@ -55,7 +55,6 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.SyncActionHelper;
-import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskService;
@@ -114,7 +113,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     @Inject TaskService taskService;
     @Inject TaskListMetadataDao taskListMetadataDao;
-    @Inject SyncV2Service syncService;
     @Inject TaskDeleter taskDeleter;
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
@@ -123,11 +121,11 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
+    @Inject SyncActionHelper syncActionHelper;
 
     protected TaskAdapter taskAdapter = null;
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
-    protected SyncActionHelper syncActionHelper;
     protected Filter filter;
 
     protected Bundle extras;
@@ -244,7 +242,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
-        syncActionHelper = new SyncActionHelper(gtasksPreferenceService, syncService, getActivity(), preferences);
         setUpUiComponents();
         initializeData();
 
