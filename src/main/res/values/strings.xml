@@ -738,9 +738,6 @@ File %1$s contained %2$s.\n\n
 
     <string name="new_tag">New Tag</string>
 
-    <!-- Dialog: task created without title -->
-    <string name="tag_no_title_error">Please enter a name for this list first!</string>
-
     <!-- ========================================================== Filters == -->
 
     <!-- slide 10d: filter for untagged tasks -->

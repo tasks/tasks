@@ -241,7 +241,6 @@
 	<string name="repeat_detail_duedate_until">Todo %1$s\naté %2$s</string>
 	<string name="repeat_forever">Repetir para sempre</string>
 	<string name="repeat_until">Repetir até %s</string>
-	<string name="tag_no_title_error">Entre com o nome da lista primeiro!</string>
 	<string name="tag_FEx_untagged">Sem categoria</string>
 	<string name="TPl_notification">Temporizador ativado para %s!</string>
 	<string name="TFE_workingOn">Tarefas com contagem de tempo</string>

@@ -127,7 +127,6 @@
 	<string name="repeat_detail_duedate_until">Hver %1$s\nindtil %2$s</string>
 	<string name="repeat_forever">Gentag uendeligt</string>
 	<string name="repeat_until">Gentag indtil %s</string>
-	<string name="tag_no_title_error">Start venligst med at give denne liste et navn!</string>
 	<string name="delete_task">Slet opgave</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 opgave</item>

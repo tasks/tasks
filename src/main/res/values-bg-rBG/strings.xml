@@ -275,7 +275,6 @@
 	<string name="repeat_until">Повтаряй до %s</string>
 	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
 	<string name="new_tag">Нов таг</string>
-	<string name="tag_no_title_error">Моля, първо въведете име за този списък!</string>
 	<string name="tag_FEx_untagged">Без категория</string>
 	<string name="delete_tag_confirmation">Изтрий %s?</string>
 	<string name="TPl_notification">Таймерите са Активни за %s!</string>

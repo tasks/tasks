@@ -245,7 +245,6 @@
 	<string name="repeat_detail_duedate_until">Кожні %1$s\nпоки %2$s</string>
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
-	<string name="tag_no_title_error">Введіть назву списку спочатку!</string>
 	<string name="tag_FEx_untagged">Без категорії</string>
 	<string name="TPl_notification">Для %s діють таймери!</string>
 	<string name="TEA_timer_controls">Таймер</string>

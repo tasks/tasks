@@ -226,7 +226,6 @@
 	<string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
 	<string name="repeat_forever">永遠重複</string>
 	<string name="repeat_until">重複到 %s</string>
-	<string name="tag_no_title_error">請先為此列表鍵入一個名稱！</string>
 	<string name="tag_FEx_untagged">未分類</string>
 	<string name="TPl_notification">秒錶啟動了 %s！</string>
 	<string name="TFE_workingOn">任務工作已開始計時</string>

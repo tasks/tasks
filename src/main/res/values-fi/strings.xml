@@ -61,7 +61,6 @@
 	<string name="repeat_detail_duedate_until">Joka %1$s\nkunnes %2$s</string>
 	<string name="repeat_forever">Toista loputtomiin</string>
 	<string name="repeat_until">Toista kunnes %s</string>
-	<string name="tag_no_title_error">Ole hyvä syötä ensin nimi tälle listalle!</string>
 	<string name="delete_task">Poista tehtävä</string>
 	<string name="source_code">Lähdekoodi</string>
 	<string name="show_hidden">Näytä piilotetut</string>

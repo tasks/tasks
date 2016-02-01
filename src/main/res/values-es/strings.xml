@@ -265,7 +265,6 @@
 	<string name="repeat_until">Repetir hasta %s</string>
 	<string name="repeat_snackbar">%1$s He reprogramado esta tarea recurrente para %2$s</string>
 	<string name="new_tag">Nueva Etiqueta</string>
-	<string name="tag_no_title_error">Por favor, ¡introduce un nombre para la primera lista!</string>
 	<string name="tag_FEx_untagged">Sin Categoría</string>
 	<string name="delete_tag_confirmation">¿Eliminar %s?</string>
 	<string name="TPl_notification">Temporizadores activos para %s!</string>

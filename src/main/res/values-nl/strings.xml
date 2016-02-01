@@ -271,7 +271,6 @@
 	<string name="repeat_until">Herhalen tot %s</string>
 	<string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
 	<string name="new_tag">Nieuwe Label</string>
-	<string name="tag_no_title_error">Voer a.u.b. eerst een naam in voor deze lijst!</string>
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>
 	<string name="delete_tag_confirmation">Verwijder %s?</string>
 	<string name="TPl_notification">Timers ingeschakeld voor %s!</string>

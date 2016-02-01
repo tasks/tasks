@@ -268,7 +268,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_until">Ripeti fino %s</string>
 	<string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
 	<string name="new_tag">Nuova etichetta</string>
-	<string name="tag_no_title_error">Per cortesia, prima inserisci un nome per questa lista</string>
 	<string name="tag_FEx_untagged">Non classificato</string>
 	<string name="delete_tag_confirmation">Elimino %s?</string>
 	<string name="TPl_notification">Timer attivi per %s!</string>

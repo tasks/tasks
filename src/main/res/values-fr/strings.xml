@@ -267,7 +267,6 @@
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
 	<string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
 	<string name="new_tag">Nouveau tag</string>
-	<string name="tag_no_title_error">Veuillez d\'abord entrer un nom pour cette liste.</string>
 	<string name="tag_FEx_untagged">Non classé</string>
 	<string name="delete_tag_confirmation">Effacer %s ?</string>
 	<string name="TPl_notification">Chronomètre actif pour %s !</string>

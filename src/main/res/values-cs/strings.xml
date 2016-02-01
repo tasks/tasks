@@ -239,7 +239,6 @@
 	<string name="repeat_detail_duedate_until">Každý %1$s\n až do %2$s</string>
 	<string name="repeat_forever">Opakovat stále</string>
 	<string name="repeat_until">Opakovat až do %s</string>
-	<string name="tag_no_title_error">Prosím zadejte jméno pro první seznam</string>
 	<string name="tag_FEx_untagged">Nezařazené</string>
 	<string name="TPl_notification">Aktivní časovače pro %s!</string>
 	<string name="TFE_workingOn">Termínované úkoly</string>

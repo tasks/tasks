@@ -274,7 +274,6 @@
 	<string name="repeat_until">%s まで繰り返す</string>
 	<string name="repeat_snackbar">%1$s を %2$s にスケジュール変更しました</string>
 	<string name="new_tag">新しいタグ</string>
-	<string name="tag_no_title_error">まずリスト名を記入してください!</string>
 	<string name="tag_FEx_untagged">未分類</string>
 	<string name="delete_tag_confirmation">%s を削除しますか?</string>
 	<string name="TPl_notification">%s のタイマーがアクティブです</string>

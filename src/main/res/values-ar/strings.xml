@@ -158,7 +158,6 @@
 		<item>من تاريخ الموعد</item>
 		<item>من تاريخ الاتمام</item>
 	</string-array>
-	<string name="tag_no_title_error">أدخل اسم للقائمة أولاً</string>
 	<string name="tag_FEx_untagged">غير مصنف</string>
 	<string name="TEA_timer_controls">مؤقت</string>
 	<string name="TEA_timer_comment_started">بدء هذه المهمة:</string>

@@ -259,7 +259,6 @@
 	<string name="repeat_until">Opakovať do %s</string>
 	<string name="repeat_snackbar">%1$s preplánované na %2$s</string>
 	<string name="new_tag">Nasledujúci tag</string>
-	<string name="tag_no_title_error">Prosím, uveďte najprv názov pre tento zoznam!</string>
 	<string name="tag_FEx_untagged">Nezaradené</string>
 	<string name="delete_tag_confirmation">Vymazať %s?</string>
 	<string name="TPl_notification">Časovač aktívny pre %s!</string>

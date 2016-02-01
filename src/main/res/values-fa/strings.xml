@@ -193,7 +193,6 @@
 	</string-array>
 	<string name="repeat_forever">تکرار بینهایت</string>
 	<string name="new_tag">تگ جدید</string>
-	<string name="tag_no_title_error">لطفا ابتدا یک نام برای لیست انتخاب نمایید</string>
 	<string name="tag_FEx_untagged">دسته بندی نشده</string>
 	<string name="TFE_workingOn">وظایف زمانبندی شده</string>
 	<string name="TEA_timer_controls">تایمر</string>

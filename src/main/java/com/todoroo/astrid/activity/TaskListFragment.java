@@ -65,13 +65,11 @@ import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
-import com.todoroo.astrid.ui.QuickAddBar;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingListFragment;
-import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -123,7 +121,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject ActivityPreferences preferences;
     @Inject NotificationManager notificationManager;
     @Inject TaskAttachmentDao taskAttachmentDao;
-    @Inject Injector injector;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
 
@@ -132,7 +129,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     protected SyncActionHelper syncActionHelper;
     protected Filter filter;
-    protected QuickAddBar quickAddBar = new QuickAddBar();
 
     protected Bundle extras;
     protected boolean isInbox;
@@ -206,7 +202,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         parent.findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Task task = quickAddBar.quickAddTask("");
+                Task task = addTask("");
                 onTaskListItemClicked(task.getId());
             }
         });
@@ -218,6 +214,10 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         ((ListView) listView.findViewById(android.R.id.list)).setEmptyView(emptyView);
         ((ViewGroup) parent.findViewById(R.id.task_list_body)).addView(body, 0);
         return parent;
+    }
+
+    public Task addTask(String title) {
+        return taskService.createWithValues(filter.valuesForNewTasks, title);
     }
 
     @Override
@@ -247,7 +247,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         syncActionHelper = new SyncActionHelper(gtasksPreferenceService, syncService, getActivity(), preferences);
         setUpUiComponents();
         initializeData();
-        quickAddBar.initialize(injector, this);
 
         if (getResources().getBoolean(R.bool.two_pane_layout)) {
             // In dual-pane mode, the list view highlights the selected item.

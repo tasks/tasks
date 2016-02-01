@@ -245,7 +245,6 @@
 	<string name="repeat_detail_duedate_until">Vsak %1$s\n do  %2$s</string>
 	<string name="repeat_forever">Ponavljaj do preklica</string>
 	<string name="repeat_until">Ponavljaj do %s</string>
-	<string name="tag_no_title_error">Prosimo, vnesite naziv tega seznama najprej!</string>
 	<string name="tag_FEx_untagged">Nerazvrščen</string>
 	<string name="TPl_notification">Merilniki časa aktivni za %s!</string>
 	<string name="TFE_workingOn">Opravki katerim se meri čas</string>

@@ -266,7 +266,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_snackbar">%1$s agendada para %2$s</string>
 	<string name="new_tag">Nova etiqueta</string>
-	<string name="tag_no_title_error">Introduza o nome para esta lista!</string>
 	<string name="tag_FEx_untagged">Sem categoria</string>
 	<string name="delete_tag_confirmation">Apagar %s?</string>
 	<string name="TPl_notification">Temporizador ativo para %s!</string>

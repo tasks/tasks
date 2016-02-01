@@ -237,7 +237,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_detail_duedate_until">Varje %1$s\ntill %2$s </string>
 	<string name="repeat_forever">Repetera oändligt</string>
 	<string name="repeat_until">Repetera till %s</string>
-	<string name="tag_no_title_error">Ange först ett namn på listan!</string>
 	<string name="tag_FEx_untagged">Ingen kategori</string>
 	<string name="TPl_notification">Tidtagarur aktivt för %s!</string>
 	<string name="TFE_workingOn">Uppgifter med tidtagning</string>

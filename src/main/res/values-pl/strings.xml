@@ -244,7 +244,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="repeat_detail_duedate_until">Co %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
-	<string name="tag_no_title_error">Wpisz nazwę dla tej listy najpierw!</string>
 	<string name="tag_FEx_untagged">Na żadnej liście</string>
 	<string name="TPl_notification">Minutnkiki aktywne przez %s!</string>
 	<string name="TFE_workingOn">Zadania zostały spracyzowane czasowo</string>

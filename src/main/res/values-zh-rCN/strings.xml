@@ -195,7 +195,6 @@
 	<string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
 	<string name="repeat_forever">永远重复</string>
 	<string name="repeat_until">重复到 %s</string>
-	<string name="tag_no_title_error">请先为此列表键入一个名称！</string>
 	<string name="TPl_notification">秒表启动了 %s！</string>
 	<string name="TFE_workingOn">任务已开始计时</string>
 	<string name="TEA_timer_comment_started">已经开始了这项任务：</string>

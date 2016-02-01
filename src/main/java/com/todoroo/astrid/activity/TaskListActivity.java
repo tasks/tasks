@@ -434,7 +434,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             } else {
                 TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null) {
-                    Task task = tlf.quickAddBar.quickAddTask("");//$NON-NLS-1$
+                    Task task = tlf.addTask("");//$NON-NLS-1$
                     onTaskListItemClicked(task.getId());
                 }
             }
@@ -553,7 +553,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             @Override
             public void apply(String title) {
                 TaskListFragment taskListFragment = getTaskListFragment();
-                Task task = taskListFragment.quickAddBar.quickAddTask(title);
+                Task task = taskListFragment.addTask(title);
                 taskCreator.addToCalendar(task);
                 onTaskListItemClicked(task.getId());
                 taskListFragment.loadTaskListContent();

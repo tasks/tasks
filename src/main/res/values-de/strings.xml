@@ -255,7 +255,6 @@
 	<string name="repeat_until">Wiederhole bis %s</string>
 	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>
 	<string name="new_tag">Neues Schlagwort</string>
-	<string name="tag_no_title_error">Bitte gib zuerst einen Namen für die Liste ein!</string>
 	<string name="tag_FEx_untagged">Nicht kategorisiert</string>
 	<string name="delete_tag_confirmation">%s löschen?</string>
 	<string name="TPl_notification">Timer ist aktiv für %s!</string>

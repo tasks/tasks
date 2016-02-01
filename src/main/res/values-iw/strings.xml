@@ -241,7 +241,6 @@
 	<string name="repeat_detail_duedate_until">כל %1$s\nעד %2$s</string>
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
-	<string name="tag_no_title_error">אנא הכנס שם לרשימה זו</string>
 	<string name="TPl_notification">קוצב זמן הופעל עבור %s משימות</string>
 	<string name="TFE_workingOn">משימות עם הערכת זמן</string>
 	<string name="TEA_timer_controls">טיימר</string>

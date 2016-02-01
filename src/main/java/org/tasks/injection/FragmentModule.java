@@ -16,7 +16,6 @@ import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
-import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.ui.ReminderControlSet;
 
 import org.tasks.ui.CalendarControlSet;
@@ -39,7 +38,6 @@ import dagger.Provides;
                 TagViewFragment.class,
                 TaskEditFragment.class,
                 NavigationDrawerFragment.class,
-                QuickAddBar.class,
                 CalendarControlSet.class,
                 DeadlineControlSet.class,
                 PriorityControlSet.class,
@@ -55,17 +53,9 @@ import dagger.Provides;
 public class FragmentModule {
 
     private final Fragment fragment;
-    private final Injector injector;
 
-    public FragmentModule(Fragment fragment, Injector injector) {
+    public FragmentModule(Fragment fragment) {
         this.fragment = fragment;
-        this.injector = injector;
-    }
-
-    @Singleton
-    @Provides
-    public Injector getInjector() {
-        return injector;
     }
 
     @Provides

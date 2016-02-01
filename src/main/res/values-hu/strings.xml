@@ -107,7 +107,6 @@
 	<string name="repeat_detail_duedate_until">Minden %1$s\neddig: %2$s</string>
 	<string name="repeat_forever">Ismétlés örökké</string>
 	<string name="repeat_until">Ismétlés eddig: %s</string>
-	<string name="tag_no_title_error">Kérlek, először add meg a lista nevét!</string>
 	<string name="delete_task">Feladat törlése</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 feladat</item>

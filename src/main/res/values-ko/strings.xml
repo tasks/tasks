@@ -275,7 +275,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="repeat_until">%s 까지 반복</string>
 	<string name="repeat_snackbar">%1$s 이 %2$s 로 변경되었습니다</string>
 	<string name="new_tag">새 태그</string>
-	<string name="tag_no_title_error">이 목록의 이름을 먼저 입력하세요!</string>
 	<string name="tag_FEx_untagged">미분류 일정</string>
 	<string name="delete_tag_confirmation">%s 삭제할까요?</string>
 	<string name="TPl_notification">%s 동안 타이머 작동함!</string>

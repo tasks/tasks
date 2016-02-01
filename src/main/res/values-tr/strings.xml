@@ -216,7 +216,6 @@
 	<string name="repeat_detail_duedate_until">Her %1$s\n%2$s \'e kadar</string>
 	<string name="repeat_forever">Sürekli yinele</string>
 	<string name="repeat_until">%s\'e kadar yinele</string>
-	<string name="tag_no_title_error">Lütfen bu liste için isim girin!</string>
 	<string name="TPl_notification">%s için kronometre etkin!</string>
 	<string name="TFE_workingOn">Zaman Ölçümü Olan Görevler</string>
 	<string name="TEA_timer_comment_started">başlanan görev:</string>
