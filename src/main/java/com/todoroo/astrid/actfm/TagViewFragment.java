@@ -17,17 +17,45 @@ import javax.inject.Inject;
 
 public class TagViewFragment extends TaskListFragment {
 
-    public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
+    private static final String EXTRA_TAG_DATA = "extra_tag_data";
 
+    public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
     public static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
 
     protected TagData tagData;
 
     @Inject TagDataDao tagDataDao;
 
-    private boolean dataLoaded = false;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    // --- UI initialization
+        if (savedInstanceState != null) {
+            tagData = savedInstanceState.getParcelable(EXTRA_TAG_DATA);
+        } else {
+            String tag = extras.getString(EXTRA_TAG_NAME);
+            String uuid = RemoteModel.NO_UUID;
+            if (extras.containsKey(EXTRA_TAG_UUID)) {
+                uuid = extras.getString(EXTRA_TAG_UUID);
+            }
+
+
+            if(tag == null && RemoteModel.NO_UUID.equals(uuid)) {
+                return;
+            }
+
+            tagData = RemoteModel.isUuidEmpty(uuid)
+                    ? tagDataDao.getTagByName(tag, TagData.PROPERTIES)
+                    : tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
+
+            if (tagData == null) {
+                tagData = new TagData();
+                tagData.setName(tag);
+                tagData.setUUID(uuid);
+                tagDataDao.persist(tagData);
+            }
+        }
+    }
 
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
@@ -36,40 +64,11 @@ public class TagViewFragment extends TaskListFragment {
         getListView().setOnKeyListener(null);
     }
 
-    // --- data loading
-
     @Override
-    protected void initializeData() {
-        synchronized(this) {
-            if(dataLoaded) {
-                return;
-            }
-            dataLoaded = true;
-        }
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        String tag = extras.getString(EXTRA_TAG_NAME);
-        String uuid = RemoteModel.NO_UUID;
-        if (extras.containsKey(EXTRA_TAG_UUID)) {
-            uuid = extras.getString(EXTRA_TAG_UUID);
-        }
-
-
-        if(tag == null && RemoteModel.NO_UUID.equals(uuid)) {
-            return;
-        }
-
-        tagData = RemoteModel.isUuidEmpty(uuid)
-                ? tagDataDao.getTagByName(tag, TagData.PROPERTIES)
-                : tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
-
-        if (tagData == null) {
-            tagData = new TagData();
-            tagData.setName(tag);
-            tagData.setUUID(uuid);
-            tagDataDao.persist(tagData);
-        }
-
-        super.initializeData();
+        outState.putParcelable(EXTRA_TAG_DATA, tagData);
     }
 
     @Override
