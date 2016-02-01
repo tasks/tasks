@@ -118,8 +118,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     private NavigationDrawerFragment navigationDrawer;
     private ArrayList<String> controlOrder;
 
-    public static final String TOKEN_SWITCH_TO_FILTER = "newListCreated"; //$NON-NLS-1$
-
     /** For indicating the new list screen should be launched at fragment setup time */
     public static final String TOKEN_CREATE_NEW_LIST = "createNewList"; //$NON-NLS-1$
     public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
@@ -200,11 +198,15 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             Filter filter = intent.getParcelableExtra(TaskListFragment.TOKEN_FILTER);
             extras.putAll(configureIntentAndExtrasWithFilter(intent, filter));
             taskListFragment = newTaskListFragment(filter, extras);
+            intent.removeExtra(TaskListFragment.TOKEN_FILTER);
         } else {
             taskListFragment = getTaskListFragment();
             if (taskListFragment == null) {
                 Filter filter = getDefaultFilter();
-                extras.putAll(configureIntentAndExtrasWithFilter(intent, filter));
+                Bundle bundle = configureIntentAndExtrasWithFilter(intent, filter);
+                if (bundle != null) {
+                    extras.putAll(bundle);
+                }
                 taskListFragment = newTaskListFragment(filter, extras);
             }
         }
@@ -408,21 +410,13 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             Timber.e(e, e.getMessage());
             newFragment = new TaskListFragment();
         }
-        Bundle args = new Bundle();
-        args.putBundle(TaskListFragment.TOKEN_EXTRAS, extras);
-        newFragment.setArguments(args);
+        newFragment.initialize(filter, extras);
         return newFragment;
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-
-        if (getIntent().hasExtra(TOKEN_SWITCH_TO_FILTER)) {
-            Filter newList = getIntent().getParcelableExtra(TOKEN_SWITCH_TO_FILTER);
-            getIntent().removeExtra(TOKEN_SWITCH_TO_FILTER);
-            onFilterItemClicked(newList);
-        }
 
         if (getIntent().hasExtra(OPEN_TASK)) {
             long id = getIntent().getLongExtra(OPEN_TASK, 0);
@@ -563,7 +557,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
-                getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, newList); // Handle in onPostResume()
+                onFilterItemClicked(newList);
                 navigationDrawer.clear();
             }
 
@@ -580,7 +574,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                             td = tagDataDao.fetch(uuid, TagData.PROPERTIES);
                             if (td != null) {
                                 Filter filter = TagFilterExposer.filterFromTagData(this, td);
-                                getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, filter);
+                                onFilterItemClicked(filter);
                             }
                         } else {
                             tlf.refresh();
@@ -594,7 +588,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                             activeUuid = tagData.getUuid();
                         }
                         if (activeUuid.equals(uuid)) {
-                            getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources())); // Handle in onPostResume()
+                            onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
                             navigationDrawer.clear(); // Should auto refresh
                         } else {
                             tlf.refresh();
@@ -609,9 +603,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 String action = data.getAction();
                 if (AstridApiConstants.BROADCAST_EVENT_FILTER_RENAMED.equals(action)) {
                     CustomFilter customFilter = data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER);
-                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, customFilter);
+                    onFilterItemClicked(customFilter);
                 } else if(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
-                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, BuiltInFilterExposer.getMyTasksFilter(getResources()));
+                    onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
                 }
 
                 navigationDrawer.refresh();
@@ -621,7 +615,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 TasksWidget.updateWidgets(this);
 
                 if (data.hasExtra(SortActivity.EXTRA_TOGGLE_MANUAL)) {
-                    getIntent().putExtra(TOKEN_SWITCH_TO_FILTER, getTaskListFragment().getFilter());
+                    onFilterItemClicked(getTaskListFragment().getFilter());
                 } else {
                     getTaskListFragment().setUpTaskList();
                 }
@@ -648,13 +642,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             navigationDrawer.clear();
         } else {
             navigationDrawer.refresh();
-        }
-    }
-
-    protected void refreshTaskList() {
-        TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null) {
-            tlf.refresh();
         }
     }
 
@@ -726,11 +713,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             int lastSelectedList = intent.getIntExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, 0);
             intent = ((FilterWithCustomIntent)filter).getCustomIntent();
             intent.putExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, lastSelectedList);
-        } else {
-            intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+            setIntent(intent);
         }
-
-        setIntent(intent);
 
         Bundle extras = intent.getExtras();
         if (extras != null) {

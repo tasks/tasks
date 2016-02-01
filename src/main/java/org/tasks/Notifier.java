@@ -17,12 +17,12 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 import org.tasks.injection.ForApplication;
@@ -158,7 +158,7 @@ public class Notifier {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), new Intent(context, TaskListActivity.class) {{
             setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-            putExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER, new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
+            putExtra(TaskListFragment.TOKEN_FILTER, new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
         }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(context)

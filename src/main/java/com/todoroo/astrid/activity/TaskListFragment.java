@@ -87,6 +87,9 @@ import timber.log.Timber;
  */
 public class TaskListFragment extends InjectingListFragment implements SwipeRefreshLayout.OnRefreshListener {
 
+    private static final String EXTRA_FILTER = "extra_filter";
+    private static final String EXTRA_EXTRAS = "extra_extras";
+
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
     // --- activities
@@ -106,8 +109,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
-
-    public static final String TOKEN_EXTRAS = "extras"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -186,10 +187,31 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        extras = getArguments() != null ? getArguments().getBundle(TOKEN_EXTRAS) : null;
+
+        if (savedInstanceState != null) {
+            filter = savedInstanceState.getParcelable(EXTRA_FILTER);
+            extras = savedInstanceState.getBundle(EXTRA_EXTRAS);
+        }
+
+        if (filter == null) {
+            filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
+        }
         if (extras == null) {
             extras = new Bundle(); // Just need an empty one to prevent potential null pointers
         }
+    }
+
+    public void initialize(Filter filter, Bundle extras) {
+        this.filter = filter;
+        this.extras = extras;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable(EXTRA_FILTER, filter);
+        outState.putBundle(EXTRA_EXTRAS, extras);
     }
 
     @Override
@@ -280,12 +302,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     protected void initializeData() {
-        if (extras != null && extras.containsKey(TOKEN_FILTER)) {
-            filter = extras.getParcelable(TOKEN_FILTER);
-//            extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
-        } else {
-            filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
-        }
         filter.setFilterQueryOverride(null);
         isInbox = BuiltInFilterExposer.isInbox(context, filter);
         isTodayFilter = false;
@@ -342,6 +358,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     protected void setUpUiComponents() {
+        registerForContextMenu(getListView());
+
         // set listener for quick-changing task priority
         getListView().setOnKeyListener(new OnKeyListener() {
             @Override
@@ -544,7 +562,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         taskAdapter = createTaskAdapter(currentCursor);
 
         setListAdapter(taskAdapter);
-        registerForContextMenu(getListView());
 
         loadTaskListContent();
     }

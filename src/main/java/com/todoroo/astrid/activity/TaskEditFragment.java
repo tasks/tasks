@@ -358,7 +358,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         if (tagsChanged) {
             tla.tagsChanged();
         }
-        tla.refreshTaskList();
         if (isNewTask) {
             tla.getTaskListFragment().onTaskCreated(model.getId(), model.getUuid());
         }
@@ -397,7 +396,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      */
     public static void removeExtrasFromIntent(Intent intent) {
         if (intent != null) {
-            intent.removeExtra(TaskListActivity.TOKEN_SWITCH_TO_FILTER);
             intent.removeExtra(TaskListActivity.OPEN_TASK);
             intent.removeExtra(TOKEN_PICTURE_IN_PROGRESS);
         }
