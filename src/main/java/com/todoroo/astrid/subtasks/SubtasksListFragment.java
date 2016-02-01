@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -75,8 +76,6 @@ public class SubtasksListFragment extends TaskListFragment {
         helper.beforeSetUpTaskList(filter);
 
         super.setUpTaskList();
-
-        unregisterForContextMenu(getListView());
     }
 
     @Override
@@ -88,9 +87,11 @@ public class SubtasksListFragment extends TaskListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (lastVisibleIndex >=0) {
-            getListView().setSelection(lastVisibleIndex);
+        ListView listView = getListView();
+        if (lastVisibleIndex >= 0) {
+            listView.setSelection(lastVisibleIndex);
         }
+        unregisterForContextMenu(listView);
     }
 
     @Override

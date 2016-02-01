@@ -68,8 +68,6 @@ public class SubtasksTagListFragment extends TagViewFragment {
         helper.beforeSetUpTaskList(filter);
 
         super.setUpTaskList();
-
-        unregisterForContextMenu(getListView());
     }
 
     @Override
@@ -84,6 +82,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
         if (lastVisibleIndex >= 0) {
             getListView().setSelection(lastVisibleIndex);
         }
+        unregisterForContextMenu(getListView());
     }
 
     @Override
