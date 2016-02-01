@@ -14,9 +14,7 @@ import android.widget.RemoteViewsService;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
@@ -135,7 +133,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             if (task == null) {
                 return null;
             }
-
             String textContent;
             Resources r = context.getResources();
             int textColor = r.getColor(dark ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
@@ -157,24 +154,23 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
                 textColor = r.getColor(R.color.overdue);
             }
 
+            final long taskId = task.getId();
             row.setTextViewText(R.id.text, textContent);
             row.setTextColor(R.id.text, textColor);
             row.setImageViewBitmap(R.id.completeBox, getCheckbox(task));
-
-            Intent editIntent = new Intent();
-            editIntent.setAction(TasksWidget.EDIT_TASK);
-            editIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            editIntent.putExtra(TasksWidget.TOKEN_ID, task.getId());
-            editIntent.putExtra(TaskListActivity.OPEN_TASK, task.getId());
-            row.setOnClickFillInIntent(R.id.text, editIntent);
+            row.setOnClickFillInIntent(R.id.text, new Intent() {{
+                setAction(TasksWidget.EDIT_TASK);
+                putExtra(TasksWidget.EXTRA_FILTER, filter);
+                putExtra(TasksWidget.EXTRA_ID, taskId);
+            }});
 
             if (hideCheckboxes) {
                 row.setViewVisibility(R.id.completeBox, View.GONE);
             } else {
-                Intent completeIntent = new Intent();
-                completeIntent.setAction(TasksWidget.COMPLETE_TASK);
-                completeIntent.putExtra(TasksWidget.TOKEN_ID, task.getId());
-                row.setOnClickFillInIntent(R.id.completeBox, completeIntent);
+                row.setOnClickFillInIntent(R.id.completeBox, new Intent() {{
+                    setAction(TasksWidget.COMPLETE_TASK);
+                    putExtra(TasksWidget.EXTRA_ID, taskId);
+                }});
             }
 
             return row;

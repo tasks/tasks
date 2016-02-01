@@ -80,7 +80,7 @@ public class WidgetHelper {
         remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
         remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
-        PendingIntent listIntent = getListIntent(context, filter, id);
+        PendingIntent listIntent = getOpenListIntent(context, filter, id);
         if (listIntent != null) {
             remoteViews.setOnClickPendingIntent(R.id.widget_title, listIntent);
         }
@@ -95,7 +95,7 @@ public class WidgetHelper {
         return remoteViews;
     }
 
-    public PendingIntent getListIntent(Context context, Filter filter, int widgetId) {
+    public PendingIntent getOpenListIntent(Context context, Filter filter, int widgetId) {
         Intent listIntent = new Intent(context, TaskListActivity.class);
         String customIntent = preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
                 + widgetId);
