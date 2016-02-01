@@ -66,7 +66,6 @@ import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
-import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -76,8 +75,6 @@ import org.tasks.injection.Injector;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
@@ -98,7 +95,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     // --- activities
 
     public static final long AUTOSYNC_INTERVAL = 90000L;
-    private static final long BACKGROUND_REFRESH_INTERVAL = 120000L;
     private static final long WAIT_BEFORE_AUTOSYNC = 2000L;
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
@@ -138,7 +134,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     protected Filter filter;
     protected QuickAddBar quickAddBar = new QuickAddBar();
 
-    private Timer backgroundTimer;
     protected Bundle extras;
     protected boolean isInbox;
     protected boolean isTodayFilter;
@@ -388,30 +383,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         });
     }
 
-    private void setUpBackgroundJobs() {
-        backgroundTimer = new Timer();
-
-        // start a thread to refresh periodically
-        backgroundTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                // refresh if conditions match
-                Flags.checkAndClear(Flags.REFRESH);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            refresh();
-                        } catch (IllegalStateException e) {
-                            // view may have been destroyed
-                            Timber.e(e, e.getMessage());
-                        }
-                    }
-                });
-            }
-        }, BACKGROUND_REFRESH_INTERVAL, BACKGROUND_REFRESH_INTERVAL);
-    }
-
     /*
      * ======================================================================
      * ============================================================ lifecycle
@@ -424,15 +395,11 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
         getActivity().registerReceiver(refreshReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
 
-        if (Flags.checkAndClear(Flags.REFRESH)) {
-            refresh();
-        }
-
-        setUpBackgroundJobs();
-
         refreshFilterCount();
 
         initiateAutomaticSync();
+
+        refresh();
     }
 
     protected boolean isCurrentTaskListFragment() {
@@ -483,8 +450,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         super.onPause();
 
         AndroidUtilities.tryUnregisterReceiver(getActivity(), refreshReceiver);
-
-        backgroundTimer.cancel();
     }
 
     /**

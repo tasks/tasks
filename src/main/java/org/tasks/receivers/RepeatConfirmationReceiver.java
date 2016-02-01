@@ -81,7 +81,6 @@ public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
                             task.setHideUntil(hideUntil - (newDueDate - oldDueDate));
                         }
                         taskService.save(task);
-                        Flags.set(Flags.REFRESH);
                     }
                 })
                 .show();

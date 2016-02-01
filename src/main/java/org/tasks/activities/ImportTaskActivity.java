@@ -34,7 +34,6 @@ public class ImportTaskActivity extends InjectingAppCompatActivity {
                                 xmlImporter.importTasks(ImportTaskActivity.this, filePath, new Runnable() {
                                     @Override
                                     public void run() {
-                                        Flags.set(Flags.REFRESH);
                                         finish();
                                     }
                                 });

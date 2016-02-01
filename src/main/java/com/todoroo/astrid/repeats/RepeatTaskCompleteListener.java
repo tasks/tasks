@@ -90,7 +90,6 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
             context.sendOrderedBroadcast(broadcastIntent, null);
-            Flags.set(Flags.REFRESH);
         }
     }
 

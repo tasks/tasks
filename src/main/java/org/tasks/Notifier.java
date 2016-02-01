@@ -353,7 +353,6 @@ public class Notifier {
             notificationManager.notify(notificationId, notification);
             AndroidUtilities.sleepDeep(500);
         }
-        Flags.set(Flags.REFRESH); // Forces a reload when app launches
         if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
             AndroidUtilities.sleepDeep(2000);
             for (int i = 0; i < 50; i++) {
