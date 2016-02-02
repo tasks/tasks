@@ -332,26 +332,30 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
 
     /** Save task model from values in UI components */
     public void save() {
-        for (TaskEditControlFragment fragment : getFragments()) {
-            fragment.apply(model);
+        List<TaskEditControlFragment> fragments = getFragments();
+        if (hasChanges(fragments)) {
+            for (TaskEditControlFragment fragment : fragments) {
+                fragment.apply(model);
+            }
+            taskService.save(model);
+
+            boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
+
+            // Notify task list fragment in multi-column case
+            // since the activity isn't actually finishing
+            TaskListActivity tla = (TaskListActivity) getActivity();
+
+            if (tagsChanged) {
+                tla.tagsChanged();
+            }
+            if (isNewTask) {
+                tla.getTaskListFragment().onTaskCreated(model.getId(), model.getUuid());
+            }
+            removeExtrasFromIntent(getActivity().getIntent());
+            callback.taskEditFinished();
+        } else {
+            discard();
         }
-        taskService.save(model);
-
-        boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
-
-        // Notify task list fragment in multi-column case
-        // since the activity isn't actually finishing
-        TaskListActivity tla = (TaskListActivity) getActivity();
-
-        if (tagsChanged) {
-            tla.tagsChanged();
-        }
-        if (isNewTask) {
-            tla.getTaskListFragment().onTaskCreated(model.getId(), model.getUuid());
-        }
-
-        removeExtrasFromIntent(getActivity().getIntent());
-        callback.taskEditFinished();
     }
 
     private EditTitleControlSet getEditTitleControlSet() {
@@ -386,12 +390,17 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      * ======================================================================
      */
 
-    public void discardButtonClick() {
-        boolean hasChanges = false;
-        for (TaskEditControlFragment fragment : getFragments()) {
-            hasChanges |= fragment.hasChanges(model);
+    private boolean hasChanges(List<TaskEditControlFragment> fragments) {
+        for (TaskEditControlFragment fragment : fragments) {
+            if (fragment.hasChanges(model)) {
+                return true;
+            }
         }
-        if (hasChanges) {
+        return false;
+    }
+
+    public void discardButtonClick() {
+        if (hasChanges(getFragments())) {
             dialogBuilder.newMessageDialog(R.string.discard_confirmation)
                     .setPositiveButton(R.string.keep_editing, null)
                     .setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {
