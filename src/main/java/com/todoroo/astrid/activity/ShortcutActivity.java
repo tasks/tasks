@@ -7,7 +7,6 @@ package com.todoroo.astrid.activity;
 
 import android.content.ComponentName;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,7 +16,6 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 
 import org.tasks.injection.InjectingAppCompatActivity;
 
-import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -57,7 +55,7 @@ public class ShortcutActivity extends InjectingAppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        launchTaskList();
+        launchShortcut();
     }
 
     @Override
@@ -66,22 +64,21 @@ public class ShortcutActivity extends InjectingAppCompatActivity {
 
         setIntent(intent);
 
-        launchTaskList();
+        launchShortcut();
     }
 
-    private void launchTaskList() {
+    private void launchShortcut() {
         Intent intent = getIntent();
 
         Bundle extras = intent.getExtras();
 
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
-        taskListIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        if(extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
-            taskListIntent.putExtras(intent.getExtras());
-        }
+        if (extras != null) {
+            if(extras.containsKey(TOKEN_CUSTOM_CLASS)) {
+                taskListIntent.putExtras(intent.getExtras());
+            }
 
-        if(extras != null && extras.containsKey(TOKEN_FILTER_SQL)) {
             // launched from desktop shortcut, must create a fake filter
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
@@ -130,47 +127,5 @@ public class ShortcutActivity extends InjectingAppCompatActivity {
 
         startActivity(taskListIntent);
         finish();
-    }
-
-    public static Intent createIntent(Context context, Filter filter) {
-        Intent shortcutIntent = new Intent(context, ShortcutActivity.class);
-
-        if(filter instanceof FilterWithCustomIntent) {
-            FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
-            if(customFilter.customExtras != null) {
-                shortcutIntent.putExtras(customFilter.customExtras);
-            }
-            shortcutIntent.putExtra(TOKEN_CUSTOM_CLASS, customFilter.customTaskList.flattenToString());
-        }
-
-        shortcutIntent.setAction(Intent.ACTION_VIEW);
-        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE,
-                filter.listingTitle);
-        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL,
-                filter.getSqlQuery());
-        if (filter.valuesForNewTasks != null) {
-            for (Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
-                String key = TOKEN_FILTER_VALUES_ITEM + item.getKey();
-                Object value = item.getValue();
-                putExtra(shortcutIntent, key, value);
-            }
-        }
-        return shortcutIntent;
-    }
-
-    private static void putExtra(Intent intent, String key, Object value) {
-        // assume one of the big 4...
-        if (value instanceof String) {
-            intent.putExtra(key, (String) value);
-        } else if (value instanceof Integer) {
-            intent.putExtra(key, (Integer) value);
-        } else if (value instanceof Double) {
-            intent.putExtra(key, (Double) value);
-        } else if (value instanceof Long) {
-            intent.putExtra(key, (Long) value);
-        } else {
-            throw new IllegalStateException(
-                    "Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
-        }
     }
 }

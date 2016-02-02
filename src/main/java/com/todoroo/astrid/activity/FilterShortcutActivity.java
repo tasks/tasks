@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -25,6 +26,8 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.preferences.ActivityPreferences;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -63,7 +66,7 @@ public class FilterShortcutActivity extends InjectingListActivity {
                         .show();
                 return;
             }
-            Intent shortcutIntent = ShortcutActivity.createIntent(context, filter);
+            Intent shortcutIntent = createShortcutIntent(context, filter);
 
             Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher)).getBitmap();
             Intent intent = new Intent();
@@ -75,6 +78,46 @@ public class FilterShortcutActivity extends InjectingListActivity {
             finish();
         }
    };
+
+    public static Intent createShortcutIntent(Context context, Filter filter) {
+        Intent shortcutIntent = new Intent(context, ShortcutActivity.class);
+
+        if(filter instanceof FilterWithCustomIntent) {
+            FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
+            if(customFilter.customExtras != null) {
+                shortcutIntent.putExtras(customFilter.customExtras);
+            }
+            shortcutIntent.putExtra(ShortcutActivity.TOKEN_CUSTOM_CLASS, customFilter.customTaskList.flattenToString());
+        }
+
+        shortcutIntent.setAction(Intent.ACTION_VIEW);
+        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE, filter.listingTitle);
+        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL, filter.getSqlQuery());
+        if (filter.valuesForNewTasks != null) {
+            for (Map.Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
+                String key = ShortcutActivity.TOKEN_FILTER_VALUES_ITEM + item.getKey();
+                Object value = item.getValue();
+                putExtra(shortcutIntent, key, value);
+            }
+        }
+        return shortcutIntent;
+    }
+
+    private static void putExtra(Intent intent, String key, Object value) {
+        // assume one of the big 4...
+        if (value instanceof String) {
+            intent.putExtra(key, (String) value);
+        } else if (value instanceof Integer) {
+            intent.putExtra(key, (Integer) value);
+        } else if (value instanceof Double) {
+            intent.putExtra(key, (Double) value);
+        } else if (value instanceof Long) {
+            intent.putExtra(key, (Long) value);
+        } else {
+            throw new IllegalStateException(
+                    "Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
+        }
+    }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
