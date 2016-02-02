@@ -201,6 +201,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             sort = SortHelper.SORT_WIDGET;
         }
 
+        filter.setFilterQueryOverride(null);
+
         String query = SortHelper.adjustQueryForFlagsAndSort(preferences,
                 filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "");
 
