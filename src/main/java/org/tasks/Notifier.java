@@ -84,7 +84,7 @@ public class Notifier {
         }};
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notif_astrid)
+                .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setTicker(title)
                 .setContentTitle(title)
                 .setContentText(context.getString(R.string.app_name))
@@ -162,7 +162,7 @@ public class Notifier {
         }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notif_astrid)
+                .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setTicker(title)
                 .setWhen(currentTimeMillis())
                 .setContentTitle(title)
@@ -242,7 +242,7 @@ public class Notifier {
         }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.notif_astrid)
+                .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setTicker(taskTitle)
                 .setWhen(currentTimeMillis())
                 .setContentTitle(taskTitle)
