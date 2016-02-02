@@ -100,6 +100,11 @@ public class PriorityControlSet extends TaskEditControlFragment {
         task.setImportance(getPriority());
     }
 
+    @Override
+    public boolean hasChanges(Task original) {
+        return original.getImportance() != getPriority();
+    }
+
     private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
         int color = checkBoxes.getPriorityColors().get(priority);
         radioButton.setSupportButtonTintList(new ColorStateList(new int[][]{

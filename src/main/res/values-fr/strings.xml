@@ -58,7 +58,6 @@
 	<string name="TEA_elapsedDuration_label">Temps déjà passé sur la tâche</string>
 	<string name="TEA_menu_save">Sauvegarder les modifications</string>
 	<string name="save">Sauvegarder</string>
-	<string name="TEA_menu_discard_changes">Annuler les modifications</string>
 	<string name="TEA_tab_activity">Activité</string>
 	<string name="TEA_timer_est">Restant %s</string>
 	<string name="TEA_timer_elap">Passé %s</string>

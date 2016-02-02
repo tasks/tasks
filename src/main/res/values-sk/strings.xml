@@ -57,7 +57,6 @@
 	<string name="TEA_elapsedDuration_label">Ako dlho už pracujete na úlohe</string>
 	<string name="TEA_menu_save">Uložiť zmeny</string>
 	<string name="save">Uložiť</string>
-	<string name="TEA_menu_discard_changes">Vymazať zmeny</string>
 	<string name="TEA_tab_activity">Aktivita</string>
 	<string name="TEA_timer_est">Spolu %s</string>
 	<string name="TEA_timer_elap">Uplynulo %s</string>

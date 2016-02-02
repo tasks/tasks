@@ -57,7 +57,6 @@
 	<string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
 	<string name="TEA_elapsedDuration_label">Час вже потрачео</string>
 	<string name="TEA_menu_save">Зберегти зміни</string>
-	<string name="TEA_menu_discard_changes">Відмінити зміни</string>
 	<string name="TEA_tab_activity">Активність</string>
 	<string name="TEA_timer_est">Зал. %s</string>
 	<string name="TEA_timer_elap">Час, що минув %s</string>

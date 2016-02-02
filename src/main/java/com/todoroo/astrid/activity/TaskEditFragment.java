@@ -52,6 +52,9 @@ import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskEditControlFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -77,7 +80,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         TaskEditFragment taskEditFragment = new TaskEditFragment();
         taskEditFragment.isNewTask = isNewTask;
         taskEditFragment.model = task;
-        taskEditFragment.applyModel = true;
         return taskEditFragment;
     }
 
@@ -94,7 +96,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      * Task in progress (during orientation change)
      */
     private static final String EXTRA_TASK = "extra_task"; //$NON-NLS-1$
-    private static final String EXTRA_APPLY_MODEL = "extra_apply_model";
     private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
 
     /**
@@ -151,7 +152,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
 
     /** task model */
     Task model = null;
-    private boolean applyModel = false;
 
     private boolean showEditComments;
     private TaskEditFragmentCallbackHandler callback;
@@ -169,7 +169,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         // if we were editing a task already, restore it
         if (savedInstanceState != null) {
             model = savedInstanceState.getParcelable(EXTRA_TASK);
-            applyModel = savedInstanceState.getBoolean(EXTRA_APPLY_MODEL);
             isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
        }
 
@@ -198,8 +197,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         ButterKnife.bind(this, view);
 
         notificationManager.cancel(model.getId());
-
-        applyModel = false;
 
         if (!showEditComments) {
             commentsBar.setVisibility(View.GONE);
@@ -321,30 +318,21 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      * ======================================================================
      */
 
-    private String getTitle() {
-        return getEditTitleControlSet().getTitle();
-    }
-
-    /** Save task model from values in UI components */
-    public void save() {
-        String title = getTitle();
-        if (title == null) {
-            return;
-        }
-
-        if (title.length() > 0) {
-            model.setDeletionDate(0L);
-        }
-
-        if (title.length() == 0) {
-            return;
-        }
-
+    private List<TaskEditControlFragment> getFragments() {
+        List<TaskEditControlFragment> fragments = new ArrayList<>();
         for (int fragmentId : rowIds) {
             TaskEditControlFragment fragment = (TaskEditControlFragment) getFragmentManager().findFragmentById(fragmentId);
             if (fragment == null) {
                 break;
             }
+            fragments.add(fragment);
+        }
+        return fragments;
+    }
+
+    /** Save task model from values in UI components */
+    public void save() {
+        for (TaskEditControlFragment fragment : getFragments()) {
             fragment.apply(model);
         }
         taskService.save(model);
@@ -363,6 +351,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         }
 
         removeExtrasFromIntent(getActivity().getIntent());
+        callback.taskEditFinished();
     }
 
     private EditTitleControlSet getEditTitleControlSet() {
@@ -382,21 +371,11 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         return (T) getFragmentManager().findFragmentByTag(getString(tag));
     }
 
-    public void onBackPressed() {
-        if(getTitle().length() == 0) {
-            discardButtonClick();
-        } else {
-            save();
-        }
-        callback.taskEditFinished();
-    }
-
     /**
      * Helper to remove task edit specific info from activity intent
      */
     public static void removeExtrasFromIntent(Intent intent) {
         if (intent != null) {
-            intent.removeExtra(TaskListActivity.OPEN_TASK);
             intent.removeExtra(TOKEN_PICTURE_IN_PROGRESS);
         }
     }
@@ -407,13 +386,34 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      * ======================================================================
      */
 
-    protected void discardButtonClick() {
+    public void discardButtonClick() {
+        boolean hasChanges = false;
+        for (TaskEditControlFragment fragment : getFragments()) {
+            hasChanges |= fragment.hasChanges(model);
+        }
+        if (hasChanges) {
+            dialogBuilder.newMessageDialog(R.string.discard_confirmation)
+                    .setPositiveButton(R.string.keep_editing, null)
+                    .setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            discard();
+                        }
+                    })
+                    .show();
+        } else {
+            discard();
+        }
+    }
+
+    public void discard() {
         if (isNewTask) {
             TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
             taskDeleter.delete(model);
         }
 
         removeExtrasFromIntent(getActivity().getIntent());
+        callback.taskEditFinished();
     }
 
     protected void deleteButtonClick() {
@@ -440,13 +440,8 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         hideKeyboard();
 
         switch (item.getItemId()) {
-        case R.id.menu_save:
+            case R.id.menu_save:
             save();
-            callback.taskEditFinished();
-            return true;
-        case R.id.menu_discard:
-            discardButtonClick();
-            callback.taskEditFinished();
             return true;
         case R.id.menu_record_note:
             startRecordingAudio();
@@ -455,12 +450,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
             deleteButtonClick();
             return true;
         case android.R.id.home:
-            if (getTitle().trim().length() == 0) {
-                discardButtonClick();
-            } else {
-                save();
-            }
-            callback.taskEditFinished();
+            save();
             return true;
         }
 
@@ -504,7 +494,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(EXTRA_TASK, model);
-        outState.putBoolean(EXTRA_APPLY_MODEL, applyModel);
         outState.putBoolean(EXTRA_IS_NEW_TASK, isNewTask);
     }
 

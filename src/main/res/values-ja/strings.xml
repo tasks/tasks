@@ -60,7 +60,6 @@
 	<string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
 	<string name="TEA_menu_save">変更の保存</string>
 	<string name="save">保存</string>
-	<string name="TEA_menu_discard_changes">変更を保存しない</string>
 	<string name="TEA_tab_activity">活動</string>
 	<string name="TEA_timer_est">予定 %s</string>
 	<string name="TEA_timer_elap">経過時間 %s</string>

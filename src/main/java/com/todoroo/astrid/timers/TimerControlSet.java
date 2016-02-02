@@ -186,6 +186,12 @@ public class TimerControlSet extends TaskEditControlFragment {
     }
 
     @Override
+    public boolean hasChanges(Task original) {
+        return elapsed.getTimeDurationInSeconds() != original.getElapsedSeconds() ||
+                estimated.getTimeDurationInSeconds() != original.getEstimatedSeconds();
+    }
+
+    @Override
     public void apply(Task task) {
         task.setElapsedSeconds(elapsed.getTimeDurationInSeconds());
         task.setEstimatedSeconds(estimated.getTimeDurationInSeconds());

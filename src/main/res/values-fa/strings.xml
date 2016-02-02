@@ -41,7 +41,6 @@
 	<string name="TEA_elapsedDuration_label">زمان سپری شده</string>
 	<string name="TEA_menu_save">ذخیره تغییرات</string>
 	<string name="save">ذخیره</string>
-	<string name="TEA_menu_discard_changes">رد تغییرات</string>
 	<string name="TEA_tab_activity">فعالیت</string>
 	<string name="TEA_no_time">بدون زمان</string>
 	<string name="due_date">تاریخ موعود</string>

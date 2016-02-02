@@ -58,7 +58,6 @@
 	<string name="TEA_elapsedDuration_label">Zeit, die schon für die Aufgabe gebraucht wurde</string>
 	<string name="TEA_menu_save">Änderungen speichern</string>
 	<string name="save">Speichern</string>
-	<string name="TEA_menu_discard_changes">Änderungen verwerfen</string>
 	<string name="TEA_tab_activity">Aktivität</string>
 	<string name="TEA_timer_est">Geschätzt %s</string>
 	<string name="TEA_timer_elap">%s verstrichen</string>

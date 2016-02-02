@@ -289,15 +289,24 @@ public class RepeatControlSet extends TaskEditControlFragment {
     }
 
     @Override
+    public boolean hasChanges(Task original) {
+        return !getRecurrenceValue().equals(original.getRecurrence()) || repeatUntilValue != original.getRepeatUntil();
+    }
+
+    @Override
     public void apply(Task task) {
+        task.setRecurrence(getRecurrenceValue());
+        task.setRepeatUntil(repeatUntilValue);
+    }
+
+    private String getRecurrenceValue() {
         String result = getRecurrence();
 
         if (type.getSelectedItemPosition() == TYPE_COMPLETION_DATE && !TextUtils.isEmpty(result)) {
             result += ";FROM=COMPLETION"; //$NON-NLS-1$
         }
 
-        task.setRecurrence(result);
-        task.setRepeatUntil(repeatUntilValue);
+        return result;
     }
 
     private void applyRecurrence() {

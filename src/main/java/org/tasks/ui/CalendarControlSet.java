@@ -102,6 +102,11 @@ public class CalendarControlSet extends TaskEditControlFragment {
     }
 
     @Override
+    public boolean hasChanges(Task original) {
+        return !isNullOrEmpty(calendarId);
+    }
+
+    @Override
     public void apply(Task task) {
         if (!task.hasDueDate()) {
             return;
@@ -128,11 +133,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
             } catch (Exception e) {
                 Timber.e(e, "unable-to-update-calendar: %s", task.getCalendarURI());
             }
-
-            return;
-        }
-
-        if (!isNullOrEmpty(calendarId)) {
+        } else if (!isNullOrEmpty(calendarId)) {
             ContentResolver cr = context.getContentResolver();
             try{
                 ContentValues values = new ContentValues();

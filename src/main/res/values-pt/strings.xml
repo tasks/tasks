@@ -60,7 +60,6 @@
 	<string name="TEA_elapsedDuration_label">Tempo já gasto</string>
 	<string name="TEA_menu_save">Gravar alterações</string>
 	<string name="save">Guardar</string>
-	<string name="TEA_menu_discard_changes">Rejeitar alterações</string>
 	<string name="TEA_tab_activity">Atividade</string>
 	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string name="TEA_no_time">Sem tempo</string>

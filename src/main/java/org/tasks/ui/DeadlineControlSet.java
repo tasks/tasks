@@ -256,6 +256,11 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     }
 
     @Override
+    public boolean hasChanges(Task original) {
+        return original.getDueDate() != getDueDate();
+    }
+
+    @Override
     public void initialize(boolean isNewTask, Task task) {
         if (task.hasDueDate()) {
             DateTime dateTime = newDateTime(task.getDueDate());

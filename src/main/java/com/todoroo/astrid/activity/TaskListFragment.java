@@ -600,7 +600,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         TaskEditFragment tef = activity.getTaskEditFragment();
         if (tef != null) {
             if (task.getId() == tef.model.getId()) {
-                tef.discardButtonClick();
+                tef.discard();
             }
         }
         TimerPlugin.stopTimer(notificationManager, taskService, context, task);

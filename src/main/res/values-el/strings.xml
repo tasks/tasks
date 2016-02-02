@@ -53,7 +53,6 @@
 	<string name="TEA_estimatedDuration_label">Πόσο θα διαρκέσει?</string>
 	<string name="TEA_elapsedDuration_label">Χρόνος που ήδη πέρασε</string>
 	<string name="TEA_menu_save">Αποθήκευση αλλαγών</string>
-	<string name="TEA_menu_discard_changes">Αναίρεση αλλαγών</string>
 	<string name="TEA_tab_activity">Δραστηριότητα</string>
 	<string name="TEA_timer_est">Εκτιμώμενο %s</string>
 	<string name="TEA_timer_elap">Πέρασε %s</string>

@@ -73,4 +73,9 @@ public class DescriptionControlSet extends TaskEditControlFragment {
     public void apply(Task task) {
         task.setNotes(description);
     }
+
+    @Override
+    public boolean hasChanges(Task original) {
+        return !description.equals(original.getNotes());
+    }
 }

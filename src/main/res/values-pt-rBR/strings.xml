@@ -53,7 +53,6 @@
 	<string name="TEA_estimatedDuration_label">Quanto tempo isto vai levar?</string>
 	<string name="TEA_elapsedDuration_label">Tempo já gasto na tarefa</string>
 	<string name="TEA_menu_save">Salvar alterações</string>
-	<string name="TEA_menu_discard_changes">Descartas mudanças</string>
 	<string name="TEA_tab_activity">Atividades</string>
 	<string name="TEA_timer_elap">Decorrido %s</string>
 	<string name="TEA_no_time">Sem horário</string>

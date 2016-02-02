@@ -63,7 +63,6 @@
 	<string name="TEA_elapsedDuration_label">Време, което вече е отделено</string>
 	<string name="TEA_menu_save">Запази промените</string>
 	<string name="save">Запази</string>
-	<string name="TEA_menu_discard_changes">Откажи промените</string>
 	<string name="TEA_timer_est">Приблизително %s</string>
 	<string name="TEA_timer_elap">Изминали %s</string>
 	<string name="TEA_no_time">Без време</string>

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.google.api.client.util.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -153,6 +154,11 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     }
 
     @Override
+    public boolean hasChanges(Task original) {
+        return !getTitle().equals(original.getTitle());
+    }
+
+    @Override
     public void initialize(boolean isNewTask, Task task) {
         this.isNewTask = isNewTask;
 
@@ -164,15 +170,18 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
     @Override
     public void apply(Task task) {
-        task.setTitle(getTitle());
+        String title = getTitle();
+        task.setTitle(Strings.isNullOrEmpty(title)
+                ? getString(R.string.no_title)
+                : title);
         boolean newState = completeBox.isChecked();
         if (newState != task.isCompleted()) {
             taskService.setComplete(task, newState);
         }
     }
 
-    public String getTitle() {
-        return editText.getText().toString();
+    private String getTitle() {
+        return editText.getText().toString().trim();
     }
 
     public void hideKeyboard() {

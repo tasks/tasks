@@ -76,6 +76,10 @@ File %1$s contained %2$s.\n\n
 
     <!-- ================================================== Generic Dialogs == -->
 
+    <string name="discard_confirmation">Are you sure you want to discard your changes?</string>
+
+    <string name="keep_editing">Keep editing</string>
+
     <!-- question for deleting tasks -->
     <string name="DLG_delete_this_task_question">Delete this task?</string>
 
@@ -194,9 +198,6 @@ File %1$s contained %2$s.\n\n
     <string name="TEA_menu_save">Save Changes</string>
 
     <string name="save">Save</string>
-
-    <!-- Menu: Don't Save -->
-    <string name="TEA_menu_discard_changes">Discard changes</string>
 
     <!-- slide 15b: Task edit tab: activity -->
     <string name="TEA_tab_activity">Activity</string>
@@ -911,8 +912,9 @@ File %1$s contained %2$s.\n\n
     <string name="doze_notifications">Interrupt Doze mode for notifications</string>
     <string name="doze_notifications_off">Android will significantly delay notifications while device is in Doze mode</string>
     <string name="doze_notifications_on">Android will allow limited interruptions while device is in Doze mode</string>
+  <string name="no_title">(No title)</string>
 
-    <string-array name="sync_SPr_interval_entries">
+  <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->
         <item>disable</item>
         <item>every fifteen minutes</item>

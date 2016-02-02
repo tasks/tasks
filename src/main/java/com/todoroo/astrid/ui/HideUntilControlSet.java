@@ -182,9 +182,17 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
 
     @Override
     public void apply(Task task) {
+        task.setHideUntil(getHideUntil(task));
+    }
+
+    @Override
+    public boolean hasChanges(Task original) {
+        return original.getHideUntil() != getHideUntil(original);
+    }
+
+    private long getHideUntil(Task task) {
         HideUntilValue selectedItem = (HideUntilValue) spinner.getSelectedItem();
-        long hideUntil = task.createHideUntil(selectedItem.setting, selectedItem.date);
-        task.setHideUntil(hideUntil);
+        return task.createHideUntil(selectedItem.setting, selectedItem.date);
     }
 
     @Override

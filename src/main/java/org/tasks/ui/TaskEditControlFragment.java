@@ -38,4 +38,8 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
     public abstract void initialize(boolean isNewTask, Task task);
 
     public abstract void apply(Task task);
+
+    public boolean hasChanges(Task original) {
+        return false;
+    }
 }

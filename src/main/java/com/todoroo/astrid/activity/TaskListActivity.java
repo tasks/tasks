@@ -146,7 +146,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                     hideKeyboard();
                     navigationDrawer.openDrawer();
                 } else {
-                    taskEditFragment.onBackPressed();
+                    taskEditFragment.save();
                 }
             }
         });
@@ -247,7 +247,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     private void loadTaskEditFragment(boolean onCreate, TaskEditFragment taskEditFragment, List<TaskEditControlFragment> taskEditControlFragments) {
         if (isSinglePaneLayout()) {
-            updateToolbar(R.drawable.ic_arrow_back_24dp, false);
+            updateToolbar(R.drawable.ic_save_24dp, false);
         }
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -367,7 +367,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         TaskEditFragment.removeExtrasFromIntent(getIntent());
         TaskEditFragment tef = getTaskEditFragment();
         if (tef != null) {
-            getTaskEditFragment().onBackPressed();
+            getTaskEditFragment().save();
         }
 
         // If showing both fragments, directly update the tasklist-fragment
@@ -446,7 +446,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         TaskEditFragment taskEditFragment = getTaskEditFragment();
 
         if (taskEditFragment != null) {
-            taskEditFragment.onBackPressed();
+            taskEditFragment.save();
         }
 
         Task task = loadItem(taskId);
@@ -519,7 +519,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         }
 
         if (getTaskEditFragment() != null) {
-            getTaskEditFragment().onBackPressed();
+            getTaskEditFragment().discardButtonClick();
             return;
         }
 
@@ -742,11 +742,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 Timber.e(e, e.getMessage());
             }
             model = taskService.createWithValues(values, null);
-        }
-
-        if (model.getTitle().length() == 0) {
-            // set deletion date until task gets a title
-            model.setDeletionDate(DateUtilities.now());
         }
 
         return model;

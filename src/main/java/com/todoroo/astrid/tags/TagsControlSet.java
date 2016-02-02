@@ -47,7 +47,6 @@ import org.tasks.ui.TaskEditControlFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -322,6 +321,11 @@ public final class TagsControlSet extends TaskEditControlFragment {
         return TAG;
     }
 
+    @Override
+    public boolean hasChanges(Task original) {
+        return !getExistingTags(original.getUUID()).equals(getSelectedTags(false));
+    }
+
     protected void refreshDisplayView() {
         String tagString = buildTagString();
         if (!TextUtils.isEmpty(tagString)) {
@@ -333,22 +337,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
         }
     }
 
-    /**
-     * Save the given array of tags into the database
-     */
-    private boolean synchronizeTags(long taskId, String taskUuid) {
-        Query query = Query.select(Metadata.PROPERTIES).where(
-                Criterion.and(
-                        TaskToTagMetadata.TASK_UUID.eq(taskUuid),
-                        Metadata.DELETION_DATE.eq(0))
-        );
-        Set<TagData> existingTags = newHashSet(transform(metadataDao.toList(query), new Function<Metadata, TagData>() {
-            @Override
-            public TagData apply(Metadata metadata) {
-                return tagDataDao.getByUuid(metadata.getValue(TaskToTagMetadata.TAG_UUID));
-            }
-        }));
-        Set<TagData> selectedTags = newHashSet(transform(getTagList(), new Function<String, TagData>() {
+    private Set<TagData> getSelectedTags(final boolean createMissingTags) {
+        return newHashSet(transform(getTagList(), new Function<String, TagData>() {
             @Override
             public TagData apply(String tagName) {
                 TagData tagData = tagDataDao.getTagByName(tagName, TagData.PROPERTIES);
@@ -356,11 +346,35 @@ public final class TagsControlSet extends TaskEditControlFragment {
                     // create missing tags
                     tagData = new TagData();
                     tagData.setName(tagName);
-                    tagDataDao.persist(tagData);
+                    if (createMissingTags) {
+                        tagDataDao.persist(tagData);
+                    }
                 }
                 return tagData;
             }
         }));
+    }
+
+    private Set<TagData> getExistingTags(String taskUuid) {
+        Query query = Query.select(Metadata.PROPERTIES).where(
+                Criterion.and(
+                        TaskToTagMetadata.TASK_UUID.eq(taskUuid),
+                        Metadata.DELETION_DATE.eq(0))
+        );
+        return newHashSet(transform(metadataDao.toList(query), new Function<Metadata, TagData>() {
+            @Override
+            public TagData apply(Metadata metadata) {
+                return tagDataDao.getByUuid(metadata.getValue(TaskToTagMetadata.TAG_UUID));
+            }
+        }));
+    }
+
+    /**
+     * Save the given array of tags into the database
+     */
+    private boolean synchronizeTags(long taskId, String taskUuid) {
+        Set<TagData> existingTags = getExistingTags(taskUuid);
+        Set<TagData> selectedTags = getSelectedTags(true);
         Sets.SetView<TagData> added = difference(selectedTags, existingTags);
         Sets.SetView<TagData> removed = difference(existingTags, selectedTags);
         deleteLinks(taskId, taskUuid, removed);

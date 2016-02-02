@@ -54,6 +54,7 @@ import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.DateUtilities.getLongDateStringWithTime;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -119,19 +120,23 @@ public class ReminderControlSet extends TaskEditControlFragment {
             }
             setup(Longs.asList(savedInstanceState.getLongArray(EXTRA_ALARMS)), geofences);
         } else {
-            final List<Long> alarms = new ArrayList<>();
-            alarmService.getAlarms(taskId, new Callback<Metadata>() {
-                @Override
-                public void apply(Metadata entry) {
-                    alarms.add(entry.getValue(AlarmFields.TIME));
-                }
-            });
-            setup(alarms, geofenceService.getGeofences(taskId));
+            setup(currentAlarms(), geofenceService.getGeofences(taskId));
         }
 
         addSpinner.setAdapter(remindAdapter);
 
         return view;
+    }
+
+    private List<Long> currentAlarms() {
+        final List<Long> alarms = new ArrayList<>();
+        alarmService.getAlarms(taskId, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata entry) {
+                alarms.add(entry.getValue(AlarmFields.TIME));
+            }
+        });
+        return alarms;
     }
 
     @OnItemSelected(R.id.alarms_add_spinner)
@@ -209,8 +214,16 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
 
     @Override
+    public boolean hasChanges(Task original) {
+        return getFlags() != original.getReminderFlags() ||
+                getRandomReminderPeriod() != original.getReminderPeriod() ||
+                !newHashSet(currentAlarms()).equals(getAlarms()) ||
+                !newHashSet(geofenceService.getGeofences(taskId)).equals(getGeofences());
+    }
+
+    @Override
     public void apply(Task task) {
-        task.setReminderFlags(getValue());
+        task.setReminderFlags(getFlags());
 
         task.setReminderPeriod(getRandomReminderPeriod());
 
@@ -227,7 +240,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
         super.onSaveInstanceState(outState);
 
         outState.putLong(EXTRA_TASK_ID, taskId);
-        outState.putInt(EXTRA_FLAGS, getValue());
+        outState.putInt(EXTRA_FLAGS, getFlags());
         outState.putLong(EXTRA_RANDOM_REMINDER, getRandomReminderPeriod());
         outState.putLongArray(EXTRA_ALARMS, Longs.toArray(getAlarms()));
         outState.putParcelableArrayList(EXTRA_GEOFENCES, newArrayList(getGeofences()));
@@ -290,7 +303,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
         alertItem.setTag(geofence);
     }
 
-    private int getValue() {
+    private int getFlags() {
         int value = 0;
         if(whenDue) {
             value |= Task.NOTIFY_AT_DEADLINE;

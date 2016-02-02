@@ -14,11 +14,8 @@
         android:icon="@drawable/ic_mic_24dp"
         tasks:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/menu_discard"
-        android:title="@string/TEA_menu_discard_changes"
-        tasks:showAsAction="never"/>
-    <item
         android:id="@+id/menu_delete"
+        android:icon="@drawable/ic_delete_24dp"
         android:title="@string/delete_task"
-        tasks:showAsAction="never"/>
+        tasks:showAsAction="ifRoom"/>
 </menu>

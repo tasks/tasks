@@ -54,7 +54,6 @@
 	<string name="TEA_estimatedDuration_label">Kolik času asi zabere?</string>
 	<string name="TEA_elapsedDuration_label">Jak dlouho už na úkolu pracujete</string>
 	<string name="TEA_menu_save">Uložit změny</string>
-	<string name="TEA_menu_discard_changes">Zrušit změny</string>
 	<string name="TEA_tab_activity">Činnost</string>
 	<string name="TEA_timer_est">Zal. %s</string>
 	<string name="TEA_timer_elap">Uplynutí %s</string>
