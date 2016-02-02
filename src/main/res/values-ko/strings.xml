@@ -205,7 +205,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="gcal_completed_title">%s (완료)</string>
 	<string name="CFC_gtasks_list_text">목록에: ?</string>
 	<string name="CFC_gtasks_list_name">GTasks 목록에...</string>
-	<string name="gtasks_GTA_clearing">완료한 일정을 삭제하는 중...</string>
 	<string name="gtasks_GTA_clear_completed">삭제 완료</string>
 	<string name="gtasks_GLA_noaccounts">동기화 가능한 구글 계정이 없음</string>
 	<string name="gtasks_GLA_authenticating">인증 중...</string>

@@ -117,7 +117,6 @@
 	<string name="gcal_TEA_addToCalendar_label">Afegeix al calendari</string>
 	<string name="gcal_TEA_showCalendar_label">Obrir Event del Calendari</string>
 	<string name="gcal_completed_title">%s (completada)</string>
-	<string name="gtasks_GTA_clearing">S\'estan netejant les tasques completades...</string>
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
 	<string name="gtasks_GLA_authenticating">S\'està autenticant...</string>
 	<string name="rmd_NoA_done">Acabat</string>

@@ -198,7 +198,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gcal_completed_title">%s (completato)</string>
 	<string name="CFC_gtasks_list_text">Nella lista: ?</string>
 	<string name="CFC_gtasks_list_name">Nella lista GTasks...</string>
-	<string name="gtasks_GTA_clearing">Pulizia task completi...</string>
 	<string name="gtasks_GTA_clear_completed">Elimina attività completate</string>
 	<string name="gtasks_GLA_noaccounts">Non è disponibile nessun Google account con cui sincronizzarsi.</string>
 	<string name="gtasks_GLA_authenticating">Autenticazione...</string>

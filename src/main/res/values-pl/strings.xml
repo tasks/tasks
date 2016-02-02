@@ -180,7 +180,6 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="gcal_completed_title">%s (ukończono)</string>
 	<string name="CFC_gtasks_list_text">Na liście: ?</string>
 	<string name="CFC_gtasks_list_name">Na liście GTasks...</string>
-	<string name="gtasks_GTA_clearing">Czyszczenie zakończonych zadań...</string>
 	<string name="gtasks_GTA_clear_completed">Wyczyść zakończone</string>
 	<string name="gtasks_GLA_noaccounts">Brak dostępnych kont Google do synchronizacji.</string>
 	<string name="gtasks_GLA_authenticating">Uwierzytelnianie...</string>

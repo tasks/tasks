@@ -178,7 +178,6 @@
 	<string name="gcal_completed_title">%s (בוצעה)</string>
 	<string name="CFC_gtasks_list_text">ברשימה: ?</string>
 	<string name="CFC_gtasks_list_name">ברשימה של ״משימות גוגל״</string>
-	<string name="gtasks_GTA_clearing">מְסִירָה משימות שבוצעו...</string>
 	<string name="gtasks_GTA_clear_completed">הסירי משימות שבוצעו</string>
 	<string name="gtasks_GLA_noaccounts">לא מצאתי חשבון גוגל לסנכרן איתו</string>
 	<string name="gtasks_GLA_authenticating">מאמתת...</string>

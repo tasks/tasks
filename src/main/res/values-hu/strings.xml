@@ -81,7 +81,6 @@
 	<string name="gcal_TEA_addToCalendar_label">Hozzáadás a naptárhoz</string>
 	<string name="gcal_TEA_showCalendar_label">Naptáresemény megnyitása</string>
 	<string name="gcal_completed_title">%s (befejezve)</string>
-	<string name="gtasks_GTA_clearing">Befejezett feladatok törlése...</string>
 	<string name="gtasks_GTA_clear_completed">Törlés befejezve</string>
 	<string name="gtasks_GLA_noaccounts">Nincs elérhető Google fiók a szinkronizáláshoz.</string>
 	<string name="gtasks_GLA_authenticating">Azonosítás...</string>

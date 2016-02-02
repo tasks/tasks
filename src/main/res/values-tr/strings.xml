@@ -153,7 +153,6 @@
 	<string name="gcal_completed_title">%s (tamamlandı)</string>
 	<string name="CFC_gtasks_list_text">Liste içinde: ?</string>
 	<string name="CFC_gtasks_list_name">Gtasks Listesi içinde...</string>
-	<string name="gtasks_GTA_clearing">Tamamlanan görevler temizleniyor...</string>
 	<string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
 	<string name="gtasks_GLA_noaccounts">Eşleştirilecek Google hesabı mevcut değil.</string>
 	<string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor...</string>

@@ -559,9 +559,6 @@ File %1$s contained %2$s.\n\n
 
     <string name="CFC_gtasks_list_name">In GTasks List...</string>
 
-    <!-- Message while clearing completed tasks -->
-    <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
-
     <!-- Label for clear completed menu item -->
     <string name="gtasks_GTA_clear_completed">Clear Completed</string>
 

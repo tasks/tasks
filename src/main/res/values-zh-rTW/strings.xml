@@ -163,7 +163,6 @@
 	<string name="gcal_completed_title">%s （已完成）</string>
 	<string name="CFC_gtasks_list_text">列表內容: ?</string>
 	<string name="CFC_gtasks_list_name">在Google任務工作列表中...</string>
-	<string name="gtasks_GTA_clearing">正在清除已完成任務工作……</string>
 	<string name="gtasks_GTA_clear_completed">清除已完成項</string>
 	<string name="gtasks_GLA_noaccounts">沒有可用的Google帳戶同步。</string>
 	<string name="gtasks_GLA_authenticating">正在認證...</string>

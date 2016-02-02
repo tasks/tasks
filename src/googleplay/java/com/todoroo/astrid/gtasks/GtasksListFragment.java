@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -112,11 +111,8 @@ public class GtasksListFragment extends SubtasksListFragment {
 
         new AsyncTask<Void, Void, Void>() {
 
-            ProgressDialog progressDialog = dialogBuilder.newProgressDialog(R.string.gtasks_GTA_clearing);
-
             @Override
             protected void onPreExecute() {
-                progressDialog.show();
             }
 
             @Override
@@ -145,10 +141,6 @@ public class GtasksListFragment extends SubtasksListFragment {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                if (progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                }
-
                 loadTaskListContent();
             }
         }.execute();

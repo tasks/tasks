@@ -199,7 +199,6 @@
 	<string name="gcal_completed_title">%s (voltooid)</string>
 	<string name="CFC_gtasks_list_text">In lijst: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks lijst...</string>
-	<string name="gtasks_GTA_clearing">Verwijderen voltooide taken...</string>
 	<string name="gtasks_GTA_clear_completed">Verwijderen Voltooid</string>
 	<string name="gtasks_GLA_noaccounts">Geen Google account beschikbaar voor synchronisatie</string>
 	<string name="gtasks_GLA_authenticating">Verifiëren...</string>

@@ -110,7 +110,6 @@
 		<item>الشهر القادم</item>
 	</string-array>
 	<string name="CFC_title_contains_name">العنوان يحتوي على..</string>
-	<string name="gtasks_GTA_clearing">حذف المهام المنتهية...</string>
 	<string name="gtasks_GTA_clear_completed">انتهاء الحذف</string>
 	<string name="gtasks_GLA_noaccounts">لا يوجد حساب قوقل للتزامن مع.</string>
 	<string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع خادم قوقل. أعد المحاولة مرة أخرى لاحقا.</string>

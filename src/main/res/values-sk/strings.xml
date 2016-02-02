@@ -189,7 +189,6 @@
 	<string name="gcal_completed_title">%s (dokončené)</string>
 	<string name="CFC_gtasks_list_text">V zozname: ?</string>
 	<string name="CFC_gtasks_list_name">V GTasks zozname...</string>
-	<string name="gtasks_GTA_clearing">Zbaviť sa dokončených úloh</string>
 	<string name="gtasks_GTA_clear_completed">Vymazať dokončené</string>
 	<string name="gtasks_GLA_noaccounts">Nieje k dispozícii synchronizácia Google účtu.</string>
 	<string name="gtasks_GLA_authenticating">Overovanie...</string>

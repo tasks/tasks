@@ -134,7 +134,6 @@
 	<string name="gcal_TEA_error">خطا در اضافه کردن وظیفه به تقویم</string>
 	<string name="gcal_TEA_addToCalendar_label">اضاقه به تقویم</string>
 	<string name="gcal_TEA_showCalendar_label">بازکردن رویداد تقویم</string>
-	<string name="gtasks_GTA_clearing">در حال حذف وظایف تکمیل شده</string>
 	<string name="gtasks_GTA_clear_completed">حذف انجام شد</string>
 	<string name="gtasks_GLA_noaccounts">اکانت گوگلی برای همگام سازی موجود نیست</string>
 	<string name="gtasks_GLA_authenticating">اعتبارسنجی...</string>

@@ -202,7 +202,6 @@
 	<string name="gcal_completed_title">%s（完了）</string>
 	<string name="CFC_gtasks_list_text">リストにありますか ?</string>
 	<string name="CFC_gtasks_list_name">GTasks リストに...</string>
-	<string name="gtasks_GTA_clearing">完了したタスクをクリーニング中...</string>
 	<string name="gtasks_GTA_clear_completed">クリアが完了しました</string>
 	<string name="gtasks_GLA_noaccounts">同期するために有効な Google アカウントがありません.</string>
 	<string name="gtasks_GLA_authenticating">認証中...</string>

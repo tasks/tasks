@@ -186,7 +186,6 @@
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
 	<string name="CFC_gtasks_list_text">In der Liste: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
-	<string name="gtasks_GTA_clearing">Erledigte Aufgaben werden entfernt …</string>
 	<string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
 	<string name="gtasks_GLA_noaccounts">Keine Google-Accounts zum synchronisieren verfügbar.</string>
 	<string name="gtasks_GLA_authenticating">Authentifizierung ...</string>

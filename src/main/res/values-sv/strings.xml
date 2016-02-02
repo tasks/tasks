@@ -173,7 +173,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gcal_completed_title">%s (avslutad)</string>
 	<string name="CFC_gtasks_list_text">I listan: ?</string>
 	<string name="CFC_gtasks_list_name">I lista på Google Uppgifter...</string>
-	<string name="gtasks_GTA_clearing">Rensar bort färdiga uppgifter...</string>
 	<string name="gtasks_GTA_clear_completed">Rensa bort färdiga</string>
 	<string name="gtasks_GLA_noaccounts">Inga tillgängliga Googlekonton att synkronisera med.</string>
 	<string name="gtasks_GLA_authenticating">Autentiserar...</string>

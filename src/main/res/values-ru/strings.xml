@@ -202,7 +202,6 @@
 	<string name="gcal_completed_title">%s (выполнено)</string>
 	<string name="CFC_gtasks_list_text">В Списке: ?</string>
 	<string name="CFC_gtasks_list_name">В GTask Список...</string>
-	<string name="gtasks_GTA_clearing">Очистка выполненных задач...</string>
 	<string name="gtasks_GTA_clear_completed">Очистить завершенные</string>
 	<string name="gtasks_GLA_noaccounts">Нет доступных аккаунтов Google для синхронизации</string>
 	<string name="gtasks_GLA_authenticating">Авторизация...</string>

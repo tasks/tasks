@@ -177,7 +177,6 @@
 	<string name="gcal_completed_title">%s (concluído)</string>
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">No Google Tasks...</string>
-	<string name="gtasks_GTA_clearing">Limpando tarefas concluídas...</string>
 	<string name="gtasks_GTA_clear_completed">Limpeza concluída</string>
 	<string name="gtasks_GLA_noaccounts">Google não está disponível para sincronização com contas.</string>
 	<string name="gtasks_GLA_authenticating">Autenticando ...</string>
