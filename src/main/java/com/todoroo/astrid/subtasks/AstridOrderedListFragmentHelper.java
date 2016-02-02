@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
-public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
+public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
@@ -79,19 +79,18 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         return fragment.getFilter();
     }
 
-    public DraggableListView getTouchListView() {
-        return (DraggableListView) fragment.getListView();
-    }
-
     @Override
     public void setUpUiComponents() {
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.asThemeTextColor, tv, false);
-        getTouchListView().setDragndropBackgroundColor(tv.data);
-        getTouchListView().setDropListener(dropListener);
-        getTouchListView().setClickListener(rowClickListener);
-        getTouchListView().setSwipeListener(swipeListener);
+        DraggableListView draggableListView = (DraggableListView) fragment.getListView();
+        draggableListView.setDragndropBackgroundColor(tv.data);
+        draggableListView.setDropListener(dropListener);
+        draggableListView.setClickListener(rowClickListener);
+        draggableListView.setSwipeListener(swipeListener);
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        draggableListView.setItemHightNormal(taskAdapter.computeFullRowHeight());
     }
 
     @Override
@@ -176,8 +175,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             AtomicReference<String> sqlQueryTemplate) {
 
         taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor, sqlQueryTemplate, dialogBuilder);
-
-        getTouchListView().setItemHightNormal(taskAdapter.computeFullRowHeight());
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
             @Override
@@ -281,7 +278,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         updater.onCreateTask(list, getFilter(), uuid);
         fragment.reconstructCursor();
         fragment.loadTaskListContent();
-        fragment.selectCustomId(id);
     }
 
     @Override

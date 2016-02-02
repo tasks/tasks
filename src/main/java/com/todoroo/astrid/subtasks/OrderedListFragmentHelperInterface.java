@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Task;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public interface OrderedListFragmentHelperInterface<T> {
+public interface OrderedListFragmentHelperInterface {
 
     void setUpUiComponents();
     void beforeSetUpTaskList(Filter filter);

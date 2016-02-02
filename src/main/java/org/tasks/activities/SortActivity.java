@@ -1,7 +1,6 @@
 package org.tasks.activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -27,7 +26,6 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 public class SortActivity extends InjectingAppCompatActivity {
 
     public static final String EXTRA_MANUAL_ENABLED = "extra_manual_enabled";
-    public static final String EXTRA_TOGGLE_MANUAL = "extra_toggle_manual";
 
     @Inject Preferences preferences;
     @Inject DialogBuilder dialogBuilder;
@@ -117,7 +115,6 @@ public class SortActivity extends InjectingAppCompatActivity {
     private void setSelection(boolean reverse) {
         preferences.setBoolean(R.string.p_reverse_sort, reverse);
 
-        final boolean wasManual = preferences.getBoolean(R.string.p_manual_sort, false);
         final boolean isManual = manualEnabled && selectedIndex == 0;
 
         preferences.setBoolean(R.string.p_manual_sort, isManual);
@@ -126,11 +123,7 @@ public class SortActivity extends InjectingAppCompatActivity {
             preferences.setSortMode(getSortMode(manualEnabled ? selectedIndex : selectedIndex + 1));
         }
 
-        setResult(RESULT_OK, new Intent() {{
-            if (wasManual != isManual) {
-                putExtra(EXTRA_TOGGLE_MANUAL, isManual);
-            }
-        }});
+        setResult(RESULT_OK);
 
         finish();
     }

@@ -540,7 +540,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 taskCreator.addToCalendar(task);
                 onTaskListItemClicked(task.getId());
                 taskListFragment.loadTaskListContent();
-                taskListFragment.selectCustomId(task.getId());
                 taskListFragment.onTaskCreated(task.getId(), task.getUUID());
             }
         };
@@ -611,14 +610,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 navigationDrawer.refresh();
             }
         } else if (requestCode == REQUEST_SORT) {
-            if (resultCode == RESULT_OK && data != null) {
+            if (resultCode == RESULT_OK) {
                 TasksWidget.updateWidgets(this);
-
-                if (data.hasExtra(SortActivity.EXTRA_TOGGLE_MANUAL)) {
-                    onFilterItemClicked(getTaskListFragment().getFilter());
-                } else {
-                    getTaskListFragment().setUpTaskList();
-                }
+                onFilterItemClicked(getTaskListFragment().getFilter());
             }
         } else if (requestCode == REQUEST_UPGRADE) {
             if (resultCode == RESULT_OK) {

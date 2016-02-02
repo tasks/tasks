@@ -7,6 +7,8 @@ package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -14,7 +16,9 @@ import android.widget.ListView;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
@@ -34,7 +38,7 @@ import javax.inject.Inject;
  */
 public class SubtasksListFragment extends TaskListFragment {
 
-    protected OrderedListFragmentHelperInterface<?> helper;
+    protected OrderedListFragmentHelperInterface helper;
 
     private int lastVisibleIndex = -1;
 
@@ -44,6 +48,7 @@ public class SubtasksListFragment extends TaskListFragment {
     @Inject ActivityPreferences preferences;
     @Inject @ForApplication Context context;
     @Inject DialogBuilder dialogBuilder;
+    @Inject TaskListMetadataDao taskListMetadataDao;
 
     @Override
     public void onAttach(Activity activity) {
@@ -52,7 +57,7 @@ public class SubtasksListFragment extends TaskListFragment {
         helper = createFragmentHelper();
     }
 
-    protected OrderedListFragmentHelperInterface<?> createFragmentHelper() {
+    protected OrderedListFragmentHelperInterface createFragmentHelper() {
         return new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao, taskService, this, subtasksFilterUpdater, dialogBuilder);
     }
 
@@ -62,20 +67,48 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    protected void setUpUiComponents() {
-        super.setUpUiComponents();
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         helper.setUpUiComponents();
     }
 
     @Override
-    public void setUpTaskList() {
+    public void setTaskAdapter() {
         if (helper instanceof AstridOrderedListFragmentHelper) {
-            ((AstridOrderedListFragmentHelper<TaskListMetadata>) helper).setList(taskListMetadata);
+            ((AstridOrderedListFragmentHelper<TaskListMetadata>) helper).setList(initializeTaskListMetadata());
         }
         helper.beforeSetUpTaskList(filter);
 
-        super.setUpTaskList();
+        super.setTaskAdapter();
+    }
+
+    private TaskListMetadata initializeTaskListMetadata() {
+        String filterId = null;
+        String prefId = null;
+        if (BuiltInFilterExposer.isInbox(context, filter)) {
+            filterId = TaskListMetadata.FILTER_ID_ALL;
+            prefId = SubtasksUpdater.ACTIVE_TASKS_ORDER;
+        } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
+            filterId = TaskListMetadata.FILTER_ID_TODAY;
+            prefId = SubtasksUpdater.TODAY_TASKS_ORDER;
+        }
+        if (TextUtils.isEmpty(filterId)) {
+            return null;
+        }
+        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(filterId, TaskListMetadata.PROPERTIES);
+        if (taskListMetadata == null) {
+            String defaultOrder = preferences.getStringValue(prefId);
+            if (TextUtils.isEmpty(defaultOrder)) {
+                defaultOrder = "[]"; //$NON-NLS-1$
+            }
+            defaultOrder = SubtasksHelper.convertTreeToRemoteIds(taskService, defaultOrder);
+            taskListMetadata = new TaskListMetadata();
+            taskListMetadata.setFilter(filterId);
+            taskListMetadata.setTaskIDs(defaultOrder);
+            taskListMetadataDao.createNew(taskListMetadata);
+        }
+        return taskListMetadata;
     }
 
     @Override
@@ -108,11 +141,5 @@ public class SubtasksListFragment extends TaskListFragment {
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
         return helper.createTaskAdapter(context, cursor, sqlQueryTemplate);
-    }
-
-    @Override
-    protected void refresh() {
-        super.refresh();
-        initializeTaskListMetadata();
     }
 }

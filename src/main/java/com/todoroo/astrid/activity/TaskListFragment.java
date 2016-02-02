@@ -46,22 +46,17 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
-import com.todoroo.astrid.subtasks.SubtasksUpdater;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 
@@ -113,7 +108,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     // --- instance variables
 
     @Inject TaskService taskService;
-    @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject TaskDeleter taskDeleter;
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
@@ -124,21 +118,15 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject DialogBuilder dialogBuilder;
     @Inject SyncActionHelper syncActionHelper;
 
-    protected TaskAdapter taskAdapter = null;
-    protected RefreshReceiver refreshReceiver = new RefreshReceiver();
+    private TaskAdapter taskAdapter = null;
+    private RefreshReceiver refreshReceiver = new RefreshReceiver();
+    private OnTaskListItemClickedListener mListener;
+    private SwipeRefreshLayout listView;
+    private SwipeRefreshLayout emptyView;
+
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     protected Filter filter;
-
     protected Bundle extras;
-    protected boolean isInbox;
-    protected boolean isTodayFilter;
-    protected TaskListMetadata taskListMetadata;
-
-    // --- fragment handling variables
-    protected OnTaskListItemClickedListener mListener;
-
-    protected SwipeRefreshLayout listView;
-    protected SwipeRefreshLayout emptyView;
 
     /*
      * ======================================================================
@@ -199,6 +187,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         if (extras == null) {
             extras = new Bundle(); // Just need an empty one to prevent potential null pointers
         }
+
+        setTaskAdapter();
     }
 
     public void initialize(Filter filter, Bundle extras) {
@@ -264,20 +254,61 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
-        setUpUiComponents();
-        initializeData();
+        final ListView listView = getListView();
+        registerForContextMenu(listView);
+
+        // set listener for quick-changing task priority
+        listView.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() != KeyEvent.ACTION_UP || view == null) {
+                    return false;
+                }
+
+                boolean filterOn = listView.isTextFilterEnabled();
+                View selected = listView.getSelectedView();
+
+                // hot-key to set task priority - 1-4 or ALT + Q-R
+                if (!filterOn && event.getUnicodeChar() >= '1'
+                        && event.getUnicodeChar() <= '4' && selected != null) {
+                    int importance = event.getNumber() - '1';
+                    Task task = ((ViewHolder) selected.getTag()).task;
+                    task.setImportance(importance);
+                    taskService.save(task);
+                    taskAdapter.setFieldContentsAndVisibility(selected);
+                }
+                // filter
+                else if (!filterOn && event.getUnicodeChar() != 0) {
+                    listView.setTextFilterEnabled(true);
+                    listView.setFilterText(
+                            Character.toString((char) event.getUnicodeChar()));
+                }
+                // turn off filter if nothing is selected
+                else if (filterOn
+                        && TextUtils.isEmpty(listView.getTextFilter())) {
+                    listView.setTextFilterEnabled(false);
+                }
+
+                return false;
+            }
+        });
+        filter.setFilterQueryOverride(null);
+
+        setListAdapter(taskAdapter);
+
+        loadTaskListContent();
 
         if (getResources().getBoolean(R.bool.two_pane_layout)) {
             // In dual-pane mode, the list view highlights the selected item.
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            getListView().setItemsCanFocus(false);
+            listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            listView.setItemsCanFocus(false);
         }
 
         if ((this instanceof SubtasksListFragment) || (this instanceof SubtasksTagListFragment)) {
             return;
         }
 
-        getListView().setOnItemClickListener(new OnItemClickListener() {
+        listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -299,102 +330,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      */
     public TagData getActiveTagData() {
         return null;
-    }
-
-    protected void initializeData() {
-        filter.setFilterQueryOverride(null);
-        isInbox = BuiltInFilterExposer.isInbox(context, filter);
-        isTodayFilter = false;
-        if (!isInbox) {
-            isTodayFilter = BuiltInFilterExposer.isTodayFilter(context, filter);
-        }
-
-        initializeTaskListMetadata();
-
-        setUpTaskList();
-    }
-
-    protected void initializeTaskListMetadata() {
-        TagData td = getActiveTagData();
-        String tdId;
-        if (td == null) {
-            String filterId = null;
-            String prefId = null;
-            if (isInbox) {
-                filterId = TaskListMetadata.FILTER_ID_ALL;
-                prefId = SubtasksUpdater.ACTIVE_TASKS_ORDER;
-            } else if (isTodayFilter) {
-                filterId = TaskListMetadata.FILTER_ID_TODAY;
-                prefId = SubtasksUpdater.TODAY_TASKS_ORDER;
-            }
-            if (!TextUtils.isEmpty(filterId)) {
-                taskListMetadata = taskListMetadataDao.fetchByTagId(filterId, TaskListMetadata.PROPERTIES);
-                if (taskListMetadata == null) {
-                    String defaultOrder = preferences.getStringValue(prefId);
-                    if (TextUtils.isEmpty(defaultOrder)) {
-                        defaultOrder = "[]"; //$NON-NLS-1$
-                    }
-                    defaultOrder = SubtasksHelper.convertTreeToRemoteIds(taskService, defaultOrder);
-                    taskListMetadata = new TaskListMetadata();
-                    taskListMetadata.setFilter(filterId);
-                    taskListMetadata.setTaskIDs(defaultOrder);
-                    taskListMetadataDao.createNew(taskListMetadata);
-                }
-            }
-        } else {
-            tdId = td.getUuid();
-            taskListMetadata = taskListMetadataDao.fetchByTagId(td.getUuid(), TaskListMetadata.PROPERTIES);
-            if (taskListMetadata == null && !RemoteModel.isUuidEmpty(tdId)) {
-                taskListMetadata = new TaskListMetadata();
-                taskListMetadata.setTagUUID(tdId);
-                taskListMetadataDao.createNew(taskListMetadata);
-            }
-        }
-        postLoadTaskListMetadata();
-    }
-
-    protected void postLoadTaskListMetadata() {
-        // Hook
-    }
-
-    protected void setUpUiComponents() {
-        registerForContextMenu(getListView());
-
-        // set listener for quick-changing task priority
-        getListView().setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent event) {
-                if (event.getAction() != KeyEvent.ACTION_UP || view == null) {
-                    return false;
-                }
-
-                boolean filterOn = getListView().isTextFilterEnabled();
-                View selected = getListView().getSelectedView();
-
-                // hot-key to set task priority - 1-4 or ALT + Q-R
-                if (!filterOn && event.getUnicodeChar() >= '1'
-                        && event.getUnicodeChar() <= '4' && selected != null) {
-                    int importance = event.getNumber() - '1';
-                    Task task = ((ViewHolder) selected.getTag()).task;
-                    task.setImportance(importance);
-                    taskService.save(task);
-                    taskAdapter.setFieldContentsAndVisibility(selected);
-                }
-                // filter
-                else if (!filterOn && event.getUnicodeChar() != 0) {
-                    getListView().setTextFilterEnabled(true);
-                    getListView().setFilterText(
-                            Character.toString((char) event.getUnicodeChar()));
-                }
-                // turn off filter if nothing is selected
-                else if (filterOn
-                        && TextUtils.isEmpty(getListView().getTextFilter())) {
-                    getListView().setTextFilterEnabled(false);
-                }
-
-                return false;
-            }
-        });
     }
 
     /*
@@ -454,7 +389,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      * the above method takes care of calling it in the correct way
      */
     protected void initiateAutomaticSyncImpl() {
-        if (isCurrentTaskListFragment() && isInbox) {
+        if (isCurrentTaskListFragment() && BuiltInFilterExposer.isInbox(context, filter)) {
             syncActionHelper.initiateAutomaticSync();
         }
     }
@@ -497,6 +432,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      */
     protected void refresh() {
         loadTaskListContent();
+
+        setSyncOngoing(gtasksPreferenceService.isOngoing());
     }
 
     /*
@@ -510,7 +447,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      */
     public void loadTaskListContent() {
         if (taskAdapter == null) {
-            setUpTaskList();
+            setTaskAdapter();
             return;
         }
 
@@ -518,16 +455,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
         taskCursor.requery();
         taskAdapter.notifyDataSetChanged();
-
-        if (getView() != null) { // This was happening sometimes
-            int oldListItemSelected = getListView().getSelectedItemPosition();
-            if (oldListItemSelected != ListView.INVALID_POSITION
-                    && oldListItemSelected < taskCursor.getCount()) {
-                getListView().setSelection(oldListItemSelected);
-            }
-        }
-
-        setSyncOngoing(gtasksPreferenceService.isOngoing());
     }
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
@@ -548,7 +475,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     /**
      * Fill in the Task List with current items
      */
-    public void setUpTaskList() {
+    public void setTaskAdapter() {
         if (filter == null) {
             return;
         }
@@ -560,10 +487,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
         // set up list adapters
         taskAdapter = createTaskAdapter(currentCursor);
-
-        setListAdapter(taskAdapter);
-
-        loadTaskListContent();
     }
 
     public Property<?>[] taskProperties() {
@@ -630,22 +553,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             return;
         }
         taskAdapter.changeCursor(cursor);
-    }
-
-    /**
-     * Select a custom task id in the list. If it doesn't exist, create a new
-     * custom filter
-     */
-    public void selectCustomId(long withCustomId) {
-        // if already in the list, select it
-        TodorooCursor<Task> currentCursor = (TodorooCursor<Task>) taskAdapter.getCursor();
-        for (int i = 0; i < currentCursor.getCount(); i++) {
-            currentCursor.moveToPosition(i);
-            if (currentCursor.get(Task.ID) == withCustomId) {
-                getListView().setSelection(i);
-                return;
-            }
-        }
     }
 
     /*
@@ -774,6 +681,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     protected boolean hasDraggableOption() {
-        return isInbox || isTodayFilter;
+        return BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter);
     }
 }

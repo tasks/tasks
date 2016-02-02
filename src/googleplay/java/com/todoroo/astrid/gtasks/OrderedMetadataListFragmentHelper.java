@@ -45,7 +45,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
-public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface<LIST> {
+public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final OrderedMetadataListUpdater<LIST> updater;

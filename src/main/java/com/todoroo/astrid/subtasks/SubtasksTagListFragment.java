@@ -7,6 +7,7 @@ package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,6 +15,9 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskListMetadataDao;
+import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
@@ -33,6 +37,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Inject ActivityPreferences preferences;
     @Inject @ForApplication Context context;
     @Inject DialogBuilder dialogBuilder;
+    @Inject TaskListMetadataDao taskListMetadataDao;
 
     private AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
@@ -46,28 +51,36 @@ public class SubtasksTagListFragment extends TagViewFragment {
     }
 
     @Override
-    protected void postLoadTaskListMetadata() {
-        helper.setList(taskListMetadata);
-    }
-
-    @Override
     protected View getListBody(ViewGroup root) {
         return getActivity().getLayoutInflater().inflate(
                 R.layout.task_list_body_subtasks, root, false);
     }
 
     @Override
-    protected void setUpUiComponents() {
-        super.setUpUiComponents();
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         helper.setUpUiComponents();
     }
 
     @Override
-    public void setUpTaskList() {
+    public void setTaskAdapter() {
+        helper.setList(initializeTaskListMetadata());
         helper.beforeSetUpTaskList(filter);
 
-        super.setUpTaskList();
+        super.setTaskAdapter();
+    }
+
+    private TaskListMetadata initializeTaskListMetadata() {
+        TagData td = getActiveTagData();
+        String tdId = td.getUuid();
+        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(td.getUuid(), TaskListMetadata.PROPERTIES);
+        if (taskListMetadata == null && !RemoteModel.isUuidEmpty(tdId)) {
+            taskListMetadata = new TaskListMetadata();
+            taskListMetadata.setTagUUID(tdId);
+            taskListMetadataDao.createNew(taskListMetadata);
+        }
+        return taskListMetadata;
     }
 
     @Override
@@ -99,11 +112,5 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
         return helper.createTaskAdapter(context, cursor, sqlQueryTemplate);
-    }
-
-    @Override
-    protected void refresh() {
-        super.refresh();
-        initializeTaskListMetadata();
     }
 }
