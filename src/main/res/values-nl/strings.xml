@@ -29,6 +29,7 @@
 	<string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
 	<string name="DLG_undo">Ongedaan Maken</string>
 	<string name="WID_dateButtonUnset">Klikken om in te stellen</string>
+	<string name="TLA_no_items">Er zijn geen taken hier.</string>
 	<string name="TLA_menu_sort">Sorteren</string>
 	<string name="TLA_menu_search">Zoek</string>
 	<string name="TLA_menu_settings">Instellingen</string>
@@ -150,6 +151,9 @@
 	<string name="EPr_default_reminders_title">Standaard herinneringen</string>
 	<string name="EPr_default_addtocalendar_title">Standaard Toevoegen aan Agenda</string>
 	<string name="EPr_default_reminders_mode_title">Standaard toon/tril type</string>
+	<string name="priority_high">Hoog</string>
+	<string name="priority_medium">Middelmatig</string>
+	<string name="priority_low">Laag</string>
 	<string-array name="EPr_default_urgency">
 		<item>Geen einddatum</item>
 		<item>Vandaag</item>

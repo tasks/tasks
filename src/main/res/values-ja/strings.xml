@@ -29,6 +29,7 @@
 	<string name="DLG_hour_minutes">時間 (時:分)</string>
 	<string name="DLG_undo">動作を取り消す</string>
 	<string name="WID_dateButtonUnset">入力する</string>
+	<string name="TLA_no_items">ここにタスクはありません。</string>
 	<string name="TLA_menu_sort">ソート</string>
 	<string name="TLA_menu_search">検索</string>
 	<string name="TLA_menu_settings">設定</string>
@@ -153,6 +154,9 @@
 	<string name="EPr_default_reminders_title">標準リマインダー</string>
 	<string name="EPr_default_addtocalendar_title">デフォルトでカレンダーに登録</string>
 	<string name="EPr_default_reminders_mode_title">標準の通知音、振動種類</string>
+	<string name="priority_high">高</string>
+	<string name="priority_medium">中</string>
+	<string name="priority_low">低</string>
 	<string-array name="EPr_default_urgency">
 		<item>期限なし</item>
 		<item>今日</item>

@@ -8,6 +8,8 @@
 	<string name="actfm_picture_clear">Bild entfernen</string>
 	<string name="TVA_add_comment">Kommentar hinzufügen …</string>
 	<string name="enter_tag_name">Schlagwort eingeben</string>
+	<string name="enter_filter_name">Filtername eingeben</string>
+	<string name="choose_google_account">Google-Account auswählen</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
 	<string name="export_toast">Gesichert von %1$s bis %2$s.</string>
@@ -25,6 +27,7 @@
 	<string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
 	<string name="DLG_undo">Rückgängig</string>
 	<string name="WID_dateButtonUnset">Klicken zur Bestätigung</string>
+	<string name="TLA_no_items">Keine Aufgaben vorhanden.</string>
 	<string name="TLA_menu_sort">Sortieren</string>
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
@@ -106,6 +109,7 @@
 	<string name="CRA_dont_invite">Nein danke</string>
 	<string name="CRA_list_created_title">Liste erstellt</string>
 	<string name="CRA_default_list_name">Einzelaufgaben: %s</string>
+	<string name="none">Keine</string>
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
@@ -125,6 +129,10 @@
 	<string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
 	<string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
 	<string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
+	<string name="EPr_reset_preferences">Voreinstellungen zurücksetzen</string>
+	<string name="EPr_reset_preferences_warning">Die Voreinstellungen werden auf Standardwerte zurückgesetzt</string>
+	<string name="EPr_delete_task_data">Aufgabendaten löschen</string>
+	<string name="EPr_delete_task_data_warning">Alle Aufgaben werden dauerhaft gelöscht</string>
 	<string name="EPr_manage_delete_completed_gcal">Lösche Kalendereinträge von erledigten Aufgaben</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Möchtest du wirklich alle deine Kalendereinträge von erledigen Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d Kalendereinträge gelöscht!</string>
@@ -141,6 +149,9 @@
 	<string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
 	<string name="EPr_default_addtocalendar_title">Standardmäßig in Kalender eintragen</string>
 	<string name="EPr_default_reminders_mode_title">Standard-Alarm/Vibrationssignal</string>
+	<string name="priority_high">Hoch</string>
+	<string name="priority_medium">Mittel</string>
+	<string name="priority_low">Niedrig</string>
 	<string-array name="EPr_default_urgency">
 		<item>Keine Fälligkeit</item>
 		<item>Heute</item>
@@ -178,6 +189,8 @@
 	</string-array>
 	<string name="CFC_importance_text">Mindestpriorität ?</string>
 	<string name="CFC_importance_name">Priorität...</string>
+	<string name="CFC_tag_contains_name">Tag-Name enthält...</string>
+	<string name="CFC_tag_contains_text">Tag-Name enthält: ?</string>
 	<string name="CFC_title_contains_name">Titel enthält …</string>
 	<string name="CFC_title_contains_text">Titel enthält: ?</string>
 	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
@@ -221,6 +234,8 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Ruhezeiten enden</string>
 	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
+	<string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
+	<string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximalisieren</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
@@ -293,6 +308,7 @@
 	<string name="notifications">Benachrichtigungen</string>
 	<string name="silent">Ton Aus</string>
 	<string name="sound">Ton</string>
+	<string name="vibrations">Vibration</string>
 	<string name="quiet_hours">Ruhezeiten</string>
 	<string name="attachment_directory">Anhängeordner</string>
 	<string name="backup_directory">Sicherungsordner</string>
@@ -307,6 +323,7 @@
 	<string name="help_and_feedback">Hilfe &amp; Feedback</string>
 	<string name="contact_developer">Entwickler kontaktieren</string>
 	<string name="rate_tasks">Bewerte Tasks</string>
+	<string name="quiet_hours_summary">Keine Erinnerungen während Ruhezeiten</string>
 	<string name="TLA_menu_donate">Spenden</string>
 	<string name="error">Fehler</string>
 	<string name="select_amount">Menge auswählen</string>
@@ -347,6 +364,27 @@
 	<string name="reverse">Rückgangig</string>
 	<string name="task_count">%s Aufgaben</string>
 	<string name="get_plugins">Finde Plug-Ins</string>
+	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
+	<string name="add_attachment">Anhang hinzufügen</string>
+	<string name="high_priority">Hoch</string>
+	<string name="default_priority">Standard</string>
+	<string name="low_priority">Niedrig</string>
+	<string name="notification_priority">Benachrichtigungspriorität</string>
+	<string name="vibration_count">Anzahl Vibrationen</string>
+	<string name="vibration_duration">Dauer jeder Vibration (Millisekunden)</string>
+	<string name="vibration_pause">Pause zwischen Vibrationen</string>
+	<string name="take_a_picture">Bild aufnehmen</string>
+	<string name="pick_from_gallery">Aus Galerie wählen</string>
+	<string name="pick_from_storage">Von Speicher auswählen</string>
+	<string name="privacy">Datenschutz</string>
+	<string name="privacy_policy">Datenschutzerklärung</string>
+	<string name="send_anonymous_statistics">Tasks verbessern</string>
+	<string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
+	<string name="tag_already_exists">Tag existiert bereits</string>
+	<string name="disable_notification_light">Benachrichtigungsleuchte deaktivieren</string>
+	<string name="doze_notifications">Doze-Modus für Benachrichtigungen unterbrechen</string>
+	<string name="doze_notifications_off">Im Doze-Modus von Android erfolgen Benachrichtigungen mit deutlicher Verzögerung</string>
+	<string name="doze_notifications_on">Android erlaubt nur eine begrenzte Anzahl von Unterbrechungen des Doze-Modus</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>

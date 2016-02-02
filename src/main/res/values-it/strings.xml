@@ -29,6 +29,7 @@
 	<string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
 	<string name="DLG_undo">Annulla l\'ultima azione</string>
 	<string name="WID_dateButtonUnset">Clicca per Impostare</string>
+	<string name="TLA_no_items">Qui non ci sono attività.</string>
 	<string name="TLA_menu_sort">Ordinamento</string>
 	<string name="TLA_menu_search">Cerca</string>
 	<string name="TLA_menu_settings">Impostazioni</string>
@@ -151,6 +152,9 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="EPr_default_reminders_title">Promemoria predefiniti</string>
 	<string name="EPr_default_addtocalendar_title">Aggiungi automaticamente al calendario</string>
 	<string name="EPr_default_reminders_mode_title">Tipo di squillo/vibrazione predefinito</string>
+	<string name="priority_high">Alta</string>
+	<string name="priority_medium">Media</string>
+	<string name="priority_low">Bassa</string>
 	<string-array name="EPr_default_urgency">
 		<item>Nessun Termine</item>
 		<item>Oggi</item>
@@ -163,7 +167,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 		<item>Nessun promemoria scadenza</item>
 		<item>Alla scadenza</item>
 		<item>Quando è scaduta</item>
-		<item>Alla scadenza o già scaduta</item>
+		<item>Alla scadenza o quando scaduto</item>
 	</string-array>
 	<string name="BFE_Active">Le mie attività</string>
 	<string name="BFE_Recent">Modificate di recente</string>
@@ -234,6 +238,8 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rmd_EPr_quiet_hours_end_title">Ora fine silenzio</string>
 	<string name="rmd_EPr_rmd_time_title">Promemoria predefiniti</string>
 	<string name="rmd_EPr_rmd_time_desc">Le notifiche per le attività senza scadenza appariranno alle %s</string>
+	<string name="persistent_notifications">Notifiche persistenti</string>
+	<string name="persistent_notifications_description">Le notifiche persistenti non possono essere cancellate</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume massimo per promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks metterà il volume al massimo per i promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>
@@ -321,6 +327,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="help_and_feedback">Aiuto &amp; Suggerimenti</string>
 	<string name="contact_developer">Contatta lo sviluppatore</string>
 	<string name="rate_tasks">Attività</string>
+	<string name="quiet_hours_summary">Non notificare durante le ore di riposo</string>
 	<string name="TLA_menu_donate">Dona</string>
 	<string name="error">Errore</string>
 	<string name="select_amount">Seleziona quantità</string>
@@ -378,6 +385,10 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="send_anonymous_statistics">Migliora Attività</string>
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
 	<string name="tag_already_exists">Etichetta già presente</string>
+	<string name="disable_notification_light">Disabilita led di notifica</string>
+	<string name="doze_notifications">Le notifiche interrompono il pisolino</string>
+	<string name="doze_notifications_off">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
+	<string name="doze_notifications_on">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

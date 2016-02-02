@@ -29,6 +29,7 @@
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
 	<string name="DLG_undo">Отмена</string>
 	<string name="WID_dateButtonUnset">Установить</string>
+	<string name="TLA_no_items">Здесь нет задач.</string>
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
@@ -153,6 +154,9 @@
 	<string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
 	<string name="EPr_default_addtocalendar_title">Добавлять в календарь по умолчанию</string>
 	<string name="EPr_default_reminders_mode_title">Тип звонка/вибрации по умолчанию</string>
+	<string name="priority_high">Высокий</string>
+	<string name="priority_medium">Средний</string>
+	<string name="priority_low">Низкий</string>
 	<string-array name="EPr_default_urgency">
 		<item>Без срока выполнения</item>
 		<item>Сегодня</item>

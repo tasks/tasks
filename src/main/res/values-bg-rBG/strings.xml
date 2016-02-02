@@ -32,6 +32,7 @@
 	<string name="DLG_hour_minutes">Време (часове: минути)</string>
 	<string name="DLG_undo">Върни</string>
 	<string name="WID_dateButtonUnset">Кликнете, за да зададете</string>
+	<string name="TLA_no_items">Тук няма задачи.</string>
 	<string name="TLA_menu_sort">Сортирай</string>
 	<string name="TLA_menu_search">Търсене</string>
 	<string name="TLA_menu_settings">Настройки</string>
@@ -155,6 +156,9 @@
 	<string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
 	<string name="EPr_default_addtocalendar_title">Добави към календара по подразбиране</string>
 	<string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
+	<string name="priority_high">Висок</string>
+	<string name="priority_medium">Среден</string>
+	<string name="priority_low">Нисък</string>
 	<string-array name="EPr_default_urgency">
 		<item>Без краен срок</item>
 		<item>Днес</item>
