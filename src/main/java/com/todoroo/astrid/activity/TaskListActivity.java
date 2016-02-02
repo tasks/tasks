@@ -28,7 +28,6 @@ import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -703,14 +702,18 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
+        Bundle extras;
         if(filter instanceof FilterWithCustomIntent) {
-            int lastSelectedList = intent.getIntExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, 0);
-            intent = ((FilterWithCustomIntent)filter).getCustomIntent();
-            intent.putExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, lastSelectedList);
-            setIntent(intent);
+            Intent customIntent = ((FilterWithCustomIntent)filter).getCustomIntent();
+            customIntent.putExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, intent.getIntExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, 0));
+            if (intent.hasExtra(OPEN_TASK)) {
+                customIntent.putExtra(OPEN_TASK, intent.getLongExtra(OPEN_TASK, 0));
+            }
+            setIntent(customIntent);
+            extras = customIntent.getExtras();
+        } else {
+            extras = intent.getExtras();
         }
-
-        Bundle extras = intent.getExtras();
         if (extras != null) {
             extras = (Bundle) extras.clone();
         }

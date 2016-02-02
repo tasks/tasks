@@ -1,6 +1,5 @@
 package org.tasks.widget;
 
-import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -8,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -54,7 +52,6 @@ public class WidgetHelper {
         this.alarmManager = alarmManager;
     }
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     public RemoteViews createScrollableWidget(Context context, int id) {
         Intent intent = new Intent(context, ScrollableWidgetUpdateService.class);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -116,17 +113,14 @@ public class WidgetHelper {
             listIntent.putExtras(((FilterWithCustomIntent) filter).customExtras);
         }
 
-        return PendingIntent.getActivity(context, widgetId,
-                listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        return PendingIntent.getActivity(context, widgetId, listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     private PendingIntent getEditTaskIntent(Context context, Filter filter, int widgetId) {
         Intent intent = new Intent(context, TasksWidget.class);
-        if (context.getResources().getBoolean(R.bool.two_pane_layout)) {
-            if (filter != null && filter instanceof FilterWithCustomIntent) {
-                Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
-                intent.putExtras(customExtras);
-            }
+        if (filter != null && filter instanceof FilterWithCustomIntent) {
+            Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
+            intent.putExtras(customExtras);
         }
         return PendingIntent.getBroadcast(context, -widgetId, intent, 0);
     }
