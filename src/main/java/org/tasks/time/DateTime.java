@@ -17,6 +17,10 @@ public class DateTime {
     private final TimeZone timeZone;
     private final long timestamp;
 
+    public DateTime(int year, int month, int day) {
+        this(year, month, day, 0, 0, 0, 0);
+    }
+
     public DateTime(int year, int month, int day, int hour, int minute) {
         this(year, month, day, hour, minute, 0, 0);
     }

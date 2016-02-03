@@ -206,7 +206,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 break;
             case 4:
                 startActivityForResult(new Intent(context, DatePickerActivity.class) {{
-                    putExtra(DatePickerActivity.EXTRA_TIMESTAMP, getDueDate());
+                    putExtra(DatePickerActivity.EXTRA_TIMESTAMP, date);
                 }}, REQUEST_DATE);
                 break;
         }
@@ -234,7 +234,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 break;
             case 6:
                 startActivityForResult(new Intent(context, TimePickerActivity.class) {{
-                    putExtra(TimePickerActivity.EXTRA_TIMESTAMP, getDueDate());
+                    putExtra(TimePickerActivity.EXTRA_TIMESTAMP, getDueDateTime());
                 }}, REQUEST_TIME);
                 break;
         }
@@ -257,7 +257,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
     @Override
     public boolean hasChanges(Task original) {
-        return original.getDueDate() != getDueDate();
+        return original.getDueDate() != getDueDateTime();
     }
 
     @Override
@@ -274,7 +274,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
     @Override
     public void apply(Task task) {
-        long dueDate = getDueDate();
+        long dueDate = getDueDateTime();
         if (dueDate != task.getDueDate()) {
             task.setReminderSnooze(0L);
         }
@@ -304,7 +304,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         }
     }
 
-    private long getDueDate() {
+    private long getDueDateTime() {
         return time >= 0
                 ? Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDateTime(date).withMillisOfDay(time).getMillis())
                 : Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, date);

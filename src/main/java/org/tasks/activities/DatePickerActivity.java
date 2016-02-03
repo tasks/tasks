@@ -26,8 +26,6 @@ public class DatePickerActivity extends InjectingAppCompatActivity
 
     @Inject ActivityPreferences preferences;
 
-    private DateTime initial;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +33,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity
         preferences.applyTheme();
 
         long timestamp = getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis());
-        initial = timestamp > 0 ? new DateTime(timestamp) : new DateTime().startOfDay();
+        DateTime initial = (timestamp > 0 ? new DateTime(timestamp) : new DateTime()).startOfDay();
 
         FragmentManager fragmentManager = getFragmentManager();
         MyDatePickerDialog dialog = (MyDatePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER);
@@ -51,15 +49,10 @@ public class DatePickerActivity extends InjectingAppCompatActivity
         dialog.setOnDateSetListener(this);
     }
 
-
     @Override
     public void onDateSet(DatePickerDialog view, final int year, final int monthOfYear, final int dayOfMonth) {
         setResult(RESULT_OK, new Intent() {{
-            putExtra(EXTRA_TIMESTAMP, initial
-                    .withYear(year)
-                    .withMonthOfYear(monthOfYear + 1)
-                    .withDayOfMonth(dayOfMonth)
-                    .getMillis());
+            putExtra(EXTRA_TIMESTAMP, new DateTime(year, monthOfYear + 1, dayOfMonth).getMillis());
         }});
     }
 

@@ -67,7 +67,9 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
         dateSelected = true;
-        final long timestamp = initial.withYear(year).withMonthOfYear(month + 1).withDayOfMonth(day).getMillis();
+        final long timestamp = new DateTime(year, month + 1, day)
+                .withMillisOfDay(initial.getMillisOfDay())
+                .getMillis();
         datePickerDialog.dismiss();
         startActivity(new Intent(this, TimePickerActivity.class) {{
             addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
