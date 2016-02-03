@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="100">
 
-                <include layout="@layout/task_list_swipe_layout_empty" />
+                <include layout="@layout/task_list_body_empty" />
 
             </FrameLayout>
 
