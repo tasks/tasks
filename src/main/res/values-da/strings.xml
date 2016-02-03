@@ -47,8 +47,6 @@
 	<string name="TEA_note_label">Noter</string>
 	<string name="TEA_estimatedDuration_label">Hvor lang tid tager det?</string>
 	<string name="TEA_elapsedDuration_label">Tid allerede brugt på denne opgave</string>
-	<string name="TEA_menu_save">Gem ændringer</string>
-	<string name="TEA_tab_activity">Aktivitet</string>
 	<string name="TEA_control_importance">Vigtighed</string>
 	<string name="TEA_control_notes">Noter</string>
 	<string name="TEA_control_files">Filer</string>

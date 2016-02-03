@@ -39,9 +39,7 @@
 	<string name="TEA_note_label">توضیحات</string>
 	<string name="TEA_estimatedDuration_label">این چقدر طول میکشد ؟</string>
 	<string name="TEA_elapsedDuration_label">زمان سپری شده</string>
-	<string name="TEA_menu_save">ذخیره تغییرات</string>
 	<string name="save">ذخیره</string>
-	<string name="TEA_tab_activity">فعالیت</string>
 	<string name="TEA_no_time">بدون زمان</string>
 	<string name="due_date">تاریخ موعود</string>
 	<string name="due_time">زمان موعود</string>

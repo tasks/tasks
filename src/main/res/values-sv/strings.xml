@@ -53,8 +53,6 @@
 	<string name="TEA_note_label">Beskrivning</string>
 	<string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
 	<string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
-	<string name="TEA_menu_save">Spara ändringar</string>
-	<string name="TEA_tab_activity">Aktivitet</string>
 	<string name="TEA_timer_est">Ung. %s</string>
 	<string name="TEA_timer_elap">Förfluten %s</string>
 	<string name="TEA_no_time">Ingen tid</string>

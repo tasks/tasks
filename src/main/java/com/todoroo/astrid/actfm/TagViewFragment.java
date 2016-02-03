@@ -80,9 +80,6 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected void initiateAutomaticSyncImpl() {
-        if (!isCurrentTaskListFragment()) {
-            return;
-        }
         if (tagData != null) {
             long lastAutosync = tagData.getLastAutosync();
             if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {

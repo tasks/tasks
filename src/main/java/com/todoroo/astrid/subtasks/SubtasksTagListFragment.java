@@ -8,8 +8,6 @@ package com.todoroo.astrid.subtasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -51,9 +49,8 @@ public class SubtasksTagListFragment extends TagViewFragment {
     }
 
     @Override
-    protected View getListBody(ViewGroup root) {
-        return getActivity().getLayoutInflater().inflate(
-                R.layout.task_list_body_subtasks, root, false);
+    protected int getListBody() {
+        return R.layout.task_list_body_subtasks;
     }
 
     @Override

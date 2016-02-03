@@ -36,10 +36,6 @@
         <item name="android:textColor">?attr/asTextColor</item>    
     </style>
 
-    <style name="edit_text_style">
-        <item name="android:textCursorDrawable">@null</item>
-    </style>
-
     <!--================================================== Custom Dialogs == -->
     
     <style name="ReminderDialog" parent="Theme.AppCompat.Dialog">
@@ -53,15 +49,29 @@
 
     <style name="ListView">
         <item name="android:divider">@android:color/transparent</item>
-        <item name="android:dividerHeight">0px</item>
+        <item name="android:dividerHeight">1px</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:cacheColorHint">#00000000</item>
         <item name="android:smoothScrollbar">true</item>
+        <item name="android:background">?attr/asContentBackground</item>
     </style>
 
     <style name="TaskListView" parent="ListView" />
 
+    <style name="double_pane_divider">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">1px</item>
+        <item name="android:background">?attr/asListDividerColor</item>
+        <item name="android:minWidth">1px</item>
+    </style>
+
     <!-- ==================================================== TaskAdapter == -->
+
+    <style name="task_list_container_base">
+        <item name="android:background">?attr/asContentBackground</item>
+    </style>
+
+    <style name="task_list_container" parent="task_list_container_base"/>
 
     <style name="TextAppearance.TAd_ItemTitle">
         <item name="android:textColorLink">#ff88aaff</item>

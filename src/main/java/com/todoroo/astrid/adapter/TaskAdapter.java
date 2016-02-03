@@ -185,8 +185,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.completeBox = (CheckableImageView)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.tagsView = (TextView)view.findViewById(R.id.tagsDisplay);
-        viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
-        viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
         viewHolder.taskActionContainer = view.findViewById(R.id.taskActionContainer);
         viewHolder.taskActionIcon = (ImageView)view.findViewById(R.id.taskActionIcon);
 
@@ -201,9 +199,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         view.setTag(viewHolder);
         for(int i = 0; i < view.getChildCount(); i++) {
             view.getChildAt(i).setTag(viewHolder);
-        }
-        if(viewHolder.details1 != null) {
-            viewHolder.details1.setTag(viewHolder);
         }
 
         // add UI component listeners
@@ -256,7 +251,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public CheckableImageView completeBox;
         public TextView dueDate;
         public TextView tagsView;
-        public TextView details1, details2;
         public View taskActionContainer;
         public ImageView taskActionIcon;
         public String tagsString; // From join query, not part of the task model
@@ -276,8 +270,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.completeBox.setMinimumHeight(minRowHeight);
         }
 
-        viewHolder.view.setBackgroundColor(resources.getColor(android.R.color.transparent));
-
         // name
         final TextView nameView = viewHolder.nameView; {
             String nameValue = task.getTitle();
@@ -293,11 +285,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         setupDueDateAndTags(viewHolder, task);
-
-        if(viewHolder.details1 != null) {
-            viewHolder.details1.setVisibility(View.GONE);
-            viewHolder.details2.setVisibility(View.GONE);
-        }
 
         // Task action
         ImageView taskAction = viewHolder.taskActionIcon;
@@ -457,12 +444,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         setupDueDateAndTags(viewHolder, task);
 
         float detailTextSize = Math.max(10, fontSize * 14 / 20);
-        if(viewHolder.details1 != null) {
-            viewHolder.details1.setTextSize(detailTextSize);
-        }
-        if(viewHolder.details2 != null) {
-            viewHolder.details2.setTextSize(detailTextSize);
-        }
         if(viewHolder.dueDate != null) {
             viewHolder.dueDate.setTextSize(detailTextSize);
             viewHolder.dueDate.setTypeface(null, 0);

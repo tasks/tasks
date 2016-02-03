@@ -6,50 +6,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+
+    <com.todoroo.astrid.ui.CheckableImageView
+        android:id="@+id/completeBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
+        android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
+        android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingStart="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingEnd="@dimen/task_edit_drawable_padding_left_right"
+        android:scaleType="center" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/task_edit_title_padding_top_bottom"
-        android:paddingEnd="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingStart="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingTop="@dimen/task_edit_title_padding_top_bottom">
-
-        <com.todoroo.astrid.ui.CheckableImageView
-            android:id="@+id/completeBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:paddingEnd="@dimen/task_edit_drawable_padding_left_right"
-            android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
-            android:scaleType="center" />
+        android:orientation="vertical"
+        android:paddingTop="@dimen/task_edit_padding_top_bottom"
+        android:layout_marginTop="@dimen/task_edit_padding_top_bottom" >
 
         <EditText
             android:id="@+id/title"
-            style="@style/edit_text_style"
-            android:layout_width="0dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="100"
             android:background="?attr/asEditTextBackground"
-            android:hint="@string/TEA_title_hint"
             android:freezesText="true"
+            android:hint="@string/TEA_title_hint"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textCapSentences"
             android:scrollbars="vertical"
             android:textColor="?attr/asTextColor"
             android:textColorHint="?attr/asTextColorHint" />
 
-    </LinearLayout>
+        <include layout="@layout/task_edit_divider" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1px"
-        android:background="?attr/task_edit_divider" />
+    </LinearLayout>
 
 </LinearLayout>
 

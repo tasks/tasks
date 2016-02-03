@@ -97,29 +97,6 @@
 	        </LinearLayout>
 	    </LinearLayout>
 	
-	    <!-- details line 1 -->
-	
-	    <TextView
-	        android:id="@+id/details1"
-	        style="@style/TextAppearance.TAd_ItemDetails"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@id/task_row"
-	        android:layout_below="@id/task_row"
-	        android:visibility="gone" />
-	
-	    <!-- details line 2 -->
-	
-	    <TextView
-	        android:id="@+id/details2"
-	        style="@style/TextAppearance.TAd_ItemDetails"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@id/task_row"
-	        android:layout_below="@id/details1"
-	        android:layout_marginLeft="5dip"
-	        android:visibility="gone" />
-	
 	</RelativeLayout>
 
 	<View

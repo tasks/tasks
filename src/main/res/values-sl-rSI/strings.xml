@@ -56,8 +56,6 @@
 	<string name="TEA_note_label">Opis</string>
 	<string name="TEA_estimatedDuration_label">Kako dolgo bo trajalo?</string>
 	<string name="TEA_elapsedDuration_label">Porabljen čas</string>
-	<string name="TEA_menu_save">Shrani spremembe</string>
-	<string name="TEA_tab_activity">Dejavnost</string>
 	<string name="TEA_timer_est">Cca. %s</string>
 	<string name="TEA_timer_elap">%s je potekel</string>
 	<string name="TEA_no_time">Čas ni določen</string>

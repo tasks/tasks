@@ -68,9 +68,6 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected void initiateAutomaticSyncImpl() {
-        if (!isCurrentTaskListFragment()) {
-            return;
-        }
         if (list != null && syncThrottle.canSync(list.getId())) {
             refreshData(false);
         }
@@ -95,13 +92,13 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onMenuItemClick(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_clear_completed:
                 clearCompletedTasks();
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
+                return super.onMenuItemClick(item);
         }
     }
 

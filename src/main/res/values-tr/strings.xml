@@ -45,8 +45,6 @@
 	<string name="TEA_note_label">Açıklama</string>
 	<string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
 	<string name="TEA_elapsedDuration_label">Görev üzerinde çalışılan zaman</string>
-	<string name="TEA_menu_save">Değişiklikleri Kaydet</string>
-	<string name="TEA_tab_activity">Etkinlik</string>
 	<string name="TEA_no_time">Zaman yok</string>
 	<string name="TEA_control_when">Ne Zaman</string>
 	<string name="TEA_control_notes">Açıklama</string>

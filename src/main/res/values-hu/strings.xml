@@ -30,8 +30,6 @@
 	<string name="TEA_note_label">Leírás</string>
 	<string name="TEA_estimatedDuration_label">Meddig fog tartani?</string>
 	<string name="TEA_elapsedDuration_label">Már eltöltött idő</string>
-	<string name="TEA_menu_save">Módosítások mentése</string>
-	<string name="TEA_tab_activity">Tevékenység</string>
 	<string name="TEA_control_importance">Prioritás</string>
 	<string name="TEA_control_notes">Leírás</string>
 	<string name="TEA_control_files">Fájlok</string>

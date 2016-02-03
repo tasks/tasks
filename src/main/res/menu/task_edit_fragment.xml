@@ -3,12 +3,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:tasks="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_save"
-        android:title="@string/TEA_menu_save"
-        android:icon="@drawable/ic_save_24dp"
-        android:visible="false"
-        tasks:showAsAction="ifRoom"/>
-    <item
         android:id="@+id/menu_record_note"
         android:title="@string/premium_record_audio"
         android:icon="@drawable/ic_mic_24dp"

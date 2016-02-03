@@ -7,17 +7,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="?attr/asContentBackground"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
-        <include layout="@layout/toolbar" />
-
-        <include layout="@layout/toolbar_separator" />
-
+        <!-- Task List -->
         <FrameLayout
-            android:id="@+id/single_pane"
+            android:id="@+id/master_dual"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/asContentBackground" />
+            android:layout_weight="60" />
+
+        <!-- Task Edit -->
+        <FrameLayout
+            android:id="@+id/detail_dual"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="40" />
 
     </LinearLayout>
 

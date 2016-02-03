@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.primitives.Ints;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
@@ -25,6 +26,7 @@ public class CheckBoxes {
     private static List<Drawable> repeatingCheckboxes;
     private static List<Drawable> completedCheckboxes;
     private static List<Integer> priorityColors;
+    private static int[] priorityColorsArray;
 
     @Inject
     public CheckBoxes(@ForApplication Context context) {
@@ -38,12 +40,17 @@ public class CheckBoxes {
                     context.getResources().getColor(R.color.importance_2),
                     context.getResources().getColor(R.color.importance_3),
                     context.getResources().getColor(R.color.importance_4));
+            priorityColorsArray = Ints.toArray(priorityColors);
             initialized = true;
         }
     }
 
     public List<Integer> getPriorityColors() {
         return priorityColors;
+    }
+
+    public int[] getPriorityColorsArray() {
+        return priorityColorsArray;
     }
 
     List<Drawable> getCheckBoxes() {

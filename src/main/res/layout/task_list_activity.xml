@@ -1,37 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/task_list_coordinator"
-    android:background="?attr/asContentBackground"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <RelativeLayout
-        android:id="@+id/task_list_body"
+    <FrameLayout
+        android:id="@+id/single_pane"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/asContentBackground" />
 
-        <include layout="@layout/task_list_swipe_layout_empty" />
+    <include layout="@layout/navigation_drawer" />
 
-    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:src="@drawable/ic_add_24dp"
-        android:tint="?attr/fab_tint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/task_list_fab_margin"
-        android:padding="0dp"
-        app:borderWidth="0dp"/>
-
-</android.support.design.widget.CoordinatorLayout>

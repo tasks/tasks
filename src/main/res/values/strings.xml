@@ -194,13 +194,7 @@ File %1$s contained %2$s.\n\n
     <!-- Elapsed time label -->
     <string name="TEA_elapsedDuration_label">Time already spent</string>
 
-    <!-- Menu: Save -->
-    <string name="TEA_menu_save">Save Changes</string>
-
     <string name="save">Save</string>
-
-    <!-- slide 15b: Task edit tab: activity -->
-    <string name="TEA_tab_activity">Activity</string>
 
     <string name="TEA_timer_est">Est. %s</string>
 

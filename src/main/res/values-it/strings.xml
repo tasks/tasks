@@ -58,9 +58,7 @@
 	<string name="TEA_note_label">Descrizione</string>
 	<string name="TEA_estimatedDuration_label">Quanto tempo impiegherà?</string>
 	<string name="TEA_elapsedDuration_label">Tempo già speso per l\'attività</string>
-	<string name="TEA_menu_save">Salva le modifiche</string>
 	<string name="save">Salva</string>
-	<string name="TEA_tab_activity">Attività</string>
 	<string name="TEA_timer_est">Stima %s</string>
 	<string name="TEA_timer_elap">Trascorso %s</string>
 	<string name="TEA_no_time">Senza ora</string>

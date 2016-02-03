@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.voice;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +13,7 @@ import android.content.pm.ResolveInfo;
 import android.speech.RecognizerIntent;
 
 import com.todoroo.andlib.data.Callback;
+import com.todoroo.astrid.activity.TaskListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,6 @@ import javax.inject.Singleton;
 public class VoiceInputAssistant {
 
     /** requestcode for activityresult from voicerecognizer-intent */
-    public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
 
     /**
      * Call this to see if your phone supports voiceinput in its current configuration.
@@ -57,17 +57,15 @@ public class VoiceInputAssistant {
      * Use the mightier constructor to specify your own requestCode in this case for every additional use on an fragment.
      * If you only use one microphone-button on an fragment, you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
      */
-    private int requestCode = VOICE_RECOGNITION_REQUEST_CODE;
-    private Activity activity;
+    private Fragment fragment;
 
     /**
      * This constructor can be called from a widget with a voice-button calling a dummy-activity.
      *
-     * @param activity dummy-activity that starts the voice-request.
      */
     @Inject
-    public VoiceInputAssistant(Activity activity) {
-        this.activity = activity;
+    public VoiceInputAssistant(Fragment fragment) {
+        this.fragment = fragment;
     }
 
     /**
@@ -80,8 +78,8 @@ public class VoiceInputAssistant {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, activity.getString(prompt));
-        activity.startActivityForResult(intent, requestCode);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, fragment.getString(prompt));
+        fragment.startActivityForResult(intent, TaskListFragment.VOICE_RECOGNITION_REQUEST_CODE);
     }
 
     /**
@@ -94,31 +92,22 @@ public class VoiceInputAssistant {
      * If this method returns false, then it wasnt a request with a RecognizerIntent, so you can handle
      * these other requests as you need.
      *
-     * @param activityRequestCode if this equals the requestCode specified by constructor, then results of voice-recognition
      */
-    public boolean handleActivityResult(int activityRequestCode, int resultCode, Intent data, Callback<String> onVoiceRecognition) {
-        boolean result = false;
+    public void handleActivityResult(Intent data, Callback<String> onVoiceRecognition) {
         // handle the result of voice recognition, put it into the textfield
-        if (activityRequestCode == this.requestCode) {
-            // this was handled here, even if voicerecognition fails for any reason
-            // so your program flow wont get chaotic if you dont explicitly state
-            // your own requestCodes.
-            result = true;
-            if (resultCode == Activity.RESULT_OK) {
-                // Fill the quickAddBox-view with the string the recognizer thought it could have heard
-                ArrayList<String> match = data.getStringArrayListExtra(
-                        RecognizerIntent.EXTRA_RESULTS);
-                // make sure we only do this if there is SomeThing (tm) returned
-                if (match != null && match.size() > 0 && match.get(0).length() > 0) {
-                    String recognizedSpeech = match.get(0);
-                    recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-                        recognizedSpeech.substring(1).toLowerCase();
+        // this was handled here, even if voicerecognition fails for any reason
+        // so your program flow wont get chaotic if you dont explicitly state
+        // your own requestCodes.
+        // Fill the quickAddBox-view with the string the recognizer thought it could have heard
+        ArrayList<String> match = data.getStringArrayListExtra(
+                RecognizerIntent.EXTRA_RESULTS);
+        // make sure we only do this if there is SomeThing (tm) returned
+        if (match != null && match.size() > 0 && match.get(0).length() > 0) {
+            String recognizedSpeech = match.get(0);
+            recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
+                recognizedSpeech.substring(1).toLowerCase();
 
-                    onVoiceRecognition.apply(recognizedSpeech);
-                }
-            }
+            onVoiceRecognition.apply(recognizedSpeech);
         }
-
-        return result;
     }
 }

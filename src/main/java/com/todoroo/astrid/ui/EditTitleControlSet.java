@@ -155,7 +155,8 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
     @Override
     public boolean hasChanges(Task original) {
-        return !getTitle().equals(original.getTitle());
+        return !getTitle().equals(original.getTitle()) ||
+                completeBox.isChecked() != original.isCompleted();
     }
 
     @Override

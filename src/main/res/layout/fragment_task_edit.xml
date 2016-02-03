@@ -1,94 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/taskEditParent"
-    android:background="?attr/asContentBackground"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:background="?attr/asContentBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/toolbar_separator" />
 
     <ScrollView
         android:id="@+id/edit_scroll"
-        android:background="?attr/asContentBackground"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="100" >
+        android:layout_height="0dp"
+        android:layout_weight="100"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal" >
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/row_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_6"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_7"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_8"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_9"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_10"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@+id/row_11"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/asContentBackground" />
+                android:layout_height="wrap_content" />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
@@ -96,28 +88,25 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"
                 android:layout_marginBottom="0dip"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- Footer -->
-
     <View
         android:layout_width="fill_parent"
         android:layout_height="1px"
-        android:background="?attr/asToolbarSeparator"/>
+        android:background="?attr/asToolbarSeparator" />
 
     <LinearLayout
         android:id="@+id/updatesFooter"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:minHeight="50dip"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:background="?attr/asAbBackgroundColor"
-        android:padding="3dip" 
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:orientation="horizontal"
+        android:padding="3dip"
         android:paddingBottom="0dip">
 
         <!-- Voice Add Button -->
@@ -128,32 +117,31 @@
             android:layout_height="39dip"
             android:layout_marginRight="3dip"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:paddingBottom="2dip"
             android:scaleType="centerInside"
-            android:background="@android:color/transparent"
             android:src="@drawable/ic_camera_alt_white_24dp" />
 
         <!-- Quick Add Task -->
 
         <EditText
-            style="@style/edit_text_style"
             android:id="@+id/commentField"
             android:layout_width="wrap_content"
             android:layout_height="39dip"
+            android:layout_marginBottom="2dip"
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
-            android:layout_marginBottom="2dip"
             android:layout_marginTop="2dip"
             android:layout_weight="100"
-            android:inputType="textCapSentences"
             android:autoText="true"
             android:background="?attr/asEditTextBackground"
             android:capitalize="sentences"
-            android:imeOptions="flagNoExtractUi|actionDone"
             android:hint="@string/TVA_add_comment"
+            android:imeOptions="flagNoExtractUi|actionDone"
+            android:inputType="textCapSentences"
+            android:paddingLeft="10dip"
             android:textColor="@color/white_text"
             android:textColorHint="@color/white_text_hint"
-            android:paddingLeft="10dip"
             android:textSize="16sp" />
 
         <!-- Extended Add Button -->
@@ -165,9 +153,9 @@
             android:layout_marginLeft="3dip"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:tint="@android:color/white"
-            android:src="@drawable/ic_add_24dp"
             android:scaleType="center"
+            android:src="@drawable/ic_add_24dp"
+            android:tint="@android:color/white"
             android:visibility="gone" />
     </LinearLayout>
 

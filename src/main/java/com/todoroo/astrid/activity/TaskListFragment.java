@@ -11,11 +11,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -24,7 +28,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -32,46 +35,67 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.FilterSettingsActivity;
+import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.SyncActionHelper;
+import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
+import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
+import com.todoroo.astrid.voice.VoiceInputAssistant;
+import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.R;
+import org.tasks.activities.SortActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingListFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.ui.CheckBoxes;
+import org.tasks.ui.MenuColorizer;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import timber.log.Timber;
+
+import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
@@ -80,17 +104,21 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListFragment extends InjectingListFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TaskListFragment extends InjectingListFragment implements SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
 
     private static final String EXTRA_FILTER = "extra_filter";
     private static final String EXTRA_EXTRAS = "extra_extras";
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
+    public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
+    private static final int REQUEST_EDIT_TAG = 11543;
+    private static final int REQUEST_EDIT_FILTER = 11544;
+    private static final int REQUEST_SORT = 11545;
+
     // --- activities
 
     public static final long AUTOSYNC_INTERVAL = 90000L;
-    private static final long WAIT_BEFORE_AUTOSYNC = 2000L;
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     // --- menu codes
@@ -117,12 +145,18 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
     @Inject SyncActionHelper syncActionHelper;
+    @Inject CheckBoxes checkBoxes;
+    @Inject VoiceInputAssistant voiceInputAssistant;
+    @Inject TaskCreator taskCreator;
+    @Inject TagDataDao tagDataDao;
+
+    @Bind(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     private TaskAdapter taskAdapter = null;
     private RefreshReceiver refreshReceiver = new RefreshReceiver();
-    private OnTaskListItemClickedListener mListener;
-    private SwipeRefreshLayout listView;
-    private SwipeRefreshLayout emptyView;
+    private TaskListFragmentCallbackHandler callbacks;
 
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     protected Filter filter;
@@ -142,7 +176,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     public void setSyncOngoing(boolean ongoing) {
-        listView.setRefreshing(ongoing);
+        swipeRefreshLayout.setRefreshing(ongoing);
         emptyView.setRefreshing(ongoing);
     }
 
@@ -150,15 +184,17 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      * Container Activity must implement this interface and we ensure that it
      * does during the onAttach() callback
      */
-    public interface OnTaskListItemClickedListener {
+    public interface TaskListFragmentCallbackHandler {
         void onTaskListItemClicked(long taskId);
+
+        void onNavigationIconClicked();
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        mListener = (OnTaskListItemClickedListener) activity;
+        callbacks = (TaskListFragmentCallbackHandler) activity;
     }
 
     /**
@@ -166,9 +202,8 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      *         elements, a view with id android:id/empty and a list view with id
      *         android:id/list. It should NOT be attached to root
      */
-    protected View getListBody(ViewGroup root) {
-        return getActivity().getLayoutInflater().inflate(
-                R.layout.task_list_body_standard, root, false);
+    protected int getListBody() {
+        return R.layout.task_list_body_standard;
     }
 
     /** Called when loading up the activity */
@@ -207,23 +242,139 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
-                R.layout.task_list_activity, container, false);
-        parent.findViewById(R.id.fab).setOnClickListener(new OnClickListener() {
+        View parent = inflater.inflate(R.layout.fragment_task_list, container, false);
+        ((ViewGroup) parent.findViewById(R.id.task_list_body)).addView(inflater.inflate(getListBody(), null), 0);
+        ButterKnife.bind(this, parent);
+        setupRefresh(swipeRefreshLayout);
+        setupRefresh(emptyView);
+        ListView listView = (ListView) swipeRefreshLayout.findViewById(android.R.id.list);
+        listView.setEmptyView(emptyView);
+
+        toolbar.setTitle(filter.listingTitle);
+        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_menu_24dp));
+        DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
+        toolbar.setNavigationIcon(drawable);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Task task = addTask("");
-                onTaskListItemClicked(task.getId());
+                callbacks.onNavigationIconClicked();
             }
         });
-        View body = getListBody(parent);
-        listView = (SwipeRefreshLayout) body.findViewById(R.id.swipe_layout);
-        emptyView = (SwipeRefreshLayout) parent.findViewById(R.id.swipe_layout_empty);
-        setupRefresh(listView);
-        setupRefresh(emptyView);
-        ((ListView) listView.findViewById(android.R.id.list)).setEmptyView(emptyView);
-        ((ViewGroup) parent.findViewById(R.id.task_list_body)).addView(body, 0);
+        toolbar.inflateMenu(R.menu.task_list_fragment);
+        Menu menu = toolbar.getMenu();
+        for (int i = 0 ; i < menu.size() ; i++) {
+            MenuColorizer.colorMenuItem(menu.getItem(i), getResources().getColor(android.R.color.white));
+        }
+        toolbar.setOnMenuItemClickListener(this);
+        setupMenu(menu);
+
         return parent;
+    }
+
+    private void setupMenu(Menu menu) {
+        TaskListFragment tlf = this;
+        MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
+        if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
+            hidden.setChecked(true);
+        }
+        MenuItem completed = menu.findItem(R.id.menu_show_completed);
+        if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
+            completed.setChecked(true);
+        }
+        if (tlf instanceof GtasksListFragment) {
+            menu.findItem(R.id.menu_clear_completed).setVisible(true);
+            menu.findItem(R.id.menu_sort).setVisible(false);
+            completed.setChecked(true);
+            completed.setEnabled(false);
+        } else if(tlf instanceof TagViewFragment) {
+            menu.findItem(R.id.menu_tag_settings).setVisible(true);
+        } else {
+            if(filter instanceof CustomFilter && ((CustomFilter) filter).getId() > 0) {
+                menu.findItem(R.id.menu_filter_settings).setVisible(true);
+            }
+        }
+
+        if (tlf instanceof SubtasksTagListFragment || tlf instanceof SubtasksListFragment) {
+            hidden.setChecked(true);
+            hidden.setEnabled(false);
+        }
+
+        menu.findItem(R.id.menu_voice_add).setVisible(voiceInputAvailable(getActivity()));
+        final MenuItem item = menu.findItem(R.id.menu_search);
+        final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
+        actionView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                query = query.trim();
+                String title = getString(R.string.FLA_search_filter, query);
+                Filter savedFilter = new Filter(title,
+                        new QueryTemplate().where
+                                (Criterion.or(Task.NOTES.
+                                                        like(
+                                                                "%" + //$NON-NLS-1$
+                                                                        query + "%"
+                                                        ),
+                                                Task.TITLE.
+                                                        like(
+                                                                "%" + //$NON-NLS-1$
+                                                                        query + "%"
+                                                        )
+                                        )
+                                ), null);
+
+                ((TaskListActivity) getActivity()).onFilterItemClicked(savedFilter);
+                MenuItemCompat.collapseActionView(item);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_voice_add:
+                voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
+                return true;
+            case R.id.menu_sort:
+                startActivityForResult(new Intent(getActivity(), SortActivity.class) {{
+                    putExtra(SortActivity.EXTRA_MANUAL_ENABLED, hasDraggableOption());
+                }}, REQUEST_SORT);
+                return true;
+            case R.id.menu_tag_settings:
+                startActivityForResult(new Intent(getActivity(), TagSettingsActivity.class) {{
+                    putExtra(TagSettingsActivity.EXTRA_TAG_DATA, getActiveTagData());
+                }}, REQUEST_EDIT_TAG);
+                return true;
+            case R.id.menu_show_hidden:
+                item.setChecked(!item.isChecked());
+                preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked());
+                reconstructCursor();
+                TasksWidget.updateWidgets(getActivity());
+                return true;
+            case R.id.menu_show_completed:
+                item.setChecked(!item.isChecked());
+                preferences.setBoolean(R.string.p_show_completed_tasks, item.isChecked());
+                reconstructCursor();
+                TasksWidget.updateWidgets(getActivity());
+                return true;
+            case R.id.menu_filter_settings:
+                startActivityForResult(new Intent(getActivity(), FilterSettingsActivity.class) {{
+                    putExtra(FilterSettingsActivity.TOKEN_FILTER, filter);
+                }}, REQUEST_EDIT_FILTER);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @OnClick(R.id.fab)
+    void createNewTask() {
+        Task task = addTask("");
+        onTaskListItemClicked(task.getId());
     }
 
     public Task addTask(String title) {
@@ -241,19 +392,13 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     private void setupRefresh(SwipeRefreshLayout layout) {
         layout.setOnRefreshListener(this);
-        Resources resources = getResources();
-        layout.setColorSchemeColors(
-                resources.getColor(R.color.importance_1),
-                resources.getColor(R.color.importance_2),
-                resources.getColor(R.color.importance_3),
-                resources.getColor(R.color.importance_4));
+        layout.setColorSchemeColors(checkBoxes.getPriorityColorsArray());
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
-        setHasOptionsMenu(true);
         final ListView listView = getListView();
         registerForContextMenu(listView);
 
@@ -346,42 +491,9 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
         refreshFilterCount();
 
-        initiateAutomaticSync();
+        initiateAutomaticSyncImpl();
 
         refresh();
-    }
-
-    protected boolean isCurrentTaskListFragment() {
-        TaskListActivity activity = (TaskListActivity) getActivity();
-        if (activity != null) {
-            return activity.getTaskListFragment() == this;
-        }
-        return false;
-    }
-
-    public final void initiateAutomaticSync() {
-        final TaskListActivity activity = (TaskListActivity) getActivity();
-        if (activity == null) {
-            return;
-        }
-        if (activity.isDoublePaneLayout()) {
-            initiateAutomaticSyncImpl();
-        } else {
-            // In single fragment case, we're using swipe between lists,
-            // so wait a couple seconds before initiating the autosync.
-            new Thread() {
-                @Override
-                public void run() {
-                    AndroidUtilities.sleepDeep(WAIT_BEFORE_AUTOSYNC);
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            initiateAutomaticSyncImpl();
-                        }
-                    });
-                }
-            }.start();
-        }
     }
 
     /**
@@ -389,7 +501,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
      * the above method takes care of calling it in the correct way
      */
     protected void initiateAutomaticSyncImpl() {
-        if (isCurrentTaskListFragment() && BuiltInFilterExposer.isInbox(context, filter)) {
+        if (BuiltInFilterExposer.isInbox(context, filter)) {
             syncActionHelper.initiateAutomaticSync();
         }
     }
@@ -621,6 +733,75 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Callback<String> quickAddTask = new Callback<String>() {
+                    @Override
+                    public void apply(String title) {
+                        Task task = addTask(title);
+                        taskCreator.addToCalendar(task);
+                        onTaskListItemClicked(task.getId());
+                        loadTaskListContent();
+                        onTaskCreated(task.getId(), task.getUUID());
+                    }
+                };
+                voiceInputAssistant.handleActivityResult(data, quickAddTask);
+            }
+        } else if (requestCode == REQUEST_EDIT_TAG) {
+            if (resultCode == Activity.RESULT_OK) {
+                String action = data.getAction();
+                String uuid = data.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
+                if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
+                    TagData td = getActiveTagData();
+                    if (td != null && td.getUuid().equals(uuid)) {
+                        td = tagDataDao.fetch(uuid, TagData.PROPERTIES);
+                        if (td != null) {
+                            Filter filter = TagFilterExposer.filterFromTagData(getActivity(), td);
+                            ((TaskListActivity) getActivity()).onFilterItemClicked(filter);
+                        }
+                    } else {
+                        refresh();
+                    }
+                } else if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
+                    TagData tagData = getActiveTagData();
+                    String activeUuid = RemoteModel.NO_UUID;
+                    if (tagData != null) {
+                        activeUuid = tagData.getUuid();
+                    }
+                    if (activeUuid.equals(uuid)) {
+                        ((TaskListActivity) getActivity()).onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
+                        ((TaskListActivity) getActivity()).clearNavigationDrawer(); // Should auto refresh
+                    } else {
+                        refresh();
+                    }
+                }
+
+                ((TaskListActivity) getActivity()).refreshNavigationDrawer();
+            }
+        } else if (requestCode == REQUEST_EDIT_FILTER) {
+            if (resultCode == Activity.RESULT_OK) {
+                String action = data.getAction();
+                if (AstridApiConstants.BROADCAST_EVENT_FILTER_RENAMED.equals(action)) {
+                    CustomFilter customFilter = data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER);
+                    ((TaskListActivity) getActivity()).onFilterItemClicked(customFilter);
+                } else if(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
+                    ((TaskListActivity) getActivity()).onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
+                }
+
+                ((TaskListActivity) getActivity()).refreshNavigationDrawer();
+            }
+        } else if (requestCode == REQUEST_SORT) {
+            if (resultCode == Activity.RESULT_OK) {
+                TasksWidget.updateWidgets(getActivity());
+                ((TaskListActivity) getActivity()).onFilterItemClicked(filter);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
     public boolean onContextItemSelected(android.view.MenuItem item) {
         return onOptionsItemSelected(item);
     }
@@ -628,10 +809,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         long itemId;
-
-        if (!isCurrentTaskListFragment()) {
-            return false;
-        }
 
         switch (item.getItemId()) {
         // --- context menu items
@@ -677,7 +854,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     public void onTaskListItemClicked(long taskId) {
-        mListener.onTaskListItemClicked(taskId);
+        callbacks.onTaskListItemClicked(taskId);
     }
 
     protected boolean hasDraggableOption() {

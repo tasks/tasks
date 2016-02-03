@@ -17,4 +17,8 @@
     <item name="alpha_secondary_text_icons" format="float" type="dimen">0.54</item>
     <item name="alpha_disabled_hint_text" format="float" type="dimen">0.38</item>
     <item name="alpha_dividers" format="float" type="dimen">0.12</item>
+
+    <dimen name="elevation_toolbar">8dp</dimen>
+    <dimen name="elevation_task_list">6dp</dimen>
+    <dimen name="elevation_padding">0dp</dimen>
 </resources>

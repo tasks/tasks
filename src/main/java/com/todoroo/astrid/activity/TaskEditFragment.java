@@ -9,13 +9,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -70,7 +72,7 @@ import static android.app.Activity.RESULT_OK;
  * @author timsu
  *
  */
-public final class TaskEditFragment extends InjectingFragment implements EditNoteActivity.UpdatesChangedListener {
+public final class TaskEditFragment extends InjectingFragment implements EditNoteActivity.UpdatesChangedListener, Toolbar.OnMenuItemClickListener {
 
     public interface TaskEditFragmentCallbackHandler {
         void taskEditFinished();
@@ -108,10 +110,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     public static final int REQUEST_CODE_RECORD = 30; // TODO: move this to file control set
     public static final int REQUEST_CODE_CAMERA = 60;
 
-    // --- services
-
-    public static final int TAB_VIEW_UPDATES = 0;
-
     @Inject TaskService taskService;
     @Inject MetadataDao metadataDao;
     @Inject UserActivityDao userActivityDao;
@@ -130,6 +128,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     @Bind(R.id.updatesFooter) View commentsBar;
     @Bind(R.id.edit_scroll) ScrollView scrollView;
     @Bind(R.id.commentField) EditText commentField;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     public static final int[] rowIds = new int[] {
         R.id.row_1,
@@ -193,8 +192,24 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.task_edit_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_task_edit, container, false);
         ButterKnife.bind(this, view);
+
+        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_save_24dp));
+        DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
+        toolbar.setNavigationIcon(drawable);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
+        toolbar.inflateMenu(R.menu.task_edit_fragment);
+        Menu menu = toolbar.getMenu();
+        for (int i = 0 ; i < menu.size() ; i++) {
+            MenuColorizer.colorMenuItem(menu.getItem(i), getResources().getColor(android.R.color.white));
+        }
+        toolbar.setOnMenuItemClickListener(this);
 
         notificationManager.cancel(model.getId());
 
@@ -207,11 +222,24 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
 
 
     @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        hideKeyboard();
+
+        switch (item.getItemId()) {
+            case R.id.menu_record_note:
+                startRecordingAudio();
+                return true;
+            case R.id.menu_delete:
+                deleteButtonClick();
+                return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        // We have a menu item to show in action bar.
-        setHasOptionsMenu(true);
 
         // Load task data in background
         new TaskEditBackgroundLoader().start();
@@ -229,12 +257,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     }
 
     private void loadMoreContainer() {
-        int tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
-
-        if (!showEditComments) {
-            tabStyle &= ~TaskEditViewPager.TAB_SHOW_ACTIVITY;
-        }
-
         if (editNotes == null) {
             instantiateEditNotes();
         } else {
@@ -249,16 +271,16 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
             editNotes.addListener(this);
         }
 
-        if (tabStyle == 0) {
+        if (!showEditComments) {
             return;
         }
 
-        TaskEditViewPager adapter = new TaskEditViewPager(getActivity(), tabStyle);
+        TaskEditViewPager adapter = new TaskEditViewPager();
         adapter.parent = this;
 
         mPager.setAdapter(adapter);
 
-        setCurrentTab(TAB_VIEW_UPDATES);
+        setCurrentTab(0);
         setPagerHeightForPosition();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -445,40 +467,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        hideKeyboard();
-
-        switch (item.getItemId()) {
-            case R.id.menu_save:
-            save();
-            return true;
-        case R.id.menu_record_note:
-            startRecordingAudio();
-            return true;
-        case R.id.menu_delete:
-            deleteButtonClick();
-            return true;
-        case android.R.id.home:
-            save();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.task_edit_fragment, menu);
-        for (int i = 0 ; i < menu.size() ; i++) {
-            MenuColorizer.colorMenuItem(menu.getItem(i), getResources().getColor(android.R.color.white));
-        }
-        if (getResources().getBoolean(R.bool.two_pane_layout)) {
-            menu.findItem(R.id.menu_save).setVisible(true);
-        }
-    }
-
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (editNotes == null) {
             instantiateEditNotes();
@@ -538,7 +526,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     // EditNoteActivity Listener when there are new updates/comments
     @Override
     public void updatesChanged()  {
-        if (mPager != null && mPager.getCurrentItem() == TAB_VIEW_UPDATES) {
+        if (mPager != null) {
             setPagerHeightForPosition();
         }
     }
@@ -546,7 +534,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     // EditNoteActivity Lisener when there are new updates/comments
     @Override
     public void commentAdded() {
-        setCurrentTab(TAB_VIEW_UPDATES);
         setPagerHeightForPosition();
         scrollToView(editNotes);
     }

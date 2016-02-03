@@ -50,8 +50,6 @@
 	<string name="TEA_note_label">Notes</string>
 	<string name="TEA_estimatedDuration_label">Quant temps us portarà?</string>
 	<string name="TEA_elapsedDuration_label">Temps que ja s\'ha invertit en la Tasca</string>
-	<string name="TEA_menu_save">Desa els canvis</string>
-	<string name="TEA_tab_activity">Activitat</string>
 	<string name="TEA_no_time">cap hora</string>
 	<string name="due_date">Al finalitzar la data límit</string>
 	<string name="day_before_due">El dia abans del venciment</string>

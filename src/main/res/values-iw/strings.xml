@@ -53,8 +53,6 @@
 	<string name="TEA_note_label">תיאור</string>
 	<string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
 	<string name="TEA_elapsedDuration_label">זמן שכבר הושקע במשימה</string>
-	<string name="TEA_menu_save">שמירת השינויים</string>
-	<string name="TEA_tab_activity">פעילות</string>
 	<string name="TEA_timer_elap">זמן שעבר %s</string>
 	<string name="TEA_no_time">ללא שעה מסויימת</string>
 	<string name="due_date">עד ה</string>

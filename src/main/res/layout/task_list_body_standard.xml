@@ -1,12 +1,14 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swipe_layout"
+    style="@style/task_list_container"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="fill_parent"
+    android:elevation="@dimen/elevation_task_list">
 
     <ListView
         android:id="@android:id/list"
         style="@style/TaskListView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

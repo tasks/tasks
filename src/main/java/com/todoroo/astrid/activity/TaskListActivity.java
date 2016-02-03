@@ -11,65 +11,40 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeActivity;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.subtasks.SubtasksListFragment;
-import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
-import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
-import com.todoroo.astrid.voice.VoiceInputAssistant;
-import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.R;
-import org.tasks.activities.SortActivity;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
-import org.tasks.ui.MenuColorizer;
+import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.TaskEditControlFragment;
@@ -81,36 +56,25 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import timber.log.Timber;
 
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
-import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
 public class TaskListActivity extends InjectingAppCompatActivity implements
         OnFilterItemClickedListener,
-        TaskListFragment.OnTaskListItemClickedListener,
+        TaskListFragment.TaskListFragmentCallbackHandler,
         PriorityControlSet.OnPriorityChanged,
         TimerControlSet.TimerControlSetCallback,
         RepeatControlSet.RepeatChangedListener,
         TaskEditFragment.TaskEditFragmentCallbackHandler {
 
-    @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
-    @Inject VoiceInputAssistant voiceInputAssistant;
     @Inject StartupService startupService;
     @Inject SubtasksHelper subtasksHelper;
     @Inject TaskService taskService;
-    @Inject TaskCreator taskCreator;
-
-    @Bind(R.id.toolbar) Toolbar toolbar;
 
     public static final int REQUEST_UPGRADE = 505;
-    private static final int REQUEST_EDIT_TAG = 11543;
-    private static final int REQUEST_EDIT_FILTER = 11544;
-    private static final int REQUEST_SORT = 11545;
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver(this);
     private final Map<String, Integer> controlSetFragments = new HashMap<>();
@@ -132,23 +96,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         startupService.onStartupApplication(this);
         preferences.applyTheme();
 
-        setContentView(R.layout.task_list_wrapper);
-        ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
-        updateToolbar(R.drawable.ic_menu_24dp, true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TaskEditFragment taskEditFragment = getTaskEditFragment();
-                if (isDoublePaneLayout() || taskEditFragment == null) {
-                    hideKeyboard();
-                    navigationDrawer.openDrawer();
-                } else {
-                    taskEditFragment.save();
-                }
-            }
-        });
+        setContentView(R.layout.task_list_activity);
 
         navigationDrawer = getNavigationDrawerFragment();
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -224,14 +172,18 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         loadTaskListFragment(true, taskListFragment);
 
+        if (isDoublePaneLayout()) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.detail_dual, new EmptyTaskEditFragment())
+                    .commit();
+        }
+
         if (taskEditFragment != null) {
             loadTaskEditFragment(true, taskEditFragment, taskEditControlFragments);
         }
     }
 
     private void loadTaskListFragment(boolean onCreate, TaskListFragment taskListFragment) {
-        Filter filter = taskListFragment.getFilter();
-        getSupportActionBar().setTitle(filter.listingTitle);
         FragmentManager fragmentManager = getFragmentManager();
         if (onCreate) {
             fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -245,9 +197,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     private void loadTaskEditFragment(boolean onCreate, TaskEditFragment taskEditFragment, List<TaskEditControlFragment> taskEditControlFragments) {
-        if (isSinglePaneLayout()) {
-            updateToolbar(R.drawable.ic_save_24dp, false);
-        }
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.detail_dual : R.id.single_pane, taskEditFragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
@@ -287,74 +236,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         super.onPause();
 
         AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.task_list_activity, menu);
-        MenuColorizer.colorMenu(this, menu, getResources().getColor(android.R.color.white));
-        TaskListFragment tlf = getTaskListFragment();
-        MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
-        if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
-            hidden.setChecked(true);
-        }
-        MenuItem completed = menu.findItem(R.id.menu_show_completed);
-        if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
-            completed.setChecked(true);
-        }
-        if (tlf instanceof GtasksListFragment) {
-            menu.findItem(R.id.menu_clear_completed).setVisible(true);
-            menu.findItem(R.id.menu_sort).setVisible(false);
-            completed.setChecked(true);
-            completed.setEnabled(false);
-        } else if(tlf instanceof TagViewFragment) {
-            menu.findItem(R.id.menu_tag_settings).setVisible(true);
-        } else if (tlf != null) {
-            Filter filter = tlf.getFilter();
-            if(filter != null && filter instanceof CustomFilter && ((CustomFilter) filter).getId() > 0) {
-                menu.findItem(R.id.menu_filter_settings).setVisible(true);
-            }
-        }
-
-        if (tlf instanceof SubtasksTagListFragment || tlf instanceof SubtasksListFragment) {
-            hidden.setChecked(true);
-            hidden.setEnabled(false);
-        }
-
-        menu.findItem(R.id.menu_voice_add).setVisible(voiceInputAvailable(this));
-        final MenuItem item = menu.findItem(R.id.menu_search);
-        final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
-        actionView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                query = query.trim();
-                String title = getString(R.string.FLA_search_filter, query);
-                Filter savedFilter = new Filter(title,
-                        new QueryTemplate().where
-                                (Criterion.or(Task.NOTES.
-                                                        like(
-                                                                "%" + //$NON-NLS-1$
-                                                                        query + "%"
-                                                        ),
-                                                Task.TITLE.
-                                                        like(
-                                                                "%" + //$NON-NLS-1$
-                                                                        query + "%"
-                                                        )
-                                        )
-                                ), null);
-
-                onFilterItemClicked(savedFilter);
-                MenuItemCompat.collapseActionView(item);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                return false;
-            }
-        });
-        return true;
     }
 
     protected Filter getDefaultFilter() {
@@ -477,6 +358,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         loadTaskEditFragment(false, taskEditFragment, taskEditControlFragments);
     }
 
+    @Override
+    public void onNavigationIconClicked() {
+        hideKeyboard();
+        navigationDrawer.openDrawer();
+    }
+
     private void registerFragment(int resId) {
         controlSetFragments.put(getString(resId), resId);
     }
@@ -531,21 +418,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Callback<String> quickAddTask = new Callback<String>() {
-            @Override
-            public void apply(String title) {
-                TaskListFragment taskListFragment = getTaskListFragment();
-                Task task = taskListFragment.addTask(title);
-                taskCreator.addToCalendar(task);
-                onTaskListItemClicked(task.getId());
-                taskListFragment.loadTaskListContent();
-                taskListFragment.onTaskCreated(task.getId(), task.getUUID());
-            }
-        };
-        if (voiceInputAssistant.handleActivityResult(requestCode, resultCode, data, quickAddTask)) {
-            return;
-        }
-
         if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
                 requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
                 resultCode == Activity.RESULT_OK) {
@@ -560,59 +432,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             }
 
             navigationDrawer.refresh();
-        } else if (requestCode == REQUEST_EDIT_TAG) {
-            if (resultCode == RESULT_OK) {
-                String action = data.getAction();
-                String uuid = data.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
-                TaskListFragment tlf = getTaskListFragment();
-                if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
-                    if (tlf != null) {
-                        TagData td = tlf.getActiveTagData();
-                        if (td != null && td.getUuid().equals(uuid)) {
-                            td = tagDataDao.fetch(uuid, TagData.PROPERTIES);
-                            if (td != null) {
-                                Filter filter = TagFilterExposer.filterFromTagData(this, td);
-                                onFilterItemClicked(filter);
-                            }
-                        } else {
-                            tlf.refresh();
-                        }
-                    }
-                } else if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
-                    if (tlf != null) {
-                        TagData tagData = tlf.getActiveTagData();
-                        String activeUuid = RemoteModel.NO_UUID;
-                        if (tagData != null) {
-                            activeUuid = tagData.getUuid();
-                        }
-                        if (activeUuid.equals(uuid)) {
-                            onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
-                            navigationDrawer.clear(); // Should auto refresh
-                        } else {
-                            tlf.refresh();
-                        }
-                    }
-                }
-
-                navigationDrawer.refresh();
-            }
-        } else if (requestCode == REQUEST_EDIT_FILTER) {
-            if (resultCode == RESULT_OK) {
-                String action = data.getAction();
-                if (AstridApiConstants.BROADCAST_EVENT_FILTER_RENAMED.equals(action)) {
-                    CustomFilter customFilter = data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER);
-                    onFilterItemClicked(customFilter);
-                } else if(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
-                    onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
-                }
-
-                navigationDrawer.refresh();
-            }
-        } else if (requestCode == REQUEST_SORT) {
-            if (resultCode == RESULT_OK) {
-                TasksWidget.updateWidgets(this);
-                onFilterItemClicked(getTaskListFragment().getFilter());
-            }
         } else if (requestCode == REQUEST_UPGRADE) {
             if (resultCode == RESULT_OK) {
                 if (data != null && data.getBooleanExtra(UpgradeActivity.EXTRA_RESTART, false)) {
@@ -624,6 +443,14 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void refreshNavigationDrawer() {
+        navigationDrawer.refresh();
+    }
+
+    public void clearNavigationDrawer() {
+        navigationDrawer.clear();
     }
 
     protected void tagsChanged() {
@@ -642,44 +469,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         navigationDrawer.refreshFilterCount();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        final TaskListFragment tlf = getTaskListFragment();
-        switch(item.getItemId()) {
-            case R.id.menu_voice_add:
-                voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
-                return true;
-            case R.id.menu_sort:
-                startActivityForResult(new Intent(this, SortActivity.class) {{
-                    putExtra(SortActivity.EXTRA_MANUAL_ENABLED, tlf.hasDraggableOption());
-                }}, REQUEST_SORT);
-                return true;
-            case R.id.menu_tag_settings:
-                startActivityForResult(new Intent(this, TagSettingsActivity.class) {{
-                    putExtra(TagSettingsActivity.EXTRA_TAG_DATA, getTaskListFragment().getActiveTagData());
-                }}, REQUEST_EDIT_TAG);
-                return true;
-            case R.id.menu_show_hidden:
-                item.setChecked(!item.isChecked());
-                preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked());
-                tlf.reconstructCursor();
-                TasksWidget.updateWidgets(this);
-                return true;
-            case R.id.menu_show_completed:
-                item.setChecked(!item.isChecked());
-                preferences.setBoolean(R.string.p_show_completed_tasks, item.isChecked());
-                tlf.reconstructCursor();
-                TasksWidget.updateWidgets(this);
-                return true;
-            case R.id.menu_filter_settings:
-                startActivityForResult(new Intent(this, FilterSettingsActivity.class) {{
-                    putExtra(FilterSettingsActivity.TOKEN_FILTER, tlf.getFilter());
-                }}, REQUEST_EDIT_FILTER);
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     public TaskListFragment getTaskListFragment() {
         return (TaskListFragment) getFragmentManager()
                 .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
@@ -688,17 +477,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     public TaskEditFragment getTaskEditFragment() {
         return (TaskEditFragment) getFragmentManager()
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
-    }
-
-    protected void updateToolbar(int drawableResId, boolean showTitle) {
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setDisplayShowTitleEnabled(showTitle);
-            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(drawableResId));
-            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
-            supportActionBar.setHomeAsUpIndicator(drawable);
-        }
     }
 
     protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
@@ -781,9 +559,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void taskEditFinished() {
         getFragmentManager().popBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        if (isSinglePaneLayout()) {
-            updateToolbar(R.drawable.ic_menu_24dp, true);
-        }
         hideKeyboard();
     }
 

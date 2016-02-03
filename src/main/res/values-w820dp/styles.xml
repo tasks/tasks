@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="task_list_container" parent="task_list_container_base">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:paddingRight">@dimen/elevation_padding</item>
+        <item name="android:paddingEnd">@dimen/elevation_padding</item>
+    </style>
+</resources>
