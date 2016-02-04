@@ -24,6 +24,8 @@
 	<string name="import_file_prompt">Seleziona un file da ripristinare</string>
 	<string name="read_permission_label">Permessi Tasks</string>
 	<string name="write_permission_label">Permessi Tasks</string>
+	<string name="discard_confirmation">Sicuro di voler annullare tutte le modifiche?</string>
+	<string name="keep_editing">Continua modifica</string>
 	<string name="DLG_delete_this_task_question">Eliminare questa attività?</string>
 	<string name="DLG_upgrading">Aggiornare le attività ...</string>
 	<string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
@@ -384,6 +386,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="doze_notifications">Le notifiche interrompono il pisolino</string>
 	<string name="doze_notifications_off">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
 	<string name="doze_notifications_on">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
+	<string name="no_title">(nessun titolo)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

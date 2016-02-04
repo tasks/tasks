@@ -27,6 +27,8 @@
 	<string name="import_file_prompt">Изберете файл за възстановяване</string>
 	<string name="read_permission_label">Tasks Разрешение</string>
 	<string name="write_permission_label">Tasks Разрешение</string>
+	<string name="discard_confirmation">Сигурни ли сте че искате да отхвърлите промените си?</string>
+	<string name="keep_editing">Продължаване на редактиране</string>
 	<string name="DLG_delete_this_task_question">Изтриване на тази задача?</string>
 	<string name="DLG_upgrading">Обновяване на твоите задачи...</string>
 	<string name="DLG_hour_minutes">Време (часове: минути)</string>
@@ -391,6 +393,7 @@
 	<string name="doze_notifications">Прекъсване на Doze режим за уведомления</string>
 	<string name="doze_notifications_off">Android значително ще забави уведомленията когато устройството е в Doze режим</string>
 	<string name="doze_notifications_on">Android ще позволява ограничен брой прекъсвания когато устройството е в Doze режим</string>
+	<string name="no_title">(Без заглавие)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>
