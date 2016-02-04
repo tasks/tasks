@@ -158,7 +158,7 @@ public class Notifier {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), new Intent(context, TaskListActivity.class) {{
             setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-            putExtra(TaskListFragment.TOKEN_FILTER, new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
+            putExtra(TaskListActivity.OPEN_FILTER, new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
         }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(context)

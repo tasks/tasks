@@ -4,11 +4,13 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_row"
+    android:clickable="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/completeBox"
+        android:id="@+id/widget_complete_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -20,7 +22,6 @@
         android:paddingEnd="5dp"/>
 
     <LinearLayout
-        android:id="@+id/widget_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -28,7 +29,7 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/widget_text"
             style="@style/TextAppearance.Widget"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -37,7 +38,7 @@
             android:singleLine="true" />
 
         <TextView
-            android:id="@+id/dueDate"
+            android:id="@+id/widget_due_date"
             style="@style/TextAppearance.WidgetDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

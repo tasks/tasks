@@ -340,7 +340,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      * ======================================================================
      */
 
-    private List<TaskEditControlFragment> getFragments() {
+    public List<TaskEditControlFragment> getFragments() {
         List<TaskEditControlFragment> fragments = new ArrayList<>();
         for (int fragmentId : rowIds) {
             TaskEditControlFragment fragment = (TaskEditControlFragment) getFragmentManager().findFragmentById(fragmentId);

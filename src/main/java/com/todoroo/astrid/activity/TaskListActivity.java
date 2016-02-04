@@ -86,7 +86,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     public static final String TOKEN_CREATE_NEW_LIST = "createNewList"; //$NON-NLS-1$
     public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
 
-    public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
+    public static final String OPEN_FILTER = "open_filter"; //$NON-NLS-1$
+    public static final String OPEN_TASK = "open_task"; //$NON-NLS-1$
 
     /**
      * @see android.app.Activity#onCreate(Bundle)
@@ -118,7 +119,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         controlOrder = BeastModePreferences.constructOrderedControlList(preferences, this);
         controlOrder.add(0, getString(EditTitleControlSet.TAG));
 
-        readIntent();
+        handleIntent();
     }
 
     @Override
@@ -127,51 +128,35 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         setIntent(intent);
 
-        readIntent();
+        handleIntent();
     }
 
-    private void readIntent() {
+    private void handleIntent() {
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            extras = (Bundle) extras.clone();
-        }
-
-        if (extras == null) {
-            extras = new Bundle();
-        }
-
-        TaskListFragment taskListFragment;
-        if (intent.hasExtra(TaskListFragment.TOKEN_FILTER)) {
-            Filter filter = intent.getParcelableExtra(TaskListFragment.TOKEN_FILTER);
-            extras.putAll(configureIntentAndExtrasWithFilter(intent, filter));
-            taskListFragment = newTaskListFragment(filter, extras);
-            intent.removeExtra(TaskListFragment.TOKEN_FILTER);
-        } else {
-            taskListFragment = getTaskListFragment();
-            if (taskListFragment == null) {
-                Filter filter = getDefaultFilter();
-                Bundle bundle = configureIntentAndExtrasWithFilter(intent, filter);
-                if (bundle != null) {
-                    extras.putAll(bundle);
-                }
-                taskListFragment = newTaskListFragment(filter, extras);
-            }
-        }
 
         TaskEditFragment taskEditFragment = getTaskEditFragment();
         List<TaskEditControlFragment> taskEditControlFragments = new ArrayList<>();
         if (taskEditFragment != null) {
-            for (int rowId : TaskEditFragment.rowIds) {
-                TaskEditControlFragment fragment = (TaskEditControlFragment) getFragmentManager().findFragmentById(rowId);
-                if (fragment == null) {
-                    break;
-                }
-                taskEditControlFragments.add(fragment);
+            if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(OPEN_TASK)) {
+                taskEditFragment.save();
+                taskEditFragment = null;
+            } else {
+                taskEditControlFragments.addAll(taskEditFragment.getFragments());
             }
         }
 
-        loadTaskListFragment(true, taskListFragment);
+        TaskListFragment taskListFragment;
+        if (intent.hasExtra(OPEN_FILTER)) {
+            Filter filter = intent.getParcelableExtra(OPEN_FILTER);
+            intent.removeExtra(OPEN_FILTER);
+            taskListFragment = newTaskListFragment(filter);
+        } else {
+            taskListFragment = getTaskListFragment();
+            if (taskListFragment == null) {
+                taskListFragment = newTaskListFragment(getDefaultFilter());
+            }
+        }
+        loadTaskListFragment(taskListFragment);
 
         if (isDoublePaneLayout()) {
             getFragmentManager().beginTransaction()
@@ -184,13 +169,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         }
     }
 
-    private void loadTaskListFragment(boolean onCreate, TaskListFragment taskListFragment) {
+    private void loadTaskListFragment(TaskListFragment taskListFragment) {
         FragmentManager fragmentManager = getFragmentManager();
-        if (onCreate) {
-            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        } else {
-            fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
+        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .addToBackStack(TaskListFragment.TAG_TASKLIST_FRAGMENT)
@@ -256,7 +237,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         }
     }
 
-    private TaskListFragment newTaskListFragment(Filter filter, Bundle extras) {
+    private TaskListFragment newTaskListFragment(Filter filter) {
         Class<?> customTaskList = null;
 
         if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
@@ -283,7 +264,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             Timber.e(e, e.getMessage());
             newFragment = new TaskListFragment();
         }
-        newFragment.initialize(filter, extras);
+        newFragment.initialize(filter);
         return newFragment;
     }
 
@@ -292,17 +273,14 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         super.onPostResume();
 
         if (getIntent().hasExtra(OPEN_TASK)) {
-            long id = getIntent().getLongExtra(OPEN_TASK, 0);
-            if (id > 0) {
-                onTaskListItemClicked(id);
-            } else {
-                TaskListFragment tlf = getTaskListFragment();
-                if (tlf != null) {
-                    Task task = tlf.addTask("");//$NON-NLS-1$
-                    onTaskListItemClicked(task.getId());
-                }
-            }
+            long taskId = getIntent().getLongExtra(OPEN_TASK, 0);
             getIntent().removeExtra(OPEN_TASK);
+            if (taskId > 0) {
+                onTaskListItemClicked(taskId);
+            } else {
+                Task task = getTaskListFragment().addTask("");
+                onTaskListItemClicked(task.getId());
+            }
         }
 
         if (getIntent().getBooleanExtra(TOKEN_CREATE_NEW_LIST, false)) {
@@ -470,25 +448,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     public TaskEditFragment getTaskEditFragment() {
         return (TaskEditFragment) getFragmentManager()
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
-    }
-
-    protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
-        Bundle extras;
-        if(filter instanceof FilterWithCustomIntent) {
-            Intent customIntent = ((FilterWithCustomIntent)filter).getCustomIntent();
-            customIntent.putExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, intent.getIntExtra(NavigationDrawerFragment.TOKEN_LAST_SELECTED, 0));
-            if (intent.hasExtra(OPEN_TASK)) {
-                customIntent.putExtra(OPEN_TASK, intent.getLongExtra(OPEN_TASK, 0));
-            }
-            setIntent(customIntent);
-            extras = customIntent.getExtras();
-        } else {
-            extras = intent.getExtras();
-        }
-        if (extras != null) {
-            extras = (Bundle) extras.clone();
-        }
-        return extras;
     }
 
     /**

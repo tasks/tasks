@@ -77,35 +77,25 @@ public class WidgetHelper {
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
         remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id));
         remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filter, id));
-        remoteViews.setPendingIntentTemplate(R.id.list_view, getFillInIntent(context, filter, id));
+        remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
         return remoteViews;
     }
 
-    private PendingIntent getFillInIntent(Context context, Filter filter, int widgetId) {
+    private PendingIntent getPendingIntentTemplate(Context context) {
         Intent intent = new Intent(context, TasksWidget.class);
-        if (filter != null && filter instanceof FilterWithCustomIntent) {
-            Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
-            intent.putExtras(customExtras);
-        }
-        return PendingIntent.getBroadcast(context, -widgetId, intent, 0);
+        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     public PendingIntent getOpenListIntent(Context context, Filter filter, int widgetId) {
-        Intent listIntent = TaskIntents.getTaskListIntent(context, filter);
-        listIntent.setFlags(flags);
-        String customIntent = preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT + widgetId);
-        if (customIntent != null) {
-            String serializedExtras = preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId);
-            Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
-            listIntent.putExtras(extras);
-        }
-        return PendingIntent.getActivity(context, widgetId, listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        Intent intent = TaskIntents.getTaskListIntent(context, filter);
+        intent.setFlags(flags);
+        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    public PendingIntent getNewTaskIntent(Context context, Filter filter, int id) {
+    public PendingIntent getNewTaskIntent(Context context, Filter filter, int widgetId) {
         Intent intent = TaskIntents.getNewTaskIntent(context, filter);
         intent.setFlags(flags);
-        return PendingIntent.getActivity(context, -id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        return PendingIntent.getActivity(context, -widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     public Filter getFilter(Context context, int widgetId) {
@@ -151,12 +141,10 @@ public class WidgetHelper {
                     contentValuesString = AndroidUtilities.contentValuesToSerializedString(newTaskValues);
                 }
                 preferences.setString(WidgetConfigActivity.PREF_VALUES + widgetId, contentValuesString);
-                if (filter != null) {
-                    String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent) filter).customExtras);
-                    if (flattenedExtras != null) {
-                        preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId,
-                                flattenedExtras);
-                    }
+                String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent) filter).customExtras);
+                if (flattenedExtras != null) {
+                    preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId,
+                            flattenedExtras);
                 }
             }
         } else {

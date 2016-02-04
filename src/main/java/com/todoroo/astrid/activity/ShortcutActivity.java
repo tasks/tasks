@@ -122,7 +122,7 @@ public class ShortcutActivity extends InjectingAppCompatActivity {
             } else {
                 filter = new Filter(title, sql, values);
             }
-            taskListIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+            taskListIntent.putExtra(TaskListActivity.OPEN_FILTER, filter);
         }
 
         startActivity(taskListIntent);

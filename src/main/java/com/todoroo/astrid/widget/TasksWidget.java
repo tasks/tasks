@@ -34,7 +34,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     public static final String EDIT_TASK = "EDIT_TASK";
 
     public static final String EXTRA_FILTER = "extra_filter";
-    public static final String EXTRA_ID = "id"; //$NON-NLS-1$
+    public static final String EXTRA_ID = "extra_id"; //$NON-NLS-1$
 
     public static long suppressUpdateFlag = 0; // Timestamp--don't update widgets if this flag is non-zero and now() is within 5 minutes
     private static final long SUPPRESS_TIME = DateUtilities.ONE_MINUTE * 5;
@@ -48,11 +48,9 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 broadcaster.toggleCompletedState(intent.getLongExtra(EXTRA_ID, 0));
                 break;
             case EDIT_TASK:
-                getEditTaskStack(
-                        context,
-                        (Filter) intent.getParcelableExtra(EXTRA_FILTER),
-                        intent.getLongExtra(EXTRA_ID, 0))
-                        .startActivities();
+                long taskId = intent.getLongExtra(EXTRA_ID, 0);
+                Filter filter = intent.getParcelableExtra(EXTRA_FILTER);
+                getEditTaskStack(context, filter, taskId).startActivities();
                 break;
             case BROADCAST_EVENT_REFRESH:
                 updateWidgets(context);

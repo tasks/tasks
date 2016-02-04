@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -202,7 +201,7 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
                         FilterWithCustomIntent filter = TagFilterExposer.filterFromTagData(CalendarReminderActivity.this, tag);
 
                         Intent listIntent = new Intent(CalendarReminderActivity.this, TaskListActivity.class);
-                        listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+                        listIntent.putExtra(TaskListActivity.OPEN_FILTER, filter);
                         listIntent.putExtras(filter.customExtras);
 
                         startActivity(listIntent);

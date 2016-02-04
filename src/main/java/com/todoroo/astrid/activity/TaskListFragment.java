@@ -52,6 +52,7 @@ import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -127,11 +128,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     protected static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
     protected static final int CONTEXT_MENU_UNDELETE_TASK_ID = R.string.TAd_contextUndeleteTask;
     protected static final int CONTEXT_MENU_PURGE_TASK_ID = R.string.TAd_contextPurgeTask;
-
-    // --- constants
-
-    /** token for passing a {@link Filter} object through extras */
-    public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -226,9 +222,11 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         setTaskAdapter();
     }
 
-    public void initialize(Filter filter, Bundle extras) {
+    public void initialize(Filter filter) {
         this.filter = filter;
-        this.extras = extras;
+        this.extras = filter instanceof FilterWithCustomIntent
+                ? ((FilterWithCustomIntent) filter).getCustomIntent().getExtras()
+                : new Bundle();
     }
 
     @Override
