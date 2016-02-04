@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
@@ -77,46 +75,13 @@ public class WidgetHelper {
         remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
         remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
-        PendingIntent listIntent = getOpenListIntent(context, filter, id);
-        if (listIntent != null) {
-            remoteViews.setOnClickPendingIntent(R.id.widget_title, listIntent);
-        }
-        PendingIntent newTaskIntent = getNewTaskIntent(context, filter, id);
-        if (newTaskIntent != null) {
-            remoteViews.setOnClickPendingIntent(R.id.widget_button, newTaskIntent);
-        }
-        PendingIntent editTaskIntent = getEditTaskIntent(context, filter, id);
-        if (editTaskIntent != null) {
-            remoteViews.setPendingIntentTemplate(R.id.list_view, editTaskIntent);
-        }
+        remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filter, id));
+        remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filter, id));
+        remoteViews.setPendingIntentTemplate(R.id.list_view, getFillInIntent(context, filter, id));
         return remoteViews;
     }
 
-    public PendingIntent getOpenListIntent(Context context, Filter filter, int widgetId) {
-        Intent listIntent = new Intent(context, TaskListActivity.class);
-        String customIntent = preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
-                + widgetId);
-        if (customIntent != null) {
-            String serializedExtras = preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
-                    + widgetId);
-            Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
-            listIntent.putExtras(extras);
-        }
-        listIntent.setFlags(flags);
-        if (filter != null) {
-            listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            listIntent.setAction("L" + widgetId + filter.getSqlQuery());
-        } else {
-            listIntent.setAction("L" + widgetId);
-        }
-        if (filter instanceof FilterWithCustomIntent) {
-            listIntent.putExtras(((FilterWithCustomIntent) filter).customExtras);
-        }
-
-        return PendingIntent.getActivity(context, widgetId, listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-    }
-
-    private PendingIntent getEditTaskIntent(Context context, Filter filter, int widgetId) {
+    private PendingIntent getFillInIntent(Context context, Filter filter, int widgetId) {
         Intent intent = new Intent(context, TasksWidget.class);
         if (filter != null && filter instanceof FilterWithCustomIntent) {
             Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
@@ -125,14 +90,25 @@ public class WidgetHelper {
         return PendingIntent.getBroadcast(context, -widgetId, intent, 0);
     }
 
+    public PendingIntent getOpenListIntent(Context context, Filter filter, int widgetId) {
+        Intent listIntent = TaskIntents.getTaskListIntent(context, filter);
+        listIntent.setFlags(flags);
+        String customIntent = preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT + widgetId);
+        if (customIntent != null) {
+            String serializedExtras = preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + widgetId);
+            Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
+            listIntent.putExtras(extras);
+        }
+        return PendingIntent.getActivity(context, widgetId, listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+    }
+
     public PendingIntent getNewTaskIntent(Context context, Filter filter, int id) {
         Intent intent = TaskIntents.getNewTaskIntent(context, filter);
         intent.setFlags(flags);
-        return PendingIntent.getActivity(context, -id, intent, 0);
+        return PendingIntent.getActivity(context, -id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     public Filter getFilter(Context context, int widgetId) {
-
         // base our filter off the inbox filter, replace stuff if we have it
         Filter filter = BuiltInFilterExposer.getMyTasksFilter(context.getResources());
         String sql = preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);

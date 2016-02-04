@@ -1,12 +1,10 @@
 package org.tasks.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -14,7 +12,6 @@ import android.widget.RemoteViewsService;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
@@ -31,7 +28,6 @@ import org.tasks.ui.WidgetCheckBoxes;
 
 import timber.log.Timber;
 
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final WidgetCheckBoxes checkBoxes;
@@ -158,7 +154,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             row.setTextViewText(R.id.text, textContent);
             row.setTextColor(R.id.text, textColor);
             row.setImageViewBitmap(R.id.completeBox, getCheckbox(task));
-            row.setOnClickFillInIntent(R.id.text, new Intent() {{
+            row.setOnClickFillInIntent(R.id.widget_body, new Intent() {{
                 setAction(TasksWidget.EDIT_TASK);
                 putExtra(TasksWidget.EXTRA_FILTER, filter);
                 putExtra(TasksWidget.EXTRA_ID, taskId);

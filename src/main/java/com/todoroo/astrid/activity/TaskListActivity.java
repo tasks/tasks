@@ -39,6 +39,7 @@ import com.todoroo.astrid.ui.ReminderControlSet;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.ui.CalendarControlSet;
@@ -250,16 +251,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             getTaskEditFragment().save();
         }
 
-        // If showing both fragments, directly update the tasklist-fragment
-        Intent intent = getIntent();
-
         if(item instanceof Filter) {
-            Filter filter = (Filter)item;
-
-            Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
-            TaskListFragment newFragment = newTaskListFragment(filter, extras);
-
-            loadTaskListFragment(false, newFragment);
+            startActivity(TaskIntents.getTaskListIntent(this, (Filter) item));
         }
     }
 
@@ -546,10 +539,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public Task startTimer() {
         return getTaskEditFragment().startTimer();
-    }
-
-    public boolean isSinglePaneLayout() {
-        return !isDoublePaneLayout();
     }
 
     public boolean isDoublePaneLayout() {
