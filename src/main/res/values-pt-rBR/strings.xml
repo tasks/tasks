@@ -99,9 +99,7 @@
 	<string name="EPr_appearance_header">Aparência</string>
 	<string name="EPr_filters_to_show_title">Filtros a mostrar</string>
 	<string name="EPr_edit_screen_options">Editar opções da tela</string>
-	<string name="EPr_beastMode_desc">Personalize o layout da tela de edição</string>
 	<string name="EPr_beastMode_reset">Restaurar valores padrão</string>
-	<string name="EPr_beastMode_hint">Personalize suas tarefas na tela de edição arrastando-as para a esquerda</string>
 	<string name="EPr_fullTask_title">Exibir título completo</string>
 	<string name="EPr_show_task_edit_comments">Mostrar comentários na edição de tarefas</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Hora do evento</string>

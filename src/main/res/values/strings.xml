@@ -339,12 +339,8 @@ File %1$s contained %2$s.\n\n
     <!-- Edit screen preference category -->
     <string name="EPr_edit_screen_options">Edit screen options</string>
 
-    <!-- slide 35h -->
-    <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
     <!-- slide 35j -->
     <string name="EPr_beastMode_reset">Reset to defaults</string>
-
-    <string name="EPr_beastMode_hint">Customize your task edit screen by dragging the left handle on each row</string>
 
     <!-- slide 34b: Preferences: Wrap task titles to two lines -->
     <string name="EPr_fullTask_title">Show full task title</string>

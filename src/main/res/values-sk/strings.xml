@@ -108,9 +108,7 @@
 	<string name="EPr_appearance_header">Vzhľad</string>
 	<string name="EPr_filters_to_show_title">Filtre pre zobrazenie</string>
 	<string name="EPr_edit_screen_options">Možnosti úprav zobrazenia</string>
-	<string name="EPr_beastMode_desc">Prispôsobiť rozvrhnutie zobrazenia úpravy úloh</string>
 	<string name="EPr_beastMode_reset">Obnoviť na predvolené</string>
-	<string name="EPr_beastMode_hint">Prispôsob si rozvrhnutie zobrazenia úpravy úloh potiahnutím ľavej rukoväte na každom riadku</string>
 	<string name="EPr_fullTask_title">Zobraziť celý názov úlohy</string>
 	<string name="EPr_show_task_edit_comments">Zobraziť komentáre pri úprave úlohy</string>
 	<string name="task_list_options">Nastavenia zoznamu úloh</string>

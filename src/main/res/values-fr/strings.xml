@@ -109,9 +109,7 @@
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
 	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
-	<string name="EPr_beastMode_desc">Personnaliser la disposition de l\'écran d\'édition de tâche</string>
 	<string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
-	<string name="EPr_beastMode_hint">Personnalisez votre écran d\'ajout de tâche en faisant glisser chaque ligne vers la gauche</string>
 	<string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
 	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
 	<string name="task_list_options">Options de la liste des tâches</string>

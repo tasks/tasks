@@ -112,9 +112,7 @@
 	<string name="EPr_appearance_header">Aspetto</string>
 	<string name="EPr_filters_to_show_title">Filtri da visualizzare</string>
 	<string name="EPr_edit_screen_options">Modifica opzioni schermo</string>
-	<string name="EPr_beastMode_desc">Personalizza il layout della schermata di modifica attività</string>
 	<string name="EPr_beastMode_reset">Ripristina predefiniti</string>
-	<string name="EPr_beastMode_hint">Personalizza la schermata di modifica attività trascinando l’indicatore a sinistra di ogni riga</string>
 	<string name="EPr_fullTask_title">Visualizza titolo completo dell\'attività</string>
 	<string name="EPr_show_task_edit_comments">Mostra i commenti in modifica</string>
 	<string name="task_list_options">Opzioni elenco attività</string>

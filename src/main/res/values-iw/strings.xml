@@ -99,7 +99,6 @@
 	<string name="EPr_appearance_header">חזות</string>
 	<string name="EPr_filters_to_show_title">אילו מַסְנְנִים להציג</string>
 	<string name="EPr_edit_screen_options">עריכת אפשרויות מסך</string>
-	<string name="EPr_beastMode_desc">התאם אישית את מסך עריכת משימה</string>
 	<string name="EPr_beastMode_reset">אפס להגדרות ברירת מחדל</string>
 	<string name="EPr_fullTask_title">הצג כותרת מלאה</string>
 	<string name="EPr_show_task_edit_comments">הצגת הערות בעריכת משימה</string>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tasks="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_reset_to_defaults"
+        android:title="@string/EPr_beastMode_reset"
+        tasks:showAsAction="ifRoom" />
+</menu>

@@ -83,7 +83,6 @@
 	<string name="CRA_dont_invite">Hayır teşekkürler</string>
 	<string name="CRA_list_created_title">Liste oluşturuldu!</string>
 	<string name="EPr_appearance_header">Görünüm</string>
-	<string name="EPr_beastMode_desc">Görev Düzenleme Ekranı yerleşimini özelleştir</string>
 	<string name="EPr_beastMode_reset">Varsayılanlara sıfırla</string>
 	<string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
 	<string name="EPr_manage_header">Eski Görevleri Yönet</string>

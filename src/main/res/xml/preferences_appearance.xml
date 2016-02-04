@@ -23,11 +23,9 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/EPr_edit_screen_options">
-        <Preference android:title="@string/customize_edit_screen">
-            <intent
-                android:targetClass="com.todoroo.astrid.activity.BeastModePreferences"
-                android:targetPackage="org.tasks" />
-        </Preference>
+        <Preference
+            android:key="@string/customize_edit_screen"
+            android:title="@string/customize_edit_screen"/>
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="true"

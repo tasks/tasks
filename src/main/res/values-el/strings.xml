@@ -100,9 +100,7 @@
 	<string name="EPr_appearance_header">Εμφάνιση</string>
 	<string name="EPr_filters_to_show_title">Φίλτρα για εμφάνιση</string>
 	<string name="EPr_edit_screen_options">Επεξεργασία επιλογών εμφάνισης</string>
-	<string name="EPr_beastMode_desc">Προσαρμόστε τη διάταξη της οθόνης επεξεργασίας της εργασίας</string>
 	<string name="EPr_beastMode_reset">Επαναφορά προεπιλογών</string>
-	<string name="EPr_beastMode_hint">Προσαρμόστε τη διάταξη της οθόνης επεξεργασίας της εργασίας τραβώντας την αριστερή λαβή σε κάθε σειρά</string>
 	<string name="EPr_fullTask_title">Εμφάνισε πλήρη τίτλο εργασίας</string>
 	<string name="EPr_show_task_edit_comments">Εμφάνιση σχόλιων στην επεξεργασία εργασίας</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Ώρα γεγονότος ημερολογίου</string>

@@ -7,20 +7,25 @@ package com.todoroo.astrid.activity;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingListActivity;
+import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
 
@@ -30,7 +35,13 @@ import java.util.HashMap;
 
 import javax.inject.Inject;
 
-public class BeastModePreferences extends InjectingListActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class BeastModePreferences extends InjectingAppCompatActivity {
+
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(android.R.id.list) TouchListView touchList;
 
     private ArrayAdapter<String> adapter;
 
@@ -47,14 +58,29 @@ public class BeastModePreferences extends InjectingListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyLightStatusBarColor();
+        preferences.applyThemeAndStatusBarColor();
         setContentView(R.layout.beast_mode_pref_activity);
-        setTitle(R.string.EPr_beastMode_desc);
+        ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        ActionBar supportActionBar = getSupportActionBar();
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
+            supportActionBar.setDisplayShowTitleEnabled(false);
+            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
+            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
+            supportActionBar.setHomeAsUpIndicator(drawable);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         prefsToDescriptions = new HashMap<>();
         buildDescriptionMap(getResources());
 
-        TouchListView touchList = (TouchListView) getListView();
         items = constructOrderedControlList(preferences, this);
 
         adapter = new ArrayAdapter<String>(this, R.layout.preference_draggable_row, R.id.text, items) {
@@ -73,7 +99,6 @@ public class BeastModePreferences extends InjectingListActivity {
                 return false;
             }
         });
-
         touchList.setDropListener(new DropListener() {
             @Override
             public void drop(int from, int to) {
@@ -82,14 +107,23 @@ public class BeastModePreferences extends InjectingListActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
 
-        Button resetButton = (Button) findViewById(R.id.reset);
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.beast_mode, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_reset_to_defaults:
                 resetToDefault();
-            }
-        });
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void buildDescriptionMap(Resources r) {
@@ -111,12 +145,17 @@ public class BeastModePreferences extends InjectingListActivity {
 
     @Override
     public void finish() {
-        StringBuilder newSetting = new StringBuilder(30);
+        StringBuilder newSetting = new StringBuilder();
         for (int i = 0; i < adapter.getCount(); i++) {
             newSetting.append(adapter.getItem(i));
             newSetting.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
         }
-        preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
+        String oldValue = preferences.getStringValue(BEAST_MODE_ORDER_PREF);
+        String newValue = newSetting.toString();
+        if (!oldValue.equals(newValue)) {
+            preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
+            setResult(RESULT_OK);
+        }
         super.finish();
     }
 
@@ -126,7 +165,7 @@ public class BeastModePreferences extends InjectingListActivity {
         }
 
         ArrayList<String> list = constructOrderedControlList(preferences, context);
-        StringBuilder newSetting = new StringBuilder(30);
+        StringBuilder newSetting = new StringBuilder();
         for (String item : list) {
             newSetting.append(item);
             newSetting.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
@@ -163,5 +202,4 @@ public class BeastModePreferences extends InjectingListActivity {
         }
         return list;
     }
-
 }

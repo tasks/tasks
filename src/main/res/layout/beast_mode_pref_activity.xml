@@ -9,14 +9,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?asContentBackground">
-    
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dip"
-        android:textSize="16sp"
-        android:text="@string/EPr_beastMode_hint"/>
-    
+
+    <include layout="@layout/toolbar" />
+
+    <include layout="@layout/toolbar_separator" />
+
     <com.commonsware.cwac.tlv.TouchListView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tlv="http://schemas.android.com/apk/res/org.tasks"
@@ -31,11 +28,4 @@
         
         tlv:normal_height="52dip"
         tlv:grabber="@+id/row_body" />
-    
-    <Button
-        android:id="@+id/reset"
-        android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:text="@string/EPr_beastMode_reset"/>
-    
 </LinearLayout>

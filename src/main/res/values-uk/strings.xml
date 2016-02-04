@@ -106,9 +106,7 @@
 	<string name="EPr_appearance_header">Інтерфейс</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
-	<string name="EPr_beastMode_desc">Налаштувати зовнішній вигляд екрану редагування завдань</string>
 	<string name="EPr_beastMode_reset">Налаштування за замовчуванням</string>
-	<string name="EPr_beastMode_hint">Налаштуйте Ваш екран редагування нотатки перетягуванням лівої частини рядків</string>
 	<string name="EPr_fullTask_title">Показувати повну назву завдання</string>
 	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>

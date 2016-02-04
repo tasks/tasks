@@ -114,9 +114,7 @@
 	<string name="EPr_appearance_header">보기 설정</string>
 	<string name="EPr_filters_to_show_title">표시할 필터</string>
 	<string name="EPr_edit_screen_options">화면 설정 편집하기</string>
-	<string name="EPr_beastMode_desc">일정 편집화면 레이아웃 설정하기</string>
 	<string name="EPr_beastMode_reset">기본값으로 초기화하기</string>
-	<string name="EPr_beastMode_hint">각 줄의 왼쪽 손잡이를 끌어서 일정 편집 화면을 사용자 정의하기</string>
 	<string name="EPr_fullTask_title">전체 일정 제목 보기</string>
 	<string name="EPr_show_task_edit_comments">일정 편집에서 댓글 보기</string>
 	<string name="task_list_options">일정 목록 옵션</string>

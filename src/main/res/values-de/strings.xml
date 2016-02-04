@@ -110,9 +110,7 @@
 	<string name="EPr_appearance_header">Erscheinungsbild</string>
 	<string name="EPr_filters_to_show_title">Angezeigte Filter</string>
 	<string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
-	<string name="EPr_beastMode_desc">Erscheinungsbild Aufgabenseite anpassen</string>
 	<string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>
-	<string name="EPr_beastMode_hint">Du kannst die Eingabeseite für Aufgaben mit den Schiebereglern links anpassen</string>
 	<string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
 	<string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
 	<string name="task_list_options">Aufgabenlistenoptionen</string>

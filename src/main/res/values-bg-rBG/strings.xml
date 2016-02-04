@@ -115,9 +115,7 @@
 	<string name="EPr_appearance_header">Изглед</string>
 	<string name="EPr_filters_to_show_title">Филтри за показване</string>
 	<string name="EPr_edit_screen_options">Редактиране на опциите екрана</string>
-	<string name="EPr_beastMode_desc">Настройване изгледа на екрана за редактиране на задача</string>
 	<string name="EPr_beastMode_reset">Възстанови по подразбиране</string>
-	<string name="EPr_beastMode_hint">Настройване изгледа на екрана за редактиране на задача чрез изтегляне на елементите във всеки ред</string>
 	<string name="EPr_fullTask_title">Покажи пълното име на задачата</string>
 	<string name="EPr_show_task_edit_comments">Покажи коментари при редакция на задача</string>
 	<string name="task_list_options">Списък с опции към задача</string>

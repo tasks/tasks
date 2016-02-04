@@ -99,9 +99,7 @@
 	<string name="EPr_appearance_header">Wygląd</string>
 	<string name="EPr_filters_to_show_title">Pokazywane filtry</string>
 	<string name="EPr_edit_screen_options">Edytuj ustawienia ekranu</string>
-	<string name="EPr_beastMode_desc">Dostosuj układ strony edycji zadania</string>
 	<string name="EPr_beastMode_reset">Przywróć domyślne</string>
-	<string name="EPr_beastMode_hint">Dostosuj swój ekran edycji zadania przez przeciąganie za uchwyt po prawej w każdym wierszu</string>
 	<string name="EPr_fullTask_title">Pokaż pełną nazwę zadania</string>
 	<string name="EPr_show_task_edit_comments">Pokaż komentarze w edycji zadania</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Czas zdarzenia kalendarza</string>

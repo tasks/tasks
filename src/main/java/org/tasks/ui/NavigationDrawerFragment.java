@@ -82,10 +82,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == FilterAdapter.REQUEST_SETTINGS && resultCode == Activity.RESULT_OK && data != null) {
-            if (data.getBooleanExtra(AppearancePreferences.FILTERS_CHANGED, false)) {
+            if (data.getBooleanExtra(AppearancePreferences.EXTRA_FILTERS_CHANGED, false)) {
                 refresh();
             }
-            if (data.getBooleanExtra(AppearancePreferences.FORCE_REFRESH, false)) {
+            if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
                 getActivity().finish();
                 getActivity().startActivity(getActivity().getIntent());
                 refresh();

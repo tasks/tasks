@@ -77,7 +77,6 @@
 	<string name="EPr_appearance_header">ظاهر</string>
 	<string name="EPr_filters_to_show_title">فیلترها برای نمایش</string>
 	<string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
-	<string name="EPr_beastMode_desc">شخصی سازی قالب صفحه ویرایش وظیفه</string>
 	<string name="EPr_beastMode_reset">برگرداندن به پیش فرض</string>
 	<string name="EPr_fullTask_title">نمایش عنوان کامل وظیفه</string>
 	<string name="task_list_options">اختیارات لیست وظیفه</string>

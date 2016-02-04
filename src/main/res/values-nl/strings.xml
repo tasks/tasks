@@ -112,9 +112,7 @@
 	<string name="EPr_appearance_header">Uiterlijk</string>
 	<string name="EPr_filters_to_show_title">Te tonen filters</string>
 	<string name="EPr_edit_screen_options">Scherm opties bewerken</string>
-	<string name="EPr_beastMode_desc">Pas de layout van het Taak Wijzigingsscherm aan</string>
 	<string name="EPr_beastMode_reset">Standaardinstellingen herstellen</string>
-	<string name="EPr_beastMode_hint">Pas uw taak bewerken scherm aan door de linker handle van elke rij te verslepen</string>
 	<string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
 	<string name="EPr_show_task_edit_comments">Toon opmerkingen in taak bewerken</string>
 	<string name="task_list_options">Takenlijst opties</string>

@@ -93,7 +93,6 @@
 	<string name="CRA_default_list_name">行動事項：%s</string>
 	<string name="EPr_appearance_header">外觀</string>
 	<string name="EPr_edit_screen_options">編輯畫面選項</string>
-	<string name="EPr_beastMode_desc">自定義設定菜單屏幕</string>
 	<string name="EPr_beastMode_reset">恢復默認值</string>
 	<string name="EPr_fullTask_title">顯示完整的任務工作標題</string>
 	<string name="EPr_manage_header">管理舊任務工作</string>

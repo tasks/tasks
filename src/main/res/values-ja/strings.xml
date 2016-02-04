@@ -112,9 +112,7 @@
 	<string name="EPr_appearance_header">外観</string>
 	<string name="EPr_filters_to_show_title">表示のフィルター</string>
 	<string name="EPr_edit_screen_options">編集画面オプション</string>
-	<string name="EPr_beastMode_desc">タスク編集画面のレイアウトをカスタマイズ</string>
 	<string name="EPr_beastMode_reset">デフォルトにリセット</string>
-	<string name="EPr_beastMode_hint">各行の左側をドラッグしてタスク編集画面をカスタマイズしてください</string>
 	<string name="EPr_fullTask_title">完全なタスク見出しを表示</string>
 	<string name="EPr_show_task_edit_comments">タスク編集でコメントを表示</string>
 	<string name="task_list_options">タスクリスト オプション</string>
