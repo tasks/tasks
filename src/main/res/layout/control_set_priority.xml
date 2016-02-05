@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
-        android:paddingEnd="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
+        android:paddingEnd="@dimen/keyline_second"
+        android:paddingRight="@dimen/keyline_second"
         android:text="@string/TEA_importance_label"
         android:textColor="?attr/asTextColor"
         android:textSize="@dimen/task_edit_text_size" />
@@ -22,8 +22,8 @@
         android:layout_gravity="end"
         android:gravity="end"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingStart="@dimen/task_edit_drawable_padding_left_right">
+        android:paddingLeft="@dimen/keyline_second"
+        android:paddingStart="@dimen/keyline_second">
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_none"

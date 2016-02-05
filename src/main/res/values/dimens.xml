@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="navigation_drawer_width">260dp</dimen>
-    <dimen name="navigation_drawer_horizontal_margins">16dp</dimen>
+    <dimen name="keyline_first">16dp</dimen>
+    <dimen name="keyline_second">20dp</dimen>
     <dimen name="widget_margin">0dp</dimen>
 
     <dimen name="task_list_footer_height">88dp</dimen>
@@ -10,7 +11,6 @@
     <dimen name="task_edit_title_padding_top_bottom">18dp</dimen>
     <dimen name="task_edit_padding_top_bottom">9dp</dimen>
     <dimen name="task_edit_double_padding_top_bottom">18dp</dimen>
-    <dimen name="task_edit_drawable_padding_left_right">20dp</dimen>
     <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
     <dimen name="task_edit_text_size">16sp</dimen>
     <item name="alpha_text" format="float" type="dimen">0.87</item>

@@ -5,7 +5,8 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -15,28 +16,30 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="5dip"
 	    android:layout_marginBottom="5dip"
-	    android:minHeight="40dip">
+		android:paddingEnd="@dimen/keyline_first"
+		android:paddingRight="@dimen/keyline_first">
 	
 	    <com.todoroo.astrid.ui.CheckableImageView
 	        android:id="@+id/completeBox"
-	        android:layout_width="45dip"
-	        android:layout_marginLeft="4dip"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:minHeight="40dip"
 	        android:scaleType="center"
 	        android:gravity="center"
+			android:paddingLeft="@dimen/keyline_first"
+			android:paddingStart="@dimen/keyline_first"
+			android:paddingRight="@dimen/keyline_second"
+			android:paddingEnd="@dimen/keyline_second"
 	        android:layout_centerVertical="true" />
 	
 	    <LinearLayout
 	        android:id="@+id/task_row"
-	        android:baselineAligned="false"
+			android:layout_toRightOf="@id/completeBox"
+			android:layout_toEndOf="@id/completeBox"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="52dip"
 	        android:layout_centerVertical="true"
 	        android:orientation="horizontal"
-	        android:gravity="center_vertical"
-	        android:paddingLeft="4dip" >
+	        android:gravity="center_vertical">
 	
 	        <!-- task name -->
 	
@@ -79,21 +82,21 @@
 		        </LinearLayout>
 	        </LinearLayout>
 	        <!-- due date -->
-	
+
 	        <LinearLayout
 	            android:id="@+id/taskActionContainer"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_marginLeft="5dip"
-	            android:layout_marginRight="10dip"
 	            android:orientation="vertical"
-	            android:gravity="right|center_vertical">
+	            android:gravity="end|center_vertical">
 		        <ImageView
 		            android:id="@+id/taskActionIcon"
 		            android:layout_width="20dip"
 		            android:layout_height="20dip"
 		            android:scaleType="fitCenter"
-		            android:visibility="gone"/>
+		            android:visibility="gone"
+					tools:ignore="ContentDescription" />
 	        </LinearLayout>
 	    </LinearLayout>
 	

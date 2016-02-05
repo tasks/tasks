@@ -5,7 +5,7 @@
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_width="fill_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/task_edit_double_padding_top_bottom"
     android:layout_marginBottom="@dimen/task_edit_double_padding_top_bottom">
@@ -13,7 +13,7 @@
     <TextView
         style="@android:style/TextAppearance"
         android:id="@+id/file_text"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="100"
         android:textColor="?attr/asTextColor" />

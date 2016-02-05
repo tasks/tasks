@@ -29,9 +29,6 @@
         android:id="@+id/timer_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="10dp"
-        android:paddingEnd="10dp"
-        android:layout_marginLeft="2dip"
         android:layout_weight="1"
         android:orientation="vertical">
 

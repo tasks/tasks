@@ -79,6 +79,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
         completeBox.setChecked(isComplete);
         editText.setTextKeepState(title);
         editText.setHorizontallyScrolling(false);
+        editText.setLines(1);
         editText.setMaxLines(Integer.MAX_VALUE);
         updateCompleteBox();
         return view;

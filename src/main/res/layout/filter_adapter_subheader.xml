@@ -12,8 +12,8 @@
         android:background="?attr/asListDividerColor" />
 
     <TextView
-        android:paddingLeft="@dimen/navigation_drawer_horizontal_margins"
-        android:paddingStart="@dimen/navigation_drawer_horizontal_margins"
+        android:paddingLeft="@dimen/keyline_first"
+        android:paddingStart="@dimen/keyline_first"
         android:gravity="center_vertical"
         android:id="@+id/subheader_text"
         android:textColor="?attr/asTextColor"

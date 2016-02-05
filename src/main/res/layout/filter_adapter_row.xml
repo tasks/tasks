@@ -14,17 +14,17 @@
         android:fontFamily="@string/font_fontFamily_medium"
         android:gravity="center_vertical|end"
         android:minEms="3"
-        android:paddingEnd="@dimen/navigation_drawer_horizontal_margins"
-        android:paddingLeft="@dimen/navigation_drawer_horizontal_margins"
-        android:paddingRight="@dimen/navigation_drawer_horizontal_margins"
-        android:paddingStart="@dimen/navigation_drawer_horizontal_margins"
+        android:paddingEnd="@dimen/keyline_first"
+        android:paddingLeft="@dimen/keyline_first"
+        android:paddingRight="@dimen/keyline_first"
+        android:paddingStart="@dimen/keyline_first"
         android:textColor="?attr/asTextColor" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/navigation_drawer_horizontal_margins"
-        android:layout_marginStart="@dimen/navigation_drawer_horizontal_margins"
+        android:layout_marginLeft="@dimen/keyline_first"
+        android:layout_marginStart="@dimen/keyline_first"
         android:layout_toLeftOf="@id/size"
         android:layout_toStartOf="@id/size"
         android:gravity="center_vertical"

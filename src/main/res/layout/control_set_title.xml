@@ -6,27 +6,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <com.todoroo.astrid.ui.CheckableImageView
-        android:id="@+id/completeBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
-        android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
-        android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingStart="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingEnd="@dimen/task_edit_drawable_padding_left_right"
-        android:scaleType="center" />
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/task_edit_padding_top_bottom"
-        android:layout_marginTop="@dimen/task_edit_padding_top_bottom" >
+        android:layout_weight="100"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/keyline_first"
+        android:paddingStart="@dimen/keyline_first"
+        android:paddingRight="@dimen/keyline_first"
+        android:paddingEnd="@dimen/keyline_first">
+
+        <com.todoroo.astrid.ui.CheckableImageView
+            android:id="@+id/completeBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:paddingEnd="@dimen/keyline_second"
+            android:paddingRight="@dimen/keyline_second"
+            android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
+            android:scaleType="center" />
 
         <EditText
             android:id="@+id/title"
@@ -39,11 +39,13 @@
             android:inputType="textCapSentences"
             android:scrollbars="vertical"
             android:textColor="?attr/asTextColor"
-            android:textColorHint="?attr/asTextColorHint" />
-
-        <include layout="@layout/task_edit_divider" />
+            android:textColorHint="?attr/asTextColorHint"
+            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
+            android:paddingTop="@dimen/task_edit_padding_top_bottom"/>
 
     </LinearLayout>
+
+    <include layout="@layout/task_edit_divider" />
 
 </LinearLayout>
 

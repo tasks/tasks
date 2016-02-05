@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/keyline_first"
+    android:paddingStart="@dimen/keyline_first"
+    tools:ignore="RtlSymmetry">
 
     <ImageView
         android:id="@+id/icon"
@@ -13,10 +17,9 @@
         android:alpha="@dimen/alpha_secondary_text_icons"
         android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
         android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
-        android:paddingLeft="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingStart="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingRight="@dimen/task_edit_drawable_padding_left_right"
-        android:paddingEnd="@dimen/task_edit_drawable_padding_left_right" />
+        android:paddingRight="@dimen/keyline_second"
+        android:paddingEnd="@dimen/keyline_second"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -29,7 +32,10 @@
             android:id="@+id/content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:paddingRight="@dimen/keyline_first"
+            android:paddingEnd="@dimen/keyline_first"
+            tools:ignore="RtlSymmetry" />
 
         <include layout="@layout/task_edit_divider" />
 
