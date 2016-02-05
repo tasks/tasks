@@ -371,7 +371,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void onBackPressed() {
         if (navigationDrawer.isDrawerOpen()) {
-            navigationDrawer.closeMenu();
+            navigationDrawer.closeDrawer();
             return;
         }
 

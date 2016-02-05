@@ -121,8 +121,15 @@ public class NavigationDrawerFragment extends InjectingFragment {
         mDrawerListView = (ListView) layout.findViewById(android.R.id.list);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                mDrawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        mDrawerLayout.setDrawerListener(null);
+                        selectItem(position);
+                    }
+                });
+                close();
             }
         });
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
@@ -167,7 +174,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     private void selectItem(int position) {
-        closeMenu();
         FilterListItem item = adapter.getItem(position);
         if (item instanceof Filter) {
             mCurrentSelectedPosition = position;
@@ -205,10 +211,15 @@ public class NavigationDrawerFragment extends InjectingFragment {
         outState.putInt(TOKEN_LAST_SELECTED, mCurrentSelectedPosition);
     }
 
-    public void closeMenu() {
+    public void closeDrawer() {
         if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(mFragmentContainerView);
+            mDrawerLayout.setDrawerListener(null);
+            close();
         }
+    }
+
+    private void close() {
+        mDrawerLayout.closeDrawer(mFragmentContainerView);
     }
 
     public void openDrawer() {
