@@ -93,8 +93,6 @@ public class RepeatControlSet extends TaskEditControlFragment {
     //private final CheckBox enabled;
     private boolean doRepeat = false;
     private Button value;
-    private Spinner interval;
-    private Spinner type;
     private Spinner repeatUntil;
 
     @Inject DialogBuilder dialogBuilder;
@@ -107,7 +105,8 @@ public class RepeatControlSet extends TaskEditControlFragment {
     private ArrayAdapter<String> repeatUntilAdapter;
     private final List<String> repeatUntilOptions = new ArrayList<>();
     private LinearLayout daysOfWeekContainer;
-    private final CompoundButton[] daysOfWeek = new CompoundButton[7];
+    private final Weekday[] weekdays = new Weekday[7];
+    private final boolean[] isChecked = new boolean[7];
 
     private String recurrence;
     private int repeatValue;
@@ -132,14 +131,25 @@ public class RepeatControlSet extends TaskEditControlFragment {
 
         dialogView = inflater.inflate(R.layout.control_set_repeat, null);
         value = (Button) dialogView.findViewById(R.id.repeatValue);
-        interval = (Spinner) dialogView.findViewById(R.id.repeatInterval);
+        Spinner interval = (Spinner) dialogView.findViewById(R.id.repeatInterval);
         interval.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_interval)) {{
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }});
-        type = (Spinner) dialogView.findViewById(R.id.repeatType);
+        Spinner type = (Spinner) dialogView.findViewById(R.id.repeatType);
         type.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_type)) {{
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         }});
+        type.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                repeatAfterCompletion = position == TYPE_COMPLETION_DATE;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         daysOfWeekContainer = (LinearLayout) dialogView.findViewById(R.id.repeatDayOfWeekContainer);
         repeatUntil = (Spinner) dialogView.findViewById(R.id.repeat_until);
         repeatUntilAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, repeatUntilOptions);
@@ -149,12 +159,20 @@ public class RepeatControlSet extends TaskEditControlFragment {
         DateFormatSymbols dfs = new DateFormatSymbols();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        CompoundButton[] daysOfWeek = new CompoundButton[7];
         for(int i = 0; i < 7; i++) {
+            final int index = i;
             CheckBox checkBox = (CheckBox) daysOfWeekContainer.getChildAt(i);
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    RepeatControlSet.this.isChecked[index] = isChecked;
+                }
+            });
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            checkBox.setTag(Weekday.values()[dayOfWeek - 1]);
             checkBox.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));
             daysOfWeek[i] = checkBox;
+            weekdays[i] = Weekday.values()[dayOfWeek - 1];
             calendar.add(Calendar.DATE, 1);
         }
 
@@ -207,7 +225,52 @@ public class RepeatControlSet extends TaskEditControlFragment {
 
         daysOfWeekContainer.setVisibility(View.GONE);
         type.setSelection(repeatAfterCompletion ? TYPE_COMPLETION_DATE : TYPE_DUE_DATE);
-        applyRecurrence();
+        doRepeat = !Strings.isNullOrEmpty(recurrence);
+        if (doRepeat) {
+            // read recurrence rule
+            try {
+                RRule rrule = new RRule(recurrence);
+
+                setRepeatValue(rrule.getInterval());
+
+                for(WeekdayNum day : rrule.getByDay()) {
+                    for(int i = 0; i < 7; i++) {
+                        if (weekdays[i].equals(day.wday)) {
+                            daysOfWeek[i].setChecked(true);
+                        }
+                    }
+                }
+
+                switch(rrule.getFreq()) {
+                    case DAILY:
+                        intervalValue = INTERVAL_DAYS;
+                        break;
+                    case WEEKLY:
+                        intervalValue = INTERVAL_WEEKS;
+                        break;
+                    case MONTHLY:
+                        intervalValue = INTERVAL_MONTHS;
+                        break;
+                    case HOURLY:
+                        intervalValue = INTERVAL_HOURS;
+                        break;
+                    case MINUTELY:
+                        intervalValue = INTERVAL_MINUTES;
+                        break;
+                    case YEARLY:
+                        intervalValue = INTERVAL_YEARS;
+                        break;
+                    default:
+                        Timber.e(new Exception("Unhandled rrule frequency: " + recurrence), "repeat-unhandled-rule");
+                }
+                interval.setSelection(intervalValue);
+
+            } catch (Exception e) {
+                // invalid RRULE
+                recurrence = ""; //$NON-NLS-1$
+                Timber.e(e, e.getMessage());
+            }
+        }
         refreshDisplayView();
         return view;
     }
@@ -302,62 +365,11 @@ public class RepeatControlSet extends TaskEditControlFragment {
     private String getRecurrenceValue() {
         String result = getRecurrence();
 
-        if (type.getSelectedItemPosition() == TYPE_COMPLETION_DATE && !TextUtils.isEmpty(result)) {
+        if (repeatAfterCompletion && !TextUtils.isEmpty(result)) {
             result += ";FROM=COMPLETION"; //$NON-NLS-1$
         }
 
         return result;
-    }
-
-    private void applyRecurrence() {
-        doRepeat = !Strings.isNullOrEmpty(recurrence);
-        if (!doRepeat) {
-            return;
-        }
-
-        // read recurrence rule
-        try {
-            RRule rrule = new RRule(recurrence);
-
-            setRepeatValue(rrule.getInterval());
-
-            for(WeekdayNum day : rrule.getByDay()) {
-                for(int i = 0; i < 7; i++) {
-                    if (daysOfWeek[i].getTag().equals(day.wday)) {
-                        daysOfWeek[i].setChecked(true);
-                    }
-                }
-            }
-
-            switch(rrule.getFreq()) {
-                case DAILY:
-                    intervalValue = INTERVAL_DAYS;
-                    break;
-                case WEEKLY:
-                    intervalValue = INTERVAL_WEEKS;
-                    break;
-                case MONTHLY:
-                    intervalValue = INTERVAL_MONTHS;
-                    break;
-                case HOURLY:
-                    intervalValue = INTERVAL_HOURS;
-                    break;
-                case MINUTELY:
-                    intervalValue = INTERVAL_MINUTES;
-                    break;
-                case YEARLY:
-                    intervalValue = INTERVAL_YEARS;
-                    break;
-                default:
-                    Timber.e(new Exception("Unhandled rrule frequency: " + recurrence), "repeat-unhandled-rule");
-            }
-            interval.setSelection(intervalValue);
-
-        } catch (Exception e) {
-            // invalid RRULE
-            recurrence = ""; //$NON-NLS-1$
-            Timber.e(e, e.getMessage());
-        }
     }
 
     private String getRecurrence() {
@@ -367,7 +379,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
         } else {
             RRule rrule = new RRule();
             rrule.setInterval(repeatValue);
-            switch(interval.getSelectedItemPosition()) {
+            switch(intervalValue) {
                 case INTERVAL_DAYS:
                     rrule.setFreq(Frequency.DAILY);
                     break;
@@ -375,9 +387,9 @@ public class RepeatControlSet extends TaskEditControlFragment {
                     rrule.setFreq(Frequency.WEEKLY);
 
                     ArrayList<WeekdayNum> days = new ArrayList<>();
-                    for (CompoundButton dayOfWeek : daysOfWeek) {
-                        if (dayOfWeek.isChecked()) {
-                            days.add(new WeekdayNum(0, (Weekday) dayOfWeek.getTag()));
+                    for (int i = 0 ; i < isChecked.length ; i++) {
+                        if (isChecked[i]) {
+                            days.add(new WeekdayNum(0, weekdays[i]));
                         }
                     }
                     rrule.setByDay(days);

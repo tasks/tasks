@@ -91,12 +91,20 @@ public class ReminderControlSet extends TaskEditControlFragment {
     private long taskId;
     private int flags;
     private long randomReminder;
+    private int ringMode;
 
     private RandomReminderControlSet randomControlSet;
     private boolean whenDue;
     private boolean whenOverdue;
     private List<String> spinnerOptions = new ArrayList<>();
     private ArrayAdapter<String> remindAdapter;
+    private Set<Long> alarms = new LinkedHashSet<>();
+    private Set<Geofence> geofences = new LinkedHashSet<>();
+
+    @OnItemSelected(R.id.reminder_alarm)
+    void ringModeSelected(int position) {
+        ringMode = position;
+    }
 
     @Nullable
     @Override
@@ -217,8 +225,8 @@ public class ReminderControlSet extends TaskEditControlFragment {
     public boolean hasChanges(Task original) {
         return getFlags() != original.getReminderFlags() ||
                 getRandomReminderPeriod() != original.getReminderPeriod() ||
-                !newHashSet(currentAlarms()).equals(getAlarms()) ||
-                !newHashSet(geofenceService.getGeofences(taskId)).equals(getGeofences());
+                !newHashSet(currentAlarms()).equals(alarms) ||
+                !newHashSet(geofenceService.getGeofences(taskId)).equals(geofences);
     }
 
     @Override
@@ -227,10 +235,10 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
         task.setReminderPeriod(getRandomReminderPeriod());
 
-        if(alarmService.synchronizeAlarms(task.getId(), getAlarms())) {
+        if(alarmService.synchronizeAlarms(task.getId(), alarms)) {
             task.setModificationDate(DateUtilities.now());
         }
-        if (geofenceService.synchronizeGeofences(task.getId(), getGeofences())) {
+        if (geofenceService.synchronizeGeofences(task.getId(), geofences)) {
             task.setModificationDate(DateUtilities.now());
         }
     }
@@ -242,8 +250,8 @@ public class ReminderControlSet extends TaskEditControlFragment {
         outState.putLong(EXTRA_TASK_ID, taskId);
         outState.putInt(EXTRA_FLAGS, getFlags());
         outState.putLong(EXTRA_RANDOM_REMINDER, getRandomReminderPeriod());
-        outState.putLongArray(EXTRA_ALARMS, Longs.toArray(getAlarms()));
-        outState.putParcelableArrayList(EXTRA_GEOFENCES, newArrayList(getGeofences()));
+        outState.putLongArray(EXTRA_ALARMS, Longs.toArray(alarms));
+        outState.putParcelableArrayList(EXTRA_GEOFENCES, newArrayList(geofences));
     }
 
     @Override
@@ -261,30 +269,14 @@ public class ReminderControlSet extends TaskEditControlFragment {
         }
     }
 
-    private Set<Long> getAlarms() {
-        Set<Long> alarms = new LinkedHashSet<>();
-        for (int i = 0 ; i < alertContainer.getChildCount() ; i++) {
-            Object tag = alertContainer.getChildAt(i).getTag();
-            if (tag instanceof Long) {
-                alarms.add((Long) tag);
-            }
-        }
-        return alarms;
-    }
-
-    private Set<Geofence> getGeofences() {
-        Set<Geofence> geofences = new LinkedHashSet<>();
-        for (int i = 0 ; i < alertContainer.getChildCount() ; i++) {
-            Object tag = alertContainer.getChildAt(i).getTag();
-            if (tag instanceof Geofence) {
-                geofences.add((Geofence) tag);
-            }
-        }
-        return geofences;
-    }
-
     public void addAlarmRow(final Long timestamp) {
-        addAlarmRow(getLongDateStringWithTime(context, timestamp), timestamp, null);
+        addAlarmRow(getLongDateStringWithTime(context, timestamp), new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alarms.remove(timestamp);
+            }
+        });
+        alarms.add(timestamp);
     }
 
     public void pickLocation() {
@@ -295,12 +287,13 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
 
     public void addGeolocationReminder(final Geofence geofence) {
-        View alertItem = addAlarmRow(geofence.getName(), null, new OnClickListener() {
+        addAlarmRow(geofence.getName(), new OnClickListener() {
             @Override
             public void onClick(View v) {
+                geofences.remove(geofence);
             }
         });
-        alertItem.setTag(geofence);
+        geofences.add(geofence);
     }
 
     private int getFlags() {
@@ -313,9 +306,9 @@ public class ReminderControlSet extends TaskEditControlFragment {
         }
 
         value &= ~(Task.NOTIFY_MODE_FIVE | Task.NOTIFY_MODE_NONSTOP);
-        if(mode.getSelectedItemPosition() == 2) {
+        if(ringMode == 2) {
             value |= Task.NOTIFY_MODE_NONSTOP;
-        } else if(mode.getSelectedItemPosition() == 1) {
+        } else if(ringMode == 1) {
             value |= Task.NOTIFY_MODE_FIVE;
         }
 
@@ -332,15 +325,14 @@ public class ReminderControlSet extends TaskEditControlFragment {
         }}, REQUEST_NEW_ALARM);
     }
 
-    private View addAlarmRow(String text, Long timestamp, final OnClickListener onRemove) {
+    private View addAlarmRow(String text, final OnClickListener onRemove) {
         final View alertItem = getActivity().getLayoutInflater().inflate(R.layout.alarm_edit_row, null);
         alertContainer.addView(alertItem);
-        addAlarmRow(alertItem, text, timestamp, onRemove);
+        addAlarmRow(alertItem, text, onRemove);
         return alertItem;
     }
 
-    private void addAlarmRow(final View alertItem, String text, Long timestamp, final View.OnClickListener onRemove) {
-        alertItem.setTag(timestamp);
+    private void addAlarmRow(final View alertItem, String text, final View.OnClickListener onRemove) {
         TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
         display.setText(text);
         alertItem.findViewById(R.id.clear).setOnClickListener(new OnClickListener() {
@@ -378,7 +370,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
     private void addDue() {
         whenDue = true;
-        addAlarmRow(getString(R.string.when_due), null, new OnClickListener() {
+        addAlarmRow(getString(R.string.when_due), new OnClickListener() {
             @Override
             public void onClick(View v) {
                 whenDue = false;
@@ -388,7 +380,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
     private void addOverdue() {
         whenOverdue = true;
-        addAlarmRow(getString(R.string.when_overdue), null, new OnClickListener() {
+        addAlarmRow(getString(R.string.when_overdue), new OnClickListener() {
             @Override
             public void onClick(View v) {
                 whenOverdue = false;
@@ -397,7 +389,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
 
     private void addRandomReminder(long reminderPeriod) {
-        View alarmRow = addAlarmRow(getString(R.string.randomly_once), null, new OnClickListener() {
+        View alarmRow = addAlarmRow(getString(R.string.randomly_once), new OnClickListener() {
             @Override
             public void onClick(View v) {
                 randomControlSet = null;

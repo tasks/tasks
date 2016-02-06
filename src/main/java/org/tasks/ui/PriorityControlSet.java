@@ -1,7 +1,6 @@
 package org.tasks.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -49,7 +48,8 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
     @OnClick({R.id.priority_high, R.id.priority_medium, R.id.priority_low, R.id.priority_none})
     void onImportanceChanged(CompoundButton button) {
-        callback.onPriorityChange(getPriority());
+        priority = getPriority();
+        callback.onPriorityChange(priority);
     }
 
     @Nullable
@@ -76,6 +76,13 @@ public class PriorityControlSet extends TaskEditControlFragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(EXTRA_PRIORITY, priority);
+    }
+
+    @Override
     protected int getLayout() {
         return R.layout.control_set_priority;
     }
@@ -97,12 +104,12 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
     @Override
     public void apply(Task task) {
-        task.setImportance(getPriority());
+        task.setImportance(priority);
     }
 
     @Override
     public boolean hasChanges(Task original) {
-        return original.getImportance() != getPriority();
+        return original.getImportance() != priority;
     }
 
     private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {

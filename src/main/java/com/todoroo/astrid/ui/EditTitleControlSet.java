@@ -31,6 +31,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * Control set for mapping a Property to an EditText
@@ -89,8 +90,8 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBoolean(EXTRA_COMPLETE, completeBox.isChecked());
-        outState.putString(EXTRA_TITLE, getTitle());
+        outState.putBoolean(EXTRA_COMPLETE, isComplete);
+        outState.putString(EXTRA_TITLE, title);
         outState.putBoolean(EXTRA_REPEATING, isRepeating);
         outState.putInt(EXTRA_PRIORITY, importanceValue);
     }
@@ -111,6 +112,11 @@ public class EditTitleControlSet extends TaskEditControlFragment {
         }
     }
 
+    @OnTextChanged(R.id.title)
+    void onTextChanged(CharSequence text) {
+        this.title = text.toString().trim();
+    }
+
     public void setPriority(int priority) {
         importanceValue = priority;
         updateCompleteBox();
@@ -122,9 +128,9 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     }
 
     private void updateCompleteBox() {
-        boolean checked = completeBox.isChecked();
+        isComplete = completeBox.isChecked();
 
-        if (checked) {
+        if (isComplete) {
             completeBox.setImageDrawable(checkBoxes.getCompletedCheckbox(importanceValue));
         } else if (isRepeating) {
             completeBox.setImageDrawable(checkBoxes.getRepeatingCheckBox(importanceValue));
@@ -132,7 +138,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
             completeBox.setImageDrawable(checkBoxes.getCheckBox(importanceValue));
         }
 
-        if (checked) {
+        if (isComplete) {
             editText.setPaintFlags(editText.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
             editText.setPaintFlags(editText.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
@@ -156,8 +162,8 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
     @Override
     public boolean hasChanges(Task original) {
-        return !getTitle().equals(original.getTitle()) ||
-                completeBox.isChecked() != original.isCompleted();
+        return !title.equals(original.getTitle()) ||
+                isComplete != original.isCompleted();
     }
 
     @Override
@@ -172,18 +178,12 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
     @Override
     public void apply(Task task) {
-        String title = getTitle();
         task.setTitle(Strings.isNullOrEmpty(title)
                 ? getString(R.string.no_title)
                 : title);
-        boolean newState = completeBox.isChecked();
-        if (newState != task.isCompleted()) {
-            taskService.setComplete(task, newState);
+        if (isComplete != task.isCompleted()) {
+            taskService.setComplete(task, isComplete);
         }
-    }
-
-    private String getTitle() {
-        return editText.getText().toString().trim();
     }
 
     public void hideKeyboard() {

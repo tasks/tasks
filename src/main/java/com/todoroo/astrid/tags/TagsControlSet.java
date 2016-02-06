@@ -48,7 +48,6 @@ import org.tasks.ui.TaskEditControlFragment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -86,11 +85,11 @@ public final class TagsControlSet extends TaskEditControlFragment {
     private ListView selectedTags;
     private View dialogView;
     private AlertDialog dialog;
+    private ArrayList<String> tagList;
 
     private String buildTagString() {
         StringBuilder builder = new StringBuilder();
 
-        List<String> tagList = getTagList();
         Collections.sort(tagList);
         for (String tag : tagList) {
             if (tag.trim().length() == 0) {
@@ -109,11 +108,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        ArrayList<String> selected;
         if (savedInstanceState != null) {
-            selected = savedInstanceState.getStringArrayList(EXTRA_TAGS);
+            tagList = savedInstanceState.getStringArrayList(EXTRA_TAGS);
         } else {
-            selected = tagService.getTagNames(taskId);
+            tagList = tagService.getTagNames(taskId);
         }
         allTagNames = newArrayList(ImmutableSet.copyOf(transform(tagService.getTagList(), new Function<TagData, String>() {
             @Override
@@ -126,7 +124,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         selectedTags = (ListView) dialogView.findViewById(R.id.existingTags);
         selectedTags.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTagNames));
         addTag("");
-        for (String tag : selected) {
+        for (String tag : tagList) {
             setTagSelected(tag);
         }
         refreshDisplayView();
@@ -137,7 +135,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putStringArrayList(EXTRA_TAGS, getTagList());
+        outState.putStringArrayList(EXTRA_TAGS, tagList);
     }
 
     @Override
@@ -172,6 +170,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        tagList = getTagList();
                         refreshDisplayView();
                     }
                 })
@@ -338,7 +337,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
 
     private Set<TagData> getSelectedTags(final boolean createMissingTags) {
-        return newHashSet(transform(getTagList(), new Function<String, TagData>() {
+        return newHashSet(transform(tagList, new Function<String, TagData>() {
             @Override
             public TagData apply(String tagName) {
                 TagData tagData = tagDataDao.getTagByName(tagName, TagData.PROPERTIES);

@@ -7,6 +7,7 @@ package com.todoroo.astrid.ui;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -23,7 +24,7 @@ import org.tasks.R;
 public class RandomReminderControlSet {
 
     private final Spinner periodSpinner;
-
+    private int selectedIndex;
     private final int[] hours;
 
     public RandomReminderControlSet(Context context, View parentView, long reminderPeriod) {
@@ -35,6 +36,18 @@ public class RandomReminderControlSet {
                 context.getResources().getStringArray(R.array.TEA_reminder_random));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         periodSpinner.setAdapter(adapter);
+
+        periodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedIndex = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         // create hour array
         String[] hourStrings = context.getResources().getStringArray(R.array.TEA_reminder_random_hours);
@@ -53,7 +66,7 @@ public class RandomReminderControlSet {
     }
 
     public long getReminderPeriod() {
-        int hourValue = hours[periodSpinner.getSelectedItemPosition()];
+        int hourValue = hours[selectedIndex];
         return hourValue * DateUtilities.ONE_HOUR;
     }
 }

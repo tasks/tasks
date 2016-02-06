@@ -72,6 +72,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     private int selection;
     private long existingDate = EXISTING_TIME_UNSET;
     private final List<HideUntilValue> spinnerItems = new ArrayList<>();
+    private HideUntilValue selectedValue;
 
     @OnClick(R.id.clear)
     void clearHideUntil(View view) {
@@ -191,8 +192,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     }
 
     private long getHideUntil(Task task) {
-        HideUntilValue selectedItem = (HideUntilValue) spinner.getSelectedItem();
-        return task.createHideUntil(selectedItem.setting, selectedItem.date);
+        return task.createHideUntil(selectedValue.setting, selectedValue.date);
     }
 
     @Override
@@ -300,8 +300,8 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     // --- setting up values
 
     private void refreshDisplayView() {
-        HideUntilValue value = adapter.getItem(selection);
-        if (value.setting == Task.HIDE_UNTIL_NONE) {
+        selectedValue = adapter.getItem(selection);
+        if (selectedValue.setting == Task.HIDE_UNTIL_NONE) {
             spinner.setAlpha(0.5f);
             clearButton.setVisibility(View.GONE);
         } else {
