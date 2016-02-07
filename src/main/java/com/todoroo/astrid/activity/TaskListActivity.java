@@ -115,7 +115,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 taskEditFragment.save();
                 taskEditFragment = null;
             } else {
-                taskEditControlFragments = taskEditControlSetFragmentManager.getFragments();
+                taskEditControlFragments = taskEditControlSetFragmentManager.getFragmentsInDisplayOrder();
             }
         }
 

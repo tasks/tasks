@@ -24,6 +24,8 @@
 	<string name="import_file_prompt">復元に使うファイルを選択してください</string>
 	<string name="read_permission_label">タスクの読み込み</string>
 	<string name="write_permission_label">タスクの読み込み</string>
+	<string name="discard_confirmation">変更を破棄してもよろしいですか?</string>
+	<string name="keep_editing">編集を続ける</string>
 	<string name="DLG_delete_this_task_question">このタスクを削除しますか?</string>
 	<string name="DLG_upgrading">タスクを更新しています</string>
 	<string name="DLG_hour_minutes">時間 (時:分)</string>
@@ -389,6 +391,7 @@
 	<string name="doze_notifications">通知の Doze モード割り込み</string>
 	<string name="doze_notifications_off">デバイスが Doze モードの間、Android は通知を大幅に遅らせます</string>
 	<string name="doze_notifications_on">デバイスが Doze モードの間、Android は限定された割り込みを許可します</string>
+	<string name="no_title">(タイトルなし)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

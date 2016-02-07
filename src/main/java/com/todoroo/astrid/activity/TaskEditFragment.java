@@ -330,7 +330,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
 
     /** Save task model from values in UI components */
     public void save() {
-        List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager.getFragments();
+        List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder();
         if (hasChanges(fragments)) {
             for (TaskEditControlFragment fragment : fragments) {
                 fragment.apply(model);
@@ -398,7 +398,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     }
 
     public void discardButtonClick() {
-        if (hasChanges(taskEditControlSetFragmentManager.getFragments())) {
+        if (hasChanges(taskEditControlSetFragmentManager.getFragmentsInPersistOrder())) {
             dialogBuilder.newMessageDialog(R.string.discard_confirmation)
                     .setPositiveButton(R.string.keep_editing, null)
                     .setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {

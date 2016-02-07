@@ -24,6 +24,8 @@
 	<string name="import_file_prompt">Выберите файл для восстановления</string>
 	<string name="read_permission_label">Разрешения Tasks</string>
 	<string name="write_permission_label">Разрешения Tasks</string>
+	<string name="discard_confirmation">Вы действительно хотите отказаться от сделанных изменений?</string>
+	<string name="keep_editing">Продолжайте редактировать</string>
 	<string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
 	<string name="DLG_upgrading">Обновление ваших задач…</string>
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
@@ -388,6 +390,7 @@
 	<string name="doze_notifications">Прерывать спящий режим для уведомлений</string>
 	<string name="doze_notifications_off">Android будет сильно задерживать уведомления, если устройство находится в спящем режиме</string>
 	<string name="doze_notifications_on">Android разрешит ограниченные прерывания, если устройство находится в спящем режиме</string>
+	<string name="no_title">(Без заголовка)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

@@ -70,16 +70,14 @@ public class TaskEditControlSetFragmentManager {
     }
 
     private final Map<String, Integer> controlSetFragments = new LinkedHashMap<>();
-    private final Activity activity;
-    private final Preferences preferences;
+    private final List<String> displayOrder;
     private final String hideAlwaysTrigger;
     private final FragmentManager fragmentManager;
 
     @Inject
     public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences) {
-        this.activity = activity;
-        this.preferences = preferences;
-
+        displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
+        displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
         fragmentManager = activity.getFragmentManager();
         hideAlwaysTrigger = activity.getString(R.string.TEA_ctrl_hide_section_pref);
 
@@ -90,11 +88,8 @@ public class TaskEditControlSetFragmentManager {
 
     public List<TaskEditControlFragment> createNewFragments(boolean isNewTask, Task task) {
         List<TaskEditControlFragment> taskEditControlFragments = new ArrayList<>();
-        List<String> controlOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
-        controlOrder.add(0, activity.getString(EditTitleControlSet.TAG));
-
-        for (int i = 0; i < controlOrder.size(); i++) {
-            String item = controlOrder.get(i);
+        for (int i = 0; i < displayOrder.size(); i++) {
+            String item = displayOrder.get(i);
             if (item.equals(hideAlwaysTrigger)) {
                 break;
             }
@@ -111,9 +106,17 @@ public class TaskEditControlSetFragmentManager {
         return taskEditControlFragments;
     }
 
-    public List<TaskEditControlFragment> getFragments() {
+    public List<TaskEditControlFragment> getFragmentsInDisplayOrder() {
+        return getFragments(displayOrder);
+    }
+
+    public List<TaskEditControlFragment> getFragmentsInPersistOrder() {
+        return getFragments(controlSetFragments.keySet());
+    }
+
+    private List<TaskEditControlFragment> getFragments(Iterable<String> tags) {
         List<TaskEditControlFragment> fragments = new ArrayList<>();
-        for (String tag : controlSetFragments.keySet()) {
+        for (String tag : tags) {
             TaskEditControlFragment fragment = (TaskEditControlFragment) fragmentManager.findFragmentByTag(tag);
             if (fragment != null) {
                 fragments.add(fragment);
