@@ -65,10 +65,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject SubtasksHelper subtasksHelper;
     @Inject TaskService taskService;
     @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
+    @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
 
     public static final int REQUEST_UPGRADE = 505;
 
-    private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver(this);
     private NavigationDrawerFragment navigationDrawer;
 
     /** For indicating the new list screen should be launched at fragment setup time */

@@ -1,6 +1,7 @@
 package org.tasks.receivers;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
@@ -12,16 +13,15 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.analytics.Tracker;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
+public class RepeatConfirmationReceiver extends BroadcastReceiver {
 
     private final Property<?>[] REPEAT_RESCHEDULED_PROPERTIES =
             new Property<?>[]{
@@ -32,18 +32,19 @@ public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
                     Task.REPEAT_UNTIL
             };
 
-    @Inject TaskService taskService;
-
+    private final TaskService taskService;
     private final Activity activity;
+    private Tracker tracker;
 
-    public RepeatConfirmationReceiver(Activity activity) {
+    @Inject
+    public RepeatConfirmationReceiver(TaskService taskService, Activity activity, Tracker tracker) {
+        this.taskService = taskService;
         this.activity = activity;
+        this.tracker = tracker;
     }
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        super.onReceive(context, intent);
-
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, 0);
 
         if (taskId > 0) {
@@ -61,6 +62,9 @@ public class RepeatConfirmationReceiver extends InjectingBroadcastReceiver {
                         context.sendBroadcast(intent);
                     }
                 }.start();
+            } catch (Exception e) {
+                Timber.e(e, e.getMessage());
+                tracker.reportException(e);
             }
         }
     }

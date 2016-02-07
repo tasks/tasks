@@ -34,8 +34,7 @@ import dagger.Module;
                 FirstLaunchReceiver.class,
                 MyPackageReplacedReceiver.class,
                 RefreshReceiver.class,
-                CompleteTaskReceiver.class,
-                RepeatConfirmationReceiver.class
+                CompleteTaskReceiver.class
         })
 public class BroadcastModule {
 }
