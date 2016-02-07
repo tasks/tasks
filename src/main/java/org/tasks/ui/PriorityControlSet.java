@@ -19,6 +19,8 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
+
 public class PriorityControlSet extends TaskEditControlFragment {
 
     public static final int TAG = R.string.TEA_ctrl_importance_pref;
@@ -68,10 +70,12 @@ public class PriorityControlSet extends TaskEditControlFragment {
         } else {
             priorityNone.setChecked(true);
         }
-        tintRadioButton(priorityHigh, 0);
-        tintRadioButton(priorityMedium, 1);
-        tintRadioButton(priorityLow, 2);
-        tintRadioButton(priorityNone, 3);
+        if (preLollipop()) {
+            tintRadioButton(priorityHigh, 0);
+            tintRadioButton(priorityMedium, 1);
+            tintRadioButton(priorityLow, 2);
+            tintRadioButton(priorityNone, 3);
+        }
         return view;
     }
 

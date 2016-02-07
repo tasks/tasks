@@ -27,18 +27,22 @@
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_none"
+            android:buttonTint="@color/importance_4"
             style="@style/priority_button"/>
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_low"
+            android:buttonTint="@color/importance_3"
             style="@style/priority_button"/>
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_medium"
+            android:buttonTint="@color/importance_2"
             style="@style/priority_button"/>
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_high"
+            android:buttonTint="@color/importance_1"
             style="@style/priority_button"/>
     </RadioGroup>
 
