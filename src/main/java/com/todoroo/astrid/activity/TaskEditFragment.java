@@ -47,6 +47,7 @@ import com.todoroo.astrid.utility.Flags;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
@@ -54,7 +55,6 @@ import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskEditControlFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -119,6 +119,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     @Inject ActFmCameraModule actFmCameraModule;
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForActivity Context context;
+    @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
 
     // --- UI components
 
@@ -129,20 +130,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     @Bind(R.id.edit_scroll) ScrollView scrollView;
     @Bind(R.id.commentField) EditText commentField;
     @Bind(R.id.toolbar) Toolbar toolbar;
-
-    public static final int[] rowIds = new int[] {
-        R.id.row_1,
-        R.id.row_2,
-        R.id.row_3,
-        R.id.row_4,
-        R.id.row_5,
-        R.id.row_6,
-        R.id.row_7,
-        R.id.row_8,
-        R.id.row_9,
-        R.id.row_10,
-        R.id.row_11,
-    };
 
     // --- other instance variables
 
@@ -340,21 +327,10 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      * ======================================================================
      */
 
-    public List<TaskEditControlFragment> getFragments() {
-        List<TaskEditControlFragment> fragments = new ArrayList<>();
-        for (int fragmentId : rowIds) {
-            TaskEditControlFragment fragment = (TaskEditControlFragment) getFragmentManager().findFragmentById(fragmentId);
-            if (fragment == null) {
-                break;
-            }
-            fragments.add(fragment);
-        }
-        return fragments;
-    }
 
     /** Save task model from values in UI components */
     public void save() {
-        List<TaskEditControlFragment> fragments = getFragments();
+        List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager.getFragments();
         if (hasChanges(fragments)) {
             for (TaskEditControlFragment fragment : fragments) {
                 fragment.apply(model);
@@ -422,7 +398,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
     }
 
     public void discardButtonClick() {
-        if (hasChanges(getFragments())) {
+        if (hasChanges(taskEditControlSetFragmentManager.getFragments())) {
             dialogBuilder.newMessageDialog(R.string.discard_confirmation)
                     .setPositiveButton(R.string.keep_editing, null)
                     .setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {

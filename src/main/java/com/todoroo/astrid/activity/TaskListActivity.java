@@ -25,35 +25,25 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeActivity;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
-import com.todoroo.astrid.ui.EditTitleControlSet;
-import com.todoroo.astrid.ui.HideUntilControlSet;
-import com.todoroo.astrid.ui.ReminderControlSet;
 
 import org.tasks.R;
+import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
-import org.tasks.ui.CalendarControlSet;
-import org.tasks.ui.DeadlineControlSet;
-import org.tasks.ui.DescriptionControlSet;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -74,13 +64,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject StartupService startupService;
     @Inject SubtasksHelper subtasksHelper;
     @Inject TaskService taskService;
+    @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
 
     public static final int REQUEST_UPGRADE = 505;
 
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver(this);
-    private final Map<String, Integer> controlSetFragments = new HashMap<>();
     private NavigationDrawerFragment navigationDrawer;
-    private ArrayList<String> controlOrder;
 
     /** For indicating the new list screen should be launched at fragment setup time */
     public static final String TOKEN_CREATE_NEW_LIST = "createNewList"; //$NON-NLS-1$
@@ -104,21 +93,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawer.setUp(drawerLayout);
 
-        registerFragment(EditTitleControlSet.TAG);
-        registerFragment(DeadlineControlSet.TAG);
-        registerFragment(CalendarControlSet.TAG);
-        registerFragment(PriorityControlSet.TAG);
-        registerFragment(DescriptionControlSet.TAG);
-        registerFragment(HideUntilControlSet.TAG);
-        registerFragment(ReminderControlSet.TAG);
-        registerFragment(FilesControlSet.TAG);
-        registerFragment(TimerControlSet.TAG);
-        registerFragment(TagsControlSet.TAG);
-        registerFragment(RepeatControlSet.TAG);
-
-        controlOrder = BeastModePreferences.constructOrderedControlList(preferences, this);
-        controlOrder.add(0, getString(EditTitleControlSet.TAG));
-
         handleIntent();
     }
 
@@ -135,13 +109,13 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         Intent intent = getIntent();
 
         TaskEditFragment taskEditFragment = getTaskEditFragment();
-        List<TaskEditControlFragment> taskEditControlFragments = new ArrayList<>();
+        List<TaskEditControlFragment> taskEditControlFragments = null;
         if (taskEditFragment != null) {
             if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(OPEN_TASK)) {
                 taskEditFragment.save();
                 taskEditFragment = null;
             } else {
-                taskEditControlFragments.addAll(taskEditFragment.getFragments());
+                taskEditControlFragments = taskEditControlSetFragmentManager.getFragments();
             }
         }
 
@@ -193,7 +167,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         for (int i = 0 ; i < taskEditControlFragments.size() ; i++) {
             TaskEditControlFragment taskEditControlFragment = taskEditControlFragments.get(i);
             String tag = getString(taskEditControlFragment.controlId());
-            fragmentTransaction.replace(TaskEditFragment.rowIds[i], taskEditControlFragment, tag);
+            fragmentTransaction.replace(TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS[i], taskEditControlFragment, tag);
         }
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -306,66 +280,16 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             return;
         }
         boolean isNewTask = task.getTitle().length() == 0;
-
-        String hideAlwaysTrigger = getString(R.string.TEA_ctrl_hide_section_pref);
-
-        taskEditFragment = newTaskEditFragment(isNewTask, task);
-        List<TaskEditControlFragment> taskEditControlFragments = new ArrayList<>();
-        for (int i = 0 ; i < controlOrder.size() ; i++) {
-            String item = controlOrder.get(i);
-            if (item.equals(hideAlwaysTrigger)) {
-                break;
-            }
-            Integer resId = controlSetFragments.get(item);
-            if (resId == null) {
-                Timber.e("Unknown task edit control %s", item);
-                continue;
-            }
-
-            TaskEditControlFragment fragment = createFragment(resId);
-            fragment.initialize(isNewTask, task);
-            taskEditControlFragments.add(fragment);
-        }
-        loadTaskEditFragment(false, taskEditFragment, taskEditControlFragments);
+        loadTaskEditFragment(
+                false,
+                newTaskEditFragment(isNewTask, task),
+                taskEditControlSetFragmentManager.createNewFragments(isNewTask, task));
     }
 
     @Override
     public void onNavigationIconClicked() {
         hideKeyboard();
         navigationDrawer.openDrawer();
-    }
-
-    private void registerFragment(int resId) {
-        controlSetFragments.put(getString(resId), resId);
-    }
-
-    private TaskEditControlFragment createFragment(int fragmentId) {
-        switch (fragmentId) {
-            case R.string.TEA_ctrl_title_pref:
-                return new EditTitleControlSet();
-            case R.string.TEA_ctrl_when_pref:
-                return new DeadlineControlSet();
-            case R.string.TEA_ctrl_importance_pref:
-                return new PriorityControlSet();
-            case R.string.TEA_ctrl_notes_pref:
-                return new DescriptionControlSet();
-            case R.string.TEA_ctrl_gcal:
-                return new CalendarControlSet();
-            case R.string.TEA_ctrl_hide_until_pref:
-                return new HideUntilControlSet();
-            case R.string.TEA_ctrl_reminders_pref:
-                return new ReminderControlSet();
-            case R.string.TEA_ctrl_files_pref:
-                return new FilesControlSet();
-            case R.string.TEA_ctrl_timer_pref:
-                return new TimerControlSet();
-            case R.string.TEA_ctrl_lists_pref:
-                return new TagsControlSet();
-            case R.string.TEA_ctrl_repeat_pref:
-                return new RepeatControlSet();
-            default:
-                throw new RuntimeException("Unsupported fragment");
-        }
     }
 
     @Override

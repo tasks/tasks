@@ -183,12 +183,7 @@ public class BeastModePreferences extends InjectingAppCompatActivity {
             itemsArray = order.split(BEAST_MODE_PREF_ITEM_SEPARATOR);
         }
 
-        for (String s : itemsArray) {
-            if (!s.equals(context.getString(R.string.TEA_ctrl_share_pref)) &&
-                    !s.equals(context.getString(R.string.TEA_ctrl_more_pref))) {
-                list.add(s);
-            }
-        }
+        Collections.addAll(list, itemsArray);
 
         if (order == null) {
             return list;

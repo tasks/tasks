@@ -220,7 +220,6 @@
     <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
     <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
     <string name="TEA_ctrl_repeat_pref">TEA_ctrl_repeat_pref</string>
-    <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
     <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
     <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
     <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
@@ -229,7 +228,6 @@
     <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
     <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
     <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
-    <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
     <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
     <string name="sync_gtasks">sync_gtasks</string>
     <string name="p_rmd_notif_actions_enabled">p_rmd_notif_actions_enabled</string>
