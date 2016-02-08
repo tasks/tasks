@@ -12,21 +12,17 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewParent;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule;
@@ -72,7 +68,7 @@ import static android.app.Activity.RESULT_OK;
  * @author timsu
  *
  */
-public final class TaskEditFragment extends InjectingFragment implements EditNoteActivity.UpdatesChangedListener, Toolbar.OnMenuItemClickListener {
+public final class TaskEditFragment extends InjectingFragment implements Toolbar.OnMenuItemClickListener {
 
     public interface TaskEditFragmentCallbackHandler {
         void taskEditFinished();
@@ -125,9 +121,8 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
 
     private EditNoteActivity editNotes;
 
-    @Bind(R.id.pager) ViewPager mPager;
     @Bind(R.id.updatesFooter) View commentsBar;
-    @Bind(R.id.edit_scroll) ScrollView scrollView;
+    @Bind(R.id.edit_body) LinearLayout body;
     @Bind(R.id.commentField) EditText commentField;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
@@ -238,8 +233,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
                     taskService, this, getView(), model.getId());
             editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.WRAP_CONTENT));
-
-            editNotes.addListener(this);
+            body.addView(editNotes);
         }
     }
 
@@ -255,31 +249,7 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
             if (timerControl != null) {
                 timerControl.setEditNotes(editNotes);
             }
-            editNotes.addListener(this);
         }
-
-        if (!showEditComments) {
-            return;
-        }
-
-        TaskEditViewPager adapter = new TaskEditViewPager();
-        adapter.parent = this;
-
-        mPager.setAdapter(adapter);
-
-        setCurrentTab(0);
-        setPagerHeightForPosition();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                updatesChanged();
-            }
-        }, 500L);
-    }
-
-    private void setCurrentTab(int position) {
-        mPager.setCurrentItem(position);
     }
 
     public Task stopTimer() {
@@ -475,61 +445,6 @@ public final class TaskEditFragment extends InjectingFragment implements EditNot
      * ========================================== UI component helper classes
      * ======================================================================
      */
-
-    public View getPageView() {
-        return editNotes;
-    }
-
-    private void setPagerHeightForPosition() {
-        int height = 0;
-
-        View view = editNotes;
-        if (mPager == null) {
-            return;
-        }
-
-        int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
-                MeasureSpec.AT_MOST);
-        view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-        height = Math.max(view.getMeasuredHeight(), height);
-        LayoutParams pagerParams = mPager.getLayoutParams();
-        if (height > 0 && height != pagerParams.height) {
-            pagerParams.height = height;
-            mPager.setLayoutParams(pagerParams);
-        }
-    }
-
-    // EditNoteActivity Listener when there are new updates/comments
-    @Override
-    public void updatesChanged()  {
-        if (mPager != null) {
-            setPagerHeightForPosition();
-        }
-    }
-
-    // EditNoteActivity Lisener when there are new updates/comments
-    @Override
-    public void commentAdded() {
-        setPagerHeightForPosition();
-        scrollToView(editNotes);
-    }
-
-    // Scroll to view in edit task
-    public void scrollToView(View v) {
-        View child = v;
-        int top = v.getTop();
-        while (!child.equals(scrollView) ) {
-            top += child.getTop();
-            ViewParent parentView = child.getParent();
-            if (parentView != null && View.class.isInstance(parentView)) {
-                child = (View) parentView;
-            }
-            else {
-                break;
-            }
-        }
-        scrollView.smoothScrollTo(0, top);
-    }
 
     private void hideKeyboard() {
         getEditTitleControlSet().hideKeyboard();

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.notes;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
@@ -52,8 +51,6 @@ import org.tasks.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 
 import timber.log.Timber;
 
@@ -81,13 +78,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final TaskListActivity activity;
 
     private final int cameraButton;
-
-    private final List<UpdatesChangedListener> listeners = new LinkedList<>();
-
-    public interface UpdatesChangedListener {
-        void updatesChanged();
-        void commentAdded();
-    }
 
     public EditNoteActivity(
             ActFmCameraModule actFmCameraModule,
@@ -282,14 +272,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             });
             this.addView(loadMore);
         }
-
-        for (UpdatesChangedListener l : listeners) {
-            l.updatesChanged();
-        }
     }
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
-        View convertView = ((Activity)activity).getLayoutInflater().inflate(
+        View convertView = activity.getLayoutInflater().inflate(
                     R.layout.comment_adapter_row, parent, false);
         bindView(convertView, note);
         return convertView;
@@ -375,9 +361,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         setUpListAdapter();
-        for (UpdatesChangedListener l : listeners) {
-            l.commentAdded();
-        }
     }
 
     private static class NoteOrUpdate {
@@ -424,10 +407,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             String message = activity.getMessage();
             return Html.fromHtml(message);
         }
-    }
-
-    public void addListener(UpdatesChangedListener listener) {
-        listeners.add(listener);
     }
 
     @Override

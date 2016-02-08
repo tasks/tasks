@@ -15,13 +15,13 @@
     <include layout="@layout/toolbar_separator" />
 
     <ScrollView
-        android:id="@+id/edit_scroll"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="100"
         android:overScrollMode="never">
 
         <LinearLayout
+            android:id="@+id/edit_body"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -81,14 +81,6 @@
                 android:id="@+id/row_11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dip"
-                android:layout_marginBottom="0dip"
-                android:orientation="vertical" />
 
         </LinearLayout>
     </ScrollView>
