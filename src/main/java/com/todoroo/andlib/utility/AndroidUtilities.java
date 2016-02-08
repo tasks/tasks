@@ -351,6 +351,18 @@ public class AndroidUtilities {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 
+    public static void hideKeyboard(Activity activity) {
+        try {
+            View currentFocus = activity.getCurrentFocus();
+            if (currentFocus != null) {
+                InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+            }
+        } catch (Exception e) {
+            Timber.e(e, e.getMessage());
+        }
+    }
+
     /**
      * Dismiss the keyboard if it is displayed by any of the listed views
      * @param views - a list of views that might potentially be displaying the keyboard

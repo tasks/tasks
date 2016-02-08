@@ -10,38 +10,36 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.ActFmCameraModule;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
-import org.tasks.activities.CameraActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
@@ -59,6 +57,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_OK;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -96,15 +95,9 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     private static final String EXTRA_TASK = "extra_task"; //$NON-NLS-1$
     private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
 
-    /**
-     * Token for saving a bitmap in the intent before it has been added with a comment
-     */
-    public static final String TOKEN_PICTURE_IN_PROGRESS = "picture_in_progress"; //$NON-NLS-1$
-
     // --- request codes
 
     public static final int REQUEST_CODE_RECORD = 30; // TODO: move this to file control set
-    public static final int REQUEST_CODE_CAMERA = 60;
 
     @Inject TaskService taskService;
     @Inject MetadataDao metadataDao;
@@ -112,7 +105,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject TaskDeleter taskDeleter;
     @Inject NotificationManager notificationManager;
     @Inject ActivityPreferences preferences;
-    @Inject ActFmCameraModule actFmCameraModule;
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForActivity Context context;
     @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
@@ -121,9 +113,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     private EditNoteActivity editNotes;
 
-    @Bind(R.id.updatesFooter) View commentsBar;
     @Bind(R.id.edit_body) LinearLayout body;
-    @Bind(R.id.commentField) EditText commentField;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
     // --- other instance variables
@@ -196,7 +186,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         notificationManager.cancel(model.getId());
 
         if (!showEditComments) {
-            commentsBar.setVisibility(View.GONE);
+            // TODO: hide comment bar
         }
 
         return view;
@@ -205,7 +195,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        hideKeyboard();
+        AndroidUtilities.hideKeyboard(getActivity());
 
         switch (item.getItemId()) {
             case R.id.menu_record_note:
@@ -229,10 +219,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     private void instantiateEditNotes() {
         if (showEditComments) {
-            editNotes = new EditNoteActivity(actFmCameraModule, metadataDao, userActivityDao,
-                    taskService, this, getView(), model.getId());
-            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.WRAP_CONTENT));
+            editNotes = new EditNoteActivity(metadataDao, userActivityDao, taskService, this, model.getId());
+            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
             body.addView(editNotes);
         }
     }
@@ -243,22 +231,27 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         } else {
             editNotes.loadViewForTaskID(model.getId());
         }
-
-        if (editNotes != null) {
-            TimerControlSet timerControl = getTimerControl();
-            if (timerControl != null) {
-                timerControl.setEditNotes(editNotes);
-            }
-        }
     }
 
     public Task stopTimer() {
         TimerPlugin.stopTimer(notificationManager, taskService, context, model);
+        String elapsedTime = DateUtils.formatElapsedTime(model.getElapsedSeconds());
+        addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
+                        getString(R.string.TEA_timer_comment_stopped),
+                        DateUtilities.getTimeString(getActivity(), newDateTime()),
+                        getString(R.string.TEA_timer_comment_spent),
+                        elapsedTime), UserActivity.ACTION_TASK_COMMENT,
+                null);
         return model;
     }
 
     public Task startTimer() {
         TimerPlugin.startTimer(notificationManager, taskService, context, model);
+        addComment(String.format("%s %s",
+                        getString(R.string.TEA_timer_comment_started),
+                        DateUtilities.getTimeString(getActivity(), newDateTime())),
+                UserActivity.ACTION_TASK_COMMENT,
+                null);
         return model;
     }
 
@@ -319,7 +312,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             if (isNewTask) {
                 tla.getTaskListFragment().onTaskCreated(model.getId(), model.getUuid());
             }
-            removeExtrasFromIntent(getActivity().getIntent());
             callback.taskEditFinished();
         } else {
             discard();
@@ -334,22 +326,9 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         return getFragment(FilesControlSet.TAG);
     }
 
-    private TimerControlSet getTimerControl() {
-        return getFragment(TimerControlSet.TAG );
-    }
-
     @SuppressWarnings("unchecked")
     private <T extends TaskEditControlFragment> T getFragment(int tag) {
         return (T) getFragmentManager().findFragmentByTag(getString(tag));
-    }
-
-    /**
-     * Helper to remove task edit specific info from activity intent
-     */
-    public static void removeExtrasFromIntent(Intent intent) {
-        if (intent != null) {
-            intent.removeExtra(TOKEN_PICTURE_IN_PROGRESS);
-        }
     }
 
     /*
@@ -389,7 +368,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             taskDeleter.delete(model);
         }
 
-        removeExtrasFromIntent(getActivity().getIntent());
         callback.taskEditFinished();
     }
 
@@ -422,11 +400,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
             getFilesControlSet().createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
-        } else if (requestCode == REQUEST_CODE_CAMERA) {
-            if (editNotes != null && resultCode == RESULT_OK) {
-                Uri uri = data.getParcelableExtra(CameraActivity.EXTRA_URI);
-                editNotes.setPictureUri(uri);
-            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -446,17 +419,24 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
      * ======================================================================
      */
 
-    private void hideKeyboard() {
-        getEditTitleControlSet().hideKeyboard();
-        AndroidUtilities.hideSoftInputForViews(getActivity(), commentField);
-        commentField.setCursorVisible(false);
-    }
-
     public void onPriorityChange(int priority) {
         getEditTitleControlSet().setPriority(priority);
     }
 
     public void onRepeatChanged(boolean repeat) {
         getEditTitleControlSet().repeatChanged(repeat);
+    }
+
+    public void addComment(String message, String actionCode, String picture) {
+        UserActivity userActivity = new UserActivity();
+        userActivity.setMessage(message);
+        userActivity.setAction(actionCode);
+        userActivity.setTargetId(model.getUuid());
+        userActivity.setCreatedAt(DateUtilities.now());
+        if (picture != null) {
+            userActivity.setPicture(picture);
+        }
+        userActivityDao.createNew(userActivity);
+        editNotes.reloadView();
     }
 }

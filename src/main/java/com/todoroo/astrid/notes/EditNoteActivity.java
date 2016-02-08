@@ -10,42 +10,28 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.net.Uri;
-import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.actfm.ActFmCameraModule;
-import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
-import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.timers.TimerActionListener;
 
-import org.json.JSONObject;
 import org.tasks.R;
 
 import java.util.ArrayList;
@@ -54,41 +40,29 @@ import java.util.Comparator;
 
 import timber.log.Timber;
 
-import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
-public class EditNoteActivity extends LinearLayout implements TimerActionListener {
+public class EditNoteActivity extends LinearLayout {
 
     private Task task;
 
-    private ActFmCameraModule actFmCameraModule;
     private final MetadataDao metadataDao;
     private final UserActivityDao userActivityDao;
     private final TaskService taskService;
     private final ArrayList<NoteOrUpdate> items = new ArrayList<>();
-    private EditText commentField;
-    private final View commentsBar;
-    private View commentButton;
     private int commentItems = 10;
-    private ImageButton pictureButton;
-    private Uri pendingCommentPicture = null;
     private final Fragment fragment;
 
     private final TaskListActivity activity;
 
-    private final int cameraButton;
-
     public EditNoteActivity(
-            ActFmCameraModule actFmCameraModule,
             MetadataDao metadataDao,
             UserActivityDao userActivityDao,
             TaskService taskService,
             Fragment fragment,
-            View parent,
             long t) {
         super(fragment.getActivity());
-        this.actFmCameraModule = actFmCameraModule;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.taskService = taskService;
@@ -97,11 +71,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         this.activity = (TaskListActivity) fragment.getActivity();
 
-        cameraButton = R.drawable.ic_camera_alt_white_24dp;
-
         setOrientation(VERTICAL);
-
-        commentsBar = parent.findViewById(R.id.updatesFooter);
 
         loadViewForTaskID(t);
     }
@@ -120,90 +90,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             return;
         }
         setUpInterface();
-        setUpListAdapter();
+        reloadView();
     }
 
     // --- UI preparation
 
     private void setUpInterface() {
-        commentButton = commentsBar.findViewById(R.id.commentButton);
-        commentField = (EditText) commentsBar.findViewById(R.id.commentField);
-
-        commentField.setHorizontallyScrolling(false);
-        commentField.setMaxLines(Integer.MAX_VALUE);
-        commentField.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    AndroidUtilities.hideSoftInputForViews(activity, commentField);
-                    return true;
-                }
-                return false;
-            }
-        });
-        commentField.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                commentField.setCursorVisible(true);
-            }
-        });
-
-        commentField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
-                        : View.GONE);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //
-            }
-        });
-
-        commentField.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if (commentField.getText().length() > 0) {
-                    if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
-//                        commentField.setCursorVisible(false);
-                        addComment();
-                    }
-                }
-                return false;
-            }
-        });
-
-        commentButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addComment();
-            }
-        });
-
-        final ClearImageCallback clearImage = new ClearImageCallback() {
-            @Override
-            public void clearImage() {
-                pendingCommentPicture = null;
-                pictureButton.setImageResource(cameraButton);
-            }
-        };
-        pictureButton = (ImageButton) commentsBar.findViewById(R.id.picture);
-        pictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (pendingCommentPicture != null) {
-                    actFmCameraModule.showPictureLauncher(clearImage);
-                } else {
-                    actFmCameraModule.showPictureLauncher(null);
-                }
-            }
-        });
         if(!TextUtils.isEmpty(task.getNotes())) {
             TextView notes = new TextView(activity);
             notes.setLinkTextColor(Color.rgb(100, 160, 255));
@@ -212,17 +104,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             notes.setPadding(5, 10, 5, 10);
             Linkify.addLinks(notes, Linkify.ALL);
         }
-
-        if (activity != null) {
-            String uri = activity.getIntent().getStringExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
-            if (uri != null) {
-                pendingCommentPicture = Uri.parse(uri);
-                setPictureButtonToPendingPicture();
-            }
-        }
     }
 
-    private void setUpListAdapter() {
+    public void reloadView() {
         items.clear();
         this.removeAllViews();
         metadataDao.byTaskAndKey(task.getId(), NoteMetadata.METADATA_KEY, new Callback<Metadata>() {
@@ -267,7 +151,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 public void onClick(View v) {
                     // Perform action on click
                     commentItems += 10;
-                    setUpListAdapter();
+                    reloadView();
                 }
             });
             this.addView(loadMore);
@@ -322,47 +206,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
     }
 
-    private void addComment() {
-        addComment(commentField.getText().toString(), UserActivity.ACTION_TASK_COMMENT, task.getUuid(), true);
-        AndroidUtilities.hideSoftInputForViews(activity, commentField);
-        commentField.setCursorVisible(false);
-    }
-
-    private void addComment(String message, String actionCode, String uuid, boolean usePicture) {
-        // Allow for users to just add picture
-        if (TextUtils.isEmpty(message) && usePicture) {
-            message = " ";
-        }
-        UserActivity userActivity = new UserActivity();
-        userActivity.setMessage(message);
-        userActivity.setAction(actionCode);
-        userActivity.setTargetId(uuid);
-        userActivity.setCreatedAt(DateUtilities.now());
-        if (usePicture && pendingCommentPicture != null) {
-            JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(pendingCommentPicture);
-            if (pictureJson != null) {
-                userActivity.setPicture(pictureJson.toString());
-            }
-        }
-
-        userActivityDao.createNew(userActivity);
-        if (commentField != null) {
-            commentField.setText(""); //$NON-NLS-1$
-        }
-
-        pendingCommentPicture = usePicture ? null : pendingCommentPicture;
-        if (usePicture) {
-            if (activity != null) {
-                activity.getIntent().removeExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
-            }
-        }
-        if (pictureButton != null) {
-            pictureButton.setImageResource(cameraButton);
-        }
-
-        setUpListAdapter();
-    }
-
     private static class NoteOrUpdate {
         private final Spanned title;
         private final Uri commentBitmap;
@@ -407,41 +250,5 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             String message = activity.getMessage();
             return Html.fromHtml(message);
         }
-    }
-
-    @Override
-    public void timerStarted(Task t) {
-        addComment(String.format("%s %s",  //$NON-NLS-1$
-                        activity.getString(R.string.TEA_timer_comment_started),
-                        DateUtilities.getTimeString(activity, newDateTime())),
-                UserActivity.ACTION_TASK_COMMENT,
-                t.getUuid(),
-                false);
-    }
-
-    @Override
-    public void timerStopped(Task t) {
-        String elapsedTime = DateUtils.formatElapsedTime(t.getElapsedSeconds());
-        addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
-                activity.getString(R.string.TEA_timer_comment_stopped),
-                DateUtilities.getTimeString(activity, newDateTime()),
-                activity.getString(R.string.TEA_timer_comment_spent),
-                elapsedTime), UserActivity.ACTION_TASK_COMMENT,
-                t.getUuid(),
-                false);
-    }
-
-    public void setPictureUri(Uri uri) {
-        if (activity != null) {
-            activity.getIntent().putExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS, uri.toString());
-        }
-        pendingCommentPicture = uri;
-        setPictureButtonToPendingPicture();
-        commentField.requestFocus();
-    }
-
-    private void setPictureButtonToPendingPicture() {
-        String path = getPathFromUri(activity, pendingCommentPicture);
-        pictureButton.setImageBitmap(sampleBitmap(path, pictureButton.getWidth(), pictureButton.getHeight()));
     }
 }

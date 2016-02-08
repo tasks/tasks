@@ -33,6 +33,7 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.timers.TimerControlSet;
 
 import org.tasks.R;
+import org.tasks.fragments.CommentBarFragment;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
@@ -58,7 +59,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         PriorityControlSet.OnPriorityChanged,
         TimerControlSet.TimerControlSetCallback,
         RepeatControlSet.RepeatChangedListener,
-        TaskEditFragment.TaskEditFragmentCallbackHandler {
+        TaskEditFragment.TaskEditFragmentCallbackHandler,
+        CommentBarFragment.CommentBarFragmentCallback {
 
     @Inject ActivityPreferences preferences;
     @Inject StartupService startupService;
@@ -200,7 +202,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     @Override
     public void onFilterItemClicked(FilterListItem item) {
-        TaskEditFragment.removeExtrasFromIntent(getIntent());
         TaskEditFragment tef = getTaskEditFragment();
         if (tef != null) {
             getTaskEditFragment().save();
@@ -439,6 +440,14 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (view != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    @Override
+    public void addComment(String message, String actionCode, String picture) {
+        TaskEditFragment taskEditFragment = getTaskEditFragment();
+        if (taskEditFragment != null) {
+            taskEditFragment.addComment(message, actionCode, picture);
         }
     }
 }

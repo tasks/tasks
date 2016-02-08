@@ -18,6 +18,7 @@ import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 
+import org.tasks.fragments.CommentBarFragment;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -48,7 +49,8 @@ import dagger.Provides;
                 EditTitleControlSet.class,
                 TimerControlSet.class,
                 TagsControlSet.class,
-                RepeatControlSet.class
+                RepeatControlSet.class,
+                CommentBarFragment.class
         })
 public class FragmentModule {
 

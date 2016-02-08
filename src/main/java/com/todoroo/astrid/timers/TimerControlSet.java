@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
 
 import org.tasks.R;
@@ -33,9 +32,6 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.TaskEditControlFragment;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -72,7 +68,6 @@ public class TimerControlSet extends TaskEditControlFragment {
     private TimeDurationControlSet estimated;
     private TimeDurationControlSet elapsed;
     private long timerStarted;
-    private final List<TimerActionListener> listeners = new LinkedList<>();
     protected AlertDialog dialog;
     private View dialogView;
     private int elapsedSeconds;
@@ -147,18 +142,12 @@ public class TimerControlSet extends TaskEditControlFragment {
             Task task = callback.stopTimer();
             elapsed.setTimeDuration(task.getElapsedSeconds());
             timerStarted = 0;
-            for (TimerActionListener listener : listeners) {
-                listener.timerStopped(task);
-            }
             chronometer.stop();
             refreshDisplayView();
         } else {
             Task task = callback.startTimer();
             timerStarted = task.getTimerStart();
             chronometer.start();
-            for (TimerActionListener listener : listeners) {
-                listener.timerStarted(task);
-            }
         }
         updateChronometer();
     }
@@ -195,11 +184,6 @@ public class TimerControlSet extends TaskEditControlFragment {
     public void apply(Task task) {
         task.setElapsedSeconds(elapsed.getTimeDurationInSeconds());
         task.setEstimatedSeconds(estimated.getTimeDurationInSeconds());
-    }
-
-    public void setEditNotes(EditNoteActivity editNotes) {
-        removeListener(editNotes);
-        addListener(editNotes);
     }
 
     private void refresh() {
@@ -264,16 +248,6 @@ public class TimerControlSet extends TaskEditControlFragment {
         } else {
             chronometer.setVisibility(View.GONE);
             chronometer.stop();
-        }
-    }
-
-    public void addListener(TimerActionListener listener) {
-        this.listeners.add(listener);
-    }
-
-    public void removeListener(TimerActionListener listener) {
-        if (listeners.contains(listener)) {
-            listeners.remove(listener);
         }
     }
 

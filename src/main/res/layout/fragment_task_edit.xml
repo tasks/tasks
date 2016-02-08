@@ -90,65 +90,10 @@
         android:layout_height="1px"
         android:background="?attr/asToolbarSeparator" />
 
-    <LinearLayout
-        android:id="@+id/updatesFooter"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/asAbBackgroundColor"
-        android:gravity="center_vertical"
-        android:minHeight="50dp"
-        android:orientation="horizontal"
-        android:padding="3dip"
-        android:paddingBottom="0dip">
-
-        <!-- Voice Add Button -->
-
-        <ImageButton
-            android:id="@+id/picture"
-            android:layout_width="39dip"
-            android:layout_height="39dip"
-            android:layout_marginRight="3dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:paddingBottom="2dip"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_camera_alt_white_24dp" />
-
-        <!-- Quick Add Task -->
-
-        <EditText
-            android:id="@+id/commentField"
-            android:layout_width="wrap_content"
-            android:layout_height="39dip"
-            android:layout_marginBottom="2dip"
-            android:layout_marginLeft="1dip"
-            android:layout_marginRight="1dip"
-            android:layout_marginTop="2dip"
-            android:layout_weight="100"
-            android:autoText="true"
-            android:background="?attr/asEditTextBackground"
-            android:capitalize="sentences"
-            android:hint="@string/TVA_add_comment"
-            android:imeOptions="flagNoExtractUi|actionDone"
-            android:inputType="textCapSentences"
-            android:paddingLeft="10dip"
-            android:textColor="@color/white_text"
-            android:textColorHint="@color/white_text_hint"
-            android:textSize="16sp" />
-
-        <!-- Extended Add Button -->
-
-        <ImageButton
-            android:id="@+id/commentButton"
-            android:layout_width="39dip"
-            android:layout_height="39dip"
-            android:layout_marginLeft="3dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:scaleType="center"
-            android:src="@drawable/ic_add_24dp"
-            android:tint="@android:color/white"
-            android:visibility="gone" />
-    </LinearLayout>
+    <fragment
+        android:name="org.tasks.fragments.CommentBarFragment"
+        android:id="@+id/comment_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
