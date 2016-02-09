@@ -21,7 +21,6 @@
         android:overScrollMode="never">
 
         <LinearLayout
-            android:id="@+id/edit_body"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -81,6 +80,12 @@
                 android:id="@+id/row_11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
 
         </LinearLayout>
     </ScrollView>

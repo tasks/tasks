@@ -16,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -28,6 +29,7 @@ import org.tasks.activities.CameraActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.Device;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +63,12 @@ public class CommentBarFragment extends InjectingFragment {
     @Inject Activity activity;
     @Inject DialogBuilder dialogBuilder;
     @Inject Device device;
+    @Inject Preferences preferences;
 
     @Bind(R.id.commentButton) View commentButton;
     @Bind(R.id.commentField) EditText commentField;
     @Bind(R.id.picture) ImageView pictureButton;
+    @Bind(R.id.updatesFooter) LinearLayout commentBar;
 
     private CommentBarFragmentCallback callback;
     private Uri pendingCommentPicture = null;
@@ -92,6 +96,11 @@ public class CommentBarFragment extends InjectingFragment {
 
         commentField.setHorizontallyScrolling(false);
         commentField.setMaxLines(Integer.MAX_VALUE);
+
+        if (!preferences.getBoolean(R.string.p_show_task_edit_comments, true)) {
+            commentBar.setVisibility(View.GONE);
+        }
+
         return view;
     }
 

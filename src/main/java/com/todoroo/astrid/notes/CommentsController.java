@@ -5,110 +5,73 @@
  */
 package com.todoroo.astrid.notes;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.net.Uri;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import timber.log.Timber;
+import javax.inject.Inject;
 
 import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
-public class EditNoteActivity extends LinearLayout {
-
-    private Task task;
+public class CommentsController {
 
     private final MetadataDao metadataDao;
     private final UserActivityDao userActivityDao;
-    private final TaskService taskService;
     private final ArrayList<NoteOrUpdate> items = new ArrayList<>();
+    private final Activity activity;
+    private Preferences preferences;
+
     private int commentItems = 10;
-    private final Fragment fragment;
+    private Task task;
+    private ViewGroup commentsContainer;
 
-    private final TaskListActivity activity;
-
-    public EditNoteActivity(
-            MetadataDao metadataDao,
-            UserActivityDao userActivityDao,
-            TaskService taskService,
-            Fragment fragment,
-            long t) {
-        super(fragment.getActivity());
+    @Inject
+    public CommentsController(MetadataDao metadataDao, UserActivityDao userActivityDao,
+                              Activity activity, Preferences preferences) {
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
-        this.taskService = taskService;
-
-        this.fragment = fragment;
-
-        this.activity = (TaskListActivity) fragment.getActivity();
-
-        setOrientation(VERTICAL);
-
-        loadViewForTaskID(t);
+        this.activity = activity;
+        this.preferences = preferences;
     }
 
-    private void fetchTask(long id) {
-        task = taskService.fetchById(id, Task.NOTES, Task.ID, Task.UUID, Task.TITLE);
-    }
-
-    public void loadViewForTaskID(long t){
-        try {
-            fetchTask(t);
-        } catch (SQLiteException e) {
-            Timber.e(e, e.getMessage());
-        }
-        if(task == null) {
-            return;
-        }
-        setUpInterface();
-        reloadView();
-    }
-
-    // --- UI preparation
-
-    private void setUpInterface() {
-        if(!TextUtils.isEmpty(task.getNotes())) {
-            TextView notes = new TextView(activity);
-            notes.setLinkTextColor(Color.rgb(100, 160, 255));
-            notes.setTextSize(18);
-            notes.setText(task.getNotes());
-            notes.setPadding(5, 10, 5, 10);
-            Linkify.addLinks(notes, Linkify.ALL);
-        }
+    public void initialize(Task task, ViewGroup commentsContainer) {
+        this.task = task;
+        this.commentsContainer = commentsContainer;
     }
 
     public void reloadView() {
+        if (!preferences.getBoolean(R.string.p_show_task_edit_comments, true)) {
+            return;
+        }
+
         items.clear();
-        this.removeAllViews();
+        commentsContainer.removeAllViews();
         metadataDao.byTaskAndKey(task.getId(), NoteMetadata.METADATA_KEY, new Callback<Metadata>() {
             @Override
             public void apply(Metadata metadata) {
@@ -137,8 +100,8 @@ public class EditNoteActivity extends LinearLayout {
         });
 
         for (int i = 0; i < Math.min(items.size(), commentItems); i++) {
-            View notesView = this.getUpdateNotes(items.get(i), this);
-            this.addView(notesView);
+            View notesView = this.getUpdateNotes(items.get(i), commentsContainer);
+            commentsContainer.addView(notesView);
         }
 
         if (items.size() > commentItems) {
@@ -154,19 +117,18 @@ public class EditNoteActivity extends LinearLayout {
                     reloadView();
                 }
             });
-            this.addView(loadMore);
+            commentsContainer.addView(loadMore);
         }
     }
 
-    public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
-        View convertView = activity.getLayoutInflater().inflate(
-                    R.layout.comment_adapter_row, parent, false);
+    private View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
+        View convertView = activity.getLayoutInflater().inflate(R.layout.comment_adapter_row, parent, false);
         bindView(convertView, note);
         return convertView;
     }
 
     /** Helper method to set the contents and visibility of each field */
-    public synchronized void bindView(View view, NoteOrUpdate item) {
+    private void bindView(View view, NoteOrUpdate item) {
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
             nameView.setText(item.title);
@@ -183,20 +145,20 @@ public class EditNoteActivity extends LinearLayout {
 
         // picture
         final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture);
-        setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, fragment);
+        setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, activity);
     }
 
     private static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final Uri updateBitmap,
-                                                     final Fragment fragment) {
-        if (updateBitmap != null) { //$NON-NLS-1$
+                                                     final Activity activity) {
+        if (updateBitmap != null) {
             commentPictureView.setVisibility(View.VISIBLE);
-            String path = getPathFromUri(fragment.getActivity(), updateBitmap);
+            String path = getPathFromUri(activity, updateBitmap);
             commentPictureView.setImageBitmap(sampleBitmap(path, commentPictureView.getLayoutParams().width, commentPictureView.getLayoutParams().height));
 
-            view.setOnClickListener(new OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    fragment.startActivity(new Intent(Intent.ACTION_VIEW) {{
+                    activity.startActivity(new Intent(Intent.ACTION_VIEW) {{
                         setDataAndType(updateBitmap, "image/*");
                     }});
                 }

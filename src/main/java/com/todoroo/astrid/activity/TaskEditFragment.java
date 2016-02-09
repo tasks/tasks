@@ -19,20 +19,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.notes.EditNoteActivity;
+import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerPlugin;
@@ -45,7 +42,6 @@ import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -59,14 +55,6 @@ import butterknife.ButterKnife;
 import static android.app.Activity.RESULT_OK;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
-/**
- * This activity is responsible for creating new tasks and editing existing
- * ones. It saves a task when it is paused (screen rotated, back button pressed)
- * as long as the task has a title.
- *
- * @author timsu
- *
- */
 public final class TaskEditFragment extends InjectingFragment implements Toolbar.OnMenuItemClickListener {
 
     public interface TaskEditFragmentCallbackHandler {
@@ -80,41 +68,24 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         return taskEditFragment;
     }
 
-    public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
+    public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
+    public static final String TOKEN_VALUES = "v";
 
-    // --- bundle tokens
-
-    /**
-     * Content Values to set
-     */
-    public static final String TOKEN_VALUES = "v"; //$NON-NLS-1$
-
-    /**
-     * Task in progress (during orientation change)
-     */
-    private static final String EXTRA_TASK = "extra_task"; //$NON-NLS-1$
+    private static final String EXTRA_TASK = "extra_task";
     private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
-
-    // --- request codes
-
-    public static final int REQUEST_CODE_RECORD = 30; // TODO: move this to file control set
+    private static final int REQUEST_CODE_RECORD = 30; // TODO: move this to file control set
 
     @Inject TaskService taskService;
-    @Inject MetadataDao metadataDao;
     @Inject UserActivityDao userActivityDao;
     @Inject TaskDeleter taskDeleter;
     @Inject NotificationManager notificationManager;
-    @Inject ActivityPreferences preferences;
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForActivity Context context;
     @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
+    @Inject CommentsController commentsController;
 
-    // --- UI components
-
-    private EditNoteActivity editNotes;
-
-    @Bind(R.id.edit_body) LinearLayout body;
     @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.comments) LinearLayout comments;
 
     // --- other instance variables
 
@@ -124,29 +95,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     /** task model */
     Task model = null;
 
-    private boolean showEditComments;
     private TaskEditFragmentCallbackHandler callback;
-
-    /*
-     * ======================================================================
-     * ======================================================= initialization
-     * ======================================================================
-     */
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // if we were editing a task already, restore it
-        if (savedInstanceState != null) {
-            model = savedInstanceState.getParcelable(EXTRA_TASK);
-            isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
-       }
-
-        showEditComments = preferences.getBoolean(R.string.p_show_task_edit_comments, true);
-
-        getActivity().setResult(RESULT_OK);
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -155,17 +104,15 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         callback = (TaskEditFragmentCallbackHandler) activity;
     }
 
-    /*
-     * ======================================================================
-     * ==================================================== UI initialization
-     * ======================================================================
-     */
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task_edit, container, false);
         ButterKnife.bind(this, view);
+
+        if (savedInstanceState != null) {
+            model = savedInstanceState.getParcelable(EXTRA_TASK);
+            isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
+        }
 
         Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_save_24dp));
         DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
@@ -185,13 +132,11 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
         notificationManager.cancel(model.getId());
 
-        if (!showEditComments) {
-            // TODO: hide comment bar
-        }
+        commentsController.initialize(model, comments);
+        commentsController.reloadView();
 
         return view;
     }
-
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
@@ -207,30 +152,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         }
 
         return false;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        // Load task data in background
-        new TaskEditBackgroundLoader().start();
-    }
-
-    private void instantiateEditNotes() {
-        if (showEditComments) {
-            editNotes = new EditNoteActivity(metadataDao, userActivityDao, taskService, this, model.getId());
-            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-            body.addView(editNotes);
-        }
-    }
-
-    private void loadMoreContainer() {
-        if (editNotes == null) {
-            instantiateEditNotes();
-        } else {
-            editNotes.loadViewForTaskID(model.getId());
-        }
     }
 
     public Task stopTimer() {
@@ -255,41 +176,11 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         return model;
     }
 
-    /**
-     * Initialize task edit page in the background
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    private class TaskEditBackgroundLoader extends Thread {
-
-        @Override
-        public void run() {
-            AndroidUtilities.sleepDeep(500L);
-
-            Activity activity = getActivity();
-            if (activity == null) {
-                return;
-            }
-
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (getActivity() != null) {
-                        // todo: is this necessary?
-                        loadMoreContainer();
-                    }
-                }
-            });
-        }
-    }
-
     /*
      * ======================================================================
      * =============================================== model reading / saving
      * ======================================================================
      */
-
 
     /** Save task model from values in UI components */
     public void save() {
@@ -392,10 +283,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (editNotes == null) {
-            instantiateEditNotes();
-        }
-
         if (requestCode == REQUEST_CODE_RECORD && resultCode == RESULT_OK) {
             String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
@@ -437,6 +324,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             userActivity.setPicture(picture);
         }
         userActivityDao.createNew(userActivity);
-        editNotes.reloadView();
+        commentsController.reloadView();
     }
 }
