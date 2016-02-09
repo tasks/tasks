@@ -18,7 +18,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.common.base.Strings;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
@@ -184,9 +183,5 @@ public class EditTitleControlSet extends TaskEditControlFragment {
         if (isComplete != task.isCompleted()) {
             taskService.setComplete(task, isComplete);
         }
-    }
-
-    public void hideKeyboard() {
-        AndroidUtilities.hideSoftInputForViews(getActivity(), editText);
     }
 }

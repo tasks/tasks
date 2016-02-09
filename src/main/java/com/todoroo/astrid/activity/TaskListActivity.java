@@ -300,16 +300,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             return;
         }
 
-        if (getTaskEditFragment() != null) {
-            getTaskEditFragment().discardButtonClick();
-            return;
+        TaskEditFragment taskEditFragment = getTaskEditFragment();
+        if (taskEditFragment != null) {
+            taskEditFragment.discardButtonClick();
+        } else {
+            super.onBackPressed();
         }
-
-        if (isFinishing()) {
-            return;
-        }
-
-        super.onBackPressed();
     }
 
     @Override
@@ -431,7 +427,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     @Override
     public void taskEditFinished() {
-        getFragmentManager().popBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getFragmentManager().popBackStackImmediate(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         hideKeyboard();
     }
 
