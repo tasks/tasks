@@ -221,6 +221,7 @@
 	</string-array>
 	<string name="repeat_every">כל %d</string>
 	<string name="repeat_interval_prompt">אינטרוול חזרות</string>
+	<string name="repeat_never">ללא חזרה</string>
 	<string-array name="repeat_interval">
 		<item>יום/ימים</item>
 		<item>שבוע/(ות)</item>
@@ -264,6 +265,27 @@
 	<string name="sync_SPr_forget">התנתק</string>
 	<string name="sync_SPr_forget_description">מסיר את כל נתוני הסנכרון</string>
 	<string name="sync_forget_confirm">צא מהחשבון \\ הסר נתוני סנכרון?</string>
+	<string name="vibrations">רטט</string>
+	<string name="source_code">קוד מקור</string>
+	<string name="translations">תרגום</string>
+	<string name="report_an_issue">דווח/י על בעיה</string>
+	<string name="help_and_feedback">עזרה ומשוב</string>
+	<string name="contact_developer">צור קשר</string>
+	<string name="rate_tasks">דרג אפליקציה</string>
+	<string name="quiet_hours_summary">ללא התראות בשעות השקטות</string>
+	<string name="notification_actions">כפתורים בהתראות</string>
+	<string name="notification_actions_summary">הצגת \"השתק\" ו\"בוצעה\" בהתראה</string>
+	<string name="tags">תגיות</string>
+	<string name="filter_settings">הגדרות פילטר</string>
+	<string name="show_hidden">הצגת משימות נסתרות</string>
+	<string name="show_completed">הצגת משימות שבוצעו</string>
+	<string name="high_priority">גבוה</string>
+	<string name="default_priority">ברירת מחדל</string>
+	<string name="low_priority">נמוך</string>
+	<string name="notification_priority">חשיבות ההתראה</string>
+	<string name="vibration_count">מספר פעימות הרטט</string>
+	<string name="vibration_duration">אורך כל פעימת רטט (במילישניות)</string>
+	<string name="vibration_pause">אורך הפסקה בין רטט לרטט (במילישניות)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>מִנְעִי</item>
 		<item>כל רבע שעה</item>
