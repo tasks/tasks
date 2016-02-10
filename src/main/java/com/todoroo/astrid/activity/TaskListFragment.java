@@ -77,6 +77,7 @@ import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.widget.TasksWidget;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.activities.SortActivity;
 import org.tasks.dialogs.DialogBuilder;
@@ -145,6 +146,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject VoiceInputAssistant voiceInputAssistant;
     @Inject TaskCreator taskCreator;
     @Inject TagDataDao tagDataDao;
+    @Inject Broadcaster broadcaster;
 
     @Bind(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -352,13 +354,13 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 item.setChecked(!item.isChecked());
                 preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked());
                 reconstructCursor();
-                TasksWidget.updateWidgets(getActivity());
+                broadcaster.refresh();
                 return true;
             case R.id.menu_show_completed:
                 item.setChecked(!item.isChecked());
                 preferences.setBoolean(R.string.p_show_completed_tasks, item.isChecked());
                 reconstructCursor();
-                TasksWidget.updateWidgets(getActivity());
+                broadcaster.refresh();
                 return true;
             case R.id.menu_filter_settings:
                 startActivityForResult(new Intent(getActivity(), FilterSettingsActivity.class) {{
@@ -791,7 +793,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
             }
         } else if (requestCode == REQUEST_SORT) {
             if (resultCode == Activity.RESULT_OK) {
-                TasksWidget.updateWidgets(getActivity());
+                broadcaster.refresh();
                 ((TaskListActivity) getActivity()).onFilterItemClicked(filter);
             }
         } else {

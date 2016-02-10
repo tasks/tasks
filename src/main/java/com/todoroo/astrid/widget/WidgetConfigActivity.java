@@ -26,7 +26,6 @@ import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.widget.WidgetHelper;
 
 import javax.inject.Inject;
 
@@ -48,16 +47,9 @@ public class WidgetConfigActivity extends InjectingListActivity {
 
     FilterAdapter adapter = null;
 
-    @Inject WidgetHelper widgetHelper;
     @Inject FilterCounter filterCounter;
     @Inject ActivityPreferences preferences;
     @Inject FilterProvider filterProvider;
-
-    private void updateWidget() {
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        appWidgetManager.updateAppWidget(mAppWidgetId, widgetHelper.createScrollableWidget(this, mAppWidgetId));
-        TasksWidget.updateScrollableWidgets(this, new int[]{mAppWidgetId});
-    }
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -98,8 +90,6 @@ public class WidgetConfigActivity extends InjectingListActivity {
                 saveConfiguration(adapter.getSelection(), !hideDueDate.isChecked(),
                         darkTheme.isChecked(), hideCheckboxes.isChecked(), hideHeader.isChecked(),
                         transparent.isChecked());
-
-                updateWidget();
 
                 // Make sure we pass back the original appWidgetId
                 Intent resultValue = new Intent();

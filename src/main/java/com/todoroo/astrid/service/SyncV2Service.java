@@ -5,13 +5,9 @@
  */
 package com.todoroo.astrid.service;
 
-import android.content.Context;
-
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncResultCallback;
-
-import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -32,11 +28,9 @@ public class SyncV2Service {
      * for responding to sync requests through this new API.
      */
     private final GtasksSyncV2Provider provider;
-    private final Context context;
 
     @Inject
-    public SyncV2Service(@ForApplication Context context, GtasksSyncV2Provider gtasksSyncV2Provider) {
-        this.context = context;
+    public SyncV2Service(GtasksSyncV2Provider gtasksSyncV2Provider) {
         provider = gtasksSyncV2Provider;
     }
 
@@ -52,7 +46,7 @@ public class SyncV2Service {
      */
     public boolean synchronizeActiveTasks(SyncResultCallback callback) {
         if (provider.isActive()) {
-            provider.synchronizeActiveTasks(new WidgetUpdatingCallbackWrapper(context, callback));
+            provider.synchronizeActiveTasks(callback);
             return true;
         }
         return false;
@@ -66,7 +60,7 @@ public class SyncV2Service {
      */
     public void synchronizeList(GtasksList list, SyncResultCallback callback) {
         if(provider.isActive()) {
-            provider.synchronizeList(list, new WidgetUpdatingCallbackWrapper(context, callback));
+            provider.synchronizeList(list, callback);
         }
     }
 }

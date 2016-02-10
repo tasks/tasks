@@ -51,10 +51,6 @@ public class AlarmManager {
         }
     }
 
-    public void setInexactRepeating(long interval, PendingIntent pendingIntent) {
-        alarmManager.setInexactRepeating(android.app.AlarmManager.RTC, 0, interval, pendingIntent);
-    }
-
     long adjustForQuietHours(long time) {
         if (preferences.quietHoursEnabled()) {
             DateTime dateTime = new DateTime(time);
