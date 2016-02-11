@@ -113,7 +113,7 @@ public class CommentBarFragment extends InjectingFragment {
 
     @OnEditorAction(R.id.commentField)
     boolean onEditorAction(KeyEvent key) {
-        int actionId = key.getAction();
+        int actionId = key != null ? key.getAction() : 0;
         if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
             if (commentField.getText().length() > 0 || pendingCommentPicture != null) {
                 addComment();
