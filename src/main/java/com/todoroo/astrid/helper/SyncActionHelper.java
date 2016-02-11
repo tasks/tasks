@@ -5,18 +5,15 @@
  */
 package com.todoroo.astrid.helper;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
+import org.tasks.Broadcaster;
 import org.tasks.preferences.Preferences;
-import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
+import org.tasks.sync.RecordSyncStatusCallback;
 
 import javax.inject.Inject;
 
@@ -42,15 +39,11 @@ public class SyncActionHelper {
     // --- boilerplate
 
     @Inject
-    public SyncActionHelper(GtasksPreferenceService gtasksPreferenceService, SyncV2Service syncService, final Activity activity, Preferences preferences) {
+    public SyncActionHelper(GtasksPreferenceService gtasksPreferenceService, SyncV2Service syncService,
+                            Preferences preferences, Broadcaster broadcaster) {
         this.syncService = syncService;
         this.preferences = preferences;
-        syncResultCallback = new IndeterminateProgressBarSyncResultCallback(gtasksPreferenceService, activity, new Runnable() {
-            @Override
-            public void run() {
-                activity.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-            }
-        });
+        syncResultCallback = new RecordSyncStatusCallback(gtasksPreferenceService, broadcaster);
     }
 
     // --- automatic sync logic

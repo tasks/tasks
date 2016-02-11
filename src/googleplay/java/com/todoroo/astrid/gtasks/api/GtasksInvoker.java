@@ -116,6 +116,12 @@ public class GtasksInvoker {
                 .setPrevious(previousId));
     }
 
+    public void clearCompleted(String listId) throws IOException {
+        execute(service
+                .tasks()
+                .clear(listId));
+    }
+
     public void deleteGtask(String listId, String taskId) throws IOException {
         execute(service
                 .tasks()

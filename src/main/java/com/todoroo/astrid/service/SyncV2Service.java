@@ -63,4 +63,10 @@ public class SyncV2Service {
             provider.synchronizeList(list, callback);
         }
     }
+
+    public void clearCompleted(GtasksList list, SyncResultCallback callback) {
+        if (provider.isActive()) {
+            provider.clearCompleted(list, callback);
+        }
+    }
 }

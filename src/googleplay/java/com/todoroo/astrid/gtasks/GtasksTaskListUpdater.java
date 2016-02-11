@@ -42,17 +42,15 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
     final HashMap<Long, String> localToRemoteIdMap =
         new HashMap<>();
 
-    private final GtasksListService gtasksListService;
     private final GtasksMetadataService gtasksMetadataService;
     private final GtasksSyncService gtasksSyncService;
     private final MetadataDao metadataDao;
     private final GtasksMetadata gtasksMetadata;
 
     @Inject
-    public GtasksTaskListUpdater(GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
-                                 GtasksSyncService gtasksSyncService, MetadataDao metadataDao, GtasksMetadata gtasksMetadata) {
+    public GtasksTaskListUpdater(GtasksMetadataService gtasksMetadataService, GtasksSyncService gtasksSyncService,
+                                 MetadataDao metadataDao, GtasksMetadata gtasksMetadata) {
         super(metadataDao);
-        this.gtasksListService = gtasksListService;
         this.gtasksMetadataService = gtasksMetadataService;
         this.gtasksSyncService = gtasksSyncService;
         this.metadataDao = metadataDao;
@@ -103,42 +101,6 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
     }
 
     // --- used during synchronization
-
-    /**
-     * Update order, parent, and indentation fields for all tasks in the given list
-     */
-    public void correctMetadataForList(String listId) {
-        GtasksList list = gtasksListService.getList(listId);
-        if(list == null) {
-            return;
-        }
-
-        updateParentSiblingMapsFor(list);
-
-        final AtomicLong order = new AtomicLong(0);
-        final AtomicInteger previousIndent = new AtomicInteger(-1);
-
-        gtasksMetadataService.iterateThroughList(list, new OrderedListIterator() {
-            @Override
-            public void processTask(long taskId, Metadata metadata) {
-                metadata.setValue(GtasksMetadata.ORDER, order.getAndAdd(1));
-                int indent = metadata.getValue(GtasksMetadata.INDENT);
-                if(indent > previousIndent.get() + 1) {
-                    indent = previousIndent.get() + 1;
-                }
-                metadata.setValue(GtasksMetadata.INDENT, indent);
-
-                Long parent = parents.get(taskId);
-                if(parent == null || parent < 0) {
-                    parent = Task.NO_ID;
-                }
-                metadata.setValue(GtasksMetadata.PARENT_TASK, parent);
-
-                metadataDao.persist(metadata);
-                previousIndent.set(indent);
-            }
-        });
-    }
 
     public void correctOrderAndIndentForList(String listId) {
         orderAndIndentHelper(listId, new AtomicLong(0L), Task.NO_ID, 0,

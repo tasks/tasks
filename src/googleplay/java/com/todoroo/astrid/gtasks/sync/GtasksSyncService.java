@@ -45,7 +45,7 @@ public class GtasksSyncService {
     private final TaskDao taskDao;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final GtasksMetadata gtasksMetadataFactory;
-    private GtasksInvoker gtasksInvoker;
+    private final GtasksInvoker gtasksInvoker;
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
 
     @Inject
@@ -91,6 +91,19 @@ public class GtasksSyncService {
         @Override
         public void op(GtasksInvoker invoker) throws IOException {
             pushMetadataOnSave(metadata, invoker);
+        }
+    }
+
+    private class ClearOp extends SyncOnSaveOperation {
+        private final String listId;
+
+        public ClearOp(String listId) {
+            this.listId = listId;
+        }
+
+        @Override
+        public void op(GtasksInvoker invoker) throws IOException {
+            invoker.clearCompleted(listId);
         }
     }
 
@@ -186,6 +199,9 @@ public class GtasksSyncService {
         return false;
     }
 
+    public void clearCompleted(String listId) {
+        operationQueue.offer(new ClearOp(listId));
+    }
 
     public void triggerMoveForMetadata(final Metadata metadata) {
         if (metadata == null) {

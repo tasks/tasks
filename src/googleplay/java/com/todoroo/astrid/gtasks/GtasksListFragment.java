@@ -5,16 +5,10 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -23,12 +17,14 @@ import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.sync.SyncResultCallback;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.ForActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
+import org.tasks.sync.RecordSyncStatusCallback;
 import org.tasks.sync.SyncThrottle;
 
 import javax.inject.Inject;
@@ -41,14 +37,13 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject MetadataDao metadataDao;
     @Inject StoreObjectDao storeObjectDao;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Inject GtasksMetadataService gtasksMetadataService;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject SyncV2Service syncService;
-    @Inject @ForActivity Context context;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject ActivityPreferences preferences;
     @Inject SyncThrottle syncThrottle;
     @Inject DialogBuilder dialogBuilder;
+    @Inject Broadcaster broadcaster;
 
     private GtasksList list;
 
@@ -69,21 +64,12 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Override
     protected void initiateAutomaticSyncImpl() {
         if (list != null && syncThrottle.canSync(list.getId())) {
-            refreshData(false);
+            syncData();
         }
     }
 
-    private void refreshData(final boolean manual) {
-        syncService.synchronizeList(list, new IndeterminateProgressBarSyncResultCallback(gtasksPreferenceService, getActivity(), new Runnable() {
-            @Override
-            public void run() {
-                if (manual) {
-                    context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                } else {
-                    refresh();
-                }
-            }
-        }));
+    private void syncData() {
+        syncService.synchronizeList(list, new IndeterminateProgressBarSyncResultCallback(this, gtasksPreferenceService, broadcaster));
     }
 
     @Override
@@ -103,44 +89,19 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     private void clearCompletedTasks() {
-        final TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(),
-                null, Task.ID, Task.COMPLETION_DATE);
-
-        new AsyncTask<Void, Void, Void>() {
-
+        syncService.clearCompleted(list, new SyncResultCallback() {
             @Override
-            protected void onPreExecute() {
+            public void started() {
+                setSyncOngoing(true);
             }
 
             @Override
-            protected Void doInBackground(Void... params) {
-                String listId = null;
-                try {
-                    for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                        Task t = new Task(tasks);
-                        if (t.isCompleted()) {
-                            if (listId == null) {
-                                listId = gtasksMetadataService.getTaskMetadata(
-                                        t.getId()).getValue(GtasksMetadata.LIST_ID);
-                            }
-                            t.setDeletionDate(DateUtilities.now());
-                            taskService.save(t);
-                        }
-                    }
-                } finally {
-                    tasks.close();
-                }
-                if (listId != null) {
-                    gtasksTaskListUpdater.correctMetadataForList(listId);
-                }
-                return null;
-            }
+            public void finished() {
+                setSyncOngoing(false);
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                loadTaskListContent();
+                syncData();
             }
-        }.execute();
+        });
     }
 
     @Override

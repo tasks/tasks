@@ -187,6 +187,21 @@ public class GtasksSyncV2Provider {
         }
     }
 
+    public void clearCompleted(final GtasksList list, final SyncResultCallback callback) {
+        executor.execute(callback, new Runnable() {
+            @Override
+            public void run() {
+                callback.started();
+
+                try {
+                    gtasksSyncService.clearCompleted(list.getRemoteId());
+                } finally {
+                    callback.finished();
+                }
+            }
+        });
+    }
+
     public void synchronizeList(final GtasksList gtasksList, final SyncResultCallback callback) {
         executor.execute(callback, new Runnable() {
             @Override

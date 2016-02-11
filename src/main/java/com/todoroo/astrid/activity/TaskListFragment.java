@@ -173,9 +173,17 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         }
     }
 
-    public void setSyncOngoing(boolean ongoing) {
-        swipeRefreshLayout.setRefreshing(ongoing);
-        emptyView.setRefreshing(ongoing);
+    public void setSyncOngoing(final boolean ongoing) {
+        Activity activity = getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    swipeRefreshLayout.setRefreshing(ongoing);
+                    emptyView.setRefreshing(ongoing);
+                }
+            });
+        }
     }
 
     /**
