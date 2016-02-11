@@ -247,25 +247,27 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
         addSubMenu(R.string.filters, filterProvider.getFilters());
 
-        addSubMenu(R.string.tags, filterProvider.getTags());
-
-        addSubMenu(R.string.gtasks_GPr_header, filterProvider.getGoogleTaskFilters());
-
         if (navigationDrawer) {
-            add(new NavigationDrawerSeparator());
-
-            add(new NavigationDrawerAction(
-                    activity.getResources().getString(R.string.new_tag),
-                    R.drawable.ic_add_24dp,
-                    new Intent(activity, TagSettingsActivity.class),
-                    NavigationDrawerFragment.REQUEST_NEW_LIST));
-
             add(new NavigationDrawerAction(
                     activity.getResources().getString(R.string.FLA_new_filter),
                     R.drawable.ic_add_24dp,
                     new Intent(activity, CustomFilterActivity.class),
                     TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER));
+        }
 
+        addSubMenu(R.string.tags, filterProvider.getTags());
+
+        if (navigationDrawer) {
+            add(new NavigationDrawerAction(
+                    activity.getResources().getString(R.string.new_tag),
+                    R.drawable.ic_add_24dp,
+                    new Intent(activity, TagSettingsActivity.class),
+                    NavigationDrawerFragment.REQUEST_NEW_LIST));
+        }
+
+        addSubMenu(R.string.gtasks_GPr_header, filterProvider.getGoogleTaskFilters());
+
+        if (navigationDrawer) {
             add(new NavigationDrawerSeparator());
 
             add(new NavigationDrawerAction(
