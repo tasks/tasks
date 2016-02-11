@@ -13,7 +13,7 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.files.AACRecordingActivity;
-import com.todoroo.astrid.files.FileExplore;
+import org.tasks.files.FileExplore;
 import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferences;

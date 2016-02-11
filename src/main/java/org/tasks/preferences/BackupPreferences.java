@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 
-import com.todoroo.astrid.files.FileExplore;
+import org.tasks.files.FileExplore;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -32,7 +32,7 @@ public class BackupPreferences extends InjectingPreferenceActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_BACKUP_DIR && resultCode == RESULT_OK) {
             if (data != null) {
-                String dir = data.getStringExtra(FileExplore.RESULT_DIR_SELECTED);
+                String dir = data.getStringExtra(FileExplore.EXTRA_DIRECTORY);
                 preferences.setString(R.string.p_backup_dir, dir);
                 updateBackupDirectory();
             }
@@ -46,7 +46,8 @@ public class BackupPreferences extends InjectingPreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 Intent filesDir = new Intent(BackupPreferences.this, FileExplore.class);
-                filesDir.putExtra(FileExplore.EXTRA_DIRECTORIES_SELECTABLE, true);
+                filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
+                filesDir.putExtra(FileExplore.EXTRA_START_PATH, getBackupDirectory());
                 startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
                 return true;
             }
@@ -55,8 +56,11 @@ public class BackupPreferences extends InjectingPreferenceActivity {
     }
 
     private void updateBackupDirectory() {
+        findPreference(getString(R.string.p_backup_dir)).setSummary(getBackupDirectory());
+    }
+
+    private String getBackupDirectory() {
         File dir = preferences.getBackupDirectory();
-        String summary = dir == null ? "" : dir.getAbsolutePath();
-        findPreference(getString(R.string.p_backup_dir)).setSummary(summary);
+        return dir == null ? "" : dir.getAbsolutePath();
     }
 }

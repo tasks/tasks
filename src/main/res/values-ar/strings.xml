@@ -116,10 +116,6 @@
 	<string name="premium_remove_file_confirm">هل أنت متأكد؟ لن تستطيع العودة</string>
 	<string name="audio_recording_title">تسجيل صوت</string>
 	<string name="audio_stop_recording">توقف عن التسجيل</string>
-	<string name="file_browser_title">أختر ملف</string>
-	<string name="dir_browser_title">أختار المسار</string>
-	<string name="file_dir_dialog_ok">استخدم هذا المسار</string>
-	<string name="file_dir_dialog_default">إعادة إلى الافتراضي</string>
 	<string-array name="TEA_reminder_random">
 		<item>ساعه</item>
 		<item>يوم</item>

@@ -17,7 +17,6 @@
 	<string name="import_progress_read">%d görev okunuyor..</string>
 	<string name="DLG_error_sdcard">%s dizinine erişilemedi.</string>
 	<string name="DLG_error_sdcard_general">Hafıza kartına erişemiyorum!</string>
-	<string name="import_file_prompt">Geri Alınacak Bir Dosya Seçin</string>
 	<string name="read_permission_label">Tasks İzni</string>
 	<string name="write_permission_label">Tasks İzni</string>
 	<string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>
@@ -161,12 +160,7 @@
 	<string name="audio_recording_title">Ses Kaydediliyor</string>
 	<string name="audio_stop_recording">Kaydı Durdur</string>
 	<string name="file_type_unhandled">Üzgünüm! Bu dosya türünü destekleyen bir uygulama bulunamadı.</string>
-	<string name="file_browser_title">Bir dosya seçin</string>
-	<string name="dir_browser_title">Bir dizin seçin</string>
-	<string name="file_browser_err_permissions">İzin hatası! Tasks\'in SD kartınıza erişiminin engellenmediğinden emin olun lütfen.</string>
 	<string name="file_err_copy">Dosyanın ek olarak kopyalanmasında hata</string>
-	<string name="file_dir_dialog_ok">Bu dizini kullan</string>
-	<string name="file_dir_dialog_default">Öntanımlı değere dön</string>
 	<string name="premium_speech_bubble_2">Bir yıllık satın alın ve %%25 kâr yapın!</string>
 	<string-array name="TEA_reminder_random">
 		<item>bir saat</item>

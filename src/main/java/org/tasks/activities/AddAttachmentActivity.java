@@ -11,7 +11,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.files.FileExplore;
+import org.tasks.files.FileExplore;
 
 import org.tasks.R;
 import org.tasks.dialogs.AddAttachmentDialog;
@@ -111,7 +111,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
             finish();
         } else if (requestCode == REQUEST_STORAGE) {
             if (resultCode == RESULT_OK) {
-                String path = data.getStringExtra(FileExplore.RESULT_FILE_SELECTED);
+                String path = data.getStringExtra(FileExplore.EXTRA_FILE);
                 final String destination = copyToAttachmentDirectory(path);
                 if (destination != null) {
                     Timber.i("Copied %s to %s", path, destination);

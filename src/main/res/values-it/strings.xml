@@ -21,7 +21,6 @@
 	<string name="import_progress_read">Lettura compito %d...</string>
 	<string name="DLG_error_sdcard">Impossibile accedere alla cartella: %s</string>
 	<string name="DLG_error_sdcard_general">Impossibile accedere alla scheda SD!</string>
-	<string name="import_file_prompt">Seleziona un file da ripristinare</string>
 	<string name="read_permission_label">Permessi Tasks</string>
 	<string name="write_permission_label">Permessi Tasks</string>
 	<string name="discard_confirmation">Sicuro di voler annullare tutte le modifiche?</string>
@@ -211,12 +210,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="audio_stop_recording">Fine Registrazione</string>
 	<string name="file_type_unhandled">Spiacente! Non è stata trovata nessuna applicazione per gestire questo tipo di file</string>
 	<string name="back">Indietro</string>
-	<string name="file_browser_title">Scegli un file</string>
-	<string name="dir_browser_title">Scegli una cartella</string>
-	<string name="file_browser_err_permissions">Errore di autorizzazioni! Assicurati di non aver bloccato l\'accesso alla scheda SD da parte di Tasks</string>
 	<string name="file_err_copy">Errore di copia dei file da allegare</string>
-	<string name="file_dir_dialog_ok">Utilizza questa directory</string>
-	<string name="file_dir_dialog_default">Ripristino impostazioni iniziali</string>
 	<string name="premium_speech_bubble_2">Sottoscrivi 1 anno e risparmia il 25%%!</string>
 	<string name="ring_once">Suona una volta</string>
 	<string name="ring_five_times">Suona cinque volte</string>

@@ -21,7 +21,6 @@
 	<string name="import_progress_read">Lecture de la tâche %d…</string>
 	<string name="DLG_error_sdcard">Impossible d\'accéder au dossier : %s</string>
 	<string name="DLG_error_sdcard_general">Impossible d\'accéder à la carte SD !</string>
-	<string name="import_file_prompt">Choisissez un fichier à restaurer</string>
 	<string name="read_permission_label">Permission d\'Tasks</string>
 	<string name="write_permission_label">Permission d\'Tasks</string>
 	<string name="DLG_delete_this_task_question">Supprimer cette tâche ?</string>
@@ -202,12 +201,7 @@
 	<string name="audio_stop_recording">Arrêter l\'enregistrement</string>
 	<string name="file_type_unhandled">Désolé ! Aucune application n\'a été trouvé pour gérer ce type de fichier.</string>
 	<string name="back">Retour</string>
-	<string name="file_browser_title">Choisissez un fichier</string>
-	<string name="dir_browser_title">Choisissez un dossier</string>
-	<string name="file_browser_err_permissions">Erreur de permissions ! Assurez-vous qu\'Tasks à le droit d\'accéder à la carte SD.</string>
 	<string name="file_err_copy">Erreur lors de la copie du fichier à joindre</string>
-	<string name="file_dir_dialog_ok">Utiliser ce dossier</string>
-	<string name="file_dir_dialog_default">Rétablir les valeurs par défaut</string>
 	<string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
 	<string name="ring_once">Sonner une fois</string>
 	<string name="ring_five_times">Sonner cinq fois</string>

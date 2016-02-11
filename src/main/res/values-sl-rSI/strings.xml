@@ -20,7 +20,6 @@
 	<string name="import_progress_read">Berem opravek %d...</string>
 	<string name="DLG_error_sdcard">Datoteka:%s ni dostopna</string>
 	<string name="DLG_error_sdcard_general">Tvoja SD kartica ni dostopna.</string>
-	<string name="import_file_prompt">Izberi datoteko za obnovo</string>
 	<string name="read_permission_label">Dovoljenje Opravkom</string>
 	<string name="write_permission_label">Dovoljenje Opravkom</string>
 	<string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
@@ -188,12 +187,7 @@
 	<string name="audio_recording_title">Snemam zvok</string>
 	<string name="audio_stop_recording">Prekini snemanje</string>
 	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
-	<string name="file_browser_title">Izberite datoteko</string>
-	<string name="dir_browser_title">Izberite mapo</string>
-	<string name="file_browser_err_permissions">Napaka pri dovoljenjih! Prosimo, preverite, da niste preprečili aplikaciji Opravki dostopa do SD kartice.</string>
 	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
-	<string name="file_dir_dialog_ok">Uporabi to mapo</string>
-	<string name="file_dir_dialog_default">Ponastavi na privzeto</string>
 	<string name="premium_speech_bubble_2">Enoletna naročnina prihrani 25%!</string>
 	<string-array name="TEA_reminder_random">
 		<item>na uro</item>

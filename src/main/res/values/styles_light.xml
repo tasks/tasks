@@ -38,6 +38,7 @@
         <item name="fab_tint">@android:color/white</item>
         <item name="task_edit_divider">@color/task_edit_divider</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
+        <item name="alertDialogTheme">@style/TasksDialog</item>
     </style>
 
     <style name="TasksDialog" parent="@style/Theme.AppCompat.Light.Dialog">

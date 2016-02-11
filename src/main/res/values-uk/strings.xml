@@ -20,7 +20,6 @@
 	<string name="import_progress_read">Читання завдання %d...</string>
 	<string name="DLG_error_sdcard">Немає доступу до папки: %s</string>
 	<string name="DLG_error_sdcard_general">Немає доступу до карти SD!</string>
-	<string name="import_file_prompt">Виберіть файл для відновлення</string>
 	<string name="read_permission_label">Дозволи Tasks</string>
 	<string name="write_permission_label">Дозволи Tasks</string>
 	<string name="DLG_delete_this_task_question">Видалити цю задачу?</string>
@@ -199,12 +198,7 @@
 	<string name="audio_stop_recording">Зупинити запис</string>
 	<string name="file_type_unhandled">Вибачте! Не знайдено програму для перегляду файлів цього типу.</string>
 	<string name="back">Назад</string>
-	<string name="file_browser_title">Вибрати файл</string>
-	<string name="dir_browser_title">Вибрати каталог</string>
-	<string name="file_browser_err_permissions">Помилка доступу! Будь ласка переконайтеся, що ви не заблокували Tasks для доступу до SD карти.</string>
 	<string name="file_err_copy">Помилка копіювання доданого файлу.</string>
-	<string name="file_dir_dialog_ok">Використовувати цю папку</string>
-	<string name="file_dir_dialog_default">Скинути налаштування за замовчуванням</string>
 	<string name="premium_speech_bubble_2">Підпишіться на рік і заощаджуйте 25%%!</string>
 	<string-array name="TEA_reminder_random">
 		<item>година</item>

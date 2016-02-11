@@ -24,7 +24,6 @@
 	<string name="import_progress_read">Прочитане на задачи %d...</string>
 	<string name="DLG_error_sdcard">Нямате достъп до папка: %s</string>
 	<string name="DLG_error_sdcard_general">SD картата не може да бъде достъпена!</string>
-	<string name="import_file_prompt">Изберете файл за възстановяване</string>
 	<string name="read_permission_label">Tasks Разрешение</string>
 	<string name="write_permission_label">Tasks Разрешение</string>
 	<string name="discard_confirmation">Сигурни ли сте че искате да отхвърлите промените си?</string>
@@ -217,12 +216,7 @@
 	<string name="audio_stop_recording">Спри Записването</string>
 	<string name="file_type_unhandled">Съжаляваме! Не е намерено приложение, което да работи с този тип файл.</string>
 	<string name="back">Назад</string>
-	<string name="file_browser_title">Избери файл</string>
-	<string name="dir_browser_title">Избери директория</string>
-	<string name="file_browser_err_permissions">Грешка в Разрешения! Моля, проверете дали не сте блокирани Tasks от достъп до SD картата.</string>
 	<string name="file_err_copy">Грешка при копиране на файла за прикачване</string>
-	<string name="file_dir_dialog_ok">Използвай тази директория</string>
-	<string name="file_dir_dialog_default">Възстанови по подразбиране</string>
 	<string name="premium_speech_bubble_2">Поръчай една година и спести 25%!</string>
 	<string name="ring_once">Звънене веднъж</string>
 	<string name="ring_five_times">Звънене пет пъти</string>

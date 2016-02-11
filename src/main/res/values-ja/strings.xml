@@ -21,7 +21,6 @@
 	<string name="import_progress_read">タスク %d を読み込み中</string>
 	<string name="DLG_error_sdcard">フォルダ %s を開けません</string>
 	<string name="DLG_error_sdcard_general">SDカードにアクセスできません</string>
-	<string name="import_file_prompt">復元に使うファイルを選択してください</string>
 	<string name="read_permission_label">タスクの読み込み</string>
 	<string name="write_permission_label">タスクの読み込み</string>
 	<string name="discard_confirmation">変更を破棄してもよろしいですか?</string>
@@ -215,12 +214,7 @@
 	<string name="audio_stop_recording">録音を停止</string>
 	<string name="file_type_unhandled">申し訳ありません! このファイル形式を扱うアプリケーションがありません.</string>
 	<string name="back">戻る</string>
-	<string name="file_browser_title">ファイルを選択</string>
-	<string name="dir_browser_title">ディレクトリを選択</string>
-	<string name="file_browser_err_permissions">パーミッションエラー! SD カードのアクセスで Tasks をブロックしていないことを確認してください.</string>
 	<string name="file_err_copy">ファイル添付のコピー中にエラー</string>
-	<string name="file_dir_dialog_ok">このディレクトリを使用</string>
-	<string name="file_dir_dialog_default">デフォルトにリセット</string>
 	<string name="premium_speech_bubble_2">1 年注文すると 25% 節約できます!</string>
 	<string name="ring_once">1回通知音を鳴らす</string>
 	<string name="ring_five_times">5回通知音を鳴らす</string>

@@ -141,12 +141,7 @@
 	<string name="audio_stop_recording">توقف ضبط</string>
 	<string name="file_type_unhandled">پوزش! هیچ برنامه ای برای بازکردن این فایل پیدا نشد.</string>
 	<string name="back">عقب</string>
-	<string name="file_browser_title">انتخاب یک فایل</string>
-	<string name="dir_browser_title">یک پوشه انتخاب کنید</string>
-	<string name="file_browser_err_permissions">خطای دسترسی! لطفا مطمن شوید تسکس را از دسترسی به حافظه خارجی منع نکرده اید.</string>
 	<string name="file_err_copy">خطای کپی فایل برای ضمیمه</string>
-	<string name="file_dir_dialog_ok">استفاده از این پوشه</string>
-	<string name="file_dir_dialog_default">بازگرداندن به پیش فرض</string>
 	<string name="ring_once">یک بار زنگ بزن</string>
 	<string name="ring_five_times">پنج بار زنگ بزن</string>
 	<string name="ring_nonstop">بدون توقف زنگ بزن</string>

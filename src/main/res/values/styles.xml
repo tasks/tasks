@@ -110,6 +110,10 @@
         <item name="android:textColor">@color/widget_text_color_light</item>
     </style>
 
+    <style name="FilePickerTheme" parent="NNF_BaseTheme.Light">
+         <item name="nnf_toolbarTheme">@style/ActionBarThemeOverlay</item>
+    </style>
+
     <!-- ========================================================= Premium == -->
 
     <style name="TextAppearance.Medium">

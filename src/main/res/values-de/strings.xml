@@ -19,7 +19,6 @@
 	<string name="import_progress_read">Aufgabe %d wird gelesen …</string>
 	<string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
 	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>
-	<string name="import_file_prompt">Wählen Sie eine Datei zum Wiederherstellen</string>
 	<string name="read_permission_label">Tasks Zugriffsrechte</string>
 	<string name="write_permission_label">Tasks Zugriffsrechte</string>
 	<string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
@@ -205,12 +204,7 @@
 	<string name="audio_stop_recording">Aufnahme stoppen</string>
 	<string name="file_type_unhandled">Tut mir leid! Dieser Dateityp kann nicht geöffnet werden.</string>
 	<string name="back">Zurück</string>
-	<string name="file_browser_title">Wählen Sie eine Datei</string>
-	<string name="dir_browser_title">Wähle ein Verzeichnis</string>
-	<string name="file_browser_err_permissions">Konnte nicht auf die SD-Karte zugreifen. Bitte stellen Sie sicher, das sie den Zugriff auf sie SD Karte nicht eingeschränkt haben.</string>
 	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
-	<string name="file_dir_dialog_ok">Dieses Verzeichnis verwenden</string>
-	<string name="file_dir_dialog_default">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="premium_speech_bubble_2">Bestelle für ein ganzes Jahr und spare 25%!</string>
 	<string name="ring_once">Einmal klingeln</string>
 	<string name="ring_five_times">Fünfmal klingeln</string>

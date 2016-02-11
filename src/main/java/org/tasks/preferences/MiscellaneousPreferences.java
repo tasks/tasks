@@ -7,10 +7,10 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.speech.tts.TextToSpeech;
 
-import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 import org.tasks.R;
+import org.tasks.files.FileExplore;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.scheduling.BackgroundScheduler;
 
@@ -50,7 +50,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
             if (data != null) {
-                String dir = data.getStringExtra(FileExplore.RESULT_DIR_SELECTED);
+                String dir = data.getStringExtra(FileExplore.EXTRA_DIRECTORY);
                 preferences.setString(R.string.p_attachment_dir, dir);
                 updateAttachmentDirectory();
             }
@@ -87,7 +87,8 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 Intent filesDir = new Intent(MiscellaneousPreferences.this, FileExplore.class);
-                filesDir.putExtra(FileExplore.EXTRA_DIRECTORIES_SELECTABLE, true);
+                filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
+                filesDir.putExtra(FileExplore.EXTRA_START_PATH, getAttachmentDirectory());
                 startActivityForResult(filesDir, REQUEST_CODE_FILES_DIR);
                 return true;
             }
@@ -96,9 +97,12 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     }
 
     private void updateAttachmentDirectory() {
+        findPreference(getString(R.string.p_attachment_dir)).setSummary(getAttachmentDirectory());
+    }
+
+    private String getAttachmentDirectory() {
         File dir = preferences.getAttachmentsDirectory();
-        String summary = dir == null ? "" : dir.getAbsolutePath();
-        findPreference(getString(R.string.p_attachment_dir)).setSummary(summary);
+        return dir == null ? "" : dir.getAbsolutePath();
     }
 
     private void initializeCalendarReminderPreference() {

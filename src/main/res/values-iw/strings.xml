@@ -17,7 +17,6 @@
 	<string name="import_progress_read">קוראת משימה %d...</string>
 	<string name="DLG_error_sdcard">לא ניתן לגשת לתיקיה: %s</string>
 	<string name="DLG_error_sdcard_general">לא ניתן לגשת לכרטיס ה־SD שלך!</string>
-	<string name="import_file_prompt">נא לבחור קובץ לשחזור</string>
 	<string name="read_permission_label">הרשאות אסטריד</string>
 	<string name="write_permission_label">הרשאות אסטריד</string>
 	<string name="DLG_delete_this_task_question">למחוק משימה זו?</string>
@@ -186,12 +185,7 @@
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>
 	<string name="audio_stop_recording">הפסק הקלטה</string>
 	<string name="file_type_unhandled">\"מצטערת! לא מצאתי ישום שיכול  לטפל בקבצים מסוג זה\"</string>
-	<string name="file_browser_title">בחר קובץ</string>
-	<string name="dir_browser_title">יש לבחור תיקייה</string>
-	<string name="file_browser_err_permissions">הרשאות לא מספיקות! אנא בדוק שלא חסמת את אסטריד מלגשת לכרטיס הזיכרון</string>
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
-	<string name="file_dir_dialog_ok">השתמש בתיקיה זו</string>
-	<string name="file_dir_dialog_default">אפס לברירת מחדל</string>
 	<string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
 	<string-array name="TEA_reminder_random">
 		<item>שעה</item>

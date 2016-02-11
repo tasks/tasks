@@ -39,6 +39,7 @@
         <item name="asListDividerColor">#dddddd</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
+        <item name="alertDialogTheme">@style/TasksDialogDark</item>
     </style>
 
     <style name="TasksDialogDark" parent="@style/Theme.AppCompat.Dialog">

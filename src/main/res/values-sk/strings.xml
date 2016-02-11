@@ -19,7 +19,6 @@
 	<string name="import_progress_read">Čítanie úloh %d...</string>
 	<string name="DLG_error_sdcard">Chyba v prístupe k súboru: %s</string>
 	<string name="DLG_error_sdcard_general">Chyba v prístupe k SD karte!</string>
-	<string name="import_file_prompt">Vybrať súbor k obnove</string>
 	<string name="read_permission_label">Tasks povolenia</string>
 	<string name="write_permission_label">Tasks povolenia</string>
 	<string name="DLG_delete_this_task_question">Vymazať túto úlohu?</string>
@@ -196,12 +195,7 @@
 	<string name="audio_stop_recording">Zastaviť nahrávanie</string>
 	<string name="file_type_unhandled">Pre tento typ súboru nebola nájdená žiadna aplikácia</string>
 	<string name="back">Späť</string>
-	<string name="file_browser_title">Vybrať súbor</string>
-	<string name="dir_browser_title">Vytvoriť zložku</string>
-	<string name="file_browser_err_permissions">Chyba oprávnenia! Prosím, uisti sa, či Tasks namá zablokovaný prístup k SD karte.</string>
 	<string name="file_err_copy">Chyba pri kopírovaní súboru do prílohy</string>
-	<string name="file_dir_dialog_ok">Použiť tento adresár</string>
-	<string name="file_dir_dialog_default">Obnoviť predvolené</string>
 	<string name="premium_speech_bubble_2">Objednaj na rok a ušetri 25%!</string>
 	<string name="ring_once">Zvoniť raz</string>
 	<string name="ring_five_times">Zvoniť päť krát</string>

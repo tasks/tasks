@@ -62,10 +62,6 @@ File %1$s contained %2$s.\n\n
     <!-- Backup: Dialog when unable to open SD card in general -->
     <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
 
-    <!-- Backup: File Selector dialog for import -->
-    <string name="import_file_prompt">Select a file to restore</string>
-
-
     <!-- ================================================== AndroidManifest == -->
 
     <!-- permission title for READ_TASKS -->
@@ -595,13 +591,7 @@ File %1$s contained %2$s.\n\n
     <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
 
     <string name="back">Back</string>
-    <string name="file_browser_title">Choose a file</string>
-    <string name="dir_browser_title">Choose a directory</string>
-    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Tasks from accessing the SD card.</string>
     <string name="file_err_copy">Error copying file for attachment</string>
-
-    <string name="file_dir_dialog_ok">Use this directory</string>
-    <string name="file_dir_dialog_default">Reset to default</string>
 
     <!-- in app billing -->
 

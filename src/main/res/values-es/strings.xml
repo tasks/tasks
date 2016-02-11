@@ -21,7 +21,6 @@
 	<string name="import_progress_read">Leyendo tarea %d...</string>
 	<string name="DLG_error_sdcard">No se puede acceder a la carpeta: %s</string>
 	<string name="DLG_error_sdcard_general">¡No se pudo acceder a su tarjeta de memoria SD!</string>
-	<string name="import_file_prompt">Selecciona un archivo a restaurar</string>
 	<string name="read_permission_label">Permisos de Tasks</string>
 	<string name="write_permission_label">Permisos de Tasks</string>
 	<string name="DLG_delete_this_task_question">¿Borrar esta tarea?</string>
@@ -202,12 +201,7 @@
 	<string name="audio_stop_recording">Detener grabación</string>
 	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
 	<string name="back">Volver</string>
-	<string name="file_browser_title">Elija un archivo</string>
-	<string name="dir_browser_title">Elija un directorio</string>
-	<string name="file_browser_err_permissions">¡Permiso denegado! Por favor asegúrese permitir a Tasks el acceso a la tarjeta SD.</string>
 	<string name="file_err_copy">Error al copiar el archivo a adjuntar</string>
-	<string name="file_dir_dialog_ok">Usar este directorio</string>
-	<string name="file_dir_dialog_default">Restaurar a valores por defecto</string>
 	<string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
 	<string name="ring_once">Sonar una vez</string>
 	<string name="ring_five_times">Sonar cinco veces</string>
