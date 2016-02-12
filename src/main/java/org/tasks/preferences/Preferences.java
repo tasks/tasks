@@ -50,6 +50,10 @@ public class Preferences {
         publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_WORLD_READABLE);
     }
 
+    public boolean backButtonSavesTask() {
+        return getBoolean(R.string.p_back_button_saves_task, false);
+    }
+
     public boolean quietHoursEnabled() {
         return getBoolean(R.string.p_rmd_enable_quiet, false);
     }

@@ -302,7 +302,11 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         TaskEditFragment taskEditFragment = getTaskEditFragment();
         if (taskEditFragment != null) {
-            taskEditFragment.discardButtonClick();
+            if (preferences.backButtonSavesTask()) {
+                taskEditFragment.save();
+            } else {
+                taskEditFragment.discardButtonClick();
+            }
         } else if (!isFinishing()) {
             super.onBackPressed();
         }

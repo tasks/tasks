@@ -39,6 +39,7 @@ import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -78,6 +79,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject @ForActivity Context context;
     @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
     @Inject CommentsController commentsController;
+    @Inject Preferences preferences;
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.comments) LinearLayout comments;
@@ -109,13 +111,19 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
         }
 
-        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_save_24dp));
+        final boolean backButtonSavesTask = preferences.backButtonSavesTask();
+        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(
+                backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
         DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
         toolbar.setNavigationIcon(drawable);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save();
+                if (backButtonSavesTask) {
+                    discardButtonClick();
+                } else {
+                    save();
+                }
             }
         });
         toolbar.inflateMenu(R.menu.task_edit_fragment);
