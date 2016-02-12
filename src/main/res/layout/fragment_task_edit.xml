@@ -27,6 +27,11 @@
             android:orientation="vertical">
 
             <FrameLayout
+                android:id="@+id/row_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
                 android:id="@+id/row_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -76,11 +81,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <FrameLayout
-                android:id="@+id/row_11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <LinearLayout
                 android:id="@+id/comments"
                 android:layout_width="match_parent"
@@ -95,8 +95,7 @@
         android:layout_height="1px"
         android:background="?attr/asToolbarSeparator" />
 
-    <fragment
-        android:name="org.tasks.fragments.CommentBarFragment"
+    <FrameLayout
         android:id="@+id/comment_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

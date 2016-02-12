@@ -21,15 +21,16 @@ import android.widget.LinearLayout;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 
 import org.json.JSONObject;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.TaskEditControlFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,9 @@ import butterknife.OnTextChanged;
 import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
-public class CommentBarFragment extends InjectingFragment {
+public class CommentBarFragment extends TaskEditControlFragment {
+
+    public static final int TAG = R.string.TEA_ctrl_comments;
 
     public interface CommentBarFragmentCallback {
         void addComment(String message, String actionCode, String picture);
@@ -56,7 +59,9 @@ public class CommentBarFragment extends InjectingFragment {
     }
 
     private static final int REQUEST_CODE_CAMERA = 60;
-    private static final String TOKEN_PICTURE_IN_PROGRESS = "picture_in_progress"; //$NON-NLS-1$
+
+    private static final String EXTRA_TEXT = "extra_text";
+    private static final String EXTRA_PICTURE = "extra_picture";
 
     private final int cameraButton = R.drawable.ic_camera_alt_white_24dp;
 
@@ -83,15 +88,16 @@ public class CommentBarFragment extends InjectingFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_comment_bar, container, false);
+        View view = inflater.inflate(getLayout(), container, false);
         ButterKnife.bind(this, view);
 
         if (savedInstanceState != null) {
-            String uri = savedInstanceState.getString(TOKEN_PICTURE_IN_PROGRESS);
+            String uri = savedInstanceState.getString(EXTRA_PICTURE);
             if (uri != null) {
                 pendingCommentPicture = Uri.parse(uri);
                 setPictureButtonToPendingPicture();
             }
+            commentField.setText(savedInstanceState.getString(EXTRA_TEXT));
         }
 
         commentField.setHorizontallyScrolling(false);
@@ -102,6 +108,31 @@ public class CommentBarFragment extends InjectingFragment {
         }
 
         return view;
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_comment_bar;
+    }
+
+    @Override
+    protected int getIcon() {
+        return 0;
+    }
+
+    @Override
+    public int controlId() {
+        return TAG;
+    }
+
+    @Override
+    public void initialize(boolean isNewTask, Task task) {
+
+    }
+
+    @Override
+    public void apply(Task task) {
+
     }
 
     @OnTextChanged(R.id.commentField)
@@ -132,8 +163,9 @@ public class CommentBarFragment extends InjectingFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
+        outState.putString(EXTRA_TEXT, commentField.getText().toString());
         if (pendingCommentPicture != null) {
-            outState.putString(TOKEN_PICTURE_IN_PROGRESS, pendingCommentPicture.toString());
+            outState.putString(EXTRA_PICTURE, pendingCommentPicture.toString());
         }
     }
 

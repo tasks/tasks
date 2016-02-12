@@ -273,7 +273,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         D = createTask("D", 3, 2);
         E = createTask("E", 4, 0);
         F = createTask("F", 5, 0);
-        gtasksTaskListUpdater.correctMetadataForList("1");
     }
 
     private Task createTask(String title, long order, int indent) {

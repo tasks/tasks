@@ -2,6 +2,7 @@ package org.tasks.fragments;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.view.ContextMenu;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.data.Task;
@@ -36,6 +37,8 @@ import timber.log.Timber;
 public class TaskEditControlSetFragmentManager {
 
     public static final int[] TASK_EDIT_CONTROL_FRAGMENT_ROWS = new int[] {
+            R.id.row_title,
+            R.id.comment_bar,
             R.id.row_1,
             R.id.row_2,
             R.id.row_3,
@@ -46,7 +49,6 @@ public class TaskEditControlSetFragmentManager {
             R.id.row_8,
             R.id.row_9,
             R.id.row_10,
-            R.id.row_11,
     };
 
     private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS = new int[] {
@@ -60,7 +62,8 @@ public class TaskEditControlSetFragmentManager {
             FilesControlSet.TAG,
             TimerControlSet.TAG,
             TagsControlSet.TAG,
-            RepeatControlSet.TAG
+            RepeatControlSet.TAG,
+            CommentBarFragment.TAG
     };
 
     static {
@@ -78,6 +81,7 @@ public class TaskEditControlSetFragmentManager {
     public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences) {
         displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
         displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
+        displayOrder.add(1, activity.getString(CommentBarFragment.TAG));
         fragmentManager = activity.getFragmentManager();
         hideAlwaysTrigger = activity.getString(R.string.TEA_ctrl_hide_section_pref);
 
@@ -149,6 +153,8 @@ public class TaskEditControlSetFragmentManager {
                 return new TagsControlSet();
             case RepeatControlSet.TAG:
                 return new RepeatControlSet();
+            case CommentBarFragment.TAG:
+                return new CommentBarFragment();
             default:
                 throw new RuntimeException("Unsupported fragment");
         }

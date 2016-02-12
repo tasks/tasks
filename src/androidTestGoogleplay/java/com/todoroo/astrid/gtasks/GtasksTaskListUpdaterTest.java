@@ -57,8 +57,6 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     public void disabled_testMetadataParentComputation() {
         Task[] tasks = givenTasksABCDE();
 
-        whenCalculatingOrder();
-
         thenExpectMetadataParent(tasks[0], null);
         thenExpectMetadataParent(tasks[1], tasks[0]);
         thenExpectMetadataParent(tasks[2], tasks[0]);
@@ -68,8 +66,6 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
     public void disabled_testMetadataOrderComputation() {
         Task[] tasks = givenTasksABCDE();
-
-        whenCalculatingOrder();
 
         thenExpectMetadataIndentAndOrder(tasks[0], 0, 0);
         thenExpectMetadataIndentAndOrder(tasks[1], 1, 1);
@@ -82,7 +78,6 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         givenTasksABCDE();
 
         Task newTask = createTask("F", VALUE_UNSET, 0);
-        whenCalculatingOrder();
 
         thenExpectMetadataIndentAndOrder(newTask, 5, 0);
     }
@@ -148,12 +143,6 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
             gtasksTaskListUpdater.updateParentSiblingMapsFor(list);
         }
     }
-
-    private void whenCalculatingOrder() {
-        for(GtasksList list : gtasksListService.getLists())
-            gtasksTaskListUpdater.correctMetadataForList(list.getRemoteId());
-    }
-
 
     /**
      * A

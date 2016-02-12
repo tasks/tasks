@@ -228,6 +228,7 @@
     <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
     <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
     <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
+  <string name="TEA_ctrl_comments">TEA_ctrl_comments</string>
     <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
     <string name="sync_gtasks">sync_gtasks</string>
     <string name="p_rmd_notif_actions_enabled">p_rmd_notif_actions_enabled</string>
