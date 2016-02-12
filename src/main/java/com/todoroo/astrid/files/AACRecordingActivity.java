@@ -29,7 +29,6 @@ import butterknife.OnClick;
 public class AACRecordingActivity extends InjectingAppCompatActivity implements AACRecorderCallbacks {
 
     public static final String RESULT_OUTFILE = "outfile"; //$NON-NLS-1$
-    public static final String RESULT_FILENAME = "filename";  //$NON-NLS-1$
 
     private final AtomicReference<String> nameRef = new AtomicReference<>();
     private AACRecorder recorder;
@@ -88,7 +87,6 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements 
     public void encodingFinished() {
         Intent result = new Intent();
         result.putExtra(RESULT_OUTFILE, tempFile);
-        result.putExtra(RESULT_FILENAME, nameRef.get());
         setResult(RESULT_OK, result);
         finish();
     }

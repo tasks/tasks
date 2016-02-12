@@ -11,10 +11,12 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import org.tasks.files.FileExplore;
+import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.files.AACRecordingActivity;
 
 import org.tasks.R;
 import org.tasks.dialogs.AddAttachmentDialog;
+import org.tasks.files.FileExplore;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 
@@ -31,11 +33,14 @@ import timber.log.Timber;
 public class AddAttachmentActivity extends InjectingAppCompatActivity implements DialogInterface.OnCancelListener, AddAttachmentDialog.AddAttachmentCallback {
 
     private static final String FRAG_TAG_ATTACHMENT_DIALOG = "frag_tag_attachment_dialog";
+
     private static final int REQUEST_CAMERA = 12120;
     private static final int REQUEST_GALLERY = 12121;
     private static final int REQUEST_STORAGE = 12122;
+    private static final int REQUEST_CODE_RECORD = 12123;
 
     public static final String EXTRA_PATH = "extra_path";
+    public static final String EXTRA_TYPE = "extra_type";
 
     @Inject Preferences preferences;
 
@@ -64,6 +69,11 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
     }
 
     @Override
+    public void recordNote() {
+        startActivityForResult(new Intent(this, AACRecordingActivity.class), REQUEST_CODE_RECORD);
+    }
+
+    @Override
     public void pickFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI) {{
             setType("image/*");
@@ -84,9 +94,22 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
             if (resultCode == RESULT_OK) {
                 Uri uri = data.getParcelableExtra(CameraActivity.EXTRA_URI);
                 final File file = new File(uri.getPath());
+                String path = file.getPath();
                 Timber.i("Saved %s", file.getAbsolutePath());
+                final String extension = path.substring(path.lastIndexOf('.') + 1);
                 setResult(RESULT_OK, new Intent() {{
                     putExtra(EXTRA_PATH, file.getAbsolutePath());
+                    putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
+                }});
+            }
+            finish();
+        } else if (requestCode == REQUEST_CODE_RECORD) {
+            if (resultCode == RESULT_OK) {
+                final String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
+                final String extension = recordedAudioPath.substring(recordedAudioPath.lastIndexOf('.') + 1);
+                setResult(RESULT_OK, new Intent() {{
+                    putExtra(EXTRA_PATH, recordedAudioPath);
+                    putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_AUDIO + extension);
                 }});
             }
             finish();
@@ -95,7 +118,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
                 Uri uri = data.getData();
                 ContentResolver contentResolver = getContentResolver();
                 MimeTypeMap mime = MimeTypeMap.getSingleton();
-                String extension = mime.getExtensionFromMimeType(contentResolver.getType(uri));
+                final String extension = mime.getExtensionFromMimeType(contentResolver.getType(uri));
                 final File tempFile = getFilename(extension);
                 Timber.i("Writing %s to %s", uri, tempFile);
                 try {
@@ -106,6 +129,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
                 }
                 setResult(RESULT_OK, new Intent() {{
                     putExtra(EXTRA_PATH, tempFile.getAbsolutePath());
+                    putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
                 }});
             }
             finish();
@@ -115,8 +139,10 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
                 final String destination = copyToAttachmentDirectory(path);
                 if (destination != null) {
                     Timber.i("Copied %s to %s", path, destination);
+                    final String extension = destination.substring(path.lastIndexOf('.') + 1);
                     setResult(RESULT_OK, new Intent() {{
                         putExtra(EXTRA_PATH, destination);
+                        putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
                     }});
                 }
             }

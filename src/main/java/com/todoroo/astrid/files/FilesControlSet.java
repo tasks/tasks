@@ -129,9 +129,9 @@ public class FilesControlSet extends TaskEditControlFragment {
         if (requestCode == REQUEST_ADD_ATTACHMENT) {
             if (resultCode == Activity.RESULT_OK) {
                 String path = data.getStringExtra(AddAttachmentActivity.EXTRA_PATH);
+                String type = data.getStringExtra(AddAttachmentActivity.EXTRA_TYPE);
                 File file = new File(path);
-                String extension = path.substring(path.lastIndexOf('.') + 1);
-                createNewFileAttachment(path, file.getName(), TaskAttachment.FILE_TYPE_IMAGE + extension);
+                createNewFileAttachment(path, file.getName(), type);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

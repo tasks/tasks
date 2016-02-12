@@ -19,6 +19,8 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
     public interface AddAttachmentCallback {
         void takePicture();
 
+        void recordNote();
+
         void pickFromGallery();
 
         void pickFromStorage();
@@ -43,6 +45,13 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
                 }
             });
         }
+        entries.add(getString(R.string.premium_record_audio));
+        actions.add(new Runnable() {
+            @Override
+            public void run() {
+                callback.recordNote();
+            }
+        });
         if (device.hasGallery()) {
             entries.add(getString(R.string.pick_from_gallery));
             actions.add(new Runnable() {

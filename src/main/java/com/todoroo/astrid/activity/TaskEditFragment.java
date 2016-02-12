@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -25,9 +24,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -52,7 +49,6 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static android.app.Activity.RESULT_OK;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public final class TaskEditFragment extends InjectingFragment implements Toolbar.OnMenuItemClickListener {
@@ -73,7 +69,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     private static final String EXTRA_TASK = "extra_task";
     private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
-    private static final int REQUEST_CODE_RECORD = 30; // TODO: move this to file control set
 
     @Inject TaskService taskService;
     @Inject UserActivityDao userActivityDao;
@@ -143,9 +138,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         AndroidUtilities.hideKeyboard(getActivity());
 
         switch (item.getItemId()) {
-            case R.id.menu_record_note:
-                startRecordingAudio();
-                return true;
             case R.id.menu_delete:
                 deleteButtonClick();
                 return true;
@@ -276,21 +268,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
                 .show();
     }
 
-    private void startRecordingAudio() {
-        Intent recordAudio = new Intent(getActivity(), AACRecordingActivity.class);
-        startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_RECORD && resultCode == RESULT_OK) {
-            String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
-            String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
-            getFilesControlSet().createNewFileAttachment(recordedAudioPath, recordedAudioName, TaskAttachment.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
