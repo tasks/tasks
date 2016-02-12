@@ -21,6 +21,8 @@
 	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>
 	<string name="read_permission_label">Tasks Zugriffsrechte</string>
 	<string name="write_permission_label">Tasks Zugriffsrechte</string>
+	<string name="discard_confirmation">Änderungen wirklich verwerfen?</string>
+	<string name="keep_editing">Weiter bearbeiten</string>
 	<string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
 	<string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert …</string>
 	<string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
@@ -220,7 +222,7 @@
 	<string name="rmd_NoA_done">Abgeschlossen</string>
 	<string name="rmd_NoA_snooze">Schlummern</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stille Stunden beginnen.</string>
-	<string name="rmd_EPr_quiet_hours_end_title">Ruhezeiten enden</string>
+	<string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
 	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
 	<string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
@@ -298,7 +300,7 @@
 	<string name="silent">Ton Aus</string>
 	<string name="sound">Ton</string>
 	<string name="vibrations">Vibration</string>
-	<string name="quiet_hours">Ruhezeiten</string>
+	<string name="quiet_hours">Ruhezeit</string>
 	<string name="attachment_directory">Anhängeordner</string>
 	<string name="backup_directory">Sicherungsordner</string>
 	<string name="miscellaneous">Verschiedenes</string>
@@ -312,7 +314,7 @@
 	<string name="help_and_feedback">Hilfe &amp; Feedback</string>
 	<string name="contact_developer">Entwickler kontaktieren</string>
 	<string name="rate_tasks">Bewerte Tasks</string>
-	<string name="quiet_hours_summary">Keine Erinnerungen während Ruhezeiten</string>
+	<string name="quiet_hours_summary">Keine Erinnerungen während Ruhezeit</string>
 	<string name="TLA_menu_donate">Spenden</string>
 	<string name="error">Fehler</string>
 	<string name="select_amount">Menge auswählen</string>
@@ -347,7 +349,7 @@
 	<string name="discard">Verwerfen</string>
 	<string name="tag_settings">Schlagwort Einstellungen</string>
 	<string name="delete">Löschen</string>
-	<string name="filter_settings">Filter Einstellungen</string>
+	<string name="filter_settings">Filter-Einstellungen</string>
 	<string name="show_hidden">Ausgeblendet anzeigen</string>
 	<string name="show_completed">Erledigt anzeigen</string>
 	<string name="reverse">Rückgangig</string>
@@ -374,6 +376,7 @@
 	<string name="doze_notifications">Doze-Modus für Benachrichtigungen unterbrechen</string>
 	<string name="doze_notifications_off">Im Doze-Modus von Android erfolgen Benachrichtigungen mit deutlicher Verzögerung</string>
 	<string name="doze_notifications_on">Android erlaubt nur eine begrenzte Anzahl von Unterbrechungen des Doze-Modus</string>
+	<string name="no_title">(kein Titel)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>

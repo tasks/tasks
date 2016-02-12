@@ -160,7 +160,7 @@ File %1$s contained %2$s.\n\n
     <string name="FLA_search_filter">Matching \'%s\'</string>
 
     <!-- Menu: new filter -->
-    <string name="FLA_new_filter">New Filter</string>
+    <string name="FLA_new_filter">Create new filter</string>
 
     <!-- Alert when creating a shortcut without selecting a filter -->
     <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
@@ -714,7 +714,8 @@ File %1$s contained %2$s.\n\n
 
    <!-- ========================================================== Extras == -->
 
-    <string name="new_tag">New Tag</string>
+    <string name="new_tag">Create new tag</string>
+  <string name="new_list">Create new list</string>
 
     <!-- ========================================================== Filters == -->
 
