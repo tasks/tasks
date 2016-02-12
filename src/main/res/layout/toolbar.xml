@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="?attr/asAbBackgroundColor"
+    android:paddingEnd="@dimen/toolbar_horizontal_padding"
+    android:paddingRight="@dimen/toolbar_horizontal_padding"
     android:elevation="@dimen/elevation_toolbar"
     tasks:popupTheme="?attr/popup_theme"
     tasks:theme="@style/ActionBarThemeOverlay"
