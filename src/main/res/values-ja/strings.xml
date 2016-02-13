@@ -49,7 +49,7 @@
 	<string name="SSD_sort_importance">優先順位順</string>
 	<string name="SSD_sort_modified">更新日時順</string>
 	<string name="FLA_search_filter">「%s」の検索結果</string>
-	<string name="FLA_new_filter">新しいフィルタ</string>
+	<string name="FLA_new_filter">新しいフィルターを作成</string>
 	<string name="FLA_no_filter_selected">フィルターが選択されていません! フィルターかリストを選択してください.</string>
 	<string name="TEA_title_hint">タスク名</string>
 	<string name="TEA_importance_label">優先順位</string>
@@ -267,7 +267,8 @@
 	<string name="repeat_forever">永久に繰り返す</string>
 	<string name="repeat_until">%s まで繰り返す</string>
 	<string name="repeat_snackbar">%1$s を %2$s にスケジュール変更しました</string>
-	<string name="new_tag">新しいタグ</string>
+	<string name="new_tag">新しいタグを作成</string>
+	<string name="new_list">新しいリストを作成</string>
 	<string name="tag_FEx_untagged">未分類</string>
 	<string name="delete_tag_confirmation">%s を削除しますか?</string>
 	<string name="TPl_notification">%s のタイマーがアクティブです</string>
@@ -386,6 +387,7 @@
 	<string name="doze_notifications_off">デバイスが Doze モードの間、Android は通知を大幅に遅らせます</string>
 	<string name="doze_notifications_on">デバイスが Doze モードの間、Android は限定された割り込みを許可します</string>
 	<string name="no_title">(タイトルなし)</string>
+	<string name="back_button_saves_task">戻るボタンでタスクを保存します</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

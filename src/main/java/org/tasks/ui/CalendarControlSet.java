@@ -22,6 +22,7 @@ import com.todoroo.astrid.gcal.GCalHelper;
 
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
+import org.tasks.analytics.Tracker;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
@@ -50,6 +51,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
     @Inject PermissionChecker permissionChecker;
+    @Inject Tracker tracker;
 
     private String calendarId;
     private String calendarName;
@@ -67,11 +69,17 @@ public class CalendarControlSet extends TaskEditControlFragment {
         } else if (isNewTask && permissionChecker.canAccessCalendars()) {
             calendarId = preferences.getDefaultCalendar();
             if (!Strings.isNullOrEmpty(calendarId)) {
-                AndroidCalendar defaultCalendar = gcalHelper.getCalendar(calendarId);
-                if (defaultCalendar == null) {
+                try {
+                    AndroidCalendar defaultCalendar = gcalHelper.getCalendar(calendarId);
+                    if (defaultCalendar == null) {
+                        calendarId = null;
+                    } else {
+                        calendarName = defaultCalendar.getName();
+                    }
+                } catch(Exception e) {
+                    Timber.e(e, e.getMessage());
+                    tracker.reportException(e);
                     calendarId = null;
-                } else {
-                    calendarName = defaultCalendar.getName();
                 }
             }
         }
