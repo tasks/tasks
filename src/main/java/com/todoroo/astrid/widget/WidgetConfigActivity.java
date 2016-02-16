@@ -91,6 +91,12 @@ public class WidgetConfigActivity extends InjectingListActivity {
                         darkTheme.isChecked(), hideCheckboxes.isChecked(), hideHeader.isChecked(),
                         transparent.isChecked());
 
+                // force update after setting preferences
+                sendBroadcast(new Intent(WidgetConfigActivity.this, TasksWidget.class) {{
+                    setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                    putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{mAppWidgetId});
+                }});
+
                 // Make sure we pass back the original appWidgetId
                 Intent resultValue = new Intent();
                 resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);

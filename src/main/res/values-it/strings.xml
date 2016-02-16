@@ -49,7 +49,7 @@
 	<string name="SSD_sort_importance">Per priorità</string>
 	<string name="SSD_sort_modified">Per Ultima Modifica</string>
 	<string name="FLA_search_filter">Uguale a  \'%s\'</string>
-	<string name="FLA_new_filter">Nuovo Filtro</string>
+	<string name="FLA_new_filter">Crea nuovo filtro</string>
 	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>
 	<string name="TEA_title_hint">Memo attività</string>
 	<string name="TEA_importance_label">Priorità</string>
@@ -188,8 +188,10 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	</string-array>
 	<string name="CFC_importance_text">Almeno per priorità ?</string>
 	<string name="CFC_importance_name">Priorità...</string>
-	<string name="CFC_tag_contains_name">Il nome Tag contiene...</string>
-	<string name="CFC_tag_contains_text">Il nome Tag contiene: ?</string>
+	<string name="CFC_tag_text">Etichetta: ?</string>
+	<string name="CFC_tag_name">Etichetta...</string>
+	<string name="CFC_tag_contains_name">L\'etichetta contiene</string>
+	<string name="CFC_tag_contains_text">L\'etichetta contiene: ?</string>
 	<string name="CFC_title_contains_name">Il titolo contiene...</string>
 	<string name="CFC_title_contains_text">Il titolo contiene: ?</string>
 	<string name="gcal_TEA_error">Errore durante l\'aggiunta dell\'attività al calendario!</string>
@@ -263,7 +265,8 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="repeat_forever">Ripeti all\'infinito</string>
 	<string name="repeat_until">Ripeti fino %s</string>
 	<string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
-	<string name="new_tag">Nuova etichetta</string>
+	<string name="new_tag">Crea nuova etichetta</string>
+	<string name="new_list">Crea nuova lista</string>
 	<string name="tag_FEx_untagged">Non classificato</string>
 	<string name="delete_tag_confirmation">Elimino %s?</string>
 	<string name="TPl_notification">Timer attivi per %s!</string>
@@ -381,6 +384,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="doze_notifications_off">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
 	<string name="doze_notifications_on">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
 	<string name="no_title">(nessun titolo)</string>
+	<string name="back_button_saves_task">Il tasto indietro salva l\'attività</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

@@ -23,6 +23,8 @@
 	<string name="DLG_error_sdcard_general">Toegang tot SD-kaart geweigerd!</string>
 	<string name="read_permission_label">Taak toestemmingen</string>
 	<string name="write_permission_label">Taak toestemmingen</string>
+	<string name="discard_confirmation">Weet u zeker dat u de wijzigingen niet wilt opslaan?</string>
+	<string name="keep_editing">Blijf editen</string>
 	<string name="DLG_delete_this_task_question">Taak verwijderen?</string>
 	<string name="DLG_upgrading">Taken bijwerken...</string>
 	<string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
@@ -47,7 +49,7 @@
 	<string name="SSD_sort_importance">Op prioriteit</string>
 	<string name="SSD_sort_modified">Op datum gewijzigd</string>
 	<string name="FLA_search_filter">Bevat \'%s\'</string>
-	<string name="FLA_new_filter">Nieuw Filter</string>
+	<string name="FLA_new_filter">Nieuw filter aanmaken</string>
 	<string name="FLA_no_filter_selected">Geen filter geselecteerd! Selecteer een filter of lijst.</string>
 	<string name="TEA_title_hint">Taak naam</string>
 	<string name="TEA_importance_label">Prioriteit</string>
@@ -262,7 +264,8 @@
 	<string name="repeat_forever">Altijd herhalen</string>
 	<string name="repeat_until">Herhalen tot %s</string>
 	<string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
-	<string name="new_tag">Nieuwe Label</string>
+	<string name="new_tag">Nieuwe tag aanmaken</string>
+	<string name="new_list">Nieuwe lijst aanmaken</string>
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>
 	<string name="delete_tag_confirmation">Verwijder %s?</string>
 	<string name="TPl_notification">Timers ingeschakeld voor %s!</string>
@@ -375,6 +378,8 @@
 	<string name="doze_notifications">Onderbreek Snooze mode voor notificaties</string>
 	<string name="doze_notifications_off">Android zal vertraagd notificaties weergeven in Snooze mode</string>
 	<string name="doze_notifications_on">Android zal gelimiteerd onderbreken in Snooze mode</string>
+	<string name="no_title">(geen titel)</string>
+	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>uitschakelen</item>
 		<item>elke 15 min.</item>

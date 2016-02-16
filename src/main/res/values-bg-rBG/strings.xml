@@ -52,7 +52,7 @@
 	<string name="SSD_sort_importance">По приоритет</string>
 	<string name="SSD_sort_modified">По последна промяна</string>
 	<string name="FLA_search_filter">Съвпада с \'%s\'</string>
-	<string name="FLA_new_filter">Нов филтър</string>
+	<string name="FLA_new_filter">Създаване на нов филтър</string>
 	<string name="FLA_no_filter_selected">Няма избран филтър! Моля изберете филтър или списък.</string>
 	<string name="TEA_title_hint">Име на задачата</string>
 	<string name="TEA_importance_label">Приоритет</string>
@@ -269,7 +269,8 @@
 	<string name="repeat_forever">Повтаряй завинаги</string>
 	<string name="repeat_until">Повтаряй до %s</string>
 	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
-	<string name="new_tag">Нов таг</string>
+	<string name="new_tag">Създаване на нов таг</string>
+	<string name="new_list">Създаване на нов списък</string>
 	<string name="tag_FEx_untagged">Без категория</string>
 	<string name="delete_tag_confirmation">Изтрий %s?</string>
 	<string name="TPl_notification">Таймерите са Активни за %s!</string>
@@ -388,6 +389,7 @@
 	<string name="doze_notifications_off">Android значително ще забави уведомленията когато устройството е в Doze режим</string>
 	<string name="doze_notifications_on">Android ще позволява ограничен брой прекъсвания когато устройството е в Doze режим</string>
 	<string name="no_title">(Без заглавие)</string>
+	<string name="back_button_saves_task">Бутон \"Назад\" запазва задачата</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>

@@ -24,6 +24,7 @@
 	<string name="DLG_hour_minutes">זמן (שעות : דקות)</string>
 	<string name="DLG_undo">בטל פעולה אחרונה</string>
 	<string name="WID_dateButtonUnset">הקלק כדי לקבוע</string>
+	<string name="TLA_no_items">אין כאן משימות.</string>
 	<string name="TLA_menu_sort">מיון</string>
 	<string name="TLA_menu_search">חיפוש</string>
 	<string name="TLA_menu_settings">הגדרות</string>
@@ -42,7 +43,7 @@
 	<string name="SSD_sort_importance">ע״פ עדיפות</string>
 	<string name="SSD_sort_modified">ע״פ מועד עדכון אחרון</string>
 	<string name="FLA_search_filter">התאים ל\'%s\'</string>
-	<string name="FLA_new_filter">מַסְנֵן חדש</string>
+	<string name="FLA_new_filter">יצירת פילטר חדש</string>
 	<string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
 	<string name="TEA_title_hint">שם המשימה</string>
 	<string name="TEA_importance_label">עדיפות</string>
@@ -52,9 +53,11 @@
 	<string name="TEA_note_label">תיאור</string>
 	<string name="TEA_estimatedDuration_label">כמה זמן תיקח המשימה?</string>
 	<string name="TEA_elapsedDuration_label">זמן שכבר הושקע במשימה</string>
+	<string name="TEA_timer_est">נשארו %s</string>
 	<string name="TEA_timer_elap">זמן שעבר %s</string>
 	<string name="TEA_no_time">ללא שעה מסויימת</string>
 	<string name="due_date">עד ה</string>
+	<string name="due_time">מועד הביצוע</string>
 	<string name="day_before_due">יום לפני מועד היעד</string>
 	<string name="week_before_due">שבוע לפני מועד היעד</string>
 	<string name="TEA_control_when">מתי</string>
@@ -65,9 +68,11 @@
 	<string name="TEA_control_timer">הערכת זמן</string>
 	<string name="TEA_control_hidden_section">----מוסתר תמיד----</string>
 	<string name="TEA_load_more">טען עוד...</string>
+	<string name="missed_call">שיחה שלא נענתה מ%s</string>
 	<string name="MCA_return_call">התקשר כעת</string>
 	<string name="MCA_add_task">התקשר מאוחר יותר</string>
 	<string name="MCA_ignore">התעלם</string>
+	<string name="missed_calls">שיחות שלא נענו</string>
 	<string name="MCA_task_title_name">\"החזר שיחה ל־%1$s  ב־%2$s\"</string>
 	<string name="MCA_task_title_no_name">החזר שיחה ל־%s</string>
 	<string name="CRA_ignore">התעלם</string>
@@ -111,6 +116,10 @@
 	<string name="EPr_manage_purge_deleted">אַיְּנִי משימות שנמחקו</string>
 	<string name="EPr_manage_purge_deleted_message">האם אתה בטוח שברצונך לְאַיֵּן את כל המשימות שנמחקו?</string>
 	<string name="EPr_manage_purge_deleted_status">%d משימות אֻיְּנוּ!</string>
+	<string name="EPr_reset_preferences">איפוס מאפיינים</string>
+	<string name="EPr_reset_preferences_warning">המאפיינים ישוחזרו לברירת מחדל</string>
+	<string name="EPr_delete_task_data">מחיקת מידע של משימה</string>
+	<string name="EPr_delete_task_data_warning">כל המשימות ימחקו לצמיתות</string>
 	<string name="EPr_manage_delete_completed_gcal">מחקי אירועי יומן בעבור משימות שבוצעו</string>
 	<string name="EPr_manage_delete_completed_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן של משימות שבוצעו?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d אירועי יומן נמחקו!</string>
@@ -129,6 +138,9 @@
 	<string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
 	<string name="EPr_default_addtocalendar_title">הוספה ליומן כברירת מחדל</string>
 	<string name="EPr_default_reminders_mode_title">ברירת מחדל לסוג צלצול/רטט</string>
+	<string name="priority_high">גבוה</string>
+	<string name="priority_medium">בינוני</string>
+	<string name="priority_low">נמוך</string>
 	<string-array name="EPr_default_urgency">
 		<item>ללא מועד סף</item>
 		<item>היום</item>
@@ -185,6 +197,7 @@
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>
 	<string name="audio_stop_recording">הפסק הקלטה</string>
 	<string name="file_type_unhandled">\"מצטערת! לא מצאתי ישום שיכול  לטפל בקבצים מסוג זה\"</string>
+	<string name="back">חזרה</string>
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
 	<string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
 	<string-array name="TEA_reminder_random">
@@ -232,6 +245,9 @@
 	<string name="repeat_detail_duedate_until">כל %1$s\nעד %2$s</string>
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
+	<string name="new_tag">יצירת תגית חדשה</string>
+	<string name="new_list">יצירת רשימה חדשה</string>
+	<string name="tag_FEx_untagged">ללא קיטלוג</string>
 	<string name="TPl_notification">קוצב זמן הופעל עבור %s משימות</string>
 	<string name="TFE_workingOn">משימות עם הערכת זמן</string>
 	<string name="TEA_timer_controls">טיימר</string>
@@ -242,13 +258,17 @@
 	<string name="EPr_voiceInputEnabled_title">קלט קולי</string>
 	<string name="EPr_voiceRemindersEnabled_title">תזכורות קוליות</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
+	<string name="EPr_use_dark_theme">ערכת נושא כהה</string>
 	<string name="delete_task">מחק משימה</string>
+	<string name="voice_command_added_task">משימות שנוצרו</string>
+	<string name="external_storage_unavailable">לא ניתן לגשת לאחסון חיצוני</string>
 	<plurals name="Ntasks">
 		<item quantity="one">משימה אחת</item>
 		<item quantity="other">%d משימות</item>
 	</plurals>
 	<string name="today">היום</string>
 	<string name="tomorrow">מחר</string>
+	<string name="next">הבא: %s</string>
 	<string name="yesterday">אתמול</string>
 	<string name="tmrw">מחר</string>
 	<string name="yest">אתמול</string>
@@ -260,6 +280,7 @@
 	<string name="sync_SPr_forget_description">מסיר את כל נתוני הסנכרון</string>
 	<string name="sync_forget_confirm">צא מהחשבון \\ הסר נתוני סנכרון?</string>
 	<string name="vibrations">רטט</string>
+	<string name="backup_directory">תקיית גיבוי</string>
 	<string name="source_code">קוד מקור</string>
 	<string name="translations">תרגום</string>
 	<string name="report_an_issue">דווח/י על בעיה</string>
@@ -267,12 +288,24 @@
 	<string name="contact_developer">צור קשר</string>
 	<string name="rate_tasks">דרג אפליקציה</string>
 	<string name="quiet_hours_summary">ללא התראות בשעות השקטות</string>
+	<string name="TLA_menu_donate">לתרומה</string>
 	<string name="notification_actions">כפתורים בהתראות</string>
 	<string name="notification_actions_summary">הצגת \"השתק\" ו\"בוצעה\" בהתראה</string>
+	<string name="pick_a_date">בחר/י בתאריך</string>
+	<string name="pick_a_time">בחר/י בשעה</string>
+	<string name="geofence_radius_title">רדיוס (במטרים)</string>
+	<string name="geofence_responsiveness_title">זמן תגובה (ערך גבוה חוסך בסוללה)</string>
+	<string name="geolocation_reminders">התראות גאולוקיישן</string>
 	<string name="tags">תגיות</string>
+	<string name="filters">פילטרים</string>
 	<string name="filter_settings">הגדרות פילטר</string>
 	<string name="show_hidden">הצגת משימות נסתרות</string>
 	<string name="show_completed">הצגת משימות שבוצעו</string>
+	<string name="reverse">אחורה</string>
+	<string name="task_count">%s משימות</string>
+	<string name="get_plugins">הוספ/י פלאגינים</string>
+	<string name="no_application_found">לא נמצאה אפליקצה לפתיחת הקובץ</string>
+	<string name="add_attachment">הוספ/י קובץ</string>
 	<string name="high_priority">גבוה</string>
 	<string name="default_priority">ברירת מחדל</string>
 	<string name="low_priority">נמוך</string>
@@ -280,6 +313,14 @@
 	<string name="vibration_count">מספר פעימות הרטט</string>
 	<string name="vibration_duration">אורך כל פעימת רטט (במילישניות)</string>
 	<string name="vibration_pause">אורך הפסקה בין רטט לרטט (במילישניות)</string>
+	<string name="privacy">פרטיות</string>
+	<string name="privacy_policy">מדיניות פרטיות</string>
+	<string name="send_anonymous_statistics">שיפור Tasks</string>
+	<string name="send_anonymous_statistics_summary">שליחת סטסיטיקות ודיווחי קריסה של האפליקציה באופן אנונימי. מידע אישי לא נאסף כלל.</string>
+	<string name="tag_already_exists">תגיות שכבר קיימות</string>
+	<string name="doze_notifications">ניטרול Doze Mode בהתראות</string>
+	<string name="doze_notifications_off">אנדרואיד יעקב את ההתראות באופן משמעותי כאשר Doze mode פעיל</string>
+	<string name="back_button_saves_task">כפתור \"חזרה\" שומר שינויים במשימה</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>מִנְעִי</item>
 		<item>כל רבע שעה</item>
