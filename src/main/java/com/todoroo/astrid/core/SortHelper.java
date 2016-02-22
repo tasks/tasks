@@ -71,21 +71,16 @@ public class SortHelper {
             break;
         case SORT_DUE:
             order = Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                    Functions.now()  + "*2", adjustedDueDateFunction()) + "+" + Task.IMPORTANCE +
-                    "+3*" + Task.COMPLETION_DATE);
+                    Functions.now()  + "*2", adjustedDueDateFunction()) + "+" + Task.IMPORTANCE);
             break;
         case SORT_IMPORTANCE:
-            order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
-                    "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
-                            2 * DateUtilities.now(),
-                            Task.DUE_DATE) + "+8*" + Task.COMPLETION_DATE);
+            order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) +
+                    "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), 2 * DateUtilities.now(), Task.DUE_DATE));
             break;
         case SORT_MODIFIED:
             order = Order.desc(Task.MODIFICATION_DATE);
             break;
         case SORT_WIDGET:
-            order = defaultTaskOrder();
-            break;
         default:
             order = defaultTaskOrder();
         }
