@@ -23,4 +23,8 @@ public class GtasksSyncV2Provider {
     public void synchronizeList(GtasksList list, SyncResultCallback callback) {
 
     }
+
+    public void clearCompleted(GtasksList list, SyncResultCallback callback) {
+
+    }
 }
