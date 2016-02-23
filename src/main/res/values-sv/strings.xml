@@ -7,6 +7,10 @@
 <resources>
 	<string name="actfm_picture_clear">Rensa bild</string>
 	<string name="TVA_add_comment">Lägg till en kommentar...</string>
+	<string name="name">Namn</string>
+	<string name="enter_tag_name">Ange namn för ettikett</string>
+	<string name="enter_filter_name">Ange ett namn för filtret</string>
+	<string name="choose_google_account">Välj Googlekonto</string>
 	<string name="backup_BPr_header">Säkerhetskopior</string>
 	<string name="backup_BAc_import">Importera uppgifter</string>
 	<string name="backup_BAc_export">Exportera uppgifter</string>
@@ -19,11 +23,14 @@
 	<string name="DLG_error_sdcard_general">SD-kort ej tillgängligt!</string>
 	<string name="read_permission_label">Tasks Tillstånd</string>
 	<string name="write_permission_label">Tasks Tillstånd</string>
+	<string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
+	<string name="keep_editing">Fortsätt redigera</string>
 	<string name="DLG_delete_this_task_question">Radera denna uppgift?</string>
 	<string name="DLG_upgrading">Uppgraderar dina uppgifter...</string>
-	<string name="DLG_hour_minutes">Tid (timmar : minuter)</string>
+	<string name="DLG_hour_minutes">Tid (timmar : minuter</string>
 	<string name="DLG_undo">Ångra</string>
 	<string name="WID_dateButtonUnset">Klicka för att ställa</string>
+	<string name="TLA_no_items">Det finns inga uppgifter att visa.</string>
 	<string name="TLA_menu_sort">Sortera</string>
 	<string name="TLA_menu_search">Sök</string>
 	<string name="TLA_menu_settings">Inställningar</string>
@@ -42,7 +49,7 @@
 	<string name="SSD_sort_importance">Efter prioritet</string>
 	<string name="SSD_sort_modified">Efter senaste ändringen</string>
 	<string name="FLA_search_filter">Matchar \'%s\'</string>
-	<string name="FLA_new_filter">Nytt filter</string>
+	<string name="FLA_new_filter">Skapa nytt filter</string>
 	<string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>
 	<string name="TEA_title_hint">Uppgiftsnamn</string>
 	<string name="TEA_importance_label">Prioritet</string>
@@ -52,11 +59,17 @@
 	<string name="TEA_note_label">Beskrivning</string>
 	<string name="TEA_estimatedDuration_label">Hur lång tid kommer det att ta?</string>
 	<string name="TEA_elapsedDuration_label">Tid redan spenderad på uppgiften</string>
+	<string name="save">Spara</string>
 	<string name="TEA_timer_est">Ung. %s</string>
 	<string name="TEA_timer_elap">Förfluten %s</string>
 	<string name="TEA_no_time">Ingen tid</string>
 	<string name="due_date">Förfallodatum</string>
+	<string name="due_time">Förfallotid</string>
+	<string name="day_before_due">Dagen innan förfallodatum</string>
+	<string name="week_before_due">Vecka innan förfallodatum</string>
 	<string name="TEA_control_when">När</string>
+	<string name="TEA_control_repeat">Upprepa</string>
+	<string name="TEA_control_gcal">Kalender</string>
 	<string name="TEA_control_importance">Prioritet</string>
 	<string name="TEA_control_notes">Beskrivning</string>
 	<string name="TEA_control_files">Filer</string>
@@ -64,9 +77,11 @@
 	<string name="TEA_control_timer">Inställningar för tidtagarur</string>
 	<string name="TEA_control_hidden_section">----Göm alltid----</string>
 	<string name="TEA_load_more">Ladda mer...</string>
+	<string name="missed_call">Missat samtal från %s</string>
 	<string name="MCA_return_call">Ring nu</string>
 	<string name="MCA_add_task">Ring senare</string>
 	<string name="MCA_ignore">Ignorera</string>
+	<string name="missed_calls">Missade samtal</string>
 	<string name="MCA_task_title_name">Ring %1$s tillbaka kl %2$s</string>
 	<string name="MCA_task_title_no_name">Ring %s tillbaka</string>
 	<string name="CRA_ignore">Ignorera</string>
@@ -94,12 +109,17 @@
 	<string name="CRA_dont_invite">Nej tack</string>
 	<string name="CRA_list_created_title">Listan skapades!</string>
 	<string name="CRA_default_list_name">Saker att göra: %s</string>
+	<string name="none">Ingen</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="EPr_filters_to_show_title">Filter att visa</string>
 	<string name="EPr_edit_screen_options">Ändra skärminställningar</string>
 	<string name="EPr_beastMode_reset">Återställ till standardvärden</string>
 	<string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
 	<string name="EPr_show_task_edit_comments">Vissa kommentarer i uppgiftsredigering</string>
+	<string name="task_list_options">Visningsalternativ för lista</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Tid för kalenderhändelse</string>
+	<string name="EPr_cal_end_at_due_time">Avsluta kalenderhändelser vid förfallotid</string>
+	<string name="EPr_cal_start_at_due_time">Påbörja kalenderhändelser vid förfallotid</string>
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>
 	<string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
 	<string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>
@@ -107,6 +127,10 @@
 	<string name="EPr_manage_purge_deleted">Rensa bort raderade uppgifter</string>
 	<string name="EPr_manage_purge_deleted_message">Vill du verkligen rensa bort alla dina raderade uppgifter?\n\nDe här uppgifterna kommer att tas bort för alltid!</string>
 	<string name="EPr_manage_purge_deleted_status">%d uppgifter bortrensade!</string>
+	<string name="EPr_reset_preferences">Återställ standardinställningar</string>
+	<string name="EPr_reset_preferences_warning">Detta återställer alla inställningar till standardinställningarna</string>
+	<string name="EPr_delete_task_data">Radera alla uppfiter</string>
+	<string name="EPr_delete_task_data_warning">Alla uppgifter kommer raderas permanent</string>
 	<string name="EPr_manage_delete_completed_gcal">Radera kalenderhändelser för färdiga uppgifter</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Vill du verkligen radera alla händelser i kalendern för uppgifter som är färdiga?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d kalenderhändelser raderade!</string>
@@ -120,12 +144,16 @@ Om du ser detta felmeddelande ofta, föreslår vi att du tömmer all data
 (Inställningar-&gt;Synkronisering och backup-&gt;Hantera gamla uppgifter-&gt;Töm all data)
 och återställer dina aktuella uppgifter från en backup
 (Inställningar-&gt;Synkronisering och backup-&gt;Backup-&gt;Viktiga uppgifter) i Tasks.</string>
+	<string name="task_defaults">Förval för nya uppgifter</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standard prioritet</string>
 	<string name="EPr_default_hideUntil_title">Standard Dölj tills</string>
 	<string name="EPr_default_reminders_title">Standardpåminnelser</string>
 	<string name="EPr_default_addtocalendar_title">Standardkalender för att lägga till händelser</string>
 	<string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
+	<string name="priority_high">Hög</string>
+	<string name="priority_medium">Medel</string>
+	<string name="priority_low">Låg</string>
 	<string-array name="EPr_default_urgency">
 		<item>Ingen frist</item>
 		<item>Idag</item>
@@ -137,7 +165,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string-array name="EPr_default_reminders">
 		<item>Inga varsel om förfall</item>
 		<item>Vid förfallodagen</item>
-		<item>Efter förfallodagen</item>
+		<item>Efter förfallotid</item>
 		<item>Vid eller efter förfallodagen</item>
 	</string-array>
 	<string name="BFE_Active">Mina Uppgifter</string>
@@ -148,6 +176,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="CFA_type_intersect">också</string>
 	<string name="CFA_context_chain">%s har kriterier</string>
 	<string name="CFA_context_delete">Radera rad</string>
+	<string name="CFA_help">Håll länge på en post för att visa fler alternativ</string>
 	<string name="CFA_button_add">Lägg till kriterium</string>
 	<string name="CFC_dueBefore_text">Förfaller innan: ?</string>
 	<string name="CFC_dueBefore_name">Förfaller innan...</string>
@@ -160,7 +189,12 @@ och återställer dina aktuella uppgifter från en backup
 		<item>Nästa vecka</item>
 		<item>Nästa månad</item>
 	</string-array>
+	<string name="CFC_importance_text">Prioritet åtminstone ?</string>
 	<string name="CFC_importance_name">Prioritet...</string>
+	<string name="CFC_tag_text">Etikett: ?</string>
+	<string name="CFC_tag_name">Etikett...</string>
+	<string name="CFC_tag_contains_name">Etikettens namn innehåller...</string>
+	<string name="CFC_tag_contains_text">Etikettens namn innehåller: ?</string>
 	<string name="CFC_title_contains_name">Titeln innehåller...</string>
 	<string name="CFC_title_contains_text">Titeln innehåller: ?</string>
 	<string name="gcal_TEA_error">Misslyckades med att lägga uppgift till kalender!</string>
@@ -180,8 +214,12 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="audio_recording_title">Spelar in ljud</string>
 	<string name="audio_stop_recording">Avsluta inspelning</string>
 	<string name="file_type_unhandled">Tyvärr hittades ingen applikation för att hantera den här filtypen</string>
+	<string name="back">Tillbaka</string>
 	<string name="file_err_copy">Bifoga fil misslyckades: fel vid kopiering</string>
 	<string name="premium_speech_bubble_2">Beställ för helår och spara 25%!</string>
+	<string name="ring_once">Ring en gång</string>
+	<string name="ring_five_times">Ring fem gånger</string>
+	<string name="ring_nonstop">Ring konstant</string>
 	<string-array name="TEA_reminder_random">
 		<item>en timme</item>
 		<item>ett dygn</item>
@@ -196,6 +234,8 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_EPr_quiet_hours_end_title">Tyst period slutar</string>
 	<string name="rmd_EPr_rmd_time_title">Standardpåminnelse</string>
 	<string name="rmd_EPr_rmd_time_desc">Påminnelser om uppgifter utan sluttid visas %s</string>
+	<string name="persistent_notifications">Upprepade påminnelser</string>
+	<string name="persistent_notifications_description">Upprepade påminnelser kan inte döljas</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maxvolym för flera ringande påminnelser</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks sätter volymen på max för flera ringande påminnelser</string>
 	<string name="rmd_EPr_defaultRemind_title">Tillfälliga påminnelser</string>
@@ -227,7 +267,11 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="repeat_detail_duedate_until">Varje %1$s\ntill %2$s </string>
 	<string name="repeat_forever">Repetera oändligt</string>
 	<string name="repeat_until">Repetera till %s</string>
-	<string name="tag_FEx_untagged">Ingen kategori</string>
+	<string name="repeat_snackbar">%1$s omplanerat till %2$s</string>
+	<string name="new_tag">Skapa en ny ettikett</string>
+	<string name="new_list">Skapa en ny lista</string>
+	<string name="tag_FEx_untagged">Ingen ettikett</string>
+	<string name="delete_tag_confirmation">Ta bort %s?</string>
 	<string name="TPl_notification">Tidtagarur aktivt för %s!</string>
 	<string name="TFE_workingOn">Uppgifter med tidtagning</string>
 	<string name="TEA_timer_comment_started">påbörjade uppgiften:</string>
@@ -237,13 +281,17 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="EPr_voiceInputEnabled_title">Röstindata</string>
 	<string name="EPr_voiceRemindersEnabled_title">Röstpåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
+	<string name="EPr_use_dark_theme">Mörkt tema</string>
 	<string name="delete_task">Radera uppgift</string>
+	<string name="voice_command_added_task">Uppgift skapad</string>
+	<string name="external_storage_unavailable">Kan inte komma åt externt lagringsutrymme</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 uppgift</item>
 		<item quantity="other">%d uppgifter</item>
 	</plurals>
 	<string name="today">Idag</string>
 	<string name="tomorrow">Imorgon</string>
+	<string name="next">Nästa %s</string>
 	<string name="yesterday">Igår</string>
 	<string name="tmrw">imorn</string>
 	<string name="yest">Igår</string>
@@ -254,7 +302,91 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="sync_SPr_forget">Logga ut</string>
 	<string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
 	<string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
+	<string name="widget_hide_due_date">Dölj förfallodatum</string>
+	<string name="widget_hide_checkboxes">Dölj kryssrutor</string>
+	<string name="widget_hide_header">Dölj rubrik</string>
+	<string name="widget_transparent_background">Genomskinlig bakgrund </string>
+	<string name="notifications">Påminnelser</string>
+	<string name="silent">Tyst</string>
+	<string name="sound">Ljud</string>
+	<string name="vibrations">Vibrationer</string>
+	<string name="quiet_hours">Tyst period</string>
+	<string name="attachment_directory">Lagringsplats för bilagor</string>
+	<string name="backup_directory">Lagringsplats för säkerhetskopior</string>
+	<string name="miscellaneous">Övrigt</string>
+	<string name="synchronization">Synkronisering</string>
+	<string name="enabled">Aktiverad</string>
+	<string name="font_size">Teckenstorlek</string>
+	<string name="customize_edit_screen">Anpassa redigeringsvyn</string>
+	<string name="source_code">Källkod</string>
+	<string name="translations">Översättningar</string>
+	<string name="report_an_issue">Rapportera ett problem</string>
+	<string name="help_and_feedback">Hjälp &amp; Återkoppling</string>
+	<string name="contact_developer">Kontakta utvecklare</string>
+	<string name="rate_tasks">Betygsätt Tasks</string>
+	<string name="quiet_hours_summary">Inga påminnelser under tysta perioden</string>
 	<string name="TLA_menu_donate">Donera</string>
+	<string name="select_amount">Välj antal</string>
+	<string name="notification_actions">Påminnelser åtgärd</string>
+	<string name="notification_actions_summary">Visa åtgärden snooza och slutför i påmminelser</string>
+	<string name="add_reminder">Lägg till en påminnelse</string>
+	<string name="remove">Ta bort</string>
+	<string name="randomly_once">En gång slumpmässigt</string>
+	<string name="randomly">Slumpmässigt</string>
+	<string name="pick_a_date">Ställ in datum</string>
+	<string name="pick_a_time">Ställ in tid</string>
+	<string name="pick_a_date_and_time">Ställ in datum och tid</string>
+	<string name="pick_a_location">Välj en plats</string>
+	<string name="when_overdue">Efter förfallotid</string>
+	<string name="when_due">Vid förfallotid</string>
+	<string name="geofence_radius_title">Radie (meter)</string>
+	<string name="geofence_responsiveness_title">Svarstid (högre värde sparar batteri)</string>
+	<string name="geolocation_reminders">Platsbaserade påminnelser</string>
+	<string name="tags">Etiketter</string>
+	<string name="filters">Filter</string>
+	<string name="date_shortcuts">Snabbval tid</string>
+	<string name="date_shortcut_hour">En timme</string>
+	<string name="date_shortcut_morning">Morgon</string>
+	<string name="date_shortcut_afternoon">Eftermiddag</string>
+	<string name="date_shortcut_evening">Kväll</string>
+	<string name="date_shortcut_night">Natt</string>
+	<string name="date_shortcut_tomorrow_morning">Imorgon på morgonen</string>
+	<string name="date_shortcut_tomorrow_afternoon">Imorgon på eftermiddagen</string>
+	<string name="date_shortcut_must_come_before">%1$s måste komma före %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s måste komma efter %2$s</string>
+	<string name="discard_changes">Ta bort ändringar?</string>
+	<string name="discard">Ta bort</string>
+	<string name="tag_settings">Etikettinställningar</string>
+	<string name="delete">Ta bort</string>
+	<string name="filter_settings">Filterinställningar</string>
+	<string name="show_hidden">Visa dolda</string>
+	<string name="show_completed">Visa slutförda</string>
+	<string name="reverse">Omvänt</string>
+	<string name="task_count">%s Uppgifter</string>
+	<string name="get_plugins">Skaffa tillägg</string>
+	<string name="no_application_found">Ingen applikation hittades för att öppna bilagan</string>
+	<string name="add_attachment">Bifoga bilaga</string>
+	<string name="high_priority">Hög</string>
+	<string name="default_priority">Standard</string>
+	<string name="low_priority">Låg</string>
+	<string name="notification_priority">Prioritering för påminnelser</string>
+	<string name="vibration_count">Antal vibrationer</string>
+	<string name="vibration_duration">Längd på varje vibration (millisekunder)</string>
+	<string name="vibration_pause">Paus mellan varje vibration (millisekunder)</string>
+	<string name="take_a_picture">Ta en bild</string>
+	<string name="pick_from_gallery">Välj från album</string>
+	<string name="pick_from_storage">Välj från lagring</string>
+	<string name="privacy">Integritet</string>
+	<string name="privacy_policy">Integritetspolicy</string>
+	<string name="send_anonymous_statistics">Förbättra Tasks</string>
+	<string name="send_anonymous_statistics_summary">Skicka anonym användarstatistik och crashrapporter för att hjälpa till att förbättra Tasks. Ingen personlig information kommer samlas in.</string>
+	<string name="tag_already_exists">Etiketten finns redan</string>
+	<string name="disable_notification_light">Inaktivera notifieringsled</string>
+	<string name="doze_notifications">Avbryt Doze-läge för påminnelser</string>
+	<string name="doze_notifications_off">Android kommer att avsevärt fördröja påminnelser medan enheten är i Doze-läge</string>
+	<string name="doze_notifications_on">Android kommer att tillåta begränsade avbrott medan enheten är i Doze-läge</string>
+	<string name="no_title">(Ingen titel)</string>
+	<string name="back_button_saves_task">Bakåtknapp sparar uppgift</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>inaktivera</item>
 		<item>varje kvartstimme</item>
