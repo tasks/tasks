@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.todoroo.astrid.gcal.AndroidCalendar;
 
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.PermissionRequestor;
 
@@ -21,7 +22,7 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
     public static final String EXTRA_CALENDAR_NAME = "extra_calendar_name";
     public static final String EXTRA_SHOW_NONE = "extra_show_none";
 
-    @Inject PermissionRequestor permissionRequestor;
+    @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject ActivityPreferences preferences;
 
     @Override

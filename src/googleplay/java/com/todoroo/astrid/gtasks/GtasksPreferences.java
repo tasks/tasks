@@ -17,6 +17,7 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import org.tasks.R;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.scheduling.BackgroundScheduler;
 
@@ -29,7 +30,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject BackgroundScheduler backgroundScheduler;
-    @Inject PermissionRequestor permissionRequestor;
+    @Inject ActivityPermissionRequestor permissionRequestor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

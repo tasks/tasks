@@ -11,6 +11,7 @@ import com.google.common.base.Strings;
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
 
 import java.io.File;
@@ -26,7 +27,7 @@ public class FileExplore extends InjectingAppCompatActivity {
     public static final String EXTRA_START_PATH = "extra_start_path";
     public static final String EXTRA_DIRECTORY_MODE = "extra_directory_mode"; //$NON-NLS-1$
 
-    @Inject PermissionRequestor permissionRequestor;
+    @Inject ActivityPermissionRequestor permissionRequestor;
 
     private boolean directoryMode;
     private String startPath;

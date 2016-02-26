@@ -16,6 +16,7 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
@@ -37,7 +38,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
     @Inject Preferences preferences;
     @Inject GCalHelper calendarHelper;
     @Inject PermissionChecker permissionChecker;
-    @Inject PermissionRequestor permissionRequester;
+    @Inject ActivityPermissionRequestor permissionRequester;
     private Preference defaultCalendarPref;
 
     @Override

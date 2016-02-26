@@ -1,13 +1,8 @@
 package org.tasks.preferences;
 
 import android.Manifest;
-import android.app.Activity;
-import android.support.v4.app.ActivityCompat;
 
-import javax.inject.Inject;
-
-public class PermissionRequestor {
-
+public abstract class PermissionRequestor {
     public static final int REQUEST_FILE_WRITE = 50;
     public static final int REQUEST_CALENDAR = 51;
     public static final int REQUEST_MIC = 52;
@@ -15,12 +10,9 @@ public class PermissionRequestor {
     public static final int REQUEST_LOCATION = 54;
     public static final int REQUEST_CONTACTS = 55;
 
-    private final Activity activity;
     private final PermissionChecker permissionChecker;
 
-    @Inject
-    public PermissionRequestor(Activity activity, PermissionChecker permissionChecker) {
-        this.activity = activity;
+    public PermissionRequestor(PermissionChecker permissionChecker) {
         this.permissionChecker = permissionChecker;
     }
 
@@ -78,7 +70,5 @@ public class PermissionRequestor {
         requestPermissions(new String[] {permission}, rc);
     }
 
-    private void requestPermissions(String[] permissions, int rc) {
-        ActivityCompat.requestPermissions(activity, permissions, rc);
-    }
+    protected abstract void requestPermissions(String[] permissions, int requestCode);
 }

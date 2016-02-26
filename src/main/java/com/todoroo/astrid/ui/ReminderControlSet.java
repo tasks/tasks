@@ -8,6 +8,7 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
 import org.tasks.preferences.Device;
+import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.HiddenTopArrayAdapter;
@@ -79,7 +81,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
     @Inject AlarmService alarmService;
     @Inject GeofenceService geofenceService;
-    @Inject PermissionRequestor permissionRequestor;
+    @Inject FragmentPermissionRequestor permissionRequestor;
     @Inject Device device;
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
@@ -266,6 +268,17 @@ public class ReminderControlSet extends TaskEditControlFragment {
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickLocation();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 

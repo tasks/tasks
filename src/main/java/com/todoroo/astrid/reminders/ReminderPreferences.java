@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
@@ -38,7 +39,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private static final int REQUEST_DEFAULT_REMIND = 10003;
 
     @Inject Device device;
-    @Inject PermissionRequestor permissionRequestor;
+    @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
 
     private CheckBoxPreference fieldMissedCalls;

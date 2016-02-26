@@ -15,6 +15,7 @@ import com.todoroo.astrid.voice.AACRecorder.AACRecorderCallbacks;
 
 import org.tasks.R;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 
@@ -35,7 +36,7 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements 
     private String tempFile;
 
     @Inject Preferences preferences;
-    @Inject PermissionRequestor permissionRequestor;
+    @Inject ActivityPermissionRequestor permissionRequestor;
 
     @Bind(R.id.timer) Chronometer timer;
 

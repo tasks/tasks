@@ -27,7 +27,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
     @Inject Preferences preferences;
     @Inject VoiceOutputAssistant voiceOutputAssistant;
-    @Inject PermissionRequestor permissionRequestor;
+    @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
     @Inject BackgroundScheduler backgroundScheduler;
 

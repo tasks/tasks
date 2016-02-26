@@ -82,6 +82,7 @@ dependencies {
 
     compile 'com.nononsenseapps:filepicker:2.5.0'
     compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:support-v13:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:4.1.0'
     compile 'com.google.guava:guava-jdk5:17.0'
