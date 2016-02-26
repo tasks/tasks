@@ -34,6 +34,7 @@ import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
@@ -49,6 +50,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -80,6 +82,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
     @Inject CommentsController commentsController;
     @Inject Preferences preferences;
+    @Inject Tracker tracker;
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.comments) LinearLayout comments;
@@ -229,10 +232,15 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
      */
 
     private boolean hasChanges(List<TaskEditControlFragment> fragments) {
-        for (TaskEditControlFragment fragment : fragments) {
-            if (fragment.hasChanges(model)) {
-                return true;
+        try {
+            for (TaskEditControlFragment fragment : fragments) {
+                if (fragment.hasChanges(model)) {
+                    return true;
+                }
             }
+        } catch(Exception e) {
+            Timber.e(e, e.getMessage());
+            tracker.reportException(e);
         }
         return false;
     }
