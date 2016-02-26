@@ -33,12 +33,16 @@ public abstract class PermissionRequestor {
     }
 
     public boolean requestCalendarPermissions() {
+        return requestCalendarPermissions(REQUEST_CALENDAR);
+    }
+
+    public boolean requestCalendarPermissions(int requestCode) {
         if (permissionChecker.canAccessCalendars()) {
             return true;
         }
         requestPermissions(
                 new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
-                REQUEST_CALENDAR);
+                requestCode);
         return false;
     }
 

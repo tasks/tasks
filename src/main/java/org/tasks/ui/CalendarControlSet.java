@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,7 +25,9 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.analytics.Tracker;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
+import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 
@@ -39,7 +43,10 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
     public static final int TAG = R.string.TEA_ctrl_gcal;
 
-    private static final int REQUEST_CODE_CALENDAR = 70;
+    private static final int REQUEST_CODE_PICK_CALENDAR = 70;
+    private static final int REQUEST_CODE_OPEN_EVENT = 71;
+    private static final int REQUEST_CODE_CLEAR_EVENT = 72;
+
     private static final String EXTRA_URI = "extra_uri";
     private static final String EXTRA_ID = "extra_id";
     private static final String EXTRA_NAME = "extra_name";
@@ -51,7 +58,9 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
     @Inject PermissionChecker permissionChecker;
+    @Inject FragmentPermissionRequestor permissionRequestor;
     @Inject Tracker tracker;
+    @Inject DialogBuilder dialogBuilder;
 
     private String calendarId;
     private String calendarName;
@@ -62,11 +71,12 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+        boolean canAccessCalendars = permissionChecker.canAccessCalendars();
         if (savedInstanceState != null) {
             eventUri = savedInstanceState.getString(EXTRA_URI);
             calendarName = savedInstanceState.getString(EXTRA_NAME);
             calendarId = savedInstanceState.getString(EXTRA_ID);
-        } else if (isNewTask && permissionChecker.canAccessCalendars()) {
+        } else if (isNewTask && canAccessCalendars) {
             calendarId = preferences.getDefaultCalendar();
             if (!Strings.isNullOrEmpty(calendarId)) {
                 try {
@@ -76,14 +86,15 @@ public class CalendarControlSet extends TaskEditControlFragment {
                     } else {
                         calendarName = defaultCalendar.getName();
                     }
-                } catch(Exception e) {
+                } catch (Exception e) {
                     Timber.e(e, e.getMessage());
                     tracker.reportException(e);
                     calendarId = null;
                 }
             }
         }
-        if (!calendarEntryExists(eventUri)) {
+
+        if (canAccessCalendars && !calendarEntryExists(eventUri)) {
             eventUri = null;
         }
         refreshDisplayView();
@@ -111,13 +122,36 @@ public class CalendarControlSet extends TaskEditControlFragment {
         eventUri = task.getCalendarURI();
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean hasChanges(Task original) {
-        return !isNullOrEmpty(calendarId);
+        if (!permissionChecker.canAccessCalendars()) {
+            return false;
+        }
+        if (!isNullOrEmpty(calendarId)) {
+            return true;
+        }
+        String originalUri = original.getCalendarURI();
+        if (isNullOrEmpty(eventUri) && isNullOrEmpty(originalUri)) {
+            return false;
+        }
+        return !originalUri.equals(eventUri);
     }
 
     @Override
     public void apply(Task task) {
+        if (!permissionChecker.canAccessCalendars()) {
+            return;
+        }
+
+        if (!isNullOrEmpty(task.getCalendarURI())) {
+            if (eventUri == null) {
+                gcalHelper.deleteTaskEvent(task);
+            } else if (!calendarEntryExists(task.getCalendarURI())) {
+                task.setCalendarUri("");
+            }
+        }
+
         if (!task.hasDueDate()) {
             return;
         }
@@ -174,6 +208,24 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
     @OnClick(R.id.clear)
     void clearCalendar(View view) {
+        if (isNullOrEmpty(eventUri)) {
+            clear();
+        } else {
+            dialogBuilder.newMessageDialog(R.string.delete_calendar_event_confirmation)
+                    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_CLEAR_EVENT)) {
+                                clear();
+                            }
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
+        }
+    }
+
+    private void clear() {
         calendarName = null;
         calendarId = null;
         eventUri = null;
@@ -183,36 +235,42 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @OnClick(R.id.calendar_display_which)
     void clickCalendar(View view) {
         if (Strings.isNullOrEmpty(eventUri)) {
-            startActivityForResult(new Intent(context, CalendarSelectionActivity.class), REQUEST_CODE_CALENDAR);
+            startActivityForResult(new Intent(context, CalendarSelectionActivity.class), REQUEST_CODE_PICK_CALENDAR);
         } else {
-            ContentResolver cr = getActivity().getContentResolver();
-            Uri uri = Uri.parse(eventUri);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            Cursor cursor = cr.query(uri, new String[] { "dtstart", "dtend" }, null, null, null);
-            try {
-                if(cursor.getCount() == 0) {
-                    // event no longer exists
-                    eventUri = null;
-                    refreshDisplayView();
-                    return;
-                }
+            if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_OPEN_EVENT)) {
+                openCalendarEvent();
+            }
+        }
+    }
+
+    private void openCalendarEvent() {
+        ContentResolver cr = getActivity().getContentResolver();
+        Uri uri = Uri.parse(eventUri);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        Cursor cursor = cr.query(uri, new String[] { "dtstart", "dtend" }, null, null, null);
+        try {
+            if(cursor.getCount() == 0) {
+                // event no longer exists
+                Toast.makeText(context, R.string.calendar_event_not_found, Toast.LENGTH_SHORT).show();
+                eventUri = null;
+                refreshDisplayView();
+            } else {
                 cursor.moveToFirst();
                 intent.putExtra("beginTime", cursor.getLong(0));
                 intent.putExtra("endTime", cursor.getLong(1));
-            } catch (Exception e) {
-                Timber.e(e, e.getMessage());
-                Toast.makeText(getActivity(), R.string.gcal_TEA_error, Toast.LENGTH_LONG).show();
-            } finally {
-                cursor.close();
+                startActivity(intent);
             }
-
-            startActivity(intent);
+        } catch (Exception e) {
+            Timber.e(e, e.getMessage());
+            Toast.makeText(getActivity(), R.string.gcal_TEA_error, Toast.LENGTH_LONG).show();
+        } finally {
+            cursor.close();
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_CALENDAR) {
+        if (requestCode == REQUEST_CODE_PICK_CALENDAR) {
             if (resultCode == Activity.RESULT_OK) {
                 calendarId = data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_ID);
                 calendarName = data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME);
@@ -223,11 +281,26 @@ public class CalendarControlSet extends TaskEditControlFragment {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_CODE_OPEN_EVENT) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCalendarEvent();
+            }
+        } else if (requestCode == REQUEST_CODE_CLEAR_EVENT) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                clear();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
     private void refreshDisplayView() {
         if (!Strings.isNullOrEmpty(eventUri)) {
             calendar.setAlpha(1.0f);
             calendar.setText(R.string.gcal_TEA_showCalendar_label);
-            cancelButton.setVisibility(View.GONE);
+            cancelButton.setVisibility(View.VISIBLE);
         } else if (calendarName != null) {
             calendar.setAlpha(1.0f);
             calendar.setText(calendarName);

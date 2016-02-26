@@ -532,6 +532,9 @@ File %1$s contained %2$s.\n\n
     <!-- Label when calendar event already exists -->
     <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
 
+  <string name="delete_calendar_event_confirmation">Delete calendar event?</string>
+  <string name="calendar_event_not_found">Calendar event not found</string>
+
     <!-- ======================================================== Calendars == -->
 
     <!-- Calendar event name when task is completed (%s => task title) -->
