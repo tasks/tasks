@@ -20,4 +20,8 @@ public class Tracker {
     public void reportException(Exception e) {
 
     }
+
+    public void reportEvent(Tracking.Events setDefaultList) {
+
+    }
 }

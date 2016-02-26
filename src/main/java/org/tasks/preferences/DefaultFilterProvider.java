@@ -11,6 +11,8 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
@@ -27,11 +29,13 @@ public class DefaultFilterProvider {
 
     private final Context context;
     private final Preferences preferences;
+    private Tracker tracker;
 
     @Inject
-    public DefaultFilterProvider(@ForApplication Context context, Preferences preferences) {
+    public DefaultFilterProvider(@ForApplication Context context, Preferences preferences, Tracker tracker) {
         this.context = context;
         this.preferences = preferences;
+        this.tracker = tracker;
     }
 
     public Filter getDefaultFilter() {
@@ -58,6 +62,7 @@ public class DefaultFilterProvider {
     }
 
     public void setDefaultFilter(Filter filter) {
+        tracker.reportEvent(Tracking.Events.SET_DEFAULT_LIST);
         preferences.setString(R.string.p_default_list_name, filter.listingTitle);
         preferences.setString(R.string.p_default_list_sql, filter.getSqlQuery());
         preferences.setInt(R.string.p_default_list_type, getFilterType(filter));

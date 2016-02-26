@@ -288,4 +288,7 @@
   <string name="p_default_list_class">default_list_class</string>
   <string name="p_default_list_extras">default_list_extras</string>
 
+  <string name="tracking_category_preferences">Preferences</string>
+  <string name="tracking_action_set">Set</string>
+
 </resources>

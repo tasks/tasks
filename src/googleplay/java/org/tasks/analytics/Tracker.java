@@ -19,9 +19,11 @@ public class Tracker {
     private final GoogleAnalytics analytics;
     private final com.google.android.gms.analytics.Tracker tracker;
     private final StandardExceptionParser exceptionParser;
+    private Context context;
 
     @Inject
     public Tracker(@ForApplication Context context) {
+        this.context = context;
         analytics = GoogleAnalytics.getInstance(context);
         tracker = analytics.newTracker(R.xml.analytics);
         tracker.setAppVersion(Integer.toString(BuildConfig.VERSION_CODE));
@@ -44,6 +46,14 @@ public class Tracker {
         tracker.send(new HitBuilders.ExceptionBuilder()
                 .setDescription(exceptionParser.getDescription(Thread.currentThread().getName(), e))
                 .setFatal(false)
+                .build());
+    }
+
+    public void reportEvent(Tracking.Events event) {
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory(context.getString(event.category))
+                .setAction(context.getString(event.action))
+                .setLabel(context.getString(event.label))
                 .build());
     }
 }
