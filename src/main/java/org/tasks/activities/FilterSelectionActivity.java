@@ -18,6 +18,7 @@ import javax.inject.Inject;
 
 public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
+    public static final String EXTRA_FILTER = "extra_filter";
     public static final String EXTRA_FILTER_NAME = "extra_filter_name";
     public static final String EXTRA_FILTER_SQL = "extra_filter_query";
     public static final String EXTRA_FILTER_VALUES = "extra_filter_values";
@@ -42,6 +43,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
                         setResult(RESULT_OK, new Intent() {{
+                            putExtra(EXTRA_FILTER, selectedFilter);
                             putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
                             putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
                             if (selectedFilter.valuesForNewTasks != null) {

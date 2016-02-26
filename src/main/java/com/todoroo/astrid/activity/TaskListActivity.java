@@ -23,7 +23,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
@@ -38,6 +37,7 @@ import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -68,6 +68,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject TaskService taskService;
     @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
     @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
+    @Inject DefaultFilterProvider defaultFilterProvider;
 
     public static final int REQUEST_UPGRADE = 505;
 
@@ -129,7 +130,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         } else {
             taskListFragment = getTaskListFragment();
             if (taskListFragment == null) {
-                taskListFragment = newTaskListFragment(getDefaultFilter());
+                taskListFragment = newTaskListFragment(defaultFilterProvider.getDefaultFilter());
             }
         }
         loadTaskListFragment(taskListFragment);
@@ -194,10 +195,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         super.onPause();
 
         AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
-    }
-
-    protected Filter getDefaultFilter() {
-        return BuiltInFilterExposer.getMyTasksFilter(getResources());
     }
 
     @Override

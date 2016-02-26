@@ -237,8 +237,16 @@ public class Preferences {
         editor.commit();
     }
 
+    public long getLong(int resourceId, long defValue) {
+        return getLong(context.getString(resourceId), defValue);
+    }
+
     public long getLong(String key, long defValue) {
         return prefs.getLong(key, defValue);
+    }
+
+    public void setLong(int resourceId, long value) {
+        setLong(context.getString(resourceId), value);
     }
 
     public void setLong(String key, long value) {

@@ -5,17 +5,25 @@ import android.os.Bundle;
 import android.preference.Preference;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
+import com.todoroo.astrid.api.Filter;
 
 import org.tasks.R;
+import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
+
+import javax.inject.Inject;
 
 public class AppearancePreferences extends InjectingPreferenceActivity {
 
     private static final int REQUEST_CUSTOMIZE = 1004;
+    private static final int REQUEST_DEFAULT_LIST = 1005;
 
     private static final String EXTRA_BUNDLE = "extra_bundle";
     public static String EXTRA_RESTART = "extra_restart";
     public static String EXTRA_FILTERS_CHANGED = "extra_filters_changed";
+
+    @Inject Preferences preferences;
+    @Inject DefaultFilterProvider defaultFilterProvider;
 
     private Bundle result;
 
@@ -42,6 +50,16 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
                 return true;
             }
         });
+        Preference defaultList = findPreference(getString(R.string.p_default_list_name));
+        Filter filter = defaultFilterProvider.getDefaultFilter();
+        defaultList.setSummary(filter.listingTitle);
+        defaultList.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivityForResult(new Intent(AppearancePreferences.this, FilterSelectionActivity.class), REQUEST_DEFAULT_LIST);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -64,6 +82,12 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
         if (requestCode == REQUEST_CUSTOMIZE) {
             if (resultCode == RESULT_OK) {
                 result.putBoolean(EXTRA_RESTART, true);
+            }
+        } else if (requestCode == REQUEST_DEFAULT_LIST) {
+            if (resultCode == RESULT_OK) {
+                Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
+                defaultFilterProvider.setDefaultFilter(filter);
+                findPreference(getString(R.string.p_default_list_name)).setSummary(filter.listingTitle);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

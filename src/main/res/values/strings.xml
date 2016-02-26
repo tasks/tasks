@@ -898,6 +898,7 @@ File %1$s contained %2$s.\n\n
     <string name="doze_notifications_on">Android will allow limited interruptions while device is in Doze mode</string>
   <string name="no_title">(No title)</string>
   <string name="back_button_saves_task">Back button saves task</string>
+  <string name="default_list">Default list</string>
 
   <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

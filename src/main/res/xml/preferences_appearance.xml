@@ -8,6 +8,11 @@
         android:title="@string/EPr_use_dark_theme" />
 
     <PreferenceCategory android:title="@string/task_list_options">
+
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:key="@string/p_default_list_name"
+            android:title="@string/default_list" />
+
         <com.todoroo.astrid.ui.MultilineListPreference
             android:defaultValue="16"
             android:entries="@array/EPr_font_size"
