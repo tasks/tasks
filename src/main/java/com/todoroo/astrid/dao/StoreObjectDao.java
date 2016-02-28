@@ -6,7 +6,6 @@
 package com.todoroo.astrid.dao;
 
 import com.google.common.base.Function;
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
@@ -34,10 +33,15 @@ public class StoreObjectDao {
         dao = new DatabaseDao<>(database, StoreObject.class);
     }
 
-    public void getSavedFilters(Callback<StoreObject> callback) {
-        dao.query(callback, select(StoreObject.PROPERTIES)
+    public List<StoreObject> getSavedFilters() {
+        return dao.toList(select(StoreObject.PROPERTIES)
                 .where(isSavedFilter)
                 .orderBy(Order.asc(SavedFilter.NAME)));
+    }
+
+    public StoreObject getSavedFilterById(long id) {
+        return dao.getFirst(select(StoreObject.PROPERTIES)
+                .where(and(isSavedFilter, StoreObject.ID.eq(id))));
     }
 
     public GtasksList getGtasksList(long id) {

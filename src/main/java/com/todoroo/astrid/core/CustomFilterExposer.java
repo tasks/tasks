@@ -5,7 +5,11 @@
  */
 package com.todoroo.astrid.core;
 
-import com.todoroo.andlib.data.Callback;
+import android.content.ContentValues;
+import android.text.TextUtils;
+
+import com.google.common.base.Function;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -13,12 +17,16 @@ import com.todoroo.astrid.data.StoreObject;
 
 import org.tasks.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
+
 public final class CustomFilterExposer {
+
+    private static final int filter = R.drawable.ic_filter_list_24dp;
 
     private final StoreObjectDao storeObjectDao;
 
@@ -28,19 +36,32 @@ public final class CustomFilterExposer {
     }
 
     public List<Filter> getFilters() {
-        final List<Filter> list = new ArrayList<>();
-
-        final int filter = R.drawable.ic_filter_list_24dp;
-
-        storeObjectDao.getSavedFilters(new Callback<StoreObject>() {
+        return newArrayList(transform(storeObjectDao.getSavedFilters(), new Function<StoreObject, Filter>() {
             @Override
-            public void apply(StoreObject savedFilter) {
-                CustomFilter f = SavedFilter.load(savedFilter);
-                f.icon = filter;
-                list.add(f);
+            public Filter apply(StoreObject input) {
+                return load(input);
             }
-        });
+        }));
+    }
 
-        return list;
+    public Filter getFilter(long id) {
+        return load(storeObjectDao.getSavedFilterById(id));
+    }
+
+    private Filter load(StoreObject savedFilter) {
+        String title = savedFilter.getValue(SavedFilter.NAME);
+        String sql = savedFilter.getValue(SavedFilter.SQL);
+        String values = savedFilter.getValue(SavedFilter.VALUES);
+
+        ContentValues contentValues = null;
+        if(!TextUtils.isEmpty(values)) {
+            contentValues = AndroidUtilities.contentValuesFromSerializedString(values);
+        }
+
+        sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
+
+        CustomFilter customFilter = new CustomFilter(title, sql, contentValues, savedFilter.getId());
+        customFilter.icon = filter;
+        return customFilter;
     }
 }

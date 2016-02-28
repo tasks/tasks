@@ -57,6 +57,10 @@ public class TagFilterExposer {
         return list;
     }
 
+    public Filter getFilterByUuid(String uuid) {
+        return filterFromTagData(context, tagService.tagFromUUID(uuid));
+    }
+
     /** Create filter from new tag object */
     public static FilterWithCustomIntent filterFromTag(Context context, TagData tag, Criterion criterion) {
         String title = tag.getName();
@@ -101,7 +105,7 @@ public class TagFilterExposer {
         return filters;
     }
 
-    protected Filter constructFilter(Context context, TagData tag) {
+    private Filter constructFilter(Context context, TagData tag) {
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }
 

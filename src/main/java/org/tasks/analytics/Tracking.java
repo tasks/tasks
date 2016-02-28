@@ -5,7 +5,7 @@ import org.tasks.R;
 public class Tracking {
 
     public enum Events {
-        SET_DEFAULT_LIST(R.string.tracking_category_preferences, R.string.tracking_action_set, R.string.p_default_list_name);
+        SET_DEFAULT_LIST(R.string.tracking_category_preferences, R.string.tracking_action_set, R.string.p_default_list);
 
         public final int category;
         public final int action;

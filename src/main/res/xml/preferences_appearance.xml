@@ -10,7 +10,7 @@
     <PreferenceCategory android:title="@string/task_list_options">
 
         <com.todoroo.astrid.ui.MultilinePreference
-            android:key="@string/p_default_list_name"
+            android:key="@string/p_default_list"
             android:title="@string/default_list" />
 
         <com.todoroo.astrid.ui.MultilineListPreference

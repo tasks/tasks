@@ -78,7 +78,7 @@ public final class TagService {
         return array.toArray(new TagData[array.size()]);
     }
 
-    private TagData tagFromUUID(String uuid) {
+    public TagData tagFromUUID(String uuid) {
         return tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
     }
 

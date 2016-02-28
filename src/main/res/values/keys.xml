@@ -280,13 +280,7 @@
   <string name="p_collect_statistics">collect_statistics</string>
   <string name="p_back_button_saves_task">back_button_saves_task</string>
 
-  <string name="p_default_list_name">default_list_name</string>
-  <string name="p_default_list_sql">default_list_sql</string>
-  <string name="p_default_list_values">default_list_values</string>
-  <string name="p_default_list_type">default_list_type</string>
-  <string name="p_default_list_id">default_list_id</string>
-  <string name="p_default_list_class">default_list_class</string>
-  <string name="p_default_list_extras">default_list_extras</string>
+  <string name="p_default_list">default_list</string>
 
   <string name="tracking_category_preferences">Preferences</string>
   <string name="tracking_action_set">Set</string>

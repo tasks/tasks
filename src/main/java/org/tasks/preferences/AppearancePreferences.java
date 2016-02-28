@@ -50,7 +50,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
                 return true;
             }
         });
-        Preference defaultList = findPreference(getString(R.string.p_default_list_name));
+        Preference defaultList = findPreference(getString(R.string.p_default_list));
         Filter filter = defaultFilterProvider.getDefaultFilter();
         defaultList.setSummary(filter.listingTitle);
         defaultList.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -87,7 +87,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
             if (resultCode == RESULT_OK) {
                 Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 defaultFilterProvider.setDefaultFilter(filter);
-                findPreference(getString(R.string.p_default_list_name)).setSummary(filter.listingTitle);
+                findPreference(getString(R.string.p_default_list)).setSummary(filter.listingTitle);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

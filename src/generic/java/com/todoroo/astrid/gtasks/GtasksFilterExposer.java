@@ -16,4 +16,8 @@ public class GtasksFilterExposer {
     public List<Filter> getFilters() {
         return Collections.emptyList();
     }
+
+    public Filter getFilter(long aLong) {
+        return null;
+    }
 }

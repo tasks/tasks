@@ -33,6 +33,10 @@ public class GtasksListService {
         return storeObjectDao.getGtasksLists();
     }
 
+    public GtasksList getList(long id) {
+        return storeObjectDao.getGtasksList(id);
+    }
+
     /**
      * Reads in remote list information and updates local list objects.
      *

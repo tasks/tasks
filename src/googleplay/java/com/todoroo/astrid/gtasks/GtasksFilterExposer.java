@@ -42,6 +42,8 @@ import static java.util.Collections.emptyList;
  */
 public class GtasksFilterExposer {
 
+    private static final int CLOUD = R.drawable.ic_cloud_queue_24dp;
+
     private final GtasksListService gtasksListService;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final Context context;
@@ -62,18 +64,24 @@ public class GtasksFilterExposer {
             return emptyList();
         }
 
-        int cloud = R.drawable.ic_cloud_queue_24dp;
-
         List<Filter> listFilters = newArrayList();
         for (GtasksList list : gtasksListService.getLists()) {
-            Filter filter = filterFromList(gtasksMetadata, context, list);
-            filter.icon = cloud;
-            listFilters.add(filter);
+            listFilters.add(filterFromList(list));
         }
         return listFilters;
     }
 
-    public static Filter filterFromList(GtasksMetadata gtasksMetadata, Context context, GtasksList list) {
+    public Filter getFilter(long id) {
+        if (gtasksPreferenceService.isLoggedIn()) {
+            GtasksList list = gtasksListService.getList(id);
+            if (list != null) {
+                return filterFromList(list);
+            }
+        }
+        return null;
+    }
+
+    private Filter filterFromList(GtasksList list) {
         String listName = list.getName();
         ContentValues values = new ContentValues();
         values.putAll(gtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
@@ -92,7 +100,7 @@ public class GtasksFilterExposer {
         Bundle extras = new Bundle();
         extras.putLong(GtasksListFragment.TOKEN_STORE_ID, list.getId());
         filter.customExtras = extras;
-
+        filter.icon = CLOUD;
         return filter;
     }
 }

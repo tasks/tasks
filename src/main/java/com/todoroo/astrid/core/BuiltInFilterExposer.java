@@ -92,7 +92,7 @@ public final class BuiltInFilterExposer {
                 null);
     }
 
-    private static Filter getTodayFilter(Resources r) {
+    public static Filter getTodayFilter(Resources r) {
         String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
         ContentValues todayValues = new ContentValues();
         todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
@@ -104,7 +104,7 @@ public final class BuiltInFilterExposer {
                 todayValues);
     }
 
-    private static Filter getRecentlyModifiedFilter(Resources r) {
+    public static Filter getRecentlyModifiedFilter(Resources r) {
         return new Filter(r.getString(R.string.BFE_Recent),
                 new QueryTemplate().where(
                         TaskCriteria.notDeleted()).orderBy(
@@ -112,7 +112,7 @@ public final class BuiltInFilterExposer {
                 null);
     }
 
-    private static Filter getUncategorizedFilter(Resources r) {
+    public static Filter getUncategorizedFilter(Resources r) {
         return new Filter(r.getString(R.string.tag_FEx_untagged),
                 new QueryTemplate().where(Criterion.and(
                         Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
@@ -122,14 +122,19 @@ public final class BuiltInFilterExposer {
                 null);
     }
 
-    /**
-     * Is this the inbox?
-     */
     public static boolean isInbox(Context context, Filter filter) {
-        return (filter != null && filter.equals(getMyTasksFilter(context.getResources())));
+        return filter != null && filter.equals(getMyTasksFilter(context.getResources()));
     }
 
     public static boolean isTodayFilter(Context context, Filter filter) {
-        return (filter != null && filter.equals(getTodayFilter(context.getResources())));
+        return filter != null && filter.equals(getTodayFilter(context.getResources()));
+    }
+
+    public static boolean isUncategorizedFilter(Context context, Filter filter) {
+        return filter != null && filter.equals(getUncategorizedFilter(context.getResources()));
+    }
+
+    public static boolean isRecentlyModifiedFilter(Context context, Filter filter) {
+        return filter != null && filter.equals(getRecentlyModifiedFilter(context.getResources()));
     }
 }
