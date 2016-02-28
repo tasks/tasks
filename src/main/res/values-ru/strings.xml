@@ -199,6 +199,8 @@
 	<string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
 	<string name="gcal_TEA_addToCalendar_label">Добавить в календарь</string>
 	<string name="gcal_TEA_showCalendar_label">Открыть событие календаря</string>
+	<string name="delete_calendar_event_confirmation">Удалить событие в календаре?</string>
+	<string name="calendar_event_not_found">Событие в календаре не найдено</string>
 	<string name="gcal_completed_title">%s (выполнено)</string>
 	<string name="CFC_gtasks_list_text">В Списке: ?</string>
 	<string name="CFC_gtasks_list_name">В GTask Список...</string>
@@ -387,6 +389,7 @@
 	<string name="doze_notifications_on">Android разрешит ограниченные прерывания, если устройство находится в спящем режиме</string>
 	<string name="no_title">(Без заголовка)</string>
 	<string name="back_button_saves_task">Кнопка \"назад\" сохраняет задачу</string>
+	<string name="default_list">Список по умолчанию</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

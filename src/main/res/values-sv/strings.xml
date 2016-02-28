@@ -49,7 +49,7 @@
 	<string name="SSD_sort_importance">Efter prioritet</string>
 	<string name="SSD_sort_modified">Efter senaste ändringen</string>
 	<string name="FLA_search_filter">Matchar \'%s\'</string>
-	<string name="FLA_new_filter">Skapa nytt filter</string>
+	<string name="FLA_new_filter">Skapa ett nytt filter</string>
 	<string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>
 	<string name="TEA_title_hint">Uppgiftsnamn</string>
 	<string name="TEA_importance_label">Prioritet</string>
@@ -115,7 +115,7 @@
 	<string name="EPr_edit_screen_options">Ändra skärminställningar</string>
 	<string name="EPr_beastMode_reset">Återställ till standardvärden</string>
 	<string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
-	<string name="EPr_show_task_edit_comments">Vissa kommentarer i uppgiftsredigering</string>
+	<string name="EPr_show_task_edit_comments">Visa kommentarsfält i uppgiftsredigeringsvyn</string>
 	<string name="task_list_options">Visningsalternativ för lista</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Tid för kalenderhändelse</string>
 	<string name="EPr_cal_end_at_due_time">Avsluta kalenderhändelser vid förfallotid</string>
@@ -200,6 +200,8 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="gcal_TEA_error">Misslyckades med att lägga uppgift till kalender!</string>
 	<string name="gcal_TEA_addToCalendar_label">Skapa kalenderhändelse</string>
 	<string name="gcal_TEA_showCalendar_label">Öppna kalenderhändelse</string>
+	<string name="delete_calendar_event_confirmation">Ta bort kalenderhändelse?</string>
+	<string name="calendar_event_not_found">Kalenderhändelsen hittades inte</string>
 	<string name="gcal_completed_title">%s (avslutad)</string>
 	<string name="CFC_gtasks_list_text">I listan: ?</string>
 	<string name="CFC_gtasks_list_name">I lista på Google Uppgifter...</string>
@@ -215,7 +217,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="audio_stop_recording">Avsluta inspelning</string>
 	<string name="file_type_unhandled">Tyvärr hittades ingen applikation för att hantera den här filtypen</string>
 	<string name="back">Tillbaka</string>
-	<string name="file_err_copy">Bifoga fil misslyckades: fel vid kopiering</string>
+	<string name="file_err_copy">Ett fel uppstod vid kopiering av filen till bilaga</string>
 	<string name="premium_speech_bubble_2">Beställ för helår och spara 25%!</string>
 	<string name="ring_once">Ring en gång</string>
 	<string name="ring_five_times">Ring fem gånger</string>
@@ -233,7 +235,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Tyst period slutar</string>
 	<string name="rmd_EPr_rmd_time_title">Standardpåminnelse</string>
-	<string name="rmd_EPr_rmd_time_desc">Påminnelser om uppgifter utan sluttid visas %s</string>
+	<string name="rmd_EPr_rmd_time_desc">Påminnelser för uppgifter utan sluttid visas %s</string>
 	<string name="persistent_notifications">Upprepade påminnelser</string>
 	<string name="persistent_notifications_description">Upprepade påminnelser kan inte döljas</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maxvolym för flera ringande påminnelser</string>
@@ -322,9 +324,9 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="translations">Översättningar</string>
 	<string name="report_an_issue">Rapportera ett problem</string>
 	<string name="help_and_feedback">Hjälp &amp; Återkoppling</string>
-	<string name="contact_developer">Kontakta utvecklare</string>
+	<string name="contact_developer">Kontakta utvecklaren</string>
 	<string name="rate_tasks">Betygsätt Tasks</string>
-	<string name="quiet_hours_summary">Inga påminnelser under tysta perioden</string>
+	<string name="quiet_hours_summary">Inga påminnelser under den tysta perioden</string>
 	<string name="TLA_menu_donate">Donera</string>
 	<string name="select_amount">Välj antal</string>
 	<string name="notification_actions">Påminnelser åtgärd</string>
@@ -365,7 +367,7 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="task_count">%s Uppgifter</string>
 	<string name="get_plugins">Skaffa tillägg</string>
 	<string name="no_application_found">Ingen applikation hittades för att öppna bilagan</string>
-	<string name="add_attachment">Bifoga bilaga</string>
+	<string name="add_attachment">Bifoga filer</string>
 	<string name="high_priority">Hög</string>
 	<string name="default_priority">Standard</string>
 	<string name="low_priority">Låg</string>
@@ -381,12 +383,13 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="send_anonymous_statistics">Förbättra Tasks</string>
 	<string name="send_anonymous_statistics_summary">Skicka anonym användarstatistik och crashrapporter för att hjälpa till att förbättra Tasks. Ingen personlig information kommer samlas in.</string>
 	<string name="tag_already_exists">Etiketten finns redan</string>
-	<string name="disable_notification_light">Inaktivera notifieringsled</string>
+	<string name="disable_notification_light">Inaktivera notifieringslampa</string>
 	<string name="doze_notifications">Avbryt Doze-läge för påminnelser</string>
 	<string name="doze_notifications_off">Android kommer att avsevärt fördröja påminnelser medan enheten är i Doze-läge</string>
 	<string name="doze_notifications_on">Android kommer att tillåta begränsade avbrott medan enheten är i Doze-läge</string>
 	<string name="no_title">(Ingen titel)</string>
 	<string name="back_button_saves_task">Bakåtknapp sparar uppgift</string>
+	<string name="default_list">Standardlista</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>inaktivera</item>
 		<item>varje kvartstimme</item>

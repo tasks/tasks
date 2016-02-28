@@ -199,6 +199,8 @@
 	<string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>
 	<string name="gcal_TEA_addToCalendar_label">カレンダーに登録</string>
 	<string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
+	<string name="delete_calendar_event_confirmation">カレンダーイベントを削除しますか?</string>
+	<string name="calendar_event_not_found">カレンダーイベントが見つかりません</string>
 	<string name="gcal_completed_title">%s（完了）</string>
 	<string name="CFC_gtasks_list_text">リストにありますか ?</string>
 	<string name="CFC_gtasks_list_name">GTasks リストに...</string>
@@ -388,6 +390,7 @@
 	<string name="doze_notifications_on">デバイスが Doze モードの間、Android は限定された割り込みを許可します</string>
 	<string name="no_title">(タイトルなし)</string>
 	<string name="back_button_saves_task">戻るボタンでタスクを保存します</string>
+	<string name="default_list">デフォルトリスト</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>
