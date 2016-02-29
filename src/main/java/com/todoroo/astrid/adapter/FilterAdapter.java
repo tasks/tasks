@@ -228,8 +228,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         }
     }
 
-    public void addSubMenu(final int titleResource, List<Filter> filters) {
-        if (filters.isEmpty()) {
+    private void addSubMenu(final int titleResource, List<Filter> filters, boolean hideIfEmpty) {
+        if (hideIfEmpty && filters.isEmpty()) {
             return;
         }
 
@@ -245,7 +245,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
         add(filterProvider.getMyTasksFilter());
 
-        addSubMenu(R.string.filters, filterProvider.getFilters());
+        addSubMenu(R.string.filters, filterProvider.getFilters(), false);
 
         if (navigationDrawer) {
             add(new NavigationDrawerAction(
@@ -255,7 +255,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER));
         }
 
-        addSubMenu(R.string.tags, filterProvider.getTags());
+        addSubMenu(R.string.tags, filterProvider.getTags(), false);
 
         if (navigationDrawer) {
             add(new NavigationDrawerAction(
@@ -265,7 +265,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     NavigationDrawerFragment.REQUEST_NEW_LIST));
         }
 
-        addSubMenu(R.string.gtasks_GPr_header, filterProvider.getGoogleTaskFilters());
+        addSubMenu(R.string.gtasks_GPr_header, filterProvider.getGoogleTaskFilters(), true);
 
         if (navigationDrawer) {
             add(new NavigationDrawerSeparator());
