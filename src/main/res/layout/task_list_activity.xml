@@ -7,8 +7,7 @@
     <FrameLayout
         android:id="@+id/single_pane"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/asContentBackground" />
+        android:layout_height="match_parent" />
 
     <include layout="@layout/navigation_drawer" />
 

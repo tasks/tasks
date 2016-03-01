@@ -67,11 +67,7 @@
 
     <!-- ==================================================== TaskAdapter == -->
 
-    <style name="task_list_container_base">
-        <item name="android:background">?attr/asContentBackground</item>
-    </style>
-
-    <style name="task_list_container" parent="task_list_container_base"/>
+    <style name="task_list_container"/>
 
     <style name="TextAppearance.TAd_ItemTitle">
         <item name="android:textColorLink">#ff88aaff</item>
