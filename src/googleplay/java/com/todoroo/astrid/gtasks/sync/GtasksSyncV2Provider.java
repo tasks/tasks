@@ -8,6 +8,7 @@ package com.todoroo.astrid.gtasks.sync;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.AbstractModel;
@@ -39,6 +40,7 @@ import org.tasks.sync.SyncExecutor;
 import org.tasks.time.DateTime;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -125,8 +127,14 @@ public class GtasksSyncV2Provider {
                 try {
                     TaskLists remoteLists = null;
                     try {
-                        remoteLists = gtasksInvoker.allGtaskLists();
-                        gtasksListService.updateLists(remoteLists);
+                        List<TaskList> gtaskLists = new ArrayList<>();
+                        String nextPageToken = null;
+                        do {
+                            remoteLists = gtasksInvoker.allGtaskLists(nextPageToken);
+                            gtaskLists.addAll(remoteLists.getItems());
+                            nextPageToken = remoteLists.getNextPageToken();
+                        } while (nextPageToken != null);
+                        gtasksListService.updateLists(gtaskLists);
                     } catch (IOException e) {
                         handler.handleException(e);
                     }
@@ -239,10 +247,18 @@ public class GtasksSyncV2Provider {
 
         boolean includeDeletedAndHidden = lastSyncDate != 0;
         try {
-            Tasks taskList = invoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
-                    includeDeletedAndHidden, lastSyncDate + 1000L);
-            List<com.google.api.services.tasks.model.Task> tasks = taskList.getItems();
-            if (tasks != null) {
+            List<com.google.api.services.tasks.model.Task> tasks = new ArrayList<>();
+            String nextPageToken = null;
+            do {
+                Tasks taskList = invoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
+                        includeDeletedAndHidden, lastSyncDate + 1000L, nextPageToken);
+                if (taskList != null) {
+                    tasks.addAll(taskList.getItems());
+                    nextPageToken = taskList.getNextPageToken();
+                }
+            } while (nextPageToken != null);
+
+            if (!tasks.isEmpty()) {
                 for (com.google.api.services.tasks.model.Task t : tasks) {
                     GtasksTaskContainer container = new GtasksTaskContainer(t, listId, gtasksMetadataFactory.createEmptyMetadata(AbstractModel.NO_ID));
                     gtasksMetadataService.findLocalMatch(container);

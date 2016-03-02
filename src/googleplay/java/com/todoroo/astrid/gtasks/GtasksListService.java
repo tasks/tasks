@@ -42,7 +42,7 @@ public class GtasksListService {
      *
      * @param remoteLists remote information about your lists
      */
-    public synchronized void updateLists(TaskLists remoteLists) {
+    public synchronized void updateLists(List<TaskList> remoteLists) {
         List<GtasksList> lists = getLists();
 
         Set<Long> previousLists = new HashSet<>();
@@ -50,9 +50,8 @@ public class GtasksListService {
             previousLists.add(list.getId());
         }
 
-        List<TaskList> items = remoteLists.getItems();
-        for(int i = 0; i < items.size(); i++) {
-            com.google.api.services.tasks.model.TaskList remote = items.get(i);
+        for(int i = 0; i < remoteLists.size(); i++) {
+            com.google.api.services.tasks.model.TaskList remote = remoteLists.get(i);
 
             String id = remote.getId();
             GtasksList local = null;

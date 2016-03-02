@@ -73,10 +73,11 @@ public class GtasksInvoker {
         }
     }
 
-    public TaskLists allGtaskLists() throws IOException {
+    public TaskLists allGtaskLists(String pageToken) throws IOException {
         return execute(service
                 .tasklists()
-                .list());
+                .list()
+                .setPageToken(pageToken));
     }
 
     public TaskList getGtaskList(String id) throws IOException {
@@ -85,12 +86,13 @@ public class GtasksInvoker {
                 .get(id));
     }
 
-    public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
+    public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden, long lastSyncDate, String pageToken) throws IOException {
         return execute(service
                 .tasks()
                 .list(listId)
                 .setShowDeleted(includeDeleted)
                 .setShowHidden(includeHidden)
+                .setPageToken(pageToken)
                 .setUpdatedMin(GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()));
     }
 
