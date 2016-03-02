@@ -197,6 +197,8 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="gcal_TEA_error">Errore durante l\'aggiunta dell\'attività al calendario!</string>
 	<string name="gcal_TEA_addToCalendar_label">Aggiungi al Calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
+	<string name="delete_calendar_event_confirmation">Cancello evento dal calendario?</string>
+	<string name="calendar_event_not_found">Evento non trovato</string>
 	<string name="gcal_completed_title">%s (completato)</string>
 	<string name="CFC_gtasks_list_text">Nella lista: ?</string>
 	<string name="CFC_gtasks_list_name">Nella lista GTasks...</string>
@@ -385,6 +387,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="doze_notifications_on">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
 	<string name="no_title">(nessun titolo)</string>
 	<string name="back_button_saves_task">Il tasto indietro salva l\'attività</string>
+	<string name="default_list">Lista predefinita</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>
