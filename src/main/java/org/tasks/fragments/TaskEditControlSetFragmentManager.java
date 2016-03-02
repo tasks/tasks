@@ -54,13 +54,13 @@ public class TaskEditControlSetFragmentManager {
     private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS = new int[] {
             EditTitleControlSet.TAG,
             DeadlineControlSet.TAG,
+            TimerControlSet.TAG,
+            DescriptionControlSet.TAG,
             CalendarControlSet.TAG,
             PriorityControlSet.TAG,
-            DescriptionControlSet.TAG,
             HideUntilControlSet.TAG,
             ReminderControlSet.TAG,
             FilesControlSet.TAG,
-            TimerControlSet.TAG,
             TagsControlSet.TAG,
             RepeatControlSet.TAG,
             CommentBarFragment.TAG
