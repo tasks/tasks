@@ -27,8 +27,8 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        versionCode 398
-        versionName "4.8.9"
+        versionCode 399
+        versionName "4.8.10"
         minSdkVersion 14
         targetSdkVersion 23
     }
@@ -84,7 +84,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.jakewharton.timber:timber:4.1.0'
+    compile 'com.jakewharton.timber:timber:4.1.1'
     compile 'com.google.guava:guava-jdk5:17.0'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {
         transitive = false
