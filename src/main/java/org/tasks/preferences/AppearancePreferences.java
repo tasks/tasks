@@ -56,7 +56,9 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
         defaultList.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(AppearancePreferences.this, FilterSelectionActivity.class), REQUEST_DEFAULT_LIST);
+                startActivityForResult(new Intent(AppearancePreferences.this, FilterSelectionActivity.class) {{
+                    putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+                }}, REQUEST_DEFAULT_LIST);
                 return true;
             }
         });
