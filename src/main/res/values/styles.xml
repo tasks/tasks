@@ -53,7 +53,6 @@
         <item name="android:scrollbars">vertical</item>
         <item name="android:cacheColorHint">#00000000</item>
         <item name="android:smoothScrollbar">true</item>
-        <item name="android:background">?attr/asContentBackground</item>
     </style>
 
     <style name="TaskListView" parent="ListView" />
