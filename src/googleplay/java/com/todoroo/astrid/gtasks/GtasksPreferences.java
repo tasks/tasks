@@ -44,9 +44,6 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if ((boolean) newValue) {
-                    if (gtasksPreferenceService.isLoggedIn()) {
-                        return true;
-                    }
                     if (permissionRequestor.requestAccountPermissions()) {
                         requestLogin();
                     }

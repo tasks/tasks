@@ -68,6 +68,7 @@ public class GtasksPreferenceService {
      */
     public boolean isLoggedIn() {
         return context.getResources().getBoolean(R.bool.sync_enabled) &&
+                preferences.getBoolean(R.string.sync_gtasks, false) &&
                 preferences.getStringValue(PREF_USER_NAME) != null &&
                 permissionChecker.canAccessAccounts();
     }
