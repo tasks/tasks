@@ -27,18 +27,21 @@
 	      style="@style/TextAppearance" />
 	    <TextView
              android:id="@+id/estimatedDuration"
-             android:layout_width="fill_parent"
+             android:layout_width="0dp"
              android:layout_height="wrap_content"
              android:layout_weight="1"
-             android:gravity="right"
+             android:gravity="end"
              android:paddingLeft="10dip"
+            android:paddingStart="10dp"
              android:textColor="?attr/asTextColor" />
     </LinearLayout>
+
     <View
           android:id="@+id/TEA_Separator"
           android:layout_width="fill_parent"
           android:layout_height="1px"
         android:background="?android:attr/listDivider" />
+
     <!-- elapsed time -->
     <LinearLayout
         android:layout_width="fill_parent"
@@ -47,17 +50,19 @@
         android:layout_marginRight="10dip"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-	    <TextView
+
+        <TextView
 	      android:layout_width="wrap_content"
 	      android:layout_height="wrap_content"
 	      android:text="@string/TEA_elapsedDuration_label"
 	      style="@style/TextAppearance" />
+
 	    <TextView
              android:id="@+id/elapsedDuration"
-             android:layout_width="fill_parent"
+             android:layout_width="0dp"
              android:layout_height="wrap_content"
              android:layout_weight="1"
-             android:gravity="right"
+             android:gravity="end"
              android:paddingLeft="10dip"
              android:textColor="?attr/asTextColor" />
     </LinearLayout>

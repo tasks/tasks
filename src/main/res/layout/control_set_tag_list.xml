@@ -18,8 +18,7 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="2dip"
-      android:layout_marginBottom="5dip"
-      />
+      android:layout_marginBottom="5dip" />
   
   <View
       android:layout_width="fill_parent"
@@ -29,7 +28,7 @@
   <ListView
       android:id="@+id/existingTags"
       android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
+      android:layout_height="0dp"
       android:layout_marginLeft="3dip"
       android:layout_marginRight="3dip"
       android:layout_weight="100"

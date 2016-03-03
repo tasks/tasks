@@ -51,6 +51,19 @@ public class TaskEditControlSetFragmentManager {
             R.id.row_10,
     };
 
+    public static final int[] TASK_EDIT_DIVIDER_ROWS = new int[] {
+            R.id.row_divider_10,
+            R.id.row_divider_9,
+            R.id.row_divider_8,
+            R.id.row_divider_7,
+            R.id.row_divider_6,
+            R.id.row_divider_5,
+            R.id.row_divider_4,
+            R.id.row_divider_3,
+            R.id.row_divider_2,
+            R.id.row_divider_1
+    };
+
     private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS = new int[] {
             EditTitleControlSet.TAG,
             DeadlineControlSet.TAG,
@@ -74,8 +87,8 @@ public class TaskEditControlSetFragmentManager {
 
     private final Map<String, Integer> controlSetFragments = new LinkedHashMap<>();
     private final List<String> displayOrder;
-    private final String hideAlwaysTrigger;
     private final FragmentManager fragmentManager;
+    private int numRows;
 
     @Inject
     public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences) {
@@ -83,20 +96,26 @@ public class TaskEditControlSetFragmentManager {
         displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
         displayOrder.add(1, activity.getString(CommentBarFragment.TAG));
         fragmentManager = activity.getFragmentManager();
-        hideAlwaysTrigger = activity.getString(R.string.TEA_ctrl_hide_section_pref);
+        String hideAlwaysTrigger = activity.getString(R.string.TEA_ctrl_hide_section_pref);
+        for (numRows = 0 ; numRows < displayOrder.size() ; numRows++) {
+            if (displayOrder.get(numRows).equals(hideAlwaysTrigger)) {
+                break;
+            }
+        }
 
         for (int resId : TASK_EDIT_CONTROL_SET_FRAGMENTS) {
             controlSetFragments.put(activity.getString(resId), resId);
         }
     }
 
+    public int getNumRows() {
+        return numRows;
+    }
+
     public List<TaskEditControlFragment> createNewFragments(boolean isNewTask, Task task) {
         List<TaskEditControlFragment> taskEditControlFragments = new ArrayList<>();
-        for (int i = 0; i < displayOrder.size(); i++) {
+        for (int i = 0; i < numRows; i++) {
             String item = displayOrder.get(i);
-            if (item.equals(hideAlwaysTrigger)) {
-                break;
-            }
             Integer resId = controlSetFragments.get(item);
             if (resId == null) {
                 Timber.e("Unknown task edit control %s", item);

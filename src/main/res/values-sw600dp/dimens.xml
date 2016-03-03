@@ -2,4 +2,5 @@
 <resources>
     <dimen name="keyline_first">24dp</dimen>
     <dimen name="toolbar_horizontal_padding">12dp</dimen>
+    <dimen name="keyline_second_absolute">68dp</dimen>
 </resources>

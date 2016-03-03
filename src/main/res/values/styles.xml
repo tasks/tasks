@@ -64,6 +64,15 @@
         <item name="android:minWidth">1px</item>
     </style>
 
+    <style name="task_edit_row_divider">
+        <item name="android:layout_marginLeft">@dimen/keyline_second_absolute</item>
+        <item name="android:layout_marginStart">@dimen/keyline_second_absolute</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">?attr/task_edit_divider</item>
+        <item name="android:layout_gravity">end|bottom</item>
+    </style>
+
     <!-- ==================================================== TaskAdapter == -->
 
     <style name="task_list_container"/>

@@ -141,6 +141,10 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         commentsController.initialize(model, comments);
         commentsController.reloadView();
 
+        for (int i = 0 ; i < TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS.length - taskEditControlSetFragmentManager.getNumRows() ; i++) {
+            view.findViewById(TaskEditControlSetFragmentManager.TASK_EDIT_DIVIDER_ROWS[i]).setVisibility(View.GONE);
+        }
+
         return view;
     }
 

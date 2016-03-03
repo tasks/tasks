@@ -36,50 +36,90 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <View
+                android:id="@+id/row_divider_1"
+                style="@style/task_edit_row_divider" />
+
             <FrameLayout
                 android:id="@+id/row_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/row_divider_2"
+                style="@style/task_edit_row_divider" />
 
             <FrameLayout
                 android:id="@+id/row_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <View
+                android:id="@+id/row_divider_3"
+                style="@style/task_edit_row_divider" />
+
             <FrameLayout
                 android:id="@+id/row_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/row_divider_4"
+                style="@style/task_edit_row_divider" />
 
             <FrameLayout
                 android:id="@+id/row_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <View
+                android:id="@+id/row_divider_5"
+                style="@style/task_edit_row_divider" />
+
             <FrameLayout
                 android:id="@+id/row_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/row_divider_6"
+                style="@style/task_edit_row_divider" />
 
             <FrameLayout
                 android:id="@+id/row_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <View
+                android:id="@+id/row_divider_7"
+                style="@style/task_edit_row_divider" />
+
             <FrameLayout
                 android:id="@+id/row_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/row_divider_8"
+                style="@style/task_edit_row_divider" />
 
             <FrameLayout
                 android:id="@+id/row_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <View
+                android:id="@+id/row_divider_9"
+                style="@style/task_edit_row_divider" />
+
             <FrameLayout
                 android:id="@+id/row_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/row_divider_10"
+                style="@style/task_edit_row_divider" />
 
             <LinearLayout
                 android:id="@+id/comments"

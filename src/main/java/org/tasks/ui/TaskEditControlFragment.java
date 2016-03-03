@@ -22,7 +22,7 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.control_set_template, null);
         LinearLayout content = (LinearLayout) view.findViewById(R.id.content);
-        content.addView(inflater.inflate(getLayout(), null));
+        inflater.inflate(getLayout(), content);
         ImageView icon = (ImageView) view.findViewById(R.id.icon);
         icon.setImageResource(getIcon());
         ButterKnife.bind(this, view);
