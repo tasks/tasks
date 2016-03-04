@@ -244,6 +244,14 @@
 	<string name="sync_SPr_forget">Odhlásit se</string>
 	<string name="sync_SPr_forget_description">Smazat všechny synchronizační data</string>
 	<string name="sync_forget_confirm">Odhlásit se / vymazat synchronizační data?</string>
+	<string name="quiet_hours_summary">Žádné připomínky během tichých hodin</string>
+	<string name="filter_settings">Nastavení filtru</string>
+	<string name="show_hidden">Zobrazit skryté</string>
+	<string name="show_completed">Zobrazit dokončené</string>
+	<string name="high_priority">Vysoká</string>
+	<string name="default_priority">Výchozí</string>
+	<string name="low_priority">Nízká</string>
+	<string name="notification_priority">Priorita oznámení</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>zakázat</item>
 		<item>každých patnáct minut</item>

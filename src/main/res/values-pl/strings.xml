@@ -249,6 +249,27 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="sync_SPr_forget">Wyloguj</string>
 	<string name="sync_SPr_forget_description">Czyści wszystkie dane synchronizacji</string>
 	<string name="sync_forget_confirm">Wyloguj / wyczyść dane synchronizacji?</string>
+	<string name="vibrations">Wibracje</string>
+	<string name="source_code">Kod źródłowy</string>
+	<string name="translations">Tłumaczenia</string>
+	<string name="report_an_issue">Zgłoś błąd</string>
+	<string name="help_and_feedback">Pomoc i opinia</string>
+	<string name="contact_developer">Skontaktuj się z twórcą</string>
+	<string name="rate_tasks">Oceń zadania</string>
+	<string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
+	<string name="notification_actions">Akcja powiadomienia</string>
+	<string name="notification_actions_summary">Pokaż uśpione i ukończone zadania w powiadomieniach</string>
+	<string name="tags">Tagi</string>
+	<string name="filter_settings">Ustawienia filtrów</string>
+	<string name="show_hidden">Pokaż ukryte</string>
+	<string name="show_completed">Pokaż ukończone</string>
+	<string name="high_priority">Ważne</string>
+	<string name="default_priority">Domyślne</string>
+	<string name="low_priority">Mało ważne</string>
+	<string name="notification_priority">Priorytet powiadomienia</string>
+	<string name="vibration_count">Powtórzenia wibracji</string>
+	<string name="vibration_duration">Długość wibracji (milisekundy)</string>
+	<string name="vibration_pause">Przerwa pomiędzy wibracjami (milisekundy)</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>Wyłączone</item>
 		<item>co 15 minut</item>
