@@ -52,15 +52,8 @@
 	<string name="CRA_title">تريد قائمة للمقابلات؟</string>
 	<string name="CRA_ignore_all">تجاهل جميع الأحداث</string>
 	<string name="CRA_ignore_this">تجاهل هذا الحدث فقط</string>
-	<string name="CRA_create_list">إنشاء قائمة</string>
 	<string name="CRA_postpone">من المحتمل لاحقاً</string>
-	<string name="CRA_create_new">إنشاء جديد</string>
-	<string name="CRA_invitation_prompt">تريد دعوتهم؟</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">المهام سوف تذكرك في الاحداث القادمة وسوف تحثك لتكون جاهزاً.</string>
-	<string name="CRA_share_list_title">مشاركة القائمة؟</string>
-	<string name="CRA_more_options">خيارات أكثر</string>
-	<string name="CRA_dont_invite">لا شكرا.</string>
-	<string name="CRA_list_created_title">أنشئت القائمة</string>
 	<string name="EPr_appearance_header">ظهور</string>
 	<string name="EPr_edit_screen_options">تعديل خيارات الشاشه</string>
 	<string name="EPr_beastMode_reset">الإعادة إلى الإفتراضي</string>

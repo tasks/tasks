@@ -90,12 +90,6 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
 
         tagName.setText(tagData.getName());
 
-        String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
-        if (!isEmpty(autopopulateName)) {
-            tagName.setText(autopopulateName);
-            getIntent().removeExtra(TOKEN_AUTOPOPULATE_NAME);
-        }
-
         tagName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -110,6 +104,12 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
                 tagError.setVisibility(clashes() ? View.VISIBLE : View.GONE);
             }
         });
+
+        String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
+        if (!isEmpty(autopopulateName)) {
+            tagName.setText(autopopulateName);
+            getIntent().removeExtra(TOKEN_AUTOPOPULATE_NAME);
+        }
     }
 
     private String getNewName() {

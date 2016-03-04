@@ -54,8 +54,6 @@
 	<string name="TEA_load_more">Indlæs flere...</string>
 	<string name="CRA_ignore_all">Ignorér alle begivenheder</string>
 	<string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
-	<string name="CRA_dont_invite">Nej tak</string>
-	<string name="CRA_list_created_title">Liste blev oprettet!</string>
 	<string name="EPr_appearance_header">Udseende</string>
 	<string name="TWi_loading">Indlæser...</string>
 	<string name="WCA_title">Vælg opgaver der skal vises...</string>

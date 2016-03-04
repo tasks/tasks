@@ -81,8 +81,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
         }
 
         if (shouldShowReminder) {
-            final ArrayList<String> emails = new ArrayList<>();
-            final ArrayList<String> names = new ArrayList<>();
+            final List<String> emails = new ArrayList<>();
             List<String> phoneAccounts = accountManager.getAccounts();
             boolean includesMe = false;
             for (AndroidCalendarEventAttendee attendee : event.getAttendees()) {
@@ -93,16 +92,12 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
                         continue;
                     }
                     emails.add(attendee.getEmail());
-                    names.add(attendee.getName());
                 }
             }
             if (emails.size() > 0 && includesMe) {
                 context.startActivity(new Intent(context, CalendarReminderActivity.class) {{
-                    putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
-                    putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
                     putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
                     putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, event.getTitle());
-                    putExtra(CalendarReminderActivity.TOKEN_EVENT_START_TIME, event.getStart());
                     putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, event.getEnd());
                     putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
                     setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);

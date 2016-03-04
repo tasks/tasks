@@ -39,11 +39,9 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
     @Override
     void run() {
         long now = DateUtilities.now();
-        long start = now + FIFTEEN_MINUTES;
         long end = now + TimeUnit.DAYS.toMillis(1);
 
-        for (final AndroidCalendarEvent event : calendarEventProvider.getEventsBetween(start, end)) {
-            Timber.d("Scheduling reminder for %s", event);
+        for (final AndroidCalendarEvent event : calendarEventProvider.getEventsBetween(now, end)) {
             Intent eventAlarm = new Intent(context, CalendarAlarmReceiver.class) {{
                 setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
                 setData(Uri.parse(URI_PREFIX + "://" + event.getId()));
@@ -52,7 +50,9 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                     CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, PendingIntent.FLAG_CANCEL_CURRENT);
 
-            alarmManager.wakeup(event.getStart() - FIFTEEN_MINUTES, pendingIntent);
+            long reminderTime = event.getStart() - FIFTEEN_MINUTES;
+            alarmManager.wakeup(reminderTime, pendingIntent);
+            Timber.d("Scheduled reminder for %s at %s", event, reminderTime);
         }
     }
 

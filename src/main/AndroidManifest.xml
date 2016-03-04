@@ -376,10 +376,6 @@
             android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
             android:theme="@style/TranslucentDialog"/>
 
-        <activity
-            android:name="com.todoroo.astrid.gcal.CalendarAlarmListCreator"
-            android:theme="@style/TranslucentDialog"/>
-
         <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver" />
 
         <!-- old tasks -->

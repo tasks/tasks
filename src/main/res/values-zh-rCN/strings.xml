@@ -62,7 +62,6 @@
 	<string name="CRA_ignore_body">您已经忽略了几个日历事件。对于这些事件，清单小助理是否应该不再询问您呢？</string>
 	<string name="CRA_ignore_all">忽略所有事件</string>
 	<string name="CRA_ignore_this">只忽略该事件</string>
-	<string name="CRA_create_list">创建列表</string>
 	<string name="CRA_postpone">也许以后</string>
 	<string name="EPr_appearance_header">外观</string>
 	<string name="EPr_beastMode_reset">恢复默认值</string>

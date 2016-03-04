@@ -58,7 +58,7 @@
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:gravity="center"
-        android:text="@string/CRA_create_list"/>
+        android:text="@string/new_tag"/>
 
     <TextView
         android:id="@+id/postpone"

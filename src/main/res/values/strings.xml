@@ -271,53 +271,14 @@ File %1$s contained %2$s.\n\n
     <!-- Calendar reminder: astrid speech bubble when event ending (%s -> event name) -->
     <string name="CRA_speech_bubble_end">Looks like you just finished with %s. Want to create a list for action items?</string>
 
-    <!-- Calendar reminder: create list button -->
-    <string name="CRA_create_list">Create list</string>
-
     <!-- Calendar reminder: postpone button -->
     <string name="CRA_postpone">Maybe afterwards</string>
-
-    <!-- Calendar reminder: list exists dialog body (%s -> list name)-->
-    <string name="CRA_list_exists_body">A list named %s already exists. Do you want to use the existing list or create a new one for this event?</string>
-
-    <!-- Calendar reminder: list exists dialog create new button -->
-    <string name="CRA_create_new">Create new</string>
-
-    <!-- Calendar reminder: list exists dialog use existing button -->
-    <string name="CRA_use_existing">Use existing</string>
-
-    <!-- Calendar remindr: created list (%s -> list name) -->
-    <string name="CRA_created_list_dialog">I created a list %s.</string>
-
-    <!-- Calendar reminder: one attendee (%s -> attendee name or email) -->
-    <string name="CRA_one_attendee">%s is attending.</string>
-
-    <!-- Calendar reminder: two attendees (%s -> attendee name or email) -->
-    <string name="CRA_two_attendees">%1$s and %2$s are attending.</string>
-
-    <!-- Calendar reminder: many attendees (%s -> attendee name or email, %3$d -> how many other people) -->
-    <string name="CRA_many_attendees">%1$s, %2$s, and %3$d others are attending.</string>
-
-    <!-- Calendar reminder: invitation prompt -->
-    <string name="CRA_invitation_prompt">Want to invite them?</string>
 
     <!-- Calendar reminder: preference title -->
     <string name="CRA_calendar_reminders_pref_title">Calendar assistant</string>
 
     <!-- Calendar reminder: pref description enabled -->
     <string name="CRA_calendar_reminders_pref_desc_enabled">Tasks will remind you about upcoming calendar events and prompt you to prepare for them</string>
-
-    <!-- Calendar reminder: share list title -->
-    <string name="CRA_share_list_title">Share the list?</string>
-
-    <string name="CRA_invite_attendees">Invite attendees</string>
-
-    <string name="CRA_more_options">More options</string>
-
-    <string name="CRA_dont_invite">No thank you</string>
-
-    <!-- Calendar reminder: share list title when no other attendees exist-->
-    <string name="CRA_list_created_title">List created!</string>
 
     <!-- Calendar reminder: default new list name (%s -> event title) -->
     <string name="CRA_default_list_name">Action Items: %s</string>
@@ -718,7 +679,6 @@ File %1$s contained %2$s.\n\n
    <!-- ========================================================== Extras == -->
 
     <string name="new_tag">Create new tag</string>
-  <string name="new_list">Create new list</string>
 
     <!-- ========================================================== Filters == -->
 

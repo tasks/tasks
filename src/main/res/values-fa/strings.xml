@@ -63,17 +63,8 @@
 	<string name="CRA_title">نیاز به لیست ملاقات دارید ؟</string>
 	<string name="CRA_ignore_all">نادیده گرفتن تمام رویداد ها</string>
 	<string name="CRA_ignore_this">فقط نادیده گرفتن این رویداد</string>
-	<string name="CRA_create_list">ساخت لیست</string>
 	<string name="CRA_postpone">شاید یعدا</string>
-	<string name="CRA_create_new">ساخت جدید</string>
-	<string name="CRA_use_existing">استفاده از فعلی</string>
-	<string name="CRA_invitation_prompt">میخواهید آن هارا دعوت کنید؟</string>
 	<string name="CRA_calendar_reminders_pref_title">دستیار تقویم</string>
-	<string name="CRA_share_list_title">منتشرکردن لیست؟</string>
-	<string name="CRA_invite_attendees">دعوت از شرکت کنندگان</string>
-	<string name="CRA_more_options">گزینه های بیشتر</string>
-	<string name="CRA_dont_invite">خیر ممنون</string>
-	<string name="CRA_list_created_title">لیست ساخته شد!</string>
 	<string name="EPr_appearance_header">ظاهر</string>
 	<string name="EPr_filters_to_show_title">فیلترها برای نمایش</string>
 	<string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>

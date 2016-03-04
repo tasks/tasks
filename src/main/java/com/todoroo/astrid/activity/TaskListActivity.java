@@ -75,7 +75,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     private NavigationDrawerFragment navigationDrawer;
 
     /** For indicating the new list screen should be launched at fragment setup time */
-    public static final String TOKEN_CREATE_NEW_LIST = "createNewList"; //$NON-NLS-1$
     public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
 
     public static final String OPEN_FILTER = "open_filter"; //$NON-NLS-1$
@@ -244,9 +243,11 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     protected void onPostResume() {
         super.onPostResume();
 
-        if (getIntent().hasExtra(OPEN_TASK)) {
-            long taskId = getIntent().getLongExtra(OPEN_TASK, 0);
-            getIntent().removeExtra(OPEN_TASK);
+        Intent intent = getIntent();
+
+        if (intent.hasExtra(OPEN_TASK)) {
+            long taskId = intent.getLongExtra(OPEN_TASK, 0);
+            intent.removeExtra(OPEN_TASK);
             if (taskId > 0) {
                 onTaskListItemClicked(taskId);
             } else {
@@ -255,12 +256,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             }
         }
 
-        if (getIntent().getBooleanExtra(TOKEN_CREATE_NEW_LIST, false)) {
-            Intent thisIntent = getIntent();
-            Intent newTagIntent = new Intent(this, TagSettingsActivity.class);
-            newTagIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, thisIntent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME));
-            thisIntent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
-            startActivityForResult(newTagIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
+        if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
+            final String listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME);
+            intent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
+            startActivityForResult(new Intent(TaskListActivity.this, TagSettingsActivity.class) {{
+                putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName);
+            }}, NavigationDrawerFragment.REQUEST_NEW_LIST);
         }
     }
 

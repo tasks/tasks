@@ -14,7 +14,7 @@ import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import org.tasks.files.FileExplore;
-import com.todoroo.astrid.gcal.CalendarAlarmListCreator;
+
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
@@ -64,7 +64,6 @@ import dagger.Provides;
                 FilterSettingsActivity.class,
                 CustomFilterActivity.class,
                 MissedCallActivity.class,
-                CalendarAlarmListCreator.class,
                 CalendarReminderActivity.class,
                 VoiceCommandActivity.class,
                 GtasksLoginActivity.class,

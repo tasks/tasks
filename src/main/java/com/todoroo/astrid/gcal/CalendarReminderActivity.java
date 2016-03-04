@@ -11,12 +11,7 @@ import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -29,15 +24,10 @@ import org.tasks.scheduling.CalendarNotificationIntentService;
 
 import javax.inject.Inject;
 
-import static org.tasks.date.DateTimeUtils.newDateTime;
-
 public class CalendarReminderActivity extends InjectingAppCompatActivity {
 
-    public static final String TOKEN_NAMES = "names";
-    public static final String TOKEN_EMAILS = "emails";
     public static final String TOKEN_EVENT_ID = "eventId";
     public static final String TOKEN_EVENT_NAME = "eventName";
-    public static final String TOKEN_EVENT_START_TIME = "eventStartTime";
     public static final String TOKEN_EVENT_END_TIME = "eventEndTime";
 
     public static final String TOKEN_FROM_POSTPONE = "fromPostpone";
@@ -48,14 +38,12 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
     private static final int IGNORE_PROMPT_COUNT = 3;
 
     @Inject StartupService startupService;
-    @Inject TagDataDao tagDataDao;
     @Inject ActivityPreferences preferences;
     @Inject ResourceResolver resourceResolver;
     @Inject DialogBuilder dialogBuilder;
     @Inject AlarmManager alarmManager;
 
     private String eventName;
-    private long startTime;
     private long endTime;
     private long eventId;
 
@@ -106,7 +94,7 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyTranslucentDialogTheme();
+        preferences.applyTheme();
         startupService.onStartupApplication(this);
 
         setContentView(R.layout.calendar_reminder_activity);
@@ -115,7 +103,6 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
         fromPostpone = intent.getBooleanExtra(TOKEN_FROM_POSTPONE, false);
         eventId = intent.getLongExtra(TOKEN_EVENT_ID, -1);
         eventName = intent.getStringExtra(TOKEN_EVENT_NAME);
-        startTime = intent.getLongExtra(TOKEN_EVENT_START_TIME, DateUtilities.now());
         endTime = intent.getLongExtra(TOKEN_EVENT_END_TIME, DateUtilities.now() + DateUtilities.ONE_HOUR);
 
         createListButton = (TextView) findViewById(R.id.create_list);
@@ -175,49 +162,15 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
         createListButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                String listName = getString(R.string.CRA_default_list_name, eventName);
-                TagData existing = tagDataDao.getTagByName(listName, TagData.PROPERTIES);
-                if (existing != null) {
-                    listExists(existing);
-                } else {
-                    createNewList(listName);
-                }
+                createNewList(getString(R.string.CRA_default_list_name, eventName));
             }
         });
     }
 
-    private void listExists(final TagData tag) {
-        dialogBuilder.newMessageDialog(R.string.CRA_list_exists_body, tag.getName())
-                .setPositiveButton(R.string.CRA_create_new, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        createNewList(tag.getName() + " "
-                                + DateUtilities.getDateString(newDateTime(startTime)));
-                    }
-                })
-                .setNegativeButton(R.string.CRA_use_existing, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        FilterWithCustomIntent filter = TagFilterExposer.filterFromTagData(CalendarReminderActivity.this, tag);
-
-                        Intent listIntent = new Intent(CalendarReminderActivity.this, TaskListActivity.class);
-                        listIntent.putExtra(TaskListActivity.OPEN_FILTER, filter);
-                        listIntent.putExtras(filter.customExtras);
-
-                        startActivity(listIntent);
-                        dismissButton.performClick();
-                    }
-                })
-                .show();
-    }
-
-    private void createNewList(String name) {
-        Intent newListIntent = new Intent(this, CalendarAlarmListCreator.class);
-        newListIntent.putStringArrayListExtra(TOKEN_NAMES, getIntent().getStringArrayListExtra(TOKEN_NAMES));
-        newListIntent.putStringArrayListExtra(TOKEN_EMAILS, getIntent().getStringArrayListExtra(TOKEN_EMAILS));
-        newListIntent.putExtra(CalendarAlarmListCreator.TOKEN_LIST_NAME, name);
-
-        startActivity(newListIntent);
+    private void createNewList(final String name) {
+        startActivity(new Intent(CalendarReminderActivity.this, TaskListActivity.class) {{
+            putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST_NAME, name);
+        }});
         dismissButton.performClick(); // finish with animation
     }
 
