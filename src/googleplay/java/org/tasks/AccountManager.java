@@ -14,11 +14,12 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.PermissionChecker;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import timber.log.Timber;
@@ -49,18 +50,19 @@ public class AccountManager {
     public static final int REQUEST_AUTHORIZATION = 10987;
 
     private final Context context;
+    private final PermissionChecker permissionChecker;
     private final GoogleAccountManager googleAccountManager;
 
     @Inject
-    public AccountManager(@ForApplication Context context) {
+    public AccountManager(@ForApplication Context context, PermissionChecker permissionChecker) {
         this.context = context;
+        this.permissionChecker = permissionChecker;
 
         googleAccountManager = new GoogleAccountManager(context);
     }
 
     public List<String> getAccounts() {
         return transform(getAccountList(), new Function<Account, String>() {
-            @Nullable
             @Override
             public String apply(Account account) {
                 return account.name;
@@ -100,7 +102,9 @@ public class AccountManager {
     }
 
     private List<Account> getAccountList() {
-        return asList(googleAccountManager.getAccounts());
+        return permissionChecker.canAccessAccounts()
+                ? asList(googleAccountManager.getAccounts())
+                : Collections.<Account>emptyList();
     }
 
     public Account getAccount(final String name) {

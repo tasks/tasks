@@ -31,10 +31,13 @@ public class CalendarEventProvider {
 
     private final ContentResolver contentResolver;
     private final PermissionChecker permissionChecker;
+    private final CalendarEventAttendeeProvider calendarEventAttendeeProvider;
 
     @Inject
-    public CalendarEventProvider(@ForApplication Context context, PermissionChecker permissionChecker) {
+    public CalendarEventProvider(@ForApplication Context context, PermissionChecker permissionChecker,
+                                 CalendarEventAttendeeProvider calendarEventAttendeeProvider) {
         this.permissionChecker = permissionChecker;
+        this.calendarEventAttendeeProvider = calendarEventAttendeeProvider;
         contentResolver = context.getContentResolver();
     }
 
@@ -67,11 +70,13 @@ public class CalendarEventProvider {
                 int endIndex = cursor.getColumnIndexOrThrow(CalendarContract.Events.DTEND);
                 int titleIndex = cursor.getColumnIndexOrThrow(CalendarContract.Events.TITLE);
                 while (cursor.moveToNext()) {
+                    long id = cursor.getLong(idIndex);
                     events.add(new AndroidCalendarEvent(
-                            cursor.getLong(idIndex),
+                            id,
                             cursor.getString(titleIndex),
                             cursor.getLong(startIndex),
-                            cursor.getLong(endIndex)));
+                            cursor.getLong(endIndex),
+                            calendarEventAttendeeProvider.getAttendees(id)));
                 }
             }
         } catch (Exception e) {

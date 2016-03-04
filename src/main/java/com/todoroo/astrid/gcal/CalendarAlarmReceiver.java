@@ -1,57 +1,44 @@
 package com.todoroo.astrid.gcal;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.CalendarContract;
-import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.utility.Constants;
 
+import org.tasks.AccountManager;
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
+import org.tasks.calendars.AndroidCalendarEventAttendee;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.injection.InjectingBroadcastReceiver;
-import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
+
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
     public static final int REQUEST_CODE_CAL_REMINDER = 100;
     public static final String BROADCAST_CALENDAR_REMINDER = Constants.PACKAGE + ".CALENDAR_EVENT";
 
-    private static final String[] ATTENDEES_PROJECTION = {
-            CalendarContract.Attendees.ATTENDEE_NAME,
-            CalendarContract.Attendees.ATTENDEE_EMAIL,
-    };
-
     @Inject Preferences preferences;
-    @Inject PermissionChecker permissionChecker;
     @Inject CalendarEventProvider calendarEventProvider;
+    @Inject AccountManager accountManager;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
         if (!preferences.getBoolean(R.string.p_calendar_reminders, true)) {
-            return;
-        }
-
-        if (!permissionChecker.canAccessCalendars()) {
             return;
         }
 
@@ -69,8 +56,8 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
                 return;
             }
             long eventId = Long.parseLong(uriString.substring(pathIndex));
-            boolean fromPostpone = CalendarNotificationIntentService.URI_PREFIX_POSTPONE.equals(data.getScheme());
             if (eventId > 0) {
+                boolean fromPostpone = CalendarNotificationIntentService.URI_PREFIX_POSTPONE.equals(data.getScheme());
                 showCalReminder(context, eventId, fromPostpone);
             }
         } catch (IllegalArgumentException e) {
@@ -79,14 +66,11 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
         }
     }
 
-    private void showCalReminder(Context context, long eventId, boolean fromPostpone) {
-        AndroidCalendarEvent event = calendarEventProvider.getEvent(eventId);
+    private void showCalReminder(Context context, final long eventId, final boolean fromPostpone) {
+        final AndroidCalendarEvent event = calendarEventProvider.getEvent(eventId);
         if (event == null) {
             return;
         }
-
-        ContentResolver cr = context.getContentResolver();
-        String[] eventArg = new String[]{Long.toString(eventId)};
         boolean shouldShowReminder;
         if (fromPostpone) {
             long timeAfter = DateUtilities.now() - event.getEnd();
@@ -97,54 +81,32 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
         }
 
         if (shouldShowReminder) {
-            // Get attendees
-            Cursor attendees = cr.query(CalendarContract.Attendees.CONTENT_URI,
-                    ATTENDEES_PROJECTION,
-                    CalendarContract.Attendees.EVENT_ID + " = ? ",
-                    eventArg,
-                    null);
-            try {
-                // Do something with attendees
-                int emailIndex = attendees.getColumnIndexOrThrow(CalendarContract.Attendees.ATTENDEE_EMAIL);
-                int nameIndex = attendees.getColumnIndexOrThrow(CalendarContract.Attendees.ATTENDEE_NAME);
-
-                ArrayList<String> names = new ArrayList<>();
-                ArrayList<String> emails = new ArrayList<>();
-
-                Account[] accountArray = AccountManager.get(context).getAccounts();
-                Set<String> phoneAccounts = new HashSet<>();
-                for (Account a : accountArray) {
-                    phoneAccounts.add(a.name);
-                }
-
-                boolean includesMe = false;
-                for (attendees.moveToFirst(); !attendees.isAfterLast(); attendees.moveToNext()) {
-                    String name = attendees.getString(nameIndex);
-                    String email = attendees.getString(emailIndex);
-                    if (!TextUtils.isEmpty(email)) {
-                        if (phoneAccounts.contains(email)) {
-                            includesMe = true;
-                            continue;
-                        }
-                        names.add(name);
-                        emails.add(email);
+            final ArrayList<String> emails = new ArrayList<>();
+            final ArrayList<String> names = new ArrayList<>();
+            List<String> phoneAccounts = accountManager.getAccounts();
+            boolean includesMe = false;
+            for (AndroidCalendarEventAttendee attendee : event.getAttendees()) {
+                String email = attendee.getEmail();
+                if (!isNullOrEmpty(email)) {
+                    if (phoneAccounts.contains(email)) {
+                        includesMe = true;
+                        continue;
                     }
+                    emails.add(attendee.getEmail());
+                    names.add(attendee.getName());
                 }
-
-                if (emails.size() > 0 && includesMe) {
-                    Intent reminderActivity = new Intent(context, CalendarReminderActivity.class);
-                    reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
-                    reminderActivity.putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
-                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
-                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, event.getTitle());
-                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_START_TIME, event.getStart());
-                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, event.getEnd());
-                    reminderActivity.putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
-                    reminderActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                    context.startActivity(reminderActivity);
-                }
-            } finally {
-                attendees.close();
+            }
+            if (emails.size() > 0 && includesMe) {
+                context.startActivity(new Intent(context, CalendarReminderActivity.class) {{
+                    putStringArrayListExtra(CalendarReminderActivity.TOKEN_NAMES, names);
+                    putStringArrayListExtra(CalendarReminderActivity.TOKEN_EMAILS, emails);
+                    putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
+                    putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, event.getTitle());
+                    putExtra(CalendarReminderActivity.TOKEN_EVENT_START_TIME, event.getStart());
+                    putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, event.getEnd());
+                    putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
+                    setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                }});
             }
         }
     }
