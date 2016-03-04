@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.DateUtilities;
@@ -26,20 +27,22 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static android.provider.BaseColumns._ID;
+
 public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
     public static final int REQUEST_CODE_CAL_REMINDER = 100;
     public static final String BROADCAST_CALENDAR_REMINDER = Constants.PACKAGE + ".CALENDAR_EVENT";
 
     private static final String[] EVENTS_PROJECTION = {
-        Calendars.EVENTS_DTSTART_COL,
-        Calendars.EVENTS_DTEND_COL,
-        Calendars.EVENTS_NAME_COL,
+            CalendarContract.Events.DTSTART,
+            CalendarContract.Events.DTEND,
+            CalendarContract.Events.TITLE,
     };
 
     private static final String[] ATTENDEES_PROJECTION = {
-        Calendars.ATTENDEES_NAME_COL,
-        Calendars.ATTENDEES_EMAIL_COL,
+            CalendarContract.Attendees.ATTENDEE_NAME,
+            CalendarContract.Attendees.ATTENDEE_EMAIL,
     };
 
     @Inject Preferences preferences;
@@ -83,19 +86,18 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
     private void showCalReminder(Context context, long eventId, boolean fromPostpone) {
         ContentResolver cr = context.getContentResolver();
-        Uri eventUri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
 
         String[] eventArg = new String[] { Long.toString(eventId) };
-        Cursor event = cr.query(eventUri,
+        Cursor event = cr.query(CalendarContract.Events.CONTENT_URI,
                 EVENTS_PROJECTION,
-                Calendars.ID_COLUMN_NAME + " = ?",
+                _ID + " = ?",
                 eventArg,
                 null);
         try {
             if (event.moveToFirst()) {
-                int dtstartIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
-                int dtendIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_DTEND_COL);
-                int titleIndex = event.getColumnIndexOrThrow(Calendars.EVENTS_NAME_COL);
+                int dtstartIndex = event.getColumnIndexOrThrow(CalendarContract.Events.DTSTART);
+                int dtendIndex = event.getColumnIndexOrThrow(CalendarContract.Events.DTEND);
+                int titleIndex = event.getColumnIndexOrThrow(CalendarContract.Events.TITLE);
 
                 String title = event.getString(titleIndex);
                 long startTime = event.getLong(dtstartIndex);
@@ -112,15 +114,15 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
                 if (shouldShowReminder) {
                     // Get attendees
-                    Cursor attendees = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_ATTENDEES),
+                    Cursor attendees = cr.query(CalendarContract.Attendees.CONTENT_URI,
                             ATTENDEES_PROJECTION,
-                            Calendars.ATTENDEES_EVENT_ID_COL + " = ? ",
+                            CalendarContract.Attendees.EVENT_ID + " = ? ",
                             eventArg,
                             null);
                     try {
                         // Do something with attendees
-                        int emailIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_EMAIL_COL);
-                        int nameIndex = attendees.getColumnIndexOrThrow(Calendars.ATTENDEES_NAME_COL);
+                        int emailIndex = attendees.getColumnIndexOrThrow(CalendarContract.Attendees.ATTENDEE_EMAIL);
+                        int nameIndex = attendees.getColumnIndexOrThrow(CalendarContract.Attendees.ATTENDEE_NAME);
 
                         ArrayList<String> names = new ArrayList<>();
                         ArrayList<String> emails = new ArrayList<>();

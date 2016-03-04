@@ -11,6 +11,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.text.TextUtils;
 import android.text.format.Time;
 
@@ -30,14 +31,12 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.todoroo.astrid.gcal.Calendars.getCalendarContentUri;
+import static android.provider.BaseColumns._ID;
 
 public class GCalHelper {
 
     /** If task has no estimated time, how early to set a task in calendar (seconds)*/
     private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
-
-    public static final String CALENDAR_ID_COLUMN = "calendar_id"; //$NON-NLS-1$
 
     private final Context context;
     private final TaskService taskService;
@@ -94,22 +93,21 @@ public class GCalHelper {
         }
 
         try{
-            Uri uri = getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
-            values.put("title", task.getTitle());
-            values.put("description", task.getNotes());
-            values.put("hasAlarm", 0);
-            boolean valuesContainCalendarId = (values.containsKey(CALENDAR_ID_COLUMN) &&
-                    !TextUtils.isEmpty(values.getAsString(CALENDAR_ID_COLUMN)));
+            values.put(CalendarContract.Events.TITLE, task.getTitle());
+            values.put(CalendarContract.Events.DESCRIPTION, task.getNotes());
+            values.put(CalendarContract.Events.HAS_ALARM, 0);
+            boolean valuesContainCalendarId = (values.containsKey(CalendarContract.Events.CALENDAR_ID) &&
+                    !TextUtils.isEmpty(values.getAsString(CalendarContract.Events.CALENDAR_ID)));
             if (!valuesContainCalendarId) {
                 String calendarId = preferences.getDefaultCalendar();
                 if (!TextUtils.isEmpty(calendarId)) {
-                    values.put("calendar_id", calendarId);
+                    values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
                 }
             }
 
             createStartAndEndDate(task, values);
 
-            Uri eventUri = cr.insert(uri, values);
+            Uri eventUri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
             cr.notifyChange(eventUri, null);
 
             return eventUri;
@@ -135,14 +133,14 @@ public class GCalHelper {
             return;
         }
         ContentValues cv = new ContentValues();
-        cv.put(CALENDAR_ID_COLUMN, calendarId);
+        cv.put(CalendarContract.Events.CALENDAR_ID, calendarId);
 
         Uri uri = createTaskEvent(task, cr, cv, false);
         task.setCalendarUri(uri.toString());
     }
 
     private static String getCalendarId(Uri uri, ContentResolver cr) {
-        Cursor calendar = cr.query(uri, new String[]{CALENDAR_ID_COLUMN}, null, null, null);
+        Cursor calendar = cr.query(uri, new String[]{CalendarContract.Events.CALENDAR_ID}, null, null, null);
         try {
             calendar.moveToFirst();
             return calendar.getString(0);
@@ -173,7 +171,7 @@ public class GCalHelper {
 
                 // try to load calendar
                 ContentResolver cr = context.getContentResolver();
-                Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
+                Cursor cursor = cr.query(calendarUri, new String[] { CalendarContract.Events.DTSTART }, null, null, null); //$NON-NLS-1$
                 try {
                     boolean alreadydeleted = cursor.getCount() == 0;
 
@@ -206,40 +204,40 @@ public class GCalHelper {
                     estimatedTime = DEFAULT_CAL_TIME;
                 }
                 if (preferences.getBoolean(R.string.p_end_at_deadline, true)) {
-                    values.put("dtstart", dueDate);
-                    values.put("dtend", dueDate + estimatedTime);
+                    values.put(CalendarContract.Events.DTSTART, dueDate);
+                    values.put(CalendarContract.Events.DTEND, dueDate + estimatedTime);
                 }else{
-                    values.put("dtstart", dueDate - estimatedTime);
-                    values.put("dtend", dueDate);
+                    values.put(CalendarContract.Events.DTSTART, dueDate - estimatedTime);
+                    values.put(CalendarContract.Events.DTEND, dueDate);
                 }
                 // setting a duetime to a previously timeless event requires explicitly setting allDay=0
-                values.put("allDay", "0");
-                values.put("eventTimezone", TimeZone.getDefault().getID());
+                values.put(CalendarContract.Events.ALL_DAY, "0");
+                values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
             } else {
-                values.put("dtstart", tzCorrectedDueDate);
-                values.put("dtend", tzCorrectedDueDate);
-                values.put("allDay", "1");
+                values.put(CalendarContract.Events.DTSTART, tzCorrectedDueDate);
+                values.put(CalendarContract.Events.DTEND, tzCorrectedDueDate);
+                values.put(CalendarContract.Events.ALL_DAY, "1");
             }
         } else {
-            values.put("dtstart", tzCorrectedDueDateNow);
-            values.put("dtend", tzCorrectedDueDateNow);
-            values.put("allDay", "1");
+            values.put(CalendarContract.Events.DTSTART, tzCorrectedDueDateNow);
+            values.put(CalendarContract.Events.DTEND, tzCorrectedDueDateNow);
+            values.put(CalendarContract.Events.ALL_DAY, "1");
         }
-        if ("1".equals(values.get("allDay"))) {
-            values.put("eventTimezone", Time.TIMEZONE_UTC);
+        if ("1".equals(values.get(CalendarContract.Events.ALL_DAY))) {
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, Time.TIMEZONE_UTC);
         } else {
-            values.put("eventTimezone", TimeZone.getDefault().getID());
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
         }
     }
 
     public AndroidCalendar getCalendar(String id) {
         ContentResolver cr = context.getContentResolver();
 
-        Cursor c = cr.query(getCalendarContentUri(Calendars.CALENDAR_CONTENT_CALENDARS), Calendars.CALENDARS_PROJECTION,
+        Cursor c = cr.query(CalendarContract.Calendars.CONTENT_URI, Calendars.CALENDARS_PROJECTION,
                 Calendars.CALENDARS_WHERE + " AND Calendars._id=" + id, null, Calendars.CALENDARS_SORT);
         try {
             if (c.moveToFirst()) {
-                int nameColumn = c.getColumnIndex(Calendars.CALENDARS_DISPLAY_COL);
+                int nameColumn = c.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME);
                 String name = c.getString(nameColumn);
                 return new AndroidCalendar(id, name);
             }
@@ -258,7 +256,7 @@ public class GCalHelper {
     public List<AndroidCalendar> getCalendars() {
         ContentResolver cr = context.getContentResolver();
 
-        Cursor c = cr.query(getCalendarContentUri(Calendars.CALENDAR_CONTENT_CALENDARS), Calendars.CALENDARS_PROJECTION,
+        Cursor c = cr.query(CalendarContract.Calendars.CONTENT_URI, Calendars.CALENDARS_PROJECTION,
                 Calendars.CALENDARS_WHERE, null, Calendars.CALENDARS_SORT);
         try {
             List<AndroidCalendar> calendars = new ArrayList<>();
@@ -269,8 +267,8 @@ public class GCalHelper {
                 return calendars;
             }
 
-            int idColumn = c.getColumnIndex(Calendars.ID_COLUMN_NAME);
-            int nameColumn = c.getColumnIndex(Calendars.CALENDARS_DISPLAY_COL);
+            int idColumn = c.getColumnIndex(_ID);
+            int nameColumn = c.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME);
             while (c.moveToNext()) {
                 String id = c.getString(idColumn);
                 String name = c.getString(nameColumn);

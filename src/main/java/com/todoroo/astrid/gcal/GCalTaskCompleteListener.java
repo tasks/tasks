@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.text.TextUtils;
 
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -47,7 +48,7 @@ public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
                 // change title of calendar event
                 ContentResolver cr = context.getContentResolver();
                 ContentValues values = new ContentValues();
-                values.put("title", context.getString(R.string.gcal_completed_title,
+                values.put(CalendarContract.Events.TITLE, context.getString(R.string.gcal_completed_title,
                         task.getTitle()));
                 cr.update(Uri.parse(calendarUri), values, null, null);
             } catch (Exception e) {

@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -164,10 +165,10 @@ public class CalendarControlSet extends TaskEditControlFragment {
                 // check if we need to update the item
                 ContentValues setValues = task.getSetValues();
                 if(setValues.containsKey(Task.TITLE.name)) {
-                    updateValues.put("title", task.getTitle());
+                    updateValues.put(CalendarContract.Events.TITLE, task.getTitle());
                 }
                 if(setValues.containsKey(Task.NOTES.name)) {
-                    updateValues.put("description", task.getNotes());
+                    updateValues.put(CalendarContract.Events.DESCRIPTION, task.getNotes());
                 }
                 if(setValues.containsKey(Task.DUE_DATE.name) || setValues.containsKey(Task.ESTIMATED_SECONDS.name)) {
                     gcalHelper.createStartAndEndDate(task, updateValues);
@@ -181,14 +182,14 @@ public class CalendarControlSet extends TaskEditControlFragment {
             ContentResolver cr = context.getContentResolver();
             try{
                 ContentValues values = new ContentValues();
-                values.put("calendar_id", calendarId);
+                values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
                 Uri uri = gcalHelper.createTaskEvent(task, cr, values);
                 if(uri != null) {
                     task.setCalendarUri(uri.toString());
                     // pop up the new event
                     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    intent.putExtra("beginTime", values.getAsLong("dtstart"));
-                    intent.putExtra("endTime", values.getAsLong("dtend"));
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, values.getAsLong(CalendarContract.Events.DTSTART));
+                    intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, values.getAsLong(CalendarContract.Events.DTEND));
                     startActivity(intent);
                 }
             } catch (Exception e) {
@@ -247,7 +248,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
         ContentResolver cr = getActivity().getContentResolver();
         Uri uri = Uri.parse(eventUri);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        Cursor cursor = cr.query(uri, new String[] { "dtstart", "dtend" }, null, null, null);
+        Cursor cursor = cr.query(uri, new String[] { CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND }, null, null, null);
         try {
             if(cursor.getCount() == 0) {
                 // event no longer exists
@@ -256,8 +257,8 @@ public class CalendarControlSet extends TaskEditControlFragment {
                 refreshDisplayView();
             } else {
                 cursor.moveToFirst();
-                intent.putExtra("beginTime", cursor.getLong(0));
-                intent.putExtra("endTime", cursor.getLong(1));
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cursor.getLong(0));
+                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, cursor.getLong(1));
                 startActivity(intent);
             }
         } catch (Exception e) {
@@ -320,7 +321,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
         try {
             Uri uri = Uri.parse(eventUri);
             ContentResolver contentResolver = context.getContentResolver();
-            Cursor cursor = contentResolver.query(uri, new String[]{"dtstart"}, null, null, null);
+            Cursor cursor = contentResolver.query(uri, new String[]{CalendarContract.Events.DTSTART}, null, null, null);
             try {
                 if (cursor.getCount() != 0) {
                     return true;

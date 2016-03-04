@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.CalendarContract;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
-import com.todoroo.astrid.gcal.Calendars;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
@@ -19,6 +19,8 @@ import org.tasks.preferences.Preferences;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+
+import static android.provider.BaseColumns._ID;
 
 public class CalendarNotificationIntentService extends RecurringIntervalIntentService {
 
@@ -40,15 +42,15 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
 
         long now = DateUtilities.now();
 
-        Cursor events = cr.query(Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS),
-                new String[] { Calendars.ID_COLUMN_NAME, Calendars.EVENTS_DTSTART_COL },
-                Calendars.EVENTS_DTSTART_COL + " > ? AND " + Calendars.EVENTS_DTSTART_COL + " < ?",
+        Cursor events = cr.query(CalendarContract.Events.CONTENT_URI,
+                new String[] {_ID, CalendarContract.Events.DTSTART},
+                CalendarContract.Events.DTSTART + " > ? AND " + CalendarContract.Events.DTSTART + " < ?",
                 new String[] { Long.toString(now + DateUtilities.ONE_MINUTE * 15), Long.toString(now + DateUtilities.ONE_DAY) },
                 null);
         try {
             if (events != null && events.getCount() > 0) {
-                int idIndex = events.getColumnIndex(Calendars.ID_COLUMN_NAME);
-                int dtstartIndex = events.getColumnIndexOrThrow(Calendars.EVENTS_DTSTART_COL);
+                int idIndex = events.getColumnIndex(_ID);
+                int dtstartIndex = events.getColumnIndexOrThrow(CalendarContract.Events.DTSTART);
 
                 for (events.moveToFirst(); !events.isAfterLast(); events.moveToNext()) {
                     Intent eventAlarm = new Intent(context, CalendarAlarmReceiver.class);
