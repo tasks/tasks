@@ -55,9 +55,11 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.difference;
+import static com.google.common.collect.Sets.filter;
 import static com.google.common.collect.Sets.newHashSet;
 
 /**
@@ -376,7 +378,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         Set<TagData> selectedTags = getSelectedTags(true);
         Sets.SetView<TagData> added = difference(selectedTags, existingTags);
         Sets.SetView<TagData> removed = difference(existingTags, selectedTags);
-        deleteLinks(taskId, taskUuid, removed);
+        deleteLinks(taskId, taskUuid, filter(removed, notNull()));
         for (TagData tagData : added) {
             Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tagData.getName(), tagData.getUuid());
             metadataDao.createNew(newLink);

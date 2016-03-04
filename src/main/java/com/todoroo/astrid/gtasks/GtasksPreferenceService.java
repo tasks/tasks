@@ -17,6 +17,8 @@ import org.tasks.preferences.Preferences;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 /**
  * Methods for working with GTasks preferences
  *
@@ -69,7 +71,7 @@ public class GtasksPreferenceService {
     public boolean isLoggedIn() {
         return context.getResources().getBoolean(R.bool.sync_enabled) &&
                 preferences.getBoolean(R.string.sync_gtasks, false) &&
-                preferences.getStringValue(PREF_USER_NAME) != null &&
+                !isNullOrEmpty(preferences.getStringValue(PREF_USER_NAME)) &&
                 permissionChecker.canAccessAccounts();
     }
 
