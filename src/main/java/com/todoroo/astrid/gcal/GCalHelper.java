@@ -34,18 +34,18 @@ public class GCalHelper {
     /** If task has no estimated time, how early to set a task in calendar (seconds)*/
     private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
-    private final Context context;
     private final TaskService taskService;
     private final Preferences preferences;
     private final CalendarProvider calendarProvider;
+    private final ContentResolver cr;
 
     @Inject
     public GCalHelper(@ForApplication Context context, TaskService taskService, Preferences preferences,
                       CalendarProvider calendarProvider) {
-        this.context = context;
         this.taskService = taskService;
         this.preferences = preferences;
         this.calendarProvider = calendarProvider;
+        cr = context.getContentResolver();
     }
 
     public String getTaskEventUri(Task task) {
@@ -72,19 +72,18 @@ public class GCalHelper {
 
     private void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
         if (preferences.isDefaultCalendarSet()) {
-            ContentResolver cr = context.getContentResolver();
-            Uri calendarUri = createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
+            Uri calendarUri = createTaskEvent(t, new ContentValues(), deleteEventIfExists);
             if (calendarUri != null) {
                 t.setCalendarUri(calendarUri.toString());
             }
         }
     }
 
-    public Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values) {
-        return createTaskEvent(task, cr, values, true);
+    public Uri createTaskEvent(Task task, ContentValues values) {
+        return createTaskEvent(task, values, true);
     }
 
-    public Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values, boolean deleteEventIfExists) {
+    public Uri createTaskEvent(Task task, ContentValues values, boolean deleteEventIfExists) {
         String eventuri = getTaskEventUri(task);
 
         if(!TextUtils.isEmpty(eventuri) && deleteEventIfExists) {
@@ -119,7 +118,7 @@ public class GCalHelper {
         return null;
     }
 
-    public void rescheduleRepeatingTask(Task task, ContentResolver cr) {
+    public void rescheduleRepeatingTask(Task task) {
         String taskUri = getTaskEventUri(task);
         if (TextUtils.isEmpty(taskUri)) {
             return;
@@ -133,7 +132,7 @@ public class GCalHelper {
             ContentValues cv = new ContentValues();
             cv.put(CalendarContract.Events.CALENDAR_ID, calendar.getId());
 
-            Uri uri = createTaskEvent(task, cr, cv, false);
+            Uri uri = createTaskEvent(task, cv, false);
             task.setCalendarUri(uri.toString());
         }
     }
@@ -155,7 +154,7 @@ public class GCalHelper {
             try {
                 Uri calendarUri = Uri.parse(uri);
                 if (calendarProvider.getCalendar(calendarUri) != null) {
-                    context.getContentResolver().delete(calendarUri, null, null);
+                    cr.delete(calendarUri, null, null);
                     eventDeleted = true;
                 }
                 task.setCalendarUri("");

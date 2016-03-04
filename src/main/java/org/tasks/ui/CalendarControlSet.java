@@ -181,11 +181,10 @@ public class CalendarControlSet extends TaskEditControlFragment {
                 Timber.e(e, "unable-to-update-calendar: %s", task.getCalendarURI());
             }
         } else if (!isNullOrEmpty(calendarId)) {
-            ContentResolver cr = context.getContentResolver();
             try{
                 ContentValues values = new ContentValues();
                 values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
-                Uri uri = gcalHelper.createTaskEvent(task, cr, values);
+                Uri uri = gcalHelper.createTaskEvent(task, values);
                 if(uri != null) {
                     task.setCalendarUri(uri.toString());
                     // pop up the new event

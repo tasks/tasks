@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.repeats;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 
@@ -22,7 +21,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.time.DateTime;
@@ -82,7 +80,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
                 return;
             }
 
-            rescheduleTask(context, gcalHelper, taskService, task, newDueDate);
+            rescheduleTask(gcalHelper, taskService, task, newDueDate);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
@@ -97,7 +95,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         return repeatUntil > 0 && newDateTime(newDueDate).startOfDay().isAfter(newDateTime(repeatUntil).startOfDay());
     }
 
-    public static void rescheduleTask(Context context, GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
+    public static void rescheduleTask(GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
         long hideUntil = task.getHideUntil();
         if(hideUntil > 0 && task.getDueDate() > 0) {
             hideUntil += newDueDate - task.getDueDate();
@@ -109,8 +107,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         task.setHideUntil(hideUntil);
         task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
 
-        ContentResolver cr = context.getContentResolver();
-        gcalHelper.rescheduleRepeatingTask(task, cr);
+        gcalHelper.rescheduleRepeatingTask(task);
         taskService.save(task);
     }
 
