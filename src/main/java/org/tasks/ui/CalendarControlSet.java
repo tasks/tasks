@@ -20,12 +20,13 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gcal.AndroidCalendar;
+import org.tasks.calendars.AndroidCalendar;
 import com.todoroo.astrid.gcal.GCalHelper;
 
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.analytics.Tracker;
+import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.preferences.FragmentPermissionRequestor;
@@ -56,6 +57,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Bind(R.id.calendar_display_which) TextView calendar;
 
     @Inject GCalHelper gcalHelper;
+    @Inject CalendarProvider calendarProvider;
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
     @Inject PermissionChecker permissionChecker;
@@ -81,7 +83,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
             calendarId = preferences.getDefaultCalendar();
             if (!Strings.isNullOrEmpty(calendarId)) {
                 try {
-                    AndroidCalendar defaultCalendar = gcalHelper.getCalendar(calendarId);
+                    AndroidCalendar defaultCalendar = calendarProvider.getCalendar(calendarId);
                     if (defaultCalendar == null) {
                         calendarId = null;
                     } else {

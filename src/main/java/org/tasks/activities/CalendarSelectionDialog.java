@@ -8,10 +8,10 @@ import android.support.v7.app.AlertDialog;
 import android.widget.ArrayAdapter;
 
 import com.google.common.base.Function;
-import com.todoroo.astrid.gcal.AndroidCalendar;
-import com.todoroo.astrid.gcal.GCalHelper;
 
 import org.tasks.R;
+import org.tasks.calendars.AndroidCalendar;
+import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.InjectingDialogFragment;
 
@@ -33,14 +33,14 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     }
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject GCalHelper gCalHelper;
+    @Inject CalendarProvider calendarProvider;
     private CalendarSelectionHandler handler;
     private boolean enableNone;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final List<AndroidCalendar> calendars = gCalHelper.getCalendars();
+        final List<AndroidCalendar> calendars = calendarProvider.getCalendars();
         List<String> calendarNames = transform(calendars, new Function<AndroidCalendar, String>() {
             @Override
             public String apply(AndroidCalendar androidCalendar) {

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.todoroo.astrid.gcal.AndroidCalendar;
+import org.tasks.calendars.AndroidCalendar;
 
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;

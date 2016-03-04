@@ -10,14 +10,12 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
 
-import com.todoroo.astrid.gcal.AndroidCalendar;
-import com.todoroo.astrid.gcal.GCalHelper;
-
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
+import org.tasks.calendars.AndroidCalendar;
+import org.tasks.calendars.CalendarProvider;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
-import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 
@@ -36,8 +34,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
     private static final int REQUEST_CALENDAR_SELECTION = 10412;
 
     @Inject Preferences preferences;
-    @Inject GCalHelper calendarHelper;
-    @Inject PermissionChecker permissionChecker;
+    @Inject CalendarProvider calendarProvider;
     @Inject ActivityPermissionRequestor permissionRequester;
     private Preference defaultCalendarPref;
 
@@ -61,16 +58,10 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
     }
 
     private void setCalendarSummary(String calendarId) {
-        if (permissionChecker.canAccessCalendars()) {
-            List<AndroidCalendar> calendars = calendarHelper.getCalendars();
-            for (AndroidCalendar calendar : calendars) {
-                if (calendar.getId().equals(calendarId)) {
-                    defaultCalendarPref.setSummary(calendar.getName());
-                    return;
-                }
-            }
-        }
-        defaultCalendarPref.setSummary(getString(R.string.none));
+        AndroidCalendar calendar = calendarProvider.getCalendar(calendarId);
+        defaultCalendarPref.setSummary(calendar == null
+                ? getString(R.string.none)
+                : calendar.getName());
     }
 
     private void startCalendarSelectionActivity() {

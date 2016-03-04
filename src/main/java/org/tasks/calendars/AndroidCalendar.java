@@ -1,4 +1,4 @@
-package com.todoroo.astrid.gcal;
+package org.tasks.calendars;
 
 public class AndroidCalendar {
     private final String id;
@@ -17,5 +17,13 @@ public class AndroidCalendar {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "AndroidCalendar{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

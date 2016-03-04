@@ -8,8 +8,6 @@ package com.todoroo.astrid.gcal;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
@@ -20,18 +18,16 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.calendars.AndroidCalendar;
+import org.tasks.calendars.CalendarProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
-
-import static android.provider.BaseColumns._ID;
 
 public class GCalHelper {
 
@@ -41,12 +37,15 @@ public class GCalHelper {
     private final Context context;
     private final TaskService taskService;
     private final Preferences preferences;
+    private final CalendarProvider calendarProvider;
 
     @Inject
-    public GCalHelper(@ForApplication Context context, TaskService taskService, Preferences preferences) {
+    public GCalHelper(@ForApplication Context context, TaskService taskService, Preferences preferences,
+                      CalendarProvider calendarProvider) {
         this.context = context;
         this.taskService = taskService;
         this.preferences = preferences;
+        this.calendarProvider = calendarProvider;
     }
 
     public String getTaskEventUri(Task task) {
@@ -127,28 +126,15 @@ public class GCalHelper {
         }
 
         Uri eventUri = Uri.parse(taskUri);
-        String calendarId = getCalendarId(eventUri, cr);
-        if (calendarId == null) { // Bail out, no calendar id
+        AndroidCalendar calendar = calendarProvider.getCalendar(eventUri);
+        if (calendar == null) { // Bail out, no calendar id
             task.setCalendarUri(""); //$NON-NLS-1$
-            return;
-        }
-        ContentValues cv = new ContentValues();
-        cv.put(CalendarContract.Events.CALENDAR_ID, calendarId);
+        } else {
+            ContentValues cv = new ContentValues();
+            cv.put(CalendarContract.Events.CALENDAR_ID, calendar.getId());
 
-        Uri uri = createTaskEvent(task, cr, cv, false);
-        task.setCalendarUri(uri.toString());
-    }
-
-    private static String getCalendarId(Uri uri, ContentResolver cr) {
-        Cursor calendar = cr.query(uri, new String[]{CalendarContract.Events.CALENDAR_ID}, null, null, null);
-        try {
-            calendar.moveToFirst();
-            return calendar.getString(0);
-        } catch (CursorIndexOutOfBoundsException e) {
-            Timber.e(e, e.getMessage());
-            return null;
-        } finally  {
-            calendar.close();
+            Uri uri = createTaskEvent(task, cr, cv, false);
+            task.setCalendarUri(uri.toString());
         }
     }
 
@@ -168,22 +154,11 @@ public class GCalHelper {
         if(!TextUtils.isEmpty(uri)) {
             try {
                 Uri calendarUri = Uri.parse(uri);
-
-                // try to load calendar
-                ContentResolver cr = context.getContentResolver();
-                Cursor cursor = cr.query(calendarUri, new String[] { CalendarContract.Events.DTSTART }, null, null, null); //$NON-NLS-1$
-                try {
-                    boolean alreadydeleted = cursor.getCount() == 0;
-
-                    if (!alreadydeleted) {
-                        cr.delete(calendarUri, null, null);
-                        eventDeleted = true;
-                    }
-                } finally {
-                    cursor.close();
+                if (calendarProvider.getCalendar(calendarUri) != null) {
+                    context.getContentResolver().delete(calendarUri, null, null);
+                    eventDeleted = true;
                 }
-
-                task.setCalendarUri( "");
+                task.setCalendarUri("");
             } catch (Exception e) {
                 Timber.e(e, e.getMessage());
             }
@@ -227,58 +202,6 @@ public class GCalHelper {
             values.put(CalendarContract.Events.EVENT_TIMEZONE, Time.TIMEZONE_UTC);
         } else {
             values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
-        }
-    }
-
-    public AndroidCalendar getCalendar(String id) {
-        ContentResolver cr = context.getContentResolver();
-
-        Cursor c = cr.query(CalendarContract.Calendars.CONTENT_URI, Calendars.CALENDARS_PROJECTION,
-                Calendars.CALENDARS_WHERE + " AND Calendars._id=" + id, null, Calendars.CALENDARS_SORT);
-        try {
-            if (c.moveToFirst()) {
-                int nameColumn = c.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME);
-                String name = c.getString(nameColumn);
-                return new AndroidCalendar(id, name);
-            }
-        } finally {
-            if(c != null) {
-                c.close();
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Appends all user-modifiable calendars to listPreference.
-     */
-    public List<AndroidCalendar> getCalendars() {
-        ContentResolver cr = context.getContentResolver();
-
-        Cursor c = cr.query(CalendarContract.Calendars.CONTENT_URI, Calendars.CALENDARS_PROJECTION,
-                Calendars.CALENDARS_WHERE, null, Calendars.CALENDARS_SORT);
-        try {
-            List<AndroidCalendar> calendars = new ArrayList<>();
-
-            if (c == null || c.getCount() == 0) {
-                // Something went wrong when querying calendars. Only offer them
-                // the system default choice
-                return calendars;
-            }
-
-            int idColumn = c.getColumnIndex(_ID);
-            int nameColumn = c.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME);
-            while (c.moveToNext()) {
-                String id = c.getString(idColumn);
-                String name = c.getString(nameColumn);
-                calendars.add(new AndroidCalendar(id, name));
-            }
-            return calendars;
-        } finally {
-            if(c != null) {
-                c.close();
-            }
         }
     }
 }
