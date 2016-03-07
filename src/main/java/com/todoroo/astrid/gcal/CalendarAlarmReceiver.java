@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.google.common.base.Predicate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.utility.Constants;
 
@@ -16,14 +17,13 @@ import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.collect.Iterables.any;
 
 public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
@@ -71,6 +71,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
         if (event == null) {
             return;
         }
+
         boolean shouldShowReminder;
         if (fromPostpone) {
             long timeAfter = DateUtilities.now() - event.getEnd();
@@ -80,29 +81,28 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
             shouldShowReminder = (timeUntil > 0 && timeUntil < DateUtilities.ONE_MINUTE * 20);
         }
 
-        if (shouldShowReminder) {
-            final List<String> emails = new ArrayList<>();
-            List<String> phoneAccounts = accountManager.getAccounts();
-            boolean includesMe = false;
-            for (AndroidCalendarEventAttendee attendee : event.getAttendees()) {
-                String email = attendee.getEmail();
-                if (!isNullOrEmpty(email)) {
-                    if (phoneAccounts.contains(email)) {
-                        includesMe = true;
-                        continue;
-                    }
-                    emails.add(attendee.getEmail());
-                }
-            }
-            if (emails.size() > 0 && includesMe) {
-                context.startActivity(new Intent(context, CalendarReminderActivity.class) {{
-                    putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
-                    putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, event.getTitle());
-                    putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, event.getEnd());
-                    putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
-                    setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                }});
-            }
+        if (shouldShowReminder && isMeeting(event)) {
+            context.startActivity(new Intent(context, CalendarReminderActivity.class) {{
+                putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
+                putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, event.getTitle());
+                putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, event.getEnd());
+                putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            }});
         }
+    }
+
+    private boolean isMeeting(AndroidCalendarEvent event) {
+        List<AndroidCalendarEventAttendee> attendees = event.getAttendees();
+        if (attendees.size() < 2) {
+            return false;
+        }
+        final List<String> myAccounts = accountManager.getAccounts();
+        return any(attendees, new Predicate<AndroidCalendarEventAttendee>() {
+            @Override
+            public boolean apply(AndroidCalendarEventAttendee attendee) {
+                return myAccounts.contains(attendee.getEmail());
+            }
+        });
     }
 }
