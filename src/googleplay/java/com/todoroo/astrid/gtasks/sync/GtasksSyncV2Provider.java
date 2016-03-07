@@ -131,7 +131,13 @@ public class GtasksSyncV2Provider {
                         String nextPageToken = null;
                         do {
                             remoteLists = gtasksInvoker.allGtaskLists(nextPageToken);
-                            gtaskLists.addAll(remoteLists.getItems());
+                            if (remoteLists == null) {
+                                break;
+                            }
+                            List<TaskList> items = remoteLists.getItems();
+                            if (items != null) {
+                                gtaskLists.addAll(items);
+                            }
                             nextPageToken = remoteLists.getNextPageToken();
                         } while (nextPageToken != null);
                         gtasksListService.updateLists(gtaskLists);
@@ -252,10 +258,14 @@ public class GtasksSyncV2Provider {
             do {
                 Tasks taskList = invoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
                         includeDeletedAndHidden, lastSyncDate + 1000L, nextPageToken);
-                if (taskList != null) {
-                    tasks.addAll(taskList.getItems());
-                    nextPageToken = taskList.getNextPageToken();
+                if (taskList == null) {
+                    break;
                 }
+                List<com.google.api.services.tasks.model.Task> items = taskList.getItems();
+                if (items != null) {
+                    tasks.addAll(items);
+                }
+                nextPageToken = taskList.getNextPageToken();
             } while (nextPageToken != null);
 
             if (!tasks.isEmpty()) {
