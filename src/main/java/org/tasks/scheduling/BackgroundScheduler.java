@@ -23,7 +23,7 @@ public class BackgroundScheduler {
         scheduleBackupService();
         scheduleMidnightRefresh();
         scheduleCalendarNotifications();
-        if (context.getResources().getBoolean(R.bool.sync_enabled)) {
+        if (context.getResources().getBoolean(R.bool.sync_supported)) {
             scheduleGtaskSync();
         }
     }

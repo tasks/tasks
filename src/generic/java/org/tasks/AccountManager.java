@@ -14,4 +14,8 @@ public class AccountManager {
     public List<String> getAccounts() {
         return Collections.emptyList();
     }
+
+    public boolean hasAccount(String account) {
+        return false;
+    }
 }

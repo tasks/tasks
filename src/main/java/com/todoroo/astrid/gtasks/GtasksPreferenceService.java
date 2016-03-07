@@ -9,15 +9,13 @@ import android.content.Context;
 
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.tasks.AccountManager;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 /**
  * Methods for working with GTasks preferences
@@ -28,9 +26,9 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 @Singleton
 public class GtasksPreferenceService {
 
-    private Context context;
+    private final Context context;
     private final Preferences preferences;
-    private PermissionChecker permissionChecker;
+    private final AccountManager accountManager;
 
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
 
@@ -39,10 +37,10 @@ public class GtasksPreferenceService {
 
     @Inject
     public GtasksPreferenceService(@ForApplication Context context, Preferences preferences,
-                                   PermissionChecker permissionChecker) {
+                                   AccountManager accountManager) {
         this.context = context;
         this.preferences = preferences;
-        this.permissionChecker = permissionChecker;
+        this.accountManager = accountManager;
     }
 
     public String getDefaultList() {
@@ -69,10 +67,9 @@ public class GtasksPreferenceService {
      * @return true if we have a token for this user, false otherwise
      */
     public boolean isLoggedIn() {
-        return context.getResources().getBoolean(R.bool.sync_enabled) &&
+        return context.getResources().getBoolean(R.bool.sync_supported) &&
                 preferences.getBoolean(R.string.sync_gtasks, false) &&
-                !isNullOrEmpty(preferences.getStringValue(PREF_USER_NAME)) &&
-                permissionChecker.canAccessAccounts();
+                accountManager.hasAccount(preferences.getStringValue(PREF_USER_NAME));
     }
 
     /** @return Last Successful Sync Date, or 0 */

@@ -30,7 +30,7 @@ public class BasicPreferences extends InjectingPreferenceActivity {
         result = savedInstanceState == null ? new Bundle() : savedInstanceState.getBundle(EXTRA_RESULT);
 
         addPreferencesFromResource(R.xml.preferences);
-        if (!getResources().getBoolean(R.bool.sync_enabled)) {
+        if (!getResources().getBoolean(R.bool.sync_supported)) {
             getPreferenceScreen().removePreference(findPreference(getString(R.string.synchronization)));
         }
         if (getResources().getBoolean(R.bool.google_play_store_available)) {

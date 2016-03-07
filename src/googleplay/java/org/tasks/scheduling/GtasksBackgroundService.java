@@ -31,7 +31,7 @@ public class GtasksBackgroundService extends RecurringIntervalIntentService {
             Timber.d("aborting: sync ongoing");
             return;
         }
-        if(gtasksPreferenceService.isLoggedIn() && gtasksSyncV2Provider.isActive()) {
+        if(gtasksSyncV2Provider.isActive()) {
             gtasksSyncV2Provider.synchronizeActiveTasks(new RecordSyncStatusCallback(gtasksPreferenceService, broadcaster));
         }
     }
