@@ -12,6 +12,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.services.tasks.TasksScopes;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
@@ -108,6 +109,10 @@ public class AccountManager {
     }
 
     public Account getAccount(final String name) {
+        if (Strings.isNullOrEmpty(name)) {
+            return null;
+        }
+
         return tryFind(getAccountList(), new Predicate<Account>() {
             @Override
             public boolean apply(Account account) {
