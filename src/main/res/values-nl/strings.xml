@@ -182,6 +182,8 @@
 	<string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
 	<string name="gcal_TEA_addToCalendar_label">Toevoegen aan Agenda</string>
 	<string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
+	<string name="delete_calendar_event_confirmation">Verwijder kalender item?</string>
+	<string name="calendar_event_not_found">Kalender item niet gevonden</string>
 	<string name="gcal_completed_title">%s (voltooid)</string>
 	<string name="CFC_gtasks_list_text">In lijst: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks lijst...</string>
@@ -365,6 +367,7 @@
 	<string name="doze_notifications_on">Android zal gelimiteerd onderbreken in Snooze mode</string>
 	<string name="no_title">(geen titel)</string>
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
+	<string name="default_list">Standaard lijst</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>uitschakelen</item>
 		<item>elke 15 min.</item>

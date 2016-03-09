@@ -23,11 +23,14 @@
 	<string name="DLG_error_sdcard_general">¡No se pudo acceder a su tarjeta de memoria SD!</string>
 	<string name="read_permission_label">Permisos de Tasks</string>
 	<string name="write_permission_label">Permisos de Tasks</string>
+	<string name="discard_confirmation">¿Quieres descartar los cambios?</string>
+	<string name="keep_editing">Seguir editando</string>
 	<string name="DLG_delete_this_task_question">¿Borrar esta tarea?</string>
 	<string name="DLG_upgrading">Actualizando sus tareas....</string>
 	<string name="DLG_hour_minutes">Tiempo (horas : minutos)</string>
 	<string name="DLG_undo">Deshacer</string>
 	<string name="WID_dateButtonUnset">Pulsar para establecer</string>
+	<string name="TLA_no_items">No hay ninguna tarea aquí</string>
 	<string name="TLA_menu_sort">Ordenar</string>
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configuración</string>
@@ -46,7 +49,7 @@
 	<string name="SSD_sort_importance">Por prioridad</string>
 	<string name="SSD_sort_modified">Por última modificación</string>
 	<string name="FLA_search_filter">Coincidencias con \'%s\'</string>
-	<string name="FLA_new_filter">Nuevo filtro</string>
+	<string name="FLA_new_filter">Crear nuevo filtro</string>
 	<string name="FLA_no_filter_selected">No hay filtro seleccionado! Por favor seleccione un filtro o lista.</string>
 	<string name="TEA_title_hint">Nombre de la tarea</string>
 	<string name="TEA_importance_label">Prioridad</string>
@@ -100,8 +103,8 @@
 	<string name="EPr_show_task_edit_comments">Mostrar comentarios durante la edición de tareas</string>
 	<string name="task_list_options">Opciones de la lista de tareas</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Momento del evento en calendario</string>
-	<string name="EPr_cal_end_at_due_time">Finalizar los eventos del calendario en su fecha de vencimiento</string>
-	<string name="EPr_cal_start_at_due_time">Iniciar los eventos del calendario en su fecha de vencimiento</string>
+	<string name="EPr_cal_end_at_due_time">Finalizar eventos del calendario al vencimiento</string>
+	<string name="EPr_cal_start_at_due_time">Iniciar eventos del calendario al vencimiento</string>
 	<string name="EPr_manage_header">Administrar tareas antiguas</string>
 	<string name="EPr_manage_delete_completed">Borrar tareas completadas</string>
 	<string name="EPr_manage_delete_completed_message">¿Seguro que desea borrar todas las tareas completadas?</string>
@@ -113,7 +116,7 @@
 	<string name="EPr_reset_preferences_warning">Las preferencias se restaurarán a los valores por defecto</string>
 	<string name="EPr_delete_task_data">Eliminar datos de la tarea</string>
 	<string name="EPr_delete_task_data_warning">Todas las tareas serán borradas</string>
-	<string name="EPr_manage_delete_completed_gcal">Borrar eventos del calendario para las tareas completas</string>
+	<string name="EPr_manage_delete_completed_gcal">Borrar eventos del calendario para las tareas completadas</string>
 	<string name="EPr_manage_delete_completed_gcal_message">¿Seguro que realmente desea borrar todas las tareas completadas?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Borrados %d eventos del calendario!</string>
 	<string name="EPr_manage_delete_all_gcal">Borrar todos los eventos del calendario de las tareas</string>
@@ -123,12 +126,15 @@
 	<string name="WCA_title">Seleccione las tareas que ver...</string>
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
 	<string name="task_defaults">Configuración por defecto de tareas</string>
-	<string name="EPr_default_urgency_title">Fecha límite por defecto</string>
+	<string name="EPr_default_urgency_title">Fecha límite predeterminada</string>
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
 	<string name="EPr_default_hideUntil_title">Ocultar por defecto hasta</string>
 	<string name="EPr_default_reminders_title">Recordatorios por defecto</string>
 	<string name="EPr_default_addtocalendar_title">Por defecto, agregar al calendario</string>
 	<string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
+	<string name="priority_high">Alta</string>
+	<string name="priority_medium">Media</string>
+	<string name="priority_low">Baja</string>
 	<string-array name="EPr_default_urgency">
 		<item>Sin vencimiento</item>
 		<item>Hoy</item>
@@ -151,10 +157,10 @@
 	<string name="CFA_type_intersect">también</string>
 	<string name="CFA_context_chain">%s cumple el criterio</string>
 	<string name="CFA_context_delete">Eliminar Fila</string>
-	<string name="CFA_help">Mantén presionado un ítem para ver opciones adicionales</string>
+	<string name="CFA_help">Mantén pulsado sobre los elementos para opciones adicionales</string>
 	<string name="CFA_button_add">Añadir Criterio</string>
 	<string name="CFC_dueBefore_text">Vence el: ?</string>
-	<string name="CFC_dueBefore_name">Fecha límite el...</string>
+	<string name="CFC_dueBefore_name">Vence el...</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>Sin fecha de vencimiento</item>
 		<item>Ayer</item>
@@ -166,6 +172,8 @@
 	</string-array>
 	<string name="CFC_importance_text">¿Prioridad mínima?</string>
 	<string name="CFC_importance_name">Prioridad...</string>
+	<string name="CFC_tag_text">Etiqueta: ?</string>
+	<string name="CFC_tag_name">Etiqueta...</string>
 	<string name="CFC_tag_contains_name">El nombre de la etiqueta contiene...</string>
 	<string name="CFC_tag_contains_text">El nombre de la etiqueta contiene: ?</string>
 	<string name="CFC_title_contains_name">Título contiene...</string>
@@ -173,10 +181,12 @@
 	<string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>
 	<string name="gcal_TEA_addToCalendar_label">Agregar al calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
+	<string name="delete_calendar_event_confirmation">¿Borrar evento de calendario?</string>
+	<string name="calendar_event_not_found">Evento de calendario no encontrado</string>
 	<string name="gcal_completed_title">%s (completado)</string>
 	<string name="CFC_gtasks_list_text">En la Lista: ?</string>
 	<string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
-	<string name="gtasks_GTA_clear_completed">Quitar finalizadas</string>
+	<string name="gtasks_GTA_clear_completed">Limpiar completadas</string>
 	<string name="gtasks_GLA_noaccounts">No hay disponible una cuenta de Google con la cual sincronizarse.</string>
 	<string name="gtasks_GLA_authenticating">Autenticando...</string>
 	<string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
@@ -200,12 +210,14 @@
 		<item>un mes</item>
 		<item>en dos meses</item>
 	</string-array>
-	<string name="rmd_NoA_done">¡Terminada!</string>
+	<string name="rmd_NoA_done">Terminada</string>
 	<string name="rmd_NoA_snooze">Posponer</string>
 	<string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
 	<string name="rmd_EPr_quiet_hours_end_title">El horario en silencio termina</string>
 	<string name="rmd_EPr_rmd_time_title">Aviso por defecto</string>
-	<string name="rmd_EPr_rmd_time_desc">Notificaciones para tareas sin fecha límites aparecerán a %s</string>
+	<string name="rmd_EPr_rmd_time_desc">Las notificaciones de tareas sin vencimiento aparecerán a las %s</string>
+	<string name="persistent_notifications">Notificaciones persistentes</string>
+	<string name="persistent_notifications_description">Las notificaciones persistentes no se pueden borrar</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Máximo volumen para recordatorios con tonos múltiples</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks fijará el volumen máximo para avisos con tonos múltiples</string>
 	<string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
@@ -238,7 +250,7 @@
 	<string name="repeat_forever">Repetir por siempre</string>
 	<string name="repeat_until">Repetir hasta %s</string>
 	<string name="repeat_snackbar">%1$s He reprogramado esta tarea recurrente para %2$s</string>
-	<string name="new_tag">Nueva Etiqueta</string>
+	<string name="new_tag">Crear nueva etiqueta</string>
 	<string name="tag_FEx_untagged">Sin Categoría</string>
 	<string name="delete_tag_confirmation">¿Eliminar %s?</string>
 	<string name="TPl_notification">Temporizadores activos para %s!</string>
@@ -280,20 +292,21 @@
 	<string name="silent">Silencioso</string>
 	<string name="sound">Sonido</string>
 	<string name="vibrations">Vibraciones</string>
-	<string name="quiet_hours">Horario en silencio</string>
+	<string name="quiet_hours">Horario silencioso</string>
 	<string name="attachment_directory">Directorio de archivos adjuntos</string>
-	<string name="backup_directory">Directorio de la copia de seguridad</string>
+	<string name="backup_directory">Directorio de copia de seguridad</string>
 	<string name="miscellaneous">Miscelánea</string>
 	<string name="synchronization">Sincronización</string>
 	<string name="enabled">Habilitado</string>
 	<string name="font_size">Tamaño de la fuente</string>
-	<string name="customize_edit_screen">Personalizar la pantalla de edición de tareas</string>
+	<string name="customize_edit_screen">Personalizar pantalla de edición</string>
 	<string name="source_code">Código fuente</string>
 	<string name="translations">Traducciones</string>
 	<string name="report_an_issue">Informa de un error</string>
 	<string name="help_and_feedback">Ayuda y valoraciones</string>
-	<string name="contact_developer">Contactar al desarrollador</string>
+	<string name="contact_developer">Contactar con el desarrollador </string>
 	<string name="rate_tasks">Calificar a Tasks</string>
+	<string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
 	<string name="TLA_menu_donate">Donar</string>
 	<string name="select_amount">Elegir cantidad</string>
 	<string name="notification_actions">Acciones de notificación</string>
@@ -306,10 +319,10 @@
 	<string name="pick_a_time">Elegir hora</string>
 	<string name="pick_a_date_and_time">Elegir fecha y hora</string>
 	<string name="pick_a_location">Elegir ubicación</string>
-	<string name="when_overdue">Cuando atrasada</string>
-	<string name="when_due">Cuando vencimiento</string>
+	<string name="when_overdue">Si está atrasada</string>
+	<string name="when_due">Al vencimiento</string>
 	<string name="geofence_radius_title">Radio (metros)</string>
-	<string name="geofence_responsiveness_title">Tiempo de reacción (valores mayores conservan batería)</string>
+	<string name="geofence_responsiveness_title">Tiempo de respuesta (valores altos mejoran autonomía de batería)</string>
 	<string name="geolocation_reminders">Recordatorios de Geolocalización</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
@@ -345,6 +358,18 @@
 	<string name="take_a_picture">Tomar fotografía</string>
 	<string name="pick_from_gallery">Elegir desde la galería</string>
 	<string name="pick_from_storage">Elegir desde almacenamiento</string>
+	<string name="privacy">Privacidad</string>
+	<string name="privacy_policy">Política de privacidad</string>
+	<string name="send_anonymous_statistics">Mejorar Task</string>
+	<string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Task. No se recogerán datos personales.</string>
+	<string name="tag_already_exists">La etiqueta ya existe</string>
+	<string name="disable_notification_light">Deshabilitar luz de notificación</string>
+	<string name="doze_notifications">Interrumpir modo reposo con notificaciones</string>
+	<string name="doze_notifications_off">Android retrasará las notificaciones si el dispositivo está en modo reposo</string>
+	<string name="doze_notifications_on">Android permitirá interrupciones limitadas si el dispositivo está en modo reposo</string>
+	<string name="no_title">(Sin título)</string>
+	<string name="back_button_saves_task">Botón atrás guarda la tarea</string>
+	<string name="default_list">Lista por defecto</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deshabilitar</item>
 		<item>cada quince minutos</item>
