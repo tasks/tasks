@@ -4,10 +4,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
@@ -15,23 +13,20 @@ import org.tasks.injection.ForApplication;
 import org.tasks.receivers.RefreshReceiver;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
+
+import timber.log.Timber;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+import static org.tasks.time.DateTimeUtils.nextMidnight;
+import static org.tasks.time.DateTimeUtils.printTimestamp;
 
-@Singleton
 public class RefreshScheduler {
 
     private final TaskDao taskDao;
     private final Context context;
     private final AlarmManager alarmManager;
-
-    private static final Property<?>[] REFRESH_PROPERTIES = new Property<?>[]{
-            Task.DUE_DATE,
-            Task.HIDE_UNTIL
-    };
 
     @Inject
     public RefreshScheduler(TaskDao taskDao, @ForApplication Context context, AlarmManager alarmManager) {
@@ -41,45 +36,39 @@ public class RefreshScheduler {
     }
 
     public void scheduleApplicationRefreshes() {
-        TodorooCursor<Task> cursor = getTasks();
-        try {
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Task task = new Task(cursor);
+        long now = currentTimeMillis();
+        long midnight = nextMidnight(now);
+        Criterion criterion = Criterion.or(
+                Criterion.and(Task.HIDE_UNTIL.gt(now), Task.HIDE_UNTIL.lt(midnight)),
+                Criterion.and(Task.DUE_DATE.gt(now), Task.DUE_DATE.lt(midnight)));
+        taskDao.selectActive(criterion, new Callback<Task>() {
+            @Override
+            public void apply(Task task) {
                 scheduleRefresh(task);
             }
-        } finally {
-            cursor.close();
-        }
+        });
     }
 
     public void scheduleRefresh(Task task) {
-        if (task.containsValue(Task.DUE_DATE)) {
+        if (task.isCompleted()) {
+            scheduleRefresh(task.getCompletionDate() + ONE_MINUTE);
+        } else if (task.hasDueDate()) {
             scheduleRefresh(task.getDueDate());
         }
-        if (task.containsValue(Task.HIDE_UNTIL)) {
+        if (task.hasHideUntilDate()) {
             scheduleRefresh(task.getHideUntil());
         }
-        if (task.containsValue(Task.COMPLETION_DATE)) {
-            scheduleRefresh(task.getCompletionDate() + ONE_MINUTE);
-        }
     }
 
-    private void scheduleRefresh(Long dueDate) {
-        if (currentTimeMillis() > dueDate) {
-            return;
-        }
-
-        dueDate += 1000; // this is ghetto
-        Intent intent = new Intent(context, RefreshReceiver.class);
-        intent.setAction(Long.toString(dueDate));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
-        alarmManager.noWakeup(dueDate, pendingIntent);
-    }
-
-    private TodorooCursor<Task> getTasks() {
+    private void scheduleRefresh(Long refreshTime) {
         long now = currentTimeMillis();
-        return taskDao.query(Query.select(REFRESH_PROPERTIES).where(Criterion.and(
-                TaskDao.TaskCriteria.isActive(),
-                Criterion.or(Task.HIDE_UNTIL.gt(now), Task.DUE_DATE.gt(now)))));
+        if (now < refreshTime && refreshTime < nextMidnight(now)) {
+            refreshTime += 1000; // this is ghetto
+            Timber.d("Scheduling refresh at %s", printTimestamp(refreshTime));
+            Intent intent = new Intent(context, RefreshReceiver.class);
+            intent.setAction(Long.toString(refreshTime));
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
+            alarmManager.noWakeup(refreshTime, pendingIntent);
+        }
     }
 }

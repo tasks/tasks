@@ -480,9 +480,6 @@
             android:name=".scheduling.BackupIntentService"
             android:exported="false" />
         <service
-            android:name=".scheduling.MidnightRefreshService"
-            android:exported="false" />
-        <service
             android:name=".scheduling.RefreshSchedulerIntentService"
             android:exported="false" />
         <service

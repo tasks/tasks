@@ -225,6 +225,10 @@ public class Task extends RemoteModel {
         return getValue(HIDE_UNTIL) > DateUtilities.now();
     }
 
+    public boolean hasHideUntilDate() {
+        return getValue(HIDE_UNTIL) > 0;
+    }
+
     /** Checks whether task is done. Requires DUE_DATE */
     public boolean hasDueDate() {
         return getValue(DUE_DATE) > 0;

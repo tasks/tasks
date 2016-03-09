@@ -23,7 +23,6 @@ import org.tasks.analytics.Tracker;
 import org.tasks.filters.FilterCounter;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.Preferences;
-import org.tasks.scheduling.RefreshScheduler;
 import org.tasks.sync.SyncThrottle;
 
 import javax.inject.Inject;
@@ -51,7 +50,6 @@ public class Tasks extends InjectingApplication {
     @Inject TagService tagService;
     @Inject Broadcaster broadcaster;
     @Inject FilterCounter filterCounter;
-    @Inject RefreshScheduler refreshScheduler;
     @Inject SyncThrottle syncThrottle;
     @Inject Preferences preferences;
     @Inject Tracker tracker;

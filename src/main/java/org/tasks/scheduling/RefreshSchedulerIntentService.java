@@ -1,15 +1,12 @@
 package org.tasks.scheduling;
 
-import android.content.Intent;
-
-import org.tasks.injection.InjectingIntentService;
+import org.tasks.Broadcaster;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
+public class RefreshSchedulerIntentService extends MidnightIntentService {
 
-public class RefreshSchedulerIntentService extends InjectingIntentService {
-
+    @Inject Broadcaster broadcaster;
     @Inject RefreshScheduler refreshScheduler;
 
     public RefreshSchedulerIntentService() {
@@ -17,11 +14,8 @@ public class RefreshSchedulerIntentService extends InjectingIntentService {
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        super.onHandleIntent(intent);
-
-        Timber.d("onHandleIntent(%s)", intent);
-
+    void run() {
         refreshScheduler.scheduleApplicationRefreshes();
+        broadcaster.refresh();
     }
 }

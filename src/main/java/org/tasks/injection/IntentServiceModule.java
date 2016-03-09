@@ -10,7 +10,6 @@ import dagger.Module;
                 GeofenceSchedulingIntentService.class,
                 BackupIntentService.class,
                 GtasksBackgroundService.class,
-                MidnightRefreshService.class,
                 RefreshSchedulerIntentService.class,
                 ReminderSchedulerIntentService.class,
                 GeofenceTransitionsIntentService.class,

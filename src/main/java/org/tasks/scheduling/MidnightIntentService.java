@@ -10,9 +10,10 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
-import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.time.DateTimeUtils.nextMidnight;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 public abstract class MidnightIntentService extends InjectingIntentService {
@@ -22,8 +23,11 @@ public abstract class MidnightIntentService extends InjectingIntentService {
     @Inject Preferences preferences;
     @Inject AlarmManager alarmManager;
 
+    private final String name;
+
     public MidnightIntentService(String name) {
         super(name);
+        this.name = name;
     }
 
     @Override
@@ -36,22 +40,22 @@ public abstract class MidnightIntentService extends InjectingIntentService {
 
         if (nextRun <= now) {
             nextRun = nextMidnight(now);
-            Timber.d("running now [nextRun=%s]", printTimestamp(nextRun));
-            preferences.setLong(getLastRunPreference(), now);
+            Timber.d("%s running now [nextRun=%s]", name, printTimestamp(nextRun));
+            if (!isNullOrEmpty(getLastRunPreference())) {
+                preferences.setLong(getLastRunPreference(), now);
+            }
             run();
         } else {
-            Timber.d("will run at %s [lastRun=%s]", printTimestamp(nextRun), printTimestamp(lastRun));
+            Timber.d("%s will run at %s [lastRun=%s]", name, printTimestamp(nextRun), printTimestamp(lastRun));
         }
 
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, new Intent(this, this.getClass()), PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.noWakeup(nextRun + PADDING, pendingIntent);
     }
 
-    private static long nextMidnight(long timestamp) {
-        return newDateTime(timestamp).startOfDay().plusDays(1).getMillis();
-    }
-
     abstract void run();
 
-    abstract String getLastRunPreference();
+    protected String getLastRunPreference() {
+        return null;
+    }
 }

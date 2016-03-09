@@ -33,7 +33,7 @@ public class BackupIntentService extends MidnightIntentService {
     }
 
     @Override
-    String getLastRunPreference() {
+    protected String getLastRunPreference() {
         return TasksXmlExporter.PREF_BACKUP_LAST_DATE;
     }
 

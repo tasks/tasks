@@ -1,6 +1,10 @@
 package org.tasks.time;
 
+import org.tasks.BuildConfig;
+
 import java.util.Date;
+
+import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class DateTimeUtils {
 
@@ -19,7 +23,13 @@ public class DateTimeUtils {
         MILLIS_PROVIDER = SYSTEM_MILLIS_PROVIDER;
     }
 
+    public static long nextMidnight(long timestamp) {
+        return newDateTime(timestamp).startOfDay().plusDays(1).getMillis();
+    }
+
     public static String printTimestamp(long timestamp) {
-        return new Date(timestamp).toString();
+        return BuildConfig.DEBUG
+                ? new Date(timestamp).toString()
+                : Long.toString(timestamp);
     }
 }
