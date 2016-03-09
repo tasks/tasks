@@ -6,16 +6,13 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import org.tasks.analytics.Tracker;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.RejectedExecutionException;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
-import static java.util.concurrent.ThreadPoolExecutor.DiscardPolicy;
 
 public class SyncExecutor {
 
@@ -29,8 +26,18 @@ public class SyncExecutor {
         this.tracker = tracker;
     }
 
-    public void execute(final SyncResultCallback callback, final Runnable command) {
-        executor.execute(new Runnable() {
+    public void execute(SyncResultCallback callback, Runnable command) {
+        try {
+            executor.execute(wrapWithExceptionHandling(callback, command));
+        } catch (RejectedExecutionException e) {
+            Timber.e(e, e.getMessage());
+            tracker.reportException(e);
+            callback.finished();
+        }
+    }
+
+    private Runnable wrapWithExceptionHandling(final SyncResultCallback callback, final Runnable command) {
+        return new Runnable() {
             @Override
             public void run() {
                 try {
@@ -42,6 +49,6 @@ public class SyncExecutor {
                     callback.finished();
                 }
             }
-        });
+        };
     }
 }
