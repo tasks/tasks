@@ -42,6 +42,7 @@ import org.tasks.R;
 import org.tasks.activities.DatePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.time.DateTime;
 import org.tasks.ui.TaskEditControlFragment;
@@ -289,6 +290,11 @@ public class RepeatControlSet extends TaskEditControlFragment {
         super.onAttach(activity);
 
         callback = (RepeatChangedListener) activity;
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     @OnClick(R.id.clear)

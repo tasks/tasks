@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.widget.Toast;
 
+import org.tasks.injection.ActivityComponent;
 import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
@@ -134,5 +135,10 @@ public class DateShortcutPreferences extends InjectingPreferenceActivity impleme
                 getString(errorResId, getString(settingResId), getString(relativeResId)),
                 Toast.LENGTH_SHORT)
                 .show();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

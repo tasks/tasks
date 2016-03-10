@@ -14,14 +14,14 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.Broadcaster;
 import org.tasks.Notifier;
-import org.tasks.injection.TestModule;
+import org.tasks.injection.TestComponent;
 import org.tasks.notifications.NotificationManager;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.Subcomponent;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -31,19 +31,25 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public class NotificationTests extends DatabaseTestCase {
 
-    @Module(addsTo = TestModule.class, injects = {NotificationTests.class})
-    static class NotificationTestsModule {
-        @Singleton
+    @Module
+    public static class NotificationTestsModule {
+        private final NotificationManager notificationManager = mock(NotificationManager.class);
+        private final Broadcaster broadcaster = mock(Broadcaster.class);
+
         @Provides
         public NotificationManager getNotificationManager() {
-            return mock(NotificationManager.class);
+            return notificationManager;
         }
 
-        @Singleton
         @Provides
         public Broadcaster getBroadcaster() {
-            return mock(Broadcaster.class);
+            return broadcaster;
         }
+    }
+
+    @Subcomponent(modules = NotificationTestsModule.class)
+    public interface NotificationTestsComponent {
+        void inject(NotificationTests notificationTests);
     }
 
     @Inject TaskDao taskDao;
@@ -157,6 +163,13 @@ public class NotificationTests extends DatabaseTestCase {
 //        });
 //        notificationReceiver.onReceive(getContext(), intent);
 //    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component
+                .plus(new NotificationTestsModule())
+                .inject(this);
+    }
 
     @Override
     protected Object getModule() {

@@ -33,6 +33,7 @@ import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ForActivity;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
@@ -422,5 +423,10 @@ public class ReminderControlSet extends TaskEditControlFragment {
         } else {
             mode.setSelection(0);
         }
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 }

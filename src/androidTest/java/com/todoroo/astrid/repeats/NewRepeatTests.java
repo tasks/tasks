@@ -22,6 +22,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.R;
+import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
@@ -42,6 +43,11 @@ public class NewRepeatTests extends DatabaseTestCase {
     protected void setUp() {
         super.setUp();
         preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     private void saveAndTriggerRepeatListener(Task task) {

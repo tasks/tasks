@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 
 import java.util.List;
@@ -16,6 +17,11 @@ import javax.inject.Inject;
 import static java.util.Arrays.asList;
 
 public class MissedCallDialog extends InjectingDialogFragment {
+
+    @Override
+    protected void inject(DialogFragmentComponent component) {
+        component.inject(this);
+    }
 
     public interface MissedCallHandler {
         void callNow();

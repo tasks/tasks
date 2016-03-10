@@ -11,6 +11,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.tasks.R;
 import org.tasks.dialogs.MyTimePickerDialog;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.time.DateTime;
@@ -51,6 +52,11 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
         }
         dialog.setOnDismissListener(this);
         dialog.setOnTimeSetListener(this);
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
 import org.tasks.R;
 import org.tasks.activities.ClearGtaskDataActivity;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
@@ -100,5 +101,10 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
     protected void onPause() {
         super.onPause();
         backgroundScheduler.scheduleGtaskSync();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.todoroo.astrid.service.StartupService;
 
 import org.tasks.R;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 
 import javax.inject.Inject;
@@ -25,5 +26,10 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
         startupService.onStartupApplication(this);
 
         addPreferencesFromResource(R.xml.preferences_oldtasks);
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

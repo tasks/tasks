@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.todoroo.astrid.reminders.SnoozeCallback;
 
+import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.time.DateTime;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -110,5 +111,10 @@ public class SnoozeDialog extends InjectingDialogFragment {
 
     public void setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
         this.onCancelListener = onCancelListener;
+    }
+
+    @Override
+    protected void inject(DialogFragmentComponent component) {
+        component.inject(this);
     }
 }

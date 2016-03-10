@@ -30,6 +30,7 @@ import com.todoroo.astrid.ui.TimeDurationControlSet;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -98,6 +99,11 @@ public class TimerControlSet extends TaskEditControlFragment {
         super.onAttach(activity);
 
         callback = (TimerControlSetCallback) activity;
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     @Override

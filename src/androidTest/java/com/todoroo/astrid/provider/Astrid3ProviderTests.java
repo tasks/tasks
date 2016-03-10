@@ -18,6 +18,8 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.TestComponent;
+
 public class Astrid3ProviderTests extends DatabaseTestCase {
 
     String[] PROJECTION = new String[] {
@@ -32,6 +34,11 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         // set up database
         Astrid3ContentProvider.setDatabaseOverride(database);
 
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     /** Test CRUD over tasks with the ALL ITEMS cursor */

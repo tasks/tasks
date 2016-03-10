@@ -34,6 +34,7 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.MenuColorizer;
@@ -110,6 +111,11 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
             tagName.setText(autopopulateName);
             getIntent().removeExtra(TOKEN_AUTOPOPULATE_NAME);
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private String getNewName() {

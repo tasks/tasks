@@ -10,6 +10,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
@@ -37,6 +38,11 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements Mi
         super.onCreate(savedInstanceState);
 
         setup(getIntent());
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

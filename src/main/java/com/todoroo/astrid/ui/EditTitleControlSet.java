@@ -22,6 +22,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -63,6 +64,11 @@ public class EditTitleControlSet extends TaskEditControlFragment {
         super.onAttach(activity);
 
         checkBoxes = new CheckBoxes(activity);
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     @Nullable

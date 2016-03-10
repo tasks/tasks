@@ -4,6 +4,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.injection.TestComponent;
+
 import javax.inject.Inject;
 
 public class SubtasksHelperTest extends SubtasksTestCase {
@@ -51,5 +53,12 @@ public class SubtasksHelperTest extends SubtasksTestCase {
     public void disabled_testLocalToRemoteIdMapping() {
         String mapped = SubtasksHelper.convertTreeToRemoteIds(taskService, DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
         assertEquals(EXPECTED_REMOTE, mapped);
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        super.inject(component);
+
+        component.inject(this);
     }
 }

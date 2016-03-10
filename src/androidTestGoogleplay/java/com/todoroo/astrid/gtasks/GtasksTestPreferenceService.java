@@ -7,13 +7,14 @@ package com.todoroo.astrid.gtasks;
 
 import android.content.Context;
 
+import org.tasks.AccountManager;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 
 public class GtasksTestPreferenceService extends GtasksPreferenceService {
 
-    public GtasksTestPreferenceService(Context context, Preferences preferences, PermissionChecker permissionChecker) {
-        super(context, preferences, permissionChecker);
+    public GtasksTestPreferenceService(Context context, Preferences preferences, AccountManager accountManager) {
+        super(context, preferences, accountManager);
     }
 
     @Override

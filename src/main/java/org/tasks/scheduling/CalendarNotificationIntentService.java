@@ -12,6 +12,7 @@ import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.injection.ForApplication;
+import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.TimeUnit;
@@ -64,5 +65,10 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
     @Override
     String getLastRunPreference() {
         return null;
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 }

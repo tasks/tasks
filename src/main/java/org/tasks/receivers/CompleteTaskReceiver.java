@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import javax.inject.Inject;
@@ -32,5 +33,10 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
         } else {
             Timber.e("Could not find task with id %s", taskId);
         }
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

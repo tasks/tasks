@@ -27,6 +27,7 @@ import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ForActivity;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.time.DateTime;
 import org.tasks.ui.HiddenTopArrayAdapter;
 import org.tasks.ui.TaskEditControlFragment;
@@ -201,6 +202,11 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
 
         outState.putLong(EXTRA_CUSTOM, existingDate);
         outState.putInt(EXTRA_SELECTION, selection);
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     /**

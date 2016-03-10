@@ -12,6 +12,8 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.TestComponent;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -154,6 +156,11 @@ public class TaskDaoTests extends DatabaseTestCase {
 
         // make sure db still works
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     // TODO check eventing

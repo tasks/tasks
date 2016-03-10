@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.tasks.Notifier;
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.util.concurrent.ExecutorService;
@@ -32,5 +33,10 @@ public class TaskNotificationReceiver extends InjectingBroadcastReceiver {
                         intent.getIntExtra(EXTRAS_TYPE, (byte) 0));
             }
         });
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

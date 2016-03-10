@@ -14,6 +14,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 
 import org.tasks.BuildConfig;
+import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 
 import javax.inject.Inject;
@@ -120,5 +121,10 @@ public class SqlContentProvider extends InjectingContentProvider {
         }
 
         return database.get();
+    }
+
+    @Override
+    protected void inject(ContentProviderComponent component) {
+        component.inject(this);
     }
 }

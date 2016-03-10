@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.widget.Toast;
 
 import org.tasks.R;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 
@@ -56,6 +57,11 @@ public class CameraActivity extends InjectingAppCompatActivity {
                 activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
             }
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

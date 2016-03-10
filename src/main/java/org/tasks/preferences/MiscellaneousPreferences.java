@@ -11,6 +11,7 @@ import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 import org.tasks.R;
 import org.tasks.files.FileExplore;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.scheduling.BackgroundScheduler;
 
@@ -158,5 +159,10 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

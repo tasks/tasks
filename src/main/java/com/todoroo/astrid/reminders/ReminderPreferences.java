@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.Device;
@@ -185,5 +186,10 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
     private TimePreference getTimePreference(int resId) {
         return (TimePreference) findPreference(getString(resId));
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

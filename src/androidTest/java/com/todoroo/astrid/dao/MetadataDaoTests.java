@@ -12,6 +12,8 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.TestComponent;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,6 +31,11 @@ public class MetadataDaoTests extends DatabaseTestCase {
     public void setUp() {
         super.setUp();
         metadata = new Metadata();
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     /**

@@ -27,6 +27,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.BuildConfig;
+import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 
 import java.util.HashSet;
@@ -116,6 +117,11 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
         default:
             throw new IllegalArgumentException("Unsupported URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
+    }
+
+    @Override
+    protected void inject(ContentProviderComponent component) {
+        component.inject(this);
     }
 
     /* ======================================================================

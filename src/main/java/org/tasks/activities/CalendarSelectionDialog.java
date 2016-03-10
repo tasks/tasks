@@ -13,6 +13,7 @@ import org.tasks.R;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 
 import java.util.List;
@@ -25,6 +26,11 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
 
     public void enableNone() {
         enableNone = true;
+    }
+
+    @Override
+    protected void inject(DialogFragmentComponent component) {
+        component.inject(this);
     }
 
     public interface CalendarSelectionHandler {

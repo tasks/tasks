@@ -10,6 +10,7 @@ import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.injection.ActivityComponent;
 import org.tasks.time.DateTime;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
@@ -38,6 +39,11 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
         super.onCreate(savedInstanceState);
 
         setup(getIntent(), savedInstanceState);
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 
 import org.tasks.injection.InjectingTestCase;
+import org.tasks.injection.TestComponent;
 
 import javax.inject.Inject;
 
@@ -29,6 +30,11 @@ public class ReminderServiceTest extends InjectingTestCase {
     public void setUp() {
         super.setUp();
         freezeClock();
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     @Override

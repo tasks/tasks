@@ -3,6 +3,7 @@ package org.tasks.receivers;
 import android.content.Context;
 import android.content.Intent;
 
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.scheduling.BackgroundScheduler;
 
@@ -22,5 +23,10 @@ public class FirstLaunchReceiver extends InjectingBroadcastReceiver {
 
         backgroundScheduler.scheduleBackupService();
         backgroundScheduler.scheduleMidnightRefresh();
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

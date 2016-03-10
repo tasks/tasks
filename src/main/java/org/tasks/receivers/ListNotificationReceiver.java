@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.tasks.Notifier;
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.util.concurrent.ExecutorService;
@@ -38,5 +39,10 @@ public class ListNotificationReceiver extends InjectingBroadcastReceiver {
                         intent.getStringExtra(EXTRA_FILTER_VALUES));
             }
         });
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

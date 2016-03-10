@@ -12,6 +12,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.R;
+import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
@@ -53,6 +54,11 @@ public class BackupServiceTests extends DatabaseTestCase {
         Task task = new Task();
         task.setTitle("helicopter");
         taskDao.createNew(task);
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     @Override

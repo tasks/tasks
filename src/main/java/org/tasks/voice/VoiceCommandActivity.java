@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.todoroo.astrid.service.TaskCreator;
 
 import org.tasks.R;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppCompatActivity;
 
@@ -31,5 +32,10 @@ public class VoiceCommandActivity extends InjectingAppCompatActivity {
                 Toast.makeText(context, getString(R.string.voice_command_added_task), Toast.LENGTH_LONG).show();
                 finish();
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

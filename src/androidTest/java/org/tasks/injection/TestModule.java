@@ -27,26 +27,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module(injects = {
-        BackupServiceTests.class,
-        MetadataDaoTests.class,
-        TaskDaoTests.class,
-        GtasksIndentActionTest.class,
-        GtasksTaskListUpdaterTest.class,
-        GtasksTaskMovingTest.class,
-        Astrid3ProviderTests.class,
-        NewRepeatTests.class,
-        QuickAddMarkupTest.class,
-        TitleParserTest.class,
-        SubtasksTestCase.class,
-        NewSyncTestCase.class,
-        TaskTest.class,
-        ReminderServiceTest.class,
-        SubtasksHelperTest.class,
-        SubtasksMovingTest.class,
-        SyncModelTest.class,
-        GtasksListServiceTest.class
-})
+@Module
 public class TestModule {
     private Context context;
 

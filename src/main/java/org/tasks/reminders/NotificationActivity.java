@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.tasks.Broadcaster;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
@@ -27,6 +28,11 @@ public class NotificationActivity extends InjectingAppCompatActivity implements 
         super.onCreate(savedInstanceState);
 
         setup(getIntent());
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

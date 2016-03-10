@@ -2,8 +2,6 @@ package org.tasks.injection;
 
 import android.test.AndroidTestCase;
 
-import dagger.ObjectGraph;
-
 import static org.tasks.TestUtilities.initializeMockito;
 
 public abstract class InjectingTestCase extends AndroidTestCase {
@@ -12,13 +10,17 @@ public abstract class InjectingTestCase extends AndroidTestCase {
     protected void setUp() {
         initializeMockito(getContext());
 
-        ObjectGraph objectGraph = ObjectGraph.create(new TestModule(getContext()));
+        TestComponent component = DaggerTestComponent.builder()
+                .testModule(new TestModule(getContext()))
+                .build();
         Object extension = getModule();
         if (extension != null) {
-            objectGraph = objectGraph.plus(extension);
+//            objectGraph = objectGraph.plus(extension);
         }
-        objectGraph.inject(this);
+        inject(component);
     }
+
+    protected abstract void inject(TestComponent component);
 
     protected Object getModule() {
         return null;

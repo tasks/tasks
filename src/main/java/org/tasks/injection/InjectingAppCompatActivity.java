@@ -7,17 +7,15 @@ import org.tasks.analytics.Tracker;
 
 import javax.inject.Inject;
 
-import dagger.ObjectGraph;
-
-public abstract class InjectingAppCompatActivity extends AppCompatActivity implements Injector {
-    private ObjectGraph objectGraph;
+public abstract class InjectingAppCompatActivity extends AppCompatActivity implements InjectingActivity {
+    private ActivityComponent activityComponent;
 
     @Inject Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this));
-        inject(this);
+        activityComponent = ((InjectingApplication) getApplication()).getComponent().plus(new ActivityModule(this));
+        inject(activityComponent);
 
         super.onCreate(savedInstanceState);
     }
@@ -30,12 +28,7 @@ public abstract class InjectingAppCompatActivity extends AppCompatActivity imple
     }
 
     @Override
-    public void inject(Object caller) {
-        objectGraph.inject(caller);
-    }
-
-    @Override
-    public ObjectGraph getObjectGraph() {
-        return objectGraph;
+    public ActivityComponent getComponent() {
+        return activityComponent;
     }
 }

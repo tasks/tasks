@@ -7,6 +7,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.TestComponent;
 import org.tasks.makers.RemoteGtaskListMaker;
 
 import javax.inject.Inject;
@@ -34,6 +35,11 @@ public class GtasksListServiceTest extends DatabaseTestCase {
         super.setUp();
         storeObjectDao = spy(new StoreObjectDao(database));
         gtasksListService = new GtasksListService(storeObjectDao);
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     public void testCreateNewList() {
@@ -94,7 +100,6 @@ public class GtasksListServiceTest extends DatabaseTestCase {
     }
 
     private void setLists(TaskList... list) {
-        gtasksListService.updateLists(new TaskLists().setItems(
-                asList(list)));
+        gtasksListService.updateLists(asList(list));
     }
 }

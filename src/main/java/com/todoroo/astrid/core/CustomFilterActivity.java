@@ -28,7 +28,6 @@ import android.widget.ListView;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
@@ -45,6 +44,7 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.MenuColorizer;
@@ -176,6 +176,11 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
         updateList();
 
         setUpListeners();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private CriterionInstance getStartingUniverse() {

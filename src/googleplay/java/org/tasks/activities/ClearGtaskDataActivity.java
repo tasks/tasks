@@ -7,6 +7,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 import javax.inject.Inject;
@@ -36,5 +37,10 @@ public class ClearGtaskDataActivity extends InjectingAppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

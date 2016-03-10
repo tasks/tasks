@@ -3,7 +3,7 @@ package org.tasks.injection;
 import android.app.Activity;
 import android.app.DialogFragment;
 
-public class InjectingDialogFragment extends DialogFragment {
+public abstract class InjectingDialogFragment extends DialogFragment {
     private boolean injected;
 
     @Override
@@ -11,8 +11,12 @@ public class InjectingDialogFragment extends DialogFragment {
         super.onAttach(activity);
 
         if (!injected) {
-            ((Injector) activity).getObjectGraph().plus(new DialogFragmentModule(this)).inject(this);
+            inject(((InjectingActivity) activity)
+                    .getComponent()
+                    .plus(new DialogFragmentModule(this)));
             injected = true;
         }
     }
+
+    protected abstract void inject(DialogFragmentComponent component);
 }

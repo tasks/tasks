@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import org.tasks.R;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 
 import javax.inject.Inject;
@@ -32,5 +33,10 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
 
     private void remove(int resId) {
         getPreferenceScreen().removePreference(findPreference(getString(resId)));
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

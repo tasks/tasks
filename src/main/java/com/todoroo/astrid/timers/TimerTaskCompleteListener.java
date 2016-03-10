@@ -12,6 +12,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.notifications.NotificationManager;
 
@@ -38,5 +39,10 @@ public class TimerTaskCompleteListener extends InjectingBroadcastReceiver {
         }
 
         TimerPlugin.stopTimer(notificationManager, taskService, context, task);
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

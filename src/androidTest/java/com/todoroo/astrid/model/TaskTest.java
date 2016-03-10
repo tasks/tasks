@@ -10,6 +10,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.Snippet;
+import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -52,5 +53,10 @@ public class TaskTest extends InjectingTestCase {
         assertTrue(defaults.containsKey(Task.HIDE_UNTIL.name));
         assertTrue(defaults.containsKey(Task.COMPLETION_DATE.name));
         assertTrue(defaults.containsKey(Task.IMPORTANCE.name));
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 }

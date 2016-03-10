@@ -9,6 +9,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.tasks.R;
 import org.tasks.dialogs.MyDatePickerDialog;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.time.DateTime;
@@ -47,6 +48,11 @@ public class DatePickerActivity extends InjectingAppCompatActivity
         }
         dialog.setOnDismissListener(this);
         dialog.setOnDateSetListener(this);
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

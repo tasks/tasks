@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import org.tasks.calendars.AndroidCalendar;
 
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.ActivityPreferences;
@@ -34,6 +35,11 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
         if (permissionRequestor.requestCalendarPermissions()) {
             showDialog();
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

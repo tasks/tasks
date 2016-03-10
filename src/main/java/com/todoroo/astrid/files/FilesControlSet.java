@@ -36,6 +36,7 @@ import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.ui.TaskEditControlFragment;
 
 import java.io.File;
@@ -195,6 +196,11 @@ public class FilesControlSet extends TaskEditControlFragment {
 
     public void hideAddAttachmentButton() {
         addAttachment.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     public interface PlaybackExceptionHandler {

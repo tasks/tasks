@@ -16,11 +16,9 @@ import org.tasks.preferences.AppCompatPreferenceActivity;
 
 import javax.inject.Inject;
 
-import dagger.ObjectGraph;
+public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity implements InjectingActivity {
 
-public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity implements Injector {
-
-    private ObjectGraph objectGraph;
+    private ActivityComponent activityComponent;
 
     protected Toolbar toolbar;
 
@@ -29,8 +27,10 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        objectGraph = ((Injector) getApplication()).getObjectGraph().plus(new ActivityModule(this));
-        inject(this);
+        activityComponent = ((InjectingApplication) getApplication())
+                .getComponent()
+                .plus(new ActivityModule(this));
+        inject(activityComponent);
 
         activityPreferences.applyThemeAndStatusBarColor();
 
@@ -58,13 +58,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     }
 
     @Override
-    public void inject(Object caller) {
-        objectGraph.inject(caller);
-    }
-
-    @Override
-    public ObjectGraph getObjectGraph() {
-        return objectGraph;
+    public ActivityComponent getComponent() {
+        return activityComponent;
     }
 
     @Override

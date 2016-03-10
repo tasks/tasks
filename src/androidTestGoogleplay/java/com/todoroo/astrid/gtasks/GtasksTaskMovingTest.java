@@ -6,12 +6,13 @@
 package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
-import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
+
+import org.tasks.injection.TestComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -246,16 +247,19 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     protected void setUp() {
         super.setUp();
 
-        TaskLists lists = new TaskLists();
         List<TaskList> items = new ArrayList<>();
         TaskList taskList = new TaskList();
         taskList.setId("1");
         taskList.setTitle("Tim's Tasks");
         items.add(taskList);
-        lists.setItems(items);
-        gtasksListService.updateLists(lists);
+        gtasksListService.updateLists(items);
 
         list = gtasksListService.getLists().get(0);
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     /**

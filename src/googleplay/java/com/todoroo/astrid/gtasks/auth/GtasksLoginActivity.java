@@ -19,6 +19,7 @@ import org.tasks.AccountManager;
 import org.tasks.R;
 import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 import javax.inject.Inject;
@@ -60,6 +61,11 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
             }
             fragmentByTag.setAccountSelectionHandler(this);
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private void getAuthToken(String account) {

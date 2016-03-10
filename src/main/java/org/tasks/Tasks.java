@@ -21,6 +21,7 @@ import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.analytics.Tracker;
 import org.tasks.filters.FilterCounter;
+import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncThrottle;
@@ -87,5 +88,10 @@ public class Tasks extends InjectingApplication {
                 }
             }
         }
+    }
+
+    @Override
+    protected void inject(ApplicationComponent component) {
+        component.inject(this);
     }
 }

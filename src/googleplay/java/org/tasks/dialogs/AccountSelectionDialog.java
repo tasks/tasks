@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import org.tasks.AccountManager;
 import org.tasks.R;
+import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 
 import java.util.List;
@@ -16,6 +17,11 @@ import javax.inject.Inject;
 public class AccountSelectionDialog extends InjectingDialogFragment {
 
     private AccountSelectionHandler handler;
+
+    @Override
+    protected void inject(DialogFragmentComponent component) {
+        component.inject(this);
+    }
 
     public interface AccountSelectionHandler {
         void accountSelected(String account);

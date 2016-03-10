@@ -10,6 +10,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.injection.InjectingRemoteViewsService;
+import org.tasks.injection.RemoteViewsServiceComponent;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -46,5 +47,10 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
         return new ScrollableViewsFactory(subtasksHelper, preferences, this, filter,
                 widgetId, database, taskService);
+    }
+
+    @Override
+    protected void inject(RemoteViewsServiceComponent component) {
+        component.inject(this);
     }
 }

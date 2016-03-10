@@ -11,6 +11,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 import javax.inject.Inject;
@@ -35,6 +36,11 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
         startupService.onStartupApplication(this);
 
         readIntent();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

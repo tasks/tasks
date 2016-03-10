@@ -23,6 +23,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.preferences.ActivityPreferences;
@@ -136,5 +137,10 @@ public class FilterShortcutActivity extends InjectingListActivity {
     protected void onPause() {
         super.onPause();
         adapter.unregisterRecevier();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

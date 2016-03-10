@@ -22,6 +22,7 @@ import org.tasks.R;
 import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ForActivity;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.time.DateTime;
 
@@ -111,6 +112,11 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 eveningString,
                 nightString,
                 activity.getString(R.string.pick_a_time));
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     @Nullable

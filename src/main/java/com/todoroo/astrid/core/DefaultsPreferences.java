@@ -14,6 +14,7 @@ import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
@@ -90,5 +91,10 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

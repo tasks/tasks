@@ -11,6 +11,7 @@ import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.ui.ProgressDialogAsyncTask;
 
@@ -71,5 +72,10 @@ public class DeleteAllCalendarEventsActivity extends InjectingAppCompatActivity 
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

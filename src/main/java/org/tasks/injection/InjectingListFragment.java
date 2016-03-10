@@ -3,31 +3,21 @@ package org.tasks.injection;
 import android.app.Activity;
 import android.app.ListFragment;
 
-import dagger.ObjectGraph;
-
-public class InjectingListFragment extends ListFragment implements Injector {
+public abstract class InjectingListFragment extends ListFragment {
 
     private boolean injected;
-    private ObjectGraph objectGraph;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
         if (!injected) {
-            objectGraph = ((Injector) activity).getObjectGraph().plus(new FragmentModule(this));
-            inject(this);
+            inject(((InjectingActivity) activity)
+                    .getComponent()
+                    .plus(new FragmentModule(this)));
             injected = true;
         }
     }
 
-    @Override
-    public void inject(Object caller) {
-        objectGraph.inject(caller);
-    }
-
-    @Override
-    public ObjectGraph getObjectGraph() {
-        return objectGraph;
-    }
+    public abstract void inject(FragmentComponent component);
 }

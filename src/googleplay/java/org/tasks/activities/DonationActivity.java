@@ -12,6 +12,7 @@ import org.tasks.billing.IabResult;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.Purchase;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 import java.util.ArrayList;
@@ -71,6 +72,11 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private void initiateDonation(int amount) {

@@ -25,6 +25,7 @@ import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 
 import org.tasks.R;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
@@ -107,6 +108,11 @@ public class BeastModePreferences extends InjectingAppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

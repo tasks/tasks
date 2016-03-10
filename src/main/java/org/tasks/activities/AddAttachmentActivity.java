@@ -17,6 +17,7 @@ import com.todoroo.astrid.files.AACRecordingActivity;
 import org.tasks.R;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.files.FileExplore;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 
@@ -56,6 +57,11 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
         }
         dialog.setOnCancelListener(this);
         dialog.setAddAttachmentCallback(this);
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

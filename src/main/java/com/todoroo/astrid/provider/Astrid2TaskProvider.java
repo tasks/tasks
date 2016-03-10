@@ -24,6 +24,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 
+import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 import org.tasks.ui.CheckBoxes;
 
@@ -108,6 +109,11 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	public boolean onCreate() {
 		super.onCreate();
 		return false;
+	}
+
+	@Override
+	protected void inject(ContentProviderComponent component) {
+		component.inject(this);
 	}
 
 	/**

@@ -10,6 +10,7 @@ import com.todoroo.astrid.core.SortHelper;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
@@ -99,6 +100,11 @@ public class SortActivity extends InjectingAppCompatActivity {
                 .show();
 
         enableReverse();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private void enableReverse() {

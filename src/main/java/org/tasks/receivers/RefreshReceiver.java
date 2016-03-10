@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.tasks.Broadcaster;
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import javax.inject.Inject;
@@ -21,5 +22,10 @@ public class RefreshReceiver extends InjectingBroadcastReceiver {
         Timber.d("onReceive(context, %s)", intent);
 
         broadcaster.refresh();
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

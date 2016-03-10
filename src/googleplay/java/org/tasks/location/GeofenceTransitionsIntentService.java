@@ -9,6 +9,7 @@ import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Notifier;
 import org.tasks.injection.InjectingIntentService;
+import org.tasks.injection.IntentServiceComponent;
 
 import java.util.List;
 
@@ -45,6 +46,11 @@ public class GeofenceTransitionsIntentService extends InjectingIntentService {
         } else {
             Timber.w("invalid geofence transition type: %s", transitionType);
         }
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 
     private void triggerNotification(com.google.android.gms.location.Geofence triggeringGeofence) {

@@ -29,6 +29,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
@@ -335,5 +336,10 @@ public class CalendarControlSet extends TaskEditControlFragment {
         }
 
         return false;
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 }

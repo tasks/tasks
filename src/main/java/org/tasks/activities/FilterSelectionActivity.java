@@ -11,6 +11,7 @@ import com.todoroo.astrid.api.Filter;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -65,5 +66,10 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

@@ -11,6 +11,7 @@ import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.injection.FragmentComponent;
 
 import butterknife.Bind;
 import butterknife.OnTextChanged;
@@ -77,5 +78,10 @@ public class DescriptionControlSet extends TaskEditControlFragment {
     @Override
     public boolean hasChanges(Task original) {
         return !description.equals(original.getNotes());
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 }

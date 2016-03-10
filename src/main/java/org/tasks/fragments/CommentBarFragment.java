@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.TaskEditControlFragment;
@@ -83,6 +84,11 @@ public class CommentBarFragment extends TaskEditControlFragment {
         super.onAttach(activity);
 
         callback = (CommentBarFragmentCallback) activity;
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     @Nullable

@@ -2,28 +2,26 @@ package org.tasks.injection;
 
 import android.app.Application;
 
-import dagger.ObjectGraph;
+public abstract class InjectingApplication extends Application {
 
-public class InjectingApplication extends Application implements Injector {
-
-    private ObjectGraph objectGraph;
+    private ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        objectGraph = Dagger.getObjectGraph(this);
+        applicationComponent = DaggerApplicationComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
 
-        inject(this);
+        inject(applicationComponent);
     }
 
-    @Override
-    public void inject(Object caller) {
-        objectGraph.inject(this);
+    protected abstract void inject(ApplicationComponent component);
+
+    public ApplicationComponent getComponent() {
+        return applicationComponent;
     }
 
-    @Override
-    public ObjectGraph getObjectGraph() {
-        return objectGraph;
-    }
+
 }

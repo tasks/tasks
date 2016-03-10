@@ -9,6 +9,7 @@ import com.todoroo.astrid.api.Filter;
 
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 
 import javax.inject.Inject;
@@ -104,5 +105,10 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

@@ -13,6 +13,7 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.TitleParser;
 
 import org.tasks.R;
+import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
@@ -35,7 +36,12 @@ public class TitleParserTest extends DatabaseTestCase {
         preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
     }
 
-  /** test that completing a task w/ no regular expressions creates a simple task with no date, no repeat, no lists*/
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
+    }
+
+    /** test that completing a task w/ no regular expressions creates a simple task with no date, no repeat, no lists*/
   public void testNoRegexes() throws Exception{
       Task task = new Task();
       Task nothing = new Task();

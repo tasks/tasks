@@ -10,6 +10,7 @@ import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 
 import javax.inject.Inject;
@@ -81,5 +82,10 @@ public class BasicPreferences extends InjectingPreferenceActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

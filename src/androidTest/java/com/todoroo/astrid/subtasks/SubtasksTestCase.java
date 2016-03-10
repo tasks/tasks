@@ -9,6 +9,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -44,6 +45,11 @@ public class SubtasksTestCase extends DatabaseTestCase {
         filter = BuiltInFilterExposer.getMyTasksFilter(getContext().getResources());
         preferences.clear(SubtasksUpdater.ACTIVE_TASKS_ORDER);
         updater = new SubtasksFilterUpdater(taskListMetadataDao, taskService);
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     protected void expectParentAndPosition(Task task, Task parent, int positionInParent) {

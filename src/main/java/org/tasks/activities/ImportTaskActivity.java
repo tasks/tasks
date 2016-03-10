@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 
 import org.tasks.files.FileExplore;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -26,6 +27,11 @@ public class ImportTaskActivity extends InjectingAppCompatActivity {
         startActivityForResult(new Intent(this, FileExplore.class) {{
             putExtra(FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
         }}, REQUEST_PICKER);
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

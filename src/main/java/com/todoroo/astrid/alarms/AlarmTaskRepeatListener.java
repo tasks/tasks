@@ -13,6 +13,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import java.util.LinkedHashSet;
@@ -51,5 +52,10 @@ public class AlarmTaskRepeatListener extends InjectingBroadcastReceiver {
         if (!alarms.isEmpty()) {
             alarmService.synchronizeAlarms(taskId, alarms);
         }
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

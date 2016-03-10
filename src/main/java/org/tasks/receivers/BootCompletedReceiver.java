@@ -3,6 +3,7 @@ package org.tasks.receivers;
 import android.content.Context;
 import android.content.Intent;
 
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.scheduling.BackgroundScheduler;
 
@@ -21,5 +22,10 @@ public class BootCompletedReceiver extends InjectingBroadcastReceiver {
         Timber.d("onReceive(context, %s)", intent);
 
         backgroundScheduler.scheduleEverything();
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

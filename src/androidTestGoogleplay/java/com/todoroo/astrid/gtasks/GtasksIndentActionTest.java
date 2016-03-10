@@ -6,12 +6,13 @@
 package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
-import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
+
+import org.tasks.injection.TestComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,16 +141,19 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     protected void setUp() {
         super.setUp();
 
-        TaskLists lists = new TaskLists();
         List<TaskList> items = new ArrayList<>();
         TaskList list = new TaskList();
         list.setId("list");
         list.setTitle("Test Tasks");
         items.add(list);
-        lists.setItems(items);
-        gtasksListService.updateLists(lists);
+        gtasksListService.updateLists(items);
 
         storeList = gtasksListService.getLists().get(0);
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     private Task taskWithMetadata(long order, int indentation) {

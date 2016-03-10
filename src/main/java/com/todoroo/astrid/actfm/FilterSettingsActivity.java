@@ -24,6 +24,7 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.ui.MenuColorizer;
@@ -68,6 +69,11 @@ public class FilterSettingsActivity extends InjectingAppCompatActivity {
         }
 
         filterName.setText(filter.listingTitle);
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private void save() {

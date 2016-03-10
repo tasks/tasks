@@ -3,6 +3,7 @@ package org.tasks.scheduling;
 import android.content.Intent;
 
 import org.tasks.injection.InjectingIntentService;
+import org.tasks.injection.IntentServiceComponent;
 import org.tasks.location.GeofenceService;
 
 import javax.inject.Inject;
@@ -25,5 +26,10 @@ public class GeofenceSchedulingIntentService extends InjectingIntentService {
 
         geofenceService.cancelGeofences();
         geofenceService.setupGeofences();
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 }

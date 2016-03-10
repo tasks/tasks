@@ -15,6 +15,7 @@ import com.todoroo.astrid.service.StartupService;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.BasicPreferences;
@@ -114,6 +115,11 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
         setupUi();
 
         addListeners();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private void setupUi() {

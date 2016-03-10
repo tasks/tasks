@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import org.tasks.R;
+import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Device;
 
@@ -15,6 +16,11 @@ import javax.inject.Inject;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class AddAttachmentDialog extends InjectingDialogFragment {
+
+    @Override
+    protected void inject(DialogFragmentComponent component) {
+        component.inject(this);
+    }
 
     public interface AddAttachmentCallback {
         void takePicture();

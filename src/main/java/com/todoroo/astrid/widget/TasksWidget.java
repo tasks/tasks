@@ -26,6 +26,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
@@ -73,6 +74,11 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 appWidgetManager.notifyAppWidgetViewDataChanged(widgetIds, R.id.list_view);
                 break;
         }
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 
     @Override

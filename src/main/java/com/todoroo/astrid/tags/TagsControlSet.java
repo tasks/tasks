@@ -43,6 +43,7 @@ import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.ui.TaskEditControlFragment;
 
 import java.util.ArrayList;
@@ -400,5 +401,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
             metadataDao.update(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
                     TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tag.getUuid())), deleteTemplate);
         }
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 }

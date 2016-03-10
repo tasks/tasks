@@ -11,9 +11,10 @@ public abstract class InjectingIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        ((Injector) getApplication())
-                .getObjectGraph()
-                .plus(new IntentServiceModule())
-                .inject(this);
+        inject(((InjectingApplication) getApplication())
+                .getComponent()
+                .plus(new IntentServiceModule()));
     }
+
+    protected abstract void inject(IntentServiceComponent component);
 }

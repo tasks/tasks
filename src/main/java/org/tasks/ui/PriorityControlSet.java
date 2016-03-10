@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
 
@@ -46,6 +47,11 @@ public class PriorityControlSet extends TaskEditControlFragment {
         super.onAttach(activity);
 
         callback = (OnPriorityChanged) activity;
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     @OnClick({R.id.priority_high, R.id.priority_medium, R.id.priority_low, R.id.priority_none})

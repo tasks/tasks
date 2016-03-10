@@ -24,6 +24,7 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.preferences.ActivityPreferences;
 
@@ -163,5 +164,10 @@ public class WidgetConfigActivity extends InjectingListActivity {
                         flattenedExtras);
             }
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

@@ -14,6 +14,7 @@ import com.todoroo.astrid.voice.AACRecorder;
 import com.todoroo.astrid.voice.AACRecorder.AACRecorderCallbacks;
 
 import org.tasks.R;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
@@ -47,6 +48,11 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements 
         if (permissionRequestor.requestMic()) {
             startRecording();
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private void startRecording() {

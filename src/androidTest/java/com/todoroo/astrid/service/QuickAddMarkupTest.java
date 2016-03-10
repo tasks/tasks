@@ -8,6 +8,8 @@ package com.todoroo.astrid.service;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.TestComponent;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +23,11 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
     @Override
     protected void setUp() {
         super.setUp();
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component.inject(this);
     }
 
     public void testTags() {

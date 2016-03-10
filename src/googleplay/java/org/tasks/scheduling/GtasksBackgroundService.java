@@ -5,6 +5,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.RecordSyncStatusCallback;
 
@@ -50,5 +51,10 @@ public class GtasksBackgroundService extends RecurringIntervalIntentService {
     @Override
     String getLastRunPreference() {
         return "gtasks_last_sync";
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 }

@@ -13,6 +13,7 @@ import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.AndroidCalendarEventAttendee;
 import org.tasks.calendars.CalendarEventProvider;
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.CalendarNotificationIntentService;
@@ -64,6 +65,11 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
             // Some cursor read failed, or badly formed uri
             Timber.e(e, e.getMessage());
         }
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 
     private void showCalReminder(Context context, final long eventId, final boolean fromPostpone) {

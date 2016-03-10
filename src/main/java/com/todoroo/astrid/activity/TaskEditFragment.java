@@ -38,6 +38,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
@@ -102,6 +103,11 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         super.onAttach(activity);
 
         callback = (TaskEditFragmentCallbackHandler) activity;
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     @Override

@@ -13,19 +13,20 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-import org.tasks.injection.TestModule;
+import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.Subcomponent;
 
 @SuppressWarnings("nls")
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
-    @Module(addsTo = TestModule.class, injects = {GtasksMetadataServiceTest.class})
-    static class GtasksMetadataServiceTestModule {
+    @Module
+    public class GtasksMetadataServiceTestModule {
         private final GtasksTestPreferenceService service;
 
         public GtasksMetadataServiceTestModule(Context context) {
@@ -41,6 +42,11 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         public GtasksPreferenceService getGtasksPreferenceService() {
             return service;
         }
+    }
+
+    @Subcomponent(modules = GtasksMetadataServiceTest.GtasksMetadataServiceTestModule.class)
+    public interface GtasksMetadataServiceTestComponent {
+        void inject(GtasksMetadataServiceTest gtasksMetadataServiceTest);
     }
 
     @Inject GtasksTestPreferenceService preferences;
@@ -59,6 +65,13 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         if (preferences.getDefaultList() == null) {
             preferences.setDefaultList("list");
         }
+    }
+
+    @Override
+    protected void inject(TestComponent component) {
+        component
+                .plus(new GtasksMetadataServiceTestModule(getContext()))
+                .inject(this);
     }
 
     public void testMetadataFound() {

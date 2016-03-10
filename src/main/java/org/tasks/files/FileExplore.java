@@ -10,6 +10,7 @@ import android.os.Environment;
 import com.google.common.base.Strings;
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
@@ -43,6 +44,11 @@ public class FileExplore extends InjectingAppCompatActivity {
         if (permissionRequestor.requestFileWritePermission()) {
             launchPicker();
         }
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     private void launchPicker() {

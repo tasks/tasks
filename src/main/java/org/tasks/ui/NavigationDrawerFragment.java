@@ -26,6 +26,7 @@ import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.AppearancePreferences;
 
@@ -197,6 +198,11 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallbacks = (OnFilterItemClickedListener) activity;
+    }
+
+    @Override
+    protected void inject(FragmentComponent component) {
+        component.inject(this);
     }
 
     @Override

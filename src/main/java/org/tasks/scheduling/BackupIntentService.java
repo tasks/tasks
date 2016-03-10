@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.todoroo.astrid.backup.TasksXmlExporter;
 
+import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
@@ -95,5 +96,10 @@ public class BackupIntentService extends MidnightIntentService {
                 Timber.i("Unable to delete: %s", files[i]);
             }
         }
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 }

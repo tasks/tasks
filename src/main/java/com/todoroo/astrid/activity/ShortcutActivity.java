@@ -14,6 +14,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 import java.util.Set;
@@ -56,6 +57,11 @@ public class ShortcutActivity extends InjectingAppCompatActivity {
         super.onCreate(savedInstanceState);
 
         launchShortcut();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
 import javax.inject.Inject;
@@ -55,6 +56,11 @@ public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
                 Timber.e(e, e.getMessage());
             }
         }
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 
 }

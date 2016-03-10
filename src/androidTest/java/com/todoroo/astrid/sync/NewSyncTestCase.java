@@ -6,6 +6,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.TestComponent;
+
 import javax.inject.Inject;
 
 public class NewSyncTestCase extends DatabaseTestCase {
@@ -39,5 +41,10 @@ public class NewSyncTestCase extends DatabaseTestCase {
 
 	protected TagData createTagData() {
 		return createTagData("new tag");
+	}
+
+	@Override
+	protected void inject(TestComponent component) {
+		component.inject(this);
 	}
 }

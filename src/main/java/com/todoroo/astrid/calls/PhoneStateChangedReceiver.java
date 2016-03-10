@@ -18,6 +18,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.Notifier;
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
 
@@ -130,6 +131,11 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                 }
             }.start();
         }
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 
     private String digitsOnly(String number) {

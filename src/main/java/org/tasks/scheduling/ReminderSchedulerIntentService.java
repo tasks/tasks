@@ -7,6 +7,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.injection.InjectingIntentService;
+import org.tasks.injection.IntentServiceComponent;
 
 import javax.inject.Inject;
 
@@ -30,5 +31,10 @@ public class ReminderSchedulerIntentService extends InjectingIntentService {
 
         reminderService.scheduleAllAlarms(taskDao);
         alarmService.scheduleAllAlarms();
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 }

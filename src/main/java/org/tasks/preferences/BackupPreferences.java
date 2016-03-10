@@ -7,6 +7,7 @@ import android.preference.Preference;
 import org.tasks.files.FileExplore;
 
 import org.tasks.R;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 
 import java.io.File;
@@ -62,5 +63,10 @@ public class BackupPreferences extends InjectingPreferenceActivity {
     private String getBackupDirectory() {
         File dir = preferences.getBackupDirectory();
         return dir == null ? "" : dir.getAbsolutePath();
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
     }
 }

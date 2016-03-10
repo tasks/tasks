@@ -22,6 +22,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.time.DateTime;
 
@@ -89,6 +90,11 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
             context.sendOrderedBroadcast(broadcastIntent, null);
         }
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 
     static boolean repeatFinished(long newDueDate, long repeatUntil) {
