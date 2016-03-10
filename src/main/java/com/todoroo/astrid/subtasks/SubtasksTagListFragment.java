@@ -23,6 +23,7 @@ import com.todoroo.astrid.service.TaskService;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.ActivityPreferences;
 
 import javax.inject.Inject;
@@ -109,5 +110,12 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
         return helper.createTaskAdapter(context, cursor, sqlQueryTemplate);
+    }
+
+    @Override
+    public void inject(FragmentComponent component) {
+        super.inject(component);
+
+        component.inject(this);
     }
 }

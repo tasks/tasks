@@ -22,6 +22,7 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.ActivityPreferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 import org.tasks.sync.RecordSyncStatusCallback;
@@ -107,5 +108,12 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Override
     public Property<?>[] taskProperties() {
         return helper.taskProperties();
+    }
+
+    @Override
+    public void inject(FragmentComponent component) {
+        super.inject(component);
+
+        component.inject(this);
     }
 }

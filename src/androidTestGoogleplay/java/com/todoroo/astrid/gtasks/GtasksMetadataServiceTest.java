@@ -126,9 +126,4 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         taskService.save(task);
         return task;
     }
-
-    @Override
-    protected Object getModule() {
-        return new GtasksMetadataServiceTestModule(getContext());
-    }
 }

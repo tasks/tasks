@@ -13,6 +13,8 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 
+import org.tasks.injection.FragmentComponent;
+
 import javax.inject.Inject;
 
 public class TagViewFragment extends TaskListFragment {
@@ -92,5 +94,12 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     protected boolean hasDraggableOption() {
         return tagData != null;
+    }
+
+    @Override
+    public void inject(FragmentComponent component) {
+        super.inject(component);
+
+        component.inject(this);
     }
 }

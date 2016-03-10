@@ -1,9 +1,13 @@
 package org.tasks.injection;
 
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.files.FilesControlSet;
+import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.repeats.RepeatControlSet;
+import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
@@ -54,4 +58,12 @@ public interface FragmentComponent {
     void inject(CalendarControlSet calendarControlSet);
 
     void inject(TaskListFragment taskListFragment);
+
+    void inject(TagViewFragment tagViewFragment);
+
+    void inject(GtasksListFragment gtasksListFragment);
+
+    void inject(SubtasksListFragment subtasksListFragment);
+
+    void inject(SubtasksTagListFragment subtasksTagListFragment);
 }

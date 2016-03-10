@@ -170,9 +170,4 @@ public class NotificationTests extends DatabaseTestCase {
                 .plus(new NotificationTestsModule())
                 .inject(this);
     }
-
-    @Override
-    protected Object getModule() {
-        return new NotificationTestsModule();
-    }
 }

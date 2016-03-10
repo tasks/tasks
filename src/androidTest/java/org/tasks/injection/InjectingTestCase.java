@@ -13,16 +13,8 @@ public abstract class InjectingTestCase extends AndroidTestCase {
         TestComponent component = DaggerTestComponent.builder()
                 .testModule(new TestModule(getContext()))
                 .build();
-        Object extension = getModule();
-        if (extension != null) {
-//            objectGraph = objectGraph.plus(extension);
-        }
         inject(component);
     }
 
     protected abstract void inject(TestComponent component);
-
-    protected Object getModule() {
-        return null;
-    }
 }
