@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.9'
+    gradleVersion = '2.10'
 }
 
 buildscript {
@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.0.0-beta6'
     }
 }
 
@@ -50,11 +50,6 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
             signingConfig signingConfigs.release
-        }
-        // https://code.google.com/p/android/issues/detail?id=123771
-        debuggable.initWith(buildTypes.debug)
-        debuggable {
-            testCoverageEnabled false
         }
     }
 
