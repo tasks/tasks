@@ -19,6 +19,7 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
@@ -146,6 +147,10 @@ public class SubtasksListFragment extends TaskListFragment {
     public void inject(FragmentComponent component) {
         super.inject(component);
 
-        component.inject(this);
+        if (this instanceof GtasksListFragment) {
+            component.inject((GtasksListFragment) this);
+        } else {
+            component.inject(this);
+        }
     }
 }
