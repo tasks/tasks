@@ -78,12 +78,8 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
                 .setAction(R.string.DLG_undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        task.setDueDate(oldDueDate);
+                        task.setDueDateAdjustingHideUntil(oldDueDate);
                         task.setCompletionDate(0L);
-                        long hideUntil = task.getHideUntil();
-                        if (hideUntil > 0) {
-                            task.setHideUntil(hideUntil - (newDueDate - oldDueDate));
-                        }
                         taskService.save(task);
                     }
                 })

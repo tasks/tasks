@@ -5,13 +5,16 @@ import android.test.AndroidTestCase;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.preferences.Preferences;
-import org.tasks.scheduling.AlarmManager;
 import org.tasks.time.DateTime;
 
+import static com.natpryce.makeiteasy.MakeItEasy.with;
+import static com.todoroo.astrid.data.Task.NOTIFY_AT_DEADLINE;
 import static com.todoroo.astrid.reminders.ReminderService.NO_ALARM;
-import static org.mockito.Mockito.mock;
-import static org.tasks.Freeze.freezeAt;
-import static org.tasks.Freeze.thaw;
+import static org.tasks.makers.TaskMaker.DUE_DATE;
+import static org.tasks.makers.TaskMaker.DUE_TIME;
+import static org.tasks.makers.TaskMaker.REMINDERS;
+import static org.tasks.makers.TaskMaker.REMINDER_LAST;
+import static org.tasks.makers.TaskMaker.newTask;
 
 public class NotifyAtDeadlineTest extends AndroidTestCase {
 
@@ -20,55 +23,38 @@ public class NotifyAtDeadlineTest extends AndroidTestCase {
     @Override
     public void setUp() {
         Preferences preferences = new Preferences(getContext(), null);
-        reminderService = new ReminderService(getContext(), preferences, mock(AlarmManager.class));
-        freezeAt(new DateTime(2014, 1, 24, 17, 23, 37));
-    }
-
-    @Override
-    public void tearDown() {
-        thaw();
+        reminderService = new ReminderService(getContext(), preferences, null);
     }
 
     public void testNoReminderWhenNoDueDate() {
-        Task task = new Task() {{
-            setReminderFlags(Task.NOTIFY_AT_DEADLINE);
-        }};
+        Task task = newTask(with(REMINDERS, NOTIFY_AT_DEADLINE));
         assertEquals(NO_ALARM, reminderService.calculateNextDueDateReminder(task));
     }
 
     public void testNoReminderWhenNotifyAtDeadlineFlagNotSet() {
-        Task task = new Task() {{
-            setDueDate(URGENCY_SPECIFIC_DAY_TIME, new DateTime(2014, 1, 24, 19, 23).getMillis());
-        }};
+        Task task = newTask(with(DUE_TIME, new DateTime(2014, 1, 24, 19, 23)));
         assertEquals(NO_ALARM, reminderService.calculateNextDueDateReminder(task));
     }
 
     public void testScheduleReminderAtDueTime() {
         final DateTime dueDate = new DateTime(2014, 1, 24, 19, 23);
-        Task task = new Task() {{
-            setDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getMillis());
-            setReminderFlags(Task.NOTIFY_AT_DEADLINE);
-        }};
+        Task task = newTask(with(DUE_TIME, dueDate), with(REMINDERS, NOTIFY_AT_DEADLINE));
         assertEquals(dueDate.plusSeconds(1).getMillis(), reminderService.calculateNextDueDateReminder(task));
     }
 
     public void testScheduleReminderAtDefaultDueTime() {
         final DateTime dueDate = new DateTime(2015, 12, 29, 12, 0);
-        Task task = new Task() {{
-            setDueDate(URGENCY_SPECIFIC_DAY, dueDate.getMillis());
-            setReminderFlags(Task.NOTIFY_AT_DEADLINE);
-        }};
+        Task task = newTask(with(DUE_DATE, dueDate), with(REMINDERS, NOTIFY_AT_DEADLINE));
         assertEquals(dueDate.withHourOfDay(18).getMillis(),
                 reminderService.calculateNextDueDateReminder(task));
     }
 
     public void testNoReminderIfAlreadyRemindedPastDueDate() {
         final DateTime dueDate = new DateTime(2015, 12, 29, 19, 23);
-        Task task = new Task() {{
-            setDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getMillis());
-            setReminderLast(dueDate.plusSeconds(1).getMillis());
-            setReminderFlags(Task.NOTIFY_AT_DEADLINE);
-        }};
+        Task task = newTask(
+                with(DUE_TIME, dueDate),
+                with(REMINDER_LAST, dueDate.plusSeconds(1)),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
         assertEquals(NO_ALARM, reminderService.calculateNextDueDateReminder(task));
     }
 }

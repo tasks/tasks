@@ -395,12 +395,19 @@ public class Task extends RemoteModel {
         return getValue(DUE_DATE);
     }
 
-    public void setDueDate(int setting, long time) {
-        setDueDate(createDueDate(setting, time));
-    }
-
     public void setDueDate(Long dueDate) {
         setValue(DUE_DATE, dueDate);
+    }
+
+    public void setDueDateAdjustingHideUntil(Long dueDate) {
+        long oldDueDate = getValue(DUE_DATE);
+        if (oldDueDate > 0) {
+            long hideUntil = getValue(HIDE_UNTIL);
+            if (hideUntil > 0) {
+                setHideUntil(dueDate > 0 ? hideUntil + dueDate - oldDueDate : 0);
+            }
+        }
+        setDueDate(dueDate);
     }
 
     public String getRecurrence() {

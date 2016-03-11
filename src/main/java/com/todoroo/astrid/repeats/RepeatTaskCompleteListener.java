@@ -102,15 +102,9 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
     }
 
     public static void rescheduleTask(GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
-        long hideUntil = task.getHideUntil();
-        if(hideUntil > 0 && task.getDueDate() > 0) {
-            hideUntil += newDueDate - task.getDueDate();
-        }
-
         task.setReminderSnooze(0L);
         task.setCompletionDate(0L);
-        task.setDueDate(newDueDate);
-        task.setHideUntil(hideUntil);
+        task.setDueDateAdjustingHideUntil(newDueDate);
         task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
 
         gcalHelper.rescheduleRepeatingTask(task);

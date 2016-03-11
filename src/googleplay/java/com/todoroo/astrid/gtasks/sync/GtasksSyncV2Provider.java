@@ -295,7 +295,7 @@ public class GtasksSyncV2Provider {
         //  merge astrid dates with google dates
 
         if(task.task.isSaved()) {
-            Task local = taskService.fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
+            Task local = taskService.fetchById(task.task.getId(), Task.PROPERTIES);
             if (local == null) {
                 task.task.clearValue(Task.ID);
                 task.task.clearValue(Task.UUID);
@@ -313,15 +313,20 @@ public class GtasksSyncV2Provider {
         }
     }
 
-    private void mergeDates(Task remote, Task local) {
-        if(remote.hasDueDate() && local.hasDueTime()) {
+    static void mergeDates(Task remote, Task local) {
+        if (remote.hasDueDate() && local.hasDueTime()) {
             DateTime oldDate = newDateTime(local.getDueDate());
             DateTime newDate = newDateTime(remote.getDueDate())
                     .withHourOfDay(oldDate.getHourOfDay())
                     .withMinuteOfHour(oldDate.getMinuteOfHour())
                     .withSecondOfMinute(oldDate.getSecondOfMinute());
-            long setDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate.getMillis());
-            remote.setDueDate(setDate);
+            local.setDueDateAdjustingHideUntil(
+                    Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate.getMillis()));
+        } else {
+            local.setDueDateAdjustingHideUntil(remote.getDueDate());
         }
+
+        remote.setHideUntil(local.getHideUntil());
+        remote.setDueDate(local.getDueDate());
     }
 }
