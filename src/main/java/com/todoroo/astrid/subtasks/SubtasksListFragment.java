@@ -145,8 +145,6 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     public void inject(FragmentComponent component) {
-        super.inject(component);
-
         if (this instanceof GtasksListFragment) {
             component.inject((GtasksListFragment) this);
         } else {

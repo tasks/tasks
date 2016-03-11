@@ -98,8 +98,6 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     public void inject(FragmentComponent component) {
-        super.inject(component);
-
         component.inject(this);
     }
 }

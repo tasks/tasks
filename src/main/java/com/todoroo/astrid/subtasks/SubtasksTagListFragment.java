@@ -114,8 +114,6 @@ public class SubtasksTagListFragment extends TagViewFragment {
 
     @Override
     public void inject(FragmentComponent component) {
-        super.inject(component);
-
         component.inject(this);
     }
 }
