@@ -91,6 +91,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
+    googleplayCompile 'com.twofortyfouram:android-plugin-api-for-locale:[1.0.1,2.0['
     googleplayCompile 'com.google.android.gms:play-services-location:8.4.0'
     googleplayCompile 'com.google.android.gms:play-services-analytics:8.4.0'
     googleplayCompile('com.google.apis:google-api-services-tasks:v1-rev41-1.21.0') {

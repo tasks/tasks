@@ -9,7 +9,7 @@
                 android:data="http://tasks.org/privacy.html" />
         </Preference>
 
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:key="@string/p_collect_statistics"
             android:summary="@string/send_anonymous_statistics_summary"

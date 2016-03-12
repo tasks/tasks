@@ -834,7 +834,7 @@ File %1$s contained %2$s.\n\n
     <string name="show_completed">Show completed</string>
     <string name="reverse">Reverse</string>
     <string name="task_count">%s Tasks</string>
-    <string name="get_plugins">Get Plug-ins</string>
+    <string name="get_plugins">In-app purchases</string>
     <string name="no_application_found">No application found to open attachment</string>
     <string name="add_attachment">Add attachment</string>
     <string name="high_priority">High</string>
@@ -859,6 +859,10 @@ File %1$s contained %2$s.\n\n
   <string name="no_title">(No title)</string>
   <string name="back_button_saves_task">Back button saves task</string>
   <string name="default_list">Default list</string>
+  <string name="plugin_description">Tasks is an open source project maintained by a single developer. Niche features are offered as in-app purchases in order to support their development.</string>
+  <string name="tesla_unread_description">Display a badge for the number of active tasks in your default list. Requires TeslaUnread for Nova Launcher</string>
+  <string name="tasker_description">Context-aware list notifications. Requires Tasker or Locale</string>
+  <string name="donate_summary">Donations are greatly appreciated</string>
 
   <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

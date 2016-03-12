@@ -32,9 +32,15 @@ import android.util.Log;
 import com.android.vending.billing.IInAppBillingService;
 
 import org.json.JSONException;
+import org.tasks.BuildConfig;
+import org.tasks.R;
+import org.tasks.injection.ForApplication;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 
 /**
@@ -69,10 +75,11 @@ import java.util.List;
  * @author Bruno Oliveira (Google)
  *
  */
+@Singleton
 public class IabHelper {
     // Is debug logging enabled?
-    boolean mDebugLog = false;
-    String mDebugTag = "IabHelper";
+    boolean mDebugLog = BuildConfig.DEBUG;
+    String mDebugTag = BuildConfig.APPLICATION_ID;
 
     // Is setup done?
     boolean mSetupDone = false;
@@ -149,35 +156,11 @@ public class IabHelper {
     public static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
     public static final String GET_SKU_DETAILS_ITEM_TYPE_LIST = "ITEM_TYPE_LIST";
 
-    /**
-     * Creates an instance. After creation, it will not yet be ready to use. You must perform
-     * setup by calling {@link #startSetup} and wait for setup to complete. This constructor does not
-     * block and is safe to call from a UI thread.
-     *
-     * @param ctx Your application or Activity context. Needed to bind to the in-app billing service.
-     * @param base64PublicKey Your application's public key, encoded in base64.
-     *     This is used for verification of purchase signatures. You can find your app's base64-encoded
-     *     public key in your application's page on Google Play Developer Console. Note that this
-     *     is NOT your "developer public key".
-     */
-    public IabHelper(Context ctx, String base64PublicKey) {
+    @Inject
+    public IabHelper(@ForApplication Context ctx) {
         mContext = ctx.getApplicationContext();
-        mSignatureBase64 = base64PublicKey;
+        mSignatureBase64 = ctx.getString(R.string.gp_key);
         logDebug("IAB helper created.");
-    }
-
-    /**
-     * Enables or disable debug logging through LogCat.
-     */
-    public void enableDebugLogging(boolean enable, String tag) {
-        checkNotDisposed();
-        mDebugLog = enable;
-        mDebugTag = tag;
-    }
-
-    public void enableDebugLogging(boolean enable) {
-        checkNotDisposed();
-        mDebugLog = enable;
     }
 
     /**
@@ -190,7 +173,7 @@ public class IabHelper {
          *
          * @param result The result of the setup process.
          */
-        public void onIabSetupFinished(IabResult result);
+        void onIabSetupFinished(IabResult result);
     }
 
     /**

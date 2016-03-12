@@ -5,11 +5,27 @@
         android:title="@string/get_plugins">
 
         <Preference
-            android:title="Tasker/Locale">
+            android:selectable="false"
+            android:summary="@string/plugin_description"/>
+
+        <Preference
+            android:title="@string/TLA_menu_donate"
+            android:summary="@string/donate_summary">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="market://details?id=org.tasks.locale" />
+                android:targetPackage="org.tasks"
+                android:targetClass="org.tasks.activities.DonationActivity" />
         </Preference>
+
+        <SwitchPreference
+            android:key="@string/p_tesla_unread_enabled"
+            android:title="TeslaUnread"
+            android:summary="@string/tesla_unread_description"/>
+
+        <SwitchPreference
+            android:key="@string/p_tasker_enabled"
+            android:title="Tasker/Locale"
+            android:summary="@string/tasker_description"/>
 
     </PreferenceCategory>
 
