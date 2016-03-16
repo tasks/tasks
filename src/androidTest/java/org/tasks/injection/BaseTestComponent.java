@@ -2,11 +2,6 @@ package org.tasks.injection;
 
 import com.todoroo.astrid.dao.MetadataDaoTests;
 import com.todoroo.astrid.dao.TaskDaoTests;
-import com.todoroo.astrid.gtasks.GtasksIndentActionTest;
-import com.todoroo.astrid.gtasks.GtasksListServiceTest;
-import com.todoroo.astrid.gtasks.GtasksMetadataServiceTest;
-import com.todoroo.astrid.gtasks.GtasksTaskListUpdaterTest;
-import com.todoroo.astrid.gtasks.GtasksTaskMovingTest;
 import com.todoroo.astrid.model.TaskTest;
 import com.todoroo.astrid.provider.Astrid3ProviderTests;
 import com.todoroo.astrid.reminders.NotificationTests;
@@ -20,13 +15,7 @@ import com.todoroo.astrid.sync.NewSyncTestCase;
 
 import org.tasks.scheduling.BackupServiceTests;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
-
-@Singleton
-@Component(modules = TestModule.class)
-public interface TestComponent {
+public interface BaseTestComponent {
     void inject(ReminderServiceTest reminderServiceTest);
 
     void inject(TaskTest taskTest);
@@ -50,16 +39,6 @@ public interface TestComponent {
     void inject(NewRepeatTests newRepeatTests);
 
     void inject(BackupServiceTests backupServiceTests);
-
-    void inject(GtasksIndentActionTest gtasksIndentActionTest);
-
-    void inject(GtasksTaskMovingTest gtasksTaskMovingTest);
-
-    void inject(GtasksListServiceTest gtasksListServiceTest);
-
-    void inject(GtasksTaskListUpdaterTest gtasksTaskListUpdaterTest);
-
-    GtasksMetadataServiceTest.GtasksMetadataServiceTestComponent plus(GtasksMetadataServiceTest.GtasksMetadataServiceTestModule gtasksMetadataServiceTestModule);
 
     NotificationTests.NotificationTestsComponent plus(NotificationTests.NotificationTestsModule notificationTestsModule);
 }

@@ -35,12 +35,15 @@ import org.json.JSONException;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import timber.log.Timber;
 
 
 /**
@@ -155,25 +158,14 @@ public class IabHelper {
     // some fields on the getSkuDetails response bundle
     public static final String GET_SKU_DETAILS_ITEM_LIST = "ITEM_ID_LIST";
     public static final String GET_SKU_DETAILS_ITEM_TYPE_LIST = "ITEM_TYPE_LIST";
+    private Preferences preferences;
 
     @Inject
-    public IabHelper(@ForApplication Context ctx) {
+    public IabHelper(@ForApplication Context ctx, Preferences preferences) {
+        this.preferences = preferences;
         mContext = ctx.getApplicationContext();
         mSignatureBase64 = ctx.getString(R.string.gp_key);
         logDebug("IAB helper created.");
-    }
-
-    /**
-     * Callback for setup process. This listener's {@link #onIabSetupFinished} method is called
-     * when the setup process is complete.
-     */
-    public interface OnIabSetupFinishedListener {
-        /**
-         * Called to notify that setup is complete.
-         *
-         * @param result The result of the setup process.
-         */
-        void onIabSetupFinished(IabResult result);
     }
 
     /**
@@ -181,9 +173,8 @@ public class IabHelper {
      * You will be notified through the listener when the setup process is complete.
      * This method is safe to call from a UI thread.
      *
-     * @param listener The listener to notify when the setup process is complete.
      */
-    public void startSetup(final OnIabSetupFinishedListener listener) {
+    public void startSetup() {
         // If already set up, can't do it again.
         checkNotDisposed();
         if (mSetupDone) throw new IllegalStateException("IAB helper is already set up.");
@@ -209,7 +200,7 @@ public class IabHelper {
                     // check for in-app billing v3 support
                     int response = mService.isBillingSupported(3, packageName, ITEM_TYPE_INAPP);
                     if (response != BILLING_RESPONSE_RESULT_OK) {
-                        if (listener != null) listener.onIabSetupFinished(new IabResult(response,
+                        onIabSetupFinished(new IabResult(response,
                                 "Error checking for billing v3 support."));
 
                         // if in-app purchases aren't supported, neither are subscriptions.
@@ -231,17 +222,13 @@ public class IabHelper {
                     mSetupDone = true;
                 }
                 catch (RemoteException e) {
-                    if (listener != null) {
-                        listener.onIabSetupFinished(new IabResult(IABHELPER_REMOTE_EXCEPTION,
-                                                    "RemoteException while setting up in-app billing."));
-                    }
+                    onIabSetupFinished(new IabResult(IABHELPER_REMOTE_EXCEPTION,
+                                                "RemoteException while setting up in-app billing."));
                     e.printStackTrace();
                     return;
                 }
 
-                if (listener != null) {
-                    listener.onIabSetupFinished(new IabResult(BILLING_RESPONSE_RESULT_OK, "Setup successful."));
-                }
+                onIabSetupFinished(new IabResult(BILLING_RESPONSE_RESULT_OK, "Setup successful."));
             }
         };
 
@@ -253,10 +240,30 @@ public class IabHelper {
         }
         else {
             // no service available to handle that Intent
-            if (listener != null) {
-                listener.onIabSetupFinished(
-                        new IabResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE,
-                        "Billing service unavailable on device."));
+            onIabSetupFinished(
+                    new IabResult(BILLING_RESPONSE_RESULT_BILLING_UNAVAILABLE,
+                    "Billing service unavailable on device."));
+        }
+    }
+
+    private void onIabSetupFinished(IabResult result) {
+        if (result.isSuccess()) {
+            Timber.d("IAB setup successful");
+            queryInventoryAsync();
+        } else {
+            Timber.e(result.getMessage());
+        }
+    }
+
+    private void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+        if (result.isFailure()) {
+            Timber.e("Query inventory failed: %s", result);
+        } else {
+            if (inventory.hasPurchase(mContext.getString(R.string.sku_tesla_unread))) {
+                preferences.setBoolean(R.string.p_purchased_tesla_unread, false);
+            }
+            if (inventory.hasPurchase(mContext.getString(R.string.sku_tasker))) {
+                preferences.setBoolean(R.string.p_purchased_tasker, false);
             }
         }
     }
@@ -290,7 +297,6 @@ public class IabHelper {
         checkNotDisposed();
         return mSubscriptionsSupported;
     }
-
 
     /**
      * Callback that notifies when a purchase is finished.
@@ -508,7 +514,7 @@ public class IabHelper {
     /**
      * Queries the inventory. This will query all owned items from the server, as well as
      * information on additional skus, if specified. This method may block or take long to execute.
-     * Do not call from a UI thread. For that, use the non-blocking version {@link #refreshInventoryAsync}.
+     * Do not call from a UI thread. For that, use the non-blocking version {@link #queryInventoryAsync}.
      *
      * @param querySkuDetails if true, SKU details (price, description, etc) will be queried as well
      *     as purchase information.
@@ -562,20 +568,6 @@ public class IabHelper {
     }
 
     /**
-     * Listener that notifies when an inventory query operation completes.
-     */
-    public interface QueryInventoryFinishedListener {
-        /**
-         * Called to notify that an inventory query operation completed.
-         *
-         * @param result The result of the operation.
-         * @param inv The inventory.
-         */
-        public void onQueryInventoryFinished(IabResult result, Inventory inv);
-    }
-
-
-    /**
      * Asynchronous wrapper for inventory query. This will perform an inventory
      * query as described in {@link #queryInventory}, but will do so asynchronously
      * and call back the specified listener upon completion. This method is safe to
@@ -583,11 +575,8 @@ public class IabHelper {
      *
      * @param querySkuDetails as in {@link #queryInventory}
      * @param moreSkus as in {@link #queryInventory}
-     * @param listener The listener to notify when the refresh operation completes.
      */
-    public void queryInventoryAsync(final boolean querySkuDetails,
-                               final List<String> moreSkus,
-                               final QueryInventoryFinishedListener listener) {
+    public void queryInventoryAsync(final boolean querySkuDetails, final List<String> moreSkus) {
         final Handler handler = new Handler();
         checkNotDisposed();
         checkSetupDone("queryInventory");
@@ -607,10 +596,10 @@ public class IabHelper {
 
                 final IabResult result_f = result;
                 final Inventory inv_f = inv;
-                if (!mDisposed && listener != null) {
+                if (!mDisposed) {
                     handler.post(new Runnable() {
                         public void run() {
-                            listener.onQueryInventoryFinished(result_f, inv_f);
+                            onQueryInventoryFinished(result_f, inv_f);
                         }
                     });
                 }
@@ -618,14 +607,13 @@ public class IabHelper {
         })).start();
     }
 
-    public void queryInventoryAsync(QueryInventoryFinishedListener listener) {
-        queryInventoryAsync(true, null, listener);
+    public void queryInventoryAsync() {
+        queryInventoryAsync(true, null);
     }
 
-    public void queryInventoryAsync(boolean querySkuDetails, QueryInventoryFinishedListener listener) {
-        queryInventoryAsync(querySkuDetails, null, listener);
+    public void queryInventoryAsync(boolean querySkuDetails) {
+        queryInventoryAsync(querySkuDetails, null);
     }
-
 
     /**
      * Consumes a given in-app product. Consuming can only be done on an item
@@ -679,7 +667,7 @@ public class IabHelper {
          * @param purchase The purchase that was (or was to be) consumed.
          * @param result The result of the consumption operation.
          */
-        public void onConsumeFinished(Purchase purchase, IabResult result);
+        void onConsumeFinished(Purchase purchase, IabResult result);
     }
 
     /**
@@ -693,7 +681,7 @@ public class IabHelper {
          * @param results The results of each consumption operation, corresponding to each
          *     sku.
          */
-        public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results);
+        void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results);
     }
 
     /**
@@ -713,7 +701,7 @@ public class IabHelper {
     }
 
     /**
-     * Same as {@link consumeAsync}, but for multiple items at once.
+     * Same as {@link #consumeAsync}, but for multiple items at once.
      * @param purchases The list of PurchaseInfo objects representing the purchases to consume.
      * @param listener The listener to notify when the consumption operation finishes.
      */

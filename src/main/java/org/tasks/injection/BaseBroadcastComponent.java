@@ -15,12 +15,8 @@ import org.tasks.receivers.ListNotificationReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
 import org.tasks.receivers.RefreshReceiver;
 import org.tasks.receivers.TaskNotificationReceiver;
-import org.tasks.receivers.TeslaUnreadReceiver;
 
-import dagger.Subcomponent;
-
-@Subcomponent(modules = BroadcastModule.class)
-public interface BroadcastComponent {
+public interface BaseBroadcastComponent {
 
     void inject(TimerTaskCompleteListener timerTaskCompleteListener);
 
@@ -49,6 +45,4 @@ public interface BroadcastComponent {
     void inject(BootCompletedReceiver bootCompletedReceiver);
 
     void inject(TasksWidget tasksWidget);
-
-    void inject(TeslaUnreadReceiver teslaUnreadReceiver);
 }

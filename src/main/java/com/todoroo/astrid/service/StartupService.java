@@ -23,8 +23,6 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
@@ -55,8 +53,6 @@ public class StartupService {
 
     private final TagDataDao tagDataDao;
     private final Database database;
-    private final GtasksPreferenceService gtasksPreferenceService;
-    private final GtasksSyncService gtasksSyncService;
     private final MetadataDao metadataDao;
     private final Preferences preferences;
     private final TasksXmlImporter xmlImporter;
@@ -65,14 +61,11 @@ public class StartupService {
     private final DialogBuilder dialogBuilder;
 
     @Inject
-    public StartupService(TagDataDao tagDataDao, Database database, GtasksPreferenceService gtasksPreferenceService,
-                          GtasksSyncService gtasksSyncService, MetadataDao metadataDao,
+    public StartupService(TagDataDao tagDataDao, Database database, MetadataDao metadataDao,
                           Preferences preferences, TasksXmlImporter xmlImporter,
                           TaskDeleter taskDeleter, Broadcaster broadcaster, DialogBuilder dialogBuilder) {
         this.tagDataDao = tagDataDao;
         this.database = database;
-        this.gtasksPreferenceService = gtasksPreferenceService;
-        this.gtasksSyncService = gtasksSyncService;
         this.metadataDao = metadataDao;
         this.preferences = preferences;
         this.xmlImporter = xmlImporter;
@@ -136,11 +129,6 @@ public class StartupService {
             @Override
             public void run() {
                 taskDeleter.deleteTasksWithEmptyTitles(null);
-
-                // if sync ongoing flag was set, clear it
-                gtasksPreferenceService.stopOngoing();
-
-                gtasksSyncService.initialize();
             }
         }).start();
 

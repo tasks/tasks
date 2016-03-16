@@ -12,8 +12,6 @@ import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
-import com.todoroo.astrid.gtasks.GtasksPreferences;
-import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.service.UpgradeActivity;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
@@ -37,7 +35,6 @@ import org.tasks.activities.ResetPreferencesActivity;
 import org.tasks.activities.SortActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.files.FileExplore;
-import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
@@ -49,13 +46,7 @@ import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.voice.VoiceCommandActivity;
 
-import javax.inject.Singleton;
-
-import dagger.Subcomponent;
-
-@Singleton
-@Subcomponent(modules = ActivityModule.class)
-public interface ActivityComponent {
+public interface BaseActivityComponent {
 
     FragmentComponent plus(FragmentModule module);
 
@@ -123,8 +114,6 @@ public interface ActivityComponent {
 
     void inject(VoiceCommandActivity voiceCommandActivity);
 
-    void inject(GtasksLoginActivity gtasksLoginActivity);
-
     void inject(DonationActivity donationActivity);
 
     void inject(ClearGtaskDataActivity clearGtaskDataActivity);
@@ -150,8 +139,4 @@ public interface ActivityComponent {
     void inject(DateShortcutPreferences dateShortcutPreferences);
 
     void inject(AppearancePreferences appearancePreferences);
-
-    void inject(GtasksPreferences gtasksPreferences);
-
-    void inject(TaskerSettingsActivity taskerSettingsActivity);
 }

@@ -3,6 +3,7 @@ package org.tasks.preferences;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.google.common.base.Strings;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
