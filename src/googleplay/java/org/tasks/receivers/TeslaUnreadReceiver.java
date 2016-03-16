@@ -13,6 +13,7 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.BroadcastComponent;
@@ -35,37 +36,27 @@ public class TeslaUnreadReceiver extends InjectingBroadcastReceiver {
     private final DefaultFilterProvider defaultFilterProvider;
     private final TaskDao taskDao;
     private final Tracker tracker;
+    private final Broadcaster broadcaster;
 
     private boolean enabled;
 
     @Inject
     public TeslaUnreadReceiver(@ForApplication Context context, DefaultFilterProvider defaultFilterProvider,
-                               TaskDao taskDao, Tracker tracker) {
+                               TaskDao taskDao, Tracker tracker, Broadcaster broadcaster) {
         this.context = context;
         this.defaultFilterProvider = defaultFilterProvider;
         this.taskDao = taskDao;
         this.tracker = tracker;
+        this.broadcaster = broadcaster;
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        try {
-            Filter defaultFilter = defaultFilterProvider.getDefaultFilter();
-            String query = PermaSql.replacePlaceholders(defaultFilter.getSqlQuery());
-            int count = taskDao.count(Query.select(Task.ID).withQueryTemplate(query));
-
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("tag", TESLA_TAG);
-            contentValues.put("count", count);
-            context.getContentResolver().insert(Uri.parse(TESLA_URI), contentValues);
-        } catch (IllegalArgumentException ex) {
-            /* Fine, TeslaUnread is not installed. */
-        } catch (Exception e) {
-            Timber.e(e, e.getMessage());
-            tracker.reportException(e);
-        }
+        Filter defaultFilter = defaultFilterProvider.getDefaultFilter();
+        String query = PermaSql.replacePlaceholders(defaultFilter.getSqlQuery());
+        publishCount(taskDao.count(Query.select(Task.ID).withQueryTemplate(query)));
     }
 
     @Override
@@ -77,12 +68,28 @@ public class TeslaUnreadReceiver extends InjectingBroadcastReceiver {
         try {
             if (newValue) {
                 context.registerReceiver(this, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                broadcaster.refresh();
             } else if (enabled) {
                 context.unregisterReceiver(this);
+                publishCount(0);
             }
             enabled = newValue;
         } catch (Exception e) {
             Timber.e(e, e.getMessage());
+        }
+    }
+
+    private void publishCount(int count) {
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("tag", TESLA_TAG);
+            contentValues.put("count", count);
+            context.getContentResolver().insert(Uri.parse(TESLA_URI), contentValues);
+        } catch (IllegalArgumentException ex) {
+            /* Fine, TeslaUnread is not installed. */
+        } catch (Exception e) {
+            Timber.e(e, e.getMessage());
+            tracker.reportException(e);
         }
     }
 }
