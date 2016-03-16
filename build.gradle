@@ -71,6 +71,11 @@ android {
     }
 }
 
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'guava-jdk5'
+    all*.exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+}
+
 dependencies {
     provided 'com.google.dagger:dagger-compiler:2.1'
     compile 'com.google.dagger:dagger:2.1'
@@ -80,7 +85,7 @@ dependencies {
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:4.1.1'
-    compile 'com.google.guava:guava-jdk5:17.0'
+    compile 'com.google.guava:guava:19.0'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {
         transitive = false
     }
@@ -94,12 +99,8 @@ dependencies {
     googleplayCompile 'com.twofortyfouram:android-plugin-api-for-locale:[1.0.1,2.0['
     googleplayCompile 'com.google.android.gms:play-services-location:8.4.0'
     googleplayCompile 'com.google.android.gms:play-services-analytics:8.4.0'
-    googleplayCompile('com.google.apis:google-api-services-tasks:v1-rev41-1.21.0') {
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
-    googleplayCompile('com.google.api-client:google-api-client-android:1.21.0') {
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev41-1.21.0'
+    googleplayCompile 'com.google.api-client:google-api-client-android:1.21.0'
 
     androidTestCompile ('org.mockito:mockito-core:1.9.5') {
         transitive = false
