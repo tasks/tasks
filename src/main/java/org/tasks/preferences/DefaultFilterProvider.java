@@ -64,10 +64,13 @@ public class DefaultFilterProvider {
     }
 
     public Filter getDefaultFilter() {
-        String defaultList = preferences.getStringValue(R.string.p_default_list);
-        if (!isNullOrEmpty(defaultList)) {
+        return getFilterFromPreference(preferences.getStringValue(R.string.p_default_list));
+    }
+
+    public Filter getFilterFromPreference(String preferenceValue) {
+        if (!isNullOrEmpty(preferenceValue)) {
             try {
-                Filter filter = loadFilterFromPreferences(defaultList);
+                Filter filter = loadFilter(preferenceValue);
                 if (filter != null) {
                     return filter;
                 }
@@ -78,8 +81,8 @@ public class DefaultFilterProvider {
         return BuiltInFilterExposer.getMyTasksFilter(context.getResources());
     }
 
-    private Filter loadFilterFromPreferences(String defaultList) {
-        String[] split = defaultList.split(":");
+    private Filter loadFilter(String preferenceValue) {
+        String[] split = preferenceValue.split(":");
         switch (Integer.parseInt(split[0])) {
             case TYPE_FILTER:
                 return getBuiltInFilter(Integer.parseInt(split[1]));
@@ -96,25 +99,29 @@ public class DefaultFilterProvider {
 
     public void setDefaultFilter(Filter filter) {
         tracker.reportEvent(Tracking.Events.SET_DEFAULT_LIST);
-        int filterType = getFilterType(filter);
-        switch (filterType) {
-            case TYPE_FILTER:
-                setDefaultFilter(filterType, getBuiltInFilterId(filter));
-                break;
-            case TYPE_CUSTOM_FILTER:
-                setDefaultFilter(filterType, ((CustomFilter) filter).getId());
-                break;
-            case TYPE_TAG:
-                setDefaultFilter(filterType, ((FilterWithCustomIntent) filter).customExtras.getString(TagViewFragment.EXTRA_TAG_UUID));
-                break;
-            case TYPE_GOOGLE_TASKS:
-                setDefaultFilter(filterType, ((FilterWithCustomIntent) filter).customExtras.getLong(GtasksListFragment.TOKEN_STORE_ID, 0L));
-                break;
+        String filterPreferenceValue = getFilterPreferenceValue(filter);
+        if (!Strings.isNullOrEmpty(filterPreferenceValue)) {
+            preferences.setString(R.string.p_default_list, filterPreferenceValue);
         }
     }
 
-    private <T> void setDefaultFilter(int type, T value) {
-        preferences.setString(R.string.p_default_list, String.format("%s:%s", type, value));
+    public String getFilterPreferenceValue(Filter filter) {
+        int filterType = getFilterType(filter);
+        switch (filterType) {
+            case TYPE_FILTER:
+                return getFilterPreference(filterType, getBuiltInFilterId(filter));
+            case TYPE_CUSTOM_FILTER:
+                return getFilterPreference(filterType, ((CustomFilter) filter).getId());
+            case TYPE_TAG:
+                return getFilterPreference(filterType, ((FilterWithCustomIntent) filter).customExtras.getString(TagViewFragment.EXTRA_TAG_UUID));
+            case TYPE_GOOGLE_TASKS:
+                return getFilterPreference(filterType, ((FilterWithCustomIntent) filter).customExtras.getLong(GtasksListFragment.TOKEN_STORE_ID, 0L));
+        }
+        return null;
+    }
+
+    private <T> String getFilterPreference(int type, T value) {
+        return String.format("%s:%s", type, value);
     }
 
     private int getFilterType(Filter filter) {

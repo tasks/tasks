@@ -863,6 +863,7 @@ File %1$s contained %2$s.\n\n
   <string name="tesla_unread_description">Display a badge for the number of active tasks in your default list. Requires TeslaUnread for Nova Launcher</string>
   <string name="tasker_description">Context-aware list notifications. Requires Tasker or Locale</string>
   <string name="donate_summary">Donations are greatly appreciated</string>
+  <string name="tasker_disabled_warning">Enable Tasker integration in Tasks settings</string>
 
   <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

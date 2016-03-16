@@ -8,9 +8,7 @@ import timber.log.Timber;
 
 public final class PluginBundleValues {
 
-    public static final String BUNDLE_EXTRA_STRING_TITLE = "org.tasks.locale.STRING_TITLE";
-    public static final String BUNDLE_EXTRA_STRING_QUERY = "org.tasks.locale.STRING_QUERY";
-    public static final String BUNDLE_EXTRA_STRING_VALUES = "org.tasks.locale.STRING_VALUES";
+    public static final String BUNDLE_EXTRA_STRING_FILTER = "org.tasks.locale.STRING_FILTER";
     public static final String BUNDLE_EXTRA_PREVIOUS_BUNDLE = "org.tasks.locale.PREVIOUS_BUNDLE";
     public static final String BUNDLE_EXTRA_INT_VERSION_CODE = "org.tasks.locale.INT_VERSION_CODE";
 
@@ -20,16 +18,7 @@ public final class PluginBundleValues {
             return false;
         }
 
-        if (isNullOrEmpty(bundle, BUNDLE_EXTRA_STRING_TITLE)) {
-            return false;
-        }
-
-        if (isNullOrEmpty(bundle, BUNDLE_EXTRA_STRING_QUERY)) {
-            return false;
-        }
-
-        if (bundle.containsKey(BUNDLE_EXTRA_STRING_VALUES) && bundle.getString(BUNDLE_EXTRA_STRING_VALUES).trim().length() == 0) {
-            Timber.e("Empty %s", BUNDLE_EXTRA_STRING_VALUES);
+        if (isNullOrEmpty(bundle, BUNDLE_EXTRA_STRING_FILTER)) {
             return false;
         }
 
@@ -51,27 +40,15 @@ public final class PluginBundleValues {
         return isNullOrEmpty;
     }
 
-    public static Bundle generateBundle(String title, String query, String values) {
+    public static Bundle generateBundle(String filter) {
         Bundle result = new Bundle();
         result.putInt(BUNDLE_EXTRA_INT_VERSION_CODE, BuildConfig.VERSION_CODE);
-        result.putString(BUNDLE_EXTRA_STRING_TITLE, title);
-        result.putString(BUNDLE_EXTRA_STRING_QUERY, query);
-        if (values != null) {
-            result.putString(BUNDLE_EXTRA_STRING_VALUES, values);
-        }
+        result.putString(BUNDLE_EXTRA_STRING_FILTER, filter);
         return result;
     }
 
-    public static String getTitle(Bundle bundle) {
-        return bundle.getString(BUNDLE_EXTRA_STRING_TITLE);
-    }
-
-    public static String getQuery(Bundle bundle) {
-        return bundle.getString(BUNDLE_EXTRA_STRING_QUERY);
-    }
-
-    public static String getValuesForNewTasks(Bundle bundle) {
-        return bundle.getString(BUNDLE_EXTRA_STRING_VALUES);
+    public static String getFilter(Bundle bundle) {
+        return bundle.getString(BUNDLE_EXTRA_STRING_FILTER);
     }
 
     private PluginBundleValues() {

@@ -1,35 +1,31 @@
 package org.tasks.locale.receiver;
 
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.todoroo.astrid.api.Filter;
+
+import org.tasks.Notifier;
+import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.locale.bundle.PluginBundleValues;
+import org.tasks.preferences.DefaultFilterProvider;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public final class FireReceiver extends BroadcastReceiver {
+public final class FireReceiver extends InjectingBroadcastReceiver {
 
-    protected boolean isBundleValid(final Bundle bundle) {
-        return PluginBundleValues.isBundleValid(bundle);
-    }
-
-    protected void firePluginSetting(final Context context, final Bundle bundle) {
-        context.sendBroadcast(new Intent() {{
-            setComponent(new ComponentName("org.tasks", "org.tasks.receivers.ListNotificationReceiver"));
-            putExtra("extra_filter_title", PluginBundleValues.getTitle(bundle));
-            putExtra("extra_filter_query", PluginBundleValues.getQuery(bundle));
-            String valuesForNewTasks = PluginBundleValues.getValuesForNewTasks(bundle);
-            if (valuesForNewTasks != null) {
-                putExtra("extra_filter_values", valuesForNewTasks);
-            }
-        }});
-    }
+    @Inject Notifier notifier;
+    @Inject DefaultFilterProvider defaultFilterProvider;
 
     @Override
     public final void onReceive(final Context context, final Intent intent) {
+        super.onReceive(context, intent);
+
         Timber.d("Received %s", intent); //$NON-NLS-1$
 
         /*
@@ -67,12 +63,19 @@ public final class FireReceiver extends BroadcastReceiver {
             return;
         }
 
-        if (!isBundleValid(bundle)) {
+        if (!PluginBundleValues.isBundleValid(bundle)) {
             Timber.e("%s is invalid",
                     com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE); //$NON-NLS-1$
             return;
         }
 
-        firePluginSetting(context, bundle);
+        Filter filter = defaultFilterProvider.getFilterFromPreference(
+                bundle.getString(PluginBundleValues.BUNDLE_EXTRA_STRING_FILTER));
+        notifier.triggerFilterNotification(filter);
+    }
+
+    @Override
+    protected void inject(BroadcastComponent component) {
+        component.inject(this);
     }
 }

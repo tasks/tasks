@@ -17,7 +17,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -133,7 +132,14 @@ public class Notifier {
         return b;
     }
 
+    @Deprecated
     public void triggerFilterNotification(final String title, final String query, final String valuesForNewTasks) {
+        triggerFilterNotification(new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
+    }
+
+    public void triggerFilterNotification(final Filter filter) {
+        String title = filter.listingTitle;
+        String query = filter.getSqlQuery();
         TodorooCursor<Task> taskTodorooCursor = null;
         int count;
         try {
@@ -158,7 +164,7 @@ public class Notifier {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), new Intent(context, TaskListActivity.class) {{
             setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-            putExtra(TaskListActivity.OPEN_FILTER, new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
+            putExtra(TaskListActivity.OPEN_FILTER, filter);
         }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(context)

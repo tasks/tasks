@@ -12,11 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.todoroo.astrid.api.Filter;
+
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.PluginBundleValues;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.ui.MenuColorizer;
 
 import java.util.Set;
@@ -30,15 +35,16 @@ import butterknife.OnClick;
 public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompatActivity {
 
     private static final int REQUEST_SELECT_FILTER = 10124;
+    private static final String EXTRA_FILTER = "extra_filter";
 
     @Bind(R.id.toolbar) Toolbar toolbar;
 
     @Inject ActivityPreferences preferences;
+    @Inject DialogBuilder dialogBuilder;
+    @Inject DefaultFilterProvider defaultFilterProvider;
 
     private Bundle previousBundle;
-    private String title;
-    private String query;
-    private String values;
+    private Filter filter;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -49,11 +55,11 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
 
         if (savedInstanceState != null) {
             previousBundle = savedInstanceState.getParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
-            title = savedInstanceState.getString(PluginBundleValues.BUNDLE_EXTRA_STRING_TITLE);
-            query = savedInstanceState.getString(PluginBundleValues.BUNDLE_EXTRA_STRING_QUERY);
-            values = savedInstanceState.getString(PluginBundleValues.BUNDLE_EXTRA_STRING_VALUES);
-            updateActivity();
+            filter = savedInstanceState.getParcelable(EXTRA_FILTER);
+        } else {
+            filter = defaultFilterProvider.getDefaultFilter();
         }
+        updateView();
 
         setSupportActionBar(toolbar);
         ActionBar supportActionBar = getSupportActionBar();
@@ -64,19 +70,38 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
             supportActionBar.setHomeAsUpIndicator(drawable);
             supportActionBar.setDisplayShowTitleEnabled(false);
         }
+
+        if (!preferences.getBoolean(R.string.p_tasker_enabled, false)) {
+            dialogBuilder.newMessageDialog(R.string.tasker_disabled_warning)
+                    .setPositiveButton(R.string.TLA_menu_settings, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(TaskerSettingsActivity.this, BasicPreferences.class));
+                            cancel();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            cancel();
+                        }
+                    })
+                    .show();
+        }
     }
 
     @OnClick(R.id.filter_selection)
     void selectFilter() {
-        startActivityForResult(new Intent(TaskerSettingsActivity.this, FilterSelectionActivity.class), REQUEST_SELECT_FILTER);
+        startActivityForResult(new Intent(TaskerSettingsActivity.this, FilterSelectionActivity.class) {{
+            putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+        }}, REQUEST_SELECT_FILTER);
     }
 
     @Override
     public void onPostCreateWithPreviousResult(final Bundle previousBundle, final String previousBlurb) {
         this.previousBundle = previousBundle;
-        title = PluginBundleValues.getTitle(previousBundle);
-        query = PluginBundleValues.getQuery(previousBundle);
-        updateActivity();
+        this.filter = defaultFilterProvider.getFilterFromPreference(PluginBundleValues.getFilter(previousBundle));
+        updateView();
     }
 
     @Override
@@ -86,12 +111,12 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
 
     @Override
     public Bundle getResultBundle() {
-        return PluginBundleValues.generateBundle(title, query, values);
+        return PluginBundleValues.generateBundle(defaultFilterProvider.getFilterPreferenceValue(filter));
     }
 
     @Override
     public String getResultBlurb(final Bundle bundle) {
-        return PluginBundleValues.getTitle(bundle);
+        return filter.listingTitle;
     }
 
     @Override
@@ -176,10 +201,8 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SELECT_FILTER) {
             if (resultCode == RESULT_OK) {
-                title = data.getStringExtra("extra_filter_name");
-                query = data.getStringExtra("extra_filter_query");
-                values = data.getStringExtra("extra_filter_values");
-                updateActivity();
+                filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
+                updateView();
             }
 
             return;
@@ -191,13 +214,12 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE, previousBundle);
-        outState.putString(PluginBundleValues.BUNDLE_EXTRA_STRING_TITLE, title);
-        outState.putString(PluginBundleValues.BUNDLE_EXTRA_STRING_QUERY, query);
-        outState.putString(PluginBundleValues.BUNDLE_EXTRA_STRING_VALUES, values);
+        outState.putParcelable(EXTRA_FILTER, filter);
     }
 
-    private void updateActivity() {
-        ((TextView) findViewById(R.id.text_view)).setText(title);
+    private void updateView() {
+        ((TextView) findViewById(R.id.text_view))
+                .setText(filter.listingTitle);
     }
 
     @Override

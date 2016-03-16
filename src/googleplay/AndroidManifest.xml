@@ -105,6 +105,7 @@
         <activity-alias
             android:name="com.twofortyfouram.locale.example.setting.toast.ui.activity.PluginActivity"
             android:exported="true"
+            android:enabled="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:targetActivity=".locale.ui.activity.TaskerSettingsActivity"
@@ -126,6 +127,7 @@
         <receiver
             android:name=".locale.receiver.FireReceiver"
             android:exported="true"
+            android:enabled="true"
             android:process=":background"
             tools:ignore="ExportedReceiver">
 
