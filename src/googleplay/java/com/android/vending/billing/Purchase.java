@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.tasks.billing;
+package com.android.vending.billing;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +32,7 @@ public class Purchase {
     String mToken;
     String mOriginalJson;
     String mSignature;
+    boolean mIsAutoRenewing;
 
     public Purchase(String itemType, String jsonPurchaseInfo, String signature) throws JSONException {
         mItemType = itemType;
@@ -44,6 +45,7 @@ public class Purchase {
         mPurchaseState = o.optInt("purchaseState");
         mDeveloperPayload = o.optString("developerPayload");
         mToken = o.optString("token", o.optString("purchaseToken"));
+        mIsAutoRenewing = o.optBoolean("autoRenewing");
         mSignature = signature;
     }
 
@@ -57,6 +59,7 @@ public class Purchase {
     public String getToken() { return mToken; }
     public String getOriginalJson() { return mOriginalJson; }
     public String getSignature() { return mSignature; }
+    public boolean isAutoRenewing() { return mIsAutoRenewing; }
 
     @Override
     public String toString() { return "PurchaseInfo(type:" + mItemType + "):" + mOriginalJson; }

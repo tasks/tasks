@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.tasks.billing;
+package com.android.vending.billing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,7 +77,7 @@ public class Inventory {
     }
 
     /** Returns a list of all purchases. */
-    public List<Purchase> getAllPurchases() {
+    List<Purchase> getAllPurchases() {
         return new ArrayList<Purchase>(mPurchaseMap.values());
     }
 

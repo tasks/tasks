@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.tasks.billing;
+package com.android.vending.billing;
 
 /**
  * Represents the result of an in-app billing operation.

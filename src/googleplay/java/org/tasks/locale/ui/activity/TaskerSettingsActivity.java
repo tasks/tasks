@@ -16,11 +16,12 @@ import com.todoroo.astrid.api.Filter;
 
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
+import org.tasks.billing.PurchaseHelper;
+import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.PluginBundleValues;
 import org.tasks.preferences.ActivityPreferences;
-import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.ui.MenuColorizer;
 
@@ -32,19 +33,23 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompatActivity {
+public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompatActivity implements PurchaseHelperCallback {
 
     private static final int REQUEST_SELECT_FILTER = 10124;
+    private static final int REQUEST_PURCHASE = 10125;
     private static final String EXTRA_FILTER = "extra_filter";
+    private static final String EXTRA_PURCHASE_IN_PROGRESS = "extra_purchase_in_progress";
 
     @Bind(R.id.toolbar) Toolbar toolbar;
 
     @Inject ActivityPreferences preferences;
-    @Inject DialogBuilder dialogBuilder;
     @Inject DefaultFilterProvider defaultFilterProvider;
+    @Inject PurchaseHelper purchaseHelper;
+    @Inject DialogBuilder dialogBuilder;
 
     private Bundle previousBundle;
     private Filter filter;
+    private boolean purchaseInProgress;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         if (savedInstanceState != null) {
             previousBundle = savedInstanceState.getParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
             filter = savedInstanceState.getParcelable(EXTRA_FILTER);
+            purchaseInProgress = savedInstanceState.getBoolean(EXTRA_PURCHASE_IN_PROGRESS);
         } else {
             filter = defaultFilterProvider.getDefaultFilter();
         }
@@ -71,22 +77,8 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
             supportActionBar.setDisplayShowTitleEnabled(false);
         }
 
-        if (!preferences.getBoolean(R.string.p_tasker_enabled, false)) {
-            dialogBuilder.newMessageDialog(R.string.tasker_disabled_warning)
-                    .setPositiveButton(R.string.TLA_menu_settings, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(TaskerSettingsActivity.this, BasicPreferences.class));
-                            cancel();
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            cancel();
-                        }
-                    })
-                    .show();
+        if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInProgress) {
+            purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, this);
         }
     }
 
@@ -204,10 +196,11 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
                 filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 updateView();
             }
-
-            return;
+        } else if (requestCode == REQUEST_PURCHASE) {
+            purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -215,6 +208,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         super.onSaveInstanceState(outState);
         outState.putParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE, previousBundle);
         outState.putParcelable(EXTRA_FILTER, filter);
+        outState.putBoolean(EXTRA_PURCHASE_IN_PROGRESS, purchaseInProgress);
     }
 
     private void updateView() {
@@ -225,5 +219,12 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    public void purchaseCompleted(boolean success, String sku) {
+        if (!success) {
+            cancel();
+        }
     }
 }

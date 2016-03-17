@@ -18,5 +18,5 @@ public interface ApplicationComponent {
 
     IntentServiceComponent plus(IntentServiceModule module);
 
-    RemoteViewsServiceComponent plus(RemoteViewsServiceModule remoteViewsServiceModule);
+    ServiceComponent plus(ServiceModule serviceModule);
 }

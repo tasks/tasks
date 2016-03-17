@@ -18,14 +18,23 @@
         </Preference>
 
         <SwitchPreference
-            android:key="@string/p_tesla_unread_enabled"
-            android:title="TeslaUnread"
-            android:summary="@string/tesla_unread_description"/>
+            android:key="@string/p_purchased_dashclock"
+            android:title="@string/dashclock"
+            android:dependency="@string/p_purchased_dashclock"
+            android:disableDependentsState="true"
+            android:summary="@string/dashclock_purchase_description" />
 
         <SwitchPreference
-            android:key="@string/p_tasker_enabled"
-            android:title="Tasker/Locale"
+            android:key="@string/p_purchased_tasker"
+            android:title="@string/tasker_locale"
+            android:dependency="@string/p_purchased_tasker"
+            android:disableDependentsState="true"
             android:summary="@string/tasker_description"/>
+
+        <SwitchPreference
+            android:key="@string/p_tesla_unread_enabled"
+            android:title="@string/tesla_unread"
+            android:summary="@string/tesla_unread_description"/>
 
     </PreferenceCategory>
 

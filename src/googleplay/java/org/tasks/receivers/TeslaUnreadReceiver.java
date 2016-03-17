@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
 
 import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
@@ -55,8 +52,7 @@ public class TeslaUnreadReceiver extends InjectingBroadcastReceiver {
         super.onReceive(context, intent);
 
         Filter defaultFilter = defaultFilterProvider.getDefaultFilter();
-        String query = PermaSql.replacePlaceholders(defaultFilter.getSqlQuery());
-        publishCount(taskDao.count(Query.select(Task.ID).withQueryTemplate(query)));
+        publishCount(taskDao.count(defaultFilter));
     }
 
     @Override

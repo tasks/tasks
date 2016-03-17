@@ -401,4 +401,13 @@ public class AndroidUtilities {
         }
         return extension;
     }
+
+    public static boolean isAppInstalled(Context context, String packageName) {
+        try {
+            context.getPackageManager().getPackageInfo(packageName, 0);
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
 }

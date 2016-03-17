@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/debug">
+
+        <Preference
+            android:title="@string/debug_consume_purchases"
+            android:key="@string/debug_consume_purchases" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -64,7 +64,11 @@ public class DefaultFilterProvider {
     }
 
     public Filter getDefaultFilter() {
-        return getFilterFromPreference(preferences.getStringValue(R.string.p_default_list));
+        return getFilterFromPreference(R.string.p_default_list);
+    }
+
+    public Filter getFilterFromPreference(int resId) {
+        return getFilterFromPreference(preferences.getStringValue(resId));
     }
 
     public Filter getFilterFromPreference(String preferenceValue) {

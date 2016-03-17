@@ -1,36 +1,32 @@
 package org.tasks.activities;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import org.tasks.R;
-import org.tasks.billing.IabHelper;
-import org.tasks.billing.IabResult;
-import org.tasks.billing.Purchase;
+import org.tasks.billing.PurchaseHelper;
+import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
-public class DonationActivity extends InjectingAppCompatActivity implements IabHelper.OnIabPurchaseFinishedListener {
+public class DonationActivity extends InjectingAppCompatActivity implements PurchaseHelperCallback {
 
     private static final int RC_REQUEST = 10001;
 
     private boolean itemSelected;
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject IabHelper iabHelper;
+    @Inject PurchaseHelper purchaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +42,10 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
                         String value = donationValues[which];
                         Pattern pattern = Pattern.compile("\\$(\\d+) USD");
                         Matcher matcher = pattern.matcher(value);
-                        if (matcher.matches()) {
-                            initiateDonation(Integer.parseInt(matcher.group(1)));
-                        } else {
-                            error(getString(R.string.error));
-                        }
+                        //noinspection ResultOfMethodCallIgnored
+                        matcher.matches();
+                        String sku = String.format(Locale.ENGLISH, "%03d", Integer.parseInt(matcher.group(1)));
+                        purchaseHelper.purchase(dialogBuilder, DonationActivity.this, sku, null, RC_REQUEST, DonationActivity.this);
                     }
                 })
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -69,14 +64,6 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
         component.inject(this);
     }
 
-    private void initiateDonation(int amount) {
-        launchPurchaseFlow(String.format("%03d", amount));
-    }
-
-    private void launchPurchaseFlow(String sku) {
-        iabHelper.launchPurchaseFlow(this, sku, RC_REQUEST, this);
-    }
-
     private String[] getValues() {
         List<String> values = new ArrayList<>();
         for (int i = 1 ; i <= 100 ; i++) {
@@ -85,30 +72,17 @@ public class DonationActivity extends InjectingAppCompatActivity implements IabH
         return values.toArray(new String[values.size()]);
     }
 
-    private void error(String message) {
-        Timber.e(message);
-        Toast.makeText(DonationActivity.this, message, Toast.LENGTH_LONG).show();
-        finish();
-    }
-
-    @Override
-    public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-        if (result.isSuccess()) {
-            Timber.d("Purchased %s", purchase);
-        } else {
-            error(result.getMessage());
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RC_REQUEST) {
-            iabHelper.handleActivityResult(requestCode, resultCode, data);
-            if (resultCode == Activity.RESULT_OK) {
-                finish();
-            }
+            purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void purchaseCompleted(boolean success, String sku) {
+        finish();
     }
 }

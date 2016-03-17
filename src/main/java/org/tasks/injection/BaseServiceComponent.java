@@ -4,7 +4,6 @@ import org.tasks.widget.ScrollableWidgetUpdateService;
 
 import dagger.Subcomponent;
 
-@Subcomponent(modules = RemoteViewsServiceModule.class)
-public interface RemoteViewsServiceComponent {
+public interface BaseServiceComponent {
     void inject(ScrollableWidgetUpdateService scrollableWidgetUpdateService);
 }

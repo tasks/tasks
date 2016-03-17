@@ -1,8 +1,8 @@
 package org.tasks.injection;
 
-import android.widget.RemoteViewsService;
+import com.google.android.apps.dashclock.api.DashClockExtension;
 
-public abstract class InjectingRemoteViewsService extends RemoteViewsService {
+public abstract class InjectingDashClockExtension extends DashClockExtension {
     @Override
     public void onCreate() {
         super.onCreate();

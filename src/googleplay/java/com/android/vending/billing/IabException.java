@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package org.tasks.billing;
+package com.android.vending.billing;
 
 /**
  * Exception thrown when something went wrong with in-app billing.

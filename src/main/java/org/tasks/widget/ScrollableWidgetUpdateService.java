@@ -10,7 +10,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.injection.InjectingRemoteViewsService;
-import org.tasks.injection.RemoteViewsServiceComponent;
+import org.tasks.injection.ServiceComponent;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -50,7 +50,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     }
 
     @Override
-    protected void inject(RemoteViewsServiceComponent component) {
+    protected void inject(ServiceComponent component) {
         component.inject(this);
     }
 }

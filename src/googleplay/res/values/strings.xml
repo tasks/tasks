@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="select_filter">Select Filter</string>
-    <string name="filter">Filter</string>
-    <string name="discard_changes">Discard changes?</string>
+    <string name="debug_consume_purchases">Consume purchases</string>
+    <string name="debug">Debug</string>
 
 </resources>

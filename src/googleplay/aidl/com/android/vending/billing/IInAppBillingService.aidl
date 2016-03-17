@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (c) 2012 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,10 +34,11 @@ import android.os.Bundle;
  *
  * All calls will give a response code with the following possible values
  * RESULT_OK = 0 - success
- * RESULT_USER_CANCELED = 1 - user pressed back or canceled a dialog
- * RESULT_BILLING_UNAVAILABLE = 3 - this billing API version is not supported for the type requested
- * RESULT_ITEM_UNAVAILABLE = 4 - requested SKU is not available for purchase
- * RESULT_DEVELOPER_ERROR = 5 - invalid arguments provided to the API
+ * RESULT_USER_CANCELED = 1 - User pressed back or canceled a dialog
+ * RESULT_SERVICE_UNAVAILABLE = 2 - The network connection is down
+ * RESULT_BILLING_UNAVAILABLE = 3 - This billing API version is not supported for the type requested
+ * RESULT_ITEM_UNAVAILABLE = 4 - Requested SKU is not available for purchase
+ * RESULT_DEVELOPER_ERROR = 5 - Invalid arguments provided to the API
  * RESULT_ERROR = 6 - Fatal error during the API action
  * RESULT_ITEM_ALREADY_OWNED = 7 - Failure to purchase since item is already owned
  * RESULT_ITEM_NOT_OWNED = 8 - Failure to consume since item is not owned
@@ -46,11 +47,11 @@ interface IInAppBillingService {
     /**
      * Checks support for the requested billing API version, package and in-app type.
      * Minimum API version supported by this interface is 3.
-     * @param apiVersion the billing version which the app is using
+     * @param apiVersion billing API version that the app is using
      * @param packageName the package name of the calling app
-     * @param type type of the in-app item being purchased "inapp" for one-time purchases
-     *        and "subs" for subscription.
-     * @return RESULT_OK(0) on success, corresponding result code on failures
+     * @param type type of the in-app item being purchased ("inapp" for one-time purchases
+     *        and "subs" for subscriptions)
+     * @return RESULT_OK(0) on success and appropriate response code on failures.
      */
     int isBillingSupported(int apiVersion, String packageName, String type);
 
@@ -59,16 +60,23 @@ interface IInAppBillingService {
      * Given a list of SKUs of a valid type in the skusBundle, this returns a bundle
      * with a list JSON strings containing the productId, price, title and description.
      * This API can be called with a maximum of 20 SKUs.
-     * @param apiVersion billing API version that the Third-party is using
+     * @param apiVersion billing API version that the app is using
      * @param packageName the package name of the calling app
+     * @param type of the in-app items ("inapp" for one-time purchases
+     *        and "subs" for subscriptions)
      * @param skusBundle bundle containing a StringArrayList of SKUs with key "ITEM_ID_LIST"
      * @return Bundle containing the following key-value pairs
-     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, other response codes on
-     *              failure as listed above.
+     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, appropriate response codes
+     *                         on failures.
      *         "DETAILS_LIST" with a StringArrayList containing purchase information
-     *              in JSON format similar to:
-     *              '{ "productId" : "exampleSku", "type" : "inapp", "price" : "$5.00",
-     *                 "title : "Example Title", "description" : "This is an example description" }'
+     *                        in JSON format similar to:
+     *                        '{ "productId" : "exampleSku",
+     *                           "type" : "inapp",
+     *                           "price" : "$5.00",
+     *                           "price_currency": "USD",
+     *                           "price_amount_micros": 5000000,
+     *                           "title : "Example Title",
+     *                           "description" : "This is an example description" }'
      */
     Bundle getSkuDetails(int apiVersion, String packageName, String type, in Bundle skusBundle);
 
@@ -78,26 +86,26 @@ interface IInAppBillingService {
      * @param apiVersion billing API version that the app is using
      * @param packageName package name of the calling app
      * @param sku the SKU of the in-app item as published in the developer console
-     * @param type the type of the in-app item ("inapp" for one-time purchases
-     *        and "subs" for subscription).
+     * @param type of the in-app item being purchased ("inapp" for one-time purchases
+     *        and "subs" for subscriptions)
      * @param developerPayload optional argument to be sent back with the purchase information
      * @return Bundle containing the following key-value pairs
-     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, other response codes on
-     *              failure as listed above.
+     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, appropriate response codes
+     *                         on failures.
      *         "BUY_INTENT" - PendingIntent to start the purchase flow
      *
      * The Pending intent should be launched with startIntentSenderForResult. When purchase flow
      * has completed, the onActivityResult() will give a resultCode of OK or CANCELED.
      * If the purchase is successful, the result data will contain the following key-value pairs
-     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, other response codes on
-     *              failure as listed above.
+     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, appropriate response
+     *                         codes on failures.
      *         "INAPP_PURCHASE_DATA" - String in JSON format similar to
-     *              '{"orderId":"12999763169054705758.1371079406387615",
-     *                "packageName":"com.example.app",
-     *                "productId":"exampleSku",
-     *                "purchaseTime":1345678900000,
-     *                "purchaseToken" : "122333444455555",
-     *                "developerPayload":"example developer payload" }'
+     *                                 '{"orderId":"12999763169054705758.1371079406387615",
+     *                                   "packageName":"com.example.app",
+     *                                   "productId":"exampleSku",
+     *                                   "purchaseTime":1345678900000,
+     *                                   "purchaseToken" : "122333444455555",
+     *                                   "developerPayload":"example developer payload" }'
      *         "INAPP_DATA_SIGNATURE" - String containing the signature of the purchase data that
      *                                  was signed with the private key of the developer
      *                                  TODO: change this to app-specific keys.
@@ -112,15 +120,15 @@ interface IInAppBillingService {
      * V1 and V2 that have not been consumed.
      * @param apiVersion billing API version that the app is using
      * @param packageName package name of the calling app
-     * @param type the type of the in-app items being requested
-     *        ("inapp" for one-time purchases and "subs" for subscription).
+     * @param type of the in-app items being requested ("inapp" for one-time purchases
+     *        and "subs" for subscriptions)
      * @param continuationToken to be set as null for the first call, if the number of owned
      *        skus are too many, a continuationToken is returned in the response bundle.
      *        This method can be called again with the continuation token to get the next set of
      *        owned skus.
      * @return Bundle containing the following key-value pairs
-     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, other response codes on
-     *              failure as listed above.
+     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, appropriate response codes
+                               on failures.
      *         "INAPP_PURCHASE_ITEM_LIST" - StringArrayList containing the list of SKUs
      *         "INAPP_PURCHASE_DATA_LIST" - StringArrayList containing the purchase information
      *         "INAPP_DATA_SIGNATURE_LIST"- StringArrayList containing the signatures
@@ -138,7 +146,47 @@ interface IInAppBillingService {
      * @param packageName package name of the calling app
      * @param purchaseToken token in the purchase information JSON that identifies the purchase
      *        to be consumed
-     * @return 0 if consumption succeeded. Appropriate error values for failures.
+     * @return RESULT_OK(0) if consumption succeeded, appropriate response codes on failures.
      */
     int consumePurchase(int apiVersion, String packageName, String purchaseToken);
+
+    /**
+     * This API is currently under development.
+     */
+    int stub(int apiVersion, String packageName, String type);
+
+    /**
+     * Returns a pending intent to launch the purchase flow for upgrading or downgrading a
+     * subscription. The existing owned SKU(s) should be provided along with the new SKU that
+     * the user is upgrading or downgrading to.
+     * @param apiVersion billing API version that the app is using, must be 5 or later
+     * @param packageName package name of the calling app
+     * @param oldSkus the SKU(s) that the user is upgrading or downgrading from,
+     *        if null or empty this method will behave like {@link #getBuyIntent}
+     * @param newSku the SKU that the user is upgrading or downgrading to
+     * @param type of the item being purchased, currently must be "subs"
+     * @param developerPayload optional argument to be sent back with the purchase information
+     * @return Bundle containing the following key-value pairs
+     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, appropriate response codes
+     *                         on failures.
+     *         "BUY_INTENT" - PendingIntent to start the purchase flow
+     *
+     * The Pending intent should be launched with startIntentSenderForResult. When purchase flow
+     * has completed, the onActivityResult() will give a resultCode of OK or CANCELED.
+     * If the purchase is successful, the result data will contain the following key-value pairs
+     *         "RESPONSE_CODE" with int value, RESULT_OK(0) if success, appropriate response
+     *                         codes on failures.
+     *         "INAPP_PURCHASE_DATA" - String in JSON format similar to
+     *                                 '{"orderId":"12999763169054705758.1371079406387615",
+     *                                   "packageName":"com.example.app",
+     *                                   "productId":"exampleSku",
+     *                                   "purchaseTime":1345678900000,
+     *                                   "purchaseToken" : "122333444455555",
+     *                                   "developerPayload":"example developer payload" }'
+     *         "INAPP_DATA_SIGNATURE" - String containing the signature of the purchase data that
+     *                                  was signed with the private key of the developer
+     *                                  TODO: change this to app-specific keys.
+     */
+    Bundle getBuyIntentToReplaceSkus(int apiVersion, String packageName,
+        in List<String> oldSkus, String newSku, String type, String developerPayload);
 }

@@ -4,7 +4,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
-import org.tasks.billing.IabHelper;
+import org.tasks.billing.PurchaseHelper;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.TeslaUnreadReceiver;
 
@@ -16,22 +16,22 @@ public class FlavorSetup {
     private final GtasksSyncService gtasksSyncService;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final TeslaUnreadReceiver teslaUnreadReceiver;
-    private final IabHelper iabHelper;
+    private final PurchaseHelper purchaseHelper;
 
     @Inject
     public FlavorSetup(Preferences preferences,
                        @SuppressWarnings("UnusedParameters") GtasksTaskListUpdater gtasksTaskListUpdater,
                        GtasksSyncService gtasksSyncService, GtasksPreferenceService gtasksPreferenceService,
-                       TeslaUnreadReceiver teslaUnreadReceiver, IabHelper iabHelper) {
+                       TeslaUnreadReceiver teslaUnreadReceiver, PurchaseHelper purchaseHelper) {
         this.preferences = preferences;
         this.gtasksSyncService = gtasksSyncService;
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.teslaUnreadReceiver = teslaUnreadReceiver;
-        this.iabHelper = iabHelper;
+        this.purchaseHelper = purchaseHelper;
     }
 
     public void setup() {
-        iabHelper.startSetup();
+        purchaseHelper.initialize();
         teslaUnreadReceiver.setEnabled(preferences.getBoolean(R.string.p_tesla_unread_enabled, false));
         gtasksPreferenceService.stopOngoing(); // if sync ongoing flag was set, clear it
         gtasksSyncService.initialize();

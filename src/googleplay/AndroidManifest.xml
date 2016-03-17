@@ -86,6 +86,8 @@
 
         <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
+        <!-- Tasker/Locale -->
+
         <activity
             android:name=".locale.ui.activity.TaskerSettingsActivity"
             android:exported="false"
@@ -93,15 +95,7 @@
             android:theme="@style/Tasks"
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="adjustResize"/>
-        <!--
-             This is the "edit" Activity. Note that the host will reject plug-in
-             Activities for the following reasons:
-                 - Missing "android:label=[...]"
-                 - Missing "android:icon=[...]"
-                 - The Activity isn't exported (e.g. android:exported="false")
-                 - The Activity isn't enabled (e.g. android:enabled="false")
-                 - The Activity requires permissions not available to the host
-        -->
+
         <activity-alias
             android:name="com.twofortyfouram.locale.example.setting.toast.ui.activity.PluginActivity"
             android:exported="true"
@@ -110,32 +104,42 @@
             android:label="@string/app_name"
             android:targetActivity=".locale.ui.activity.TaskerSettingsActivity"
             tools:ignore="ExportedActivity">
-            <!-- this Intent filter allows the plug-in to be discovered by the host. -->
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity-alias>
 
-        <!--
-             This is the "fire" BroadcastReceiver. Note that the host will reject plug-in
-             BroadcastReceivers for the following reasons:
-                - The BroadcastReceiver isn't exported (e.g. android:exported="false")
-                - The BroadcastReceiver isn't enabled (e.g. android:enabled="false")
-                - The BroadcastReceiver requires permissions not available to the host
-                - There are multiple BroadcastReceivers for com.twofortyfouram.locale.intent.action.FIRE_SETTING
-        -->
         <receiver
             android:name=".locale.receiver.FireReceiver"
             android:exported="true"
             android:enabled="true"
             android:process=":background"
             tools:ignore="ExportedReceiver">
-
-            <!-- this Intent filter allows the plug-in to discovered by the host. -->
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
             </intent-filter>
         </receiver>
+
+        <!-- DashClock extension -->
+
+        <service android:name=".dashclock.DashClockExtension"
+            android:icon="@drawable/ic_check_white_24dp"
+            android:label="@string/app_name"
+            android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
+            <intent-filter>
+                <action android:name="com.google.android.apps.dashclock.Extension" />
+            </intent-filter>
+            <meta-data android:name="protocolVersion" android:value="2" />
+            <meta-data android:name="worldReadable" android:value="true" />
+            <meta-data android:name="description"
+                android:value="@string/dashclock_description" />
+            <meta-data android:name="settingsActivity"
+                android:value=".dashclock.DashClockSettings" />
+        </service>
+
+        <activity android:name=".dashclock.DashClockSettings"
+            android:label="@string/app_name"
+            android:exported="true" />
 
     </application>
 

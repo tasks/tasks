@@ -15,7 +15,8 @@ public class BasicPreferences extends BaseBasicPreferences {
         PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.removePreference(findPreference(getString(R.string.synchronization)));
         preferenceScreen.removePreference(findPreference(getString(R.string.p_tesla_unread_enabled)));
-        preferenceScreen.removePreference(findPreference(getString(R.string.p_tasker_enabled)));
+        preferenceScreen.removePreference(findPreference(getString(R.string.p_purchased_tasker)));
+        preferenceScreen.removePreference(findPreference(getString(R.string.p_purchased_dashclock)));
         preferenceScreen.removePreference(findPreference(getString(R.string.p_collect_statistics)));
     }
 

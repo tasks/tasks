@@ -14,6 +14,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.widget.WidgetConfigActivity;
 
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;
@@ -199,6 +200,10 @@ public class Preferences {
         return getBoolean(R.string.p_field_missed_calls, true) &&
                 notificationsEnabled() &&
                 permissionChecker.canAccessMissedCallPermissions();
+    }
+
+    public boolean hasPurchase(int keyResource) {
+        return getBoolean(keyResource, false);
     }
 
     public boolean getBoolean(int keyResources, boolean defValue) {

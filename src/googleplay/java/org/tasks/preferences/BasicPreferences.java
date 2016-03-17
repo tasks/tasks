@@ -3,38 +3,41 @@ package org.tasks.preferences;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.SwitchPreference;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.billing.IabHelper;
-import org.tasks.billing.IabResult;
-import org.tasks.billing.Purchase;
+import org.tasks.billing.PurchaseHelper;
+import org.tasks.billing.PurchaseHelperCallback;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.receivers.TeslaUnreadReceiver;
 
 import javax.inject.Inject;
 
-public class BasicPreferences extends BaseBasicPreferences implements IabHelper.OnIabPurchaseFinishedListener {
+import timber.log.Timber;
 
-    private static final int REQUEST_PURCHASE_TESLA_UNREAD = 10002;
-    private static final int REQUEST_PURCHASE_TASKER = 10003;
+public class BasicPreferences extends BaseBasicPreferences implements PurchaseHelperCallback {
+
+    private static final int REQUEST_PURCHASE = 10005;
 
     @Inject Tracker tracker;
-    @Inject IabHelper iabHelper;
     @Inject TeslaUnreadReceiver teslaUnreadReceiver;
     @Inject Preferences preferences;
+    @Inject PurchaseHelper purchaseHelper;
+    @Inject DialogBuilder dialogBuilder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        findPreference(getString(R.string.p_tesla_unread_enabled)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        getPref(R.string.p_tesla_unread_enabled).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if (newValue != null) {
-                    if ((boolean) newValue && !preferences.getBoolean(R.string.p_purchased_tesla_unread, BuildConfig.DEBUG)) {
-                        iabHelper.launchPurchaseFlow(BasicPreferences.this, getString(R.string.sku_tesla_unread), REQUEST_PURCHASE_TESLA_UNREAD, BasicPreferences.this);
+                    if ((boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tesla_unread)) {
+                        purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tesla_unread), getString(R.string.p_purchased_tesla_unread), REQUEST_PURCHASE, BasicPreferences.this);
                     } else {
                         teslaUnreadReceiver.setEnabled((boolean) newValue);
                         return true;
@@ -44,15 +47,21 @@ public class BasicPreferences extends BaseBasicPreferences implements IabHelper.
             }
         });
 
-        findPreference(getString(R.string.p_tasker_enabled)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        getPref(R.string.p_purchased_tasker).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null) {
-                    if ((boolean) newValue && !preferences.getBoolean(R.string.p_purchased_tasker, BuildConfig.DEBUG)) {
-                        iabHelper.launchPurchaseFlow(BasicPreferences.this, getString(R.string.sku_tasker), REQUEST_PURCHASE_TASKER, BasicPreferences.this);
-                    } else {
-                        return true;
-                    }
+                if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tasker)) {
+                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, BasicPreferences.this);
+                }
+                return false;
+            }
+        });
+
+        getPref(R.string.p_purchased_dashclock).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
+                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
                 }
                 return false;
             }
@@ -68,21 +77,15 @@ public class BasicPreferences extends BaseBasicPreferences implements IabHelper.
                 return false;
             }
         });
-    }
 
-    @Override
-    public void onIabPurchaseFinished(IabResult result, final Purchase info) {
-        if (result.isSuccess()) {
-            runOnUiThread(new Runnable() {
+        if (BuildConfig.DEBUG) {
+            addPreferencesFromResource(R.xml.preferences_debug);
+
+            findPreference(getString(R.string.debug_consume_purchases)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public void run() {
-                    if (info.getSku().equals(getString(R.string.sku_tasker))) {
-                        preferences.setBoolean(R.string.p_purchased_tasker, true);
-                        findPreference(getString(R.string.p_tasker_enabled)).setEnabled(true);
-                    } else if (info.getSku().equals(getString(R.string.sku_tesla_unread))) {
-                        preferences.setBoolean(R.string.p_purchased_tesla_unread, true);
-                        findPreference(getString(R.string.p_tesla_unread_enabled)).setEnabled(true);
-                    }
+                public boolean onPreferenceClick(Preference preference) {
+                    purchaseHelper.consumePurchases();
+                    return true;
                 }
             });
         }
@@ -90,8 +93,8 @@ public class BasicPreferences extends BaseBasicPreferences implements IabHelper.
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_PURCHASE_TASKER || requestCode == REQUEST_PURCHASE_TESLA_UNREAD) {
-            iabHelper.handleActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_PURCHASE) {
+            purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -100,5 +103,24 @@ public class BasicPreferences extends BaseBasicPreferences implements IabHelper.
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    public void purchaseCompleted(boolean success, String sku) {
+        if (success) {
+            if (getString(R.string.sku_tasker).equals(sku)) {
+                getPref(R.string.p_purchased_tasker).setChecked(true);
+            } else if (getString(R.string.sku_tesla_unread).equals(sku)) {
+                getPref(R.string.p_tesla_unread_enabled).setChecked(true);
+            } else if (getString(R.string.sku_dashclock).equals(sku)) {
+                getPref(R.string.p_purchased_dashclock).setChecked(true);
+            } else {
+                Timber.e("Unhandled sku: %s", sku);
+            }
+        }
+    }
+
+    private SwitchPreference getPref(int resId) {
+        return (SwitchPreference) findPreference(getString(resId));
     }
 }
