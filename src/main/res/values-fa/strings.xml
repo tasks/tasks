@@ -10,13 +10,17 @@
 	<string name="name">نام</string>
 	<string name="enter_tag_name">نام تگ را وارد کنید</string>
 	<string name="enter_filter_name">نام فیلتر را وارد نمایید</string>
+	<string name="choose_google_account">انتخاب حساب کاربری گوگل</string>
 	<string name="backup_BPr_header">پشتیبان ها</string>
+	<string name="backup_BAc_import">واردکردن وظایف</string>
 	<string name="backup_BAc_export">خرجی از وظایف</string>
 	<string name="export_toast_no_tasks">خروجی از وظایف</string>
 	<string name="import_summary_title">بازگرداندن خلاصه</string>
+	<string name="keep_editing">ادامه ویرایش</string>
 	<string name="DLG_delete_this_task_question">حذف این وظیفه</string>
 	<string name="DLG_undo">بازگرداندن</string>
 	<string name="WID_dateButtonUnset">کلیک برای تنظیم</string>
+	<string name="TLA_no_items">هیچ وظیفه ای وجود ندارد.</string>
 	<string name="TLA_menu_sort">چینش</string>
 	<string name="TLA_menu_search">جست و جو</string>
 	<string name="TLA_menu_settings">تنظیمات</string>
@@ -30,7 +34,7 @@
 	<string name="SSD_sort_due">براساس تاریخ موعود</string>
 	<string name="SSD_sort_importance">براساس اولیت</string>
 	<string name="SSD_sort_modified">براساس آخرین تغییرات</string>
-	<string name="FLA_new_filter">فیلتر جدید</string>
+	<string name="FLA_new_filter">ایجاد فیلتر جدید</string>
 	<string name="FLA_no_filter_selected">فیلتری انتخاب نشده! لطفا یک فیلتر یا یک لیست انتخاب کنید</string>
 	<string name="TEA_title_hint">نام وظیفه</string>
 	<string name="TEA_importance_label">اولویت</string>
@@ -65,6 +69,7 @@
 	<string name="CRA_ignore_this">فقط نادیده گرفتن این رویداد</string>
 	<string name="CRA_postpone">شاید یعدا</string>
 	<string name="CRA_calendar_reminders_pref_title">دستیار تقویم</string>
+	<string name="none">هیچکدام</string>
 	<string name="EPr_appearance_header">ظاهر</string>
 	<string name="EPr_filters_to_show_title">فیلترها برای نمایش</string>
 	<string name="EPr_edit_screen_options">ویرایش تنظیمات صفحه</string>
@@ -74,6 +79,8 @@
 	<string name="EPr_cal_end_or_start_at_due_time">زمان رویداد تقویم</string>
 	<string name="EPr_cal_end_at_due_time">اتمام رویدادهای تقویم در موعود</string>
 	<string name="EPr_cal_start_at_due_time">شروع رویدادهای تقویم در موعود</string>
+	<string name="EPr_manage_header">مدیریت وظایف قدیمی</string>
+	<string name="EPr_delete_task_data">حذف داده وظیفه</string>
 	<string name="TWi_loading">در حال بارگیری...</string>
 	<string name="WCA_title">انتخاب وظیفه جهت نمایش</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
@@ -117,6 +124,7 @@
 	</string-array>
 	<string name="CFC_importance_text">اولویت در آخر؟</string>
 	<string name="CFC_importance_name">اولویت</string>
+	<string name="CFC_tag_name">تگ...</string>
 	<string name="CFC_title_contains_name">عنوان شامل</string>
 	<string name="gcal_TEA_error">خطا در اضافه کردن وظیفه به تقویم</string>
 	<string name="gcal_TEA_addToCalendar_label">اضاقه به تقویم</string>
@@ -173,7 +181,7 @@
 		<item>از تاریخ اتمام</item>
 	</string-array>
 	<string name="repeat_forever">تکرار بینهایت</string>
-	<string name="new_tag">تگ جدید</string>
+	<string name="new_tag">ایجاد تگ جدید</string>
 	<string name="tag_FEx_untagged">دسته بندی نشده</string>
 	<string name="TFE_workingOn">وظایف زمانبندی شده</string>
 	<string name="TEA_timer_controls">تایمر</string>
@@ -197,13 +205,17 @@
 	<string name="tmrw">فردا</string>
 	<string name="yest">دیروز</string>
 	<string name="DLG_wait">لطفا منتظر بمانید...</string>
+	<string name="sync_SPr_interval_title">سینک پیش زمینه</string>
 	<string name="sync_SPr_forget">خروج از حساب کاربری</string>
+	<string name="widget_hide_due_date">مخفی کردن موعودها</string>
 	<string name="widget_hide_header">مخفی کردن سربرگ</string>
 	<string name="widget_transparent_background">پیش زمینه شفاف</string>
 	<string name="notifications">اعلان ها</string>
 	<string name="silent">سکوت</string>
 	<string name="sound">صدا</string>
+	<string name="vibrations">لرزش ها</string>
 	<string name="quiet_hours">ساعات سکوت</string>
+	<string name="attachment_directory">پوشه پیوست</string>
 	<string name="backup_directory">پشتیبان گیری از پوشه</string>
 	<string name="miscellaneous">سایر</string>
 	<string name="enabled">فعال شده</string>
@@ -214,9 +226,10 @@
 	<string name="help_and_feedback">کمک و بازخورد</string>
 	<string name="contact_developer">تماس با توسعه دهنده</string>
 	<string name="rate_tasks">ارزیابی وظیفه</string>
+	<string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
 	<string name="TLA_menu_donate">کمک مالی</string>
-	<string name="error">خطا</string>
 	<string name="select_amount">انتخاب مقدار</string>
+	<string name="notification_actions">عمل اعلان</string>
 	<string name="add_reminder">اضافه کردن یادآورد</string>
 	<string name="remove">حذف</string>
 	<string name="randomly_once">به طور تصادفی یک دفعه</string>
@@ -246,6 +259,18 @@
 	<string name="show_hidden">نمایش مخفی ها</string>
 	<string name="show_completed">نمایش انجام شده ها</string>
 	<string name="reverse">برعکس</string>
+	<string name="get_plugins">خرید داخل برنامه</string>
+	<string name="add_attachment">الصاق پیوست</string>
+	<string name="high_priority">زیاد</string>
+	<string name="default_priority">پیش فرض</string>
+	<string name="low_priority">کم</string>
+	<string name="notification_priority">اولویت اعلان</string>
+	<string name="vibration_count">تعداد لرزش ها</string>
+	<string name="take_a_picture">گرفتن عکس</string>
+	<string name="send_anonymous_statistics">بهبود وظیفه</string>
+	<string name="disable_notification_light">خاموش کردن چراغ اعلان</string>
+	<string name="no_title">(بدون عنوان)</string>
+	<string name="default_list">لیست پیش فرض</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>غیرفعال</item>
 		<item>هر پانزده دقیقه</item>

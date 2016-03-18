@@ -302,7 +302,6 @@
 	<string name="rate_tasks">Bewerte Tasks</string>
 	<string name="quiet_hours_summary">Keine Erinnerungen während Ruhezeit</string>
 	<string name="TLA_menu_donate">Spenden</string>
-	<string name="error">Fehler</string>
 	<string name="select_amount">Menge auswählen</string>
 	<string name="notification_actions">Benachrichtigunsaktionen</string>
 	<string name="notification_actions_summary">Zeige Snooze und Fertig Aktionen in Benachrichtigungen an</string>
@@ -340,7 +339,6 @@
 	<string name="show_completed">Erledigt anzeigen</string>
 	<string name="reverse">Rückgangig</string>
 	<string name="task_count">%s Aufgaben</string>
-	<string name="get_plugins">Finde Plug-Ins</string>
 	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
 	<string name="add_attachment">Anhang hinzufügen</string>
 	<string name="high_priority">Hoch</string>

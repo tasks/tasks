@@ -308,7 +308,6 @@
 	<string name="rate_tasks">Beoordeel Taken</string>
 	<string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>
 	<string name="TLA_menu_donate">Doneer</string>
-	<string name="error">Fout</string>
 	<string name="select_amount">Selecteer aantal</string>
 	<string name="notification_actions">Notificatie Acties</string>
 	<string name="notification_actions_summary">Toon snooze en voltooide acties in een melding</string>
@@ -344,7 +343,6 @@
 	<string name="show_completed">Toon voltooide</string>
 	<string name="reverse">Omgekeerde</string>
 	<string name="task_count">%s Taken</string>
-	<string name="get_plugins">Plug-ins ophalen</string>
 	<string name="no_application_found">Geen applicatie gevonden om de bijlage te openen</string>
 	<string name="add_attachment">Bijlage toevoegen</string>
 	<string name="high_priority">Hoog</string>

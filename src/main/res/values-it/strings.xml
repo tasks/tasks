@@ -310,7 +310,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="rate_tasks">Attività</string>
 	<string name="quiet_hours_summary">Non notificare durante le ore di riposo</string>
 	<string name="TLA_menu_donate">Dona</string>
-	<string name="error">Errore</string>
 	<string name="select_amount">Seleziona quantità</string>
 	<string name="notification_actions">Modalità di notifica</string>
 	<string name="notification_actions_summary">Mostra allarme e completa le azioni in notifica</string>
@@ -348,7 +347,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="show_completed">Mostra completate</string>
 	<string name="reverse">Contrario</string>
 	<string name="task_count">%s Attività</string>
-	<string name="get_plugins">Carica Plug-in</string>
+	<string name="get_plugins">Acquisti nell\'app.</string>
 	<string name="no_application_found">Nessuna applicazione in grado di aprire l\'allegato </string>
 	<string name="add_attachment">Aggiungi allegato</string>
 	<string name="high_priority">Alta</string>
@@ -373,6 +372,10 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="no_title">(nessun titolo)</string>
 	<string name="back_button_saves_task">Il tasto indietro salva l\'attività</string>
 	<string name="default_list">Lista predefinita</string>
+	<string name="plugin_description">Tasks è un progetto open source manutenuto da un singolo sviluppatore. Per supportarne lo sviluppo all\'interno dell\'applicazione sono offerte alcune funzioni di nicchia a pagamento...</string>
+	<string name="tesla_unread_description">Mostra nella lista predefinita un contrassegno con il numero di compiti attivi. Richiede TeslaUnread for Nova Launcher</string>
+	<string name="tasker_description">Lista notifiche in base al contesto. Richiede Tasker o Locale</string>
+	<string name="donate_summary">Sono gradite offerte</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

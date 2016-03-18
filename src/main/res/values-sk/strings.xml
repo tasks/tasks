@@ -287,7 +287,6 @@
 	<string name="contact_developer">Kontaktovať vývojára</string>
 	<string name="rate_tasks">Ohodnotiť Tasks</string>
 	<string name="TLA_menu_donate">Darovať</string>
-	<string name="error">Chyba</string>
 	<string name="select_amount">Vybrať sumu</string>
 	<string name="notification_actions">Oznámenia akcií</string>
 	<string name="notification_actions_summary">Zobraziť odložené a dokončené akcie v notifikačnej lište</string>
@@ -313,7 +312,6 @@
 	<string name="show_hidden">Zobraziť skryté</string>
 	<string name="show_completed">Zobraziť dokončené</string>
 	<string name="task_count">%s úlohy</string>
-	<string name="get_plugins">Získať Plug-in</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>zakázať</item>
 		<item>každých pätnásť minút</item>

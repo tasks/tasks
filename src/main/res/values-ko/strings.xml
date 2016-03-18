@@ -304,7 +304,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="contact_developer">개발자와 연락</string>
 	<string name="rate_tasks">Tasks 평가하기</string>
 	<string name="TLA_menu_donate">기부하기</string>
-	<string name="error">오류</string>
 	<string name="select_amount">숫자 선택</string>
 	<string name="notification_actions">알림 동작</string>
 	<string name="notification_actions_summary">알림 항목에 알림 잠시 미루기와 일정 완료를 표시하기</string>
@@ -342,7 +341,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="show_completed">완료된 일정 표시</string>
 	<string name="reverse">반전</string>
 	<string name="task_count">%s 일정</string>
-	<string name="get_plugins">플러그인 받기</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>사용안함</item>
 		<item>15분마다</item>

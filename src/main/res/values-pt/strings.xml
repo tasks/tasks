@@ -295,7 +295,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="contact_developer">Contacte o programador</string>
 	<string name="rate_tasks">Avaliar o Tasks</string>
 	<string name="TLA_menu_donate">Donativos</string>
-	<string name="error">Erro</string>
 	<string name="select_amount">Selecione o valor</string>
 	<string name="notification_actions">Ações de notificação</string>
 	<string name="notification_actions_summary">Mostrar snooze e tarefas completas nas notificações</string>
@@ -333,7 +332,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="show_completed">Mostrar terminadas</string>
 	<string name="reverse">Reverter</string>
 	<string name="task_count">%s tarefas</string>
-	<string name="get_plugins">Obter extras</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>desativar</item>
 		<item>cada 15 minutos</item>

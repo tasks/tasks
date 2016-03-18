@@ -345,7 +345,7 @@
 	<string name="show_completed">Mostrar completado</string>
 	<string name="reverse">Invertir</string>
 	<string name="task_count">%s Tareas</string>
-	<string name="get_plugins">Obtener Plugins</string>
+	<string name="get_plugins">Compras en la aplicación</string>
 	<string name="no_application_found">No se ha encontrado una aplicación para abrir el archivo adjunto</string>
 	<string name="add_attachment">Adjuntar archivo</string>
 	<string name="high_priority">Alta</string>
@@ -370,6 +370,16 @@
 	<string name="no_title">(Sin título)</string>
 	<string name="back_button_saves_task">Botón atrás guarda la tarea</string>
 	<string name="default_list">Lista por defecto</string>
+	<string name="plugin_description">Task es un proyecto de código abierto mantenido por un único desarrollador. Algunas características especializadas se podrán comprar desde la aplicación para mantener su desarrollo.</string>
+	<string name="tesla_unread_description">Mostrar distintivo con número de tareas activas en la lista predeterminada. Requiere TeslaUnread de Nova Launcher.</string>
+	<string name="tasker_description">Notificaciones dependientes del contexto. Requiere Tasker o Locale.</string>
+	<string name="donate_summary">Se agradecen enormemente las donaciones</string>
+	<string name="dashclock_purchase_description">Muestra una cuenta de las tareas activas. Requiere DashClock Widget</string>
+	<string name="buy">Comprar</string>
+	<string name="buy_dashclock_extension">Comprar extensión</string>
+	<string name="billing_service_busy">El servicio de compra desde la aplicación está ocupado, inténtelo más tarde.</string>
+	<string name="select_filter">Seleccionar filtro</string>
+	<string name="filter">Filtro</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deshabilitar</item>
 		<item>cada quince minutos</item>

@@ -266,7 +266,6 @@
 	<string name="show_hidden">Показати приховані</string>
 	<string name="show_completed">Показати завершені</string>
 	<string name="reverse">Реверс</string>
-	<string name="get_plugins">Отримати розширення</string>
 	<string name="no_application_found">Не знайдено програми для відкриття вкладення</string>
 	<string name="add_attachment">Додати вкладення</string>
 	<string name="high_priority">Високий</string>

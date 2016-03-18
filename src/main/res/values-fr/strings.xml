@@ -295,7 +295,6 @@
 	<string name="rate_tasks">Noter Tasks</string>
 	<string name="quiet_hours_summary">Pas de rappels pendant les heures silencieuses</string>
 	<string name="TLA_menu_donate">Remercier</string>
-	<string name="error">Erreur</string>
 	<string name="select_amount">Choisir le montant</string>
 	<string name="notification_actions">Actions dans les notifications</string>
 	<string name="notification_actions_summary">Afficher l\'option de rappel et indiquer qu\'une tâche est effectuée dans la notification</string>
@@ -332,7 +331,6 @@
 	<string name="show_completed">Afficher les tâches terminées</string>
 	<string name="reverse">Inverse</string>
 	<string name="task_count">%s Tâches</string>
-	<string name="get_plugins">Obtenir des plugins</string>
 	<string name="no_application_found">Aucune application trouvée pour ouvrir la pièce jointe</string>
 	<string name="add_attachment">Ajouter une pièce jointe</string>
 	<string name="high_priority">Haute</string>
