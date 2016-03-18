@@ -304,6 +304,10 @@ public class AndroidUtilities {
         return !atLeastLollipop();
     }
 
+    public static boolean atLeastJellybeanMR1() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
+    }
+
     public static boolean atLeastJellybean() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
     }

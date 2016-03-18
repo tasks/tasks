@@ -63,6 +63,15 @@ public class DashClockSettings extends InjectingPreferenceActivity implements Pu
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (!isChangingConfigurations()) {
+            purchaseHelper.disposeIabHelper();
+        }
+    }
+
+    @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
     }

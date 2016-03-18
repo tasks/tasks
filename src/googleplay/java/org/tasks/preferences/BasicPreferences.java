@@ -3,7 +3,8 @@ package org.tasks.preferences;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.SwitchPreference;
+import android.preference.PreferenceCategory;
+import android.preference.TwoStatePreference;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -17,6 +18,8 @@ import org.tasks.receivers.TeslaUnreadReceiver;
 import javax.inject.Inject;
 
 import timber.log.Timber;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class BasicPreferences extends BaseBasicPreferences implements PurchaseHelperCallback {
 
@@ -57,15 +60,21 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
             }
         });
 
-        getPref(R.string.p_purchased_dashclock).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
-                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
+        Preference dashClock = getPref(R.string.p_purchased_dashclock);
+        if (atLeastJellybeanMR1()) {
+            dashClock.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
+                        purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        } else {
+            PreferenceCategory iapCategory = (PreferenceCategory) findPreference(getString(R.string.get_plugins));
+            iapCategory.removePreference(dashClock);
+        }
 
         findPreference(getString(R.string.p_collect_statistics)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -106,21 +115,33 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
     }
 
     @Override
-    public void purchaseCompleted(boolean success, String sku) {
-        if (success) {
-            if (getString(R.string.sku_tasker).equals(sku)) {
-                getPref(R.string.p_purchased_tasker).setChecked(true);
-            } else if (getString(R.string.sku_tesla_unread).equals(sku)) {
-                getPref(R.string.p_tesla_unread_enabled).setChecked(true);
-            } else if (getString(R.string.sku_dashclock).equals(sku)) {
-                getPref(R.string.p_purchased_dashclock).setChecked(true);
-            } else {
-                Timber.e("Unhandled sku: %s", sku);
+    public void purchaseCompleted(final boolean success, final String sku) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getString(R.string.sku_tasker).equals(sku)) {
+                    ((TwoStatePreference) getPref(R.string.p_purchased_tasker)).setChecked(success);
+                } else if (getString(R.string.sku_tesla_unread).equals(sku)) {
+                    ((TwoStatePreference) getPref(R.string.p_tesla_unread_enabled)).setChecked(success);
+                } else if (getString(R.string.sku_dashclock).equals(sku)) {
+                    ((TwoStatePreference) getPref(R.string.p_purchased_dashclock)).setChecked(success);
+                } else {
+                    Timber.e("Unhandled sku: %s", sku);
+                }
             }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (!isChangingConfigurations()) {
+            purchaseHelper.disposeIabHelper();
         }
     }
 
-    private SwitchPreference getPref(int resId) {
-        return (SwitchPreference) findPreference(getString(resId));
+    private Preference getPref(int resId) {
+        return findPreference(getString(resId));
     }
 }

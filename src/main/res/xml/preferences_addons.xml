@@ -2,7 +2,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="@string/get_plugins">
+        android:title="@string/get_plugins"
+        android:key="@string/get_plugins">
 
         <Preference
             android:selectable="false"
@@ -17,21 +18,21 @@
                 android:targetClass="org.tasks.activities.DonationActivity" />
         </Preference>
 
-        <SwitchPreference
+        <CheckBoxPreference
             android:key="@string/p_purchased_dashclock"
             android:title="@string/dashclock"
             android:dependency="@string/p_purchased_dashclock"
             android:disableDependentsState="true"
             android:summary="@string/dashclock_purchase_description" />
 
-        <SwitchPreference
+        <CheckBoxPreference
             android:key="@string/p_purchased_tasker"
             android:title="@string/tasker_locale"
             android:dependency="@string/p_purchased_tasker"
             android:disableDependentsState="true"
             android:summary="@string/tasker_description"/>
 
-        <SwitchPreference
+        <CheckBoxPreference
             android:key="@string/p_tesla_unread_enabled"
             android:title="@string/tesla_unread"
             android:summary="@string/tesla_unread_description"/>

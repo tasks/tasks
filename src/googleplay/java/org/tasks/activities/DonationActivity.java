@@ -82,6 +82,15 @@ public class DonationActivity extends InjectingAppCompatActivity implements Purc
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (!isChangingConfigurations()) {
+            purchaseHelper.disposeIabHelper();
+        }
+    }
+
+    @Override
     public void purchaseCompleted(boolean success, String sku) {
         finish();
     }

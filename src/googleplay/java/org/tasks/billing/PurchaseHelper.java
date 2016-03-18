@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.widget.Toast;
 
-import com.android.vending.billing.IabBroadcastReceiver;
 import com.android.vending.billing.IabHelper;
 import com.android.vending.billing.IabResult;
-import com.android.vending.billing.Inventory;
 import com.android.vending.billing.Purchase;
 import com.google.common.base.Strings;
 
@@ -33,73 +30,36 @@ import timber.log.Timber;
 import static com.todoroo.andlib.utility.AndroidUtilities.isAppInstalled;
 
 @Singleton
-public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener, IabHelper.QueryInventoryFinishedListener, IabBroadcastReceiver.IabBroadcastListener {
+public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
 
-    private final IabHelper iabHelper;
     private final Context context;
     private final Preferences preferences;
     private final Tracker tracker;
     private final Broadcaster broadcaster;
+    private final InventoryHelper inventory;
 
-    private Inventory inventory;
     private PurchaseHelperCallback activityResultCallback;
+    private IabHelper iabHelper;
 
     @Inject
     public PurchaseHelper(@ForApplication Context context, Preferences preferences, Tracker tracker,
-                          Broadcaster broadcaster) {
+                          Broadcaster broadcaster, InventoryHelper inventory) {
+        Timber.d("Injecting new PurchaseHelper");
         this.context = context;
         this.preferences = preferences;
         this.tracker = tracker;
         this.broadcaster = broadcaster;
-        iabHelper = new IabHelper(context, context.getString(R.string.gp_key));
-    }
-
-    public void initialize() {
-        iabHelper.startSetup(this);
-        context.registerReceiver(new IabBroadcastReceiver(this), new IntentFilter(IabBroadcastReceiver.ACTION));
+        this.inventory = inventory;
     }
 
     @Override
     public void onIabSetupFinished(IabResult result) {
-        if (result.isSuccess()) {
-            iabHelper.queryInventoryAsync(this);
-        } else {
+        if (result.isFailure()) {
             Timber.e("in-app billing setup failed: %s", result.getMessage());
         }
     }
 
-    @Override
-    public void onQueryInventoryFinished(final IabResult result, Inventory inv) {
-        if (result.isSuccess()) {
-            inventory = inv;
-            checkPurchase(R.string.sku_tasker, R.string.p_purchased_tasker);
-            checkPurchase(R.string.sku_tesla_unread, R.string.p_purchased_tesla_unread);
-            checkPurchase(R.string.sku_dashclock, R.string.p_purchased_dashclock);
-        } else {
-            Timber.e("in-app billing inventory query failed: %s", result.getMessage());
-        }
-    }
-
-    private void checkPurchase(int skuRes, final int prefRes) {
-        final String sku = context.getString(skuRes);
-        if (inventory.hasPurchase(sku)) {
-            Timber.d("Found purchase: %s", sku);
-            preferences.setBoolean(prefRes, true);
-        } else {
-            Timber.d("No purchase: %s", sku);
-        }
-    }
-
-    @Override
-    public void receivedBroadcast() {
-        try {
-            iabHelper.queryInventoryAsync(this);
-        } catch(IllegalStateException e) {
-            tracker.reportException(e);
-        }
-    }
-
-    public void purchase(DialogBuilder dialogBuilder, final Activity activity, final String sku, final String pref, final int requestCode, final PurchaseHelperCallback callback) {
+    public boolean purchase(DialogBuilder dialogBuilder, final Activity activity, final String sku, final String pref, final int requestCode, final PurchaseHelperCallback callback) {
         if (activity.getString(R.string.sku_tasker).equals(sku) && isAppInstalled(activity, "org.tasks.locale")) {
             dialogBuilder.newMessageDialog(R.string.tasker_message)
                     .setCancelable(false)
@@ -116,14 +76,16 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener, Iab
                         }
                     })
                     .show();
+            return false;
         } else {
             launchPurchaseFlow(activity, sku, pref, requestCode, callback);
+            return true;
         }
     }
 
     public void consumePurchases() {
         if (BuildConfig.DEBUG) {
-            List<Purchase> purchases = new ArrayList<>();
+            final List<Purchase> purchases = new ArrayList<>();
             final Purchase tasker = inventory.getPurchase(context.getString(R.string.sku_tasker));
             final Purchase dashclock = inventory.getPurchase(context.getString(R.string.sku_dashclock));
             final Purchase teslaUnread = inventory.getPurchase(context.getString(R.string.sku_tesla_unread));
@@ -136,63 +98,110 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener, Iab
             if (teslaUnread != null) {
                 purchases.add(teslaUnread);
             }
-            iabHelper.consumeAsync(purchases, new IabHelper.OnConsumeMultiFinishedListener() {
+            final IabHelper iabHelper = new IabHelper(context, context.getString(R.string.gp_key));
+            iabHelper.enableDebugLogging(true);
+            iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
                 @Override
-                public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
-                    for (int i = 0 ; i < purchases.size() ; i++) {
-                        Purchase purchase = purchases.get(i);
-                        IabResult iabResult = results.get(i);
-                        if (iabResult.isSuccess()) {
-                            if (purchase.equals(tasker)) {
-                                preferences.setBoolean(R.string.p_purchased_tasker, false);
-                            } else if (purchase.equals(dashclock)) {
-                                preferences.setBoolean(R.string.p_purchased_dashclock, false);
-                            } else if (purchase.equals(teslaUnread)) {
-                                preferences.setBoolean(R.string.p_purchased_tesla_unread, false);
-                                preferences.setBoolean(R.string.p_tesla_unread_enabled, false);
-                            } else {
-                                Timber.e("Unhandled consumption for purchase: %s", purchase);
+                public void onIabSetupFinished(IabResult result) {
+                    if (result.isSuccess()) {
+                        iabHelper.consumeAsync(purchases, new IabHelper.OnConsumeMultiFinishedListener() {
+                            @Override
+                            public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
+                                for (int i = 0 ; i < purchases.size() ; i++) {
+                                    Purchase purchase = purchases.get(i);
+                                    IabResult iabResult = results.get(i);
+                                    if (iabResult.isSuccess()) {
+                                        if (purchase.equals(tasker)) {
+                                            preferences.setBoolean(R.string.p_purchased_tasker, false);
+                                        } else if (purchase.equals(dashclock)) {
+                                            preferences.setBoolean(R.string.p_purchased_dashclock, false);
+                                        } else if (purchase.equals(teslaUnread)) {
+                                            preferences.setBoolean(R.string.p_purchased_tesla_unread, false);
+                                            preferences.setBoolean(R.string.p_tesla_unread_enabled, false);
+                                        } else {
+                                            Timber.e("Unhandled consumption for purchase: %s", purchase);
+                                        }
+                                        inventory.erasePurchase(purchase.getSku());
+                                        Timber.d("Consumed %s", purchase);
+                                    } else {
+                                        Timber.e("Consume failed: %s, %s", purchase, iabResult);
+                                    }
+                                }
+                                iabHelper.dispose();
                             }
-                            inventory.erasePurchase(purchase.getSku());
-                            Timber.d("Consumed %s", purchase);
-                        } else {
-                            Timber.e("Consume failed: %s, %s", purchase, iabResult);
-                        }
+                        });
+                    } else {
+                        Timber.e("setup failed: %s", result.getMessage());
+                        iabHelper.dispose();
                     }
                 }
             });
         }
     }
 
-    private void launchPurchaseFlow(final Activity activity, final String sku, final String pref, int requestCode, PurchaseHelperCallback callback) {
-        try {
-            iabHelper.launchPurchaseFlow(activity, sku, requestCode, new IabHelper.OnIabPurchaseFinishedListener() {
-                @Override
-                public void onIabPurchaseFinished(IabResult result, Purchase info) {
-                    Timber.d(result.toString());
-                    tracker.reportIabResult(result, info);
-                    if (result.isSuccess()) {
-                        if (!Strings.isNullOrEmpty(pref)) {
-                            preferences.setBoolean(pref, true);
-                            broadcaster.refresh();
-                        }
-                    } else if (result.getResponse() != IabHelper.BILLING_RESPONSE_RESULT_USER_CANCELED &&
-                            result.getResponse() != IabHelper.IABHELPER_USER_CANCELLED) {
-                        Toast.makeText(activity, result.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                    activityResultCallback.purchaseCompleted(result.isSuccess(), sku);
-                }
-            });
-        } catch (IllegalStateException e) {
-            tracker.reportException(e);
+    private void launchPurchaseFlow(final Activity activity, final String sku, final String pref, final int requestCode, final PurchaseHelperCallback callback) {
+        if (iabHelper != null) {
             Toast.makeText(activity, R.string.billing_service_busy, Toast.LENGTH_LONG).show();
             callback.purchaseCompleted(false, sku);
+            return;
+        }
+        iabHelper = new IabHelper(context, context.getString(R.string.gp_key));
+        iabHelper.enableDebugLogging(BuildConfig.DEBUG);
+        Timber.d("%s: startSetup", iabHelper);
+        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            @Override
+            public void onIabSetupFinished(IabResult result) {
+                if (result.isSuccess()) {
+                    try {
+                        Timber.d("%s: launchPurchaseFlow for %s", iabHelper, sku);
+                        iabHelper.launchPurchaseFlow(activity, sku, requestCode, new IabHelper.OnIabPurchaseFinishedListener() {
+                            @Override
+                            public void onIabPurchaseFinished(IabResult result, Purchase info) {
+                                Timber.d(result.toString());
+                                tracker.reportIabResult(result, info);
+                                if (result.isSuccess()) {
+                                    if (!Strings.isNullOrEmpty(pref)) {
+                                        preferences.setBoolean(pref, true);
+                                        broadcaster.refresh();
+                                    }
+                                    inventory.refreshInventory();
+                                } else if (result.getResponse() != IabHelper.BILLING_RESPONSE_RESULT_USER_CANCELED &&
+                                        result.getResponse() != IabHelper.IABHELPER_USER_CANCELLED) {
+                                    Toast.makeText(activity, result.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                                activityResultCallback.purchaseCompleted(result.isSuccess(), sku);
+                                disposeIabHelper();
+                            }
+                        });
+                    } catch (IllegalStateException e) {
+                        tracker.reportException(e);
+                        Toast.makeText(activity, R.string.billing_service_busy, Toast.LENGTH_LONG).show();
+                        callback.purchaseCompleted(false, sku);
+                        disposeIabHelper();
+                    }
+                } else {
+                    Timber.e(result.toString());
+                    Toast.makeText(activity, result.getMessage(), Toast.LENGTH_LONG).show();
+                    callback.purchaseCompleted(false, sku);
+                    disposeIabHelper();
+                }
+            }
+        });
+    }
+
+    public void disposeIabHelper() {
+        if (iabHelper != null) {
+            Timber.d("%s: dispose", iabHelper);
+            iabHelper.dispose();
+            iabHelper = null;
         }
     }
 
     public void handleActivityResult(PurchaseHelperCallback callback, int requestCode, int resultCode, Intent data) {
         this.activityResultCallback = callback;
 
-        iabHelper.handleActivityResult(requestCode, resultCode, data);
+        if (iabHelper != null) {
+            iabHelper.handleActivityResult(requestCode, resultCode, data);
+        }
     }
 }

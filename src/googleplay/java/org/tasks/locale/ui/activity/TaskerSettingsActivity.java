@@ -38,7 +38,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     private static final int REQUEST_SELECT_FILTER = 10124;
     private static final int REQUEST_PURCHASE = 10125;
     private static final String EXTRA_FILTER = "extra_filter";
-    private static final String EXTRA_PURCHASE_IN_PROGRESS = "extra_purchase_in_progress";
+    private static final String EXTRA_PURCHASE_INITIATED = "extra_purchase_initiated";
 
     @Bind(R.id.toolbar) Toolbar toolbar;
 
@@ -49,7 +49,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
 
     private Bundle previousBundle;
     private Filter filter;
-    private boolean purchaseInProgress;
+    private boolean purchaseInitiated;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         if (savedInstanceState != null) {
             previousBundle = savedInstanceState.getParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
             filter = savedInstanceState.getParcelable(EXTRA_FILTER);
-            purchaseInProgress = savedInstanceState.getBoolean(EXTRA_PURCHASE_IN_PROGRESS);
+            purchaseInitiated = savedInstanceState.getBoolean(EXTRA_PURCHASE_INITIATED);
         } else {
             filter = defaultFilterProvider.getDefaultFilter();
         }
@@ -77,8 +77,8 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
             supportActionBar.setDisplayShowTitleEnabled(false);
         }
 
-        if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInProgress) {
-            purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, this);
+        if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInitiated) {
+            purchaseInitiated = purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, this);
         }
     }
 
@@ -204,11 +204,20 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (!isChangingConfigurations()) {
+            purchaseHelper.disposeIabHelper();
+        }
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE, previousBundle);
         outState.putParcelable(EXTRA_FILTER, filter);
-        outState.putBoolean(EXTRA_PURCHASE_IN_PROGRESS, purchaseInProgress);
+        outState.putBoolean(EXTRA_PURCHASE_INITIATED, purchaseInitiated);
     }
 
     private void updateView() {
