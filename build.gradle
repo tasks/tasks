@@ -81,8 +81,8 @@ dependencies {
     compile 'com.google.dagger:dagger:2.1'
 
     compile 'com.nononsenseapps:filepicker:2.5.0'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.android.support:support-v13:23.1.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.android.support:support-v13:23.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:4.1.1'
     compile 'com.google.guava:guava:19.0'
