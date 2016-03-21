@@ -5,6 +5,10 @@
         android:title="@string/debug">
 
         <Preference
+            android:title="@string/debug_unlock_purchases"
+            android:key="@string/debug_unlock_purchases" />
+
+        <Preference
             android:title="@string/debug_consume_purchases"
             android:key="@string/debug_consume_purchases" />
 

@@ -90,6 +90,16 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
         if (BuildConfig.DEBUG) {
             addPreferencesFromResource(R.xml.preferences_debug);
 
+            findPreference(getString(R.string.debug_unlock_purchases)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    preferences.setBoolean(R.string.p_purchased_dashclock, true);
+                    preferences.setBoolean(R.string.p_purchased_tasker, true);
+                    preferences.setBoolean(R.string.p_purchased_tesla_unread, true);
+                    return true;
+                }
+            });
+
             findPreference(getString(R.string.debug_consume_purchases)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
