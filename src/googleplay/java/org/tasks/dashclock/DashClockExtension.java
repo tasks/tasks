@@ -92,9 +92,7 @@ public class DashClockExtension extends InjectingDashClockExtension {
                     .icon(R.drawable.ic_check_white_24dp)
                     .status(getString(R.string.buy))
                     .expandedTitle(getString(R.string.buy_dashclock_extension))
-                    .clickIntent(new Intent(this, DashClockSettings.class) {{
-                        setFlags(FLAG_ACTIVITY_NEW_TASK);
-                    }}));
+                    .clickIntent(new Intent(this, DashClockSettings.class)));
         }
     }
 }

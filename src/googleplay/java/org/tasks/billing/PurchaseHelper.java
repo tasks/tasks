@@ -44,7 +44,6 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
     @Inject
     public PurchaseHelper(@ForApplication Context context, Preferences preferences, Tracker tracker,
                           Broadcaster broadcaster, InventoryHelper inventory) {
-        Timber.d("Injecting new PurchaseHelper");
         this.context = context;
         this.preferences = preferences;
         this.tracker = tracker;
@@ -158,7 +157,7 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
                             @Override
                             public void onIabPurchaseFinished(IabResult result, Purchase info) {
                                 Timber.d(result.toString());
-                                tracker.reportIabResult(result, info);
+                                tracker.reportIabResult(result, sku);
                                 if (result.isSuccess()) {
                                     if (!Strings.isNullOrEmpty(pref)) {
                                         preferences.setBoolean(pref, true);

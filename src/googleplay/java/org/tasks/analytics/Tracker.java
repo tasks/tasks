@@ -59,12 +59,11 @@ public class Tracker {
                 .build());
     }
 
-    public void reportIabResult(IabResult result, Purchase info) {
+    public void reportIabResult(IabResult result, String sku) {
         tracker.send(new HitBuilders.EventBuilder()
                 .setCategory(context.getString(R.string.tracking_category_iab))
-                .setAction(context.getString(R.string.tracking_action_purchase))
-                .setLabel(info != null ? info.getSku() : "")
-                .setValue(result.getResponse())
+                .setAction(sku)
+                .setLabel(result.getMessage())
                 .build());
     }
 }
