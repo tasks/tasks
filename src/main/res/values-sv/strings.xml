@@ -374,6 +374,9 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="no_title">(Ingen titel)</string>
 	<string name="back_button_saves_task">Bakåtknapp sparar uppgift</string>
 	<string name="default_list">Standardlista</string>
+	<string name="buy">Köp</string>
+	<string name="buy_dashclock_extension">Köp tillägg</string>
+	<string name="select_filter">Välj filter</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>inaktivera</item>
 		<item>varje kvartstimme</item>
