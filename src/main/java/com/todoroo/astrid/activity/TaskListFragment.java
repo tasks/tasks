@@ -774,8 +774,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                             Filter filter = TagFilterExposer.filterFromTagData(getActivity(), td);
                             ((TaskListActivity) getActivity()).onFilterItemClicked(filter);
                         }
-                    } else {
-                        refresh();
                     }
                 } else if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
                     TagData tagData = getActiveTagData();
@@ -786,12 +784,11 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                     if (activeUuid.equals(uuid)) {
                         ((TaskListActivity) getActivity()).onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
                         ((TaskListActivity) getActivity()).clearNavigationDrawer(); // Should auto refresh
-                    } else {
-                        refresh();
                     }
                 }
 
                 ((TaskListActivity) getActivity()).refreshNavigationDrawer();
+                broadcaster.refresh();
             }
         } else if (requestCode == REQUEST_EDIT_FILTER) {
             if (resultCode == Activity.RESULT_OK) {
@@ -804,6 +801,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 }
 
                 ((TaskListActivity) getActivity()).refreshNavigationDrawer();
+                broadcaster.refresh();
             }
         } else if (requestCode == REQUEST_SORT) {
             if (resultCode == Activity.RESULT_OK) {

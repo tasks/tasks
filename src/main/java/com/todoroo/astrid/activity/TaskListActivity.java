@@ -115,7 +115,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         TaskEditFragment taskEditFragment = getTaskEditFragment();
         List<TaskEditControlFragment> taskEditControlFragments = null;
         if (taskEditFragment != null) {
-            if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(OPEN_TASK)) {
+            if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(LOAD_FILTER) || intent.hasExtra(OPEN_TASK)) {
                 taskEditFragment.save();
                 taskEditFragment = null;
             } else {

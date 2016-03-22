@@ -4,25 +4,26 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.injection.InjectingRemoteViewsService;
 import org.tasks.injection.ServiceComponent;
+import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
 public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
 
-    public static final String FILTER = "org.tasks.widget.FILTER";
+    public static final String FILTER_ID = "org.tasks.widget.FILTER_ID";
 
     @Inject Database database;
     @Inject TaskService taskService;
     @Inject Preferences preferences;
     @Inject SubtasksHelper subtasksHelper;
+    @Inject DefaultFilterProvider defaultFilterProvider;
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -42,11 +43,10 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
             return null;
         }
 
-        Bundle bundle = extras.getBundle(FILTER);
-        Filter filter = (Filter) bundle.get(FILTER);
+        String filterId = (String) extras.get(FILTER_ID);
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-        return new ScrollableViewsFactory(subtasksHelper, preferences, this, filter,
-                widgetId, database, taskService);
+        return new ScrollableViewsFactory(subtasksHelper, preferences, this, filterId,
+                widgetId, database, taskService, defaultFilterProvider);
     }
 
     @Override

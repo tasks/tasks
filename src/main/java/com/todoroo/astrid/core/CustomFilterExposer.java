@@ -49,6 +49,10 @@ public final class CustomFilterExposer {
     }
 
     private Filter load(StoreObject savedFilter) {
+        if (savedFilter == null) {
+            return null;
+        }
+
         String title = savedFilter.getValue(SavedFilter.NAME);
         String sql = savedFilter.getValue(SavedFilter.SQL);
         String values = savedFilter.getValue(SavedFilter.VALUES);

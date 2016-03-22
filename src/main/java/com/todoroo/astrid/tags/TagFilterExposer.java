@@ -63,6 +63,9 @@ public class TagFilterExposer {
 
     /** Create filter from new tag object */
     public static FilterWithCustomIntent filterFromTag(Context context, TagData tag, Criterion criterion) {
+        if (tag == null) {
+            return null;
+        }
         String title = tag.getName();
         if (TextUtils.isEmpty(title)) {
             return null;

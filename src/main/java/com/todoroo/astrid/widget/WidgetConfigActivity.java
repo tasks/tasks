@@ -6,7 +6,6 @@
 package com.todoroo.astrid.widget;
 
 import android.appwidget.AppWidgetManager;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -15,11 +14,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
@@ -27,17 +24,13 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingListActivity;
 import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.DefaultFilterProvider;
 
 import javax.inject.Inject;
 
 public class WidgetConfigActivity extends InjectingListActivity {
 
-    public static final String PREF_TITLE = "widget-title-";
-    public static final String PREF_SQL = "widget-sql-";
-    public static final String PREF_VALUES = "widget-values-";
-    public static final String PREF_CUSTOM_INTENT = "widget-intent-";
-    public static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
-    public static final String PREF_TAG_ID = "widget-tag-id-";
+    public static final String PREF_WIDGET_ID = "widget-id-";
     public static final String PREF_SHOW_DUE_DATE = "widget-show-due-date-";
     public static final String PREF_HIDE_CHECKBOXES = "widget-hide-checkboxes-";
     public static final String PREF_DARK_THEME = "widget-dark-theme-";
@@ -51,6 +44,7 @@ public class WidgetConfigActivity extends InjectingListActivity {
     @Inject FilterCounter filterCounter;
     @Inject ActivityPreferences preferences;
     @Inject FilterProvider filterProvider;
+    @Inject DefaultFilterProvider defaultFilterProvider;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -132,37 +126,14 @@ public class WidgetConfigActivity extends InjectingListActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        String sql = null;
-        String contentValuesString = null;
-        String title = null;
-
-        if(filterListItem != null && filterListItem instanceof Filter) {
-            sql = ((Filter)filterListItem).getSqlQuery();
-            ContentValues values = ((Filter)filterListItem).valuesForNewTasks;
-            if(values != null) {
-                contentValuesString = AndroidUtilities.contentValuesToSerializedString(values);
-            }
-            title = ((Filter)filterListItem).listingTitle;
-        }
-
-        preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
-        preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
-        preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
-        preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + mAppWidgetId, showDueDate);
-        preferences.setBoolean(WidgetConfigActivity.PREF_DARK_THEME + mAppWidgetId, darkTheme);
-        preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + mAppWidgetId, hideCheckboxes);
-        preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + mAppWidgetId, hideHeader);
-        preferences.setBoolean(WidgetConfigActivity.PREF_WIDGET_TRANSPARENT + mAppWidgetId, transparent);
-
-        if(filterListItem instanceof FilterWithCustomIntent) {
-            String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();
-            preferences.setString(WidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
-                    flattenedName);
-            String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent)filterListItem).customExtras);
-            if (flattenedExtras != null) {
-                preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
-                        flattenedExtras);
-            }
+        if (filterListItem != null && filterListItem instanceof Filter) {
+            Filter filter = (Filter) filterListItem;
+            preferences.setString(WidgetConfigActivity.PREF_WIDGET_ID + mAppWidgetId, defaultFilterProvider.getFilterPreferenceValue(filter));
+            preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + mAppWidgetId, showDueDate);
+            preferences.setBoolean(WidgetConfigActivity.PREF_DARK_THEME + mAppWidgetId, darkTheme);
+            preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + mAppWidgetId, hideCheckboxes);
+            preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + mAppWidgetId, hideHeader);
+            preferences.setBoolean(WidgetConfigActivity.PREF_WIDGET_TRANSPARENT + mAppWidgetId, transparent);
         }
     }
 

@@ -1,5 +1,6 @@
 package org.tasks.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -23,6 +24,7 @@ import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.WidgetCheckBoxes;
 
@@ -31,13 +33,14 @@ import timber.log.Timber;
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final WidgetCheckBoxes checkBoxes;
+    private final int widgetId;
     private final Database database;
     private final TaskService taskService;
+    private final DefaultFilterProvider defaultFilterProvider;
     private final SubtasksHelper subtasksHelper;
     private final Preferences preferences;
     private final Context context;
-    private final Filter filter;
-    private final int widgetId;
+    private final String filterId;
     private final boolean dark;
     private final boolean showDueDates;
     private final boolean hideCheckboxes;
@@ -48,17 +51,19 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             SubtasksHelper subtasksHelper,
             Preferences preferences,
             Context context,
-            Filter filter,
+            String filterId,
             int widgetId,
             Database database,
-            TaskService taskService) {
+            TaskService taskService,
+            DefaultFilterProvider defaultFilterProvider) {
         this.subtasksHelper = subtasksHelper;
         this.preferences = preferences;
         this.context = context;
-        this.filter = filter;
+        this.filterId = filterId;
         this.widgetId = widgetId;
         this.database = database;
         this.taskService = taskService;
+        this.defaultFilterProvider = defaultFilterProvider;
 
         checkBoxes = new WidgetCheckBoxes(context);
         dark = preferences.useDarkWidgetTheme(widgetId);
@@ -156,7 +161,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
 
             long taskId = task.getId();
             Intent editIntent = new Intent(TasksWidget.EDIT_TASK);
-            editIntent.putExtra(TasksWidget.EXTRA_FILTER, filter);
+            editIntent.putExtra(TasksWidget.EXTRA_FILTER_ID, filterId);
             editIntent.putExtra(TasksWidget.EXTRA_ID, taskId);
             row.setOnClickFillInIntent(R.id.widget_row, editIntent);
 
@@ -195,15 +200,13 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         if(sort == 0) {
             sort = SortHelper.SORT_WIDGET;
         }
-
-        filter.setFilterQueryOverride(null);
-
-        String query = SortHelper.adjustQueryForFlagsAndSort(preferences,
-                filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "");
-
-        String tagName = preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
-
-        return subtasksHelper.applySubtasksToWidgetFilter(filter, query, tagName, 0);
+        Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews rv = new RemoteViews(context.getPackageName(), dark ? R.layout.scrollable_widget_dark : R.layout.scrollable_widget_light);
+        rv.setTextViewText(R.id.widget_title, filter.listingTitle);
+        appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
+        String query = SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "");
+        return subtasksHelper.applySubtasksToWidgetFilter(filter, query, filter.listingTitle, 0);
     }
 
     public void formatDueDate(RemoteViews row, Task task, int textColor) {
