@@ -17,8 +17,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 
-import org.tasks.BuildConfig;
-
 public class FilterWithCustomIntent extends Filter {
 
     /**
@@ -36,10 +34,6 @@ public class FilterWithCustomIntent extends Filter {
     }
 
     public FilterWithCustomIntent(String listingTitle, QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
-        super(listingTitle, sqlQuery, valuesForNewTasks);
-    }
-
-    public FilterWithCustomIntent(String listingTitle, String sqlQuery, ContentValues valuesForNewTasks) {
         super(listingTitle, sqlQuery, valuesForNewTasks);
     }
 

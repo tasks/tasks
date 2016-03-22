@@ -5,7 +5,6 @@ import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.FilterShortcutActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
-import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
@@ -66,8 +65,6 @@ public interface BaseActivityComponent {
     void inject(ShareLinkActivity shareLinkActivity);
 
     void inject(TaskListActivity taskListActivity);
-
-    void inject(ShortcutActivity shortcutActivity);
 
     void inject(BeastModePreferences beastModePreferences);
 

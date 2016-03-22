@@ -14,14 +14,13 @@ import android.support.v7.app.NotificationCompat;
 
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.FilterShortcutActivity;
-import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
+import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -78,7 +77,7 @@ public class TimerPlugin {
             notificationManager.cancel(Constants.NOTIFICATION_TIMER);
         } else {
             Filter filter = TimerFilterExposer.createFilter(context);
-            Intent notifyIntent = FilterShortcutActivity.createShortcutIntent(context, filter);
+            Intent notifyIntent = TaskIntents.getTaskListIntent(context, filter);
             notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(context,
                     Constants.NOTIFICATION_TIMER, notifyIntent, 0);
