@@ -2,6 +2,9 @@ package org.tasks.injection;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceCategory;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
@@ -69,12 +72,25 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
         tracker.showScreen(getClass().getSimpleName());
     }
 
+    protected void requires(int prefGroup, boolean passesCheck, int... resIds) {
+        if (!passesCheck) {
+            remove((PreferenceCategory) findPreference(getString(prefGroup)), resIds);
+        }
+    }
+
     protected void requires(boolean passesCheck, int... resIds) {
         if (!passesCheck) {
-            PreferenceScreen preferenceScreen = getPreferenceScreen();
-            for (int resId : resIds) {
-                preferenceScreen.removePreference(findPreference(getString(resId)));
-            }
+            remove(getPreferenceScreen(), resIds);
         }
+    }
+
+    private void remove(PreferenceGroup preferenceGroup, int[] resIds) {
+        for (int resId : resIds) {
+            preferenceGroup.removePreference(getPref(resId));
+        }
+    }
+
+    protected Preference getPref(int resId) {
+        return findPreference(getString(resId));
     }
 }

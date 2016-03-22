@@ -2,12 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.tasks">
 
-    <application>
-
-        <activity
-            android:name=".activities.DonationActivity"
-            android:theme="@style/DialogBase" />
-
-    </application>
+    <application/>
 
 </manifest>

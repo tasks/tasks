@@ -38,10 +38,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBq82FiK4U8Ke2TV_F8UjDZwgtSy8K9cyQ"/>
 
-        <activity
-            android:name=".activities.DonationActivity"
-            android:theme="@style/DialogBase" />
-
         <service android:name=".location.GeofenceTransitionsIntentService"/>
 
         <activity

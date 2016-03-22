@@ -1,5 +1,6 @@
 package org.tasks.preferences;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -14,6 +15,12 @@ import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.receivers.TeslaUnreadReceiver;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -34,6 +41,29 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getPref(R.string.TLA_menu_donate).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                final String[] donationValues = getDonationValues();
+                dialogBuilder.newDialog()
+                        .setTitle(R.string.select_amount)
+                        .setItems(donationValues, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String value = donationValues[which];
+                                Pattern pattern = Pattern.compile("\\$(\\d+) USD");
+                                Matcher matcher = pattern.matcher(value);
+                                //noinspection ResultOfMethodCallIgnored
+                                matcher.matches();
+                                String sku = String.format(Locale.ENGLISH, "%03d", Integer.parseInt(matcher.group(1)));
+                                purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, sku, null, REQUEST_PURCHASE, BasicPreferences.this);
+                            }
+                        })
+                        .show();
+                return false;
+            }
+        });
 
         getPref(R.string.p_tesla_unread_enabled).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -60,21 +90,15 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
             }
         });
 
-        Preference dashClock = getPref(R.string.p_purchased_dashclock);
-        if (atLeastJellybeanMR1()) {
-            dashClock.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
-                        purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
-                    }
-                    return false;
+        getPref(R.string.p_purchased_dashclock).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
+                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
                 }
-            });
-        } else {
-            PreferenceCategory iapCategory = (PreferenceCategory) findPreference(getString(R.string.get_plugins));
-            iapCategory.removePreference(dashClock);
-        }
+                return false;
+            }
+        });
 
         findPreference(getString(R.string.p_collect_statistics)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -108,6 +132,8 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
                 }
             });
         }
+
+        requires(R.string.get_plugins, atLeastJellybeanMR1(), R.string.p_purchased_dashclock);
     }
 
     @Override
@@ -136,7 +162,7 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
                 } else if (getString(R.string.sku_dashclock).equals(sku)) {
                     ((TwoStatePreference) getPref(R.string.p_purchased_dashclock)).setChecked(success);
                 } else {
-                    Timber.e("Unhandled sku: %s", sku);
+                    Timber.d("Unhandled sku: %s", sku);
                 }
             }
         });
@@ -151,7 +177,11 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
         }
     }
 
-    private Preference getPref(int resId) {
-        return findPreference(getString(resId));
+    private String[] getDonationValues() {
+        List<String> values = new ArrayList<>();
+        for (int i = 1 ; i <= 100 ; i++) {
+            values.add(String.format("$%s USD", Integer.toString(i)));
+        }
+        return values.toArray(new String[values.size()]);
     }
 }

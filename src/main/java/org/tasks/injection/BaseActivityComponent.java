@@ -26,7 +26,6 @@ import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.DeleteAllCalendarEventsActivity;
 import org.tasks.activities.DeleteCompletedActivity;
 import org.tasks.activities.DeleteCompletedEventsActivity;
-import org.tasks.activities.DonationActivity;
 import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
@@ -113,8 +112,6 @@ public interface BaseActivityComponent {
     void inject(TimePickerActivity timePickerActivity);
 
     void inject(VoiceCommandActivity voiceCommandActivity);
-
-    void inject(DonationActivity donationActivity);
 
     void inject(ClearGtaskDataActivity clearGtaskDataActivity);
 
