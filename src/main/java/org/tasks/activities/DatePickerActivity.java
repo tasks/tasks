@@ -31,8 +31,6 @@ public class DatePickerActivity extends InjectingAppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        preferences.applyTheme();
-
         long timestamp = getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis());
         DateTime initial = (timestamp > 0 ? new DateTime(timestamp) : new DateTime()).startOfDay();
 
@@ -41,9 +39,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity
         if (dialog == null) {
             dialog = new MyDatePickerDialog();
             dialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
-            if (preferences.isDarkTheme()) {
-                dialog.setAccentColor(getResources().getColor(R.color.black_text_hint));
-            }
+            dialog.setAccentColor(getResources().getColor(preferences.isDarkTheme() ? R.color.black_text_hint : R.color.primary));
             dialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
         dialog.setOnDismissListener(this);

@@ -34,8 +34,6 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        preferences.applyTheme();
-
         initial = new DateTime(getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()));
 
         if (savedInstanceState != null) {
@@ -50,9 +48,7 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
         if (datePickerDialog == null) {
             datePickerDialog = new MyDatePickerDialog();
             datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
-            if (preferences.isDarkTheme()) {
-                datePickerDialog.setAccentColor(getResources().getColor(R.color.black_text_hint));
-            }
+            datePickerDialog.setAccentColor(getResources().getColor(preferences.isDarkTheme() ? R.color.black_text_hint : R.color.primary));
             datePickerDialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
         datePickerDialog.setOnCancelListener(this);

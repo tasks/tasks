@@ -29,11 +29,11 @@ public class ActivityPreferences extends Preferences {
     }
 
     public void applyTheme() {
-        applyTheme(isDarkTheme() ? R.style.TasksDark : R.style.Tasks);
+        applyTheme(getTheme());
     }
 
     public void applyDialogTheme() {
-        applyTheme(isDarkTheme() ? R.style.TasksDialogDark : R.style.TasksDialog);
+        applyTheme(getDialogTheme());
     }
 
     public void applyStatusBarColor() {
@@ -51,10 +51,6 @@ public class ActivityPreferences extends Preferences {
         Window window = activity.getWindow();
         Resources resources = activity.getResources();
         window.setStatusBarColor(resources.getColor(color));
-    }
-
-    public void applyTranslucentDialogTheme() {
-        applyTheme(R.style.ReminderDialog);
     }
 
     private void applyTheme(int theme) {

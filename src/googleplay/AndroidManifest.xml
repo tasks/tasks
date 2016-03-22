@@ -40,13 +40,13 @@
 
         <activity
             android:name=".activities.DonationActivity"
-            android:theme="@style/TranslucentDialog" />
+            android:theme="@style/DialogBase" />
 
         <service android:name=".location.GeofenceTransitionsIntentService"/>
 
         <activity
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
-            android:theme="@style/TranslucentDialog" />
+            android:theme="@style/DialogBase" />
 
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
@@ -55,7 +55,7 @@
 
         <activity
             android:name=".activities.ClearGtaskDataActivity"
-            android:theme="@style/TranslucentDialog" />
+            android:theme="@style/DialogBase" />
 
         <service
             android:name=".scheduling.GtasksBackgroundService"

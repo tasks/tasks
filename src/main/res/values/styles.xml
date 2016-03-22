@@ -1,14 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="TranslucentDialog" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    </style>
-
     <!-- ========================================================== General  -->
 
     <style name="SpinnerNoPadding" parent="Widget.AppCompat.TextView.SpinnerItem">
@@ -34,15 +25,6 @@
 
     <style name="TextAppearance" parent="android:TextAppearance">
         <item name="android:textColor">?attr/asTextColor</item>    
-    </style>
-
-    <!--================================================== Custom Dialogs == -->
-    
-    <style name="ReminderDialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/reminder_dialog_inset_background</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
     </style>
 
     <!--=============================================== TaskListActivity == -->

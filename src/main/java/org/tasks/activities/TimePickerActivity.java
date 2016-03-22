@@ -36,8 +36,6 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        preferences.applyTheme();
-
         initial = new DateTime(getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()));
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -45,9 +43,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
         if (dialog == null) {
             dialog = new MyTimePickerDialog();
             dialog.initialize(null, initial.getHourOfDay(), initial.getMinuteOfHour(), 0, DateFormat.is24HourFormat(this));
-            if (preferences.isDarkTheme()) {
-                dialog.setAccentColor(getResources().getColor(R.color.black_text_hint));
-            }
+            dialog.setAccentColor(getResources().getColor(preferences.isDarkTheme() ? R.color.black_text_hint : R.color.primary));
             dialog.show(fragmentManager, FRAG_TAG_TIME_PICKER);
         }
         dialog.setOnDismissListener(this);
