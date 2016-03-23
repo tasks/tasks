@@ -8,10 +8,13 @@ package com.todoroo.astrid.subtasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -29,6 +32,13 @@ import org.tasks.preferences.ActivityPreferences;
 import javax.inject.Inject;
 
 public class SubtasksTagListFragment extends TagViewFragment {
+
+    public static TaskListFragment newSubtasksTagListFragment(TagFilter filter, TagData tagData) {
+        SubtasksTagListFragment fragment = new SubtasksTagListFragment();
+        fragment.filter = filter;
+        fragment.tagData = tagData;
+        return fragment;
+    }
 
     @Inject TaskService taskService;
     @Inject SubtasksFilterUpdater subtasksFilterUpdater;
@@ -55,30 +65,25 @@ public class SubtasksTagListFragment extends TagViewFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         helper.setUpUiComponents();
     }
 
     @Override
     public void setTaskAdapter() {
-        helper.setList(initializeTaskListMetadata());
-        helper.beforeSetUpTaskList(filter);
-
-        super.setTaskAdapter();
-    }
-
-    private TaskListMetadata initializeTaskListMetadata() {
-        TagData td = getActiveTagData();
-        String tdId = td.getUuid();
-        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(td.getUuid(), TaskListMetadata.PROPERTIES);
+        String tdId = tagData.getUuid();
+        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(tagData.getUuid(), TaskListMetadata.PROPERTIES);
         if (taskListMetadata == null && !RemoteModel.isUuidEmpty(tdId)) {
             taskListMetadata = new TaskListMetadata();
             taskListMetadata.setTagUUID(tdId);
             taskListMetadataDao.createNew(taskListMetadata);
         }
-        return taskListMetadata;
+        helper.setList(taskListMetadata);
+        helper.beforeSetUpTaskList(filter);
+
+        super.setTaskAdapter();
     }
 
     @Override

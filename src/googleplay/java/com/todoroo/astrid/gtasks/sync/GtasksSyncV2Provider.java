@@ -81,7 +81,6 @@ public class GtasksSyncV2Provider {
     private final GtasksTaskListUpdater gtasksTaskListUpdater;
     private final Context context;
     private final Preferences preferences;
-    private final GtasksMetadata gtasksMetadataFactory;
     private final SyncExecutor executor;
     private final GtasksInvoker gtasksInvoker;
 
@@ -89,7 +88,7 @@ public class GtasksSyncV2Provider {
     public GtasksSyncV2Provider(TaskService taskService, StoreObjectDao storeObjectDao, GtasksPreferenceService gtasksPreferenceService,
                                 GtasksSyncService gtasksSyncService, GtasksListService gtasksListService, GtasksMetadataService gtasksMetadataService,
                                 GtasksTaskListUpdater gtasksTaskListUpdater, @ForApplication Context context, Preferences preferences,
-                                GtasksMetadata gtasksMetadata, SyncExecutor executor, GtasksInvoker gtasksInvoker) {
+                                SyncExecutor executor, GtasksInvoker gtasksInvoker) {
         this.taskService = taskService;
         this.storeObjectDao = storeObjectDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
@@ -99,7 +98,6 @@ public class GtasksSyncV2Provider {
         this.gtasksTaskListUpdater = gtasksTaskListUpdater;
         this.context = context;
         this.preferences = preferences;
-        this.gtasksMetadataFactory = gtasksMetadata;
         this.executor = executor;
         this.gtasksInvoker = gtasksInvoker;
     }
@@ -270,7 +268,7 @@ public class GtasksSyncV2Provider {
 
             if (!tasks.isEmpty()) {
                 for (com.google.api.services.tasks.model.Task t : tasks) {
-                    GtasksTaskContainer container = new GtasksTaskContainer(t, listId, gtasksMetadataFactory.createEmptyMetadata(AbstractModel.NO_ID));
+                    GtasksTaskContainer container = new GtasksTaskContainer(t, listId, GtasksMetadata.createEmptyMetadataWithoutList(AbstractModel.NO_ID));
                     gtasksMetadataService.findLocalMatch(container);
                     container.gtaskMetadata.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(t.getPosition()));
                     container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK, gtasksMetadataService.localIdForGtasksId(t.getParent()));

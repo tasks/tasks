@@ -9,11 +9,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ListView;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -37,6 +39,12 @@ import javax.inject.Inject;
  *
  */
 public class SubtasksListFragment extends TaskListFragment {
+
+    public static TaskListFragment newSubtasksListFragment(Filter filter) {
+        SubtasksListFragment fragment = new SubtasksListFragment();
+        fragment.filter = filter;
+        return fragment;
+    }
 
     protected OrderedListFragmentHelperInterface helper;
 
@@ -67,8 +75,8 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         helper.setUpUiComponents();
     }

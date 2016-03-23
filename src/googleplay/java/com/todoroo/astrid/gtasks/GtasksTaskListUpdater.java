@@ -45,16 +45,14 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
     private final GtasksMetadataService gtasksMetadataService;
     private final GtasksSyncService gtasksSyncService;
     private final MetadataDao metadataDao;
-    private final GtasksMetadata gtasksMetadata;
 
     @Inject
     public GtasksTaskListUpdater(GtasksMetadataService gtasksMetadataService, GtasksSyncService gtasksSyncService,
-                                 MetadataDao metadataDao, GtasksMetadata gtasksMetadata) {
+                                 MetadataDao metadataDao) {
         super(metadataDao);
         this.gtasksMetadataService = gtasksMetadataService;
         this.gtasksSyncService = gtasksSyncService;
         this.metadataDao = metadataDao;
-        this.gtasksMetadata = gtasksMetadata;
     }
 
     // --- overrides
@@ -80,7 +78,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
     }
     @Override
     protected Metadata createEmptyMetadata(GtasksList list, long taskId) {
-        Metadata metadata = gtasksMetadata.createEmptyMetadata(taskId);
+        Metadata metadata = GtasksMetadata.createEmptyMetadataWithoutList(taskId);
         metadata.setValue(GtasksMetadata.LIST_ID, list.getRemoteId());
         return metadata;
     }

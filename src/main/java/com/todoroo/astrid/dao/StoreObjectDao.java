@@ -46,7 +46,9 @@ public class StoreObjectDao {
 
     public GtasksList getGtasksList(long id) {
         StoreObject result = dao.fetch(id, StoreObject.PROPERTIES);
-        if (!result.getType().equals(GtasksList.TYPE)) {
+        if (result == null) {
+            throw new RuntimeException(String.format("No store object found [id=%s]", id));
+        } else if (!result.getType().equals(GtasksList.TYPE)) {
             throw new RuntimeException("Not a google task list");
         }
         return new GtasksList(result);

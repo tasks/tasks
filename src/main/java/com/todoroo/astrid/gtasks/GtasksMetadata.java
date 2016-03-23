@@ -60,16 +60,19 @@ public class GtasksMetadata {
      * @param taskId if > 0, will set metadata task field
      */
     public Metadata createEmptyMetadata(long taskId) {
-        Metadata metadata = new Metadata();
-        metadata.setKey(GtasksMetadata.METADATA_KEY);
-        metadata.setValue(ID, ""); //$NON-NLS-1$
-
+        Metadata metadata = createEmptyMetadataWithoutList(taskId);
         String defaultList = gtasksPreferenceService.getDefaultList();
         if(defaultList == null) {
             defaultList = "@default"; //$NON-NLS-1$
         }
-
         metadata.setValue(LIST_ID, defaultList);
+        return metadata;
+    }
+
+    public static Metadata createEmptyMetadataWithoutList(long taskId) {
+        Metadata metadata = new Metadata();
+        metadata.setKey(GtasksMetadata.METADATA_KEY);
+        metadata.setValue(ID, ""); //$NON-NLS-1$
         metadata.setValue(PARENT_TASK, AbstractModel.NO_ID);
         metadata.setValue(INDENT, 0);
         metadata.setValue(ORDER, DateUtilities.now());

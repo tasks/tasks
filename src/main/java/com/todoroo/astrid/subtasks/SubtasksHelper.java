@@ -49,19 +49,9 @@ public class SubtasksHelper {
     }
 
     public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-        if(filter == null || BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter) || filter.isTagFilter()) {
-            if(preferences.getBoolean(R.string.p_manual_sort, false)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static Class<?> subtasksClassForFilter(Filter filter) {
-        if (filter.isTagFilter()) {
-            return SubtasksTagListFragment.class;
-        }
-        return SubtasksListFragment.class;
+        return preferences.getBoolean(R.string.p_manual_sort, false) &&
+                filter != null &&
+                (BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter) || filter.isTagFilter());
     }
 
     public String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {

@@ -18,17 +18,26 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.api.TagFilter;
+import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksList;
+import com.todoroo.astrid.gtasks.GtasksListFragment;
+import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeActivity;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
+import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.timers.TimerControlSet;
 
 import org.tasks.R;
@@ -70,6 +79,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
     @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
     @Inject DefaultFilterProvider defaultFilterProvider;
+    @Inject GtasksListService gtasksListService;
+    @Inject TagDataDao tagDataDao;
 
     public static final int REQUEST_UPGRADE = 505;
 
@@ -220,34 +231,21 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     private TaskListFragment newTaskListFragment(Filter filter) {
-        Class<?> customTaskList = null;
-
-        if (subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)) {
-            customTaskList = SubtasksHelper.subtasksClassForFilter(filter);
+        if (filter instanceof TagFilter) {
+            TagFilter tagFilter = (TagFilter) filter;
+            TagData tagData = tagDataDao.getByUuid(tagFilter.getUuid());
+            return preferences.getBoolean(R.string.p_manual_sort, false)
+                    ? SubtasksTagListFragment.newSubtasksTagListFragment(tagFilter, tagData)
+                    : TagViewFragment.newTagViewFragment(tagFilter, tagData);
+        } else if (filter instanceof GtasksFilter) {
+            GtasksFilter gtasksFilter = (GtasksFilter) filter;
+            GtasksList list = gtasksListService.getList(gtasksFilter.getStoreId());
+            return GtasksListFragment.newGtasksListFragment(gtasksFilter, list);
+        } else {
+            return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)
+                    ? SubtasksListFragment.newSubtasksListFragment(filter)
+                    : TaskListFragment.newTaskListFragment(filter);
         }
-
-        Class<?> component = customTaskList;
-        if (filter instanceof FilterWithCustomIntent && component == null) {
-            try {
-                component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
-            } catch (Exception e) {
-                // Invalid
-                Timber.e(e, e.getMessage());
-            }
-        }
-        if (component == null) {
-            component = TaskListFragment.class;
-        }
-
-        TaskListFragment newFragment;
-        try {
-            newFragment = (TaskListFragment) component.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            Timber.e(e, e.getMessage());
-            newFragment = new TaskListFragment();
-        }
-        newFragment.initialize(filter);
-        return newFragment;
     }
 
     @Override

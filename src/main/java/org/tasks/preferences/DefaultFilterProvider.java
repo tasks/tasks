@@ -7,7 +7,8 @@ import com.google.common.base.Strings;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksFilterExposer;
@@ -117,9 +118,9 @@ public class DefaultFilterProvider {
             case TYPE_CUSTOM_FILTER:
                 return getFilterPreference(filterType, ((CustomFilter) filter).getId());
             case TYPE_TAG:
-                return getFilterPreference(filterType, ((FilterWithCustomIntent) filter).customExtras.getString(TagViewFragment.EXTRA_TAG_UUID));
+                return getFilterPreference(filterType, ((TagFilter) filter).getUuid());
             case TYPE_GOOGLE_TASKS:
-                return getFilterPreference(filterType, ((FilterWithCustomIntent) filter).customExtras.getLong(GtasksListFragment.TOKEN_STORE_ID, 0L));
+                return getFilterPreference(filterType, ((GtasksFilter) filter).getStoreId());
         }
         return null;
     }
@@ -129,10 +130,10 @@ public class DefaultFilterProvider {
     }
 
     private int getFilterType(Filter filter) {
-        if (filter instanceof FilterWithCustomIntent) {
-            return filter.isTagFilter()
-                    ? TYPE_TAG
-                    : TYPE_GOOGLE_TASKS;
+        if (filter instanceof TagFilter) {
+            return TYPE_TAG;
+        } else if (filter instanceof GtasksFilter) {
+            return TYPE_GOOGLE_TASKS;
         } else if (filter instanceof CustomFilter) {
             return TYPE_CUSTOM_FILTER;
         }

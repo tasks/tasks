@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.todoroo.andlib.data.Property;
+import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
@@ -30,11 +32,17 @@ import javax.inject.Inject;
 
 public class GtasksListFragment extends SubtasksListFragment {
 
-    public static final String TOKEN_STORE_ID = "storeId"; //$NON-NLS-1$
+    public static TaskListFragment newGtasksListFragment(GtasksFilter filter, GtasksList list) {
+        GtasksListFragment fragment = new GtasksListFragment();
+        fragment.filter = filter;
+        fragment.list = list;
+        return fragment;
+    }
+
+    private static final String EXTRA_STORE_OBJECT = "extra_store_object";
 
     @Inject TaskService taskService;
     @Inject MetadataDao metadataDao;
-    @Inject StoreObjectDao storeObjectDao;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject SyncV2Service syncService;
@@ -52,12 +60,21 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle icicle) {
-        super.onActivityCreated(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        long storeObjectId = extras.getLong(TOKEN_STORE_ID, 0);
-        list = storeObjectDao.getGtasksList(storeObjectId);
+        if (savedInstanceState != null) {
+            StoreObject storeObject = savedInstanceState.getParcelable(EXTRA_STORE_OBJECT);
+            list = new GtasksList(storeObject);
+        }
+
         ((OrderedMetadataListFragmentHelper<GtasksList>)helper).setList(list);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(EXTRA_STORE_OBJECT, list.getStoreObject());
     }
 
     @Override

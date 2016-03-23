@@ -51,6 +51,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
     public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
+    public static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
 
     private boolean isNewTag;
     private TagData tagData;
@@ -143,12 +144,12 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
         if (isNewTag) {
             tagData.setName(newName);
             tagDataDao.persist(tagData);
-            setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER, TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
+            setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER, TagFilterExposer.filterFromTag(tagData)));
         } else if (!oldName.equals(newName)) {
             tagData.setName(newName);
             tagService.rename(tagData.getUuid(), newName);
             tagDataDao.persist(tagData);
-            setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED).putExtra(TagViewFragment.EXTRA_TAG_UUID, tagData.getUuid()));
+            setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED).putExtra(EXTRA_TAG_UUID, tagData.getUuid()));
         }
 
         finish();
@@ -201,7 +202,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
                             String uuid = tagData.getUuid();
                             metadataDao.deleteWhere(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
                             tagDataDao.delete(tagData.getId());
-                            setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED).putExtra(TagViewFragment.EXTRA_TAG_UUID, uuid));
+                            setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
                         }
                         finish();
                     }

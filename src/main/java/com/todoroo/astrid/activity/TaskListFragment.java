@@ -52,13 +52,11 @@ import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -75,7 +73,6 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
-import com.todoroo.astrid.widget.TasksWidget;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
@@ -109,8 +106,13 @@ import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
  */
 public class TaskListFragment extends InjectingListFragment implements SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
 
+    public static TaskListFragment newTaskListFragment(Filter filter) {
+        TaskListFragment fragment = new TaskListFragment();
+        fragment.filter = filter;
+        return fragment;
+    }
+
     private static final String EXTRA_FILTER = "extra_filter";
-    private static final String EXTRA_EXTRAS = "extra_extras";
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
@@ -159,7 +161,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     protected Filter filter;
-    protected Bundle extras;
 
     /*
      * ======================================================================
@@ -225,24 +226,13 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
         if (savedInstanceState != null) {
             filter = savedInstanceState.getParcelable(EXTRA_FILTER);
-            extras = savedInstanceState.getBundle(EXTRA_EXTRAS);
         }
 
         if (filter == null) {
             filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
         }
-        if (extras == null) {
-            extras = new Bundle(); // Just need an empty one to prevent potential null pointers
-        }
 
         setTaskAdapter();
-    }
-
-    public void initialize(Filter filter) {
-        this.filter = filter;
-        this.extras = filter instanceof FilterWithCustomIntent
-                ? ((FilterWithCustomIntent) filter).getCustomIntent().getExtras()
-                : new Bundle();
     }
 
     @Override
@@ -250,7 +240,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(EXTRA_FILTER, filter);
-        outState.putBundle(EXTRA_EXTRAS, extras);
     }
 
     @Override
@@ -361,7 +350,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 return true;
             case R.id.menu_tag_settings:
                 startActivityForResult(new Intent(getActivity(), TagSettingsActivity.class) {{
-                    putExtra(TagSettingsActivity.EXTRA_TAG_DATA, getActiveTagData());
+                    putExtra(TagSettingsActivity.EXTRA_TAG_DATA, ((TagViewFragment) TaskListFragment.this).getTagData());
                 }}, REQUEST_EDIT_TAG);
                 return true;
             case R.id.menu_show_hidden:
@@ -482,13 +471,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 }
             }
         });
-    }
-
-    /**
-     * @return the current tag you are viewing, or null if you're not viewing a tag
-     */
-    public TagData getActiveTagData() {
-        return null;
     }
 
     /*
@@ -624,17 +606,13 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     private TodorooCursor<Task> constructCursor() {
-        String tagName = null;
-        if (getActiveTagData() != null) {
-            tagName = getActiveTagData().getName();
-        }
-
         Criterion tagsJoinCriterion = Criterion.and(
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY), //$NON-NLS-1$
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.DELETION_DATE.name).eq(0),
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)));
-        if (tagName != null) {
-            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name).neq(tagName));
+
+        if (this instanceof TagViewFragment) {
+            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name).neq(filter.listingTitle));
         }
 
         // TODO: For now, we'll modify the query to join and include the things like tag data here.
@@ -765,25 +743,23 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
         } else if (requestCode == REQUEST_EDIT_TAG) {
             if (resultCode == Activity.RESULT_OK) {
                 String action = data.getAction();
-                String uuid = data.getStringExtra(TagViewFragment.EXTRA_TAG_UUID);
-                if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
-                    TagData td = getActiveTagData();
-                    if (td != null && td.getUuid().equals(uuid)) {
-                        td = tagDataDao.fetch(uuid, TagData.PROPERTIES);
-                        if (td != null) {
-                            Filter filter = TagFilterExposer.filterFromTagData(getActivity(), td);
-                            ((TaskListActivity) getActivity()).onFilterItemClicked(filter);
+                String uuid = data.getStringExtra(TagSettingsActivity.EXTRA_TAG_UUID);
+                if (this instanceof TagViewFragment) {
+                    TagData tagData = ((TagViewFragment) this).getTagData();
+                    if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
+                        if (tagData.getUuid().equals(uuid)) {
+                            TagData newTagData = tagDataDao.fetch(uuid, TagData.PROPERTIES);
+                            if (newTagData != null) {
+                                Filter filter = TagFilterExposer.filterFromTag(newTagData);
+                                ((TaskListActivity) getActivity()).onFilterItemClicked(filter);
+                            }
                         }
-                    }
-                } else if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
-                    TagData tagData = getActiveTagData();
-                    String activeUuid = RemoteModel.NO_UUID;
-                    if (tagData != null) {
-                        activeUuid = tagData.getUuid();
-                    }
-                    if (activeUuid.equals(uuid)) {
-                        ((TaskListActivity) getActivity()).onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
-                        ((TaskListActivity) getActivity()).clearNavigationDrawer(); // Should auto refresh
+                    } else if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
+                        String activeUuid = tagData.getUuid();
+                        if (activeUuid.equals(uuid)) {
+                            ((TaskListActivity) getActivity()).onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
+                            ((TaskListActivity) getActivity()).clearNavigationDrawer(); // Should auto refresh
+                        }
                     }
                 }
 

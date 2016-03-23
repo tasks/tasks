@@ -9,8 +9,8 @@ import android.os.Bundle;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 
 import org.tasks.injection.FragmentComponent;
@@ -19,44 +19,26 @@ import javax.inject.Inject;
 
 public class TagViewFragment extends TaskListFragment {
 
+    public static TaskListFragment newTagViewFragment(TagFilter filter, TagData tagData) {
+        TagViewFragment fragment = new TagViewFragment();
+        fragment.filter = filter;
+        fragment.tagData = tagData;
+        return fragment;
+    }
+
     private static final String EXTRA_TAG_DATA = "extra_tag_data";
-
-    public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
-    public static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
-
-    protected TagData tagData;
 
     @Inject TagDataDao tagDataDao;
 
+    protected TagData tagData;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         if (savedInstanceState != null) {
             tagData = savedInstanceState.getParcelable(EXTRA_TAG_DATA);
-        } else {
-            String tag = extras.getString(EXTRA_TAG_NAME);
-            String uuid = RemoteModel.NO_UUID;
-            if (extras.containsKey(EXTRA_TAG_UUID)) {
-                uuid = extras.getString(EXTRA_TAG_UUID);
-            }
-
-
-            if(tag == null && RemoteModel.NO_UUID.equals(uuid)) {
-                return;
-            }
-
-            tagData = RemoteModel.isUuidEmpty(uuid)
-                    ? tagDataDao.getTagByName(tag, TagData.PROPERTIES)
-                    : tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
-
-            if (tagData == null) {
-                tagData = new TagData();
-                tagData.setName(tag);
-                tagData.setUUID(uuid);
-                tagDataDao.persist(tagData);
-            }
         }
-
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -73,12 +55,9 @@ public class TagViewFragment extends TaskListFragment {
         outState.putParcelable(EXTRA_TAG_DATA, tagData);
     }
 
-    @Override
-    public TagData getActiveTagData() {
+    public TagData getTagData() {
         return tagData;
     }
-
-    // --------------------------------------------------------- refresh data
 
     @Override
     protected void initiateAutomaticSyncImpl() {
