@@ -36,7 +36,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
         final boolean returnFilter = getIntent().getBooleanExtra(EXTRA_RETURN_FILTER, false);
 
-        activityPreferences.applyTheme();
+        activityPreferences.applyDialogTheme();
 
         final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this, null, false);
         filterAdapter.populateList();

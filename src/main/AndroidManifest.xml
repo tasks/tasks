@@ -117,7 +117,7 @@
         <activity
             android:name=".activities.FilterSelectionActivity"
             android:exported="true"
-            android:theme="@style/DialogBase" />
+            android:theme="@style/TasksDialog" />
 
         <activity
             android:name=".activities.AddAttachmentActivity"

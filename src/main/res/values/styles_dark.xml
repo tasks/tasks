@@ -54,6 +54,7 @@
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="asListDividerColor">#dddddd</item>
+        <item name="icon_tint">@android:color/white</item>
     </style>
 
 </resources>
