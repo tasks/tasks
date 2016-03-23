@@ -30,19 +30,4 @@
             android:title="@string/show_completed"
             android:checkable="true" />
     </group>
-    <item
-        android:id="@+id/menu_clear_completed"
-        android:title="@string/gtasks_GTA_clear_completed"
-        android:visible="false"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_tag_settings"
-        android:title="@string/tag_settings"
-        android:visible="false"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_filter_settings"
-        android:title="@string/filter_settings"
-        android:visible="false"
-        app:showAsAction="never" />
 </menu>

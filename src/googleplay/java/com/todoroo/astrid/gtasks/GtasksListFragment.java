@@ -6,6 +6,7 @@
 package com.todoroo.astrid.gtasks;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.todoroo.andlib.data.Property;
@@ -69,6 +70,12 @@ public class GtasksListFragment extends SubtasksListFragment {
         }
 
         ((OrderedMetadataListFragmentHelper<GtasksList>)helper).setList(list);
+    }
+
+    @Override
+    protected void inflateMenu(Toolbar toolbar) {
+        super.inflateMenu(toolbar);
+        toolbar.inflateMenu(R.menu.menu_gtasks_list_fragment);
     }
 
     @Override
