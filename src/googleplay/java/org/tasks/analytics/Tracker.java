@@ -3,7 +3,6 @@ package org.tasks.analytics;
 import android.content.Context;
 
 import com.android.vending.billing.IabResult;
-import com.android.vending.billing.Purchase;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.StandardExceptionParser;
@@ -52,11 +51,13 @@ public class Tracker {
     }
 
     public void reportEvent(Tracking.Events event) {
-        tracker.send(new HitBuilders.EventBuilder()
+        HitBuilders.EventBuilder eventBuilder = new HitBuilders.EventBuilder()
                 .setCategory(context.getString(event.category))
-                .setAction(context.getString(event.action))
-                .setLabel(context.getString(event.label))
-                .build());
+                .setAction(context.getString(event.action));
+        if (event.label > 0) {
+            eventBuilder.setLabel(context.getString(event.label));
+        }
+        tracker.send(eventBuilder.build());
     }
 
     public void reportIabResult(IabResult result, String sku) {

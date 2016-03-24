@@ -35,6 +35,7 @@ import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
@@ -180,6 +181,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     }
 
     public Task startTimer() {
+        tracker.reportEvent(Tracking.Events.TIMER_START);
         TimerPlugin.startTimer(notificationManager, taskService, context, model);
         addComment(String.format("%s %s",
                         getString(R.string.TEA_timer_comment_started),
