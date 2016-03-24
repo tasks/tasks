@@ -50,7 +50,6 @@
 	<string name="SSD_sort_modified">Per Ultima Modifica</string>
 	<string name="FLA_search_filter">Uguale a  \'%s\'</string>
 	<string name="FLA_new_filter">Crea nuovo filtro</string>
-	<string name="FLA_no_filter_selected">Filtro non selezionato! Perfavore seleziona un filtro o una lista.</string>
 	<string name="TEA_title_hint">Memo attività</string>
 	<string name="TEA_importance_label">Priorità</string>
 	<string name="TEA_no_date">Senza data</string>
@@ -124,7 +123,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programmi?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Eliminato il %d degli eventi del calendario!</string>
 	<string name="TWi_loading">Caricamento...</string>
-	<string name="WCA_title">Seleziona le attività da visualizzare...</string>
 	<string name="DB_corrupted_body">Oh, oh! Pare che tu abbia un database danneggiato.
 Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dati (Impostazioni-&gt;Sincronizzazione e backup-&gt;Gestire tutti i dati-&gt;Cancellare tutti i dati) e ripristinare i tuoi task da un backup in Tasks (Impostazioni-&gt;Sincronizzazione e backup-&gt;Backup-&gt;Importa task).</string>
 	<string name="task_defaults">Imp. predefinite attività</string>
@@ -289,7 +287,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="widget_hide_due_date">Nascondi scadenze</string>
 	<string name="widget_hide_checkboxes">Nascondi caselle di spunta</string>
 	<string name="widget_hide_header">Nascondi intestazione</string>
-	<string name="widget_transparent_background">Sfondo trasparente</string>
 	<string name="notifications">Notifiche</string>
 	<string name="silent">Silente</string>
 	<string name="sound">Sonoro</string>

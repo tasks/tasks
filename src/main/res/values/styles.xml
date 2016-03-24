@@ -21,6 +21,25 @@
         <item name="colorControlHighlight">#3fff</item>
     </style>
 
+    <style name="WidgetConfigRow">
+        <item name="android:paddingLeft">@dimen/keyline_first</item>
+        <item name="android:paddingStart">@dimen/keyline_first</item>
+        <item name="android:paddingRight">@dimen/keyline_first</item>
+        <item name="android:paddingEnd">@dimen/keyline_first</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+    </style>
+
+    <style name="WidgetConfigRow.CheckBox">
+        <item name="android:button">@null</item>
+        <item name="android:drawableRight">?android:attr/listChoiceIndicatorMultiple</item>
+        <item name="android:drawableEnd">?android:attr/listChoiceIndicatorMultiple</item>
+    </style>
+
     <!--================================================== General == -->
 
     <style name="TextAppearance" parent="android:TextAppearance">

@@ -35,7 +35,6 @@
 	<string name="SSD_sort_importance">براساس اولیت</string>
 	<string name="SSD_sort_modified">براساس آخرین تغییرات</string>
 	<string name="FLA_new_filter">ایجاد فیلتر جدید</string>
-	<string name="FLA_no_filter_selected">فیلتری انتخاب نشده! لطفا یک فیلتر یا یک لیست انتخاب کنید</string>
 	<string name="TEA_title_hint">نام وظیفه</string>
 	<string name="TEA_importance_label">اولویت</string>
 	<string name="TEA_no_date">بدون تاریخ</string>
@@ -82,7 +81,6 @@
 	<string name="EPr_manage_header">مدیریت وظایف قدیمی</string>
 	<string name="EPr_delete_task_data">حذف داده وظیفه</string>
 	<string name="TWi_loading">در حال بارگیری...</string>
-	<string name="WCA_title">انتخاب وظیفه جهت نمایش</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
@@ -214,7 +212,6 @@
 	<string name="sync_SPr_forget">خروج از حساب کاربری</string>
 	<string name="widget_hide_due_date">مخفی کردن موعودها</string>
 	<string name="widget_hide_header">مخفی کردن سربرگ</string>
-	<string name="widget_transparent_background">پیش زمینه شفاف</string>
 	<string name="notifications">اعلان ها</string>
 	<string name="silent">سکوت</string>
 	<string name="sound">صدا</string>

@@ -42,7 +42,6 @@
 	<string name="SSD_sort_modified">依最後修改</string>
 	<string name="FLA_search_filter">比對 \'%s\'</string>
 	<string name="FLA_new_filter">新建過濾器</string>
-	<string name="FLA_no_filter_selected">還沒有選定過濾器呢！請選擇一個過濾器或列表唄。</string>
 	<string name="TEA_title_hint">工作名稱</string>
 	<string name="TEA_importance_label">優先權</string>
 	<string name="TEA_hideUntil_label">隱藏直到</string>
@@ -94,7 +93,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">您真的想刪除您所有事件中的各項任務工作嗎？</string>
 	<string name="EPr_manage_delete_all_gcal_status">已經刪除了 %d 個日曆事件了！</string>
 	<string name="TWi_loading">載入中...</string>
-	<string name="WCA_title">選擇工作顯示...</string>
 	<string name="DB_corrupted_body">啊喔！您有一個毀損的資料庫。如果您經常看見這個錯誤出現，我們建議您清除所有數據（在設置-&gt;同步和備份-&amp;gt；管理舊任務工作-&gt;清楚所有數據）並在Tasks備份中重新存入您的任務工作（設置-&gt;同步和備份-&gt;備份-&gt;導入任務工作）</string>
 	<string name="EPr_default_urgency_title">預設嚴重性</string>
 	<string name="EPr_default_importance_title">預設優先權</string>

@@ -41,7 +41,6 @@
 	<string name="SSD_sort_modified">Per darrera modificació</string>
 	<string name="FLA_search_filter">Coincidència \'%s\'</string>
 	<string name="FLA_new_filter">Filtre nou</string>
-	<string name="FLA_no_filter_selected">No heu seleccionat cap filtre. Seleccioneu un filtre o una llista.</string>
 	<string name="TEA_title_hint">Resum de la tasca</string>
 	<string name="TEA_importance_label">Importància</string>
 	<string name="TEA_no_date">Sense venciment</string>
@@ -73,7 +72,6 @@
 	<string name="EPr_manage_delete_completed_status">S\'han suprimit %d tasques</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
 	<string name="TWi_loading">S\'està carregant…</string>
-	<string name="WCA_title">Seleccionar les tasques a veure ...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore

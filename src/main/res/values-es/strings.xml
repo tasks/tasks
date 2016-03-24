@@ -50,7 +50,6 @@
 	<string name="SSD_sort_modified">Por última modificación</string>
 	<string name="FLA_search_filter">Coincidencias con \'%s\'</string>
 	<string name="FLA_new_filter">Crear nuevo filtro</string>
-	<string name="FLA_no_filter_selected">No hay filtro seleccionado! Por favor seleccione un filtro o lista.</string>
 	<string name="TEA_title_hint">Nombre de la tarea</string>
 	<string name="TEA_importance_label">Prioridad</string>
 	<string name="TEA_no_date">Sin fecha</string>
@@ -123,7 +122,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">¿Seguro que quieres borrar todos tus eventos para las tareas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">¡Borrados %d eventos del calendario!</string>
 	<string name="TWi_loading">Cargando…</string>
-	<string name="WCA_title">Seleccione las tareas que ver...</string>
 	<string name="DB_corrupted_body">\"¡Oh-oh! Es posible que tu base de datos esté corrupta. Si ves éste error con frecuencia, te sugerimos que limpies toda la información  (Configuración-&gt;Sincronización y respaldos-&gt;Administrar tareas pasadas-&gt;Limpiar toda la información) y recuperar tus tareas de un respaldo (Configuración-&gt;Sincronización y respaldos-&gt;Respaldos-&gt;Importar tareas) en Tasks.\"</string>
 	<string name="task_defaults">Configuración por defecto de tareas</string>
 	<string name="EPr_default_urgency_title">Fecha límite predeterminada</string>
@@ -287,7 +285,6 @@
 	<string name="widget_hide_due_date">Ocultar fechas de vencimiento</string>
 	<string name="widget_hide_checkboxes">Ocultar casillas de verificación</string>
 	<string name="widget_hide_header">Ocultar encabezado</string>
-	<string name="widget_transparent_background">Fondo transparente</string>
 	<string name="notifications">Notificaciones</string>
 	<string name="silent">Silencioso</string>
 	<string name="sound">Sonido</string>

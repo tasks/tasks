@@ -3,7 +3,7 @@ package org.tasks.injection;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.BeastModePreferences;
-import com.todoroo.astrid.activity.FilterShortcutActivity;
+import org.tasks.widget.ShortcutConfigActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
@@ -13,7 +13,7 @@ import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.service.UpgradeActivity;
-import com.todoroo.astrid.widget.WidgetConfigActivity;
+import org.tasks.widget.WidgetConfigActivity;
 
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionActivity;
@@ -120,7 +120,7 @@ public interface BaseActivityComponent {
 
     void inject(DefaultsPreferences defaultsPreferences);
 
-    void inject(FilterShortcutActivity filterShortcutActivity);
+    void inject(ShortcutConfigActivity shortcutConfigActivity);
 
     void inject(BackupPreferences backupPreferences);
 

@@ -48,7 +48,6 @@
 	<string name="SSD_sort_modified">Por Última Modificação</string>
 	<string name="FLA_search_filter">Coincidente com %s</string>
 	<string name="FLA_new_filter">Novo filtro</string>
-	<string name="FLA_no_filter_selected">Não selecionou o filtro! Selecione um filtro ou uma lista.</string>
 	<string name="TEA_title_hint">Nome da tarefa</string>
 	<string name="TEA_importance_label">Prioridade</string>
 	<string name="TEA_no_date">Sem data</string>
@@ -116,7 +115,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Quer mesmo eliminar todos os eventos das tarefas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Eliminados %d eventos de calendário!</string>
 	<string name="TWi_loading">Carregando...</string>
-	<string name="WCA_title">Escolha as tarefas a ver...</string>
 	<string name="DB_corrupted_body">Parece que a sua base de dados está danificada. 
 Se este erro ocorrer repetidamente sugerimos a eliminação dos dados em
 Definições-&gt;Sincronização e backup-&gt;Gerir tarefas antigas-&gt;Limpar todos os dados e o restauro
@@ -276,7 +274,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="widget_hide_due_date">Ocultar data limite</string>
 	<string name="widget_hide_checkboxes">Ocultar caixa de seleção</string>
 	<string name="widget_hide_header">Ocultar cabeçalho</string>
-	<string name="widget_transparent_background">Fundo transparente</string>
 	<string name="notifications">Notificações</string>
 	<string name="silent">Silêncio</string>
 	<string name="sound">Som</string>

@@ -45,7 +45,6 @@
 	<string name="SSD_sort_modified">Podľa úpravy</string>
 	<string name="FLA_search_filter">Zodpovedá \'%s\'</string>
 	<string name="FLA_new_filter">Nový filter</string>
-	<string name="FLA_no_filter_selected">Nieje vybraný filter! Prosím, zvoľ si filter, alebo zoznam.</string>
 	<string name="TEA_title_hint">Názov úlohy</string>
 	<string name="TEA_importance_label">Priorita</string>
 	<string name="TEA_no_date">Bez dátumu</string>
@@ -114,7 +113,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Naozaj chceš vymazať všetky tvoje udalosti pre úlohy?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Vymazané %d udalosti kalendára!</string>
 	<string name="TWi_loading">Načítavanie</string>
-	<string name="WCA_title">Vybrať úlohy na zobrazenie</string>
 	<string name="DB_corrupted_body">Oh nie! Zdá sa, že máš poškodenú databázu. Ak sa ti táto chyba zobrazuje stále, vymaž všetky údaje
 (Nastavenia-&gt;Synchronizáca a zálohy-&gt;Spravovať staré úlohy-&gt;Vymazať všetky údaje) a obnov svoje údaje zo zálohy (Nastavenia-&gt;Synchronizácie a zálohy-&gt;Záloha-&gt;Importovať úlohy) v Tasks.</string>
 	<string name="task_defaults">Predvoľby úloh</string>
@@ -268,7 +266,6 @@
 	<string name="widget_hide_due_date">Skryť termín</string>
 	<string name="widget_hide_checkboxes">Skryť zaškrtávacie políčka</string>
 	<string name="widget_hide_header">Skryť hlavičku</string>
-	<string name="widget_transparent_background">Priesvitné pozadie</string>
 	<string name="notifications">Oznámenia</string>
 	<string name="silent">Tichý</string>
 	<string name="sound">Zvuk</string>

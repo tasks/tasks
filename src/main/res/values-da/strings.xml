@@ -38,7 +38,6 @@
 	<string name="SSD_sort_modified">Efter senest ændret</string>
 	<string name="FLA_search_filter">Matcher \'%s\'</string>
 	<string name="FLA_new_filter">Nyt filter</string>
-	<string name="FLA_no_filter_selected">Der er ikke valgt et filter! Vælg venligst et filter eller en liste.</string>
 	<string name="TEA_title_hint">Opgave Overskrift</string>
 	<string name="TEA_importance_label">Vigtighed</string>
 	<string name="TEA_hideUntil_label">Skjul indtil</string>
@@ -56,7 +55,6 @@
 	<string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
 	<string name="EPr_appearance_header">Udseende</string>
 	<string name="TWi_loading">Indlæser...</string>
-	<string name="WCA_title">Vælg opgaver der skal vises...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore

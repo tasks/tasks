@@ -47,7 +47,6 @@
 	<string name="SSD_sort_modified">Dernier modifié</string>
 	<string name="FLA_search_filter">Correspondant \'%s\'</string>
 	<string name="FLA_new_filter">Nouveau filtre</string>
-	<string name="FLA_no_filter_selected">Aucun filtre sélectionné ! Veuillez sélectionner un filtre ou une liste.</string>
 	<string name="TEA_title_hint">Nom de la tâche</string>
 	<string name="TEA_importance_label">Priorité</string>
 	<string name="TEA_no_date">Sans date</string>
@@ -119,7 +118,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Voulez-vous vraiment supprimer tous les événement du calendrier pour Tasks?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés!</string>
 	<string name="TWi_loading">Chargement…</string>
-	<string name="WCA_title">Sélectionnez les tâches à afficher…</string>
 	<string name="DB_corrupted_body">Oh oh ! On dirait que vous avez une base de données corrompues. Si vous voyez souvent cette erreur, nous vous suggérons d\'effacer toutes vos données (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Gérer les anciennes tâches-&gt;Effacer toutes les données) et restaurer vos tâches d\'une sauvegarde (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Sauvegarde-&gt;Importer des tâches) dans Tasks</string>
 	<string name="task_defaults">Valeurs par défaut</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
@@ -276,7 +274,6 @@
 	<string name="widget_hide_due_date">Cacher les échéances</string>
 	<string name="widget_hide_checkboxes">Cacher les cases à cocher</string>
 	<string name="widget_hide_header">Cacher l\'en-tête</string>
-	<string name="widget_transparent_background">Fond transparent</string>
 	<string name="silent">Silencieux</string>
 	<string name="sound">Son</string>
 	<string name="quiet_hours">Heures de repos</string>

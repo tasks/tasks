@@ -28,7 +28,6 @@
 	<string name="SSD_sort_auto">الترتيب الذكي</string>
 	<string name="SSD_sort_alpha">بالعنوان</string>
 	<string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
-	<string name="FLA_no_filter_selected">لم يتم اختيار فلتر! ارجو اختيار فلتر او قائمة</string>
 	<string name="TEA_title_hint">اسم المهمة</string>
 	<string name="TEA_hideUntil_label">إخفاء حتى...</string>
 	<string name="TEA_note_label">وصف</string>
@@ -66,7 +65,6 @@
 	<string name="EPr_manage_delete_all_gcal">حذف جميع نشاطات التقويم للمهام</string>
 	<string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام ؟</string>
 	<string name="TWi_loading">تحميل...</string>
-	<string name="WCA_title">اختر المهمه للعرض...</string>
 	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
       data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore

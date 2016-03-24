@@ -43,7 +43,6 @@
 	<string name="SSD_sort_modified">Podle naposled upraveného</string>
 	<string name="FLA_search_filter">Hledanému \'%s\' odpovídá:</string>
 	<string name="FLA_new_filter">Nový Filtr</string>
-	<string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo seznam.</string>
 	<string name="TEA_title_hint">Souhrn úkolu</string>
 	<string name="TEA_importance_label">Důležitost</string>
 	<string name="TEA_no_date">Bez termínu</string>
@@ -105,7 +104,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Opravdu chcete odstranit všechny události z úkolů?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Smazány %d upomínky v kalendáři</string>
 	<string name="TWi_loading">Nahrávám...</string>
-	<string name="WCA_title">Označte úkol pro zobrazení...</string>
 	<string name="DB_corrupted_body">OJ! Může být poškozená databáze. Zobrazuje-li se tato chyba znovu,  vymaž všechny údaje v (Nastavení-&gt;Synchronizace a zálohy-&gt;Správa starých úkolů-&gt;Vymazat vše) a obnov své úkoly ze zálohy (Nastavení-&gt;Synchronizace a zálohy-&gt;Zálohy-&gt;Import úkolů) v úkolech.</string>
 	<string name="EPr_default_urgency_title">Výchozí termín dokončení</string>
 	<string name="EPr_default_importance_title">Výchozí důležitost</string>

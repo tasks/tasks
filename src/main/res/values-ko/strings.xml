@@ -50,7 +50,6 @@
 	<string name="SSD_sort_modified">최종 수정일 순서</string>
 	<string name="FLA_search_filter">\'%s\' 검색 중</string>
 	<string name="FLA_new_filter">새 필터</string>
-	<string name="FLA_no_filter_selected">필터를 선택하지 않았습니다! 필터나 목록을 선택하세요.</string>
 	<string name="TEA_title_hint">일정 이름</string>
 	<string name="TEA_importance_label">우선순위</string>
 	<string name="TEA_no_date">기한 없음</string>
@@ -124,7 +123,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">일정의 모든 이벤트를 정말 삭제할까요?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
 	<string name="TWi_loading">로드 중…</string>
-	<string name="WCA_title">열람할 일정 선택...</string>
 	<string name="DB_corrupted_body">데이터베이스가 손상된 것 같습니다. 이 에러 메시지가 주기적으로 나타나면, 
 자료를 모두 지우고 (설정-&gt;동기화 &amp; 백업-&gt;오래된 일정 관리-&gt;모든 자료 삭제) 
 Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다. 
@@ -285,7 +283,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="widget_hide_due_date">완료 예정일 숨기기</string>
 	<string name="widget_hide_checkboxes">체크박스 숨기기</string>
 	<string name="widget_hide_header">헤더 숨기기</string>
-	<string name="widget_transparent_background">투명한 배경</string>
 	<string name="notifications">알림</string>
 	<string name="silent">무음</string>
 	<string name="sound">소리</string>

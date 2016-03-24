@@ -48,7 +48,6 @@
 	<string name="SSD_sort_modified">Nach letzter Änderung</string>
 	<string name="FLA_search_filter">Übereinstimmung mit %s</string>
 	<string name="FLA_new_filter">Neuer Filter</string>
-	<string name="FLA_no_filter_selected">Kein Filter ausgewählt! Bitte Filter oder Liste auswählen.</string>
 	<string name="TEA_title_hint">Aufgabenname</string>
 	<string name="TEA_importance_label">Priorität</string>
 	<string name="TEA_no_date">Kein Datum</string>
@@ -122,7 +121,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereintrage von Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
 	<string name="TWi_loading">Ladevorgang …</string>
-	<string name="WCA_title">Aufgaben zum Anzeigen wählen …</string>
 	<string name="DB_corrupted_body">Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen (Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und deine Aufgaben aus einem Backup in Tasks wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-Backups verwalten&gt;Aufgaben importieren).</string>
 	<string name="task_defaults">Aufgabenstandards</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
@@ -281,7 +279,6 @@
 	<string name="widget_hide_due_date">Fälligkeitsdatum ausblenden</string>
 	<string name="widget_hide_checkboxes">Kontrollkästchen ausblenden</string>
 	<string name="widget_hide_header">Kopfzeile ausblenden</string>
-	<string name="widget_transparent_background">Transparenter Hintergrund</string>
 	<string name="notifications">Benachrichtigungen</string>
 	<string name="silent">Ton Aus</string>
 	<string name="sound">Ton</string>

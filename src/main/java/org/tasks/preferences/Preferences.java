@@ -12,9 +12,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.widget.WidgetConfigActivity;
+import org.tasks.widget.WidgetConfigActivity;
 
-import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;

@@ -46,7 +46,6 @@
 	<string name="SSD_sort_modified">Po zadnjih spremembah</string>
 	<string name="FLA_search_filter">Ujemanje za \'%s\'</string>
 	<string name="FLA_new_filter">Nov filter</string>
-	<string name="FLA_no_filter_selected">Noben filter ni izbran. Izberite filter ali seznam.</string>
 	<string name="TEA_title_hint">Poimenovanje opravka</string>
 	<string name="TEA_importance_label">Prioriteta</string>
 	<string name="TEA_no_date">Brez datuma</string>
@@ -109,7 +108,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
 	<string name="TWi_loading">Nalagam...</string>
-	<string name="WCA_title">Izberi in prikaži opravke...</string>
 	<string name="DB_corrupted_body">O, ne! Zdi se, da imate okvarjeno bazo podatkov. Če se ta napaka pogosto pojavlja, vam predlagamo, da zbrišete vse podatke (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt; Upravljanje s preteklimi opravki-&gt;Zbriši vse podatke) in obnovite svoje opravke s pomočjo varnostne kopije aplikacije Opravki. (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt;Varnostna kopija-&gt;Uvozi opravke)</string>
 	<string name="EPr_default_urgency_title">Privzeta dospelost</string>
 	<string name="EPr_default_importance_title">Privzeta dospelost</string>

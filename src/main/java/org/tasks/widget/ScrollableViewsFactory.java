@@ -19,8 +19,6 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
-import com.todoroo.astrid.widget.TasksWidget;
-import com.todoroo.astrid.widget.WidgetConfigActivity;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -202,7 +200,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         }
         Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        RemoteViews rv = new RemoteViews(context.getPackageName(), dark ? R.layout.scrollable_widget_dark : R.layout.scrollable_widget_light);
+        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         rv.setTextViewText(R.id.widget_title, filter.listingTitle);
         appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
         String query = SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "");

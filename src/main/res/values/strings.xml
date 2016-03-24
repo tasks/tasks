@@ -162,9 +162,6 @@ File %1$s contained %2$s.\n\n
     <!-- Menu: new filter -->
     <string name="FLA_new_filter">Create new filter</string>
 
-    <!-- Alert when creating a shortcut without selecting a filter -->
-    <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-
     <!-- ================================================= TaskEditActivity == -->
 
     <!-- Task title hint (displayed when edit box is empty) -->
@@ -345,9 +342,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- Widget text when loading tasks -->
     <string name="TWi_loading">Loading...</string>
-
-    <!-- Widget configuration activity title: select a filter -->
-    <string name="WCA_title">Select tasks to view...</string>
 
     <!-- ============================================================= Misc == -->
 
@@ -775,7 +769,6 @@ File %1$s contained %2$s.\n\n
     <string name="widget_hide_due_date">Hide due dates</string>
     <string name="widget_hide_checkboxes">Hide checkboxes</string>
     <string name="widget_hide_header">Hide header</string>
-    <string name="widget_transparent_background">Transparent background</string>
     <string name="notifications">Notifications</string>
     <string name="silent">Silent</string>
     <string name="sound">Sound</string>
@@ -869,6 +862,7 @@ File %1$s contained %2$s.\n\n
   <string name="billing_service_busy">In-app billing service is busy, try again later</string>
   <string name="select_filter">Select Filter</string>
   <string name="filter">Filter</string>
+  <string name="opacity">Opacity</string>
 
   <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

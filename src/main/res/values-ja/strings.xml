@@ -50,7 +50,6 @@
 	<string name="SSD_sort_modified">更新日時順</string>
 	<string name="FLA_search_filter">「%s」の検索結果</string>
 	<string name="FLA_new_filter">新しいフィルターを作成</string>
-	<string name="FLA_no_filter_selected">フィルターが選択されていません! フィルターかリストを選択してください.</string>
 	<string name="TEA_title_hint">タスク名</string>
 	<string name="TEA_importance_label">優先順位</string>
 	<string name="TEA_no_date">日付なし</string>
@@ -124,7 +123,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">タスクのイベントをすべて削除してもよろしいですか?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d カレンダーイベントが削除されました!</string>
 	<string name="TWi_loading">読み込んでいます・・・</string>
-	<string name="WCA_title">ウィジェットに表示する項目</string>
 	<string name="DB_corrupted_body">データベースが正しくないようです.
 このエラーが何度も表示される場合, データのクリア
 (設定-&gt;同期およびバックアップ-&gt;古いタスクの管理-&gt;全てのデータをクリア) し,
@@ -292,7 +290,6 @@
 	<string name="widget_hide_due_date">期限を表示しない</string>
 	<string name="widget_hide_checkboxes">チェックボックスを表示しない</string>
 	<string name="widget_hide_header">ヘッダーを表示しない</string>
-	<string name="widget_transparent_background">透明の背景</string>
 	<string name="notifications">通知</string>
 	<string name="silent">サイレント</string>
 	<string name="sound">サウンド</string>

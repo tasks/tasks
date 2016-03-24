@@ -22,6 +22,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 public class DashClockExtension extends InjectingDashClockExtension {
 
     @Inject DefaultFilterProvider defaultFilterProvider;
@@ -67,7 +69,7 @@ public class DashClockExtension extends InjectingDashClockExtension {
             int count = taskDao.count(filter);
 
             if (count == 0) {
-                publishUpdate(null);
+                publish(null);
             } else {
                 ExtensionData extensionData = new ExtensionData()
                         .visible(true)
@@ -84,15 +86,23 @@ public class DashClockExtension extends InjectingDashClockExtension {
                         extensionData.expandedTitle(tasks.get(0).getTitle());
                     }
                 }
-                publishUpdate(extensionData);
+                publish(extensionData);
             }
         } else {
-            publishUpdate(new ExtensionData()
+            publish(new ExtensionData()
                     .visible(true)
                     .icon(R.drawable.ic_check_white_24dp)
                     .status(getString(R.string.buy))
                     .expandedTitle(getString(R.string.buy_dashclock_extension))
                     .clickIntent(new Intent(this, DashClockSettings.class)));
+        }
+    }
+
+    private void publish(ExtensionData data) {
+        try {
+            publishUpdate(data);
+        } catch (Exception e) {
+            Timber.e(e, e.getMessage());
         }
     }
 }

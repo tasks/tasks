@@ -44,7 +44,6 @@
 	<string name="SSD_sort_modified">ע״פ מועד עדכון אחרון</string>
 	<string name="FLA_search_filter">התאים ל\'%s\'</string>
 	<string name="FLA_new_filter">יצירת פילטר חדש</string>
-	<string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
 	<string name="TEA_title_hint">שם המשימה</string>
 	<string name="TEA_importance_label">עדיפות</string>
 	<string name="TEA_no_date">ללא תאריך</string>
@@ -113,7 +112,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן בעבור המשימות?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו</string>
 	<string name="TWi_loading">טוענת...</string>
-	<string name="WCA_title">בחר משימות להצגה...</string>
 	<string name="DB_corrupted_body">הו לא! נראה כי בסיס הנתונים אינו תקין.
 אם אתה נתקל השגיאה זאת האופן תדיר, אנו מציעים שתמחק את כל הנתונים
 (הגדרות-&gt;סינכרון וגיבוי-&gt;ניהול משימות ישנות-&gt;הסרת כל הנתונים) ושחזר את המשימות

@@ -1,15 +1,12 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
-package com.todoroo.astrid.widget;
+package org.tasks.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -23,7 +20,6 @@ import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.widget.ScrollableWidgetUpdateService;
 
 import javax.inject.Inject;
 
@@ -98,15 +94,23 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
         boolean darkTheme = preferences.useDarkWidgetTheme(id);
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), darkTheme ? R.layout.scrollable_widget_dark : R.layout.scrollable_widget_light);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
         }
-        if (preferences.getBoolean(WidgetConfigActivity.PREF_WIDGET_TRANSPARENT + id, false)) {
-            remoteViews.setInt(R.id.widget_header, "setBackgroundColor", android.R.color.transparent);
-            remoteViews.setInt(R.id.list_view, "setBackgroundColor", android.R.color.transparent);
-            remoteViews.setInt(R.id.empty_view, "setBackgroundColor", android.R.color.transparent);
+        int opacity = preferences.getInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + id, WidgetConfigActivity.DEFAULT_OPACITY);
+        remoteViews.setImageViewBitmap(R.id.widget_background,
+                getSolidBackground(context.getResources().getColor(darkTheme ? R.color.widget_body_dark : R.color.widget_body_light)));
+        remoteViews.setImageViewBitmap(R.id.widget_header_background,
+                getSolidBackground(context.getResources().getColor(darkTheme ? R.color.widget_header_dark : R.color.primary)));
+        if (opacity < 100) {
+            remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);
+            remoteViews.setInt(R.id.widget_header_background, "setAlpha", opacity);
         }
+        if (!darkTheme) {
+            remoteViews.setInt(R.id.widget_header_separator, "setVisibility", View.GONE);
+        }
+
         Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
         remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
         remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
@@ -115,6 +119,12 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filterId, id));
         remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
         return remoteViews;
+    }
+
+    private static Bitmap getSolidBackground(int bgColor) {
+        Bitmap bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap
+        new Canvas(bitmap).drawColor(bgColor); //Set the color
+        return bitmap;
     }
 
     private PendingIntent getPendingIntentTemplate(Context context) {

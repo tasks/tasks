@@ -1,5 +1,7 @@
 package org.tasks.injection;
 
+import org.tasks.widget.WidgetConfigDialog;
+
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
@@ -22,4 +24,6 @@ public interface DialogFragmentComponent {
     void inject(AccountSelectionDialog accountSelectionDialog);
 
     void inject(SnoozeDialog snoozeDialog);
+
+    void inject(WidgetConfigDialog widgetConfigDialog);
 }

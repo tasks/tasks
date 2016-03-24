@@ -53,7 +53,6 @@
 	<string name="SSD_sort_modified">По последна промяна</string>
 	<string name="FLA_search_filter">Съвпада с \'%s\'</string>
 	<string name="FLA_new_filter">Създаване на нов филтър</string>
-	<string name="FLA_no_filter_selected">Няма избран филтър! Моля изберете филтър или списък.</string>
 	<string name="TEA_title_hint">Име на задачата</string>
 	<string name="TEA_importance_label">Приоритет</string>
 	<string name="TEA_no_date">Без дата</string>
@@ -127,7 +126,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Наистина ли искате да изтриете всичките си събития за задачи?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Изтрити %d събития от календара!</string>
 	<string name="TWi_loading">Зареждане...</string>
-	<string name="WCA_title">Изберете задачи за показване...</string>
 	<string name="DB_corrupted_body">Ами сега! Изглежда, че базата от данни е развалена.
 Ако виждате тази грешка редовно, ние ви предлагаме да изчистите всички
 данни (Настройки-&gt;Синхронизиране и резервни копия-&gt;Управление на стари задачи-&gt;Изчисти всички данни) 
@@ -294,7 +292,6 @@
 	<string name="widget_hide_due_date">Скриване на крайни срокове</string>
 	<string name="widget_hide_checkboxes">Скриване на отметки</string>
 	<string name="widget_hide_header">Скриване на хедър</string>
-	<string name="widget_transparent_background">Прозрачен фон</string>
 	<string name="notifications">Уведомления</string>
 	<string name="silent">Безшумен</string>
 	<string name="sound">Звук</string>

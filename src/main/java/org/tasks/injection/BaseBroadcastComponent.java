@@ -6,7 +6,7 @@ import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
 import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.timers.TimerTaskCompleteListener;
-import com.todoroo.astrid.widget.TasksWidget;
+import org.tasks.widget.TasksWidget;
 
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;

@@ -22,7 +22,6 @@
 	<string name="SSD_sort_importance">Prioritás alapján</string>
 	<string name="SSD_sort_modified">Utolsó módosítás alapján</string>
 	<string name="FLA_new_filter">Új szűrő</string>
-	<string name="FLA_no_filter_selected">Nincs szűrő kiválasztva! Kérlek, válassz ki egy szűrőt vagy egy listát.</string>
 	<string name="TEA_title_hint">Feladat neve</string>
 	<string name="TEA_importance_label">Prioritás</string>
 	<string name="TEA_hideUntil_label">Elrejtés eddig</string>

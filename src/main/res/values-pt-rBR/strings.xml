@@ -42,7 +42,6 @@
 	<string name="SSD_sort_modified">Por data de modificação</string>
 	<string name="FLA_search_filter">Encontradas para \'%s\'</string>
 	<string name="FLA_new_filter">Novo Filtro</string>
-	<string name="FLA_no_filter_selected">Sem filtro selecionado! Selecione um filtro ou lista.</string>
 	<string name="TEA_title_hint">Nome da tarefa</string>
 	<string name="TEA_importance_label">Prioridade</string>
 	<string name="TEA_no_date">Sem data</string>
@@ -104,7 +103,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Você quer mesmo apagar todos os eventos de calendário das tarefas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d eventos de agenda apagados!</string>
 	<string name="TWi_loading">Carregando...</string>
-	<string name="WCA_title">Selecionar tarefas para visualização...</string>
 	<string name="DB_corrupted_body">Uh oh! Parece que você possui banco de dados corrompido. Se você vê esse erro regularmente, nós sugerimos que você limpe todos os dados (Configurações-&gt; Sincronização e backup-&gt; Manutenção de tarefas antigas-&gt; Limpar todos os dados) e restaurar suas tarefas através do backup no Tasks (Configurações-&gt; Sincronização e backup-&gt; Backup-&gt; Importar tarefas).</string>
 	<string name="EPr_default_urgency_title">Urgência</string>
 	<string name="EPr_default_importance_title">Prioridade padrão</string>

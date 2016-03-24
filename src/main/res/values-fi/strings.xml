@@ -13,7 +13,6 @@
 	<string name="SSD_sort_modified">Viimeisen muutoksen mukaan</string>
 	<string name="FLA_search_filter">Sopivuus \'%s\'</string>
 	<string name="FLA_new_filter">Uusi suodin</string>
-	<string name="FLA_no_filter_selected">Suodatinta ei valittu! Valitse suodatin tai lista.</string>
 	<string name="TEA_title_hint">Tehtävän nimi</string>
 	<string name="TEA_importance_label">Etusija</string>
 	<string name="TEA_hideUntil_label">Piilota kunnes</string>
