@@ -23,11 +23,14 @@
 	<string name="DLG_error_sdcard_general">Impossible d\'accéder à la carte SD !</string>
 	<string name="read_permission_label">Permission d\'Tasks</string>
 	<string name="write_permission_label">Permission d\'Tasks</string>
+	<string name="discard_confirmation">Etes-vous sûrs de vouloir annuler vos modifications ?</string>
+	<string name="keep_editing">Continuer l\'édition</string>
 	<string name="DLG_delete_this_task_question">Supprimer cette tâche ?</string>
 	<string name="DLG_upgrading">Mise à jour de vos tâches…</string>
 	<string name="DLG_hour_minutes">Temps (heures : minutes)</string>
 	<string name="DLG_undo">Annuler Action</string>
 	<string name="WID_dateButtonUnset">Cliquez pour définir</string>
+	<string name="TLA_no_items">Aucune tâche disponible</string>
 	<string name="TLA_menu_sort">Trier</string>
 	<string name="TLA_menu_search">Rechercher</string>
 	<string name="TLA_menu_settings">Paramètres</string>
@@ -46,7 +49,7 @@
 	<string name="SSD_sort_importance">Par priorité</string>
 	<string name="SSD_sort_modified">Dernier modifié</string>
 	<string name="FLA_search_filter">Correspondant \'%s\'</string>
-	<string name="FLA_new_filter">Nouveau filtre</string>
+	<string name="FLA_new_filter">Créer un nouveau filtre</string>
 	<string name="TEA_title_hint">Nom de la tâche</string>
 	<string name="TEA_importance_label">Priorité</string>
 	<string name="TEA_no_date">Sans date</string>
@@ -126,6 +129,9 @@
 	<string name="EPr_default_reminders_title">Rappels par défaut</string>
 	<string name="EPr_default_addtocalendar_title">Ajout au calendrier par défaut</string>
 	<string name="EPr_default_reminders_mode_title">Type de sonnerie/vibration par défaut</string>
+	<string name="priority_high">Haute</string>
+	<string name="priority_medium">Moyenne</string>
+	<string name="priority_low">Faible</string>
 	<string-array name="EPr_default_urgency">
 		<item>Aucune échéance</item>
 		<item>Aujourd\'hui</item>
@@ -170,6 +176,8 @@
 	<string name="gcal_TEA_error">Erreur d\'ajout de tâche à l\'agenda !</string>
 	<string name="gcal_TEA_addToCalendar_label">Créer un évènement d\'agenda</string>
 	<string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
+	<string name="delete_calendar_event_confirmation">Supprimer l\'événement ?</string>
+	<string name="calendar_event_not_found">Événement non trouvé</string>
 	<string name="gcal_completed_title">%s (complété)</string>
 	<string name="CFC_gtasks_list_text">Dans la liste : ?</string>
 	<string name="CFC_gtasks_list_name">Dans la liste GTasks...</string>
@@ -238,7 +246,7 @@
 	<string name="repeat_forever">Répéter indéfiniment</string>
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
 	<string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
-	<string name="new_tag">Nouveau tag</string>
+	<string name="new_tag">Créer une nouvelle balise</string>
 	<string name="tag_FEx_untagged">Non classé</string>
 	<string name="delete_tag_confirmation">Effacer %s ?</string>
 	<string name="TPl_notification">Chronomètre actif pour %s !</string>
@@ -328,6 +336,7 @@
 	<string name="show_completed">Afficher les tâches terminées</string>
 	<string name="reverse">Inverse</string>
 	<string name="task_count">%s Tâches</string>
+	<string name="get_plugins">Achats intégrés à l\'application</string>
 	<string name="no_application_found">Aucune application trouvée pour ouvrir la pièce jointe</string>
 	<string name="add_attachment">Ajouter une pièce jointe</string>
 	<string name="high_priority">Haute</string>
@@ -349,6 +358,18 @@
 	<string name="doze_notifications">Interrompt le Doze mode pour les notifications</string>
 	<string name="doze_notifications_off">Android va différer les notifications de façon importante lorsque l\'appareil sera en Doze mode</string>
 	<string name="doze_notifications_on">Android autorisera des interruptions limitées lorsque l\'appareil sera en Doze mode</string>
+	<string name="no_title">(Sans titre)</string>
+	<string name="back_button_saves_task">Faire un retour-arrière sauvegarde la tâche</string>
+	<string name="default_list">Liste par défaut</string>
+	<string name="donate_summary">Les donations sont grandement appréciées.</string>
+	<string name="dashclock_description">Affiche le nombre de tâches actives</string>
+	<string name="dashclock_purchase_description">Affiche le nombre de tâches actives. Requiert le widget DashClock</string>
+	<string name="buy">Acheter</string>
+	<string name="buy_dashclock_extension">Acheter l\'extension</string>
+	<string name="billing_service_busy">Le service de facturation intégré à l\'application est surchargé, réessayez plus tard.</string>
+	<string name="select_filter">Sélectionner le filtre</string>
+	<string name="filter">Filtre</string>
+	<string name="opacity">Transparence</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>désactiver</item>
 		<item>toutes les quinze minutes</item>

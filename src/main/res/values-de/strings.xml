@@ -47,7 +47,7 @@
 	<string name="SSD_sort_importance">Nach Priorität</string>
 	<string name="SSD_sort_modified">Nach letzter Änderung</string>
 	<string name="FLA_search_filter">Übereinstimmung mit %s</string>
-	<string name="FLA_new_filter">Neuer Filter</string>
+	<string name="FLA_new_filter">Neuen Filter anlegen</string>
 	<string name="TEA_title_hint">Aufgabenname</string>
 	<string name="TEA_importance_label">Priorität</string>
 	<string name="TEA_no_date">Kein Datum</string>
@@ -176,6 +176,8 @@
 	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
 	<string name="gcal_TEA_addToCalendar_label">In Kalender eintragen</string>
 	<string name="gcal_TEA_showCalendar_label">Öffne Kalendereintrag</string>
+	<string name="delete_calendar_event_confirmation">Kalendereintrag löschen?</string>
+	<string name="calendar_event_not_found">Kalendereintrag nicht gefunden</string>
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
 	<string name="CFC_gtasks_list_text">In der Liste: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
@@ -243,7 +245,7 @@
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
 	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>
-	<string name="new_tag">Neues Schlagwort</string>
+	<string name="new_tag">Neues Stichwort anlegen</string>
 	<string name="tag_FEx_untagged">Nicht kategorisiert</string>
 	<string name="delete_tag_confirmation">%s löschen?</string>
 	<string name="TPl_notification">Timer ist aktiv für %s!</string>
@@ -336,6 +338,7 @@
 	<string name="show_completed">Erledigt anzeigen</string>
 	<string name="reverse">Rückgangig</string>
 	<string name="task_count">%s Aufgaben</string>
+	<string name="get_plugins">In-App Käufe</string>
 	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
 	<string name="add_attachment">Anhang hinzufügen</string>
 	<string name="high_priority">Hoch</string>
@@ -358,6 +361,19 @@
 	<string name="doze_notifications_off">Im Doze-Modus von Android erfolgen Benachrichtigungen mit deutlicher Verzögerung</string>
 	<string name="doze_notifications_on">Android erlaubt nur eine begrenzte Anzahl von Unterbrechungen des Doze-Modus</string>
 	<string name="no_title">(kein Titel)</string>
+	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
+	<string name="default_list">Standard Liste</string>
+	<string name="plugin_description">Tasks ist ein Open Source Projekt, gepflegt von einem Entwickler. Manche Funktionen werden als In-App Käufe angeboten, um die Entwicklung zu unterstützen.</string>
+	<string name="tesla_unread_description">Badge anzeigen mit der Anzahl an aktiven Augaben in der Standard-Liste. Benötigt TeslaUnread für Nova Launcher</string>
+	<string name="tasker_description">Kontext-bezogene Listenbenachrichtigungen. Benötigt Tasker oder Locale</string>
+	<string name="donate_summary">Spenden sind sehr willkommen</string>
+	<string name="dashclock_description">Anzahl aktiver Aufgaben anzeigen</string>
+	<string name="dashclock_purchase_description">Anzahl aktiver Aufgaben anzeigen. DashClock Widget benötigt</string>
+	<string name="buy">Kaufen</string>
+	<string name="buy_dashclock_extension">Erweiterung kaufen</string>
+	<string name="billing_service_busy">Dienst für In-App Käufe ist beschäftigt, versuchen Sie es später noch einmal</string>
+	<string name="select_filter">Filter auswählen</string>
+	<string name="opacity">Durchsichtigkeit</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>
