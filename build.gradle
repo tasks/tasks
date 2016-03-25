@@ -27,14 +27,18 @@ android {
         lintConfig file("lint.xml")
     }
 
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
 
     defaultConfig {
         versionCode 408
         versionName "4.8.17"
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 24
+
+//        jackOptions {
+//            enabled true
+//        }
     }
 
     signingConfigs {
@@ -44,6 +48,8 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -88,8 +94,8 @@ dependencies {
     compile 'com.google.dagger:dagger:2.1'
 
     compile 'com.nononsenseapps:filepicker:2.5.2'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:support-v13:23.4.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:support-v13:24.0.0'
     compile 'com.jakewharton:butterknife:8.0.1'
     compile 'com.jakewharton.timber:timber:4.1.1'
     compile 'com.google.guava:guava:19.0'

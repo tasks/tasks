@@ -47,7 +47,7 @@ public class Preferences {
         this.context = context;
         this.permissionChecker = permissionChecker;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_WORLD_READABLE);
+        publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE);
     }
 
     public boolean backButtonSavesTask() {
