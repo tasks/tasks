@@ -80,7 +80,7 @@ dependencies {
     provided 'com.google.dagger:dagger-compiler:2.1'
     compile 'com.google.dagger:dagger:2.1'
 
-    compile 'com.nononsenseapps:filepicker:2.5.0'
+    compile 'com.nononsenseapps:filepicker:2.5.2'
     compile 'com.android.support:design:23.2.1'
     compile 'com.android.support:support-v13:23.2.1'
     compile 'com.jakewharton:butterknife:7.0.1'
@@ -92,7 +92,7 @@ dependencies {
     compile ('org.scala-saddle:google-rfc-2445:20110304') {
         transitive = false
     }
-    compile ('com.wdullaer:materialdatetimepicker:2.1.1') {
+    compile ('com.wdullaer:materialdatetimepicker:2.3.0') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
@@ -100,15 +100,9 @@ dependencies {
     googleplayCompile 'com.twofortyfouram:android-plugin-api-for-locale:[1.0.1,2.0['
     googleplayCompile 'com.google.android.gms:play-services-location:8.4.0'
     googleplayCompile 'com.google.android.gms:play-services-analytics:8.4.0'
-    googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev41-1.21.0'
+    googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev43-1.21.0'
     googleplayCompile 'com.google.api-client:google-api-client-android:1.21.0'
 
-    androidTestCompile ('org.mockito:mockito-core:1.9.5') {
-        transitive = false
-    }
-    androidTestCompile 'com.google.dexmaker:dexmaker:1.1'
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
-    androidTestCompile ('com.natpryce:make-it-easy:3.1.0') {
-        transitive = false
-    }
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
+    androidTestCompile 'com.natpryce:make-it-easy:4.0.0'
 }
