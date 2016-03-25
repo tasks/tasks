@@ -56,6 +56,10 @@ public class MetadataDao {
         dao.createNew(metadata);
     }
 
+    public List<Metadata> toList(Criterion criterion) {
+        return toList(Query.select(Metadata.PROPERTIES).where(criterion));
+    }
+
     public List<Metadata> toList(Query where) {
         return dao.toList(where);
     }
@@ -116,6 +120,10 @@ public class MetadataDao {
     public void removeDanglingMetadata() {
         dao.deleteWhere(Metadata.ID.in(Query.select(Metadata.ID).from(Metadata.TABLE).join(Join.left(Task.TABLE,
                 Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull())));
+    }
+
+    public List<Metadata> byTask(long taskId) {
+        return toList(MetadataCriteria.byTask(taskId));
     }
 
     public void byTask(long taskId, Callback<Metadata> callback) {

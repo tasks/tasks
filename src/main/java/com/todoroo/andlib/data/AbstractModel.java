@@ -82,6 +82,17 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         readPropertiesFromCursor(cursor);
     }
 
+    public AbstractModel(AbstractModel abstractModel) {
+        if (abstractModel != null) {
+            if (abstractModel.setValues != null) {
+                setValues = new ContentValues(abstractModel.setValues);
+            }
+            if (abstractModel.values != null) {
+                values = new ContentValues(abstractModel.values);
+            }
+        }
+    }
+
     /** Get database-read values for this object */
     public ContentValues getDatabaseValues() {
         return values;

@@ -94,6 +94,14 @@ public class Metadata extends AbstractModel {
         defaultValues.put(DELETION_DATE.name, 0L);
     }
 
+    public Metadata() {
+        super();
+    }
+
+    public Metadata(Metadata metadata) {
+        super(metadata);
+    }
+
     @Override
     public ContentValues getDefaultValues() {
         return defaultValues;

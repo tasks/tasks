@@ -36,6 +36,10 @@ abstract public class RemoteModel extends AbstractModel {
         super(cursor);
     }
 
+    public RemoteModel(AbstractModel model) {
+        super(model);
+    }
+
     /** remote id property common to all remote models */
     public static final String UUID_PROPERTY_NAME = "remoteId"; //$NON-NLS-1$
 

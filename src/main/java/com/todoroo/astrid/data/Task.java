@@ -190,6 +190,10 @@ public class Task extends RemoteModel {
         super(cursor);
     }
 
+    public Task(Task task) {
+        super(task);
+    }
+
     @Override
     public long getId() {
         return getIdHelper(ID);

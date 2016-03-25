@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service;
 
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
@@ -8,10 +7,13 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 public class TaskDuplicator {
 
@@ -31,47 +33,41 @@ public class TaskDuplicator {
      * @return cloned item id
      */
     public long duplicateTask(long itemId) {
-        Task original = new Task();
-        original.setId(itemId);
-        Task clone = clone(original);
+        Task original = taskService.fetchById(itemId, Task.PROPERTIES);
+        Timber.d("Cloning %s", original);
+        Task clone = new Task(original);
         clone.setCreationDate(DateUtilities.now());
         clone.setCompletionDate(0L);
         clone.setDeletionDate(0L);
-        clone.setCalendarUri(""); //$NON-NLS-1$
-        gcalHelper.createTaskEventIfEnabled(clone);
+        clone.setCalendarUri("");
+        clone.clearValue(Task.ID);
+        clone.clearValue(Task.UUID);
+
+        List<Metadata> metadataList = metadataDao.byTask(itemId);
+        if (!metadataList.isEmpty()) {
+            clone.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+        }
 
         taskService.save(clone);
-        return clone.getId();
-    }
 
-    private Task clone(Task task) {
-        Task newTask = taskService.fetchById(task.getId(), Task.PROPERTIES);
-        if(newTask == null) {
-            return new Task();
-        }
-        newTask.clearValue(Task.ID);
-        newTask.clearValue(Task.UUID);
-
-        List<Metadata> metadataList = metadataDao.toList(Query.select(Metadata.PROPERTIES).where(MetadataDao.MetadataCriteria.byTask(task.getId())));
-
-        if (!metadataList.isEmpty()) {
-            newTask.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-            taskService.save(newTask);
-            long newId = newTask.getId();
-            for (Metadata metadata : metadataList) {
-                if(!metadata.containsNonNullValue(Metadata.KEY)) {
-                    continue;
-                }
-
-                if(GtasksMetadata.METADATA_KEY.equals(metadata.getKey())) {
-                    metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                }
-
-                metadata.setTask(newId);
-                metadata.clearValue(Metadata.ID);
-                metadataDao.createNew(metadata);
+        for (Metadata oldMetadata : metadataList) {
+            if(!oldMetadata.containsNonNullValue(Metadata.KEY)) {
+                continue;
             }
+            Timber.d("Cloning %s", oldMetadata);
+            Metadata metadata = new Metadata(oldMetadata);
+            if(GtasksMetadata.METADATA_KEY.equals(metadata.getKey())) {
+                metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
+            } else if (TaskToTagMetadata.KEY.equals(metadata.getKey())) {
+                metadata.setValue(TaskToTagMetadata.TASK_UUID, clone.getUuid());
+            }
+            metadata.setTask(clone.getId());
+            metadata.clearValue(Metadata.ID);
+            metadataDao.createNew(metadata);
         }
-        return newTask;
+
+        gcalHelper.createTaskEventIfEnabled(clone);
+
+        return clone.getId();
     }
 }
