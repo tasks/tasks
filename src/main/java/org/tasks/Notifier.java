@@ -33,6 +33,8 @@ import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.reminders.MissedCallActivity;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
+import org.tasks.reminders.SnoozeDialog;
+import org.tasks.reminders.SnoozeOption;
 
 import java.io.InputStream;
 
@@ -259,13 +261,32 @@ public class Notifier {
                 putExtra(CompleteTaskReceiver.TASK_ID, id);
             }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            NotificationCompat.Action completeAction = new NotificationCompat.Action.Builder(
+                    R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done), completeIntent).build();
+
             PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, (int) id, new Intent(context, SnoozeActivity.class) {{
                 setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
             }}, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            builder.addAction(R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done), completeIntent)
-                    .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent);
+            NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
+            wearableExtender.addAction(completeAction);
+            for (final SnoozeOption snoozeOption : SnoozeDialog.getSnoozeOptions(preferences)) {
+                final long timestamp = snoozeOption.getDateTime().getMillis();
+                PendingIntent snoozeIntent = PendingIntent.getActivity(context, (int) id, new Intent(context, SnoozeActivity.class) {{
+                    setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    setAction(String.format("snooze-%s-%s", id, timestamp));
+                    putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
+                    putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp);
+                }}, PendingIntent.FLAG_UPDATE_CURRENT);
+                wearableExtender.addAction(new NotificationCompat.Action.Builder(
+                        R.drawable.ic_snooze_white_24dp, context.getString(snoozeOption.getResId()), snoozeIntent)
+                        .build());
+            }
+
+            builder.addAction(completeAction)
+                    .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent)
+                    .extend(wearableExtender);
         }
 
         activateNotification(ringTimes, (int) id, builder.build(), taskTitle);

@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.todoroo.astrid.reminders.SnoozeCallback;
-
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.time.DateTime;
 import org.tasks.R;
@@ -29,48 +27,21 @@ public class SnoozeDialog extends InjectingDialogFragment {
     @Inject @ForApplication Context context;
     @Inject DialogBuilder dialogBuilder;
 
-    private DateTime now = new DateTime();
     private SnoozeCallback snoozeCallback;
     private DialogInterface.OnCancelListener onCancelListener;
-    private List<Long> snoozeTimes = new ArrayList<>();
     private List<String> items = new ArrayList<>();
-
-    private void add(int resId, DateTime dateTime) {
-        items.add(String.format("%s (%s)", getString(resId), getTimeString(context, dateTime)));
-        snoozeTimes.add(dateTime.getMillis());
-    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        DateTime morning = now.withMillisOfDay(preferences.getDateShortcutMorning());
-        DateTime afternoon = now.withMillisOfDay(preferences.getDateShortcutAfternoon());
-        DateTime evening = now.withMillisOfDay(preferences.getDateShortcutEvening());
-        DateTime night = now.withMillisOfDay(preferences.getDateShortcutNight());
-        DateTime tomorrowMorning = morning.plusDays(1);
-        DateTime tomorrowAfternoon = afternoon.plusDays(1);
+        final List<SnoozeOption> snoozeOptions = getSnoozeOptions(preferences);
 
-        items.add(getString(R.string.date_shortcut_hour));
-        snoozeTimes.add(0L);
-        
-        DateTime hourCutoff = new DateTime().plusMinutes(75);
-
-        if (morning.isAfter(hourCutoff)) {
-            add(R.string.date_shortcut_morning, morning);
-            add(R.string.date_shortcut_afternoon, afternoon);
-        } else if (afternoon.isAfter(hourCutoff)) {
-            add(R.string.date_shortcut_afternoon, afternoon);
-            add(R.string.date_shortcut_evening, evening);
-        } else if (evening.isAfter(hourCutoff)) {
-            add(R.string.date_shortcut_evening, evening);
-            add(R.string.date_shortcut_night, night);
-        } else if (night.isAfter(hourCutoff)) {
-            add(R.string.date_shortcut_night, night);
-            add(R.string.date_shortcut_tomorrow_morning, tomorrowMorning);
-        } else {
-            add(R.string.date_shortcut_tomorrow_morning, tomorrowMorning);
-            add(R.string.date_shortcut_tomorrow_afternoon, tomorrowAfternoon);
+        for (SnoozeOption snoozeOption : snoozeOptions) {
+            items.add(String.format("%s (%s)",
+                    getString(snoozeOption.getResId()),
+                    getTimeString(context, snoozeOption.getDateTime())));
         }
+
         items.add(getString(R.string.pick_a_date_and_time));
 
         return dialogBuilder.newDialog()
@@ -80,11 +51,9 @@ public class SnoozeDialog extends InjectingDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                snoozeCallback.snoozeForTime(new DateTime().plusHours(1).getMillis());
-                                break;
                             case 1:
                             case 2:
-                                snoozeCallback.snoozeForTime(snoozeTimes.get(which));
+                                snoozeCallback.snoozeForTime(snoozeOptions.get(which).getDateTime());
                                 break;
                             case 3:
                                 dialog.dismiss();
@@ -116,5 +85,40 @@ public class SnoozeDialog extends InjectingDialogFragment {
     @Override
     protected void inject(DialogFragmentComponent component) {
         component.inject(this);
+    }
+
+    public static List<SnoozeOption> getSnoozeOptions(Preferences preferences) {
+        DateTime now = new DateTime();
+        DateTime morning = now.withMillisOfDay(preferences.getDateShortcutMorning());
+        DateTime afternoon = now.withMillisOfDay(preferences.getDateShortcutAfternoon());
+        DateTime evening = now.withMillisOfDay(preferences.getDateShortcutEvening());
+        DateTime night = now.withMillisOfDay(preferences.getDateShortcutNight());
+        DateTime tomorrowMorning = morning.plusDays(1);
+        DateTime tomorrowAfternoon = afternoon.plusDays(1);
+
+        DateTime hourCutoff = new DateTime().plusMinutes(75);
+
+        List<SnoozeOption> snoozeOptions = new ArrayList<>();
+
+        snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_hour, now.plusHours(1)));
+
+        if (morning.isAfter(hourCutoff)) {
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_morning, morning));
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_afternoon, afternoon));
+        } else if (afternoon.isAfter(hourCutoff)) {
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_afternoon, afternoon));
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_evening, evening));
+        } else if (evening.isAfter(hourCutoff)) {
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_evening, evening));
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_night, night));
+        } else if (night.isAfter(hourCutoff)) {
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_night, night));
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_morning, tomorrowMorning));
+        } else {
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_morning, tomorrowMorning));
+            snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_afternoon, tomorrowAfternoon));
+        }
+
+        return snoozeOptions;
     }
 }

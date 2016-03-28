@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -26,6 +25,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     private static final int REQUEST_DATE_TIME = 10101;
 
     public static final String EXTRA_TASK_ID = "id";
+    public static final String EXTRA_SNOOZE_TIME = "snooze_time";
 
     @Inject StartupService startupService;
     @Inject TaskService taskService;
@@ -65,21 +65,25 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
 
         startupService.onStartupApplication(this);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        SnoozeDialog fragmentByTag = (SnoozeDialog) fragmentManager.findFragmentByTag(FRAG_TAG_SNOOZE_DIALOG);
-        if (fragmentByTag == null) {
-            fragmentByTag = new SnoozeDialog();
-            fragmentByTag.show(fragmentManager, FRAG_TAG_SNOOZE_DIALOG);
+        if (intent.hasExtra(EXTRA_SNOOZE_TIME)) {
+            snoozeForTime(new DateTime(intent.getLongExtra(EXTRA_SNOOZE_TIME, 0L)));
+        } else {
+            FragmentManager fragmentManager = getFragmentManager();
+            SnoozeDialog fragmentByTag = (SnoozeDialog) fragmentManager.findFragmentByTag(FRAG_TAG_SNOOZE_DIALOG);
+            if (fragmentByTag == null) {
+                fragmentByTag = new SnoozeDialog();
+                fragmentByTag.show(fragmentManager, FRAG_TAG_SNOOZE_DIALOG);
+            }
+            fragmentByTag.setOnCancelListener(this);
+            fragmentByTag.setSnoozeCallback(this);
         }
-        fragmentByTag.setOnCancelListener(this);
-        fragmentByTag.setSnoozeCallback(this);
     }
 
     @Override
-    public void snoozeForTime(long time) {
+    public void snoozeForTime(DateTime time) {
         Task task = new Task();
         task.setId(taskId);
-        task.setReminderSnooze(time);
+        task.setReminderSnooze(time.getMillis());
         taskService.save(task);
         notificationManager.cancel(taskId);
         setResult(RESULT_OK);
@@ -110,7 +114,8 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_DATE_TIME) {
             if (resultCode == RESULT_OK && data != null) {
-                snoozeForTime(data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L));
+                long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
+                snoozeForTime(new DateTime(timestamp));
             } else {
                 finish();
             }
