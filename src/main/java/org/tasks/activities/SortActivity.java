@@ -12,7 +12,6 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ public class SortActivity extends InjectingAppCompatActivity {
 
     @Inject Preferences preferences;
     @Inject DialogBuilder dialogBuilder;
-    @Inject ActivityPreferences activityPreferences;
 
     private boolean manualEnabled;
     private AlertDialog alertDialog;
@@ -39,8 +37,6 @@ public class SortActivity extends InjectingAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        activityPreferences.applyDialogTheme();
 
         manualEnabled = getIntent().getBooleanExtra(EXTRA_MANUAL_ENABLED, false);
 

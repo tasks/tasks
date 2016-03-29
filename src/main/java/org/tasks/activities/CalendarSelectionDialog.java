@@ -54,13 +54,10 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, calendarNames);
-
         AlertDialog.Builder builder = dialogBuilder.newDialog()
-                .setSingleChoiceItems(adapter, 0, new DialogInterface.OnClickListener() {
+                .setItems(calendarNames.toArray(new String[calendarNames.size()]), new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, final int which) {
+                    public void onClick(DialogInterface dialog, int which) {
                         handler.selectedCalendar(calendars.get(which));
                         dialog.dismiss();
                     }

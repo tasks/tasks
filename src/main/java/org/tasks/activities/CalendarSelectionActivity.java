@@ -6,11 +6,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import org.tasks.calendars.AndroidCalendar;
-
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.PermissionRequestor;
 
 import javax.inject.Inject;
@@ -24,13 +22,10 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
     public static final String EXTRA_SHOW_NONE = "extra_show_none";
 
     @Inject ActivityPermissionRequestor permissionRequestor;
-    @Inject ActivityPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        preferences.applyTheme();
 
         if (permissionRequestor.requestCalendarPermissions()) {
             showDialog();

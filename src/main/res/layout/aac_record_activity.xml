@@ -9,6 +9,66 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:gravity="center">
-    
-    <include layout="@layout/astrid_record_audio_view"/>
+
+    <LinearLayout
+        android:id="@+id/reminder_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:orientation="vertical"
+        android:background="@drawable/reminder_dialog_background">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dip"
+            android:layout_marginRight="5dip"
+            android:layout_marginBottom="10dip"
+            android:layout_marginLeft="10dip">
+
+            <TextView
+                android:id="@+id/reminder_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dip"
+                android:textSize="24sp"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:text="@string/audio_recording_title" />
+
+            <ImageView
+                android:id="@+id/dismiss"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
+                android:scaleType="fitCenter"
+                android:tint="@android:color/white"
+                android:src="@drawable/ic_close_24dp" />
+
+        </LinearLayout>
+
+        <Chronometer
+            android:id="@+id/timer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/stop_recording"
+            android:layout_width="fill_parent"
+            android:layout_height="35dip"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginBottom="10dip"
+            android:textColor="@android:color/white"
+            android:background="@color/overdue"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:text="@string/audio_stop_recording" />
+
+    </LinearLayout>
 </LinearLayout>

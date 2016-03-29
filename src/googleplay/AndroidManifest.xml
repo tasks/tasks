@@ -45,7 +45,7 @@
 
         <activity
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
-            android:theme="@style/DialogBase" />
+            android:theme="@style/TranslucentDialog" />
 
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
@@ -54,7 +54,7 @@
 
         <activity
             android:name=".activities.ClearGtaskDataActivity"
-            android:theme="@style/DialogBase" />
+            android:theme="@style/TranslucentDialog" />
 
         <service
             android:name=".scheduling.GtasksBackgroundService"
