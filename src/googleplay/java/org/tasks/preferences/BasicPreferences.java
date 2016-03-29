@@ -4,12 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.TwoStatePreference;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
 import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
@@ -32,7 +30,6 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
 
     private static final int REQUEST_PURCHASE = 10005;
 
-    @Inject Tracker tracker;
     @Inject TeslaUnreadReceiver teslaUnreadReceiver;
     @Inject Preferences preferences;
     @Inject PurchaseHelper purchaseHelper;
@@ -95,17 +92,6 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
                     purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
-                }
-                return false;
-            }
-        });
-
-        findPreference(getString(R.string.p_collect_statistics)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null) {
-                    tracker.setTrackingEnabled((boolean) newValue);
-                    return true;
                 }
                 return false;
             }

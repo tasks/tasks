@@ -68,6 +68,7 @@ android {
     productFlavors {
         generic
         googleplay
+        amazon
     }
 }
 
@@ -102,6 +103,8 @@ dependencies {
     googleplayCompile 'com.google.android.gms:play-services-analytics:8.4.0'
     googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev43-1.21.0'
     googleplayCompile 'com.google.api-client:google-api-client-android:1.21.0'
+
+    amazonCompile 'com.google.android.gms:play-services-analytics:8.4.0'
 
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
     androidTestCompile 'com.natpryce:make-it-easy:4.0.0'

@@ -2,9 +2,8 @@
 <resources>
     <dimen name="navigation_drawer_width">260dp</dimen>
     <dimen name="keyline_first">16dp</dimen>
-    <dimen name="keyline_second">20dp</dimen>
-    <dimen name="keyline_second_absolute">60dp</dimen>
-    <dimen name="toolbar_horizontal_padding">4dp</dimen>
+    <dimen name="keyline_second">20dp</dimen> <!-- 16dp + toolbar title margin -->
+    <dimen name="keyline_content_inset">60dp</dimen>
     <dimen name="widget_margin">0dp</dimen>
 
     <dimen name="task_list_footer_height">88dp</dimen>

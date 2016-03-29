@@ -4,7 +4,6 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/taskEditParent"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical">

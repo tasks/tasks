@@ -11,6 +11,8 @@
         <item name="android:textColor">#fff</item>
     </style>
 
+    <style name="Toolbar" parent="@style/Widget.AppCompat.Toolbar" />
+
     <style name="TextBoxText">
         <item name="android:textColor">?attr/asTextColor</item>
     </style>
@@ -66,8 +68,8 @@
     </style>
 
     <style name="task_edit_row_divider">
-        <item name="android:layout_marginLeft">@dimen/keyline_second_absolute</item>
-        <item name="android:layout_marginStart">@dimen/keyline_second_absolute</item>
+        <item name="android:layout_marginLeft">@dimen/keyline_content_inset</item>
+        <item name="android:layout_marginStart">@dimen/keyline_content_inset</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:background">?attr/task_edit_divider</item>

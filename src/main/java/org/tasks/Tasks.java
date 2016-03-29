@@ -1,5 +1,6 @@
 package org.tasks;
 
+import android.content.res.Configuration;
 import android.util.Log;
 
 import com.todoroo.astrid.dao.Database;
@@ -59,6 +60,16 @@ public class Tasks extends InjectingApplication {
         tracker.setTrackingEnabled(preferences.isTrackingEnabled());
 
         flavorSetup.setup();
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if (BuildConfig.DEBUG) {
+            Timber.d("current screen width: %s, smallest screen width: %s", newConfig.screenWidthDp, newConfig.smallestScreenWidthDp);
+        }
     }
 
     private static class ErrorReportingTree extends Timber.Tree {
