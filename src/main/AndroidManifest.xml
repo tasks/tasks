@@ -46,6 +46,7 @@
     <!-- recording voice notes -->
     <!-- ********************* -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
 
     <!-- ============================================== Exported Permissions = -->
 
