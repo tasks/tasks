@@ -145,9 +145,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             taskListFragment = newTaskListFragment(filter);
         } else {
             taskListFragment = getTaskListFragment();
-            if (taskListFragment == null) {
-                taskListFragment = newTaskListFragment(defaultFilterProvider.getDefaultFilter());
-            }
+        }
+
+        if (taskListFragment == null) {
+            taskListFragment = newTaskListFragment(defaultFilterProvider.getDefaultFilter());
         }
         loadTaskListFragment(taskListFragment);
 
@@ -234,18 +235,24 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (filter instanceof TagFilter) {
             TagFilter tagFilter = (TagFilter) filter;
             TagData tagData = tagDataDao.getByUuid(tagFilter.getUuid());
-            return preferences.getBoolean(R.string.p_manual_sort, false)
-                    ? SubtasksTagListFragment.newSubtasksTagListFragment(tagFilter, tagData)
-                    : TagViewFragment.newTagViewFragment(tagFilter, tagData);
+            if (tagData != null) {
+                return preferences.getBoolean(R.string.p_manual_sort, false)
+                        ? SubtasksTagListFragment.newSubtasksTagListFragment(tagFilter, tagData)
+                        : TagViewFragment.newTagViewFragment(tagFilter, tagData);
+            }
         } else if (filter instanceof GtasksFilter) {
             GtasksFilter gtasksFilter = (GtasksFilter) filter;
             GtasksList list = gtasksListService.getList(gtasksFilter.getStoreId());
-            return GtasksListFragment.newGtasksListFragment(gtasksFilter, list);
-        } else {
+            if (list != null) {
+                return GtasksListFragment.newGtasksListFragment(gtasksFilter, list);
+            }
+        } else if (filter != null) {
             return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)
                     ? SubtasksListFragment.newSubtasksListFragment(filter)
                     : TaskListFragment.newTaskListFragment(filter);
         }
+
+        return null;
     }
 
     @Override
