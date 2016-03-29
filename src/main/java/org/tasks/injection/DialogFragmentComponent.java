@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.widget.WidgetConfigDialog;
 
 import org.tasks.activities.CalendarSelectionDialog;
@@ -26,4 +27,6 @@ public interface DialogFragmentComponent {
     void inject(SnoozeDialog snoozeDialog);
 
     void inject(WidgetConfigDialog widgetConfigDialog);
+
+    void inject(ColorPickerDialog colorPickerDialog);
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Yellow" parent="LightOverride">
+        <item name="colorPrimary">@color/yellow_500</item>
+        <item name="colorPrimaryDark">@color/yellow_700</item>
+        <item name="colorAccent">@color/red_a400</item>
+        <item name="alertDialogTheme">@style/YellowDialog</item>
+    </style>
+
+    <style name="YellowDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/yellow_500</item>
+        <item name="colorPrimaryDark">@color/yellow_700</item>
+        <item name="colorAccent">@color/red_a400</item>
+    </style>
+
+</resources>

@@ -31,4 +31,10 @@ public class BasicPreferences extends BaseBasicPreferences {
     public void inject(ActivityComponent component) {
         component.inject(this);
     }
+
+    @Override
+    public void initiateThemePurchase() {
+        activityPreferences.setBoolean(R.string.p_purchased_themes, true);
+        recreate();
+    }
 }

@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.injection.ActivityComponent;
@@ -66,7 +67,7 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
 
     @Override
     public void ok() {
-        tracker.reportEvent(Tracking.Events.WIDGET_ADD_SCROLLABLE);
+        tracker.reportEvent(Tracking.Events.WIDGET_ADD, getString(R.string.app_name));
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         setResult(RESULT_OK, resultValue);

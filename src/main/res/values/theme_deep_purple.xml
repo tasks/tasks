@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DeepPurple" parent="LightOverride">
+        <item name="colorPrimary">@color/deep_purple_500</item>
+        <item name="colorPrimaryDark">@color/deep_purple_700</item>
+        <item name="colorAccent">@color/pink_a400</item>
+        <item name="alertDialogTheme">@style/DeepPurpleDialog</item>
+    </style>
+
+    <style name="DeepPurpleDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/deep_purple_500</item>
+        <item name="colorPrimaryDark">@color/deep_purple_700</item>
+        <item name="colorAccent">@color/pink_a400</item>
+    </style>
+
+</resources>

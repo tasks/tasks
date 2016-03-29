@@ -21,7 +21,11 @@ public class Tracker {
 
     }
 
-    public void reportEvent(Tracking.Events setDefaultList) {
+    public void reportEvent(Tracking.Events event) {
+
+    }
+
+    public void reportEvent(Tracking.Events event, String string) {
 
     }
 }

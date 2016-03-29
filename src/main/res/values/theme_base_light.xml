@@ -2,19 +2,10 @@
 <resources>
 
     <style name="LightBase" parent="Theme.AppCompat.Light.NoActionBar">
-    </style>
-
-    <style name="Tasks" parent="LightBase">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/primary</item>
-
         <item name="popup_theme">@style/ThemeOverlay.AppCompat.Light</item>
-
         <item name="android:windowBackground">@android:color/white</item>
         <item name="asEditTextBackground">@null</item>
         <item name="windowActionModeOverlay">true</item>
-
         <item name="drawer_background">@color/drawer_background</item>
         <item name="drawer_background_selected">@color/drawer_background_selected</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
@@ -23,8 +14,6 @@
         <item name="toolbarSeparatorHeight">0dp</item>
         <item name="separatorHeight">1px</item>
         <item name="asSeparatorBackground">#888888</item>
-
-        <item name="android:actionModeBackground">@color/primary</item>
         <item name="asContentBackground">@android:color/white</item>
         <item name="asTextColor">@android:color/black</item>
         <item name="asTextColorHint">@android:color/darker_gray</item>
@@ -33,21 +22,18 @@
         <item name="asDueDateColor">#878787</item>
         <item name="asListDividerColor">#dddddd</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
-        <item name="asAbBackgroundColor">#607d8b</item>
         <item name="icon_tint">@android:color/black</item>
         <item name="fab_tint">@android:color/white</item>
         <item name="task_edit_divider">@color/task_edit_divider</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
-        <item name="alertDialogTheme">@style/TasksDialog</item>
+        <item name="android:actionModeBackground">?attr/colorPrimary</item>
+        <item name="asDateTimePickerAccent">?attr/colorAccent</item>
     </style>
 
-    <style name="DialogBase" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary_dark</item>
-        <item name="colorAccent">@color/primary</item>
+    <style name="LightOverride" parent="LightBase">
     </style>
 
-    <style name="TasksDialog" parent="DialogBase">
+    <style name="LightDialogBase" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>

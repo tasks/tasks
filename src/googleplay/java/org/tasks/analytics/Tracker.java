@@ -6,6 +6,7 @@ import com.android.vending.billing.IabResult;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.StandardExceptionParser;
+import com.google.common.base.Strings;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
@@ -51,11 +52,15 @@ public class Tracker {
     }
 
     public void reportEvent(Tracking.Events event) {
+        reportEvent(event, null);
+    }
+
+    public void reportEvent(Tracking.Events event, String label) {
         HitBuilders.EventBuilder eventBuilder = new HitBuilders.EventBuilder()
                 .setCategory(context.getString(event.category))
                 .setAction(context.getString(event.action));
-        if (event.label > 0) {
-            eventBuilder.setLabel(context.getString(event.label));
+        if (!Strings.isNullOrEmpty(label)) {
+            eventBuilder.setLabel(label);
         }
         tracker.send(eventBuilder.build());
     }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Teal" parent="LightOverride">
+        <item name="colorPrimary">@color/teal_500</item>
+        <item name="colorPrimaryDark">@color/teal_700</item>
+        <item name="colorAccent">@color/purple_a400</item>
+        <item name="alertDialogTheme">@style/TealDialog</item>
+    </style>
+
+    <style name="TealDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/teal_500</item>
+        <item name="colorPrimaryDark">@color/teal_700</item>
+        <item name="colorAccent">@color/purple_a400</item>
+    </style>
+
+</resources>

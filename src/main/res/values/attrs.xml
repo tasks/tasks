@@ -22,16 +22,12 @@
     <attr name="asListDividerColor" format="color" />
     <attr name="asThemeTextColor" format="color" />
     <attr name="asEditTextBackground" format="reference" />
-    <attr name="asAbBackgroundColor" format="color" />
     <attr name="fab_tint" format="color"/>
     <attr name="icon_tint" format="color"/>
     <attr name="toolbarSeparatorHeight" format="dimension" />
     <attr name="separatorHeight" format="dimension" />
     <attr name="popup_theme" format="reference" />
-
-    <declare-styleable name="DateAndTimePicker">
-        <attr name="shortcutLabels" format="reference" />
-    </declare-styleable>
+    <attr name="asDateTimePickerAccent" format="color" />
 
     <declare-styleable name="TimePreference">
         <attr name="summary" format="string" />

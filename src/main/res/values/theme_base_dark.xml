@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DarkBase" parent="Theme.AppCompat.NoActionBar">
+
+    </style>
+
+    <style name="DarkOverride" parent="DarkBase">
+    </style>
+
+    <style name="DialogBaseDark" parent="@style/Theme.AppCompat.Dialog">
+    </style>
+
+</resources>

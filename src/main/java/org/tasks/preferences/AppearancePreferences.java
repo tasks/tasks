@@ -38,7 +38,6 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_appearance);
 
-        setExtraOnChange(R.string.p_use_dark_theme, EXTRA_RESTART);
         setExtraOnChange(R.string.p_fontSize, EXTRA_RESTART);
         setExtraOnChange(R.string.p_fullTaskTitle, EXTRA_RESTART);
         setExtraOnChange(R.string.p_show_today_filter, EXTRA_FILTERS_CHANGED);

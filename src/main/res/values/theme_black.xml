@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="DarkBase" parent="Theme.AppCompat.NoActionBar">
-    </style>
-
-    <style name="TasksDark" parent="DarkBase">
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryDark">@android:color/black</item>
-        <item name="colorAccent">@android:color/white</item>
+    <style name="Black" parent="DarkOverride">
+        <item name="colorPrimary">@color/black_primary</item>
+        <item name="colorPrimaryDark">@color/black_primary_dark</item>
+        <item name="colorAccent">@color/red_500</item>
+        <item name="asDateTimePickerAccent">?attr/colorAccent</item>
 
         <item name="popup_theme">@style/ThemeOverlay.AppCompat</item>
 
@@ -17,14 +14,13 @@
         <item name="toolbarSeparatorHeight">1px</item>
         <item name="asToolbarSeparator">@android:color/white</item>
         <item name="asSeparator">?attr/asToolbarSeparator</item>
-        <item name="android:actionModeBackground">@android:color/black</item>
+        <item name="android:actionModeBackground">@color/black_primary</item>
         <item name="asContentBackground">@android:color/black</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="asTextColorHint">@android:color/darker_gray</item>
         <item name="asTextColorInverse">@android:color/black</item>
-        <item name="asAbBackgroundColor">@android:color/black</item>
         <item name="icon_tint">@android:color/white</item>
-        <item name="task_edit_divider">@color/task_edit_divider_dark</item>
+        <item name="task_edit_divider">@color/task_edit_divider</item>
         <item name="asDueDateColor">#c3c3c3</item>
         <item name="fab_tint">@android:color/black</item>
 
@@ -39,16 +35,13 @@
         <item name="asListDividerColor">#dddddd</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
-        <item name="alertDialogTheme">@style/TasksDialogDark</item>
+        <item name="alertDialogTheme">@style/BlackDialog</item>
     </style>
 
-    <style name="DialogBaseDark" parent="@style/Theme.AppCompat.Dialog">
-        <item name="colorPrimary">@android:color/black</item>
-        <item name="colorPrimaryDark">@android:color/black</item>
-        <item name="colorAccent">@android:color/white</item>
-    </style>
-
-    <style name="TasksDialogDark" parent="DialogBaseDark">
+    <style name="BlackDialog" parent="DialogBaseDark">
+        <item name="colorPrimary">@color/black_primary</item>
+        <item name="colorPrimaryDark">@color/black_primary_dark</item>
+        <item name="colorAccent">@color/red_a400</item>
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>

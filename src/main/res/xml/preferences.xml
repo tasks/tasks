@@ -2,6 +2,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:key="@string/p_theme"
+        android:title="@string/theme" />
+
+    <Preference
         android:key="@string/EPr_appearance_header"
         android:title="@string/EPr_appearance_header" />
 

@@ -214,9 +214,6 @@
       <item>@string/TEA_control_hidden_section</item>
   </string-array>
 
-    <string name="p_use_dark_theme">use_dark_theme</string>
-    <string name="p_use_dark_theme_widget">use_dark_theme_widget</string>
-
     <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
     <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
     <string name="TEA_ctrl_repeat_pref">TEA_ctrl_repeat_pref</string>
@@ -286,15 +283,16 @@
   <string name="tracking_category_widget">Widget</string>
   <string name="tracking_category_timer">Timer</string>
   <string name="tracking_category_iab">IAB</string>
-  <string name="tracking_action_set">Set</string>
   <string name="tracking_action_add">Add</string>
   <string name="tracking_action_start">Start</string>
   <string name="p_tesla_unread_enabled">tesla_unread_enabled</string>
   <string name="p_purchased_tesla_unread">purchased_tesla_unread</string>
   <string name="p_purchased_tasker">purchased_tasker</string>
   <string name="p_purchased_dashclock">purchased_dashclock</string>
+  <string name="p_purchased_themes">purchased_themes</string>
   <string name="tesla_unread">TeslaUnread</string>
   <string name="tasker_locale">Tasker/Locale</string>
   <string name="dashclock">DashClock extension</string>
+  <string name="p_theme">selected_theme</string>
 
 </resources>

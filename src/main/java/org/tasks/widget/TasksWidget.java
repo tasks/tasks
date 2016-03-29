@@ -102,7 +102,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         remoteViews.setImageViewBitmap(R.id.widget_background,
                 getSolidBackground(context.getResources().getColor(darkTheme ? R.color.widget_body_dark : R.color.widget_body_light)));
         remoteViews.setImageViewBitmap(R.id.widget_header_background,
-                getSolidBackground(context.getResources().getColor(darkTheme ? R.color.widget_header_dark : R.color.primary)));
+                getSolidBackground(context.getResources().getColor(darkTheme ? R.color.widget_header_dark : R.color.blue_grey_500)));
         if (opacity < 100) {
             remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);
             remoteViews.setInt(R.id.widget_header_background, "setAlpha", opacity);

@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import org.tasks.R;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -48,7 +47,7 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
         if (datePickerDialog == null) {
             datePickerDialog = new MyDatePickerDialog();
             datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
-            datePickerDialog.setAccentColor(getResources().getColor(preferences.isDarkTheme() ? R.color.black_text_hint : R.color.primary));
+            datePickerDialog.setAccentColor(preferences.getDateTimePickerAccent());
             datePickerDialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
         datePickerDialog.setOnCancelListener(this);

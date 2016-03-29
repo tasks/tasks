@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Indigo" parent="LightOverride">
+        <item name="colorPrimary">@color/indigo_500</item>
+        <item name="colorPrimaryDark">@color/indigo_700</item>
+        <item name="colorAccent">@color/red_a400</item>
+        <item name="alertDialogTheme">@style/IndigoDialog</item>
+    </style>
+
+    <style name="IndigoDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/indigo_500</item>
+        <item name="colorPrimaryDark">@color/indigo_700</item>
+        <item name="colorAccent">@color/red_a400</item>
+    </style>
+
+</resources>

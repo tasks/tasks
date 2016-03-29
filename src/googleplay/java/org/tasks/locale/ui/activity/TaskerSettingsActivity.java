@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +40,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     private static final String EXTRA_PURCHASE_INITIATED = "extra_purchase_initiated";
 
     @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.text_view) TextView filterTitle;
 
     @Inject ActivityPreferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
@@ -128,8 +128,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
                 if (equalBundles(getResultBundle(), previousBundle)) {
                     cancel();
                 } else {
-                    new AlertDialog.Builder(this, R.style.TasksDialog)
-                            .setMessage(R.string.discard_changes)
+                    dialogBuilder.newMessageDialog(R.string.discard_changes)
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -221,8 +220,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     }
 
     private void updateView() {
-        ((TextView) findViewById(R.id.text_view))
-                .setText(filter.listingTitle);
+        filterTitle.setText(filter.listingTitle);
     }
 
     @Override

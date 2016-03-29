@@ -39,7 +39,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_FILTER) {
             if (resultCode == Activity.RESULT_OK) {
-                tracker.reportEvent(Tracking.Events.WIDGET_ADD_SHORTCUT);
+                tracker.reportEvent(Tracking.Events.WIDGET_ADD, getString(R.string.FSA_label));
                 Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 String filterId = defaultFilterProvider.getFilterPreferenceValue(filter);
                 Intent shortcutIntent = TaskIntents.getTaskListByIdIntent(this, filterId);

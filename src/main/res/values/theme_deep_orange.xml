@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DeepOrange" parent="LightOverride">
+        <item name="colorPrimary">@color/deep_orange_500</item>
+        <item name="colorPrimaryDark">@color/deep_orange_700</item>
+        <item name="colorAccent">@color/indigo_a400</item>
+        <item name="alertDialogTheme">@style/DeepOrangeDialog</item>
+    </style>
+
+    <style name="DeepOrangeDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/deep_orange_500</item>
+        <item name="colorPrimaryDark">@color/deep_orange_700</item>
+        <item name="colorAccent">@color/indigo_a400</item>
+    </style>
+
+</resources>

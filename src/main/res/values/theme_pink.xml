@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Pink" parent="LightOverride">
+        <item name="colorPrimary">@color/pink_500</item>
+        <item name="colorPrimaryDark">@color/pink_700</item>
+        <item name="colorAccent">@color/blue_a400</item>
+        <item name="alertDialogTheme">@style/PinkDialog</item>
+    </style>
+
+    <style name="PinkDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/pink_500</item>
+        <item name="colorPrimaryDark">@color/pink_700</item>
+        <item name="colorAccent">@color/blue_a400</item>
+    </style>
+
+</resources>

@@ -710,7 +710,6 @@ File %1$s contained %2$s.\n\n
     <!-- Preference: Voice reminders description (true) -->
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
 
-
     <string name="EPr_use_dark_theme">Dark theme</string>
     <string name="delete_task">Delete task</string>
     <string name="voice_command_added_task">Added task</string>
@@ -853,6 +852,7 @@ File %1$s contained %2$s.\n\n
   <string name="default_list">Default list</string>
   <string name="plugin_description">Tasks is an open source project maintained by one developer. Some features are offered as in-app purchases in order to support development.</string>
   <string name="tesla_unread_description">Display a badge for the number of active tasks in your default list. Requires TeslaUnread for Nova Launcher</string>
+  <string name="themes_purchase_description">Unlock all themes and add some color to Tasks</string>
   <string name="tasker_description">Context-aware list notifications. Requires Tasker or Locale</string>
   <string name="donate_summary">Donations are greatly appreciated</string>
   <string name="dashclock_description">Display a count of active tasks</string>
@@ -863,6 +863,29 @@ File %1$s contained %2$s.\n\n
   <string name="select_filter">Select Filter</string>
   <string name="filter">Filter</string>
   <string name="opacity">Opacity</string>
+
+  <string name="theme">Theme</string>
+  <string name="themes">Additional themes</string>
+  <string name="theme_red">Red</string>
+  <string name="theme_pink">Pink</string>
+  <string name="theme_purple">Purple</string>
+  <string name="theme_deep_purple">Deep Purple</string>
+  <string name="theme_indigo">Indigo</string>
+  <string name="theme_blue">Blue</string>
+  <string name="theme_light_blue">Light Blue</string>
+  <string name="theme_cyan">Cyan</string>
+  <string name="theme_teal">Teal</string>
+  <string name="theme_green">Green</string>
+  <string name="theme_light_green">Light Green</string>
+  <string name="theme_lime">Lime</string>
+  <string name="theme_yellow">Yellow</string>
+  <string name="theme_amber">Amber</string>
+  <string name="theme_orange">Orange</string>
+  <string name="theme_deep_orange">Deep Orange</string>
+  <string name="theme_brown">Brown</string>
+  <string name="theme_grey">Grey</string>
+  <string name="theme_blue_grey">Blue Grey</string>
+  <string name="theme_black">Black</string>
 
   <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

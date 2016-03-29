@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Grey" parent="LightOverride">
+        <item name="colorPrimary">@color/grey_500</item>
+        <item name="colorPrimaryDark">@color/grey_700</item>
+        <item name="colorAccent">@color/amber_a400</item>
+        <item name="alertDialogTheme">@style/GreyDialog</item>
+    </style>
+
+    <style name="GreyDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/grey_500</item>
+        <item name="colorPrimaryDark">@color/grey_700</item>
+        <item name="colorAccent">@color/amber_a400</item>
+    </style>
+
+</resources>

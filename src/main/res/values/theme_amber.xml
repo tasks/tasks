@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Amber" parent="LightOverride">
+        <item name="colorPrimary">@color/amber_500</item>
+        <item name="colorPrimaryDark">@color/amber_700</item>
+        <item name="colorAccent">@color/purple_a400</item>
+        <item name="alertDialogTheme">@style/AmberDialog</item>
+    </style>
+
+    <style name="AmberDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/amber_500</item>
+        <item name="colorPrimaryDark">@color/amber_700</item>
+        <item name="colorAccent">@color/purple_a400</item>
+    </style>
+
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Lime" parent="LightOverride">
+        <item name="colorPrimary">@color/lime_500</item>
+        <item name="colorPrimaryDark">@color/lime_700</item>
+        <item name="colorAccent">@color/cyan_a400</item>
+        <item name="alertDialogTheme">@style/LimeDialog</item>
+    </style>
+
+    <style name="LimeDialog" parent="LightDialogBase">
+        <item name="colorPrimary">@color/lime_500</item>
+        <item name="colorPrimaryDark">@color/lime_700</item>
+        <item name="colorAccent">@color/cyan_a400</item>
+    </style>
+
+</resources>

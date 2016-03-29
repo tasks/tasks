@@ -15,6 +15,13 @@
             android:title="@string/TLA_menu_donate" />
 
         <CheckBoxPreference
+            android:dependency="@string/p_purchased_themes"
+            android:disableDependentsState="true"
+            android:key="@string/p_purchased_themes"
+            android:summary="@string/themes_purchase_description"
+            android:title="@string/themes" />
+
+        <CheckBoxPreference
             android:dependency="@string/p_purchased_dashclock"
             android:disableDependentsState="true"
             android:key="@string/p_purchased_dashclock"

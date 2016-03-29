@@ -2,11 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/EPr_appearance_header">
 
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="@string/p_use_dark_theme"
-        android:title="@string/EPr_use_dark_theme" />
-
     <PreferenceCategory android:title="@string/task_list_options">
 
         <com.todoroo.astrid.ui.MultilinePreference

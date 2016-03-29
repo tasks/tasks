@@ -9,7 +9,6 @@ import android.text.format.DateFormat;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import org.tasks.R;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -43,7 +42,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
         if (dialog == null) {
             dialog = new MyTimePickerDialog();
             dialog.initialize(null, initial.getHourOfDay(), initial.getMinuteOfHour(), 0, DateFormat.is24HourFormat(this));
-            dialog.setAccentColor(getResources().getColor(preferences.isDarkTheme() ? R.color.black_text_hint : R.color.primary));
+            dialog.setAccentColor(preferences.getDateTimePickerAccent());
             dialog.show(fragmentManager, FRAG_TAG_TIME_PICKER);
         }
         dialog.setOnDismissListener(this);
