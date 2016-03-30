@@ -346,6 +346,7 @@
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse"> Реверс</string>
 	<string name="task_count">%s задач</string>
+	<string name="get_plugins">Покупки в приложении</string>
 	<string name="no_application_found">Не найдено приложение, позволяющее открыть прикреплённый файл</string>
 	<string name="add_attachment">Прикрепить файл</string>
 	<string name="high_priority">Высокий</string>

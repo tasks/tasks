@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-beta7'
+        classpath 'com.android.tools.build:gradle:2.0.0-rc1'
     }
 }
 
@@ -27,8 +27,8 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        versionCode 405
-        versionName "4.8.15"
+        versionCode 406
+        versionName "4.8.16"
         minSdkVersion 14
         targetSdkVersion 23
     }

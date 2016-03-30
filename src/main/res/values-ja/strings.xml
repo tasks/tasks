@@ -383,6 +383,7 @@
 	<string name="billing_service_busy">アプリ内課金サービスがビジー状態です。後でもう一度試してください</string>
 	<string name="select_filter">フィルターの選択</string>
 	<string name="filter">フィルター</string>
+	<string name="opacity">透明度</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>無効</item>
 		<item>15分毎</item>

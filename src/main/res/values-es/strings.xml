@@ -378,6 +378,7 @@
 	<string name="billing_service_busy">El servicio de compra desde la aplicación está ocupado, inténtelo más tarde.</string>
 	<string name="select_filter">Seleccionar filtro</string>
 	<string name="filter">Filtro</string>
+	<string name="opacity">Opacidad</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deshabilitar</item>
 		<item>cada quince minutos</item>
