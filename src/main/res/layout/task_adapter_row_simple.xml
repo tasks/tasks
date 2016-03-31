@@ -16,8 +16,6 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginTop="5dip"
 	    android:layout_marginBottom="5dip"
-		android:paddingLeft="@dimen/keyline_first"
-		android:paddingStart="@dimen/keyline_first"
 		android:paddingEnd="@dimen/keyline_first"
 		android:paddingRight="@dimen/keyline_first">
 	
@@ -27,6 +25,8 @@
 	        android:layout_height="wrap_content"
 	        android:scaleType="center"
 	        android:gravity="center"
+			android:paddingLeft="@dimen/keyline_first"
+			android:paddingStart="@dimen/keyline_first"
 			android:paddingRight="@dimen/keyline_second"
 			android:paddingEnd="@dimen/keyline_second"
 	        android:layout_centerVertical="true" />
