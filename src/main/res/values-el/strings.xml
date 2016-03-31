@@ -224,7 +224,6 @@
 	<string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
 	<string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Η εφαρμογή θα λέει να ονόματα των εργασιών κατά την διάρκεια των υπενθυμίσεων</string>
-	<string name="EPr_use_dark_theme">Σκοτεινό θέμα</string>
 	<string name="delete_task">Διαγραφή καθήκοντος</string>
 	<string name="voice_command_added_task">Η εργασία προστέθηκε</string>
 	<string name="external_storage_unavailable">Δεν είναι δυνατή η πρόσβαση σε εξωτερικά μέσα αποθήκευσης</string>

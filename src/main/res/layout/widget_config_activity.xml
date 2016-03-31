@@ -1,91 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- See the file "LICENSE" for the full license governing this code.
--->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/filter_selection"
-        style="@style/WidgetConfigRow">
-
-        <TextView
-            android:id="@+id/selected_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:textColor="?attr/asTextColor"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@id/selected_filter"
-            android:layout_toStartOf="@id/selected_filter"
-            android:text="@string/filter"
-            android:textColor="?attr/asTextColor"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        style="@style/WidgetConfigRow">
-
-        <TextView
-            android:id="@+id/opacity_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:textColor="?attr/asTextColor"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@id/opacity_value"
-            android:layout_toStartOf="@id/opacity_value"
-            android:text="@string/opacity"
-            android:textColor="?attr/asTextColor"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
-
-    <SeekBar
-        android:id="@+id/opacity_seekbar"
-        style="@style/WidgetConfigRow"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <CheckBox
-        android:id="@+id/darkTheme"
-        style="@style/WidgetConfigRow.CheckBox"
-        android:checked="false"
-        android:text="@string/EPr_use_dark_theme" />
+        <RelativeLayout
+            android:id="@+id/filter_selection"
+            style="@style/WidgetConfigRow">
 
-    <CheckBox
-        android:id="@+id/hideDueDate"
-        style="@style/WidgetConfigRow.CheckBox"
-        android:checked="false"
-        android:text="@string/widget_hide_due_date" />
+            <TextView
+                android:id="@+id/selected_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
 
-    <CheckBox
-        android:id="@+id/hideCheckboxes"
-        style="@style/WidgetConfigRow.CheckBox"
-        android:checked="false"
-        android:text="@string/widget_hide_checkboxes" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/selected_filter"
+                android:layout_toStartOf="@id/selected_filter"
+                android:text="@string/filter"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
 
-    <CheckBox
-        android:id="@+id/hideHeader"
-        style="@style/WidgetConfigRow.CheckBox"
-        android:checked="false"
-        android:text="@string/widget_hide_header" />
+        </RelativeLayout>
 
-</LinearLayout>
-    
+        <RelativeLayout
+            android:id="@+id/theme_selection"
+            style="@style/WidgetConfigRow">
+
+            <TextView
+                android:id="@+id/selected_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/selected_theme"
+                android:layout_toStartOf="@id/selected_theme"
+                android:text="@string/theme"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/WidgetConfigRow">
+
+            <TextView
+                android:id="@+id/opacity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/opacity_value"
+                android:layout_toStartOf="@id/opacity_value"
+                android:text="@string/opacity"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <SeekBar
+            android:id="@+id/opacity_seekbar"
+            style="@style/WidgetConfigRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <CheckBox
+            android:id="@+id/hideDueDate"
+            style="@style/WidgetConfigRow.CheckBox"
+            android:checked="false"
+            android:text="@string/widget_hide_due_date" />
+
+        <CheckBox
+            android:id="@+id/hideCheckboxes"
+            style="@style/WidgetConfigRow.CheckBox"
+            android:checked="false"
+            android:text="@string/widget_hide_checkboxes" />
+
+        <CheckBox
+            android:id="@+id/hideHeader"
+            style="@style/WidgetConfigRow.CheckBox"
+            android:checked="false"
+            android:text="@string/widget_hide_header" />
+
+    </LinearLayout>
+
+</ScrollView>

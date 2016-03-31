@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 
 import timber.log.Timber;
 
-public abstract class AbstractFragmentPluginAppCompatActivity extends InjectingAppCompatActivity {
+public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInjectingAppCompatActivity {
 
     protected boolean mIsCancelled = false;
 

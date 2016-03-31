@@ -20,6 +20,8 @@ import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.preferences.Theme;
+import org.tasks.preferences.ThemeManager;
 
 import javax.inject.Inject;
 
@@ -37,6 +39,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     @Inject Broadcaster broadcaster;
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
+    @Inject ThemeManager themeManager;
 
     public static final String COMPLETE_TASK = "COMPLETE_TASK";
     public static final String EDIT_TASK = "EDIT_TASK";
@@ -93,21 +96,21 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER_ID, filterId);
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        boolean darkTheme = preferences.useDarkWidgetTheme(id);
+        Theme theme = themeManager.getWidgetTheme(id);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
         }
         int opacity = preferences.getInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + id, WidgetConfigActivity.DEFAULT_OPACITY);
         remoteViews.setImageViewBitmap(R.id.widget_background,
-                getSolidBackground(context.getResources().getColor(darkTheme ? R.color.widget_body_dark : R.color.widget_body_light)));
+                getSolidBackground(theme.getContentBackground()));
         remoteViews.setImageViewBitmap(R.id.widget_header_background,
-                getSolidBackground(context.getResources().getColor(darkTheme ? R.color.widget_header_dark : R.color.blue_grey_500)));
+                getSolidBackground(theme.getPrimaryColor()));
         if (opacity < 100) {
             remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);
             remoteViews.setInt(R.id.widget_header_background, "setAlpha", opacity);
         }
-        if (!darkTheme) {
+        if (!theme.isDark()) {
             remoteViews.setInt(R.id.widget_header_separator, "setVisibility", View.GONE);
         }
 

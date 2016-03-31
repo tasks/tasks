@@ -9,7 +9,7 @@ import com.todoroo.astrid.backup.TasksXmlImporter;
 import org.tasks.files.FileExplore;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -18,7 +18,7 @@ public class ImportTaskActivity extends InjectingAppCompatActivity {
     private static final int REQUEST_PICKER = 1000;
 
     @Inject TasksXmlImporter xmlImporter;
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

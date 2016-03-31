@@ -36,7 +36,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
@@ -46,7 +46,7 @@ import butterknife.ButterKnife;
 
 import static android.text.TextUtils.isEmpty;
 
-public class TagSettingsActivity extends InjectingAppCompatActivity {
+public class TagSettingsActivity extends ThemedInjectingAppCompatActivity {
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
@@ -58,7 +58,6 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
 
     @Inject TagService tagService;
     @Inject TagDataDao tagDataDao;
-    @Inject ActivityPreferences preferences;
     @Inject MetadataDao metadataDao;
     @Inject DialogBuilder dialogBuilder;
 
@@ -69,7 +68,7 @@ public class TagSettingsActivity extends InjectingAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyThemeAndStatusBarColor();
+
         setContentView(R.layout.tag_settings_activity);
         ButterKnife.bind(this);
 

@@ -263,7 +263,6 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="EPr_voiceInputEnabled_title">Voce</string>
 	<string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
-	<string name="EPr_use_dark_theme">Tema scuro</string>
 	<string name="delete_task">Elimina attività</string>
 	<string name="voice_command_added_task">Attività aggiunta</string>
 	<string name="external_storage_unavailable">Non posso accedere alla memoria esterna</string>

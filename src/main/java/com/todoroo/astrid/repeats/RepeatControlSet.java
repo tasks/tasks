@@ -43,7 +43,8 @@ import org.tasks.activities.DatePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ThemeManager;
 import org.tasks.time.DateTime;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -97,8 +98,9 @@ public class RepeatControlSet extends TaskEditControlFragment {
     private Spinner repeatUntil;
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
     @Inject @ForActivity Context context;
+    @Inject ThemeManager themeManager;
 
     @Bind(R.id.clear) ImageView clear;
     @Bind(R.id.display_row_edit) TextView displayView;
@@ -438,7 +440,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
             dialogValue = 1;
         }
 
-        new NumberPickerDialog(context, preferences.getDialogTheme(), new OnNumberPickedListener() {
+        new NumberPickerDialog(context, themeManager.getDialogThemeResId(), new OnNumberPickedListener() {
             @Override
             public void onNumberPicked(int number) {
                 setRepeatValue(number);

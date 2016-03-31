@@ -262,7 +262,6 @@
 	<string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
 	<string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
-	<string name="EPr_use_dark_theme">Donker thema</string>
 	<string name="delete_task">Verwijder taak</string>
 	<string name="voice_command_added_task">Toegevoegde taak</string>
 	<string name="external_storage_unavailable">Geen toegang tot externe opslag</string>

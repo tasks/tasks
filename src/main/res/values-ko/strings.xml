@@ -269,7 +269,6 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="EPr_voiceInputEnabled_title">음성 입력</string>
 	<string name="EPr_voiceRemindersEnabled_title">음성 알림</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">일정 알림기간 동안 일정 이름을 직접 말해 줍니다</string>
-	<string name="EPr_use_dark_theme">어두운 색상 테마</string>
 	<string name="delete_task">일정 지우기</string>
 	<string name="voice_command_added_task">추가된 일정</string>
 	<string name="external_storage_unavailable">외부 저장소에 접근할 수 없음</string>

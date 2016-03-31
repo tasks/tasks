@@ -39,7 +39,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FilesAction;
-import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
@@ -47,7 +46,7 @@ import com.todoroo.astrid.ui.CheckableImageView;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -95,7 +94,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // --- instance variables
 
     private final CheckBoxes checkBoxes;
-    private final ActivityPreferences preferences;
+    private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
@@ -115,7 +114,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     protected final int minRowHeight;
 
-    public TaskAdapter(Context context, ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
+    public TaskAdapter(Context context, Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
                        DialogBuilder dialogBuilder) {
         super(context, c, false);

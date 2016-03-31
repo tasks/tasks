@@ -87,12 +87,6 @@
     <color name="task_list_done">#ff777777</color>
     <color name="task_edit_deadline_gray">#888888</color>
     
-    <color name="widget_text_color_light">#535353</color>
-    <color name="widget_text_color_dark">#ffffff</color>
-    <color name="widget_header_dark">#000000</color>
-    <color name="widget_body_light">#ffffff</color>
-    <color name="widget_body_dark">#000000</color>
-
     <color name="drawer_background">#efefef</color>
     <color name="drawer_background_dark">#303030</color>
     <color name="drawer_background_selected">#dddddd</color>

@@ -30,7 +30,7 @@ import com.todoroo.astrid.ui.DraggableListView;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +46,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final AstridOrderedListUpdater<LIST> updater;
     private DialogBuilder dialogBuilder;
     private final TaskListFragment fragment;
-    private final ActivityPreferences preferences;
+    private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
@@ -54,7 +54,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     private LIST list;
 
-    public AstridOrderedListFragmentHelper(ActivityPreferences preferences, TaskAttachmentDao taskAttachmentDao,
+    public AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
                                            TaskService taskService, TaskListFragment fragment,
                                            AstridOrderedListUpdater<LIST> updater, DialogBuilder dialogBuilder) {
         this.preferences = preferences;
@@ -188,7 +188,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(Context context, ActivityPreferences preferences, TaskListFragment activity,
+        private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
                 Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder) {
             super(context, preferences, taskAttachmentDao, taskService, activity, c, query, null, dialogBuilder);
         }

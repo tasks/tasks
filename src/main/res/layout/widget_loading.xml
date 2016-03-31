@@ -14,7 +14,7 @@
     <LinearLayout android:id="@+id/taskbody"
         android:layout_width="fill_parent"
         android:layout_height="120dip"
-        android:background="@color/widget_body_light"
+        android:background="#ffffff"
         android:orientation="vertical">
         
         <TextView
@@ -24,8 +24,7 @@
 	        android:layout_marginTop="37dip"
 	        android:padding="10dip"
 	        android:gravity="center"
-	        android:text="@string/TWi_loading"
-	        style="@style/TextAppearance.Widget" />
+	        android:text="@string/TWi_loading" />
         
     </LinearLayout>
 </LinearLayout>

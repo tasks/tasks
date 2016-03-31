@@ -258,7 +258,6 @@
 	<string name="EPr_voiceInputEnabled_title">Entrée voix</string>
 	<string name="EPr_voiceRemindersEnabled_title">Rappels vocaux</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks donnera le nom de la tâche</string>
-	<string name="EPr_use_dark_theme">Thème foncé</string>
 	<string name="delete_task">Supprimer la tâche ? </string>
 	<string name="voice_command_added_task">Tâche ajoutée</string>
 	<string name="external_storage_unavailable">Impossible d\'accéder au stockage externe</string>

@@ -45,9 +45,11 @@ import org.tasks.fragments.CommentBarFragment;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.DefaultFilterProvider;
+import org.tasks.preferences.Preferences;
+import org.tasks.preferences.ThemeApplicator;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -72,7 +74,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         TaskEditFragment.TaskEditFragmentCallbackHandler,
         CommentBarFragment.CommentBarFragmentCallback {
 
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
     @Inject StartupService startupService;
     @Inject SubtasksHelper subtasksHelper;
     @Inject TaskService taskService;
@@ -81,6 +83,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject GtasksListService gtasksListService;
     @Inject TagDataDao tagDataDao;
+    @Inject ThemeApplicator themeApplicator;
 
     public static final int REQUEST_UPGRADE = 505;
 
@@ -99,8 +102,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        themeApplicator.applyTheme();
+
         startupService.onStartupApplication(this);
-        preferences.applyTheme();
 
         setContentView(R.layout.task_list_activity);
 

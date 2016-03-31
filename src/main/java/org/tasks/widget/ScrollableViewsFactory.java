@@ -24,6 +24,7 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.preferences.Theme;
 import org.tasks.ui.WidgetCheckBoxes;
 
 import timber.log.Timber;
@@ -31,6 +32,7 @@ import timber.log.Timber;
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final WidgetCheckBoxes checkBoxes;
+    private final int themeTextColor;
     private final int widgetId;
     private final Database database;
     private final TaskService taskService;
@@ -39,7 +41,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private final Preferences preferences;
     private final Context context;
     private final String filterId;
-    private final boolean dark;
     private final boolean showDueDates;
     private final boolean hideCheckboxes;
 
@@ -50,6 +51,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             Preferences preferences,
             Context context,
             String filterId,
+            Theme theme,
             int widgetId,
             Database database,
             TaskService taskService,
@@ -63,8 +65,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.taskService = taskService;
         this.defaultFilterProvider = defaultFilterProvider;
 
+        themeTextColor = theme.getTextColor();
         checkBoxes = new WidgetCheckBoxes(context);
-        dark = preferences.useDarkWidgetTheme(widgetId);
         showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
         hideCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + widgetId, false);
     }
@@ -134,7 +136,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             }
             String textContent;
             Resources r = context.getResources();
-            int textColor = r.getColor(dark ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
+            int textColor = themeTextColor;
 
             textContent = task.getTitle();
 

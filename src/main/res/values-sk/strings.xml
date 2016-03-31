@@ -243,7 +243,6 @@
 	<string name="EPr_voiceInputEnabled_title">Hlasový vstup</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové pripomienky</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks povie názov úlohy počas jej pripomenutia</string>
-	<string name="EPr_use_dark_theme">Tmavá téma</string>
 	<string name="delete_task">Vymazať úlohu</string>
 	<string name="voice_command_added_task">Pridaná úloha</string>
 	<string name="external_storage_unavailable">Nemožno získať prístup k externej pamäti</string>

@@ -224,7 +224,6 @@
 	<string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
-	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="delete_task">Excluir tarefa</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>
 	<string name="external_storage_unavailable">Não é possível acessar Cartão SD</string>

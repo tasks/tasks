@@ -20,8 +20,8 @@ import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.PluginBundleValues;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.DefaultFilterProvider;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 
 import java.util.Set;
@@ -42,7 +42,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.text_view) TextView filterTitle;
 
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject PurchaseHelper purchaseHelper;
     @Inject DialogBuilder dialogBuilder;
@@ -54,7 +54,6 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyThemeAndStatusBarColor();
         setContentView(R.layout.tasker_settings);
         ButterKnife.bind(this);
 

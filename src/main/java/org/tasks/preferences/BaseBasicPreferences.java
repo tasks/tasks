@@ -12,19 +12,20 @@ import com.todoroo.astrid.reminders.ReminderPreferences;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.InjectingPreferenceActivity;
 
 import javax.inject.Inject;
 
-public abstract class BaseBasicPreferences extends InjectingPreferenceActivity implements ColorPickerDialog.ColorPickerCallback {
+public abstract class BaseBasicPreferences extends InjectingPreferenceActivity implements ThemePickerDialog.ThemePickerCallback {
 
     private static final String EXTRA_RESULT = "extra_result";
     private static final String FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker";
     private static final int RC_PREFS = 10001;
 
     @Inject Tracker tracker;
-    @Inject ActivityPreferences activityPreferences;
+    @Inject ThemeManager themeManager;
+    @Inject Preferences preferences;
     private Bundle result;
 
     @Override
@@ -38,13 +39,13 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         addPreferencesFromResource(R.xml.preferences_privacy);
 
         Preference themePreference = findPreference(getString(R.string.p_theme));
-        themePreference.setSummary(activityPreferences.getThemeName());
+        themePreference.setSummary(themeManager.getAppTheme().getName());
         themePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 FragmentManager fragmentManager = getFragmentManager();
                 if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_PICKER) == null) {
-                    new ColorPickerDialog()
+                    new ThemePickerDialog()
                             .show(fragmentManager, FRAG_TAG_THEME_PICKER);
                 }
                 return false;
@@ -95,8 +96,9 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     }
 
     @Override
-    public void colorPicked(int index) {
-        activityPreferences.setInt(R.string.p_theme, index);
+    public void themePicked(Theme theme) {
+        int index = theme.getThemeIndex();
+        preferences.setInt(R.string.p_theme, index);
         tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
         result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
         recreate();

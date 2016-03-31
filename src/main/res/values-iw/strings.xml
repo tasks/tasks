@@ -241,7 +241,6 @@
 	<string name="EPr_voiceInputEnabled_title">קלט קולי</string>
 	<string name="EPr_voiceRemindersEnabled_title">תזכורות קוליות</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">אסטריד תאמר את שם המשימה כחלק מהתזכורת</string>
-	<string name="EPr_use_dark_theme">ערכת נושא כהה</string>
 	<string name="delete_task">מחק משימה</string>
 	<string name="voice_command_added_task">משימות שנוצרו</string>
 	<string name="external_storage_unavailable">לא ניתן לגשת לאחסון חיצוני</string>

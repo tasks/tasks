@@ -710,7 +710,6 @@ File %1$s contained %2$s.\n\n
     <!-- Preference: Voice reminders description (true) -->
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
 
-    <string name="EPr_use_dark_theme">Dark theme</string>
     <string name="delete_task">Delete task</string>
     <string name="voice_command_added_task">Added task</string>
     <string name="external_storage_unavailable">Cannot access external storage</string>

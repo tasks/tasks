@@ -222,7 +222,6 @@
 	<string name="TEA_timer_comment_spent">Strávený čas:</string>
 	<string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
 	<string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
-	<string name="EPr_use_dark_theme">Tmavé téma</string>
 	<string name="delete_task">Smazat úkol</string>
 	<string name="voice_command_added_task">Přidán úkol</string>
 	<string name="external_storage_unavailable">Není přístup k externí databázi</string>

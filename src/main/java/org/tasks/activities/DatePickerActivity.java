@@ -10,7 +10,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ThemeManager;
 import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
@@ -24,7 +24,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity
 
     public static final String EXTRA_TIMESTAMP = "extra_timestamp";
 
-    @Inject ActivityPreferences preferences;
+    @Inject ThemeManager themeManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity
         if (dialog == null) {
             dialog = new MyDatePickerDialog();
             dialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
-            dialog.setAccentColor(preferences.getDateTimePickerAccent());
+            dialog.setAccentColor(themeManager.getAppTheme().getDateTimePickerAccent());
             dialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
         dialog.setOnDismissListener(this);

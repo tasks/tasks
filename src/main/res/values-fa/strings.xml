@@ -194,7 +194,6 @@
 	<string name="voice_create_prompt">برای ایجاد یک وظیفه صحبت کنید</string>
 	<string name="EPr_voiceInputEnabled_title">ورودی صدا</string>
 	<string name="EPr_voiceRemindersEnabled_title">یادآور صوتی</string>
-	<string name="EPr_use_dark_theme">تم تاریک</string>
 	<string name="delete_task">حذف وظیفه</string>
 	<string name="voice_command_added_task">وظیفه اضافه شده</string>
 	<string name="external_storage_unavailable">عدم امکان دسترسی به حافظه خارجی</string>

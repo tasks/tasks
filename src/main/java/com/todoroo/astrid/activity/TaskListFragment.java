@@ -78,7 +78,7 @@ import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingListFragment;
 import org.tasks.notifications.NotificationManager;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 
@@ -134,7 +134,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     @Inject TaskDeleter taskDeleter;
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
     @Inject NotificationManager notificationManager;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject GtasksPreferenceService gtasksPreferenceService;

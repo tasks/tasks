@@ -17,15 +17,16 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.BasicPreferences;
+import org.tasks.preferences.Preferences;
 import org.tasks.preferences.ResourceResolver;
 import org.tasks.scheduling.AlarmManager;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 
 import javax.inject.Inject;
 
-public class CalendarReminderActivity extends InjectingAppCompatActivity {
+public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
 
     public static final String TOKEN_EVENT_ID = "eventId";
     public static final String TOKEN_EVENT_NAME = "eventName";
@@ -39,7 +40,7 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
     private static final int IGNORE_PROMPT_COUNT = 3;
 
     @Inject StartupService startupService;
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
     @Inject ResourceResolver resourceResolver;
     @Inject DialogBuilder dialogBuilder;
     @Inject AlarmManager alarmManager;
@@ -95,7 +96,7 @@ public class CalendarReminderActivity extends InjectingAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyTheme();
+
         startupService.onStartupApplication(this);
 
         setContentView(R.layout.calendar_reminder_activity);

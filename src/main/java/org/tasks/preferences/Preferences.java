@@ -80,6 +80,7 @@ public class Preferences {
         return setting < 0 || setting > DateTime.MAX_MILLIS_PER_DAY ? defaultValue : setting;
     }
 
+    @Deprecated
     public boolean useDarkWidgetTheme(int widgetId) {
         return getBoolean(WidgetConfigActivity.PREF_DARK_THEME + widgetId, false);
     }

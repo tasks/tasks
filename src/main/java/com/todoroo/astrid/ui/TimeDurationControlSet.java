@@ -11,26 +11,24 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener;
 
 import org.tasks.R;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ThemeManager;
 
 public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnClickListener {
 
     private final Context context;
+    private final ThemeManager themeManager;
     private final TextView timeButton;
     private int timeDuration;
     private int[] initialValues = null;
     private NNumberPickerDialog dialog = null;
-    private ActivityPreferences activityPreferences;
 
     public TimeDurationControlSet(Context context, View view,
-            int timeButtonId, ActivityPreferences activityPreferences) {
+            int timeButtonId, ThemeManager themeManager) {
         this.context = context;
-        this.activityPreferences = activityPreferences;
+        this.themeManager = themeManager;
 
         timeButton = (TextView)view.findViewById(timeButtonId);
         ((View) timeButton.getParent()).setOnClickListener(this);
@@ -70,7 +68,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     @Override
     public void onClick(View v) {
         if(dialog == null) {
-            dialog = new NNumberPickerDialog(context, activityPreferences.getDialogTheme(), this,
+            dialog = new NNumberPickerDialog(context, themeManager.getDialogThemeResId(), this,
                     context.getResources().getString(R.string.DLG_hour_minutes),
                     new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
                     new int[] {999, 59}, new String[] {":", null});

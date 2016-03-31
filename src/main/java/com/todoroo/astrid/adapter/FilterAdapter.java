@@ -34,6 +34,7 @@ import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
+import org.tasks.preferences.Theme;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.List;
@@ -59,7 +60,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final LayoutInflater inflater;
 
     public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity,
-                         ListView listView, boolean navigationDrawer) {
+                         Theme theme, ListView listView, boolean navigationDrawer) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
@@ -67,7 +68,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         this.listView = listView;
         this.navigationDrawer = navigationDrawer;
 
-        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = theme.getThemedLayoutInflater();
     }
 
     @Override

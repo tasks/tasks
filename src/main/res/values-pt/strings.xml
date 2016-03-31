@@ -250,7 +250,6 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="EPr_voiceInputEnabled_title">Entrada por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">O Tasks irá reproduzir o nome da tarefa durante os lembretes</string>
-	<string name="EPr_use_dark_theme">Tema escuro</string>
 	<string name="delete_task">Eliminar tarefa</string>
 	<string name="voice_command_added_task">Tarefa adicionada</string>
 	<string name="external_storage_unavailable">Não foi possível aceder ao disco externo</string>

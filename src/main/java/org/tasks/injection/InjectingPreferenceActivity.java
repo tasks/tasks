@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
-import android.preference.PreferenceScreen;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,8 +13,8 @@ import android.widget.LinearLayout;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.preferences.ActivityPreferences;
 import org.tasks.preferences.AppCompatPreferenceActivity;
+import org.tasks.preferences.ThemeApplicator;
 
 import javax.inject.Inject;
 
@@ -25,7 +24,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     protected Toolbar toolbar;
 
-    @Inject ActivityPreferences activityPreferences;
+    @Inject ThemeApplicator themeApplicator;
     @Inject Tracker tracker;
 
     @Override
@@ -35,7 +34,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
                 .plus(new ActivityModule(this));
         inject(activityComponent);
 
-        activityPreferences.applyThemeAndStatusBarColor();
+        themeApplicator.applyThemeAndStatusBarColor();
 
         super.onCreate(savedInstanceState);
 

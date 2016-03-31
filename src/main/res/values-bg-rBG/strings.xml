@@ -268,7 +268,6 @@
 	<string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
 	<string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изтоваря имената на задачите по време на напомняния за задача</string>
-	<string name="EPr_use_dark_theme">Тъмна тема</string>
 	<string name="delete_task">Изтрий задача</string>
 	<string name="voice_command_added_task">Добавена задача</string>
 	<string name="external_storage_unavailable">Не може да достъпвате до външната памет</string>

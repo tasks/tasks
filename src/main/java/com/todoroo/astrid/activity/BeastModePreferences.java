@@ -27,7 +27,7 @@ import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import org.tasks.R;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class BeastModePreferences extends InjectingAppCompatActivity {
+public class BeastModePreferences extends ThemedInjectingAppCompatActivity {
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(android.R.id.list) TouchListView touchList;
@@ -54,12 +54,12 @@ public class BeastModePreferences extends InjectingAppCompatActivity {
 
     private HashMap<String, String> prefsToDescriptions;
 
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyThemeAndStatusBarColor();
+
         setContentView(R.layout.beast_mode_pref_activity);
         ButterKnife.bind(this);
 

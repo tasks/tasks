@@ -7,22 +7,22 @@ import android.support.v7.app.AlertDialog;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ThemeManager;
 
 import javax.inject.Inject;
 
 public class DialogBuilder {
     private final Activity activity;
-    private final ActivityPreferences activityPreferences;
+    private ThemeManager themeManager;
 
     @Inject
-    public DialogBuilder(Activity activity, ActivityPreferences activityPreferences) {
+    public DialogBuilder(Activity activity, ThemeManager themeManager) {
         this.activity = activity;
-        this.activityPreferences = activityPreferences;
+        this.themeManager = themeManager;
     }
 
     public AlertDialog.Builder newDialog() {
-        return new AlertDialog.Builder(activity, activityPreferences.getDialogTheme());
+        return new AlertDialog.Builder(activity, themeManager.getDialogThemeResId());
     }
 
     public AlertDialog.Builder newMessageDialog(int message, Object... formatArgs) {
@@ -30,7 +30,7 @@ public class DialogBuilder {
     }
 
     public ProgressDialog newProgressDialog() {
-        ProgressDialog progressDialog = new ProgressDialog(activity, activityPreferences.getDialogTheme());
+        ProgressDialog progressDialog = new ProgressDialog(activity, themeManager.getDialogThemeResId());
         if (AndroidUtilities.preLollipop()) {
             progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
         }

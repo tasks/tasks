@@ -12,6 +12,8 @@ import org.tasks.injection.InjectingRemoteViewsService;
 import org.tasks.injection.ServiceComponent;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.preferences.Theme;
+import org.tasks.preferences.ThemeManager;
 
 import javax.inject.Inject;
 
@@ -24,6 +26,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     @Inject Preferences preferences;
     @Inject SubtasksHelper subtasksHelper;
     @Inject DefaultFilterProvider defaultFilterProvider;
+    @Inject ThemeManager themeManager;
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -45,8 +48,9 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
 
         String filterId = (String) extras.get(FILTER_ID);
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+        Theme theme = themeManager.getWidgetTheme(widgetId);
         return new ScrollableViewsFactory(subtasksHelper, preferences, this, filterId,
-                widgetId, database, taskService, defaultFilterProvider);
+                theme, widgetId, database, taskService, defaultFilterProvider);
     }
 
     @Override

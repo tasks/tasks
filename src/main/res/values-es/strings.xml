@@ -261,7 +261,6 @@
 	<string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
-	<string name="EPr_use_dark_theme">Estilo oscuro</string>
 	<string name="delete_task">Eliminar tarea</string>
 	<string name="voice_command_added_task">Tarea agregada</string>
 	<string name="external_storage_unavailable">Almacenamiento externo inaccesible</string>

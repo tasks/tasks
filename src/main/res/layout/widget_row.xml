@@ -30,21 +30,21 @@
 
         <TextView
             android:id="@+id/widget_text"
-            style="@style/TextAppearance.Widget"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/widget_due_date"
-            style="@style/TextAppearance.WidgetDueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

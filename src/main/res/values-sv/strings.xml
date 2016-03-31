@@ -266,7 +266,6 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="EPr_voiceInputEnabled_title">Röstindata</string>
 	<string name="EPr_voiceRemindersEnabled_title">Röstpåminnelser</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
-	<string name="EPr_use_dark_theme">Mörkt tema</string>
 	<string name="delete_task">Radera uppgift</string>
 	<string name="voice_command_added_task">Uppgift skapad</string>
 	<string name="external_storage_unavailable">Kan inte komma åt externt lagringsutrymme</string>

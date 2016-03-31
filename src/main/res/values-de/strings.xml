@@ -257,7 +257,6 @@
 	<string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
 	<string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks wird Aufgabennamen bei der Erinnerung aussprechen</string>
-	<string name="EPr_use_dark_theme">Dunkles Theme</string>
 	<string name="delete_task">Aufgabe löschen</string>
 	<string name="voice_command_added_task">Hinzugefügte Aufgabe</string>
 	<string name="external_storage_unavailable">Kein Zugriff auf externen Speicher</string>

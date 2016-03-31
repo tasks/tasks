@@ -210,7 +210,6 @@
 	<string name="EPr_voiceInputEnabled_title">語音輸入</string>
 	<string name="EPr_voiceRemindersEnabled_title">語音提醒</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks在工作提醒時會以語音說出工作名稱</string>
-	<string name="EPr_use_dark_theme">暗色主題</string>
 	<string name="delete_task">刪除工作</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 個工作</item>

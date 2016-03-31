@@ -27,7 +27,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -43,7 +43,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Inject TaskService taskService;
     @Inject SubtasksFilterUpdater subtasksFilterUpdater;
     @Inject TaskAttachmentDao taskAttachmentDao;
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
     @Inject @ForApplication Context context;
     @Inject DialogBuilder dialogBuilder;
     @Inject TaskListMetadataDao taskListMetadataDao;

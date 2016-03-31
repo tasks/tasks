@@ -34,7 +34,7 @@ public class BasicPreferences extends BaseBasicPreferences {
 
     @Override
     public void initiateThemePurchase() {
-        activityPreferences.setBoolean(R.string.p_purchased_themes, true);
+        preferences.setBoolean(R.string.p_purchased_themes, true);
         recreate();
     }
 }

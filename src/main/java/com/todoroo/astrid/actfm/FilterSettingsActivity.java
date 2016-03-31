@@ -26,7 +26,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
@@ -36,13 +36,12 @@ import butterknife.ButterKnife;
 
 import static android.text.TextUtils.isEmpty;
 
-public class FilterSettingsActivity extends InjectingAppCompatActivity {
+public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
 
     public static final String TOKEN_FILTER = "token_filter";
 
     private CustomFilter filter;
 
-    @Inject ActivityPreferences preferences;
     @Inject StoreObjectDao storeObjectDao;
     @Inject DialogBuilder dialogBuilder;
 
@@ -52,7 +51,7 @@ public class FilterSettingsActivity extends InjectingAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preferences.applyThemeAndStatusBarColor();
+
         setContentView(R.layout.filter_settings_activity);
         ButterKnife.bind(this);
 

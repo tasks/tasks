@@ -227,7 +227,6 @@
 	<string name="EPr_voiceInputEnabled_title">Голосове введення</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосові нагадування</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks повинен вимовляти назву завдань під час нагадувань</string>
-	<string name="EPr_use_dark_theme">Темна тема</string>
 	<string name="delete_task">Видалити завдання</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 завдання</item>

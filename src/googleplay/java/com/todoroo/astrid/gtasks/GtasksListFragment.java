@@ -25,7 +25,7 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 import org.tasks.sync.SyncThrottle;
 
@@ -48,7 +48,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject SyncV2Service syncService;
     @Inject TaskAttachmentDao taskAttachmentDao;
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
     @Inject SyncThrottle syncThrottle;
     @Inject DialogBuilder dialogBuilder;
     @Inject Broadcaster broadcaster;

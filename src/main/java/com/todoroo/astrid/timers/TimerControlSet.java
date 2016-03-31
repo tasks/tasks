@@ -31,7 +31,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ThemeManager;
 import org.tasks.ui.TaskEditControlFragment;
 
 import javax.inject.Inject;
@@ -58,9 +58,9 @@ public class TimerControlSet extends TaskEditControlFragment {
     private static final String EXTRA_ESTIMATED = "extra_estimated";
     private static final String EXTRA_ELAPSED = "extra_elapsed";
 
-    @Inject ActivityPreferences preferences;
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForActivity Context context;
+    @Inject ThemeManager themeManager;
 
     @Bind(R.id.display_row_edit) TextView displayEdit;
     @Bind(R.id.timer) Chronometer chronometer;
@@ -86,8 +86,8 @@ public class TimerControlSet extends TaskEditControlFragment {
         }
 
         dialogView = inflater.inflate(R.layout.control_set_timers_dialog, null);
-        estimated = new TimeDurationControlSet(context, dialogView, R.id.estimatedDuration, preferences);
-        elapsed = new TimeDurationControlSet(context, dialogView, R.id.elapsedDuration, preferences);
+        estimated = new TimeDurationControlSet(context, dialogView, R.id.estimatedDuration, themeManager);
+        elapsed = new TimeDurationControlSet(context, dialogView, R.id.elapsedDuration, themeManager);
         estimated.setTimeDuration(estimatedSeconds);
         elapsed.setTimeDuration(elapsedSeconds);
         refresh();

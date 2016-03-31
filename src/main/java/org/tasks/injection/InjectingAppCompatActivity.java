@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import org.tasks.analytics.Tracker;
+import org.tasks.preferences.ThemeApplicator;
 
 import javax.inject.Inject;
 

@@ -46,7 +46,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.ui.MenuColorizer;
 
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ import static android.text.TextUtils.isEmpty;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class CustomFilterActivity extends InjectingAppCompatActivity {
+public class CustomFilterActivity extends ThemedInjectingAppCompatActivity {
 
     private static final String IDENTIFIER_UNIVERSE = "active"; //$NON-NLS-1$
 
@@ -139,7 +139,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
 
     @Inject Database database;
     @Inject StoreObjectDao storeObjectDao;
-    @Inject ActivityPreferences preferences;
     @Inject DialogBuilder dialogBuilder;
     @Inject FilterCriteriaProvider filterCriteriaProvider;
 
@@ -149,8 +148,6 @@ public class CustomFilterActivity extends InjectingAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        preferences.applyThemeAndStatusBarColor();
 
         setContentView(R.layout.custom_filter_activity);
         ButterKnife.bind(this);

@@ -12,7 +12,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.ThemeManager;
 import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
 
     public static final String EXTRA_TIMESTAMP = "extra_timestamp";
 
-    @Inject ActivityPreferences preferences;
+    @Inject ThemeManager themeManager;
 
     private DateTime initial;
     private boolean isChangingConfigurations;
@@ -42,7 +42,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
         if (dialog == null) {
             dialog = new MyTimePickerDialog();
             dialog.initialize(null, initial.getHourOfDay(), initial.getMinuteOfHour(), 0, DateFormat.is24HourFormat(this));
-            dialog.setAccentColor(preferences.getDateTimePickerAccent());
+            dialog.setAccentColor(themeManager.getAppTheme().getDateTimePickerAccent());
             dialog.show(fragmentManager, FRAG_TAG_TIME_PICKER);
         }
         dialog.setOnDismissListener(this);

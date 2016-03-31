@@ -23,7 +23,7 @@ import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.preferences.ActivityPreferences;
+import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     private String todayString;
     private String tomorrowString;
 
-    @Inject ActivityPreferences preferences;
+    @Inject Preferences preferences;
     @Inject @ForActivity Context context;
 
     @Bind(R.id.due_date) Spinner dueDateSpinner;

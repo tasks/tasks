@@ -148,7 +148,6 @@
 	<string name="TEA_timer_comment_spent">الوقت المنقضي</string>
 	<string name="voice_create_prompt">تحدث لإنشاء مهمه</string>
 	<string name="EPr_voiceRemindersEnabled_title">منبهات الصوت</string>
-	<string name="EPr_use_dark_theme">خلفية داكنه</string>
 	<string name="delete_task">حذف المهمة</string>
 	<string name="voice_command_added_task">مهام مضافه</string>
 	<plurals name="Ntasks">

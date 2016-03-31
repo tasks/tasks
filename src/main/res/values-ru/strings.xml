@@ -265,7 +265,6 @@
 	<string name="EPr_voiceInputEnabled_title">Голосовой ввод</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks должен произносить название задач во время напоминаний</string>
-	<string name="EPr_use_dark_theme">Тёмная тема</string>
 	<string name="delete_task">Удалить задачу</string>
 	<string name="voice_command_added_task">Добавленная задача</string>
 	<string name="external_storage_unavailable">Не могу открыть внешний накопитель</string>
