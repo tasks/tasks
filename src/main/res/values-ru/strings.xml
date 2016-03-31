@@ -370,6 +370,17 @@
 	<string name="no_title">(Без заголовка)</string>
 	<string name="back_button_saves_task">Кнопка \"назад\" сохраняет задачу</string>
 	<string name="default_list">Список по умолчанию</string>
+	<string name="plugin_description">Tasks развивается как open source проект и поддерживается единственным разработчиком. Некоторые функции приложения предлагаются как платные для дальнейшего развития программы</string>
+	<string name="themes_purchase_description">Разблокировать все темы и добавить цвета в оформление Tasks</string>
+	<string name="donate_summary">Благодарю за поддержку</string>
+	<string name="dashclock_description">Показать счетчик активных задач</string>
+	<string name="dashclock_purchase_description">Вывести счетчик активных задач. Нужен DashClock-виджет</string>
+	<string name="buy">Купить</string>
+	<string name="buy_dashclock_extension">Купить расширение</string>
+	<string name="billing_service_busy">Встроенный сервис перегружен, попробуйте позже</string>
+	<string name="filter">Фильтр</string>
+	<string name="theme">Тема</string>
+	<string name="themes">Дополнительные темы</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>
