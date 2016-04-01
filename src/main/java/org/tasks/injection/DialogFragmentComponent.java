@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import org.tasks.dialogs.SortDialog;
 import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.widget.WidgetConfigDialog;
 
@@ -29,4 +30,6 @@ public interface DialogFragmentComponent {
     void inject(WidgetConfigDialog widgetConfigDialog);
 
     void inject(ThemePickerDialog themePickerDialog);
+
+    void inject(SortDialog sortDialog);
 }

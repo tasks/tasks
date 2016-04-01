@@ -3,7 +3,6 @@ package org.tasks.injection;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.BeastModePreferences;
-import org.tasks.widget.ShortcutConfigActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
@@ -13,7 +12,6 @@ import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 import com.todoroo.astrid.service.UpgradeActivity;
-import org.tasks.widget.WidgetConfigActivity;
 
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionActivity;
@@ -30,7 +28,6 @@ import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.activities.ResetPreferencesActivity;
-import org.tasks.activities.SortActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.files.FileExplore;
 import org.tasks.preferences.AppearancePreferences;
@@ -43,6 +40,8 @@ import org.tasks.reminders.MissedCallActivity;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.voice.VoiceCommandActivity;
+import org.tasks.widget.ShortcutConfigActivity;
+import org.tasks.widget.WidgetConfigActivity;
 
 public interface BaseActivityComponent {
 
@@ -79,8 +78,6 @@ public interface BaseActivityComponent {
     void inject(ClearAllDataActivity clearAllDataActivity);
 
     void inject(CalendarSelectionActivity calendarSelectionActivity);
-
-    void inject(SortActivity sortActivity);
 
     void inject(DeleteAllCalendarEventsActivity deleteAllCalendarEventsActivity);
 

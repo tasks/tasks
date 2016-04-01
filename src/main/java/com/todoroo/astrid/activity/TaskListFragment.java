@@ -72,7 +72,7 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
-import org.tasks.activities.SortActivity;
+import org.tasks.dialogs.SortDialog;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
@@ -100,7 +100,9 @@ import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListFragment extends InjectingListFragment implements SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
+public class TaskListFragment extends InjectingListFragment implements
+        SwipeRefreshLayout.OnRefreshListener,
+        Toolbar.OnMenuItemClickListener {
 
     public static TaskListFragment newTaskListFragment(Filter filter) {
         TaskListFragment fragment = new TaskListFragment();
@@ -109,12 +111,12 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
     }
 
     private static final String EXTRA_FILTER = "extra_filter";
+    private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
     private static final int REQUEST_EDIT_FILTER = 11544;
-    private static final int REQUEST_SORT = 11545;
 
     // --- activities
 
@@ -337,9 +339,7 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
                 voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
                 return true;
             case R.id.menu_sort:
-                startActivityForResult(new Intent(getActivity(), SortActivity.class) {{
-                    putExtra(SortActivity.EXTRA_MANUAL_ENABLED, hasDraggableOption());
-                }}, REQUEST_SORT);
+                SortDialog.newSortDialog(hasDraggableOption()).show(getFragmentManager(), FRAG_TAG_SORT_DIALOG);
                 return true;
             case R.id.menu_show_hidden:
                 item.setChecked(!item.isChecked());
@@ -740,11 +740,6 @@ public class TaskListFragment extends InjectingListFragment implements SwipeRefr
 
                 ((TaskListActivity) getActivity()).refreshNavigationDrawer();
                 broadcaster.refresh();
-            }
-        } else if (requestCode == REQUEST_SORT) {
-            if (resultCode == Activity.RESULT_OK) {
-                broadcaster.refresh();
-                ((TaskListActivity) getActivity()).onFilterItemClicked(filter);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

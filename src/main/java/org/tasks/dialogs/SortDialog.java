@@ -1,5 +1,7 @@
-package org.tasks.activities;
+package org.tasks.dialogs;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -9,9 +11,8 @@ import android.widget.Button;
 import com.todoroo.astrid.core.SortHelper;
 
 import org.tasks.R;
-import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -23,22 +24,39 @@ import timber.log.Timber;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
-public class SortActivity extends InjectingAppCompatActivity {
+public class SortDialog extends InjectingDialogFragment {
 
-    public static final String EXTRA_MANUAL_ENABLED = "extra_manual_enabled";
+    public static SortDialog newSortDialog(boolean manualEnabled) {
+        SortDialog sortDialog = new SortDialog();
+        sortDialog.manualEnabled = manualEnabled;
+        return sortDialog;
+    }
+
+    public interface SortDialogCallback {
+        void sortChanged();
+    }
+
+    private static final String EXTRA_MANUAL_ENABLED = "extra_manual_enabled";
+    private static final String EXTRA_SELECTED_INDEX = "extra_selected_index";
 
     @Inject Preferences preferences;
     @Inject DialogBuilder dialogBuilder;
 
     private boolean manualEnabled;
-    private AlertDialog alertDialog;
     private int selectedIndex;
+    private AlertDialog alertDialog;
+    private SortDialogCallback callback;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        manualEnabled = getIntent().getBooleanExtra(EXTRA_MANUAL_ENABLED, false);
+        if (savedInstanceState != null) {
+            manualEnabled = savedInstanceState.getBoolean(EXTRA_MANUAL_ENABLED);
+            selectedIndex = savedInstanceState.getInt(EXTRA_SELECTED_INDEX);
+        } else {
+            selectedIndex = getIndex(preferences.getSortMode());
+        }
 
         List<String> items = new ArrayList<>();
 
@@ -52,7 +70,6 @@ public class SortActivity extends InjectingAppCompatActivity {
         items.add(getString(R.string.SSD_sort_alpha));
         items.add(getString(R.string.SSD_sort_modified));
 
-        selectedIndex = getIndex(preferences.getSortMode());
         if (manualEnabled) {
             if (preferences.getBoolean(R.string.p_manual_sort, false)) {
                 selectedIndex = 0;
@@ -81,26 +98,27 @@ public class SortActivity extends InjectingAppCompatActivity {
                         setSelection(true);
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        finish();
-                    }
-                })
+                .setNegativeButton(android.R.string.cancel, null)
                 .show();
 
         enableReverse();
+
+        return alertDialog;
     }
 
     @Override
-    public void inject(ActivityComponent component) {
-        component.inject(this);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        callback = (SortDialogCallback) activity;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(EXTRA_MANUAL_ENABLED, manualEnabled);
+        outState.putInt(EXTRA_SELECTED_INDEX, selectedIndex);
     }
 
     private void enableReverse() {
@@ -125,9 +143,7 @@ public class SortActivity extends InjectingAppCompatActivity {
             preferences.setSortMode(getSortMode(manualEnabled ? selectedIndex : selectedIndex + 1));
         }
 
-        setResult(RESULT_OK);
-
-        finish();
+        callback.sortChanged();
     }
 
     private int getIndex(int sortMode) {
@@ -164,5 +180,10 @@ public class SortActivity extends InjectingAppCompatActivity {
 
         Timber.e("Invalid sort mode: %s", index);
         return SortHelper.SORT_ALPHA;
+    }
+
+    @Override
+    protected void inject(DialogFragmentComponent component) {
+        component.inject(this);
     }
 }

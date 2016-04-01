@@ -40,12 +40,13 @@ import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.timers.TimerControlSet;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
@@ -72,7 +73,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         TimerControlSet.TimerControlSetCallback,
         RepeatControlSet.RepeatChangedListener,
         TaskEditFragment.TaskEditFragmentCallbackHandler,
-        CommentBarFragment.CommentBarFragmentCallback {
+        CommentBarFragment.CommentBarFragmentCallback,
+        SortDialog.SortDialogCallback {
 
     @Inject Preferences preferences;
     @Inject StartupService startupService;
@@ -84,6 +86,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject GtasksListService gtasksListService;
     @Inject TagDataDao tagDataDao;
     @Inject ThemeApplicator themeApplicator;
+    @Inject Broadcaster broadcaster;
 
     public static final int REQUEST_UPGRADE = 505;
 
@@ -468,5 +471,15 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (taskEditFragment != null) {
             taskEditFragment.addComment(message, actionCode, picture);
         }
+    }
+
+    @Override
+    public void sortChanged() {
+        broadcaster.refresh();
+        reloadCurrentFilter();
+    }
+
+    void reloadCurrentFilter() {
+        onFilterItemClicked(getTaskListFragment().filter);
     }
 }

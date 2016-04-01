@@ -112,10 +112,6 @@
             android:taskAffinity="" />
 
         <activity
-            android:name=".activities.SortActivity"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
             android:name=".activities.FilterSelectionActivity"
             android:exported="true"
             android:theme="@style/TranslucentDialog" />
