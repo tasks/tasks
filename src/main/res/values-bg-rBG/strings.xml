@@ -375,6 +375,7 @@
 	<string name="default_list">Списък по подразбиране</string>
 	<string name="plugin_description">Tasks е проект с отворен код, поддържан от единствен разработчик. Ниша функции се предлагат както покупки в приложение, за да се подпомогне тяхното развитие.</string>
 	<string name="tesla_unread_description">Показване на значка за броя на активните задачи в списъка Ви по подразбиране. Изисква TeslaUnread за Nova Launcher</string>
+	<string name="themes_purchase_description">Отключете всички теми и да добавите малко цвят към Tasks</string>
 	<string name="tasker_description">Context-Aware списък уведомления. Изисква Tasker или Locale</string>
 	<string name="donate_summary">Даренията са добре дошли</string>
 	<string name="dashclock_description">Показване на броя активни задачи</string>
@@ -385,6 +386,13 @@
 	<string name="select_filter">Изберете Филтър</string>
 	<string name="filter">Филтър</string>
 	<string name="opacity">Непрозрачност</string>
+	<string name="theme">Тема</string>
+	<string name="themes">Допълнителни теми</string>
+	<string name="theme_red">Червена</string>
+	<string name="theme_pink">Розова</string>
+	<string name="theme_purple">Лилава</string>
+	<string name="theme_indigo">Индиго</string>
+	<string name="theme_black">Черна</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>
