@@ -480,6 +480,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     void reloadCurrentFilter() {
-        onFilterItemClicked(getTaskListFragment().filter);
+        onFilterItemClicked(getCurrentFilter());
+    }
+
+    public Filter getCurrentFilter() {
+        return getTaskListFragment().filter;
     }
 }

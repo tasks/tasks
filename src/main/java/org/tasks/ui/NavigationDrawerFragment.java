@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -89,8 +90,11 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 refresh();
             }
             if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
-                getActivity().finish();
-                getActivity().startActivity(getActivity().getIntent());
+                TaskListActivity activity = (TaskListActivity) getActivity();
+                Intent intent = activity.getIntent();
+                intent.putExtra(TaskListActivity.OPEN_FILTER, activity.getCurrentFilter());
+                activity.finish();
+                activity.startActivity(intent);
                 refresh();
             }
         } else if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
