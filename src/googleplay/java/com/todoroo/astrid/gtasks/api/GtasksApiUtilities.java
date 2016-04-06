@@ -6,6 +6,7 @@
 package com.todoroo.astrid.gtasks.api;
 
 import com.google.api.client.util.DateTime;
+import com.google.api.services.tasks.model.Task;
 
 import java.util.Date;
 import java.util.TimeZone;
@@ -13,6 +14,9 @@ import java.util.TimeZone;
 import timber.log.Timber;
 
 public class GtasksApiUtilities {
+    public static String LINK_TYPE = "astrid";
+    public static String HIDE_UNTIL = "Hide until";
+    public static String ASTRID_URL = "https://github.com/tasks/tasks";
 
     public static DateTime unixTimeToGtasksCompletionTime(long time) {
         if (time < 0) {
@@ -60,5 +64,12 @@ public class GtasksApiUtilities {
             Timber.e(e, e.getMessage());
             return 0;
         }
+    }
+
+    /**
+     * @param hideUntilUnixtime Hide until this timestamp
+     */
+    public static void addHideUntilTime(Task gtask, Long hideUntilUnixtime) {
+        // This method awaits tests, then implementation
     }
 }

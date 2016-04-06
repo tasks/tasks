@@ -2,9 +2,17 @@ package com.todoroo.astrid.gtasks.api;
 
 import android.test.AndroidTestCase;
 
+import com.google.api.services.tasks.model.Task;
+
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.tasks.time.DateTime;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -67,5 +75,50 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
     public void testConvertFromInvalidGtaskTimes() {
         assertEquals(0, gtasksCompletedTimeToUnixTime(null));
         assertEquals(0, gtasksDueTimeToUnixTime(null));
+    }
+
+    public void testAddHideUntilTimeNullLinks() throws ParseException {
+        Long time = 123456789L;
+        Task task = Mockito.mock(Task.class);
+
+        GtasksApiUtilities.addHideUntilTime(task, time);
+
+        // Verify that a new links list was set on our mock
+        ArgumentCaptor<List> argument = ArgumentCaptor.forClass(List.class);
+        Mockito.verify(task).setLinks(argument.capture());
+        List<Task.Links> links = argument.getValue();
+
+        validateHideUntilEntry(time, links);
+    }
+
+    public void testAddHideUntilTimeNonNullLinks() throws ParseException{
+        long time = 123456789L;
+        List<Task.Links> links = new LinkedList<>();
+
+        Task task = Mockito.mock(Task.class);
+        Mockito.when(task.getLinks()).thenReturn(links);
+
+        GtasksApiUtilities.addHideUntilTime(task, null);
+
+        validateHideUntilEntry(time, links);
+    }
+
+    private void validateHideUntilEntry(long time, List<Task.Links> links) throws ParseException {
+        assertEquals(1, links.size());
+
+        Task.Links link = links.get(0);
+        assertEquals(GtasksApiUtilities.LINK_TYPE, link.getType());
+        assertEquals(GtasksApiUtilities.ASTRID_URL, link.getLink());
+
+        String description = link.getDescription();
+        assertTrue(description.startsWith(GtasksApiUtilities.HIDE_UNTIL + ": "));
+        String datestring = description.replace(GtasksApiUtilities.HIDE_UNTIL + ": ", "");
+
+        // Verify that we can parse the correct time out of that element
+        // Strip milliseconds from date string: http://stackoverflow.com/a/27065749/473672
+        datestring = datestring.replaceFirst("(\\d\\d[\\.,]\\d{3})\\d+", "$1");
+        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.ENGLISH).parse(datestring);
+
+        assertEquals(time, date.getTime());
     }
 }
