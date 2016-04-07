@@ -86,6 +86,7 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
         // Verify that a new links list was set on our mock
         ArgumentCaptor<List> argument = ArgumentCaptor.forClass(List.class);
         Mockito.verify(task).setLinks(argument.capture());
+        Mockito.verifyNoMoreInteractions(task);
         List<Task.Links> links = argument.getValue();
 
         validateHideUntilEntry(time, links);
@@ -99,6 +100,8 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
         Mockito.when(task.getLinks()).thenReturn(links);
 
         GtasksApiUtilities.addHideUntilTime(task, null);
+        Mockito.verify(task).getLinks();
+        Mockito.verifyNoMoreInteractions(task);
 
         validateHideUntilEntry(time, links);
     }
@@ -120,5 +123,28 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
         Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.ENGLISH).parse(datestring);
 
         assertEquals(time, date.getTime());
+    }
+
+    public void testParseLinksNullList() {
+        com.todoroo.astrid.data.Task task = Mockito.mock(com.todoroo.astrid.data.Task.class);
+        GtasksApiUtilities.parseLinks(null, task);
+        Mockito.verifyNoMoreInteractions(task);
+    }
+
+    public void testMarshalHideUntilRoundtrip() {
+        final Long TIME = 123456789L;
+
+        // Marshal hide-until metadata
+        Task gtask = new Task();
+        gtask.setLinks(new LinkedList<Task.Links>());
+        GtasksApiUtilities.addHideUntilTime(gtask, TIME);
+
+        // Unmarshal hide-until metadata
+        com.todoroo.astrid.data.Task astridTask = new com.todoroo.astrid.data.Task();
+        assertFalse(astridTask.hasHideUntilDate());
+        GtasksApiUtilities.parseLinks(gtask.getLinks(), astridTask);
+
+        assertTrue(astridTask.hasHideUntilDate());
+        assertEquals(TIME, astridTask.getHideUntil());
     }
 }

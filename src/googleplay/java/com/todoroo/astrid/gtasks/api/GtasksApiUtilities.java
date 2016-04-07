@@ -9,6 +9,7 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.Task;
 
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import timber.log.Timber;
@@ -70,6 +71,13 @@ public class GtasksApiUtilities {
      * @param hideUntilUnixtime Hide until this timestamp
      */
     public static void addHideUntilTime(Task gtask, Long hideUntilUnixtime) {
+        // This method has tests, awaits implementation
+    }
+
+    /**
+     * Parse the links section of a GTasks object and update our local task with what we find there.
+     */
+    public static void parseLinks(List<Task.Links> links, com.todoroo.astrid.data.Task task) {
         // This method awaits tests, then implementation
     }
 }
