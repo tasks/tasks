@@ -12,6 +12,8 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
 
+import org.tasks.BuildConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -219,7 +221,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             if (result.get()) {
                 onModelUpdated(item);
                 item.markSaved();
-                Timber.d("%s %s", op, item);
+                if (BuildConfig.DEBUG) {
+                    Timber.d("%s %s", op, item.toString());
+                }
             }
         }
         return result.get();
