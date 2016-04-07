@@ -4,8 +4,6 @@ import android.test.AndroidTestCase;
 
 import com.google.api.services.tasks.model.Task;
 
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 import org.tasks.time.DateTime;
 
 import java.text.ParseException;
@@ -79,31 +77,21 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
 
     public void testAddHideUntilTimeNullLinks() throws ParseException {
         Long time = 123456789L;
-        Task task = Mockito.mock(Task.class);
+        Task gtask = new Task();
 
-        GtasksApiUtilities.addHideUntilTime(task, time);
+        GtasksApiUtilities.addHideUntilTime(gtask, time);
 
-        // Verify that a new links list was set on our mock
-        ArgumentCaptor<List> argument = ArgumentCaptor.forClass(List.class);
-        Mockito.verify(task).setLinks(argument.capture());
-        Mockito.verifyNoMoreInteractions(task);
-        List<Task.Links> links = argument.getValue();
-
-        validateHideUntilEntry(time, links);
+        validateHideUntilEntry(time, gtask.getLinks());
     }
 
     public void testAddHideUntilTimeNonNullLinks() throws ParseException{
         long time = 123456789L;
-        List<Task.Links> links = new LinkedList<>();
+        Task gtask = new Task();
+        gtask.setLinks(new LinkedList<Task.Links>());
 
-        Task task = Mockito.mock(Task.class);
-        Mockito.when(task.getLinks()).thenReturn(links);
+        GtasksApiUtilities.addHideUntilTime(gtask, time);
 
-        GtasksApiUtilities.addHideUntilTime(task, null);
-        Mockito.verify(task).getLinks();
-        Mockito.verifyNoMoreInteractions(task);
-
-        validateHideUntilEntry(time, links);
+        validateHideUntilEntry(time, gtask.getLinks());
     }
 
     private void validateHideUntilEntry(long time, List<Task.Links> links) throws ParseException {
@@ -118,21 +106,22 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
         String datestring = description.replace(GtasksApiUtilities.HIDE_UNTIL + ": ", "");
 
         // Verify that we can parse the correct time out of that element
-        // Strip milliseconds from date string: http://stackoverflow.com/a/27065749/473672
-        datestring = datestring.replaceFirst("(\\d\\d[\\.,]\\d{3})\\d+", "$1");
-        Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.ENGLISH).parse(datestring);
+        Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH).parse(datestring);
+        long javatime = date.getTime();
+        long unixtime = javatime / 1000;
 
-        assertEquals(time, date.getTime());
+        assertEquals(time, unixtime);
     }
 
     public void testParseLinksNullList() {
-        com.todoroo.astrid.data.Task task = Mockito.mock(com.todoroo.astrid.data.Task.class);
+        com.todoroo.astrid.data.Task task = new com.todoroo.astrid.data.Task();
         GtasksApiUtilities.parseLinks(null, task);
-        Mockito.verifyNoMoreInteractions(task);
+
+        assertFalse(task.hasHideUntilDate());
     }
 
     public void testMarshalHideUntilRoundtrip() {
-        final Long TIME = 123456789L;
+        final Long TIME = 1234567890L;
 
         // Marshal hide-until metadata
         Task gtask = new Task();

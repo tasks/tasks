@@ -8,8 +8,12 @@ package com.todoroo.astrid.gtasks.api;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.Task;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import timber.log.Timber;
@@ -71,7 +75,21 @@ public class GtasksApiUtilities {
      * @param hideUntilUnixtime Hide until this timestamp
      */
     public static void addHideUntilTime(Task gtask, Long hideUntilUnixtime) {
-        // This method has tests, awaits implementation
+        List<Task.Links> links = gtask.getLinks();
+        if (links == null) {
+            links = new LinkedList<>();
+            gtask.setLinks(links);
+        }
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
+        String dateString = df.format(new Date(hideUntilUnixtime * 1000));
+
+        Task.Links taskLink = new Task.Links();
+        taskLink.setType(LINK_TYPE);
+        taskLink.setLink(ASTRID_URL);
+        taskLink.setDescription(HIDE_UNTIL + ": " + dateString);
+
+        links.add(taskLink);
     }
 
     /**
