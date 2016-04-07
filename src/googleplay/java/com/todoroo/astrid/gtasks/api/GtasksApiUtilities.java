@@ -9,6 +9,7 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.Task;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -75,6 +76,10 @@ public class GtasksApiUtilities {
      * @param hideUntilUnixtime Hide until this timestamp
      */
     public static void addHideUntilTime(Task gtask, Long hideUntilUnixtime) {
+        if (hideUntilUnixtime == null) {
+            return;
+        }
+
         List<Task.Links> links = gtask.getLinks();
         if (links == null) {
             links = new LinkedList<>();
@@ -96,6 +101,39 @@ public class GtasksApiUtilities {
      * Parse the links section of a GTasks object and update our local task with what we find there.
      */
     public static void parseLinks(List<Task.Links> links, com.todoroo.astrid.data.Task task) {
-        // This method awaits tests, then implementation
+        if (links == null) {
+            return;
+        }
+
+        for (Task.Links link: links) {
+            parseHideUntilLink(link, task);
+        }
+    }
+
+    private static void parseHideUntilLink(Task.Links link, com.todoroo.astrid.data.Task task) {
+        if (!LINK_TYPE.equals(link.getType())) {
+            return;
+        }
+
+        String description = link.getDescription();
+        if (description == null) {
+            return;
+        }
+        if (!description.startsWith(HIDE_UNTIL + ": ")) {
+            return;
+        }
+
+        String dateString = description.substring((HIDE_UNTIL + ": ").length());
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH).parse(dateString);
+        } catch (ParseException e) {
+            Timber.w("Failed to parse synced date", e);
+            return;
+        }
+        long javatime = date.getTime();
+        long unixtime = javatime / 1000;
+
+        task.setHideUntil(unixtime);
     }
 }

@@ -120,6 +120,21 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
         assertFalse(task.hasHideUntilDate());
     }
 
+    public void testParseLinksGarbage() {
+        Task.Links taskLink = new Task.Links();
+        taskLink.setType(GtasksApiUtilities.LINK_TYPE);
+        taskLink.setLink(GtasksApiUtilities.ASTRID_URL);
+        taskLink.setDescription(GtasksApiUtilities.HIDE_UNTIL + ": garbase");
+
+        List<Task.Links> links = new LinkedList<>();
+        links.add(taskLink);
+
+        com.todoroo.astrid.data.Task task = new com.todoroo.astrid.data.Task();
+        GtasksApiUtilities.parseLinks(links, task);
+
+        assertFalse(task.hasHideUntilDate());
+    }
+
     public void testMarshalHideUntilRoundtrip() {
         final Long TIME = 1234567890L;
 
