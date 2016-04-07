@@ -9,7 +9,7 @@ android:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - android-23
     - platform-tools-23.1
-    - build-tools-23.0.2
+    - build-tools-23.0.3
     - extra-android-m2repository
     - extra-google-m2repository
   licenses:
@@ -28,4 +28,3 @@ script:
 after_success:
   - mv build/reports/coverage/googleplay/debug/report.xml build/reports/coverage/googleplay/debug/coverage.xml
   - bash <(curl -s https://codecov.io/bash)
-
