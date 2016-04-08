@@ -128,7 +128,7 @@ public class GtasksApiUtilities {
         try {
             date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH).parse(dateString);
         } catch (ParseException e) {
-            Timber.w("Failed to parse synced date", e);
+            Timber.w(e, "Failed to parse synced date");
             return;
         }
         long javatime = date.getTime();
