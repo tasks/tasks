@@ -20,6 +20,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import org.tasks.Notifier;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -34,6 +35,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
 
     @Inject Preferences preferences;
     @Inject Notifier notifier;
+    @Inject PermissionChecker permissionChecker;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -67,24 +69,12 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                     AndroidUtilities.sleepDeep(WAIT_BEFORE_READ_LOG);
                     Cursor calls;
                     try {
-                        calls = context.getContentResolver().query(
-                            Calls.CONTENT_URI,
-                            new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
-                            Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
-                            new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
-                            Calls.DATE + " DESC"
-                            );
+                        calls = getMissedCalls(context);
                     } catch (Exception e) { // Sometimes database is locked, retry once
                         Timber.e(e, e.getMessage());
                         AndroidUtilities.sleepDeep(300L);
                         try {
-                            calls = context.getContentResolver().query(
-                                    Calls.CONTENT_URI,
-                                    new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
-                                    Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
-                                    new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
-                                    Calls.DATE + " DESC"
-                                    );
+                            calls = getMissedCalls(context);
                         } catch (Exception e2) {
                             Timber.e(e2, e2.getMessage());
                             calls = null;
@@ -131,6 +121,20 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                 }
             }.start();
         }
+    }
+
+    private Cursor getMissedCalls(Context context) {
+        if (permissionChecker.canAccessMissedCallPermissions()) {
+            //noinspection MissingPermission
+            return context.getContentResolver().query(
+                    Calls.CONTENT_URI,
+                    new String[]{Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME},
+                    Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
+                    new String[]{Integer.toString(Calls.MISSED_TYPE), "1"},
+                    Calls.DATE + " DESC"
+            );
+        }
+        return null;
     }
 
     @Override

@@ -21,6 +21,7 @@ import org.tasks.R;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 
 import java.util.TimeZone;
@@ -37,14 +38,16 @@ public class GCalHelper {
     private final TaskService taskService;
     private final Preferences preferences;
     private final CalendarProvider calendarProvider;
+    private PermissionChecker permissionChecker;
     private final ContentResolver cr;
 
     @Inject
     public GCalHelper(@ForApplication Context context, TaskService taskService, Preferences preferences,
-                      CalendarProvider calendarProvider) {
+                      CalendarProvider calendarProvider, PermissionChecker permissionChecker) {
         this.taskService = taskService;
         this.preferences = preferences;
         this.calendarProvider = calendarProvider;
+        this.permissionChecker = permissionChecker;
         cr = context.getContentResolver();
     }
 
@@ -84,13 +87,17 @@ public class GCalHelper {
     }
 
     public Uri createTaskEvent(Task task, ContentValues values, boolean deleteEventIfExists) {
+        if (!permissionChecker.canAccessCalendars()) {
+            return null;
+        }
+
         String eventuri = getTaskEventUri(task);
 
         if(!TextUtils.isEmpty(eventuri) && deleteEventIfExists) {
             deleteTaskEvent(task);
         }
 
-        try{
+        try {
             values.put(CalendarContract.Events.TITLE, task.getTitle());
             values.put(CalendarContract.Events.DESCRIPTION, task.getNotes());
             values.put(CalendarContract.Events.HAS_ALARM, 0);
@@ -105,11 +112,11 @@ public class GCalHelper {
 
             createStartAndEndDate(task, values);
 
+            //noinspection MissingPermission
             Uri eventUri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
             cr.notifyChange(eventUri, null);
 
             return eventUri;
-
         } catch (Exception e) {
             // won't work on emulator
             Timber.e(e, e.getMessage());
