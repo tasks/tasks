@@ -19,7 +19,7 @@ public abstract class BaseWidgetConfigActivity extends InjectingAppCompatActivit
 
     private static final String FRAG_TAG_WIDGET_CONFIG = "frag_tag_widget_config";
 
-    public static final int DEFAULT_OPACITY = 100;
+    public static final int DEFAULT_OPACITY = 255;
 
     public static final String PREF_WIDGET_ID = "widget-id-";
     public static final String PREF_SHOW_DUE_DATE = "widget-show-due-date-";

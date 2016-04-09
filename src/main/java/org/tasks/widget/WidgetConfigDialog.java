@@ -156,7 +156,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     }
 
     private void updateOpacity() {
-        opacityValue.setText(Integer.toString(opacitySeekbar.getProgress()));
+        opacityValue.setText(Integer.toString(opacitySeekbar.getProgress()*100/255)+"%");
     }
 
     private void updateTheme() {

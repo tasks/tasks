@@ -88,7 +88,9 @@
             android:id="@+id/opacity_seekbar"
             style="@style/WidgetConfigRow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:max="255"
+            android:indeterminate="false" />
 
         <CheckBox
             android:id="@+id/hideDueDate"
