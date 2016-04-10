@@ -219,7 +219,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             if (result.get()) {
                 onModelUpdated(item);
                 item.markSaved();
-                Timber.d("%s %s", op, item);
+                Timber.d("%s %s", op, item.toString());
             }
         }
         return result.get();
