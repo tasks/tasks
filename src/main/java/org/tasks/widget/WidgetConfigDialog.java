@@ -27,6 +27,8 @@ import org.tasks.preferences.Preferences;
 import org.tasks.preferences.Theme;
 import org.tasks.preferences.ThemeManager;
 
+import java.text.NumberFormat;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
@@ -156,7 +158,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     }
 
     private void updateOpacity() {
-        opacityValue.setText(Integer.toString(opacitySeekbar.getProgress()*100/255)+"%");
+        opacityValue.setText(NumberFormat.getPercentInstance().format(opacitySeekbar.getProgress() / 255));
     }
 
     private void updateTheme() {
@@ -201,7 +203,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + appWidgetId, hideCheckBoxes.isChecked());
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + appWidgetId, hideHeader.isChecked());
         preferences.setInt(WidgetConfigActivity.PREF_THEME + appWidgetId, theme);
-        preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, opacitySeekbar.getProgress());
+        preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY_V2 + appWidgetId, opacitySeekbar.getProgress());
 
         // force update after setting preferences
         context.sendBroadcast(new Intent(context, TasksWidget.class) {{
