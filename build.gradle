@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.0.0-rc1'
+        classpath 'com.android.tools.build:gradle:2.0.0'
     }
 }
 
@@ -82,8 +82,8 @@ dependencies {
     compile 'com.google.dagger:dagger:2.1'
 
     compile 'com.nononsenseapps:filepicker:2.5.2'
-    compile 'com.android.support:design:23.2.1'
-    compile 'com.android.support:support-v13:23.2.1'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:support-v13:23.3.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton.timber:timber:4.1.1'
     compile 'com.google.guava:guava:19.0'
