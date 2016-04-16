@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
@@ -122,9 +123,9 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         }
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(
+        Drawable drawable = DrawableCompat.wrap(ContextCompat.getDrawable(getActivity(),
                 backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-        DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
+        DrawableCompat.setTint(drawable, ContextCompat.getColor(context, android.R.color.white));
         toolbar.setNavigationIcon(drawable);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +140,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         toolbar.inflateMenu(R.menu.task_edit_fragment);
         Menu menu = toolbar.getMenu();
         for (int i = 0 ; i < menu.size() ; i++) {
-            MenuColorizer.colorMenuItem(menu.getItem(i), getResources().getColor(android.R.color.white));
+            MenuColorizer.colorMenuItem(menu.getItem(i), ContextCompat.getColor(context, android.R.color.white));
         }
         toolbar.setOnMenuItemClickListener(this);
 
@@ -260,7 +261,12 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     public void discardButtonClick() {
         if (hasChanges(taskEditControlSetFragmentManager.getFragmentsInPersistOrder())) {
             dialogBuilder.newMessageDialog(R.string.discard_confirmation)
-                    .setPositiveButton(R.string.keep_editing, null)
+                    .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            save();
+                        }
+                    })
                     .setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
