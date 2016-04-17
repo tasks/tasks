@@ -154,7 +154,12 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
                             finish();
                         }
                     })
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setNegativeButton(R.string.save, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            save();
+                        }
+                    })
                     .show();
         }
     }
