@@ -3,6 +3,7 @@ package org.tasks.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
@@ -309,12 +310,24 @@ public class Preferences {
     }
 
     private File getDefaultFileLocation(String type) {
-        File externalFilesDir = context.getExternalFilesDir(null);
+        return getDefaultFileLocation(type, false);
+    }
+
+    private File getDefaultFileLocation(String type, Boolean public_dir) {
+        File externalFilesDir;
+        String addPath = "";
+        if (public_dir) {
+            externalFilesDir = Environment.getExternalStorageDirectory();
+            addPath = "Astrid/";
+        }else{
+            externalFilesDir = context.getExternalFilesDir(null);
+        }
         if (externalFilesDir == null) {
             return null;
         }
-        String path = String.format("%s/%s",
+        String path = String.format("%s/%s%s",
                 externalFilesDir.getAbsolutePath(),
+                addPath,
                 type);
         File file = new File(path);
         return file.isDirectory() || file.mkdirs() ? file : null;
@@ -356,7 +369,7 @@ public class Preferences {
         }
 
         if (directory == null || !directory.exists()) {
-            directory = getDefaultFileLocation("backups");
+            directory = getDefaultFileLocation("backups", true);
         }
 
         return directory;
