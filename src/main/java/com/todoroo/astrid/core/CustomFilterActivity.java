@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -156,8 +158,8 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity {
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_close_24dp));
-            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
+            Drawable drawable = DrawableCompat.wrap(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_close_24dp, null));
+            DrawableCompat.setTint(drawable, ContextCompat.getColor(getBaseContext(), android.R.color.white));
             supportActionBar.setHomeAsUpIndicator(drawable);
             supportActionBar.setTitle(R.string.FLA_new_filter);
         }
@@ -354,7 +356,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.tag_settings_activity, menu);
-        MenuColorizer.colorMenu(this, menu, getResources().getColor(android.R.color.white));
+        MenuColorizer.colorMenu(this, menu, ContextCompat.getColor(getBaseContext(), android.R.color.white));
         menu.findItem(R.id.delete).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
