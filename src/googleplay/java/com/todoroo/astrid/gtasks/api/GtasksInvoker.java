@@ -97,6 +97,7 @@ public class GtasksInvoker {
     }
 
     public Task createGtask(String listId, Task task, String parent, String priorSiblingId) throws IOException {
+        Timber.d("createGtask: %s", prettyPrint(task));
         return execute(service
                 .tasks()
                 .insert(listId, task)
@@ -105,6 +106,7 @@ public class GtasksInvoker {
     }
 
     public void updateGtask(String listId, Task task) throws IOException {
+        Timber.d("updateGtask: %s", prettyPrint(task));
         execute(service
                 .tasks()
                 .update(listId, task.getId(), task));
