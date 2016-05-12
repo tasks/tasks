@@ -51,6 +51,7 @@
 	<string name="TEA_note_label">Opis</string>
 	<string name="TEA_estimatedDuration_label">Jak długo to zajmie?</string>
 	<string name="TEA_elapsedDuration_label">Czas dotychczas spędzony nad tym zadaniem</string>
+	<string name="TEA_timer_est">zał. %s</string>
 	<string name="TEA_timer_elap">Minęło %s</string>
 	<string name="TEA_no_time">Bez godziny</string>
 	<string name="due_date">W terminie</string>
@@ -169,6 +170,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="audio_recording_title">Nagrywanie dźwięku</string>
 	<string name="audio_stop_recording">Zakończ nagrywanie</string>
 	<string name="file_type_unhandled">Przepraszamy! Nie znaleziono aplikacji do obsługi tego typu pliku.</string>
+	<string name="back">Powrót</string>
 	<string name="file_err_copy">Błąd kopiowania pliku do załącznika</string>
 	<string name="premium_speech_bubble_2">Zamów na rok i oszczędź 25%%!</string>
 	<string-array name="TEA_reminder_random">
@@ -256,7 +258,9 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
 	<string name="notification_actions">Akcja powiadomienia</string>
 	<string name="notification_actions_summary">Pokaż uśpione i ukończone zadania w powiadomieniach</string>
+	<string name="geofence_radius_title">Zasięg (metrów)</string>
 	<string name="tags">Tagi</string>
+	<string name="filters">Filtry</string>
 	<string name="filter_settings">Ustawienia filtrów</string>
 	<string name="show_hidden">Pokaż ukryte</string>
 	<string name="show_completed">Pokaż ukończone</string>
@@ -267,6 +271,11 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="vibration_count">Powtórzenia wibracji</string>
 	<string name="vibration_duration">Długość wibracji (milisekundy)</string>
 	<string name="vibration_pause">Przerwa pomiędzy wibracjami (milisekundy)</string>
+	<string name="tag_already_exists">Tag już istnieje</string>
+	<string name="doze_notifications_off">Android będzie znacznie opóźniał powiadomienia w czasie trybu drzemki.</string>
+	<string name="doze_notifications_on">Android będzie pozwalał na ograniczone przerwania kiedy urządzenie jest w trybie drzemki.</string>
+	<string name="plugin_description">Tasks jest projektem na licencji open source utrzymywanym przez jednego developera. Płatne funkcje wspierają rozwój aplikacji.</string>
+	<string name="opacity">Przezroczystość</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>Wyłączone</item>
 		<item>co 15 minut</item>

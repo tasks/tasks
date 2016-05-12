@@ -41,7 +41,7 @@
 	<string name="SSD_sort_importance">依照優先權</string>
 	<string name="SSD_sort_modified">依最後修改</string>
 	<string name="FLA_search_filter">比對 \'%s\'</string>
-	<string name="FLA_new_filter">新建過濾器</string>
+	<string name="FLA_new_filter">新增過濾器</string>
 	<string name="TEA_title_hint">工作名稱</string>
 	<string name="TEA_importance_label">優先權</string>
 	<string name="TEA_hideUntil_label">隱藏直到</string>
@@ -200,6 +200,7 @@
 	<string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
 	<string name="repeat_forever">永遠重複</string>
 	<string name="repeat_until">重複到 %s</string>
+	<string name="new_tag">新增標籤</string>
 	<string name="tag_FEx_untagged">未分類</string>
 	<string name="TPl_notification">秒錶啟動了 %s！</string>
 	<string name="TFE_workingOn">任務工作已開始計時</string>
@@ -228,6 +229,10 @@
 	<string name="sync_SPr_forget_description">清除所有同步資料</string>
 	<string name="sync_forget_confirm">登出/清除同步資料?</string>
 	<string name="TLA_menu_donate">贊助</string>
+	<string name="filter_settings">過濾器設定</string>
+	<string name="high_priority">最優先</string>
+	<string name="default_priority">預設</string>
+	<string name="low_priority">最不急迫</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>停用</item>
 		<item>每15分鐘</item>

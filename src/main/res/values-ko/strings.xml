@@ -376,6 +376,7 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="default_list">기본 목록</string>
 	<string name="plugin_description">Tasks는 한 명의 개발자에 의해 유지되고 있는 오픈 소스 프로젝트입니다. 개발을 지속하기 위해 몇몇 기능들은 인앱 결제를 통해 제공되고 있습니다.</string>
 	<string name="tesla_unread_description">기본 목록에 있는 활성화된 일정의 숫자 뱃지를 표시합니다. Nova Launcher용 TeslaUnread가 필요합니다.</string>
+	<string name="themes_purchase_description">모든 테마 잠금 해제 및 색상 추가</string>
 	<string name="tasker_description">컨텍스트 기반의 리스트 알림. Tasker 또는 Locale이 필요합니다.</string>
 	<string name="donate_summary">기부를 해주시면 감사하겠습니다</string>
 	<string name="dashclock_description">활성화된 일정의 개수 표시</string>
@@ -386,6 +387,28 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="select_filter">필터 선택</string>
 	<string name="filter">필터</string>
 	<string name="opacity">불투명도</string>
+	<string name="theme">테마</string>
+	<string name="themes">추가적인 테마</string>
+	<string name="theme_red">빨강</string>
+	<string name="theme_pink">분홍</string>
+	<string name="theme_purple">보라</string>
+	<string name="theme_deep_purple">진한 보라</string>
+	<string name="theme_indigo">군청</string>
+	<string name="theme_blue">파랑</string>
+	<string name="theme_light_blue">밝은 파랑</string>
+	<string name="theme_cyan">하늘색</string>
+	<string name="theme_teal">청록색</string>
+	<string name="theme_green">초록</string>
+	<string name="theme_light_green">밝은 초록</string>
+	<string name="theme_lime">라임색</string>
+	<string name="theme_yellow">노랑</string>
+	<string name="theme_amber">호박색</string>
+	<string name="theme_orange">주황</string>
+	<string name="theme_deep_orange">진한 주황</string>
+	<string name="theme_brown">갈색</string>
+	<string name="theme_grey">회색</string>
+	<string name="theme_blue_grey">회청색</string>
+	<string name="theme_black">검정</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>사용안함</item>
 		<item>15분마다</item>

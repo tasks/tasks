@@ -391,7 +391,22 @@
 	<string name="theme_red">Червена</string>
 	<string name="theme_pink">Розова</string>
 	<string name="theme_purple">Лилава</string>
+	<string name="theme_deep_purple">Тъмно лилава</string>
 	<string name="theme_indigo">Индиго</string>
+	<string name="theme_blue">Син</string>
+	<string name="theme_light_blue">Светло синьо</string>
+	<string name="theme_cyan">Синьозелен</string>
+	<string name="theme_teal">Тюркоаз</string>
+	<string name="theme_green">Зелена</string>
+	<string name="theme_light_green">Светло зелено</string>
+	<string name="theme_lime">Лайм</string>
+	<string name="theme_yellow">Жълта</string>
+	<string name="theme_amber">Кехлибар</string>
+	<string name="theme_orange">Оранжева</string>
+	<string name="theme_deep_orange">Тъмно оранжева</string>
+	<string name="theme_brown">Кафяв</string>
+	<string name="theme_grey">Сив</string>
+	<string name="theme_blue_grey">Синьо-сив</string>
 	<string name="theme_black">Черна</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>

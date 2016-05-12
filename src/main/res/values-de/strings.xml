@@ -373,6 +373,13 @@
 	<string name="billing_service_busy">Dienst für In-App Käufe ist beschäftigt, versuchen Sie es später noch einmal</string>
 	<string name="select_filter">Filter auswählen</string>
 	<string name="opacity">Durchsichtigkeit</string>
+	<string name="theme_red">Rot</string>
+	<string name="theme_purple">Lila</string>
+	<string name="theme_deep_purple">Dunkel Lila</string>
+	<string name="theme_blue">Blau</string>
+	<string name="theme_light_blue">Hellblau</string>
+	<string name="theme_grey">Grau</string>
+	<string name="theme_black">Schwarz</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>
