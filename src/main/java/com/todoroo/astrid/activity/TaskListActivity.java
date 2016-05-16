@@ -176,7 +176,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT)
-                .addToBackStack(TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .commit();
     }
 
