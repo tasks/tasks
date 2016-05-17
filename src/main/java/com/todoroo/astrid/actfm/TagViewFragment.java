@@ -92,7 +92,7 @@ public class TagViewFragment extends TaskListFragment {
                 } else if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
                     String activeUuid = tagData.getUuid();
                     if (activeUuid.equals(uuid)) {
-                        activity.onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
+                        activity.onFilterItemClicked(null);
                         activity.clearNavigationDrawer(); // Should auto refresh
                     }
                 }

@@ -228,6 +228,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     @Override
     public void onFilterItemClicked(FilterListItem item) {
+        if (item == null) {
+            item = defaultFilterProvider.getDefaultFilter();
+        }
         TaskEditFragment tef = getTaskEditFragment();
         if (tef != null) {
             getTaskEditFragment().save();

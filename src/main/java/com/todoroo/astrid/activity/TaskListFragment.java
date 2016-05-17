@@ -735,7 +735,7 @@ public class TaskListFragment extends InjectingListFragment implements
                     CustomFilter customFilter = data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER);
                     ((TaskListActivity) getActivity()).onFilterItemClicked(customFilter);
                 } else if(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
-                    ((TaskListActivity) getActivity()).onFilterItemClicked(BuiltInFilterExposer.getMyTasksFilter(getResources()));
+                    ((TaskListActivity) getActivity()).onFilterItemClicked(null);
                 }
 
                 ((TaskListActivity) getActivity()).refreshNavigationDrawer();
