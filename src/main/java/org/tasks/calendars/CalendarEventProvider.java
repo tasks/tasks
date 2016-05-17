@@ -26,7 +26,8 @@ public class CalendarEventProvider {
             _ID,
             CalendarContract.Events.DTSTART,
             CalendarContract.Events.DTEND,
-            CalendarContract.Events.TITLE
+            CalendarContract.Events.TITLE,
+            CalendarContract.Events.CALENDAR_ID
     };
 
     private final ContentResolver contentResolver;
@@ -45,6 +46,12 @@ public class CalendarEventProvider {
     public AndroidCalendarEvent getEvent(long eventId) {
         List<AndroidCalendarEvent> events = getCalendarEvents(CalendarContract.Events.CONTENT_URI,
                 _ID + " = ?", new String[] { Long.toString(eventId) });
+        return events.isEmpty() ? null : events.get(0);
+    }
+
+    @Nullable
+    public AndroidCalendarEvent getEvent(Uri eventUri) {
+        List<AndroidCalendarEvent> events = getCalendarEvents(eventUri, null, null);
         return events.isEmpty() ? null : events.get(0);
     }
 
@@ -69,6 +76,7 @@ public class CalendarEventProvider {
                 int startIndex = cursor.getColumnIndexOrThrow(CalendarContract.Events.DTSTART);
                 int endIndex = cursor.getColumnIndexOrThrow(CalendarContract.Events.DTEND);
                 int titleIndex = cursor.getColumnIndexOrThrow(CalendarContract.Events.TITLE);
+                int calendarIdIndex = cursor.getColumnIndexOrThrow(CalendarContract.Events.CALENDAR_ID);
                 while (cursor.moveToNext()) {
                     long id = cursor.getLong(idIndex);
                     events.add(new AndroidCalendarEvent(
@@ -76,6 +84,7 @@ public class CalendarEventProvider {
                             cursor.getString(titleIndex),
                             cursor.getLong(startIndex),
                             cursor.getLong(endIndex),
+                            cursor.getInt(calendarIdIndex),
                             calendarEventAttendeeProvider.getAttendees(id)));
                 }
             }

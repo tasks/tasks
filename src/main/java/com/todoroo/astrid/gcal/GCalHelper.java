@@ -18,7 +18,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
-import org.tasks.calendars.AndroidCalendar;
+import org.tasks.calendars.AndroidCalendarEvent;
+import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.calendars.CalendarProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
@@ -38,16 +39,19 @@ public class GCalHelper {
     private final TaskService taskService;
     private final Preferences preferences;
     private final CalendarProvider calendarProvider;
-    private PermissionChecker permissionChecker;
+    private final PermissionChecker permissionChecker;
+    private final CalendarEventProvider calendarEventProvider;
     private final ContentResolver cr;
 
     @Inject
     public GCalHelper(@ForApplication Context context, TaskService taskService, Preferences preferences,
-                      CalendarProvider calendarProvider, PermissionChecker permissionChecker) {
+                      CalendarProvider calendarProvider, PermissionChecker permissionChecker,
+                      CalendarEventProvider calendarEventProvider) {
         this.taskService = taskService;
         this.preferences = preferences;
         this.calendarProvider = calendarProvider;
         this.permissionChecker = permissionChecker;
+        this.calendarEventProvider = calendarEventProvider;
         cr = context.getContentResolver();
     }
 
@@ -132,16 +136,17 @@ public class GCalHelper {
         }
 
         Uri eventUri = Uri.parse(taskUri);
-        AndroidCalendar calendar = calendarProvider.getCalendar(eventUri);
-        if (calendar == null) { // Bail out, no calendar id
-            task.setCalendarUri(""); //$NON-NLS-1$
-        } else {
-            ContentValues cv = new ContentValues();
-            cv.put(CalendarContract.Events.CALENDAR_ID, calendar.getId());
 
-            Uri uri = createTaskEvent(task, cv, false);
-            task.setCalendarUri(uri.toString());
+        AndroidCalendarEvent event = calendarEventProvider.getEvent(eventUri);
+        if (event == null) {
+            task.setCalendarUri("");
+            return;
         }
+        ContentValues cv = new ContentValues();
+        cv.put(CalendarContract.Events.CALENDAR_ID, event.getCalendarId());
+
+        Uri uri = createTaskEvent(task, cv, false);
+        task.setCalendarUri(uri.toString());
     }
 
     public boolean deleteTaskEvent(Task task) {
