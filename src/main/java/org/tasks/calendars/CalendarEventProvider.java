@@ -55,6 +55,10 @@ public class CalendarEventProvider {
         return events.isEmpty() ? null : events.get(0);
     }
 
+    public boolean hasEvent(Uri eventUri) {
+        return getEvent(eventUri) != null;
+    }
+
     public List<AndroidCalendarEvent> getEventsBetween(long start, long end) {
         return getCalendarEvents(
                 CalendarContract.Events.CONTENT_URI,

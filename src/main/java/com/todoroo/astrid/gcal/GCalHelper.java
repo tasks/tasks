@@ -20,7 +20,6 @@ import com.todoroo.astrid.service.TaskService;
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.CalendarEventProvider;
-import org.tasks.calendars.CalendarProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
@@ -38,18 +37,15 @@ public class GCalHelper {
 
     private final TaskService taskService;
     private final Preferences preferences;
-    private final CalendarProvider calendarProvider;
     private final PermissionChecker permissionChecker;
     private final CalendarEventProvider calendarEventProvider;
     private final ContentResolver cr;
 
     @Inject
     public GCalHelper(@ForApplication Context context, TaskService taskService, Preferences preferences,
-                      CalendarProvider calendarProvider, PermissionChecker permissionChecker,
-                      CalendarEventProvider calendarEventProvider) {
+                      PermissionChecker permissionChecker, CalendarEventProvider calendarEventProvider) {
         this.taskService = taskService;
         this.preferences = preferences;
-        this.calendarProvider = calendarProvider;
         this.permissionChecker = permissionChecker;
         this.calendarEventProvider = calendarEventProvider;
         cr = context.getContentResolver();
@@ -165,7 +161,7 @@ public class GCalHelper {
         if(!TextUtils.isEmpty(uri)) {
             try {
                 Uri calendarUri = Uri.parse(uri);
-                if (calendarProvider.getCalendar(calendarUri) != null) {
+                if (calendarEventProvider.hasEvent(calendarUri)) {
                     cr.delete(calendarUri, null, null);
                     eventDeleted = true;
                 }

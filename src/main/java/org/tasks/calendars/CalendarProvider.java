@@ -44,16 +44,7 @@ public class CalendarProvider {
 
     @Nullable
     public AndroidCalendar getCalendar(String id) {
-        return getCalendar(CalendarContract.Calendars.CONTENT_URI, CAN_MODIFY + " AND Calendars._id=" + id);
-    }
-
-    @Nullable
-    public AndroidCalendar getCalendar(Uri uri) {
-        return getCalendar(uri, CAN_MODIFY);
-    }
-
-    private AndroidCalendar getCalendar(Uri uri, String selection) {
-        List<AndroidCalendar> calendars = getCalendars(uri, selection);
+        List<AndroidCalendar> calendars = getCalendars(CalendarContract.Calendars.CONTENT_URI, CAN_MODIFY + " AND Calendars._id=" + id);
         return calendars.isEmpty() ? null : calendars.get(0);
     }
 
