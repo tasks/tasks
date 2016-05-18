@@ -46,7 +46,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final List<AndroidCalendar> calendars = calendarProvider.getCalendars();
+        final List<AndroidCalendar> calendars = calendarProvider. getCalendars();
         List<String> calendarNames = transform(calendars, new Function<AndroidCalendar, String>() {
             @Override
             public String apply(AndroidCalendar androidCalendar) {

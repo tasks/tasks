@@ -95,4 +95,11 @@ public class GtasksList {
     public int hashCode() {
         return storeObject != null ? storeObject.hashCode() : 0;
     }
+
+    @Override
+    public String toString() {
+        return "GtasksList{" +
+                "storeObject=" + storeObject +
+                '}';
+    }
 }

@@ -139,6 +139,9 @@ public class GtasksSyncV2Provider {
                             nextPageToken = remoteLists.getNextPageToken();
                         } while (nextPageToken != null);
                         gtasksListService.updateLists(gtaskLists);
+                        if (gtasksListService.getList(gtasksPreferenceService.getDefaultList()) == null) {
+                            gtasksPreferenceService.setDefaultList(null);
+                        }
                     } catch (IOException e) {
                         handler.handleException(e);
                     }

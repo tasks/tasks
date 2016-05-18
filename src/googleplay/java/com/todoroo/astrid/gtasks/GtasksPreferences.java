@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
 import org.tasks.R;
 import org.tasks.activities.ClearGtaskDataActivity;
+import org.tasks.activities.GoogleTaskListSelectionDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
@@ -24,7 +26,9 @@ import org.tasks.scheduling.BackgroundScheduler;
 
 import javax.inject.Inject;
 
-public class GtasksPreferences extends InjectingPreferenceActivity {
+public class GtasksPreferences extends InjectingPreferenceActivity implements GoogleTaskListSelectionDialog.GoogleTaskListSelectionHandler {
+
+    private static final String FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection";
 
     private static final int REQUEST_LOGIN = 0;
     private static final int REQUEST_LOGOUT = 1;
@@ -32,6 +36,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject BackgroundScheduler backgroundScheduler;
     @Inject ActivityPermissionRequestor permissionRequestor;
+    @Inject GtasksListService gtasksListService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,19 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
                 return true;
             }
         });
+        getPref(R.string.p_gtasks_default_list).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                FragmentManager fragmentManager = getFragmentManager();
+                GoogleTaskListSelectionDialog dialog = (GoogleTaskListSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
+                if (dialog == null) {
+                    dialog = new GoogleTaskListSelectionDialog();
+                    dialog.show(fragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
+                }
+                return false;
+            }
+        });
+        updateDefaultGoogleTaskList();
     }
 
     private void requestLogin() {
@@ -106,5 +124,19 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    public void selectedList(GtasksList list) {
+        String listId = list.getRemoteId();
+        gtasksPreferenceService.setDefaultList(listId);
+        updateDefaultGoogleTaskList();
+    }
+
+    private void updateDefaultGoogleTaskList() {
+        GtasksList list = gtasksListService.getList(gtasksPreferenceService.getDefaultList());
+        if (list != null) {
+            getPref(R.string.p_gtasks_default_list).setSummary(list.getName());
+        }
     }
 }
