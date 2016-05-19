@@ -48,11 +48,11 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         if (savedInstanceState != null) {
             tagData = savedInstanceState.getParcelable(EXTRA_TAG_DATA);
         }
+
+        super.onCreate(savedInstanceState);
     }
 
     @Override
