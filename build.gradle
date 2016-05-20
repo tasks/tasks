@@ -48,11 +48,6 @@ android {
         debug {
             testCoverageEnabled true
         }
-        // https://code.google.com/p/android/issues/detail?id=123771
-        debuggable.initWith(buildTypes.debug)
-        debuggable {
-            testCoverageEnabled false
-        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
