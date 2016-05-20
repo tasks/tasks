@@ -52,7 +52,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
@@ -87,9 +87,9 @@ public class ReminderControlSet extends TaskEditControlFragment {
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
 
-    @Bind(R.id.alert_container) LinearLayout alertContainer;
-    @Bind(R.id.reminder_alarm) Spinner mode;
-    @Bind(R.id.alarms_add_spinner) Spinner addSpinner;
+    @BindView(R.id.alert_container) LinearLayout alertContainer;
+    @BindView(R.id.reminder_alarm) Spinner mode;
+    @BindView(R.id.alarms_add_spinner) Spinner addSpinner;
 
     private long taskId;
     private int flags;

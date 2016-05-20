@@ -53,7 +53,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.google.common.base.Predicates.notNull;
@@ -80,7 +80,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     @Inject TagService tagService;
     @Inject DialogBuilder dialogBuilder;
 
-    @Bind(R.id.display_row_edit) TextView tagsDisplay;
+    @BindView(R.id.display_row_edit) TextView tagsDisplay;
 
     private long taskId;
     private ArrayList<String> allTagNames;

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.neenbedankt.android-apt'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.10'
@@ -13,6 +14,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
@@ -81,12 +83,14 @@ configurations {
 
 dependencies {
     provided 'com.google.dagger:dagger-compiler:2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+
     compile 'com.google.dagger:dagger:2.1'
 
     compile 'com.nononsenseapps:filepicker:2.5.2'
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v13:23.4.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.0.1'
     compile 'com.jakewharton.timber:timber:4.1.1'
     compile 'com.google.guava:guava:19.0'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {

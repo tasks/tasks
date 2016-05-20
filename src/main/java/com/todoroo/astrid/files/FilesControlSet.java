@@ -45,7 +45,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
@@ -62,8 +62,8 @@ public class FilesControlSet extends TaskEditControlFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForActivity Context context;
 
-    @Bind(R.id.attachment_container) LinearLayout attachmentContainer;
-    @Bind(R.id.add_attachment) TextView addAttachment;
+    @BindView(R.id.attachment_container) LinearLayout attachmentContainer;
+    @BindView(R.id.add_attachment) TextView addAttachment;
 
     private String taskUuid;
 

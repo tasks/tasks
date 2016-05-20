@@ -55,7 +55,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
@@ -102,8 +102,8 @@ public class RepeatControlSet extends TaskEditControlFragment {
     @Inject @ForActivity Context context;
     @Inject ThemeManager themeManager;
 
-    @Bind(R.id.clear) ImageView clear;
-    @Bind(R.id.display_row_edit) TextView displayView;
+    @BindView(R.id.clear) ImageView clear;
+    @BindView(R.id.display_row_edit) TextView displayView;
 
     private ArrayAdapter<String> repeatUntilAdapter;
     private final List<String> repeatUntilOptions = new ArrayList<>();

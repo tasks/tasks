@@ -37,7 +37,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 import static java.util.Arrays.asList;
@@ -63,8 +63,8 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     @Inject @ForActivity Context context;
 
     //private final CheckBox enabled;
-    @Bind(R.id.hideUntil) Spinner spinner;
-    @Bind(R.id.clear) ImageView clearButton;
+    @BindView(R.id.hideUntil) Spinner spinner;
+    @BindView(R.id.clear) ImageView clearButton;
 
     private ArrayAdapter<HideUntilValue> adapter;
     private long initialHideUntil;

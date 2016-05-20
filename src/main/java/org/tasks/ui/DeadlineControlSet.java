@@ -31,7 +31,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
@@ -67,9 +67,9 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
 
-    @Bind(R.id.due_date) Spinner dueDateSpinner;
-    @Bind(R.id.due_time) Spinner dueTimeSpinner;
-    @Bind(R.id.clear) View clearButton;
+    @BindView(R.id.due_date) Spinner dueDateSpinner;
+    @BindView(R.id.due_time) Spinner dueTimeSpinner;
+    @BindView(R.id.clear) View clearButton;
 
     private ArrayAdapter<String> dueDateAdapter;
     private ArrayAdapter<String> dueTimeAdapter;

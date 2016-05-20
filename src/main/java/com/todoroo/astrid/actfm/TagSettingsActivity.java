@@ -41,7 +41,7 @@ import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.text.TextUtils.isEmpty;
@@ -61,9 +61,9 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity {
     @Inject MetadataDao metadataDao;
     @Inject DialogBuilder dialogBuilder;
 
-    @Bind(R.id.tag_name) EditText tagName;
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.tag_error) TextView tagError;
+    @BindView(R.id.tag_name) EditText tagName;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.tag_error) TextView tagError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

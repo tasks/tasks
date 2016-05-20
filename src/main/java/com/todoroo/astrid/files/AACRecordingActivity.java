@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -39,7 +39,7 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements 
     @Inject Preferences preferences;
     @Inject ActivityPermissionRequestor permissionRequestor;
 
-    @Bind(R.id.timer) Chronometer timer;
+    @BindView(R.id.timer) Chronometer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

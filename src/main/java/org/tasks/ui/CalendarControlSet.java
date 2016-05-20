@@ -36,7 +36,7 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
@@ -54,8 +54,8 @@ public class CalendarControlSet extends TaskEditControlFragment {
     private static final String EXTRA_ID = "extra_id";
     private static final String EXTRA_NAME = "extra_name";
 
-    @Bind(R.id.clear) View cancelButton;
-    @Bind(R.id.calendar_display_which) TextView calendar;
+    @BindView(R.id.clear) View cancelButton;
+    @BindView(R.id.calendar_display_which) TextView calendar;
 
     @Inject GCalHelper gcalHelper;
     @Inject CalendarProvider calendarProvider;

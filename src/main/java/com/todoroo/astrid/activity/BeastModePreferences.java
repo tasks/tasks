@@ -36,13 +36,13 @@ import java.util.HashMap;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BeastModePreferences extends ThemedInjectingAppCompatActivity {
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(android.R.id.list) TouchListView touchList;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(android.R.id.list) TouchListView touchList;
 
     private ArrayAdapter<String> adapter;
 

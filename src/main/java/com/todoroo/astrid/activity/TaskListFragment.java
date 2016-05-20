@@ -86,7 +86,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
@@ -147,9 +147,9 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject TaskCreator taskCreator;
     @Inject Broadcaster broadcaster;
 
-    @Bind(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
-    @Bind(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     private TaskAdapter taskAdapter = null;
     private RefreshReceiver refreshReceiver = new RefreshReceiver();

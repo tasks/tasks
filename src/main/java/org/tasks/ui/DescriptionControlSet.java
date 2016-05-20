@@ -13,7 +13,7 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.injection.FragmentComponent;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnTextChanged;
 
 public class DescriptionControlSet extends TaskEditControlFragment {
@@ -21,7 +21,7 @@ public class DescriptionControlSet extends TaskEditControlFragment {
     public static final int TAG = R.string.TEA_ctrl_notes_pref;
     private static final String EXTRA_DESCRIPTION = "extra_description";
 
-    @Bind(R.id.notes) EditText editText;
+    @BindView(R.id.notes) EditText editText;
 
     private String description;
 

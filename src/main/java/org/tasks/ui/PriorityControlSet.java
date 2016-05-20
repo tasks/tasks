@@ -17,7 +17,7 @@ import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
@@ -34,10 +34,10 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
     @Inject CheckBoxes checkBoxes;
 
-    @Bind(R.id.priority_high) AppCompatRadioButton priorityHigh;
-    @Bind(R.id.priority_medium) AppCompatRadioButton priorityMedium;
-    @Bind(R.id.priority_low) AppCompatRadioButton priorityLow;
-    @Bind(R.id.priority_none) AppCompatRadioButton priorityNone;
+    @BindView(R.id.priority_high) AppCompatRadioButton priorityHigh;
+    @BindView(R.id.priority_medium) AppCompatRadioButton priorityMedium;
+    @BindView(R.id.priority_low) AppCompatRadioButton priorityLow;
+    @BindView(R.id.priority_none) AppCompatRadioButton priorityNone;
 
     private OnPriorityChanged callback;
     private int priority;

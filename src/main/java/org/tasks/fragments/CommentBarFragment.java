@@ -38,7 +38,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
@@ -71,10 +71,10 @@ public class CommentBarFragment extends TaskEditControlFragment {
     @Inject Device device;
     @Inject Preferences preferences;
 
-    @Bind(R.id.commentButton) View commentButton;
-    @Bind(R.id.commentField) EditText commentField;
-    @Bind(R.id.picture) ImageView pictureButton;
-    @Bind(R.id.updatesFooter) LinearLayout commentBar;
+    @BindView(R.id.commentButton) View commentButton;
+    @BindView(R.id.commentField) EditText commentField;
+    @BindView(R.id.picture) ImageView pictureButton;
+    @BindView(R.id.updatesFooter) LinearLayout commentBar;
 
     private CommentBarFragmentCallback callback;
     private Uri pendingCommentPicture = null;

@@ -28,7 +28,7 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -39,8 +39,8 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     private static final String EXTRA_FILTER = "extra_filter";
     private static final String EXTRA_PURCHASE_INITIATED = "extra_purchase_initiated";
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.text_view) TextView filterTitle;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.text_view) TextView filterTitle;
 
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;

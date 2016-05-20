@@ -28,7 +28,7 @@ import org.tasks.ui.TaskEditControlFragment;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
@@ -49,8 +49,8 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
     @Inject TaskService taskService;
 
-    @Bind(R.id.title) EditText editText;
-    @Bind(R.id.completeBox) CheckableImageView completeBox;
+    @BindView(R.id.title) EditText editText;
+    @BindView(R.id.completeBox) CheckableImageView completeBox;
 
     private CheckBoxes checkBoxes;
     private boolean isComplete;

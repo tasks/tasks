@@ -31,7 +31,7 @@ import java.text.NumberFormat;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -76,13 +76,13 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
     private static final int REQUEST_FILTER = 1005;
 
-    @Bind(R.id.opacity_value) TextView opacityValue;
-    @Bind(R.id.selected_filter) TextView selectedFilter;
-    @Bind(R.id.selected_theme) TextView selectedTheme;
-    @Bind(R.id.hideDueDate) CheckBox hideDueDate;
-    @Bind(R.id.hideCheckboxes) CheckBox hideCheckBoxes;
-    @Bind(R.id.hideHeader) CheckBox hideHeader;
-    @Bind(R.id.opacity_seekbar) SeekBar opacitySeekbar;
+    @BindView(R.id.opacity_value) TextView opacityValue;
+    @BindView(R.id.selected_filter) TextView selectedFilter;
+    @BindView(R.id.selected_theme) TextView selectedTheme;
+    @BindView(R.id.hideDueDate) CheckBox hideDueDate;
+    @BindView(R.id.hideCheckboxes) CheckBox hideCheckBoxes;
+    @BindView(R.id.hideHeader) CheckBox hideHeader;
+    @BindView(R.id.opacity_seekbar) SeekBar opacitySeekbar;
 
     @Inject DialogBuilder dialogBuilder;
     @Inject DefaultFilterProvider defaultFilterProvider;

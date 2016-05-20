@@ -50,7 +50,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
@@ -86,8 +86,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject Preferences preferences;
     @Inject Tracker tracker;
 
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.comments) LinearLayout comments;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.comments) LinearLayout comments;
 
     // --- other instance variables
 

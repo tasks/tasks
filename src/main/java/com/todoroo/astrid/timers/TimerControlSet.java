@@ -36,7 +36,7 @@ import org.tasks.ui.TaskEditControlFragment;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -62,9 +62,9 @@ public class TimerControlSet extends TaskEditControlFragment {
     @Inject @ForActivity Context context;
     @Inject ThemeManager themeManager;
 
-    @Bind(R.id.display_row_edit) TextView displayEdit;
-    @Bind(R.id.timer) Chronometer chronometer;
-    @Bind(R.id.timer_button) ImageView timerButton;
+    @BindView(R.id.display_row_edit) TextView displayEdit;
+    @BindView(R.id.timer) Chronometer chronometer;
+    @BindView(R.id.timer_button) ImageView timerButton;
 
     private TimeDurationControlSet estimated;
     private TimeDurationControlSet elapsed;
