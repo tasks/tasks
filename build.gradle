@@ -31,6 +31,7 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
+        applicationId "org.tasks"
         versionCode 408
         versionName "4.8.17"
         minSdkVersion 14
@@ -90,16 +91,16 @@ configurations {
 }
 
 dependencies {
-    provided 'com.google.dagger:dagger-compiler:2.1'
-    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    apt 'com.google.dagger:dagger-compiler:2.4'
+    compile 'com.google.dagger:dagger:2.4'
 
-    compile 'com.google.dagger:dagger:2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.1.0'
+    compile 'com.jakewharton:butterknife:8.1.0'
 
     compile 'com.nononsenseapps:filepicker:2.5.2'
     compile 'com.android.support:design:24.0.0'
     compile 'com.android.support:support-v13:24.0.0'
-    compile 'com.jakewharton:butterknife:8.0.1'
-    compile 'com.jakewharton.timber:timber:4.1.1'
+    compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'com.google.guava:guava:19.0'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {
         transitive = false
@@ -113,12 +114,13 @@ dependencies {
 
     googleplayCompile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     googleplayCompile 'com.twofortyfouram:android-plugin-api-for-locale:[1.0.1,2.0['
-    googleplayCompile 'com.google.android.gms:play-services-location:8.4.0'
-    googleplayCompile 'com.google.android.gms:play-services-analytics:8.4.0'
-    googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev43-1.21.0'
-    googleplayCompile 'com.google.api-client:google-api-client-android:1.21.0'
+    googleplayCompile 'com.google.android.gms:play-services-location:9.0.2'
+    googleplayCompile 'com.google.android.gms:play-services-analytics:9.0.2'
+    googleplayCompile 'com.google.android.gms:play-services-auth:9.0.2'
+    googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev45-1.22.0'
+    googleplayCompile 'com.google.api-client:google-api-client-android:1.22.0'
 
-    amazonCompile 'com.google.android.gms:play-services-analytics:8.4.0'
+    amazonCompile 'com.google.android.gms:play-services-analytics:9.0.2'
 
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
     androidTestCompile 'com.natpryce:make-it-easy:4.0.0'
