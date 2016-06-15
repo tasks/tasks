@@ -24,3 +24,12 @@
 -dontwarn javax.inject.**
 -dontwarn com.google.j2objc.annotations.**
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# https://github.com/square/leakcanary/blob/457175960e341658fc908ee12a9bf803bca63a23/leakcanary-android/consumer-proguard-rules.pro
+-dontwarn com.squareup.haha.guava.**
+-dontwarn com.squareup.haha.perflib.**
+-dontwarn com.squareup.haha.trove.**
+-dontwarn com.squareup.leakcanary.**
+-keep class com.squareup.haha.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
+-dontwarn android.app.Notification

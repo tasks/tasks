@@ -3,6 +3,7 @@ package org.tasks;
 import android.content.res.Configuration;
 import android.util.Log;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -50,6 +51,8 @@ public class Tasks extends InjectingApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        LeakCanary.install(this);
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
