@@ -18,6 +18,7 @@ import org.tasks.fragments.CommentBarFragment;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
+import org.tasks.ui.GoogleTaskListFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
 
@@ -66,4 +67,6 @@ public interface FragmentComponent {
     void inject(SubtasksListFragment subtasksListFragment);
 
     void inject(SubtasksTagListFragment subtasksTagListFragment);
+
+    void inject(GoogleTaskListFragment googleTaskListFragment);
 }

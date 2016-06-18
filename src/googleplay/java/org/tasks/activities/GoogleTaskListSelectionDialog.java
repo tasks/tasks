@@ -10,6 +10,7 @@ import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 
@@ -20,10 +21,6 @@ import javax.inject.Inject;
 import static com.google.common.collect.Lists.transform;
 
 public class GoogleTaskListSelectionDialog extends InjectingDialogFragment {
-
-    public interface GoogleTaskListSelectionHandler {
-        void selectedList(GtasksList list);
-    }
 
     @Inject DialogBuilder dialogBuilder;
     @Inject GtasksListService gtasksListService;

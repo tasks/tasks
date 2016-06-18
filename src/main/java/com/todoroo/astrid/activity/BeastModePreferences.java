@@ -23,10 +23,10 @@ import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
+import com.google.common.base.Strings;
 
 import org.tasks.R;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 
@@ -48,7 +48,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity {
 
     private ArrayList<String> items;
 
-    public static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v2"; //$NON-NLS-1$
+    public static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v3"; //$NON-NLS-1$
 
     public static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";"; //$NON-NLS-1$
 
@@ -158,7 +158,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity {
         }
         String oldValue = preferences.getStringValue(BEAST_MODE_ORDER_PREF);
         String newValue = newSetting.toString();
-        if (!oldValue.equals(newValue)) {
+        if (Strings.isNullOrEmpty(oldValue) || !oldValue.equals(newValue)) {
             preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
             setResult(RESULT_OK);
         }

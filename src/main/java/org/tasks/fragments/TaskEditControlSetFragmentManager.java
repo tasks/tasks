@@ -2,11 +2,11 @@ package org.tasks.fragments;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.view.ContextMenu;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
@@ -20,6 +20,7 @@ import org.tasks.preferences.Preferences;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
+import org.tasks.ui.GoogleTaskListFragment;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -49,6 +50,7 @@ public class TaskEditControlSetFragmentManager {
             R.id.row_8,
             R.id.row_9,
             R.id.row_10,
+            R.id.row_11
     };
 
     private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS = new int[] {
@@ -63,7 +65,8 @@ public class TaskEditControlSetFragmentManager {
             FilesControlSet.TAG,
             TagsControlSet.TAG,
             RepeatControlSet.TAG,
-            CommentBarFragment.TAG
+            CommentBarFragment.TAG,
+            GoogleTaskListFragment.TAG
     };
 
     static {
@@ -76,9 +79,11 @@ public class TaskEditControlSetFragmentManager {
     private final List<String> displayOrder;
     private final FragmentManager fragmentManager;
     private int numRows;
+    private GtasksPreferenceService gtasksPreferenceService;
 
     @Inject
-    public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences) {
+    public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences, GtasksPreferenceService gtasksPreferenceService) {
+        this.gtasksPreferenceService = gtasksPreferenceService;
         displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
         displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
         displayOrder.add(1, activity.getString(CommentBarFragment.TAG));
@@ -106,6 +111,9 @@ public class TaskEditControlSetFragmentManager {
             }
 
             TaskEditControlFragment fragment = createFragment(resId);
+            if (fragment == null) {
+                continue;
+            }
             fragment.initialize(isNewTask, task);
             taskEditControlFragments.add(fragment);
         }
@@ -157,6 +165,10 @@ public class TaskEditControlSetFragmentManager {
                 return new RepeatControlSet();
             case CommentBarFragment.TAG:
                 return new CommentBarFragment();
+            case GoogleTaskListFragment.TAG:
+                return gtasksPreferenceService.isLoggedIn()
+                        ? new GoogleTaskListFragment()
+                        : null;
             default:
                 throw new RuntimeException("Unsupported fragment");
         }

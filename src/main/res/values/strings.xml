@@ -212,6 +212,7 @@ File %1$s contained %2$s.\n\n
     <string name="TEA_control_notes">Description</string>
 
     <string name="TEA_control_files">Files</string>
+  <string name="TEA_control_google_task_list">Google Task List</string>
 
     <!-- slide 16e / slide 35g-->
     <string name="TEA_control_reminders">Reminders</string>
@@ -885,6 +886,7 @@ File %1$s contained %2$s.\n\n
   <string name="theme_grey">Grey</string>
   <string name="theme_blue_grey">Blue Grey</string>
   <string name="theme_black">Black</string>
+  <string name="default_value">Default</string>
 
   <string-array name="sync_SPr_interval_entries">
         <!-- sync_SPr_interval_entries: Synchronization Intervals -->

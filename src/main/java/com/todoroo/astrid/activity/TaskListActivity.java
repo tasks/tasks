@@ -45,6 +45,7 @@ import org.tasks.R;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
+import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
@@ -74,7 +75,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         RepeatControlSet.RepeatChangedListener,
         TaskEditFragment.TaskEditFragmentCallbackHandler,
         CommentBarFragment.CommentBarFragmentCallback,
-        SortDialog.SortDialogCallback {
+        SortDialog.SortDialogCallback,
+        GoogleTaskListSelectionHandler {
 
     @Inject Preferences preferences;
     @Inject StartupService startupService;
@@ -488,5 +490,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     public Filter getCurrentFilter() {
         return getTaskListFragment().filter;
+    }
+
+    @Override
+    public void selectedList(GtasksList list) {
+        getTaskEditFragment().onGoogleTaskListChanged(list);
     }
 }

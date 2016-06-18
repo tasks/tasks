@@ -18,6 +18,7 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import org.tasks.R;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.GoogleTaskListSelectionDialog;
+import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
@@ -26,7 +27,7 @@ import org.tasks.scheduling.BackgroundScheduler;
 
 import javax.inject.Inject;
 
-public class GtasksPreferences extends InjectingPreferenceActivity implements GoogleTaskListSelectionDialog.GoogleTaskListSelectionHandler {
+public class GtasksPreferences extends InjectingPreferenceActivity implements GoogleTaskListSelectionHandler {
 
     private static final String FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection";
 
