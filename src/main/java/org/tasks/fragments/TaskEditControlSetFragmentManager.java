@@ -51,19 +51,6 @@ public class TaskEditControlSetFragmentManager {
             R.id.row_10,
     };
 
-    public static final int[] TASK_EDIT_DIVIDER_ROWS = new int[] {
-            R.id.row_divider_10,
-            R.id.row_divider_9,
-            R.id.row_divider_8,
-            R.id.row_divider_7,
-            R.id.row_divider_6,
-            R.id.row_divider_5,
-            R.id.row_divider_4,
-            R.id.row_divider_3,
-            R.id.row_divider_2,
-            R.id.row_divider_1
-    };
-
     private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS = new int[] {
             EditTitleControlSet.TAG,
             DeadlineControlSet.TAG,
@@ -106,10 +93,6 @@ public class TaskEditControlSetFragmentManager {
         for (int resId : TASK_EDIT_CONTROL_SET_FRAGMENTS) {
             controlSetFragments.put(activity.getString(resId), resId);
         }
-    }
-
-    public int getNumRows() {
-        return numRows;
     }
 
     public List<TaskEditControlFragment> createNewFragments(boolean isNewTask, Task task) {

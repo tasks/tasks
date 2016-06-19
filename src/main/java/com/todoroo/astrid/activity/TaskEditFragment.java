@@ -62,10 +62,11 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         void taskEditFinished();
     }
 
-    public static TaskEditFragment newTaskEditFragment(boolean isNewTask, Task task) {
+    public static TaskEditFragment newTaskEditFragment(boolean isNewTask, Task task, int numFragments) {
         TaskEditFragment taskEditFragment = new TaskEditFragment();
         taskEditFragment.isNewTask = isNewTask;
         taskEditFragment.model = task;
+        taskEditFragment.numFragments = numFragments;
         return taskEditFragment;
     }
 
@@ -74,6 +75,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     private static final String EXTRA_TASK = "extra_task";
     private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
+    private static final String EXTRA_NUM_FRAGMENTS = "extra_num_fragments";
 
     @Inject TaskService taskService;
     @Inject UserActivityDao userActivityDao;
@@ -88,12 +90,13 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.comments) LinearLayout comments;
+    @BindView(R.id.control_sets) LinearLayout controlSets;
 
     // --- other instance variables
 
     /** true if editing started with a new task */
     private boolean isNewTask = false;
-
+    private int numFragments;
     /** task model */
     Task model = null;
 
@@ -119,6 +122,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         if (savedInstanceState != null) {
             model = savedInstanceState.getParcelable(EXTRA_TASK);
             isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
+            numFragments = savedInstanceState.getInt(EXTRA_NUM_FRAGMENTS);
         }
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
@@ -148,8 +152,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         commentsController.initialize(model, comments);
         commentsController.reloadView();
 
-        for (int i = 0 ; i < TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS.length - taskEditControlSetFragmentManager.getNumRows() ; i++) {
-            view.findViewById(TaskEditControlSetFragmentManager.TASK_EDIT_DIVIDER_ROWS[i]).setVisibility(View.GONE);
+        for (int i = numFragments - 2; i > 1 ; i--) {
+            controlSets.addView(inflater.inflate(R.layout.task_edit_row_divider, controlSets, false), i);
         }
 
         return view;
@@ -303,6 +307,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
         outState.putParcelable(EXTRA_TASK, model);
         outState.putBoolean(EXTRA_IS_NEW_TASK, isNewTask);
+        outState.putInt(EXTRA_NUM_FRAGMENTS, numFragments);
     }
 
     /*

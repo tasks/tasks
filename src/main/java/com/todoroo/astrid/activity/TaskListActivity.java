@@ -305,10 +305,11 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             return;
         }
         boolean isNewTask = task.getTitle().length() == 0;
+        List<TaskEditControlFragment> controlFragments = taskEditControlSetFragmentManager.createNewFragments(isNewTask, task);
         loadTaskEditFragment(
                 false,
-                newTaskEditFragment(isNewTask, task),
-                taskEditControlSetFragmentManager.createNewFragments(isNewTask, task));
+                newTaskEditFragment(isNewTask, task, controlFragments.size()),
+                controlFragments);
     }
 
     @Override
