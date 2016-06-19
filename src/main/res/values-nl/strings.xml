@@ -362,6 +362,26 @@
 	<string name="no_title">(geen titel)</string>
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string name="default_list">Standaard lijst</string>
+	<string name="theme">Thema</string>
+	<string name="theme_red">Rood</string>
+	<string name="theme_pink">Roze</string>
+	<string name="theme_purple">Paars</string>
+	<string name="theme_deep_purple">Diep Paars</string>
+	<string name="theme_blue">Blauw</string>
+	<string name="theme_light_blue">Licht Blauw</string>
+	<string name="theme_cyan">Blauwgroen</string>
+	<string name="theme_teal">Zeegroen</string>
+	<string name="theme_green">Groen</string>
+	<string name="theme_light_green">Licht groen</string>
+	<string name="theme_lime">Limoen</string>
+	<string name="theme_yellow">Geel</string>
+	<string name="theme_amber">Oranjegeel</string>
+	<string name="theme_orange">Oranje</string>
+	<string name="theme_deep_orange">Diep Oranje</string>
+	<string name="theme_brown">Bruin</string>
+	<string name="theme_grey">Grijs</string>
+	<string name="theme_blue_grey">Blauwgrijs</string>
+	<string name="theme_black">Zwart</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>uitschakelen</item>
 		<item>elke 15 min.</item>
