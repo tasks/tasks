@@ -33,3 +33,7 @@
 -keep class com.squareup.haha.** { *; }
 -keep class com.squareup.leakcanary.** { *; }
 -dontwarn android.app.Notification
+
+# https://github.com/facebook/stetho/blob/2807d4248c6fa06cdd3626b6afb9bfc42ba50d55/stetho/proguard-consumer.pro
+-keep class com.facebook.stetho.** { *; }
+-dontwarn com.facebook.stetho.**

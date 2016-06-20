@@ -97,9 +97,8 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
     compile 'com.jakewharton:butterknife:8.1.0'
 
+    debugCompile 'com.facebook.stetho:stetho:1.3.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 
     compile 'com.nononsenseapps:filepicker:2.5.2'
     compile 'com.android.support:design:24.0.0'
