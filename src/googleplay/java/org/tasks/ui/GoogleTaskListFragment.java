@@ -27,12 +27,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
+
 public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     private static final String FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection";
-    private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
     private static final String EXTRA_TASK_ID = "extra_task_id";
-    private static final String EXTRA_LIST = "extra_list";
+    private static final String EXTRA_ORIGINAL_LIST = "extra_original_list";
+    private static final String EXTRA_SELECTED_LIST = "extra_selected_list";
 
     public static final int TAG = R.string.TEA_ctrl_google_task_list;
 
@@ -44,24 +46,26 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     @Inject MetadataDao metadataDao;
 
     private long taskId;
-    private GtasksList list;
-    private boolean isNewTask;
+    private GtasksList originalList;
+    private GtasksList selectedList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         if (savedInstanceState != null) {
-            isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
             taskId = savedInstanceState.getLong(EXTRA_TASK_ID);
-            list = new GtasksList((StoreObject) savedInstanceState.getParcelable(EXTRA_LIST));
-        }
-        Metadata metadata = gtasksMetadataService.getTaskMetadata(taskId);
-        if (metadata != null) {
-            list = gtasksListService.getList(metadata.getValue(GtasksMetadata.LIST_ID));
-        }
-        if (list == null) {
-            list = gtasksListService.getList(gtasksPreferenceService.getDefaultList());
+            originalList = new GtasksList((StoreObject) savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST));
+            selectedList = new GtasksList((StoreObject) savedInstanceState.getParcelable(EXTRA_SELECTED_LIST));
+        } else {
+            Metadata metadata = gtasksMetadataService.getActiveTaskMetadata(taskId);
+            if (metadata != null) {
+                originalList = gtasksListService.getList(metadata.getValue(GtasksMetadata.LIST_ID));
+            }
+            if (originalList == null) {
+                originalList = gtasksListService.getList(gtasksPreferenceService.getDefaultList());
+            }
+            selectedList = originalList;
         }
 
         refreshView();
@@ -72,9 +76,9 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBoolean(EXTRA_IS_NEW_TASK, isNewTask);
         outState.putLong(EXTRA_TASK_ID, taskId);
-        outState.putParcelable(EXTRA_LIST, list.getStoreObject());
+        outState.putParcelable(EXTRA_ORIGINAL_LIST, originalList.getStoreObject());
+        outState.putParcelable(EXTRA_SELECTED_LIST, selectedList.getStoreObject());
     }
 
     @Override
@@ -94,10 +98,6 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @OnClick(R.id.google_task_list)
     void clickGoogleTaskList(View view) {
-        if (!isNewTask) {
-            return;
-        }
-
         FragmentManager fragmentManager = getFragmentManager();
         GoogleTaskListSelectionDialog dialog = (GoogleTaskListSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
         if (dialog == null) {
@@ -108,21 +108,26 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @Override
     public void initialize(boolean isNewTask, Task task) {
-        this.isNewTask = isNewTask;
         taskId = task.getId();
     }
 
     @Override
     public void apply(Task task) {
-        if (!isNewTask) {
-            return;
-        }
-        Metadata taskMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
+        Metadata taskMetadata = gtasksMetadataService.getActiveTaskMetadata(task.getId());
         if (taskMetadata == null) {
             taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());
+        } else if (!taskMetadata.getValue(GtasksMetadata.LIST_ID).equals(selectedList.getRemoteId())) {
+            taskMetadata.setDeletionDate(now());
+            metadataDao.persist(taskMetadata);
+            taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());
         }
-        taskMetadata.setValue(GtasksMetadata.LIST_ID, list.getRemoteId());
+        taskMetadata.setValue(GtasksMetadata.LIST_ID, selectedList.getRemoteId());
         metadataDao.persist(taskMetadata);
+    }
+
+    @Override
+    public boolean hasChanges(Task original) {
+        return !selectedList.equals(originalList);
     }
 
     @Override
@@ -131,13 +136,13 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     }
 
     public void setList(GtasksList list) {
-        this.list = list;
+        this.selectedList = list;
         refreshView();
     }
 
     private void refreshView() {
-        if (list != null) {
-            textView.setText(list.getName());
+        if (selectedList != null) {
+            textView.setText(selectedList.getName());
         }
     }
 }

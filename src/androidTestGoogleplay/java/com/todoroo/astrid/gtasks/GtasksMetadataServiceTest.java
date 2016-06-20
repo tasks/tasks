@@ -101,7 +101,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     }
 
     private void whenSearchForMetadata() {
-        metadata = gtasksMetadataService.getTaskMetadata(task.getId());
+        metadata = gtasksMetadataService.getActiveTaskMetadata(task.getId());
     }
 
     private Task taskWithMetadata(String id) {

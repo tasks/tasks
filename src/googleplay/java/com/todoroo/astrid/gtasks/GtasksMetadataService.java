@@ -25,6 +25,7 @@ import com.todoroo.astrid.gtasks.OrderedMetadataListUpdater.OrderedListIterator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -71,9 +72,16 @@ public final class GtasksMetadataService {
      * Reads metadata out of a task
      * @return null if no metadata found
      */
-    public Metadata getTaskMetadata(long taskId) {
-        return metadataDao.getFirst(Query.select(Metadata.PROPERTIES).where(
-                MetadataCriteria.byTaskAndwithKey(taskId, GtasksMetadata.METADATA_KEY)));
+    public Metadata getActiveTaskMetadata(long taskId) {
+        return metadataDao.getFirst(Query.select(Metadata.PROPERTIES).where(Criterion.and(
+                MetadataCriteria.byTaskAndwithKey(taskId, GtasksMetadata.METADATA_KEY),
+                MetadataCriteria.isActive())));
+    }
+
+    public List<Metadata> getDeleted(long taskId) {
+        return metadataDao.toList(Criterion.and(
+                MetadataCriteria.byTaskAndwithKey(taskId, GtasksMetadata.METADATA_KEY),
+                MetadataCriteria.isDeleted()));
     }
 
     /**
@@ -164,7 +172,7 @@ public final class GtasksMetadataService {
             @Override
             public void apply(Metadata entry) {
                 long taskId = entry.getValue(Metadata.TASK);
-                Metadata metadata = getTaskMetadata(taskId);
+                Metadata metadata = getActiveTaskMetadata(taskId);
                 if(metadata != null) {
                     iterator.processTask(taskId, metadata);
                 }
@@ -179,7 +187,7 @@ public final class GtasksMetadataService {
         String parent = null;
         if (gtasksMetadata.containsNonNullValue(GtasksMetadata.PARENT_TASK)) {
             long parentId = gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK);
-            Metadata parentMetadata = getTaskMetadata(parentId);
+            Metadata parentMetadata = getActiveTaskMetadata(parentId);
             if (parentMetadata != null && parentMetadata.containsNonNullValue(GtasksMetadata.ID)) {
                 parent = parentMetadata.getValue(GtasksMetadata.ID);
                 if (TextUtils.isEmpty(parent)) {

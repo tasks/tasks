@@ -172,7 +172,12 @@ public class GtasksSyncService {
      * Synchronize with server when data changes
      */
     public void pushTaskOnSave(Task task, ContentValues values, GtasksInvoker invoker) throws IOException {
-        Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
+        for (Metadata deleted : gtasksMetadataService.getDeleted(task.getId())) {
+            gtasksInvoker.deleteGtask(deleted.getValue(GtasksMetadata.LIST_ID), deleted.getValue(GtasksMetadata.ID));
+            metadataDao.delete(deleted.getId());
+        }
+
+        Metadata gtasksMetadata = gtasksMetadataService.getActiveTaskMetadata(task.getId());
         com.google.api.services.tasks.model.Task remoteModel;
         boolean newlyCreated = false;
 

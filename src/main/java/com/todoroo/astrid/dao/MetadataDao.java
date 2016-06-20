@@ -101,6 +101,14 @@ public class MetadataDao {
     	public static Criterion byTaskAndwithKey(long taskId, String key) {
     	    return Criterion.and(withKey(key), byTask(taskId));
     	}
+
+        public static Criterion isActive() {
+            return Metadata.DELETION_DATE.eq(0);
+        }
+
+        public static Criterion isDeleted() {
+            return Metadata.DELETION_DATE.gt(0);
+        }
     }
 
     public boolean persist(Metadata item) {

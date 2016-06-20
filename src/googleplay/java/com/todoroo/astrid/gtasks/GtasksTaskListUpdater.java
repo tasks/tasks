@@ -74,7 +74,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
 
     @Override
     protected Metadata getTaskMetadata(long taskId) {
-        return gtasksMetadataService.getTaskMetadata(taskId);
+        return gtasksMetadataService.getActiveTaskMetadata(taskId);
     }
     @Override
     protected Metadata createEmptyMetadata(GtasksList list, long taskId) {

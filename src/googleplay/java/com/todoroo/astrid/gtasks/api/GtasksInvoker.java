@@ -127,9 +127,13 @@ public class GtasksInvoker {
     }
 
     public void deleteGtask(String listId, String taskId) throws IOException {
-        execute(service
-                .tasks()
-                .delete(listId, taskId));
+        try {
+            execute(service
+                    .tasks()
+                    .delete(listId, taskId));
+        } catch(HttpNotFoundException ignored) {
+
+        }
     }
 
     private synchronized <T> T execute(TasksRequest<T> request) throws IOException {
