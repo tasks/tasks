@@ -515,6 +515,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(setValues, 0);
         dest.writeParcelable(values, 0);
+        dest.writeMap(transitoryData);
     }
 
    /**
@@ -543,6 +544,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             }
             model.setValues = source.readParcelable(ContentValues.class.getClassLoader());
             model.values = source.readParcelable(ContentValues.class.getClassLoader());
+            model.transitoryData = source.readHashMap(ContentValues.class.getClassLoader());
             return model;
         }
 
