@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
@@ -117,6 +118,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
         if (taskMetadata == null) {
             taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());
         } else if (!taskMetadata.getValue(GtasksMetadata.LIST_ID).equals(selectedList.getRemoteId())) {
+            task.putTransitory(SyncFlags.FORCE_SYNC, true);
             taskMetadata.setDeletionDate(now());
             metadataDao.persist(taskMetadata);
             taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());

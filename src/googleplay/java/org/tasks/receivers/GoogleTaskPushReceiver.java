@@ -44,15 +44,13 @@ public class GoogleTaskPushReceiver extends InjectingBroadcastReceiver {
             return;
         }
         final ContentValues setValues = model.getSetValues();
-        if(setValues == null || !gtasksPreferenceService.isLoggedIn()) {
+        if(!gtasksPreferenceService.isLoggedIn()) {
             return;
         }
-        if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) { //None of the properties we sync were updated
-            return;
+        if (checkValuesForProperties(setValues, TASK_PROPERTIES) || model.checkAndClearTransitory(SyncFlags.FORCE_SYNC)) {
+            Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
+            gtasksSyncService.enqueue(new TaskPushOp(toPush));
         }
-
-        Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
-        gtasksSyncService.enqueue(new TaskPushOp(toPush));
     }
 
     @Override
@@ -82,6 +80,9 @@ public class GoogleTaskPushReceiver extends InjectingBroadcastReceiver {
      * @return false if none of the properties we sync were changed, true otherwise
      */
     private boolean checkValuesForProperties(ContentValues values, Property<?>[] properties) {
+        if (values == null) {
+            return false;
+        }
         for (Property<?> property : properties) {
             if (property != Task.ID && values.containsKey(property.name)) {
                 return true;

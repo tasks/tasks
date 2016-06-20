@@ -198,30 +198,31 @@ public class TaskDao {
      * exist. Returns true on success.
      *
      */
-    public void save(Task task) {
+    public boolean save(Task task) {
         if (task.getId() == Task.NO_ID) {
             try {
-                createNew(task);
+                return createNew(task);
             } catch (SQLiteConstraintException e) {
                 Timber.e(e, e.getMessage());
-                handleSQLiteConstraintException(task); // Tried to create task with remote id that already exists
+                return handleSQLiteConstraintException(task); // Tried to create task with remote id that already exists
             }
         } else {
-            saveExisting(task);
+            return saveExisting(task);
         }
     }
 
-    public void handleSQLiteConstraintException(Task task) {
+    public boolean handleSQLiteConstraintException(Task task) {
         TodorooCursor<Task> cursor = dao.query(Query.select(Task.ID).where(
                 Task.UUID.eq(task.getUUID())));
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             task.setId(cursor.get(Task.ID));
-            saveExisting(task);
+            return saveExisting(task);
         }
+        return false;
     }
 
-    public void createNew(Task item) {
+    public boolean createNew(Task item) {
         if(!item.containsValue(Task.CREATION_DATE)) {
             item.setCreationDate(DateUtilities.now());
         }
@@ -244,7 +245,9 @@ public class TaskDao {
         ContentValues values = item.getSetValues();
         if(dao.createNew(item)) {
             afterSave(item, values);
+            return true;
         }
+        return false;
     }
 
     public static void createDefaultHideUntil(Preferences preferences, Task item) {
@@ -269,10 +272,10 @@ public class TaskDao {
         }
     }
 
-    public void saveExisting(Task item) {
+    public boolean saveExisting(Task item) {
         ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0) {
-            return;
+            return false;
         }
         if(!TaskApiDao.insignificantChange(values)) {
             if(!values.containsKey(Task.MODIFICATION_DATE.name)) {
@@ -281,7 +284,9 @@ public class TaskDao {
         }
         if(dao.saveExisting(item)) {
             afterSave(item, values);
+            return true;
         }
+        return false;
     }
 
     private static final Property<?>[] SQL_CONSTRAINT_MERGE_PROPERTIES = new Property<?>[] {

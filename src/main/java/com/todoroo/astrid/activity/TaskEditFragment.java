@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.files.FilesControlSet;
@@ -34,6 +35,7 @@ import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.utility.Flags;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -89,6 +91,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject CommentsController commentsController;
     @Inject Preferences preferences;
     @Inject Tracker tracker;
+    @Inject Broadcaster broadcaster;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.comments) LinearLayout comments;
@@ -210,7 +213,10 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             for (TaskEditControlFragment fragment : fragments) {
                 fragment.apply(model);
             }
-            taskService.save(model);
+            boolean databaseChanged = taskService.save(model);
+            if (!databaseChanged && model.checkTransitory(SyncFlags.FORCE_SYNC)) {
+                broadcaster.taskUpdated(model);
+            }
 
             boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
 

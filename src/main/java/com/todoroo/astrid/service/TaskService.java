@@ -102,10 +102,11 @@ public class TaskService {
     /**
      * Create or save the given action item
      */
-    public void save(Task item) {
-        taskDao.save(item);
+    public boolean save(Task item) {
+        boolean databaseChanged = taskDao.save(item);
         broadcastFilterListUpdated();
         refreshScheduler.scheduleRefresh(item);
+        return databaseChanged;
     }
 
     private void saveWithoutPublishingFilterUpdate(Task item) {
