@@ -57,11 +57,17 @@ public class TaskDao {
     private GeofenceService geofenceService;
 
     @Inject
-	public TaskDao(Database database, MetadataDao metadataDao, Broadcaster broadcaster,
+	public TaskDao(Database database, MetadataDao metadataDao, final Broadcaster broadcaster,
                    ReminderService reminderService, NotificationManager notificationManager,
                    Preferences preferences, GeofenceService geofenceService) {
         this.geofenceService = geofenceService;
         dao = new RemoteModelDao<>(database, Task.class);
+        dao.addListener(new DatabaseDao.ModelUpdateListener<Task>() {
+            @Override
+            public void onModelUpdated(Task model) {
+                broadcaster.taskUpdated(model);
+            }
+        });
         this.preferences = preferences;
         this.metadataDao = metadataDao;
         this.broadcaster = broadcaster;
@@ -107,10 +113,6 @@ public class TaskDao {
         return dao.deleteWhere(criterion);
     }
 
-    public void addListener(DatabaseDao.ModelUpdateListener<Task> modelUpdateListener) {
-        dao.addListener(modelUpdateListener);
-    }
-
     public List<Task> toList(Query query) {
         return dao.toList(query);
     }
@@ -125,11 +127,6 @@ public class TaskDao {
      * Generates SQL clauses
      */
     public static class TaskCriteria {
-
-    	/** @return tasks by id */
-    	public static Criterion byId(long id) {
-    	    return Task.ID.eq(id);
-    	}
 
     	/** @return tasks that were not deleted */
     	public static Criterion notDeleted() {

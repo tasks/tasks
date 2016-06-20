@@ -60,6 +60,13 @@
             android:name=".scheduling.GtasksBackgroundService"
             android:exported="false" />
 
+        <receiver android:name=".receivers.GoogleTaskPushReceiver">
+            <intent-filter>
+                <action android:name="org.tasks.TASK_SAVED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
         <!-- Google Analytics -->
 
         <receiver

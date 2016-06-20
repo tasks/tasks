@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.data.Task;
 
 import org.tasks.injection.ForApplication;
 import org.tasks.receivers.CompleteTaskReceiver;
@@ -45,6 +46,12 @@ public class Broadcaster {
 
     public void refresh() {
         context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+    }
+
+    public void taskUpdated(final Task task) {
+        context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_SAVED) {{
+            putExtra(AstridApiConstants.EXTRAS_TASK, task);
+        }});
     }
 
     private void sendOrderedBroadcast(Intent intent) {

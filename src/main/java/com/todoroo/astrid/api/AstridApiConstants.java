@@ -43,8 +43,9 @@ public class AstridApiConstants {
     /**
      * Extras name for task id
      */
-    public static final String EXTRAS_TASK_ID = "task";
+    public static final String EXTRAS_TASK_ID = "task_id";
 
+    public static final String EXTRAS_TASK = "task";
     /**
      * Extras name for old task due date
      */
@@ -75,6 +76,8 @@ public class AstridApiConstants {
      * <li> EXTRAS_NEW_DUE_DATE task new due date (will not be 0)
      */
     public static final String BROADCAST_EVENT_TASK_REPEATED = BuildConfig.APPLICATION_ID + ".TASK_REPEATED";
+
+    public static final String BROADCAST_EVENT_TASK_SAVED = BuildConfig.APPLICATION_ID + ".TASK_SAVED";
 
     /**
      * Action name for broadcast intent notifying that tag was deleted

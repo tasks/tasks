@@ -8,8 +8,6 @@ package com.todoroo.astrid.gtasks.sync;
 import android.content.ContentValues;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -24,7 +22,6 @@ import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
-import com.todoroo.astrid.service.TaskService;
 
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -58,30 +55,14 @@ public class GtasksSyncService {
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksMetadataFactory = gtasksMetadataFactory;
         this.gtasksInvoker = gtasksInvoker;
+        new OperationPushThread(operationQueue).start();
     }
 
-    private abstract class SyncOnSaveOperation {
-        abstract public void op(GtasksInvoker invoker) throws IOException;
+    public interface SyncOnSaveOperation {
+        void op(GtasksInvoker invoker) throws IOException;
     }
 
-    private class TaskPushOp extends SyncOnSaveOperation {
-        protected Task model;
-        protected long creationDate = DateUtilities.now();
-
-        public TaskPushOp(Task model) {
-            this.model = model;
-        }
-
-        @Override
-        public void op(GtasksInvoker invoker) throws IOException {
-            if(DateUtilities.now() - creationDate < 1000) {
-                AndroidUtilities.sleepDeep(1000 - (DateUtilities.now() - creationDate));
-            }
-            pushTaskOnSave(model, model.getMergedValues(), invoker);
-        }
-    }
-
-    private class MoveOp extends SyncOnSaveOperation {
+    private class MoveOp implements SyncOnSaveOperation {
         protected Metadata metadata;
 
         public MoveOp(Metadata metadata) {
@@ -94,7 +75,7 @@ public class GtasksSyncService {
         }
     }
 
-    private class ClearOp extends SyncOnSaveOperation {
+    private class ClearOp implements SyncOnSaveOperation {
         private final String listId;
 
         public ClearOp(String listId) {
@@ -107,7 +88,7 @@ public class GtasksSyncService {
         }
     }
 
-    private class NotifyOp extends SyncOnSaveOperation {
+    private class NotifyOp implements SyncOnSaveOperation {
         private final Semaphore sema;
 
         public NotifyOp(Semaphore sema) {
@@ -120,30 +101,8 @@ public class GtasksSyncService {
         }
     }
 
-    public void initialize() {
-        new OperationPushThread(operationQueue).start();
-
-        taskDao.addListener(new ModelUpdateListener<Task>() {
-            @Override
-            public void onModelUpdated(final Task model) {
-                if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
-                    return;
-                }
-                if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) { //Don't try and sync changes that occur during a normal sync
-                    return;
-                }
-                final ContentValues setValues = model.getSetValues();
-                if(setValues == null || !checkForToken()) {
-                    return;
-                }
-                if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) { //None of the properties we sync were updated
-                    return;
-                }
-
-                Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
-                operationQueue.offer(new TaskPushOp(toPush));
-            }
-        });
+    public void enqueue(SyncOnSaveOperation operation) {
+        operationQueue.offer(operation);
     }
 
     private class OperationPushThread extends Thread {
@@ -181,22 +140,6 @@ public class GtasksSyncService {
             // Ignored
             Timber.e(e, e.getMessage());
         }
-    }
-
-    private static final Property<?>[] TASK_PROPERTIES = { Task.ID, Task.TITLE,
-            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE };
-
-    /**
-     * Checks to see if any of the values changed are among the properties we sync
-     * @return false if none of the properties we sync were changed, true otherwise
-     */
-    private boolean checkValuesForProperties(ContentValues values, Property<?>[] properties) {
-        for (Property<?> property : properties) {
-            if (property != Task.ID && values.containsKey(property.name)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public void clearCompleted(String listId) {
