@@ -7,9 +7,9 @@ env:
 android:
   components:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
-    - android-23
-    - platform-tools-23.1
-    - build-tools-23.0.3
+    - android-24
+    - platform-tools-24
+    - build-tools-24.0.0
     - extra-android-m2repository
     - extra-google-m2repository
   licenses:
@@ -22,9 +22,9 @@ before_install:
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew :lintGoogleplayDebug
-  - ./gradlew :createGoogleplayDebugAndroidTestCoverageReport
+  - ./gradlew :lintGoogleplayProdDebug
+  - ./gradlew :createGoogleplayProdDebugAndroidTestCoverageReport
 
 after_success:
-  - mv build/reports/coverage/googleplay/debug/report.xml build/reports/coverage/googleplay/debug/coverage.xml
+  - mv build/reports/coverage/googleplayProd/debug/report.xml build/reports/coverage/googleplayProd/debug/coverage.xml
   - bash <(curl -s https://codecov.io/bash)

@@ -1,8 +1,8 @@
 package org.tasks.injection;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
-public abstract class InjectingApplication extends Application {
+public abstract class InjectingApplication extends MultiDexApplication {
 
     private ApplicationComponent applicationComponent;
 
