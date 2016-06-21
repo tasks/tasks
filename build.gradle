@@ -108,6 +108,7 @@ final DAGGER_VERSION = '2.4'
 final BUTTERKNIFE_VERSION = '8.1.0'
 final GPS_VERSION = '9.0.2'
 final SUPPORT_VERSION = '24.0.0'
+final STETHO_VERSION = '1.3.1'
 
 dependencies {
     apt "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
@@ -116,7 +117,8 @@ dependencies {
     apt "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
 
-    debugCompile 'com.facebook.stetho:stetho:1.3.1'
+    debugCompile "com.facebook.stetho:stetho:${STETHO_VERSION}"
+    debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
 
     compile 'com.android.support:multidex:1.0.1'
