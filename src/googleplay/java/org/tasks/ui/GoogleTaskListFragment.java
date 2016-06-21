@@ -21,6 +21,8 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSelectionDialog;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
@@ -45,6 +47,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     @Inject GtasksListService gtasksListService;
     @Inject GtasksMetadataService gtasksMetadataService;
     @Inject MetadataDao metadataDao;
+    @Inject Tracker tracker;
 
     private long taskId;
     private GtasksList originalList;
@@ -118,6 +121,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
         if (taskMetadata == null) {
             taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());
         } else if (!taskMetadata.getValue(GtasksMetadata.LIST_ID).equals(selectedList.getRemoteId())) {
+            tracker.reportEvent(Tracking.Events.GTASK_MOVE);
             task.putTransitory(SyncFlags.FORCE_SYNC, true);
             taskMetadata.setDeletionDate(now());
             metadataDao.persist(taskMetadata);

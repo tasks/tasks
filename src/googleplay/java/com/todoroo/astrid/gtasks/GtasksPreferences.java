@@ -18,6 +18,8 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import org.tasks.R;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.GoogleTaskListSelectionDialog;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -38,6 +40,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     @Inject BackgroundScheduler backgroundScheduler;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject GtasksListService gtasksListService;
+    @Inject Tracker tracker;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     }
                     return false;
                 } else {
+                    tracker.reportEvent(Tracking.Events.GTASK_DISABLED);
                     gtasksPreferenceService.stopOngoing();
                     return true;
                 }
@@ -95,9 +99,14 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_LOGIN) {
-            ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(resultCode == RESULT_OK);
+            boolean enabled = resultCode == RESULT_OK;
+            if (enabled) {
+                tracker.reportEvent(Tracking.Events.GTASK_ENABLED);
+            }
+            ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(enabled);
         } else if(requestCode == REQUEST_LOGOUT) {
             if (resultCode == RESULT_OK) {
+                tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
                 finish();
             }
         } else {
@@ -129,6 +138,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
 
     @Override
     public void selectedList(GtasksList list) {
+        tracker.reportEvent(Tracking.Events.GTASK_DEFAULT_LIST);
         String listId = list.getRemoteId();
         gtasksPreferenceService.setDefaultList(listId);
         updateDefaultGoogleTaskList();
