@@ -227,7 +227,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + appWidgetId, hideHeader.isChecked());
         preferences.setInt(WidgetConfigActivity.PREF_THEME + appWidgetId, theme);
         preferences.setInt(WidgetConfigActivity.PREF_COLOR + appWidgetId, color);
-        preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY_V2 + appWidgetId, opacitySeekbar.getProgress());
+        preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, opacitySeekbar.getProgress());
 
         // force update after setting preferences
         context.sendBroadcast(new Intent(context, TasksWidget.class) {{

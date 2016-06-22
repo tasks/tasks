@@ -27,8 +27,7 @@ public abstract class BaseWidgetConfigActivity extends InjectingAppCompatActivit
     public static final String PREF_THEME = "widget-theme-v2-";
     public static final String PREF_COLOR = "widget-color-";
     public static final String PREF_HIDE_HEADER = "widget-hide-header-";
-    @Deprecated public static final String PREF_WIDGET_OPACITY = "widget-opacity-";
-    public static final String PREF_WIDGET_OPACITY_V2 = "widget-opacity-v2";
+    public static final String PREF_WIDGET_OPACITY = "widget-opacity-v2-";
 
     @Inject Tracker tracker;
     @Inject DialogBuilder dialogBuilder;
