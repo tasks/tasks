@@ -117,6 +117,10 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @Override
     public void apply(Task task) {
+        if (selectedList == null) {
+            return;
+        }
+
         Metadata taskMetadata = gtasksMetadataService.getActiveTaskMetadata(task.getId());
         if (taskMetadata == null) {
             taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());
