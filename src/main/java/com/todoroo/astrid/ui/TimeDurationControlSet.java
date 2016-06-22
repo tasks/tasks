@@ -7,6 +7,7 @@ package com.todoroo.astrid.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -68,7 +69,10 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     @Override
     public void onClick(View v) {
         if(dialog == null) {
-            dialog = new NNumberPickerDialog(context, themeManager.getDialogThemeResId(), this,
+            ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, themeManager.getDialogThemeResId());
+            contextThemeWrapper.getTheme().applyStyle(themeManager.getColorTheme().getResId(), true);
+            contextThemeWrapper.getTheme().applyStyle(themeManager.getAccentTheme().getResId(), true);
+            dialog = new NNumberPickerDialog(contextThemeWrapper, this,
                     context.getResources().getString(R.string.DLG_hour_minutes),
                     new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
                     new int[] {999, 59}, new String[] {":", null});

@@ -145,7 +145,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     private void setUpList() {
         adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(),
-                themeManager.getAppTheme(), mDrawerListView, true);
+                themeManager.getThemedLayoutInflater(), mDrawerListView, true);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }

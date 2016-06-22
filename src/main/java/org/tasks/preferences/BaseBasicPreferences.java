@@ -42,7 +42,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         addPreferencesFromResource(R.xml.preferences_privacy);
 
         Preference themePreference = findPreference(getString(R.string.p_theme));
-        themePreference.setSummary(themeManager.getAppTheme().getName());
+        themePreference.setSummary(themeManager.getBaseTheme().getName());
         themePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -54,8 +54,21 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
                 return false;
             }
         });
+        Preference colorPreference = findPreference(getString(R.string.p_theme_color));
+        colorPreference.setSummary(themeManager.getColorTheme().getName());
+        colorPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                FragmentManager fragmentManager = getFragmentManager();
+                if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_PICKER) == null) {
+                    newThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
+                            .show(fragmentManager, FRAG_TAG_THEME_PICKER);
+                }
+                return false;
+            }
+        });
         Preference accentPreference = findPreference(getString(R.string.p_theme_accent));
-        accentPreference.setSummary(themeManager.getAccentColor().getName());
+        accentPreference.setSummary(themeManager.getAccentTheme().getName());
         accentPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -114,12 +127,19 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     @Override
     public void themePicked(ThemePickerDialog.ColorPalette palette, Theme theme) {
         int index = theme.getThemeIndex();
-        if (palette == ThemePickerDialog.ColorPalette.THEMES) {
-            preferences.setInt(R.string.p_theme, index);
-            tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
-        } else if (palette == ThemePickerDialog.ColorPalette.ACCENTS) {
-            preferences.setInt(R.string.p_theme_accent, index);
-            tracker.reportEvent(Tracking.Events.SET_ACCENT, Integer.toString(index));
+        switch (palette) {
+            case THEMES:
+                preferences.setInt(R.string.p_theme, index);
+                tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
+                break;
+            case COLORS:
+                preferences.setInt(R.string.p_theme_color, index);
+                tracker.reportEvent(Tracking.Events.SET_COLOR, Integer.toString(index));
+                break;
+            case ACCENTS:
+                preferences.setInt(R.string.p_theme_accent, index);
+                tracker.reportEvent(Tracking.Events.SET_ACCENT, Integer.toString(index));
+                break;
         }
         result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
         recreate();

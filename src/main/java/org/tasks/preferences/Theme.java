@@ -20,18 +20,11 @@ public class Theme {
         this.themeRes = themeRes;
     }
 
-    public LayoutInflater getThemedLayoutInflater() {
-        return (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-
-    public boolean isDark() {
-        return themeIndex == 1;
-    }
-
     public String getName() {
         return name;
     }
 
+    @Deprecated
     public int getThemeIndex() {
         return themeIndex;
     }

@@ -60,15 +60,14 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final LayoutInflater inflater;
 
     public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity,
-                         Theme theme, ListView listView, boolean navigationDrawer) {
+                         LayoutInflater inflater, ListView listView, boolean navigationDrawer) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
         this.listView = listView;
         this.navigationDrawer = navigationDrawer;
-
-        inflater = theme.getThemedLayoutInflater();
+        this.inflater = inflater;
     }
 
     @Override

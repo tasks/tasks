@@ -38,8 +38,8 @@ public class DatePickerActivity extends InjectingAppCompatActivity
         if (dialog == null) {
             dialog = new MyDatePickerDialog();
             dialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
-            dialog.setThemeDark(themeManager.getAppTheme().isDark());
-            dialog.setAccentColor(themeManager.getAccentColor().getAccentColor());
+            dialog.setThemeDark(themeManager.isDarkTheme());
+            dialog.setAccentColor(themeManager.getAccentTheme().getAccentColor());
             dialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
         dialog.setOnDismissListener(this);

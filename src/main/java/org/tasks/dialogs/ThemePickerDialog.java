@@ -32,11 +32,8 @@ public class ThemePickerDialog extends InjectingDialogFragment {
 
     public enum ColorPalette {
         THEMES,
+        COLORS,
         ACCENTS
-    }
-
-    public static ThemePickerDialog newThemePickerDialog() {
-        return newThemePickerDialog(ColorPalette.THEMES);
     }
 
     public static ThemePickerDialog newThemePickerDialog(ColorPalette palette) {
@@ -66,29 +63,28 @@ public class ThemePickerDialog extends InjectingDialogFragment {
             palette = (ColorPalette) savedInstanceState.getSerializable(EXTRA_COLOR_PALETTE);
         }
 
-        final String[] themes = context.getResources().getStringArray(palette == ColorPalette.THEMES ? R.array.themes : R.array.accents);
+        final String[] themes = context.getResources().getStringArray(getNameRes());
 
         final boolean purchasedThemes = preferences.hasPurchase(R.string.p_purchased_themes);
 
+        final LayoutInflater inflater = themeManager.getThemedLayoutInflater();
         ListAdapter adapter = new ArrayAdapter<String>(context, R.layout.color_selection_row, themes) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View row = convertView;
 
                 if (row == null) {
-                    LayoutInflater inflater = getActivity().getLayoutInflater();
                     row = inflater.inflate(R.layout.color_selection_row, parent, false);
                 }
 
                 Resources resources = context.getResources();
-                Theme theme = palette == ColorPalette.THEMES ? themeManager.getTheme(position) : themeManager.getAccent(position);
+                Theme theme = getTheme(position);
                 ImageView primary = (ImageView) row.findViewById(R.id.color_primary);
                 Drawable original = resources.getDrawable(purchasedThemes || position < 2
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());
-                int colorResId = palette == ColorPalette.THEMES ? theme.getPrimaryColor() : theme.getAccentColor();
-                DrawableCompat.setTint(wrapped, colorResId);
+                DrawableCompat.setTint(wrapped, getDisplayColor(theme));
                 primary.setImageDrawable(wrapped);
 
                 TextView text = (TextView) row.findViewById(android.R.id.text1);
@@ -104,13 +100,46 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         if (purchasedThemes || which < 2) {
-                            callback.themePicked(palette, themeManager.getTheme(which));
+                            callback.themePicked(palette, themeManager.getColor(which));
                         } else {
                             callback.initiateThemePurchase();
                         }
                     }
                 })
                 .show();
+    }
+
+    private int getNameRes() {
+        switch (palette) {
+            case COLORS:
+                return R.array.colors;
+            case ACCENTS:
+                return R.array.accents;
+            default:
+                return R.array.themes;
+        }
+    }
+
+    private Theme getTheme(int position) {
+        switch (palette) {
+            case COLORS:
+                return themeManager.getColor(position);
+            case ACCENTS:
+                return themeManager.getAccent(position);
+            default:
+                return themeManager.getBaseTheme(position);
+        }
+    }
+
+    private int getDisplayColor(Theme theme) {
+        switch (palette) {
+            case COLORS:
+                return theme.getPrimaryColor();
+            case ACCENTS:
+                return theme.getAccentColor();
+            default:
+                return theme.getContentBackground();
+        }
     }
 
     @Override

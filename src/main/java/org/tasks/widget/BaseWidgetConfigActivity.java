@@ -24,8 +24,8 @@ public abstract class BaseWidgetConfigActivity extends InjectingAppCompatActivit
     public static final String PREF_WIDGET_ID = "widget-id-";
     public static final String PREF_SHOW_DUE_DATE = "widget-show-due-date-";
     public static final String PREF_HIDE_CHECKBOXES = "widget-hide-checkboxes-";
-    @Deprecated public static final String PREF_DARK_THEME = "widget-dark-theme-";
-    public static final String PREF_THEME = "widget-theme-";
+    public static final String PREF_THEME = "widget-theme-v2-";
+    public static final String PREF_COLOR = "widget-color-";
     public static final String PREF_HIDE_HEADER = "widget-hide-header-";
     @Deprecated public static final String PREF_WIDGET_OPACITY = "widget-opacity-";
     public static final String PREF_WIDGET_OPACITY_V2 = "widget-opacity-v2";
@@ -77,7 +77,11 @@ public abstract class BaseWidgetConfigActivity extends InjectingAppCompatActivit
 
     @Override
     public void themePicked(ThemePickerDialog.ColorPalette palette, Theme theme) {
-        widgetConfigDialog.setTheme(theme);
+        if (palette == ThemePickerDialog.ColorPalette.THEMES) {
+            widgetConfigDialog.setTheme(theme);
+        } else {
+            widgetConfigDialog.setColor(theme);
+        }
     }
 
     protected void showThemeSelection() {

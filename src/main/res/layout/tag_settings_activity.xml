@@ -7,8 +7,6 @@
 
     <include layout="@layout/toolbar" />
 
-    <include layout="@layout/toolbar_separator" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

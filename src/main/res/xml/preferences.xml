@@ -6,8 +6,12 @@
         android:title="@string/theme" />
 
     <Preference
+        android:key="@string/p_theme_color"
+        android:title="@string/color" />
+
+    <Preference
         android:key="@string/p_theme_accent"
-        android:title="Accent" />
+        android:title="@string/accent" />
 
     <Preference
         android:key="@string/EPr_appearance_header"

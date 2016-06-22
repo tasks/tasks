@@ -1,6 +1,7 @@
 package org.tasks.preferences;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.PixelFormat;
 
 import javax.inject.Inject;
@@ -23,20 +24,20 @@ public class ThemeApplicator {
     }
 
     public void applyTheme() {
-        applyTheme(
-                themeManager.getAppTheme().getResId(),
-                themeManager.getAccentColor().getResId());
+        applyTheme(themeManager.getBaseTheme(), themeManager.getColorTheme(), themeManager.getAccentTheme());
     }
 
-    private void applyTheme(int themeResId, int accentResId) {
-        activity.setTheme(themeResId);
-        activity.getTheme().applyStyle(accentResId, true);
+    private void applyTheme(Theme theme, Theme color, Theme accent) {
+        activity.setTheme(theme.getResId());
+        Resources.Theme activityTheme = activity.getTheme();
+        activityTheme.applyStyle(color.getResId(), true);
+        activityTheme.applyStyle(accent.getResId(), true);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
     }
 
     private void applyStatusBarColor() {
         if (atLeastLollipop()) {
-            Theme appTheme = themeManager.getAppTheme();
+            Theme appTheme = themeManager.getColorTheme();
             activity.getWindow().setStatusBarColor(appTheme.getPrimaryDarkColor());
         }
     }

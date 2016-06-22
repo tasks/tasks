@@ -60,6 +60,32 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/theme_color"
+            style="@style/WidgetConfigRow">
+
+            <TextView
+                android:id="@+id/selected_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/selected_color"
+                android:layout_toStartOf="@id/selected_color"
+                android:text="@string/color"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
         <RelativeLayout style="@style/WidgetConfigRow">
 
             <TextView

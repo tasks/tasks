@@ -301,8 +301,9 @@
   <string name="tesla_unread">TeslaUnread</string>
   <string name="tasker_locale">Tasker/Locale</string>
   <string name="dashclock">DashClock extension</string>
-  <string name="p_theme">selected_theme</string>
-  <string name="p_theme_accent">selected_theme_accent</string>
+  <string name="p_theme">theme_style</string>
+  <string name="p_theme_color">theme_color</string>
+  <string name="p_theme_accent">theme_accent</string>
   <string name="p_gtasks_default_list">default_gtasks_list</string>
 
 </resources>

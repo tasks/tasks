@@ -12,8 +12,6 @@
 
     <include layout="@layout/toolbar" />
 
-    <include layout="@layout/toolbar_separator" />
-
     <com.commonsware.cwac.tlv.TouchListView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tlv="http://schemas.android.com/apk/res/org.tasks"

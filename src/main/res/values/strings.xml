@@ -865,6 +865,8 @@ File %1$s contained %2$s.\n\n
   <string name="opacity">Opacity</string>
 
   <string name="theme">Theme</string>
+  <string name="color">Color</string>
+  <string name="accent">Accent</string>
   <string name="themes">Additional themes</string>
   <string name="theme_red">Red</string>
   <string name="theme_pink">Pink</string>
@@ -886,6 +888,8 @@ File %1$s contained %2$s.\n\n
   <string name="theme_grey">Grey</string>
   <string name="theme_blue_grey">Blue Grey</string>
   <string name="theme_black">Black</string>
+  <string name="theme_light">Light</string>
+  <string name="theme_dark">Dark</string>
   <string name="default_value">Default</string>
 
   <string-array name="sync_SPr_interval_entries">

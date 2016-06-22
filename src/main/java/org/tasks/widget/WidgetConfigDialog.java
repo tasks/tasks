@@ -17,8 +17,8 @@ import com.todoroo.astrid.api.Filter;
 
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
-import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
@@ -40,6 +40,7 @@ import static org.tasks.dialogs.ThemePickerDialog.newThemePickerDialog;
 public class WidgetConfigDialog extends InjectingDialogFragment implements SeekBar.OnSeekBarChangeListener {
 
     private static final String FRAG_TAG_THEME_SELECTION = "frag_tag_theme_selection";
+    private static final String FRAG_TAG_COLOR_SELECTION = "frag_tag_color_selection";
     private static final String EXTRA_FILTER = "extra_filter";
     private static final String EXTRA_THEME = "extra_theme";
     private static final String EXTRA_APP_WIDGET_ID = "extra_app_widget_id";
@@ -70,6 +71,11 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
         updateTheme();
     }
 
+    public void setColor(Theme theme) {
+        this.color = theme.getThemeIndex();
+        updateColor();
+    }
+
     public interface WidgetConfigCallback {
         void ok();
 
@@ -81,6 +87,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     @BindView(R.id.opacity_value) TextView opacityValue;
     @BindView(R.id.selected_filter) TextView selectedFilter;
     @BindView(R.id.selected_theme) TextView selectedTheme;
+    @BindView(R.id.selected_color) TextView selectedColor;
     @BindView(R.id.hideDueDate) CheckBox hideDueDate;
     @BindView(R.id.hideCheckboxes) CheckBox hideCheckBoxes;
     @BindView(R.id.hideHeader) CheckBox hideHeader;
@@ -94,13 +101,14 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
     private Filter filter;
     private int theme = 0;
+    private int color = 0;
     private int appWidgetId;
     private WidgetConfigCallback callback;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = themeManager.getAppTheme().getThemedLayoutInflater().inflate(R.layout.widget_config_activity, null);
+        View view = themeManager.getThemedLayoutInflater().inflate(R.layout.widget_config_activity, null);
 
         ButterKnife.bind(this, view);
 
@@ -117,6 +125,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
         updateFilter();
         updateTheme();
+        updateColor();
         updateOpacity();
 
         return dialogBuilder.newDialog()
@@ -164,7 +173,11 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     }
 
     private void updateTheme() {
-        selectedTheme.setText(themeManager.getTheme(theme).getName());
+        selectedTheme.setText(themeManager.getBaseTheme(theme).getName());
+    }
+
+    private void updateColor() {
+        selectedColor.setText(themeManager.getColor(color).getName());
     }
 
     @OnClick(R.id.filter_selection)
@@ -178,7 +191,15 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     public void showThemeSelection() {
         FragmentManager fragmentManager = getFragmentManager();
         if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_SELECTION) == null) {
-            newThemePickerDialog().show(fragmentManager, FRAG_TAG_THEME_SELECTION);
+            newThemePickerDialog(ThemePickerDialog.ColorPalette.THEMES).show(fragmentManager, FRAG_TAG_THEME_SELECTION);
+        }
+    }
+
+    @OnClick(R.id.theme_color)
+    public void showColorSelection() {
+        FragmentManager fragmentManager = getFragmentManager();
+        if (fragmentManager.findFragmentByTag(FRAG_TAG_COLOR_SELECTION) == null) {
+            newThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS).show(fragmentManager, FRAG_TAG_COLOR_SELECTION);
         }
     }
 
@@ -205,6 +226,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + appWidgetId, hideCheckBoxes.isChecked());
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + appWidgetId, hideHeader.isChecked());
         preferences.setInt(WidgetConfigActivity.PREF_THEME + appWidgetId, theme);
+        preferences.setInt(WidgetConfigActivity.PREF_COLOR + appWidgetId, color);
         preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY_V2 + appWidgetId, opacitySeekbar.getProgress());
 
         // force update after setting preferences

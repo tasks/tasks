@@ -2,13 +2,46 @@
 <resources>
 
     <style name="DarkBase" parent="Theme.AppCompat.NoActionBar">
+        <item name="popup_theme">@style/ThemeOverlay.AppCompat</item>
+        <item name="windowActionModeOverlay">true</item>
 
+        <item name="android:windowBackground">@color/md_dark_background</item>
+
+        <item name="drawer_background">@color/drawer_background_dark</item>
+        <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
+        <item name="asSeparator">@android:color/transparent</item>
+        <item name="android:actionModeBackground">?attr/colorPrimary</item>
+
+        <item name="asContentBackground">@color/md_dark_background</item>
+
+        <item name="asTextColor">@android:color/white</item>
+        <item name="asTextColorHint">@android:color/darker_gray</item>
+        <item name="icon_tint">@android:color/white</item>
+        <item name="task_edit_divider">@color/task_edit_divider</item>
+        <item name="asDueDateColor">#c3c3c3</item>
+
+        <item name="asEditTextBackground">@null</item>
+
+        <item name="asDueDateCompletedColor">#ff777777</item>
+        <item name="separatorHeight">1px</item>
+
+        <item name="asDetailsColor">#6666aa</item>
+        <item name="asListDividerColor">#dddddd</item>
+        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
+        <item name="alertDialogTheme">@style/DialogBaseDark</item>
     </style>
 
     <style name="DarkOverride" parent="DarkBase">
     </style>
 
     <style name="DialogBaseDark" parent="@style/Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
+        <item name="asTextColor">@android:color/white</item>
+        <item name="asListDividerColor">#dddddd</item>
+        <item name="icon_tint">@android:color/white</item>
     </style>
 
 </resources>

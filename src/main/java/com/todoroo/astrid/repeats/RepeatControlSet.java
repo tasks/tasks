@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -440,7 +441,10 @@ public class RepeatControlSet extends TaskEditControlFragment {
             dialogValue = 1;
         }
 
-        new NumberPickerDialog(context, themeManager.getDialogThemeResId(), new OnNumberPickedListener() {
+        ContextThemeWrapper wrapper = new ContextThemeWrapper(getActivity(), themeManager.getDialogThemeResId());
+        wrapper.getTheme().applyStyle(themeManager.getColorTheme().getResId(), true);
+        wrapper.getTheme().applyStyle(themeManager.getAccentTheme().getResId(), true);
+        new NumberPickerDialog(wrapper, new OnNumberPickedListener() {
             @Override
             public void onNumberPicked(int number) {
                 setRepeatValue(number);

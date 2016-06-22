@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Cyan" parent="LightOverride">
+    <style name="Cyan">
         <item name="colorPrimary">@color/cyan_500</item>
         <item name="colorPrimaryDark">@color/cyan_700</item>
-        <item name="colorAccent">@color/amber_a400</item>
-        <item name="alertDialogTheme">@style/CyanDialog</item>
-    </style>
-
-    <style name="CyanDialog" parent="LightDialogBase">
-        <item name="colorPrimary">@color/cyan_500</item>
-        <item name="colorPrimaryDark">@color/cyan_700</item>
-        <item name="colorAccent">@color/amber_a400</item>
     </style>
 
     <style name="CyanAccent">

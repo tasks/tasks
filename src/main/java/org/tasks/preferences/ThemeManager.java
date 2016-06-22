@@ -1,6 +1,9 @@
 package org.tasks.preferences;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.v7.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
@@ -15,6 +18,7 @@ public class ThemeManager {
     private final Context context;
     private final Preferences preferences;
     private final String[] themeNames;
+    private final String[] colorNames;
     private final String[] accentNames;
 
     @Inject
@@ -22,19 +26,40 @@ public class ThemeManager {
         this.context = context;
         this.preferences = preferences;
         themeNames = context.getResources().getStringArray(R.array.themes);
+        colorNames = context.getResources().getStringArray(R.array.colors);
         accentNames = context.getResources().getStringArray(R.array.accents);
     }
 
-    public Theme getAppTheme() {
-        return getTheme(preferences.getInt(R.string.p_theme, 0));
+    public boolean isDarkTheme() {
+        return preferences.getInt(R.string.p_theme, 0) > 0;
     }
 
-    public Theme getAccentColor() {
+    public LayoutInflater getThemedLayoutInflater() {
+        ContextThemeWrapper wrapper = new ContextThemeWrapper(context, getBaseTheme().getResId());
+        Resources.Theme theme = wrapper.getTheme();
+        theme.applyStyle(getColorTheme().getResId(), true);
+        theme.applyStyle(getAccentTheme().getResId(), true);
+        return (LayoutInflater) wrapper.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public Theme getBaseTheme() {
+        return getBaseTheme(preferences.getInt(R.string.p_theme, 0));
+    }
+
+    public Theme getColorTheme() {
+        return getColor(preferences.getInt(R.string.p_theme_color, 0));
+    }
+
+    public Theme getAccentTheme() {
         return getAccent(preferences.getInt(R.string.p_theme_accent, 1));
     }
 
-    public Theme getTheme(int themeIndex) {
+    public Theme getBaseTheme(int themeIndex) {
         return new Theme(context, themeIndex, getThemeResId(themeIndex), themeNames[themeIndex]);
+    }
+
+    public Theme getColor(int themeIndex) {
+        return new Theme(context, themeIndex, getColorResId(themeIndex), colorNames[themeIndex]);
     }
 
     public Theme getAccent(int accentIndex) {
@@ -42,15 +67,29 @@ public class ThemeManager {
     }
 
     public Theme getWidgetTheme(int widgetId) {
-        int defaultTheme = preferences.useDarkWidgetTheme(widgetId) ? 1 : 0;
-        return getTheme(preferences.getInt(WidgetConfigActivity.PREF_THEME + widgetId, defaultTheme));
+        return getBaseTheme(preferences.getInt(WidgetConfigActivity.PREF_THEME + widgetId, 0));
+    }
+
+    public Theme getWidgetColor(int widgetId) {
+        return getColor(preferences.getInt(WidgetConfigActivity.PREF_COLOR + widgetId, 0));
     }
 
     public int getDialogThemeResId() {
-        return getAppTheme().getDialogThemeResId();
+        return getBaseTheme().getDialogThemeResId();
     }
 
     private int getThemeResId(int index) {
+        switch (index) {
+            case 1:
+                return R.style.BaseBlack;
+            case 2:
+                return R.style.DarkOverride;
+            default:
+                return R.style.LightOverride;
+        }
+    }
+
+    private int getColorResId(int index) {
         switch (index) {
             case 1:
                 return R.style.Black;

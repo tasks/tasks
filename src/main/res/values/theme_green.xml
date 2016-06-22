@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Green" parent="LightOverride">
+    <style name="Green">
         <item name="colorPrimary">@color/green_500</item>
         <item name="colorPrimaryDark">@color/green_700</item>
-        <item name="colorAccent">@color/pink_a400</item>
-        <item name="alertDialogTheme">@style/GreenDialog</item>
-    </style>
-
-    <style name="GreenDialog" parent="LightDialogBase">
-        <item name="colorPrimary">@color/green_500</item>
-        <item name="colorPrimaryDark">@color/green_700</item>
-        <item name="colorAccent">@color/pink_a400</item>
     </style>
 
     <style name="GreenAccent">

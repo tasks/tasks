@@ -10,8 +10,6 @@
 
     <include layout="@layout/toolbar" />
 
-    <include layout="@layout/toolbar_separator" />
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -94,11 +92,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1px"
-        android:background="?attr/asToolbarSeparator" />
 
     <FrameLayout
         android:id="@+id/comment_bar"

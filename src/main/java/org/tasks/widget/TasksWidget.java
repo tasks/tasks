@@ -96,6 +96,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER_ID, filterId);
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
+        Theme color = themeManager.getWidgetColor(id);
         Theme theme = themeManager.getWidgetTheme(id);
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
@@ -107,10 +108,10 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         remoteViews.setImageViewBitmap(R.id.widget_background,
                 getSolidBackground(theme.getContentBackground()));
         remoteViews.setImageViewBitmap(R.id.widget_header_background,
-                getSolidBackground(theme.getPrimaryColor()));
+                getSolidBackground(color.getPrimaryColor()));
         remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);
         remoteViews.setInt(R.id.widget_header_background, "setAlpha", opacity);
-        if (!theme.isDark()) {
+        if (theme.getThemeIndex() != 1 || color.getThemeIndex() != 1) {
             remoteViews.setInt(R.id.widget_header_separator, "setVisibility", View.GONE);
         }
 
