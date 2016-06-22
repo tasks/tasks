@@ -14,4 +14,8 @@
         <item name="colorAccent">@color/pink_a400</item>
     </style>
 
+    <style name="LightBlueAccent">
+        <item name="colorAccent">@color/light_blue_a400</item>
+    </style>
+
 </resources>

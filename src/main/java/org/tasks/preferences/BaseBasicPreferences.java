@@ -17,10 +17,13 @@ import org.tasks.injection.InjectingPreferenceActivity;
 
 import javax.inject.Inject;
 
+import static org.tasks.dialogs.ThemePickerDialog.newThemePickerDialog;
+
 public abstract class BaseBasicPreferences extends InjectingPreferenceActivity implements ThemePickerDialog.ThemePickerCallback {
 
     private static final String EXTRA_RESULT = "extra_result";
     private static final String FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker";
+    private static final String FRAG_TAG_ACCENT_PICKER = "frag_tag_accent_picker";
     private static final int RC_PREFS = 10001;
 
     @Inject Tracker tracker;
@@ -45,8 +48,21 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
             public boolean onPreferenceClick(Preference preference) {
                 FragmentManager fragmentManager = getFragmentManager();
                 if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_PICKER) == null) {
-                    new ThemePickerDialog()
+                    newThemePickerDialog(ThemePickerDialog.ColorPalette.THEMES)
                             .show(fragmentManager, FRAG_TAG_THEME_PICKER);
+                }
+                return false;
+            }
+        });
+        Preference accentPreference = findPreference(getString(R.string.p_theme_accent));
+        accentPreference.setSummary(themeManager.getAccentColor().getName());
+        accentPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                FragmentManager fragmentManager = getFragmentManager();
+                if (fragmentManager.findFragmentByTag(FRAG_TAG_ACCENT_PICKER) == null) {
+                    newThemePickerDialog(ThemePickerDialog.ColorPalette.ACCENTS)
+                            .show(fragmentManager, FRAG_TAG_ACCENT_PICKER);
                 }
                 return false;
             }
@@ -96,10 +112,15 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     }
 
     @Override
-    public void themePicked(Theme theme) {
+    public void themePicked(ThemePickerDialog.ColorPalette palette, Theme theme) {
         int index = theme.getThemeIndex();
-        preferences.setInt(R.string.p_theme, index);
-        tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
+        if (palette == ThemePickerDialog.ColorPalette.THEMES) {
+            preferences.setInt(R.string.p_theme, index);
+            tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
+        } else if (palette == ThemePickerDialog.ColorPalette.ACCENTS) {
+            preferences.setInt(R.string.p_theme_accent, index);
+            tracker.reportEvent(Tracking.Events.SET_ACCENT, Integer.toString(index));
+        }
         result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
         recreate();
     }

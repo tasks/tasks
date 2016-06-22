@@ -14,4 +14,8 @@
         <item name="colorAccent">@color/indigo_a400</item>
     </style>
 
+    <style name="DeepOrangeAccent">
+        <item name="colorAccent">@color/deep_orange_a400</item>
+    </style>
+
 </resources>

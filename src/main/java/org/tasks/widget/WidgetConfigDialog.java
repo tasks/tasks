@@ -35,6 +35,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static org.tasks.dialogs.ThemePickerDialog.newThemePickerDialog;
+
 public class WidgetConfigDialog extends InjectingDialogFragment implements SeekBar.OnSeekBarChangeListener {
 
     private static final String FRAG_TAG_THEME_SELECTION = "frag_tag_theme_selection";
@@ -176,7 +178,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     public void showThemeSelection() {
         FragmentManager fragmentManager = getFragmentManager();
         if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_SELECTION) == null) {
-            new ThemePickerDialog().show(fragmentManager, FRAG_TAG_THEME_SELECTION);
+            newThemePickerDialog().show(fragmentManager, FRAG_TAG_THEME_SELECTION);
         }
     }
 

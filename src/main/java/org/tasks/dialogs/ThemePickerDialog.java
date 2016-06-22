@@ -28,8 +28,25 @@ import javax.inject.Inject;
 
 public class ThemePickerDialog extends InjectingDialogFragment {
 
+    private static final String EXTRA_COLOR_PALETTE = "extra_color_palette";
+
+    public enum ColorPalette {
+        THEMES,
+        ACCENTS
+    }
+
+    public static ThemePickerDialog newThemePickerDialog() {
+        return newThemePickerDialog(ColorPalette.THEMES);
+    }
+
+    public static ThemePickerDialog newThemePickerDialog(ColorPalette palette) {
+        ThemePickerDialog dialog = new ThemePickerDialog();
+        dialog.palette = palette;
+        return dialog;
+    }
+
     public interface ThemePickerCallback {
-        void themePicked(Theme theme);
+        void themePicked(ColorPalette palette, Theme theme);
 
         void initiateThemePurchase();
     }
@@ -40,11 +57,16 @@ public class ThemePickerDialog extends InjectingDialogFragment {
     @Inject ThemeManager themeManager;
 
     private ThemePickerCallback callback;
+    private ColorPalette palette;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        final String[] themes = context.getResources().getStringArray(R.array.themes);
+        if (savedInstanceState != null) {
+            palette = (ColorPalette) savedInstanceState.getSerializable(EXTRA_COLOR_PALETTE);
+        }
+
+        final String[] themes = context.getResources().getStringArray(palette == ColorPalette.THEMES ? R.array.themes : R.array.accents);
 
         final boolean purchasedThemes = preferences.hasPurchase(R.string.p_purchased_themes);
 
@@ -59,13 +81,14 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                 }
 
                 Resources resources = context.getResources();
-                Theme theme = themeManager.getTheme(position);
+                Theme theme = palette == ColorPalette.THEMES ? themeManager.getTheme(position) : themeManager.getAccent(position);
                 ImageView primary = (ImageView) row.findViewById(R.id.color_primary);
                 Drawable original = resources.getDrawable(purchasedThemes || position < 2
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());
-                DrawableCompat.setTint(wrapped, theme.getPrimaryColor());
+                int colorResId = palette == ColorPalette.THEMES ? theme.getPrimaryColor() : theme.getAccentColor();
+                DrawableCompat.setTint(wrapped, colorResId);
                 primary.setImageDrawable(wrapped);
 
                 TextView text = (TextView) row.findViewById(android.R.id.text1);
@@ -81,13 +104,20 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         if (purchasedThemes || which < 2) {
-                            callback.themePicked(themeManager.getTheme(which));
+                            callback.themePicked(palette, themeManager.getTheme(which));
                         } else {
                             callback.initiateThemePurchase();
                         }
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable(EXTRA_COLOR_PALETTE, palette);
     }
 
     @Override

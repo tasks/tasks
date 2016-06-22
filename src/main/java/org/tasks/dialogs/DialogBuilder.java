@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 
@@ -22,7 +23,9 @@ public class DialogBuilder {
     }
 
     public AlertDialog.Builder newDialog() {
-        return new AlertDialog.Builder(activity, themeManager.getDialogThemeResId());
+        ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(activity, themeManager.getDialogThemeResId());
+        contextThemeWrapper.getTheme().applyStyle(themeManager.getAccentColor().getResId(), true);
+        return new AlertDialog.Builder(contextThemeWrapper);
     }
 
     public AlertDialog.Builder newMessageDialog(int message, Object... formatArgs) {

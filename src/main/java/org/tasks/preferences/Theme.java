@@ -40,6 +40,10 @@ public class Theme {
         return resolveAttribute(R.attr.colorPrimary);
     }
 
+    public int getAccentColor() {
+        return resolveAttribute(R.attr.colorAccent);
+    }
+
     public int getContentBackground() {
         return resolveAttribute(R.attr.asContentBackground);
     }
@@ -52,11 +56,7 @@ public class Theme {
         return resolveAttribute(R.attr.asTextColor);
     }
 
-    public int getDateTimePickerAccent() {
-        return resolveAttribute(R.attr.asDateTimePickerAccent);
-    }
-
-    public int getAppThemeResId() {
+    public int getResId() {
         return themeRes;
     }
 

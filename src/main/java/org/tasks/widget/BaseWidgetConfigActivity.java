@@ -76,7 +76,7 @@ public abstract class BaseWidgetConfigActivity extends InjectingAppCompatActivit
     }
 
     @Override
-    public void themePicked(Theme theme) {
+    public void themePicked(ThemePickerDialog.ColorPalette palette, Theme theme) {
         widgetConfigDialog.setTheme(theme);
     }
 

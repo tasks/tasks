@@ -23,17 +23,14 @@ public class ThemeApplicator {
     }
 
     public void applyTheme() {
-        Theme appTheme = themeManager.getAppTheme();
-        applyTheme(appTheme.getAppThemeResId());
+        applyTheme(
+                themeManager.getAppTheme().getResId(),
+                themeManager.getAccentColor().getResId());
     }
 
-    public void applyDialogTheme() {
-        Theme appTheme = themeManager.getAppTheme();
-        applyTheme(appTheme.getDialogThemeResId());
-    }
-
-    private void applyTheme(int theme) {
-        activity.setTheme(theme);
+    private void applyTheme(int themeResId, int accentResId) {
+        activity.setTheme(themeResId);
+        activity.getTheme().applyStyle(accentResId, true);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
     }
 
