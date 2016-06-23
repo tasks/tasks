@@ -7,9 +7,6 @@
     android:paddingTop="8dp"
     android:focusable="false">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:background="?attr/asListDividerColor" />
+    <View style="@style/horizontal_divider" />
 
 </LinearLayout>

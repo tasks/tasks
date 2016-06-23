@@ -5,11 +5,8 @@
     android:orientation="vertical"
     android:paddingTop="8dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:layout_gravity="top"
-        android:background="?attr/asListDividerColor" />
+    <View style="@style/horizontal_divider"
+        android:layout_gravity="top" />
 
     <TextView
         android:paddingLeft="@dimen/keyline_first"

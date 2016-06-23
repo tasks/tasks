@@ -102,9 +102,6 @@
 	
 	</RelativeLayout>
 
-	<View
-		android:layout_width="fill_parent"
-		android:layout_height="1px"
-		android:background="?attr/asListDividerColor" />
+	<View style="@style/horizontal_divider" />
 
 </LinearLayout>

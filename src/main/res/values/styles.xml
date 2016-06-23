@@ -67,19 +67,24 @@
 
     <style name="TaskListView" parent="ListView" />
 
-    <style name="double_pane_divider">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">1px</item>
-        <item name="android:background">?attr/asListDividerColor</item>
-        <item name="android:minWidth">1px</item>
+    <style name="divider">
+        <item name="android:background">?android:attr/colorForeground</item>
+        <item name="android:alpha">?attr/alpha_divider</item>
     </style>
 
-    <style name="task_edit_row_divider">
+    <style name="vertical_divider" parent="divider">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">1dp</item>
+    </style>
+
+    <style name="horizontal_divider" parent="divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="task_edit_row_divider" parent="horizontal_divider">
         <item name="android:layout_marginLeft">@dimen/keyline_content_inset</item>
         <item name="android:layout_marginStart">@dimen/keyline_content_inset</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1px</item>
-        <item name="android:background">?attr/task_edit_divider</item>
         <item name="android:layout_gravity">end|bottom</item>
     </style>
 

@@ -21,10 +21,9 @@
       android:layout_marginBottom="5dip" />
   
   <View
-      android:layout_width="fill_parent"
-      android:layout_height="1px"
-      android:padding="5dip"
-      android:background="@android:drawable/divider_horizontal_dark"/>  
+      style="@style/horizontal_divider"
+      android:padding="5dip" />
+
   <ListView
       android:id="@+id/existingTags"
       android:layout_width="fill_parent"

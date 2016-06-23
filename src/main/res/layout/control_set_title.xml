@@ -26,6 +26,7 @@
             android:paddingEnd="@dimen/keyline_second"
             android:paddingRight="@dimen/keyline_second"
             android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
+            android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
             android:scaleType="center" />
 
         <EditText
@@ -45,7 +46,7 @@
 
     </LinearLayout>
 
-    <include layout="@layout/task_edit_divider" />
+    <View style="@style/horizontal_divider"/>
 
 </LinearLayout>
 

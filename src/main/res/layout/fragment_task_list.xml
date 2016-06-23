@@ -36,7 +36,7 @@
 
             </FrameLayout>
 
-            <View style="@style/double_pane_divider" />
+            <View style="@style/vertical_divider" />
 
         </LinearLayout>
 

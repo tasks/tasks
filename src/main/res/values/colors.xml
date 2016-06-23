@@ -99,7 +99,6 @@
     <color name="white_text_hint">#eee</color>
     <color name="black_text">#000</color>
     <color name="black_text_hint">#535353</color>
-    <color name="task_edit_divider">#b6b6b6</color>
 
     <color name="importance_1">@color/red_500</color>
     <color name="importance_2">@color/amber_500</color>

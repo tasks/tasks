@@ -8,17 +8,13 @@
     <!-- theme attributes -->
     <attr name="drawer_background" format="color" />
     <attr name="drawer_background_selected" format="color" />
-    <attr name="task_edit_divider" format="color" />
     <attr name="asContentBackground" format="color" />
     <attr name="asTextColor" format="color" />
     <attr name="asTextColorHint" format="color" />
     <attr name="asDetailsColor" format="color" />
     <attr name="asDueDateColor" format="color" />
     <attr name="asDueDateCompletedColor" format="color" />
-    <attr name="asSeparator" format="color" />
-    <attr name="asListDividerColor" format="color" />
     <attr name="asEditTextBackground" format="reference" />
-    <attr name="separatorHeight" format="dimension" />
     <attr name="popup_theme" format="reference" />
 
     <attr name="alpha_primary" format="dimension" />
