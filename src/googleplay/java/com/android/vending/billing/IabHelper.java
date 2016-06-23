@@ -36,6 +36,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 
 /**
@@ -69,6 +70,9 @@ import java.util.List;
  *
  */
 public class IabHelper {
+
+    private final Executor executor;
+
     // Is debug logging enabled?
     boolean mDebugLog = false;
     String mDebugTag = "IabHelper";
@@ -164,9 +168,10 @@ public class IabHelper {
      *     public key in your application's page on Google Play Developer Console. Note that this
      *     is NOT your "developer public key".
      */
-    public IabHelper(Context ctx, String base64PublicKey) {
+    public IabHelper(Context ctx, String base64PublicKey, Executor executor) {
         mContext = ctx.getApplicationContext();
         mSignatureBase64 = base64PublicKey;
+        this.executor = executor;
         logDebug("IAB helper created.");
     }
 
@@ -649,7 +654,7 @@ public class IabHelper {
         checkNotDisposed();
         checkSetupDone("queryInventory");
         flagStartAsync("refresh inventory");
-        (new Thread(new Runnable() {
+        executor.execute(new Runnable() {
             public void run() {
                 IabResult result = new IabResult(BILLING_RESPONSE_RESULT_OK, "Inventory refresh successful.");
                 Inventory inv = null;
@@ -672,7 +677,7 @@ public class IabHelper {
                     });
                 }
             }
-        })).start();
+        });
     }
 
     public void queryInventoryAsync(QueryInventoryFinishedListener listener) {
@@ -1006,7 +1011,7 @@ public class IabHelper {
                               final OnConsumeMultiFinishedListener multiListener) {
         final Handler handler = new Handler();
         flagStartAsync("consume");
-        (new Thread(new Runnable() {
+        executor.execute(new Runnable() {
             public void run() {
                 final List<IabResult> results = new ArrayList<IabResult>();
                 for (Purchase purchase : purchases) {
@@ -1035,7 +1040,7 @@ public class IabHelper {
                     });
                 }
             }
-        })).start();
+        });
     }
 
     void logDebug(String msg) {

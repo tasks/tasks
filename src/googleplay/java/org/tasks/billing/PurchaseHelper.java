@@ -21,8 +21,10 @@ import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import timber.log.Timber;
@@ -37,18 +39,20 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
     private final Tracker tracker;
     private final Broadcaster broadcaster;
     private final InventoryHelper inventory;
+    private Executor executor;
 
     private PurchaseHelperCallback activityResultCallback;
     private IabHelper iabHelper;
 
     @Inject
     public PurchaseHelper(@ForApplication Context context, Preferences preferences, Tracker tracker,
-                          Broadcaster broadcaster, InventoryHelper inventory) {
+                          Broadcaster broadcaster, InventoryHelper inventory, @Named("iab-executor") Executor executor) {
         this.context = context;
         this.preferences = preferences;
         this.tracker = tracker;
         this.broadcaster = broadcaster;
         this.inventory = inventory;
+        this.executor = executor;
     }
 
     @Override
@@ -101,7 +105,7 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
             if (themes != null) {
                 purchases.add(themes);
             }
-            final IabHelper iabHelper = new IabHelper(context, context.getString(R.string.gp_key));
+            final IabHelper iabHelper = new IabHelper(context, context.getString(R.string.gp_key), executor);
             iabHelper.enableDebugLogging(true);
             iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
                 @Override
@@ -150,7 +154,7 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
             callback.purchaseCompleted(false, sku);
             return;
         }
-        iabHelper = new IabHelper(context, context.getString(R.string.gp_key));
+        iabHelper = new IabHelper(context, context.getString(R.string.gp_key), executor);
         iabHelper.enableDebugLogging(BuildConfig.DEBUG);
         Timber.d("%s: startSetup", iabHelper);
         iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {

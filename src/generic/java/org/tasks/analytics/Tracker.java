@@ -17,7 +17,11 @@ public class Tracker {
 
     }
 
-    public void reportException(Exception e) {
+    public void reportException(Throwable t) {
+
+    }
+
+    public void reportException(Thread thread, Throwable t) {
 
     }
 

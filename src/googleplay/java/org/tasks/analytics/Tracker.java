@@ -44,9 +44,13 @@ public class Tracker {
         analytics.setAppOptOut(!enabled);
     }
 
-    public void reportException(Exception e) {
+    public void reportException(Throwable t) {
+        reportException(Thread.currentThread(), t);
+    }
+
+    public void reportException(Thread thread, Throwable t) {
         tracker.send(new HitBuilders.ExceptionBuilder()
-                .setDescription(exceptionParser.getDescription(Thread.currentThread().getName(), e))
+                .setDescription(exceptionParser.getDescription(thread.getName(), t))
                 .setFatal(false)
                 .build());
     }

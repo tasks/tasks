@@ -2,6 +2,14 @@ package org.tasks.injection;
 
 import android.content.Context;
 
+import org.tasks.ErrorReportingSingleThreadExecutor;
+import org.tasks.analytics.Tracker;
+
+import java.util.concurrent.Executor;
+
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -17,5 +25,12 @@ public class ApplicationModule {
     @ForApplication
     public Context getApplicationContext() {
         return context;
+    }
+
+    @Provides
+    @Singleton
+    @Named("iab-executor")
+    public Executor getIabExecutor(Tracker tracker) {
+        return new ErrorReportingSingleThreadExecutor("iab-executor", tracker);
     }
 }

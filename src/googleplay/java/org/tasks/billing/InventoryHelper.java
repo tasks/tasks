@@ -14,7 +14,10 @@ import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
+import java.util.concurrent.Executor;
+
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import timber.log.Timber;
@@ -25,14 +28,17 @@ public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListene
     private final Context context;
     private final Preferences preferences;
     private final Broadcaster broadcaster;
+    private final Executor executor;
 
     private Inventory inventory;
 
     @Inject
-    public InventoryHelper(@ForApplication Context context, Preferences preferences, Broadcaster broadcaster) {
+    public InventoryHelper(@ForApplication Context context, Preferences preferences,
+                           Broadcaster broadcaster, @Named("iab-executor") Executor executor) {
         this.context = context;
         this.preferences = preferences;
         this.broadcaster = broadcaster;
+        this.executor = executor;
     }
 
     public void initialize() {
@@ -41,7 +47,7 @@ public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListene
     }
 
     public void refreshInventory() {
-        final IabHelper helper = new IabHelper(context, context.getString(R.string.gp_key));
+        final IabHelper helper = new IabHelper(context, context.getString(R.string.gp_key), executor);
         helper.startSetup(getSetupListener(helper));
     }
 
