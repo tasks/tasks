@@ -42,7 +42,7 @@
             android:paddingRight="5dip"
             android:alpha="?attr/alpha_secondary"
             android:scaleType="centerInside"
-            android:tint="?attr/colorControlNormal" />
+            android:tint="?attr/icon_tint" />
 
         <Chronometer
             android:id="@+id/timer"

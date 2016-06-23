@@ -10,6 +10,7 @@
         <item name="asContentBackground">@color/md_dark_background</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="asTextColorHint">@android:color/darker_gray</item>
+        <item name="icon_tint">@android:color/white</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
         <item name="alertDialogTheme">@style/DialogBaseDark</item>
@@ -26,6 +27,7 @@
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="asTextColor">@android:color/white</item>
+        <item name="icon_tint">@android:color/white</item>
     </style>
 
 </resources>

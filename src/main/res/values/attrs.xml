@@ -11,6 +11,7 @@
     <attr name="asContentBackground" format="color" />
     <attr name="asTextColor" format="color" />
     <attr name="asTextColorHint" format="color" />
+    <attr name="icon_tint" format="color"/>
     <attr name="popup_theme" format="reference" />
 
     <attr name="alpha_primary" format="dimension" />

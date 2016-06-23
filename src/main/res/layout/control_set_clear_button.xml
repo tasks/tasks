@@ -9,4 +9,4 @@
     android:background="?attr/selectableItemBackgroundBorderless"
     android:clickable="true"
     android:src="@drawable/ic_cancel_24dp"
-    android:tint="?attr/colorControlNormal" />
+    android:tint="?attr/icon_tint" />
