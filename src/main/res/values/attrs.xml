@@ -19,7 +19,6 @@
     <attr name="asListDividerColor" format="color" />
     <attr name="asThemeTextColor" format="color" />
     <attr name="asEditTextBackground" format="reference" />
-    <attr name="icon_tint" format="color"/>
     <attr name="separatorHeight" format="dimension" />
     <attr name="popup_theme" format="reference" />
 

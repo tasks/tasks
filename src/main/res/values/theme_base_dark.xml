@@ -16,7 +16,6 @@
 
         <item name="asTextColor">@android:color/white</item>
         <item name="asTextColorHint">@android:color/darker_gray</item>
-        <item name="icon_tint">@android:color/white</item>
         <item name="task_edit_divider">@color/task_edit_divider</item>
         <item name="asDueDateColor">#c3c3c3</item>
 
@@ -41,7 +40,6 @@
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="asListDividerColor">#dddddd</item>
-        <item name="icon_tint">@android:color/white</item>
     </style>
 
 </resources>

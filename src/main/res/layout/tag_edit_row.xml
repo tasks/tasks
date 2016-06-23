@@ -30,7 +30,7 @@
 
     <ImageView
         android:id="@+id/button1"
-        android:tint="?attr/icon_tint"
+        android:tint="?attr/colorControlNormal"
         android:src="@drawable/ic_close_24dp"
         android:contentDescription="@string/remove"
         android:layout_gravity="center_vertical"

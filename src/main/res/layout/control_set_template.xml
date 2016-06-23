@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:tint="?attr/icon_tint"
+        android:tint="?attr/colorControlNormal"
         android:alpha="@dimen/alpha_secondary_text_icons"
         android:paddingRight="@dimen/keyline_second"
         android:paddingEnd="@dimen/keyline_second"

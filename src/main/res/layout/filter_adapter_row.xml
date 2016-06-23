@@ -34,7 +34,7 @@
             android:id="@+id/icon"
             android:layout_width="56dp"
             android:layout_height="wrap_content"
-            android:tint="?attr/icon_tint"
+            android:tint="?attr/colorControlNormal"
             android:alpha="@dimen/alpha_secondary_text_icons"
             android:scaleType="fitStart" />
 
