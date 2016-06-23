@@ -17,7 +17,6 @@
         <item name="asDetailsColor">#6666aa</item>
         <item name="asDueDateColor">#878787</item>
         <item name="asListDividerColor">#dddddd</item>
-        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="task_edit_divider">@color/task_edit_divider</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
@@ -30,7 +29,6 @@
     <style name="LightDialogBase" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
-        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="asTextColor">@android:color/black</item>
         <item name="asListDividerColor">#dddddd</item>
     </style>

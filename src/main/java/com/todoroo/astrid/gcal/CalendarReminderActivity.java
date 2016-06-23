@@ -16,11 +16,11 @@ import com.todoroo.astrid.service.StartupService;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.Preferences;
 import org.tasks.preferences.ResourceResolver;
+import org.tasks.preferences.ThemeManager;
 import org.tasks.scheduling.AlarmManager;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 
@@ -44,6 +44,7 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     @Inject ResourceResolver resourceResolver;
     @Inject DialogBuilder dialogBuilder;
     @Inject AlarmManager alarmManager;
+    @Inject ThemeManager themeManager;
 
     private String eventName;
     private long endTime;
@@ -137,7 +138,7 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
 
         dialogView.setText(speechText);
 
-        createListButton.setBackgroundColor(resourceResolver.getData(R.attr.asThemeTextColor));
+        createListButton.setBackgroundColor(themeManager.getAccentTheme().getAccentColor());
 
         if (fromPostpone) {
             postponeButton.setVisibility(View.GONE);

@@ -17,7 +17,6 @@
     <attr name="asDueDateCompletedColor" format="color" />
     <attr name="asSeparator" format="color" />
     <attr name="asListDividerColor" format="color" />
-    <attr name="asThemeTextColor" format="color" />
     <attr name="asEditTextBackground" format="reference" />
     <attr name="separatorHeight" format="dimension" />
     <attr name="popup_theme" format="reference" />

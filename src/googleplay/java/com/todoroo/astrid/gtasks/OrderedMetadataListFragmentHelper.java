@@ -91,7 +91,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     @Override
     public void setUpUiComponents() {
         TypedValue tv = new TypedValue();
-        getActivity().getTheme().resolveAttribute(R.attr.asThemeTextColor, tv, false);
+        getActivity().getTheme().resolveAttribute(R.attr.colorAccent, tv, false);
         getTouchListView().setDragndropBackgroundColor(tv.data);
         getTouchListView().setDropListener(dropListener);
         getTouchListView().setClickListener(rowClickListener);

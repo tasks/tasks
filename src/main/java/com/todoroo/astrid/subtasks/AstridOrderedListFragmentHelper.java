@@ -82,7 +82,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     @Override
     public void setUpUiComponents() {
         TypedValue tv = new TypedValue();
-        getActivity().getTheme().resolveAttribute(R.attr.asThemeTextColor, tv, false);
+        getActivity().getTheme().resolveAttribute(R.attr.colorAccent, tv, false);
         DraggableListView draggableListView = (DraggableListView) fragment.getListView();
         draggableListView.setDragndropBackgroundColor(tv.data);
         draggableListView.setDropListener(dropListener);
