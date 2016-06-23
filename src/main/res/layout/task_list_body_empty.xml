@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:alpha="@dimen/alpha_disabled_hint_text"
+                android:alpha="?attr/alpha_disabled"
                 android:src="@drawable/ic_inbox_168px"
                 android:tint="?attr/colorControlNormal" />
 
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:alpha="@dimen/alpha_disabled_hint_text"
+                android:alpha="?attr/alpha_disabled"
                 android:text="@string/TLA_no_items"
                 android:textColor="?attr/asTextColor"
                 android:textSize="20sp" />

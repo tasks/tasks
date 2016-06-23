@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:tint="?attr/colorControlNormal"
-        android:alpha="@dimen/alpha_secondary_text_icons"
+        android:alpha="?attr/alpha_secondary"
         android:paddingRight="@dimen/keyline_second"
         android:paddingEnd="@dimen/keyline_second"
         tools:ignore="ContentDescription" />

@@ -21,6 +21,11 @@
     <attr name="separatorHeight" format="dimension" />
     <attr name="popup_theme" format="reference" />
 
+    <attr name="alpha_primary" format="dimension" />
+    <attr name="alpha_secondary" format="dimension" />
+    <attr name="alpha_disabled" format="dimension" />
+    <attr name="alpha_divider" format="dimension" />
+
     <declare-styleable name="TimePreference">
         <attr name="summary" format="string" />
     </declare-styleable>

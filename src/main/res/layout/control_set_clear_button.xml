@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_weight="1"
-    android:alpha="@dimen/alpha_secondary_text_icons"
+    android:alpha="?attr/alpha_secondary"
     android:background="?attr/selectableItemBackgroundBorderless"
     android:clickable="true"
     android:src="@drawable/ic_cancel_24dp"

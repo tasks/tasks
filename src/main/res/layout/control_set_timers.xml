@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:textColor="?attr/asTextColor"
             android:text="@string/TEA_timer_controls"
-            android:alpha="@dimen/alpha_secondary_text_icons"
+            android:alpha="?attr/alpha_secondary"
             android:textSize="@dimen/task_edit_text_size" />
 
     </LinearLayout>
@@ -40,7 +40,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:paddingLeft="5dip"
             android:paddingRight="5dip"
-            android:alpha="@dimen/alpha_secondary_text_icons"
+            android:alpha="?attr/alpha_secondary"
             android:scaleType="centerInside"
             android:tint="?attr/colorControlNormal" />
 
@@ -51,7 +51,7 @@
             android:layout_weight="2"
             android:gravity="center_horizontal"
             android:textColor="?attr/asTextColor"
-            android:alpha="@dimen/alpha_secondary_text_icons"
+            android:alpha="?attr/alpha_secondary"
             android:textSize="10sp"
             android:visibility="visible" />
     </LinearLayout>

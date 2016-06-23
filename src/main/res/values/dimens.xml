@@ -14,10 +14,16 @@
     <dimen name="task_edit_double_padding_top_bottom">18dp</dimen>
     <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
     <dimen name="task_edit_text_size">16sp</dimen>
-    <item name="alpha_text" format="float" type="dimen">0.87</item>
-    <item name="alpha_secondary_text_icons" format="float" type="dimen">0.54</item>
-    <item name="alpha_disabled_hint_text" format="float" type="dimen">0.38</item>
-    <item name="alpha_dividers" format="float" type="dimen">0.12</item>
+
+    <item name="alpha_primary_light" format="float" type="dimen">0.87</item>
+    <item name="alpha_secondary_light" format="float" type="dimen">0.54</item>
+    <item name="alpha_disabled_light" format="float" type="dimen">0.38</item>
+
+    <item name="alpha_primary_dark" format="float" type="dimen">1.0</item>
+    <item name="alpha_secondary_dark" format="float" type="dimen">0.70</item>
+    <item name="alpha_disabled_dark" format="float" type="dimen">0.50</item>
+
+    <item name="alpha_divider" format="float" type="dimen">0.12</item>
 
     <dimen name="elevation_toolbar">8dp</dimen>
     <dimen name="elevation_task_list">6dp</dimen>
