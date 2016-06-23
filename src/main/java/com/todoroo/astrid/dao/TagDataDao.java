@@ -82,10 +82,6 @@ public class TagDataDao {
         dao.saveExisting(tagData);
     }
 
-    public void addListener(DatabaseDao.ModelUpdateListener<TagData> modelUpdateListener) {
-        dao.addListener(modelUpdateListener);
-    }
-
     public void delete(long id) {
         dao.delete(id);
     }

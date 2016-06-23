@@ -6,26 +6,17 @@
 package com.todoroo.astrid.service;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 
-import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.DatabaseUpdateListener;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
@@ -51,9 +42,7 @@ public class StartupService {
 
     // --- application startup
 
-    private final TagDataDao tagDataDao;
     private final Database database;
-    private final MetadataDao metadataDao;
     private final Preferences preferences;
     private final TasksXmlImporter xmlImporter;
     private final TaskDeleter taskDeleter;
@@ -61,12 +50,9 @@ public class StartupService {
     private final DialogBuilder dialogBuilder;
 
     @Inject
-    public StartupService(TagDataDao tagDataDao, Database database, MetadataDao metadataDao,
-                          Preferences preferences, TasksXmlImporter xmlImporter,
+    public StartupService(Database database, Preferences preferences, TasksXmlImporter xmlImporter,
                           TaskDeleter taskDeleter, Broadcaster broadcaster, DialogBuilder dialogBuilder) {
-        this.tagDataDao = tagDataDao;
         this.database = database;
-        this.metadataDao = metadataDao;
         this.preferences = preferences;
         this.xmlImporter = xmlImporter;
         this.taskDeleter = taskDeleter;
@@ -122,8 +108,6 @@ public class StartupService {
             preferences.setCurrentVersion(currentVersion);
         }
 
-        initializeDatabaseListeners();
-
         // perform startup activities in a background thread
         new Thread(new Runnable() {
             @Override
@@ -137,25 +121,6 @@ public class StartupService {
         }
 
         hasStartedUp = true;
-    }
-
-    private void initializeDatabaseListeners() {
-        // This listener makes sure that when a tag's name is created or changed,
-        // the corresponding metadata will also update
-        tagDataDao.addListener(new ModelUpdateListener<TagData>() {
-            @Override
-            public void onModelUpdated(TagData model) {
-                ContentValues values = model.getSetValues();
-                Metadata m = new Metadata();
-                if (values != null) {
-                    if (values.containsKey(TagData.NAME.name)) {
-                        m.setValue(TaskToTagMetadata.TAG_NAME, model.getName());
-                        metadataDao.update(Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                                TaskToTagMetadata.TAG_UUID.eq(model.getUUID())), m);
-                    }
-                }
-            }
-        });
     }
 
     /**

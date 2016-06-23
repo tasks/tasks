@@ -26,6 +26,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -35,7 +36,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.ui.MenuColorizer;
 
@@ -148,6 +148,11 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity {
             tagData.setName(newName);
             tagService.rename(tagData.getUuid(), newName);
             tagDataDao.persist(tagData);
+            Metadata m = new Metadata();
+            m.setValue(TaskToTagMetadata.TAG_NAME, newName);
+            metadataDao.update(Criterion.and(
+                    MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                    TaskToTagMetadata.TAG_UUID.eq(tagData.getUUID())), m);
             setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED).putExtra(EXTRA_TAG_UUID, tagData.getUuid()));
         }
 
