@@ -70,7 +70,6 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     public void onClick(View v) {
         if(dialog == null) {
             ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, themeManager.getDialogThemeResId());
-            themeManager.applyThemeToContext(contextThemeWrapper);
             dialog = new NNumberPickerDialog(contextThemeWrapper, this,
                     context.getResources().getString(R.string.DLG_hour_minutes),
                     new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
@@ -105,6 +104,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
             dialog.setInitialValues(initialValues);
         }
 
+        themeManager.applyThemeToContext(dialog.getContext());
         dialog.show();
     }
 

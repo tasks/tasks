@@ -28,6 +28,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
 
 import org.tasks.R;
+import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
@@ -118,13 +119,13 @@ public class TimerControlSet extends TaskEditControlFragment {
     @OnClick(R.id.display_row_edit)
     void openPopup(View view) {
         if (dialog == null) {
-            buildDialog();
+            dialog = buildDialog();
         }
         dialog.show();
     }
 
-    protected Dialog buildDialog() {
-        AlertDialog.Builder builder = dialogBuilder.newDialog()
+    private AlertDialog buildDialog() {
+        return dialogBuilder.newDialog()
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
@@ -137,9 +138,8 @@ public class TimerControlSet extends TaskEditControlFragment {
                     public void onCancel(DialogInterface dialog) {
                         refreshDisplayView();
                     }
-                });
-        dialog = builder.show();
-        return dialog;
+                })
+                .create();
     }
 
     @OnClick(R.id.timer_container)

@@ -42,6 +42,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
+import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.ui.TaskEditControlFragment;
@@ -162,13 +163,13 @@ public final class TagsControlSet extends TaskEditControlFragment {
     @OnClick(R.id.display_row_edit)
     void openPopup(View view) {
         if (dialog == null) {
-            buildDialog();
+            dialog = buildDialog();
         }
         dialog.show();
     }
 
-    protected Dialog buildDialog() {
-        android.support.v7.app.AlertDialog.Builder builder = dialogBuilder.newDialog()
+    private AlertDialog buildDialog() {
+        return dialogBuilder.newDialog()
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
@@ -182,9 +183,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
                     public void onCancel(DialogInterface dialog) {
                         refreshDisplayView();
                     }
-                });
-        dialog = builder.show();
-        return dialog;
+                })
+                .create();
     }
 
     private void setTagSelected(String tag) {

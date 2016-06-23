@@ -310,13 +310,13 @@ public class RepeatControlSet extends TaskEditControlFragment {
     @OnClick(R.id.display_row_edit)
     void openPopup(View view) {
         if (dialog == null) {
-            buildDialog();
+            dialog = buildDialog();
         }
         dialog.show();
     }
 
-    protected Dialog buildDialog() {
-        AlertDialog.Builder builder = dialogBuilder.newDialog()
+    private AlertDialog buildDialog() {
+        return dialogBuilder.newDialog()
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
@@ -333,9 +333,8 @@ public class RepeatControlSet extends TaskEditControlFragment {
                     public void onCancel(DialogInterface dialog) {
                         refreshDisplayView();
                     }
-                });
-        dialog = builder.show();
-        return dialog;
+                })
+                .create();
     }
 
     @Override
@@ -442,14 +441,15 @@ public class RepeatControlSet extends TaskEditControlFragment {
         }
 
         ContextThemeWrapper wrapper = new ContextThemeWrapper(getActivity(), themeManager.getDialogThemeResId());
-        themeManager.applyThemeToContext(wrapper);
-        new NumberPickerDialog(wrapper, new OnNumberPickedListener() {
+        NumberPickerDialog dialog = new NumberPickerDialog(wrapper, new OnNumberPickedListener() {
             @Override
             public void onNumberPicked(int number) {
                 setRepeatValue(number);
             }
         }, getResources().getString(R.string.repeat_interval_prompt),
-        dialogValue, 1, 1, 365).show();
+                dialogValue, 1, 1, 365);
+        themeManager.applyThemeToContext(dialog.getContext());
+        dialog.show();
     }
 
     private void repeatUntilClick() {

@@ -99,7 +99,7 @@ public class SortDialog extends InjectingDialogFragment {
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
-                .show();
+                .showThemedListView();
 
         enableReverse();
 

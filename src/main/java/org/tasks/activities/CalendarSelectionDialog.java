@@ -4,13 +4,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 
 import com.google.common.base.Function;
 
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
+import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
@@ -53,7 +53,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
             }
         });
 
-        AlertDialog.Builder builder = dialogBuilder.newDialog()
+        AlertDialogBuilder builder = dialogBuilder.newDialog()
                 .setItems(calendarNames.toArray(new String[calendarNames.size()]), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

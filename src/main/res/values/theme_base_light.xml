@@ -27,7 +27,7 @@
     <style name="LightOverride" parent="LightBase">
     </style>
 
-    <style name="LightDialogBase" parent="Theme.AppCompat.Light.Dialog">
+    <style name="LightDialogBase" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>

@@ -7,7 +7,6 @@ package com.todoroo.astrid.core;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.support.v7.app.AlertDialog;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,6 +23,7 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 
 import org.tasks.R;
+import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 
 import java.util.List;
@@ -104,7 +104,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
      * Show options menu for the given criterioninstance
      */
     public void showOptionsFor(final CriterionInstance item, final Runnable onComplete) {
-        AlertDialog.Builder dialog = dialogBuilder.newDialog()
+        AlertDialogBuilder dialog = dialogBuilder.newDialog()
                 .setTitle(item.criterion.name);
 
         if(item.criterion instanceof MultipleSelectCriterion) {

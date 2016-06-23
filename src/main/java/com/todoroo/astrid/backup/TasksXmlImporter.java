@@ -168,7 +168,7 @@ public class TasksXmlImporter {
                         r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
                         r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
                         r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount)))
-                .setPositiveButton(context.getString(android.R.string.ok), new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
