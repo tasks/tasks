@@ -36,10 +36,14 @@ public class ThemeManager {
 
     public LayoutInflater getThemedLayoutInflater() {
         ContextThemeWrapper wrapper = new ContextThemeWrapper(context, getBaseTheme().getResId());
-        Resources.Theme theme = wrapper.getTheme();
+        applyThemeToContext(wrapper);
+        return (LayoutInflater) wrapper.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void applyThemeToContext(Context context) {
+        Resources.Theme theme = context.getTheme();
         theme.applyStyle(getColorTheme().getResId(), true);
         theme.applyStyle(getAccentTheme().getResId(), true);
-        return (LayoutInflater) wrapper.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public Theme getBaseTheme() {

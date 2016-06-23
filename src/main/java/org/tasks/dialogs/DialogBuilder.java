@@ -52,9 +52,7 @@ public class DialogBuilder {
 
     private ContextThemeWrapper buildDialogWrapper() {
         ContextThemeWrapper wrapper = new ContextThemeWrapper(activity, themeManager.getBaseTheme().getDialogThemeResId());
-        Resources.Theme theme = wrapper.getTheme();
-        theme.applyStyle(themeManager.getColorTheme().getResId(), true);
-        theme.applyStyle(themeManager.getAccentTheme().getResId(), true);
+        themeManager.applyThemeToContext(wrapper);
         return wrapper;
     }
 }

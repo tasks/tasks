@@ -442,8 +442,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
         }
 
         ContextThemeWrapper wrapper = new ContextThemeWrapper(getActivity(), themeManager.getDialogThemeResId());
-        wrapper.getTheme().applyStyle(themeManager.getColorTheme().getResId(), true);
-        wrapper.getTheme().applyStyle(themeManager.getAccentTheme().getResId(), true);
+        themeManager.applyThemeToContext(wrapper);
         new NumberPickerDialog(wrapper, new OnNumberPickedListener() {
             @Override
             public void onNumberPicked(int number) {

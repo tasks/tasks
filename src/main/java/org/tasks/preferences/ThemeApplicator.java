@@ -1,7 +1,6 @@
 package org.tasks.preferences;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.graphics.PixelFormat;
 
 import javax.inject.Inject;
@@ -24,14 +23,12 @@ public class ThemeApplicator {
     }
 
     public void applyTheme() {
-        applyTheme(themeManager.getBaseTheme(), themeManager.getColorTheme(), themeManager.getAccentTheme());
+        applyTheme(themeManager.getBaseTheme());
     }
 
-    private void applyTheme(Theme theme, Theme color, Theme accent) {
+    private void applyTheme(Theme theme) {
         activity.setTheme(theme.getResId());
-        Resources.Theme activityTheme = activity.getTheme();
-        activityTheme.applyStyle(color.getResId(), true);
-        activityTheme.applyStyle(accent.getResId(), true);
+        themeManager.applyThemeToContext(activity);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
     }
 
