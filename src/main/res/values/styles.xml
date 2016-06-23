@@ -92,21 +92,16 @@
 
     <style name="task_list_container"/>
 
-    <style name="TextAppearance.TAd_ItemTitle">
-        <item name="android:textColorLink">#ff88aaff</item>
-    </style>
-    
+    <style name="TextAppearance.TAd_ItemTitle"/>
+
     <style name="TextAppearance.TAd_ItemTitle_Completed" parent="TextAppearance.TAd_ItemTitle">
-        <item name="android:textColor">#ff555555</item>
+        <item name="android:textColor">?android:attr/textColorHint</item>
     </style>
     
-    <style name="TextAppearance.TAd_ItemDetails">
-        <item name="android:textColor">?attr/asDetailsColor</item>
-        <item name="android:textColorLink">#ff88aaff</item>
-    </style>
-    
+    <style name="TextAppearance.TAd_ItemDetails"/>
+
     <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
-        <item name="android:textColor">?attr/asDueDateColor</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">
@@ -114,7 +109,7 @@
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Completed" parent="TextAppearance.TAd_ItemDueDate">
-        <item name="android:textColor">?attr/asDueDateCompletedColor</item>
+        <item name="android:textColor">?android:attr/textColorHint</item>
     </style>
 
     <style name="FilePickerTheme" parent="NNF_BaseTheme.Light">

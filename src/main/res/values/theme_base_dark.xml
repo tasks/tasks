@@ -4,16 +4,12 @@
     <style name="DarkBase" parent="Theme.AppCompat.NoActionBar">
         <item name="popup_theme">@style/ThemeOverlay.AppCompat</item>
         <item name="android:windowBackground">@color/md_dark_background</item>
-        <item name="asEditTextBackground">@null</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="drawer_background">@color/drawer_background_dark</item>
         <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
-        <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asContentBackground">@color/md_dark_background</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="asTextColorHint">@android:color/darker_gray</item>
-        <item name="asDetailsColor">#6666aa</item>
-        <item name="asDueDateColor">#c3c3c3</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
         <item name="alertDialogTheme">@style/DialogBaseDark</item>

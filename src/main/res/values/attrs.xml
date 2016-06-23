@@ -11,10 +11,6 @@
     <attr name="asContentBackground" format="color" />
     <attr name="asTextColor" format="color" />
     <attr name="asTextColorHint" format="color" />
-    <attr name="asDetailsColor" format="color" />
-    <attr name="asDueDateColor" format="color" />
-    <attr name="asDueDateCompletedColor" format="color" />
-    <attr name="asEditTextBackground" format="reference" />
     <attr name="popup_theme" format="reference" />
 
     <attr name="alpha_primary" format="dimension" />
