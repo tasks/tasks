@@ -21,7 +21,6 @@
             android:layout_weight="100"
             android:clickable="false"
             android:text="@string/filter"
-            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <TextView
@@ -32,7 +31,6 @@
             android:clickable="false"
             android:gravity="end"
             android:hint="@string/select_filter"
-            android:textColorHint="@android:color/darker_gray"
             android:textSize="16sp" />
 
     </LinearLayout>
