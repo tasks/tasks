@@ -843,6 +843,7 @@ File %1$s contained %2$s.\n\n
     <string name="send_anonymous_statistics">Improve Tasks</string>
     <string name="send_anonymous_statistics_summary">Send anonymous usage statistics and crash reports to help improve Tasks. No personal data will be collected.</string>
     <string name="tag_already_exists">Tag already exists</string>
+  <string name="name_cannot_be_empty">Name cannot be empty</string>
     <string name="disable_notification_light">Disable notification light</string>
     <string name="doze_notifications">Interrupt Doze mode for notifications</string>
     <string name="doze_notifications_off">Android will significantly delay notifications while device is in Doze mode</string>

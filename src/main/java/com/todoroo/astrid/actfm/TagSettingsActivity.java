@@ -21,7 +21,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.common.base.Strings;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -37,6 +39,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
@@ -60,10 +63,10 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity {
     @Inject TagDataDao tagDataDao;
     @Inject MetadataDao metadataDao;
     @Inject DialogBuilder dialogBuilder;
+    @Inject Preferences preferences;
 
     @BindView(R.id.tag_name) EditText tagName;
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.tag_error) TextView tagError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,28 +86,25 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity {
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_close_24dp));
+            final boolean backButtonSavesTask = preferences.backButtonSavesTask();
+            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(
+                    backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
             DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
             supportActionBar.setHomeAsUpIndicator(drawable);
             supportActionBar.setTitle(isNewTag ? getString(R.string.new_tag) : tagData.getName());
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (backButtonSavesTask) {
+                        discard();
+                    } else {
+                        save();
+                    }
+                }
+            });
         }
 
         tagName.setText(tagData.getName());
-
-        tagName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                tagError.setVisibility(clashes() ? View.VISIBLE : View.GONE);
-            }
-        });
 
         String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
         if (!isEmpty(autopopulateName)) {
@@ -122,8 +122,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity {
         return tagName.getText().toString().trim();
     }
 
-    private boolean clashes() {
-        String newName = getNewName();
+    private boolean clashes(String newName) {
         TagData existing = tagDataDao.getTagByName(newName, TagData.PROPERTIES);
         return existing != null && tagData.getId() != existing.getId();
     }
@@ -133,10 +132,12 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity {
         String newName = getNewName();
 
         if (isEmpty(newName)) {
+            Toast.makeText(this, R.string.name_cannot_be_empty, Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (clashes()) {
+        if (clashes(newName)) {
+            Toast.makeText(this, R.string.tag_already_exists, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -178,18 +179,16 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        discard();
+        if (preferences.backButtonSavesTask()) {
+            save();
+        } else {
+            discard();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                discard();
-                break;
-            case R.id.menu_save:
-                save();
-                break;
             case R.id.delete:
                 deleteTag();
                 break;

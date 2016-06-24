@@ -15,8 +15,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
@@ -25,8 +27,8 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
@@ -44,6 +46,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
 
     @Inject StoreObjectDao storeObjectDao;
     @Inject DialogBuilder dialogBuilder;
+    @Inject Preferences preferences;
 
     @BindView(R.id.tag_name) EditText filterName;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -61,10 +64,22 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_close_24dp));
+            final boolean backButtonSavesTask = preferences.backButtonSavesTask();
+            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(
+                    backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
             DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
             supportActionBar.setHomeAsUpIndicator(drawable);
             supportActionBar.setTitle(filter.listingTitle);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (backButtonSavesTask) {
+                        discard();
+                    } else {
+                        save();
+                    }
+                }
+            });
         }
 
         filterName.setText(filter.listingTitle);
@@ -80,6 +95,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
         String newName = filterName.getText().toString().trim();
 
         if (isEmpty(newName)) {
+            Toast.makeText(this, R.string.name_cannot_be_empty, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -109,18 +125,16 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        discard();
+        if (preferences.backButtonSavesTask()) {
+            save();
+        } else {
+            discard();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                discard();
-                break;
-            case R.id.menu_save:
-                save();
-                break;
             case R.id.delete:
                 deleteTag();
                 break;
