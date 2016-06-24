@@ -16,7 +16,9 @@
         android:paddingLeft="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
         android:paddingRight="@dimen/keyline_first"
-        android:paddingEnd="@dimen/keyline_first">
+        android:paddingEnd="@dimen/keyline_first"
+        android:focusableInTouchMode="true"
+        android:descendantFocusability="beforeDescendants">
 
         <com.todoroo.astrid.ui.CheckableImageView
             android:id="@+id/completeBox"
@@ -42,7 +44,9 @@
             android:textColor="?attr/asTextColor"
             android:textColorHint="?attr/asTextColorHint"
             android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
-            android:paddingTop="@dimen/task_edit_padding_top_bottom"/>
+            android:paddingTop="@dimen/task_edit_padding_top_bottom"
+            android:nextFocusUp="@id/title"
+            android:nextFocusLeft="@id/title"/>
 
     </LinearLayout>
 

@@ -127,7 +127,6 @@
         <!-- Activity that displays task list -->
         <activity
             android:name="com.todoroo.astrid.activity.TaskListActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
