@@ -100,7 +100,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         if (purchasedThemes || which < 2) {
-                            callback.themePicked(palette, themeManager.getColor(which));
+                            callback.themePicked(palette, getTheme(which));
                         } else {
                             callback.initiateThemePurchase();
                         }
