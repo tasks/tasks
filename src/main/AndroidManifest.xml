@@ -330,8 +330,7 @@
         <!-- actfm -->
 
         <activity
-            android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:name="com.todoroo.astrid.actfm.TagSettingsActivity" />
 
         <activity
             android:name="com.todoroo.astrid.actfm.FilterSettingsActivity"

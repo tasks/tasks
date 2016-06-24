@@ -26,6 +26,10 @@ public class Theme {
         this.themeAccent = themeAccent;
     }
 
+    public ThemeBase getThemeBase() {
+        return themeBase;
+    }
+
     public int getDialogStyle() {
         return themeBase.getDialogStyle();
     }

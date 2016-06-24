@@ -122,7 +122,11 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      */
     public TodorooCursor<TYPE> query(Query query) {
         query.from(table);
-        Cursor cursor = database.rawQuery(query.toString());
+        String queryString = query.toString();
+        if (BuildConfig.DEBUG) {
+            Timber.d(queryString);
+        }
+        Cursor cursor = database.rawQuery(queryString);
         return new TodorooCursor<>(cursor, query.getFields());
     }
 

@@ -31,6 +31,7 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.themes.Theme;
+import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
 
@@ -64,6 +65,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Inject FilterCounter filterCounter;
     @Inject FilterProvider filterProvider;
     @Inject Theme theme;
+    @Inject ThemeCache themeCache;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,7 +147,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     private void setUpList() {
         adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(),
-                theme.getLayoutInflater(getContext()), mDrawerListView, true);
+                mDrawerListView, true, theme, themeCache);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }

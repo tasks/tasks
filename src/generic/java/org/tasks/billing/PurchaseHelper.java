@@ -5,7 +5,6 @@ import android.content.Intent;
 
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
-import org.tasks.widget.WidgetConfigActivity;
 
 import javax.inject.Inject;
 
@@ -25,7 +24,7 @@ public class PurchaseHelper {
         return true;
     }
 
-    public void handleActivityResult(WidgetConfigActivity widgetConfigActivity, int requestCode, int resultCode, Intent data) {
+    public void handleActivityResult(PurchaseHelperCallback callback, int requestCode, int resultCode, Intent data) {
 
     }
 }

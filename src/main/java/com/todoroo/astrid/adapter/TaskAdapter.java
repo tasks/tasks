@@ -11,8 +11,13 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.BackgroundColorSpan;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +29,10 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -36,22 +45,32 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.CheckableImageView;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
+
+import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -65,7 +84,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         void onCompletedTask(Task item, boolean newState);
     }
 
-    private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name + ", '')"+ ", '  |  ')").as("tags");
+    private static final char SPACE = '\u0020';
+    private static final char HAIR_SPACE = '\u200a';
+    private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name + ", '')"+ ", ',')").as("tags");
     private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
     private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
@@ -101,6 +122,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final Context context;
     protected final TaskListFragment fragment;
     private DialogBuilder dialogBuilder;
+    private final TagService tagService;
+    private ThemeCache themeCache;
     protected final Resources resources;
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     protected final LayoutInflater inflater;
@@ -109,14 +132,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final AtomicReference<String> query;
 
     // measure utilities
-    protected final Paint paint;
     protected final DisplayMetrics displayMetrics;
 
     protected final int minRowHeight;
+    private final float tagCharacters;
+
+    private final Map<String, TagData> tagMap = new HashMap<>();
 
     public TaskAdapter(Context context, Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
-            Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
-                       DialogBuilder dialogBuilder, CheckBoxes checkBoxes) {
+                       Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
+                       DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
         super(context, c, false);
         this.checkBoxes = checkBoxes;
         this.preferences = preferences;
@@ -126,16 +151,22 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.query = query;
         this.fragment = fragment;
         this.dialogBuilder = dialogBuilder;
+        this.tagService = tagService;
+        this.themeCache = themeCache;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
+        TypedValue typedValue = new TypedValue();
+        context.getResources().getValue(R.dimen.tag_characters, typedValue, true);
+        tagCharacters = typedValue.getFloat();
+
         fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
-        paint = new Paint();
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
+        updateTagMap();
         this.minRowHeight = computeMinRowHeight();
     }
 
@@ -182,8 +213,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.completeBox = (CheckableImageView)view.findViewById(R.id.completeBox);
-        viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
-        viewHolder.tagsView = (TextView)view.findViewById(R.id.tagsDisplay);
+        viewHolder.dueDate = (TextView)view.findViewById(R.id.due_date);
+        viewHolder.tagBlock = (TextView) view.findViewById(R.id.tag_block);
         viewHolder.taskActionContainer = view.findViewById(R.id.taskActionContainer);
         viewHolder.taskActionIcon = (ImageView)view.findViewById(R.id.taskActionIcon);
 
@@ -249,7 +280,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public TextView nameView;
         public CheckableImageView completeBox;
         public TextView dueDate;
-        public TextView tagsView;
+        public TextView tagBlock;
         public View taskActionContainer;
         public ImageView taskActionIcon;
         public String tagsString; // From join query, not part of the task model
@@ -290,11 +321,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if (taskAction != null) {
             TaskAction action = getTaskAction(task, viewHolder.hasFiles, viewHolder.hasNotes);
             if (action != null) {
-                taskAction.setVisibility(View.VISIBLE);
+                viewHolder.taskActionContainer.setVisibility(View.VISIBLE);
                 taskAction.setImageDrawable(action.icon);
                 taskAction.setTag(action);
             } else {
-                taskAction.setVisibility(View.GONE);
+                viewHolder.taskActionContainer.setVisibility(View.GONE);
                 taskAction.setTag(null);
             }
         }
@@ -392,6 +423,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
         fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
+        updateTagMap();
+    }
+
+    private void updateTagMap() {
+        tagMap.clear();
+        for (TagData tagData : tagService.getTagList()) {
+            tagMap.put(tagData.getUuid(), tagData);
+        }
     }
 
     protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {
@@ -447,11 +486,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.dueDate.setTextSize(detailTextSize);
             viewHolder.dueDate.setTypeface(null, 0);
         }
-        if (viewHolder.tagsView != null) {
-            viewHolder.tagsView.setTextSize(detailTextSize);
-            viewHolder.tagsView.setTypeface(null, 0);
-        }
-        paint.setTextSize(detailTextSize);
 
         setupCompleteBox(viewHolder);
 
@@ -472,6 +506,50 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             checkBoxView.setImageDrawable(checkBoxes.getRepeatingCheckBox(task.getImportance()));
         }
         checkBoxView.invalidate();
+    }
+
+    private final Function<String, TagData> uuidToTag = new Function<String, TagData>() {
+        @Override
+        public TagData apply(String input) {
+            return tagMap.get(input);
+        }
+    };
+
+    private final Ordering<TagData> orderByName = new Ordering<TagData>() {
+        @Override
+        public int compare(TagData left, TagData right) {
+            return left.getName().compareTo(right.getName());
+        }
+    };
+
+    private final Ordering<TagData> orderByLength = new Ordering<TagData>() {
+        @Override
+        public int compare(TagData left, TagData right) {
+            int leftLength = left.getName().length();
+            int rightLength = right.getName().length();
+            if (leftLength < rightLength) {
+                return -1;
+            } else if (rightLength < leftLength) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    };
+
+    private Function<TagData, SpannableString> tagToString(final float maxLength) {
+        return new Function<TagData, SpannableString>() {
+            @Override
+            public SpannableString apply(TagData tagData) {
+                String tagName = tagData.getName();
+                tagName = tagName.substring(0, Math.min(tagName.length(), (int) maxLength));
+                SpannableString string = new SpannableString(SPACE + tagName + SPACE);
+                int themeIndex = tagData.getColor() >= 0 ? tagData.getColor() : 19;
+                int backgroundColor = themeCache.getThemeColor(themeIndex).getPrimaryColor();
+                string.setSpan(new BackgroundColorSpan(backgroundColor), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                return string;
+            }
+        };
     }
 
     // Returns due date text width
@@ -499,17 +577,40 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     dueDateView.setVisibility(View.GONE);
                 }
 
-                if (viewHolder.tagsView != null) {
+                if (task.isCompleted()) {
+                    viewHolder.tagBlock.setVisibility(View.GONE);
+                } else {
                     String tags = viewHolder.tagsString;
-                    if (tags != null && task.hasDueDate()) {
-                        tags = "  |  " + tags; //$NON-NLS-1$
-                    }
-                    if (!task.isCompleted()) {
-                        viewHolder.tagsView.setText(tags);
-                        viewHolder.tagsView.setVisibility(TextUtils.isEmpty(tags) ? View.GONE : View.VISIBLE);
+                    List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.<String>newArrayList();
+                    Iterable<TagData> t = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
+                    List<TagData> firstFourByName = orderByName.leastOf(t, 4);
+                    int numTags = firstFourByName.size();
+                    if (numTags > 0) {
+                        List<TagData> firstFourByNameLength = orderByLength.sortedCopy(firstFourByName);
+                        float maxLength = tagCharacters / numTags;
+                        for (int i = 0; i < numTags - 1; i++) {
+                            TagData tagData = firstFourByNameLength.get(i);
+                            String name = tagData.getName();
+                            if (name.length() >= maxLength) {
+                                break;
+                            }
+                            float excess = maxLength - name.length();
+                            int beneficiaries = numTags - i - 1;
+                            float additional = excess / beneficiaries;
+                            maxLength += additional;
+                        }
+                        List<SpannableString> tagStrings = transform(firstFourByName, tagToString(maxLength));
+                        SpannableStringBuilder builder = new SpannableStringBuilder();
+                        for (SpannableString tagString : tagStrings) {
+                            if (builder.length() > 0) {
+                                builder.append(HAIR_SPACE);
+                            }
+                            builder.append(tagString);
+                        }
+                        viewHolder.tagBlock.setText(builder);
+                        viewHolder.tagBlock.setVisibility(View.VISIBLE);
                     } else {
-                        viewHolder.tagsView.setText(""); //$NON-NLS-1$
-                        viewHolder.tagsView.setVisibility(View.GONE);
+                        viewHolder.tagBlock.setVisibility(View.GONE);
                     }
                 }
             }

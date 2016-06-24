@@ -29,6 +29,7 @@ public class TagFilter extends Filter {
     public TagFilter(TagData tagData) {
         super(tagData.getName(), queryTemplate(tagData.getUuid()), getValuesForNewTask(tagData));
         uuid = tagData.getUuid();
+        tint = tagData.getColor();
         icon = TAG;
     }
 

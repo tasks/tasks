@@ -9,6 +9,7 @@ package com.todoroo.astrid.data;
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
@@ -40,6 +41,9 @@ public final class TagData extends RemoteModel {
     public static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
+    public static final IntegerProperty COLOR = new IntegerProperty(
+            TABLE, "color");
+
     /** Unixtime Project was deleted. 0 means not deleted */
     @Deprecated
     public static final LongProperty DELETION_DATE = new LongProperty(
@@ -68,6 +72,7 @@ public final class TagData extends RemoteModel {
         defaultValues.put(DELETION_DATE.name, 0);
         defaultValues.put(LAST_AUTOSYNC.name, 0);
         defaultValues.put(TAG_ORDERING.name, "[]");
+        defaultValues.put(COLOR.name, -1);
     }
 
     @Override
@@ -108,6 +113,14 @@ public final class TagData extends RemoteModel {
 
     public void setLastAutosync(Long lastAutosync) {
         setValue(LAST_AUTOSYNC, lastAutosync);
+    }
+
+    public void setColor(int color) {
+        setValue(COLOR, color);
+    }
+
+    public int getColor() {
+        return getValue(COLOR);
     }
 
     // TODO: remove?

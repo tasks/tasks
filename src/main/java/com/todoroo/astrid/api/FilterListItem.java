@@ -31,6 +31,7 @@ abstract public class FilterListItem implements Parcelable {
     public String listingTitle = null;
 
     public int icon = 0;
+    public int tint = -1;
 
     @Override
     public int describeContents() {
@@ -46,6 +47,7 @@ abstract public class FilterListItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(listingTitle);
         dest.writeInt(icon);
+        dest.writeInt(tint);
         dest.writeStringArray(new String[0]); // old context menu labels
         dest.writeTypedArray(new Intent[0], 0); // old context menu intents
     }
@@ -56,6 +58,7 @@ abstract public class FilterListItem implements Parcelable {
     public void readFromParcel(Parcel source) {
         listingTitle = source.readString();
         icon = source.readInt();
+        tint = source.readInt();
         source.createStringArray(); // old context menu labels
         source.createTypedArray(Intent.CREATOR); // old context menu intents
     }

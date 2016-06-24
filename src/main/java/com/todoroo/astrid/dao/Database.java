@@ -27,6 +27,7 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
 
+import org.tasks.analytics.Tracker;
 import org.tasks.injection.ForApplication;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ import timber.log.Timber;
 @Singleton
 public class Database {
 
-    private static final int VERSION = 35;
+    private static final int VERSION = 36;
     private static final String NAME = "database";
     private static final Table[] TABLES =  new Table[] {
             Task.TABLE,
@@ -59,12 +60,14 @@ public class Database {
 
     private final ArrayList<DatabaseUpdateListener> listeners = new ArrayList<>();
     private final SQLiteOpenHelper helper;
+    private final Tracker tracker;
     private SQLiteDatabase database;
 
     // --- listeners
 
     @Inject
-    public Database(@ForApplication Context context) {
+    public Database(@ForApplication Context context, Tracker tracker) {
+        this.tracker = tracker;
         helper = new DatabaseHelper(context, getName(), VERSION);
     }
 
@@ -113,6 +116,14 @@ public class Database {
     private boolean onUpgrade(int oldVersion, int newVersion) {
         SqlConstructorVisitor visitor = new SqlConstructorVisitor();
         switch(oldVersion) {
+            case 35:
+                try {
+                    tryExecSQL(addColumnSql(TagData.TABLE, TagData.COLOR, visitor, "-1"));
+                } catch (SQLiteException e) {
+                    tracker.reportException(e);
+                }
+
+                return true;
         }
 
         return false;

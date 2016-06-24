@@ -21,6 +21,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncResultCallback;
+import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
@@ -28,6 +29,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 import org.tasks.sync.SyncThrottle;
+import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
 import javax.inject.Inject;
@@ -54,12 +56,15 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject Broadcaster broadcaster;
     @Inject CheckBoxes checkBoxes;
+    @Inject TagService tagService;
+    @Inject ThemeCache themeCache;
 
     private GtasksList list;
 
     @Override
     protected OrderedListFragmentHelperInterface createFragmentHelper() {
-        return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskService, metadataDao, this, gtasksTaskListUpdater, dialogBuilder, checkBoxes);
+        return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskService,
+                metadataDao, this, gtasksTaskListUpdater, dialogBuilder, checkBoxes, tagService, themeCache);
     }
 
     @Override

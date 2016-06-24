@@ -1,4 +1,5 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- ========================================================== General  -->
 
@@ -30,17 +31,18 @@
         <item name="colorControlHighlight">#3fff</item>
     </style>
 
+    <style name="TagSettingsRow">
+        <item name="android:padding">@dimen/keyline_first</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="WidgetConfigRow">
-        <item name="android:paddingLeft">@dimen/keyline_first</item>
-        <item name="android:paddingStart">@dimen/keyline_first</item>
-        <item name="android:paddingRight">@dimen/keyline_first</item>
-        <item name="android:paddingEnd">@dimen/keyline_first</item>
+        <item name="android:padding">@dimen/keyline_first</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:paddingTop">15dp</item>
-        <item name="android:paddingBottom">15dp</item>
     </style>
 
     <style name="WidgetConfigRow.CheckBox">

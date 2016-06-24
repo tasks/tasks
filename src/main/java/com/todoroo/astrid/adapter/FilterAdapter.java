@@ -24,6 +24,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.CustomFilterActivity;
 
 import org.tasks.R;
@@ -34,6 +35,8 @@ import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
+import org.tasks.themes.Theme;
+import org.tasks.themes.ThemeCache;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.List;
@@ -57,16 +60,20 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     /** layout inflater */
     private final LayoutInflater inflater;
+    private final Theme theme;
+    private final ThemeCache themeCache;
 
     public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity,
-                         LayoutInflater inflater, ListView listView, boolean navigationDrawer) {
+                         ListView listView, boolean navigationDrawer, Theme theme, ThemeCache themeCache) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
         this.listView = listView;
         this.navigationDrawer = navigationDrawer;
-        this.inflater = inflater;
+        this.inflater = theme.getLayoutInflater(activity);
+        this.theme = theme;
+        this.themeCache = themeCache;
     }
 
     @Override
@@ -319,9 +326,10 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         }
 
         viewHolder.view.setBackgroundResource(0);
-        int icon = filter.icon;
-        viewHolder.icon.setImageResource(icon);
-        viewHolder.icon.setVisibility(icon == 0 ? View.INVISIBLE : View.VISIBLE);
+        viewHolder.icon.setImageResource(filter.icon);
+        viewHolder.icon.setColorFilter(filter.tint >= 0
+                ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
+                : theme.getThemeBase().getTextColor());
 
         String title = filter.listingTitle;
         if(!title.equals(viewHolder.name.getText())) {

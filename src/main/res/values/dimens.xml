@@ -15,6 +15,8 @@
     <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
     <dimen name="task_edit_text_size">16sp</dimen>
 
+    <item name="tag_characters" format="float" type="dimen">12</item>
+
     <item name="alpha_primary_light" format="float" type="dimen">0.87</item>
     <item name="alpha_secondary_light" format="float" type="dimen">0.54</item>
     <item name="alpha_disabled_light" format="float" type="dimen">0.38</item>

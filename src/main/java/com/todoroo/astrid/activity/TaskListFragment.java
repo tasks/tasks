@@ -66,6 +66,7 @@ import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
@@ -79,6 +80,7 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingListFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 
@@ -146,6 +148,8 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject VoiceInputAssistant voiceInputAssistant;
     @Inject TaskCreator taskCreator;
     @Inject Broadcaster broadcaster;
+    @Inject TagService tagService;
+    @Inject ThemeCache themeCache;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -560,7 +564,7 @@ public class TaskListFragment extends InjectingListFragment implements
                     @Override
                     public void onCompletedTask(Task item, boolean newState) {
                     }
-                }, dialogBuilder, checkBoxes);
+                }, dialogBuilder, checkBoxes, tagService, themeCache);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
