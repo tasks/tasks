@@ -180,6 +180,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .addToBackStack(TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .commit();
+        themeApplicator.applyTaskDescription(taskListFragment.filter.listingTitle);
     }
 
     private void loadTaskEditFragment(boolean onCreate, TaskEditFragment taskEditFragment, List<TaskEditControlFragment> taskEditControlFragments) {

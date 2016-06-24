@@ -1,7 +1,10 @@
 package org.tasks.preferences;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.graphics.PixelFormat;
+
+import org.tasks.R;
 
 import javax.inject.Inject;
 
@@ -20,10 +23,18 @@ public class ThemeApplicator {
     public void applyThemeAndStatusBarColor() {
         applyTheme();
         applyStatusBarColor();
+        applyTaskDescription(activity.getString(R.string.app_name));
     }
 
     public void applyTheme() {
         applyTheme(themeManager.getBaseTheme());
+    }
+
+    public void applyTaskDescription(String description) {
+        if (atLeastLollipop()) {
+            Theme colorTheme = themeManager.getColorTheme();
+            activity.setTaskDescription(new ActivityManager.TaskDescription(description, null, colorTheme.getPrimaryColor()));
+        }
     }
 
     private void applyTheme(Theme theme) {
