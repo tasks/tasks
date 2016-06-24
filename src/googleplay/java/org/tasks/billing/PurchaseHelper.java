@@ -178,7 +178,9 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
                                         result.getResponse() != IabHelper.IABHELPER_USER_CANCELLED) {
                                     Toast.makeText(activity, result.getMessage(), Toast.LENGTH_LONG).show();
                                 }
-                                activityResultCallback.purchaseCompleted(result.isSuccess(), sku);
+                                if (activityResultCallback != null) {
+                                    activityResultCallback.purchaseCompleted(result.isSuccess(), sku);
+                                }
                                 disposeIabHelper();
                             }
                         });
