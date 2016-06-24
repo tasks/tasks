@@ -8,49 +8,45 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="100"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/keyline_first"
-        android:paddingStart="@dimen/keyline_first"
-        android:paddingRight="@dimen/keyline_first"
-        android:paddingEnd="@dimen/keyline_first"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
-        android:descendantFocusability="beforeDescendants">
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
+        android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom">
 
         <com.todoroo.astrid.ui.CheckableImageView
             android:id="@+id/completeBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_gravity="top"
             android:paddingEnd="@dimen/keyline_second"
-            android:paddingRight="@dimen/keyline_second"
-            android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
-            android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
+            android:paddingStart="@dimen/keyline_first"
             android:scaleType="center" />
 
         <EditText
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/completeBox"
+            android:paddingEnd="@dimen/keyline_first"
             android:background="@null"
             android:freezesText="true"
             android:hint="@string/TEA_title_hint"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textCapSentences"
+            android:nextFocusLeft="@id/title"
+            android:nextFocusUp="@id/title"
             android:scrollbars="vertical"
             android:textColor="?attr/asTextColor"
-            android:textColorHint="?attr/asTextColorHint"
-            android:layout_marginTop="@dimen/task_edit_padding_top_bottom"
-            android:paddingTop="@dimen/task_edit_padding_top_bottom"
-            android:nextFocusUp="@id/title"
-            android:nextFocusLeft="@id/title"/>
+            android:textColorHint="?attr/asTextColorHint" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <View style="@style/horizontal_divider"/>
+    <View style="@style/horizontal_divider" />
 
 </LinearLayout>
 
