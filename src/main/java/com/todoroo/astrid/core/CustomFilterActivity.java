@@ -353,7 +353,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tag_settings_activity, menu);
+        getMenuInflater().inflate(R.menu.menu_custom_filter_activity, menu);
         MenuColorizer.colorMenu(this, menu, getResources().getColor(android.R.color.white));
         menu.findItem(R.id.delete).setVisible(false);
         return super.onCreateOptionsMenu(menu);

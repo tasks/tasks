@@ -50,8 +50,8 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     @Inject Tracker tracker;
 
     private long taskId;
-    private GtasksList originalList;
-    private GtasksList selectedList;
+    @Nullable private GtasksList originalList;
+    @Nullable private GtasksList selectedList;
 
     @Nullable
     @Override
@@ -59,8 +59,15 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         if (savedInstanceState != null) {
             taskId = savedInstanceState.getLong(EXTRA_TASK_ID);
-            originalList = new GtasksList((StoreObject) savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST));
-            selectedList = new GtasksList((StoreObject) savedInstanceState.getParcelable(EXTRA_SELECTED_LIST));
+
+            StoreObject originalStoreObject = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST);
+            if (originalStoreObject != null) {
+                originalList = new GtasksList(originalStoreObject);
+            }
+            StoreObject selectedStoreObject = savedInstanceState.getParcelable(EXTRA_SELECTED_LIST);
+            if (selectedStoreObject != null) {
+                selectedList = new GtasksList(selectedStoreObject);
+            }
         } else {
             Metadata metadata = gtasksMetadataService.getActiveTaskMetadata(taskId);
             if (metadata != null) {
@@ -81,8 +88,12 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
         super.onSaveInstanceState(outState);
 
         outState.putLong(EXTRA_TASK_ID, taskId);
-        outState.putParcelable(EXTRA_ORIGINAL_LIST, originalList.getStoreObject());
-        outState.putParcelable(EXTRA_SELECTED_LIST, selectedList.getStoreObject());
+        if (originalList != null) {
+            outState.putParcelable(EXTRA_ORIGINAL_LIST, originalList.getStoreObject());
+        }
+        if (selectedList != null) {
+            outState.putParcelable(EXTRA_SELECTED_LIST, selectedList.getStoreObject());
+        }
     }
 
     @Override
@@ -137,7 +148,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @Override
     public boolean hasChanges(Task original) {
-        return !selectedList.equals(originalList);
+        return selectedList != null && !selectedList.equals(originalList);
     }
 
     @Override
