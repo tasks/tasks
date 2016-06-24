@@ -75,6 +75,7 @@
 	<string name="TEA_control_importance">Приоритет</string>
 	<string name="TEA_control_notes">Описание</string>
 	<string name="TEA_control_files">Файлове</string>
+	<string name="TEA_control_google_task_list">Google Tasks списък</string>
 	<string name="TEA_control_reminders">Напомняния</string>
 	<string name="TEA_control_timer">Управление на таймера</string>
 	<string name="TEA_control_hidden_section">----Винаги скрито----</string>
@@ -387,6 +388,8 @@
 	<string name="filter">Филтър</string>
 	<string name="opacity">Непрозрачност</string>
 	<string name="theme">Тема</string>
+	<string name="color">Цвят</string>
+	<string name="accent">Акцент</string>
 	<string name="themes">Допълнителни теми</string>
 	<string name="theme_red">Червена</string>
 	<string name="theme_pink">Розова</string>
@@ -408,6 +411,9 @@
 	<string name="theme_grey">Сив</string>
 	<string name="theme_blue_grey">Синьо-сив</string>
 	<string name="theme_black">Черна</string>
+	<string name="theme_light">Светла</string>
+	<string name="theme_dark">Тъмна</string>
+	<string name="default_value">По подразбиране</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>изключено</item>
 		<item>на всеки 15 минути</item>

@@ -72,6 +72,7 @@
 	<string name="TEA_control_importance">Приоритет</string>
 	<string name="TEA_control_notes">Описание</string>
 	<string name="TEA_control_files">Файлы</string>
+	<string name="TEA_control_google_task_list">Список задач Google</string>
 	<string name="TEA_control_reminders">Напоминания</string>
 	<string name="TEA_control_timer">Учет времени</string>
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
@@ -384,6 +385,8 @@
 	<string name="filter">Фильтр</string>
 	<string name="opacity">Прозрачность</string>
 	<string name="theme">Тема</string>
+	<string name="color">Цвет</string>
+	<string name="accent">Акцент</string>
 	<string name="themes">Дополнительные темы</string>
 	<string name="theme_red">Красный</string>
 	<string name="theme_pink">Розовый</string>
@@ -405,6 +408,9 @@
 	<string name="theme_grey">Серый</string>
 	<string name="theme_blue_grey">Серо-голубой</string>
 	<string name="theme_black">Чёрный</string>
+	<string name="theme_light">Светлая</string>
+	<string name="theme_dark">Темная</string>
+	<string name="default_value">По умолчанию</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>отключить</item>
 		<item>каждые 15 минут</item>

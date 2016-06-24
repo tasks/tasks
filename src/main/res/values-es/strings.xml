@@ -71,6 +71,7 @@
 	<string name="TEA_control_importance">Prioridad</string>
 	<string name="TEA_control_notes">Descripción</string>
 	<string name="TEA_control_files">Archivos</string>
+	<string name="TEA_control_google_task_list">Tareas de Google</string>
 	<string name="TEA_control_reminders">Recordatorios</string>
 	<string name="TEA_control_timer">Controles de tiempo</string>
 	<string name="TEA_control_hidden_section">---Ocultar Siempre---</string>
@@ -380,6 +381,7 @@
 	<string name="filter">Filtro</string>
 	<string name="opacity">Opacidad</string>
 	<string name="theme">Tema</string>
+	<string name="accent">Acentuado</string>
 	<string name="themes">Temas adicionales</string>
 	<string name="theme_red">Rojo</string>
 	<string name="theme_pink">Rosa</string>
@@ -401,6 +403,9 @@
 	<string name="theme_grey">Gris</string>
 	<string name="theme_blue_grey">Gris azulado</string>
 	<string name="theme_black">Negro</string>
+	<string name="theme_light">Claro</string>
+	<string name="theme_dark">Oscuro</string>
+	<string name="default_value">Predeterminado</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deshabilitar</item>
 		<item>cada quince minutos</item>

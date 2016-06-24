@@ -264,7 +264,7 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="filter_settings">Ustawienia filtrów</string>
 	<string name="show_hidden">Pokaż ukryte</string>
 	<string name="show_completed">Pokaż ukończone</string>
-	<string name="high_priority">Ważne</string>
+	<string name="high_priority">Wysoki</string>
 	<string name="default_priority">Domyślne</string>
 	<string name="low_priority">Mało ważne</string>
 	<string name="notification_priority">Priorytet powiadomienia</string>
