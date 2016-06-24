@@ -96,7 +96,7 @@ public class ThemeManager {
     private int getColorResId(int index) {
         switch (index) {
             case 1:
-                return R.style.Black;
+                return R.style.DarkGrey;
             case 2:
                 return R.style.Red;
             case 3:

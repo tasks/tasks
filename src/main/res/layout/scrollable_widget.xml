@@ -52,16 +52,8 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/widget_header_separator"
-        android:layout_below="@id/widget_header"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:orientation="horizontal"
-        android:background="@android:color/white" />
-
     <RelativeLayout
-        android:layout_below="@id/widget_header_separator"
+        android:layout_below="@id/widget_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 

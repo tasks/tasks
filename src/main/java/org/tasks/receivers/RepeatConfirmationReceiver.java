@@ -73,8 +73,8 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
         String dueDateString = getRelativeDateAndTimeString(activity, newDueDate);
         String snackbarText = activity.getString(R.string.repeat_snackbar, task.getTitle(), dueDateString);
 
-        Snackbar.make(view, snackbarText, Snackbar.LENGTH_LONG)
-                .setActionTextColor(activity.getResources().getColor(R.color.snackbar_undo))
+        Snackbar snackbar = Snackbar.make(view, snackbarText, Snackbar.LENGTH_LONG)
+                .setActionTextColor(activity.getResources().getColor(R.color.snackbar_text_color))
                 .setAction(R.string.DLG_undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -82,8 +82,9 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
                         task.setCompletionDate(0L);
                         taskService.save(task);
                     }
-                })
-                .show();
+                });
+        snackbar.getView().setBackgroundColor(activity.getResources().getColor(R.color.snackbar_background));
+        snackbar.show();
     }
 
     private String getRelativeDateAndTimeString(Context context, long date) {

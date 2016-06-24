@@ -49,10 +49,4 @@ public class DialogBuilder {
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
-
-    private ContextThemeWrapper buildDialogWrapper() {
-        ContextThemeWrapper wrapper = new ContextThemeWrapper(activity, themeManager.getBaseTheme().getDialogThemeResId());
-        themeManager.applyThemeToContext(wrapper);
-        return wrapper;
-    }
 }

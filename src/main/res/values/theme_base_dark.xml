@@ -5,8 +5,8 @@
         <item name="popup_theme">@style/ThemeOverlay.AppCompat</item>
         <item name="android:windowBackground">@color/md_dark_background</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="drawer_background">@color/drawer_background_dark</item>
-        <item name="drawer_background_selected">@color/drawer_background_selected_dark</item>
+        <item name="drawer_background">@color/drawer_dark_background</item>
+        <item name="drawer_background_selected">@color/drawer_selected_dark</item>
         <item name="asContentBackground">@color/md_dark_background</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="asTextColorHint">@android:color/darker_gray</item>
@@ -26,6 +26,7 @@
     <style name="DialogBaseDark" parent="@style/Theme.AppCompat.Dialog">
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowBackground">@color/dialog_dark_background</item>
         <item name="asTextColor">@android:color/white</item>
         <item name="icon_tint">@android:color/white</item>
     </style>

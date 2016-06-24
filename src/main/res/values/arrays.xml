@@ -76,7 +76,7 @@
 
     <string-array name="colors">
         <item>@string/theme_blue_grey</item>
-        <item>@string/theme_black</item>
+        <item>@string/theme_dark_grey</item>
         <item>@string/theme_red</item>
         <item>@string/theme_pink</item>
         <item>@string/theme_purple</item>

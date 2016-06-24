@@ -109,9 +109,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 getSolidBackground(color.getPrimaryColor()));
         remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);
         remoteViews.setInt(R.id.widget_header_background, "setAlpha", opacity);
-        if (theme.getThemeIndex() != 1 || color.getThemeIndex() != 1) {
-            remoteViews.setInt(R.id.widget_header_separator, "setVisibility", View.GONE);
-        }
 
         Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
         remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
