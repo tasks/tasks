@@ -116,9 +116,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public TaskAdapter(Context context, Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
             Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
-                       DialogBuilder dialogBuilder) {
+                       DialogBuilder dialogBuilder, CheckBoxes checkBoxes) {
         super(context, c, false);
-        this.checkBoxes = new CheckBoxes(context);
+        this.checkBoxes = checkBoxes;
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;

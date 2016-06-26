@@ -29,6 +29,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.CheckBoxes;
 
 import javax.inject.Inject;
 
@@ -57,6 +58,7 @@ public class SubtasksListFragment extends TaskListFragment {
     @Inject @ForApplication Context context;
     @Inject DialogBuilder dialogBuilder;
     @Inject TaskListMetadataDao taskListMetadataDao;
+    @Inject CheckBoxes checkBoxes;
 
     @Override
     public void onAttach(Activity activity) {
@@ -66,7 +68,7 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     protected OrderedListFragmentHelperInterface createFragmentHelper() {
-        return new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao, taskService, this, subtasksFilterUpdater, dialogBuilder);
+        return new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao, taskService, this, subtasksFilterUpdater, dialogBuilder, checkBoxes);
     }
 
     @Override

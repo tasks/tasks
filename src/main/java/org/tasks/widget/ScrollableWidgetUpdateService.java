@@ -14,6 +14,7 @@ import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.preferences.Theme;
 import org.tasks.preferences.ThemeManager;
+import org.tasks.ui.WidgetCheckBoxes;
 
 import javax.inject.Inject;
 
@@ -27,6 +28,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     @Inject SubtasksHelper subtasksHelper;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject ThemeManager themeManager;
+    @Inject WidgetCheckBoxes widgetCheckBoxes;
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -50,7 +52,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
         Theme theme = themeManager.getWidgetTheme(widgetId);
         return new ScrollableViewsFactory(subtasksHelper, preferences, this, filterId,
-                theme, widgetId, database, taskService, defaultFilterProvider);
+                theme, widgetId, database, taskService, defaultFilterProvider, widgetCheckBoxes);
     }
 
     @Override

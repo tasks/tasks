@@ -28,6 +28,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
 import org.tasks.sync.SyncThrottle;
+import org.tasks.ui.CheckBoxes;
 
 import javax.inject.Inject;
 
@@ -52,12 +53,13 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject SyncThrottle syncThrottle;
     @Inject DialogBuilder dialogBuilder;
     @Inject Broadcaster broadcaster;
+    @Inject CheckBoxes checkBoxes;
 
     private GtasksList list;
 
     @Override
     protected OrderedListFragmentHelperInterface createFragmentHelper() {
-        return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskService, metadataDao, this, gtasksTaskListUpdater, dialogBuilder);
+        return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskService, metadataDao, this, gtasksTaskListUpdater, dialogBuilder, checkBoxes);
     }
 
     @Override

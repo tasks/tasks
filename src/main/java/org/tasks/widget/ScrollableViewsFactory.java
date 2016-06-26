@@ -55,7 +55,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             int widgetId,
             Database database,
             TaskService taskService,
-            DefaultFilterProvider defaultFilterProvider) {
+            DefaultFilterProvider defaultFilterProvider,
+            WidgetCheckBoxes checkBoxes) {
         this.subtasksHelper = subtasksHelper;
         this.preferences = preferences;
         this.context = context;
@@ -64,9 +65,9 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.database = database;
         this.taskService = taskService;
         this.defaultFilterProvider = defaultFilterProvider;
+        this.checkBoxes = checkBoxes;
 
         themeTextColor = theme.getTextColor();
-        checkBoxes = new WidgetCheckBoxes(context);
         showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
         hideCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + widgetId, false);
     }

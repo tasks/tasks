@@ -9,40 +9,33 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.primitives.Ints;
 
 import org.tasks.R;
-import org.tasks.injection.ForApplication;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import timber.log.Timber;
-
 public class CheckBoxes {
+
+    public static CheckBoxes newCheckBoxes(Context context) {
+        return new CheckBoxes(context);
+    }
 
     private static final int MAX_IMPORTANCE_INDEX = 3;
 
-    private static boolean initialized;
-    private static List<Drawable> checkboxes;
-    private static List<Drawable> repeatingCheckboxes;
-    private static List<Drawable> completedCheckboxes;
-    private static List<Integer> priorityColors;
-    private static int[] priorityColorsArray;
+    private List<Drawable> checkboxes;
+    private List<Drawable> repeatingCheckboxes;
+    private List<Drawable> completedCheckboxes;
+    private List<Integer> priorityColors;
+    private int[] priorityColorsArray;
 
-    @Inject
-    public CheckBoxes(@ForApplication Context context) {
-        if (!initialized) {
-            Timber.d("Initializing checkboxes");
-            checkboxes = wrapDrawable(context, R.drawable.ic_check_box_outline_blank_24dp);
-            repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_repeat_24dp);
-            completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
-            priorityColors = ImmutableList.of(
-                    context.getResources().getColor(R.color.importance_1),
-                    context.getResources().getColor(R.color.importance_2),
-                    context.getResources().getColor(R.color.importance_3),
-                    context.getResources().getColor(R.color.importance_4));
-            priorityColorsArray = Ints.toArray(priorityColors);
-            initialized = true;
-        }
+    private CheckBoxes(Context context) {
+        checkboxes = wrapDrawable(context, R.drawable.ic_check_box_outline_blank_24dp);
+        repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_repeat_24dp);
+        completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
+        priorityColors = ImmutableList.of(
+                context.getResources().getColor(R.color.importance_1),
+                context.getResources().getColor(R.color.importance_2),
+                context.getResources().getColor(R.color.importance_3),
+                context.getResources().getColor(R.color.importance_4));
+        priorityColorsArray = Ints.toArray(priorityColors);
     }
 
     public List<Integer> getPriorityColors() {

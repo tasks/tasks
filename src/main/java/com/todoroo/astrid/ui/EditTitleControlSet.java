@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -48,23 +47,16 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     private static final String EXTRA_PRIORITY = "extra_priority";
 
     @Inject TaskService taskService;
+    @Inject CheckBoxes checkBoxes;
 
     @BindView(R.id.title) EditText editText;
     @BindView(R.id.completeBox) CheckableImageView completeBox;
 
-    private CheckBoxes checkBoxes;
     private boolean isComplete;
     private boolean isRepeating;
     private int importanceValue;
     private boolean isNewTask;
     private String title;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        checkBoxes = new CheckBoxes(activity);
-    }
 
     @Override
     protected void inject(FragmentComponent component) {

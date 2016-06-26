@@ -1,6 +1,5 @@
 package org.tasks.ui;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,11 +7,7 @@ import android.graphics.drawable.Drawable;
 
 import com.google.common.base.Function;
 
-import org.tasks.injection.ForApplication;
-
 import java.util.List;
-
-import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -21,21 +16,19 @@ import static com.google.common.collect.Lists.transform;
 
 public class WidgetCheckBoxes {
 
-    private static boolean initialized;
-    private static List<Bitmap> checkboxes;
-    private static List<Bitmap> repeatingCheckboxes;
-    private static List<Bitmap> completedCheckboxes;
+    public static WidgetCheckBoxes newWidgetCheckBoxes(CheckBoxes checkBoxes) {
+        return new WidgetCheckBoxes(checkBoxes);
+    }
 
-    @Inject
-    public WidgetCheckBoxes(@ForApplication Context context) {
-        if (!initialized) {
-            CheckBoxes checkBoxes = new CheckBoxes(context);
-            Timber.d("Initializing widget checkboxes");
-            checkboxes = convertToBitmap(checkBoxes.getCheckBoxes());
-            repeatingCheckboxes = convertToBitmap(checkBoxes.getRepeatingCheckBoxes());
-            completedCheckboxes = convertToBitmap(checkBoxes.getCompletedCheckBoxes());
-            initialized = true;
-        }
+    private List<Bitmap> checkboxes;
+    private List<Bitmap> repeatingCheckboxes;
+    private List<Bitmap> completedCheckboxes;
+
+    private WidgetCheckBoxes(CheckBoxes checkBoxes) {
+        Timber.d("Initializing widget checkboxes");
+        checkboxes = convertToBitmap(checkBoxes.getCheckBoxes());
+        repeatingCheckboxes = convertToBitmap(checkBoxes.getRepeatingCheckBoxes());
+        completedCheckboxes = convertToBitmap(checkBoxes.getCompletedCheckBoxes());
     }
 
     public Bitmap getCompletedCheckbox(int importance) {

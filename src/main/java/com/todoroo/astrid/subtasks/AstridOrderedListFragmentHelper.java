@@ -31,6 +31,7 @@ import com.todoroo.astrid.ui.DraggableListView;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +46,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
     private DialogBuilder dialogBuilder;
+    private CheckBoxes checkBoxes;
     private final TaskListFragment fragment;
     private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
@@ -56,13 +58,14 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     public AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
                                            TaskService taskService, TaskListFragment fragment,
-                                           AstridOrderedListUpdater<LIST> updater, DialogBuilder dialogBuilder) {
+                                           AstridOrderedListUpdater<LIST> updater, DialogBuilder dialogBuilder, CheckBoxes checkBoxes) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
         this.fragment = fragment;
         this.updater = updater;
         this.dialogBuilder = dialogBuilder;
+        this.checkBoxes = checkBoxes;
     }
 
     // --- ui component setup
@@ -174,7 +177,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     public TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor, sqlQueryTemplate, dialogBuilder);
+        taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor, sqlQueryTemplate, dialogBuilder, checkBoxes);
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
             @Override
@@ -189,8 +192,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final class DraggableTaskAdapter extends TaskAdapter {
 
         private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
-                Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder) {
-            super(context, preferences, taskAttachmentDao, taskService, activity, c, query, null, dialogBuilder);
+                                     Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder, CheckBoxes checkBoxes) {
+            super(context, preferences, taskAttachmentDao, taskService, activity, c, query, null, dialogBuilder, checkBoxes);
         }
 
         @Override
