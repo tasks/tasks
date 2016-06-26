@@ -1,0 +1,31 @@
+package org.tasks.billing;
+
+import android.app.Activity;
+import android.content.Intent;
+
+import org.tasks.dialogs.DialogBuilder;
+import org.tasks.preferences.Preferences;
+import org.tasks.widget.WidgetConfigActivity;
+
+import javax.inject.Inject;
+
+public class PurchaseHelper {
+    private Preferences preferences;
+
+    @Inject
+    public PurchaseHelper(Preferences preferences) {
+        this.preferences = preferences;
+    }
+
+    public boolean purchase(DialogBuilder dialogBuilder, final Activity activity,
+                            final String sku, final String pref,
+                            final int requestCode, final PurchaseHelperCallback callback) {
+        preferences.setBoolean(pref, true);
+        callback.purchaseCompleted(true, sku);
+        return true;
+    }
+
+    public void handleActivityResult(WidgetConfigActivity widgetConfigActivity, int requestCode, int resultCode, Intent data) {
+
+    }
+}

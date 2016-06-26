@@ -8,16 +8,23 @@ import android.os.Bundle;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.billing.PurchaseHelper;
+import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.ThemePickerDialog;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Theme;
 
 import javax.inject.Inject;
 
-public abstract class BaseWidgetConfigActivity extends InjectingAppCompatActivity implements WidgetConfigDialog.WidgetConfigCallback, ThemePickerDialog.ThemePickerCallback {
+import timber.log.Timber;
+
+public class WidgetConfigActivity extends InjectingAppCompatActivity implements WidgetConfigDialog.WidgetConfigCallback, ThemePickerDialog.ThemePickerCallback, PurchaseHelperCallback {
 
     private static final String FRAG_TAG_WIDGET_CONFIG = "frag_tag_widget_config";
+
+    private static final int REQUEST_PURCHASE = 10109;
 
     public static final int DEFAULT_OPACITY = 255;
 
@@ -31,6 +38,7 @@ public abstract class BaseWidgetConfigActivity extends InjectingAppCompatActivit
 
     @Inject Tracker tracker;
     @Inject DialogBuilder dialogBuilder;
+    @Inject PurchaseHelper purchaseHelper;
 
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private WidgetConfigDialog widgetConfigDialog;
@@ -80,6 +88,39 @@ public abstract class BaseWidgetConfigActivity extends InjectingAppCompatActivit
             widgetConfigDialog.setTheme(theme);
         } else {
             widgetConfigDialog.setColor(theme);
+        }
+    }
+
+    @Override
+    public void initiateThemePurchase() {
+        purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
+    }
+
+    @Override
+    public void purchaseCompleted(boolean success, final String sku) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getString(R.string.sku_themes).equals(sku)) {
+                    showThemeSelection();
+                } else {
+                    Timber.d("Unhandled sku: %s", sku);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void inject(ActivityComponent component) {
+        component.inject(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_PURCHASE) {
+            purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
