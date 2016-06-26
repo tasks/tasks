@@ -109,15 +109,15 @@ public class ThemeManager {
     }
 
     public Theme getBaseTheme(int themeIndex) {
-        return new Theme(context, themeIndex, THEMES[themeIndex], themeNames[themeIndex]);
+        return new Theme(context, themeIndex, THEMES[themeIndex]);
     }
 
     public Theme getColor(int themeIndex) {
-        return new Theme(context, themeIndex, COLORS[themeIndex], colorNames[themeIndex]);
+        return new Theme(context, themeIndex, COLORS[themeIndex]);
     }
 
     public Theme getAccent(int accentIndex) {
-        return new Theme(context, accentIndex, ACCENTS[accentIndex], accentNames[accentIndex]);
+        return new Theme(context, accentIndex, ACCENTS[accentIndex]);
     }
 
     public Theme getWidgetTheme(int widgetId) {
@@ -130,5 +130,29 @@ public class ThemeManager {
 
     public int getDialogThemeResId() {
         return getBaseTheme().getDialogThemeResId();
+    }
+
+    public String getBaseThemeName() {
+        return getBaseThemeName(preferences.getInt(R.string.p_theme, 0));
+    }
+
+    public String getColorName() {
+        return getColorName(preferences.getInt(R.string.p_theme_color, 0));
+    }
+
+    public String getAccentName() {
+        return getAccentName(preferences.getInt(R.string.p_theme_accent, 1));
+    }
+
+    public String getBaseThemeName(int theme) {
+        return themeNames[theme];
+    }
+
+    public String getColorName(int color) {
+        return colorNames[color];
+    }
+
+    public String getAccentName(int accent) {
+        return accentNames[accent];
     }
 }

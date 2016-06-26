@@ -3,7 +3,6 @@ package org.tasks.preferences;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
 
 import org.tasks.R;
 
@@ -11,17 +10,11 @@ public class Theme {
     private final Context context;
     private final int themeRes;
     private final int themeIndex;
-    private final String name;
 
-    public Theme(Context context, int themeIndex, int themeRes, String name) {
+    public Theme(Context context, int themeIndex, int themeRes) {
         this.themeIndex = themeIndex;
-        this.name = name;
         this.context = new ContextThemeWrapper(context, themeRes);
         this.themeRes = themeRes;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Deprecated

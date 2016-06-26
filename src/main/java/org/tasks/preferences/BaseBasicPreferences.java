@@ -42,7 +42,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         addPreferencesFromResource(R.xml.preferences_privacy);
 
         Preference themePreference = findPreference(getString(R.string.p_theme));
-        themePreference.setSummary(themeManager.getBaseTheme().getName());
+        themePreference.setSummary(themeManager.getBaseThemeName());
         themePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -55,7 +55,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
             }
         });
         Preference colorPreference = findPreference(getString(R.string.p_theme_color));
-        colorPreference.setSummary(themeManager.getColorTheme().getName());
+        colorPreference.setSummary(themeManager.getColorName());
         colorPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -68,7 +68,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
             }
         });
         Preference accentPreference = findPreference(getString(R.string.p_theme_accent));
-        accentPreference.setSummary(themeManager.getAccentTheme().getName());
+        accentPreference.setSummary(themeManager.getAccentName());
         accentPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {

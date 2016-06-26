@@ -173,11 +173,11 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     }
 
     private void updateTheme() {
-        selectedTheme.setText(themeManager.getBaseTheme(theme).getName());
+        selectedTheme.setText(themeManager.getBaseThemeName(theme));
     }
 
     private void updateColor() {
-        selectedColor.setText(themeManager.getColor(color).getName());
+        selectedColor.setText(themeManager.getColorName(color));
     }
 
     @OnClick(R.id.filter_selection)
