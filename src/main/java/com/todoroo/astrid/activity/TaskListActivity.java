@@ -246,6 +246,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     private TaskListFragment newTaskListFragment(Filter filter) {
+        navigationDrawer.closeDrawer();
         if (filter instanceof TagFilter) {
             TagFilter tagFilter = (TagFilter) filter;
             TagData tagData = tagDataDao.getByUuid(tagFilter.getUuid());
@@ -278,6 +279,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (intent.hasExtra(OPEN_TASK)) {
             long taskId = intent.getLongExtra(OPEN_TASK, 0);
             intent.removeExtra(OPEN_TASK);
+            navigationDrawer.closeDrawer();
             if (taskId > 0) {
                 onTaskListItemClicked(taskId);
             } else {
