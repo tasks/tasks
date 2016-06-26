@@ -15,6 +15,55 @@ import javax.inject.Singleton;
 @Singleton
 public class ThemeManager {
 
+    private static final int[] THEMES = new int[] {
+            R.style.LightOverride,
+            R.style.BaseBlack,
+            R.style.DarkOverride
+    };
+
+    private static final int[] COLORS = new int[] {
+            R.style.BlueGrey,
+            R.style.DarkGrey,
+            R.style.Red,
+            R.style.Pink,
+            R.style.Purple,
+            R.style.DeepPurple,
+            R.style.Indigo,
+            R.style.Blue,
+            R.style.LightBlue,
+            R.style.Cyan,
+            R.style.Teal,
+            R.style.Green,
+            R.style.LightGreen,
+            R.style.Lime,
+            R.style.Yellow,
+            R.style.Amber,
+            R.style.Orange,
+            R.style.DeepOrange,
+            R.style.Brown,
+            R.style.Grey
+    };
+
+    private static final int[] ACCENTS = new int[] {
+            R.style.BlueGreyAccent,
+            R.style.RedAccent,
+            R.style.PinkAccent,
+            R.style.PurpleAccent,
+            R.style.DeepPurpleAccent,
+            R.style.IndigoAccent,
+            R.style.BlueAccent,
+            R.style.LightBlueAccent,
+            R.style.CyanAccent,
+            R.style.TealAccent,
+            R.style.GreenAccent,
+            R.style.LightGreenAccent,
+            R.style.LimeAccent,
+            R.style.YellowAccent,
+            R.style.AmberAccent,
+            R.style.OrangeAccent,
+            R.style.DeepOrangeAccent
+    };
+
     private final Context context;
     private final Preferences preferences;
     private final String[] themeNames;
@@ -25,9 +74,10 @@ public class ThemeManager {
     public ThemeManager(@ForApplication Context context, Preferences preferences) {
         this.context = context;
         this.preferences = preferences;
-        themeNames = context.getResources().getStringArray(R.array.themes);
-        colorNames = context.getResources().getStringArray(R.array.colors);
-        accentNames = context.getResources().getStringArray(R.array.accents);
+        Resources resources = context.getResources();
+        themeNames = resources.getStringArray(R.array.themes);
+        colorNames = resources.getStringArray(R.array.colors);
+        accentNames = resources.getStringArray(R.array.accents);
     }
 
     public boolean isDarkTheme() {
@@ -59,15 +109,15 @@ public class ThemeManager {
     }
 
     public Theme getBaseTheme(int themeIndex) {
-        return new Theme(context, themeIndex, getThemeResId(themeIndex), themeNames[themeIndex]);
+        return new Theme(context, themeIndex, THEMES[themeIndex], themeNames[themeIndex]);
     }
 
     public Theme getColor(int themeIndex) {
-        return new Theme(context, themeIndex, getColorResId(themeIndex), colorNames[themeIndex]);
+        return new Theme(context, themeIndex, COLORS[themeIndex], colorNames[themeIndex]);
     }
 
     public Theme getAccent(int accentIndex) {
-        return new Theme(context, accentIndex, getAccentResId(accentIndex), accentNames[accentIndex]);
+        return new Theme(context, accentIndex, ACCENTS[accentIndex], accentNames[accentIndex]);
     }
 
     public Theme getWidgetTheme(int widgetId) {
@@ -80,102 +130,5 @@ public class ThemeManager {
 
     public int getDialogThemeResId() {
         return getBaseTheme().getDialogThemeResId();
-    }
-
-    private int getThemeResId(int index) {
-        switch (index) {
-            case 1:
-                return R.style.BaseBlack;
-            case 2:
-                return R.style.DarkOverride;
-            default:
-                return R.style.LightOverride;
-        }
-    }
-
-    private int getColorResId(int index) {
-        switch (index) {
-            case 1:
-                return R.style.DarkGrey;
-            case 2:
-                return R.style.Red;
-            case 3:
-                return R.style.Pink;
-            case 4:
-                return R.style.Purple;
-            case 5:
-                return R.style.DeepPurple;
-            case 6:
-                return R.style.Indigo;
-            case 7:
-                return R.style.Blue;
-            case 8:
-                return R.style.LightBlue;
-            case 9:
-                return R.style.Cyan;
-            case 10:
-                return R.style.Teal;
-            case 11:
-                return R.style.Green;
-            case 12:
-                return R.style.LightGreen;
-            case 13:
-                return R.style.Lime;
-            case 14:
-                return R.style.Yellow;
-            case 15:
-                return R.style.Amber;
-            case 16:
-                return R.style.Orange;
-            case 17:
-                return R.style.DeepOrange;
-            case 18:
-                return R.style.Brown;
-            case 19:
-                return R.style.Grey;
-            case 0:
-            default:
-                return R.style.BlueGrey;
-        }
-    }
-
-    private int getAccentResId(int index) {
-        switch (index) {
-            case 1:
-                return R.style.RedAccent;
-            case 2:
-                return R.style.PinkAccent;
-            case 3:
-                return R.style.PurpleAccent;
-            case 4:
-                return R.style.DeepPurpleAccent;
-            case 5:
-                return R.style.IndigoAccent;
-            case 6:
-                return R.style.BlueAccent;
-            case 7:
-                return R.style.LightBlueAccent;
-            case 8:
-                return R.style.CyanAccent;
-            case 9:
-                return R.style.TealAccent;
-            case 10:
-                return R.style.GreenAccent;
-            case 11:
-                return R.style.LightGreenAccent;
-            case 12:
-                return R.style.LimeAccent;
-            case 13:
-                return R.style.YellowAccent;
-            case 14:
-                return R.style.AmberAccent;
-            case 15:
-                return R.style.OrangeAccent;
-            case 16:
-                return R.style.DeepOrangeAccent;
-            case 0:
-            default:
-                return R.style.BlueGreyAccent;
-        }
     }
 }
