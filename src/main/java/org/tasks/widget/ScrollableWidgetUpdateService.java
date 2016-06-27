@@ -12,8 +12,8 @@ import org.tasks.injection.InjectingRemoteViewsService;
 import org.tasks.injection.ServiceComponent;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.Theme;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.ThemeBase;
+import org.tasks.themes.ThemeCache;
 import org.tasks.ui.WidgetCheckBoxes;
 
 import javax.inject.Inject;
@@ -27,8 +27,8 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     @Inject Preferences preferences;
     @Inject SubtasksHelper subtasksHelper;
     @Inject DefaultFilterProvider defaultFilterProvider;
-    @Inject ThemeManager themeManager;
     @Inject WidgetCheckBoxes widgetCheckBoxes;
+    @Inject ThemeCache themeCache;
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -50,9 +50,9 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
 
         String filterId = (String) extras.get(FILTER_ID);
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-        Theme theme = themeManager.getWidgetTheme(widgetId);
+        ThemeBase themeBase = themeCache.getThemeBase(preferences.getInt(WidgetConfigActivity.PREF_THEME + widgetId, 0));
         return new ScrollableViewsFactory(subtasksHelper, preferences, this, filterId,
-                theme, widgetId, database, taskService, defaultFilterProvider, widgetCheckBoxes);
+                themeBase.getTextColor(), widgetId, database, taskService, defaultFilterProvider, widgetCheckBoxes);
     }
 
     @Override

@@ -30,6 +30,7 @@ import org.tasks.activities.PurgeDeletedActivity;
 import org.tasks.activities.ResetPreferencesActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.files.FileExplore;
+import org.tasks.files.MyFilePickerActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
@@ -130,4 +131,6 @@ public interface BaseActivityComponent {
     void inject(DateShortcutPreferences dateShortcutPreferences);
 
     void inject(AppearancePreferences appearancePreferences);
+
+    void inject(MyFilePickerActivity myFilePickerActivity);
 }

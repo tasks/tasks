@@ -24,8 +24,8 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.Theme;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
+import org.tasks.themes.ThemeCache;
 
 import java.text.NumberFormat;
 
@@ -66,13 +66,13 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
     }
 
-    public void setTheme(Theme theme) {
-        this.theme = theme.getThemeIndex();
+    public void setThemeIndex(int index) {
+        this.themeIndex = index;
         updateTheme();
     }
 
-    public void setColor(Theme theme) {
-        this.color = theme.getThemeIndex();
+    public void setColorIndex(int index) {
+        this.colorIndex = index;
         updateColor();
     }
 
@@ -97,25 +97,26 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject Preferences preferences;
     @Inject @ForApplication Context context;
-    @Inject ThemeManager themeManager;
+    @Inject Theme theme;
+    @Inject ThemeCache themeCache;
 
     private Filter filter;
-    private int theme = 0;
-    private int color = 0;
+    private int themeIndex = 0;
+    private int colorIndex = 0;
     private int appWidgetId;
     private WidgetConfigCallback callback;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = themeManager.getThemedLayoutInflater().inflate(R.layout.widget_config_activity, null);
+        View view = theme.getLayoutInflater(context).inflate(R.layout.widget_config_activity, null);
 
         ButterKnife.bind(this, view);
 
         opacitySeekbar.setOnSeekBarChangeListener(this);
 
         if (savedInstanceState != null) {
-            theme = savedInstanceState.getInt(EXTRA_THEME);
+            themeIndex = savedInstanceState.getInt(EXTRA_THEME);
             filter = savedInstanceState.getParcelable(EXTRA_FILTER);
             appWidgetId = savedInstanceState.getInt(EXTRA_APP_WIDGET_ID);
         } else {
@@ -146,7 +147,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
         super.onSaveInstanceState(outState);
 
         outState.putInt(EXTRA_APP_WIDGET_ID, appWidgetId);
-        outState.putInt(EXTRA_THEME, theme);
+        outState.putInt(EXTRA_THEME, themeIndex);
         outState.putParcelable(EXTRA_FILTER, filter);
     }
 
@@ -173,11 +174,11 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     }
 
     private void updateTheme() {
-        selectedTheme.setText(themeManager.getBaseThemeName(theme));
+        selectedTheme.setText(themeCache.getThemeBase(themeIndex).getName());
     }
 
     private void updateColor() {
-        selectedColor.setText(themeManager.getColorName(color));
+        selectedColor.setText(themeCache.getThemeColor(colorIndex).getName());
     }
 
     @OnClick(R.id.filter_selection)
@@ -225,8 +226,8 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
         preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + appWidgetId, !hideDueDate.isChecked());
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + appWidgetId, hideCheckBoxes.isChecked());
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + appWidgetId, hideHeader.isChecked());
-        preferences.setInt(WidgetConfigActivity.PREF_THEME + appWidgetId, theme);
-        preferences.setInt(WidgetConfigActivity.PREF_COLOR + appWidgetId, color);
+        preferences.setInt(WidgetConfigActivity.PREF_THEME + appWidgetId, themeIndex);
+        preferences.setInt(WidgetConfigActivity.PREF_COLOR + appWidgetId, colorIndex);
         preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, opacitySeekbar.getProgress());
 
         // force update after setting preferences

@@ -6,14 +6,12 @@
 package com.todoroo.astrid.repeats;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +43,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
 import org.tasks.time.DateTime;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -101,7 +99,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
-    @Inject ThemeManager themeManager;
+    @Inject Theme theme;
 
     @BindView(R.id.clear) ImageView clear;
     @BindView(R.id.display_row_edit) TextView displayView;
@@ -440,15 +438,14 @@ public class RepeatControlSet extends TaskEditControlFragment {
             dialogValue = 1;
         }
 
-        ContextThemeWrapper wrapper = new ContextThemeWrapper(getActivity(), themeManager.getDialogThemeResId());
-        NumberPickerDialog dialog = new NumberPickerDialog(wrapper, new OnNumberPickedListener() {
+        NumberPickerDialog dialog = new NumberPickerDialog(theme.getThemedDialog(getActivity()), new OnNumberPickedListener() {
             @Override
             public void onNumberPicked(int number) {
                 setRepeatValue(number);
             }
         }, getResources().getString(R.string.repeat_interval_prompt),
                 dialogValue, 1, 1, 365);
-        themeManager.applyThemeToContext(dialog.getContext());
+        theme.applyToContext(dialog.getContext());
         dialog.show();
     }
 

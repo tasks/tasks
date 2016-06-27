@@ -20,8 +20,9 @@ import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.Theme;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.ThemeBase;
+import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 
 import javax.inject.Inject;
 
@@ -39,7 +40,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     @Inject Broadcaster broadcaster;
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
-    @Inject ThemeManager themeManager;
+    @Inject ThemeCache themeCache;
 
     public static final String COMPLETE_TASK = "COMPLETE_TASK";
     public static final String EDIT_TASK = "EDIT_TASK";
@@ -96,8 +97,8 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER_ID, filterId);
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        Theme color = themeManager.getWidgetColor(id);
-        Theme theme = themeManager.getWidgetTheme(id);
+        ThemeBase theme = themeCache.getThemeBase(preferences.getInt(WidgetConfigActivity.PREF_THEME + id, 0));
+        ThemeColor color = themeCache.getThemeColor(preferences.getInt(WidgetConfigActivity.PREF_COLOR + id, 0));
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE);

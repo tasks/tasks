@@ -4,6 +4,11 @@ import android.content.Context;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
+import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeAccent;
+import org.tasks.themes.ThemeBase;
+import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.WidgetCheckBoxes;
 
@@ -49,5 +54,11 @@ public class ApplicationModule {
     @Singleton
     public WidgetCheckBoxes getWidgetCheckBoxes(CheckBoxes checkBoxes) {
         return newWidgetCheckBoxes(checkBoxes);
+    }
+
+    @Provides
+    @Singleton
+    public ThemeCache getThemeCache() {
+        return new ThemeCache(context);
     }
 }

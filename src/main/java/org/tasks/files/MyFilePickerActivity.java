@@ -4,21 +4,34 @@ import android.os.Bundle;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
-import org.tasks.preferences.PermissionChecker;
-import org.tasks.preferences.Preferences;
-import org.tasks.preferences.ThemeApplicator;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.analytics.Tracker;
+import org.tasks.injection.ActivityComponent;
+import org.tasks.injection.ActivityModule;
+import org.tasks.injection.InjectingApplication;
+import org.tasks.themes.Theme;
+
+import javax.inject.Inject;
 
 public class MyFilePickerActivity extends FilePickerActivity {
 
+    @Inject Theme theme;
+    @Inject Tracker tracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        PermissionChecker permissionChecker = new PermissionChecker(this);
-        Preferences preferences = new Preferences(this, permissionChecker);
-        ThemeManager themeManager = new ThemeManager(this, preferences);
-        ThemeApplicator themeApplicator = new ThemeApplicator(this, themeManager);
-        themeApplicator.applyThemeAndStatusBarColor();
-
+        ((InjectingApplication) getApplication())
+                .getComponent()
+                .plus(new ActivityModule(this))
+                .inject(this);
+        theme.applyThemeAndStatusBarColor(this);
+        setTitle(null);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        tracker.showScreen(getClass().getSimpleName());
     }
 }

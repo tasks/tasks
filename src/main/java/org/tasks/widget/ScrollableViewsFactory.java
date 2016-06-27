@@ -24,7 +24,6 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.Theme;
 import org.tasks.ui.WidgetCheckBoxes;
 
 import timber.log.Timber;
@@ -51,7 +50,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             Preferences preferences,
             Context context,
             String filterId,
-            Theme theme,
+            int themeTextColor,
             int widgetId,
             Database database,
             TaskService taskService,
@@ -66,8 +65,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.taskService = taskService;
         this.defaultFilterProvider = defaultFilterProvider;
         this.checkBoxes = checkBoxes;
-
-        themeTextColor = theme.getTextColor();
+        this.themeTextColor = themeTextColor;
         showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
         hideCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + widgetId, false);
     }

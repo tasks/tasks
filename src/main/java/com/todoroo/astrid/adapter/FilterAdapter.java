@@ -34,7 +34,6 @@ import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
-import org.tasks.preferences.Theme;
 import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.List;

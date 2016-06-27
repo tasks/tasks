@@ -7,7 +7,6 @@ package com.todoroo.astrid.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v7.view.ContextThemeWrapper;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -15,21 +14,21 @@ import android.widget.TextView;
 import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener;
 
 import org.tasks.R;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
 
 public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnClickListener {
 
     private final Context context;
-    private final ThemeManager themeManager;
+    private final Theme theme;
     private final TextView timeButton;
     private int timeDuration;
     private int[] initialValues = null;
     private NNumberPickerDialog dialog = null;
 
     public TimeDurationControlSet(Context context, View view,
-            int timeButtonId, ThemeManager themeManager) {
+            int timeButtonId, Theme theme) {
         this.context = context;
-        this.themeManager = themeManager;
+        this.theme = theme;
 
         timeButton = (TextView)view.findViewById(timeButtonId);
         ((View) timeButton.getParent()).setOnClickListener(this);
@@ -69,8 +68,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
     @Override
     public void onClick(View v) {
         if(dialog == null) {
-            ContextThemeWrapper contextThemeWrapper = new ContextThemeWrapper(context, themeManager.getDialogThemeResId());
-            dialog = new NNumberPickerDialog(contextThemeWrapper, this,
+            dialog = new NNumberPickerDialog(theme.getThemedDialog(context), this,
                     context.getResources().getString(R.string.DLG_hour_minutes),
                     new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
                     new int[] {999, 59}, new String[] {":", null});
@@ -104,7 +102,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
             dialog.setInitialValues(initialValues);
         }
 
-        themeManager.applyThemeToContext(dialog.getContext());
+        theme.applyToContext(dialog.getContext());
         dialog.show();
     }
 

@@ -14,6 +14,9 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.themes.ThemeAccent;
+import org.tasks.themes.ThemeBase;
+import org.tasks.themes.ThemeColor;
 
 import javax.inject.Inject;
 
@@ -27,8 +30,10 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     private static final int RC_PREFS = 10001;
 
     @Inject Tracker tracker;
-    @Inject ThemeManager themeManager;
     @Inject Preferences preferences;
+    @Inject ThemeBase themeBase;
+    @Inject ThemeColor themeColor;
+    @Inject ThemeAccent themeAccent;
     private Bundle result;
 
     @Override
@@ -42,7 +47,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         addPreferencesFromResource(R.xml.preferences_privacy);
 
         Preference themePreference = findPreference(getString(R.string.p_theme));
-        themePreference.setSummary(themeManager.getBaseThemeName());
+        themePreference.setSummary(themeBase.getName());
         themePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -55,7 +60,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
             }
         });
         Preference colorPreference = findPreference(getString(R.string.p_theme_color));
-        colorPreference.setSummary(themeManager.getColorName());
+        colorPreference.setSummary(themeColor.getName());
         colorPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -68,7 +73,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
             }
         });
         Preference accentPreference = findPreference(getString(R.string.p_theme_accent));
-        accentPreference.setSummary(themeManager.getAccentName());
+        accentPreference.setSummary(themeAccent.getName());
         accentPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -125,8 +130,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     }
 
     @Override
-    public void themePicked(ThemePickerDialog.ColorPalette palette, Theme theme) {
-        int index = theme.getThemeIndex();
+    public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
         switch (palette) {
             case THEMES:
                 preferences.setInt(R.string.p_theme, index);

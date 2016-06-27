@@ -14,7 +14,6 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.Theme;
 
 import javax.inject.Inject;
 
@@ -83,11 +82,11 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
     }
 
     @Override
-    public void themePicked(ThemePickerDialog.ColorPalette palette, Theme theme) {
+    public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
         if (palette == ThemePickerDialog.ColorPalette.THEMES) {
-            widgetConfigDialog.setTheme(theme);
+            widgetConfigDialog.setThemeIndex(index);
         } else {
-            widgetConfigDialog.setColor(theme);
+            widgetConfigDialog.setColorIndex(index);
         }
     }
 

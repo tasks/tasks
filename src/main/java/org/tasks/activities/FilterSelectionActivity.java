@@ -13,8 +13,7 @@ import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
 
@@ -29,7 +28,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
     @Inject FilterProvider filterProvider;
     @Inject FilterCounter filterCounter;
     @Inject DialogBuilder dialogBuilder;
-    @Inject ThemeManager themeManager;
+    @Inject Theme theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
         final boolean returnFilter = getIntent().getBooleanExtra(EXTRA_RETURN_FILTER, false);
 
         final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this,
-                themeManager.getThemedLayoutInflater(), null, false);
+                theme.getLayoutInflater(this), null, false);
         filterAdapter.populateList();
 
         dialogBuilder.newDialog()

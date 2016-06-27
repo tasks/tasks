@@ -30,7 +30,7 @@ import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.AppearancePreferences;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
 
@@ -63,7 +63,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     @Inject FilterCounter filterCounter;
     @Inject FilterProvider filterProvider;
-    @Inject ThemeManager themeManager;
+    @Inject Theme theme;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -145,7 +145,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     private void setUpList() {
         adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(),
-                themeManager.getThemedLayoutInflater(), mDrawerListView, true);
+                theme.getLayoutInflater(getContext()), mDrawerListView, true);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }

@@ -20,9 +20,9 @@ import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.Preferences;
 import org.tasks.preferences.ResourceResolver;
-import org.tasks.preferences.ThemeManager;
 import org.tasks.scheduling.AlarmManager;
 import org.tasks.scheduling.CalendarNotificationIntentService;
+import org.tasks.themes.ThemeAccent;
 
 import javax.inject.Inject;
 
@@ -44,7 +44,7 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     @Inject ResourceResolver resourceResolver;
     @Inject DialogBuilder dialogBuilder;
     @Inject AlarmManager alarmManager;
-    @Inject ThemeManager themeManager;
+    @Inject ThemeAccent themeAccent;
 
     private String eventName;
     private long endTime;
@@ -138,7 +138,7 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
 
         dialogView.setText(speechText);
 
-        createListButton.setBackgroundColor(themeManager.getAccentTheme().getAccentColor());
+        createListButton.setBackgroundColor(themeAccent.getAccentColor());
 
         if (fromPostpone) {
             postponeButton.setVisibility(View.GONE);

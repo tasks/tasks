@@ -6,7 +6,6 @@
 package com.todoroo.astrid.timers;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -28,11 +27,10 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
 
 import org.tasks.R;
-import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
 import org.tasks.ui.TaskEditControlFragment;
 
 import javax.inject.Inject;
@@ -61,7 +59,7 @@ public class TimerControlSet extends TaskEditControlFragment {
 
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForActivity Context context;
-    @Inject ThemeManager themeManager;
+    @Inject Theme theme;
 
     @BindView(R.id.display_row_edit) TextView displayEdit;
     @BindView(R.id.timer) Chronometer chronometer;
@@ -87,8 +85,8 @@ public class TimerControlSet extends TaskEditControlFragment {
         }
 
         dialogView = inflater.inflate(R.layout.control_set_timers_dialog, null);
-        estimated = new TimeDurationControlSet(context, dialogView, R.id.estimatedDuration, themeManager);
-        elapsed = new TimeDurationControlSet(context, dialogView, R.id.elapsedDuration, themeManager);
+        estimated = new TimeDurationControlSet(context, dialogView, R.id.estimatedDuration, theme);
+        elapsed = new TimeDurationControlSet(context, dialogView, R.id.elapsedDuration, theme);
         estimated.setTimeDuration(estimatedSeconds);
         elapsed.setTimeDuration(elapsedSeconds);
         refresh();

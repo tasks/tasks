@@ -2,28 +2,26 @@ package org.tasks.dialogs;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.view.ContextThemeWrapper;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
 
 public class DialogBuilder {
     private final Activity activity;
-    private ThemeManager themeManager;
+    private final Theme theme;
 
     @Inject
-    public DialogBuilder(Activity activity, ThemeManager themeManager) {
+    public DialogBuilder(Activity activity, Theme theme) {
         this.activity = activity;
-        this.themeManager = themeManager;
+        this.theme = theme;
     }
 
     public AlertDialogBuilder newDialog() {
-        return new AlertDialogBuilder(activity, themeManager);
+        return new AlertDialogBuilder(activity, theme);
     }
 
     @Deprecated
@@ -32,8 +30,8 @@ public class DialogBuilder {
     }
 
     public ProgressDialog newProgressDialog() {
-        ProgressDialog progressDialog = new ProgressDialog(activity, themeManager.getDialogThemeResId());
-        themeManager.applyThemeToContext(progressDialog.getContext());
+        ProgressDialog progressDialog = new ProgressDialog(activity, theme.getDialogStyle());
+        theme.applyToContext(progressDialog.getContext());
         if (AndroidUtilities.preLollipop()) {
             progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
         }

@@ -21,8 +21,8 @@ import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.Theme;
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
+import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
 
@@ -43,7 +43,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
     }
 
     public interface ThemePickerCallback {
-        void themePicked(ColorPalette palette, Theme theme);
+        void themePicked(ColorPalette palette, int index);
 
         void initiateThemePurchase();
     }
@@ -51,7 +51,8 @@ public class ThemePickerDialog extends InjectingDialogFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForApplication Context context;
     @Inject Preferences preferences;
-    @Inject ThemeManager themeManager;
+    @Inject Theme theme;
+    @Inject ThemeCache themeCache;
 
     private ThemePickerCallback callback;
     private ColorPalette palette;
@@ -67,7 +68,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
 
         final boolean purchasedThemes = preferences.hasPurchase(R.string.p_purchased_themes);
 
-        final LayoutInflater inflater = themeManager.getThemedLayoutInflater();
+        final LayoutInflater inflater = theme.getLayoutInflater(context);
         ListAdapter adapter = new ArrayAdapter<String>(context, R.layout.color_selection_row, themes) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -78,13 +79,12 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                 }
 
                 Resources resources = context.getResources();
-                Theme theme = getTheme(position);
                 ImageView primary = (ImageView) row.findViewById(R.id.color_primary);
                 Drawable original = resources.getDrawable(purchasedThemes || position < 2
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());
-                DrawableCompat.setTint(wrapped, getDisplayColor(theme));
+                DrawableCompat.setTint(wrapped, getDisplayColor(position));
                 primary.setImageDrawable(wrapped);
 
                 TextView text = (TextView) row.findViewById(android.R.id.text1);
@@ -100,7 +100,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         if (purchasedThemes || which < 2) {
-                            callback.themePicked(palette, getTheme(which));
+                            callback.themePicked(palette, which);
                         } else {
                             callback.initiateThemePurchase();
                         }
@@ -120,25 +120,14 @@ public class ThemePickerDialog extends InjectingDialogFragment {
         }
     }
 
-    private Theme getTheme(int position) {
+    private int getDisplayColor(int index) {
         switch (palette) {
             case COLORS:
-                return themeManager.getColor(position);
+                return themeCache.getThemeColor(index).getPrimaryColor();
             case ACCENTS:
-                return themeManager.getAccent(position);
+                return themeCache.getThemeAccent(index).getAccentColor();
             default:
-                return themeManager.getBaseTheme(position);
-        }
-    }
-
-    private int getDisplayColor(Theme theme) {
-        switch (palette) {
-            case COLORS:
-                return theme.getPrimaryColor();
-            case ACCENTS:
-                return theme.getAccentColor();
-            default:
-                return theme.getContentBackground();
+                return themeCache.getThemeBase(index).getContentBackground();
         }
     }
 

@@ -51,8 +51,8 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.ThemeApplicator;
 import org.tasks.receivers.RepeatConfirmationReceiver;
+import org.tasks.themes.Theme;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
@@ -87,7 +87,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject GtasksListService gtasksListService;
     @Inject TagDataDao tagDataDao;
-    @Inject ThemeApplicator themeApplicator;
+    @Inject Theme theme;
     @Inject Broadcaster broadcaster;
 
     public static final int REQUEST_UPGRADE = 505;
@@ -108,7 +108,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        themeApplicator.applyTheme();
+        theme.applyTheme(this);
 
         startupService.onStartupApplication(this);
 
@@ -180,7 +180,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .addToBackStack(TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .commit();
-        themeApplicator.applyTaskDescription(taskListFragment.filter.listingTitle);
+        theme.applyTaskDescription(this, taskListFragment.filter.listingTitle);
     }
 
     private void loadTaskEditFragment(boolean onCreate, TaskEditFragment taskEditFragment, List<TaskEditControlFragment> taskEditControlFragments) {

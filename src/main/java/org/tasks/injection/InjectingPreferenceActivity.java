@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.preferences.AppCompatPreferenceActivity;
-import org.tasks.preferences.ThemeApplicator;
+import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
 
@@ -24,7 +24,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     protected Toolbar toolbar;
 
-    @Inject ThemeApplicator themeApplicator;
+    @Inject Theme theme;
     @Inject Tracker tracker;
 
     @Override
@@ -34,7 +34,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
                 .plus(new ActivityModule(this));
         inject(activityComponent);
 
-        themeApplicator.applyThemeAndStatusBarColor();
+        theme.applyThemeAndStatusBarColor(this);
 
         super.onCreate(savedInstanceState);
 

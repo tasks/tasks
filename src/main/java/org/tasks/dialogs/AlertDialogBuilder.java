@@ -7,19 +7,19 @@ import android.support.v7.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ListAdapter;
 
-import org.tasks.preferences.ThemeManager;
+import org.tasks.themes.Theme;
 
 public class AlertDialogBuilder {
 
     private final AlertDialog.Builder builder;
     private final Context context;
-    private final ThemeManager themeManager;
+    private final Theme theme;
 
-    public AlertDialogBuilder(Context context, ThemeManager themeManager) {
+    public AlertDialogBuilder(Context context, Theme theme) {
         this.context = context;
-        this.themeManager = themeManager;
-        ContextThemeWrapper wrapper = new ContextThemeWrapper(context, themeManager.getDialogThemeResId());
-        themeManager.applyThemeToContext(wrapper);
+        this.theme = theme;
+        ContextThemeWrapper wrapper = theme.getThemedDialog(context);
+        theme.applyToContext(wrapper);
         builder = new AlertDialog.Builder(wrapper);
     }
 
@@ -99,13 +99,13 @@ public class AlertDialogBuilder {
 
     public AlertDialog create() {
         AlertDialog dialog = builder.create();
-        themeManager.applyThemeToContext(dialog.getContext());
+        theme.applyToContext(dialog.getContext());
         return dialog;
     }
 
     public AlertDialog showThemedListView() {
         AlertDialog dialog = create();
-        themeManager.applyThemeToContext(dialog.getListView().getContext());
+        theme.applyToContext(dialog.getListView().getContext());
         dialog.show();
         return dialog;
     }

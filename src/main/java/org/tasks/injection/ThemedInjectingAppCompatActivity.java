@@ -2,18 +2,18 @@ package org.tasks.injection;
 
 import android.os.Bundle;
 
-import org.tasks.preferences.ThemeApplicator;
+import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
 
 public abstract class ThemedInjectingAppCompatActivity extends InjectingAppCompatActivity {
 
-    @Inject ThemeApplicator themeApplicator;
+    @Inject Theme theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        themeApplicator.applyThemeAndStatusBarColor();
+        theme.applyThemeAndStatusBarColor(this);
     }
 }
