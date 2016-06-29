@@ -125,7 +125,7 @@ public class DateUtilities {
         }
 
         if (date.getYear() != newDateTime().getYear()) {
-            value = value + ", yyyy";
+            value = value + " ''yy";
         }
 
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) {
