@@ -30,6 +30,10 @@ public class Theme {
         return themeBase;
     }
 
+    public ThemeColor getThemeColor() {
+        return themeColor;
+    }
+
     public int getDialogStyle() {
         return themeBase.getDialogStyle();
     }
@@ -46,7 +50,7 @@ public class Theme {
 
     public void applyThemeAndStatusBarColor(Activity activity) {
         applyTheme(activity);
-        applyStatusBarColor(activity);
+        themeColor.applyStatusBarColor(activity);
         applyTaskDescription(activity, activity.getString(R.string.app_name));
     }
 
@@ -54,12 +58,6 @@ public class Theme {
         activity.setTheme(themeBase.getStyle());
         applyToContext(activity);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
-    }
-
-    private void applyStatusBarColor(Activity activity) {
-        if (atLeastLollipop()) {
-            activity.getWindow().setStatusBarColor(themeColor.getColorPrimaryDark());
-        }
     }
 
     public void applyTaskDescription(Activity activity, String description) {

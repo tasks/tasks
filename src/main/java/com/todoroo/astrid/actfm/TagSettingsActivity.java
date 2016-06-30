@@ -42,6 +42,7 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
@@ -76,6 +77,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     @Inject Preferences preferences;
     @Inject ThemeCache themeCache;
     @Inject PurchaseHelper purchaseHelper;
+    @Inject ThemeColor themeColor;
 
     @BindView(R.id.tag_name) EditText tagName;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -292,9 +294,15 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     private void updateTheme() {
         if (selectedTheme < 0) {
             themeName.setText(R.string.none);
+            toolbar.setBackgroundColor(themeColor.getPrimaryColor());
+            themeColor.applyStatusBarColor(this);
             clear.setVisibility(View.GONE);
+
         } else {
-            themeName.setText(themeCache.getThemeColor(selectedTheme).getName());
+            ThemeColor themeColor = themeCache.getThemeColor(selectedTheme);
+            toolbar.setBackgroundColor(themeColor.getPrimaryColor());
+            themeColor.applyStatusBarColor(this);
+            themeName.setText(themeColor.getName());
             clear.setVisibility(View.VISIBLE);
         }
     }

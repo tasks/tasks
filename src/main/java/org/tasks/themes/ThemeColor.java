@@ -1,6 +1,12 @@
 package org.tasks.themes;
 
+import android.app.Activity;
+import android.support.v4.widget.DrawerLayout;
+
 import org.tasks.R;
+import org.tasks.ui.NavigationDrawerFragment;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class ThemeColor {
 
@@ -39,6 +45,18 @@ public class ThemeColor {
         this.style = COLORS[index];
         this.colorPrimary = colorPrimary;
         this.colorPrimaryDark = colorPrimaryDark;
+    }
+
+    public void applyStatusBarColor(Activity activity) {
+        if (atLeastLollipop()) {
+            activity.getWindow().setStatusBarColor(getColorPrimaryDark());
+        }
+    }
+
+    public void applyStatusBarColor(DrawerLayout drawerLayout) {
+        if (atLeastLollipop()) {
+            drawerLayout.setStatusBarBackgroundColor(getColorPrimaryDark());
+        }
     }
 
     public String getName() {

@@ -53,6 +53,7 @@ import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.themes.Theme;
+import org.tasks.themes.ThemeCache;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
@@ -62,6 +63,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
@@ -89,6 +92,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject TagDataDao tagDataDao;
     @Inject Theme theme;
     @Inject Broadcaster broadcaster;
+    @Inject ThemeCache themeCache;
+
+    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
     public static final int REQUEST_UPGRADE = 505;
 
@@ -114,8 +120,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         setContentView(R.layout.task_list_activity);
 
+        ButterKnife.bind(this);
+
         navigationDrawer = getNavigationDrawerFragment();
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawer.setUp(drawerLayout);
 
         handleIntent();
@@ -180,7 +187,13 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .addToBackStack(TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .commit();
-        theme.applyTaskDescription(this, taskListFragment.filter.listingTitle);
+        Filter filter = taskListFragment.filter;
+        if (filter.tint >= 0) {
+            themeCache.getThemeColor(filter.tint).applyStatusBarColor(drawerLayout);
+        } else {
+            theme.getThemeColor().applyStatusBarColor(drawerLayout);
+        }
+        theme.applyTaskDescription(this, filter.listingTitle);
     }
 
     private void loadTaskEditFragment(boolean onCreate, TaskEditFragment taskEditFragment, List<TaskEditControlFragment> taskEditControlFragments) {
