@@ -35,7 +35,9 @@ public class ThemeCache {
                     colorNames[i],
                     i,
                     resolveAttribute(theme, R.attr.colorPrimary),
-                    resolveAttribute(theme, R.attr.colorPrimaryDark)));
+                    resolveAttribute(theme, R.attr.colorPrimaryDark),
+                    resolveAttribute(theme, R.attr.actionBarPrimaryText),
+                    resolveBoolean(theme, R.attr.dark_status_bar)));
         }
         String[] accentNames = resources.getStringArray(R.array.accents);
         for (int i = 0 ; i < ThemeAccent.ACCENTS.length ; i++) {
@@ -63,5 +65,11 @@ public class ThemeCache {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attribute, typedValue, true);
         return typedValue.data;
+    }
+
+    private boolean resolveBoolean(Resources.Theme theme, int attribute) {
+        TypedValue typedValue = new TypedValue();
+        theme.resolveAttribute(attribute, typedValue, false);
+        return typedValue.data != 0;
     }
 }

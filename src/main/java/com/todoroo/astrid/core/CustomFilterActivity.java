@@ -10,14 +10,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
@@ -45,7 +41,6 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.ui.MenuColorizer;
 
@@ -66,7 +61,7 @@ import static android.text.TextUtils.isEmpty;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class CustomFilterActivity extends ThemedInjectingAppCompatActivity {
+public class CustomFilterActivity extends ThemedInjectingAppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     private static final String IDENTIFIER_UNIVERSE = "active"; //$NON-NLS-1$
 
@@ -152,16 +147,17 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity {
         setContentView(R.layout.custom_filter_activity);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_close_24dp));
-            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
-            supportActionBar.setHomeAsUpIndicator(drawable);
-            supportActionBar.setTitle(R.string.FLA_new_filter);
-        }
-
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_24dp));
+        toolbar.setTitle(R.string.FLA_new_filter);
+        toolbar.inflateMenu(R.menu.menu_custom_filter_activity);
+        toolbar.setOnMenuItemClickListener(this);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                discard();
+            }
+        });
+        MenuColorizer.colorToolbar(this, toolbar);
         listView = (ListView) findViewById(android.R.id.list);
 
         database.openForReading();
@@ -352,22 +348,11 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_custom_filter_activity, menu);
-        MenuColorizer.colorMenu(this, menu, getResources().getColor(android.R.color.white));
-        menu.findItem(R.id.delete).setVisible(false);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                discard();
-                break;
             case R.id.menu_save:
                 saveAndView();
-                break;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

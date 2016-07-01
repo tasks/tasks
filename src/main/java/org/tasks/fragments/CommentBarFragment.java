@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +67,6 @@ public class CommentBarFragment extends TaskEditControlFragment {
     private static final String EXTRA_TEXT = "extra_text";
     private static final String EXTRA_PICTURE = "extra_picture";
 
-    private final int cameraButton = R.drawable.ic_camera_alt_white_24dp;
-
     @Inject Activity activity;
     @Inject DialogBuilder dialogBuilder;
     @Inject Device device;
@@ -113,6 +114,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
             commentBar.setVisibility(View.GONE);
         }
 
+        resetPictureButton();
         return view;
     }
 
@@ -184,7 +186,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
                 @Override
                 public void clearImage() {
                     pendingCommentPicture = null;
-                    pictureButton.setImageResource(cameraButton);
+                    resetPictureButton();
                 }
             });
         }
@@ -233,8 +235,16 @@ public class CommentBarFragment extends TaskEditControlFragment {
         }
 
         pendingCommentPicture = null;
-        pictureButton.setImageResource(cameraButton);
+        resetPictureButton();
         callback.addComment(message, actionCode, picture);
+    }
+
+    private void resetPictureButton() {
+        TypedValue typedValue = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.actionBarPrimaryText, typedValue, true);
+        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_camera_alt_black_24dp));
+        drawable.setTint(typedValue.data);
+        pictureButton.setImageDrawable(drawable);
     }
 
     private void showPictureLauncher(final ClearImageCallback clearImageOption) {

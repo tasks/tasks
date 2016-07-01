@@ -8,12 +8,9 @@ package com.todoroo.astrid.actfm;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -38,7 +35,7 @@ import butterknife.ButterKnife;
 
 import static android.text.TextUtils.isEmpty;
 
-public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
+public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     public static final String TOKEN_FILTER = "token_filter";
 
@@ -60,27 +57,23 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
 
         filter = getIntent().getParcelableExtra(TOKEN_FILTER);
 
-        setSupportActionBar(toolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(
-                    backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
-            supportActionBar.setHomeAsUpIndicator(drawable);
-            supportActionBar.setTitle(filter.listingTitle);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (backButtonSavesTask) {
-                        discard();
-                    } else {
-                        save();
-                    }
+        final boolean backButtonSavesTask = preferences.backButtonSavesTask();
+        toolbar.setNavigationIcon(DrawableCompat.wrap(getResources().getDrawable(
+                backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp)));
+        toolbar.setTitle(filter.listingTitle);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (backButtonSavesTask) {
+                    discard();
+                } else {
+                    save();
                 }
-            });
-        }
+            }
+        });
+        toolbar.inflateMenu(R.menu.tag_settings_activity);
+        toolbar.setOnMenuItemClickListener(this);
+        MenuColorizer.colorToolbar(this, toolbar);
 
         filterName.setText(filter.listingTitle);
     }
@@ -117,29 +110,12 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.tag_settings_activity, menu);
-        MenuColorizer.colorMenu(this, menu, getResources().getColor(android.R.color.white));
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public void onBackPressed() {
         if (preferences.backButtonSavesTask()) {
             save();
         } else {
             discard();
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.delete:
-                deleteTag();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void deleteTag() {
@@ -171,5 +147,15 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity {
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete:
+                deleteTag();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

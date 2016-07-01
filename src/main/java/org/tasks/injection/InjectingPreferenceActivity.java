@@ -1,11 +1,9 @@
 package org.tasks.injection;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,7 @@ import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.preferences.AppCompatPreferenceActivity;
 import org.tasks.themes.Theme;
+import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
 
@@ -48,15 +47,14 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
         toolbar = (Toolbar) toolbarContainer.findViewById(R.id.toolbar);
         toolbar.setTitle(getTitle());
-        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
-        DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
-        toolbar.setNavigationIcon(drawable);
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        MenuColorizer.colorToolbar(this, toolbar);
     }
 
     @Override

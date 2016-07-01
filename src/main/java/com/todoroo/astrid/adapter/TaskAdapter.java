@@ -10,12 +10,14 @@ import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -546,7 +548,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 SpannableString string = new SpannableString(SPACE + tagName + SPACE);
                 int themeIndex = tagData.getColor() >= 0 ? tagData.getColor() : 19;
                 int backgroundColor = themeCache.getThemeColor(themeIndex).getPrimaryColor();
+                int foregroundColor = themeCache.getThemeColor(themeIndex).getActionBarTint();
                 string.setSpan(new BackgroundColorSpan(backgroundColor), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                string.setSpan(new ForegroundColorSpan(foregroundColor), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 return string;
             }
         };

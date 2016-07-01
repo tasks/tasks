@@ -2,13 +2,11 @@ package org.tasks.locale.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.todoroo.astrid.api.Filter;
@@ -32,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompatActivity implements PurchaseHelperCallback {
+public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompatActivity implements PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
 
     private static final int REQUEST_SELECT_FILTER = 10124;
     private static final int REQUEST_PURCHASE = 10125;
@@ -66,15 +64,33 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         }
         updateView();
 
-        setSupportActionBar(toolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_close_24dp));
-            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
-            supportActionBar.setHomeAsUpIndicator(drawable);
-            supportActionBar.setDisplayShowTitleEnabled(false);
-        }
+        toolbar.setNavigationIcon(DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_close_24dp)));
+        toolbar.setOnMenuItemClickListener(this);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (equalBundles(getResultBundle(), previousBundle)) {
+                    cancel();
+                } else {
+                    dialogBuilder.newMessageDialog(R.string.discard_changes)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    cancel();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            })
+                            .show();
+                }
+            }
+        });
+        toolbar.inflateMenu(R.menu.tasker_menu);
+        MenuColorizer.colorToolbar(this, toolbar);
 
         if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInitiated) {
             purchaseInitiated = purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, this);
@@ -108,45 +124,6 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     @Override
     public String getResultBlurb(final Bundle bundle) {
         return filter.listingTitle;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.tasker_menu, menu);
-        MenuColorizer.colorMenu(this, menu, getResources().getColor(android.R.color.white));
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_save:
-                finish();
-                break;
-            case android.R.id.home:
-                if (equalBundles(getResultBundle(), previousBundle)) {
-                    cancel();
-                } else {
-                    dialogBuilder.newMessageDialog(R.string.discard_changes)
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    cancel();
-                                }
-                            })
-                            .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            })
-                            .show();
-                }
-                break;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
     }
 
     private void cancel() {
@@ -232,5 +209,15 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         if (!success) {
             cancel();
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_save:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

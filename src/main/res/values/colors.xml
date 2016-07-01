@@ -102,8 +102,15 @@
 
     <color name="white_text">#fff</color>
     <color name="white_text_hint">#eee</color>
-    <color name="black_text">#000</color>
     <color name="black_text_hint">#535353</color>
+
+    <color name="black_87">#df000000</color>
+    <color name="black_54">#8c000000</color>
+    <color name="black_38">#60000000</color>
+    <color name="black_12">#1e000000</color>
+
+    <color name="white_100">#ffffff</color>
+    <color name="white_70">#b2ffffff</color>
 
     <color name="importance_1">@color/red_500</color>
     <color name="importance_2">@color/amber_500</color>
@@ -114,7 +121,6 @@
     <color name="snackbar_background">@color/grey_800</color>
 
     <!-- deprecated -->
-    <color name="dark_blue_theme_color">#1f78b4</color>
     <color name="reminder_background">#262626</color>
 
 </resources>

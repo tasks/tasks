@@ -131,10 +131,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         }
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(
-                backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-        DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
-        toolbar.setNavigationIcon(drawable);
+        toolbar.setNavigationIcon(DrawableCompat.wrap(getResources().getDrawable(
+                backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp)));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,11 +144,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             }
         });
         toolbar.inflateMenu(R.menu.task_edit_fragment);
-        Menu menu = toolbar.getMenu();
-        for (int i = 0 ; i < menu.size() ; i++) {
-            MenuColorizer.colorMenuItem(menu.getItem(i), getResources().getColor(android.R.color.white));
-        }
         toolbar.setOnMenuItemClickListener(this);
+        MenuColorizer.colorToolbar(context, toolbar);
 
         notificationManager.cancel(model.getId());
 

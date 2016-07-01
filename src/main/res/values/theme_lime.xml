@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Lime">
+    <style name="Lime" parent="BlackToolbarTheme">
         <item name="colorPrimary">@color/lime_500</item>
         <item name="colorPrimaryDark">@color/lime_700</item>
     </style>

@@ -29,6 +29,7 @@ import org.tasks.R;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.MenuColorizer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +40,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BeastModePreferences extends ThemedInjectingAppCompatActivity {
+public class BeastModePreferences extends ThemedInjectingAppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(android.R.id.list) TouchListView touchList;
@@ -63,21 +64,16 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity {
         setContentView(R.layout.beast_mode_pref_activity);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setDisplayShowTitleEnabled(false);
-            Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
-            DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
-            supportActionBar.setHomeAsUpIndicator(drawable);
-        }
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        toolbar.inflateMenu(R.menu.beast_mode);
+        toolbar.setOnMenuItemClickListener(this);
+        MenuColorizer.colorToolbar(this, toolbar);
 
         prefsToDescriptions = new HashMap<>();
         buildDescriptionMap(getResources());
@@ -116,13 +112,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.beast_mode, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onMenuItemClick(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_reset_to_defaults:
                 resetToDefault();

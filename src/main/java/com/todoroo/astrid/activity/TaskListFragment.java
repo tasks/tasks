@@ -13,9 +13,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
@@ -254,9 +252,7 @@ public class TaskListFragment extends InjectingListFragment implements
         listView.setEmptyView(emptyView);
 
         toolbar.setTitle(filter.listingTitle);
-        Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_menu_24dp));
-        DrawableCompat.setTint(drawable, getResources().getColor(android.R.color.white));
-        toolbar.setNavigationIcon(drawable);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -264,12 +260,9 @@ public class TaskListFragment extends InjectingListFragment implements
             }
         });
         inflateMenu(toolbar);
-        Menu menu = toolbar.getMenu();
-        for (int i = 0 ; i < menu.size() ; i++) {
-            MenuColorizer.colorMenuItem(menu.getItem(i), getResources().getColor(android.R.color.white));
-        }
+        setupMenu(toolbar.getMenu());
         toolbar.setOnMenuItemClickListener(this);
-        setupMenu(menu);
+        MenuColorizer.colorToolbar(context, toolbar);
 
         return parent;
     }
