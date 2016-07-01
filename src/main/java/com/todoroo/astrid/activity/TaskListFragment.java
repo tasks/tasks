@@ -81,7 +81,6 @@ import org.tasks.injection.InjectingListFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
-import org.tasks.themes.ThemeColor;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 
@@ -151,7 +150,6 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject Broadcaster broadcaster;
     @Inject TagService tagService;
     @Inject ThemeCache themeCache;
-    @Inject ThemeColor themeColor;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -175,10 +173,6 @@ public class TaskListFragment extends InjectingListFragment implements
         if (!syncActionHelper.performSyncAction()) {
             refresh();
         }
-    }
-
-    public ThemeColor getThemeColor() {
-        return filter.tint >= 0 ? themeCache.getThemeColor(filter.tint) : themeColor;
     }
 
     public void setSyncOngoing(final boolean ongoing) {
@@ -269,8 +263,6 @@ public class TaskListFragment extends InjectingListFragment implements
                 callbacks.onNavigationIconClicked();
             }
         });
-        ThemeColor color = getThemeColor();
-        toolbar.setBackgroundColor(color.getPrimaryColor());
         inflateMenu(toolbar);
         Menu menu = toolbar.getMenu();
         for (int i = 0 ; i < menu.size() ; i++) {

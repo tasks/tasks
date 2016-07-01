@@ -1,5 +1,9 @@
 package org.tasks.themes;
 
+import android.app.Activity;
+import android.content.Context;
+import android.support.v7.view.ContextThemeWrapper;
+
 import org.tasks.R;
 
 public class ThemeBase {
@@ -34,10 +38,6 @@ public class ThemeBase {
         return index;
     }
 
-    public int getStyle() {
-        return style;
-    }
-
     public int getDialogStyle() {
         return dialogStyle;
     }
@@ -52,5 +52,13 @@ public class ThemeBase {
 
     public boolean isDarkTheme() {
         return index > 0;
+    }
+
+    public ContextThemeWrapper wrap(Context context) {
+        return new ContextThemeWrapper(context, style);
+    }
+
+    public void set(Activity activity) {
+        activity.setTheme(style);
     }
 }

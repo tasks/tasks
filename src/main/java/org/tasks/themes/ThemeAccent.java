@@ -1,5 +1,7 @@
 package org.tasks.themes;
 
+import android.content.res.Resources;
+
 import org.tasks.R;
 
 public class ThemeAccent {
@@ -36,16 +38,16 @@ public class ThemeAccent {
         this.accentColor = accentColor;
     }
 
+    public void apply(Resources.Theme theme) {
+        theme.applyStyle(style, true);
+    }
+
     public String getName() {
         return name;
     }
 
     public int getIndex() {
         return index;
-    }
-
-    public int getStyle() {
-        return style;
     }
 
     public int getAccentColor() {

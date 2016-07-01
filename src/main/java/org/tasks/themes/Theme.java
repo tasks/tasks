@@ -1,7 +1,6 @@
 package org.tasks.themes;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
@@ -11,8 +10,6 @@ import android.view.LayoutInflater;
 import org.tasks.R;
 
 import javax.inject.Inject;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class Theme {
     private final ThemeBase themeBase;
@@ -39,7 +36,7 @@ public class Theme {
     }
 
     public LayoutInflater getLayoutInflater(Context context) {
-        ContextThemeWrapper wrapper = new ContextThemeWrapper(context, themeBase.getStyle());
+        ContextThemeWrapper wrapper = themeBase.wrap(context);
         applyToContext(wrapper);
         return (LayoutInflater) wrapper.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -51,24 +48,19 @@ public class Theme {
     public void applyThemeAndStatusBarColor(Activity activity) {
         applyTheme(activity);
         themeColor.applyStatusBarColor(activity);
-        applyTaskDescription(activity, activity.getString(R.string.app_name));
+        themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name));
     }
 
     public void applyTheme(Activity activity) {
-        activity.setTheme(themeBase.getStyle());
+        themeBase.set(activity);
         applyToContext(activity);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
     }
 
-    public void applyTaskDescription(Activity activity, String description) {
-        if (atLeastLollipop()) {
-            activity.setTaskDescription(new ActivityManager.TaskDescription(description, null, themeColor.getPrimaryColor()));
-        }
-    }
 
     public void applyToContext(Context context) {
         Resources.Theme theme = context.getTheme();
-        theme.applyStyle(themeColor.getStyle(), true);
-        theme.applyStyle(themeAccent.getStyle(), true);
+        themeColor.applyStyle(theme);
+        themeAccent.apply(theme);
     }
 }

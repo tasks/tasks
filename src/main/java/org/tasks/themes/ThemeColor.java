@@ -1,10 +1,12 @@
 package org.tasks.themes;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.widget.DrawerLayout;
 
 import org.tasks.R;
-import org.tasks.ui.NavigationDrawerFragment;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
@@ -59,16 +61,26 @@ public class ThemeColor {
         }
     }
 
+    public void applyStyle(Context context) {
+        applyStyle(context.getTheme());
+    }
+
+    public void applyStyle(Resources.Theme theme) {
+        theme.applyStyle(style, true);
+    }
+
+    public void applyTaskDescription(Activity activity, String description) {
+        if (atLeastLollipop()) {
+            activity.setTaskDescription(new ActivityManager.TaskDescription(description, null, getPrimaryColor()));
+        }
+    }
+
     public String getName() {
         return name;
     }
 
     public int getIndex() {
         return index;
-    }
-
-    public int getStyle() {
-        return style;
     }
 
     public int getPrimaryColor() {

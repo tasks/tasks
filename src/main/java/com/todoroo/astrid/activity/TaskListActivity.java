@@ -54,6 +54,7 @@ import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
@@ -181,19 +182,20 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     private void loadTaskListFragment(TaskListFragment taskListFragment) {
+        Filter filter = taskListFragment.filter;
+        ThemeColor themeColor = filter.tint >= 0
+                ? themeCache.getThemeColor(filter.tint)
+                : theme.getThemeColor();
+        themeColor.applyStatusBarColor(drawerLayout);
+        themeColor.applyStyle(this);
+        themeColor.applyTaskDescription(this, filter.listingTitle);
+
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .addToBackStack(TaskListFragment.TAG_TASKLIST_FRAGMENT)
                 .commit();
-        Filter filter = taskListFragment.filter;
-        if (filter.tint >= 0) {
-            themeCache.getThemeColor(filter.tint).applyStatusBarColor(drawerLayout);
-        } else {
-            theme.getThemeColor().applyStatusBarColor(drawerLayout);
-        }
-        theme.applyTaskDescription(this, filter.listingTitle);
     }
 
     private void loadTaskEditFragment(boolean onCreate, TaskEditFragment taskEditFragment, List<TaskEditControlFragment> taskEditControlFragments) {
