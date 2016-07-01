@@ -10,7 +10,6 @@ import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
