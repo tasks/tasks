@@ -60,7 +60,7 @@ public class MenuColorizer {
 
     public static void colorToolbar(Toolbar toolbar, int color) {
         Drawable wrapped = DrawableCompat.wrap(toolbar.getNavigationIcon());
-        wrapped.setTint(color);
+        DrawableCompat.setTint(wrapped, color);
         toolbar.setNavigationIcon(wrapped);
         toolbar.setTitleTextColor(color);
         colorMenu(toolbar.getMenu(), color);
