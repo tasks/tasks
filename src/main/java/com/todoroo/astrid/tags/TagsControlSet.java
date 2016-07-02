@@ -171,6 +171,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
                 ThemeColor themeColor = themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
                 view.setText(tagData.getName());
                 Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_label_24dp));
+                drawable.mutate();
                 DrawableCompat.setTint(drawable, themeColor.getPrimaryColor());
                 view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
                 return view;

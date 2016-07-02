@@ -243,6 +243,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
         TypedValue typedValue = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.actionBarPrimaryText, typedValue, true);
         Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_camera_alt_black_24dp));
+        drawable.mutate();
         DrawableCompat.setTint(drawable, typedValue.data);
         pictureButton.setImageDrawable(drawable);
     }

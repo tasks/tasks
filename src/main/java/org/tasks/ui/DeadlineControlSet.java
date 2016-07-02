@@ -383,6 +383,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
     private Drawable getUnderline(int color) {
         Drawable drawable = DrawableCompat.wrap(context.getResources().getDrawable(R.drawable.textfield_underline_black));
+        drawable.mutate();
         DrawableCompat.setTint(drawable, color);
         return drawable;
     }

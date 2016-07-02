@@ -64,7 +64,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         }
         updateView();
 
-        toolbar.setNavigationIcon(DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_close_24dp)));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_24dp));
         toolbar.setOnMenuItemClickListener(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

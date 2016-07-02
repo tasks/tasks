@@ -59,9 +59,7 @@ public class MenuColorizer {
     }
 
     public static void colorToolbar(Toolbar toolbar, int color) {
-        Drawable wrapped = DrawableCompat.wrap(toolbar.getNavigationIcon());
-        DrawableCompat.setTint(wrapped, color);
-        toolbar.setNavigationIcon(wrapped);
+        toolbar.setNavigationIcon(colorDrawable(toolbar.getNavigationIcon(), color));
         toolbar.setTitleTextColor(color);
         colorMenu(toolbar.getMenu(), color);
     }
@@ -82,12 +80,14 @@ public class MenuColorizer {
 
     /** Sets a color filter on a {@link MenuItem} */
     private static void colorMenuItem(final MenuItem menuItem, final int color) {
-        final Drawable drawable = menuItem.getIcon();
+        colorDrawable(menuItem.getIcon(), color);
+    }
+
+    private static Drawable colorDrawable(Drawable drawable, int color) {
         if (drawable != null) {
-            // If we don't mutate the drawable, then all drawable's with this id will have a color
-            // filter applied to it.
             drawable.mutate();
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
+        return drawable;
     }
 }
