@@ -221,16 +221,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
     private AlertDialog buildDialog() {
         return dialogBuilder.newDialog()
                 .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onDismiss(DialogInterface dialogInterface) {
                         tagList = getTagList();
-                        refreshDisplayView();
-                    }
-                })
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
                         refreshDisplayView();
                     }
                 })
