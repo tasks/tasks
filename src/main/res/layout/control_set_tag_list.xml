@@ -31,6 +31,8 @@
       android:layout_marginLeft="3dip"
       android:layout_marginRight="3dip"
       android:layout_weight="100"
+      android:dividerHeight="0dp"
+      android:divider="@null"
       android:choiceMode="multipleChoice"/>
 
 </LinearLayout>

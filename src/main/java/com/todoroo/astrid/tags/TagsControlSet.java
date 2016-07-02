@@ -6,8 +6,10 @@
 package com.todoroo.astrid.tags;
 
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,6 +54,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.TaskEditControlFragment;
 
 import java.util.ArrayList;
@@ -149,7 +153,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
         } else {
             tagList = tagService.getTagNames(taskId);
         }
-        allTagNames = newArrayList(ImmutableSet.copyOf(transform(tagService.getTagList(), new Function<TagData, String>() {
+        final List<TagData> allTags = tagService.getTagList();
+        allTagNames = newArrayList(ImmutableSet.copyOf(transform(allTags, new Function<TagData, String>() {
             @Override
             public String apply(TagData tagData) {
                 return tagData.getName();
@@ -158,7 +163,20 @@ public final class TagsControlSet extends TaskEditControlFragment {
         dialogView = inflater.inflate(R.layout.control_set_tag_list, null);
         newTags = (LinearLayout) dialogView.findViewById(R.id.newTags);
         selectedTags = (ListView) dialogView.findViewById(R.id.existingTags);
-        selectedTags.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTagNames));
+        ArrayAdapter<TagData> adapter = new ArrayAdapter<TagData>(getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTags) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
+                TagData tagData = allTags.get(position);
+                ThemeColor themeColor = themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
+                view.setText(tagData.getName());
+                Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_label_24dp));
+                DrawableCompat.setTint(drawable, themeColor.getPrimaryColor());
+                view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                return view;
+            }
+        };
+        selectedTags.setAdapter(adapter);
         addTag("");
         for (String tag : tagList) {
             setTagSelected(tag);

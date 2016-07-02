@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
@@ -8,10 +7,12 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:gravity="center_vertical"
     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-    android:paddingLeft="8dip"
-    android:paddingRight="8dip"
-    android:textColor="?attr/asTextColor"
-/>
+    android:drawableLeft="@drawable/ic_label_24dp"
+    android:drawablePadding="@dimen/keyline_second"
+    android:gravity="center_vertical"
+    android:paddingEnd="@dimen/keyline_first"
+    android:paddingLeft="@dimen/keyline_first"
+    android:paddingRight="@dimen/keyline_first"
+    android:paddingStart="@dimen/keyline_first"
+    android:textColor="?attr/asTextColor" />
