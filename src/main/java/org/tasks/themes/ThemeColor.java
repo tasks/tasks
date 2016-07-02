@@ -13,6 +13,7 @@ import org.tasks.R;
 import org.tasks.ui.MenuColorizer;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 public class ThemeColor {
 
@@ -59,9 +60,10 @@ public class ThemeColor {
 
     public void applyStatusBarColor(Activity activity) {
         if (atLeastLollipop()) {
-            Window window = activity.getWindow();
-            window.setStatusBarColor(getColorPrimaryDark());
-            View decorView = window.getDecorView();
+            activity.getWindow().setStatusBarColor(getColorPrimaryDark());
+        }
+        if (atLeastMarshmallow()) {
+            View decorView = activity.getWindow().getDecorView();
             int systemUiVisibility = applyLightStatusBarFlag(decorView.getSystemUiVisibility());
             decorView.setSystemUiVisibility(systemUiVisibility);
         }
@@ -70,6 +72,8 @@ public class ThemeColor {
     public void applyStatusBarColor(DrawerLayout drawerLayout) {
         if (atLeastLollipop()) {
             drawerLayout.setStatusBarBackgroundColor(getColorPrimaryDark());
+        }
+        if (atLeastMarshmallow()) {
             int systemUiVisibility = applyLightStatusBarFlag(drawerLayout.getSystemUiVisibility());
             drawerLayout.setSystemUiVisibility(systemUiVisibility);
         }
