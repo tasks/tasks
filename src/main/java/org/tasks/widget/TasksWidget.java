@@ -102,6 +102,9 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
+        } else {
+            remoteViews.setInt(R.id.widget_title, "setTextColor", color.getActionBarTint());
+            remoteViews.setInt(R.id.widget_button, "setColorFilter", color.getActionBarTint());
         }
         int opacity = preferences.getInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + id, WidgetConfigActivity.DEFAULT_OPACITY);
         remoteViews.setImageViewBitmap(R.id.widget_background,
