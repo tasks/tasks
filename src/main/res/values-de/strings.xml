@@ -70,6 +70,7 @@
 	<string name="TEA_control_importance">Priorität</string>
 	<string name="TEA_control_notes">Beschreibung</string>
 	<string name="TEA_control_files">Dateien</string>
+	<string name="TEA_control_google_task_list">Google Aufgabenliste</string>
 	<string name="TEA_control_reminders">Erinnerungen</string>
 	<string name="TEA_control_timer">Timer-Einstellungen</string>
 	<string name="TEA_control_hidden_section">----Immer Verbergen----</string>
@@ -355,6 +356,7 @@
 	<string name="send_anonymous_statistics">Tasks verbessern</string>
 	<string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
 	<string name="tag_already_exists">Tag existiert bereits</string>
+	<string name="name_cannot_be_empty">Name darf nicht leer sein</string>
 	<string name="disable_notification_light">Benachrichtigungsleuchte deaktivieren</string>
 	<string name="doze_notifications">Doze-Modus für Benachrichtigungen unterbrechen</string>
 	<string name="doze_notifications_off">Im Doze-Modus von Android erfolgen Benachrichtigungen mit deutlicher Verzögerung</string>
@@ -364,6 +366,7 @@
 	<string name="default_list">Standard Liste</string>
 	<string name="plugin_description">Tasks ist ein Open Source Projekt, gepflegt von einem Entwickler. Manche Funktionen werden als In-App Käufe angeboten, um die Entwicklung zu unterstützen.</string>
 	<string name="tesla_unread_description">Badge anzeigen mit der Anzahl an aktiven Augaben in der Standard-Liste. Benötigt TeslaUnread für Nova Launcher</string>
+	<string name="themes_purchase_description">Entsperre alle Themes</string>
 	<string name="tasker_description">Kontext-bezogene Listenbenachrichtigungen. Benötigt Tasker oder Locale</string>
 	<string name="donate_summary">Spenden sind sehr willkommen</string>
 	<string name="dashclock_description">Anzahl aktiver Aufgaben anzeigen</string>
@@ -373,13 +376,28 @@
 	<string name="billing_service_busy">Dienst für In-App Käufe ist beschäftigt, versuchen Sie es später noch einmal</string>
 	<string name="select_filter">Filter auswählen</string>
 	<string name="opacity">Durchsichtigkeit</string>
+	<string name="color">Farbe</string>
+	<string name="themes">Zusätzliche Themes</string>
 	<string name="theme_red">Rot</string>
 	<string name="theme_purple">Lila</string>
 	<string name="theme_deep_purple">Dunkel Lila</string>
+	<string name="theme_indigo">Indigoblau</string>
 	<string name="theme_blue">Blau</string>
 	<string name="theme_light_blue">Hellblau</string>
+	<string name="theme_teal">Blaugrün</string>
+	<string name="theme_green">Grün</string>
+	<string name="theme_light_green">Hellgrün</string>
+	<string name="theme_yellow">Gelb</string>
+	<string name="theme_amber">Bernstein</string>
+	<string name="theme_deep_orange">Dunkelorange</string>
+	<string name="theme_brown">Braun</string>
 	<string name="theme_grey">Grau</string>
+	<string name="theme_blue_grey">Blaugrau</string>
 	<string name="theme_black">Schwarz</string>
+	<string name="theme_dark_grey">Dunkel Grau</string>
+	<string name="theme_light">Hell</string>
+	<string name="theme_dark">Dunkel</string>
+	<string name="default_value">Standard</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>deaktivieren</item>
 		<item>alle 15 Minuten</item>
