@@ -4,9 +4,8 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TaskEditTextHint"
     android:id="@+id/display_row_edit"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="top"
-    android:textColor="?attr/asTextColor"
-    android:textSize="@dimen/task_edit_text_size" />
+    android:layout_gravity="top" />

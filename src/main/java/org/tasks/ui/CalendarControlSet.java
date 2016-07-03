@@ -33,6 +33,7 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeBase;
 
 import javax.inject.Inject;
 
@@ -65,6 +66,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Inject FragmentPermissionRequestor permissionRequestor;
     @Inject Tracker tracker;
     @Inject DialogBuilder dialogBuilder;
+    @Inject ThemeBase themeBase;
 
     private String calendarId;
     private String calendarName;
@@ -301,16 +303,16 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
     private void refreshDisplayView() {
         if (!Strings.isNullOrEmpty(eventUri)) {
-            calendar.setAlpha(1.0f);
             calendar.setText(R.string.gcal_TEA_showCalendar_label);
+            calendar.setTextColor(themeBase.getTextColorPrimary());
             cancelButton.setVisibility(View.VISIBLE);
         } else if (calendarName != null) {
-            calendar.setAlpha(1.0f);
             calendar.setText(calendarName);
+            calendar.setTextColor(themeBase.getTextColorPrimary());
             cancelButton.setVisibility(View.VISIBLE);
         } else {
-            calendar.setAlpha(0.5f);
             calendar.setText(R.string.gcal_TEA_addToCalendar_label);
+            calendar.setTextColor(themeBase.getTextColorTertiary());
             cancelButton.setVisibility(View.GONE);
         }
     }

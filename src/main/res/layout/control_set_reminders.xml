@@ -28,12 +28,11 @@
             android:layout_weight="50">
 
             <TextView
-                android:textSize="@dimen/task_edit_text_size"
+                style="@style/TaskEditTextHint"
                 android:id="@+id/alarms_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_reminder"
-                android:textColor="?attr/asTextColorHint" />
+                android:text="@string/add_reminder"/>
 
             <Spinner
                 android:id="@+id/alarms_add_spinner"

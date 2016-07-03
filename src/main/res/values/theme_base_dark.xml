@@ -8,16 +8,18 @@
         <item name="drawer_background">@color/drawer_dark_background</item>
         <item name="drawer_background_selected">@color/drawer_selected_dark</item>
         <item name="asContentBackground">@color/md_dark_background</item>
-        <item name="asTextColor">@android:color/white</item>
-        <item name="asTextColorHint">@android:color/darker_gray</item>
+        <item name="asTextColor">@color/white_100</item>
+        <item name="asTextColorHint">@color/white_50</item>
         <item name="icon_tint">@android:color/white</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
         <item name="alertDialogTheme">@style/DialogBaseDark</item>
-        <item name="alpha_primary">@dimen/alpha_primary_dark</item>
         <item name="alpha_secondary">@dimen/alpha_secondary_dark</item>
         <item name="alpha_disabled">@dimen/alpha_disabled_dark</item>
-        <item name="alpha_divider">@dimen/alpha_divider</item>
+        <item name="android:textColorPrimary">@color/white_100</item>
+        <item name="android:textColorSecondary">@color/white_70</item>
+        <item name="android:textColorTertiary">@color/white_50</item>
+        <item name="dividerColor">@color/white_12</item>
     </style>
 
     <style name="DarkOverride" parent="DarkBase">
@@ -27,7 +29,7 @@
         <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
         <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
         <item name="android:windowBackground">@color/dialog_dark_background</item>
-        <item name="asTextColor">@android:color/white</item>
+        <item name="asTextColor">@color/white_100</item>
         <item name="icon_tint">@android:color/white</item>
     </style>
 

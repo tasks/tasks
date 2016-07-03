@@ -16,12 +16,11 @@
 
         <TextView
             android:id="@+id/calendar_display_which"
+            style="@style/TaskEditTextPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:gravity="start"
-            android:textColor="?attr/asTextColor"
-            android:textSize="@dimen/task_edit_text_size" />
+            android:gravity="start"/>
 
     </LinearLayout>
 

@@ -6,15 +6,13 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/display_row_edit"
+        style="@style/TaskEditTextPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
         android:paddingEnd="@dimen/keyline_second"
         android:paddingRight="@dimen/keyline_second"
-        android:text="@string/TEA_importance_label"
-        android:textColor="?attr/asTextColor"
-        android:textSize="@dimen/task_edit_text_size" />
+        android:text="@string/TEA_importance_label" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -27,23 +25,23 @@
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_none"
-            android:buttonTint="@color/importance_4"
-            style="@style/priority_button"/>
+            style="@style/priority_button"
+            android:buttonTint="@color/importance_4" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_low"
-            android:buttonTint="@color/importance_3"
-            style="@style/priority_button"/>
+            style="@style/priority_button"
+            android:buttonTint="@color/importance_3" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_medium"
-            android:buttonTint="@color/importance_2"
-            style="@style/priority_button"/>
+            style="@style/priority_button"
+            android:buttonTint="@color/importance_2" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/priority_high"
-            android:buttonTint="@color/importance_1"
-            style="@style/priority_button"/>
+            style="@style/priority_button"
+            android:buttonTint="@color/importance_1" />
     </RadioGroup>
 
 </LinearLayout>

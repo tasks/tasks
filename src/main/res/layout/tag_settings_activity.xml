@@ -25,9 +25,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:alpha="?attr/alpha_secondary"
                     android:text="@string/name"
-                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColor="?android:attr/textColorSecondary"
                     android:textSize="18sp" />
 
                 <EditText
@@ -60,9 +59,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:alpha="?attr/alpha_secondary"
                     android:text="@string/color"
-                    android:textColor="?android:attr/textColorPrimary"
+                    android:textColor="?android:attr/textColorSecondary"
                     android:textSize="18sp" />
 
                 <TextView
@@ -72,7 +70,6 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@id/theme_label"
                     android:layout_marginTop="@dimen/keyline_first"
-                    android:alpha="?attr/alpha_primary"
                     android:textColor="?android:attr/textColorPrimary"
                     android:textSize="18sp" />
 

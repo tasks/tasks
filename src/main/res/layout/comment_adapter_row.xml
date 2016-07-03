@@ -24,11 +24,10 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentTop="true"
+			android:textColor="?android:attr/textColorPrimary"
 	        android:layout_alignParentLeft="true"
 	        android:paddingLeft="5dip"
 	        android:paddingRight="3dip"
-	        style="@style/TextAppearance.TAd_ItemTitle"
-            android:textColor="?attr/asTextColor"
             android:textSize="16sp"/>
 	    
 	        
@@ -40,7 +39,7 @@
             android:layout_alignLeft="@id/title"
             android:layout_marginLeft="5dip"
             android:paddingTop="1dip"
-            style="@style/TextAppearance.TAd_ItemDueDate"
+			android:textColor="?android:attr/textColorSecondary"
             android:textStyle="normal"
             android:gravity="left"
             android:ellipsize="end"

@@ -24,6 +24,7 @@ import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
+    @Inject ThemeBase themeBase;
 
     @BindView(R.id.due_date) Spinner dueDateSpinner;
     @BindView(R.id.due_time) Spinner dueTimeSpinner;
@@ -127,7 +129,6 @@ public class DeadlineControlSet extends TaskEditControlFragment {
             date = savedInstanceState.getLong(EXTRA_DATE);
             time = savedInstanceState.getInt(EXTRA_TIME);
         }
-        final int themeColor = getData(context, R.attr.asTextColor);
         final int overdueColor = context.getResources().getColor(R.color.overdue);
         dueDateAdapter = new HiddenTopArrayAdapter<String>(context, android.R.layout.simple_spinner_item, dueDateOptions) {
             @Override
@@ -138,19 +139,16 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 }
                 TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
                 tv.setText(dueDateOptions.get(selectedItemPosition));
+                int textColor;
                 if (date == 0) {
-                    dueDateSpinner.setAlpha(0.5f);
-                    dueDateSpinner.setBackgroundDrawable(getUnderline(themeColor));
+                    textColor = themeBase.getTextColorTertiary();
+                } else if (date < newDateTime().startOfDay().getMillis()) {
+                    textColor = overdueColor;
                 } else {
-                    dueDateSpinner.setAlpha(1.0f);
-                    if (date < newDateTime().startOfDay().getMillis()) {
-                        dueDateSpinner.setBackgroundDrawable(getUnderline(overdueColor));
-                        tv.setTextColor(overdueColor);
-                    } else {
-                        dueDateSpinner.setBackgroundDrawable(getUnderline(themeColor));
-                        tv.setTextColor(themeColor);
-                    }
+                    textColor = themeBase.getTextColorPrimary();
                 }
+                dueDateSpinner.setBackgroundDrawable(getUnderline(textColor));
+                tv.setTextColor(textColor);
                 return tv;
             }
         };
@@ -165,19 +163,16 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 }
                 TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
                 tv.setText(dueTimeOptions.get(selectedItemPosition));
+                int textColor;
                 if (time == -1) {
-                    dueTimeSpinner.setAlpha(0.5f);
-                    dueTimeSpinner.setBackgroundDrawable(getUnderline(themeColor));
+                    textColor = themeBase.getTextColorTertiary();
+                } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
+                    textColor = overdueColor;
                 } else {
-                    dueTimeSpinner.setAlpha(1.0f);
-                    if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
-                        dueTimeSpinner.setBackgroundDrawable(getUnderline(overdueColor));
-                        tv.setTextColor(overdueColor);
-                    } else {
-                        dueTimeSpinner.setBackgroundDrawable(getUnderline(themeColor));
-                        tv.setTextColor(themeColor);
-                    }
+                    textColor = themeBase.getTextColorPrimary();
                 }
+                tv.setTextColor(textColor);
+                dueTimeSpinner.setBackgroundDrawable(getUnderline(textColor));
                 return tv;
             }
         };

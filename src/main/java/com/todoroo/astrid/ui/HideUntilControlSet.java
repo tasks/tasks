@@ -28,6 +28,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 import org.tasks.ui.HiddenTopArrayAdapter;
 import org.tasks.ui.TaskEditControlFragment;
@@ -61,6 +62,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     private static final int REQUEST_HIDE_UNTIL = 11011;
 
     @Inject @ForActivity Context context;
+    @Inject ThemeBase themeBase;
 
     //private final CheckBox enabled;
     @BindView(R.id.hideUntil) Spinner spinner;
@@ -99,12 +101,14 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
                 if (value.setting == Task.HIDE_UNTIL_NONE) {
                     clearButton.setVisibility(View.GONE);
                     tv.setText(value.label);
+                    tv.setTextColor(themeBase.getTextColorTertiary());
                 } else {
                     String display = value.label;
                     if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
                         display = display.toLowerCase();
                     }
                     tv.setText(getString(R.string.TEA_hideUntil_display, display));
+                    tv.setTextColor(themeBase.getTextColorPrimary());
                 }
                 return tv;
             }
@@ -307,12 +311,8 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
 
     private void refreshDisplayView() {
         selectedValue = adapter.getItem(selection);
-        if (selectedValue.setting == Task.HIDE_UNTIL_NONE) {
-            spinner.setAlpha(0.5f);
-            clearButton.setVisibility(View.GONE);
-        } else {
-            spinner.setAlpha(1.0f);
-            clearButton.setVisibility(View.VISIBLE);
-        }
+        clearButton.setVisibility(selectedValue.setting == Task.HIDE_UNTIL_NONE
+                ? View.GONE
+                : View.VISIBLE);
     }
 }

@@ -26,7 +26,10 @@ public class ThemeCache {
                     i,
                     resolveAttribute(theme, R.attr.alertDialogTheme),
                     resolveAttribute(theme, R.attr.asContentBackground),
-                    resolveAttribute(theme, R.attr.asTextColor)));
+                    resolveAttribute(theme, R.attr.asTextColor),
+                    resolveAttribute(theme, android.R.attr.textColorPrimary),
+                    resolveAttribute(theme, android.R.attr.textColorSecondary),
+                    resolveAttribute(theme, android.R.attr.textColorTertiary)));
         }
         String[] colorNames = resources.getStringArray(R.array.colors);
         for (int i = 0 ; i < ThemeColor.COLORS.length ; i++) {

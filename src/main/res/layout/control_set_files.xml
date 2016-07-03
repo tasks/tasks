@@ -23,12 +23,11 @@
         android:orientation="horizontal">
 
         <TextView
+            style="@style/TaskEditTextHint"
             android:id="@+id/add_attachment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_attachment"
-            android:textColor="?attr/asTextColorHint"
-            android:textSize="@dimen/task_edit_text_size" />
+            android:text="@string/add_attachment"/>
 
     </LinearLayout>
 

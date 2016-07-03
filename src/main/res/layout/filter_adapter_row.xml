@@ -10,7 +10,6 @@
         android:layout_height="fill_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:alpha="?attr/alpha_secondary"
         android:fontFamily="@string/font_fontFamily_medium"
         android:gravity="center_vertical|end"
         android:minEms="3"
@@ -18,7 +17,7 @@
         android:paddingLeft="@dimen/keyline_first"
         android:paddingRight="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
-        android:textColor="?attr/asTextColor" />
+        android:textColor="?android:attr/textColorSecondary" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -44,14 +43,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:alpha="?attr/alpha_primary"
             android:checked="false"
             android:ellipsize="end"
             android:fontFamily="@string/font_fontFamily_medium"
             android:gravity="center_vertical"
             android:lines="1"
             android:singleLine="true"
-            android:textColor="?attr/asTextColor"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="14sp" />
     </LinearLayout>
 

@@ -377,10 +377,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
         CharSequence tagString = buildTagString();
         if (TextUtils.isEmpty(tagString)) {
             tagsDisplay.setText(R.string.tag_FEx_untagged);
-            tagsDisplay.setAlpha(0.5f);
         } else {
             tagsDisplay.setText(tagString);
-            tagsDisplay.setAlpha(1.0f);
         }
     }
 

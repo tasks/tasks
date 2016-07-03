@@ -72,6 +72,7 @@ import timber.log.Timber;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
+import static org.tasks.preferences.ResourceResolver.getData;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -140,6 +141,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final Map<String, TagData> tagMap = new HashMap<>();
 
+    private final int textColorPrimary;
+    private final int textColorSecondary;
+    private final int textColorHint;
+    private final int textColorOverdue;
+
     public TaskAdapter(Context context, Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
                        Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
                        DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
@@ -166,6 +172,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        textColorPrimary = getData(context, android.R.attr.textColorPrimary);
+        textColorSecondary = getData(context, android.R.attr.textColorSecondary);
+        textColorHint = getData(context, android.R.attr.textColorTertiary);
+        textColorOverdue = resources.getColor(R.color.overdue);
 
         updateTagMap();
         this.minRowHeight = computeMinRowHeight();
@@ -472,11 +483,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         TextView name = viewHolder.nameView;
         if(state) {
+            name.setTextColor(textColorHint);
             name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle_Completed);
         } else {
+            name.setTextColor(textColorPrimary);
             name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-            name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle);
         }
         name.setTextSize(fontSize);
 
@@ -564,9 +575,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 if(!task.isCompleted() && task.hasDueDate()) {
                     long dueDate = task.getDueDate();
                     if(task.isOverdue()) {
-                        dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Overdue);
+                        dueDateView.setTextColor(textColorOverdue);
                     } else {
-                        dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate);
+                        dueDateView.setTextColor(textColorSecondary);
                     }
                     String dateValue = DateUtilities.getRelativeDateStringWithTime(context, dueDate);
                     dueDateView.setText(dateValue);
@@ -574,7 +585,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 } else if(task.isCompleted()) {
                     String dateValue = DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate());
                     dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
-                    dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Completed);
+                    dueDateView.setTextColor(textColorHint);
                     dueDateView.setVisibility(View.VISIBLE);
                 } else {
                     dueDateView.setVisibility(View.GONE);

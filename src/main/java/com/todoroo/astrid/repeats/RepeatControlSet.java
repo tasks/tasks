@@ -470,11 +470,11 @@ public class RepeatControlSet extends TaskEditControlFragment {
     protected void refreshDisplayView() {
         if (doRepeat) {
             displayView.setText(getRepeatString());
-            displayView.setAlpha(1.0f);
+            displayView.setTextColor(theme.getThemeBase().getTextColorPrimary());
             clear.setVisibility(View.VISIBLE);
         } else {
-            displayView.setAlpha(0.5f);
             displayView.setText(R.string.repeat_never);
+            displayView.setTextColor(theme.getThemeBase().getTextColorTertiary());
             clear.setVisibility(View.GONE);
         }
     }

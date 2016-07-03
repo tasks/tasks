@@ -16,12 +16,10 @@
     <attr name="overlay_theme" format="reference" />
     <attr name="actionBarPrimaryText" format="color" />
     <attr name="actionBarSecondaryText" format="color" />
+    <attr name="dividerColor" format="color" />
     <attr name="dark_status_bar" format="boolean" />
-
-    <attr name="alpha_primary" format="dimension" />
     <attr name="alpha_secondary" format="dimension" />
     <attr name="alpha_disabled" format="dimension" />
-    <attr name="alpha_divider" format="dimension" />
 
     <declare-styleable name="TimePreference">
         <attr name="summary" format="string" />

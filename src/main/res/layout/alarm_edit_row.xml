@@ -13,7 +13,7 @@
         android:layout_weight="100">
 
         <TextView
-            style="@android:style/TextAppearance"
+            style="@style/TaskEditTextPrimary"
             android:id="@+id/alarm_string"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

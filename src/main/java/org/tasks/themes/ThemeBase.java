@@ -16,14 +16,22 @@ public class ThemeBase {
 
     private final String name;
     private final int index;
+    private final int textColorPrimary;
+    private final int textColorSecondary;
+    private final int textColorTertiary;
     private final int style;
     private final int dialogStyle;
     private final int contentBackground;
     private final int textColor;
 
-    public ThemeBase(String name, int index, int dialogStyle, int contentBackground, int textColor) {
+    public ThemeBase(String name, int index, int dialogStyle, int contentBackground,
+                     int textColor, int textColorPrimary, int textColorSecondary,
+                     int textColorTertiary) {
         this.name = name;
         this.index = index;
+        this.textColorPrimary = textColorPrimary;
+        this.textColorSecondary = textColorSecondary;
+        this.textColorTertiary = textColorTertiary;
         this.style = THEMES[index];
         this.dialogStyle = dialogStyle;
         this.contentBackground = contentBackground;
@@ -60,5 +68,17 @@ public class ThemeBase {
 
     public void set(Activity activity) {
         activity.setTheme(style);
+    }
+
+    public int getTextColorPrimary() {
+        return textColorPrimary;
+    }
+
+    public int getTextColorSecondary() {
+        return textColorSecondary;
+    }
+
+    public int getTextColorTertiary() {
+        return textColorTertiary;
     }
 }
