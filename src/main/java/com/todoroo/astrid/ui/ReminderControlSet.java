@@ -403,7 +403,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
 
     private void addRandomReminder(long reminderPeriod) {
-        View alarmRow = addAlarmRow(getString(R.string.randomly_once), new OnClickListener() {
+        View alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ", new OnClickListener() {
             @Override
             public void onClick(View v) {
                 randomControlSet = null;
