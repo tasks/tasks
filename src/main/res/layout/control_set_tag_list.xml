@@ -8,17 +8,17 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:paddingLeft="5dip"
-  android:paddingRight="5dip">
+  android:layout_height="fill_parent">
   
   <LinearLayout
       android:id="@+id/newTags"
       android:orientation="vertical"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="2dip"
-      android:layout_marginBottom="5dip" />
+      android:paddingLeft="@dimen/keyline_first"
+      android:paddingStart="@dimen/keyline_first"
+      android:paddingRight="@dimen/keyline_first"
+      android:paddingEnd="@dimen/keyline_first"/>
   
   <View
       style="@style/horizontal_divider"
@@ -28,8 +28,6 @@
       android:id="@+id/existingTags"
       android:layout_width="fill_parent"
       android:layout_height="0dp"
-      android:layout_marginLeft="3dip"
-      android:layout_marginRight="3dip"
       android:layout_weight="100"
       android:dividerHeight="0dp"
       android:divider="@null"
