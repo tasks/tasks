@@ -29,6 +29,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
@@ -53,6 +54,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Inject CheckBoxes checkBoxes;
     @Inject TagService tagService;
     @Inject ThemeCache themeCache;
+    @Inject Theme theme;
 
     private AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
@@ -121,7 +123,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
 
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return helper.createTaskAdapter(context, cursor, sqlQueryTemplate);
+        return helper.createTaskAdapter(theme.wrap(context), cursor, sqlQueryTemplate);
     }
 
     @Override

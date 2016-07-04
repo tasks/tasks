@@ -36,9 +36,7 @@ public class Theme {
     }
 
     public LayoutInflater getLayoutInflater(Context context) {
-        ContextThemeWrapper wrapper = themeBase.wrap(context);
-        applyToContext(wrapper);
-        return (LayoutInflater) wrapper.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        return (LayoutInflater) wrap(context).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public ContextThemeWrapper getThemedDialog(Context context) {
@@ -62,5 +60,11 @@ public class Theme {
         Resources.Theme theme = context.getTheme();
         themeColor.applyStyle(theme);
         themeAccent.apply(theme);
+    }
+
+    public Context wrap(Context context) {
+        ContextThemeWrapper wrapper = themeBase.wrap(context);
+        applyToContext(wrapper);
+        return wrapper;
     }
 }
