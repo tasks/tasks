@@ -72,6 +72,7 @@
 	<string name="TEA_control_importance">Priorità</string>
 	<string name="TEA_control_notes">Descrizione</string>
 	<string name="TEA_control_files">File</string>
+	<string name="TEA_control_google_task_list"> Lista Attività Google</string>
 	<string name="TEA_control_reminders">Promemoria</string>
 	<string name="TEA_control_timer">Regolazioni Tempo</string>
 	<string name="TEA_control_hidden_section">----Nascondi Sempre----</string>
@@ -361,6 +362,7 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="send_anonymous_statistics">Migliora Attività</string>
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
 	<string name="tag_already_exists">Etichetta già presente</string>
+	<string name="name_cannot_be_empty">Il nome non può essere omesso</string>
 	<string name="disable_notification_light">Disabilita led di notifica</string>
 	<string name="doze_notifications">Le notifiche interrompono il pisolino</string>
 	<string name="doze_notifications_off">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
@@ -382,6 +384,8 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="filter">Filtra</string>
 	<string name="opacity">Opacità</string>
 	<string name="theme">Tema</string>
+	<string name="color">Colore</string>
+	<string name="accent">Accento</string>
 	<string name="themes">Ulteriori temi</string>
 	<string name="theme_red">Rosso</string>
 	<string name="theme_pink">Rosa</string>
@@ -403,6 +407,10 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="theme_grey">Grigio</string>
 	<string name="theme_blue_grey">Grigio-Blu</string>
 	<string name="theme_black">Nero</string>
+	<string name="theme_dark_grey">Grigio scuro</string>
+	<string name="theme_light">Chiaro</string>
+	<string name="theme_dark">Scuro</string>
+	<string name="default_value">Predefinito</string>
 	<string-array name="sync_SPr_interval_entries">
 		<item>disabilita</item>
 		<item>ogni quindici minuti</item>

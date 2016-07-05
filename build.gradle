@@ -32,8 +32,8 @@ android {
 
     defaultConfig {
         applicationId "org.tasks"
-        versionCode 414
-        versionName "4.8.21"
+        versionCode 415
+        versionName "4.8.22"
         minSdkVersion 14
         targetSdkVersion 24
         multiDexEnabled true
