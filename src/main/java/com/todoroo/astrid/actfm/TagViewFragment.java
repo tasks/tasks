@@ -138,4 +138,8 @@ public class TagViewFragment extends TaskListFragment {
     public void inject(FragmentComponent component) {
         component.inject(this);
     }
+
+    public TagData getTagData() {
+        return tagData;
+    }
 }

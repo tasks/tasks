@@ -597,7 +597,8 @@ public class TaskListFragment extends InjectingListFragment implements
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)));
 
         if (this instanceof TagViewFragment) {
-            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_NAME.name).neq(filter.listingTitle));
+            String uuid = ((TagViewFragment) this).getTagData().getUuid();
+            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name).neq(uuid));
         }
 
         // TODO: For now, we'll modify the query to join and include the things like tag data here.
