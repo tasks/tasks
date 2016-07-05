@@ -60,6 +60,7 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
+import org.tasks.themes.ThemeColor;
 import org.tasks.ui.CheckBoxes;
 
 import java.util.HashMap;
@@ -556,11 +557,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 String tagName = tagData.getName();
                 tagName = tagName.substring(0, Math.min(tagName.length(), (int) maxLength));
                 SpannableString string = new SpannableString(SPACE + tagName + SPACE);
-                int themeIndex = tagData.getColor() >= 0 ? tagData.getColor() : 19;
-                int backgroundColor = themeCache.getThemeColor(themeIndex).getPrimaryColor();
-                int foregroundColor = themeCache.getThemeColor(themeIndex).getActionBarTint();
-                string.setSpan(new BackgroundColorSpan(backgroundColor), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                string.setSpan(new ForegroundColorSpan(foregroundColor), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                int themeIndex = tagData.getColor();
+                ThemeColor color = themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
+                string.setSpan(new BackgroundColorSpan(color.getPrimaryColor()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                string.setSpan(new ForegroundColorSpan(color.getActionBarTint()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 return string;
             }
         };

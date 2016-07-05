@@ -121,6 +121,7 @@
 
     <color name="snackbar_text_color">#f4b400</color>
     <color name="snackbar_background">@color/grey_800</color>
+    <color name="tag_color_none_background">#e1e1e1</color>
 
     <!-- deprecated -->
     <color name="reminder_background">#262626</color>

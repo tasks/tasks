@@ -118,11 +118,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
                         .substring(0, Math.min(tagName.length(), (int) maxLength))
                         .replace(' ', NO_BREAK_SPACE);
                 SpannableString string = new SpannableString(NO_BREAK_SPACE + tagName + NO_BREAK_SPACE);
-                int themeIndex = tagData.getColor() >= 0 ? tagData.getColor() : 19;
-                int backgroundColor = themeCache.getThemeColor(themeIndex).getPrimaryColor();
-                int foregroundColor = themeCache.getThemeColor(themeIndex).getActionBarTint();
-                string.setSpan(new BackgroundColorSpan(backgroundColor), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                string.setSpan(new ForegroundColorSpan(foregroundColor), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                int themeIndex = tagData.getColor();
+                ThemeColor color = themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
+                string.setSpan(new BackgroundColorSpan(color.getPrimaryColor()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                string.setSpan(new ForegroundColorSpan(color.getActionBarTint()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 return string;
             }
         };
