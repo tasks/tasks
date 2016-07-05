@@ -81,8 +81,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     public static final int TAG = R.string.TEA_ctrl_lists_pref;
 
+    private static final char SPACE = '\u0020';
     private static final char NO_BREAK_SPACE = '\u00a0';
-    private static final char HAIR_SPACE = '\u200a';
     private static final String EXTRA_NEW_TAGS = "extra_new_tags";
     private static final String EXTRA_SELECTED_TAGS = "extra_selected_tags";
 
@@ -133,7 +133,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         for (SpannableString tagString : tagStrings) {
             if (builder.length() > 0) {
-                builder.append(HAIR_SPACE);
+                builder.append(SPACE);
             }
             builder.append(tagString);
         }
