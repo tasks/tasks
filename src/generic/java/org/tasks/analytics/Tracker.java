@@ -32,4 +32,8 @@ public class Tracker {
     public void reportEvent(Tracking.Events event, String string) {
 
     }
+
+    public void reportEvent(Tracking.Events setPreference, int resId, String s) {
+
+    }
 }

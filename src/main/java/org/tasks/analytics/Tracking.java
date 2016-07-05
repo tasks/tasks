@@ -10,12 +10,14 @@ public class Tracking {
         SET_THEME(R.string.tracking_category_preferences, R.string.p_theme),
         SET_COLOR(R.string.tracking_category_preferences, R.string.p_theme_color),
         SET_ACCENT(R.string.tracking_category_preferences, R.string.p_theme_accent),
+        SET_TAG_COLOR(R.string.tracking_category_tags, R.string.p_theme_color),
         WIDGET_ADD(R.string.tracking_category_widget, R.string.tracking_action_add),
         TIMER_START(R.string.tracking_category_timer, R.string.tracking_action_start),
         GTASK_ENABLED(R.string.tracking_category_google_tasks, R.string.tracking_action_on),
         GTASK_DISABLED(R.string.tracking_category_google_tasks, R.string.tracking_action_off),
         GTASK_LOGOUT(R.string.tracking_category_google_tasks, R.string.tracking_action_clear),
-        GTASK_MOVE(R.string.tracking_category_google_tasks, R.string.tracking_action_move);
+        GTASK_MOVE(R.string.tracking_category_google_tasks, R.string.tracking_action_move),
+        SET_PREFERENCE(R.string.tracking_category_preferences, 0);
 
         public final int category;
         public final int action;

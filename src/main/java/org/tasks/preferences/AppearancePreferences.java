@@ -9,6 +9,8 @@ import com.todoroo.astrid.api.Filter;
 
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 
@@ -25,6 +27,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
 
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
+    @Inject Tracker tracker;
 
     private Bundle result;
 
@@ -96,10 +99,11 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
         }
     }
 
-    private void setExtraOnChange(int resId, final String extra) {
+    private void setExtraOnChange(final int resId, final String extra) {
         findPreference(getString(resId)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
+                tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, newValue.toString());
                 result.putBoolean(extra, true);
                 return true;
             }

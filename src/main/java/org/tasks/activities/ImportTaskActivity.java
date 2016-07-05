@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.todoroo.astrid.backup.TasksXmlImporter;
 
+import org.tasks.analytics.Tracker;
 import org.tasks.files.FileExplore;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;

@@ -30,6 +30,8 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
@@ -73,6 +75,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     @Inject ThemeCache themeCache;
     @Inject PurchaseHelper purchaseHelper;
     @Inject ThemeColor themeColor;
+    @Inject Tracker tracker;
 
     @BindView(R.id.tag_name) EditText tagName;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -259,6 +262,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     @Override
     public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
+        tracker.reportEvent(Tracking.Events.SET_TAG_COLOR, Integer.toString(index));
         selectedTheme = index;
         updateTheme();
     }
