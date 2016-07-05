@@ -35,17 +35,16 @@ import android.widget.TextView.OnEditorActionListener;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
@@ -58,7 +57,6 @@ import org.tasks.themes.ThemeColor;
 import org.tasks.ui.TaskEditControlFragment;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -68,7 +66,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.google.common.base.Predicates.notNull;
-import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.filter;
@@ -86,7 +83,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     private static final char NO_BREAK_SPACE = '\u00a0';
     private static final char HAIR_SPACE = '\u200a';
-    private static final String EXTRA_TAGS = "extra_tags";
+    private static final String EXTRA_NEW_TAGS = "extra_new_tags";
+    private static final String EXTRA_SELECTED_TAGS = "extra_selected_tags";
 
     @Inject MetadataDao metadataDao;
     @Inject TagDataDao tagDataDao;
@@ -97,12 +95,12 @@ public final class TagsControlSet extends TaskEditControlFragment {
     @BindView(R.id.display_row_edit) TextView tagsDisplay;
 
     private long taskId;
-    private ArrayList<String> allTagNames;
-    private LinearLayout newTags;
-    private ListView selectedTags;
+    private LinearLayout newTagLayout;
+    private ListView tagListView;
     private View dialogView;
     private AlertDialog dialog;
-    private ArrayList<String> tagList;
+    private List<TagData> allTags;
+    private ArrayList<TagData> selectedTags;
 
     private final Ordering<TagData> orderByName = new Ordering<TagData>() {
         @Override
@@ -131,7 +129,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
 
     private CharSequence buildTagString() {
-        Set<TagData> selectedTags = getSelectedTags(false);
         List<TagData> sortedTagData = orderByName.sortedCopy(selectedTags);
         List<SpannableString> tagStrings = Lists.transform(sortedTagData, tagToString(Float.MAX_VALUE));
         SpannableStringBuilder builder = new SpannableStringBuilder();
@@ -148,22 +145,19 @@ public final class TagsControlSet extends TaskEditControlFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+        ArrayList<String> newTags;
         if (savedInstanceState != null) {
-            tagList = savedInstanceState.getStringArrayList(EXTRA_TAGS);
+            selectedTags = savedInstanceState.getParcelableArrayList(EXTRA_SELECTED_TAGS);
+            newTags = savedInstanceState.getStringArrayList(EXTRA_NEW_TAGS);
         } else {
-            tagList = tagService.getTagNames(taskId);
+            selectedTags = tagService.getTagDataForTask(taskId);
+            newTags = newArrayList();
         }
-        final List<TagData> allTags = tagService.getTagList();
-        allTagNames = newArrayList(ImmutableSet.copyOf(transform(allTags, new Function<TagData, String>() {
-            @Override
-            public String apply(TagData tagData) {
-                return tagData.getName();
-            }
-        })));
+        allTags = tagService.getTagList();
         dialogView = inflater.inflate(R.layout.control_set_tag_list, null);
-        newTags = (LinearLayout) dialogView.findViewById(R.id.newTags);
-        selectedTags = (ListView) dialogView.findViewById(R.id.existingTags);
-        ArrayAdapter<TagData> adapter = new ArrayAdapter<TagData>(getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTags) {
+        newTagLayout = (LinearLayout) dialogView.findViewById(R.id.newTags);
+        tagListView = (ListView) dialogView.findViewById(R.id.existingTags);
+        tagListView.setAdapter(new ArrayAdapter<TagData>(getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTags) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
@@ -176,10 +170,12 @@ public final class TagsControlSet extends TaskEditControlFragment {
                 view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
                 return view;
             }
-        };
-        selectedTags.setAdapter(adapter);
+        });
+        for (String newTag : newTags) {
+            addTag(newTag);
+        }
         addTag("");
-        for (String tag : tagList) {
+        for (TagData tag : selectedTags) {
             setTagSelected(tag);
         }
         refreshDisplayView();
@@ -190,7 +186,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putStringArrayList(EXTRA_TAGS, tagList);
+        outState.putParcelableArrayList(EXTRA_SELECTED_TAGS, selectedTags);
+        outState.putStringArrayList(EXTRA_NEW_TAGS, getNewTags());
     }
 
     @Override
@@ -225,51 +222,68 @@ public final class TagsControlSet extends TaskEditControlFragment {
                 .setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        tagList = getTagList();
                         refreshDisplayView();
                     }
                 })
                 .create();
     }
 
-    private void setTagSelected(String tag) {
-        int index = allTagNames.indexOf(tag);
+    private void setTagSelected(TagData tag) {
+        int index = allTags.indexOf(tag);
         if (index >= 0) {
-            selectedTags.setItemChecked(index, true);
-        } else {
-            allTagNames.add(tag);
-            ((ArrayAdapter<String>)selectedTags.getAdapter()).notifyDataSetChanged();
+            tagListView.setItemChecked(index, true);
         }
     }
 
-    private ArrayList<String> getTagList() {
-        Set<String> tags = new LinkedHashSet<>();
-        for(int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
-            if (selectedTags.isItemChecked(i)) {
-                tags.add(allTagNames.get(i));
+    private boolean isSelected(List<TagData> selected, final String name) {
+        return Iterables.any(selected, new Predicate<TagData>() {
+            @Override
+            public boolean apply(TagData input) {
+                return name.equalsIgnoreCase(input.getName());
+            }
+        });
+    }
+
+    private ArrayList<TagData> getSelectedTags() {
+        ArrayList<TagData> tags = new ArrayList<>();
+        for(int i = 0; i < tagListView.getAdapter().getCount(); i++) {
+            if (tagListView.isItemChecked(i)) {
+                tags.add(allTags.get(i));
             }
         }
-        for (int i = newTags.getChildCount() - 1 ; i >= 0 ; i--) {
-            TextView tagName = (TextView) newTags.getChildAt(i).findViewById(R.id.text1);
+        for (int i = newTagLayout.getChildCount() - 1; i >= 0 ; i--) {
+            TextView tagName = (TextView) newTagLayout.getChildAt(i).findViewById(R.id.text1);
             final String text = tagName.getText().toString();
             if (Strings.isNullOrEmpty(text)) {
                 continue;
             }
             TagData tagByName = tagDataDao.getTagByName(text, TagData.PROPERTIES);
             if (tagByName != null) {
-                setTagSelected(tagByName.getName());
-                tags.add(tagByName.getName());
-                newTags.removeViewAt(i);
-            } else if (!Iterables.any(tags, new Predicate<String>() {
-                @Override
-                public boolean apply(String input) {
-                    return text.equalsIgnoreCase(input);
+                if (!isSelected(tags, text)) {
+                    setTagSelected(tagByName);
+                    tags.add(tagByName);
                 }
-            })) {
-                tags.add(text);
+                newTagLayout.removeViewAt(i);
+            } else if (!isSelected(tags, text)) {
+                TagData newTag = new TagData();
+                newTag.setName(text);
+                tags.add(newTag);
             }
         }
-        return newArrayList(tags);
+        return tags;
+    }
+
+    private ArrayList<String> getNewTags() {
+        ArrayList<String> tags = new ArrayList<>();
+        for (int i = newTagLayout.getChildCount() - 1 ; i >= 0 ; i--) {
+            TextView textView = (TextView) newTagLayout.getChildAt(i).findViewById(R.id.text1);
+            String tagName = textView.getText().toString();
+            if (Strings.isNullOrEmpty(tagName)) {
+                continue;
+            }
+            tags.add(tagName);
+        }
+        return tags;
     }
 
     /** Adds a tag to the tag field */
@@ -278,8 +292,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
         // check if already exists
         TextView lastText;
-        for(int i = 0; i < newTags.getChildCount(); i++) {
-            View view = newTags.getChildAt(i);
+        for(int i = 0; i < newTagLayout.getChildCount(); i++) {
+            View view = newTagLayout.getChildAt(i);
             lastText = (TextView) view.findViewById(R.id.text1);
             if(lastText.getText().equals(tagName)) {
                 return;
@@ -288,7 +302,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
         final View tagItem;
         tagItem = inflater.inflate(R.layout.tag_edit_row, null);
-        newTags.addView(tagItem);
+        newTagLayout.addView(tagItem);
         if(tagName == null) {
             tagName = ""; //$NON-NLS-1$
         }
@@ -310,7 +324,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
-                if(count > 0 && newTags.getChildAt(newTags.getChildCount()-1) ==
+                if(count > 0 && newTagLayout.getChildAt(newTagLayout.getChildCount()-1) ==
                         tagItem) {
                     addTag(""); //$NON-NLS-1$
                 }
@@ -338,8 +352,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
                     return;
                 }
 
-                if(newTags.getChildCount() > 1) {
-                    newTags.removeView(tagItem);
+                if(newTagLayout.getChildCount() > 1) {
+                    newTagLayout.removeView(tagItem);
                 } else {
                     textView.setText(""); //$NON-NLS-1$
                 }
@@ -351,10 +365,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
      * Get tags container last text view. might be null
      */
     private TextView getLastTextView() {
-        if(newTags.getChildCount() == 0) {
+        if(newTagLayout.getChildCount() == 0) {
             return null;
         }
-        View lastItem = newTags.getChildAt(newTags.getChildCount()-1);
+        View lastItem = newTagLayout.getChildAt(newTagLayout.getChildCount()-1);
         return (TextView) lastItem.findViewById(R.id.text1);
     }
 
@@ -370,10 +384,13 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     @Override
     public boolean hasChanges(Task original) {
-        return !getExistingTags(original.getUUID()).equals(getSelectedTags(false));
+        Set<TagData> existingSet = newHashSet(tagService.getTagDataForTask(original.getUUID()));
+        Set<TagData> selectedSet = newHashSet(selectedTags);
+        return !existingSet.equals(selectedSet);
     }
 
     protected void refreshDisplayView() {
+        selectedTags = getSelectedTags();
         CharSequence tagString = buildTagString();
         if (TextUtils.isEmpty(tagString)) {
             tagsDisplay.setText(R.string.tag_FEx_untagged);
@@ -382,46 +399,19 @@ public final class TagsControlSet extends TaskEditControlFragment {
         }
     }
 
-    private Set<TagData> getSelectedTags(final boolean createMissingTags) {
-        return newHashSet(transform(tagList, new Function<String, TagData>() {
-            @Override
-            public TagData apply(String tagName) {
-                TagData tagData = tagDataDao.getTagByName(tagName, TagData.PROPERTIES);
-                if (tagData == null) {
-                    // create missing tags
-                    tagData = new TagData();
-                    tagData.setName(tagName);
-                    if (createMissingTags) {
-                        tagDataDao.persist(tagData);
-                    }
-                }
-                return tagData;
-            }
-        }));
-    }
-
-    private Set<TagData> getExistingTags(String taskUuid) {
-        Query query = Query.select(Metadata.PROPERTIES).where(
-                Criterion.and(
-                        TaskToTagMetadata.TASK_UUID.eq(taskUuid),
-                        Metadata.DELETION_DATE.eq(0))
-        );
-        return newHashSet(transform(metadataDao.toList(query), new Function<Metadata, TagData>() {
-            @Override
-            public TagData apply(Metadata metadata) {
-                return tagDataDao.getByUuid(metadata.getValue(TaskToTagMetadata.TAG_UUID));
-            }
-        }));
-    }
-
     /**
      * Save the given array of tags into the database
      */
     private boolean synchronizeTags(long taskId, String taskUuid) {
-        Set<TagData> existingTags = getExistingTags(taskUuid);
-        Set<TagData> selectedTags = getSelectedTags(true);
-        Sets.SetView<TagData> added = difference(selectedTags, existingTags);
-        Sets.SetView<TagData> removed = difference(existingTags, selectedTags);
+        for (TagData tagData : selectedTags) {
+            if (RemoteModel.NO_UUID.equals(tagData.getUuid())) {
+                tagDataDao.persist(tagData);
+            }
+        }
+        Set<TagData> existingHash = newHashSet(tagService.getTagDataForTask(taskUuid));
+        Set<TagData> selectedHash = newHashSet(selectedTags);
+        Sets.SetView<TagData> added = difference(selectedHash, existingHash);
+        Sets.SetView<TagData> removed = difference(existingHash, selectedHash);
         deleteLinks(taskId, taskUuid, filter(removed, notNull()));
         for (TagData tagData : added) {
             Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tagData.getName(), tagData.getUuid());

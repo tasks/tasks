@@ -7,6 +7,8 @@ package com.todoroo.astrid.tags;
 
 import android.text.TextUtils;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Criterion;
@@ -26,6 +28,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 
 /**
  * Provides operations for working with tags
@@ -80,6 +85,34 @@ public final class TagService {
 
     public TagData tagFromUUID(String uuid) {
         return tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
+    }
+
+    public List<TagData> getTagDataForTask(String uuid) {
+        List<Metadata> tags = metadataDao.toList(Query.select(TaskToTagMetadata.TAG_UUID).where(
+                Criterion.and(
+                        MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                        Metadata.DELETION_DATE.eq(0),
+                        TaskToTagMetadata.TASK_UUID.eq(uuid))));
+        return newArrayList(Iterables.transform(tags, new Function<Metadata, TagData>() {
+            @Override
+            public TagData apply(Metadata metadata) {
+                return tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID));
+            }
+        }));
+    }
+
+    public ArrayList<TagData> getTagDataForTask(long taskId) {
+        List<Metadata> tags = metadataDao.toList(Query.select(TaskToTagMetadata.TAG_UUID).where(
+                Criterion.and(
+                        MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                        Metadata.DELETION_DATE.eq(0),
+                        MetadataCriteria.byTask(taskId))));
+        return newArrayList(transform(tags, new Function<Metadata, TagData>() {
+            @Override
+            public TagData apply(Metadata metadata) {
+                return tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID));
+            }
+        }));
     }
 
     public ArrayList<String> getTagNames(long taskId) {
