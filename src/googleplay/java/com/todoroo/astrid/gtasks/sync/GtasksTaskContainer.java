@@ -43,6 +43,7 @@ public class GtasksTaskContainer {
         long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         task.setDueDate(createdDate);
         task.setNotes(remoteTask.getNotes());
+        GtasksApiUtilities.parseLinks(remoteTask.getLinks(), task);
 
         gtaskMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
         gtaskMetadata.setValue(GtasksMetadata.LIST_ID, listId);

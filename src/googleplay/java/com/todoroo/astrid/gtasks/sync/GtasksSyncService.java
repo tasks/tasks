@@ -233,6 +233,9 @@ public class GtasksSyncService {
         if (values.containsKey(Task.DUE_DATE.name) && task.hasDueDate()) {
             remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getDueDate()));
         }
+        if (values.containsKey(Task.HIDE_UNTIL.name) && task.hasHideUntilDate()) {
+            GtasksApiUtilities.addHideUntilTime(remoteModel, task.getHideUntil());
+        }
         if (values.containsKey(Task.COMPLETION_DATE.name)) {
             if (task.isCompleted()) {
                 remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getCompletionDate()));

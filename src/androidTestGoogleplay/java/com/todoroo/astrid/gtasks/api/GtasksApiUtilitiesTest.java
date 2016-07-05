@@ -2,9 +2,15 @@ package com.todoroo.astrid.gtasks.api;
 
 import android.test.AndroidTestCase;
 
+import com.google.api.services.tasks.model.Task;
+
 import org.tasks.time.DateTime;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -67,5 +73,82 @@ public class GtasksApiUtilitiesTest extends AndroidTestCase {
     public void testConvertFromInvalidGtaskTimes() {
         assertEquals(0, gtasksCompletedTimeToUnixTime(null));
         assertEquals(0, gtasksDueTimeToUnixTime(null));
+    }
+
+    public void testAddHideUntilTimeNullLinks() throws ParseException {
+        Long time = 123456789L;
+        Task gtask = new Task();
+
+        GtasksApiUtilities.addHideUntilTime(gtask, time);
+
+        validateHideUntilEntry(time, gtask.getLinks());
+    }
+
+    public void testAddHideUntilTimeNonNullLinks() throws ParseException{
+        long time = 123456789L;
+        Task gtask = new Task();
+        gtask.setLinks(new LinkedList<Task.Links>());
+
+        GtasksApiUtilities.addHideUntilTime(gtask, time);
+
+        validateHideUntilEntry(time, gtask.getLinks());
+    }
+
+    private void validateHideUntilEntry(long time, List<Task.Links> links) throws ParseException {
+        assertEquals(1, links.size());
+
+        Task.Links link = links.get(0);
+        assertEquals(GtasksApiUtilities.LINK_TYPE, link.getType());
+        assertEquals(GtasksApiUtilities.ASTRID_URL, link.getLink());
+
+        String description = link.getDescription();
+        assertTrue(description.startsWith(GtasksApiUtilities.HIDE_UNTIL + ": "));
+        String datestring = description.replace(GtasksApiUtilities.HIDE_UNTIL + ": ", "");
+
+        // Verify that we can parse the correct time out of that element
+        Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH).parse(datestring);
+        long javatime = date.getTime();
+        long unixtime = javatime / 1000;
+
+        assertEquals(time, unixtime);
+    }
+
+    public void testParseLinksNullList() {
+        com.todoroo.astrid.data.Task task = new com.todoroo.astrid.data.Task();
+        GtasksApiUtilities.parseLinks(null, task);
+
+        assertFalse(task.hasHideUntilDate());
+    }
+
+    public void testParseLinksGarbage() {
+        Task.Links taskLink = new Task.Links();
+        taskLink.setType(GtasksApiUtilities.LINK_TYPE);
+        taskLink.setLink(GtasksApiUtilities.ASTRID_URL);
+        taskLink.setDescription(GtasksApiUtilities.HIDE_UNTIL + ": garbase");
+
+        List<Task.Links> links = new LinkedList<>();
+        links.add(taskLink);
+
+        com.todoroo.astrid.data.Task task = new com.todoroo.astrid.data.Task();
+        GtasksApiUtilities.parseLinks(links, task);
+
+        assertFalse(task.hasHideUntilDate());
+    }
+
+    public void testMarshalHideUntilRoundtrip() {
+        final Long TIME = 1234567890L;
+
+        // Marshal hide-until metadata
+        Task gtask = new Task();
+        gtask.setLinks(new LinkedList<Task.Links>());
+        GtasksApiUtilities.addHideUntilTime(gtask, TIME);
+
+        // Unmarshal hide-until metadata
+        com.todoroo.astrid.data.Task astridTask = new com.todoroo.astrid.data.Task();
+        assertFalse(astridTask.hasHideUntilDate());
+        GtasksApiUtilities.parseLinks(gtask.getLinks(), astridTask);
+
+        assertTrue(astridTask.hasHideUntilDate());
+        assertEquals(TIME, astridTask.getHideUntil());
     }
 }
