@@ -109,7 +109,7 @@ public class DateUtilitiesTest extends AndroidTestCase {
     }
 
     public void testGetDateStringWithYear() {
-        assertEquals("Jan 4, 2014", getDateString(new DateTime(2014, 1, 4, 0, 0, 0)));
+        assertEquals("Jan 4 '14", getDateString(new DateTime(2014, 1, 4, 0, 0, 0)));
     }
 
     public void testGetDateStringHidingYear() {
@@ -120,7 +120,7 @@ public class DateUtilitiesTest extends AndroidTestCase {
 
     public void testGetDateStringWithDifferentYear() {
         freezeAt(newDate(2013, 12, 31)).thawAfter(new Snippet() {{
-            assertEquals("Jan 1, 2014", getDateString(new DateTime(2014, 1, 1, 0, 0, 0)));
+            assertEquals("Jan 1 '14", getDateString(new DateTime(2014, 1, 1, 0, 0, 0)));
         }});
     }
 

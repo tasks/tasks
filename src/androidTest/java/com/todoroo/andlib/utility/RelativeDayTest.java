@@ -55,7 +55,7 @@ public class RelativeDayTest extends AndroidTestCase {
     }
 
     public void testRelativeDayOneWeekNextYear() {
-        checkRelativeDay(new DateTime().plusDays(7), "Jan 7, 2014", "Jan 7, 2014");
+        checkRelativeDay(new DateTime().plusDays(7), "Jan 7 '14", "Jan 7 '14");
     }
 
     private void checkRelativeDay(DateTime now, String full, String abbreviated) {
