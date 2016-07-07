@@ -50,25 +50,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         return table;
     }
 
-    // --- listeners
-
-    public interface ModelUpdateListener<MTYPE> {
-        void onModelUpdated(MTYPE model);
-    }
-
-    private final ArrayList<ModelUpdateListener<TYPE>> listeners = new ArrayList<>();
-
-    public void addListener(ModelUpdateListener<TYPE> listener) {
-        listeners.add(listener);
-    }
-
-    protected void onModelUpdated(TYPE model) {
-        TYPE modelCopy = (TYPE) model.clone();
-        for(ModelUpdateListener<TYPE> listener : listeners) {
-            listener.onModelUpdated(modelCopy);
-        }
-    }
-
     // --- dao methods
 
     public List<TYPE> toList(Query query) {
@@ -223,7 +204,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         synchronized(database) {
             result.set(op.makeChange());
             if (result.get()) {
-                onModelUpdated(item);
                 item.markSaved();
                 if (BuildConfig.DEBUG) {
                     Timber.d("%s %s", op, item.toString());

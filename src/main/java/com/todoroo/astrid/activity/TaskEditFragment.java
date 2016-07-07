@@ -210,7 +210,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             }
             boolean databaseChanged = taskService.save(model);
             if (!databaseChanged && model.checkTransitory(SyncFlags.FORCE_SYNC)) {
-                broadcaster.taskUpdated(model);
+                broadcaster.taskUpdated(model, null);
             }
 
             boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);

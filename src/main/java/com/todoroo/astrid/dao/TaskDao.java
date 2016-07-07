@@ -10,7 +10,6 @@ import android.database.sqlite.SQLiteConstraintException;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -54,25 +53,19 @@ public class TaskDao {
     private final ReminderService reminderService;
     private final NotificationManager notificationManager;
     private final Preferences preferences;
-    private GeofenceService geofenceService;
+    private final GeofenceService geofenceService;
 
     @Inject
 	public TaskDao(Database database, MetadataDao metadataDao, final Broadcaster broadcaster,
                    ReminderService reminderService, NotificationManager notificationManager,
                    Preferences preferences, GeofenceService geofenceService) {
         this.geofenceService = geofenceService;
-        dao = new RemoteModelDao<>(database, Task.class);
-        dao.addListener(new DatabaseDao.ModelUpdateListener<Task>() {
-            @Override
-            public void onModelUpdated(Task model) {
-                broadcaster.taskUpdated(model);
-            }
-        });
         this.preferences = preferences;
         this.metadataDao = metadataDao;
         this.broadcaster = broadcaster;
         this.reminderService = reminderService;
         this.notificationManager = notificationManager;
+        dao = new RemoteModelDao<>(database, Task.class);
     }
 
     public TodorooCursor<Task> query(Query query) {
@@ -186,7 +179,7 @@ public class TaskDao {
         // delete all metadata
         metadataDao.deleteWhere(MetadataCriteria.byTask(id));
 
-        broadcastTaskChanged();
+        broadcaster.refresh();
 
         return true;
     }
@@ -407,13 +400,7 @@ public class TaskDao {
             broadcaster.taskCompleted(task.getId());
         }
 
-        broadcastTaskChanged();
-    }
-
-    /**
-     * Send broadcast when task list changes. Widgets should update.
-     */
-    private void broadcastTaskChanged() {
+        broadcaster.taskUpdated(task, values);
         broadcaster.refresh();
     }
 

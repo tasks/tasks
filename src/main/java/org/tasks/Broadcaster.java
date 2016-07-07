@@ -1,5 +1,6 @@
 package org.tasks;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
@@ -48,9 +49,10 @@ public class Broadcaster {
         context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
     }
 
-    public void taskUpdated(final Task task) {
+    public void taskUpdated(final Task task, final ContentValues values) {
         context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_SAVED) {{
             putExtra(AstridApiConstants.EXTRAS_TASK, task);
+            putExtra(AstridApiConstants.EXTRAS_VALUES, values);
         }});
     }
 

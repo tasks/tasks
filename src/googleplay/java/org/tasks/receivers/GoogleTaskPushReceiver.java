@@ -36,18 +36,22 @@ public class GoogleTaskPushReceiver extends InjectingBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
+        if(!gtasksPreferenceService.isLoggedIn()) {
+            return;
+        }
+
         Task model = intent.getParcelableExtra(AstridApiConstants.EXTRAS_TASK);
-        if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
+        ContentValues setValues = intent.getParcelableExtra(AstridApiConstants.EXTRAS_VALUES);
+        if (model == null) {
+            return;
+        }
+        if(model.checkTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
             return;
         }
         if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) { //Don't try and sync changes that occur during a normal sync
             return;
         }
-        final ContentValues setValues = model.getSetValues();
-        if(!gtasksPreferenceService.isLoggedIn()) {
-            return;
-        }
-        if (checkValuesForProperties(setValues, TASK_PROPERTIES) || model.checkAndClearTransitory(SyncFlags.FORCE_SYNC)) {
+        if (checkValuesForProperties(setValues, TASK_PROPERTIES) || model.checkTransitory(SyncFlags.FORCE_SYNC)) {
             Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
             gtasksSyncService.enqueue(new TaskPushOp(toPush));
         }
