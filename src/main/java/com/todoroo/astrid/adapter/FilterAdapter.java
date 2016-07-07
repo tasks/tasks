@@ -24,7 +24,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.CustomFilterActivity;
 
 import org.tasks.R;
@@ -159,14 +158,12 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             case ITEM:
                 populateItem(viewHolder);
 
-                Filter selected = null;
                 if (activity instanceof TaskListActivity) {
-                    TaskListFragment tlf = ((TaskListActivity) activity).getTaskListFragment();
-                    selected = tlf.getFilter();
-                }
+                    Filter selected = ((TaskListActivity) activity).getCurrentFilter();
 
-                if (selected != null && selected.equals(viewHolder.item)) {
-                    convertView.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
+                    if (selected != null && selected.equals(viewHolder.item)) {
+                        convertView.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
+                    }
                 }
                 break;
             case SUBHEADER:

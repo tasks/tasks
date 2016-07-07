@@ -108,6 +108,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     public static final String LOAD_FILTER = "load_filter";
     public static final String OPEN_TASK = "open_task"; //$NON-NLS-1$
 
+    private Filter filter;
+
     /**
      * @see android.app.Activity#onCreate(Bundle)
      */
@@ -182,7 +184,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     private void loadTaskListFragment(TaskListFragment taskListFragment) {
-        Filter filter = taskListFragment.filter;
+        filter = taskListFragment.filter;
         ThemeColor themeColor = filter.tint >= 0
                 ? themeCache.getThemeColor(filter.tint)
                 : theme.getThemeColor();
@@ -508,7 +510,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     public Filter getCurrentFilter() {
-        return getTaskListFragment().filter;
+        return filter;
     }
 
     @Override
