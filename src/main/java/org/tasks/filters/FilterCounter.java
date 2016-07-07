@@ -16,9 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
 public class FilterCounter {
     // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
     // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
@@ -59,7 +57,9 @@ public class FilterCounter {
     }
 
     public void registerFilter(Filter filter) {
-        filterCounts.put(filter, 0);
+        if (!filterCounts.containsKey(filter)) {
+            filterCounts.put(filter, 0);
+        }
     }
 
     public boolean containsKey(FilterListItem filter) {

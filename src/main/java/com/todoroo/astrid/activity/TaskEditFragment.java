@@ -215,12 +215,9 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
             boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
 
-            // Notify task list fragment in multi-column case
-            // since the activity isn't actually finishing
             TaskListActivity tla = (TaskListActivity) getActivity();
-
             if (tagsChanged) {
-                tla.tagsChanged();
+                tla.repopulateNavigationDrawer();
             }
             if (isNewTask) {
                 tla.getTaskListFragment().onTaskCreated(model.getId(), model.getUuid());

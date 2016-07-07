@@ -372,10 +372,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
                 onFilterItemClicked(newList);
-                navigationDrawer.clear();
             }
 
-            navigationDrawer.refresh();
+            repopulateNavigationDrawer();
         } else if (requestCode == REQUEST_UPGRADE) {
             if (resultCode == RESULT_OK) {
                 if (data != null && data.getBooleanExtra(UpgradeActivity.EXTRA_RESTART, false)) {
@@ -389,28 +388,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         }
     }
 
-    public void refreshNavigationDrawer() {
-        navigationDrawer.refresh();
-    }
-
-    public void clearNavigationDrawer() {
-        navigationDrawer.clear();
-    }
-
-    protected void tagsChanged() {
-        tagsChanged(false);
-    }
-
-    private void tagsChanged(boolean onActivityResult) {
-        if (onActivityResult) {
-            navigationDrawer.clear();
-        } else {
-            navigationDrawer.refresh();
-        }
-    }
-
-    public void refreshFilterCount() {
-        navigationDrawer.refreshFilterCount();
+    public void repopulateNavigationDrawer() {
+        navigationDrawer.repopulateList();
     }
 
     public TaskListFragment getTaskListFragment() {

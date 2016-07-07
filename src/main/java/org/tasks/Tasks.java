@@ -36,7 +36,6 @@ public class Tasks extends InjectingApplication {
     @Inject SyncV2Service syncV2Service;
     @Inject TagService tagService;
     @Inject Broadcaster broadcaster;
-    @Inject FilterCounter filterCounter;
     @Inject SyncThrottle syncThrottle;
     @Inject Preferences preferences;
     @Inject Tracker tracker;

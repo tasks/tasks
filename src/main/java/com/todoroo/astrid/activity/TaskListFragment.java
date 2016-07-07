@@ -470,8 +470,6 @@ public class TaskListFragment extends InjectingListFragment implements
 
         getActivity().registerReceiver(refreshReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
 
-        refreshFilterCount();
-
         initiateAutomaticSyncImpl();
 
         refresh();
@@ -696,12 +694,6 @@ public class TaskListFragment extends InjectingListFragment implements
         TimerPlugin.stopTimer(notificationManager, taskService, context, task);
     }
 
-    public void refreshFilterCount() {
-        if (getActivity() instanceof TaskListActivity) {
-            ((TaskListActivity) getActivity()).refreshFilterCount();
-        }
-    }
-
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -736,7 +728,7 @@ public class TaskListFragment extends InjectingListFragment implements
                     ((TaskListActivity) getActivity()).onFilterItemClicked(null);
                 }
 
-                ((TaskListActivity) getActivity()).refreshNavigationDrawer();
+                ((TaskListActivity) getActivity()).repopulateNavigationDrawer();
                 broadcaster.refresh();
             }
         } else {

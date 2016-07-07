@@ -89,7 +89,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == FilterAdapter.REQUEST_SETTINGS && resultCode == Activity.RESULT_OK && data != null) {
             if (data.getBooleanExtra(AppearancePreferences.EXTRA_FILTERS_CHANGED, false)) {
-                refresh();
+                repopulateList();
             }
             if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
                 TaskListActivity activity = (TaskListActivity) getActivity();
@@ -97,7 +97,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 intent.putExtra(TaskListActivity.OPEN_FILTER, activity.getCurrentFilter());
                 activity.finish();
                 activity.startActivity(intent);
-                refresh();
             }
         } else if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
                 requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
@@ -243,10 +242,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
         }
     }
 
-    public void refreshFilterCount() {
-        adapter.refreshFilterCount();
-    }
-
     public interface OnFilterItemClickedListener {
         void onFilterItemClicked(FilterListItem item);
     }
@@ -255,8 +250,12 @@ public class NavigationDrawerFragment extends InjectingFragment {
         adapter.clear();
     }
 
-    public void refresh() {
+    public void repopulateList() {
         adapter.populateList();
+    }
+
+    private void refreshFilterCount() {
+        adapter.refreshFilterCount();
     }
 
     @Override
@@ -269,6 +268,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
         // also load sync actions
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+
+        refreshFilterCount();
     }
 
     /**
@@ -284,15 +285,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 return;
             }
 
-            Activity activity = getActivity();
-            if (activity != null) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        refresh();
-                    }
-                });
-            }
+            refreshFilterCount();
         }
     }
 }

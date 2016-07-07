@@ -27,7 +27,6 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
 
 import org.tasks.Broadcaster;
-import org.tasks.filters.FilterCounter;
 import org.tasks.scheduling.RefreshScheduler;
 
 import java.util.ArrayList;
@@ -53,18 +52,16 @@ public class TaskService {
     private final TagDataDao tagDataDao;
     private final TaskDao taskDao;
     private final Broadcaster broadcaster;
-    private final FilterCounter filterCounter;
     private final RefreshScheduler refreshScheduler;
     private final TagService tagService;
     private final MetadataDao metadataDao;
 
     @Inject
-    public TaskService(TagDataDao tagDataDao, TaskDao taskDao, Broadcaster broadcaster, FilterCounter filterCounter,
+    public TaskService(TagDataDao tagDataDao, TaskDao taskDao, Broadcaster broadcaster,
                        RefreshScheduler refreshScheduler, TagService tagService, MetadataDao metadataDao) {
         this.tagDataDao = tagDataDao;
         this.taskDao = taskDao;
         this.broadcaster = broadcaster;
-        this.filterCounter = filterCounter;
         this.refreshScheduler = refreshScheduler;
         this.tagService = tagService;
         this.metadataDao = metadataDao;
@@ -104,7 +101,7 @@ public class TaskService {
      */
     public boolean save(Task item) {
         boolean databaseChanged = taskDao.save(item);
-        broadcastFilterListUpdated();
+        broadcaster.refresh();
         refreshScheduler.scheduleRefresh(item);
         return databaseChanged;
     }
@@ -200,15 +197,6 @@ public class TaskService {
         } finally {
             cursor.close();
         }
-    }
-
-    private void broadcastFilterListUpdated() {
-        filterCounter.refreshFilterCounts(new Runnable() {
-            @Override
-            public void run() {
-                broadcaster.refresh();
-            }
-        });
     }
 
     /**

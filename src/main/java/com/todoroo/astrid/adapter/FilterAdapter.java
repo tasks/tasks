@@ -301,8 +301,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         activity.registerReceiver(filterListUpdateReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
 
         populateList();
-
-        refreshFilterCount();
     }
 
     /**

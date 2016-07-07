@@ -92,11 +92,10 @@ public class TagViewFragment extends TaskListFragment {
                     String activeUuid = tagData.getUuid();
                     if (activeUuid.equals(uuid)) {
                         activity.onFilterItemClicked(null);
-                        activity.clearNavigationDrawer(); // Should auto refresh
                     }
                 }
 
-                activity.refreshNavigationDrawer();
+                activity.repopulateNavigationDrawer();
                 broadcaster.refresh();
             }
         } else {
