@@ -46,6 +46,8 @@ import timber.log.Timber;
 @Singleton
 public class TaskDao {
 
+    public static final String TRANS_SUPPRESS_REFRESH = "suppress-refresh";
+
     private final RemoteModelDao<Task> dao;
 
     private final MetadataDao metadataDao;
@@ -401,7 +403,13 @@ public class TaskDao {
         }
 
         broadcaster.taskUpdated(task, values);
-        broadcaster.refresh();
+        broadcastRefresh(task);
+    }
+
+    private void broadcastRefresh(Task task) {
+        if (!task.checkAndClearTransitory(TRANS_SUPPRESS_REFRESH)) {
+            broadcaster.refresh();
+        }
     }
 
     /**

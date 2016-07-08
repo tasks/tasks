@@ -268,6 +268,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         }
         if (!TextUtils.isEmpty(task.task.getTitle())) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+            task.task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
             gtasksMetadataService.saveTaskAndMetadata(task);
         }
     }
