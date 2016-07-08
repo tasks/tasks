@@ -48,13 +48,6 @@ public class TaskDeleter {
         return taskDao.deleteWhere(Task.DELETION_DATE.gt(0));
     }
 
-    /**
-     * Permanently delete the given task.
-     */
-    public void purge(long taskId) {
-        taskDao.delete(taskId);
-    }
-
     public void delete(Task item) {
         if(!item.isSaved()) {
             return;

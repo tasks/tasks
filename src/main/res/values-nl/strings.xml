@@ -41,7 +41,6 @@
 	<string name="TAd_contextCopyTask">Taak kopiëren</string>
 	<string name="TAd_contextDeleteTask">Taak wissen</string>
 	<string name="TAd_contextUndeleteTask">Taak herstellen</string>
-	<string name="TAd_contextPurgeTask">Taak opruimen</string>
 	<string name="SSD_sort_drag">Handmatige volgorde met subtaken</string>
 	<string name="SSD_sort_auto">Slim Sorteren</string>
 	<string name="SSD_sort_alpha">Op titel</string>

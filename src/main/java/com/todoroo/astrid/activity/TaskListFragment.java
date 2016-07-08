@@ -129,7 +129,6 @@ public class TaskListFragment extends InjectingListFragment implements
     protected static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;
     protected static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
     protected static final int CONTEXT_MENU_UNDELETE_TASK_ID = R.string.TAd_contextUndeleteTask;
-    protected static final int CONTEXT_MENU_PURGE_TASK_ID = R.string.TAd_contextPurgeTask;
 
     // --- instance variables
 
@@ -659,7 +658,6 @@ public class TaskListFragment extends InjectingListFragment implements
 
         if (task.isDeleted()) {
             menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE, R.string.TAd_contextUndeleteTask);
-            menu.add(id, CONTEXT_MENU_PURGE_TASK_ID, Menu.NONE, R.string.TAd_contextPurgeTask);
         } else {
             menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE, R.string.TAd_contextCopyTask);
             menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE, R.string.TAd_contextDeleteTask);
@@ -767,15 +765,6 @@ public class TaskListFragment extends InjectingListFragment implements
             task.setId(itemId);
             task.setDeletionDate(0L);
             taskService.save(task);
-            loadTaskListContent();
-            return true;
-        }
-        case CONTEXT_MENU_PURGE_TASK_ID: {
-            itemId = item.getGroupId();
-            Task task = new Task();
-            task.setId(itemId);
-            TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), task);
-            taskDeleter.purge(itemId);
             loadTaskListContent();
             return true;
         }

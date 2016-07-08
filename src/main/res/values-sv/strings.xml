@@ -41,7 +41,6 @@
 	<string name="TAd_contextCopyTask">Kopiera uppgift</string>
 	<string name="TAd_contextDeleteTask">Radera uppgift</string>
 	<string name="TAd_contextUndeleteTask">Återställ raderad uppgift</string>
-	<string name="TAd_contextPurgeTask">Rensa uppgift</string>
 	<string name="SSD_sort_drag">Manuell sortering med underuppgifter</string>
 	<string name="SSD_sort_auto">Tasks intelligent sortering</string>
 	<string name="SSD_sort_alpha">Efter titel</string>

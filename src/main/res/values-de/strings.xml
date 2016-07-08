@@ -39,7 +39,6 @@
 	<string name="TAd_contextCopyTask">Aufgabe kopieren</string>
 	<string name="TAd_contextDeleteTask">Aufgabe löschen</string>
 	<string name="TAd_contextUndeleteTask">Aufgabe wiederherstellen</string>
-	<string name="TAd_contextPurgeTask">Aufgabe endgültig löschen</string>
 	<string name="SSD_sort_drag">Manuelle Sortierung mit Unteraufgaben</string>
 	<string name="SSD_sort_auto">Smarte Sortierung</string>
 	<string name="SSD_sort_alpha">Nach Titel</string>

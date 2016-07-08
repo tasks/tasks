@@ -33,7 +33,6 @@
 	<string name="TAd_contextCopyTask">复制任务</string>
 	<string name="TAd_contextDeleteTask">删除任务</string>
 	<string name="TAd_contextUndeleteTask">未删除任务</string>
-	<string name="TAd_contextPurgeTask">清除任务</string>
 	<string name="SSD_sort_auto">清单小助理智能排序</string>
 	<string name="SSD_sort_alpha">按标题</string>
 	<string name="SSD_sort_due">按到期日</string>

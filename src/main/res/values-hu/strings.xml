@@ -14,7 +14,6 @@
 	<string name="TAd_contextCopyTask">Feladat másolása</string>
 	<string name="TAd_contextDeleteTask">Feladat törlése</string>
 	<string name="TAd_contextUndeleteTask">Feladat törlésének visszavonása</string>
-	<string name="TAd_contextPurgeTask">Feladat eltávolítása</string>
 	<string name="SSD_sort_drag">Manuális sorrend részfeladatokkal</string>
 	<string name="SSD_sort_auto">Intelligens rendezés</string>
 	<string name="SSD_sort_alpha">Név alapján</string>

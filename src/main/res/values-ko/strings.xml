@@ -44,7 +44,6 @@
 	<string name="TAd_contextCopyTask">일정 복사하기</string>
 	<string name="TAd_contextDeleteTask">일정 지우기</string>
 	<string name="TAd_contextUndeleteTask">일정 복구하기</string>
-	<string name="TAd_contextPurgeTask">일정 비우기</string>
 	<string name="SSD_sort_drag">수동 정렬 (하위일정 포함)</string>
 	<string name="SSD_sort_auto">Tasks 스마트 정렬</string>
 	<string name="SSD_sort_alpha">제목 순서</string>

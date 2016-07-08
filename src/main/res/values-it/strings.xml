@@ -41,7 +41,6 @@
 	<string name="TAd_contextCopyTask">Copia Attività</string>
 	<string name="TAd_contextDeleteTask">Elimina attività</string>
 	<string name="TAd_contextUndeleteTask">Ripristina Attività</string>
-	<string name="TAd_contextPurgeTask">Elimina Attività</string>
 	<string name="SSD_sort_drag">Ordinamento manuale con attività correlate</string>
 	<string name="SSD_sort_auto">Ordinamento Intelligente</string>
 	<string name="SSD_sort_alpha">Per Titotlo</string>
