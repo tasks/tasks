@@ -25,7 +25,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     private static final int VALUE_UNSET = -1;
 
     @Inject GtasksListService gtasksListService;
-    @Inject GtasksMetadataService gtasksMetadataService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject MetadataDao metadataDao;
     @Inject TaskService taskService;
@@ -237,7 +236,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     }
 
     private void thenExpectMetadataOrderAndIndent(Task task, long order, int indent) {
-        Metadata metadata = gtasksMetadataService.getActiveTaskMetadata(task.getId());
+        Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(task.getId(), GtasksMetadata.METADATA_KEY);
         assertNotNull("metadata was found", metadata);
         assertEquals("order", order, metadata.getValue(GtasksMetadata.ORDER).longValue());
         assertEquals("indentation", indent, (int)metadata.getValue(GtasksMetadata.INDENT));

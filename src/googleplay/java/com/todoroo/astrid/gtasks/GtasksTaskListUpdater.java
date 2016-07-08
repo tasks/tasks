@@ -42,15 +42,12 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
     final HashMap<Long, String> localToRemoteIdMap =
         new HashMap<>();
 
-    private final GtasksMetadataService gtasksMetadataService;
     private final GtasksSyncService gtasksSyncService;
     private final MetadataDao metadataDao;
 
     @Inject
-    public GtasksTaskListUpdater(GtasksMetadataService gtasksMetadataService, GtasksSyncService gtasksSyncService,
-                                 MetadataDao metadataDao) {
+    public GtasksTaskListUpdater(GtasksSyncService gtasksSyncService, MetadataDao metadataDao) {
         super(metadataDao);
-        this.gtasksMetadataService = gtasksMetadataService;
         this.gtasksSyncService = gtasksSyncService;
         this.metadataDao = metadataDao;
     }
@@ -74,7 +71,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
 
     @Override
     protected Metadata getTaskMetadata(long taskId) {
-        return gtasksMetadataService.getActiveTaskMetadata(taskId);
+        return metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
     }
     @Override
     protected Metadata createEmptyMetadata(GtasksList list, long taskId) {
@@ -90,7 +87,8 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
 
     @Override
     protected void iterateThroughList(GtasksList list, OrderedListIterator iterator) {
-        gtasksMetadataService.iterateThroughList(list, iterator);
+        String listId = list.getRemoteId();
+        gtasksSyncService.iterateThroughList(listId, iterator, 0, false);
     }
 
     @Override
@@ -131,7 +129,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
         final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
 
-        gtasksMetadataService.iterateThroughList(list, new OrderedListIterator() {
+        iterateThroughList(list, new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 int indent = metadata.getValue(GtasksMetadata.INDENT);

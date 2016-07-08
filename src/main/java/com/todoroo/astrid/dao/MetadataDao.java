@@ -48,6 +48,12 @@ public class MetadataDao {
         return dao.getFirst(query);
     }
 
+    public Metadata getFirstActiveByTaskAndKey(long taskId, String key) {
+        return getFirst(Query.select(Metadata.PROPERTIES).where(Criterion.and(
+                MetadataCriteria.byTaskAndwithKey(taskId, key),
+                MetadataCriteria.isActive())));
+    }
+
     public int update(Criterion where, Metadata template) {
         return dao.update(where, template);
     }

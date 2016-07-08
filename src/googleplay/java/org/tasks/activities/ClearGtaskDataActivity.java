@@ -3,7 +3,9 @@ package org.tasks.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.todoroo.astrid.gtasks.GtasksMetadataService;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.R;
@@ -17,7 +19,7 @@ public class ClearGtaskDataActivity extends InjectingAppCompatActivity {
 
     @Inject DialogBuilder dialogBuilder;
     @Inject GtasksPreferenceService gtasksPreferenceService;
-    @Inject GtasksMetadataService gtasksMetadataService;
+    @Inject MetadataDao metadataDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class ClearGtaskDataActivity extends InjectingAppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         gtasksPreferenceService.clearLastSyncDate();
                         gtasksPreferenceService.setUserName(null);
-                        gtasksMetadataService.clearMetadata();
+                        metadataDao.deleteWhere(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY));
                         setResult(RESULT_OK);
                     }
                 })

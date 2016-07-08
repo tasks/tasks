@@ -22,7 +22,6 @@ import javax.inject.Inject;
 @SuppressWarnings("nls")
 public class GtasksIndentActionTest extends DatabaseTestCase {
 
-    @Inject GtasksMetadataService gtasksMetadataService;
     @Inject GtasksListService gtasksListService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject MetadataDao metadataDao;
@@ -173,7 +172,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     }
 
     private void thenExpectIndentationLevel(Task targetTask, int expected) {
-        Metadata metadata = gtasksMetadataService.getActiveTaskMetadata(targetTask.getId());
+        Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(targetTask.getId(), GtasksMetadata.METADATA_KEY);
         assertNotNull("task has metadata", metadata);
         int indentation = metadata.getValue(GtasksMetadata.INDENT);
         assertTrue("indentation: " + indentation,

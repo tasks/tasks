@@ -19,6 +19,7 @@ package org.tasks.gtasks;
 import android.accounts.Account;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
@@ -42,7 +44,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
-import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
@@ -60,7 +61,9 @@ import org.tasks.time.DateTime;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -85,10 +88,11 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     @Inject StoreObjectDao storeObjectDao;
     @Inject GtasksSyncService gtasksSyncService;
     @Inject GtasksListService gtasksListService;
-    @Inject GtasksMetadataService gtasksMetadataService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject Preferences preferences;
     @Inject GtasksInvoker gtasksInvoker;
+    @Inject TaskDao taskDao;
+    @Inject MetadataDao metadataDao;
 
 
     public GoogleTaskSyncAdapter(Context context, boolean autoInitialize) {
@@ -234,9 +238,9 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             if (!tasks.isEmpty()) {
                 for (com.google.api.services.tasks.model.Task t : tasks) {
                     GtasksTaskContainer container = new GtasksTaskContainer(t, listId, GtasksMetadata.createEmptyMetadataWithoutList(AbstractModel.NO_ID));
-                    gtasksMetadataService.findLocalMatch(container);
+                    findLocalMatch(container);
                     container.gtaskMetadata.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(t.getPosition()));
-                    container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK, gtasksMetadataService.localIdForGtasksId(t.getParent()));
+                    container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK, localIdForGtasksId(t.getParent()));
                     container.gtaskMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
                     write(container);
                     lastSyncDate = Math.max(lastSyncDate, container.getUpdateTime());
@@ -248,6 +252,29 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         } catch (IOException e) {
             Timber.e(e, e.getMessage());
         }
+    }
+
+    private long localIdForGtasksId(String gtasksId) {
+        Metadata metadata = getMetadataByGtaskId(gtasksId);
+        return metadata == null ? AbstractModel.NO_ID : metadata.getTask();
+    }
+
+    private void findLocalMatch(GtasksTaskContainer remoteTask) {
+        if(remoteTask.task.getId() != Task.NO_ID) {
+            return;
+        }
+        Metadata metadata = getMetadataByGtaskId(remoteTask.gtaskMetadata.getValue(GtasksMetadata.ID));
+        if (metadata != null) {
+            remoteTask.task.setId(metadata.getValue(Metadata.TASK));
+            remoteTask.task.setUuid(taskDao.uuidFromLocalId(remoteTask.task.getId()));
+            remoteTask.gtaskMetadata = metadata;
+        }
+    }
+
+    private Metadata getMetadataByGtaskId(String gtaskId) {
+        return metadataDao.getFirst(Query.select(Metadata.PROPERTIES).where(Criterion.and(
+                Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
+                GtasksMetadata.ID.eq(gtaskId))));
     }
 
     private void write(GtasksTaskContainer task) {
@@ -269,9 +296,61 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         if (!TextUtils.isEmpty(task.task.getTitle())) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             task.task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
-            gtasksMetadataService.saveTaskAndMetadata(task);
+            saveTaskAndMetadata(task);
         }
     }
+
+    /**
+     * Saves a task and its metadata
+     */
+    private void saveTaskAndMetadata(GtasksTaskContainer task) {
+        task.prepareForSaving();
+        taskDao.save(task.task);
+        synchronizeMetadata(task.task.getId(), task.metadata, GtasksMetadata.METADATA_KEY);
+    }
+
+    /**
+     * Synchronize metadata for given task id. Deletes rows in database that
+     * are not identical to those in the metadata list, creates rows that
+     * have no match.
+     *
+     * @param taskId id of task to perform synchronization on
+     * @param metadata list of new metadata items to save
+     * @param metadataKey metadata key
+     */
+    private void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata, String metadataKey) {
+        final Set<ContentValues> newMetadataValues = new HashSet<>();
+        for(Metadata metadatum : metadata) {
+            metadatum.setTask(taskId);
+            metadatum.clearValue(Metadata.ID);
+            newMetadataValues.add(metadatum.getMergedValues());
+        }
+
+        metadataDao.byTaskAndKey(taskId, metadataKey, new Callback<Metadata>() {
+            @Override
+            public void apply(Metadata item) {
+                long id = item.getId();
+
+                // clear item id when matching with incoming values
+                item.clearValue(Metadata.ID);
+                ContentValues itemMergedValues = item.getMergedValues();
+                if(newMetadataValues.contains(itemMergedValues)) {
+                    newMetadataValues.remove(itemMergedValues);
+                } else {
+                    // not matched. cut it
+                    metadataDao.delete(id);
+                }
+            }
+        });
+
+        // everything that remains shall be written
+        for(ContentValues values : newMetadataValues) {
+            Metadata item = new Metadata();
+            item.mergeWith(values);
+            metadataDao.persist(item);
+        }
+    }
+
 
     static void mergeDates(Task remote, Task local) {
         if (remote.hasDueDate() && local.hasDueTime()) {

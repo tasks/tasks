@@ -16,7 +16,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
-import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.R;
@@ -45,7 +44,6 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksListService gtasksListService;
-    @Inject GtasksMetadataService gtasksMetadataService;
     @Inject MetadataDao metadataDao;
     @Inject Tracker tracker;
 
@@ -69,7 +67,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
                 selectedList = new GtasksList(selectedStoreObject);
             }
         } else {
-            Metadata metadata = gtasksMetadataService.getActiveTaskMetadata(taskId);
+            Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
             if (metadata != null) {
                 originalList = gtasksListService.getList(metadata.getValue(GtasksMetadata.LIST_ID));
             }
@@ -132,7 +130,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
             return;
         }
 
-        Metadata taskMetadata = gtasksMetadataService.getActiveTaskMetadata(task.getId());
+        Metadata taskMetadata = metadataDao.getFirstActiveByTaskAndKey(task.getId(), GtasksMetadata.METADATA_KEY);
         if (taskMetadata == null) {
             taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());
         } else if (!taskMetadata.getValue(GtasksMetadata.LIST_ID).equals(selectedList.getRemoteId())) {

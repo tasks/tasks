@@ -50,7 +50,6 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     }
 
     @Inject GtasksTestPreferenceService preferences;
-    @Inject GtasksMetadataService gtasksMetadataService;
     @Inject MetadataDao metadataDao;
     @Inject TaskService taskService;
     @Inject GtasksMetadata gtasksMetadata;
@@ -101,7 +100,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     }
 
     private void whenSearchForMetadata() {
-        metadata = gtasksMetadataService.getActiveTaskMetadata(task.getId());
+        metadata = metadataDao.getFirstActiveByTaskAndKey(task.getId(), GtasksMetadata.METADATA_KEY);
     }
 
     private Task taskWithMetadata(String id) {
