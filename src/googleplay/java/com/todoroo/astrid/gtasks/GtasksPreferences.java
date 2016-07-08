@@ -21,11 +21,11 @@ import org.tasks.activities.GoogleTaskListSelectionDialog;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
+import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
-import org.tasks.scheduling.BackgroundScheduler;
 
 import javax.inject.Inject;
 
@@ -37,10 +37,10 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     private static final int REQUEST_LOGOUT = 1;
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
-    @Inject BackgroundScheduler backgroundScheduler;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject GtasksListService gtasksListService;
     @Inject Tracker tracker;
+    @Inject SyncAdapterHelper syncAdapterHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
         addPreferencesFromResource(R.xml.preferences_gtasks);
 
         Preference gtaskPreference = findPreference(getString(R.string.sync_gtasks));
-        ((CheckBoxPreference) gtaskPreference).setChecked(gtasksPreferenceService.isLoggedIn());
+        ((CheckBoxPreference) gtaskPreference).setChecked(syncAdapterHelper.isEnabled());
         gtaskPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -59,6 +59,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     }
                     return false;
                 } else {
+                    syncAdapterHelper.enableSynchronization(false);
                     tracker.reportEvent(Tracking.Events.GTASK_DISABLED);
                     gtasksPreferenceService.stopOngoing();
                     return true;
@@ -70,6 +71,13 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     DateUtilities.getDateStringWithTime(GtasksPreferences.this,
                             gtasksPreferenceService.getLastSyncDate())));
         }
+        findPreference(getString(R.string.gtasks_GPr_interval_key)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                syncAdapterHelper.setSynchronizationInterval(Integer.parseInt((String) o));
+                return true;
+            }
+        });
         findPreference(getString(R.string.sync_SPr_forget_key)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -101,11 +109,13 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
         if (requestCode == REQUEST_LOGIN) {
             boolean enabled = resultCode == RESULT_OK;
             if (enabled) {
+                syncAdapterHelper.enableSynchronization(true);
                 tracker.reportEvent(Tracking.Events.GTASK_ENABLED);
             }
             ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(enabled);
         } else if(requestCode == REQUEST_LOGOUT) {
             if (resultCode == RESULT_OK) {
+                syncAdapterHelper.enableSynchronization(false);
                 tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
                 finish();
             }
@@ -123,12 +133,6 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        backgroundScheduler.scheduleGtaskSync();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.tasks;
 
+import android.accounts.Account;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class AccountManager {
         return Collections.emptyList();
     }
 
-    public boolean hasAccount(String account) {
-        return false;
+    public Account getAccount(String userName) {
+        return null;
     }
 }

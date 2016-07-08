@@ -402,16 +402,12 @@ och återställer dina aktuella uppgifter från en backup
 	<string name="theme_grey">Grå</string>
 	<string name="theme_blue_grey">Blågrå</string>
 	<string name="theme_black">Svart</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>inaktivera</item>
-		<item>varje kvartstimme</item>
-		<item>varje halvtimme</item>
-		<item>varje timme</item>
-		<item>var tredje timme</item>
-		<item>var sjätte timme</item>
-		<item>var tolfte timme</item>
-		<item>varje dag</item>
-		<item>var tredje dag</item>
-		<item>varje vecka</item>
-	</string-array>
+	<string name="sync_interval_disable">inaktivera</string>
+	<string name="sync_interval_one_hour">varje timme</string>
+	<string name="sync_interval_three_hours">var tredje timme</string>
+	<string name="sync_interval_six_hours">var sjätte timme</string>
+	<string name="sync_interval_twelve_hours">var tolfte timme</string>
+	<string name="sync_interval_one_day">varje dag</string>
+	<string name="sync_interval_three_days">var tredje dag</string>
+	<string name="sync_interval_one_week">varje vecka</string>
 </resources>

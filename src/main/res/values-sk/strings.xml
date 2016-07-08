@@ -308,16 +308,12 @@
 	<string name="show_hidden">Zobraziť skryté</string>
 	<string name="show_completed">Zobraziť dokončené</string>
 	<string name="task_count">%s úlohy</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>zakázať</item>
-		<item>každých pätnásť minút</item>
-		<item>každú tretiu minútu</item>
-		<item>každú hodinu</item>
-		<item>každé tri hodiny</item>
-		<item>každých šesť hodín</item>
-		<item>každých dvanásť hodín</item>
-		<item>každý deň</item>
-		<item>každý tretí deň</item>
-		<item>každý týždeň</item>
-	</string-array>
+	<string name="sync_interval_disable">zakázať</string>
+	<string name="sync_interval_one_hour">každú hodinu</string>
+	<string name="sync_interval_three_hours">každé tri hodiny</string>
+	<string name="sync_interval_six_hours">každých šesť hodín</string>
+	<string name="sync_interval_twelve_hours">každých dvanásť hodín</string>
+	<string name="sync_interval_one_day">každý deň</string>
+	<string name="sync_interval_three_days">každý tretí deň</string>
+	<string name="sync_interval_one_week">každý týždeň</string>
 </resources>

@@ -178,8 +178,6 @@
     <string-array name="sync_SPr_interval_values">
         <!-- sync_SPr_interval_values: interval in seconds for sync entries (do not edit) -->
         <item>0</item>
-        <item>900</item>
-        <item>1800</item>
         <item>3600</item>
         <item>10800</item>
         <item>21600</item>
@@ -306,5 +304,6 @@
   <string name="p_theme_color">theme_color</string>
   <string name="p_theme_accent">theme_accent</string>
   <string name="p_gtasks_default_list">default_gtasks_list</string>
+  <string name="p_sync_warning_shown">sync_warning_shown</string>
 
 </resources>

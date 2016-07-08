@@ -6,10 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -45,6 +46,14 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
+        TaskListFragment taskListFragment = null;
+        if (activity instanceof TaskListActivity) {
+            taskListFragment = ((TaskListActivity) activity).getTaskListFragment();
+        }
+        if (taskListFragment == null) {
+            Timber.d("No task list fragment");
+            return;
+        }
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, 0);
 
         if (taskId > 0) {
@@ -53,15 +62,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
             Task task = taskService.fetchById(taskId, REPEAT_RESCHEDULED_PROPERTIES);
 
             try {
-                showSnackbar(activity.findViewById(R.id.task_list_coordinator), task, oldDueDate, newDueDate);
-            } catch (WindowManager.BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
-                Timber.e(e, e.getMessage());
-                new Thread() {
-                    @Override
-                    public void run() {
-                        context.sendBroadcast(intent);
-                    }
-                }.start();
+                showSnackbar(taskListFragment, task, oldDueDate, newDueDate);
             } catch (Exception e) {
                 Timber.e(e, e.getMessage());
                 tracker.reportException(e);
@@ -69,12 +70,10 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
         }
     }
 
-    private void showSnackbar(View view, final Task task, final long oldDueDate, final long newDueDate) {
+    private void showSnackbar(TaskListFragment taskListFragment, final Task task, final long oldDueDate, final long newDueDate) {
         String dueDateString = getRelativeDateAndTimeString(activity, newDueDate);
         String snackbarText = activity.getString(R.string.repeat_snackbar, task.getTitle(), dueDateString);
-
-        Snackbar snackbar = Snackbar.make(view, snackbarText, Snackbar.LENGTH_LONG)
-                .setActionTextColor(activity.getResources().getColor(R.color.snackbar_text_color))
+        taskListFragment.makeSnackbar(snackbarText)
                 .setAction(R.string.DLG_undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -82,9 +81,8 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
                         task.setCompletionDate(0L);
                         taskService.save(task);
                     }
-                });
-        snackbar.getView().setBackgroundColor(activity.getResources().getColor(R.color.snackbar_background));
-        snackbar.show();
+                })
+                .show();
     }
 
     private String getRelativeDateAndTimeString(Context context, long date) {

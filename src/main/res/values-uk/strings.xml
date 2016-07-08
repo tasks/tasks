@@ -277,16 +277,12 @@
 	<string name="doze_notifications">Переривати режим \"Doze\" для повідомленнь</string>
 	<string name="doze_notifications_off">Андроїд зазвичай буде значно відкладати повідомлення коли пристрій в режимі \"Doze\"</string>
 	<string name="doze_notifications_on">Android дозволить деякі переривання в режимі \"Doze\"</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>вимкнути</item>
-		<item>що 15 хвилин</item>
-		<item>що 30 хвилин</item>
-		<item>кожну годину</item>
-		<item>кожних 3 години</item>
-		<item>кожних 6 годин</item>
-		<item>кожних 12 годин</item>
-		<item>щодня</item>
-		<item>кожного 3-го дня</item>
-		<item>кожного тижня</item>
-	</string-array>
+	<string name="sync_interval_disable">вимкнути</string>
+	<string name="sync_interval_one_hour">кожну годину</string>
+	<string name="sync_interval_three_hours">кожних 3 години</string>
+	<string name="sync_interval_six_hours">кожних 6 годин</string>
+	<string name="sync_interval_twelve_hours">кожних 12 годин</string>
+	<string name="sync_interval_one_day">щодня</string>
+	<string name="sync_interval_three_days">кожного 3-го дня</string>
+	<string name="sync_interval_one_week">кожного тижня</string>
 </resources>

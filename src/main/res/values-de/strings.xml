@@ -398,16 +398,12 @@
 	<string name="theme_light">Hell</string>
 	<string name="theme_dark">Dunkel</string>
 	<string name="default_value">Standard</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>deaktivieren</item>
-		<item>alle 15 Minuten</item>
-		<item>alle 30 Minuten</item>
-		<item>stündlich</item>
-		<item>alle 3 Stunden</item>
-		<item>alle 6 Stunden</item>
-		<item>alle 12 Stunden</item>
-		<item>täglich</item>
-		<item>jeden dritten Tag</item>
-		<item>wöchentlich</item>
-	</string-array>
+	<string name="sync_interval_disable">deaktivieren</string>
+	<string name="sync_interval_one_hour">stündlich</string>
+	<string name="sync_interval_three_hours">alle 3 Stunden</string>
+	<string name="sync_interval_six_hours">alle 6 Stunden</string>
+	<string name="sync_interval_twelve_hours">alle 12 Stunden</string>
+	<string name="sync_interval_one_day">täglich</string>
+	<string name="sync_interval_three_days">jeden dritten Tag</string>
+	<string name="sync_interval_one_week">wöchentlich</string>
 </resources>

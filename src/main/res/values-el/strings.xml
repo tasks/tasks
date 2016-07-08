@@ -238,16 +238,11 @@
 	<string name="sync_SPr_interval_title">Συγχρονισμός παρασκηνίου</string>
 	<string name="sync_SPr_forget">Αποσύνδεση</string>
 	<string name="TLA_menu_donate">Δωρίστε</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>disable</item>
-		<item>every fifteen minutes</item>
-		<item>κάθε τριάντα λεπτά</item>
-		<item>κάθε ώρα</item>
-		<item>κάθε τρεις ώρες</item>
-		<item>κάθε έξι ώρες</item>
-		<item>κάθε δώδεκα ώρες</item>
-		<item>κάθε μέρα</item>
-		<item>κάθε τρεις ημέρες</item>
-		<item>κάθε εβδομάδα</item>
-	</string-array>
+	<string name="sync_interval_one_hour">κάθε ώρα</string>
+	<string name="sync_interval_three_hours">κάθε τρεις ώρες</string>
+	<string name="sync_interval_six_hours">κάθε έξι ώρες</string>
+	<string name="sync_interval_twelve_hours">κάθε δώδεκα ώρες</string>
+	<string name="sync_interval_one_day">κάθε μέρα</string>
+	<string name="sync_interval_three_days">κάθε τρεις ημέρες</string>
+	<string name="sync_interval_one_week">κάθε εβδομάδα</string>
 </resources>

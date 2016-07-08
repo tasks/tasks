@@ -3,7 +3,8 @@ package org.tasks.activities;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
+import com.todoroo.astrid.gtasks.GtasksMetadataService;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -14,8 +15,9 @@ import javax.inject.Inject;
 
 public class ClearGtaskDataActivity extends InjectingAppCompatActivity {
 
-    @Inject GtasksSyncV2Provider gtasksSyncV2Provider;
     @Inject DialogBuilder dialogBuilder;
+    @Inject GtasksPreferenceService gtasksPreferenceService;
+    @Inject GtasksMetadataService gtasksMetadataService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,9 @@ public class ClearGtaskDataActivity extends InjectingAppCompatActivity {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        gtasksSyncV2Provider.signOut();
+                        gtasksPreferenceService.clearLastSyncDate();
+                        gtasksPreferenceService.setUserName(null);
+                        gtasksMetadataService.clearMetadata();
                         setResult(RESULT_OK);
                     }
                 })

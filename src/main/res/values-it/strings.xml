@@ -411,16 +411,12 @@ Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dat
 	<string name="theme_light">Chiaro</string>
 	<string name="theme_dark">Scuro</string>
 	<string name="default_value">Predefinito</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>disabilita</item>
-		<item>ogni quindici minuti</item>
-		<item>ogni trenta minuti</item>
-		<item>ogni ora</item>
-		<item>ogni tre ore</item>
-		<item>ogni sei ore</item>
-		<item>ogni dodici ore</item>
-		<item>ogni giorno</item>
-		<item>ogni tre giorni</item>
-		<item>Ogni settimana</item>
-	</string-array>
+	<string name="sync_interval_disable">disabilita</string>
+	<string name="sync_interval_one_hour">ogni ora</string>
+	<string name="sync_interval_three_hours">ogni tre ore</string>
+	<string name="sync_interval_six_hours">ogni sei ore</string>
+	<string name="sync_interval_twelve_hours">ogni dodici ore</string>
+	<string name="sync_interval_one_day">ogni giorno</string>
+	<string name="sync_interval_three_days">ogni tre giorni</string>
+	<string name="sync_interval_one_week">Ogni settimana</string>
 </resources>

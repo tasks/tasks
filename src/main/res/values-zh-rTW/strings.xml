@@ -233,16 +233,12 @@
 	<string name="high_priority">最優先</string>
 	<string name="default_priority">預設</string>
 	<string name="low_priority">最不急迫</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>停用</item>
-		<item>每15分鐘</item>
-		<item>每30分鐘</item>
-		<item>每小時</item>
-		<item>每3小時</item>
-		<item>每6小時</item>
-		<item>每12小時</item>
-		<item>每天</item>
-		<item>每3天</item>
-		<item>每週</item>
-	</string-array>
+	<string name="sync_interval_disable">停用</string>
+	<string name="sync_interval_one_hour">每小時</string>
+	<string name="sync_interval_three_hours">每3小時</string>
+	<string name="sync_interval_six_hours">每6小時</string>
+	<string name="sync_interval_twelve_hours">每12小時</string>
+	<string name="sync_interval_one_day">每天</string>
+	<string name="sync_interval_three_days">每3天</string>
+	<string name="sync_interval_one_week">每週</string>
 </resources>

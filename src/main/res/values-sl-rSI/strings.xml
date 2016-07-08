@@ -247,16 +247,12 @@
 	<string name="sync_SPr_forget_description">Zbriše vse usklajene podatke</string>
 	<string name="sync_forget_confirm">Odjava/brisanje usklajenih podatkov?</string>
 	<string name="TLA_menu_donate">Donirajte</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>onemogoči</item>
-		<item>vsakih 15 minut</item>
-		<item>vsakih 30 minut</item>
-		<item>vsako uro</item>
-		<item>vsake 3 ure</item>
-		<item>vsakih 6 ur</item>
-		<item>vsakih 12 ur</item>
-		<item>vsak dan</item>
-		<item>vsake 3 dni</item>
-		<item>vsak teden</item>
-	</string-array>
+	<string name="sync_interval_disable">onemogoči</string>
+	<string name="sync_interval_one_hour">vsako uro</string>
+	<string name="sync_interval_three_hours">vsake 3 ure</string>
+	<string name="sync_interval_six_hours">vsakih 6 ur</string>
+	<string name="sync_interval_twelve_hours">vsakih 12 ur</string>
+	<string name="sync_interval_one_day">vsak dan</string>
+	<string name="sync_interval_three_days">vsake 3 dni</string>
+	<string name="sync_interval_one_week">vsak teden</string>
 </resources>

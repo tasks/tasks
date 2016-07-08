@@ -272,16 +272,12 @@
 	<string name="disable_notification_light">خاموش کردن چراغ اعلان</string>
 	<string name="no_title">(بدون عنوان)</string>
 	<string name="default_list">لیست پیش فرض</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>غیرفعال</item>
-		<item>هر پانزده دقیقه</item>
-		<item>هر سی دقیقه</item>
-		<item>هر ساعت</item>
-		<item>هر سه ساعت</item>
-		<item>هر شش ساعت</item>
-		<item>هر دوازده ساعت</item>
-		<item>هر روز</item>
-		<item>هر سه روز</item>
-		<item>هر هفته</item>
-	</string-array>
+	<string name="sync_interval_disable">غیرفعال</string>
+	<string name="sync_interval_one_hour">هر ساعت</string>
+	<string name="sync_interval_three_hours">هر سه ساعت</string>
+	<string name="sync_interval_six_hours">هر شش ساعت</string>
+	<string name="sync_interval_twelve_hours">هر دوازده ساعت</string>
+	<string name="sync_interval_one_day">هر روز</string>
+	<string name="sync_interval_three_days">هر سه روز</string>
+	<string name="sync_interval_one_week">هر هفته</string>
 </resources>

@@ -132,16 +132,11 @@
 	<string name="sync_SPr_interval_title">Baggrunds Synk</string>
 	<string name="sync_SPr_forget">Log af</string>
 	<string name="sync_SPr_forget_description">Sletter al synkroniserings data</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>disable</item>
-		<item>every fifteen minutes</item>
-		<item>every thirty minutes</item>
-		<item>hver time</item>
-		<item>hver 3. time</item>
-		<item>hver 6. time</item>
-		<item>hver 12. time</item>
-		<item>hver dag</item>
-		<item>hver 3. dag</item>
-		<item>hver uge</item>
-	</string-array>
+	<string name="sync_interval_one_hour">hver time</string>
+	<string name="sync_interval_three_hours">hver 3. time</string>
+	<string name="sync_interval_six_hours">hver 6. time</string>
+	<string name="sync_interval_twelve_hours">hver 12. time</string>
+	<string name="sync_interval_one_day">hver dag</string>
+	<string name="sync_interval_three_days">hver 3. dag</string>
+	<string name="sync_interval_one_week">hver uge</string>
 </resources>

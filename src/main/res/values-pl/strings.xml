@@ -276,16 +276,12 @@ i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&g
 	<string name="doze_notifications_on">Android będzie pozwalał na ograniczone przerwania kiedy urządzenie jest w trybie drzemki.</string>
 	<string name="plugin_description">Tasks jest projektem na licencji open source utrzymywanym przez jednego developera. Płatne funkcje wspierają rozwój aplikacji.</string>
 	<string name="opacity">Przezroczystość</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>Wyłączone</item>
-		<item>co 15 minut</item>
-		<item>co 30 minut</item>
-		<item>co godzinę</item>
-		<item>co 3 godziny</item>
-		<item>co 6 godzin</item>
-		<item>co 12 godzin</item>
-		<item>raz dziennie</item>
-		<item>co 3 dni</item>
-		<item>co tydzień</item>
-	</string-array>
+	<string name="sync_interval_disable">Wyłączone</string>
+	<string name="sync_interval_one_hour">co godzinę</string>
+	<string name="sync_interval_three_hours">co 3 godziny</string>
+	<string name="sync_interval_six_hours">co 6 godzin</string>
+	<string name="sync_interval_twelve_hours">co 12 godzin</string>
+	<string name="sync_interval_one_day">raz dziennie</string>
+	<string name="sync_interval_three_days">co 3 dni</string>
+	<string name="sync_interval_one_week">co tydzień</string>
 </resources>

@@ -409,16 +409,12 @@ Tasks의 백업에서 당신의 일정을 복구하시기 바랍니다.
 	<string name="theme_grey">회색</string>
 	<string name="theme_blue_grey">회청색</string>
 	<string name="theme_black">검정</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>사용안함</item>
-		<item>15분마다</item>
-		<item>30분마다</item>
-		<item>매시간</item>
-		<item>3시간마다</item>
-		<item>6시간마다</item>
-		<item>12시간마다</item>
-		<item>매일</item>
-		<item>3일마다</item>
-		<item>일주일마다</item>
-	</string-array>
+	<string name="sync_interval_disable">사용안함</string>
+	<string name="sync_interval_one_hour">매시간</string>
+	<string name="sync_interval_three_hours">3시간마다</string>
+	<string name="sync_interval_six_hours">6시간마다</string>
+	<string name="sync_interval_twelve_hours">12시간마다</string>
+	<string name="sync_interval_one_day">매일</string>
+	<string name="sync_interval_three_days">3일마다</string>
+	<string name="sync_interval_one_week">일주일마다</string>
 </resources>

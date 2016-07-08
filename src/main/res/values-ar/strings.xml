@@ -185,16 +185,12 @@
 	<string name="randomly">عشوائياً</string>
 	<string name="pick_a_date_and_time">اختر تاريخ و وقت</string>
 	<string name="pick_a_location">أختر الموقع</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>تعطيل</item>
-		<item>كل 15 دقيقة</item>
-		<item>كل ثلاثين دقيقة</item>
-		<item>كل ساعة</item>
-		<item>كل ثلاث ساعات</item>
-		<item>كل ست ساعات</item>
-		<item>كل 12 ساعة</item>
-		<item>كل يوم</item>
-		<item>كل ثلاث أيام</item>
-		<item>كل أسبوع</item>
-	</string-array>
+	<string name="sync_interval_disable">تعطيل</string>
+	<string name="sync_interval_one_hour">كل ساعة</string>
+	<string name="sync_interval_three_hours">كل ثلاث ساعات</string>
+	<string name="sync_interval_six_hours">كل ست ساعات</string>
+	<string name="sync_interval_twelve_hours">كل 12 ساعة</string>
+	<string name="sync_interval_one_day">كل يوم</string>
+	<string name="sync_interval_three_days">كل ثلاث أيام</string>
+	<string name="sync_interval_one_week">كل أسبوع</string>
 </resources>

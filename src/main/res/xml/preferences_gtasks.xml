@@ -19,9 +19,9 @@
             android:title="@string/default_list" />
 
         <com.todoroo.astrid.ui.MultilineListPreference
-            android:defaultValue="0"
+            android:defaultValue="3600"
             android:dependency="@string/sync_gtasks"
-            android:entries="@array/sync_SPr_interval_entries"
+            android:entries="@array/sync_interval_entries"
             android:entryValues="@array/sync_SPr_interval_values"
             android:key="@string/gtasks_GPr_interval_key"
             android:title="@string/sync_SPr_interval_title" />

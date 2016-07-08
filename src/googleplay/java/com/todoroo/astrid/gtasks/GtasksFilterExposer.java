@@ -8,6 +8,8 @@ package com.todoroo.astrid.gtasks;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 
+import org.tasks.gtasks.SyncAdapterHelper;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,17 +26,17 @@ import static java.util.Collections.emptyList;
 public class GtasksFilterExposer {
 
     private final GtasksListService gtasksListService;
-    private final GtasksPreferenceService gtasksPreferenceService;
+    private final SyncAdapterHelper syncAdapterHelper;
 
     @Inject
-    public GtasksFilterExposer(GtasksListService gtasksListService, GtasksPreferenceService gtasksPreferenceService) {
+    public GtasksFilterExposer(GtasksListService gtasksListService, SyncAdapterHelper syncAdapterHelper) {
         this.gtasksListService = gtasksListService;
-        this.gtasksPreferenceService = gtasksPreferenceService;
+        this.syncAdapterHelper = syncAdapterHelper;
     }
 
     public List<Filter> getFilters() {
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
-        if(!gtasksPreferenceService.isLoggedIn()) {
+        if(!syncAdapterHelper.isEnabled()) {
             return emptyList();
         }
 
@@ -46,7 +48,7 @@ public class GtasksFilterExposer {
     }
 
     public Filter getFilter(long id) {
-        if (gtasksPreferenceService.isLoggedIn()) {
+        if (syncAdapterHelper.isEnabled()) {
             GtasksList list = gtasksListService.getList(id);
             if (list != null) {
                 return filterFromList(list);

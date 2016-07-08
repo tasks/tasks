@@ -23,9 +23,10 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 
+import org.tasks.gtasks.SyncAdapterHelper;
+
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.Semaphore;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -44,17 +45,20 @@ public class GtasksSyncService {
     private final GtasksMetadata gtasksMetadataFactory;
     private final GtasksInvoker gtasksInvoker;
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
+    private final SyncAdapterHelper syncAdapterHelper;
 
     @Inject
     public GtasksSyncService(MetadataDao metadataDao, GtasksMetadataService gtasksMetadataService,
                              TaskDao taskDao, GtasksPreferenceService gtasksPreferenceService,
-                             GtasksMetadata gtasksMetadataFactory, GtasksInvoker gtasksInvoker) {
+                             GtasksMetadata gtasksMetadataFactory, GtasksInvoker gtasksInvoker,
+                             SyncAdapterHelper syncAdapterHelper) {
         this.metadataDao = metadataDao;
         this.gtasksMetadataService = gtasksMetadataService;
         this.taskDao = taskDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksMetadataFactory = gtasksMetadataFactory;
         this.gtasksInvoker = gtasksInvoker;
+        this.syncAdapterHelper = syncAdapterHelper;
         new OperationPushThread(operationQueue).start();
     }
 
@@ -88,19 +92,6 @@ public class GtasksSyncService {
         }
     }
 
-    private class NotifyOp implements SyncOnSaveOperation {
-        private final Semaphore sema;
-
-        public NotifyOp(Semaphore sema) {
-            this.sema = sema;
-        }
-
-        @Override
-        public void op(GtasksInvoker invoker) throws IOException {
-            sema.release();
-        }
-    }
-
     public void enqueue(SyncOnSaveOperation operation) {
         operationQueue.offer(operation);
     }
@@ -131,17 +122,6 @@ public class GtasksSyncService {
         }
     }
 
-    public void waitUntilEmpty() {
-        Semaphore sema = new Semaphore(0);
-        operationQueue.offer(new NotifyOp(sema));
-        try {
-            sema.acquire();
-        } catch (InterruptedException e) {
-            // Ignored
-            Timber.e(e, e.getMessage());
-        }
-    }
-
     public void clearCompleted(String listId) {
         operationQueue.offer(new ClearOp(listId));
     }
@@ -161,7 +141,7 @@ public class GtasksSyncService {
         {
             return;
         }
-        if (!checkForToken()) {
+        if (!syncAdapterHelper.isEnabled()) {
             return;
         }
 
@@ -289,9 +269,5 @@ public class GtasksSyncService {
             model.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             metadataDao.saveExisting(model);
         }
-    }
-
-    private boolean checkForToken() {
-        return gtasksPreferenceService.isLoggedIn();
     }
 }

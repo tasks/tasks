@@ -413,16 +413,12 @@
 	<string name="theme_light">Светлая</string>
 	<string name="theme_dark">Темная</string>
 	<string name="default_value">По умолчанию</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>отключить</item>
-		<item>каждые 15 минут</item>
-		<item>каждые 30 минут</item>
-		<item>каждый час</item>
-		<item>каждые 3 часа</item>
-		<item>каждые 6 часов</item>
-		<item>каждые 12 часов</item>
-		<item>каждый день</item>
-		<item>каждые 3 дня</item>
-		<item>каждую неделю</item>
-	</string-array>
+	<string name="sync_interval_disable">отключить</string>
+	<string name="sync_interval_one_hour">каждый час</string>
+	<string name="sync_interval_three_hours">каждые 3 часа</string>
+	<string name="sync_interval_six_hours">каждые 6 часов</string>
+	<string name="sync_interval_twelve_hours">каждые 12 часов</string>
+	<string name="sync_interval_one_day">каждый день</string>
+	<string name="sync_interval_three_days">каждые 3 дня</string>
+	<string name="sync_interval_one_week">каждую неделю</string>
 </resources>

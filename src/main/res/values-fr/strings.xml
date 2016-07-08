@@ -369,16 +369,12 @@
 	<string name="select_filter">Sélectionner le filtre</string>
 	<string name="filter">Filtre</string>
 	<string name="opacity">Transparence</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>désactiver</item>
-		<item>toutes les quinze minutes</item>
-		<item>toutes les trente minutes</item>
-		<item>toutes les heures</item>
-		<item>toutes les trois heures</item>
-		<item>toutes les six heures</item>
-		<item>toutes les douze heures</item>
-		<item>tous les jours</item>
-		<item>tous les trois jours</item>
-		<item>toutes les semaines</item>
-	</string-array>
+	<string name="sync_interval_disable">désactiver</string>
+	<string name="sync_interval_one_hour">toutes les heures</string>
+	<string name="sync_interval_three_hours">toutes les trois heures</string>
+	<string name="sync_interval_six_hours">toutes les six heures</string>
+	<string name="sync_interval_twelve_hours">toutes les douze heures</string>
+	<string name="sync_interval_one_day">tous les jours</string>
+	<string name="sync_interval_three_days">tous les trois jours</string>
+	<string name="sync_interval_one_week">toutes les semaines</string>
 </resources>

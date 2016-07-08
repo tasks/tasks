@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="sync_supported">true</bool>
     <bool name="location_enabled">true</bool>
     <bool name="google_play_store_available">true</bool>
 </resources>

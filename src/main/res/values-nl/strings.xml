@@ -382,16 +382,12 @@
 	<string name="theme_grey">Grijs</string>
 	<string name="theme_blue_grey">Blauwgrijs</string>
 	<string name="theme_black">Zwart</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>uitschakelen</item>
-		<item>elke 15 min.</item>
-		<item>elke 30 min.</item>
-		<item>elk uur</item>
-		<item>elke 3 uur</item>
-		<item>elke 6 uur</item>
-		<item>elke 12 uur</item>
-		<item>elke dag</item>
-		<item>elke 3 dagen</item>
-		<item>elke week</item>
-	</string-array>
+	<string name="sync_interval_disable">uitschakelen</string>
+	<string name="sync_interval_one_hour">elk uur</string>
+	<string name="sync_interval_three_hours">elke 3 uur</string>
+	<string name="sync_interval_six_hours">elke 6 uur</string>
+	<string name="sync_interval_twelve_hours">elke 12 uur</string>
+	<string name="sync_interval_one_day">elke dag</string>
+	<string name="sync_interval_three_days">elke 3 dagen</string>
+	<string name="sync_interval_one_week">elke week</string>
 </resources>

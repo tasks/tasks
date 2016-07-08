@@ -328,16 +328,12 @@ das tarefas através de um backup em Definições-&gt;Sincronização e backup-&
 	<string name="show_completed">Mostrar terminadas</string>
 	<string name="reverse">Reverter</string>
 	<string name="task_count">%s tarefas</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>desativar</item>
-		<item>cada 15 minutos</item>
-		<item>cada 30 minutos</item>
-		<item>cada hora</item>
-		<item>cada 3 horas</item>
-		<item>cada 6 horas</item>
-		<item>cada 12 horas</item>
-		<item>todos os dias</item>
-		<item>cada 3 dias</item>
-		<item>todas as semanas</item>
-	</string-array>
+	<string name="sync_interval_disable">desativar</string>
+	<string name="sync_interval_one_hour">cada hora</string>
+	<string name="sync_interval_three_hours">cada 3 horas</string>
+	<string name="sync_interval_six_hours">cada 6 horas</string>
+	<string name="sync_interval_twelve_hours">cada 12 horas</string>
+	<string name="sync_interval_one_day">todos os dias</string>
+	<string name="sync_interval_three_days">cada 3 dias</string>
+	<string name="sync_interval_one_week">todas as semanas</string>
 </resources>

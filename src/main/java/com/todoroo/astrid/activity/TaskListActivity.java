@@ -12,6 +12,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -46,6 +48,7 @@ import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
+import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
@@ -94,6 +97,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject Theme theme;
     @Inject Broadcaster broadcaster;
     @Inject ThemeCache themeCache;
+    @Inject SyncAdapterHelper syncAdapterHelper;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
@@ -233,6 +237,28 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         registerReceiver(
                 repeatConfirmationReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
+
+        if (syncAdapterHelper.shouldShowBackgroundSyncWarning() && !preferences.getBoolean(R.string.p_sync_warning_shown, false)) {
+            TaskListFragment taskListFragment = getTaskListFragment();
+            if (taskListFragment != null) {
+                taskListFragment.makeSnackbar(R.string.master_sync_warning)
+                        .setAction(R.string.TLA_menu_settings, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                startActivity(new Intent(Settings.ACTION_SYNC_SETTINGS) {{
+                                    setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                }});
+                            }
+                        })
+                        .setCallback(new Snackbar.Callback() {
+                            @Override
+                            public void onShown(Snackbar snackbar) {
+                                preferences.setBoolean(R.string.p_sync_warning_shown, true);
+                            }
+                        })
+                        .show();
+            }
+        }
     }
 
     @Override

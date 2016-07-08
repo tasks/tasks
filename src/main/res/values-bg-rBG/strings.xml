@@ -414,16 +414,12 @@
 	<string name="theme_light">Светла</string>
 	<string name="theme_dark">Тъмна</string>
 	<string name="default_value">По подразбиране</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>изключено</item>
-		<item>на всеки 15 минути</item>
-		<item>на всеки 30 минути</item>
-		<item>на всеки час</item>
-		<item>на всеки три часа</item>
-		<item>на всеки шест часа</item>
-		<item>на всеки дванадесет часа</item>
-		<item>всеки ден</item>
-		<item>на всеки три дена</item>
-		<item>всяка седмица</item>
-	</string-array>
+	<string name="sync_interval_disable">изключено</string>
+	<string name="sync_interval_one_hour">на всеки час</string>
+	<string name="sync_interval_three_hours">на всеки три часа</string>
+	<string name="sync_interval_six_hours">на всеки шест часа</string>
+	<string name="sync_interval_twelve_hours">на всеки дванадесет часа</string>
+	<string name="sync_interval_one_day">всеки ден</string>
+	<string name="sync_interval_three_days">на всеки три дена</string>
+	<string name="sync_interval_one_week">всяка седмица</string>
 </resources>

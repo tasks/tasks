@@ -1,4 +1,4 @@
-package com.todoroo.astrid.gtasks.sync;
+package org.tasks.gtasks;
 
 import android.test.AndroidTestCase;
 
@@ -9,13 +9,13 @@ import org.tasks.time.DateTime;
 import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE_TIME;
-import static com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider.mergeDates;
+import static org.tasks.gtasks.GoogleTaskSyncAdapter.mergeDates;
 import static org.tasks.makers.TaskMaker.DUE_DATE;
 import static org.tasks.makers.TaskMaker.DUE_TIME;
 import static org.tasks.makers.TaskMaker.HIDE_TYPE;
 import static org.tasks.makers.TaskMaker.newTask;
 
-public class GtasksSyncV2ProviderTest extends AndroidTestCase {
+public class GoogleTaskSyncAdapterTest extends AndroidTestCase {
 
     public void testMergeDate() {
         Task remote = newTask(with(DUE_DATE, new DateTime(2016, 3, 11)));

@@ -16,6 +16,7 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.TaskService;
 
+import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
@@ -31,12 +32,13 @@ public class GoogleTaskPushReceiver extends InjectingBroadcastReceiver {
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksSyncService gtasksSyncService;
     @Inject TaskDao taskDao;
+    @Inject SyncAdapterHelper syncAdapterHelper;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        if(!gtasksPreferenceService.isLoggedIn()) {
+        if(!syncAdapterHelper.isEnabled()) {
             return;
         }
 

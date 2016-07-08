@@ -14,6 +14,8 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
@@ -57,7 +59,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
@@ -73,6 +74,7 @@ import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
+import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingListFragment;
@@ -120,7 +122,6 @@ public class TaskListFragment extends InjectingListFragment implements
 
     // --- activities
 
-    public static final long AUTOSYNC_INTERVAL = 90000L;
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     // --- menu codes
@@ -132,6 +133,7 @@ public class TaskListFragment extends InjectingListFragment implements
 
     // --- instance variables
 
+    @Inject SyncAdapterHelper syncAdapterHelper;
     @Inject TaskService taskService;
     @Inject TaskDeleter taskDeleter;
     @Inject TaskDuplicator taskDuplicator;
@@ -141,7 +143,6 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
-    @Inject SyncActionHelper syncActionHelper;
     @Inject CheckBoxes checkBoxes;
     @Inject VoiceInputAssistant voiceInputAssistant;
     @Inject TaskCreator taskCreator;
@@ -152,6 +153,7 @@ public class TaskListFragment extends InjectingListFragment implements
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.task_list_coordinator) CoordinatorLayout coordinatorLayout;
 
     private TaskAdapter taskAdapter = null;
     private RefreshReceiver refreshReceiver = new RefreshReceiver();
@@ -168,7 +170,7 @@ public class TaskListFragment extends InjectingListFragment implements
 
     @Override
     public void onRefresh() {
-        if (!syncActionHelper.performSyncAction()) {
+        if (!syncAdapterHelper.initiateManualSync()) {
             refresh();
         }
     }
@@ -470,19 +472,18 @@ public class TaskListFragment extends InjectingListFragment implements
 
         getActivity().registerReceiver(refreshReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
 
-        initiateAutomaticSyncImpl();
-
         refresh();
     }
 
-    /**
-     * Implementation of initiation automatic sync. Subclasses should override this method;
-     * the above method takes care of calling it in the correct way
-     */
-    protected void initiateAutomaticSyncImpl() {
-        if (BuiltInFilterExposer.isInbox(context, filter)) {
-            syncActionHelper.initiateAutomaticSync();
-        }
+    public Snackbar makeSnackbar(int resId) {
+        return makeSnackbar(getString(resId));
+    }
+
+    public Snackbar makeSnackbar(String text) {
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, text, 8000)
+                .setActionTextColor(getResources().getColor(R.color.snackbar_text_color));
+        snackbar.getView().setBackgroundColor(getResources().getColor(R.color.snackbar_background));
+        return snackbar;
     }
 
     @Override

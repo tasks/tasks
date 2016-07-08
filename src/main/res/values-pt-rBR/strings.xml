@@ -336,16 +336,12 @@
 	<string name="theme_blue_grey">Azul Acinzentado</string>
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Escuro</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>desabilitar</item>
-		<item>a cada quinze minutos</item>
-		<item>a cada trinta minutos</item>
-		<item>a cada hora</item>
-		<item>a cada três horas</item>
-		<item>a cada seis horas</item>
-		<item>a cada doze horas</item>
-		<item>diariamente</item>
-		<item>a cada três dias</item>
-		<item>semanalmente</item>
-	</string-array>
+	<string name="sync_interval_disable">desabilitar</string>
+	<string name="sync_interval_one_hour">a cada hora</string>
+	<string name="sync_interval_three_hours">a cada três horas</string>
+	<string name="sync_interval_six_hours">a cada seis horas</string>
+	<string name="sync_interval_twelve_hours">a cada doze horas</string>
+	<string name="sync_interval_one_day">diariamente</string>
+	<string name="sync_interval_three_days">a cada três dias</string>
+	<string name="sync_interval_one_week">semanalmente</string>
 </resources>

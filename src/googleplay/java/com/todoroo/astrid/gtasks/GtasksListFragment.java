@@ -27,8 +27,6 @@ import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
-import org.tasks.sync.IndeterminateProgressBarSyncResultCallback;
-import org.tasks.sync.SyncThrottle;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
@@ -52,7 +50,6 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Inject SyncV2Service syncService;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject Preferences preferences;
-    @Inject SyncThrottle syncThrottle;
     @Inject DialogBuilder dialogBuilder;
     @Inject Broadcaster broadcaster;
     @Inject CheckBoxes checkBoxes;
@@ -92,17 +89,6 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    protected void initiateAutomaticSyncImpl() {
-        if (list != null && syncThrottle.canSync(list.getId())) {
-            syncData();
-        }
-    }
-
-    private void syncData() {
-        syncService.synchronizeList(list, new IndeterminateProgressBarSyncResultCallback(this, gtasksPreferenceService, broadcaster));
-    }
-
-    @Override
     protected void onTaskDelete(Task task) {
         helper.onDeleteTask(task);
     }
@@ -129,7 +115,7 @@ public class GtasksListFragment extends SubtasksListFragment {
             public void finished() {
                 setSyncOngoing(false);
 
-                syncData();
+                onRefresh();
             }
         });
     }

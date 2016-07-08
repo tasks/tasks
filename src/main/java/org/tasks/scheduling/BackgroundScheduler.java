@@ -3,7 +3,6 @@ package org.tasks.scheduling;
 import android.content.Context;
 import android.content.Intent;
 
-import org.tasks.R;
 import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
@@ -22,9 +21,6 @@ public class BackgroundScheduler {
         scheduleBackupService();
         scheduleMidnightRefresh();
         scheduleCalendarNotifications();
-        if (context.getResources().getBoolean(R.bool.sync_supported)) {
-            scheduleGtaskSync();
-        }
     }
 
     public void scheduleBackupService() {
@@ -33,10 +29,6 @@ public class BackgroundScheduler {
 
     public void scheduleMidnightRefresh() {
         context.startService(new Intent(context, RefreshSchedulerIntentService.class));
-    }
-
-    public void scheduleGtaskSync() {
-        context.startService(new Intent(context, GtasksBackgroundService.class));
     }
 
     public void scheduleCalendarNotifications() {

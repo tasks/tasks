@@ -215,16 +215,12 @@
 	<string name="sync_SPr_forget">Çıkış Yap</string>
 	<string name="sync_SPr_forget_description">Bütün eşleme verilerini temizle</string>
 	<string name="sync_forget_confirm">Çıkış Yap / Senkron verisini sil?</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>devre dışı bırak</item>
-		<item>her 15 dakika</item>
-		<item>her 30 dakika</item>
-		<item>her saat</item>
-		<item>her 3 saat</item>
-		<item>her 6 saat</item>
-		<item>her 12 saat</item>
-		<item>hergün</item>
-		<item>her 3 gün</item>
-		<item>her hafta</item>
-	</string-array>
+	<string name="sync_interval_disable">devre dışı bırak</string>
+	<string name="sync_interval_one_hour">her saat</string>
+	<string name="sync_interval_three_hours">her 3 saat</string>
+	<string name="sync_interval_six_hours">her 6 saat</string>
+	<string name="sync_interval_twelve_hours">her 12 saat</string>
+	<string name="sync_interval_one_day">hergün</string>
+	<string name="sync_interval_three_days">her 3 gün</string>
+	<string name="sync_interval_one_week">her hafta</string>
 </resources>

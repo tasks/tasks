@@ -9,11 +9,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import timber.log.Timber;
 
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 
+@Singleton
 public class SyncExecutor {
 
     private final ExecutorService executor = newSingleThreadExecutor(

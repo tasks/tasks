@@ -5,17 +5,12 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.content.Context;
-
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.tasks.AccountManager;
 import org.tasks.R;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Methods for working with GTasks preferences
@@ -23,12 +18,9 @@ import javax.inject.Singleton;
  * @author timsu
  *
  */
-@Singleton
 public class GtasksPreferenceService {
 
-    private final Context context;
     private final Preferences preferences;
-    private final AccountManager accountManager;
 
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
 
@@ -36,11 +28,8 @@ public class GtasksPreferenceService {
     private static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
 
     @Inject
-    public GtasksPreferenceService(@ForApplication Context context, Preferences preferences,
-                                   AccountManager accountManager) {
-        this.context = context;
+    public GtasksPreferenceService(Preferences preferences) {
         this.preferences = preferences;
-        this.accountManager = accountManager;
     }
 
     public String getDefaultList() {
@@ -62,15 +51,6 @@ public class GtasksPreferenceService {
     protected static final String PREF_LAST_SYNC = "_last_sync"; //$NON-NLS-1$
 
     protected static final String PREF_ONGOING = "_ongoing"; //$NON-NLS-1$
-
-    /**
-     * @return true if we have a token for this user, false otherwise
-     */
-    public boolean isLoggedIn() {
-        return context.getResources().getBoolean(R.bool.sync_supported) &&
-                preferences.getBoolean(R.string.sync_gtasks, false) &&
-                accountManager.hasAccount(preferences.getStringValue(PREF_USER_NAME));
-    }
 
     /** @return Last Successful Sync Date, or 0 */
     public long getLastSyncDate() {
@@ -100,5 +80,9 @@ public class GtasksPreferenceService {
     /** Set Last Attempted Sync Date */
     public void recordSyncStart() {
         preferences.setBoolean(IDENTIFIER + PREF_ONGOING, true);
+    }
+
+    public int getSyncInterval() {
+        return preferences.getIntegerFromString(R.string.gtasks_GPr_interval_key, 0);
     }
 }

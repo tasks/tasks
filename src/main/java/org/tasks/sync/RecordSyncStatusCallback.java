@@ -18,6 +18,7 @@ public class RecordSyncStatusCallback implements SyncResultCallback {
     @Override
     public void started() {
         gtasksPreferenceService.recordSyncStart();
+        broadcaster.refresh();
     }
 
     @Override

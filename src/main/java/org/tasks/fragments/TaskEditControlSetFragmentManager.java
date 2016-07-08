@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
@@ -16,6 +15,7 @@ import com.todoroo.astrid.ui.ReminderControlSet;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
@@ -78,12 +78,12 @@ public class TaskEditControlSetFragmentManager {
     private final Map<String, Integer> controlSetFragments = new LinkedHashMap<>();
     private final List<String> displayOrder;
     private final FragmentManager fragmentManager;
+    private final SyncAdapterHelper syncAdapterHelper;
     private int numRows;
-    private GtasksPreferenceService gtasksPreferenceService;
 
     @Inject
-    public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences, GtasksPreferenceService gtasksPreferenceService) {
-        this.gtasksPreferenceService = gtasksPreferenceService;
+    public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences, SyncAdapterHelper syncAdapterHelper) {
+        this.syncAdapterHelper = syncAdapterHelper;
         displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
         displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
         displayOrder.add(1, activity.getString(CommentBarFragment.TAG));
@@ -166,7 +166,7 @@ public class TaskEditControlSetFragmentManager {
             case CommentBarFragment.TAG:
                 return new CommentBarFragment();
             case GoogleTaskListFragment.TAG:
-                return gtasksPreferenceService.isLoggedIn()
+                return syncAdapterHelper.isEnabled()
                         ? new GoogleTaskListFragment()
                         : null;
             default:

@@ -894,18 +894,14 @@ File %1$s contained %2$s.\n\n
   <string name="theme_dark">Dark</string>
   <string name="default_value">Default</string>
 
-  <string-array name="sync_SPr_interval_entries">
-        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-        <item>disable</item>
-        <item>every fifteen minutes</item>
-        <item>every thirty minutes</item>
-        <item>every hour</item>
-        <item>every three hours</item>
-        <item>every six hours</item>
-        <item>every twelve hours</item>
-        <item>every day</item>
-        <item>every three days</item>
-        <item>every week</item>
-    </string-array>
+  <string name="sync_interval_disable">disable</string>
+  <string name="sync_interval_one_hour">every hour</string>
+  <string name="sync_interval_three_hours">every three hours</string>
+  <string name="sync_interval_six_hours">every six hours</string>
+  <string name="sync_interval_twelve_hours">every twelve hours</string>
+  <string name="sync_interval_one_day">every day</string>
+  <string name="sync_interval_three_days">every three days</string>
+  <string name="sync_interval_one_week">every week</string>
+  <string name="master_sync_warning">Automatic synchronization is currently disabled by Android</string>
 
 </resources>

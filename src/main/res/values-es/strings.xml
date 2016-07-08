@@ -408,16 +408,12 @@
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Oscuro</string>
 	<string name="default_value">Predeterminado</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>deshabilitar</item>
-		<item>cada quince minutos</item>
-		<item>cada treinta minutos</item>
-		<item>cada hora</item>
-		<item>cada tres horas</item>
-		<item>cada seis horas</item>
-		<item>cada doce horas</item>
-		<item>cada día</item>
-		<item>cada tres días</item>
-		<item>cada semana</item>
-	</string-array>
+	<string name="sync_interval_disable">deshabilitar</string>
+	<string name="sync_interval_one_hour">cada hora</string>
+	<string name="sync_interval_three_hours">cada tres horas</string>
+	<string name="sync_interval_six_hours">cada seis horas</string>
+	<string name="sync_interval_twelve_hours">cada doce horas</string>
+	<string name="sync_interval_one_day">cada día</string>
+	<string name="sync_interval_three_days">cada tres días</string>
+	<string name="sync_interval_one_week">cada semana</string>
 </resources>

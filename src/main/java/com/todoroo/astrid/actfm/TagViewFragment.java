@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -115,17 +114,6 @@ public class TagViewFragment extends TaskListFragment {
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(EXTRA_TAG_DATA, tagData);
-    }
-
-    @Override
-    protected void initiateAutomaticSyncImpl() {
-        if (tagData != null) {
-            long lastAutosync = tagData.getLastAutosync();
-            if(DateUtilities.now() - lastAutosync > AUTOSYNC_INTERVAL) {
-                tagData.setLastAutosync(DateUtilities.now());
-                tagDataDao.saveExisting(tagData);
-            }
-        }
     }
 
     @Override

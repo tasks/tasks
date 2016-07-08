@@ -414,16 +414,12 @@
 	<string name="theme_light">ライト</string>
 	<string name="theme_dark">ダーク</string>
 	<string name="default_value">デフォルト</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>無効</item>
-		<item>15分毎</item>
-		<item>30分毎</item>
-		<item>1時間毎</item>
-		<item>3時間毎</item>
-		<item>6時間毎</item>
-		<item>12時間毎</item>
-		<item>毎日</item>
-		<item>3日に一度</item>
-		<item>毎週</item>
-	</string-array>
+	<string name="sync_interval_disable">無効</string>
+	<string name="sync_interval_one_hour">1時間毎</string>
+	<string name="sync_interval_three_hours">3時間毎</string>
+	<string name="sync_interval_six_hours">6時間毎</string>
+	<string name="sync_interval_twelve_hours">12時間毎</string>
+	<string name="sync_interval_one_day">毎日</string>
+	<string name="sync_interval_three_days">3日に一度</string>
+	<string name="sync_interval_one_week">毎週</string>
 </resources>

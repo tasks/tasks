@@ -207,16 +207,12 @@
 	<string name="sync_SPr_forget">登出</string>
 	<string name="sync_SPr_forget_description">清除所有同步资料</string>
 	<string name="sync_forget_confirm">登出/清除同步资料?</string>
-	<string-array name="sync_SPr_interval_entries">
-		<item>停用</item>
-		<item>每15分钟</item>
-		<item>每30分钟</item>
-		<item>每小时</item>
-		<item>每3小时</item>
-		<item>每6小时</item>
-		<item>每12小时</item>
-		<item>每天</item>
-		<item>每3天</item>
-		<item>每周</item>
-	</string-array>
+	<string name="sync_interval_disable">停用</string>
+	<string name="sync_interval_one_hour">每小时</string>
+	<string name="sync_interval_three_hours">每3小时</string>
+	<string name="sync_interval_six_hours">每6小时</string>
+	<string name="sync_interval_twelve_hours">每12小时</string>
+	<string name="sync_interval_one_day">每天</string>
+	<string name="sync_interval_three_days">每3天</string>
+	<string name="sync_interval_one_week">每周</string>
 </resources>
