@@ -14,9 +14,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.DatabaseUpdateListener;
-import com.todoroo.astrid.provider.Astrid2TaskProvider;
-import com.todoroo.astrid.provider.Astrid3ContentProvider;
 
 import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
@@ -70,14 +67,6 @@ public class StartupService {
         if(hasStartedUp || activity == null) {
             return;
         }
-
-        database.addListener(new DatabaseUpdateListener() {
-            @Override
-            public void onDatabaseUpdated() {
-                Astrid2TaskProvider.notifyDatabaseModification(activity);
-                Astrid3ContentProvider.notifyDatabaseModification(activity);
-            }
-        });
 
         try {
             database.openForWriting();

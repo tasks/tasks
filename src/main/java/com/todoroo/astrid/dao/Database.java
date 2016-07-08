@@ -26,11 +26,11 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.provider.Astrid2TaskProvider;
+import com.todoroo.astrid.provider.Astrid3ContentProvider;
 
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.ForApplication;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -58,8 +58,8 @@ public class Database {
             TaskListMetadata.TABLE,
     };
 
-    private final ArrayList<DatabaseUpdateListener> listeners = new ArrayList<>();
     private final SQLiteOpenHelper helper;
+    private final Context context;
     private final Tracker tracker;
     private SQLiteDatabase database;
 
@@ -67,6 +67,7 @@ public class Database {
 
     @Inject
     public Database(@ForApplication Context context, Tracker tracker) {
+        this.context = context;
         this.tracker = tracker;
         helper = new DatabaseHelper(context, getName(), VERSION);
     }
@@ -179,14 +180,9 @@ public class Database {
         return sql.toString();
     }
 
-    public void addListener(DatabaseUpdateListener listener) {
-        listeners.add(listener);
-    }
-
     private void onDatabaseUpdated() {
-        for(DatabaseUpdateListener listener : listeners) {
-            listener.onDatabaseUpdated();
-        }
+        Astrid2TaskProvider.notifyDatabaseModification(context);
+        Astrid3ContentProvider.notifyDatabaseModification(context);
     }
 
     /**
