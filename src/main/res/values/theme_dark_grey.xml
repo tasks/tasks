@@ -2,7 +2,7 @@
 <resources>
     <style name="DarkGrey" parent="WhiteToolbarTheme">
         <item name="colorPrimary">@color/grey_900</item>
-        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorPrimaryDark">#111111</item>
     </style>
 
 </resources>
