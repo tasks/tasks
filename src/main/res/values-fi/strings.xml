@@ -20,10 +20,6 @@
 	<string name="TEA_note_label">Kuvaus</string>
 	<string name="TEA_estimatedDuration_label">Kuinka pitkään se kestää?</string>
 	<string name="TEA_elapsedDuration_label">Aika on jo käytetty</string>
-	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
-      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="CFA_type_add">tai</string>
 	<string name="CFA_type_subtract">ei</string>
 	<string name="CFA_type_intersect">myös</string>

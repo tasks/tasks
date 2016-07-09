@@ -82,10 +82,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Görevlerdeki bütün olayları silmek istediğinize emin misiniz?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi!</string>
 	<string name="TWi_loading">Yükleniyor...</string>
-	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
-      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="EPr_default_urgency_title">Öntanımlı Aciliyet</string>
 	<string name="EPr_default_hideUntil_title">Öntanımlı Gizlenme</string>
 	<string name="EPr_default_reminders_title">Öntanımlı Hatırlatmalar</string>

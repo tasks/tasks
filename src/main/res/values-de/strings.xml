@@ -121,7 +121,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereintrage von Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
 	<string name="TWi_loading">Ladevorgang …</string>
-	<string name="DB_corrupted_body">Oh-oh! Sieht aus aIs könnte deine Datenbank beschädigt sein. Falls Du diesen Fehler regelmäßig siehst, empfehlen wir, alle Daten zu löschen (Einstellungen-&gt;Synchronisation-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und deine Aufgaben aus einem Backup in Tasks wiederherzustellen (Einstellungen-&gt;Synchronisation-&gt;Backups-&gt;-Backups verwalten&gt;Aufgaben importieren).</string>
 	<string name="task_defaults">Aufgabenstandards</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
 	<string name="EPr_default_importance_title">Standard Priorität</string>

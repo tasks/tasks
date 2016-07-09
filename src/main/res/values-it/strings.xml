@@ -123,8 +123,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programmi?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Eliminato il %d degli eventi del calendario!</string>
 	<string name="TWi_loading">Caricamento...</string>
-	<string name="DB_corrupted_body">Oh, oh! Pare che tu abbia un database danneggiato.
-Se visualizzi questo errore più volte, ti consigliamo di cancellare tutti i dati (Impostazioni-&gt;Sincronizzazione e backup-&gt;Gestire tutti i dati-&gt;Cancellare tutti i dati) e ripristinare i tuoi task da un backup in Tasks (Impostazioni-&gt;Sincronizzazione e backup-&gt;Backup-&gt;Importa task).</string>
 	<string name="task_defaults">Imp. predefinite attività</string>
 	<string name="EPr_default_urgency_title">Urgenza Predefinita</string>
 	<string name="EPr_default_importance_title">Priorità predefinita</string>

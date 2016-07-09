@@ -113,12 +113,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Видалено %d календарних подій!</string>
 	<string name="TWi_loading">Завантаження...</string>
-	<string name="DB_corrupted_body">Ой! Схоже, ваша база даних пошкоджена. 
-Якщо ви отримуєте цю помилку регулярно,
- рекомендується стерти всі дані (Параметри-&gt;
- Синхронізація-&gt; Управління старими завданнями-&gt;
- Очистити всі дані) і відновити завдання з резервно
-ї копії (Параметри-&gt; Синхронізація-&gt; Резервні копії-&gt; Імпортувати задачі)</string>
 	<string name="EPr_default_urgency_title">Актуальність по замовчуванню</string>
 	<string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
 	<string name="EPr_default_hideUntil_title">Термін приховування за замовчуванням</string>

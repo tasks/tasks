@@ -103,10 +103,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zadań?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
 	<string name="TWi_loading">Ładowanie...</string>
-	<string name="DB_corrupted_body">O jej! Wygląda na to, że możeć mieć uszkodzoną bazę danych.
-Jeśli widzisz ten błąd często, sugerujemy wyczyszczenie 
-wszystkich danych (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data)
-i odzyskanie zadań z kopi zapasowej (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) Tasks.</string>
 	<string name="EPr_default_urgency_title">Termin końcowy (domyślnie)</string>
 	<string name="EPr_default_importance_title">Domyślny priorytet</string>
 	<string name="EPr_default_hideUntil_title">Ukrywanie zadania (domyślnie)</string>

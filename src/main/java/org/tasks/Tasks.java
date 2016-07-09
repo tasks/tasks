@@ -1,6 +1,5 @@
 package org.tasks;
 
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -8,6 +7,7 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 
@@ -21,7 +21,7 @@ import javax.inject.Inject;
 @SuppressWarnings("UnusedDeclaration")
 public class Tasks extends InjectingApplication {
 
-    @Inject Database database;
+    @Inject StartupService startupService;
     @Inject TaskDao taskDao;
     @Inject MetadataDao metadataDao;
     @Inject TagDataDao tagDataDao;

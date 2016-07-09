@@ -343,13 +343,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- ============================================================= Misc == -->
 
-  <string name="DB_corrupted_body">
-      Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings->Sync and backup->Manage old tasks->Clear all data) and restore
-      your tasks from a backup (Settings->Sync and backup->Backup->Import tasks) in Tasks.</string>
-
-
     <string name="task_defaults">Task defaults</string>
     <!-- slide 41f:  Preference: Default Urgency Title -->
     <string name="EPr_default_urgency_title">Default deadline</string>

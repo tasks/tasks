@@ -122,11 +122,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Vill du verkligen radera alla dina händelser i kalendern för uppgifter?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d kalenderhändelser raderade!</string>
 	<string name="TWi_loading">Laddar...</string>
-	<string name="DB_corrupted_body">Oj! Det verkar som din databas är skadad.
-Om du ser detta felmeddelande ofta, föreslår vi att du tömmer all data
-(Inställningar-&gt;Synkronisering och backup-&gt;Hantera gamla uppgifter-&gt;Töm all data)
-och återställer dina aktuella uppgifter från en backup
-(Inställningar-&gt;Synkronisering och backup-&gt;Backup-&gt;Viktiga uppgifter) i Tasks.</string>
 	<string name="task_defaults">Förval för nya uppgifter</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standard prioritet</string>

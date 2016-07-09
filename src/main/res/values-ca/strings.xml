@@ -71,10 +71,6 @@
 	<string name="EPr_manage_delete_completed_status">S\'han suprimit %d tasques</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
 	<string name="TWi_loading">S\'està carregant…</string>
-	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
-      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>Avui</item>

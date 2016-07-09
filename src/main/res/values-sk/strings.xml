@@ -112,8 +112,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Naozaj chceš vymazať všetky tvoje udalosti pre úlohy?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Vymazané %d udalosti kalendára!</string>
 	<string name="TWi_loading">Načítavanie</string>
-	<string name="DB_corrupted_body">Oh nie! Zdá sa, že máš poškodenú databázu. Ak sa ti táto chyba zobrazuje stále, vymaž všetky údaje
-(Nastavenia-&gt;Synchronizáca a zálohy-&gt;Spravovať staré úlohy-&gt;Vymazať všetky údaje) a obnov svoje údaje zo zálohy (Nastavenia-&gt;Synchronizácie a zálohy-&gt;Záloha-&gt;Importovať úlohy) v Tasks.</string>
 	<string name="task_defaults">Predvoľby úloh</string>
 	<string name="EPr_default_urgency_title">Predvolený termín dokončenia</string>
 	<string name="EPr_default_importance_title">Predvolená priorita</string>

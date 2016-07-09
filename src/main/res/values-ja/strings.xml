@@ -123,10 +123,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">タスクのイベントをすべて削除してもよろしいですか?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d カレンダーイベントが削除されました!</string>
 	<string name="TWi_loading">読み込んでいます・・・</string>
-	<string name="DB_corrupted_body">データベースが正しくないようです.
-このエラーが何度も表示される場合, データのクリア
-(設定-&gt;同期およびバックアップ-&gt;古いタスクの管理-&gt;全てのデータをクリア) し,
-バックアップからタスクを復元 (設定-&gt;同期およびバックアップ-&gt;バックアップ-&gt;タスクをインポート) することを推奨します.</string>
 	<string name="task_defaults">タスクのデフォルト</string>
 	<string name="EPr_default_urgency_title">期限</string>
 	<string name="EPr_default_importance_title">標準の優先順位</string>

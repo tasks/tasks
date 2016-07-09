@@ -122,10 +122,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן בעבור המשימות?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו</string>
 	<string name="TWi_loading">טוענת...</string>
-	<string name="DB_corrupted_body">הו לא! נראה כי בסיס הנתונים אינו תקין.
-אם אתה נתקל השגיאה זאת האופן תדיר, אנו מציעים שתמחק את כל הנתונים
-(הגדרות-&gt;סינכרון וגיבוי-&gt;ניהול משימות ישנות-&gt;הסרת כל הנתונים) ושחזר את המשימות
-מגיבוי (הגדרות-&gt;סנכרון וגיבוי-&gt;גיבוי-&gt;יבא משימות).</string>
 	<string name="task_defaults">ברירות מחדל למשימות</string>
 	<string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>

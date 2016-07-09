@@ -120,7 +120,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Voulez-vous vraiment supprimer tous les événement du calendrier pour Tasks?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés!</string>
 	<string name="TWi_loading">Chargement…</string>
-	<string name="DB_corrupted_body">Oh oh ! On dirait que vous avez une base de données corrompues. Si vous voyez souvent cette erreur, nous vous suggérons d\'effacer toutes vos données (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Gérer les anciennes tâches-&gt;Effacer toutes les données) et restaurer vos tâches d\'une sauvegarde (Paramètres-&gt;Synchronisation et sauvegarde-&gt;Sauvegarde-&gt;Importer des tâches) dans Tasks</string>
 	<string name="task_defaults">Valeurs par défaut</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
 	<string name="EPr_default_importance_title">Priorité par défaut</string>

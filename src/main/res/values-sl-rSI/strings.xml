@@ -107,7 +107,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
 	<string name="TWi_loading">Nalagam...</string>
-	<string name="DB_corrupted_body">O, ne! Zdi se, da imate okvarjeno bazo podatkov. Če se ta napaka pogosto pojavlja, vam predlagamo, da zbrišete vse podatke (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt; Upravljanje s preteklimi opravki-&gt;Zbriši vse podatke) in obnovite svoje opravke s pomočjo varnostne kopije aplikacije Opravki. (Nastavitve-&gt;Usklajevanje in varnostna kopija-&gt;Varnostna kopija-&gt;Uvozi opravke)</string>
 	<string name="EPr_default_urgency_title">Privzeta dospelost</string>
 	<string name="EPr_default_importance_title">Privzeta dospelost</string>
 	<string name="EPr_default_hideUntil_title">Privzeto skrij do</string>

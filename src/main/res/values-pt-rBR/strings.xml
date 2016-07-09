@@ -113,7 +113,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">Você quer mesmo apagar todos os eventos de calendário das tarefas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d eventos de agenda apagados!</string>
 	<string name="TWi_loading">Carregando...</string>
-	<string name="DB_corrupted_body">Uh oh! Parece que você possui banco de dados corrompido. Se você vê esse erro regularmente, nós sugerimos que você limpe todos os dados (Configurações-&gt; Sincronização e backup-&gt; Manutenção de tarefas antigas-&gt; Limpar todos os dados) e restaurar suas tarefas através do backup no Tasks (Configurações-&gt; Sincronização e backup-&gt; Backup-&gt; Importar tarefas).</string>
 	<string name="EPr_default_urgency_title">Prazo padrão</string>
 	<string name="EPr_default_importance_title">Prioridade padrão</string>
 	<string name="EPr_default_hideUntil_title">Padrão de Ocultar até</string>

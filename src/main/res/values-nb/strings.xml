@@ -50,10 +50,6 @@
 	<string name="MCA_ignore">Ignorer</string>
 	<string name="EPr_appearance_header">Utseende</string>
 	<string name="TWi_loading">Laster ...</string>
-	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
-      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standardviktighet</string>
 	<string name="EPr_default_hideUntil_title">Standard skjul frem til</string>

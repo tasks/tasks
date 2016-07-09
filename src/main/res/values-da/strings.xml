@@ -54,10 +54,6 @@
 	<string name="CRA_ignore_this">Ignorér kun denne begivenhed</string>
 	<string name="EPr_appearance_header">Udseende</string>
 	<string name="TWi_loading">Indlæser...</string>
-	<string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you clear all
-      data (Settings-&gt;Sync and backup-&gt;Manage old tasks-&gt;Clear all data) and restore
-      your tasks from a backup (Settings-&gt;Sync and backup-&gt;Backup-&gt;Import tasks) in Tasks.</string>
 	<string name="EPr_default_urgency_title">Standard Deadline</string>
 	<string name="EPr_default_importance_title">Standard Vigtighed</string>
 	<string name="EPr_default_hideUntil_title">Standard Skjul Indtil</string>

@@ -78,7 +78,6 @@
 	<string name="EPr_manage_delete_all_gcal_message">您真的想删除您所有事件中的各项任务吗？</string>
 	<string name="EPr_manage_delete_all_gcal_status">已经删除了 %d 个日历事件了！</string>
 	<string name="TWi_loading">载入中...</string>
-	<string name="DB_corrupted_body">啊喔！您有一个毁损的资料库。如果您经常看见这个错误出现，我们建议您清除所有数据（在设置-&gt;同步和备份-&amp;gt；管理旧任务-&gt;清楚所有数据）并在清单小助理备份中重新存入您的任务（设置-&gt;同步和备份-&gt;备份-&gt;导入任务）</string>
 	<string name="EPr_default_urgency_title">默认截止期</string>
 	<string name="EPr_default_hideUntil_title">默认隐藏直到</string>
 	<string name="EPr_default_reminders_title">默认提醒</string>
