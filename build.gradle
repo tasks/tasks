@@ -34,7 +34,7 @@ android {
         applicationId "org.tasks"
         versionCode 415
         versionName "4.8.22"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 24
         multiDexEnabled true
         testInstrumentationRunner "com.android.test.runner.MultiDexTestRunner"
