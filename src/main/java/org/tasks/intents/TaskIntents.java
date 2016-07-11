@@ -6,7 +6,6 @@ import android.support.v4.app.TaskStackBuilder;
 
 import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 
 public class TaskIntents {

@@ -127,6 +127,7 @@ dependencies {
     compile "com.android.support:support-v13:${SUPPORT_VERSION}"
     compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'com.google.guava:guava:19.0'
+    compile 'com.jakewharton:process-phoenix:1.0.2'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {
         transitive = false
     }

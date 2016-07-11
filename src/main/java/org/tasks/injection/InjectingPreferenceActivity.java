@@ -1,5 +1,7 @@
 package org.tasks.injection;
 
+import android.content.ComponentName;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -11,11 +13,14 @@ import android.widget.LinearLayout;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
+import org.tasks.locale.LocaleUtils;
 import org.tasks.preferences.AppCompatPreferenceActivity;
 import org.tasks.themes.Theme;
 import org.tasks.ui.MenuColorizer;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity implements InjectingActivity {
 
@@ -25,6 +30,10 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     @Inject Theme theme;
     @Inject Tracker tracker;
+
+    public InjectingPreferenceActivity() {
+        LocaleUtils.updateConfig(this);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,14 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
         root.addView(toolbarContainer);
 
         toolbar = (Toolbar) toolbarContainer.findViewById(R.id.toolbar);
-        toolbar.setTitle(getTitle());
+        try {
+            ComponentName componentName = new ComponentName(this, getClass());
+            ActivityInfo activityInfo = getPackageManager().getActivityInfo(componentName, 0);
+            toolbar.setTitle(activityInfo.labelRes);
+        } catch (Exception e) {
+            Timber.e(e, e.getMessage());
+            toolbar.setTitle(getTitle());
+        }
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

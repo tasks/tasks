@@ -893,5 +893,10 @@ File %1$s contained %2$s.\n\n
   <string name="sync_interval_three_days">every three days</string>
   <string name="sync_interval_one_week">every week</string>
   <string name="master_sync_warning">Automatic synchronization is currently disabled by Android</string>
+  <string name="settings_general">General</string>
+  <string name="language">Language</string>
+  <string name="restart_required">Tasks must be restarted for change to take effect</string>
+  <string name="restart_now">Restart now</string>
+  <string name="restart_later">Later</string>
 
 </resources>

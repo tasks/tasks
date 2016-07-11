@@ -2,7 +2,7 @@ package org.tasks.themes;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.view.ContextThemeWrapper;
+import android.view.ContextThemeWrapper;
 
 import org.tasks.R;
 

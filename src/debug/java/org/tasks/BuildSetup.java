@@ -25,6 +25,6 @@ public class BuildSetup {
         Timber.plant(new Timber.DebugTree());
         Timber.plant(new StethoTree());
         Stetho.initializeWithDefaults(context);
-        LeakCanary.install((Application) context);
+        LeakCanary.install((Application) context.getApplicationContext());
     }
 }

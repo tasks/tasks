@@ -3,6 +3,7 @@ package org.tasks.injection;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
+import org.tasks.locale.LocalePickerDialog;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.reminders.MissedCallDialog;
@@ -28,4 +29,6 @@ public interface BaseDialogFragmentComponent {
     void inject(ThemePickerDialog themePickerDialog);
 
     void inject(SortDialog sortDialog);
+
+    void inject(LocalePickerDialog localePickerDialog);
 }

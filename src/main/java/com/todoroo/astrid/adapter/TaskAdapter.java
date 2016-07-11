@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.adapter;
 
-import android.app.Activity;
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.res.Resources;
@@ -163,7 +162,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.themeCache = themeCache;
         this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
-        inflater = (LayoutInflater) fragment.getActivity().getSystemService(
+        inflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
         TypedValue typedValue = new TypedValue();
@@ -475,11 +474,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * uncompleted.
      */
     protected void setTaskAppearance(ViewHolder viewHolder, Task task) {
-        Activity activity = fragment.getActivity();
-        if (activity == null) {
-            return;
-        }
-
         boolean state = task.isCompleted();
 
         TextView name = viewHolder.nameView;
@@ -501,7 +495,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         setupCompleteBox(viewHolder);
-
     }
 
     private void setupCompleteBox(ViewHolder viewHolder) {
@@ -570,62 +563,59 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private void setupDueDateAndTags(ViewHolder viewHolder, Task task) {
         // due date / completion date
         final TextView dueDateView = viewHolder.dueDate; {
-            Activity activity = fragment.getActivity();
-            if (activity != null) {
-                if(!task.isCompleted() && task.hasDueDate()) {
-                    long dueDate = task.getDueDate();
-                    if(task.isOverdue()) {
-                        dueDateView.setTextColor(textColorOverdue);
-                    } else {
-                        dueDateView.setTextColor(textColorSecondary);
-                    }
-                    String dateValue = DateUtilities.getRelativeDateStringWithTime(context, dueDate);
-                    dueDateView.setText(dateValue);
-                    dueDateView.setVisibility(View.VISIBLE);
-                } else if(task.isCompleted()) {
-                    String dateValue = DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate());
-                    dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
-                    dueDateView.setTextColor(textColorHint);
-                    dueDateView.setVisibility(View.VISIBLE);
+            if(!task.isCompleted() && task.hasDueDate()) {
+                long dueDate = task.getDueDate();
+                if(task.isOverdue()) {
+                    dueDateView.setTextColor(textColorOverdue);
                 } else {
-                    dueDateView.setVisibility(View.GONE);
+                    dueDateView.setTextColor(textColorSecondary);
                 }
+                String dateValue = DateUtilities.getRelativeDateStringWithTime(context, dueDate);
+                dueDateView.setText(dateValue);
+                dueDateView.setVisibility(View.VISIBLE);
+            } else if(task.isCompleted()) {
+                String dateValue = DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate());
+                dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
+                dueDateView.setTextColor(textColorHint);
+                dueDateView.setVisibility(View.VISIBLE);
+            } else {
+                dueDateView.setVisibility(View.GONE);
+            }
 
-                if (task.isCompleted()) {
-                    viewHolder.tagBlock.setVisibility(View.GONE);
-                } else {
-                    String tags = viewHolder.tagsString;
-                    List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.<String>newArrayList();
-                    Iterable<TagData> t = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
-                    List<TagData> firstFourByName = orderByName.leastOf(t, 4);
-                    int numTags = firstFourByName.size();
-                    if (numTags > 0) {
-                        List<TagData> firstFourByNameLength = orderByLength.sortedCopy(firstFourByName);
-                        float maxLength = tagCharacters / numTags;
-                        for (int i = 0; i < numTags - 1; i++) {
-                            TagData tagData = firstFourByNameLength.get(i);
-                            String name = tagData.getName();
-                            if (name.length() >= maxLength) {
-                                break;
-                            }
-                            float excess = maxLength - name.length();
-                            int beneficiaries = numTags - i - 1;
-                            float additional = excess / beneficiaries;
-                            maxLength += additional;
+            if (task.isCompleted()) {
+                viewHolder.tagBlock.setVisibility(View.GONE);
+            } else {
+                String tags = viewHolder.tagsString;
+                List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.<String>newArrayList();
+                Iterable<TagData> t = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
+                List<TagData> firstFourByName = orderByName.leastOf(t, 4);
+                int numTags = firstFourByName.size();
+                if (numTags > 0) {
+                    List<TagData> firstFourByNameLength = orderByLength.sortedCopy(firstFourByName);
+                    float maxLength = tagCharacters / numTags;
+                    for (int i = 0; i < numTags - 1; i++) {
+                        TagData tagData = firstFourByNameLength.get(i);
+                        String name = tagData.getName();
+                        if (name.length() >= maxLength) {
+                            break;
                         }
-                        List<SpannableString> tagStrings = transform(firstFourByName, tagToString(maxLength));
-                        SpannableStringBuilder builder = new SpannableStringBuilder();
-                        for (SpannableString tagString : tagStrings) {
-                            if (builder.length() > 0) {
-                                builder.append(HAIR_SPACE);
-                            }
-                            builder.append(tagString);
-                        }
-                        viewHolder.tagBlock.setText(builder);
-                        viewHolder.tagBlock.setVisibility(View.VISIBLE);
-                    } else {
-                        viewHolder.tagBlock.setVisibility(View.GONE);
+                        float excess = maxLength - name.length();
+                        int beneficiaries = numTags - i - 1;
+                        float additional = excess / beneficiaries;
+                        maxLength += additional;
                     }
+                    List<SpannableString> tagStrings = transform(firstFourByName, tagToString(maxLength));
+                    SpannableStringBuilder builder = new SpannableStringBuilder();
+                    for (SpannableString tagString : tagStrings) {
+                        if (builder.length() > 0) {
+                            builder.append(HAIR_SPACE);
+                        }
+                        builder.append(tagString);
+                    }
+                    viewHolder.tagBlock.setText(builder);
+                    viewHolder.tagBlock.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.tagBlock.setVisibility(View.GONE);
                 }
             }
         }

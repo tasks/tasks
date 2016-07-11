@@ -129,4 +129,38 @@
         <item>@string/theme_deep_orange</item>
     </string-array>
 
+    <string-array name="localization">
+        <item>ar</item>
+        <item>bg-bg</item>
+        <item>ca</item>
+        <item>cs</item>
+        <item>da</item>
+        <item>de</item>
+        <item>el</item>
+        <item>en</item>
+        <item>es</item>
+        <item>fa</item>
+        <item>fi</item>
+        <item>fr</item>
+        <item>hu</item>
+        <item>it</item>
+        <item>iw</item>
+        <item>ja</item>
+        <item>ko</item>
+        <item>nb</item>
+        <item>nl</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>pt-br</item>
+        <item>ru</item>
+        <item>sk</item>
+        <item>sl-si</item>
+        <item>sv</item>
+        <item>th</item>
+        <item>tr</item>
+        <item>uk</item>
+        <item>zh-cn</item>
+        <item>zh-tw</item>
+    </string-array>
+
 </resources>

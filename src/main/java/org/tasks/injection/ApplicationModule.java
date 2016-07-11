@@ -1,9 +1,13 @@
 package org.tasks.injection;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
+import org.tasks.R;
 import org.tasks.analytics.Tracker;
+import org.tasks.locale.LocaleUtils;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
@@ -28,7 +32,10 @@ public class ApplicationModule {
     private Context context;
 
     public ApplicationModule(Context context) {
-        this.context = context.getApplicationContext();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String language = prefs.getString(context.getString(R.string.p_language), null);
+        LocaleUtils.setLocale(language);
+        this.context = LocaleUtils.withLocale(context.getApplicationContext());
     }
 
     @Provides

@@ -369,4 +369,10 @@ public class Preferences {
         }
         return Longs.toArray(pattern);
     }
+
+    public void remove(int resId) {
+        Editor editor = prefs.edit();
+        editor.remove(context.getString(resId));
+        editor.apply();
+    }
 }

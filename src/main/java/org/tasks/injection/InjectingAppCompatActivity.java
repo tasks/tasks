@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import org.tasks.analytics.Tracker;
+import org.tasks.locale.LocaleUtils;
 
 import javax.inject.Inject;
 
@@ -11,6 +12,10 @@ public abstract class InjectingAppCompatActivity extends AppCompatActivity imple
     private ActivityComponent activityComponent;
 
     @Inject Tracker tracker;
+
+    public InjectingAppCompatActivity() {
+        LocaleUtils.updateConfig(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
