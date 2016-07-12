@@ -6,17 +6,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -41,19 +41,18 @@ public class LocalePickerDialog extends InjectingDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final String[] translations = context.getResources().getStringArray(R.array.localization);
-        final List<String> display = Lists.transform(Arrays.asList(translations), new Function<String, String>() {
-            @Override
-            public String apply(String locale) {
-                return localeFromString(locale).getDisplayName();
-            }
-        });
+        final Map<String, String> translations = new HashMap<>();
+        for (String translation : getResources().getStringArray(R.array.localization)) {
+            translations.put(localeFromString(translation).getDisplayName(), translation);
+        }
+        final List<String> display = new ArrayList<>(translations.keySet());
+        Collections.sort(display);
         return dialogBuilder.newDialog()
                 .setItems(toArray(display, String.class), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        callback.onLocaleSelected(translations[i]);
+                        callback.onLocaleSelected(translations.get(display.get(i)));
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
