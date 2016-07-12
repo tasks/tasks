@@ -19,6 +19,7 @@
             style="@style/TaskEditTextPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
             android:layout_gravity="top"
             android:gravity="start"/>
 

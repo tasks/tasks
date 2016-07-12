@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/completeBox"
             android:layout_toEndOf="@id/completeBox"
+            android:textAlignment="viewStart"
             android:paddingLeft="0dp"
             android:paddingStart="0dp"
             android:paddingRight="@dimen/keyline_first"
