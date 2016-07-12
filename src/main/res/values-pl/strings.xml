@@ -41,7 +41,6 @@
 	<string name="SSD_sort_importance">Wg priorytetów</string>
 	<string name="SSD_sort_modified">Wg. ostatniej modyfikacji</string>
 	<string name="FLA_search_filter">Pasujących do: %s</string>
-	<string name="FLA_new_filter">Nowy filtr</string>
 	<string name="TEA_title_hint">Tytuł zadania</string>
 	<string name="TEA_importance_label">Priorytet</string>
 	<string name="TEA_no_date">Brak daty</string>

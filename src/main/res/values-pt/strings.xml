@@ -46,7 +46,6 @@
 	<string name="SSD_sort_importance">Por Importância</string>
 	<string name="SSD_sort_modified">Por Última Modificação</string>
 	<string name="FLA_search_filter">Coincidente com %s</string>
-	<string name="FLA_new_filter">Novo filtro</string>
 	<string name="TEA_title_hint">Nome da tarefa</string>
 	<string name="TEA_importance_label">Prioridade</string>
 	<string name="TEA_no_date">Sem data</string>
@@ -232,7 +231,6 @@
 	<string name="repeat_forever">Repetir eternamente</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_snackbar">%1$s agendada para %2$s</string>
-	<string name="new_tag">Nova etiqueta</string>
 	<string name="tag_FEx_untagged">Sem categoria</string>
 	<string name="delete_tag_confirmation">Apagar %s?</string>
 	<string name="TPl_notification">Temporizador ativo para %s!</string>

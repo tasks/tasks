@@ -415,4 +415,7 @@
 	<string name="sync_interval_one_day">каждый день</string>
 	<string name="sync_interval_three_days">каждые 3 дня</string>
 	<string name="sync_interval_one_week">каждую неделю</string>
+	<string name="language">Язык</string>
+	<string name="restart_later">Позже</string>
+	<string name="settings_localization">Локализация</string>
 </resources>

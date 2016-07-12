@@ -43,7 +43,6 @@
 	<string name="SSD_sort_importance">Podľa priority</string>
 	<string name="SSD_sort_modified">Podľa úpravy</string>
 	<string name="FLA_search_filter">Zodpovedá \'%s\'</string>
-	<string name="FLA_new_filter">Nový filter</string>
 	<string name="TEA_title_hint">Názov úlohy</string>
 	<string name="TEA_importance_label">Priorita</string>
 	<string name="TEA_no_date">Bez dátumu</string>
@@ -227,7 +226,6 @@
 	<string name="repeat_forever">Opakovať donekonečna</string>
 	<string name="repeat_until">Opakovať do %s</string>
 	<string name="repeat_snackbar">%1$s preplánované na %2$s</string>
-	<string name="new_tag">Nasledujúci tag</string>
 	<string name="tag_FEx_untagged">Nezaradené</string>
 	<string name="delete_tag_confirmation">Vymazať %s?</string>
 	<string name="TPl_notification">Časovač aktívny pre %s!</string>

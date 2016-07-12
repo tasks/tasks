@@ -38,7 +38,6 @@
 	<string name="SSD_sort_due">Bitiş Tarihine Göre</string>
 	<string name="SSD_sort_modified">Son Değiştirme Tarihine Göre</string>
 	<string name="FLA_search_filter">\'%s\' ile eşleşenler</string>
-	<string name="FLA_new_filter">Yeni Filtre</string>
 	<string name="TEA_note_label">Açıklama</string>
 	<string name="TEA_estimatedDuration_label">Ne kadar sürecek?</string>
 	<string name="TEA_elapsedDuration_label">Görev üzerinde çalışılan zaman</string>

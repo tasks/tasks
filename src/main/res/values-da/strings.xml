@@ -36,7 +36,6 @@
 	<string name="SSD_sort_importance">Efter vigtighed</string>
 	<string name="SSD_sort_modified">Efter senest ændret</string>
 	<string name="FLA_search_filter">Matcher \'%s\'</string>
-	<string name="FLA_new_filter">Nyt filter</string>
 	<string name="TEA_title_hint">Opgave Overskrift</string>
 	<string name="TEA_importance_label">Vigtighed</string>
 	<string name="TEA_hideUntil_label">Skjul indtil</string>

@@ -298,6 +298,7 @@
 	<string name="font_size">フォントサイズ</string>
 	<string name="customize_edit_screen">編集画面をカスタマイズ</string>
 	<string name="source_code">ソースコード</string>
+	<string name="translations">翻訳に貢献する</string>
 	<string name="report_an_issue">問題を報告</string>
 	<string name="help_and_feedback">ヘルプ &amp; フィードバック</string>
 	<string name="contact_developer">開発者に連絡</string>
@@ -416,4 +417,11 @@
 	<string name="sync_interval_one_day">毎日</string>
 	<string name="sync_interval_three_days">3日に一度</string>
 	<string name="sync_interval_one_week">毎週</string>
+	<string name="master_sync_warning">自動同期は、現在 Android によって無効にされています</string>
+	<string name="settings_general">全般</string>
+	<string name="language">言語</string>
+	<string name="restart_required">Tasks は、変更を有効にするために再起動する必要があります</string>
+	<string name="restart_now">今すぐ再起動</string>
+	<string name="restart_later">後で</string>
+	<string name="settings_localization">ローカライズ</string>
 </resources>

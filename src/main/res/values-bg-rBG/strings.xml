@@ -300,6 +300,7 @@
 	<string name="font_size">Размер на шрифта</string>
 	<string name="customize_edit_screen">Настройване на екрана за редактиране</string>
 	<string name="source_code">Source код</string>
+	<string name="translations">Подпомагане с преводи</string>
 	<string name="report_an_issue">Съобщи за проблем</string>
 	<string name="help_and_feedback">Помощ &amp; Обратна връзка</string>
 	<string name="contact_developer">Свържи се с разработчика</string>
@@ -361,6 +362,7 @@
 	<string name="send_anonymous_statistics">Подобряване на Tasks</string>
 	<string name="send_anonymous_statistics_summary">Изпрати анонимна статистика за използването и отчети за грешки за да помогнеш да се подобри Tasks. Няма да бъдат събирани персонални данни.</string>
 	<string name="tag_already_exists">Този таг вече съществува</string>
+	<string name="name_cannot_be_empty">Името не може да е празно</string>
 	<string name="disable_notification_light">Деактивиране на светлина за уведомления</string>
 	<string name="doze_notifications">Прекъсване на Doze режим за уведомления</string>
 	<string name="doze_notifications_off">Android значително ще забави уведомленията когато устройството е в Doze режим</string>
@@ -405,6 +407,7 @@
 	<string name="theme_grey">Сив</string>
 	<string name="theme_blue_grey">Синьо-сив</string>
 	<string name="theme_black">Черна</string>
+	<string name="theme_dark_grey">Тъмно сива</string>
 	<string name="theme_light">Светла</string>
 	<string name="theme_dark">Тъмна</string>
 	<string name="default_value">По подразбиране</string>
@@ -416,4 +419,11 @@
 	<string name="sync_interval_one_day">всеки ден</string>
 	<string name="sync_interval_three_days">на всеки три дена</string>
 	<string name="sync_interval_one_week">всяка седмица</string>
+	<string name="master_sync_warning">Автоматичната синхронизация в момента е деактивирана от Android</string>
+	<string name="settings_general">Общи</string>
+	<string name="language">Език</string>
+	<string name="restart_required">Tasks трябва да бъде рестартиран за да влязат промените в сила</string>
+	<string name="restart_now">Рестартирай сега</string>
+	<string name="restart_later">По-късно</string>
+	<string name="settings_localization">Локализация</string>
 </resources>
