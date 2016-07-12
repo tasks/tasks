@@ -19,21 +19,19 @@ import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.locale.LocalePickerDialog;
 import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.locale.LocalePickerDialog;
 import org.tasks.locale.LocaleUtils;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeColor;
 
-import java.util.Locale;
-
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
 import static org.tasks.dialogs.ThemePickerDialog.newThemePickerDialog;
+import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
 import static org.tasks.locale.LocaleUtils.localeFromString;
 
 public abstract class BaseBasicPreferences extends InjectingPreferenceActivity implements
@@ -186,6 +184,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         } else {
             preferences.setString(R.string.p_language, newValue);
         }
+        tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_language, newValue);
         updateLocale();
         String currentValue = LocaleUtils.getsLocaleString();
         if (!TextUtils.equals(currentValue, newValue)) {
