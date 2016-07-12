@@ -5,23 +5,25 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingLeft="@dimen/keyline_first"
-    android:paddingStart="@dimen/keyline_first"
-    android:paddingRight="@dimen/keyline_first"
-    android:paddingEnd="@dimen/keyline_first"
-    android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
     android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
-    tools:ignore="RtlSymmetry">
+    android:paddingEnd="@dimen/keyline_first"
+    android:paddingLeft="0dp"
+    android:paddingRight="@dimen/keyline_first"
+    android:paddingStart="0dp"
+    android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:tint="?attr/icon_tint"
         android:alpha="?attr/alpha_secondary"
-        android:paddingRight="@dimen/keyline_second"
         android:paddingEnd="@dimen/keyline_second"
+        android:paddingLeft="@dimen/keyline_first"
+        android:paddingRight="@dimen/keyline_second"
+        android:paddingStart="@dimen/keyline_first"
+        android:scaleType="center"
+        android:tint="?attr/icon_tint"
         tools:ignore="ContentDescription" />
 
 </LinearLayout>

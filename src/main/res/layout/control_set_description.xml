@@ -9,6 +9,8 @@
     android:hint="@string/TEA_note_label"
     android:imeOptions="flagNoExtractUi"
     android:inputType="textCapSentences|textMultiLine"
+    android:paddingLeft="0dp"
+    android:paddingStart="0dp"
     android:paddingEnd="@dimen/keyline_first"
     android:paddingRight="@dimen/keyline_first"
     android:scrollbars="vertical" />

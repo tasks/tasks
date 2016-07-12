@@ -55,6 +55,7 @@ public class FilesControlSet extends TaskEditControlFragment {
 
     public static final int TAG = R.string.TEA_ctrl_files_pref;
 
+    private static final char LEFT_TO_RIGHT_MARK = '\u200e';
     private static final int REQUEST_ADD_ATTACHMENT = 50;
     private static final String EXTRA_UUID = "extra_uuid";
 
@@ -140,7 +141,7 @@ public class FilesControlSet extends TaskEditControlFragment {
     }
 
     private void addAttachment(TaskAttachment taskAttachment) {
-        View fileRow = getActivity().getLayoutInflater().inflate(R.layout.file_row, null);
+        View fileRow = getActivity().getLayoutInflater().inflate(R.layout.file_row, attachmentContainer, false);
         fileRow.setTag(taskAttachment);
         attachmentContainer.addView(fileRow);
         addAttachment(taskAttachment, fileRow);
@@ -148,7 +149,7 @@ public class FilesControlSet extends TaskEditControlFragment {
 
     private void addAttachment(final TaskAttachment taskAttachment, final View fileRow) {
         TextView nameView = (TextView) fileRow.findViewById(R.id.file_text);
-        String name = taskAttachment.getName();
+        String name = LEFT_TO_RIGHT_MARK + taskAttachment.getName();
         nameView.setText(name);
         nameView.setOnClickListener(new OnClickListener() {
             @Override

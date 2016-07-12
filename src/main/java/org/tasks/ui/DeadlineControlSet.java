@@ -39,7 +39,6 @@ import butterknife.OnItemSelected;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
-import static org.tasks.preferences.ResourceResolver.getData;
 
 public class DeadlineControlSet extends TaskEditControlFragment {
 
@@ -138,6 +137,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                     selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
                 }
                 TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+                tv.setPadding(0, 0, 0, 0);
                 tv.setText(dueDateOptions.get(selectedItemPosition));
                 int textColor;
                 if (date == 0) {
@@ -162,6 +162,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                     selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
                 }
                 TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+                tv.setPadding(0, 0, 0, 0);
                 tv.setText(dueTimeOptions.get(selectedItemPosition));
                 int textColor;
                 if (time == -1) {

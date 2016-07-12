@@ -70,6 +70,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.filter;
 import static com.google.common.collect.Sets.newHashSet;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 /**
  * Control set to manage adding and removing tags
@@ -163,10 +164,14 @@ public final class TagsControlSet extends TaskEditControlFragment {
                 TagData tagData = allTags.get(position);
                 ThemeColor themeColor = themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
                 view.setText(tagData.getName());
-                Drawable drawable = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_label_24dp));
-                drawable.mutate();
-                DrawableCompat.setTint(drawable, themeColor.getPrimaryColor());
-                view.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                Drawable original = getResources().getDrawable(R.drawable.ic_label_24dp);
+                Drawable wrapped = DrawableCompat.wrap(original.mutate());
+                DrawableCompat.setTint(wrapped, themeColor.getPrimaryColor());
+                if (atLeastJellybeanMR1()) {
+                    view.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
+                } else {
+                    view.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
+                }
                 return view;
             }
         });

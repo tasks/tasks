@@ -97,6 +97,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
                     selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
                 }
                 TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+                tv.setPadding(0, 0, 0, 0);
                 HideUntilValue value = getItem(selectedItemPosition);
                 if (value.setting == Task.HIDE_UNTIL_NONE) {
                     clearButton.setVisibility(View.GONE);

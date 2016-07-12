@@ -94,6 +94,7 @@
         android:theme="@style/LightBase"
         android:allowBackup="true"
         android:name=".Tasks"
+        android:supportsRtl="true"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
 
         <!-- ====================================================== Activities = -->

@@ -1,62 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
 ** Copyright (c) 2012 Todoroo Inc
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:minHeight="55dip"
-    android:orientation="vertical">
-	
-	<RelativeLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@android:drawable/list_selector_background"
-	    android:paddingTop="5dip"
-	    android:paddingBottom="5dip"
-	    android:paddingLeft="6dip"
-	    android:paddingRight="6dip">
-	        
-	    <!-- title -->
-	    <TextView android:id="@+id/title"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-			android:textColor="?android:attr/textColorPrimary"
-	        android:layout_alignParentLeft="true"
-	        android:paddingLeft="5dip"
-	        android:paddingRight="3dip"
-            android:textSize="16sp"/>
-	    
-	        
-        <!-- activity date -->
-        <TextView android:id="@+id/date"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"  
-            android:layout_below="@id/title"
-            android:layout_alignLeft="@id/title"
-            android:layout_marginLeft="5dip"
-            android:paddingTop="1dip"
-			android:textColor="?android:attr/textColorSecondary"
-            android:textStyle="normal"
-            android:gravity="left"
-            android:ellipsize="end"
-            android:textSize="12sp"
-            android:singleLine="true"/>
-	        
-	</RelativeLayout>
-    
-    <!-- picture -->
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/keyline_first">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp"
+        android:textStyle="normal" />
+
     <ImageView
         android:id="@+id/comment_picture"
         android:layout_width="50dip"
         android:layout_height="50dip"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="50dip"
-        android:layout_marginBottom="4dip"
+        android:scaleType="fitCenter"
         android:visibility="gone"
-        android:scaleType="fitCenter"/>
-    
+        tools:ignore="ContentDescription" />
+
 </LinearLayout>

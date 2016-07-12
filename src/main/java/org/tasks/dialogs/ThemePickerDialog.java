@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -12,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -25,6 +23,8 @@ import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class ThemePickerDialog extends InjectingDialogFragment {
 
@@ -64,7 +64,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
             palette = (ColorPalette) savedInstanceState.getSerializable(EXTRA_COLOR_PALETTE);
         }
 
-        final String[] themes = context.getResources().getStringArray(getNameRes());
+        final String[] themes = getResources().getStringArray(getNameRes());
 
         final boolean purchasedThemes = preferences.hasPurchase(R.string.p_purchased_themes);
 
@@ -72,25 +72,21 @@ public class ThemePickerDialog extends InjectingDialogFragment {
         ListAdapter adapter = new ArrayAdapter<String>(context, R.layout.color_selection_row, themes) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                View row = convertView;
-
-                if (row == null) {
-                    row = inflater.inflate(R.layout.color_selection_row, parent, false);
-                }
-
-                Resources resources = context.getResources();
-                ImageView primary = (ImageView) row.findViewById(R.id.color_primary);
-                Drawable original = resources.getDrawable(purchasedThemes || position < 2
+                TextView textView = (TextView) (convertView == null
+                        ? inflater.inflate(R.layout.color_selection_row, parent, false)
+                        : convertView);
+                Drawable original = getResources().getDrawable(purchasedThemes || position < 2
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());
                 DrawableCompat.setTint(wrapped, getDisplayColor(position));
-                primary.setImageDrawable(wrapped);
-
-                TextView text = (TextView) row.findViewById(android.R.id.text1);
-                text.setText(themes[position]);
-
-                return row;
+                if (atLeastJellybeanMR1()) {
+                    textView.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
+                } else {
+                    textView.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
+                }
+                textView.setText(themes[position]);
+                return textView;
             }
         };
 

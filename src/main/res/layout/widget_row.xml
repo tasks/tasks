@@ -3,30 +3,34 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_row"
-    android:clickable="false"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="false">
 
     <ImageView
         android:id="@+id/widget_complete_box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_gravity="center"
-        android:paddingTop="5dp"
         android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
         android:paddingLeft="5dp"
-        android:paddingStart="5dp"
         android:paddingRight="5dp"
-        android:paddingEnd="5dp"/>
+        android:paddingStart="5dp"
+        android:paddingTop="5dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_gravity="center_vertical"
-        android:gravity="center_vertical">
+        android:layout_toEndOf="@id/widget_complete_box"
+        android:layout_toRightOf="@id/widget_complete_box"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/widget_text"
@@ -43,9 +47,9 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:visibility="gone"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -53,6 +53,8 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
+                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp"
                     android:paddingEnd="@dimen/keyline_first"
                     android:paddingRight="@dimen/keyline_first"
                     android:singleLine="true" />
@@ -64,6 +66,8 @@
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
                     android:orientation="vertical"
+                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp"
                     android:paddingEnd="@dimen/keyline_first"
                     android:paddingRight="@dimen/keyline_first"
                     android:visibility="gone">
@@ -93,6 +97,8 @@
                     android:layout_alignParentStart="true"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
+                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp"
                     android:paddingEnd="@dimen/keyline_first"
                     android:paddingRight="@dimen/keyline_first"
                     android:singleLine="true" />
@@ -105,6 +111,8 @@
                     android:layout_alignParentRight="true"
                     android:ellipsize="none"
                     android:maxLines="1"
+                    android:paddingLeft="0dp"
+                    android:paddingStart="0dp"
                     android:paddingEnd="@dimen/keyline_first"
                     android:paddingRight="@dimen/keyline_first"
                     android:singleLine="true" />

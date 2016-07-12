@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:gravity="start|center_vertical"
         android:paddingEnd="@dimen/keyline_second"
+        android:paddingLeft="0dp"
         android:paddingRight="@dimen/keyline_second"
+        android:paddingStart="0dp"
         android:text="@string/TEA_importance_label" />
 
     <RadioGroup
@@ -20,6 +22,8 @@
         android:layout_gravity="end"
         android:gravity="end"
         android:orientation="horizontal"
+        android:paddingRight="0dp"
+        android:paddingEnd="0dp"
         android:paddingLeft="@dimen/keyline_second"
         android:paddingStart="@dimen/keyline_second">
 

@@ -10,29 +10,44 @@
 
     <LinearLayout
         android:id="@+id/alert_container"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/reminder_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:gravity="end"
+            android:paddingEnd="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="10dp"
+            android:paddingStart="0dp" />
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_gravity="start"
+            android:layout_toLeftOf="@id/reminder_alarm"
+            android:layout_toStartOf="@id/reminder_alarm"
             android:gravity="start"
-            android:layout_weight="50">
+            android:orientation="horizontal">
 
             <TextView
-                style="@style/TaskEditTextHint"
                 android:id="@+id/alarms_add"
+                style="@style/TaskEditTextHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_reminder"/>
+                android:text="@string/add_reminder" />
 
             <Spinner
                 android:id="@+id/alarms_add_spinner"
@@ -41,25 +56,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="end"
-            android:gravity="end"
-            android:layout_weight="50">
-
-            <Spinner
-                android:id="@+id/reminder_alarm"
-                android:background="@null"
-                android:gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="10dp"
-                android:paddingEnd="10dp"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
