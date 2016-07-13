@@ -3,9 +3,10 @@ package org.tasks.analytics;
 import android.content.Context;
 
 import com.android.vending.billing.IabResult;
+import com.google.android.gms.analytics.ExceptionParser;
+import com.google.android.gms.analytics.ExceptionReporter;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.common.base.Strings;
 
 import org.tasks.BuildConfig;
@@ -20,8 +21,8 @@ public class Tracker {
 
     private final GoogleAnalytics analytics;
     private final com.google.android.gms.analytics.Tracker tracker;
-    private final StandardExceptionParser exceptionParser;
-    private Context context;
+    private final ExceptionParser exceptionParser;
+    private final Context context;
 
     @Inject
     public Tracker(@ForApplication Context context) {
@@ -29,10 +30,22 @@ public class Tracker {
         analytics = GoogleAnalytics.getInstance(context);
         tracker = analytics.newTracker(R.xml.google_analytics);
         tracker.setAppVersion(Integer.toString(BuildConfig.VERSION_CODE));
-        exceptionParser = new StandardExceptionParser(context, null);
-        if (BuildConfig.DEBUG) {
-            analytics.setDryRun(true);
-        }
+        exceptionParser = new ExceptionParser() {
+            @Override
+            public String getDescription(String thread, Throwable throwable) {
+                StringBuilder stack = new StringBuilder();
+                for (StackTraceElement element : throwable.getStackTrace()) {
+                    stack.append(element.toString()).append("\n");
+                }
+                return String.format("%s {%s} %s", throwable.getClass().getName(), thread, stack.toString());
+            }
+        };
+        ExceptionReporter reporter = new ExceptionReporter(
+                tracker,
+                Thread.getDefaultUncaughtExceptionHandler(),
+                context);
+        reporter.setExceptionParser(exceptionParser);
+        Thread.setDefaultUncaughtExceptionHandler(reporter);
     }
 
     public void showScreen(String screenName) {
