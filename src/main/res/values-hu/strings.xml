@@ -108,7 +108,6 @@
 	<string name="DLG_error">Upsz, úgy látszik valami hiba történt! Ez történt:\n\n%s</string>
 	<string name="DLG_wait">Kérlek, várj...</string>
 	<string name="source_code">Forráskód</string>
-	<string name="translations">Fordítások</string>
 	<string name="report_an_issue">Probléma bejelentése</string>
 	<string name="help_and_feedback">Súgó és visszajelzés</string>
 	<string name="contact_developer">Kapcsolatfelvétel a fejlesztővel</string>

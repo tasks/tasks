@@ -300,7 +300,6 @@
 	<string name="font_size">글자 크기</string>
 	<string name="customize_edit_screen">일정 편집화면 레이아웃 설정하기</string>
 	<string name="source_code">소스 코드</string>
-	<string name="translations">번역</string>
 	<string name="report_an_issue">문제점 보고하기</string>
 	<string name="help_and_feedback">도움말 &amp; 피드백</string>
 	<string name="contact_developer">개발자와 연락</string>

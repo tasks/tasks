@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.text.TextUtils;
 
-import com.google.common.base.Strings;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
@@ -129,7 +128,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         setupActivity(R.string.notifications, ReminderPreferences.class);
         setupActivity(R.string.EPr_manage_header, OldTaskPreferences.class);
 
-        requires(R.string.settings_general, atLeastJellybeanMR1(), R.string.p_language);
+        requires(R.string.settings_localization, atLeastJellybeanMR1(), R.string.p_language);
     }
 
     private void setupActivity(int key, final Class<?> target) {

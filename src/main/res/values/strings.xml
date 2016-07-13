@@ -771,7 +771,7 @@ File %1$s contained %2$s.\n\n
     <string name="font_size">Font size</string>
     <string name="customize_edit_screen">Customize edit screen</string>
     <string name="source_code">Source code</string>
-    <string name="translations">Translations</string>
+    <string name="translations">Contribute translations</string>
     <string name="report_an_issue">Report an issue</string>
     <string name="help_and_feedback">Help &amp; Feedback</string>
     <string name="contact_developer">Contact developer</string>
@@ -898,5 +898,6 @@ File %1$s contained %2$s.\n\n
   <string name="restart_required">Tasks must be restarted for change to take effect</string>
   <string name="restart_now">Restart now</string>
   <string name="restart_later">Later</string>
+  <string name="settings_localization">Localization</string>
 
 </resources>
