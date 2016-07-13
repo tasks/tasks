@@ -27,6 +27,8 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeColor;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
@@ -205,10 +207,11 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
 
     private void updateLocale() {
         Preference languagePreference = findPreference(getString(R.string.p_language));
-        String locale = preferences.getStringValue(R.string.p_language);
-        languagePreference.setSummary(Strings.isNullOrEmpty(locale)
+        String preference = preferences.getStringValue(R.string.p_language);
+        Locale locale = localeFromString(preference);
+        languagePreference.setSummary(locale == null
                 ? getString(R.string.default_value)
-                : localeFromString(locale).getDisplayName());
+                : locale.getDisplayName(locale));
     }
 
     @Override

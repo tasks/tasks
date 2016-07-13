@@ -49,7 +49,7 @@ public class MissedCallDialog extends InjectingDialogFragment {
 
         return dialogBuilder.newDialog()
                 .setTitle(title)
-                .setItems(actions.toArray(new String[actions.size()]), new DialogInterface.OnClickListener() {
+                .setItems(actions, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {

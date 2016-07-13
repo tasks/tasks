@@ -110,8 +110,6 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         if(item.criterion instanceof MultipleSelectCriterion) {
             MultipleSelectCriterion multiSelectCriterion = (MultipleSelectCriterion) item.criterion;
             final String[] titles = multiSelectCriterion.entryTitles;
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
-                    android.R.layout.simple_spinner_dropdown_item, titles);
             DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface click, int which) {
@@ -121,7 +119,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                     }
                 }
             };
-            dialog.setAdapter(adapter, listener);
+            dialog.setItems(titles, listener);
         } else if(item.criterion instanceof TextInputCriterion) {
             TextInputCriterion textInCriterion = (TextInputCriterion) item.criterion;
             FrameLayout frameLayout = new FrameLayout(activity);

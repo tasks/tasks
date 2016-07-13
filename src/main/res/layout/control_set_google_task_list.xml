@@ -6,4 +6,5 @@
     android:layout_height="wrap_content"
     android:layout_gravity="top"
     android:gravity="start"
-    android:text="@string/default_value" />
+    android:text="@string/default_value"
+    android:textAlignment="viewStart" />

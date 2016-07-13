@@ -42,13 +42,13 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
         getPref(R.string.TLA_menu_donate).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                final String[] donationValues = getDonationValues();
+                final List<String> donationValues = getDonationValues();
                 dialogBuilder.newDialog()
                         .setTitle(R.string.select_amount)
                         .setItems(donationValues, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                String value = donationValues[which];
+                                String value = donationValues.get(which);
                                 Pattern pattern = Pattern.compile("\\$(\\d+) USD");
                                 Matcher matcher = pattern.matcher(value);
                                 //noinspection ResultOfMethodCallIgnored
@@ -178,12 +178,12 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
         }
     }
 
-    private String[] getDonationValues() {
+    private List<String> getDonationValues() {
         List<String> values = new ArrayList<>();
         for (int i = 1 ; i <= 100 ; i++) {
             values.add(String.format("$%s USD", Integer.toString(i)));
         }
-        return values.toArray(new String[values.size()]);
+        return values;
     }
 
     @Override

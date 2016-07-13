@@ -32,7 +32,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     @Inject Tracker tracker;
 
     public InjectingPreferenceActivity() {
-        LocaleUtils.updateConfig(this);
+        LocaleUtils.applyOverrideConfiguration(this);
     }
 
     @Override

@@ -2,6 +2,8 @@
 <resources>
     <style name="task_list_container">
         <item name="android:clipToPadding">false</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingStart">0dp</item>
         <item name="android:paddingRight">@dimen/elevation_padding</item>
         <item name="android:paddingEnd">@dimen/elevation_padding</item>
     </style>

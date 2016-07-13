@@ -79,7 +79,7 @@ public class SortDialog extends InjectingDialogFragment {
         }
 
         alertDialog = dialogBuilder.newDialog()
-                .setSingleChoiceItems(items.toArray(new String[items.size()]), selectedIndex, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(items, selectedIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         selectedIndex = which;

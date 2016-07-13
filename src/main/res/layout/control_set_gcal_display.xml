@@ -8,22 +8,15 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/calendar_display_which"
+        style="@style/TaskEditTextPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="100">
-
-        <TextView
-            android:id="@+id/calendar_display_which"
-            style="@style/TaskEditTextPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="viewStart"
-            android:layout_gravity="top"
-            android:gravity="start"/>
-
-    </LinearLayout>
+        android:layout_gravity="top"
+        android:layout_weight="100"
+        android:gravity="start"
+        android:textAlignment="viewStart" />
 
     <include layout="@layout/control_set_clear_button" />
 

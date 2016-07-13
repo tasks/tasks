@@ -6,9 +6,12 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
 import android.view.View;
+
+import org.tasks.locale.LocaleUtils;
 
 import timber.log.Timber;
 
@@ -27,6 +30,12 @@ public class MultilineListPreference extends ListPreference {
             Timber.e(e, e.getMessage());
         }
         MultilineHelper.makeMultiline(view);
+    }
+
+    @Override
+    protected void showDialog(Bundle state) {
+        super.showDialog(state);
+        LocaleUtils.fixDialogButtons(getDialog());
     }
 
     @Override

@@ -75,7 +75,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
             }
         });
         return dialogBuilder.newDialog()
-                .setItems(entries.toArray(new String[entries.size()]), new DialogInterface.OnClickListener() {
+                .setItems(entries, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         actions.get(which).run();

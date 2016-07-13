@@ -19,6 +19,7 @@
     android:layout_height="wrap_content"
     android:drawablePadding="@dimen/keyline_second"
     android:gravity="center_vertical"
+    android:textAlignment="viewStart"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
     android:paddingLeft="?android:attr/listPreferredItemPaddingStart"

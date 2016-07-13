@@ -45,7 +45,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final List<AndroidCalendar> calendars = calendarProvider. getCalendars();
+        final List<AndroidCalendar> calendars = calendarProvider.getCalendars();
         List<String> calendarNames = transform(calendars, new Function<AndroidCalendar, String>() {
             @Override
             public String apply(AndroidCalendar androidCalendar) {
@@ -54,7 +54,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
         });
 
         AlertDialogBuilder builder = dialogBuilder.newDialog()
-                .setItems(calendarNames.toArray(new String[calendarNames.size()]), new DialogInterface.OnClickListener() {
+                .setItems(calendarNames, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         handler.selectedCalendar(calendars.get(which));

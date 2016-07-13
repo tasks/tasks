@@ -39,7 +39,7 @@ public class AccountSelectionDialog extends InjectingDialogFragment {
 
         return dialogBuilder.newDialog()
                 .setTitle(R.string.choose_google_account)
-                .setItems(accounts.toArray(new String[accounts.size()]), new DialogInterface.OnClickListener() {
+                .setItems(accounts, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         handler.accountSelected(accounts.get(which));

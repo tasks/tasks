@@ -37,7 +37,7 @@ public class GoogleTaskListSelectionDialog extends InjectingDialogFragment {
             }
         });
         return dialogBuilder.newDialog()
-                .setItems(listNames.toArray(new String[listNames.size()]), new DialogInterface.OnClickListener() {
+                .setItems(listNames, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         handler.selectedList(lists.get(which));

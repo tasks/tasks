@@ -7,7 +7,12 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ListAdapter;
 
+import org.tasks.locale.LocaleUtils;
 import org.tasks.themes.Theme;
+
+import java.util.List;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class AlertDialogBuilder {
 
@@ -47,8 +52,12 @@ public class AlertDialogBuilder {
         return this;
     }
 
+    public AlertDialogBuilder setItems(List<String> strings, DialogInterface.OnClickListener onClickListener) {
+        return setItems(strings.toArray(new String[strings.size()]), onClickListener);
+    }
+
     public AlertDialogBuilder setItems(String[] strings, DialogInterface.OnClickListener onClickListener) {
-        builder.setItems(strings, onClickListener);
+        builder.setItems(addDirectionality(strings), onClickListener);
         return this;
     }
 
@@ -67,9 +76,19 @@ public class AlertDialogBuilder {
         return this;
     }
 
-    public AlertDialogBuilder setSingleChoiceItems(String[] strings, int selectedIndex, DialogInterface.OnClickListener onClickListener) {
-        builder.setSingleChoiceItems(strings, selectedIndex, onClickListener);
+    public AlertDialogBuilder setSingleChoiceItems(List<String> strings, int selectedIndex, DialogInterface.OnClickListener onClickListener) {
+        builder.setSingleChoiceItems(addDirectionality(strings.toArray(new String[strings.size()])), selectedIndex, onClickListener);
         return this;
+    }
+
+    private String[] addDirectionality(String[] strings) {
+        if (atLeastJellybeanMR1()) {
+            final char directionalityMark = LocaleUtils.getDirectionalityMark();
+            for (int i = 0 ; i < strings.length ; i++) {
+                strings[i] = directionalityMark + strings[i];
+            }
+        }
+        return strings;
     }
 
     public AlertDialogBuilder setSingleChoiceItems(ListAdapter adapter, int selectedIndex, DialogInterface.OnClickListener onClickListener) {
@@ -107,12 +126,14 @@ public class AlertDialogBuilder {
         AlertDialog dialog = create();
         theme.applyToContext(dialog.getListView().getContext());
         dialog.show();
+        LocaleUtils.fixDialogButtons(dialog);
         return dialog;
     }
 
     public AlertDialog show() {
         AlertDialog dialog = create();
         dialog.show();
+        LocaleUtils.fixDialogButtons(dialog);
         return dialog;
     }
 }

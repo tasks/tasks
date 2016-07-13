@@ -25,6 +25,7 @@
         <TextView
             style="@style/TaskEditTextHint"
             android:id="@+id/add_attachment"
+            android:textAlignment="viewStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_attachment"/>

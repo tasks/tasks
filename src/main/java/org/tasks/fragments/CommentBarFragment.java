@@ -276,9 +276,6 @@ public class CommentBarFragment extends TaskEditControlFragment {
         if (runnables.size() == 1) {
             runnables.get(0).run();
         } else {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(activity,
-                    android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
-
             DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface d, int which) {
@@ -289,7 +286,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
             // show a menu of available options
             dialogBuilder.newDialog()
-                    .setAdapter(adapter, listener)
+                    .setItems(options, listener)
                     .show().setOwnerActivity(activity);
         }
     }
