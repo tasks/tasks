@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:singleLine="true"
+            android:textAlignment="viewStart"
             android:textSize="16sp" />
 
         <TextView
@@ -47,6 +48,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
+            android:textAlignment="viewStart"
             android:textSize="12sp"
             android:visibility="gone" />
 

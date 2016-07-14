@@ -18,6 +18,7 @@ import org.tasks.R;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeBase;
@@ -30,6 +31,7 @@ import timber.log.Timber;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_REFRESH;
 import static org.tasks.intents.TaskIntents.getEditTaskIntent;
 
@@ -41,6 +43,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject ThemeCache themeCache;
+    @Inject Locale locale;
 
     public static final String COMPLETE_TASK = "COMPLETE_TASK";
     public static final String EDIT_TASK = "EDIT_TASK";
@@ -100,6 +103,9 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         ThemeBase theme = themeCache.getThemeBase(preferences.getInt(WidgetConfigActivity.PREF_THEME + id, 0));
         ThemeColor color = themeCache.getThemeColor(preferences.getInt(WidgetConfigActivity.PREF_COLOR + id, 0));
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
+        if (atLeastJellybeanMR1()) {
+            remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.getDirectionality());
+        }
         if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
         } else {

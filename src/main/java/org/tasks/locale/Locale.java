@@ -71,6 +71,10 @@ public class Locale {
         return directionality == View.LAYOUT_DIRECTION_RTL ? RIGHT_TO_LEFT_MARK : LEFT_TO_RIGHT_MARK;
     }
 
+    public int getDirectionality() {
+        return appDirectionality;
+    }
+
     public String getOverride() {
         return override;
     }

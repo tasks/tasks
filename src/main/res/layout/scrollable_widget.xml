@@ -3,9 +3,11 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/widget_header"
@@ -17,43 +19,43 @@
             android:id="@+id/widget_header_background"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY" />
 
         <ImageButton
             android:id="@+id/widget_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_add_24dp"
             android:paddingEnd="10dp"
             android:paddingRight="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_add_24dp"
             android:tint="@android:color/white" />
 
         <TextView
             android:id="@+id/widget_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/widget_button"
             android:layout_toStartOf="@id/widget_button"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:gravity="center_vertical"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:maxLines="2"
             android:paddingLeft="10dp"
             android:paddingStart="10dp"
+            android:textAlignment="viewStart"
             android:textColor="@android:color/white"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_below="@id/widget_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
@@ -61,7 +63,7 @@
             android:id="@+id/widget_background"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY" />
 
         <ListView
             android:id="@+id/list_view"
@@ -76,4 +78,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>
