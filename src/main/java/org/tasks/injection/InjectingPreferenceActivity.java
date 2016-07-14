@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.locale.LocaleUtils;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.AppCompatPreferenceActivity;
 import org.tasks.themes.Theme;
 import org.tasks.ui.MenuColorizer;
@@ -32,7 +32,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     @Inject Tracker tracker;
 
     public InjectingPreferenceActivity() {
-        LocaleUtils.applyOverrideConfiguration(this);
+        Locale.INSTANCE.applyOverrideConfiguration(this);
     }
 
     @Override

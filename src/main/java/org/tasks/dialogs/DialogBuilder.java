@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 
+import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
@@ -13,15 +14,17 @@ import javax.inject.Inject;
 public class DialogBuilder {
     private final Activity activity;
     private final Theme theme;
+    private final Locale locale;
 
     @Inject
-    public DialogBuilder(Activity activity, Theme theme) {
+    public DialogBuilder(Activity activity, Theme theme, Locale locale) {
         this.activity = activity;
         this.theme = theme;
+        this.locale = locale;
     }
 
     public AlertDialogBuilder newDialog() {
-        return new AlertDialogBuilder(activity, theme);
+        return new AlertDialogBuilder(activity, theme, locale);
     }
 
     @Deprecated

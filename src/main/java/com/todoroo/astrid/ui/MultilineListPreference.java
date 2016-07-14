@@ -11,7 +11,7 @@ import android.preference.ListPreference;
 import android.util.AttributeSet;
 import android.view.View;
 
-import org.tasks.locale.LocaleUtils;
+import org.tasks.locale.Locale;
 
 import timber.log.Timber;
 
@@ -35,7 +35,7 @@ public class MultilineListPreference extends ListPreference {
     @Override
     protected void showDialog(Bundle state) {
         super.showDialog(state);
-        LocaleUtils.fixDialogButtons(getDialog());
+        Locale.INSTANCE.fixDialogButtonDirectionality(getDialog());
     }
 
     @Override

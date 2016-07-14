@@ -7,7 +7,7 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.ListAdapter;
 
-import org.tasks.locale.LocaleUtils;
+import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
 
 import java.util.List;
@@ -19,10 +19,12 @@ public class AlertDialogBuilder {
     private final AlertDialog.Builder builder;
     private final Context context;
     private final Theme theme;
+    private final Locale locale;
 
-    public AlertDialogBuilder(Context context, Theme theme) {
+    public AlertDialogBuilder(Context context, Theme theme, Locale locale) {
         this.context = context;
         this.theme = theme;
+        this.locale = locale;
         ContextThemeWrapper wrapper = theme.getThemedDialog(context);
         theme.applyToContext(wrapper);
         builder = new AlertDialog.Builder(wrapper);
@@ -83,7 +85,7 @@ public class AlertDialogBuilder {
 
     private String[] addDirectionality(String[] strings) {
         if (atLeastJellybeanMR1()) {
-            final char directionalityMark = LocaleUtils.getDirectionalityMark();
+            final char directionalityMark = locale.getDirectionalityMark();
             for (int i = 0 ; i < strings.length ; i++) {
                 strings[i] = directionalityMark + strings[i];
             }
@@ -126,14 +128,14 @@ public class AlertDialogBuilder {
         AlertDialog dialog = create();
         theme.applyToContext(dialog.getListView().getContext());
         dialog.show();
-        LocaleUtils.fixDialogButtons(dialog);
+        locale.fixDialogButtonDirectionality(dialog);
         return dialog;
     }
 
     public AlertDialog show() {
         AlertDialog dialog = create();
         dialog.show();
-        LocaleUtils.fixDialogButtons(dialog);
+        locale.fixDialogButtonDirectionality(dialog);
         return dialog;
     }
 }

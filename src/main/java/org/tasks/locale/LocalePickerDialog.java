@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.google.common.base.Function;
+
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
@@ -13,15 +15,11 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import javax.inject.Inject;
 
-import static org.tasks.locale.LocaleUtils.localeFromString;
+import static com.google.common.collect.Lists.transform;
 
 
 public class LocalePickerDialog extends InjectingDialogFragment {
@@ -31,29 +29,33 @@ public class LocalePickerDialog extends InjectingDialogFragment {
     }
 
     public interface LocaleSelectionHandler {
-        void onLocaleSelected(String locale);
+        void onLocaleSelected(Locale locale);
     }
 
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForApplication Context context;
+    @Inject Locale locale;
 
     private LocaleSelectionHandler callback;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Map<String, String> translations = new HashMap<>();
-        for (String translation : getResources().getStringArray(R.array.localization)) {
-            Locale locale = localeFromString(translation);
-            translations.put(locale.getDisplayName(locale), translation);
+        final List<Locale> locales = new ArrayList<>();
+        for (String override : getResources().getStringArray(R.array.localization)) {
+            locales.add(locale.withOverride(override));
         }
-        final List<String> display = new ArrayList<>(translations.keySet());
-        Collections.sort(display);
+        final List<String> display = transform(locales, new Function<Locale, String>() {
+            @Override
+            public String apply(Locale input) {
+                return input.getDisplayName();
+            }
+        });
         return dialogBuilder.newDialog()
                 .setItems(display, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        callback.onLocaleSelected(translations.get(display.get(i)));
+                        callback.onLocaleSelected(locales.get(i));
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)

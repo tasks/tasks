@@ -10,7 +10,7 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.injection.InjectingRemoteViewsService;
 import org.tasks.injection.ServiceComponent;
-import org.tasks.locale.LocaleUtils;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeBase;
@@ -30,6 +30,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject WidgetCheckBoxes widgetCheckBoxes;
     @Inject ThemeCache themeCache;
+    @Inject Locale locale;
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -52,7 +53,7 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
         String filterId = (String) extras.get(FILTER_ID);
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
         ThemeBase themeBase = themeCache.getThemeBase(preferences.getInt(WidgetConfigActivity.PREF_THEME + widgetId, 0));
-        return new ScrollableViewsFactory(subtasksHelper, preferences, LocaleUtils.createConfigurationContext(getApplicationContext()), filterId,
+        return new ScrollableViewsFactory(subtasksHelper, preferences, locale.createConfigurationContext(getApplicationContext()), filterId,
                 themeBase.getTextColor(), widgetId, database, taskService, defaultFilterProvider, widgetCheckBoxes);
     }
 

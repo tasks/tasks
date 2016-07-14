@@ -1,11 +1,10 @@
 package org.tasks.time;
 
-import org.tasks.locale.LocaleUtils;
+import org.tasks.locale.Locale;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -276,7 +275,7 @@ public class DateTime {
 
     public String toString(String format) {
         Calendar calendar = getCalendar();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, LocaleUtils.getLocale());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, Locale.INSTANCE.getLocale());
         simpleDateFormat.setCalendar(calendar);
         return simpleDateFormat.format(calendar.getTime());
     }

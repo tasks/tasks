@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.text.TextUtils;
 
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -20,20 +19,17 @@ import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.locale.Locale;
 import org.tasks.locale.LocalePickerDialog;
-import org.tasks.locale.LocaleUtils;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeColor;
-
-import java.util.Locale;
 
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static org.tasks.dialogs.ThemePickerDialog.newThemePickerDialog;
 import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
-import static org.tasks.locale.LocaleUtils.localeFromString;
 
 public abstract class BaseBasicPreferences extends InjectingPreferenceActivity implements
         ThemePickerDialog.ThemePickerCallback,
@@ -52,6 +48,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     @Inject ThemeColor themeColor;
     @Inject ThemeAccent themeAccent;
     @Inject DialogBuilder dialogBuilder;
+    @Inject Locale locale;
     private Bundle result;
 
     @Override
@@ -179,16 +176,16 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     }
 
     @Override
-    public void onLocaleSelected(String newValue) {
+    public void onLocaleSelected(Locale newValue) {
         if (newValue == null) {
             preferences.remove(R.string.p_language);
         } else {
-            preferences.setString(R.string.p_language, newValue);
+            String override = newValue.getOverride();
+            preferences.setString(R.string.p_language, override);
+            tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_language, override);
         }
-        tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_language, newValue);
         updateLocale();
-        String currentValue = LocaleUtils.getsLocaleString();
-        if (!TextUtils.equals(currentValue, newValue)) {
+        if (!locale.equals(newValue)) {
             dialogBuilder.newDialog()
                     .setMessage(R.string.restart_required)
                     .setPositiveButton(R.string.restart_now, new DialogInterface.OnClickListener() {
@@ -207,10 +204,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     private void updateLocale() {
         Preference languagePreference = findPreference(getString(R.string.p_language));
         String preference = preferences.getStringValue(R.string.p_language);
-        Locale locale = localeFromString(preference);
-        languagePreference.setSummary(locale == null
-                ? getString(R.string.default_value)
-                : locale.getDisplayName(locale));
+        languagePreference.setSummary(locale.withOverride(preference).getDisplayName());
     }
 
     @Override
