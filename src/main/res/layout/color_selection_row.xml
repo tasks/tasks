@@ -20,9 +20,9 @@
     android:drawablePadding="@dimen/keyline_second"
     android:gravity="center_vertical"
     android:textAlignment="viewStart"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:paddingLeft="?android:attr/listPreferredItemPaddingStart"
-    android:paddingRight="?android:attr/listPreferredItemPaddingEnd"
-    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+    android:minHeight="?attr/listPreferredItemHeightSmall"
+    android:paddingEnd="@dimen/keyline_first"
+    android:paddingLeft="@dimen/keyline_first"
+    android:paddingRight="@dimen/keyline_first"
+    android:paddingStart="@dimen/keyline_first"
+    android:textAppearance="?attr/textAppearanceListItemSmall" />

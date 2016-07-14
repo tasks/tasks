@@ -154,7 +154,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.type = (ImageView) convertView.findViewById(R.id.type);
             viewHolder.name= (TextView) convertView.findViewById(R.id.name);
-            viewHolder.filterCount = (TextView) convertView.findViewById(R.id.filter);
+            viewHolder.filterCount = (TextView) convertView.findViewById(R.id.filter_count);
             convertView.setTag(viewHolder);
         }
 

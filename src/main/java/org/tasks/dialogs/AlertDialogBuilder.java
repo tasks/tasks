@@ -85,12 +85,15 @@ public class AlertDialogBuilder {
 
     private String[] addDirectionality(String[] strings) {
         if (atLeastJellybeanMR1()) {
-            final char directionalityMark = locale.getDirectionalityMark();
             for (int i = 0 ; i < strings.length ; i++) {
-                strings[i] = directionalityMark + strings[i];
+                strings[i] = withDirectionality(strings[i]);
             }
         }
         return strings;
+    }
+
+    private String withDirectionality(String string) {
+        return locale.getDirectionalityMark() + string;
     }
 
     public AlertDialogBuilder setSingleChoiceItems(ListAdapter adapter, int selectedIndex, DialogInterface.OnClickListener onClickListener) {

@@ -3,7 +3,7 @@ package org.tasks.locale;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.text.TextUtils;
+import android.support.v4.text.TextUtilsCompat;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewParent;
@@ -36,8 +36,8 @@ public class Locale {
 
     private final java.util.Locale deviceLocale;
     private final java.util.Locale appLocale;
-    private final int deviceDirectionality;
     private final int appDirectionality;
+    private final char appDirectionalityMark;
     private final String languageOverride;
     private final int directionOverride;
     private final boolean hasUserOverrides;
@@ -46,7 +46,6 @@ public class Locale {
         this.deviceLocale = deviceLocale;
         this.languageOverride = languageOverride;
         this.directionOverride = directionOverride;
-        deviceDirectionality = TextUtils.getLayoutDirectionFromLocale(deviceLocale);
 
         java.util.Locale override = localeFromString(languageOverride);
         if (override != null) {
@@ -57,12 +56,11 @@ public class Locale {
 
         if (directionOverride == View.LAYOUT_DIRECTION_LTR || directionOverride == View.LAYOUT_DIRECTION_RTL) {
             appDirectionality = directionOverride;
-        } else if (appLocale != null) {
-            appDirectionality = TextUtils.getLayoutDirectionFromLocale(appLocale);
-        } else {
-            appDirectionality = deviceDirectionality;
+        } else  {
+            appDirectionality = TextUtilsCompat.getLayoutDirectionFromLocale(appLocale);
         }
-
+        appDirectionalityMark = appDirectionality == View.LAYOUT_DIRECTION_RTL ? RIGHT_TO_LEFT_MARK : LEFT_TO_RIGHT_MARK;
+        int deviceDirectionality = TextUtilsCompat.getLayoutDirectionFromLocale(deviceLocale);
         hasUserOverrides = !(deviceLocale.equals(appLocale) && appDirectionality == deviceDirectionality) && atLeastJellybeanMR1();
     }
 
@@ -71,11 +69,7 @@ public class Locale {
     }
 
     public char getDirectionalityMark() {
-        return getDirectionalityMark(appDirectionality);
-    }
-
-    private char getDirectionalityMark(int directionality) {
-        return directionality == View.LAYOUT_DIRECTION_RTL ? RIGHT_TO_LEFT_MARK : LEFT_TO_RIGHT_MARK;
+        return appDirectionalityMark;
     }
 
     public int getDirectionality() {
@@ -140,7 +134,6 @@ public class Locale {
         return "Locale{" +
                 "deviceLocale=" + deviceLocale +
                 ", appLocale=" + appLocale +
-                ", deviceDirectionality=" + deviceDirectionality +
                 ", appDirectionality=" + appDirectionality +
                 ", languageOverride='" + languageOverride + '\'' +
                 ", directionOverride=" + directionOverride +

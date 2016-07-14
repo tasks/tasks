@@ -33,6 +33,7 @@
             android:layout_marginTop="16dp"
             android:background="#00000000"
             android:hint="@string/enter_filter_name"
+            android:textAlignment="viewStart"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textCapSentences"
             android:singleLine="true"
