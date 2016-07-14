@@ -22,11 +22,14 @@ import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.WidgetCheckBoxes;
 
 import timber.log.Timber;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
@@ -172,6 +175,10 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
                 row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
             }
 
+            if (atLeastJellybeanMR1()) {
+                row.setInt(R.id.widget_row, "setLayoutDirection", Locale.INSTANCE.getDirectionality());
+            }
+
             return row;
         } catch (Exception e) {
             Timber.e(e, e.getMessage());
@@ -203,6 +210,9 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         rv.setTextViewText(R.id.widget_title, filter.listingTitle);
+        if (atLeastJellybeanMR1()) {
+            rv.setInt(R.id.widget, "setLayoutDirection", Locale.INSTANCE.getDirectionality());
+        }
         appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
         String query = SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "");
         return subtasksHelper.applySubtasksToWidgetFilter(filter, query, filter.listingTitle, 0);

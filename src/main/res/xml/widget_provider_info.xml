@@ -11,6 +11,6 @@
     android:minHeight="142dip"
     android:minResizeWidth="142dip"
     android:minResizeHeight="142dip"
-    android:updatePeriodMillis="86400000"
+    android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/widget_loading"
     android:resizeMode="horizontal|vertical"/>

@@ -110,6 +110,17 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
                 return false;
             }
         });
+        findPreference(getString(R.string.p_layout_direction)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_layout_direction, o.toString());
+                int newValue = Integer.parseInt((String) o);
+                if (locale.getDirectionality() != locale.withDirectionality(newValue).getDirectionality()) {
+                    showRestartDialog();
+                }
+                return true;
+            }
+        });
         findPreference(getString(R.string.p_collect_statistics)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -125,7 +136,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         setupActivity(R.string.notifications, ReminderPreferences.class);
         setupActivity(R.string.EPr_manage_header, OldTaskPreferences.class);
 
-        requires(R.string.settings_localization, atLeastJellybeanMR1(), R.string.p_language);
+        requires(R.string.settings_localization, atLeastJellybeanMR1(), R.string.p_language, R.string.p_layout_direction);
     }
 
     private void setupActivity(int key, final Class<?> target) {
@@ -180,31 +191,35 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         if (newValue == null) {
             preferences.remove(R.string.p_language);
         } else {
-            String override = newValue.getOverride();
+            String override = newValue.getLanguageOverride();
             preferences.setString(R.string.p_language, override);
             tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_language, override);
         }
         updateLocale();
         if (!locale.equals(newValue)) {
-            dialogBuilder.newDialog()
-                    .setMessage(R.string.restart_required)
-                    .setPositiveButton(R.string.restart_now, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            ProcessPhoenix.triggerRebirth(BaseBasicPreferences.this, new Intent(BaseBasicPreferences.this, TaskListActivity.class) {{
-                                putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
-                            }});
-                        }
-                    })
-                    .setNegativeButton(R.string.restart_later, null)
-                    .show();
+            showRestartDialog();
         }
+    }
+
+    private void showRestartDialog() {
+        dialogBuilder.newDialog()
+                .setMessage(R.string.restart_required)
+                .setPositiveButton(R.string.restart_now, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ProcessPhoenix.triggerRebirth(BaseBasicPreferences.this, new Intent(BaseBasicPreferences.this, TaskListActivity.class) {{
+                            putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
+                        }});
+                    }
+                })
+                .setNegativeButton(R.string.restart_later, null)
+                .show();
     }
 
     private void updateLocale() {
         Preference languagePreference = findPreference(getString(R.string.p_language));
         String preference = preferences.getStringValue(R.string.p_language);
-        languagePreference.setSummary(locale.withOverride(preference).getDisplayName());
+        languagePreference.setSummary(locale.withLanguage(preference).getDisplayName());
     }
 
     @Override

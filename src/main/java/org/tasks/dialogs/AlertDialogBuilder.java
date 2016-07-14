@@ -128,14 +128,14 @@ public class AlertDialogBuilder {
         AlertDialog dialog = create();
         theme.applyToContext(dialog.getListView().getContext());
         dialog.show();
-        locale.fixDialogButtonDirectionality(dialog);
+        locale.applyDirectionality(dialog);
         return dialog;
     }
 
     public AlertDialog show() {
         AlertDialog dialog = create();
         dialog.show();
-        locale.fixDialogButtonDirectionality(dialog);
+        locale.applyDirectionality(dialog);
         return dialog;
     }
 }

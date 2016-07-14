@@ -899,5 +899,9 @@ File %1$s contained %2$s.\n\n
   <string name="restart_now">Restart now</string>
   <string name="restart_later">Later</string>
   <string name="settings_localization">Localization</string>
+  <string name="layout_direction">Layout direction</string>
+  <string name="layout_direction_locale">Use locale direction</string>
+  <string name="layout_direction_left_to_right">Left to right</string>
+  <string name="layout_direction_right_to_left">Right to left</string>
 
 </resources>

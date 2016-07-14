@@ -42,7 +42,7 @@ public class LocalePickerDialog extends InjectingDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<Locale> locales = new ArrayList<>();
         for (String override : getResources().getStringArray(R.array.localization)) {
-            locales.add(locale.withOverride(override));
+            locales.add(locale.withLanguage(override));
         }
         final List<String> display = transform(locales, new Function<Locale, String>() {
             @Override

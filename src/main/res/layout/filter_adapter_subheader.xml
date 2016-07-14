@@ -9,12 +9,15 @@
         android:layout_gravity="top" />
 
     <TextView
+        android:paddingRight="0dp"
+        android:paddingEnd="0dp"
         android:paddingLeft="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
         android:gravity="center_vertical"
         android:id="@+id/subheader_text"
         android:textColor="?attr/asTextColor"
         android:textSize="14sp"
+        android:textAlignment="viewStart"
         android:fontFamily="@string/font_fontFamily_medium"
         android:alpha="0.54"
         android:layout_width="match_parent"

@@ -35,7 +35,7 @@ public class MultilineListPreference extends ListPreference {
     @Override
     protected void showDialog(Bundle state) {
         super.showDialog(state);
-        Locale.INSTANCE.fixDialogButtonDirectionality(getDialog());
+        Locale.INSTANCE.applyDirectionality(getDialog());
     }
 
     @Override

@@ -76,6 +76,7 @@
         <item name="android:button">@null</item>
         <item name="android:drawableRight">?android:attr/listChoiceIndicatorMultiple</item>
         <item name="android:drawableEnd">?android:attr/listChoiceIndicatorMultiple</item>
+        <item name="android:textAlignment">viewStart</item>
     </style>
 
     <!--================================================== General == -->

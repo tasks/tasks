@@ -23,35 +23,37 @@
         android:paddingStart="5dp"
         android:paddingTop="5dp" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/widget_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_toEndOf="@id/widget_complete_box"
         android:layout_toRightOf="@id/widget_complete_box"
+        android:paddingEnd="5dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="5dp"
+        android:paddingStart="0dp"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/widget_due_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/widget_text"
+        android:layout_toEndOf="@id/widget_complete_box"
+        android:layout_toRightOf="@id/widget_complete_box"
+        android:ellipsize="end"
         android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/widget_text"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:singleLine="true"
-            android:textAlignment="viewStart"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/widget_due_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textAlignment="viewStart"
-            android:textSize="12sp"
-            android:visibility="gone" />
-
-    </LinearLayout>
+        android:paddingEnd="5dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="5dp"
+        android:paddingStart="0dp"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

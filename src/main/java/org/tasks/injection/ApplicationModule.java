@@ -1,11 +1,8 @@
 package org.tasks.injection;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
-import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.locale.Locale;
 import org.tasks.themes.ThemeCache;
@@ -28,10 +25,7 @@ public class ApplicationModule {
     private Context context;
 
     public ApplicationModule(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String language = prefs.getString(context.getString(R.string.p_language), null);
-        Locale.INSTANCE = new Locale(java.util.Locale.getDefault(), language);
-        this.context = Locale.INSTANCE.createConfigurationContext(context.getApplicationContext());
+        this.context = context;
     }
 
     @Provides

@@ -73,6 +73,13 @@
             android:key="@string/p_language"
             android:title="@string/language" />
 
+        <com.todoroo.astrid.ui.MultilineListPreference
+            android:defaultValue="-1"
+            android:key="@string/p_layout_direction"
+            android:title="@string/layout_direction"
+            android:entries="@array/layout_direction_entries"
+            android:entryValues="@array/layout_direction_values" />
+
         <Preference android:title="@string/translations">
             <intent
                 android:action="android.intent.action.VIEW"

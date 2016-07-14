@@ -8,7 +8,7 @@ public abstract class InjectingContentProvider extends ContentProvider {
     public boolean onCreate() {
         Context context = getContext();
         inject(DaggerContentProviderComponent.builder()
-                .applicationModule(new ApplicationModule(context))
+                .applicationModule(new ApplicationModule(context.getApplicationContext()))
                 .contentProviderModule(new ContentProviderModule())
                 .build());
 

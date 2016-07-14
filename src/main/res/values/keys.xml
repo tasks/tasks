@@ -306,4 +306,5 @@
   <string name="p_gtasks_default_list">default_gtasks_list</string>
   <string name="p_sync_warning_shown">sync_warning_shown</string>
   <string name="p_language">language</string>
+  <string name="p_layout_direction">layout_direction</string>
 </resources>

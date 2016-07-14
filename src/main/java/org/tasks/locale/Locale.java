@@ -20,7 +20,7 @@ public class Locale {
     private static final char LEFT_TO_RIGHT_MARK = '\u200e';
     private static final char RIGHT_TO_LEFT_MARK = '\u200f';
 
-    public static java.util.Locale localeFromString(String locale) {
+    private static java.util.Locale localeFromString(String locale) {
         if (Strings.isNullOrEmpty(locale)) {
             return null;
         }
@@ -38,29 +38,36 @@ public class Locale {
     private final java.util.Locale appLocale;
     private final int deviceDirectionality;
     private final int appDirectionality;
-    private final String override;
+    private final String languageOverride;
+    private final int directionOverride;
+    private final boolean hasUserOverrides;
 
-    public Locale(java.util.Locale deviceLocale, String override) {
+    public Locale(java.util.Locale deviceLocale, String languageOverride, int directionOverride) {
         this.deviceLocale = deviceLocale;
-        this.appLocale = localeFromString(override);
-        this.override = override;
-
+        this.languageOverride = languageOverride;
+        this.directionOverride = directionOverride;
         deviceDirectionality = TextUtils.getLayoutDirectionFromLocale(deviceLocale);
 
-        if (appLocale != null) {
-            java.util.Locale.setDefault(appLocale);
+        java.util.Locale override = localeFromString(languageOverride);
+        if (override != null) {
+            appLocale = override;
+        } else {
+            appLocale = deviceLocale;
+        }
+
+        if (directionOverride == View.LAYOUT_DIRECTION_LTR || directionOverride == View.LAYOUT_DIRECTION_RTL) {
+            appDirectionality = directionOverride;
+        } else if (appLocale != null) {
             appDirectionality = TextUtils.getLayoutDirectionFromLocale(appLocale);
         } else {
             appDirectionality = deviceDirectionality;
         }
+
+        hasUserOverrides = !(deviceLocale.equals(appLocale) && appDirectionality == deviceDirectionality) && atLeastJellybeanMR1();
     }
 
     public java.util.Locale getLocale() {
-        return appLocale == null ? deviceLocale : appLocale;
-    }
-
-    public char getDeviceDirectionalityMark() {
-        return getDirectionalityMark(deviceDirectionality);
+        return appLocale;
     }
 
     public char getDirectionalityMark() {
@@ -75,37 +82,37 @@ public class Locale {
         return appDirectionality;
     }
 
-    public String getOverride() {
-        return override;
+    public String getLanguageOverride() {
+        return languageOverride;
     }
 
     public Context createConfigurationContext(Context context) {
-        return appLocale == null ? context : context.createConfigurationContext(getLocaleConfiguration());
+        return hasUserOverrides
+                ? context.createConfigurationContext(getLocaleConfiguration())
+                : context;
     }
 
     private Configuration getLocaleConfiguration() {
         Configuration configuration = new Configuration();
-        configuration.setLocale(appLocale);
+        configuration.locale = getLocale();
+        final int layoutDirection = 1 + appDirectionality;
+        configuration.screenLayout = (configuration.screenLayout&~Configuration.SCREENLAYOUT_LAYOUTDIR_MASK)|
+                (layoutDirection << Configuration.SCREENLAYOUT_LAYOUTDIR_SHIFT);
         return configuration;
     }
 
-    public void fixDialogButtonDirectionality(Dialog dialog) {
-        if (appDirectionality != deviceDirectionality) {
-            for (int id : sDialogButtons) {
-                ViewParent parent = dialog.findViewById(id).getParent();
-                ((View) parent).setLayoutDirection(appDirectionality);
-            }
-        }
-    }
-
     public void applyOverrideConfiguration(ContextThemeWrapper wrapper) {
-        if (appLocale != null && atLeastJellybeanMR1()) {
+        if (hasUserOverrides) {
             wrapper.applyOverrideConfiguration(getLocaleConfiguration());
         }
     }
 
-    public Locale withOverride(String language) {
-        return new Locale(deviceLocale, language);
+    public Locale withLanguage(String language) {
+        return new Locale(deviceLocale, language, directionOverride);
+    }
+
+    public Locale withDirectionality(int directionality) {
+        return new Locale(deviceLocale, languageOverride, directionality);
     }
 
     public String getDisplayName() {
@@ -120,12 +127,12 @@ public class Locale {
 
         Locale locale = (Locale) o;
 
-        return override != null ? override.equals(locale.override) : locale.override == null;
+        return languageOverride != null ? languageOverride.equals(locale.languageOverride) : locale.languageOverride == null;
     }
 
     @Override
     public int hashCode() {
-        return override != null ? override.hashCode() : 0;
+        return languageOverride != null ? languageOverride.hashCode() : 0;
     }
 
     @Override
@@ -133,7 +140,21 @@ public class Locale {
         return "Locale{" +
                 "deviceLocale=" + deviceLocale +
                 ", appLocale=" + appLocale +
-                ", override='" + override + '\'' +
+                ", deviceDirectionality=" + deviceDirectionality +
+                ", appDirectionality=" + appDirectionality +
+                ", languageOverride='" + languageOverride + '\'' +
+                ", directionOverride=" + directionOverride +
+                ", hasUserOverrides=" + hasUserOverrides +
                 '}';
+    }
+
+    public void applyDirectionality(Dialog dialog) {
+        if (hasUserOverrides) {
+            dialog.findViewById(android.R.id.content).setLayoutDirection(appDirectionality);
+            for (int id : sDialogButtons) {
+                ViewParent parent = dialog.findViewById(id).getParent();
+                ((View) parent).setLayoutDirection(appDirectionality);
+            }
+        }
     }
 }

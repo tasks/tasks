@@ -32,6 +32,7 @@
         android:hint="@string/TVA_add_comment"
         android:imeOptions="flagNoExtractUi|actionDone"
         android:inputType="textCapSentences"
+        android:textAlignment="viewStart"
         android:paddingLeft="@dimen/keyline_second"
         android:paddingStart="@dimen/keyline_second"
         android:textColor="?attr/actionBarPrimaryText"
