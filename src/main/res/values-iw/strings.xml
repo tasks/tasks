@@ -408,6 +408,8 @@
 	<string name="theme_dark_grey">אפור כהה</string>
 	<string name="theme_light">בהיר</string>
 	<string name="theme_dark">כהה</string>
+	<string name="theme_wallpaper">תמונת רקע</string>
+	<string name="theme_day_night">יום / לילה</string>
 	<string name="default_value">ברירת מחדל</string>
 	<string name="sync_interval_disable">השבת</string>
 	<string name="sync_interval_one_hour">כל שעה</string>
@@ -424,6 +426,8 @@
 	<string name="restart_now">אתחל כעת</string>
 	<string name="restart_later">מאוחר יותר</string>
 	<string name="settings_localization">לוקאליזציה</string>
+	<string name="layout_direction">כיוון הממשק</string>
+	<string name="layout_direction_locale">לפי השפה</string>
 	<string name="layout_direction_left_to_right">משמאל לימין</string>
 	<string name="layout_direction_right_to_left">מימין לשמאל</string>
 </resources>

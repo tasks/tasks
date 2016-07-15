@@ -297,6 +297,7 @@
 	<string name="font_size">Размер шрифта</string>
 	<string name="customize_edit_screen">Порядок полей в задаче...</string>
 	<string name="source_code">Исходный код</string>
+	<string name="translations">Участвовать в переводе программы</string>
 	<string name="report_an_issue">Сообщить о проблеме</string>
 	<string name="help_and_feedback">Помощь и обратная связь</string>
 	<string name="contact_developer">Связь с разработчиком</string>
@@ -402,10 +403,12 @@
 	<string name="theme_brown">Коричневый</string>
 	<string name="theme_grey">Серый</string>
 	<string name="theme_blue_grey">Серо-голубой</string>
-	<string name="theme_black">Чёрный</string>
+	<string name="theme_black">Чёрная</string>
 	<string name="theme_dark_grey">Тёмно-серый</string>
 	<string name="theme_light">Светлая</string>
 	<string name="theme_dark">Темная</string>
+	<string name="theme_wallpaper">Как обои</string>
+	<string name="theme_day_night">День / ночь</string>
 	<string name="default_value">По умолчанию</string>
 	<string name="sync_interval_disable">отключить</string>
 	<string name="sync_interval_one_hour">каждый час</string>
@@ -415,7 +418,15 @@
 	<string name="sync_interval_one_day">каждый день</string>
 	<string name="sync_interval_three_days">каждые 3 дня</string>
 	<string name="sync_interval_one_week">каждую неделю</string>
+	<string name="master_sync_warning">Автоматическая синхронизация сейчас выключена в Андроид</string>
+	<string name="settings_general">Общие</string>
 	<string name="language">Язык</string>
+	<string name="restart_required">Для изменений нужно перезагрузить Tasks</string>
+	<string name="restart_now">Перезагрузить сейчас</string>
 	<string name="restart_later">Позже</string>
 	<string name="settings_localization">Локализация</string>
+	<string name="layout_direction">Ориентация интерфейса</string>
+	<string name="layout_direction_locale">Как установлено в системе</string>
+	<string name="layout_direction_left_to_right">Слева направо</string>
+	<string name="layout_direction_right_to_left">Справа налево</string>
 </resources>

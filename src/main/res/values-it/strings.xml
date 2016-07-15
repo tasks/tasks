@@ -406,6 +406,8 @@
 	<string name="theme_dark_grey">Grigio scuro</string>
 	<string name="theme_light">Chiaro</string>
 	<string name="theme_dark">Scuro</string>
+	<string name="theme_wallpaper">Sfondo</string>
+	<string name="theme_day_night">Giorno/Notte</string>
 	<string name="default_value">Predefinito</string>
 	<string name="sync_interval_disable">disabilita</string>
 	<string name="sync_interval_one_hour">ogni ora</string>
@@ -415,4 +417,14 @@
 	<string name="sync_interval_one_day">ogni giorno</string>
 	<string name="sync_interval_three_days">ogni tre giorni</string>
 	<string name="sync_interval_one_week">Ogni settimana</string>
+	<string name="master_sync_warning">La sincronizzazione automatica è disabilitata da Android</string>
+	<string name="settings_general">Generale</string>
+	<string name="language">Lingua</string>
+	<string name="restart_required">Per rendere attive le modifiche l\'attività va riavviata</string>
+	<string name="restart_now">Riavvia ora</string>
+	<string name="restart_later">Dopo</string>
+	<string name="layout_direction">Direzione Layout</string>
+	<string name="layout_direction_locale">Utilizza la direzione locale</string>
+	<string name="layout_direction_left_to_right">Da sinistra a destra</string>
+	<string name="layout_direction_right_to_left">Da destra a sinistra</string>
 </resources>

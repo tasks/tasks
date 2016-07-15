@@ -408,6 +408,8 @@
 	<string name="theme_dark_grey">ダークグレー</string>
 	<string name="theme_light">ライト</string>
 	<string name="theme_dark">ダーク</string>
+	<string name="theme_wallpaper">壁紙</string>
+	<string name="theme_day_night">デイナイト</string>
 	<string name="default_value">デフォルト</string>
 	<string name="sync_interval_disable">無効</string>
 	<string name="sync_interval_one_hour">1時間毎</string>
@@ -424,4 +426,8 @@
 	<string name="restart_now">今すぐ再起動</string>
 	<string name="restart_later">後で</string>
 	<string name="settings_localization">ローカライズ</string>
+	<string name="layout_direction">レイアウトの向き</string>
+	<string name="layout_direction_locale">ロケールの向きを使用する</string>
+	<string name="layout_direction_left_to_right">左から右</string>
+	<string name="layout_direction_right_to_left">右から左</string>
 </resources>

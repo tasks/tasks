@@ -296,6 +296,7 @@
 	<string name="font_size">Tamaño de la fuente</string>
 	<string name="customize_edit_screen">Personalizar pantalla de edición</string>
 	<string name="source_code">Código fuente</string>
+	<string name="translations">Contribuye con la traducción</string>
 	<string name="report_an_issue">Informa de un error</string>
 	<string name="help_and_feedback">Ayuda y valoraciones</string>
 	<string name="contact_developer">Contactar con el desarrollador </string>
@@ -404,6 +405,8 @@
 	<string name="theme_dark_grey">Gris oscuro</string>
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Oscuro</string>
+	<string name="theme_wallpaper">Fondo de pantalla</string>
+	<string name="theme_day_night">Día/Noche</string>
 	<string name="default_value">Predeterminado</string>
 	<string name="sync_interval_disable">deshabilitar</string>
 	<string name="sync_interval_one_hour">cada hora</string>
@@ -418,4 +421,9 @@
 	<string name="restart_required">Debe reiniciar Tasks para que los cambios tengan efecto</string>
 	<string name="restart_now">Reiniciar ahora</string>
 	<string name="restart_later">Más tarde</string>
+	<string name="settings_localization">Adaptación regional</string>
+	<string name="layout_direction">Sentido de la escritura</string>
+	<string name="layout_direction_locale">Usar disposición regional</string>
+	<string name="layout_direction_left_to_right">De izquierda a derecha</string>
+	<string name="layout_direction_right_to_left">De derecha a izquierda</string>
 </resources>
