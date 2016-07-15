@@ -41,6 +41,7 @@ public class LocalePickerDialog extends InjectingDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<Locale> locales = new ArrayList<>();
+        locales.add(locale.withLanguage(null)); // device locale
         for (String override : getResources().getStringArray(R.array.localization)) {
             locales.add(locale.withLanguage(override));
         }
@@ -59,13 +60,6 @@ public class LocalePickerDialog extends InjectingDialogFragment {
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
-                .setNeutralButton(R.string.default_value, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        callback.onLocaleSelected(null);
-                    }
-                })
                 .show();
     }
 

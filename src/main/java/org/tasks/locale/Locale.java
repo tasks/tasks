@@ -64,6 +64,10 @@ public class Locale {
         hasUserOverrides = !(deviceLocale.equals(appLocale) && appDirectionality == deviceDirectionality) && atLeastJellybeanMR1();
     }
 
+    public java.util.Locale getDeviceLocale() {
+        return deviceLocale;
+    }
+
     public java.util.Locale getLocale() {
         return appLocale;
     }

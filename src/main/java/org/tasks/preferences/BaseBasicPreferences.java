@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 
+import com.google.common.base.Strings;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
@@ -188,10 +189,10 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
 
     @Override
     public void onLocaleSelected(Locale newValue) {
-        if (newValue == null) {
+        String override = newValue.getLanguageOverride();
+        if (Strings.isNullOrEmpty(override)) {
             preferences.remove(R.string.p_language);
         } else {
-            String override = newValue.getLanguageOverride();
             preferences.setString(R.string.p_language, override);
             tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_language, override);
         }
