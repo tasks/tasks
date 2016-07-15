@@ -64,6 +64,10 @@ public class ThemePickerDialog extends InjectingDialogFragment {
             palette = (ColorPalette) savedInstanceState.getSerializable(EXTRA_COLOR_PALETTE);
         }
 
+        if (palette == ColorPalette.THEMES) {
+            theme = theme.withBaseTheme(themeCache.getThemeBase(2));
+        }
+
         final String[] themes = getResources().getStringArray(getNameRes());
 
         final boolean purchasedThemes = preferences.hasPurchase(R.string.p_purchased_themes);
@@ -90,7 +94,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
             }
         };
 
-        return dialogBuilder.newDialog()
+        return dialogBuilder.newDialog(theme)
                 .setAdapter(adapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

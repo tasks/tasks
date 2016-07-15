@@ -24,6 +24,10 @@ public class DialogBuilder {
     }
 
     public AlertDialogBuilder newDialog() {
+        return newDialog(theme);
+    }
+
+    public AlertDialogBuilder newDialog(Theme theme) {
         return new AlertDialogBuilder(activity, theme, locale);
     }
 
