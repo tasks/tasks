@@ -11,7 +11,8 @@ public class ThemeBase {
     public static final int[] THEMES = new int[] {
             R.style.LightOverride,
             R.style.BaseBlack,
-            R.style.DarkOverride
+            R.style.DarkOverride,
+            R.style.Wallpaper
     };
 
     private final String name;

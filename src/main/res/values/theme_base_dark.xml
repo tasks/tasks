@@ -33,4 +33,11 @@
         <item name="icon_tint">@android:color/white</item>
     </style>
 
+    <style name="Wallpaper" parent="DarkOverride">
+        <item name="android:windowBackground">@color/black_38</item>
+        <item name="asContentBackground">@color/black_38</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style>
+
+
 </resources>

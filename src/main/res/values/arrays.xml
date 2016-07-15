@@ -84,6 +84,7 @@
         <item>@string/theme_light</item>
         <item>@string/theme_black</item>
         <item>@string/theme_dark</item>
+        <item>@string/theme_wallpaper</item>
     </string-array>
 
     <string-array name="colors">
