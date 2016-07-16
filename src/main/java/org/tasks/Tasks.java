@@ -15,6 +15,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
 
@@ -36,6 +37,7 @@ public class Tasks extends InjectingApplication {
     @Inject Tracker tracker;
     @Inject FlavorSetup flavorSetup;
     @Inject BuildSetup buildSetup;
+    @Inject ThemeCache themeCache;
 
     @Override
     public void onCreate() {
@@ -45,6 +47,8 @@ public class Tasks extends InjectingApplication {
         flavorSetup.setup();
 
         tracker.setTrackingEnabled(preferences.isTrackingEnabled());
+
+        themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).applyDayNightMode();
     }
 
     @Override

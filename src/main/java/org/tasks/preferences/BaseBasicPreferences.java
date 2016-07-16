@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.Preference;
 
@@ -24,6 +25,7 @@ import org.tasks.locale.Locale;
 import org.tasks.locale.LocalePickerDialog;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
+import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
 import javax.inject.Inject;
@@ -50,6 +52,8 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
     @Inject ThemeAccent themeAccent;
     @Inject DialogBuilder dialogBuilder;
     @Inject Locale locale;
+    @Inject ThemeCache themeCache;
+
     private Bundle result;
 
     @Override
@@ -172,6 +176,8 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         switch (palette) {
             case THEMES:
                 preferences.setInt(R.string.p_theme, index);
+                themeBase = themeCache.getThemeBase(index);
+                themeBase.applyDayNightMode(getDelegate());
                 tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
                 break;
             case COLORS:

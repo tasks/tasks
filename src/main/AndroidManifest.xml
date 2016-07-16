@@ -91,7 +91,7 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/LightBase"
+        android:theme="@style/Tasks"
         android:allowBackup="true"
         android:name=".Tasks"
         android:supportsRtl="true"
@@ -175,22 +175,22 @@
         <activity
             android:name=".preferences.HelpAndFeedbackActivity"
             android:label="@string/help_and_feedback"
-            android:theme="@style/LightBase" />
+            android:theme="@style/Tasks" />
 
         <activity
             android:name=".preferences.BasicPreferences"
             android:label="@string/TLA_menu_settings"
-            android:theme="@style/LightBase" />
+            android:theme="@style/Tasks" />
 
         <activity
             android:name=".preferences.MiscellaneousPreferences"
             android:label="@string/miscellaneous"
-            android:theme="@style/LightBase" />
+            android:theme="@style/Tasks" />
 
         <activity
             android:name=".preferences.BackupPreferences"
             android:label="@string/backup_BPr_header"
-            android:theme="@style/LightBase" />
+            android:theme="@style/Tasks" />
 
         <!-- Activity that configures widget -->
         <activity
@@ -276,21 +276,21 @@
         <activity
             android:name=".preferences.AppearancePreferences"
             android:label="@string/EPr_appearance_header"
-            android:theme="@style/LightBase" />
+            android:theme="@style/Tasks" />
 
         <activity
             android:name=".preferences.DateShortcutPreferences"
             android:label="@string/date_shortcuts"
-            android:theme="@style/LightBase" />
+            android:theme="@style/Tasks" />
 
         <activity
             android:name="com.todoroo.astrid.core.DefaultsPreferences"
             android:label="@string/task_defaults"
-            android:theme="@style/LightBase"/>
+            android:theme="@style/Tasks"/>
 
         <activity
             android:name="com.todoroo.astrid.activity.BeastModePreferences"
-            android:theme="@style/LightBase"/>
+            android:theme="@style/Tasks"/>
 
         <activity
             android:name=".reminders.MissedCallActivity"
@@ -318,7 +318,7 @@
         <!-- custom filters -->
         <activity
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
-            android:theme="@style/LightBase"/>
+            android:theme="@style/Tasks"/>
 
         <!-- alarms -->
         <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
@@ -360,7 +360,7 @@
 
         <activity
             android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
-            android:theme="@style/LightDialogBase"/>
+            android:theme="@style/TasksDialog"/>
 
         <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver" />
 
@@ -368,7 +368,7 @@
         <activity
             android:name="com.todoroo.astrid.core.OldTaskPreferences"
             android:label="@string/EPr_manage_header"
-            android:theme="@style/LightBase"/>
+            android:theme="@style/Tasks"/>
 
         <activity
             android:name=".activities.ClearAllDataActivity"
@@ -403,7 +403,7 @@
             android:name="com.todoroo.astrid.files.AACRecordingActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/LightDialogBase" />
+            android:theme="@style/TasksDialog" />
 
         <activity
             android:name=".files.MyFilePickerActivity"
@@ -430,7 +430,7 @@
         <activity
             android:name="com.todoroo.astrid.reminders.ReminderPreferences"
             android:label="@string/notifications"
-            android:theme="@style/LightBase"/>
+            android:theme="@style/Tasks"/>
 
         <activity
             android:name=".voice.VoiceCommandActivity"

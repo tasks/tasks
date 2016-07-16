@@ -90,29 +90,28 @@
     <color name="task_list_done">#ff777777</color>
     <color name="task_edit_deadline_gray">#888888</color>
 
-    <color name="md_dark_background">#303030</color>
-    <color name="md_light_background">#fafafa</color>
-    <color name="dialog_dark_background">#424242</color>
-    <color name="dialog_light_background">#ffffff</color>
+    <color name="background_color">#fafafa</color>
+    <color name="background_color_dialog">#ffffff</color>
+    <color name="icon_tint">#000000</color>
+    <color name="text_primary">#de000000</color> <!-- 87% black -->
+    <color name="text_secondary">#8a000000</color> <!-- 54% black -->
+    <color name="text_tertiary">#61000000</color> <!-- 38% black -->
+    <color name="divider">#1f000000</color> <!-- 12% black -->
 
-    <color name="drawer_light_background">#f9f9f9</color>
-    <color name="drawer_dark_background">#303030</color>
-    <color name="drawer_selected_light">#e8e8e8</color>
-    <color name="drawer_selected_dark">#202020</color>
+    <color name="black_87">#de000000</color> <!-- 87% black -->
+    <color name="black_54">#8a000000</color> <!-- 54% black -->
+    <color name="black_38">#61000000</color> <!-- 38% black -->
 
-    <color name="white_text">#fff</color>
-    <color name="white_text_hint">#eee</color>
-    <color name="black_text_hint">#535353</color>
+    <color name="white_100">#ffffffff</color> <!-- 100% white -->
+    <color name="white_70">#b3ffffff</color> <!-- 70% white -->
+    <color name="white_50">#80ffffff</color> <!-- 50% white -->
 
-    <color name="black_87">#de000000</color>
-    <color name="black_54">#8a000000</color>
-    <color name="black_38">#61000000</color>
-    <color name="black_12">#1f000000</color>
+    <color name="widget_background_light">#fafafa</color>
+    <color name="widget_background_black">#000000</color>
+    <color name="widget_background_dark">#303030</color>
 
-    <color name="white_100">#ffffffff</color>
-    <color name="white_70">#b3ffffff</color>
-    <color name="white_50">#80ffffff</color>
-    <color name="white_12">#1fffffff</color>
+    <color name="drawer_color">#f9f9f9</color>
+    <color name="drawer_color_selected">#e8e8e8</color>
 
     <color name="importance_1">@color/red_500</color>
     <color name="importance_2">@color/amber_500</color>

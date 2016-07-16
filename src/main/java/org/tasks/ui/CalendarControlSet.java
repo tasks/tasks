@@ -304,15 +304,15 @@ public class CalendarControlSet extends TaskEditControlFragment {
     private void refreshDisplayView() {
         if (!Strings.isNullOrEmpty(eventUri)) {
             calendar.setText(R.string.gcal_TEA_showCalendar_label);
-            calendar.setTextColor(themeBase.getTextColorPrimary());
+            calendar.setTextColor(getResources().getColor(R.color.text_primary));
             cancelButton.setVisibility(View.VISIBLE);
         } else if (calendarName != null) {
             calendar.setText(calendarName);
-            calendar.setTextColor(themeBase.getTextColorPrimary());
+            calendar.setTextColor(getResources().getColor(R.color.text_primary));
             cancelButton.setVisibility(View.VISIBLE);
         } else {
             calendar.setText(R.string.gcal_TEA_addToCalendar_label);
-            calendar.setTextColor(themeBase.getTextColorTertiary());
+            calendar.setTextColor(getResources().getColor(R.color.text_tertiary));
             cancelButton.setVisibility(View.GONE);
         }
     }

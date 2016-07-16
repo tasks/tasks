@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="alpha_secondary" format="float" type="dimen">0.70</item>
+    <item name="alpha_disabled" format="float" type="dimen">0.50</item>
+</resources>

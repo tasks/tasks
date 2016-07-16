@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import org.tasks.analytics.Tracker;
-import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ActivityModule;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.themes.Theme;

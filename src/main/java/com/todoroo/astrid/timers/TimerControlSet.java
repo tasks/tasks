@@ -221,10 +221,10 @@ public class TimerControlSet extends TaskEditControlFragment {
 
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
-            displayEdit.setTextColor(theme.getThemeBase().getTextColorPrimary());
+            displayEdit.setTextColor(getResources().getColor(R.color.text_primary));
         } else {
             displayEdit.setText(R.string.TEA_timer_controls);
-            displayEdit.setTextColor(theme.getThemeBase().getTextColorTertiary());
+            displayEdit.setTextColor(getResources().getColor(R.color.text_tertiary));
         }
     }
 

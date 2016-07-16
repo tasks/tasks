@@ -2,6 +2,7 @@ package org.tasks.themes;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 
@@ -15,24 +16,18 @@ public class ThemeCache {
     private final List<ThemeBase> themes = new ArrayList<>();
     private final List<ThemeColor> colors = new ArrayList<>();
     private final List<ThemeAccent> accents = new ArrayList<>();
-    private final List<WidgetBackground> widgetBackgrounds = new ArrayList<>();
+    private final List<WidgetTheme> widgetThemes = new ArrayList<>();
     private final ThemeColor untaggedColor;
 
     public ThemeCache(Context context) {
         Resources resources = context.getResources();
-        String[] themeNames = resources.getStringArray(R.array.themes);
-        for (int i = 0 ; i < ThemeBase.THEMES.length ; i++) {
-            Resources.Theme theme = new ContextThemeWrapper(context, ThemeBase.THEMES[i]).getTheme();
-            themes.add(new ThemeBase(
-                    themeNames[i],
-                    i,
-                    resolveAttribute(theme, R.attr.alertDialogTheme),
-                    resolveAttribute(theme, R.attr.asContentBackground),
-                    resolveAttribute(theme, R.attr.asTextColor),
-                    resolveAttribute(theme, android.R.attr.textColorPrimary),
-                    resolveAttribute(theme, android.R.attr.textColorSecondary),
-                    resolveAttribute(theme, android.R.attr.textColorTertiary)));
-        }
+
+        themes.add(new ThemeBase(context.getString(R.string.theme_light), 0, AppCompatDelegate.MODE_NIGHT_NO));
+        themes.add(new ThemeBase(context.getString(R.string.theme_black), 1, AppCompatDelegate.MODE_NIGHT_YES));
+        themes.add(new ThemeBase(context.getString(R.string.theme_dark), 2, AppCompatDelegate.MODE_NIGHT_YES));
+        themes.add(new ThemeBase(context.getString(R.string.theme_wallpaper), 3, AppCompatDelegate.MODE_NIGHT_YES));
+        themes.add(new ThemeBase(context.getString(R.string.theme_day_night), 4, AppCompatDelegate.MODE_NIGHT_AUTO));
+
         String[] colorNames = resources.getStringArray(R.array.colors);
         for (int i = 0 ; i < ThemeColor.COLORS.length ; i++) {
             Resources.Theme theme = new ContextThemeWrapper(context, ThemeColor.COLORS[i]).getTheme();
@@ -53,15 +48,18 @@ public class ThemeCache {
                     resolveAttribute(theme, R.attr.colorAccent)));
         }
         String[] widgetBackgroundNames = resources.getStringArray(R.array.widget_background);
-        for (int i = 0 ; i < WidgetBackground.BACKGROUNDS.length ; i++) {
-            widgetBackgrounds.add(new WidgetBackground(
-                    widgetBackgroundNames[i], i, resources.getColor(WidgetBackground.BACKGROUNDS[i])));
+        for (int i = 0; i < WidgetTheme.BACKGROUNDS.length ; i++) {
+            widgetThemes.add(new WidgetTheme(
+                    widgetBackgroundNames[i],
+                    i,
+                    resources.getColor(WidgetTheme.BACKGROUNDS[i]),
+                    resources.getColor(i == 0 ? R.color.black_87 : R.color.white_100)));
         }
         untaggedColor = new ThemeColor(null, 19, resources.getColor(R.color.tag_color_none_background), 0, resources.getColor(R.color.black_87), false);
     }
 
-    public WidgetBackground getWidgetBackground(int index) {
-        return widgetBackgrounds.get(index);
+    public WidgetTheme getWidgetTheme(int index) {
+        return widgetThemes.get(index);
     }
 
     public ThemeBase getThemeBase(int index) {

@@ -2,6 +2,8 @@
 
     <!-- ========================================================== General  -->
 
+    <style name="popup_overlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="SpinnerNoPadding" parent="Widget.AppCompat.TextView.SpinnerItem">
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingRight">0dp</item>

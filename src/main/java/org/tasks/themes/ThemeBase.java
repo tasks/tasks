@@ -2,41 +2,33 @@ package org.tasks.themes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.ContextThemeWrapper;
 
 import org.tasks.R;
 
 public class ThemeBase {
 
-    public static final int[] THEMES = new int[] {
-            R.style.LightOverride,
-            R.style.BaseBlack,
-            R.style.DarkOverride,
-            R.style.Wallpaper
+    public static final int[] THEMES = new int[]{
+            R.style.TasksOverride,
+            R.style.ThemeBlack,
+            R.style.TasksOverride,
+            R.style.Wallpaper,
+            R.style.TasksOverride
     };
 
     private final String name;
     private final int index;
-    private final int textColorPrimary;
-    private final int textColorSecondary;
-    private final int textColorTertiary;
     private final int style;
-    private final int dialogStyle;
     private final int contentBackground;
-    private final int textColor;
+    private final int dayNightMode;
 
-    public ThemeBase(String name, int index, int dialogStyle, int contentBackground,
-                     int textColor, int textColorPrimary, int textColorSecondary,
-                     int textColorTertiary) {
+    public ThemeBase(String name, int index, int dayNightMode) {
         this.name = name;
         this.index = index;
-        this.textColorPrimary = textColorPrimary;
-        this.textColorSecondary = textColorSecondary;
-        this.textColorTertiary = textColorTertiary;
+        this.dayNightMode = dayNightMode;
         this.style = THEMES[index];
-        this.dialogStyle = dialogStyle;
-        this.contentBackground = contentBackground;
-        this.textColor = textColor;
+        this.contentBackground = 0;
     }
 
     public String getName() {
@@ -47,16 +39,8 @@ public class ThemeBase {
         return index;
     }
 
-    public int getDialogStyle() {
-        return dialogStyle;
-    }
-
     public int getContentBackground() {
         return contentBackground;
-    }
-
-    public int getTextColor() {
-        return textColor;
     }
 
     public boolean isDarkTheme() {
@@ -71,15 +55,12 @@ public class ThemeBase {
         activity.setTheme(style);
     }
 
-    public int getTextColorPrimary() {
-        return textColorPrimary;
+    public void applyDayNightMode() {
+        AppCompatDelegate.setDefaultNightMode(dayNightMode);
     }
 
-    public int getTextColorSecondary() {
-        return textColorSecondary;
-    }
-
-    public int getTextColorTertiary() {
-        return textColorTertiary;
+    public void applyDayNightMode(AppCompatDelegate delegate) {
+        applyDayNightMode();
+        delegate.setLocalNightMode(dayNightMode);
     }
 }

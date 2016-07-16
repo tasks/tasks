@@ -1,0 +1,3 @@
+<resources>
+    <style name="popup_overlay" parent="ThemeOverlay.AppCompat" />
+</resources>

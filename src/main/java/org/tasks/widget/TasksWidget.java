@@ -23,7 +23,7 @@ import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
-import org.tasks.themes.WidgetBackground;
+import org.tasks.themes.WidgetTheme;
 
 import javax.inject.Inject;
 
@@ -100,7 +100,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER_ID, filterId);
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        WidgetBackground theme = themeCache.getWidgetBackground(preferences.getInt(WidgetConfigActivity.PREF_THEME + id, 0));
+        WidgetTheme theme = themeCache.getWidgetTheme(preferences.getInt(WidgetConfigActivity.PREF_THEME + id, 0));
         ThemeColor color = themeCache.getThemeColor(preferences.getInt(WidgetConfigActivity.PREF_COLOR + id, 0));
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         if (atLeastJellybeanMR1()) {

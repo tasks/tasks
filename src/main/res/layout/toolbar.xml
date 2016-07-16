@@ -6,5 +6,5 @@
     android:background="?attr/colorPrimary"
     android:elevation="@dimen/elevation_toolbar"
     app:toolbarStyle="@style/Widget.AppCompat.Toolbar"
-    app:popupTheme="?attr/popup_theme"
+    app:popupTheme="@style/popup_overlay"
     app:theme="?attr/overlay_theme" />

@@ -130,7 +130,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
             case ACCENTS:
                 return themeCache.getThemeAccent(index).getAccentColor();
             case WIDGET_BACKGROUND:
-                return themeCache.getWidgetBackground(index).getBackgroundColor();
+                return themeCache.getWidgetTheme(index).getBackgroundColor();
             default:
                 return themeCache.getThemeBase(index).getContentBackground();
         }

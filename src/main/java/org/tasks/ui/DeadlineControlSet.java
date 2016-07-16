@@ -141,11 +141,11 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 tv.setText(dueDateOptions.get(selectedItemPosition));
                 int textColor;
                 if (date == 0) {
-                    textColor = themeBase.getTextColorTertiary();
+                    textColor = getResources().getColor(R.color.text_tertiary);
                 } else if (date < newDateTime().startOfDay().getMillis()) {
                     textColor = overdueColor;
                 } else {
-                    textColor = themeBase.getTextColorPrimary();
+                    textColor = getResources().getColor(R.color.text_primary);
                 }
                 dueDateSpinner.setBackgroundDrawable(getUnderline(textColor));
                 tv.setTextColor(textColor);
@@ -166,11 +166,11 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 tv.setText(dueTimeOptions.get(selectedItemPosition));
                 int textColor;
                 if (time == -1) {
-                    textColor = themeBase.getTextColorTertiary();
+                    textColor = getResources().getColor(R.color.text_tertiary);
                 } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
                     textColor = overdueColor;
                 } else {
-                    textColor = themeBase.getTextColorPrimary();
+                    textColor = getResources().getColor(R.color.text_primary);
                 }
                 tv.setTextColor(textColor);
                 dueTimeSpinner.setBackgroundDrawable(getUnderline(textColor));

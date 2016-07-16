@@ -162,7 +162,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     Filter selected = ((TaskListActivity) activity).getCurrentFilter();
 
                     if (selected != null && selected.equals(viewHolder.item)) {
-                        convertView.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
+                        convertView.setBackgroundColor(activity.getResources().getColor(R.color.drawer_color_selected));
                     }
                 }
                 break;
@@ -324,7 +324,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         viewHolder.icon.setImageResource(filter.icon);
         viewHolder.icon.setColorFilter(filter.tint >= 0
                 ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
-                : theme.getThemeBase().getTextColor());
+                : getContext().getResources().getColor(R.color.text_primary));
 
         String title = filter.listingTitle;
         if(!title.equals(viewHolder.name.getText())) {
@@ -339,7 +339,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.INVISIBLE);
 
         if (selection == viewHolder.item) {
-            viewHolder.view.setBackgroundColor(getData(activity, R.attr.drawer_background_selected));
+            viewHolder.view.setBackgroundColor(activity.getResources().getColor(R.color.drawer_color_selected));
         }
     }
 

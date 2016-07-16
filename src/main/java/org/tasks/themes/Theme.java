@@ -36,7 +36,7 @@ public class Theme {
     }
 
     public int getDialogStyle() {
-        return themeBase.getDialogStyle();
+        return R.style.TasksDialog;
     }
 
     public LayoutInflater getLayoutInflater(Context context) {
@@ -58,7 +58,6 @@ public class Theme {
         applyToContext(activity);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
     }
-
 
     public void applyToContext(Context context) {
         Resources.Theme theme = context.getTheme();
