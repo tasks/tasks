@@ -130,6 +130,12 @@
         <item>@string/theme_deep_orange</item>
     </string-array>
 
+    <string-array name="widget_background">
+        <item>@string/theme_light</item>
+        <item>@string/theme_black</item>
+        <item>@string/theme_dark</item>
+    </string-array>
+
     <string-array name="localization">
         <item>ar</item>
         <item>bg-bg</item>

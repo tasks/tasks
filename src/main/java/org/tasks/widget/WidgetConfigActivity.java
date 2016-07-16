@@ -83,7 +83,7 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
 
     @Override
     public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
-        if (palette == ThemePickerDialog.ColorPalette.THEMES) {
+        if (palette == ThemePickerDialog.ColorPalette.WIDGET_BACKGROUND) {
             widgetConfigDialog.setThemeIndex(index);
         } else {
             widgetConfigDialog.setColorIndex(index);

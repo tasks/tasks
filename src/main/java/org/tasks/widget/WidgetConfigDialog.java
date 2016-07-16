@@ -174,7 +174,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     }
 
     private void updateTheme() {
-        selectedTheme.setText(themeCache.getThemeBase(themeIndex).getName());
+        selectedTheme.setText(themeCache.getWidgetBackground(themeIndex).getName());
     }
 
     private void updateColor() {
@@ -192,7 +192,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     public void showThemeSelection() {
         FragmentManager fragmentManager = getFragmentManager();
         if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_SELECTION) == null) {
-            newThemePickerDialog(ThemePickerDialog.ColorPalette.THEMES).show(fragmentManager, FRAG_TAG_THEME_SELECTION);
+            newThemePickerDialog(ThemePickerDialog.ColorPalette.WIDGET_BACKGROUND).show(fragmentManager, FRAG_TAG_THEME_SELECTION);
         }
     }
 

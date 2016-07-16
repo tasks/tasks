@@ -15,6 +15,7 @@ public class ThemeCache {
     private final List<ThemeBase> themes = new ArrayList<>();
     private final List<ThemeColor> colors = new ArrayList<>();
     private final List<ThemeAccent> accents = new ArrayList<>();
+    private final List<WidgetBackground> widgetBackgrounds = new ArrayList<>();
     private final ThemeColor untaggedColor;
 
     public ThemeCache(Context context) {
@@ -51,7 +52,16 @@ public class ThemeCache {
                     i,
                     resolveAttribute(theme, R.attr.colorAccent)));
         }
+        String[] widgetBackgroundNames = resources.getStringArray(R.array.widget_background);
+        for (int i = 0 ; i < WidgetBackground.BACKGROUNDS.length ; i++) {
+            widgetBackgrounds.add(new WidgetBackground(
+                    widgetBackgroundNames[i], i, resources.getColor(WidgetBackground.BACKGROUNDS[i])));
+        }
         untaggedColor = new ThemeColor(null, 19, resources.getColor(R.color.tag_color_none_background), 0, resources.getColor(R.color.black_87), false);
+    }
+
+    public WidgetBackground getWidgetBackground(int index) {
+        return widgetBackgrounds.get(index);
     }
 
     public ThemeBase getThemeBase(int index) {

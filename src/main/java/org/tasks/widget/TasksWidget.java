@@ -21,9 +21,9 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+import org.tasks.themes.WidgetBackground;
 
 import javax.inject.Inject;
 
@@ -100,7 +100,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER_ID, filterId);
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        ThemeBase theme = themeCache.getThemeBase(preferences.getInt(WidgetConfigActivity.PREF_THEME + id, 0));
+        WidgetBackground theme = themeCache.getWidgetBackground(preferences.getInt(WidgetConfigActivity.PREF_THEME + id, 0));
         ThemeColor color = themeCache.getThemeColor(preferences.getInt(WidgetConfigActivity.PREF_COLOR + id, 0));
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         if (atLeastJellybeanMR1()) {
@@ -114,7 +114,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         }
         int opacity = preferences.getInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + id, WidgetConfigActivity.DEFAULT_OPACITY);
         remoteViews.setImageViewBitmap(R.id.widget_background,
-                getSolidBackground(theme.getContentBackground()));
+                getSolidBackground(theme.getBackgroundColor()));
         remoteViews.setImageViewBitmap(R.id.widget_header_background,
                 getSolidBackground(color.getPrimaryColor()));
         remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);

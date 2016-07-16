@@ -33,7 +33,8 @@ public class ThemePickerDialog extends InjectingDialogFragment {
     public enum ColorPalette {
         THEMES,
         COLORS,
-        ACCENTS
+        ACCENTS,
+        WIDGET_BACKGROUND
     }
 
     public static ThemePickerDialog newThemePickerDialog(ColorPalette palette) {
@@ -64,7 +65,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
             palette = (ColorPalette) savedInstanceState.getSerializable(EXTRA_COLOR_PALETTE);
         }
 
-        if (palette == ColorPalette.THEMES) {
+        if (palette == ColorPalette.THEMES || palette == ColorPalette.WIDGET_BACKGROUND) {
             theme = theme.withBaseTheme(themeCache.getThemeBase(2));
         }
 
@@ -115,6 +116,8 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                 return R.array.colors;
             case ACCENTS:
                 return R.array.accents;
+            case WIDGET_BACKGROUND:
+                return R.array.widget_background;
             default:
                 return R.array.themes;
         }
@@ -126,6 +129,8 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                 return themeCache.getThemeColor(index).getPrimaryColor();
             case ACCENTS:
                 return themeCache.getThemeAccent(index).getAccentColor();
+            case WIDGET_BACKGROUND:
+                return themeCache.getWidgetBackground(index).getBackgroundColor();
             default:
                 return themeCache.getThemeBase(index).getContentBackground();
         }
