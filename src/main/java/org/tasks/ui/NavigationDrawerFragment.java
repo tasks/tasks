@@ -93,10 +93,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
             }
             if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
                 TaskListActivity activity = (TaskListActivity) getActivity();
-                Intent intent = activity.getIntent();
-                intent.putExtra(TaskListActivity.OPEN_FILTER, activity.getCurrentFilter());
-                activity.finish();
-                activity.startActivity(intent);
+                activity.restart();
             }
         } else if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
                 requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&

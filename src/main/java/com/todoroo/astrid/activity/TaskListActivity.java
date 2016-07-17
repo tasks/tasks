@@ -45,6 +45,8 @@ import com.todoroo.astrid.timers.TimerControlSet;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
@@ -99,6 +101,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject Broadcaster broadcaster;
     @Inject ThemeCache themeCache;
     @Inject SyncAdapterHelper syncAdapterHelper;
+    @Inject Tracker tracker;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
@@ -122,8 +125,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        theme.applyTheme(this, getDelegate());
 
         currentNightMode = getNightMode();
 
@@ -238,9 +239,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
-        getDelegate().applyDayNight();
         if (currentNightMode != getNightMode()) {
-            recreate();
+            tracker.reportEvent(Tracking.Events.NIGHT_MODE_MISMATCH);
+            restart();
             return;
         }
 
@@ -271,6 +272,13 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         }
     }
 
+    public void restart() {
+        Intent intent = getIntent();
+        intent.putExtra(TaskListActivity.OPEN_FILTER, getCurrentFilter());
+        finish();
+        startActivity(intent);
+    }
+
     private int getNightMode() {
         return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
@@ -278,6 +286,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
+        theme.applyTheme(this);
     }
 
     @Override

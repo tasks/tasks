@@ -45,13 +45,17 @@ public class Theme {
     }
 
     public void applyThemeAndStatusBarColor(Activity activity, AppCompatDelegate delegate) {
-        applyTheme(activity, delegate);
+        delegate.applyDayNight();
+        applyTheme(activity);
+        applyStatusBarColor(activity);
+    }
+
+    public void applyStatusBarColor(Activity activity) {
         themeColor.applyStatusBarColor(activity);
         themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name));
     }
 
-    public void applyTheme(Activity activity, AppCompatDelegate delegate) {
-        delegate.applyDayNight();
+    public void applyTheme(Activity activity) {
         themeBase.set(activity);
         applyToContext(activity);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
