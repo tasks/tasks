@@ -4,9 +4,9 @@ import org.tasks.R;
 
 public class WidgetTheme {
     public static final int[] BACKGROUNDS = new int[] {
-            R.color.widget_background_light,
+            R.color.md_background_light,
             R.color.widget_background_black,
-            R.color.widget_background_dark
+            R.color.md_background_dark
     };
     private final String name;
     private final int index;

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_color">#303030</color>
-    <color name="background_color_dialog">#424242</color>
-    <color name="icon_tint">#ffffff</color>
-    <color name="drawer_color">#303030</color>
-    <color name="drawer_color_selected">#202020</color>
-    <color name="text_primary">#ffffffff</color> <!-- 100% white -->
-    <color name="text_secondary">#b3ffffff</color> <!-- 70% white -->
-    <color name="text_tertiary">#80ffffff</color> <!-- 50% white -->
-    <color name="divider">#1fffffff</color> <!-- 12% white -->
+    <color name="background_color">@color/md_background_dark</color>
+    <color name="background_color_dialog">@color/md_background_dark_dialog</color>
+    <color name="icon_tint">@color/icon_tint_dark</color>
+    <color name="drawer_color">@color/drawer_background_dark</color>
+    <color name="drawer_color_selected">@color/drawer_background_dark_selected</color>
+    <color name="text_primary">@color/white_100</color>
+    <color name="text_secondary">@color/white_70</color>
+    <color name="text_tertiary">@color/white_50</color>
+    <color name="divider">@color/white_12</color>
 </resources>

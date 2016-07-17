@@ -42,7 +42,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
                 .plus(new ActivityModule(this));
         inject(activityComponent);
 
-        theme.applyThemeAndStatusBarColor(this);
+        theme.applyThemeAndStatusBarColor(this, getDelegate());
 
         super.onCreate(savedInstanceState);
 

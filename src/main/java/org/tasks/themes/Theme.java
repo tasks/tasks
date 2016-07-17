@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.PixelFormat;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 
@@ -35,25 +36,22 @@ public class Theme {
         return themeColor;
     }
 
-    public int getDialogStyle() {
-        return R.style.TasksDialog;
-    }
-
     public LayoutInflater getLayoutInflater(Context context) {
         return (LayoutInflater) wrap(context).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public ContextThemeWrapper getThemedDialog(Context context) {
-        return new ContextThemeWrapper(context, getDialogStyle());
+        return new ContextThemeWrapper(context, themeBase.getDialogStyle());
     }
 
-    public void applyThemeAndStatusBarColor(Activity activity) {
-        applyTheme(activity);
+    public void applyThemeAndStatusBarColor(Activity activity, AppCompatDelegate delegate) {
+        applyTheme(activity, delegate);
         themeColor.applyStatusBarColor(activity);
         themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name));
     }
 
-    public void applyTheme(Activity activity) {
+    public void applyTheme(Activity activity, AppCompatDelegate delegate) {
+        delegate.applyDayNight();
         themeBase.set(activity);
         applyToContext(activity);
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);

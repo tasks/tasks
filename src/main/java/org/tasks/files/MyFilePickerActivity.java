@@ -22,7 +22,7 @@ public class MyFilePickerActivity extends FilePickerActivity {
                 .getComponent()
                 .plus(new ActivityModule(this))
                 .inject(this);
-        theme.applyThemeAndStatusBarColor(this);
+        theme.applyThemeAndStatusBarColor(this, getDelegate());
         setTitle(null);
         super.onCreate(savedInstanceState);
     }

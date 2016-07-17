@@ -11,6 +11,7 @@ import android.app.FragmentTransaction;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -111,6 +112,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     public static final String OPEN_FILTER = "open_filter"; //$NON-NLS-1$
     public static final String LOAD_FILTER = "load_filter";
     public static final String OPEN_TASK = "open_task"; //$NON-NLS-1$
+    private int currentNightMode;
 
     private Filter filter;
 
@@ -121,7 +123,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        theme.applyTheme(this);
+        theme.applyTheme(this, getDelegate());
+
+        currentNightMode = getNightMode();
 
         startupService.onStartupApplication(this);
 
@@ -234,6 +238,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
+        getDelegate().applyDayNight();
+        if (currentNightMode != getNightMode()) {
+            recreate();
+            return;
+        }
+
         registerReceiver(
                 repeatConfirmationReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
@@ -259,6 +269,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                         .show();
             }
         }
+    }
+
+    private int getNightMode() {
+        return getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
 
     @Override

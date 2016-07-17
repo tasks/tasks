@@ -44,7 +44,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
         if (dialog == null) {
             dialog = new MyTimePickerDialog();
             dialog.initialize(null, initial.getHourOfDay(), initial.getMinuteOfHour(), 0, DateFormat.is24HourFormat(this));
-            dialog.setThemeDark(themeBase.isDarkTheme());
+            dialog.setThemeDark(themeBase.isDarkTheme(this));
             dialog.setAccentColor(themeAccent.getAccentColor());
             dialog.show(fragmentManager, FRAG_TAG_TIME_PICKER);
         }

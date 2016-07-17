@@ -2,6 +2,7 @@ package org.tasks.themes;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.ContextThemeWrapper;
 
@@ -23,12 +24,16 @@ public class ThemeBase {
     private final int contentBackground;
     private final int dayNightMode;
 
-    public ThemeBase(String name, int index, int dayNightMode) {
+    public ThemeBase(String name, int index, int contentBackground, int dayNightMode) {
         this.name = name;
         this.index = index;
         this.dayNightMode = dayNightMode;
         this.style = THEMES[index];
-        this.contentBackground = 0;
+        this.contentBackground = contentBackground;
+    }
+
+    public int getDialogStyle() {
+        return R.style.TasksDialog;
     }
 
     public String getName() {
@@ -43,8 +48,10 @@ public class ThemeBase {
         return contentBackground;
     }
 
-    public boolean isDarkTheme() {
-        return index > 0;
+    public boolean isDarkTheme(Activity activity) {
+        return index == 4
+                ? Configuration.UI_MODE_NIGHT_YES == (activity.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                : index > 0;
     }
 
     public ContextThemeWrapper wrap(Context context) {
@@ -55,12 +62,7 @@ public class ThemeBase {
         activity.setTheme(style);
     }
 
-    public void applyDayNightMode() {
+    public void setDefaultNightMode() {
         AppCompatDelegate.setDefaultNightMode(dayNightMode);
-    }
-
-    public void applyDayNightMode(AppCompatDelegate delegate) {
-        applyDayNightMode();
-        delegate.setLocalNightMode(dayNightMode);
     }
 }

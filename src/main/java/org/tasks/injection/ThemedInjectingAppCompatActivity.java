@@ -14,6 +14,6 @@ public abstract class ThemedInjectingAppCompatActivity extends InjectingAppCompa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        theme.applyThemeAndStatusBarColor(this);
+        theme.applyThemeAndStatusBarColor(this, getDelegate());
     }
 }

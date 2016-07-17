@@ -48,7 +48,7 @@ public class Tasks extends InjectingApplication {
 
         tracker.setTrackingEnabled(preferences.isTrackingEnabled());
 
-        themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).applyDayNightMode();
+        themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
     }
 
     @Override

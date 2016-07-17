@@ -42,7 +42,6 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
-        getDelegate().applyDayNight();
         super.onCreate(savedInstanceState);
     }
 

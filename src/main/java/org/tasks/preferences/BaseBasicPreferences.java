@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.Preference;
 
@@ -176,8 +175,7 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         switch (palette) {
             case THEMES:
                 preferences.setInt(R.string.p_theme, index);
-                themeBase = themeCache.getThemeBase(index);
-                themeBase.applyDayNightMode(getDelegate());
+                themeCache.getThemeBase(index).setDefaultNightMode();
                 tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
                 break;
             case COLORS:
