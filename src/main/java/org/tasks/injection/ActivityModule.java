@@ -3,6 +3,8 @@ package org.tasks.injection;
 import android.app.Activity;
 
 import org.tasks.R;
+import org.tasks.fragments.TaskEditControlSetFragmentManager;
+import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
@@ -44,5 +46,11 @@ public class ActivityModule {
     @Singleton
     public ThemeAccent getThemeAccent(ThemeCache themeCache, Preferences preferences) {
         return themeCache.getThemeAccent(preferences.getInt(R.string.p_theme_accent, 1));
+    }
+
+    @Provides
+    @Singleton
+    public TaskEditControlSetFragmentManager getTaskEditControlSetFragmentManager(Preferences preferences, SyncAdapterHelper syncAdapterHelper) {
+        return new TaskEditControlSetFragmentManager(activity, preferences, syncAdapterHelper);
     }
 }

@@ -6,7 +6,6 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -14,7 +13,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -49,7 +48,6 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
-import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
@@ -64,9 +62,6 @@ import org.tasks.themes.ThemeColor;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
-import org.tasks.ui.TaskEditControlFragment;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -92,7 +87,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject StartupService startupService;
     @Inject SubtasksHelper subtasksHelper;
     @Inject TaskService taskService;
-    @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
     @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject GtasksListService gtasksListService;
@@ -153,13 +147,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         Intent intent = getIntent();
 
         TaskEditFragment taskEditFragment = getTaskEditFragment();
-        List<TaskEditControlFragment> taskEditControlFragments = null;
         if (taskEditFragment != null) {
             if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(LOAD_FILTER) || intent.hasExtra(OPEN_TASK)) {
                 taskEditFragment.save();
                 taskEditFragment = null;
-            } else {
-                taskEditControlFragments = taskEditControlSetFragmentManager.getFragmentsInDisplayOrder();
             }
         }
 
@@ -188,7 +179,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         }
 
         if (taskEditFragment != null) {
-            loadTaskEditFragment(true, taskEditFragment, taskEditControlFragments);
+            loadTaskEditFragment(taskEditFragment);
         }
     }
 
@@ -209,25 +200,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 .commit();
     }
 
-    private void loadTaskEditFragment(boolean onCreate, TaskEditFragment taskEditFragment, List<TaskEditControlFragment> taskEditControlFragments) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
+    private void loadTaskEditFragment(TaskEditFragment taskEditFragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.detail_dual : R.id.single_pane, taskEditFragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
                 .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
                 .commit();
-
-        if (onCreate) {
-            fragmentManager.executePendingTransactions();
-        }
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        for (int i = 0 ; i < taskEditControlFragments.size() ; i++) {
-            TaskEditControlFragment taskEditControlFragment = taskEditControlFragments.get(i);
-            String tag = getString(taskEditControlFragment.controlId());
-            fragmentTransaction.replace(TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS[i], taskEditControlFragment, tag);
-        }
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 
     public NavigationDrawerFragment getNavigationDrawerFragment() {
@@ -377,11 +355,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             return;
         }
         boolean isNewTask = task.getTitle().length() == 0;
-        List<TaskEditControlFragment> controlFragments = taskEditControlSetFragmentManager.createNewFragments(isNewTask, task);
-        loadTaskEditFragment(
-                false,
-                newTaskEditFragment(isNewTask, task, controlFragments.size()),
-                controlFragments);
+        loadTaskEditFragment(newTaskEditFragment(isNewTask, task));
     }
 
     @Override

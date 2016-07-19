@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -33,9 +33,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import timber.log.Timber;
-
-@Singleton
 public class TaskEditControlSetFragmentManager {
 
     public static final int[] TASK_EDIT_CONTROL_FRAGMENT_ROWS = new int[] {
@@ -78,17 +75,14 @@ public class TaskEditControlSetFragmentManager {
 
     private final Map<String, Integer> controlSetFragments = new LinkedHashMap<>();
     private final List<String> displayOrder;
-    private final FragmentManager fragmentManager;
     private final SyncAdapterHelper syncAdapterHelper;
     private int numRows;
 
-    @Inject
     public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences, SyncAdapterHelper syncAdapterHelper) {
         this.syncAdapterHelper = syncAdapterHelper;
         displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
         displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
         displayOrder.add(1, activity.getString(CommentBarFragment.TAG));
-        fragmentManager = ((TaskListActivity) activity).getSupportFragmentManager();
         String hideAlwaysTrigger = activity.getString(R.string.TEA_ctrl_hide_section_pref);
         for (numRows = 0 ; numRows < displayOrder.size() ; numRows++) {
             if (displayOrder.get(numRows).equals(hideAlwaysTrigger)) {
@@ -101,41 +95,31 @@ public class TaskEditControlSetFragmentManager {
         }
     }
 
-    public List<TaskEditControlFragment> createNewFragments(boolean isNewTask, Task task) {
-        List<TaskEditControlFragment> taskEditControlFragments = new ArrayList<>();
-        for (int i = 0; i < numRows; i++) {
-            String item = displayOrder.get(i);
-            Integer resId = controlSetFragments.get(item);
-            if (resId == null) {
-                Timber.e("Unknown task edit control %s", item);
-                continue;
-            }
-
-            TaskEditControlFragment fragment = createFragment(resId);
-            if (fragment == null) {
-                continue;
-            }
-            fragment.initialize(isNewTask, task);
-            taskEditControlFragments.add(fragment);
-        }
-        return taskEditControlFragments;
-    }
-
-    public List<TaskEditControlFragment> getFragmentsInDisplayOrder() {
-        return getFragments(displayOrder);
-    }
-
-    public List<TaskEditControlFragment> getFragmentsInPersistOrder() {
-        return getFragments(controlSetFragments.keySet());
-    }
-
-    private List<TaskEditControlFragment> getFragments(Iterable<String> tags) {
+    public List<TaskEditControlFragment> getFragmentsInPersistOrder(FragmentManager fragmentManager) {
         List<TaskEditControlFragment> fragments = new ArrayList<>();
-        for (String tag : tags) {
+        for (String tag : controlSetFragments.keySet()) {
             TaskEditControlFragment fragment = (TaskEditControlFragment) fragmentManager.findFragmentByTag(tag);
             if (fragment != null) {
                 fragments.add(fragment);
             }
+        }
+        return fragments;
+    }
+
+    public List<TaskEditControlFragment> getOrCreateFragments(FragmentManager fragmentManager, boolean isNewTask, Task task) {
+        List<TaskEditControlFragment> fragments = new ArrayList<>();
+        for (int i = 0 ; i < numRows ; i++) {
+            String tag = displayOrder.get(i);
+            TaskEditControlFragment fragment = (TaskEditControlFragment) fragmentManager.findFragmentByTag(tag);
+            if (fragment == null) {
+                Integer resId = controlSetFragments.get(tag);
+                fragment = createFragment(resId);
+                if (fragment == null) {
+                    continue;
+                }
+                fragment.initialize(isNewTask, task);
+            }
+            fragments.add(fragment);
         }
         return fragments;
     }

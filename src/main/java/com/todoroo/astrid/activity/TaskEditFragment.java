@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -63,11 +65,10 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         void taskEditFinished();
     }
 
-    public static TaskEditFragment newTaskEditFragment(boolean isNewTask, Task task, int numFragments) {
+    public static TaskEditFragment newTaskEditFragment(boolean isNewTask, Task task) {
         TaskEditFragment taskEditFragment = new TaskEditFragment();
         taskEditFragment.isNewTask = isNewTask;
         taskEditFragment.model = task;
-        taskEditFragment.numFragments = numFragments;
         return taskEditFragment;
     }
 
@@ -76,7 +77,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     private static final String EXTRA_TASK = "extra_task";
     private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
-    private static final String EXTRA_NUM_FRAGMENTS = "extra_num_fragments";
 
     @Inject TaskService taskService;
     @Inject UserActivityDao userActivityDao;
@@ -98,7 +98,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     /** true if editing started with a new task */
     private boolean isNewTask = false;
-    private int numFragments;
     /** task model */
     Task model = null;
 
@@ -124,7 +123,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         if (savedInstanceState != null) {
             model = savedInstanceState.getParcelable(EXTRA_TASK);
             isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
-            numFragments = savedInstanceState.getInt(EXTRA_NUM_FRAGMENTS);
         }
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
@@ -149,7 +147,19 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         commentsController.initialize(model, comments);
         commentsController.reloadView();
 
-        for (int i = numFragments - 2; i > 1 ; i--) {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        List<TaskEditControlFragment> taskEditControlFragments = taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager, isNewTask, model);
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        for (int i = 0 ; i < taskEditControlFragments.size() ; i++) {
+            TaskEditControlFragment taskEditControlFragment = taskEditControlFragments.get(i);
+            String tag = getString(taskEditControlFragment.controlId());
+            fragmentTransaction.replace(TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS[i], taskEditControlFragment, tag);
+        }
+        fragmentTransaction.commit();
+
+
+        for (int i = taskEditControlFragments.size() - 2; i > 1 ; i--) {
             controlSets.addView(inflater.inflate(R.layout.task_edit_row_divider, controlSets, false), i);
         }
 
@@ -200,7 +210,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     /** Save task model from values in UI components */
     public void save() {
-        List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder();
+        List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager());
         if (hasChanges(fragments)) {
             for (TaskEditControlFragment fragment : fragments) {
                 fragment.apply(model);
@@ -239,7 +249,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     @SuppressWarnings("unchecked")
     private <T extends TaskEditControlFragment> T getFragment(int tag) {
-        return (T) getActivity().getSupportFragmentManager().findFragmentByTag(getString(tag));
+        return (T) getChildFragmentManager().findFragmentByTag(getString(tag));
     }
 
     /*
@@ -263,7 +273,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     }
 
     public void discardButtonClick() {
-        if (hasChanges(taskEditControlSetFragmentManager.getFragmentsInPersistOrder())) {
+        if (hasChanges(taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager()))) {
             dialogBuilder.newMessageDialog(R.string.discard_confirmation)
                     .setPositiveButton(R.string.keep_editing, null)
                     .setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {
@@ -308,7 +318,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
         outState.putParcelable(EXTRA_TASK, model);
         outState.putBoolean(EXTRA_IS_NEW_TASK, isNewTask);
-        outState.putInt(EXTRA_NUM_FRAGMENTS, numFragments);
     }
 
     /*
