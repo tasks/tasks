@@ -54,6 +54,7 @@ import static org.tasks.dialogs.SupportThemePickerDialog.newSupportThemePickerDi
 public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implements ThemePickerDialog.ThemePickerCallback, PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
 
     private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
+    private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
 
     private static final int REQUEST_PURCHASE = 10109;
 
@@ -94,6 +95,11 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             tagData = new TagData();
             tagData.setUUID(UUIDHelper.newUUID());
         }
+        if (savedInstanceState == null) {
+            selectedTheme = tagData.getColor();
+        } else {
+            selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
+        }
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
         toolbar.setTitle(isNewTag ? getString(R.string.new_tag) : tagData.getName());
@@ -126,8 +132,14 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             imm.showSoftInput(tagName, InputMethodManager.SHOW_IMPLICIT);
         }
 
-        selectedTheme = tagData.getColor();
         updateTheme();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(EXTRA_SELECTED_THEME, selectedTheme);
     }
 
     @OnClick(R.id.theme_row)
