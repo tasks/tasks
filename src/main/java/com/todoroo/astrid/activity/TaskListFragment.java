@@ -505,15 +505,7 @@ public class TaskListFragment extends InjectingListFragment implements
                 return;
             }
 
-            final Activity activity = getActivity();
-            if (activity != null) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        refresh();
-                    }
-                });
-            }
+            refresh();
         }
     }
 

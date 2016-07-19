@@ -54,6 +54,14 @@ public class SyncAdapterHelper {
         return true;
     }
 
+    public void requestSynchronization() {
+        Account account = getAccount();
+        if (account == null) {
+            return;
+        }
+        ContentResolver.requestSync(account, AUTHORITY, new Bundle());
+    }
+
     public boolean isEnabled() {
         return preferences.getBoolean(R.string.sync_gtasks, false) && getAccount() != null;
     }

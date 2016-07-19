@@ -7,7 +7,6 @@ package com.todoroo.astrid.gtasks;
 
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -80,9 +79,5 @@ public class GtasksPreferenceService {
     /** Set Last Attempted Sync Date */
     public void recordSyncStart() {
         preferences.setBoolean(IDENTIFIER + PREF_ONGOING, true);
-    }
-
-    public int getSyncInterval() {
-        return preferences.getIntegerFromString(R.string.gtasks_GPr_interval_key, 0);
     }
 }

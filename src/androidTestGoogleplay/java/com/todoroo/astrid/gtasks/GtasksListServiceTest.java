@@ -96,7 +96,7 @@ public class GtasksListServiceTest extends DatabaseTestCase {
 
         assertEquals(
                 asList(newGtaskList(with(REMOTE_ID, "1"), with(LAST_SYNC, 0L))),
-                gtasksListService.getListsToUpdate(new TaskLists().setItems(asList(taskList))));
+                gtasksListService.getListsToUpdate(asList(taskList)));
     }
 
     private void setLists(TaskList... list) {

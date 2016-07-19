@@ -6,7 +6,6 @@
 package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
-import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.dao.StoreObjectDao;
 
 import java.util.HashSet;
@@ -80,9 +79,9 @@ public class GtasksListService {
         }
     }
 
-    public List<GtasksList> getListsToUpdate(TaskLists remoteLists) {
+    public List<GtasksList> getListsToUpdate(List<TaskList> remoteLists) {
         List<GtasksList> listsToUpdate = newArrayList();
-        for (TaskList remoteList : remoteLists.getItems()) {
+        for (TaskList remoteList : remoteLists) {
             GtasksList localList = getList(remoteList.getId());
             String listName = localList.getName();
             Long lastSync = localList.getLastSync();

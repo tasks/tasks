@@ -30,7 +30,6 @@ import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -46,7 +45,9 @@ import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
+import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
+import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.service.TaskService;
@@ -82,6 +83,8 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  */
 public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
 
+    private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
+
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject Broadcaster broadcaster;
     @Inject TaskService taskService;
@@ -93,7 +96,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     @Inject GtasksInvoker gtasksInvoker;
     @Inject TaskDao taskDao;
     @Inject MetadataDao metadataDao;
-
+    @Inject GtasksMetadata gtasksMetadataFactory;
 
     public GoogleTaskSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -144,12 +147,13 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     }
 
     private void synchronize() {
-        TaskLists remoteLists = null;
+        pushLocalChanges();
+
+        List<TaskList> gtaskLists = new ArrayList<>();
         try {
-            List<TaskList> gtaskLists = new ArrayList<>();
             String nextPageToken = null;
             do {
-                remoteLists = gtasksInvoker.allGtaskLists(nextPageToken);
+                TaskLists remoteLists = gtasksInvoker.allGtaskLists(nextPageToken);
                 if (remoteLists == null) {
                     break;
                 }
@@ -167,63 +171,145 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             Timber.e(e, e.getMessage());
         }
 
-        if (remoteLists == null) {
+        for (final GtasksList list : gtasksListService.getListsToUpdate(gtaskLists)) {
+            fetchAndApplyRemoteChanges(list);
+        }
+    }
+
+    private void pushLocalChanges() {
+        List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES)
+                .join(Join.left(Metadata.TABLE, Criterion.and(MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK))))
+                .where(Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC), GtasksMetadata.ID.eq(""))));
+        for (Task task : tasks) {
+            try {
+                pushTask(task, task.getMergedValues(), gtasksInvoker);
+            } catch (IOException e) {
+                Timber.e(e, e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Synchronize with server when data changes
+     */
+    private void pushTask(Task task, ContentValues values, GtasksInvoker invoker) throws IOException {
+        for (Metadata deleted : getDeleted(task.getId())) {
+            gtasksInvoker.deleteGtask(deleted.getValue(GtasksMetadata.LIST_ID), deleted.getValue(GtasksMetadata.ID));
+            metadataDao.delete(deleted.getId());
+        }
+
+        Metadata gtasksMetadata = metadataDao.getFirstActiveByTaskAndKey(task.getId(), GtasksMetadata.METADATA_KEY);
+        com.google.api.services.tasks.model.Task remoteModel;
+        boolean newlyCreated = false;
+
+        String remoteId;
+        String listId = gtasksPreferenceService.getDefaultList();
+        if (listId == null) {
+            com.google.api.services.tasks.model.TaskList defaultList = invoker.getGtaskList(DEFAULT_LIST);
+            if (defaultList != null) {
+                listId = defaultList.getId();
+                gtasksPreferenceService.setDefaultList(listId);
+            } else {
+                listId = DEFAULT_LIST;
+            }
+        }
+
+        if (gtasksMetadata == null || !gtasksMetadata.containsNonNullValue(GtasksMetadata.ID) ||
+                TextUtils.isEmpty(gtasksMetadata.getValue(GtasksMetadata.ID))) { //Create case
+            if (gtasksMetadata == null) {
+                gtasksMetadata = gtasksMetadataFactory.createEmptyMetadata(task.getId());
+            }
+            if (gtasksMetadata.containsNonNullValue(GtasksMetadata.LIST_ID)) {
+                listId = gtasksMetadata.getValue(GtasksMetadata.LIST_ID);
+            }
+
+            remoteModel = new com.google.api.services.tasks.model.Task();
+            newlyCreated = true;
+        } else { //update case
+            remoteId = gtasksMetadata.getValue(GtasksMetadata.ID);
+            listId = gtasksMetadata.getValue(GtasksMetadata.LIST_ID);
+            remoteModel = new com.google.api.services.tasks.model.Task();
+            remoteModel.setId(remoteId);
+        }
+
+        //If task was newly created but without a title, don't sync--we're in the middle of
+        //creating a task which may end up being cancelled. Also don't sync new but already
+        //deleted tasks
+        if (newlyCreated &&
+                (!values.containsKey(Task.TITLE.name) || TextUtils.isEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
             return;
         }
 
-        for (final GtasksList list : gtasksListService.getListsToUpdate(remoteLists)) {
-            synchronizeListHelper(list, gtasksInvoker);
+        //Update the remote model's changed properties
+        if (values.containsKey(Task.DELETION_DATE.name) && task.isDeleted()) {
+            remoteModel.setDeleted(true);
         }
 
-        pushUpdated(gtasksInvoker);
-    }
-
-    private synchronized void pushUpdated(GtasksInvoker invoker) {
-        TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).
-                join(Join.left(Metadata.TABLE, Criterion.and(MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(
-                Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC), Metadata.KEY.isNull())));
-        pushTasks(queued, invoker);
-    }
-
-    private synchronized void pushTasks(TodorooCursor<Task> queued, GtasksInvoker invoker) {
-        try {
-            for (queued.moveToFirst(); !queued.isAfterLast(); queued.moveToNext()) {
-                Task task = new Task(queued);
-                try {
-                    gtasksSyncService.pushTaskOnSave(task, task.getMergedValues(), invoker);
-                } catch (IOException e) {
-                    Timber.e(e, e.getMessage());
-                }
+        if (values.containsKey(Task.TITLE.name)) {
+            remoteModel.setTitle(task.getTitle());
+        }
+        if (values.containsKey(Task.NOTES.name)) {
+            remoteModel.setNotes(task.getNotes());
+        }
+        if (values.containsKey(Task.DUE_DATE.name) && task.hasDueDate()) {
+            remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getDueDate()));
+        }
+        if (values.containsKey(Task.COMPLETION_DATE.name)) {
+            if (task.isCompleted()) {
+                remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getCompletionDate()));
+                remoteModel.setStatus("completed"); //$NON-NLS-1$
+            } else {
+                remoteModel.setCompleted(null);
+                remoteModel.setStatus("needsAction"); //$NON-NLS-1$
             }
-        } finally {
-            queued.close();
         }
+
+        if (!newlyCreated) {
+            try {
+                invoker.updateGtask(listId, remoteModel);
+            } catch(HttpNotFoundException e) {
+                Timber.e("Received 404 response, deleting %s", gtasksMetadata);
+                metadataDao.delete(gtasksMetadata.getId());
+                return;
+            }
+        } else {
+            String parent = gtasksSyncService.getRemoteParentId(gtasksMetadata);
+            String priorSibling = gtasksSyncService.getRemoteSiblingId(listId, gtasksMetadata);
+
+            com.google.api.services.tasks.model.Task created = invoker.createGtask(listId, remoteModel, parent, priorSibling);
+
+            if (created != null) {
+                //Update the metadata for the newly created task
+                gtasksMetadata.setValue(GtasksMetadata.ID, created.getId());
+                gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
+            } else {
+                return;
+            }
+        }
+
+        task.setModificationDate(DateUtilities.now());
+        gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
+        metadataDao.persist(gtasksMetadata);
+        task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+        taskDao.saveExistingWithSqlConstraintCheck(task);
     }
 
-    private synchronized void synchronizeListHelper(GtasksList list, GtasksInvoker invoker) {
+    private List<Metadata> getDeleted(long taskId) {
+        return metadataDao.toList(Criterion.and(
+                MetadataDao.MetadataCriteria.byTaskAndwithKey(taskId, GtasksMetadata.METADATA_KEY),
+                MetadataDao.MetadataCriteria.isDeleted()));
+    }
+
+    private synchronized void fetchAndApplyRemoteChanges(GtasksList list) {
         String listId = list.getRemoteId();
         long lastSyncDate = list.getLastSync();
-
-        /**
-         * Find tasks which have been associated with the list internally, but have not yet been
-         * pushed to Google Tasks (and so haven't yet got a valid ID).
-         */
-        Criterion not_pushed_tasks = Criterion.and(
-                Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
-                GtasksMetadata.LIST_ID.eq(listId),
-                GtasksMetadata.ID.eq("")
-        );
-        TodorooCursor<Task> qs = taskService.query(Query.select(Task.PROPERTIES).
-                join(Join.left(Metadata.TABLE, Criterion.and(MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(not_pushed_tasks)
-        );
-        pushTasks(qs, invoker);
 
         boolean includeDeletedAndHidden = lastSyncDate != 0;
         try {
             List<com.google.api.services.tasks.model.Task> tasks = new ArrayList<>();
             String nextPageToken = null;
             do {
-                Tasks taskList = invoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
+                Tasks taskList = gtasksInvoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
                         includeDeletedAndHidden, lastSyncDate + 1000L, nextPageToken);
                 if (taskList == null) {
                     break;

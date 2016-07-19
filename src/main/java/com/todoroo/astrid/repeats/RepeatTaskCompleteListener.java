@@ -105,7 +105,6 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         task.setReminderSnooze(0L);
         task.setCompletionDate(0L);
         task.setDueDateAdjustingHideUntil(newDueDate);
-        task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
 
         gcalHelper.rescheduleRepeatingTask(task);
         taskService.save(task);
