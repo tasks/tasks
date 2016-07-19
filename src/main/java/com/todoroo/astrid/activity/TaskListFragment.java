@@ -115,8 +115,6 @@ public class TaskListFragment extends InjectingListFragment implements
     private static final String EXTRA_FILTER = "extra_filter";
     private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
 
-    public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
-
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
     private static final int REQUEST_EDIT_FILTER = 11544;
 

@@ -105,6 +105,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     /** For indicating the new list screen should be launched at fragment setup time */
     public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
+    private static final String FRAG_TAG_TASK_LIST = "frag_tag_task_list";
 
     public static final String OPEN_FILTER = "open_filter"; //$NON-NLS-1$
     public static final String LOAD_FILTER = "load_filter";
@@ -195,8 +196,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction()
-                .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT)
-                .addToBackStack(TaskListFragment.TAG_TASKLIST_FRAGMENT)
+                .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, FRAG_TAG_TASK_LIST)
                 .commit();
     }
 
@@ -378,8 +378,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             } else {
                 taskEditFragment.discardButtonClick();
             }
-        } else if (!isFinishing()) {
-            finish();
+        } else {
+            super.onBackPressed();
         }
     }
 
@@ -417,7 +417,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     public TaskListFragment getTaskListFragment() {
         return (TaskListFragment) getSupportFragmentManager()
-                .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
+                .findFragmentByTag(FRAG_TAG_TASK_LIST);
     }
 
     public TaskEditFragment getTaskEditFragment() {
