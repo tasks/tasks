@@ -1,6 +1,6 @@
 package org.tasks.reminders;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -68,7 +68,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
         if (intent.hasExtra(EXTRA_SNOOZE_TIME)) {
             snoozeForTime(new DateTime(intent.getLongExtra(EXTRA_SNOOZE_TIME, 0L)));
         } else {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             SnoozeDialog fragmentByTag = (SnoozeDialog) fragmentManager.findFragmentByTag(FRAG_TAG_SNOOZE_DIALOG);
             if (fragmentByTag == null) {
                 fragmentByTag = new SnoozeDialog();

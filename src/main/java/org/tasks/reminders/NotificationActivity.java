@@ -1,6 +1,6 @@
 package org.tasks.reminders;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -46,7 +46,7 @@ public class NotificationActivity extends InjectingAppCompatActivity implements 
 
         taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         NotificationDialog fragment = (NotificationDialog) fragmentManager.findFragmentByTag(FRAG_TAG_NOTIFICATION_FRAGMENT);
         if (fragment == null) {
             fragment = new NotificationDialog();

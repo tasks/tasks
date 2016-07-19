@@ -1,6 +1,6 @@
 package org.tasks.activities;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,7 +49,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         AddAttachmentDialog dialog = (AddAttachmentDialog) fragmentManager.findFragmentByTag(FRAG_TAG_ATTACHMENT_DIALOG);
         if (dialog == null) {
             dialog = new AddAttachmentDialog();

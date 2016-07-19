@@ -50,6 +50,8 @@ public interface BaseActivityComponent {
 
     DialogFragmentComponent plus(DialogFragmentModule dialogFragmentModule);
 
+    NativeDialogFragmentComponent plus(NativeDialogFragmentModule nativeDialogFragmentModule);
+
     void inject(AACRecordingActivity aacRecordingActivity);
 
     void inject(CustomFilterActivity customFilterActivity);

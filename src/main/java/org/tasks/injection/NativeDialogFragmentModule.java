@@ -1,16 +1,16 @@
 package org.tasks.injection;
 
 import android.app.Activity;
-import android.support.v4.app.DialogFragment;
+import android.app.DialogFragment;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class DialogFragmentModule {
+public class NativeDialogFragmentModule {
     private DialogFragment dialogFragment;
 
-    public DialogFragmentModule(DialogFragment dialogFragment) {
+    public NativeDialogFragmentModule(DialogFragment dialogFragment) {
         this.dialogFragment = dialogFragment;
     }
 

@@ -1,6 +1,6 @@
 package org.tasks.activities;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -64,7 +64,7 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
     }
 
     private void showDialog() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         if (fragmentByTag == null) {
             fragmentByTag = new CalendarSelectionDialog();

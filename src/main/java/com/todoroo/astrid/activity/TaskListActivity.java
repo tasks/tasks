@@ -6,8 +6,7 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -15,6 +14,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -182,7 +182,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         loadTaskListFragment(taskListFragment);
 
         if (isDoublePaneLayout()) {
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail_dual, new EmptyTaskEditFragment())
                     .commit();
         }
@@ -201,7 +201,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         themeColor.applyStyle(this);
         themeColor.applyTaskDescription(this, filter.listingTitle);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, TaskListFragment.TAG_TASKLIST_FRAGMENT)
@@ -210,7 +210,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     private void loadTaskEditFragment(boolean onCreate, TaskEditFragment taskEditFragment, List<TaskEditControlFragment> taskEditControlFragments) {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.detail_dual : R.id.single_pane, taskEditFragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
                 .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
@@ -220,7 +220,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             fragmentManager.executePendingTransactions();
         }
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for (int i = 0 ; i < taskEditControlFragments.size() ; i++) {
             TaskEditControlFragment taskEditControlFragment = taskEditControlFragments.get(i);
             String tag = getString(taskEditControlFragment.controlId());
@@ -231,7 +231,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     public NavigationDrawerFragment getNavigationDrawerFragment() {
-        return (NavigationDrawerFragment) getFragmentManager()
+        return (NavigationDrawerFragment) getSupportFragmentManager()
                 .findFragmentById(NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
     }
 
@@ -442,12 +442,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     public TaskListFragment getTaskListFragment() {
-        return (TaskListFragment) getFragmentManager()
+        return (TaskListFragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
     }
 
     public TaskEditFragment getTaskEditFragment() {
-        return (TaskEditFragment) getFragmentManager()
+        return (TaskEditFragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
     }
 
@@ -507,7 +507,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     @Override
     public void taskEditFinished() {
-        getFragmentManager().popBackStackImmediate(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().popBackStackImmediate(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         hideKeyboard();
     }
 

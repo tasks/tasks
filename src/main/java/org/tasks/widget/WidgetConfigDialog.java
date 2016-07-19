@@ -2,7 +2,6 @@ package org.tasks.widget;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.FragmentManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static org.tasks.dialogs.ThemePickerDialog.newThemePickerDialog;
+import static org.tasks.dialogs.SupportThemePickerDialog.newSupportThemePickerDialog;
 
 public class WidgetConfigDialog extends InjectingDialogFragment implements SeekBar.OnSeekBarChangeListener {
 
@@ -190,18 +189,14 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
     @OnClick(R.id.theme_selection)
     public void showThemeSelection() {
-        FragmentManager fragmentManager = getFragmentManager();
-        if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_SELECTION) == null) {
-            newThemePickerDialog(ThemePickerDialog.ColorPalette.WIDGET_BACKGROUND).show(fragmentManager, FRAG_TAG_THEME_SELECTION);
-        }
+        newSupportThemePickerDialog(ThemePickerDialog.ColorPalette.WIDGET_BACKGROUND)
+                .show(getChildFragmentManager(), FRAG_TAG_THEME_SELECTION);
     }
 
     @OnClick(R.id.theme_color)
     public void showColorSelection() {
-        FragmentManager fragmentManager = getFragmentManager();
-        if (fragmentManager.findFragmentByTag(FRAG_TAG_COLOR_SELECTION) == null) {
-            newThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS).show(fragmentManager, FRAG_TAG_COLOR_SELECTION);
-        }
+        newSupportThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
+                .show(getChildFragmentManager(), FRAG_TAG_COLOR_SELECTION);
     }
 
     @Override

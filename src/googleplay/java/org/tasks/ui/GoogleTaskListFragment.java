@@ -1,6 +1,5 @@
 package org.tasks.ui;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,7 +18,7 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.R;
-import org.tasks.activities.GoogleTaskListSelectionDialog;
+import org.tasks.activities.SupportGoogleTaskListPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.injection.FragmentComponent;
@@ -111,12 +110,8 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @OnClick(R.id.google_task_list)
     void clickGoogleTaskList(View view) {
-        FragmentManager fragmentManager = getFragmentManager();
-        GoogleTaskListSelectionDialog dialog = (GoogleTaskListSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
-        if (dialog == null) {
-            dialog = new GoogleTaskListSelectionDialog();
-            dialog.show(fragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
-        }
+        new SupportGoogleTaskListPicker()
+                .show(getChildFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
     }
 
     @Override

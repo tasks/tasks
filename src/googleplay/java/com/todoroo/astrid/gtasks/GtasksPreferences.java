@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
 import org.tasks.R;
 import org.tasks.activities.ClearGtaskDataActivity;
-import org.tasks.activities.GoogleTaskListSelectionDialog;
+import org.tasks.activities.NativeGoogleTaskListPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
@@ -88,12 +87,8 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
         getPref(R.string.p_gtasks_default_list).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                FragmentManager fragmentManager = getFragmentManager();
-                GoogleTaskListSelectionDialog dialog = (GoogleTaskListSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
-                if (dialog == null) {
-                    dialog = new GoogleTaskListSelectionDialog();
-                    dialog.show(fragmentManager, FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
-                }
+                new NativeGoogleTaskListPicker()
+                        .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
                 return false;
             }
         });

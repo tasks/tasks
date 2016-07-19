@@ -1,6 +1,6 @@
 package org.tasks.widget;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,7 +58,7 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
         if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
         } else {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             widgetConfigDialog = (WidgetConfigDialog) fragmentManager.findFragmentByTag(FRAG_TAG_WIDGET_CONFIG);
             if (widgetConfigDialog == null) {
                 widgetConfigDialog = WidgetConfigDialog.newWidgetConfigDialog(appWidgetId);

@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
 import android.app.Activity;
-import android.app.ListFragment;
+import android.support.v4.app.ListFragment;
 
 public abstract class InjectingListFragment extends ListFragment {
 

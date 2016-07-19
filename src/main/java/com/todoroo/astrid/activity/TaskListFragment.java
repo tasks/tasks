@@ -337,7 +337,7 @@ public class TaskListFragment extends InjectingListFragment implements
                 voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
                 return true;
             case R.id.menu_sort:
-                SortDialog.newSortDialog(hasDraggableOption()).show(getFragmentManager(), FRAG_TAG_SORT_DIALOG);
+                SortDialog.newSortDialog(hasDraggableOption()).show(getChildFragmentManager(), FRAG_TAG_SORT_DIALOG);
                 return true;
             case R.id.menu_show_hidden:
                 item.setChecked(!item.isChecked());

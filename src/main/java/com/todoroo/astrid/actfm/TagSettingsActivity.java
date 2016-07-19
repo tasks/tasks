@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,7 +49,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 import static android.text.TextUtils.isEmpty;
-import static org.tasks.dialogs.ThemePickerDialog.newThemePickerDialog;
+import static org.tasks.dialogs.SupportThemePickerDialog.newSupportThemePickerDialog;
 
 public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implements ThemePickerDialog.ThemePickerCallback, PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
 
@@ -133,11 +132,8 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     @OnClick(R.id.theme_row)
     protected void showThemePicker() {
-        FragmentManager fragmentManager = getFragmentManager();
-        if (fragmentManager.findFragmentByTag(FRAG_TAG_COLOR_PICKER) == null) {
-            newThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
-                    .show(fragmentManager, FRAG_TAG_COLOR_PICKER);
-        }
+        newSupportThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
+                .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
     }
 
     @OnClick(R.id.clear)

@@ -1,9 +1,10 @@
 package org.tasks.fragments;
 
 import android.app.Activity;
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -87,7 +88,7 @@ public class TaskEditControlSetFragmentManager {
         displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
         displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
         displayOrder.add(1, activity.getString(CommentBarFragment.TAG));
-        fragmentManager = activity.getFragmentManager();
+        fragmentManager = ((TaskListActivity) activity).getSupportFragmentManager();
         String hideAlwaysTrigger = activity.getString(R.string.TEA_ctrl_hide_section_pref);
         for (numRows = 0 ; numRows < displayOrder.size() ; numRows++) {
             if (displayOrder.get(numRows).equals(hideAlwaysTrigger)) {

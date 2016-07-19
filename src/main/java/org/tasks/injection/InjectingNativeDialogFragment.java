@@ -1,9 +1,9 @@
 package org.tasks.injection;
 
 import android.app.Activity;
-import android.support.v4.app.DialogFragment;
+import android.app.DialogFragment;
 
-public abstract class InjectingDialogFragment extends DialogFragment {
+public abstract class InjectingNativeDialogFragment extends DialogFragment {
     private boolean injected;
 
     @Override
@@ -13,10 +13,10 @@ public abstract class InjectingDialogFragment extends DialogFragment {
         if (!injected) {
             inject(((InjectingActivity) activity)
                     .getComponent()
-                    .plus(new DialogFragmentModule(this)));
+                    .plus(new NativeDialogFragmentModule(this)));
             injected = true;
         }
     }
 
-    protected abstract void inject(DialogFragmentComponent component);
+    protected abstract void inject(NativeDialogFragmentComponent component);
 }

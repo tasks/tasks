@@ -1,7 +1,6 @@
 package org.tasks.preferences;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +29,7 @@ import org.tasks.themes.ThemeColor;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static org.tasks.dialogs.ThemePickerDialog.newThemePickerDialog;
+import static org.tasks.dialogs.NativeThemePickerDialog.newNativeThemePickerDialog;
 import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
 
 public abstract class BaseBasicPreferences extends InjectingPreferenceActivity implements
@@ -70,11 +69,8 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         themePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                FragmentManager fragmentManager = getFragmentManager();
-                if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_PICKER) == null) {
-                    newThemePickerDialog(ThemePickerDialog.ColorPalette.THEMES)
-                            .show(fragmentManager, FRAG_TAG_THEME_PICKER);
-                }
+                newNativeThemePickerDialog(ThemePickerDialog.ColorPalette.THEMES)
+                        .show(getFragmentManager(), FRAG_TAG_THEME_PICKER);
                 return false;
             }
         });
@@ -83,11 +79,8 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         colorPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                FragmentManager fragmentManager = getFragmentManager();
-                if (fragmentManager.findFragmentByTag(FRAG_TAG_THEME_PICKER) == null) {
-                    newThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
-                            .show(fragmentManager, FRAG_TAG_COLOR_PICKER);
-                }
+                newNativeThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
+                        .show(getFragmentManager(), FRAG_TAG_COLOR_PICKER);
                 return false;
             }
         });
@@ -96,11 +89,8 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         accentPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                FragmentManager fragmentManager = getFragmentManager();
-                if (fragmentManager.findFragmentByTag(FRAG_TAG_ACCENT_PICKER) == null) {
-                    newThemePickerDialog(ThemePickerDialog.ColorPalette.ACCENTS)
-                            .show(fragmentManager, FRAG_TAG_ACCENT_PICKER);
-                }
+                newNativeThemePickerDialog(ThemePickerDialog.ColorPalette.ACCENTS)
+                        .show(getFragmentManager(), FRAG_TAG_ACCENT_PICKER);
                 return false;
             }
         });

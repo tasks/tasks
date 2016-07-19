@@ -2,7 +2,6 @@ package org.tasks.locale;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -10,9 +9,8 @@ import com.google.common.base.Function;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.injection.DialogFragmentComponent;
-import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingDialogFragment;
+import org.tasks.injection.InjectingNativeDialogFragment;
+import org.tasks.injection.NativeDialogFragmentComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ import javax.inject.Inject;
 import static com.google.common.collect.Lists.transform;
 
 
-public class LocalePickerDialog extends InjectingDialogFragment {
+public class LocalePickerDialog extends InjectingNativeDialogFragment {
 
     public static LocalePickerDialog newLocalePickerDialog() {
         return new LocalePickerDialog();
@@ -33,7 +31,6 @@ public class LocalePickerDialog extends InjectingDialogFragment {
     }
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject @ForApplication Context context;
     @Inject Locale locale;
 
     private LocaleSelectionHandler callback;
@@ -71,7 +68,7 @@ public class LocalePickerDialog extends InjectingDialogFragment {
     }
 
     @Override
-    protected void inject(DialogFragmentComponent component) {
+    protected void inject(NativeDialogFragmentComponent component) {
         component.inject(this);
     }
 }

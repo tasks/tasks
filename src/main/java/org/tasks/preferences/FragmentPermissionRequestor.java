@@ -1,7 +1,6 @@
 package org.tasks.preferences;
 
-import android.app.Fragment;
-import android.support.v13.app.FragmentCompat;
+import android.support.v4.app.Fragment;
 
 import javax.inject.Inject;
 
@@ -17,6 +16,6 @@ public class FragmentPermissionRequestor extends PermissionRequestor {
 
     @Override
     protected void requestPermissions(String[] permissions, int rc) {
-        FragmentCompat.requestPermissions(fragment, permissions, rc);
+        fragment.requestPermissions(permissions, rc);
     }
 }

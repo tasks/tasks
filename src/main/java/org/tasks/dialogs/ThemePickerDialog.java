@@ -1,12 +1,10 @@
 package org.tasks.dialogs;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import org.tasks.R;
-import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForApplication;
-import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
@@ -26,22 +22,9 @@ import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
-public class ThemePickerDialog extends InjectingDialogFragment {
+public class ThemePickerDialog {
 
-    private static final String EXTRA_COLOR_PALETTE = "extra_color_palette";
-
-    public enum ColorPalette {
-        THEMES,
-        COLORS,
-        ACCENTS,
-        WIDGET_BACKGROUND
-    }
-
-    public static ThemePickerDialog newThemePickerDialog(ColorPalette palette) {
-        ThemePickerDialog dialog = new ThemePickerDialog();
-        dialog.palette = palette;
-        return dialog;
-    }
+    public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND}
 
     public interface ThemePickerCallback {
         void themePicked(ColorPalette palette, int index);
@@ -49,27 +32,28 @@ public class ThemePickerDialog extends InjectingDialogFragment {
         void initiateThemePurchase();
     }
 
-    @Inject DialogBuilder dialogBuilder;
-    @Inject @ForApplication Context context;
-    @Inject Preferences preferences;
-    @Inject Theme theme;
-    @Inject ThemeCache themeCache;
+    private DialogBuilder dialogBuilder;
+    private Context context;
+    private Preferences preferences;
+    private ThemeCache themeCache;
+    private Theme theme;
 
-    private ThemePickerCallback callback;
-    private ColorPalette palette;
+    @Inject
+    public ThemePickerDialog(DialogBuilder dialogBuilder, @ForApplication Context context, Preferences preferences,
+                             Theme theme, ThemeCache themeCache) {
+        this.dialogBuilder = dialogBuilder;
+        this.context = context;
+        this.preferences = preferences;
+        this.theme = theme;
+        this.themeCache = themeCache;
+    }
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        if (savedInstanceState != null) {
-            palette = (ColorPalette) savedInstanceState.getSerializable(EXTRA_COLOR_PALETTE);
-        }
-
+    public AlertDialog createDialog(final ColorPalette palette, final ThemePickerCallback callback) {
         if (palette == ColorPalette.THEMES || palette == ColorPalette.WIDGET_BACKGROUND) {
             theme = theme.withBaseTheme(themeCache.getThemeBase(2));
         }
 
-        final String[] themes = getResources().getStringArray(getNameRes());
+        final String[] themes = context.getResources().getStringArray(getNameRes(palette));
 
         final boolean purchasedThemes = preferences.hasPurchase(R.string.p_purchased_themes);
 
@@ -80,11 +64,11 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                 TextView textView = (TextView) (convertView == null
                         ? inflater.inflate(R.layout.color_selection_row, parent, false)
                         : convertView);
-                Drawable original = getResources().getDrawable(purchasedThemes || position < 2
+                Drawable original = context.getResources().getDrawable(purchasedThemes || position < 2
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());
-                DrawableCompat.setTint(wrapped, getDisplayColor(position));
+                DrawableCompat.setTint(wrapped, getDisplayColor(palette, position));
                 if (atLeastJellybeanMR1()) {
                     textView.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
                 } else {
@@ -110,7 +94,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
                 .show();
     }
 
-    private int getNameRes() {
+    private int getNameRes(ColorPalette palette) {
         switch (palette) {
             case COLORS:
                 return R.array.colors;
@@ -123,7 +107,7 @@ public class ThemePickerDialog extends InjectingDialogFragment {
         }
     }
 
-    private int getDisplayColor(int index) {
+    private int getDisplayColor(ColorPalette palette, int index) {
         switch (palette) {
             case COLORS:
                 return themeCache.getThemeColor(index).getPrimaryColor();
@@ -134,24 +118,5 @@ public class ThemePickerDialog extends InjectingDialogFragment {
             default:
                 return themeCache.getThemeBase(index).getContentBackground();
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable(EXTRA_COLOR_PALETTE, palette);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        callback = (ThemePickerCallback) activity;
-    }
-
-    @Override
-    protected void inject(DialogFragmentComponent component) {
-        component.inject(this);
     }
 }

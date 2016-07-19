@@ -1,6 +1,6 @@
 package org.tasks.reminders;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,7 +61,7 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements Mi
         } else if (intent.getBooleanExtra(EXTRA_CALL_LATER, false)) {
             callLater();
         } else {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             MissedCallDialog fragment = (MissedCallDialog) fragmentManager.findFragmentByTag(FRAG_TAG_MISSED_CALL_FRAGMENT);
             if (fragment == null) {
                 fragment = new MissedCallDialog();

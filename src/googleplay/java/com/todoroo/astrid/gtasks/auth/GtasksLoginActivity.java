@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.gtasks.auth;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,7 +53,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
             Toast.makeText(this, R.string.gtasks_GLA_noaccounts, Toast.LENGTH_LONG).show();
             finish();
         } else {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             AccountSelectionDialog fragmentByTag = (AccountSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_ACCOUNT_SELECTION_DIALOG);
             if (fragmentByTag == null) {
                 fragmentByTag = new AccountSelectionDialog();
