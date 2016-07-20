@@ -100,7 +100,7 @@
     <style name="TaskListView" parent="ListView" />
 
     <style name="divider">
-        <item name="android:background">?attr/dividerColor</item>
+        <item name="android:background">@color/divider</item>
     </style>
 
     <style name="vertical_divider" parent="divider">

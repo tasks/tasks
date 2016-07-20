@@ -16,7 +16,6 @@
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorTertiary">@color/text_tertiary</item>
-        <item name="dividerColor">@color/divider</item>
     </style>
 
     <style name="TasksOverride" parent="Tasks">
