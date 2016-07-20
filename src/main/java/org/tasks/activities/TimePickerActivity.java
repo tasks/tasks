@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 
-public class TimePickerActivity extends InjectingAppCompatActivity implements TimePickerDialog.OnTimeSetListener, DialogInterface.OnDismissListener {
+public class TimePickerActivity extends InjectingAppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private static final String FRAG_TAG_TIME_PICKER = "frag_tag_time_picker";
 
@@ -31,7 +31,6 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
     @Inject ThemeAccent themeAccent;
 
     private DateTime initial;
-    private boolean isChangingConfigurations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,12 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
             dialog.setAccentColor(themeAccent.getAccentColor());
             dialog.show(fragmentManager, FRAG_TAG_TIME_PICKER);
         }
-        dialog.setOnDismissListener(this);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                finish();
+            }
+        });
         dialog.setOnTimeSetListener(this);
     }
 
@@ -66,20 +70,6 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
                     .withMinuteOfHour(minutes)
                     .getMillis());
         }});
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        isChangingConfigurations = true;
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        if (isChangingConfigurations) {
-            isChangingConfigurations = false;
-            return;
-        }
         finish();
     }
 }

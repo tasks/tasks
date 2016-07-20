@@ -18,8 +18,7 @@ import javax.inject.Inject;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-public class DatePickerActivity extends InjectingAppCompatActivity
-        implements DatePickerDialog.OnDateSetListener, DialogInterface.OnDismissListener {
+public class DatePickerActivity extends InjectingAppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
 
@@ -44,7 +43,12 @@ public class DatePickerActivity extends InjectingAppCompatActivity
             dialog.setAccentColor(themeAccent.getAccentColor());
             dialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
         }
-        dialog.setOnDismissListener(this);
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                finish();
+            }
+        });
         dialog.setOnDateSetListener(this);
     }
 
@@ -58,10 +62,6 @@ public class DatePickerActivity extends InjectingAppCompatActivity
         setResult(RESULT_OK, new Intent() {{
             putExtra(EXTRA_TIMESTAMP, new DateTime(year, monthOfYear + 1, dayOfMonth).getMillis());
         }});
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
         finish();
     }
 }

@@ -210,6 +210,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 startActivityForResult(new Intent(context, DatePickerActivity.class) {{
                     putExtra(DatePickerActivity.EXTRA_TIMESTAMP, date);
                 }}, REQUEST_DATE);
+                updateDueDateOptions();
                 break;
         }
     }
@@ -238,6 +239,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 startActivityForResult(new Intent(context, TimePickerActivity.class) {{
                     putExtra(TimePickerActivity.EXTRA_TIMESTAMP, getDueDateTime());
                 }}, REQUEST_TIME);
+                updateDueTimeOptions();
                 break;
         }
     }
