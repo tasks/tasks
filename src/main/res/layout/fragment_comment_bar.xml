@@ -18,6 +18,8 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_weight="1"
         tools:ignore="ContentDescription" />
 
@@ -32,6 +34,8 @@
         android:hint="@string/TVA_add_comment"
         android:imeOptions="flagNoExtractUi|actionDone"
         android:inputType="textCapSentences"
+        android:nextFocusUp="@id/commentField"
+        android:nextFocusLeft="@id/commentField"
         android:textAlignment="viewStart"
         android:paddingLeft="@dimen/keyline_second"
         android:paddingStart="@dimen/keyline_second"
