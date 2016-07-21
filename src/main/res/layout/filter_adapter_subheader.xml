@@ -13,7 +13,7 @@
         android:paddingEnd="0dp"
         android:paddingLeft="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
-        android:gravity="center_vertical"
+        android:gravity="start|center_vertical"
         android:id="@+id/subheader_text"
         android:textColor="?attr/asTextColor"
         android:textSize="14sp"

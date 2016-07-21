@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:ellipsize="end"
-                    android:gravity="center_vertical"
+                    android:gravity="start|center_vertical"
                     android:textAlignment="viewStart"
                     android:maxLines="1"
                     android:paddingLeft="0dp"

@@ -45,6 +45,7 @@
         android:layout_toLeftOf="@id/size"
         android:layout_toRightOf="@id/icon"
         android:layout_toStartOf="@id/size"
+        android:gravity="start"
         android:textAlignment="viewStart"
         android:checked="false"
         android:ellipsize="end"

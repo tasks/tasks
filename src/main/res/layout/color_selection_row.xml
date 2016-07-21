@@ -18,7 +18,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:drawablePadding="@dimen/keyline_second"
-    android:gravity="center_vertical"
+    android:gravity="start|center_vertical"
     android:textAlignment="viewStart"
     android:minHeight="?attr/listPreferredItemHeightSmall"
     android:paddingEnd="@dimen/keyline_first"

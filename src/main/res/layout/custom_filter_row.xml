@@ -64,7 +64,7 @@
             android:paddingEnd="5dp"
             android:textAlignment="viewStart"
             android:textSize="18sp"
-            android:gravity="center_vertical"
+            android:gravity="start|center_vertical"
             style="@style/TextAppearance"/>
 
     </LinearLayout>

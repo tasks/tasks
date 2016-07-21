@@ -29,6 +29,7 @@
                 android:layout_toLeftOf="@id/selected_filter"
                 android:layout_toStartOf="@id/selected_filter"
                 android:text="@string/filter"
+                android:gravity="start"
                 android:textAlignment="viewStart"
                 android:textColor="?attr/asTextColor"
                 android:textSize="18sp" />
@@ -56,6 +57,7 @@
                 android:layout_toLeftOf="@id/selected_theme"
                 android:layout_toStartOf="@id/selected_theme"
                 android:text="@string/theme"
+                android:gravity="start"
                 android:textAlignment="viewStart"
                 android:textColor="?attr/asTextColor"
                 android:textSize="18sp" />
@@ -83,6 +85,7 @@
                 android:layout_toLeftOf="@id/selected_color"
                 android:layout_toStartOf="@id/selected_color"
                 android:text="@string/color"
+                android:gravity="start"
                 android:textAlignment="viewStart"
                 android:textColor="?attr/asTextColor"
                 android:textSize="18sp" />
@@ -108,6 +111,7 @@
                 android:layout_toLeftOf="@id/opacity_value"
                 android:layout_toStartOf="@id/opacity_value"
                 android:text="@string/opacity"
+                android:gravity="start"
                 android:textAlignment="viewStart"
                 android:textColor="?attr/asTextColor"
                 android:textSize="18sp" />

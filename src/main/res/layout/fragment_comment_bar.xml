@@ -36,6 +36,7 @@
         android:inputType="textCapSentences"
         android:nextFocusUp="@id/commentField"
         android:nextFocusLeft="@id/commentField"
+        android:gravity="start"
         android:textAlignment="viewStart"
         android:paddingLeft="@dimen/keyline_second"
         android:paddingStart="@dimen/keyline_second"

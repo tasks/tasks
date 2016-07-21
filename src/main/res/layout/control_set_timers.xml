@@ -19,6 +19,7 @@
             style="@style/TaskEditTextPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="start"
             android:textAlignment="viewStart"
             android:text="@string/TEA_timer_controls" />
 

@@ -42,6 +42,7 @@
                     android:nextFocusLeft="@id/tag_name"
                     android:nextFocusUp="@id/tag_name"
                     android:singleLine="true"
+                    android:gravity="start"
                     android:textAlignment="viewStart"
                     android:textColor="?android:attr/textColorPrimary"
                     android:textColorHint="?android:attr/textColorHint"

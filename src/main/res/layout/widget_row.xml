@@ -31,12 +31,12 @@
             android:id="@+id/widget_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:paddingEnd="5dp"
             android:paddingLeft="0dp"
             android:paddingRight="5dp"
             android:paddingStart="0dp"
             android:singleLine="true"
+            android:gravity="start|center_vertical"
             android:textAlignment="viewStart"
             android:textSize="16sp" />
 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:gravity="center_vertical"
+            android:gravity="start|center_vertical"
             android:paddingEnd="5dp"
             android:paddingLeft="0dp"
             android:paddingRight="5dp"
