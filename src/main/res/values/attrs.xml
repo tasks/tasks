@@ -16,6 +16,7 @@
     <attr name="dark_status_bar" format="boolean" />
     <attr name="alpha_secondary" format="dimension" />
     <attr name="alpha_disabled" format="dimension" />
+    <attr name="fab_text" format="color" />
 
     <declare-styleable name="TimePreference">
         <attr name="summary" format="string" />

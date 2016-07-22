@@ -6,7 +6,7 @@
         <item name="colorPrimaryDark">@color/indigo_700</item>
     </style>
 
-    <style name="IndigoAccent">
+    <style name="IndigoAccent" parent="WhiteTint">
         <item name="colorAccent">@color/indigo_a400</item>
     </style>
 

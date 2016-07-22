@@ -6,7 +6,7 @@
         <item name="colorPrimaryDark">@color/light_blue_700</item>
     </style>
 
-    <style name="LightBlueAccent">
+    <style name="LightBlueAccent" parent="BlackTint">
         <item name="colorAccent">@color/light_blue_a400</item>
     </style>
 

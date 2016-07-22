@@ -50,6 +50,14 @@
         <item name="actionBarSecondaryText">@color/black_54</item>
     </style>
 
+    <style name="WhiteTint">
+        <item name="fab_text">@color/white_100</item>
+    </style>
+
+    <style name="BlackTint">
+        <item name="fab_text">@color/black_87</item>
+    </style>
+
     <style name="WhiteToolbarOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <!--<item name="android:textColorPrimary">@color/white_100</item>-->
         <item name="colorControlNormal">@color/white_100</item>
