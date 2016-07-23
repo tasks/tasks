@@ -80,6 +80,7 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingListFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
@@ -146,6 +147,7 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject Broadcaster broadcaster;
     @Inject TagService tagService;
     @Inject ThemeCache themeCache;
+    @Inject Theme theme;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -240,10 +242,12 @@ public class TaskListFragment extends InjectingListFragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        View parent = inflater.inflate(R.layout.fragment_task_list, container, false);
-        ((ViewGroup) parent.findViewById(R.id.task_list_body)).addView(inflater.inflate(getListBody(), null), 0);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LayoutInflater themedLayoutInflater =
+                ((filter.tint >= 0) ? theme.withColor(themeCache.getThemeColor(filter.tint)) : theme)
+                        .getLayoutInflater(context);
+        View parent = themedLayoutInflater.inflate(R.layout.fragment_task_list, container, false);
+        ((ViewGroup) parent.findViewById(R.id.task_list_body)).addView(themedLayoutInflater.inflate(getListBody(), null), 0);
         ButterKnife.bind(this, parent);
         setupRefresh(swipeRefreshLayout);
         setupRefresh(emptyView);

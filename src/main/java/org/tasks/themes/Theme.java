@@ -72,4 +72,8 @@ public class Theme {
         applyToContext(wrapper);
         return wrapper;
     }
+
+    public Theme withColor(ThemeColor themeColor) {
+        return new Theme(themeBase, themeColor, themeAccent);
+    }
 }

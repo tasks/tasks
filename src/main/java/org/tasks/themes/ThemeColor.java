@@ -85,10 +85,6 @@ public class ThemeColor {
                 : flag & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
     }
 
-    public void applyStyle(Context context) {
-        applyStyle(context.getTheme());
-    }
-
     public void applyStyle(Resources.Theme theme) {
         theme.applyStyle(style, true);
     }

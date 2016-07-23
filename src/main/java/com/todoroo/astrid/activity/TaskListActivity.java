@@ -190,7 +190,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 ? themeCache.getThemeColor(filter.tint)
                 : theme.getThemeColor();
         themeColor.applyStatusBarColor(drawerLayout);
-        themeColor.applyStyle(this);
         themeColor.applyTaskDescription(this, filter.listingTitle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
