@@ -2,12 +2,10 @@ package org.tasks.themes;
 
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
 
 import org.tasks.R;
 import org.tasks.ui.MenuColorizer;
