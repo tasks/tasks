@@ -35,6 +35,9 @@ import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.reminders.SnoozeDialog;
 import org.tasks.reminders.SnoozeOption;
+import org.tasks.themes.LEDColor;
+import org.tasks.themes.ThemeAccent;
+import org.tasks.themes.ThemeCache;
 
 import java.io.InputStream;
 
@@ -58,12 +61,14 @@ public class Notifier {
     private final AudioManager audioManager;
     private final VoiceOutputAssistant voiceOutputAssistant;
     private final Preferences preferences;
+    private final ThemeCache themeCache;
 
     @Inject
     public Notifier(@ForApplication Context context, TaskDao taskDao,
                     NotificationManager notificationManager, TaskService taskService,
                     TelephonyManager telephonyManager, AudioManager audioManager,
-                    VoiceOutputAssistant voiceOutputAssistant, Preferences preferences) {
+                    VoiceOutputAssistant voiceOutputAssistant, Preferences preferences,
+                    ThemeCache themeCache) {
         this.context = context;
         this.taskDao = taskDao;
         this.notificationManager = notificationManager;
@@ -72,6 +77,7 @@ public class Notifier {
         this.audioManager = audioManager;
         this.voiceOutputAssistant = voiceOutputAssistant;
         this.preferences = preferences;
+        this.themeCache = themeCache;
     }
 
     public void triggerMissedCallNotification(final String name, final String number, long contactId) {
@@ -298,14 +304,16 @@ public class Notifier {
         if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
             notification.flags |= Notification.FLAG_NO_CLEAR;
         }
-        if (preferences.getBoolean(R.string.p_disable_notification_light, false)) {
-            notification.ledOffMS = 0;
-            notification.ledOnMS = 0;
-        } else {
+        if (preferences.getBoolean(R.string.p_led_notification, true)) {
+            int accent = preferences.getInt(R.string.p_led_color);
+            LEDColor ledColor = themeCache.getLEDColor(accent);
             notification.flags |= Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;
             notification.ledOnMS = 700;
-            notification.ledARGB = Color.YELLOW;
+            notification.ledARGB = ledColor.getColor();
+        } else {
+            notification.ledOffMS = 0;
+            notification.ledOnMS = 0;
         }
 
         if (atLeastJellybean()) {

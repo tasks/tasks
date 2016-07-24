@@ -33,11 +33,6 @@
         android:showDefault="true"
         android:showSilent="true"
         android:title="@string/sound" />
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_disable_notification_light"
-        android:title="@string/disable_notification_light" />
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:defaultValue="true"
         android:dependency="@string/p_rmd_enabled"
@@ -68,6 +63,23 @@
         android:key="@string/p_rmd_maxvolume"
         android:summary="@string/rmd_EPr_multiple_maxvolume_desc_true"
         android:title="@string/rmd_EPr_multiple_maxvolume_title" />
+
+    <PreferenceCategory
+        android:title="@string/led_notification">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="@string/p_rmd_enabled"
+            android:key="@string/p_led_notification"
+            android:title="@string/enabled"
+            android:summary="@string/hardware_support_required"/>
+
+        <Preference
+            android:key="@string/p_led_color"
+            android:dependency="@string/p_led_notification"
+            android:title="@string/led_color" />
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/vibrations">

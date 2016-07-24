@@ -24,7 +24,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class ThemePickerDialog {
 
-    public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND}
+    public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND, LED}
 
     public interface ThemePickerCallback {
         void themePicked(ColorPalette palette, int index);
@@ -102,6 +102,8 @@ public class ThemePickerDialog {
                 return R.array.accents;
             case WIDGET_BACKGROUND:
                 return R.array.widget_background;
+            case LED:
+                return R.array.led;
             default:
                 return R.array.themes;
         }
@@ -115,6 +117,8 @@ public class ThemePickerDialog {
                 return themeCache.getThemeAccent(index).getAccentColor();
             case WIDGET_BACKGROUND:
                 return themeCache.getWidgetTheme(index).getBackgroundColor();
+            case LED:
+                return themeCache.getLEDColor(index).getColor();
             default:
                 return themeCache.getThemeBase(index).getContentBackground();
         }

@@ -17,31 +17,47 @@ import android.preference.PreferenceManager;
 
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
+import org.tasks.billing.PurchaseHelper;
+import org.tasks.billing.PurchaseHelperCallback;
+import org.tasks.dialogs.DialogBuilder;
+import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
+import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
 import org.tasks.scheduling.ReminderSchedulerIntentService;
+import org.tasks.themes.LEDColor;
+import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
 import org.tasks.ui.TimePreference;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static org.tasks.dialogs.NativeThemePickerDialog.newNativeThemePickerDialog;
 
-public class ReminderPreferences extends InjectingPreferenceActivity {
+public class ReminderPreferences extends InjectingPreferenceActivity implements ThemePickerDialog.ThemePickerCallback, PurchaseHelperCallback {
 
     private static final int REQUEST_QUIET_START = 10001;
     private static final int REQUEST_QUIET_END = 10002;
     private static final int REQUEST_DEFAULT_REMIND = 10003;
+    private static final int REQUEST_PURCHASE = 10004;
+    private static final String FRAG_TAG_LED_PICKER = "frag_tag_led_picker";
 
     @Inject Device device;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
+    @Inject DialogBuilder dialogBuilder;
+    @Inject PurchaseHelper purchaseHelper;
+    @Inject Preferences preferences;
+    @Inject ThemeCache themeCache;
 
     private CheckBoxPreference fieldMissedCalls;
 
@@ -75,9 +91,19 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         initializeTimePreference(getQuietStartPreference(), REQUEST_QUIET_START);
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
 
+        findPreference(getString(R.string.p_led_color)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                showLEDColorPicker();
+                return false;
+            }
+        });
+
         requires(atLeastJellybean(), R.string.p_rmd_notif_actions_enabled, R.string.p_notification_priority);
         requires(atLeastMarshmallow(), R.string.p_doze_notifications);
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
+
+        updateLEDColor();
     }
 
     private void rescheduleNotificationsOnChange(int... resIds) {
@@ -156,20 +182,25 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_QUIET_START:
-                    getQuietStartPreference().handleTimePickerActivityIntent(data);
-                    return;
-                case REQUEST_QUIET_END:
-                    getQuietEndPreference().handleTimePickerActivityIntent(data);
-                    return;
-                case REQUEST_DEFAULT_REMIND:
-                    getDefaultRemindTimePreference().handleTimePickerActivityIntent(data);
-                    return;
+        if (requestCode == REQUEST_QUIET_START) {
+            if (resultCode == RESULT_OK) {
+                getQuietStartPreference().handleTimePickerActivityIntent(data);
             }
+        } else if (requestCode == REQUEST_QUIET_END) {
+            if (resultCode == RESULT_OK) {
+                getQuietEndPreference().handleTimePickerActivityIntent(data);
+            }
+        } else if (requestCode == REQUEST_DEFAULT_REMIND) {
+            if (resultCode == RESULT_OK) {
+                getDefaultRemindTimePreference().handleTimePickerActivityIntent(data);
+            }
+        } else if (requestCode == REQUEST_PURCHASE) {
+            if (resultCode == RESULT_OK) {
+                purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private TimePreference getQuietStartPreference() {
@@ -191,5 +222,41 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
+        preferences.setInt(R.string.p_led_color, index);
+        updateLEDColor();
+    }
+
+    @Override
+    public void initiateThemePurchase() {
+        purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
+    }
+
+    @Override
+    public void purchaseCompleted(boolean success, final String sku) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (getString(R.string.sku_themes).equals(sku)) {
+                    showLEDColorPicker();
+                } else {
+                    Timber.d("Unhandled sku: %s", sku);
+                }
+            }
+        });
+    }
+
+    private void showLEDColorPicker() {
+        newNativeThemePickerDialog(ThemePickerDialog.ColorPalette.LED)
+                .show(getFragmentManager(), FRAG_TAG_LED_PICKER);
+    }
+
+    private void updateLEDColor() {
+        int index = preferences.getInt(R.string.p_led_color);
+        LEDColor ledColor = themeCache.getLEDColor(index);
+        findPreference(getString(R.string.p_led_color)).setSummary(ledColor.getName());
     }
 }

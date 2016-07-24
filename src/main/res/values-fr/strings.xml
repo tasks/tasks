@@ -350,7 +350,6 @@
 	<string name="send_anonymous_statistics">Améliorer Tasks</string>
 	<string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
 	<string name="tag_already_exists">Le tag existe déjà</string>
-	<string name="disable_notification_light">Désactiver la lumière des notifications</string>
 	<string name="doze_notifications">Interrompt le Doze mode pour les notifications</string>
 	<string name="doze_notifications_off">Android va différer les notifications de façon importante lorsque l\'appareil sera en Doze mode</string>
 	<string name="doze_notifications_on">Android autorisera des interruptions limitées lorsque l\'appareil sera en Doze mode</string>

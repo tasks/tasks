@@ -236,7 +236,6 @@
   <string name="p_reverse_sort">reverse_sort</string>
   <string name="p_manual_sort">manual_sort</string>
   <string name="p_notification_priority">notification_priority</string>
-  <string name="p_disable_notification_light">disable_notification_light</string>
   <string name="p_doze_notifications">doze_notifications</string>
 
   <string-array name="TEA_control_sets_prefs">
@@ -309,4 +308,6 @@
   <string name="p_sync_warning_shown">sync_warning_shown</string>
   <string name="p_language">language</string>
   <string name="p_layout_direction">layout_direction</string>
+  <string name="p_led_color">led_color</string>
+  <string name="p_led_notification">led_notification</string>
 </resources>

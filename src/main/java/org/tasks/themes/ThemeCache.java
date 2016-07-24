@@ -17,6 +17,7 @@ public class ThemeCache {
     private final List<ThemeColor> colors = new ArrayList<>();
     private final List<ThemeAccent> accents = new ArrayList<>();
     private final List<WidgetTheme> widgetThemes = new ArrayList<>();
+    private final List<LEDColor> led = new ArrayList<>();
     private final ThemeColor untaggedColor;
 
     public ThemeCache(Context context) {
@@ -55,6 +56,12 @@ public class ThemeCache {
                     resources.getColor(WidgetTheme.BACKGROUNDS[i]),
                     resources.getColor(i == 0 ? R.color.black_87 : R.color.white_100)));
         }
+        String []ledNames = resources.getStringArray(R.array.led);
+        for (int i = 0 ; i < LEDColor.LED_COLORS.length ; i++) {
+            led.add(new LEDColor(
+                    ledNames[i],
+                    resources.getColor(LEDColor.LED_COLORS[i])));
+        }
         untaggedColor = new ThemeColor(null, 19, resources.getColor(R.color.tag_color_none_background), 0, resources.getColor(R.color.black_87), false);
     }
 
@@ -76,6 +83,10 @@ public class ThemeCache {
 
     public ThemeColor getUntaggedColor() {
         return untaggedColor;
+    }
+
+    public LEDColor getLEDColor(int index) {
+        return led.get(index);
     }
 
     private static int resolveAttribute(Resources.Theme theme, int attribute) {

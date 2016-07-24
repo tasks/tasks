@@ -354,7 +354,6 @@
 	<string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
 	<string name="tag_already_exists">Tag existiert bereits</string>
 	<string name="name_cannot_be_empty">Name darf nicht leer sein</string>
-	<string name="disable_notification_light">Benachrichtigungsleuchte deaktivieren</string>
 	<string name="doze_notifications">Doze-Modus für Benachrichtigungen unterbrechen</string>
 	<string name="doze_notifications_off">Im Doze-Modus von Android erfolgen Benachrichtigungen mit deutlicher Verzögerung</string>
 	<string name="doze_notifications_on">Android erlaubt nur eine begrenzte Anzahl von Unterbrechungen des Doze-Modus</string>
