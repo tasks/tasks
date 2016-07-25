@@ -64,7 +64,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
             theme = theme.withBaseTheme(themeCache.getThemeBase(2));
         }
 
-        final String[] themes = context.getResources().getStringArray(getNameRes(palette));
+        final String[] themes = context.getResources().getStringArray(getNameRes());
 
         final LayoutInflater inflater = theme.getLayoutInflater(context);
         adapter = new ArrayAdapter<String>(context, R.layout.color_selection_row, themes) {
@@ -77,7 +77,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());
-                DrawableCompat.setTint(wrapped, getDisplayColor(palette, position));
+                DrawableCompat.setTint(wrapped, getDisplayColor(position));
                 if (atLeastJellybeanMR1()) {
                     textView.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
                 } else {
@@ -92,7 +92,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 .setAdapter(adapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (preferences.hasPurchase(R.string.p_purchased_themes) || which < 2) {
+                        if (preferences.hasPurchase(R.string.p_purchased_themes) || which < getNumFree()) {
                             callback.themePicked(palette, which);
                         } else {
                             callback.initiateThemePurchase();
@@ -139,7 +139,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         component.inject(this);
     }
 
-    private int getNameRes(ColorPickerDialog.ColorPalette palette) {
+    private int getNameRes() {
         switch (palette) {
             case COLORS:
                 return R.array.colors;
@@ -154,7 +154,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         }
     }
 
-    private int getDisplayColor(ColorPickerDialog.ColorPalette palette, int index) {
+    private int getDisplayColor(int index) {
         switch (palette) {
             case COLORS:
                 return themeCache.getThemeColor(index).getPrimaryColor();
@@ -167,5 +167,9 @@ public class ColorPickerDialog extends InjectingDialogFragment {
             default:
                 return themeCache.getThemeBase(index).getContentBackground();
         }
+    }
+
+    private int getNumFree() {
+        return palette == ColorPalette.LED ? themeCache.getLEDColorCount() : 2;
     }
 }

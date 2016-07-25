@@ -305,7 +305,7 @@ public class Notifier {
             notification.flags |= Notification.FLAG_NO_CLEAR;
         }
         if (preferences.getBoolean(R.string.p_led_notification, true)) {
-            int accent = preferences.getInt(R.string.p_led_color);
+            int accent = preferences.getInt(R.string.p_led_color, 4);
             LEDColor ledColor = themeCache.getLEDColor(accent);
             notification.flags |= Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;

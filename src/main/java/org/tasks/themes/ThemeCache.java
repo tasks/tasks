@@ -89,6 +89,10 @@ public class ThemeCache {
         return led.get(index);
     }
 
+    public int getLEDColorCount() {
+        return led.size();
+    }
+
     private static int resolveAttribute(Resources.Theme theme, int attribute) {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attribute, typedValue, true);

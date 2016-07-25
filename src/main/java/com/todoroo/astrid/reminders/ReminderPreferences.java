@@ -180,7 +180,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_LED_PICKER) {
             if (resultCode == RESULT_OK) {
-                preferences.setInt(R.string.p_led_color, data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0));
+                preferences.setInt(R.string.p_led_color, data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 4));
                 updateLEDColor();
             }
         } else if (requestCode == REQUEST_QUIET_START) {
@@ -222,7 +222,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     }
 
     private void updateLEDColor() {
-        int index = preferences.getInt(R.string.p_led_color);
+        int index = preferences.getInt(R.string.p_led_color, 4);
         LEDColor ledColor = themeCache.getLEDColor(index);
         findPreference(getString(R.string.p_led_color)).setSummary(ledColor.getName());
     }

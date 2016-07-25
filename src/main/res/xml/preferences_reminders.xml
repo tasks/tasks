@@ -67,12 +67,15 @@
     <PreferenceCategory
         android:title="@string/led_notification">
 
+        <Preference
+            android:selectable="false"
+            android:summary="@string/hardware_support_required" />
+
         <CheckBoxPreference
             android:defaultValue="true"
             android:dependency="@string/p_rmd_enabled"
             android:key="@string/p_led_notification"
-            android:title="@string/enabled"
-            android:summary="@string/hardware_support_required"/>
+            android:title="@string/enabled"/>
 
         <Preference
             android:key="@string/p_led_color"
