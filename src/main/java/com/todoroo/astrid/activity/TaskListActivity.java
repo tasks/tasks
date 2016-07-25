@@ -197,6 +197,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager.beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, FRAG_TAG_TASK_LIST)
+                .addToBackStack(FRAG_TAG_TASK_LIST)
                 .commit();
     }
 
@@ -379,6 +380,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 taskEditFragment.discardButtonClick();
             }
         } else {
+            getSupportFragmentManager().popBackStackImmediate(FRAG_TAG_TASK_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             super.onBackPressed();
         }
     }
