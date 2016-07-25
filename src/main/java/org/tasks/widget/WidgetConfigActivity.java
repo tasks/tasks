@@ -1,29 +1,22 @@
 package org.tasks.widget;
 
-import android.support.v4.app.FragmentManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.billing.PurchaseHelper;
-import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
-public class WidgetConfigActivity extends InjectingAppCompatActivity implements WidgetConfigDialog.WidgetConfigCallback, ThemePickerDialog.ThemePickerCallback, PurchaseHelperCallback {
+public class WidgetConfigActivity extends InjectingAppCompatActivity implements WidgetConfigDialog.WidgetConfigCallback {
 
     private static final String FRAG_TAG_WIDGET_CONFIG = "frag_tag_widget_config";
-
-    private static final int REQUEST_PURCHASE = 10109;
 
     public static final int DEFAULT_OPACITY = 255;
 
@@ -37,10 +30,8 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
 
     @Inject Tracker tracker;
     @Inject DialogBuilder dialogBuilder;
-    @Inject PurchaseHelper purchaseHelper;
 
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    private WidgetConfigDialog widgetConfigDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +50,7 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
             finish();
         } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            widgetConfigDialog = (WidgetConfigDialog) fragmentManager.findFragmentByTag(FRAG_TAG_WIDGET_CONFIG);
+            WidgetConfigDialog widgetConfigDialog = (WidgetConfigDialog) fragmentManager.findFragmentByTag(FRAG_TAG_WIDGET_CONFIG);
             if (widgetConfigDialog == null) {
                 widgetConfigDialog = WidgetConfigDialog.newWidgetConfigDialog(appWidgetId);
                 widgetConfigDialog.show(fragmentManager, FRAG_TAG_WIDGET_CONFIG);
@@ -82,48 +73,7 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
     }
 
     @Override
-    public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
-        if (palette == ThemePickerDialog.ColorPalette.WIDGET_BACKGROUND) {
-            widgetConfigDialog.setThemeIndex(index);
-        } else {
-            widgetConfigDialog.setColorIndex(index);
-        }
-    }
-
-    @Override
-    public void initiateThemePurchase() {
-        purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
-    }
-
-    @Override
-    public void purchaseCompleted(boolean success, final String sku) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (getString(R.string.sku_themes).equals(sku)) {
-                    showThemeSelection();
-                } else {
-                    Timber.d("Unhandled sku: %s", sku);
-                }
-            }
-        });
-    }
-
-    @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_PURCHASE) {
-            purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    protected void showThemeSelection() {
-        widgetConfigDialog.showThemeSelection();
     }
 }

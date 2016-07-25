@@ -15,9 +15,10 @@ import android.widget.TextView;
 import com.todoroo.astrid.api.Filter;
 
 import org.tasks.R;
+import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
+import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
@@ -34,12 +35,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static org.tasks.dialogs.SupportThemePickerDialog.newSupportThemePickerDialog;
-
 public class WidgetConfigDialog extends InjectingDialogFragment implements SeekBar.OnSeekBarChangeListener {
 
-    private static final String FRAG_TAG_THEME_SELECTION = "frag_tag_theme_selection";
-    private static final String FRAG_TAG_COLOR_SELECTION = "frag_tag_color_selection";
     private static final String EXTRA_FILTER = "extra_filter";
     private static final String EXTRA_THEME = "extra_theme";
     private static final String EXTRA_APP_WIDGET_ID = "extra_app_widget_id";
@@ -65,16 +62,6 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
     }
 
-    public void setThemeIndex(int index) {
-        this.themeIndex = index;
-        updateTheme();
-    }
-
-    public void setColorIndex(int index) {
-        this.colorIndex = index;
-        updateColor();
-    }
-
     public interface WidgetConfigCallback {
         void ok();
 
@@ -82,6 +69,8 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     }
 
     private static final int REQUEST_FILTER = 1005;
+    private static final int REQUEST_THEME_SELECTION = 1006;
+    private static final int REQUEST_COLOR_SELECTION = 1007;
 
     @BindView(R.id.opacity_value) TextView opacityValue;
     @BindView(R.id.selected_filter) TextView selectedFilter;
@@ -189,14 +178,16 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
     @OnClick(R.id.theme_selection)
     public void showThemeSelection() {
-        newSupportThemePickerDialog(ThemePickerDialog.ColorPalette.WIDGET_BACKGROUND)
-                .show(getChildFragmentManager(), FRAG_TAG_THEME_SELECTION);
+        startActivityForResult(new Intent(context, ColorPickerActivity.class) {{
+            putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND);
+        }}, REQUEST_THEME_SELECTION);
     }
 
     @OnClick(R.id.theme_color)
     public void showColorSelection() {
-        newSupportThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
-                .show(getChildFragmentManager(), FRAG_TAG_COLOR_SELECTION);
+        startActivityForResult(new Intent(context, ColorPickerActivity.class) {{
+            putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+        }}, REQUEST_COLOR_SELECTION);
     }
 
     @Override
@@ -206,7 +197,17 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_FILTER) {
+        if (requestCode == REQUEST_THEME_SELECTION) {
+            if (resultCode == Activity.RESULT_OK) {
+                themeIndex = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+                updateTheme();
+            }
+        } else if (requestCode == REQUEST_COLOR_SELECTION) {
+            if (resultCode == Activity.RESULT_OK) {
+                colorIndex = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+                updateColor();
+            }
+        } else if (requestCode == REQUEST_FILTER) {
             if (resultCode == Activity.RESULT_OK) {
                 filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 updateFilter();

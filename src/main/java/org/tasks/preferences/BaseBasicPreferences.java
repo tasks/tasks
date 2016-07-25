@@ -14,10 +14,11 @@ import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.tasks.R;
+import org.tasks.activities.ColorPickerActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
 import org.tasks.locale.LocalePickerDialog;
@@ -29,19 +30,17 @@ import org.tasks.themes.ThemeColor;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static org.tasks.dialogs.NativeThemePickerDialog.newNativeThemePickerDialog;
 import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
 
 public abstract class BaseBasicPreferences extends InjectingPreferenceActivity implements
-        ThemePickerDialog.ThemePickerCallback,
         LocalePickerDialog.LocaleSelectionHandler {
 
     private static final String EXTRA_RESULT = "extra_result";
-    private static final String FRAG_TAG_THEME_PICKER = "frag_tag_theme_picker";
-    private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
-    private static final String FRAG_TAG_ACCENT_PICKER = "frag_tag_accent_picker";
     private static final String FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker";
     private static final int RC_PREFS = 10001;
+    private static final int REQUEST_THEME_PICKER = 10002;
+    private static final int REQUEST_COLOR_PICKER = 10003;
+    private static final int REQUEST_ACCENT_PICKER = 10004;
 
     @Inject Tracker tracker;
     @Inject Preferences preferences;
@@ -69,8 +68,9 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         themePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                newNativeThemePickerDialog(ThemePickerDialog.ColorPalette.THEMES)
-                        .show(getFragmentManager(), FRAG_TAG_THEME_PICKER);
+                startActivityForResult(new Intent(BaseBasicPreferences.this, ColorPickerActivity.class) {{
+                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.THEMES);
+                }}, REQUEST_THEME_PICKER);
                 return false;
             }
         });
@@ -79,8 +79,9 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         colorPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                newNativeThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
-                        .show(getFragmentManager(), FRAG_TAG_COLOR_PICKER);
+                startActivityForResult(new Intent(BaseBasicPreferences.this, ColorPickerActivity.class) {{
+                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+                }}, REQUEST_COLOR_PICKER);
                 return false;
             }
         });
@@ -89,8 +90,9 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
         accentPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                newNativeThemePickerDialog(ThemePickerDialog.ColorPalette.ACCENTS)
-                        .show(getFragmentManager(), FRAG_TAG_ACCENT_PICKER);
+                startActivityForResult(new Intent(BaseBasicPreferences.this, ColorPickerActivity.class) {{
+                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.ACCENTS);
+                }}, REQUEST_ACCENT_PICKER);
                 return false;
             }
         });
@@ -151,34 +153,38 @@ public abstract class BaseBasicPreferences extends InjectingPreferenceActivity i
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RC_PREFS) {
+        if (requestCode == REQUEST_THEME_PICKER) {
+            if (resultCode == RESULT_OK) {
+                int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+                preferences.setInt(R.string.p_theme, index);
+                themeCache.getThemeBase(index).setDefaultNightMode();
+                tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
+                result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
+                recreate();
+            }
+        } else if (requestCode == REQUEST_COLOR_PICKER) {
+            if (resultCode == RESULT_OK) {
+                int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+                preferences.setInt(R.string.p_theme_color, index);
+                tracker.reportEvent(Tracking.Events.SET_COLOR, Integer.toString(index));
+                result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
+                recreate();
+            }
+        } else if (requestCode == REQUEST_ACCENT_PICKER) {
+            if (resultCode == RESULT_OK) {
+                int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+                preferences.setInt(R.string.p_theme_accent, index);
+                tracker.reportEvent(Tracking.Events.SET_ACCENT, Integer.toString(index));
+                result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
+                recreate();
+            }
+        } else if (requestCode == RC_PREFS) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 result.putAll(data.getExtras());
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-    }
-
-    @Override
-    public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
-        switch (palette) {
-            case THEMES:
-                preferences.setInt(R.string.p_theme, index);
-                themeCache.getThemeBase(index).setDefaultNightMode();
-                tracker.reportEvent(Tracking.Events.SET_THEME, Integer.toString(index));
-                break;
-            case COLORS:
-                preferences.setInt(R.string.p_theme_color, index);
-                tracker.reportEvent(Tracking.Events.SET_COLOR, Integer.toString(index));
-                break;
-            case ACCENTS:
-                preferences.setInt(R.string.p_theme_accent, index);
-                tracker.reportEvent(Tracking.Events.SET_ACCENT, Integer.toString(index));
-                break;
-        }
-        result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
-        recreate();
     }
 
     @Override

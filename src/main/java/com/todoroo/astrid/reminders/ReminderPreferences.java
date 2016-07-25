@@ -16,11 +16,10 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 
 import org.tasks.R;
+import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.TimePickerActivity;
-import org.tasks.billing.PurchaseHelper;
-import org.tasks.billing.PurchaseHelperCallback;
+import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
@@ -37,25 +36,20 @@ import org.tasks.ui.TimePreference;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
-import static org.tasks.dialogs.NativeThemePickerDialog.newNativeThemePickerDialog;
 
-public class ReminderPreferences extends InjectingPreferenceActivity implements ThemePickerDialog.ThemePickerCallback, PurchaseHelperCallback {
+public class ReminderPreferences extends InjectingPreferenceActivity {
 
     private static final int REQUEST_QUIET_START = 10001;
     private static final int REQUEST_QUIET_END = 10002;
     private static final int REQUEST_DEFAULT_REMIND = 10003;
-    private static final int REQUEST_PURCHASE = 10004;
-    private static final String FRAG_TAG_LED_PICKER = "frag_tag_led_picker";
+    private static final int REQUEST_LED_PICKER = 10004;
 
     @Inject Device device;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
     @Inject DialogBuilder dialogBuilder;
-    @Inject PurchaseHelper purchaseHelper;
     @Inject Preferences preferences;
     @Inject ThemeCache themeCache;
 
@@ -94,7 +88,9 @@ public class ReminderPreferences extends InjectingPreferenceActivity implements 
         findPreference(getString(R.string.p_led_color)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                showLEDColorPicker();
+                startActivityForResult(new Intent(ReminderPreferences.this, ColorPickerActivity.class) {{
+                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.LED);
+                }}, REQUEST_LED_PICKER);
                 return false;
             }
         });
@@ -182,7 +178,12 @@ public class ReminderPreferences extends InjectingPreferenceActivity implements 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_QUIET_START) {
+        if (requestCode == REQUEST_LED_PICKER) {
+            if (resultCode == RESULT_OK) {
+                preferences.setInt(R.string.p_led_color, data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0));
+                updateLEDColor();
+            }
+        } else if (requestCode == REQUEST_QUIET_START) {
             if (resultCode == RESULT_OK) {
                 getQuietStartPreference().handleTimePickerActivityIntent(data);
             }
@@ -193,10 +194,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity implements 
         } else if (requestCode == REQUEST_DEFAULT_REMIND) {
             if (resultCode == RESULT_OK) {
                 getDefaultRemindTimePreference().handleTimePickerActivityIntent(data);
-            }
-        } else if (requestCode == REQUEST_PURCHASE) {
-            if (resultCode == RESULT_OK) {
-                purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -222,36 +219,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity implements 
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
-    }
-
-    @Override
-    public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
-        preferences.setInt(R.string.p_led_color, index);
-        updateLEDColor();
-    }
-
-    @Override
-    public void initiateThemePurchase() {
-        purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
-    }
-
-    @Override
-    public void purchaseCompleted(boolean success, final String sku) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (getString(R.string.sku_themes).equals(sku)) {
-                    showLEDColorPicker();
-                } else {
-                    Timber.d("Unhandled sku: %s", sku);
-                }
-            }
-        });
-    }
-
-    private void showLEDColorPicker() {
-        newNativeThemePickerDialog(ThemePickerDialog.ColorPalette.LED)
-                .show(getFragmentManager(), FRAG_TAG_LED_PICKER);
     }
 
     private void updateLEDColor() {

@@ -66,7 +66,7 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_themes)) {
-                    initiateThemePurchase();
+                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, BasicPreferences.this);
                 }
                 return false;
             }
@@ -184,10 +184,5 @@ public class BasicPreferences extends BaseBasicPreferences implements PurchaseHe
             values.add(String.format("$%s USD", Integer.toString(i)));
         }
         return values;
-    }
-
-    @Override
-    public void initiateThemePurchase() {
-        purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
     }
 }

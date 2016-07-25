@@ -29,12 +29,11 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.activities.ColorPickerActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.billing.PurchaseHelper;
-import org.tasks.billing.PurchaseHelperCallback;
+import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.dialogs.ThemePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
@@ -46,17 +45,14 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 import static android.text.TextUtils.isEmpty;
-import static org.tasks.dialogs.SupportThemePickerDialog.newSupportThemePickerDialog;
 
-public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implements ThemePickerDialog.ThemePickerCallback, PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
+public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
-    private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
     private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
 
-    private static final int REQUEST_PURCHASE = 10109;
+    private static final int REQUEST_COLOR_PICKER = 10109;
 
     public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
@@ -73,7 +69,6 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject ThemeCache themeCache;
-    @Inject PurchaseHelper purchaseHelper;
     @Inject ThemeColor themeColor;
     @Inject Tracker tracker;
 
@@ -144,8 +139,9 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     @OnClick(R.id.theme_row)
     protected void showThemePicker() {
-        newSupportThemePickerDialog(ThemePickerDialog.ColorPalette.COLORS)
-                .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
+        startActivityForResult(new Intent(TagSettingsActivity.this, ColorPickerActivity.class) {{
+            putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+        }}, REQUEST_COLOR_PICKER);
     }
 
     @OnClick(R.id.clear)
@@ -227,8 +223,13 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_PURCHASE) {
-            purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
+        if (requestCode == REQUEST_COLOR_PICKER) {
+            if (resultCode == RESULT_OK) {
+                int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+                tracker.reportEvent(Tracking.Events.SET_TAG_COLOR, Integer.toString(index));
+                selectedTheme = index;
+                updateTheme();
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -268,13 +269,6 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         }
     }
 
-    @Override
-    public void themePicked(ThemePickerDialog.ColorPalette palette, int index) {
-        tracker.reportEvent(Tracking.Events.SET_TAG_COLOR, Integer.toString(index));
-        selectedTheme = index;
-        updateTheme();
-    }
-
     private void updateTheme() {
         ThemeColor color;
         if (selectedTheme < 0) {
@@ -289,25 +283,6 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         }
         color.apply(toolbar);
         color.applyStatusBarColor(this);
-    }
-
-    @Override
-    public void initiateThemePurchase() {
-        purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
-    }
-
-    @Override
-    public void purchaseCompleted(boolean success, final String sku) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (getString(R.string.sku_themes).equals(sku)) {
-                    showThemePicker();
-                } else {
-                    Timber.d("Unhandled sku: %s", sku);
-                }
-            }
-        });
     }
 
     @Override

@@ -18,9 +18,4 @@ public class BasicPreferences extends BaseBasicPreferences {
     public void inject(ActivityComponent component) {
         component.inject(this);
     }
-
-    @Override
-    public void initiateThemePurchase() {
-
-    }
 }

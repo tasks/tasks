@@ -17,6 +17,7 @@ import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ClearGtaskDataActivity;
+import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.ExportTaskActivity;
@@ -117,4 +118,6 @@ public interface BaseActivityComponent {
     void inject(AppearancePreferences appearancePreferences);
 
     void inject(MyFilePickerActivity myFilePickerActivity);
+
+    void inject(ColorPickerActivity colorPickerActivity);
 }
