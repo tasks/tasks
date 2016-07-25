@@ -428,4 +428,7 @@
 	<string name="layout_direction_locale">Как установлено в системе</string>
 	<string name="layout_direction_left_to_right">Слева направо</string>
 	<string name="layout_direction_right_to_left">Справа налево</string>
+	<string name="led_notification">LED уведомления</string>
+	<string name="hardware_support_required">Необходима аппаратная поддержка</string>
+	<string name="led_color">LED цвет</string>
 </resources>

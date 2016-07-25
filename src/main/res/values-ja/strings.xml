@@ -429,4 +429,7 @@
 	<string name="layout_direction_locale">ロケールの向きを使用する</string>
 	<string name="layout_direction_left_to_right">左から右</string>
 	<string name="layout_direction_right_to_left">右から左</string>
+	<string name="led_notification">LED 通知</string>
+	<string name="hardware_support_required">ハードウェア サポートが必要です</string>
+	<string name="led_color">LED の色</string>
 </resources>

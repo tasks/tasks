@@ -5,28 +5,35 @@
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
 <resources>
-	<string name="actfm_picture_clear">Очистити</string>
-	<string name="TVA_add_comment">Додати коментар</string>
+	<string name="actfm_picture_clear">Очистити картинку</string>
+	<string name="TVA_add_comment">Додати коментар...</string>
+	<string name="name">Ім\'я</string>
+	<string name="enter_tag_name">Введіть ім\'я тегу</string>
+	<string name="enter_filter_name">Введіть назву фільтра</string>
+	<string name="choose_google_account">Оберіть Google аккаунт</string>
 	<string name="backup_BPr_header">Резервні копії</string>
 	<string name="backup_BAc_import">Імпортувати завдання</string>
 	<string name="backup_BAc_export">Експорт завдань</string>
-	<string name="export_toast">Резервні копії %1$s для %2$s.</string>
+	<string name="export_toast">Збережено %1$s в %2$s.</string>
 	<string name="export_toast_no_tasks">Відсутні завдання для експорту.</string>
 	<string name="import_summary_title">Відновити підсумок</string>
-	<string name="import_summary_message">Файл %1$s містяться %2$s.\n\n
-%3$s імпортовані,\n
-%4$s вже існують\n
-%5$s були помилки\n</string>
+	<string name="import_summary_message">Файл %1$s містить %2$s.\n\n
+%3$s імпортовано,\n
+%4$s вже існує\n
+%5$s має помилку\n</string>
 	<string name="import_progress_read">Читання завдання %d...</string>
 	<string name="DLG_error_sdcard">Немає доступу до папки: %s</string>
 	<string name="DLG_error_sdcard_general">Немає доступу до карти SD!</string>
 	<string name="read_permission_label">Дозволи Tasks</string>
 	<string name="write_permission_label">Дозволи Tasks</string>
+	<string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
+	<string name="keep_editing">Продовжити редагування</string>
 	<string name="DLG_delete_this_task_question">Видалити цю задачу?</string>
 	<string name="DLG_upgrading">Оновлення ваших завдань...</string>
 	<string name="DLG_hour_minutes">Час (години : хвилини)</string>
 	<string name="DLG_undo">Відмінити</string>
 	<string name="WID_dateButtonUnset">Натисніть для установки</string>
+	<string name="TLA_no_items">Тут немає завдань.</string>
 	<string name="TLA_menu_sort">Сортувати</string>
 	<string name="TLA_menu_search">Пошук</string>
 	<string name="TLA_menu_settings">Налаштування</string>
@@ -39,32 +46,37 @@
 	<string name="TAd_contextUndeleteTask">Відмінити видалення завдання</string>
 	<string name="SSD_sort_drag">Ручний порядок з підзадачами</string>
 	<string name="SSD_sort_auto">Розумне сортування</string>
-	<string name="SSD_sort_alpha">За заголовком</string>
+	<string name="SSD_sort_alpha">За назвою</string>
 	<string name="SSD_sort_due">За кінцевою датою</string>
 	<string name="SSD_sort_importance">За пріоритетом</string>
-	<string name="SSD_sort_modified">За останньою модифікованою</string>
+	<string name="SSD_sort_modified">За часом зміни</string>
 	<string name="FLA_search_filter">Відповідності до %s</string>
+	<string name="FLA_new_filter">Створити новий фільтр</string>
 	<string name="TEA_title_hint">Ім\'я завдання</string>
 	<string name="TEA_importance_label">Пріоритет</string>
-	<string name="TEA_no_date">Немає дати</string>
+	<string name="TEA_no_date">Без дати</string>
 	<string name="TEA_hideUntil_label">Приховати до</string>
 	<string name="TEA_hideUntil_display">Приховати до %s</string>
 	<string name="TEA_note_label">Опис</string>
 	<string name="TEA_estimatedDuration_label">Як довго це триватиме?</string>
-	<string name="TEA_elapsedDuration_label">Час вже потрачео</string>
+	<string name="TEA_elapsedDuration_label">Часу витрачено</string>
+	<string name="save">Зберегти</string>
 	<string name="TEA_timer_est">Зал. %s</string>
-	<string name="TEA_timer_elap">Час, що минув %s</string>
+	<string name="TEA_timer_elap">Минуло %s</string>
 	<string name="TEA_no_time">Без часу</string>
-	<string name="due_date">до дати</string>
-	<string name="due_time">до часу</string>
-	<string name="day_before_due">за день до </string>
-	<string name="week_before_due">за тиждень до</string>
+	<string name="due_date">дати настання</string>
+	<string name="due_time">до часу настання</string>
+	<string name="day_before_due">попереднього дня</string>
+	<string name="week_before_due">попереднього тижня</string>
 	<string name="TEA_control_when">Коли</string>
+	<string name="TEA_control_repeat">Повторити</string>
+	<string name="TEA_control_gcal">Календар</string>
 	<string name="TEA_control_importance">Пріоритет</string>
 	<string name="TEA_control_notes">Опис</string>
 	<string name="TEA_control_files">Файли</string>
+	<string name="TEA_control_google_task_list">Список Google Task</string>
 	<string name="TEA_control_reminders">Нагадування</string>
-	<string name="TEA_control_timer">Таймер Управління</string>
+	<string name="TEA_control_timer">Управління таймером</string>
 	<string name="TEA_control_hidden_section">----Приховувати завжди----</string>
 	<string name="TEA_load_more">Завантажити більше...</string>
 	<string name="missed_call">Пропущений дзвінок від %s</string>
@@ -80,17 +92,19 @@
 	<string name="CRA_ignore_all">Ігнорувати всі події</string>
 	<string name="CRA_ignore_this">Ігнорувати лише цю подію</string>
 	<string name="CRA_speech_bubble_start">Схоже невдовзі розпочнеться %s. Бажаєте створити список дій?</string>
-	<string name="CRA_speech_bubble_end">Схоже Ви щойно закінчили %s. Бажаєте створити список дій?</string>
+	<string name="CRA_speech_bubble_end">Схоже Ви щойно завершили з %s. Бажаєте створити список дій?</string>
 	<string name="CRA_postpone">Може згодом </string>
 	<string name="CRA_calendar_reminders_pref_title">Асистент календаря</string>
-	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks буде нагадувати вам про майбутні календарні події і нагадає вам приготуватися до них</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks нагадає вам про майбутні календарні події і запропонує приготуватися до них</string>
 	<string name="CRA_default_list_name">Список дій: %s</string>
-	<string name="EPr_appearance_header">Інтерфейс</string>
+	<string name="none">Жодного</string>
+	<string name="EPr_appearance_header">Вигляд</string>
 	<string name="EPr_filters_to_show_title">Показати фільтри</string>
 	<string name="EPr_edit_screen_options">Редагувати налаштування екрану</string>
 	<string name="EPr_beastMode_reset">Налаштування за замовчуванням</string>
 	<string name="EPr_fullTask_title">Показувати повну назву завдання</string>
 	<string name="EPr_show_task_edit_comments">Показувати коментарі в редакторі завдання</string>
+	<string name="task_list_options">Налаштування списку завдань</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Час події в календарі</string>
 	<string name="EPr_cal_end_at_due_time">Завершення календарної події при настанні терміну</string>
 	<string name="EPr_cal_start_at_due_time">Початок календарної події при настанні терміну</string>
@@ -112,12 +126,16 @@
 	<string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Видалено %d календарних подій!</string>
 	<string name="TWi_loading">Завантаження...</string>
-	<string name="EPr_default_urgency_title">Актуальність по замовчуванню</string>
+	<string name="task_defaults">Типові налаштування завдань</string>
+	<string name="EPr_default_urgency_title">Кінцевий термін по замовчуванню</string>
 	<string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
 	<string name="EPr_default_hideUntil_title">Термін приховування за замовчуванням</string>
 	<string name="EPr_default_reminders_title">Нагадування по замовчуванню</string>
 	<string name="EPr_default_addtocalendar_title">Додавати в календар по замовчуванню</string>
 	<string name="EPr_default_reminders_mode_title">Тип дзвінка/вібрація по замовчуванню</string>
+	<string name="priority_high">Високий</string>
+	<string name="priority_medium">Середній</string>
+	<string name="priority_low">Низький</string>
 	<string-array name="EPr_default_urgency">
 		<item>Немає дедлайну</item>
 		<item>Сьогодні</item>
@@ -136,10 +154,10 @@
 	<string name="BFE_Recent">Недавно змінені</string>
 	<string name="CFA_universe_all">Активні завдання</string>
 	<string name="CFA_type_add">або</string>
-	<string name="CFA_type_subtract">не</string>
+	<string name="CFA_type_subtract">ні</string>
 	<string name="CFA_type_intersect">також</string>
-	<string name="CFA_context_chain">%s містить критерій</string>
-	<string name="CFA_context_delete">Видалити стрічку</string>
+	<string name="CFA_context_chain">%s має критерії</string>
+	<string name="CFA_context_delete">Видалити рядок</string>
 	<string name="CFA_help">Довгий тап на пункт для додаткових опцій</string>
 	<string name="CFA_button_add">Додати критерій</string>
 	<string name="CFC_dueBefore_text">Кінцевий термін: ?</string>
@@ -153,13 +171,19 @@
 		<item>Наступного тижня</item>
 		<item>Наступного місяця</item>
 	</string-array>
-	<string name="CFC_importance_text">Пріоритет?</string>
-	<string name="CFC_importance_name">Пріоритет</string>
+	<string name="CFC_importance_text">Пріоритет щонайменше?</string>
+	<string name="CFC_importance_name">Пріоритет...</string>
+	<string name="CFC_tag_text">Тег: ?</string>
+	<string name="CFC_tag_name">Тег...</string>
+	<string name="CFC_tag_contains_name">Назва тегу містить...</string>
+	<string name="CFC_tag_contains_text">Назва тегу містить: ?</string>
 	<string name="CFC_title_contains_name">Заголовок містить...</string>
 	<string name="CFC_title_contains_text">Заголовок містить: ?</string>
 	<string name="gcal_TEA_error">Помилка при додаванні завдання в календар!</string>
 	<string name="gcal_TEA_addToCalendar_label">Додати до календаря</string>
 	<string name="gcal_TEA_showCalendar_label">Відкрити календарну подію</string>
+	<string name="delete_calendar_event_confirmation">Видалити подію календаря?</string>
+	<string name="calendar_event_not_found">Подію календаря не знайдено</string>
 	<string name="gcal_completed_title">%s (завершено)</string>
 	<string name="CFC_gtasks_list_text">В списку: ?</string>
 	<string name="CFC_gtasks_list_name">В GTasks списку...</string>
@@ -174,8 +198,11 @@
 	<string name="audio_stop_recording">Зупинити запис</string>
 	<string name="file_type_unhandled">Вибачте! Не знайдено програму для перегляду файлів цього типу.</string>
 	<string name="back">Назад</string>
-	<string name="file_err_copy">Помилка копіювання доданого файлу.</string>
-	<string name="premium_speech_bubble_2">Підпишіться на рік і заощаджуйте 25%%!</string>
+	<string name="file_err_copy">Помилка копіювання файлу для вкладення</string>
+	<string name="premium_speech_bubble_2">Замовте рік і заощадьте 25%!</string>
+	<string name="ring_once">Дзвеніти 1 раз</string>
+	<string name="ring_five_times">Дзвеніти 5 раз</string>
+	<string name="ring_nonstop">Дзвеніти безперервно</string>
 	<string-array name="TEA_reminder_random">
 		<item>година</item>
 		<item>дня</item>
@@ -184,17 +211,19 @@
 		<item>місяця</item>
 		<item>на проязі 2-х місяців</item>
 	</string-array>
-	<string name="rmd_NoA_done">Виконано!</string>
+	<string name="rmd_NoA_done">Виконано</string>
 	<string name="rmd_NoA_snooze">Відкласти</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Тихі години стартують</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Тихі години закінчуються</string>
 	<string name="rmd_EPr_rmd_time_title">Нагадування по замовчуванню</string>
-	<string name="rmd_EPr_rmd_time_desc">Сповіщення для задач без терміну виконання з\'являться у %s</string>
+	<string name="rmd_EPr_rmd_time_desc">Сповіщення для задач без терміну виконання з\'являться о %s</string>
+	<string name="persistent_notifications">Стійкі сповіщення</string>
+	<string name="persistent_notifications_description">Стійкі сповіщення не можуть бути відхилені</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимальна гучність для багаторазових нагадувань</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks буде максимізувати гучність для багаторазових нагадувань</string>
 	<string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
 	<string-array name="EPr_reminder_random">
-		<item>disabled</item>
+		<item>вимкнено</item>
 		<item>щогодинно</item>
 		<item>щоденно</item>
 		<item>щотижня</item>
@@ -202,78 +231,207 @@
 		<item>щомісяця</item>
 		<item>два рази на місяць</item>
 	</string-array>
-	<string name="repeat_every">З інтервалом в %d</string>
+	<string name="repeat_every">Кожні %d</string>
 	<string name="repeat_interval_prompt">Інтервал повторення</string>
 	<string name="repeat_never">Не повторювати</string>
-	<string name="repeat_detail_duedate">З інтервалом в %s</string>
-	<string name="repeat_detail_duedate_until">Кожні %1$s\nпоки %2$s</string>
+	<string-array name="repeat_interval">
+		<item>Днів</item>
+		<item>Тижнів</item>
+		<item>Місяців</item>
+		<item>Годин</item>
+		<item>Хвилин</item>
+		<item>Років</item>
+	</string-array>
+	<string-array name="repeat_type">
+		<item>з кінцевої дати</item>
+		<item>з дати виконання</item>
+	</string-array>
+	<string name="repeat_detail_duedate">Кожні %s</string>
+	<string name="repeat_detail_duedate_until">Кожні %1$s\до %2$s</string>
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
+	<string name="repeat_snackbar">%1$s перенесено на %2$s</string>
+	<string name="new_tag">Створити новий ярлик</string>
 	<string name="tag_FEx_untagged">Без категорії</string>
-	<string name="TPl_notification">Для %s діють таймери!</string>
+	<string name="delete_tag_confirmation">Видалити %s?</string>
+	<string name="TPl_notification">Таймери діють протягом %s!</string>
+	<string name="TFE_workingOn">Час завданя відстежується.</string>
 	<string name="TEA_timer_controls">Таймер</string>
 	<string name="TEA_timer_comment_started">Завдання розпочато:</string>
 	<string name="TEA_timer_comment_stopped">виконання завдання завершено:</string>
 	<string name="TEA_timer_comment_spent">Часу витрачено:</string>
-	<string name="voice_create_prompt">Горовіть щоб створити завдання</string>
+	<string name="voice_create_prompt">Горовіть для створення завдання</string>
 	<string name="EPr_voiceInputEnabled_title">Голосове введення</string>
 	<string name="EPr_voiceRemindersEnabled_title">Голосові нагадування</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks повинен вимовляти назву завдань під час нагадувань</string>
 	<string name="delete_task">Видалити завдання</string>
+	<string name="voice_command_added_task">Додане завдання</string>
+	<string name="external_storage_unavailable">Немає доступу до зовнішнього сховища</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 завдання</item>
 		<item quantity="other">%d завдань</item>
 	</plurals>
 	<string name="today">Сьогодні</string>
 	<string name="tomorrow">Завтра</string>
+	<string name="next">Наступні %s</string>
 	<string name="yesterday">Вчора</string>
-	<string name="tmrw">Завт.</string>
-	<string name="yest">Вчор.</string>
-	<string name="DLG_error">На жаль, схоже, сталася помилка! Ось що вийшло:\n\n%s</string>
+	<string name="tmrw">Звтр</string>
+	<string name="yest">Вчр</string>
+	<string name="DLG_error">Ой, схоже виникла помилка! Ось що сталось::\n\n%s</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
 	<string name="sync_status_success">Остання синхр.:\n%s</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
 	<string name="sync_SPr_forget">Вийти</string>
+	<string name="sync_SPr_forget_description">Очищує всю синхронізовану інформацію</string>
+	<string name="sync_forget_confirm">Вийти/очистити синхронізовану інофрмацію?</string>
+	<string name="widget_hide_due_date">Приховати дати виконання</string>
+	<string name="widget_hide_checkboxes">Сховати галочки</string>
+	<string name="widget_hide_header">Сховати заголовок</string>
+	<string name="notifications">Сповіщення</string>
+	<string name="silent">Безшумно</string>
+	<string name="sound">Звук</string>
 	<string name="vibrations">Вібрації</string>
+	<string name="quiet_hours">Тихі години</string>
+	<string name="attachment_directory">Папка вкладень</string>
 	<string name="backup_directory">Папка резервної копії</string>
+	<string name="miscellaneous">Різне</string>
+	<string name="synchronization">Синхронізація</string>
+	<string name="enabled">Увімкнено</string>
+	<string name="font_size">Розмір шрифту</string>
+	<string name="customize_edit_screen">Налаштувати вікно редагування</string>
 	<string name="source_code">Вихідний код</string>
+	<string name="translations">Допомогти перекласти</string>
 	<string name="report_an_issue">Повідомити про помилку</string>
 	<string name="help_and_feedback">Допомога і відгуки</string>
 	<string name="contact_developer">Зв\'язатися з розробником</string>
 	<string name="rate_tasks">Оцінити Tasks</string>
-	<string name="quiet_hours_summary">Без нагадуваннь під час тихих годин</string>
-	<string name="notification_actions">Дії нагадування</string>
-	<string name="pick_a_date">Вибрати дату</string>
-	<string name="pick_a_time">Вибрати час</string>
+	<string name="quiet_hours_summary">Без нагадувань під час тихих годин</string>
+	<string name="TLA_menu_donate">Пожертвувати</string>
+	<string name="select_amount">Обрати кількість</string>
+	<string name="notification_actions">Дії в сповіщеннях</string>
+	<string name="notification_actions_summary">Показувати дії відкладення та завершення в сповіщеннях</string>
+	<string name="add_reminder">Додати нагадування</string>
+	<string name="remove">Вилучити</string>
+	<string name="randomly_once">Випадково раз</string>
+	<string name="randomly">Випадково</string>
+	<string name="pick_a_date">Обрати дату</string>
+	<string name="pick_a_time">Обрати час</string>
+	<string name="pick_a_date_and_time">Обрати дату та час</string>
+	<string name="pick_a_location">Обрати місцезнаходження</string>
+	<string name="when_overdue">Коли прострочено</string>
+	<string name="when_due">Коли заплановано час</string>
 	<string name="geofence_radius_title">Радіус (метри)</string>
 	<string name="geofence_responsiveness_title">Час відклику (вище значення зберігає заряд батареї)</string>
 	<string name="geolocation_reminders">Геолокаційні нагадування</string>
 	<string name="tags">Теги</string>
-	<string name="filters">Фільтр</string>
+	<string name="filters">Фільтри</string>
+	<string name="date_shortcuts">Частини дня</string>
+	<string name="date_shortcut_hour">На годину</string>
+	<string name="date_shortcut_morning">Зранку</string>
+	<string name="date_shortcut_afternoon">Опівдні</string>
+	<string name="date_shortcut_evening">Ввечері</string>
+	<string name="date_shortcut_night">Вночі</string>
+	<string name="date_shortcut_tomorrow_morning">Завтра зранку</string>
+	<string name="date_shortcut_tomorrow_afternoon">Завтра опівдні</string>
+	<string name="date_shortcut_must_come_before">%1$s має бути до %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s має бути після %2$s</string>
+	<string name="discard_changes">Скасувати зміни</string>
+	<string name="discard">Скасувати</string>
+	<string name="tag_settings">Налаштування тегу</string>
+	<string name="delete">Видалити</string>
 	<string name="filter_settings">Налаштування фільтру</string>
 	<string name="show_hidden">Показати приховані</string>
 	<string name="show_completed">Показати завершені</string>
 	<string name="reverse">Реверс</string>
+	<string name="task_count">%s Завдань</string>
+	<string name="get_plugins">Покупки в застосунку</string>
 	<string name="no_application_found">Не знайдено програми для відкриття вкладення</string>
 	<string name="add_attachment">Додати вкладення</string>
 	<string name="high_priority">Високий</string>
+	<string name="default_priority">Типово</string>
 	<string name="low_priority">Низький</string>
-	<string name="notification_priority">Пріоритет нагадування</string>
+	<string name="notification_priority">Пріоритет сповіщення</string>
 	<string name="vibration_count">Кількість вібрацій</string>
 	<string name="vibration_duration">Довжина кожної вібрації (мілісекунди)</string>
 	<string name="vibration_pause">Пауза між вібраціями (мілісекунди)</string>
+	<string name="take_a_picture">Зробити фото</string>
+	<string name="pick_from_gallery">Обрати з галереї</string>
+	<string name="pick_from_storage">Обрати зі сховища</string>
+	<string name="privacy">Приватність</string>
+	<string name="privacy_policy">Політика приватності</string>
 	<string name="send_anonymous_statistics">Поліпшити Tasks</string>
 	<string name="send_anonymous_statistics_summary">Відсилати анонімну статистику використання і звіти про помилки щоб покращити Tasks. Жодних персональних даних не буде передано.</string>
 	<string name="tag_already_exists">Тег вже існує</string>
-	<string name="doze_notifications">Переривати режим \"Doze\" для повідомленнь</string>
+	<string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
+	<string name="doze_notifications">Переривати режим \"Doze\" для сповіщень</string>
 	<string name="doze_notifications_off">Андроїд зазвичай буде значно відкладати повідомлення коли пристрій в режимі \"Doze\"</string>
 	<string name="doze_notifications_on">Android дозволить деякі переривання в режимі \"Doze\"</string>
+	<string name="no_title">(без назви)</string>
+	<string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
+	<string name="default_list">Типовий список</string>
+	<string name="plugin_description">Tasks це проект з відкритим кодом, що обслуговується одним розробником. З метою підтримки розробки, деякі функції доступні лише після придбання через додаток.</string>
+	<string name="tesla_unread_description">Показувати значок з кількістю активних завдань в типовому списку. Потрібен TeslaUnread for Nova Launcher</string>
+	<string name="themes_purchase_description">Розблокувати усі схеми та додати кольори до Tasks</string>
+	<string name="tasker_description">Контекстні сповіщення списку. Потрібен Tasker або Locale</string>
+	<string name="donate_summary">Пожертви щиро вітаються</string>
+	<string name="dashclock_description">Показати кількість активних завдань</string>
+	<string name="dashclock_purchase_description">Показати кількість активних завдань. Потрібен DashClock Widget</string>
+	<string name="buy">Придбати</string>
+	<string name="buy_dashclock_extension">Придбати розширення</string>
+	<string name="billing_service_busy">Сервіс оплати застосунку перевантажено, спробуйте пізніше.</string>
+	<string name="select_filter">Обрати фільтр</string>
+	<string name="filter">Фільтр</string>
+	<string name="opacity">Прозорість</string>
+	<string name="theme">Схема</string>
+	<string name="color">Колір</string>
+	<string name="accent">Акцент</string>
+	<string name="themes">Додаткові схеми</string>
+	<string name="theme_red">Червоний</string>
+	<string name="theme_pink">Рожевий</string>
+	<string name="theme_purple">Пурпуровий</string>
+	<string name="theme_deep_purple">Фіолетовий</string>
+	<string name="theme_indigo">Індиго</string>
+	<string name="theme_blue">Синій</string>
+	<string name="theme_light_blue">Блакитний</string>
+	<string name="theme_cyan">Ціановий</string>
+	<string name="theme_teal">Синьо-зелений</string>
+	<string name="theme_green">Зелений</string>
+	<string name="theme_light_green">Світло-зелений</string>
+	<string name="theme_lime">Лайм</string>
+	<string name="theme_yellow">Жовтий</string>
+	<string name="theme_amber">Янтарний</string>
+	<string name="theme_orange">Помаранчевий</string>
+	<string name="theme_deep_orange">Темно-помаранчевий</string>
+	<string name="theme_brown">Коричневий</string>
+	<string name="theme_grey">Сірий</string>
+	<string name="theme_blue_grey">Сіро-синій</string>
+	<string name="theme_black">Чорний</string>
+	<string name="theme_dark_grey">Темно-сірий</string>
+	<string name="theme_light">Світлий</string>
+	<string name="theme_dark">Темний</string>
+	<string name="theme_wallpaper">Шпалери</string>
+	<string name="theme_day_night">День/Ніч</string>
+	<string name="default_value">Типово</string>
 	<string name="sync_interval_disable">вимкнути</string>
 	<string name="sync_interval_one_hour">кожну годину</string>
-	<string name="sync_interval_three_hours">кожних 3 години</string>
-	<string name="sync_interval_six_hours">кожних 6 годин</string>
-	<string name="sync_interval_twelve_hours">кожних 12 годин</string>
+	<string name="sync_interval_three_hours">кожні 3 години</string>
+	<string name="sync_interval_six_hours">кожні 6 годин</string>
+	<string name="sync_interval_twelve_hours">кожні 12 годин</string>
 	<string name="sync_interval_one_day">щодня</string>
-	<string name="sync_interval_three_days">кожного 3-го дня</string>
+	<string name="sync_interval_three_days">кожні 3 дня</string>
 	<string name="sync_interval_one_week">кожного тижня</string>
+	<string name="master_sync_warning">Автоматична синхронізація наразі недоступна в Android</string>
+	<string name="settings_general">Загальні</string>
+	<string name="language">Мова</string>
+	<string name="restart_required">Tasks має бути перезавантажено для вступу змін в дію.</string>
+	<string name="restart_now">Перезапустити зараз</string>
+	<string name="restart_later">Пізніше</string>
+	<string name="settings_localization">Локалізація</string>
+	<string name="layout_direction">Напрям письма</string>
+	<string name="layout_direction_locale">Використовувати локальний напрям</string>
+	<string name="layout_direction_left_to_right">Зліва направо</string>
+	<string name="layout_direction_right_to_left">Зправа наліво</string>
+	<string name="led_notification">LED-сповіщення</string>
+	<string name="hardware_support_required">Потрібна підтримка апартних засобів</string>
+	<string name="led_color">LED колір</string>
 </resources>

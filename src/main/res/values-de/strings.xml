@@ -292,6 +292,7 @@
 	<string name="font_size">Schriftgröße</string>
 	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
 	<string name="source_code">Quelltext</string>
+	<string name="translations">Übersetzung beitragen</string>
 	<string name="report_an_issue">Fehler melden</string>
 	<string name="help_and_feedback">Hilfe &amp; Feedback</string>
 	<string name="contact_developer">Entwickler kontaktieren</string>
@@ -373,6 +374,7 @@
 	<string name="select_filter">Filter auswählen</string>
 	<string name="opacity">Durchsichtigkeit</string>
 	<string name="color">Farbe</string>
+	<string name="accent">Akzent</string>
 	<string name="themes">Zusätzliche Themes</string>
 	<string name="theme_red">Rot</string>
 	<string name="theme_purple">Lila</string>
@@ -383,6 +385,7 @@
 	<string name="theme_teal">Blaugrün</string>
 	<string name="theme_green">Grün</string>
 	<string name="theme_light_green">Hellgrün</string>
+	<string name="theme_lime">Limette</string>
 	<string name="theme_yellow">Gelb</string>
 	<string name="theme_amber">Bernstein</string>
 	<string name="theme_deep_orange">Dunkelorange</string>
@@ -393,6 +396,8 @@
 	<string name="theme_dark_grey">Dunkel Grau</string>
 	<string name="theme_light">Hell</string>
 	<string name="theme_dark">Dunkel</string>
+	<string name="theme_wallpaper">Hintergrundbild</string>
+	<string name="theme_day_night">Tag/Nacht</string>
 	<string name="default_value">Standard</string>
 	<string name="sync_interval_disable">deaktivieren</string>
 	<string name="sync_interval_one_hour">stündlich</string>
@@ -402,4 +407,14 @@
 	<string name="sync_interval_one_day">täglich</string>
 	<string name="sync_interval_three_days">jeden dritten Tag</string>
 	<string name="sync_interval_one_week">wöchentlich</string>
+	<string name="master_sync_warning">Automatische Syncronisation ist aktuell im System deaktiviert</string>
+	<string name="settings_general">Allgemein</string>
+	<string name="language">Sprache</string>
+	<string name="restart_required">Tasks muss neugestartet werden um die Änderungen zu übernehmen</string>
+	<string name="restart_now">Jetzt neustarten</string>
+	<string name="restart_later">Später</string>
+	<string name="layout_direction">Schreibrichtung</string>
+	<string name="layout_direction_locale">Systemeinstellungen</string>
+	<string name="layout_direction_left_to_right">Links nach rechts</string>
+	<string name="layout_direction_right_to_left">Rechts nach links</string>
 </resources>

@@ -6,6 +6,7 @@
 package com.todoroo.astrid.reminders;
 
 import android.app.Notification;
+import android.content.Context;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -16,6 +17,7 @@ import org.tasks.Broadcaster;
 import org.tasks.Notifier;
 import org.tasks.injection.TestComponent;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
 
@@ -35,6 +37,11 @@ public class NotificationTests extends DatabaseTestCase {
     public static class NotificationTestsModule {
         private final NotificationManager notificationManager = mock(NotificationManager.class);
         private final Broadcaster broadcaster = mock(Broadcaster.class);
+        private final Context context;
+
+        public NotificationTestsModule(Context context) {
+            this.context = context;
+        }
 
         @Provides
         public NotificationManager getNotificationManager() {
@@ -44,6 +51,11 @@ public class NotificationTests extends DatabaseTestCase {
         @Provides
         public Broadcaster getBroadcaster() {
             return broadcaster;
+        }
+
+        @Provides
+        public ThemeCache getThemeCache() {
+            return new ThemeCache(context);
         }
     }
 
@@ -167,7 +179,7 @@ public class NotificationTests extends DatabaseTestCase {
     @Override
     protected void inject(TestComponent component) {
         component
-                .plus(new NotificationTestsModule())
+                .plus(new NotificationTestsModule(getContext()))
                 .inject(this);
     }
 }

@@ -429,4 +429,7 @@
 	<string name="layout_direction_locale">לפי השפה</string>
 	<string name="layout_direction_left_to_right">משמאל לימין</string>
 	<string name="layout_direction_right_to_left">מימין לשמאל</string>
+	<string name="led_notification">תאורת התראות</string>
+	<string name="hardware_support_required">נדרשת חומרה תואמת</string>
+	<string name="led_color">צבע תאורת התראות</string>
 </resources>
