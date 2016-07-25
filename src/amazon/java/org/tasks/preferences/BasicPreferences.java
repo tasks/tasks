@@ -11,7 +11,7 @@ public class BasicPreferences extends BaseBasicPreferences {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requires(false, R.string.synchronization, R.string.get_plugins);
+        requires(R.string.settings_general, false, R.string.synchronization);
     }
 
     @Override
