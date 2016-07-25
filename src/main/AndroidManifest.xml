@@ -370,25 +370,6 @@
             android:label="@string/EPr_manage_header"
             android:theme="@style/Tasks"/>
 
-        <activity
-            android:name=".activities.ClearAllDataActivity"
-            android:theme="@style/TranslucentDialog" />
-        <activity
-            android:name=".activities.ResetPreferencesActivity"
-            android:theme="@style/TranslucentDialog" />
-        <activity
-            android:name=".activities.PurgeDeletedActivity"
-            android:theme="@style/TranslucentDialog" />
-        <activity
-            android:name=".activities.DeleteCompletedActivity"
-            android:theme="@style/TranslucentDialog" />
-        <activity
-            android:name=".activities.DeleteCompletedEventsActivity"
-            android:theme="@style/TranslucentDialog" />
-        <activity
-            android:name=".activities.DeleteAllCalendarEventsActivity"
-            android:theme="@style/TranslucentDialog" />
-
         <!-- backup -->
 
         <activity

@@ -16,18 +16,12 @@ import com.todoroo.astrid.service.UpgradeActivity;
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
-import org.tasks.activities.ClearAllDataActivity;
 import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
-import org.tasks.activities.DeleteAllCalendarEventsActivity;
-import org.tasks.activities.DeleteCompletedActivity;
-import org.tasks.activities.DeleteCompletedEventsActivity;
 import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.ImportTaskActivity;
-import org.tasks.activities.PurgeDeletedActivity;
-import org.tasks.activities.ResetPreferencesActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
@@ -78,19 +72,9 @@ public interface BaseActivityComponent {
 
     void inject(FileExplore fileExplore);
 
-    void inject(ClearAllDataActivity clearAllDataActivity);
-
     void inject(CalendarSelectionActivity calendarSelectionActivity);
 
-    void inject(DeleteAllCalendarEventsActivity deleteAllCalendarEventsActivity);
-
-    void inject(DeleteCompletedEventsActivity deleteCompletedEventsActivity);
-
     void inject(FilterSelectionActivity filterSelectionActivity);
-
-    void inject(ResetPreferencesActivity resetPreferencesActivity);
-
-    void inject(PurgeDeletedActivity purgeDeletedActivity);
 
     void inject(DateAndTimePickerActivity dateAndTimePickerActivity);
 
@@ -99,8 +83,6 @@ public interface BaseActivityComponent {
     void inject(ImportTaskActivity importTaskActivity);
 
     void inject(AddAttachmentActivity addAttachmentActivity);
-
-    void inject(DeleteCompletedActivity deleteCompletedActivity);
 
     void inject(DatePickerActivity datePickerActivity);
 

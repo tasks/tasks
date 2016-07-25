@@ -8,50 +8,26 @@
 
     <com.todoroo.astrid.ui.MultilinePreference
         android:key="@string/EPr_manage_delete_completed"
-        android:title="@string/EPr_manage_delete_completed">
-        <intent
-            android:targetClass="org.tasks.activities.DeleteCompletedActivity"
-            android:targetPackage="org.tasks" />
-    </com.todoroo.astrid.ui.MultilinePreference>
+        android:title="@string/EPr_manage_delete_completed" />
 
     <com.todoroo.astrid.ui.MultilinePreference
         android:key="@string/EPr_manage_purge_deleted"
-        android:title="@string/EPr_manage_purge_deleted">
-        <intent
-            android:targetClass="org.tasks.activities.PurgeDeletedActivity"
-            android:targetPackage="org.tasks" />
-    </com.todoroo.astrid.ui.MultilinePreference>
+        android:title="@string/EPr_manage_purge_deleted" />
 
     <com.todoroo.astrid.ui.MultilinePreference
         android:key="@string/EPr_manage_delete_completed_gcal"
-        android:title="@string/EPr_manage_delete_completed_gcal">
-        <intent
-            android:targetClass="org.tasks.activities.DeleteCompletedEventsActivity"
-            android:targetPackage="org.tasks" />
-    </com.todoroo.astrid.ui.MultilinePreference>
+        android:title="@string/EPr_manage_delete_completed_gcal" />
 
     <com.todoroo.astrid.ui.MultilinePreference
         android:key="@string/EPr_manage_delete_all_gcal"
-        android:title="@string/EPr_manage_delete_all_gcal">
-        <intent
-            android:targetClass="org.tasks.activities.DeleteAllCalendarEventsActivity"
-            android:targetPackage="org.tasks" />
-    </com.todoroo.astrid.ui.MultilinePreference>
+        android:title="@string/EPr_manage_delete_all_gcal" />
 
     <Preference
         android:key="@string/EPr_reset_preferences"
-        android:title="@string/EPr_reset_preferences">
-        <intent
-            android:targetClass="org.tasks.activities.ResetPreferencesActivity"
-            android:targetPackage="org.tasks" />
-    </Preference>
+        android:title="@string/EPr_reset_preferences" />
 
     <Preference
         android:key="@string/EPr_delete_task_data"
-        android:title="@string/EPr_delete_task_data">
-        <intent
-            android:targetClass="org.tasks.activities.ClearAllDataActivity"
-            android:targetPackage="org.tasks" />
-    </Preference>
+        android:title="@string/EPr_delete_task_data" />
 
 </PreferenceScreen>
