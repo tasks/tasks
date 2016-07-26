@@ -176,7 +176,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             }
 
             if (atLeastJellybeanMR1()) {
-                row.setInt(R.id.widget_row, "setLayoutDirection", Locale.INSTANCE.getDirectionality());
+                row.setInt(R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
             }
 
             return row;
@@ -211,7 +211,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         rv.setTextViewText(R.id.widget_title, filter.listingTitle);
         if (atLeastJellybeanMR1()) {
-            rv.setInt(R.id.widget, "setLayoutDirection", Locale.INSTANCE.getDirectionality());
+            rv.setInt(R.id.widget, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
         }
         appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
         String query = SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "");

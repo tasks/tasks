@@ -30,7 +30,7 @@ public class ApplicationModule {
 
     @Provides
     public Locale getLocale() {
-        return Locale.INSTANCE;
+        return Locale.getInstance(context);
     }
 
     @Provides

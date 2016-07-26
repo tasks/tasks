@@ -14,7 +14,7 @@ public abstract class InjectingAppCompatActivity extends AppCompatActivity imple
     @Inject Tracker tracker;
 
     public InjectingAppCompatActivity() {
-        Locale.INSTANCE.applyOverrideConfiguration(this);
+        Locale.getInstance(this).applyOverrideConfiguration(this);
     }
 
     @Override

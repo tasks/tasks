@@ -16,7 +16,7 @@ public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity
     @Inject Theme theme;
 
     public ThemedInjectingAppCompatActivity() {
-        Locale.INSTANCE.applyOverrideConfiguration(this);
+        Locale.getInstance(this).applyOverrideConfiguration(this);
     }
 
     @Override

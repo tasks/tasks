@@ -2,7 +2,9 @@ package org.tasks.locale;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.preference.PreferenceManager;
 import android.support.v4.text.TextUtilsCompat;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -10,11 +12,30 @@ import android.view.ViewParent;
 
 import com.google.common.base.Strings;
 
+import org.tasks.R;
+
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class Locale {
 
-    public static Locale INSTANCE;
+    private static Locale DEFAULT = new Locale(java.util.Locale.getDefault(), null, -1);
+    private static Locale INSTANCE;
+
+    public static Locale getInstance(Context context) {
+        if (INSTANCE == null) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            String language = prefs.getString(context.getString(R.string.p_language), null);
+            int directionOverride = Integer.parseInt(prefs.getString(context.getString(R.string.p_layout_direction), "-1"));
+            INSTANCE = new Locale(DEFAULT.getLocale(), language, directionOverride);
+            java.util.Locale.setDefault(INSTANCE.getLocale());
+        }
+
+        return getInstance();
+    }
+
+    public static Locale getInstance() {
+        return INSTANCE == null ? DEFAULT : INSTANCE;
+    }
 
     private static final int[] sDialogButtons = new int[] { android.R.id.button1, android.R.id.button2, android.R.id.button3 };
     private static final char LEFT_TO_RIGHT_MARK = '\u200e';

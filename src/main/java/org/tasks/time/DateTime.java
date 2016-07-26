@@ -275,7 +275,7 @@ public class DateTime {
 
     public String toString(String format) {
         Calendar calendar = getCalendar();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, Locale.INSTANCE.getLocale());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, Locale.getInstance().getLocale());
         simpleDateFormat.setCalendar(calendar);
         return simpleDateFormat.format(calendar.getTime());
     }
