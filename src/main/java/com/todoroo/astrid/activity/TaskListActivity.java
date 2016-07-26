@@ -380,8 +380,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 taskEditFragment.discardButtonClick();
             }
         } else {
-            getSupportFragmentManager().popBackStackImmediate(FRAG_TAG_TASK_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            super.onBackPressed();
+            finish();
         }
     }
 
