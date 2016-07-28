@@ -39,6 +39,7 @@ public class NativeDatePickerDialog extends InjectingNativeDialogFragment implem
         if (initial != null) {
             datePickerDialog.updateDate(initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
         }
+        datePickerDialog.setTitle(null);
         return datePickerDialog;
     }
 

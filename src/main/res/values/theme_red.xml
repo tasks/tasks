@@ -8,6 +8,7 @@
 
     <style name="RedAccent" parent="WhiteTint">
         <item name="colorAccent">@color/red_a400</item>
+        <item name="colorAccentDialog">@color/red_a400</item>
     </style>
 
 </resources>

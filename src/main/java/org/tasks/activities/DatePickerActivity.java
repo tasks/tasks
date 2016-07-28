@@ -17,7 +17,7 @@ import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.dialogs.NativeDatePickerDialog.newNativeDatePickerDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -38,7 +38,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
         DateTime initial = (timestamp > 0 ? new DateTime(timestamp) : new DateTime()).startOfDay();
 
         FragmentManager fragmentManager = getFragmentManager();
-        if (atLeastMarshmallow()) {
+        if (atLeastLollipop()) {
             if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
                 newNativeDatePickerDialog(initial)
                         .show(fragmentManager, FRAG_TAG_DATE_PICKER);

@@ -8,6 +8,7 @@
 
     <style name="DeepPurpleAccent" parent="WhiteTint">
         <item name="colorAccent">@color/deep_purple_a400</item>
+        <item name="colorAccentDialog">@color/deep_purple_a400</item>
     </style>
 
 </resources>

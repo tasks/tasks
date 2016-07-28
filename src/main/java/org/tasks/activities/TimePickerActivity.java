@@ -19,7 +19,7 @@ import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.dialogs.NativeTimePickerDialog.newNativeTimePickerDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -42,7 +42,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
         initial = new DateTime(getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()));
 
         FragmentManager fragmentManager = getFragmentManager();
-        if (atLeastMarshmallow()) {
+        if (atLeastLollipop()) {
             if (fragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER) == null) {
                 newNativeTimePickerDialog(initial)
                         .show(fragmentManager, FRAG_TAG_TIME_PICKER);

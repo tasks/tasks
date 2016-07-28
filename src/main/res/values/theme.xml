@@ -10,7 +10,9 @@
         <item name="icon_tint">@color/icon_tint</item>
         <item name="android:spinnerItemStyle">@style/SpinnerNoPadding</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
-        <item name="alertDialogTheme">@style/TasksDialog</item>
+        <item name="dialogTheme">@style/TasksDialog</item>
+        <item name="android:dialogTheme">@style/TasksDialog</item>
+        <item name="alertDialogTheme">@style/TasksDialogAlert</item>
         <item name="alpha_secondary">@dimen/alpha_secondary</item>
         <item name="alpha_disabled">@dimen/alpha_disabled</item>
         <item name="android:textColorPrimary">@color/text_primary</item>
@@ -21,8 +23,16 @@
     <style name="TasksOverride" parent="Tasks">
     </style>
 
+    <style name="TasksDialogAlert" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowBackground">@color/background_color_dialog</item>
+        <item name="colorAccent">?attr/colorAccentDialog</item>
+        <item name="asTextColor">@color/text_primary</item>
+        <item name="icon_tint">@color/icon_tint</item>
+    </style>
+
     <style name="TasksDialog" parent="@style/Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowBackground">@color/background_color_dialog</item>
+        <item name="colorAccent">?attr/colorAccentDialog</item>
         <item name="asTextColor">@color/text_primary</item>
         <item name="icon_tint">@color/icon_tint</item>
     </style>

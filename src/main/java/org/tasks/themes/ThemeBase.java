@@ -32,8 +32,8 @@ public class ThemeBase {
         this.contentBackground = contentBackground;
     }
 
-    public int getDialogStyle() {
-        return R.style.TasksDialog;
+    public int getAlertDialogStyle() {
+        return R.style.TasksDialogAlert;
     }
 
     public String getName() {

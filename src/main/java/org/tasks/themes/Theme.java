@@ -41,7 +41,7 @@ public class Theme {
     }
 
     public ContextThemeWrapper getThemedDialog(Context context) {
-        return new ContextThemeWrapper(context, themeBase.getDialogStyle());
+        return new ContextThemeWrapper(context, themeBase.getAlertDialogStyle());
     }
 
     public void applyThemeAndStatusBarColor(Activity activity, AppCompatDelegate delegate) {
