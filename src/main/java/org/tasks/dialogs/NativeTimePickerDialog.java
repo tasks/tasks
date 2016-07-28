@@ -49,6 +49,7 @@ public class NativeTimePickerDialog extends InjectingNativeDialogFragment implem
         if (initial != null) {
             timePickerDialog.updateTime(initial.getHourOfDay(), initial.getMinuteOfHour());
         }
+        timePickerDialog.setTitle(null);
         return timePickerDialog;
     }
 
