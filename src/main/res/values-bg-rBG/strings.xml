@@ -198,7 +198,6 @@
 	<string name="file_type_unhandled">Съжаляваме! Не е намерено приложение, което да работи с този тип файл.</string>
 	<string name="back">Назад</string>
 	<string name="file_err_copy">Грешка при копиране на файла за прикачване</string>
-	<string name="premium_speech_bubble_2">Поръчай една година и спести 25%!</string>
 	<string name="ring_once">Звънене веднъж</string>
 	<string name="ring_five_times">Звънене пет пъти</string>
 	<string name="ring_nonstop">Звънене без спиране</string>
@@ -406,6 +405,7 @@
 	<string name="theme_blue_grey">Синьо-сив</string>
 	<string name="theme_black">Черна</string>
 	<string name="theme_dark_grey">Тъмно сива</string>
+	<string name="theme_white">Бяла</string>
 	<string name="theme_light">Светла</string>
 	<string name="theme_dark">Тъмна</string>
 	<string name="theme_wallpaper">Тапет</string>
@@ -430,4 +430,7 @@
 	<string name="layout_direction_locale">Използвай направление според местополжението</string>
 	<string name="layout_direction_left_to_right">Отляво надясно</string>
 	<string name="layout_direction_right_to_left">Отдясно наляво</string>
+	<string name="led_notification">LED нотификация</string>
+	<string name="hardware_support_required">Изисква се хардуерна поддръжка </string>
+	<string name="led_color">LED цвят</string>
 </resources>

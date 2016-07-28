@@ -22,8 +22,8 @@
 	<string name="DLG_error_sdcard">Impossible d\'accéder au dossier : %s</string>
 	<string name="DLG_error_sdcard_general">Impossible d\'accéder à la carte SD !</string>
 	<string name="read_permission_label">Permissions de Tasks</string>
-	<string name="write_permission_label">Permission d\'Tasks</string>
-	<string name="discard_confirmation">Etes-vous sûrs de vouloir annuler vos modifications ?</string>
+	<string name="write_permission_label">Permission de Tasks</string>
+	<string name="discard_confirmation">Êtes-vous sûr de vouloir annuler vos modifications ?</string>
 	<string name="keep_editing">Continuer l\'édition</string>
 	<string name="DLG_delete_this_task_question">Supprimer cette tâche ?</string>
 	<string name="DLG_hour_minutes">Temps (heures : minutes)</string>
@@ -42,10 +42,10 @@
 	<string name="TAd_contextUndeleteTask">Récupérer la tâche</string>
 	<string name="SSD_sort_drag">Ordonner manuellement avec les sous-tâches</string>
 	<string name="SSD_sort_auto">Tri intelligent Tasks</string>
-	<string name="SSD_sort_alpha">Par Titre</string>
+	<string name="SSD_sort_alpha">Par titre</string>
 	<string name="SSD_sort_due">Par date d\'échéance</string>
 	<string name="SSD_sort_importance">Par priorité</string>
-	<string name="SSD_sort_modified">Dernier modifié</string>
+	<string name="SSD_sort_modified">Par dernière modification</string>
 	<string name="FLA_search_filter">Correspondant \'%s\'</string>
 	<string name="FLA_new_filter">Créer un nouveau filtre</string>
 	<string name="TEA_title_hint">Nom de la tâche</string>
@@ -70,7 +70,7 @@
 	<string name="TEA_control_files">Fichiers</string>
 	<string name="TEA_control_google_task_list">Liste de Google Task</string>
 	<string name="TEA_control_reminders">Rappels</string>
-	<string name="TEA_control_timer">Contrôle de rappel</string>
+	<string name="TEA_control_timer">Contrôles de rappel</string>
 	<string name="TEA_control_hidden_section">---- Toujours masquer ----</string>
 	<string name="TEA_load_more">Charger plus...</string>
 	<string name="missed_call">Appel manqué de %s</string>
@@ -82,7 +82,7 @@
 	<string name="MCA_task_title_no_name">Rappeler %s</string>
 	<string name="CRA_ignore">Ignorer</string>
 	<string name="CRA_title">Besoin d\'une liste de réunion ? </string>
-	<string name="CRA_ignore_body">Vous avez ignoré plusieurs événements du calendrier. Souhaitez-vous qu\'Tasks cesse de vous questionner à ce sujet ? </string>
+	<string name="CRA_ignore_body">Vous avez ignoré plusieurs événements du calendrier. Souhaitez-vous que Tasks cesse de vous les proposer? </string>
 	<string name="CRA_ignore_all">Ignorer tous les événements</string>
 	<string name="CRA_ignore_this">Ignorer uniquement cet événement</string>
 	<string name="CRA_speech_bubble_start">Il semble que %s débute bientôt. Désirez-vous créer une liste d\'actions à accomplir ? </string>
@@ -94,7 +94,7 @@
 	<string name="none">Aucun</string>
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
-	<string name="EPr_edit_screen_options">Edition des options d\'affichage</string>
+	<string name="EPr_edit_screen_options">Édition des options d\'affichage</string>
 	<string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
 	<string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
 	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
@@ -104,20 +104,20 @@
 	<string name="EPr_cal_start_at_due_time">Commencer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_manage_header">Gérer les anciennes tâches</string>
 	<string name="EPr_manage_delete_completed">Supprimer les tâches terminées</string>
-	<string name="EPr_manage_delete_completed_message">Confirmer la suppression de toutes vos tâches ?</string>
+	<string name="EPr_manage_delete_completed_message">Voulez-vous vraiment la suppression de toutes les tâches terminées ?</string>
 	<string name="EPr_manage_delete_completed_status">%d tâches supprimées !</string>
-	<string name="EPr_manage_purge_deleted">Purger les tâches supprimées</string>
-	<string name="EPr_manage_purge_deleted_message">Voulez vous vraiment purger toutes vos tâches supprimées ?\n\nCes tâches seront perdues pour toujours !</string>
-	<string name="EPr_manage_purge_deleted_status">%d tâches purgées!</string>
+	<string name="EPr_manage_purge_deleted">Supprimer définitivement les tâches supprimées</string>
+	<string name="EPr_manage_purge_deleted_message">Voulez vous vraiment supprimer définitivement toutes les tâches supprimées ?\n\nCes tâches seront perdues à jamais !</string>
+	<string name="EPr_manage_purge_deleted_status">%d tâches supprimées définitivement !</string>
 	<string name="EPr_reset_preferences">Réinitialiser les préférences</string>
 	<string name="EPr_reset_preferences_warning">Les préférences seront réinitialisées à leur valeur par défaut</string>
 	<string name="EPr_delete_task_data">Supprimer les données de la tâche</string>
 	<string name="EPr_delete_task_data_warning">Toutes les tâches seront supprimées de façon permanente</string>
-	<string name="EPr_manage_delete_completed_gcal">Supprimer les entrées de calendrier des tâches terminées</string>
-	<string name="EPr_manage_delete_completed_gcal_message">Voulez-vous réellement supprimer tous les événements pour les tâches complétées?</string>
+	<string name="EPr_manage_delete_completed_gcal">Supprimer les entrées de calendrier pour les tâches terminées</string>
+	<string name="EPr_manage_delete_completed_gcal_message">Voulez-vous réellement supprimer tous les événements des tâches complétées?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d événements du calendrier ont été supprimés!</string>
 	<string name="EPr_manage_delete_all_gcal">Supprimer toutes les entrées de calendrier des tâches</string>
-	<string name="EPr_manage_delete_all_gcal_message">Voulez-vous vraiment supprimer tous les événement du calendrier pour Tasks?</string>
+	<string name="EPr_manage_delete_all_gcal_message">Voulez-vous vraiment supprimer tous les événements du calendrier pour Tasks?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés!</string>
 	<string name="TWi_loading">Chargement…</string>
 	<string name="task_defaults">Valeurs par défaut</string>
@@ -154,8 +154,8 @@
 	<string name="CFA_context_delete">Supprimer la ligne</string>
 	<string name="CFA_help">Appuyer longuement pour des options additionnelles</string>
 	<string name="CFA_button_add">Ajouter un critère</string>
-	<string name="CFC_dueBefore_text">Échue le : ?</string>
-	<string name="CFC_dueBefore_name">Échue le...</string>
+	<string name="CFC_dueBefore_text">Échoue le: ?</string>
+	<string name="CFC_dueBefore_name">Échoue le..</string>
 	<string-array name="CFC_dueBefore_entries">
 		<item>Aucune date d\'échéance</item>
 		<item>Hier</item>
@@ -183,7 +183,6 @@
 	<string name="gtasks_GLA_noaccounts">Aucun compte Google trouvé pour la synchronisation.</string>
 	<string name="gtasks_GLA_authenticating">Authentification en cours...</string>
 	<string name="gtasks_GLA_errorIOAuth">Erreur de communication avec les serveurs Google. Veuillez essayer plus tard.</string>
-	<string name="gtasks_GPr_header">Google Tasks (Bêta !)</string>
 	<string name="gtasks_error_accountNotFound">Le compte %s est introuvable--veuillez vous déconnecter puis vous reconnecter depuis les préférences Google Tasks.</string>
 	<string name="premium_record_audio">Enregistrer un commentaire</string>
 	<string name="premium_remove_file_confirm">Êtes-vous certain(e)? Cette opération est irréversible</string>
@@ -192,7 +191,6 @@
 	<string name="file_type_unhandled">Désolé ! Aucune application n\'a été trouvé pour gérer ce type de fichier.</string>
 	<string name="back">Retour</string>
 	<string name="file_err_copy">Erreur lors de la copie du fichier à joindre</string>
-	<string name="premium_speech_bubble_2">Commandez pour un an et économisez 25%%!</string>
 	<string name="ring_once">Sonner une fois</string>
 	<string name="ring_five_times">Sonner cinq fois</string>
 	<string name="ring_nonstop">Sonner en continu</string>
@@ -213,7 +211,7 @@
 	<string name="persistent_notifications">Notifications persistantes</string>
 	<string name="persistent_notifications_description">Les notifications persistantes ne peuvent pas être supprimées</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume maximum pour les rappels multi sonneries</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks va maximiser le volume de multiples anneaux rappels</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks va maximiser le volume de multiples sonneries de rappels</string>
 	<string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
 	<string-array name="EPr_reminder_random">
 		<item>désactivé</item>
@@ -226,7 +224,7 @@
 	</string-array>
 	<string name="repeat_every">Tous les %d</string>
 	<string name="repeat_interval_prompt">Interval de répétition</string>
-	<string name="repeat_never">Une fois seulement</string>
+	<string name="repeat_never">Pas de répétition</string>
 	<string-array name="repeat_interval">
 		<item>Jour(s)</item>
 		<item>Semaine(s)</item>
@@ -244,11 +242,12 @@
 	<string name="repeat_forever">Répéter indéfiniment</string>
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
 	<string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
-	<string name="new_tag">Créer une nouvelle balise</string>
+	<string name="new_tag">Créer un nouveau tag</string>
 	<string name="tag_FEx_untagged">Non classé</string>
 	<string name="delete_tag_confirmation">Effacer %s ?</string>
 	<string name="TPl_notification">Chronomètre actif pour %s !</string>
 	<string name="TFE_workingOn">Tâches chronométrées</string>
+	<string name="TEA_timer_controls">Minuteur</string>
 	<string name="TEA_timer_comment_started">Cette tâche est commencée :</string>
 	<string name="TEA_timer_comment_stopped">Cette tâche a été arretée :</string>
 	<string name="TEA_timer_comment_spent">Temps passé :</string>
@@ -274,9 +273,9 @@
 	<string name="sync_status_success">Dernière synchro. :\n%s</string>
 	<string name="sync_SPr_interval_title">Synchro. en arrière-plan</string>
 	<string name="sync_SPr_forget">Se déconnecter</string>
-	<string name="sync_SPr_forget_description">Purger toutes les données de synchronisation</string>
-	<string name="sync_forget_confirm">Se déconnecter/purger les données de synchronisation ?</string>
-	<string name="widget_hide_due_date">Cacher les échéances</string>
+	<string name="sync_SPr_forget_description">Supprimer définitivement toutes les données de synchronisation</string>
+	<string name="sync_forget_confirm">Se déconnecter/Supprimer définitivement toutes les données de synchronisation ?</string>
+	<string name="widget_hide_due_date">Cacher les dates échéantes</string>
 	<string name="widget_hide_checkboxes">Cacher les cases à cocher</string>
 	<string name="widget_hide_header">Cacher l\'en-tête</string>
 	<string name="silent">Silencieux</string>
@@ -314,7 +313,7 @@
 	<string name="geofence_responsiveness_title">Temps de réponse (les valeurs élevées améliorent l\'autonomie)</string>
 	<string name="geolocation_reminders">Rappels géolocalisés</string>
 	<string name="filters">Filtres</string>
-	<string name="date_shortcuts">Raccourci pour les dates</string>
+	<string name="date_shortcuts">Raccourcis pour les dates</string>
 	<string name="date_shortcut_hour">Pour une heure</string>
 	<string name="date_shortcut_morning">Matin</string>
 	<string name="date_shortcut_afternoon">Après-midi</string>
@@ -331,7 +330,7 @@
 	<string name="filter_settings">Paramètres du filtre</string>
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>
-	<string name="reverse">Inverse</string>
+	<string name="reverse">Inverser</string>
 	<string name="task_count">%s Tâches</string>
 	<string name="get_plugins">Achats intégrés à l\'application</string>
 	<string name="no_application_found">Aucune application trouvée pour ouvrir la pièce jointe</string>
@@ -356,7 +355,7 @@
 	<string name="doze_notifications_off">Android va différer les notifications de façon importante lorsque l\'appareil sera en Doze mode</string>
 	<string name="doze_notifications_on">Android autorisera des interruptions limitées lorsque l\'appareil sera en Doze mode</string>
 	<string name="no_title">(Sans titre)</string>
-	<string name="back_button_saves_task">Faire un retour-arrière sauvegarde la tâche</string>
+	<string name="back_button_saves_task">Faire un retour-arrière pour sauvegarde de la tâche</string>
 	<string name="default_list">Liste par défaut</string>
 	<string name="plugin_description">Tasks est un projet à source ouverte entretenu par un développeur. Quelques contenus payants sont disponible dans l\'application pour supporter le développement.</string>
 	<string name="tesla_unread_description">Affiche un badge pour le nombre de tâches actives dans votre liste par défaut. TeslaUnread pour Nova Launcher est requis</string>
@@ -392,6 +391,7 @@
 	<string name="theme_blue_grey">Gris Bleu</string>
 	<string name="theme_black">Noir</string>
 	<string name="theme_dark_grey">Gris Noir</string>
+	<string name="theme_white">Blanc</string>
 	<string name="theme_light">Lumière</string>
 	<string name="theme_dark">Noir</string>
 	<string name="theme_wallpaper">Fond d\'écran</string>
@@ -419,4 +419,5 @@
 	<string name="led_notification">Notification de la LED</string>
 	<string name="hardware_support_required">Support matériel requis</string>
 	<string name="led_color">Couleur de la LED</string>
+	<string name="no_calendars_found">Pas de calendriers trouvés</string>
 </resources>

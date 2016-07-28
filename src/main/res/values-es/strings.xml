@@ -194,7 +194,6 @@
 	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
 	<string name="back">Volver</string>
 	<string name="file_err_copy">Error al copiar el archivo a adjuntar</string>
-	<string name="premium_speech_bubble_2">¡Ordena un año y ahorra un 25%%!</string>
 	<string name="ring_once">Sonar una vez</string>
 	<string name="ring_five_times">Sonar cinco veces</string>
 	<string name="ring_nonstop">Sonar sin parar</string>
@@ -401,6 +400,7 @@
 	<string name="theme_blue_grey">Gris azulado</string>
 	<string name="theme_black">Negro</string>
 	<string name="theme_dark_grey">Gris oscuro</string>
+	<string name="theme_white">Blanco</string>
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Oscuro</string>
 	<string name="theme_wallpaper">Fondo de pantalla</string>
@@ -424,4 +424,8 @@
 	<string name="layout_direction_locale">Usar disposición regional</string>
 	<string name="layout_direction_left_to_right">De izquierda a derecha</string>
 	<string name="layout_direction_right_to_left">De derecha a izquierda</string>
+	<string name="led_notification">Notificación de la LED</string>
+	<string name="hardware_support_required">Apoyo de hardware requerido</string>
+	<string name="led_color">Color de la LED</string>
+	<string name="no_calendars_found">No se han encontrado calendarios</string>
 </resources>

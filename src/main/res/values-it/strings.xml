@@ -196,7 +196,6 @@
 	<string name="file_type_unhandled">Spiacente! Non è stata trovata nessuna applicazione per gestire questo tipo di file</string>
 	<string name="back">Indietro</string>
 	<string name="file_err_copy">Errore di copia dei file da allegare</string>
-	<string name="premium_speech_bubble_2">Sottoscrivi 1 anno e risparmia il 25%%!</string>
 	<string name="ring_once">Suona una volta</string>
 	<string name="ring_five_times">Suona cinque volte</string>
 	<string name="ring_nonstop">Suono continuo</string>
@@ -296,6 +295,7 @@
 	<string name="font_size">Dimensione Carattere</string>
 	<string name="customize_edit_screen">Personalizza schermata di modifica</string>
 	<string name="source_code">Codice sorgente</string>
+	<string name="translations">Contribuisci alla traduzione</string>
 	<string name="report_an_issue">Segnala un problema</string>
 	<string name="help_and_feedback">Aiuto &amp; Suggerimenti</string>
 	<string name="contact_developer">Contatta lo sviluppatore</string>
@@ -402,6 +402,7 @@
 	<string name="theme_blue_grey">Grigio-Blu</string>
 	<string name="theme_black">Nero</string>
 	<string name="theme_dark_grey">Grigio scuro</string>
+	<string name="theme_white">Bianco</string>
 	<string name="theme_light">Chiaro</string>
 	<string name="theme_dark">Scuro</string>
 	<string name="theme_wallpaper">Sfondo</string>
@@ -421,8 +422,12 @@
 	<string name="restart_required">Per rendere attive le modifiche l\'attività va riavviata</string>
 	<string name="restart_now">Riavvia ora</string>
 	<string name="restart_later">Dopo</string>
+	<string name="settings_localization">Localizzazione</string>
 	<string name="layout_direction">Direzione Layout</string>
 	<string name="layout_direction_locale">Utilizza la direzione locale</string>
 	<string name="layout_direction_left_to_right">Da sinistra a destra</string>
 	<string name="layout_direction_right_to_left">Da destra a sinistra</string>
+	<string name="led_notification">LED di notifica</string>
+	<string name="hardware_support_required">E\' richiesto il supporto Hardware</string>
+	<string name="led_color">Colore LED</string>
 </resources>

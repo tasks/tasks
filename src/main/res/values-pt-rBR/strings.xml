@@ -178,7 +178,6 @@
 	<string name="audio_stop_recording">Parar Gravação</string>
 	<string name="file_type_unhandled">Desculpa! Nenhuma aplicação para manipular este tipo de arquivo foi encontrada.</string>
 	<string name="file_err_copy">Erro ao copiar o arquivo para o anexo</string>
-	<string name="premium_speech_bubble_2">Contrate um ano e tenha 25%% de desconto</string>
 	<string-array name="TEA_reminder_random">
 		<item>por hora</item>
 		<item>por dia</item>

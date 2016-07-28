@@ -164,7 +164,6 @@
 	<string name="audio_stop_recording">Ukončit záznam</string>
 	<string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.</string>
 	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
-	<string name="premium_speech_bubble_2">Objednejte na rok a ušetříte 25%!</string>
 	<string-array name="TEA_reminder_random">
 		<item>hodina</item>
 		<item>den</item>

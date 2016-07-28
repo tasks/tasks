@@ -196,7 +196,6 @@
 	<string name="file_type_unhandled">\"מצטערת! לא מצאתי ישום שיכול  לטפל בקבצים מסוג זה\"</string>
 	<string name="back">חזרה</string>
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
-	<string name="premium_speech_bubble_2">הזמן לשנה וחסוך !25%%</string>
 	<string name="ring_once">צלצל פעם אחת</string>
 	<string name="ring_five_times">צלצל חמש פעמים</string>
 	<string name="ring_nonstop">צלצל ללא הפסקה</string>
@@ -404,6 +403,7 @@
 	<string name="theme_blue_grey">כחול אפור</string>
 	<string name="theme_black">שחור</string>
 	<string name="theme_dark_grey">אפור כהה</string>
+	<string name="theme_white">לבן</string>
 	<string name="theme_light">בהיר</string>
 	<string name="theme_dark">כהה</string>
 	<string name="theme_wallpaper">תמונת רקע</string>
@@ -431,4 +431,5 @@
 	<string name="led_notification">תאורת התראות</string>
 	<string name="hardware_support_required">נדרשת חומרה תואמת</string>
 	<string name="led_color">צבע תאורת התראות</string>
+	<string name="no_calendars_found">לא נמצאו לוחות שנה</string>
 </resources>

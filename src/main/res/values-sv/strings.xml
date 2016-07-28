@@ -195,7 +195,6 @@
 	<string name="file_type_unhandled">Tyvärr hittades ingen applikation för att hantera den här filtypen</string>
 	<string name="back">Tillbaka</string>
 	<string name="file_err_copy">Ett fel uppstod vid kopiering av filen till bilaga</string>
-	<string name="premium_speech_bubble_2">Beställ för helår och spara 25%!</string>
 	<string name="ring_once">Ring en gång</string>
 	<string name="ring_five_times">Ring fem gånger</string>
 	<string name="ring_nonstop">Ring konstant</string>

@@ -162,7 +162,6 @@
 	<string name="audio_stop_recording">Σταμάτημα εγγραφής</string>
 	<string name="file_type_unhandled">Συγγνώμη! Δεν βρέθηκε εφαρμογή που να χειρίζεται τέτοιο τύπο αρχείου</string>
 	<string name="file_err_copy">Σφάλμα αντιγραφής αρχείου προς επισύναψη</string>
-	<string name="premium_speech_bubble_2">Παραγγείλετε ένα χρόνο και εξοικονομήστε 25%!</string>
 	<string-array name="TEA_reminder_random">
 		<item>μια ώρα</item>
 		<item>μια μέρα</item>

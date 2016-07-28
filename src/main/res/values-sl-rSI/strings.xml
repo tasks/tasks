@@ -168,7 +168,6 @@
 	<string name="audio_stop_recording">Prekini snemanje</string>
 	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
 	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
-	<string name="premium_speech_bubble_2">Enoletna naročnina prihrani 25%!</string>
 	<string-array name="TEA_reminder_random">
 		<item>na uro</item>
 		<item>dan</item>

@@ -196,7 +196,6 @@
 	<string name="file_type_unhandled">申し訳ありません! このファイル形式を扱うアプリケーションがありません.</string>
 	<string name="back">戻る</string>
 	<string name="file_err_copy">ファイル添付のコピー中にエラー</string>
-	<string name="premium_speech_bubble_2">1 年注文すると 25% 節約できます!</string>
 	<string name="ring_once">1回通知音を鳴らす</string>
 	<string name="ring_five_times">5回通知音を鳴らす</string>
 	<string name="ring_nonstop">通知音を鳴らし続ける</string>
@@ -404,6 +403,7 @@
 	<string name="theme_blue_grey">灰青</string>
 	<string name="theme_black">黒</string>
 	<string name="theme_dark_grey">ダークグレー</string>
+	<string name="theme_white">白</string>
 	<string name="theme_light">ライト</string>
 	<string name="theme_dark">ダーク</string>
 	<string name="theme_wallpaper">壁紙</string>

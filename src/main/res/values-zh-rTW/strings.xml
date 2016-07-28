@@ -152,7 +152,6 @@
 	<string name="audio_stop_recording">停止錄製</string>
 	<string name="file_type_unhandled">對不起！找不到應用程序處理這種文件類型。</string>
 	<string name="file_err_copy">複製文件添加附件時出錯</string>
-	<string name="premium_speech_bubble_2">購買一年的服務並且得到25%%的折扣</string>
 	<string-array name="TEA_reminder_random">
 		<item>一個小時</item>
 		<item>一天</item>

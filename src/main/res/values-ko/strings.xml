@@ -198,7 +198,6 @@
 	<string name="file_type_unhandled">죄송하지만 이 파일 형식을 다룰 수 있는 프로그램이 없습니다.</string>
 	<string name="back">뒤로</string>
 	<string name="file_err_copy">첨부용 파일 복사 에러</string>
-	<string name="premium_speech_bubble_2">1년 사용권 구매시 25%% 할인!</string>
 	<string name="ring_once">한번 울림</string>
 	<string name="ring_five_times">다섯번 울림</string>
 	<string name="ring_nonstop">계속 울림</string>

@@ -539,11 +539,6 @@ File %1$s contained %2$s.\n\n
     <string name="back">Back</string>
     <string name="file_err_copy">Error copying file for attachment</string>
 
-    <!-- in app billing -->
-
-    <string name="premium_speech_bubble_2">Order one year and save 25%!</string>
-
-
     <!--  slide 45a: Task Edit: Reminder mode: ring once -->
     <string name="ring_once">Ring once</string>
 

@@ -138,7 +138,6 @@
 	<string name="audio_stop_recording">Kaydı Durdur</string>
 	<string name="file_type_unhandled">Üzgünüm! Bu dosya türünü destekleyen bir uygulama bulunamadı.</string>
 	<string name="file_err_copy">Dosyanın ek olarak kopyalanmasında hata</string>
-	<string name="premium_speech_bubble_2">Bir yıllık satın alın ve %%25 kâr yapın!</string>
 	<string-array name="TEA_reminder_random">
 		<item>bir saat</item>
 		<item>bir gün</item>

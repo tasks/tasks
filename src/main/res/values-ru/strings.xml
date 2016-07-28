@@ -187,7 +187,7 @@
 	<string name="gtasks_GLA_noaccounts">Нет доступных аккаунтов Google для синхронизации</string>
 	<string name="gtasks_GLA_authenticating">Авторизация...</string>
 	<string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
-	<string name="gtasks_error_accountNotFound">Учетная запись %s не найдена--пожалуйста, выйдите и войдите снова через настройки Google Tasks.</string>
+	<string name="gtasks_error_accountNotFound">Учетная запись %s не найдена -- пожалуйста, выйдите и войдите снова через настройки Google Tasks.</string>
 	<string name="premium_record_audio">Записать заметку</string>
 	<string name="premium_remove_file_confirm">Вы уверены? Это действия нельзя отменить.</string>
 	<string name="audio_recording_title">Запись голоса.</string>
@@ -195,7 +195,6 @@
 	<string name="file_type_unhandled">Извините! Не найдена программа для просмотра файлов этого типа.</string>
 	<string name="back">Назад</string>
 	<string name="file_err_copy">Ошибка копирования прикрепляемого файла.</string>
-	<string name="premium_speech_bubble_2">Подпишитесь на год и сэкономьте 25%%!</string>
 	<string name="ring_once">1 раз</string>
 	<string name="ring_five_times">5 раз</string>
 	<string name="ring_nonstop">Пока не выкл.</string>
@@ -251,7 +250,7 @@
 	<string name="tag_FEx_untagged">Без тега</string>
 	<string name="delete_tag_confirmation">Удалить %s?</string>
 	<string name="TPl_notification">Для %s действуют таймеры!</string>
-	<string name="TFE_workingOn">Задачи для замера времени</string>
+	<string name="TFE_workingOn">Задачи с таймером</string>
 	<string name="TEA_timer_controls">Таймер</string>
 	<string name="TEA_timer_comment_started">задача началась:</string>
 	<string name="TEA_timer_comment_stopped">зада завершилась:</string>
@@ -319,7 +318,7 @@
 	<string name="geofence_radius_title">Радиус (в метрах)</string>
 	<string name="geofence_responsiveness_title">Период отслеживания (чем выше, тем меньше расход батареи)</string>
 	<string name="geolocation_reminders">Напоминания по местонахождению:</string>
-	<string name="tags">Списки</string>
+	<string name="tags">Теги</string>
 	<string name="filters">Фильтры</string>
 	<string name="date_shortcuts">Метки по времени</string>
 	<string name="date_shortcut_hour">Через час</string>
@@ -403,8 +402,9 @@
 	<string name="theme_blue_grey">Серо-голубой</string>
 	<string name="theme_black">Чёрная</string>
 	<string name="theme_dark_grey">Тёмно-серый</string>
+	<string name="theme_white">Белый</string>
 	<string name="theme_light">Светлая</string>
-	<string name="theme_dark">Темная</string>
+	<string name="theme_dark">Тёмная</string>
 	<string name="theme_wallpaper">Как обои</string>
 	<string name="theme_day_night">День / ночь</string>
 	<string name="default_value">По умолчанию</string>
@@ -416,7 +416,7 @@
 	<string name="sync_interval_one_day">каждый день</string>
 	<string name="sync_interval_three_days">каждые 3 дня</string>
 	<string name="sync_interval_one_week">каждую неделю</string>
-	<string name="master_sync_warning">Автоматическая синхронизация сейчас выключена в Андроид</string>
+	<string name="master_sync_warning">Автосинхронизация в Android выключена</string>
 	<string name="settings_general">Общие</string>
 	<string name="language">Язык</string>
 	<string name="restart_required">Для изменений нужно перезагрузить Tasks</string>
@@ -424,10 +424,11 @@
 	<string name="restart_later">Позже</string>
 	<string name="settings_localization">Локализация</string>
 	<string name="layout_direction">Ориентация интерфейса</string>
-	<string name="layout_direction_locale">Как установлено в системе</string>
+	<string name="layout_direction_locale">Как в системе</string>
 	<string name="layout_direction_left_to_right">Слева направо</string>
 	<string name="layout_direction_right_to_left">Справа налево</string>
 	<string name="led_notification">LED уведомления</string>
 	<string name="hardware_support_required">Необходима аппаратная поддержка</string>
 	<string name="led_color">LED цвет</string>
+	<string name="no_calendars_found">Календарей не найдено</string>
 </resources>

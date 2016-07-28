@@ -165,7 +165,6 @@
 	<string name="file_type_unhandled">Przepraszamy! Nie znaleziono aplikacji do obsługi tego typu pliku.</string>
 	<string name="back">Powrót</string>
 	<string name="file_err_copy">Błąd kopiowania pliku do załącznika</string>
-	<string name="premium_speech_bubble_2">Zamów na rok i oszczędź 25%%!</string>
 	<string-array name="TEA_reminder_random">
 		<item>na godzinę</item>
 		<item>dziennie</item>

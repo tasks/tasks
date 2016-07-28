@@ -193,7 +193,6 @@ abstract public class TranslationTests extends AndroidTestCase {
                 for(int i = 0; i < strings.length; i++) {
                     try {
                         switch(strings[i]) {
-                            case R.string.premium_speech_bubble_2: // Special exception--this string contains a % character
                             case R.string.abc_shareactionprovider_share_with_application:
                                 continue;
                         }

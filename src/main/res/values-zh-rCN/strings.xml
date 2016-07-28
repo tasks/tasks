@@ -133,7 +133,6 @@
 	<string name="audio_stop_recording">停止录制</string>
 	<string name="file_type_unhandled">对不起！找不到应用程序处理这种文件类型。</string>
 	<string name="file_err_copy">复制文件添加附件时出错</string>
-	<string name="premium_speech_bubble_2">购买一年的服务并且得到25%%的折扣</string>
 	<string-array name="TEA_reminder_random">
 		<item>一个小时</item>
 		<item>一天</item>
