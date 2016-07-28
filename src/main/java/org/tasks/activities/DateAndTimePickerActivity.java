@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.tasks.dialogs.MyDatePickerDialog;
+import org.tasks.dialogs.NativeDatePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.themes.ThemeAccent;
@@ -16,9 +17,11 @@ import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static org.tasks.dialogs.NativeDatePickerDialog.newNativeDatePickerDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-public class DateAndTimePickerActivity extends InjectingAppCompatActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener {
+public class DateAndTimePickerActivity extends InjectingAppCompatActivity implements DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener, NativeDatePickerDialog.NativeDatePickerDialogCallback  {
 
     private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
 
@@ -45,16 +48,23 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
         }
 
         FragmentManager fragmentManager = getFragmentManager();
-        MyDatePickerDialog datePickerDialog = (MyDatePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER);
-        if (datePickerDialog == null) {
-            datePickerDialog = new MyDatePickerDialog();
-            datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
-            datePickerDialog.setThemeDark(themeBase.isDarkTheme(this));
-            datePickerDialog.setAccentColor(themeAccent.getAccentColor());
-            datePickerDialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
+        if (atLeastMarshmallow()) {
+            if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
+                newNativeDatePickerDialog(initial)
+                        .show(fragmentManager, FRAG_TAG_DATE_PICKER);
+            }
+        } else {
+            MyDatePickerDialog datePickerDialog = (MyDatePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER);
+            if (datePickerDialog == null) {
+                datePickerDialog = new MyDatePickerDialog();
+                datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
+                datePickerDialog.setThemeDark(themeBase.isDarkTheme(this));
+                datePickerDialog.setAccentColor(themeAccent.getAccentColor());
+                datePickerDialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
+            }
+            datePickerDialog.setOnCancelListener(this);
+            datePickerDialog.setOnDateSetListener(this);
         }
-        datePickerDialog.setOnCancelListener(this);
-        datePickerDialog.setOnDateSetListener(this);
     }
 
     @Override
@@ -70,20 +80,34 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
 
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
-        dateSelected = true;
-        final long timestamp = new DateTime(year, month + 1, day)
-                .withMillisOfDay(initial.getMillisOfDay())
-                .getMillis();
         datePickerDialog.dismiss();
-        startActivity(new Intent(this, TimePickerActivity.class) {{
-            addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-            putExtra(TimePickerActivity.EXTRA_TIMESTAMP, timestamp);
-        }});
-        finish();
+        dateSet(year, month, day);
     }
 
     @Override
     public void onCancel(DialogInterface dialog) {
+        finish();
+    }
+
+    @Override
+    public void cancel() {
+        finish();
+    }
+
+    @Override
+    public void onDateSet(int year, int month, int day) {
+        dateSet(year, month, day);
+    }
+
+    private void dateSet(int year, int month, int day) {
+        dateSelected = true;
+        final long timestamp = new DateTime(year, month + 1, day)
+                .withMillisOfDay(initial.getMillisOfDay())
+                .getMillis();
+        startActivity(new Intent(this, TimePickerActivity.class) {{
+            addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+            putExtra(TimePickerActivity.EXTRA_TIMESTAMP, timestamp);
+        }});
         finish();
     }
 }
