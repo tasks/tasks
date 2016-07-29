@@ -25,7 +25,6 @@
 	<string name="read_permission_label">Permissões do Tasks</string>
 	<string name="write_permission_label">Permissões do Tasks</string>
 	<string name="DLG_delete_this_task_question">Remover esta tarefa?</string>
-	<string name="DLG_upgrading">Atualização de tarefas...</string>
 	<string name="DLG_hour_minutes">Tempo (horas:minutos)</string>
 	<string name="DLG_undo">Anular</string>
 	<string name="WID_dateButtonUnset">Clique para definir</string>

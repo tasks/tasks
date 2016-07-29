@@ -24,7 +24,6 @@
 	<string name="discard_confirmation">Änderungen wirklich verwerfen?</string>
 	<string name="keep_editing">Weiter bearbeiten</string>
 	<string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
-	<string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert …</string>
 	<string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
 	<string name="DLG_undo">Rückgängig</string>
 	<string name="WID_dateButtonUnset">Klicken zur Bestätigung</string>

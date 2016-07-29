@@ -29,7 +29,6 @@
 	<string name="discard_confirmation">변경 사항을 버리시겠습니까?</string>
 	<string name="keep_editing">계속 편집</string>
 	<string name="DLG_delete_this_task_question">이 일정을 삭제할까요?</string>
-	<string name="DLG_upgrading">일정 업그레이드 중...</string>
 	<string name="DLG_hour_minutes">시간 (시 : 분)</string>
 	<string name="DLG_undo">실행 취소</string>
 	<string name="WID_dateButtonUnset">누르세요</string>

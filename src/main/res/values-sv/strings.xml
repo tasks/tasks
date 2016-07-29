@@ -26,7 +26,6 @@
 	<string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
 	<string name="keep_editing">Fortsätt redigera</string>
 	<string name="DLG_delete_this_task_question">Radera denna uppgift?</string>
-	<string name="DLG_upgrading">Uppgraderar dina uppgifter...</string>
 	<string name="DLG_hour_minutes">Tid (timmar : minuter</string>
 	<string name="DLG_undo">Ångra</string>
 	<string name="WID_dateButtonUnset">Klicka för att ställa</string>

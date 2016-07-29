@@ -79,9 +79,6 @@ File %1$s contained %2$s.\n\n
     <!-- question for deleting tasks -->
     <string name="DLG_delete_this_task_question">Delete this task?</string>
 
-    <!-- Progress dialog shown when upgrading -->
-    <string name="DLG_upgrading">Upgrading your tasks...</string>
-
     <!-- Title for dialog selecting a time (hours and minutes) -->
     <string name="DLG_hour_minutes">Time (hours : minutes)</string>
 

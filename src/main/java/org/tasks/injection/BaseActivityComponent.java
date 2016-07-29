@@ -11,7 +11,6 @@ import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.gcal.CalendarReminderActivity;
 import com.todoroo.astrid.reminders.ReminderPreferences;
-import com.todoroo.astrid.service.UpgradeActivity;
 
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionActivity;
@@ -56,8 +55,6 @@ public interface BaseActivityComponent {
     void inject(FilterSettingsActivity filterSettingsActivity);
 
     void inject(TagSettingsActivity tagSettingsActivity);
-
-    void inject(UpgradeActivity upgradeActivity);
 
     void inject(ShareLinkActivity shareLinkActivity);
 

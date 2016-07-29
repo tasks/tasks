@@ -23,7 +23,6 @@
 	<string name="read_permission_label">Άδεια εργασιών</string>
 	<string name="write_permission_label">Άδεια Εργασιών</string>
 	<string name="DLG_delete_this_task_question">Διαγραφή εργασίας;</string>
-	<string name="DLG_upgrading">Αναβάθμιση των εργασιών σας...</string>
 	<string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>
 	<string name="DLG_undo">Αναίρεση</string>
 	<string name="WID_dateButtonUnset">Κλικ για καθορισμό</string>

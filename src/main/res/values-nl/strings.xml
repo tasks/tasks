@@ -26,7 +26,6 @@
 	<string name="discard_confirmation">Weet u zeker dat u de wijzigingen niet wilt opslaan?</string>
 	<string name="keep_editing">Blijf editen</string>
 	<string name="DLG_delete_this_task_question">Taak verwijderen?</string>
-	<string name="DLG_upgrading">Taken bijwerken...</string>
 	<string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
 	<string name="DLG_undo">Ongedaan Maken</string>
 	<string name="WID_dateButtonUnset">Klikken om in te stellen</string>

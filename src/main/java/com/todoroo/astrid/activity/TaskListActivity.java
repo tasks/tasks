@@ -34,9 +34,7 @@ import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.UpgradeActivity;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
@@ -84,7 +82,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         GoogleTaskListSelectionHandler {
 
     @Inject Preferences preferences;
-    @Inject StartupService startupService;
     @Inject SubtasksHelper subtasksHelper;
     @Inject TaskService taskService;
     @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
@@ -98,8 +95,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject Tracker tracker;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
-
-    public static final int REQUEST_UPGRADE = 505;
 
     private NavigationDrawerFragment navigationDrawer;
 
@@ -122,8 +117,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         currentNightMode = getNightMode();
-
-        startupService.onStartupApplication(this);
 
         setContentView(R.layout.task_list_activity);
 
@@ -399,14 +392,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             }
 
             repopulateNavigationDrawer();
-        } else if (requestCode == REQUEST_UPGRADE) {
-            if (resultCode == RESULT_OK) {
-                if (data != null && data.getBooleanExtra(UpgradeActivity.EXTRA_RESTART, false)) {
-                    Timber.w("Upgrade requires restart");
-                    finish();
-                    startActivity(getIntent());
-                }
-            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

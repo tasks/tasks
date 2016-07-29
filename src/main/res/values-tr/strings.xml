@@ -20,7 +20,6 @@
 	<string name="read_permission_label">Tasks İzni</string>
 	<string name="write_permission_label">Tasks İzni</string>
 	<string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>
-	<string name="DLG_upgrading">Görevleriniz güncelleniyor...</string>
 	<string name="DLG_hour_minutes">Zaman (saat : dakika)</string>
 	<string name="DLG_undo">Geri al</string>
 	<string name="WID_dateButtonUnset">Ayar İçin Dokun</string>

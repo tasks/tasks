@@ -17,7 +17,6 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskService;
 
@@ -32,7 +31,6 @@ import javax.inject.Inject;
 
 public class OldTaskPreferences extends InjectingPreferenceActivity {
 
-    @Inject StartupService startupService;
     @Inject DialogBuilder dialogBuilder;
     @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
@@ -44,8 +42,6 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        startupService.onStartupApplication(this);
 
         addPreferencesFromResource(R.xml.preferences_oldtasks);
 

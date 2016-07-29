@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskService;
 
@@ -25,15 +24,12 @@ import static org.tasks.intents.TaskIntents.getEditTaskStack;
  */
 public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
-    @Inject StartupService startupService;
     @Inject TaskService taskService;
     @Inject TaskCreator taskCreator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        startupService.onStartupApplication(this);
 
         readIntent();
     }

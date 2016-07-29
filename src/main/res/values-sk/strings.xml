@@ -22,7 +22,6 @@
 	<string name="read_permission_label">Tasks povolenia</string>
 	<string name="write_permission_label">Tasks povolenia</string>
 	<string name="DLG_delete_this_task_question">Vymazať túto úlohu?</string>
-	<string name="DLG_upgrading">Aktualizácia tvojich úloh...</string>
 	<string name="DLG_hour_minutes">Čas (hodiny : minúty)</string>
 	<string name="DLG_undo">Späť</string>
 	<string name="WID_dateButtonUnset">Klikni pre nastavenie</string>

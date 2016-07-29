@@ -23,7 +23,6 @@
 	<string name="read_permission_label">Dovoljenje Opravkom</string>
 	<string name="write_permission_label">Dovoljenje Opravkom</string>
 	<string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
-	<string name="DLG_upgrading">Nadgrajujem tvoje opravke...</string>
 	<string name="DLG_hour_minutes">Čas (ure : minute)</string>
 	<string name="DLG_undo">Razveljavi</string>
 	<string name="WID_dateButtonUnset">Klikni za nastavitev</string>

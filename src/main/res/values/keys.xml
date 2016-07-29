@@ -293,6 +293,7 @@
   <string name="tracking_action_off">Off</string>
   <string name="tracking_action_clear">Clear</string>
   <string name="tracking_event_night_mode_mismatch">Night Mismatch</string>
+  <string name="tracking_event_upgrade">Upgrade</string>
   <string name="p_tesla_unread_enabled">tesla_unread_enabled</string>
   <string name="p_purchased_tesla_unread">purchased_tesla_unread</string>
   <string name="p_purchased_tasker">purchased_tasker</string>

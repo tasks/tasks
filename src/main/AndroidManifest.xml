@@ -205,10 +205,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="com.todoroo.astrid.service.UpgradeActivity"
-            android:screenOrientation="portrait" />
-
         <!-- ======================================================= Receivers = -->
 
         <receiver android:name=".receivers.TaskNotificationReceiver" />

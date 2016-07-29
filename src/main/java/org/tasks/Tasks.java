@@ -27,9 +27,6 @@ public class Tasks extends InjectingApplication {
     @Inject MetadataDao metadataDao;
     @Inject TagDataDao tagDataDao;
     @Inject StoreObjectDao storeObjectDao;
-    @Inject UserActivityDao userActivityDao;
-    @Inject TaskAttachmentDao taskAttachmentDao;
-    @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject TaskService taskService;
     @Inject TagService tagService;
     @Inject Broadcaster broadcaster;
@@ -49,6 +46,8 @@ public class Tasks extends InjectingApplication {
         tracker.setTrackingEnabled(preferences.isTrackingEnabled());
 
         themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
+
+        startupService.onStartupApplication();
     }
 
     @Override

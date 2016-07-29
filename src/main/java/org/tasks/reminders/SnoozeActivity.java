@@ -1,20 +1,19 @@
 package org.tasks.reminders;
 
-import android.support.v4.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 
-import org.tasks.injection.ActivityComponent;
-import org.tasks.time.DateTime;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
+import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
@@ -27,7 +26,6 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     public static final String EXTRA_TASK_ID = "id";
     public static final String EXTRA_SNOOZE_TIME = "snooze_time";
 
-    @Inject StartupService startupService;
     @Inject TaskService taskService;
     @Inject NotificationManager notificationManager;
 
@@ -62,8 +60,6 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
                 return;
             }
         }
-
-        startupService.onStartupApplication(this);
 
         if (intent.hasExtra(EXTRA_SNOOZE_TIME)) {
             snoozeForTime(new DateTime(intent.getLongExtra(EXTRA_SNOOZE_TIME, 0L)));

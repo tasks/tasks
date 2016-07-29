@@ -17,6 +17,7 @@ public class Tracking {
         GTASK_DISABLED(R.string.tracking_category_google_tasks, R.string.tracking_action_off),
         GTASK_LOGOUT(R.string.tracking_category_google_tasks, R.string.tracking_action_clear),
         GTASK_MOVE(R.string.tracking_category_google_tasks, R.string.tracking_action_move),
+        UPGRADE(R.string.tracking_category_event, R.string.tracking_event_upgrade),
         NIGHT_MODE_MISMATCH(R.string.tracking_category_event, R.string.tracking_event_night_mode_mismatch),
         SET_PREFERENCE(R.string.tracking_category_preferences, 0);
 

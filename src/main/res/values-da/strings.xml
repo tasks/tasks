@@ -20,7 +20,6 @@
 	<string name="read_permission_label">Tasks Tilladelser</string>
 	<string name="write_permission_label">Tasks Tilladelser</string>
 	<string name="DLG_delete_this_task_question">Slet denne opgave?</string>
-	<string name="DLG_upgrading">Opgraderer dine opgaver...</string>
 	<string name="DLG_hour_minutes">Tid (timer : minutter)</string>
 	<string name="WID_dateButtonUnset">Tryk for at indstille</string>
 	<string name="TLA_menu_sort">Sorter &amp; skjulte</string>
