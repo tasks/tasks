@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.tasks.Notifier;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
@@ -23,12 +25,15 @@ public class ListNotificationReceiver extends InjectingBroadcastReceiver {
     public static final String EXTRA_FILTER_VALUES = "extra_filter_values";
 
     @Inject Notifier notifier;
+    @Inject Tracker tracker;
 
     @Override
     public void onReceive(Context context, final Intent intent) {
         super.onReceive(context, intent);
 
         Timber.i("onReceive(%s, %s)", context, intent);
+
+        tracker.reportEvent(Tracking.Events.LEGACY_TASKER_TRIGGER);
 
         executorService.execute(new Runnable() {
             @Override
