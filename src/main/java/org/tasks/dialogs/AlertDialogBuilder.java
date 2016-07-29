@@ -59,7 +59,7 @@ public class AlertDialogBuilder {
     }
 
     public AlertDialogBuilder setItems(String[] strings, DialogInterface.OnClickListener onClickListener) {
-        builder.setItems(addDirectionality(strings), onClickListener);
+        builder.setItems(addDirectionality(strings.clone()), onClickListener);
         return this;
     }
 
