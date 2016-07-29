@@ -83,8 +83,7 @@ public final class BuiltInFilterExposer {
      */
     public static Filter getMyTasksFilter(Resources r) {
         return new Filter(r.getString(R.string.BFE_Active),
-                new QueryTemplate().where(TaskCriteria.activeAndVisible()),
-                null);
+                new QueryTemplate().where(TaskCriteria.activeAndVisible()));
     }
 
     public static Filter getTodayFilter(Resources r) {
@@ -103,8 +102,7 @@ public final class BuiltInFilterExposer {
         return new Filter(r.getString(R.string.BFE_Recent),
                 new QueryTemplate().where(
                         TaskCriteria.notDeleted()).orderBy(
-                        Order.desc(Task.MODIFICATION_DATE)).limit(15),
-                null);
+                        Order.desc(Task.MODIFICATION_DATE)).limit(15));
     }
 
     public static Filter getUncategorizedFilter(Resources r) {
@@ -113,8 +111,7 @@ public final class BuiltInFilterExposer {
                         Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
                                 .where(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
                         TaskCriteria.isActive(),
-                        TaskCriteria.isVisible())),
-                null);
+                        TaskCriteria.isVisible())));
     }
 
     public static boolean isInbox(Context context, Filter filter) {

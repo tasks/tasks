@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.timers;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 
@@ -52,10 +51,8 @@ public final class TimerFilterExposer {
 
     public static Filter createFilter(Context context) {
         Resources r = context.getResources();
-        ContentValues values = new ContentValues();
-        values.put(Task.TIMER_START.name, Filter.VALUE_NOW);
-        return new Filter(r.getString(R.string.TFE_workingOn),
-                new QueryTemplate().where(Task.TIMER_START.gt(0)),
-                values);
+        Filter filter = new Filter(r.getString(R.string.TFE_workingOn), new QueryTemplate().where(Task.TIMER_START.gt(0)));
+        filter.icon = R.drawable.ic_timer_24dp;
+        return filter;
     }
 }

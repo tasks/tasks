@@ -63,6 +63,10 @@ public class Filter extends FilterListItem {
      */
     public ContentValues valuesForNewTasks = null;
 
+    public Filter(String listingTitle, QueryTemplate sqlQuery) {
+        this(listingTitle, sqlQuery, null);
+    }
+
     /**
      * Utility constructor for creating a Filter object
      * @param listingTitle

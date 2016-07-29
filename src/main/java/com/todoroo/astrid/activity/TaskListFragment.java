@@ -314,7 +314,7 @@ public class TaskListFragment extends InjectingListFragment implements
                                                                         query + "%"
                                                         )
                                         )
-                                ), null);
+                                ));
 
                 ((TaskListActivity) getActivity()).onFilterItemClicked(savedFilter);
                 MenuItemCompat.collapseActionView(item);
