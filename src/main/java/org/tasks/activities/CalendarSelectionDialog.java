@@ -1,9 +1,11 @@
 package org.tasks.activities;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.google.common.base.Function;
 
@@ -13,6 +15,7 @@ import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 
 import java.util.List;
@@ -39,6 +42,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
 
     @Inject DialogBuilder dialogBuilder;
     @Inject CalendarProvider calendarProvider;
+    @Inject @ForActivity Context context;
     private CalendarSelectionHandler handler;
     private boolean enableNone;
 
@@ -52,6 +56,11 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
                 return androidCalendar.getName();
             }
         });
+
+        if (calendarNames.isEmpty()) {
+            Toast.makeText(context, R.string.no_calendars_found, Toast.LENGTH_LONG).show();
+            handler.dismiss();
+        }
 
         AlertDialogBuilder builder = dialogBuilder.newDialog()
                 .setItems(calendarNames, new DialogInterface.OnClickListener() {
