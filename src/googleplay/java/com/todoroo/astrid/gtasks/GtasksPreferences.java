@@ -5,12 +5,16 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
@@ -40,6 +44,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     @Inject GtasksListService gtasksListService;
     @Inject Tracker tracker;
     @Inject SyncAdapterHelper syncAdapterHelper;
+    @Inject Activity activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +58,15 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if ((boolean) newValue) {
-                    if (permissionRequestor.requestAccountPermissions()) {
+                    GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+                    int result = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+                    if (result != ConnectionResult.SUCCESS) {
+                        if (googleApiAvailability.isUserResolvableError(result)) {
+                            googleApiAvailability.getErrorDialog(activity, result, REQUEST_LOGIN).show();
+                        } else {
+                            Toast.makeText(activity, R.string.common_google_play_services_notification_ticker, Toast.LENGTH_LONG).show();
+                        }
+                    } else if (permissionRequestor.requestAccountPermissions()) {
                         requestLogin();
                     }
                     return false;
