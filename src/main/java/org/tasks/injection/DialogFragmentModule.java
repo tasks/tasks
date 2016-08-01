@@ -3,6 +3,7 @@ package org.tasks.injection;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,6 +19,11 @@ public class DialogFragmentModule {
     @Provides
     public Activity getActivity() {
         return dialogFragment.getActivity();
+    }
+
+    @Provides
+    public Fragment getFragment() {
+        return dialogFragment;
     }
 
     @Provides
