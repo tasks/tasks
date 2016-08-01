@@ -7,6 +7,7 @@ import com.google.android.gms.analytics.ExceptionParser;
 import com.google.android.gms.analytics.ExceptionReporter;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.common.base.Strings;
 
 import org.tasks.BuildConfig;
@@ -30,14 +31,20 @@ public class Tracker {
         analytics = GoogleAnalytics.getInstance(context);
         tracker = analytics.newTracker(R.xml.google_analytics);
         tracker.setAppVersion(Integer.toString(BuildConfig.VERSION_CODE));
+        final StandardExceptionParser standardExceptionParser = new StandardExceptionParser(context, null);
         exceptionParser = new ExceptionParser() {
             @Override
             public String getDescription(String thread, Throwable throwable) {
-                StringBuilder stack = new StringBuilder();
+                StringBuilder stack = new StringBuilder()
+                        .append(standardExceptionParser.getDescription(thread, throwable))
+                        .append("\n")
+                        .append(throwable.getClass().getName())
+                        .append("\n");
                 for (StackTraceElement element : throwable.getStackTrace()) {
-                    stack.append(element.toString()).append("\n");
+                    stack.append(element.toString())
+                            .append("\n");
                 }
-                return String.format("%s {%s} %s", throwable.getClass().getName(), thread, stack.toString());
+                return stack.toString();
             }
         };
         ExceptionReporter reporter = new ExceptionReporter(
