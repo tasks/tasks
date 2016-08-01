@@ -91,10 +91,10 @@ public class StartupService {
 
     private void upgrade(int from, int to) {
         try {
-            if (from < V4_8_0) {
-                performMarshmallowMigration();
-            }
             if (from > 0) {
+                if (from < V4_8_0) {
+                    performMarshmallowMigration();
+                }
                 tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
             }
             preferences.setCurrentVersion(to);
