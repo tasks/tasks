@@ -84,7 +84,6 @@ public class TeslaUnreadReceiver extends InjectingBroadcastReceiver {
         } catch (IllegalArgumentException ex) {
             /* Fine, TeslaUnread is not installed. */
         } catch (Exception e) {
-            Timber.e(e, e.getMessage());
             tracker.reportException(e);
         }
     }

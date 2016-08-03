@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import com.todoroo.andlib.data.Property;
@@ -64,7 +63,6 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
             try {
                 showSnackbar(taskListFragment, task, oldDueDate, newDueDate);
             } catch (Exception e) {
-                Timber.e(e, e.getMessage());
                 tracker.reportException(e);
             }
         }

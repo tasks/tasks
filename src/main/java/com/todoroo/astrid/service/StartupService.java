@@ -54,7 +54,6 @@ public class StartupService {
         try {
             database.openForWriting();
         } catch (SQLiteException e) {
-            Timber.e(e, e.getMessage());
             tracker.reportException(e);
             return;
         }

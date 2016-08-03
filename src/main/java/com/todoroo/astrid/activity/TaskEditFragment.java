@@ -55,7 +55,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -266,7 +265,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
                 }
             }
         } catch(Exception e) {
-            Timber.e(e, e.getMessage());
             tracker.reportException(e);
         }
         return false;

@@ -151,7 +151,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @return # of deleted items
      */
     public int deleteWhere(Criterion where) {
-        Timber.d("deleteWhere(%s)", where);
+        Timber.v("deleteWhere(%s)", where);
         return database.delete(table.name,
                 where.toString(), null);
     }
@@ -206,7 +206,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             if (result.get()) {
                 item.markSaved();
                 if (BuildConfig.DEBUG) {
-                    Timber.d("%s %s", op, item.toString());
+                    Timber.v("%s %s", op, item.toString());
                 }
             }
         }

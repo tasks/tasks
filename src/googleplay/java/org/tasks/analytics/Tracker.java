@@ -17,6 +17,8 @@ import org.tasks.injection.ForApplication;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 @Singleton
 public class Tracker {
 
@@ -69,6 +71,7 @@ public class Tracker {
     }
 
     public void reportException(Thread thread, Throwable t) {
+        Timber.e(t, t.getMessage());
         tracker.send(new HitBuilders.ExceptionBuilder()
                 .setDescription(exceptionParser.getDescription(thread.getName(), t))
                 .setFatal(false)

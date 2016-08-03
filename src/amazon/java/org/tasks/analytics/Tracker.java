@@ -2,6 +2,8 @@ package org.tasks.analytics;
 
 import android.content.Context;
 
+import com.google.android.gms.analytics.ExceptionParser;
+import com.google.android.gms.analytics.ExceptionReporter;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.StandardExceptionParser;
@@ -14,13 +16,15 @@ import org.tasks.injection.ForApplication;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import timber.log.Timber;
+
 @Singleton
 public class Tracker {
 
     private final GoogleAnalytics analytics;
     private final com.google.android.gms.analytics.Tracker tracker;
-    private final StandardExceptionParser exceptionParser;
-    private Context context;
+    private final ExceptionParser exceptionParser;
+    private final Context context;
 
     @Inject
     public Tracker(@ForApplication Context context) {
@@ -28,10 +32,28 @@ public class Tracker {
         analytics = GoogleAnalytics.getInstance(context);
         tracker = analytics.newTracker(R.xml.google_analytics);
         tracker.setAppVersion(Integer.toString(BuildConfig.VERSION_CODE));
-        exceptionParser = new StandardExceptionParser(context, null);
-        if (BuildConfig.DEBUG) {
-            analytics.setDryRun(true);
-        }
+        final StandardExceptionParser standardExceptionParser = new StandardExceptionParser(context, null);
+        exceptionParser = new ExceptionParser() {
+            @Override
+            public String getDescription(String thread, Throwable throwable) {
+                StringBuilder stack = new StringBuilder()
+                        .append(standardExceptionParser.getDescription(thread, throwable))
+                        .append("\n")
+                        .append(throwable.getClass().getName())
+                        .append("\n");
+                for (StackTraceElement element : throwable.getStackTrace()) {
+                    stack.append(element.toString())
+                            .append("\n");
+                }
+                return stack.toString();
+            }
+        };
+        ExceptionReporter reporter = new ExceptionReporter(
+                tracker,
+                Thread.getDefaultUncaughtExceptionHandler(),
+                context);
+        reporter.setExceptionParser(exceptionParser);
+        Thread.setDefaultUncaughtExceptionHandler(reporter);
     }
 
     public void showScreen(String screenName) {
@@ -48,6 +70,7 @@ public class Tracker {
     }
 
     public void reportException(Thread thread, Throwable t) {
+        Timber.e(t, t.getMessage());
         tracker.send(new HitBuilders.ExceptionBuilder()
                 .setDescription(exceptionParser.getDescription(thread.getName(), t))
                 .setFatal(false)
