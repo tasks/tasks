@@ -8,6 +8,8 @@ import org.tasks.calendars.AndroidCalendar;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
+import static org.tasks.activities.CalendarSelectionDialog.newCalendarSelectionDialog;
+
 public class CalendarSelectionActivity extends InjectingAppCompatActivity implements CalendarSelectionDialog.CalendarSelectionHandler {
 
     private static final String FRAG_TAG_CALENDAR_PREFERENCE_SELECTION = "frag_tag_calendar_preference_selection";
@@ -22,10 +24,7 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
         FragmentManager fragmentManager = getSupportFragmentManager();
         CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         if (fragmentByTag == null) {
-            fragmentByTag = new CalendarSelectionDialog();
-            if (getIntent().getBooleanExtra(EXTRA_SHOW_NONE, false)) {
-                fragmentByTag.enableNone();
-            }
+            fragmentByTag = newCalendarSelectionDialog(getIntent().getBooleanExtra(EXTRA_SHOW_NONE, false));
             fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         }
         fragmentByTag.setCalendarSelectionHandler(this);

@@ -26,7 +26,6 @@
     <style name="TasksDialogAlert" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:windowBackground">@color/background_color_dialog</item>
         <item name="colorAccent">?attr/colorAccentDialog</item>
-        <item name="colorAccentDialog">@color/blue_grey_400</item>
         <item name="asTextColor">@color/text_primary</item>
         <item name="icon_tint">@color/icon_tint</item>
     </style>
@@ -34,7 +33,6 @@
     <style name="TasksDialog" parent="@style/Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowBackground">@color/background_color_dialog</item>
         <item name="colorAccent">?attr/colorAccentDialog</item>
-        <item name="colorAccentDialog">@color/blue_grey_400</item>
         <item name="asTextColor">@color/text_primary</item>
         <item name="icon_tint">@color/icon_tint</item>
     </style>

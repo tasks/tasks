@@ -73,7 +73,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 TextView textView = (TextView) (convertView == null
                         ? inflater.inflate(R.layout.color_selection_row, parent, false)
                         : convertView);
-                Drawable original = context.getResources().getDrawable(preferences.hasPurchase(R.string.p_purchased_themes) || position < 2
+                Drawable original = context.getResources().getDrawable(preferences.hasPurchase(R.string.p_purchased_themes) || position < getNumFree()
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());

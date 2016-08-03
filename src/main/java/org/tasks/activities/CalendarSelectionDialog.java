@@ -21,6 +21,7 @@ import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
+import org.tasks.themes.Theme;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +33,26 @@ import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class CalendarSelectionDialog extends InjectingDialogFragment {
 
+    public static CalendarSelectionDialog newCalendarSelectionDialog(boolean enableNone) {
+        CalendarSelectionDialog dialog = new CalendarSelectionDialog();
+        dialog.enableNone = enableNone;
+        return dialog;
+    }
+
     public interface CalendarSelectionHandler {
         void selectedCalendar(AndroidCalendar calendar);
 
         void cancel();
     }
 
+    private static final String EXTRA_NONE_ENABLED = "extra_none_enabled";
+
     @Inject DialogBuilder dialogBuilder;
     @Inject CalendarProvider calendarProvider;
     @Inject @ForActivity Context context;
     @Inject FragmentPermissionRequestor fragmentPermissionRequestor;
     @Inject PermissionChecker permissionChecker;
+    @Inject Theme theme;
     private CalendarSelectionHandler handler;
     private boolean enableNone;
     private ArrayAdapter<String> adapter;
@@ -54,9 +64,12 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             fragmentPermissionRequestor.requestCalendarPermissions();
+        } else {
+            enableNone = savedInstanceState.getBoolean(EXTRA_NONE_ENABLED);
         }
 
-        adapter = new ArrayAdapter<>(context, R.layout.simple_list_item_single_choice_themed, calendarNames);
+        theme.applyToContext(getActivity());
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.simple_list_item_single_choice_themed, calendarNames);
 
         AlertDialogBuilder builder = dialogBuilder.newDialog()
                 .setAdapter(adapter, new DialogInterface.OnClickListener() {
@@ -98,12 +111,19 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
                 }
             }));
             if (calendarNames.isEmpty()) {
-                Toast.makeText(context, R.string.no_calendars_found, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.no_calendars_found, Toast.LENGTH_LONG).show();
                 handler.cancel();
             } else {
                 adapter.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putBoolean(EXTRA_NONE_ENABLED, enableNone);
     }
 
     @Override
@@ -127,10 +147,6 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     @Override
     protected void inject(DialogFragmentComponent component) {
         component.inject(this);
-    }
-
-    public void enableNone() {
-        enableNone = true;
     }
 
     public void setCalendarSelectionHandler(CalendarSelectionHandler handler) {

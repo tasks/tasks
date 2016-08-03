@@ -37,12 +37,14 @@ public class FileExplore extends InjectingAppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = getIntent();
-        directoryMode = intent.getBooleanExtra(EXTRA_DIRECTORY_MODE, false);
-        startPath = intent.getStringExtra(EXTRA_START_PATH);
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            directoryMode = intent.getBooleanExtra(EXTRA_DIRECTORY_MODE, false);
+            startPath = intent.getStringExtra(EXTRA_START_PATH);
 
-        if (permissionRequestor.requestFileWritePermission()) {
-            launchPicker();
+            if (permissionRequestor.requestFileWritePermission()) {
+                launchPicker();
+            }
         }
     }
 
@@ -76,10 +78,12 @@ public class FileExplore extends InjectingAppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_FILE_WRITE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                launchPicker();
-            } else {
-                finish();
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    launchPicker();
+                } else {
+                    finish();
+                }
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

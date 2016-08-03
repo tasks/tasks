@@ -21,7 +21,7 @@ public abstract class InjectingAppCompatActivity extends AppCompatActivity imple
     protected void onCreate(Bundle savedInstanceState) {
         activityComponent = ((InjectingApplication) getApplication()).getComponent().plus(new ActivityModule(this));
         inject(activityComponent);
-        setTitle(null);
+        setTitle("");
         super.onCreate(savedInstanceState);
     }
 
