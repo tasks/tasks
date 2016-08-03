@@ -8,7 +8,6 @@ import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.services.tasks.TasksScopes;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
@@ -30,18 +29,6 @@ import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
 
 public class AccountManager {
-
-    public void clearToken(GoogleAccountCredential credential) throws IOException {
-        try {
-            String token = credential.getToken();
-            Timber.d("Invalidating %s", token);
-            GoogleAuthUtil.clearToken(context, token);
-            GoogleAuthUtil.getTokenWithNotification(context, credential.getSelectedAccount(), "oauth2:" + TasksScopes.TASKS, null);
-        } catch (GoogleAuthException e) {
-            Timber.e(e, e.getMessage());
-            throw new IOException(e);
-        }
-    }
 
     public interface AuthResultHandler {
         void authenticationSuccessful(String accountName);

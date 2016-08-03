@@ -54,6 +54,7 @@ import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
 import org.tasks.injection.InjectingAbstractThreadedSyncAdapter;
 import org.tasks.injection.SyncAdapterComponent;
 import org.tasks.preferences.Preferences;
@@ -97,6 +98,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     @Inject TaskDao taskDao;
     @Inject MetadataDao metadataDao;
     @Inject GtasksMetadata gtasksMetadataFactory;
+    @Inject Tracker tracker;
 
     public GoogleTaskSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -139,38 +141,33 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             synchronize();
             gtasksPreferenceService.recordSuccessfulSync();
         } catch (Exception e) {
-            Timber.e(e, e.getMessage());
+            tracker.reportException(e);
         } finally {
             callback.finished();
             Timber.d("%s: end sync", account);
         }
     }
 
-    private void synchronize() {
+    private void synchronize() throws IOException {
         pushLocalChanges();
 
         List<TaskList> gtaskLists = new ArrayList<>();
-        try {
-            String nextPageToken = null;
-            do {
-                TaskLists remoteLists = gtasksInvoker.allGtaskLists(nextPageToken);
-                if (remoteLists == null) {
-                    break;
-                }
-                List<TaskList> items = remoteLists.getItems();
-                if (items != null) {
-                    gtaskLists.addAll(items);
-                }
-                nextPageToken = remoteLists.getNextPageToken();
-            } while (nextPageToken != null);
-            gtasksListService.updateLists(gtaskLists);
-            if (gtasksListService.getList(gtasksPreferenceService.getDefaultList()) == null) {
-                gtasksPreferenceService.setDefaultList(null);
+        String nextPageToken = null;
+        do {
+            TaskLists remoteLists = gtasksInvoker.allGtaskLists(nextPageToken);
+            if (remoteLists == null) {
+                break;
             }
-        } catch (IOException e) {
-            Timber.e(e, e.getMessage());
+            List<TaskList> items = remoteLists.getItems();
+            if (items != null) {
+                gtaskLists.addAll(items);
+            }
+            nextPageToken = remoteLists.getNextPageToken();
+        } while (nextPageToken != null);
+        gtasksListService.updateLists(gtaskLists);
+        if (gtasksListService.getList(gtasksPreferenceService.getDefaultList()) == null) {
+            gtasksPreferenceService.setDefaultList(null);
         }
-
         for (final GtasksList list : gtasksListService.getListsToUpdate(gtaskLists)) {
             fetchAndApplyRemoteChanges(list);
         }
@@ -184,7 +181,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             try {
                 pushTask(task, task.getMergedValues(), gtasksInvoker);
             } catch (IOException e) {
-                Timber.e(e, e.getMessage());
+                tracker.reportException(e);
             }
         }
     }
@@ -268,7 +265,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             try {
                 invoker.updateGtask(listId, remoteModel);
             } catch(HttpNotFoundException e) {
-                Timber.e("Received 404 response, deleting %s", gtasksMetadata);
+                tracker.reportException(e);
                 metadataDao.delete(gtasksMetadata.getId());
                 return;
             }
@@ -336,7 +333,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
         } catch (IOException e) {
-            Timber.e(e, e.getMessage());
+            tracker.reportException(e);
         }
     }
 

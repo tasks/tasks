@@ -3,7 +3,8 @@ package com.todoroo.astrid.gtasks.api;
 import android.content.Context;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -17,6 +18,8 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.AccountManager;
 import org.tasks.BuildConfig;
+import org.tasks.analytics.Tracker;
+import org.tasks.gtasks.GoogleTasksUnsuccessfulResponseHandler;
 import org.tasks.injection.ForApplication;
 
 import java.io.IOException;
@@ -36,13 +39,15 @@ import timber.log.Timber;
 @Singleton
 public class GtasksInvoker {
 
-    private AccountManager accountManager;
+    private final Context context;
+    private final Tracker tracker;
     private final GoogleAccountCredential credential;
-    private Tasks service;
+    private final Tasks service;
 
     @Inject
-    public GtasksInvoker(@ForApplication Context context, GtasksPreferenceService preferenceService, AccountManager accountManager) {
-        this.accountManager = accountManager;
+    public GtasksInvoker(@ForApplication Context context, GtasksPreferenceService preferenceService, Tracker tracker) {
+        this.context = context;
+        this.tracker = tracker;
         credential = GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS));
         setUserName(preferenceService.getUserName());
         service = new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
@@ -52,25 +57,6 @@ public class GtasksInvoker {
 
     public void setUserName(String username) {
         credential.setSelectedAccountName(username);
-    }
-
-    //If we get a 401 or 403, try revalidating the auth token before bailing
-    private synchronized void handleException(IOException e) throws IOException {
-        Timber.e(e, e.getMessage());
-        if (e instanceof HttpResponseException) {
-            HttpResponseException h = (HttpResponseException) e;
-            int statusCode = h.getStatusCode();
-            if (statusCode == 401 || statusCode == 403) {
-                accountManager.clearToken(credential);
-            } else if (statusCode == 400 || statusCode == 500) {
-                throw h;
-            } else if (statusCode == 404) {
-                throw new HttpNotFoundException(h);
-            } else {
-                Timber.e(e, "%s: %s", statusCode, h.getStatusMessage());
-            }
-            // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
-        }
     }
 
     public TaskLists allGtaskLists(String pageToken) throws IOException {
@@ -141,10 +127,13 @@ public class GtasksInvoker {
         Timber.d("%s request: %s", caller, request);
         T response;
         try {
-            response = request.execute();
+            HttpRequest httpRequest = request.buildHttpRequest();
+            httpRequest.setUnsuccessfulResponseHandler(new GoogleTasksUnsuccessfulResponseHandler(context, credential));
+            HttpResponse httpResponse = httpRequest.execute();
+            response = httpResponse.parseAs(request.getResponseClass());
         } catch (IOException e) {
-            handleException(e);
-            response = request.execute();
+            tracker.reportException(e);
+            throw e;
         }
         Timber.d("%s response: %s", caller, prettyPrint(response));
         return response;
