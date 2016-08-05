@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.todoroo.astrid.api.Filter;
@@ -19,6 +18,7 @@ import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
@@ -35,31 +35,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WidgetConfigDialog extends InjectingDialogFragment implements SeekBar.OnSeekBarChangeListener {
+import static org.tasks.dialogs.SeekBarDialog.newSeekBarDialog;
+
+public class WidgetConfigDialog extends InjectingDialogFragment {
 
     private static final String EXTRA_FILTER = "extra_filter";
     private static final String EXTRA_THEME = "extra_theme";
     private static final String EXTRA_APP_WIDGET_ID = "extra_app_widget_id";
+    private static final String EXTRA_OPACITY = "extra_opacity";
+    private static final String FRAG_TAG_SEEKBAR = "frag_tag_seekbar";
 
     public static WidgetConfigDialog newWidgetConfigDialog(int appWidgetId) {
         WidgetConfigDialog dialog = new WidgetConfigDialog();
         dialog.appWidgetId = appWidgetId;
         return dialog;
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        updateOpacity();
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
     }
 
     public interface WidgetConfigCallback {
@@ -71,6 +60,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     private static final int REQUEST_FILTER = 1005;
     private static final int REQUEST_THEME_SELECTION = 1006;
     private static final int REQUEST_COLOR_SELECTION = 1007;
+    private static final int REQUEST_OPACITY = 1008;
 
     @BindView(R.id.opacity_value) TextView opacityValue;
     @BindView(R.id.selected_filter) TextView selectedFilter;
@@ -79,7 +69,6 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     @BindView(R.id.hideDueDate) CheckBox hideDueDate;
     @BindView(R.id.hideCheckboxes) CheckBox hideCheckBoxes;
     @BindView(R.id.hideHeader) CheckBox hideHeader;
-    @BindView(R.id.opacity_seekbar) SeekBar opacitySeekbar;
 
     @Inject DialogBuilder dialogBuilder;
     @Inject DefaultFilterProvider defaultFilterProvider;
@@ -93,6 +82,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     private int colorIndex = 0;
     private int appWidgetId;
     private WidgetConfigCallback callback;
+    private int opacityPercentage;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -101,15 +91,14 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
         ButterKnife.bind(this, view);
 
-        opacitySeekbar.setOnSeekBarChangeListener(this);
-
         if (savedInstanceState != null) {
             themeIndex = savedInstanceState.getInt(EXTRA_THEME);
             filter = savedInstanceState.getParcelable(EXTRA_FILTER);
             appWidgetId = savedInstanceState.getInt(EXTRA_APP_WIDGET_ID);
+            opacityPercentage = savedInstanceState.getInt(EXTRA_OPACITY);
         } else {
             filter = defaultFilterProvider.getDefaultFilter();
-            opacitySeekbar.setProgress(WidgetConfigActivity.DEFAULT_OPACITY);
+            opacityPercentage = 100;
         }
 
         updateFilter();
@@ -136,6 +125,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
 
         outState.putInt(EXTRA_APP_WIDGET_ID, appWidgetId);
         outState.putInt(EXTRA_THEME, themeIndex);
+        outState.putInt(EXTRA_OPACITY, opacityPercentage);
         outState.putParcelable(EXTRA_FILTER, filter);
     }
 
@@ -158,7 +148,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
     }
 
     private void updateOpacity() {
-        opacityValue.setText(NumberFormat.getPercentInstance().format(opacitySeekbar.getProgress() / 255.0));
+        opacityValue.setText(NumberFormat.getPercentInstance().format(opacityPercentage / 100.0));
     }
 
     private void updateTheme() {
@@ -190,6 +180,13 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
         }}, REQUEST_COLOR_SELECTION);
     }
 
+    @OnClick(R.id.widget_opacity)
+    public void showOpacitySlider() {
+        SeekBarDialog seekBarDialog = newSeekBarDialog(0, 100, opacityPercentage);
+        seekBarDialog.setTargetFragment(this, REQUEST_OPACITY);
+        seekBarDialog.show(getChildFragmentManager(), FRAG_TAG_SEEKBAR);
+    }
+
     @Override
     protected void inject(DialogFragmentComponent component) {
         component.inject(this);
@@ -212,6 +209,11 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
                 filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 updateFilter();
             }
+        } else if (requestCode == REQUEST_OPACITY) {
+            if (resultCode == Activity.RESULT_OK) {
+                opacityPercentage = data.getIntExtra(SeekBarDialog.EXTRA_VALUE, 100);
+                updateOpacity();
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -224,7 +226,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment implements SeekB
         preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + appWidgetId, hideHeader.isChecked());
         preferences.setInt(WidgetConfigActivity.PREF_THEME + appWidgetId, themeIndex);
         preferences.setInt(WidgetConfigActivity.PREF_COLOR + appWidgetId, colorIndex);
-        preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, opacitySeekbar.getProgress());
+        preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, (int)(255.0 * ((double) opacityPercentage / 100.0)));
 
         // force update after setting preferences
         context.sendBroadcast(new Intent(context, TasksWidget.class) {{

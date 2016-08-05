@@ -3,6 +3,7 @@ package org.tasks.injection;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
+import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.reminders.MissedCallDialog;
@@ -28,4 +29,6 @@ public interface BaseDialogFragmentComponent {
     void inject(SortDialog sortDialog);
 
     void inject(ColorPickerDialog colorPickerDialog);
+
+    void inject(SeekBarDialog seekBarDialog);
 }

@@ -92,7 +92,9 @@
 
         </RelativeLayout>
 
-        <RelativeLayout style="@style/WidgetConfigRow">
+        <RelativeLayout
+            android:id="@+id/widget_opacity"
+            style="@style/WidgetConfigRow">
 
             <TextView
                 android:id="@+id/opacity_value"
@@ -117,14 +119,6 @@
                 android:textSize="18sp" />
 
         </RelativeLayout>
-
-        <SeekBar
-            android:id="@+id/opacity_seekbar"
-            style="@style/WidgetConfigRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="false"
-            android:max="255" />
 
         <CheckBox
             android:id="@+id/hideDueDate"
