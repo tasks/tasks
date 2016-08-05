@@ -182,7 +182,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
 
     @OnClick(R.id.widget_opacity)
     public void showOpacitySlider() {
-        SeekBarDialog seekBarDialog = newSeekBarDialog(0, 100, opacityPercentage);
+        SeekBarDialog seekBarDialog = newSeekBarDialog(R.layout.dialog_opacity_seekbar, opacityPercentage);
         seekBarDialog.setTargetFragment(this, REQUEST_OPACITY);
         seekBarDialog.show(getChildFragmentManager(), FRAG_TAG_SEEKBAR);
     }

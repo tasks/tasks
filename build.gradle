@@ -121,6 +121,7 @@ dependencies {
     debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
 
+    compile 'com.github.rey5137:material:1.2.4'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.nononsenseapps:filepicker:2.5.2'
     compile "com.android.support:design:${SUPPORT_VERSION}"
