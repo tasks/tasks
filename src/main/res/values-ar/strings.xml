@@ -159,9 +159,6 @@
 	<string name="sync_SPr_interval_title">تحيين في الخلفية</string>
 	<string name="sync_SPr_forget">خروج</string>
 	<string name="sync_forget_confirm">تسجيل الخروج/ مسح معلومات المزامنه؟</string>
-	<string name="widget_hide_due_date">إخفاء تاريخ الإستحقاق</string>
-	<string name="widget_hide_checkboxes">إخفاء مربعات الاختيار</string>
-	<string name="widget_hide_header">إخفاء الجزء العلوي</string>
 	<string name="notifications">تنبيهات</string>
 	<string name="silent">الصمت</string>
 	<string name="sound">صوت</string>

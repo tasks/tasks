@@ -14,14 +14,11 @@ import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
-import org.tasks.themes.WidgetTheme;
 import org.tasks.ui.WidgetCheckBoxes;
 
 import javax.inject.Inject;
 
 public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
-
-    public static final String FILTER_ID = "org.tasks.widget.FILTER_ID";
 
     @Inject Database database;
     @Inject TaskService taskService;
@@ -50,11 +47,9 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
             return null;
         }
 
-        String filterId = (String) extras.get(FILTER_ID);
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-        WidgetTheme widgetTheme = themeCache.getWidgetTheme(preferences.getInt(WidgetConfigActivity.PREF_THEME + widgetId, 0));
-        return new ScrollableViewsFactory(subtasksHelper, preferences, locale.createConfigurationContext(getApplicationContext()), filterId,
-                widgetTheme.getTextColor(), widgetId, database, taskService, defaultFilterProvider, widgetCheckBoxes);
+        return new ScrollableViewsFactory(subtasksHelper, preferences, locale.createConfigurationContext(getApplicationContext()),
+                widgetId, database, taskService, defaultFilterProvider, widgetCheckBoxes, themeCache);
     }
 
     @Override

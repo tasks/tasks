@@ -747,9 +747,10 @@ File %1$s contained %2$s.\n\n
     <!-- confirmation dialog for sync log out -->
     <string name="sync_forget_confirm">Log out/clear synchronization data?</string>
 
-    <string name="widget_hide_due_date">Hide due dates</string>
-    <string name="widget_hide_checkboxes">Hide checkboxes</string>
-    <string name="widget_hide_header">Hide header</string>
+  <string name="widget_show_due_date">Show due dates</string>
+  <string name="widget_show_checkboxes">Show checkboxes</string>
+  <string name="widget_show_header">Show header</string>
+  <string name="widget_show_settings">Show settings</string>
     <string name="notifications">Notifications</string>
     <string name="silent">Silent</string>
     <string name="sound">Sound</string>

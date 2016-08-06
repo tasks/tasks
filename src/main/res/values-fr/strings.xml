@@ -275,9 +275,6 @@
 	<string name="sync_SPr_forget">Se déconnecter</string>
 	<string name="sync_SPr_forget_description">Supprimer définitivement toutes les données de synchronisation</string>
 	<string name="sync_forget_confirm">Se déconnecter/Supprimer définitivement toutes les données de synchronisation ?</string>
-	<string name="widget_hide_due_date">Cacher les dates échéantes</string>
-	<string name="widget_hide_checkboxes">Cacher les cases à cocher</string>
-	<string name="widget_hide_header">Cacher l\'en-tête</string>
 	<string name="silent">Silencieux</string>
 	<string name="sound">Son</string>
 	<string name="quiet_hours">Heures de repos</string>

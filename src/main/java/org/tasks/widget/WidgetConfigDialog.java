@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 
 import org.tasks.R;
@@ -68,10 +69,11 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
     @BindView(R.id.selected_filter) TextView selectedFilter;
     @BindView(R.id.selected_theme) TextView selectedTheme;
     @BindView(R.id.selected_color) TextView selectedColor;
-    @BindView(R.id.hideDueDate) CheckBox hideDueDate;
-    @BindView(R.id.hideCheckboxes) CheckBox hideCheckBoxes;
-    @BindView(R.id.hideHeader) CheckBox hideHeader;
+    @BindView(R.id.showDueDate) CheckBox showDueDate;
+    @BindView(R.id.showCheckBoxes) CheckBox showCheckBoxes;
+    @BindView(R.id.showHeader) CheckBox showHeader;
     @BindView(R.id.font_size_value) TextView selectedFontSize;
+    @BindView(R.id.showSettings) CheckBox showSettings;
 
     @Inject DialogBuilder dialogBuilder;
     @Inject DefaultFilterProvider defaultFilterProvider;
@@ -102,9 +104,20 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
             opacityPercentage = savedInstanceState.getInt(EXTRA_OPACITY);
             fontSize = savedInstanceState.getInt(EXTRA_FONT_SIZE);
         } else {
-            filter = defaultFilterProvider.getDefaultFilter();
-            opacityPercentage = 100;
-            fontSize = 16;
+            String filterId = preferences.getStringValue(WidgetConfigActivity.PREF_WIDGET_ID + appWidgetId);
+            if (Strings.isNullOrEmpty(filterId)) {
+                filter = defaultFilterProvider.getDefaultFilter();
+            } else {
+                filter = defaultFilterProvider.getFilterFromPreference(filterId);
+            }
+            opacityPercentage = preferences.getInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, 100);
+            fontSize = preferences.getInt(WidgetConfigActivity.PREF_FONT_SIZE + appWidgetId, 16);
+            themeIndex = preferences.getInt(WidgetConfigActivity.PREF_THEME + appWidgetId, 0);
+            colorIndex = preferences.getInt(WidgetConfigActivity.PREF_COLOR + appWidgetId, 0);
+            showDueDate.setChecked(preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + appWidgetId, true));
+            showCheckBoxes.setChecked(preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_CHECKBOXES + appWidgetId, true));
+            showHeader.setChecked(preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_HEADER + appWidgetId, true));
+            showSettings.setChecked(preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_SETTINGS + appWidgetId, true));
         }
 
         updateFilter();
@@ -206,7 +219,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
 
     @OnClick(R.id.font_size)
     public void showFontSizeSlider() {
-        SeekBarDialog seekBarDialog = newSeekBarDialog(R.layout.dialog_font_size_seekbar, 16);
+        SeekBarDialog seekBarDialog = newSeekBarDialog(R.layout.dialog_font_size_seekbar, fontSize);
         seekBarDialog.setTargetFragment(this, REQUEST_FONT_SIZE);
         seekBarDialog.show(getChildFragmentManager(), FRAG_TAG_SEEKBAR);
     }
@@ -250,12 +263,13 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
 
     private void saveConfiguration(){
         preferences.setString(WidgetConfigActivity.PREF_WIDGET_ID + appWidgetId, defaultFilterProvider.getFilterPreferenceValue(filter));
-        preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + appWidgetId, !hideDueDate.isChecked());
-        preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + appWidgetId, hideCheckBoxes.isChecked());
-        preferences.setBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + appWidgetId, hideHeader.isChecked());
+        preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + appWidgetId, showDueDate.isChecked());
+        preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_CHECKBOXES+ appWidgetId, showCheckBoxes.isChecked());
+        preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_HEADER + appWidgetId, showHeader.isChecked());
+        preferences.setBoolean(WidgetConfigActivity.PREF_SHOW_SETTINGS + appWidgetId, showSettings.isChecked());
         preferences.setInt(WidgetConfigActivity.PREF_THEME + appWidgetId, themeIndex);
         preferences.setInt(WidgetConfigActivity.PREF_COLOR + appWidgetId, colorIndex);
-        preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, (int)(255.0 * ((double) opacityPercentage / 100.0)));
+        preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, opacityPercentage);
         preferences.setInt(WidgetConfigActivity.PREF_FONT_SIZE + appWidgetId, fontSize);
 
         // force update after setting preferences

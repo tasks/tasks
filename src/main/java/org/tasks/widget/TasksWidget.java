@@ -97,7 +97,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     private RemoteViews createScrollableWidget(Context context, int id) {
         String filterId = preferences.getStringValue(WidgetConfigActivity.PREF_WIDGET_ID + id);
         Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);
-        rvIntent.putExtra(ScrollableWidgetUpdateService.FILTER_ID, filterId);
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
         WidgetTheme theme = themeCache.getWidgetTheme(preferences.getInt(WidgetConfigActivity.PREF_THEME + id, 0));
@@ -106,13 +105,18 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         if (atLeastJellybeanMR1()) {
             remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.getDirectionality());
         }
-        if (preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_HEADER + id, false)) {
-            remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
-        } else {
+        if (preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_HEADER + id, true)) {
+            remoteViews.setViewVisibility(R.id.widget_reconfigure, preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_SETTINGS + id, true)
+                    ? View.VISIBLE
+                    : View.GONE);
             remoteViews.setInt(R.id.widget_title, "setTextColor", color.getActionBarTint());
             remoteViews.setInt(R.id.widget_button, "setColorFilter", color.getActionBarTint());
+            remoteViews.setInt(R.id.widget_reconfigure, "setColorFilter", color.getActionBarTint());
+        } else {
+            remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
         }
-        int opacity = preferences.getInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + id, WidgetConfigActivity.DEFAULT_OPACITY);
+        int opacityPercentage = preferences.getInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + id, WidgetConfigActivity.DEFAULT_OPACITY);
+        int opacity = (int)((opacityPercentage / 100.0) * 255.0);
         remoteViews.setImageViewBitmap(R.id.widget_background,
                 getSolidBackground(theme.getBackgroundColor()));
         remoteViews.setImageViewBitmap(R.id.widget_header_background,
@@ -126,6 +130,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
         remoteViews.setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filterId, id));
         remoteViews.setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filterId, id));
+        remoteViews.setOnClickPendingIntent(R.id.widget_reconfigure, getWidgetConfigIntent(context, id));
         remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
         return remoteViews;
     }
@@ -151,5 +156,12 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         Intent intent = TaskIntents.getNewTaskIntent(context, filterId);
         intent.setFlags(flags);
         return PendingIntent.getActivity(context, -widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
+    private PendingIntent getWidgetConfigIntent(Context context, final int widgetId) {
+        Intent intent = new Intent(context, WidgetConfigActivity.class) {{
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        }};
+        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }

@@ -261,9 +261,6 @@
 	<string name="sync_SPr_forget">Sair</string>
 	<string name="sync_SPr_forget_description">Remove todos os dados de sincronização</string>
 	<string name="sync_forget_confirm">Sair/limpar dados de sincronização?</string>
-	<string name="widget_hide_due_date">Ocultar data limite</string>
-	<string name="widget_hide_checkboxes">Ocultar caixa de seleção</string>
-	<string name="widget_hide_header">Ocultar cabeçalho</string>
 	<string name="notifications">Notificações</string>
 	<string name="silent">Silêncio</string>
 	<string name="sound">Som</string>

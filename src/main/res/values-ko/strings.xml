@@ -282,9 +282,6 @@
 	<string name="sync_SPr_forget">로그아웃</string>
 	<string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
 	<string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
-	<string name="widget_hide_due_date">완료 예정일 숨기기</string>
-	<string name="widget_hide_checkboxes">체크박스 숨기기</string>
-	<string name="widget_hide_header">헤더 숨기기</string>
 	<string name="notifications">알림</string>
 	<string name="silent">무음</string>
 	<string name="sound">소리</string>

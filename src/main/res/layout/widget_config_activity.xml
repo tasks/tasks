@@ -149,22 +149,28 @@
         </RelativeLayout>
 
         <CheckBox
-            android:id="@+id/hideDueDate"
+            android:id="@+id/showDueDate"
             style="@style/WidgetConfigRow.CheckBox"
-            android:checked="false"
-            android:text="@string/widget_hide_due_date" />
+            android:checked="true"
+            android:text="@string/widget_show_due_date" />
 
         <CheckBox
-            android:id="@+id/hideCheckboxes"
+            android:id="@+id/showCheckBoxes"
             style="@style/WidgetConfigRow.CheckBox"
-            android:checked="false"
-            android:text="@string/widget_hide_checkboxes" />
+            android:checked="true"
+            android:text="@string/widget_show_checkboxes" />
 
         <CheckBox
-            android:id="@+id/hideHeader"
+            android:id="@+id/showHeader"
             style="@style/WidgetConfigRow.CheckBox"
-            android:checked="false"
-            android:text="@string/widget_hide_header" />
+            android:checked="true"
+            android:text="@string/widget_show_header" />
+
+        <CheckBox
+            android:id="@+id/showSettings"
+            style="@style/WidgetConfigRow.CheckBox"
+            android:checked="true"
+            android:text="@string/widget_show_settings" />
 
     </LinearLayout>
 

@@ -255,9 +255,6 @@
 	<string name="sync_SPr_forget">Odhlásiť</string>
 	<string name="sync_SPr_forget_description">Vymazať všetky synchronizačné údaje</string>
 	<string name="sync_forget_confirm">Odhlásiť sa/vymazať synchronizačné údaje?</string>
-	<string name="widget_hide_due_date">Skryť termín</string>
-	<string name="widget_hide_checkboxes">Skryť zaškrtávacie políčka</string>
-	<string name="widget_hide_header">Skryť hlavičku</string>
 	<string name="notifications">Oznámenia</string>
 	<string name="silent">Tichý</string>
 	<string name="sound">Zvuk</string>

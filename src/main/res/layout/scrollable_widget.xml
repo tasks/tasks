@@ -29,26 +29,46 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp"
+            android:paddingEnd="@dimen/widget_padding"
+            android:paddingLeft="@dimen/widget_padding"
+            android:paddingRight="@dimen/widget_padding"
+            android:paddingStart="@dimen/widget_padding"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_add_24dp"
             android:tint="@android:color/white" />
 
+        <ImageButton
+            android:id="@+id/widget_reconfigure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/widget_button"
+            android:layout_toStartOf="@id/widget_button"
+            android:background="@android:color/transparent"
+            android:paddingEnd="0dp"
+            android:paddingLeft="@dimen/widget_padding"
+            android:paddingRight="0dp"
+            android:paddingStart="@dimen/widget_padding"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_settings_24dp"
+            android:tint="@android:color/white" />
+
         <TextView
             android:id="@+id/widget_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/widget_button"
-            android:layout_toStartOf="@id/widget_button"
+            android:layout_toLeftOf="@id/widget_reconfigure"
+            android:layout_toStartOf="@id/widget_reconfigure"
             android:ellipsize="end"
             android:gravity="start|center_vertical"
             android:maxLines="2"
-            android:paddingLeft="10dp"
-            android:paddingStart="10dp"
+            android:paddingEnd="0dp"
+            android:paddingLeft="@dimen/widget_padding"
+            android:paddingRight="0dp"
+            android:paddingStart="@dimen/widget_padding"
             android:textAlignment="viewStart"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
@@ -67,10 +87,10 @@
 
         <ListView
             android:id="@+id/list_view"
-            android:divider="@null"
-            android:dividerHeight="0dp"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent" />
+            android:layout_height="fill_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp" />
 
         <TextView
             android:id="@+id/empty_view"

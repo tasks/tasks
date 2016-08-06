@@ -25,6 +25,8 @@ import org.tasks.R;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.themes.ThemeCache;
+import org.tasks.themes.WidgetTheme;
 import org.tasks.ui.WidgetCheckBoxes;
 
 import timber.log.Timber;
@@ -34,7 +36,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final WidgetCheckBoxes checkBoxes;
-    private final int themeTextColor;
+    private final ThemeCache themeCache;
     private final int widgetId;
     private final Database database;
     private final TaskService taskService;
@@ -42,11 +44,13 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private final SubtasksHelper subtasksHelper;
     private final Preferences preferences;
     private final Context context;
-    private final String filterId;
-    private final boolean showDueDates;
-    private final boolean hideCheckboxes;
-    private final float textSize;
-    private final float dueDateTextSize;
+
+    private boolean showDueDates;
+    private boolean showCheckboxes;
+    private float textSize;
+    private float dueDateTextSize;
+    private String filterId;
+    private int themeTextColor;
 
     private TodorooCursor<Task> cursor;
 
@@ -54,27 +58,23 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             SubtasksHelper subtasksHelper,
             Preferences preferences,
             Context context,
-            String filterId,
-            int themeTextColor,
             int widgetId,
             Database database,
             TaskService taskService,
             DefaultFilterProvider defaultFilterProvider,
-            WidgetCheckBoxes checkBoxes) {
+            WidgetCheckBoxes checkBoxes,
+            ThemeCache themeCache) {
         this.subtasksHelper = subtasksHelper;
         this.preferences = preferences;
         this.context = context;
-        this.filterId = filterId;
         this.widgetId = widgetId;
         this.database = database;
         this.taskService = taskService;
         this.defaultFilterProvider = defaultFilterProvider;
         this.checkBoxes = checkBoxes;
-        this.themeTextColor = themeTextColor;
-        showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
-        hideCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + widgetId, false);
-        textSize = (float) preferences.getInt(WidgetConfigActivity.PREF_FONT_SIZE + widgetId, 16);
-        dueDateTextSize = Math.max(10, textSize * 14 / 20);
+        this.themeCache = themeCache;
+
+        updateSettings();
     }
 
     @Override
@@ -157,8 +157,11 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             row.setFloat(R.id.widget_text, "setTextSize", textSize);
             if (showDueDates) {
                 formatDueDate(row, task, textColor);
-            } else if (task.hasDueDate() && task.isOverdue()) {
-                textColor = r.getColor(R.color.overdue);
+            } else {
+                row.setViewVisibility(R.id.widget_due_date, View.GONE);
+                if (task.hasDueDate() && task.isOverdue()) {
+                    textColor = r.getColor(R.color.overdue);
+                }
             }
 
             row.setTextViewText(R.id.widget_text, textContent);
@@ -171,12 +174,13 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             editIntent.putExtra(TasksWidget.EXTRA_ID, taskId);
             row.setOnClickFillInIntent(R.id.widget_row, editIntent);
 
-            if (hideCheckboxes) {
-                row.setViewVisibility(R.id.widget_complete_box, View.GONE);
-            } else {
+            if (showCheckboxes) {
+                row.setViewVisibility(R.id.widget_complete_box, View.VISIBLE);
                 Intent completeIntent = new Intent(TasksWidget.COMPLETE_TASK);
                 completeIntent.putExtra(TasksWidget.EXTRA_ID, taskId);
                 row.setOnClickFillInIntent(R.id.widget_complete_box, completeIntent);
+            } else {
+                row.setViewVisibility(R.id.widget_complete_box, View.GONE);
             }
 
             if (atLeastJellybeanMR1()) {
@@ -210,6 +214,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         if(sort == 0) {
             sort = SortHelper.SORT_WIDGET;
         }
+        updateSettings();
         Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
@@ -234,5 +239,15 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         } else {
             row.setViewVisibility(R.id.widget_due_date, View.GONE);
         }
+    }
+
+    private void updateSettings() {
+        WidgetTheme widgetTheme = themeCache.getWidgetTheme(preferences.getInt(WidgetConfigActivity.PREF_THEME + widgetId, 0));
+        themeTextColor = widgetTheme.getTextColor();
+        showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, true);
+        showCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_CHECKBOXES+ widgetId, true);
+        textSize = (float) preferences.getInt(WidgetConfigActivity.PREF_FONT_SIZE + widgetId, 16);
+        dueDateTextSize = Math.max(10, textSize * 14 / 20);
+        filterId = preferences.getStringValue(WidgetConfigActivity.PREF_WIDGET_ID + widgetId);
     }
 }

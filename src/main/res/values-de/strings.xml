@@ -274,9 +274,6 @@
 	<string name="sync_SPr_forget">Abmelden</string>
 	<string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
 	<string name="sync_forget_confirm">Ausloggen / Synchronisierte Daten löschen?</string>
-	<string name="widget_hide_due_date">Fälligkeitsdatum ausblenden</string>
-	<string name="widget_hide_checkboxes">Kontrollkästchen ausblenden</string>
-	<string name="widget_hide_header">Kopfzeile ausblenden</string>
 	<string name="notifications">Benachrichtigungen</string>
 	<string name="silent">Ton Aus</string>
 	<string name="sound">Ton</string>

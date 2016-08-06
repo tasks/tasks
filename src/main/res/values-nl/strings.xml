@@ -278,9 +278,6 @@
 	<string name="sync_SPr_forget">Afmelden</string>
 	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
 	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
-	<string name="widget_hide_due_date">Verberg deadlines</string>
-	<string name="widget_hide_checkboxes">Verberg vinkboxjes</string>
-	<string name="widget_hide_header">Verberg header</string>
 	<string name="notifications">Notificaties</string>
 	<string name="silent">Stil</string>
 	<string name="sound">Geluid</string>

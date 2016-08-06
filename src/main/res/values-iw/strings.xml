@@ -280,9 +280,6 @@
 	<string name="sync_SPr_forget">התנתק</string>
 	<string name="sync_SPr_forget_description">מסיר את כל נתוני הסנכרון</string>
 	<string name="sync_forget_confirm">צא מהחשבון \\ הסר נתוני סנכרון?</string>
-	<string name="widget_hide_due_date">הסתר תאריכי יעד</string>
-	<string name="widget_hide_checkboxes">הסתר תיבות סימון</string>
-	<string name="widget_hide_header">הסתר כותרת</string>
 	<string name="notifications">התראות</string>
 	<string name="silent">שקט</string>
 	<string name="sound">שמע</string>

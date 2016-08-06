@@ -279,9 +279,6 @@
 	<string name="sync_SPr_forget">Esci</string>
 	<string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
 	<string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
-	<string name="widget_hide_due_date">Nascondi scadenze</string>
-	<string name="widget_hide_checkboxes">Nascondi caselle di spunta</string>
-	<string name="widget_hide_header">Nascondi intestazione</string>
 	<string name="notifications">Notifiche</string>
 	<string name="silent">Silente</string>
 	<string name="sound">Sonoro</string>

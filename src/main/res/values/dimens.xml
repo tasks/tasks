@@ -23,4 +23,6 @@
     <dimen name="elevation_toolbar">8dp</dimen>
     <dimen name="elevation_task_list">6dp</dimen>
     <dimen name="elevation_padding">0dp</dimen>
+
+    <dimen name="widget_padding">10dp</dimen>
 </resources>

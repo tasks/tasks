@@ -282,9 +282,6 @@
 	<string name="sync_SPr_forget">Излизане</string>
 	<string name="sync_SPr_forget_description">Изчистване на всички данни от синхронзация</string>
 	<string name="sync_forget_confirm">Изход/изчистване на данните от синхронизация?</string>
-	<string name="widget_hide_due_date">Скриване на крайни срокове</string>
-	<string name="widget_hide_checkboxes">Скриване на отметки</string>
-	<string name="widget_hide_header">Скриване на хедър</string>
 	<string name="notifications">Уведомления</string>
 	<string name="silent">Безшумен</string>
 	<string name="sound">Звук</string>

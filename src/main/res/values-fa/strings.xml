@@ -205,8 +205,6 @@
 	<string name="DLG_wait">لطفا منتظر بمانید...</string>
 	<string name="sync_SPr_interval_title">سینک پیش زمینه</string>
 	<string name="sync_SPr_forget">خروج از حساب کاربری</string>
-	<string name="widget_hide_due_date">مخفی کردن موعودها</string>
-	<string name="widget_hide_header">مخفی کردن سربرگ</string>
 	<string name="notifications">اعلان ها</string>
 	<string name="silent">سکوت</string>
 	<string name="sound">صدا</string>

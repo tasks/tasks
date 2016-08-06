@@ -278,9 +278,6 @@
 	<string name="sync_SPr_forget">Logga ut</string>
 	<string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
 	<string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
-	<string name="widget_hide_due_date">Dölj förfallodatum</string>
-	<string name="widget_hide_checkboxes">Dölj kryssrutor</string>
-	<string name="widget_hide_header">Dölj rubrik</string>
 	<string name="notifications">Påminnelser</string>
 	<string name="silent">Tyst</string>
 	<string name="sound">Ljud</string>

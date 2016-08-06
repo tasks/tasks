@@ -279,9 +279,6 @@
 	<string name="sync_SPr_forget">Выйти</string>
 	<string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
 	<string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
-	<string name="widget_hide_due_date">Спрятать даты</string>
-	<string name="widget_hide_checkboxes">Спрятать чекбоксы</string>
-	<string name="widget_hide_header">Спрятать заголовок</string>
 	<string name="notifications">Уведомления</string>
 	<string name="silent">Без звука</string>
 	<string name="sound">Звук</string>

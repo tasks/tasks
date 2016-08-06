@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -18,19 +19,21 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
 
     private static final String FRAG_TAG_WIDGET_CONFIG = "frag_tag_widget_config";
 
-    public static final int DEFAULT_OPACITY = 255;
+    public static final int DEFAULT_OPACITY = 100;
 
     public static final String PREF_WIDGET_ID = "widget-id-";
     public static final String PREF_SHOW_DUE_DATE = "widget-show-due-date-";
-    public static final String PREF_HIDE_CHECKBOXES = "widget-hide-checkboxes-";
+    public static final String PREF_SHOW_CHECKBOXES = "widget-show-checkboxes-";
     public static final String PREF_THEME = "widget-theme-v2-";
     public static final String PREF_COLOR = "widget-color-";
-    public static final String PREF_HIDE_HEADER = "widget-hide-header-";
-    public static final String PREF_WIDGET_OPACITY = "widget-opacity-v2-";
+    public static final String PREF_SHOW_HEADER = "widget-show-header-";
+    public static final String PREF_SHOW_SETTINGS = "widget-show-settings-";
+    public static final String PREF_WIDGET_OPACITY = "widget-opacity-v3-";
     public static final String PREF_FONT_SIZE = "widget-font-size-";
 
     @Inject Tracker tracker;
     @Inject DialogBuilder dialogBuilder;
+    @Inject Broadcaster broadcaster;
 
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -62,6 +65,7 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
     @Override
     public void ok() {
         tracker.reportEvent(Tracking.Events.WIDGET_ADD, getString(R.string.app_name));
+        broadcaster.refresh();
         Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         setResult(RESULT_OK, resultValue);

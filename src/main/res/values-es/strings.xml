@@ -278,9 +278,6 @@
 	<string name="sync_SPr_forget">Cerrar sesión</string>
 	<string name="sync_SPr_forget_description">Limpia todos los datos de la sincronización</string>
 	<string name="sync_forget_confirm">Cerrar sesión/Limpiar datos de sincronización?</string>
-	<string name="widget_hide_due_date">Ocultar fechas de vencimiento</string>
-	<string name="widget_hide_checkboxes">Ocultar casillas de verificación</string>
-	<string name="widget_hide_header">Ocultar encabezado</string>
 	<string name="notifications">Notificaciones</string>
 	<string name="silent">Silencioso</string>
 	<string name="sound">Sonido</string>

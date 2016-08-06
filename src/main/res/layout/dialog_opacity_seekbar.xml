@@ -18,7 +18,7 @@
         app:sl_maxValue="100"
         app:sl_minValue="0"
         app:sl_stepValue="5"
-        app:sl_travelAnimDuration="50" />
+        app:sl_travelAnimDuration="100" />
 
     <TextView
         android:layout_width="wrap_content"

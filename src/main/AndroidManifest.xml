@@ -199,6 +199,7 @@
         <!-- Activity that configures widget -->
         <activity
             android:name=".widget.WidgetConfigActivity"
+            android:taskAffinity=""
             android:theme="@style/TranslucentDialog">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
