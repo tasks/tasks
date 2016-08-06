@@ -22,7 +22,7 @@
 	<string name="DLG_error_sdcard">Impossible d\'accéder au dossier : %s</string>
 	<string name="DLG_error_sdcard_general">Impossible d\'accéder à la carte SD !</string>
 	<string name="read_permission_label">Permissions de Tasks</string>
-	<string name="write_permission_label">Permission de Tasks</string>
+	<string name="write_permission_label">Permissions de Tasks</string>
 	<string name="discard_confirmation">Êtes-vous sûr de vouloir annuler vos modifications ?</string>
 	<string name="keep_editing">Continuer l\'édition</string>
 	<string name="DLG_delete_this_task_question">Supprimer cette tâche ?</string>
@@ -275,6 +275,10 @@
 	<string name="sync_SPr_forget">Se déconnecter</string>
 	<string name="sync_SPr_forget_description">Supprimer définitivement toutes les données de synchronisation</string>
 	<string name="sync_forget_confirm">Se déconnecter/Supprimer définitivement toutes les données de synchronisation ?</string>
+	<string name="widget_show_due_date">Montrer les dates échéantes</string>
+	<string name="widget_show_checkboxes">Montrer les cases à cocher</string>
+	<string name="widget_show_header">Montrer l\'en-tête</string>
+	<string name="widget_show_settings">Voir les paramètres</string>
 	<string name="silent">Silencieux</string>
 	<string name="sound">Son</string>
 	<string name="quiet_hours">Heures de repos</string>
@@ -352,7 +356,7 @@
 	<string name="doze_notifications_off">Android va différer les notifications de façon importante lorsque l\'appareil sera en Doze mode</string>
 	<string name="doze_notifications_on">Android autorisera des interruptions limitées lorsque l\'appareil sera en Doze mode</string>
 	<string name="no_title">(Sans titre)</string>
-	<string name="back_button_saves_task">Faire un retour-arrière pour sauvegarde de la tâche</string>
+	<string name="back_button_saves_task">Faire un retour-arrière pour sauvegarder la tâche</string>
 	<string name="default_list">Liste par défaut</string>
 	<string name="plugin_description">Tasks est un projet à source ouverte entretenu par un développeur. Quelques contenus payants sont disponible dans l\'application pour supporter le développement.</string>
 	<string name="tesla_unread_description">Affiche un badge pour le nombre de tâches actives dans votre liste par défaut. TeslaUnread pour Nova Launcher est requis</string>

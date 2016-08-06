@@ -278,6 +278,10 @@
 	<string name="sync_SPr_forget">Afmelden</string>
 	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
 	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
+	<string name="widget_show_due_date">Toon eind datums</string>
+	<string name="widget_show_checkboxes">Toon vinkboxjes</string>
+	<string name="widget_show_header">Toon titel</string>
+	<string name="widget_show_settings">Toon instellingen</string>
 	<string name="notifications">Notificaties</string>
 	<string name="silent">Stil</string>
 	<string name="sound">Geluid</string>
@@ -315,10 +319,10 @@
 	<string name="tags">Labels</string>
 	<string name="date_shortcuts">Datum snelkoppelingen</string>
 	<string name="date_shortcut_hour">Voor een uur</string>
-	<string name="date_shortcut_morning">Morgen</string>
+	<string name="date_shortcut_morning">Ochtend</string>
 	<string name="date_shortcut_afternoon">Middag</string>
-	<string name="date_shortcut_evening">Avond</string>
-	<string name="date_shortcut_night">Nacht</string>
+	<string name="date_shortcut_evening">Namiddag</string>
+	<string name="date_shortcut_night">Avond</string>
 	<string name="date_shortcut_tomorrow_morning">Morgen ochtend</string>
 	<string name="date_shortcut_tomorrow_afternoon">Morgen middag</string>
 	<string name="date_shortcut_must_come_before">%1$s moet voor %2$s komen</string>
@@ -391,6 +395,7 @@
 	<string name="theme_blue_grey">Blauwgrijs</string>
 	<string name="theme_black">Zwart</string>
 	<string name="theme_dark_grey">Donker Groen</string>
+	<string name="theme_white">Wit</string>
 	<string name="theme_light">Licht</string>
 	<string name="theme_dark">Donker</string>
 	<string name="theme_wallpaper">Achtergrond</string>
@@ -414,4 +419,8 @@
 	<string name="layout_direction_locale">Gebruik lokale richting</string>
 	<string name="layout_direction_left_to_right">Links naar rechts</string>
 	<string name="layout_direction_right_to_left">Rechts naar links</string>
+	<string name="led_notification">LED notificatie</string>
+	<string name="hardware_support_required">Hardware ondersteuning vereist</string>
+	<string name="led_color">LED kleur</string>
+	<string name="no_calendars_found">Geen kalenders gevonden</string>
 </resources>

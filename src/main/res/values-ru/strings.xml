@@ -279,6 +279,10 @@
 	<string name="sync_SPr_forget">Выйти</string>
 	<string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
 	<string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
+	<string name="widget_show_due_date">Отображать намеченную дату</string>
+	<string name="widget_show_checkboxes">Показать флажки</string>
+	<string name="widget_show_header">Показать заголовок</string>
+	<string name="widget_show_settings">Показать настройки</string>
 	<string name="notifications">Уведомления</string>
 	<string name="silent">Без звука</string>
 	<string name="sound">Звук</string>
@@ -428,4 +432,7 @@
 	<string name="hardware_support_required">Необходима аппаратная поддержка</string>
 	<string name="led_color">LED цвет</string>
 	<string name="no_calendars_found">Календарей не найдено</string>
+	<string name="widget_settings">Настройки виджета</string>
+	<string name="widget_header_settings">Настройки закоголовка</string>
+	<string name="widget_row_settings">Настройки строк</string>
 </resources>
