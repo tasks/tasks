@@ -120,6 +120,34 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/font_size"
+            style="@style/WidgetConfigRow">
+
+            <TextView
+                android:id="@+id/font_size_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@id/font_size_value"
+                android:layout_toStartOf="@id/font_size_value"
+                android:text="@string/font_size"
+                android:gravity="start"
+                android:textAlignment="viewStart"
+                android:textColor="?attr/asTextColor"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
         <CheckBox
             android:id="@+id/hideDueDate"
             style="@style/WidgetConfigRow.CheckBox"

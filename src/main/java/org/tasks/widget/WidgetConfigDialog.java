@@ -43,6 +43,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
     private static final String EXTRA_THEME = "extra_theme";
     private static final String EXTRA_APP_WIDGET_ID = "extra_app_widget_id";
     private static final String EXTRA_OPACITY = "extra_opacity";
+    private static final String EXTRA_FONT_SIZE = "extra_font_size";
     private static final String FRAG_TAG_SEEKBAR = "frag_tag_seekbar";
 
     public static WidgetConfigDialog newWidgetConfigDialog(int appWidgetId) {
@@ -61,6 +62,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
     private static final int REQUEST_THEME_SELECTION = 1006;
     private static final int REQUEST_COLOR_SELECTION = 1007;
     private static final int REQUEST_OPACITY = 1008;
+    private static final int REQUEST_FONT_SIZE = 1009;
 
     @BindView(R.id.opacity_value) TextView opacityValue;
     @BindView(R.id.selected_filter) TextView selectedFilter;
@@ -69,6 +71,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
     @BindView(R.id.hideDueDate) CheckBox hideDueDate;
     @BindView(R.id.hideCheckboxes) CheckBox hideCheckBoxes;
     @BindView(R.id.hideHeader) CheckBox hideHeader;
+    @BindView(R.id.font_size_value) TextView selectedFontSize;
 
     @Inject DialogBuilder dialogBuilder;
     @Inject DefaultFilterProvider defaultFilterProvider;
@@ -83,6 +86,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
     private int appWidgetId;
     private WidgetConfigCallback callback;
     private int opacityPercentage;
+    private int fontSize;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -96,15 +100,18 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
             filter = savedInstanceState.getParcelable(EXTRA_FILTER);
             appWidgetId = savedInstanceState.getInt(EXTRA_APP_WIDGET_ID);
             opacityPercentage = savedInstanceState.getInt(EXTRA_OPACITY);
+            fontSize = savedInstanceState.getInt(EXTRA_FONT_SIZE);
         } else {
             filter = defaultFilterProvider.getDefaultFilter();
             opacityPercentage = 100;
+            fontSize = 16;
         }
 
         updateFilter();
         updateTheme();
         updateColor();
         updateOpacity();
+        updateFontSize();
 
         return dialogBuilder.newDialog()
                 .setView(view)
@@ -115,7 +122,12 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
                         callback.ok();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        callback.cancel();
+                    }
+                })
                 .show();
     }
 
@@ -126,6 +138,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
         outState.putInt(EXTRA_APP_WIDGET_ID, appWidgetId);
         outState.putInt(EXTRA_THEME, themeIndex);
         outState.putInt(EXTRA_OPACITY, opacityPercentage);
+        outState.putInt(EXTRA_FONT_SIZE, fontSize);
         outState.putParcelable(EXTRA_FILTER, filter);
     }
 
@@ -149,6 +162,10 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
 
     private void updateOpacity() {
         opacityValue.setText(NumberFormat.getPercentInstance().format(opacityPercentage / 100.0));
+    }
+
+    private void updateFontSize() {
+        selectedFontSize.setText(NumberFormat.getIntegerInstance().format(fontSize));
     }
 
     private void updateTheme() {
@@ -187,6 +204,13 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
         seekBarDialog.show(getChildFragmentManager(), FRAG_TAG_SEEKBAR);
     }
 
+    @OnClick(R.id.font_size)
+    public void showFontSizeSlider() {
+        SeekBarDialog seekBarDialog = newSeekBarDialog(R.layout.dialog_font_size_seekbar, 16);
+        seekBarDialog.setTargetFragment(this, REQUEST_FONT_SIZE);
+        seekBarDialog.show(getChildFragmentManager(), FRAG_TAG_SEEKBAR);
+    }
+
     @Override
     protected void inject(DialogFragmentComponent component) {
         component.inject(this);
@@ -214,6 +238,11 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
                 opacityPercentage = data.getIntExtra(SeekBarDialog.EXTRA_VALUE, 100);
                 updateOpacity();
             }
+        } else if (requestCode == REQUEST_FONT_SIZE) {
+            if (resultCode == Activity.RESULT_OK) {
+                fontSize = data.getIntExtra(SeekBarDialog.EXTRA_VALUE, 16);
+                updateFontSize();
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -227,6 +256,7 @@ public class WidgetConfigDialog extends InjectingDialogFragment {
         preferences.setInt(WidgetConfigActivity.PREF_THEME + appWidgetId, themeIndex);
         preferences.setInt(WidgetConfigActivity.PREF_COLOR + appWidgetId, colorIndex);
         preferences.setInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + appWidgetId, (int)(255.0 * ((double) opacityPercentage / 100.0)));
+        preferences.setInt(WidgetConfigActivity.PREF_FONT_SIZE + appWidgetId, fontSize);
 
         // force update after setting preferences
         context.sendBroadcast(new Intent(context, TasksWidget.class) {{

@@ -45,6 +45,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private final String filterId;
     private final boolean showDueDates;
     private final boolean hideCheckboxes;
+    private final float textSize;
+    private final float dueDateTextSize;
 
     private TodorooCursor<Task> cursor;
 
@@ -71,6 +73,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.themeTextColor = themeTextColor;
         showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, false);
         hideCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_HIDE_CHECKBOXES + widgetId, false);
+        textSize = (float) preferences.getInt(WidgetConfigActivity.PREF_FONT_SIZE + widgetId, 16);
+        dueDateTextSize = Math.max(10, textSize * 14 / 20);
     }
 
     @Override
@@ -150,7 +154,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             } else {
                 row.setInt(R.id.widget_text, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
             }
-
+            row.setFloat(R.id.widget_text, "setTextSize", textSize);
             if (showDueDates) {
                 formatDueDate(row, task, textColor);
             } else if (task.hasDueDate() && task.isOverdue()) {
@@ -226,6 +230,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
                     ? resources.getString(R.string.TAd_completed, DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate()))
                     : DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
             row.setTextColor(R.id.widget_due_date, task.isOverdue() ? resources.getColor(R.color.overdue) : textColor);
+            row.setFloat(R.id.widget_due_date, "setTextSize", dueDateTextSize);
         } else {
             row.setViewVisibility(R.id.widget_due_date, View.GONE);
         }

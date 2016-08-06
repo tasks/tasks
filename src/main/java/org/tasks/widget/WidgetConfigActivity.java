@@ -27,6 +27,7 @@ public class WidgetConfigActivity extends InjectingAppCompatActivity implements 
     public static final String PREF_COLOR = "widget-color-";
     public static final String PREF_HIDE_HEADER = "widget-hide-header-";
     public static final String PREF_WIDGET_OPACITY = "widget-opacity-v2-";
+    public static final String PREF_FONT_SIZE = "widget-font-size-";
 
     @Inject Tracker tracker;
     @Inject DialogBuilder dialogBuilder;

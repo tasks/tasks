@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.rey.material.widget.Slider xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/slider"
+        style="@style/Material.Widget.Slider.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="?attr/listPreferredItemHeight"
+        android:paddingEnd="@dimen/keyline_first"
+        android:paddingLeft="@dimen/keyline_first"
+        android:paddingRight="@dimen/keyline_first"
+        android:paddingStart="@dimen/keyline_first"
+        app:sl_discreteMode="true"
+        app:sl_maxValue="22"
+        app:sl_minValue="10"
+        app:sl_stepValue="2"
+        app:sl_travelAnimDuration="50" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/slider"
+        android:paddingEnd="@dimen/keyline_first"
+        android:paddingLeft="@dimen/keyline_first"
+        android:paddingRight="@dimen/keyline_first"
+        android:paddingStart="@dimen/keyline_first"
+        android:paddingTop="5dp"
+        android:text="10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/slider"
+        android:paddingEnd="@dimen/keyline_first"
+        android:paddingLeft="@dimen/keyline_first"
+        android:paddingRight="@dimen/keyline_first"
+        android:paddingStart="@dimen/keyline_first"
+        android:paddingTop="5dp"
+        android:text="22" />
+
+</RelativeLayout>
