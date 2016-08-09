@@ -902,5 +902,8 @@ File %1$s contained %2$s.\n\n
   <string name="hardware_support_required">Hardware support required</string>
   <string name="led_color">LED color</string>
   <string name="no_calendars_found">No calendars found</string>
+  <string name="widget_settings">Widget settings</string>
+  <string name="widget_header_settings">Header settings</string>
+  <string name="widget_row_settings">Row settings</string>
 
 </resources>

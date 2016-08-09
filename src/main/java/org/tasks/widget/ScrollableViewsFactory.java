@@ -43,6 +43,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     private final DefaultFilterProvider defaultFilterProvider;
     private final SubtasksHelper subtasksHelper;
     private final Preferences preferences;
+    private final WidgetPreferences widgetPreferences;
     private final Context context;
 
     private boolean showDueDates;
@@ -73,6 +74,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         this.defaultFilterProvider = defaultFilterProvider;
         this.checkBoxes = checkBoxes;
         this.themeCache = themeCache;
+
+        widgetPreferences = new WidgetPreferences(context, preferences, widgetId);
 
         updateSettings();
     }
@@ -242,12 +245,12 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
     }
 
     private void updateSettings() {
-        WidgetTheme widgetTheme = themeCache.getWidgetTheme(preferences.getInt(WidgetConfigActivity.PREF_THEME + widgetId, 0));
+        WidgetTheme widgetTheme = themeCache.getWidgetTheme(widgetPreferences.getThemeIndex());
         themeTextColor = widgetTheme.getTextColor();
-        showDueDates = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_DUE_DATE + widgetId, true);
-        showCheckboxes = preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_CHECKBOXES+ widgetId, true);
-        textSize = (float) preferences.getInt(WidgetConfigActivity.PREF_FONT_SIZE + widgetId, 16);
+        showDueDates = widgetPreferences.showDueDate();
+        showCheckboxes = widgetPreferences.showCheckboxes();
+        textSize = widgetPreferences.getFontSize();
         dueDateTextSize = Math.max(10, textSize * 14 / 20);
-        filterId = preferences.getStringValue(WidgetConfigActivity.PREF_WIDGET_ID + widgetId);
+        filterId = widgetPreferences.getFilterId();
     }
 }

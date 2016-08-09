@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/p_widget_filter"
+        android:title="@string/filter" />
+
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/p_widget_theme"
+        android:title="@string/theme" />
+
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/p_widget_opacity"
+        android:title="@string/opacity" />
+
+    <PreferenceCategory
+        android:title="@string/widget_header_settings">
+
+        <CheckBoxPreference
+            android:title="@string/widget_show_header"
+            android:key="@string/p_widget_show_header" />
+
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:key="@string/p_widget_color"
+            android:title="@string/color" />
+
+        <CheckBoxPreference
+            android:key="@string/p_widget_show_settings"
+            android:title="@string/widget_show_settings" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/widget_row_settings">
+
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:key="@string/p_widget_font_size"
+            android:title="@string/font_size" />
+
+        <CheckBoxPreference
+            android:key="@string/p_widget_show_due_date"
+            android:title="@string/widget_show_due_date" />
+
+        <CheckBoxPreference
+            android:key="@string/p_widget_show_checkboxes"
+            android:title="@string/widget_show_checkboxes" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

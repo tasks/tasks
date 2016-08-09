@@ -311,5 +311,16 @@
   <string name="p_language">language</string>
   <string name="p_layout_direction">layout_direction</string>
   <string name="p_led_color">led_color</string>
-  <string name="p_led_notification">led_notification</string>
+  <string name="p_led_notification">led_notificatiWCAon</string>
+
+  <string name="p_widget_filter">widget-id-</string>
+  <string name="p_widget_theme">widget-theme-v2-</string>
+  <string name="p_widget_color">widget-color-</string>
+  <string name="p_widget_opacity">widget-opacity-v3-</string>
+  <string name="p_widget_font_size">widget-font-size-</string>
+  <string name="p_widget_show_due_date">widget-show-due-date-</string>
+  <string name="p_widget_show_checkboxes">widget-show-checkboxes-</string>
+  <string name="p_widget_show_header">widget-show-header-</string>
+  <string name="p_widget_show_settings">widget-show-settings-</string>
+
 </resources>

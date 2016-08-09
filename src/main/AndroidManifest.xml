@@ -200,6 +200,8 @@
         <activity
             android:name=".widget.WidgetConfigActivity"
             android:taskAffinity=""
+            android:label="@string/widget_settings"
+            android:excludeFromRecents="true"
             android:theme="@style/TranslucentDialog">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

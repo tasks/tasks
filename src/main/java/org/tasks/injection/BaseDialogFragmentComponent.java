@@ -3,13 +3,11 @@ package org.tasks.injection;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
-import org.tasks.dialogs.SeekBarDialog;
-import org.tasks.dialogs.SortDialog;
 import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.SortDialog;
 import org.tasks.reminders.MissedCallDialog;
 import org.tasks.reminders.NotificationDialog;
 import org.tasks.reminders.SnoozeDialog;
-import org.tasks.widget.WidgetConfigDialog;
 
 public interface BaseDialogFragmentComponent {
     void inject(NotificationDialog notificationDialog);
@@ -24,11 +22,7 @@ public interface BaseDialogFragmentComponent {
 
     void inject(SnoozeDialog snoozeDialog);
 
-    void inject(WidgetConfigDialog widgetConfigDialog);
-
     void inject(SortDialog sortDialog);
 
     void inject(ColorPickerDialog colorPickerDialog);
-
-    void inject(SeekBarDialog seekBarDialog);
 }

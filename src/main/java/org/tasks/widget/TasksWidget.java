@@ -16,6 +16,7 @@ import com.todoroo.astrid.api.Filter;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingAppWidgetProvider;
 import org.tasks.intents.TaskIntents;
 import org.tasks.locale.Locale;
@@ -29,6 +30,7 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
@@ -44,6 +46,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject ThemeCache themeCache;
     @Inject Locale locale;
+    @Inject @ForApplication Context context;
 
     public static final String COMPLETE_TASK = "COMPLETE_TASK";
     public static final String EDIT_TASK = "EDIT_TASK";
@@ -95,18 +98,20 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     }
 
     private RemoteViews createScrollableWidget(Context context, int id) {
-        String filterId = preferences.getStringValue(WidgetConfigActivity.PREF_WIDGET_ID + id);
+        WidgetPreferences widgetPreferences = new WidgetPreferences(context, preferences, id);
+        String filterId = widgetPreferences.getFilterId();
         Intent rvIntent = new Intent(context, ScrollableWidgetUpdateService.class);
         rvIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
         rvIntent.setData(Uri.parse(rvIntent.toUri(Intent.URI_INTENT_SCHEME)));
-        WidgetTheme theme = themeCache.getWidgetTheme(preferences.getInt(WidgetConfigActivity.PREF_THEME + id, 0));
-        ThemeColor color = themeCache.getThemeColor(preferences.getInt(WidgetConfigActivity.PREF_COLOR + id, 0));
+        WidgetTheme theme = themeCache.getWidgetTheme(widgetPreferences.getThemeIndex());
+        ThemeColor color = themeCache.getThemeColor(widgetPreferences.getColorIndex());
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
         if (atLeastJellybeanMR1()) {
             remoteViews.setInt(R.id.widget, "setLayoutDirection", locale.getDirectionality());
         }
-        if (preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_HEADER + id, true)) {
-            remoteViews.setViewVisibility(R.id.widget_reconfigure, preferences.getBoolean(WidgetConfigActivity.PREF_SHOW_SETTINGS + id, true)
+        if (widgetPreferences.showHeader()) {
+            remoteViews.setViewVisibility(R.id.widget_header, View.VISIBLE);
+            remoteViews.setViewVisibility(R.id.widget_reconfigure, widgetPreferences.showSettings()
                     ? View.VISIBLE
                     : View.GONE);
             remoteViews.setInt(R.id.widget_title, "setTextColor", color.getActionBarTint());
@@ -115,7 +120,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         } else {
             remoteViews.setViewVisibility(R.id.widget_header, View.GONE);
         }
-        int opacityPercentage = preferences.getInt(WidgetConfigActivity.PREF_WIDGET_OPACITY + id, WidgetConfigActivity.DEFAULT_OPACITY);
+        int opacityPercentage = widgetPreferences.getOpacity();
         int opacity = (int)((opacityPercentage / 100.0) * 255.0);
         remoteViews.setImageViewBitmap(R.id.widget_background,
                 getSolidBackground(theme.getBackgroundColor()));
@@ -149,19 +154,22 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     private PendingIntent getOpenListIntent(Context context, String filterId, int widgetId) {
         Intent intent = TaskIntents.getTaskListByIdIntent(context, filterId);
         intent.setFlags(flags);
+        intent.setAction("open_list");
         return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private PendingIntent getNewTaskIntent(Context context, String filterId, int widgetId) {
         Intent intent = TaskIntents.getNewTaskIntent(context, filterId);
         intent.setFlags(flags);
-        return PendingIntent.getActivity(context, -widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.setAction("new_task");
+        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private PendingIntent getWidgetConfigIntent(Context context, final int widgetId) {
-        Intent intent = new Intent(context, WidgetConfigActivity.class) {{
-            putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        }};
-        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(context, WidgetConfigActivity.class);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        intent.setAction("widget_settings");
+        return PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 }
