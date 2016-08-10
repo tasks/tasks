@@ -5,7 +5,6 @@
     <color name="icon_tint">@color/icon_tint_dark</color>
     <color name="drawer_color">@color/drawer_background_dark</color>
     <color name="drawer_color_selected">@color/drawer_background_dark_selected</color>
-    <color name="text_primary">@color/white_100</color>
     <color name="text_secondary">@color/white_70</color>
     <color name="text_tertiary">@color/white_50</color>
     <color name="divider">@color/white_12</color>

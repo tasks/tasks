@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:ellipsize="end"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:gravity="start|center_vertical"
                     android:textAlignment="viewStart"
                     android:maxLines="1"

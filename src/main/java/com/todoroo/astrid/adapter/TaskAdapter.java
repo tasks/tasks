@@ -141,7 +141,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final Map<String, TagData> tagMap = new HashMap<>();
 
-    private final int textColorPrimary;
     private final int textColorSecondary;
     private final int textColorHint;
     private final int textColorOverdue;
@@ -173,7 +172,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        textColorPrimary = getData(context, android.R.attr.textColorPrimary);
         textColorSecondary = getData(context, android.R.attr.textColorSecondary);
         textColorHint = getData(context, android.R.attr.textColorTertiary);
         textColorOverdue = resources.getColor(R.color.overdue);
@@ -474,14 +472,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * uncompleted.
      */
     protected void setTaskAppearance(ViewHolder viewHolder, Task task) {
-        boolean state = task.isCompleted();
+        boolean completed = task.isCompleted();
 
         TextView name = viewHolder.nameView;
-        if(state) {
-            name.setTextColor(textColorHint);
+        if (completed) {
+            name.setEnabled(false);
             name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
-            name.setTextColor(textColorPrimary);
+            name.setEnabled(true);
             name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
         name.setTextSize(fontSize);
