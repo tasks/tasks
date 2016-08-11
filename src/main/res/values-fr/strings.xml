@@ -421,4 +421,7 @@
 	<string name="hardware_support_required">Support matériel requis</string>
 	<string name="led_color">Couleur de la LED</string>
 	<string name="no_calendars_found">Pas de calendriers trouvés</string>
+	<string name="widget_settings">Paramètres du Widget</string>
+	<string name="widget_header_settings">Paramètres de l\'en-tête</string>
+	<string name="widget_row_settings">Paramètres de la ligne</string>
 </resources>

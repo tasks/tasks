@@ -70,6 +70,7 @@
 	<string name="TEA_control_importance">Prioritet</string>
 	<string name="TEA_control_notes">Beskrivning</string>
 	<string name="TEA_control_files">Filer</string>
+	<string name="TEA_control_google_task_list">Google Listor</string>
 	<string name="TEA_control_reminders">Påminnelser</string>
 	<string name="TEA_control_timer">Inställningar för tidtagarur</string>
 	<string name="TEA_control_hidden_section">----Göm alltid----</string>
@@ -278,6 +279,10 @@
 	<string name="sync_SPr_forget">Logga ut</string>
 	<string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
 	<string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
+	<string name="widget_show_due_date">Visa förfallodatum</string>
+	<string name="widget_show_checkboxes">Visa kryssrutor</string>
+	<string name="widget_show_header">Visa rubrik</string>
+	<string name="widget_show_settings">Visa ikon för inställningar</string>
 	<string name="notifications">Påminnelser</string>
 	<string name="silent">Tyst</string>
 	<string name="sound">Ljud</string>
@@ -291,6 +296,7 @@
 	<string name="font_size">Teckenstorlek</string>
 	<string name="customize_edit_screen">Anpassa redigeringsvyn</string>
 	<string name="source_code">Källkod</string>
+	<string name="translations">Hjälp till med översättning</string>
 	<string name="report_an_issue">Rapportera ett problem</string>
 	<string name="help_and_feedback">Hjälp &amp; Återkoppling</string>
 	<string name="contact_developer">Kontakta utvecklaren</string>
@@ -371,6 +377,7 @@
 	<string name="select_filter">Välj filter</string>
 	<string name="opacity">Opacitet</string>
 	<string name="theme">Tema</string>
+	<string name="color">Färg</string>
 	<string name="themes">Fler teman</string>
 	<string name="theme_red">Röd</string>
 	<string name="theme_pink">Rosa</string>
@@ -389,6 +396,12 @@
 	<string name="theme_grey">Grå</string>
 	<string name="theme_blue_grey">Blågrå</string>
 	<string name="theme_black">Svart</string>
+	<string name="theme_dark_grey">Mörkgrå</string>
+	<string name="theme_white">Vit</string>
+	<string name="theme_light">Ljust</string>
+	<string name="theme_dark">Mörkt</string>
+	<string name="theme_wallpaper">Bakgrundsbild</string>
+	<string name="theme_day_night">Dag/Natt</string>
 	<string name="sync_interval_disable">inaktivera</string>
 	<string name="sync_interval_one_hour">varje timme</string>
 	<string name="sync_interval_three_hours">var tredje timme</string>
@@ -397,4 +410,16 @@
 	<string name="sync_interval_one_day">varje dag</string>
 	<string name="sync_interval_three_days">var tredje dag</string>
 	<string name="sync_interval_one_week">varje vecka</string>
+	<string name="settings_general">Allmäna</string>
+	<string name="language">Språk</string>
+	<string name="restart_required">Tasks måste startas om innan ändringarna börjar gälla</string>
+	<string name="restart_now">Starta om nu</string>
+	<string name="restart_later">Senare</string>
+	<string name="settings_localization">Språk</string>
+	<string name="layout_direction_left_to_right">Vänster till höger</string>
+	<string name="layout_direction_right_to_left">Höger till vänster</string>
+	<string name="led_notification">LED Notifiering</string>
+	<string name="hardware_support_required">Hårdvarustöd krävs</string>
+	<string name="led_color">LED färg</string>
+	<string name="widget_settings">Inställningar för widget</string>
 </resources>

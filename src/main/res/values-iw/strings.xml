@@ -433,4 +433,7 @@
 	<string name="hardware_support_required">נדרשת חומרה תואמת</string>
 	<string name="led_color">צבע תאורת התראות</string>
 	<string name="no_calendars_found">לא נמצאו לוחות שנה</string>
+	<string name="widget_settings">הגדרות ווידג\'ט</string>
+	<string name="widget_header_settings">הגדרות כותרת</string>
+	<string name="widget_row_settings">הגדרות שורה</string>
 </resources>
