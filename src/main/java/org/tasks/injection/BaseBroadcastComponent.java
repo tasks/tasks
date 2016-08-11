@@ -6,7 +6,6 @@ import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
 import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.timers.TimerTaskCompleteListener;
-import org.tasks.widget.TasksWidget;
 
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
@@ -15,6 +14,8 @@ import org.tasks.receivers.ListNotificationReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
 import org.tasks.receivers.RefreshReceiver;
 import org.tasks.receivers.TaskNotificationReceiver;
+import org.tasks.receivers.TeslaUnreadReceiver;
+import org.tasks.widget.TasksWidget;
 
 public interface BaseBroadcastComponent {
 
@@ -45,4 +46,6 @@ public interface BaseBroadcastComponent {
     void inject(BootCompletedReceiver bootCompletedReceiver);
 
     void inject(TasksWidget tasksWidget);
+
+    void inject(TeslaUnreadReceiver teslaUnreadReceiver);
 }
