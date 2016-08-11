@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import org.tasks.R;
-import org.tasks.analytics.Tracker;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.AppCompatPreferenceActivity;
 import org.tasks.themes.Theme;
@@ -29,7 +28,6 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     protected Toolbar toolbar;
 
     @Inject Theme theme;
-    @Inject Tracker tracker;
 
     public InjectingPreferenceActivity() {
         Locale.getInstance(this).applyOverrideConfiguration(this);
@@ -76,13 +74,6 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     @Override
     public ActivityComponent getComponent() {
         return activityComponent;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        tracker.showScreen(getClass().getSimpleName());
     }
 
     protected void requires(int prefGroup, boolean passesCheck, int... resIds) {

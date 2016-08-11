@@ -41,6 +41,10 @@ public class Preferences {
     private final SharedPreferences prefs;
     private final SharedPreferences publicPrefs;
 
+    public Preferences(Context context) {
+        this(context, new PermissionChecker(context));
+    }
+
     @Inject
     public Preferences(@ForApplication Context context, PermissionChecker permissionChecker) {
         this.context = context;

@@ -3,7 +3,6 @@ package org.tasks.injection;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import org.tasks.analytics.Tracker;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
 
@@ -12,7 +11,6 @@ import javax.inject.Inject;
 public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity implements InjectingActivity {
     private ActivityComponent activityComponent;
 
-    @Inject Tracker tracker;
     @Inject Theme theme;
 
     public ThemedInjectingAppCompatActivity() {
@@ -27,13 +25,6 @@ public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity
         theme.applyTheme(this);
         theme.applyStatusBarColor(this);
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        tracker.showScreen(getClass().getSimpleName());
     }
 
     @Override

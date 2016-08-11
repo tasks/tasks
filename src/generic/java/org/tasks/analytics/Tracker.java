@@ -11,10 +11,6 @@ public class Tracker {
 
     }
 
-    public void showScreen(String screenName) {
-
-    }
-
     public void setTrackingEnabled(boolean enabled) {
 
     }

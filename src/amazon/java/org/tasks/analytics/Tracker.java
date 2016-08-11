@@ -56,11 +56,6 @@ public class Tracker {
         Thread.setDefaultUncaughtExceptionHandler(reporter);
     }
 
-    public void showScreen(String screenName) {
-        tracker.setScreenName(screenName);
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
-    }
-
     public void setTrackingEnabled(boolean enabled) {
         analytics.setAppOptOut(!enabled);
     }

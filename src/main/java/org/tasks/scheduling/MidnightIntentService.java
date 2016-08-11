@@ -1,9 +1,11 @@
 package org.tasks.scheduling;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 
 import org.tasks.injection.InjectingIntentService;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -20,9 +22,6 @@ public abstract class MidnightIntentService extends InjectingIntentService {
 
     private static final long PADDING = SECONDS.toMillis(1);
 
-    @Inject Preferences preferences;
-    @Inject AlarmManager alarmManager;
-
     private final String name;
 
     public MidnightIntentService(String name) {
@@ -33,6 +32,10 @@ public abstract class MidnightIntentService extends InjectingIntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         super.onHandleIntent(intent);
+
+        Context context = getApplicationContext();
+        Preferences preferences = new Preferences(context);
+        AlarmManager alarmManager = new AlarmManager(context, preferences);
 
         long lastRun = preferences.getLong(getLastRunPreference(), 0);
         long nextRun = nextMidnight(lastRun);
