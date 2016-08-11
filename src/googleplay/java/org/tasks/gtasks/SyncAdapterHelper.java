@@ -4,10 +4,13 @@ import android.accounts.Account;
 import android.content.ContentResolver;
 import android.os.Bundle;
 
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.AccountManager;
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -21,13 +24,18 @@ public class SyncAdapterHelper {
     private final AccountManager accountManager;
     private final Preferences preferences;
     private final GtasksPreferenceService gtasksPreferenceService;
+    private final PlayServicesAvailability playServicesAvailability;
+    private final Tracker tracker;
 
     @Inject
     public SyncAdapterHelper(AccountManager accountManager, Preferences preferences,
-                             GtasksPreferenceService gtasksPreferenceService) {
+                             GtasksPreferenceService gtasksPreferenceService,
+                             PlayServicesAvailability playServicesAvailability, Tracker tracker) {
         this.accountManager = accountManager;
         this.preferences = preferences;
         this.gtasksPreferenceService = gtasksPreferenceService;
+        this.playServicesAvailability = playServicesAvailability;
+        this.tracker = tracker;
     }
 
     /**
@@ -63,7 +71,9 @@ public class SyncAdapterHelper {
     }
 
     public boolean isEnabled() {
-        return preferences.getBoolean(R.string.sync_gtasks, false) && getAccount() != null;
+        return preferences.getBoolean(R.string.sync_gtasks, false) &&
+                playServicesAvailability.isPlayServicesAvailable() &&
+                getAccount() != null;
     }
 
     public boolean masterSyncEnabled() {
@@ -103,5 +113,16 @@ public class SyncAdapterHelper {
 
     public boolean shouldShowBackgroundSyncWarning() {
         return isEnabled() && !masterSyncEnabled() && !ContentResolver.getPeriodicSyncs(getAccount(), AUTHORITY).isEmpty();
+    }
+
+    public void checkPlayServices(TaskListFragment taskListFragment) {
+        if (taskListFragment != null &&
+                preferences.getBoolean(R.string.sync_gtasks, false) &&
+                !playServicesAvailability.refreshAndCheck() &&
+                !preferences.getBoolean(R.string.warned_play_services, false)) {
+            preferences.setBoolean(R.string.warned_play_services, true);
+            playServicesAvailability.resolve(taskListFragment.getActivity());
+            tracker.reportEvent(Tracking.Events.PLAY_SERVICES_WARNING, playServicesAvailability.getStatus());
+        }
     }
 }

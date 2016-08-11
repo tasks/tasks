@@ -221,8 +221,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 repeatConfirmationReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
 
+        TaskListFragment taskListFragment = getTaskListFragment();
         if (syncAdapterHelper.shouldShowBackgroundSyncWarning() && !preferences.getBoolean(R.string.p_sync_warning_shown, false)) {
-            TaskListFragment taskListFragment = getTaskListFragment();
             if (taskListFragment != null) {
                 taskListFragment.makeSnackbar(R.string.master_sync_warning)
                         .setAction(R.string.TLA_menu_settings, new View.OnClickListener() {
@@ -242,6 +242,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                         .show();
             }
         }
+
+        syncAdapterHelper.checkPlayServices(taskListFragment);
     }
 
     public void restart() {

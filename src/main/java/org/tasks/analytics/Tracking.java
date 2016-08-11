@@ -20,7 +20,8 @@ public class Tracking {
         UPGRADE(R.string.tracking_category_event, R.string.tracking_event_upgrade),
         LEGACY_TASKER_TRIGGER(R.string.tracking_category_event, R.string.tracking_event_legacy_tasker_trigger),
         NIGHT_MODE_MISMATCH(R.string.tracking_category_event, R.string.tracking_event_night_mode_mismatch),
-        SET_PREFERENCE(R.string.tracking_category_preferences, 0);
+        SET_PREFERENCE(R.string.tracking_category_preferences, 0),
+        PLAY_SERVICES_WARNING(R.string.tracking_category_event, R.string.tracking_event_play_services_error);
 
         public final int category;
         public final int action;

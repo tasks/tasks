@@ -13,8 +13,6 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
@@ -24,6 +22,7 @@ import org.tasks.activities.NativeGoogleTaskListPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
+import org.tasks.gtasks.PlayServicesAvailability;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -45,6 +44,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     @Inject Tracker tracker;
     @Inject SyncAdapterHelper syncAdapterHelper;
     @Inject Activity activity;
+    @Inject PlayServicesAvailability playServicesAvailability;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,14 +58,8 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if ((boolean) newValue) {
-                    GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
-                    int result = googleApiAvailability.isGooglePlayServicesAvailable(activity);
-                    if (result != ConnectionResult.SUCCESS) {
-                        if (googleApiAvailability.isUserResolvableError(result)) {
-                            googleApiAvailability.getErrorDialog(activity, result, REQUEST_LOGIN).show();
-                        } else {
-                            Toast.makeText(activity, R.string.common_google_play_services_notification_ticker, Toast.LENGTH_LONG).show();
-                        }
+                    if (!playServicesAvailability.refreshAndCheck()) {
+                        playServicesAvailability.resolve(activity);
                     } else if (permissionRequestor.requestAccountPermissions()) {
                         requestLogin();
                     }
