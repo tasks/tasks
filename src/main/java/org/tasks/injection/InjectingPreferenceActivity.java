@@ -17,8 +17,6 @@ import org.tasks.preferences.AppCompatPreferenceActivity;
 import org.tasks.themes.Theme;
 import org.tasks.ui.MenuColorizer;
 
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity implements InjectingActivity {
@@ -26,8 +24,6 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     private ActivityComponent activityComponent;
 
     protected Toolbar toolbar;
-
-    @Inject Theme theme;
 
     public InjectingPreferenceActivity() {
         Locale.getInstance(this).applyOverrideConfiguration(this);
@@ -39,6 +35,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
                 .getComponent()
                 .plus(new ActivityModule(this));
         inject(activityComponent);
+
+        Theme theme = activityComponent.getTheme();
 
         theme.applyThemeAndStatusBarColor(this, getDelegate());
 

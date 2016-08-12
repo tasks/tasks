@@ -9,15 +9,15 @@ import com.todoroo.astrid.dao.Database;
 
 import org.tasks.injection.InjectingTestCase;
 
-import javax.inject.Inject;
-
 public abstract class DatabaseTestCase extends InjectingTestCase {
 
-    @Inject protected Database database;
+    protected Database database;
 
     @Override
     protected void setUp() {
         super.setUp();
+
+        database = component.getDatabase();
 
         database.close();
         getContext().deleteDatabase(database.getName());

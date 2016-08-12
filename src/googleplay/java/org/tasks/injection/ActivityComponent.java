@@ -13,6 +13,7 @@ import dagger.Subcomponent;
 @Singleton
 @Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent extends BaseActivityComponent {
+
     void inject(GtasksPreferences gtasksPreferences);
 
     void inject(TaskerSettingsActivity taskerSettingsActivity);

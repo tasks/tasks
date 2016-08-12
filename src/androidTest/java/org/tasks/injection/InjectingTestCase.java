@@ -6,11 +6,13 @@ import static org.tasks.TestUtilities.initializeMockito;
 
 public abstract class InjectingTestCase extends AndroidTestCase {
 
+    protected TestComponent component;
+
     @Override
     protected void setUp() {
         initializeMockito(getContext());
 
-        TestComponent component = DaggerTestComponent.builder()
+        component = DaggerTestComponent.builder()
                 .testModule(new TestModule(getContext()))
                 .build();
         inject(component);
