@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDaoTests;
 import com.todoroo.astrid.dao.TaskDaoTests;
 import com.todoroo.astrid.model.TaskTest;
@@ -16,6 +17,9 @@ import com.todoroo.astrid.sync.NewSyncTestCase;
 import org.tasks.scheduling.BackupServiceTests;
 
 public interface BaseTestComponent {
+
+    Database getDatabase();
+
     void inject(ReminderServiceTest reminderServiceTest);
 
     void inject(TaskTest taskTest);

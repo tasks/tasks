@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="gp_key">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk8mXRE3dDXwtinUILCEzKjov2rxs3kZbLRzNrcjFWXpG9OEsUzRGLzqEN+WwibVuMRpZLj/+IxbU2sJWq/M0q+90rOhmXn46ZPeNyr77IqX2pWKIAWpzBoWq/mshRwtm9m1FIiGdBNlXrhSE7u3TGB5FuEuuSqKWvWzxeqQ7fHmlM04Lqrh1mN3FaMne8rWv+DWVHDbLrtnXBuC36glOAj17HxrzaE2v6Pv7Df3QefJ3rM1+0fAp/5jNInaP0qHAlG8WTbUmDShQ5kG3urbv3HLByyx6TSqhmNudXUK/6TusvIj50OptAG7x+UFYf956dD3diXhY3yoICvyFWx1sNwIDAQAB</string>
-    <string name="sku_tasker">tasker</string>
-    <string name="sku_tesla_unread">tesla_unread</string>
-    <string name="sku_dashclock">dashclock</string>
     <string name="sku_themes">themes</string>
     <string name="p_dashclock_filter">dashclock_filter</string>
     <string name="tasker_message">If you purchased the stand-alone Tasker plugin please send your Google Play Store transaction ID to support@tasks.org and you will receive a promo code for this in-app purchase. You can find the transaction ID in your Google Play Store order confirmation e-mail or by visiting wallet.google.com</string>

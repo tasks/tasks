@@ -100,8 +100,6 @@ public interface BaseActivityComponent {
 
     void inject(MiscellaneousPreferences miscellaneousPreferences);
 
-    void inject(BasicPreferences basicPreferences);
-
     void inject(HelpAndFeedbackActivity helpAndFeedbackActivity);
 
     void inject(DateShortcutPreferences dateShortcutPreferences);
@@ -111,4 +109,6 @@ public interface BaseActivityComponent {
     void inject(MyFilePickerActivity myFilePickerActivity);
 
     void inject(ColorPickerActivity colorPickerActivity);
+
+    void inject(BasicPreferences basicPreferences);
 }

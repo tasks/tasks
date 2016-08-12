@@ -23,4 +23,12 @@ public class PurchaseHelper {
     public void handleActivityResult(PurchaseHelperCallback callback, int requestCode, int resultCode, Intent data) {
 
     }
+
+    public void disposeIabHelper() {
+
+    }
+
+    public void consumePurchases() {
+
+    }
 }

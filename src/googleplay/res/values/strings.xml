@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="debug_unlock_purchases">Unlock purchases</string>
-    <string name="debug_consume_purchases">Consume purchases</string>
-    <string name="debug">Debug</string>
 
 </resources>

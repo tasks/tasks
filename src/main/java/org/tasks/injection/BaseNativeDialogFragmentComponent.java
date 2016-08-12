@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import org.tasks.dialogs.DonationDialog;
 import org.tasks.dialogs.ExportTasksDialog;
 import org.tasks.dialogs.ImportTasksDialog;
 import org.tasks.dialogs.NativeDatePickerDialog;
@@ -19,4 +20,6 @@ public interface BaseNativeDialogFragmentComponent {
     void inject(ExportTasksDialog exportTasksDialog);
 
     void inject(ImportTasksDialog importTasksDialog);
+
+    void inject(DonationDialog donationDialog);
 }

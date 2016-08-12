@@ -1,6 +1,5 @@
 package org.tasks.injection;
 
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gtasks.GtasksIndentActionTest;
 import com.todoroo.astrid.gtasks.GtasksListServiceTest;
 import com.todoroo.astrid.gtasks.GtasksMetadataServiceTest;
@@ -14,8 +13,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = TestModule.class)
 public interface TestComponent extends BaseTestComponent {
-
-    Database getDatabase();
 
     GtasksMetadataServiceTest.GtasksMetadataServiceTestComponent plus(GtasksMetadataServiceTest.GtasksMetadataServiceTestModule gtasksMetadataServiceTestModule);
 

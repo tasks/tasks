@@ -324,4 +324,11 @@
   <string name="p_widget_show_header">widget-show-header-</string>
   <string name="p_widget_show_settings">widget-show-settings-</string>
 
+  <string name="sku_tasker">tasker</string>
+  <string name="sku_tesla_unread">tesla_unread</string>
+  <string name="sku_dashclock">dashclock</string>
+  <string name="debug_unlock_purchases">Unlock purchases</string>
+  <string name="debug_consume_purchases">Consume purchases</string>
+  <string name="debug">Debug</string>
+
 </resources>
