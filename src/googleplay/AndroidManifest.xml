@@ -55,10 +55,6 @@
             android:label="@string/synchronization"
             android:theme="@style/BlueGrey" />
 
-        <activity
-            android:name=".activities.ClearGtaskDataActivity"
-            android:theme="@style/TranslucentDialog" />
-
         <receiver android:name=".receivers.GoogleTaskPushReceiver">
             <intent-filter>
                 <action android:name="org.tasks.TASK_SAVED" />

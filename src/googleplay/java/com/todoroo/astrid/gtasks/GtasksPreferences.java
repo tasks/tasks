@@ -6,21 +6,23 @@
 package com.todoroo.astrid.gtasks;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
-import android.widget.Toast;
 
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
 import org.tasks.R;
-import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.NativeGoogleTaskListPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.gtasks.PlayServicesAvailability;
 import org.tasks.gtasks.SyncAdapterHelper;
@@ -36,7 +38,6 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     private static final String FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection";
 
     private static final int REQUEST_LOGIN = 0;
-    private static final int REQUEST_LOGOUT = 1;
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject ActivityPermissionRequestor permissionRequestor;
@@ -45,6 +46,8 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     @Inject SyncAdapterHelper syncAdapterHelper;
     @Inject Activity activity;
     @Inject PlayServicesAvailability playServicesAvailability;
+    @Inject DialogBuilder dialogBuilder;
+    @Inject MetadataDao metadataDao;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,8 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
 
         addPreferencesFromResource(R.xml.preferences_gtasks);
 
-        Preference gtaskPreference = findPreference(getString(R.string.sync_gtasks));
-        ((CheckBoxPreference) gtaskPreference).setChecked(syncAdapterHelper.isEnabled());
+        final CheckBoxPreference gtaskPreference = (CheckBoxPreference) findPreference(getString(R.string.sync_gtasks));
+        gtaskPreference.setChecked(syncAdapterHelper.isEnabled());
         gtaskPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -87,7 +90,20 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
         findPreference(getString(R.string.sync_SPr_forget_key)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(GtasksPreferences.this, ClearGtaskDataActivity.class), REQUEST_LOGOUT);
+                dialogBuilder.newMessageDialog(R.string.sync_forget_confirm)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                gtasksPreferenceService.clearLastSyncDate();
+                                gtasksPreferenceService.setUserName(null);
+                                metadataDao.deleteWhere(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY));
+                                syncAdapterHelper.enableSynchronization(false);
+                                tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
+                                gtaskPreference.setChecked(false);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
                 return true;
             }
         });
@@ -115,12 +131,6 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                 tracker.reportEvent(Tracking.Events.GTASK_ENABLED);
             }
             ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(enabled);
-        } else if(requestCode == REQUEST_LOGOUT) {
-            if (resultCode == RESULT_OK) {
-                syncAdapterHelper.enableSynchronization(false);
-                tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
-                finish();
-            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

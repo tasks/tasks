@@ -15,7 +15,6 @@ import com.todoroo.astrid.reminders.ReminderPreferences;
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.activities.CameraActivity;
-import org.tasks.activities.ClearGtaskDataActivity;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
@@ -92,8 +91,6 @@ public interface BaseActivityComponent {
     void inject(TimePickerActivity timePickerActivity);
 
     void inject(VoiceCommandActivity voiceCommandActivity);
-
-    void inject(ClearGtaskDataActivity clearGtaskDataActivity);
 
     void inject(ReminderPreferences reminderPreferences);
 

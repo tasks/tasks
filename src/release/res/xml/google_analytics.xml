@@ -19,7 +19,6 @@
     <screenName name="com.todoroo.astrid.actfm.TagSettingsActivity">TagSettingsActivity</screenName>
     <screenName name="org.tasks.reminders.SnoozeActivity">SnoozeActivity</screenName>
     <screenName name="com.todoroo.astrid.core.CustomFilterActivity">CustomFilterActivity</screenName>
-    <screenName name="org.tasks.activities.ClearGtaskDataActivity">ClearGtaskDataActivity</screenName>
     <screenName name="org.tasks.activities.CameraActivity">CameraActivity</screenName>
     <screenName name="org.tasks.activities.CalendarSelectionActivity">CalendarSelectionActivity</screenName>
     <screenName name="com.todoroo.astrid.gcal.CalendarReminderActivity">CalendarReminderActivity</screenName>
