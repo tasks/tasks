@@ -27,13 +27,13 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
 
 import org.tasks.Broadcaster;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.scheduling.RefreshScheduler;
 
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
@@ -44,7 +44,7 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@Singleton
+@ApplicationScope
 public class TaskService {
 
     private final TagDataDao tagDataDao;

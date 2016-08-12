@@ -16,6 +16,7 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
@@ -25,13 +26,12 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.isAppInstalled;
 
-@Singleton
+@ApplicationScope
 public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
 
     private final Context context;

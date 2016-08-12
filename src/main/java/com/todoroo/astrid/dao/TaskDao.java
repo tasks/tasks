@@ -26,6 +26,7 @@ import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
@@ -33,7 +34,6 @@ import org.tasks.preferences.Preferences;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
@@ -43,7 +43,7 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@Singleton
+@ApplicationScope
 public class TaskDao {
 
     public static final String TRANS_SUPPRESS_REFRESH = "suppress-refresh";

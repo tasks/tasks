@@ -13,17 +13,17 @@ import com.todoroo.astrid.dao.TaskDao;
 import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
 import org.tasks.analytics.Tracker;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.DefaultFilterProvider;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
-@Singleton
+@ApplicationScope
 public class TeslaUnreadReceiver extends InjectingBroadcastReceiver {
 
     private static final String TESLA_URI = "content://com.teslacoilsw.notifier/unread_count";

@@ -30,10 +30,10 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 
 import org.tasks.analytics.Tracker;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
@@ -43,7 +43,7 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@Singleton
+@ApplicationScope
 public class Database {
 
     private static final int VERSION = 36;

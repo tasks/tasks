@@ -12,9 +12,7 @@ import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.FirstLaunchReceiver;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
 public class Broadcaster {
 
     private final Context context;

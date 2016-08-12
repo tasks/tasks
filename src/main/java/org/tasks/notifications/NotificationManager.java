@@ -8,9 +8,7 @@ import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton
 public class NotificationManager {
 
     private final android.app.NotificationManager notificationManager;

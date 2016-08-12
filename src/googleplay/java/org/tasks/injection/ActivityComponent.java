@@ -6,11 +6,9 @@ import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import org.tasks.dashclock.DashClockSettings;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 
-import javax.inject.Singleton;
-
 import dagger.Subcomponent;
 
-@Singleton
+@ActivityScope
 @Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent extends BaseActivityComponent {
 

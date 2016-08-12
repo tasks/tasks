@@ -11,14 +11,14 @@ import com.google.common.base.Strings;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
-@Singleton
+@ApplicationScope
 public class Tracker {
 
     private final GoogleAnalytics analytics;

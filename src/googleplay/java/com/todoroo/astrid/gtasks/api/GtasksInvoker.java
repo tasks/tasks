@@ -16,17 +16,16 @@ import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
-import org.tasks.AccountManager;
 import org.tasks.BuildConfig;
 import org.tasks.analytics.Tracker;
 import org.tasks.gtasks.GoogleTasksUnsuccessfulResponseHandler;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 
 import java.io.IOException;
 import java.util.Collections;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
@@ -36,7 +35,7 @@ import timber.log.Timber;
  *
  * @author Sam Bosley
  */
-@Singleton
+@ApplicationScope
 public class GtasksInvoker {
 
     private final Context context;

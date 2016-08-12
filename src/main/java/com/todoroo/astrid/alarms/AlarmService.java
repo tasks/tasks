@@ -24,6 +24,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
+import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.receivers.TaskNotificationReceiver;
 import org.tasks.scheduling.AlarmManager;
@@ -35,7 +36,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Provides operations for working with alerts
@@ -43,7 +43,7 @@ import javax.inject.Singleton;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@Singleton
+@ApplicationScope
 public class AlarmService {
 
     private static final long NO_ALARM = Long.MAX_VALUE;

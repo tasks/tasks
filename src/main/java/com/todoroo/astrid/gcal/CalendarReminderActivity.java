@@ -18,7 +18,6 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.Preferences;
-import org.tasks.preferences.ResourceResolver;
 import org.tasks.scheduling.AlarmManager;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.themes.ThemeAccent;
@@ -39,7 +38,6 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     private static final int IGNORE_PROMPT_COUNT = 3;
 
     @Inject Preferences preferences;
-    @Inject ResourceResolver resourceResolver;
     @Inject DialogBuilder dialogBuilder;
     @Inject AlarmManager alarmManager;
     @Inject ThemeAccent themeAccent;

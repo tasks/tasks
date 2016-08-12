@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -44,7 +43,6 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     @Inject GtasksListService gtasksListService;
     @Inject Tracker tracker;
     @Inject SyncAdapterHelper syncAdapterHelper;
-    @Inject Activity activity;
     @Inject PlayServicesAvailability playServicesAvailability;
     @Inject DialogBuilder dialogBuilder;
     @Inject MetadataDao metadataDao;
@@ -62,7 +60,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if ((boolean) newValue) {
                     if (!playServicesAvailability.refreshAndCheck()) {
-                        playServicesAvailability.resolve(activity);
+                        playServicesAvailability.resolve(GtasksPreferences.this);
                     } else if (permissionRequestor.requestAccountPermissions()) {
                         requestLogin();
                     }

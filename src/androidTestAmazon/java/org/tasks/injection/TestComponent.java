@@ -1,10 +1,8 @@
 package org.tasks.injection;
 
-import javax.inject.Singleton;
-
 import dagger.Component;
 
-@Singleton
+@ApplicationScope
 @Component(modules = TestModule.class)
 public interface TestComponent extends BaseTestComponent {
 }

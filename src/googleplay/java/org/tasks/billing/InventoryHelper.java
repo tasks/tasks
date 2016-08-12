@@ -11,6 +11,7 @@ import com.android.vending.billing.Purchase;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
@@ -18,11 +19,10 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
-@Singleton
+@ApplicationScope
 public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListener {
 
     private final Context context;

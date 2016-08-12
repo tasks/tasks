@@ -23,11 +23,12 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.injection.ApplicationScope;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
@@ -38,7 +39,7 @@ import static com.google.common.collect.Lists.transform;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@Singleton
+@ApplicationScope
 public final class TagService {
 
     private final MetadataDao metadataDao;

@@ -22,12 +22,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 
-@Singleton
 public class GeofenceService {
 
     private final MetadataDao metadataDao;

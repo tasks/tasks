@@ -13,14 +13,12 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Metadata entries for a GTasks Task
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@Singleton
 public class GtasksMetadata {
 
     /** metadata key */

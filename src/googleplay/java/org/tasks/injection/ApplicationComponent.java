@@ -1,10 +1,8 @@
 package org.tasks.injection;
 
-import javax.inject.Singleton;
-
 import dagger.Component;
 
-@Singleton
+@ApplicationScope
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent extends BaseApplicationComponent {
     SyncAdapterComponent plus(SyncAdapterModule syncAdapterModule);

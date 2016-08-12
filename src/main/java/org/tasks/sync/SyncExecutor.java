@@ -4,18 +4,18 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
 import org.tasks.analytics.Tracker;
+import org.tasks.injection.ApplicationScope;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.RejectedExecutionException;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
 import static java.util.concurrent.Executors.newSingleThreadExecutor;
 
-@Singleton
+@ApplicationScope
 public class SyncExecutor {
 
     private final ExecutorService executor = newSingleThreadExecutor(

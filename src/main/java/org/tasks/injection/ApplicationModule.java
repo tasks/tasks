@@ -12,7 +12,6 @@ import org.tasks.ui.WidgetCheckBoxes;
 import java.util.concurrent.Executor;
 
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -40,26 +39,26 @@ public class ApplicationModule {
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     @Named("iab-executor")
     public Executor getIabExecutor(Tracker tracker) {
         return new ErrorReportingSingleThreadExecutor("iab-executor", tracker);
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     public CheckBoxes getCheckBoxes() {
         return newCheckBoxes(context);
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     public WidgetCheckBoxes getWidgetCheckBoxes(CheckBoxes checkBoxes) {
         return newWidgetCheckBoxes(checkBoxes);
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     public ThemeCache getThemeCache() {
         return new ThemeCache(context);
     }

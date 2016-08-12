@@ -6,11 +6,9 @@ import com.todoroo.astrid.gtasks.GtasksMetadataServiceTest;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdaterTest;
 import com.todoroo.astrid.gtasks.GtasksTaskMovingTest;
 
-import javax.inject.Singleton;
-
 import dagger.Component;
 
-@Singleton
+@ApplicationScope
 @Component(modules = TestModule.class)
 public interface TestComponent extends BaseTestComponent {
 

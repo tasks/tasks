@@ -1,6 +1,5 @@
 package org.tasks.injection;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import dagger.Module;
@@ -12,12 +11,6 @@ public class FragmentModule {
 
     public FragmentModule(Fragment fragment) {
         this.fragment = fragment;
-    }
-
-    @Provides
-    @ForActivity
-    public Context getContext() {
-        return fragment.getActivity();
     }
 
     @Provides

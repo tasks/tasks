@@ -1,10 +1,8 @@
 package org.tasks.injection;
 
-import javax.inject.Singleton;
-
 import dagger.Subcomponent;
 
-@Singleton
+@ActivityScope
 @Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent extends BaseActivityComponent {
 

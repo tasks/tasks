@@ -26,6 +26,7 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 
 import org.tasks.gtasks.SyncAdapterHelper;
+import org.tasks.injection.ApplicationScope;
 
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -34,11 +35,10 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
-@Singleton
+@ApplicationScope
 public class GtasksSyncService {
 
     private final MetadataDao metadataDao;

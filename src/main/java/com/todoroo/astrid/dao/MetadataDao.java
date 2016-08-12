@@ -15,10 +15,11 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.injection.ApplicationScope;
+
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Data Access layer for {@link Metadata}-related operations.
@@ -26,7 +27,7 @@ import javax.inject.Singleton;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@Singleton
+@ApplicationScope
 public class MetadataDao {
 
     private final DatabaseDao<Metadata> dao;

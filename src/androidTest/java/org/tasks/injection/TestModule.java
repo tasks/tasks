@@ -6,8 +6,6 @@ import com.todoroo.astrid.dao.Database;
 
 import org.tasks.analytics.Tracker;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -21,7 +19,7 @@ public class TestModule {
         this.context = context;
     }
 
-    @Singleton
+    @ApplicationScope
     @Provides
     public Database getDatabase() {
         return new Database(context, mock(Tracker.class)) {
@@ -32,7 +30,7 @@ public class TestModule {
         };
     }
 
-    @Singleton
+    @ApplicationScope
     @Provides
     @ForApplication
     public Context getContext() {

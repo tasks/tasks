@@ -1,6 +1,5 @@
 package org.tasks.activities;
 
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,7 +30,6 @@ public class CameraActivity extends InjectingAppCompatActivity {
     public static final String EXTRA_URI = "extra_uri";
 
     @Inject Preferences preferences;
-    @Inject Activity activity;
 
     private File output;
 
@@ -44,7 +42,7 @@ public class CameraActivity extends InjectingAppCompatActivity {
         } else {
             output = getFilename(".jpeg");
             if (output == null) {
-                Toast.makeText(activity, R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
             } else {
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 Uri uri = Uri.fromFile(output);
@@ -54,7 +52,7 @@ public class CameraActivity extends InjectingAppCompatActivity {
                 if (atLeastLollipop()) {
                     intent.setClipData(ClipData.newRawUri(null, uri));
                 }
-                activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                startActivityForResult(intent, REQUEST_CODE_CAMERA);
             }
         }
     }

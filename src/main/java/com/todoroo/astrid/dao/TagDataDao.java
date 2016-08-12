@@ -6,7 +6,6 @@
 package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -15,15 +14,16 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 
+import org.tasks.injection.ApplicationScope;
+
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Data Access layer for {@link TagData}-related operations.
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@Singleton
+@ApplicationScope
 public class TagDataDao {
 
     private final RemoteModelDao<TagData> dao;

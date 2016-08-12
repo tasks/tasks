@@ -19,6 +19,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.TaskNotificationReceiver;
@@ -28,7 +29,6 @@ import org.tasks.time.DateTime;
 import java.util.Random;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import timber.log.Timber;
 
@@ -40,7 +40,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@Singleton
+@ApplicationScope
 public final class ReminderService  {
 
     // --- constants
