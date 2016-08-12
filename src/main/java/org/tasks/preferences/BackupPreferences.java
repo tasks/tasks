@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 
-import org.tasks.files.FileExplore;
-
 import org.tasks.R;
+import org.tasks.files.FileExplore;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 
@@ -14,9 +13,15 @@ import java.io.File;
 
 import javax.inject.Inject;
 
+import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
+import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
+
 public class BackupPreferences extends InjectingPreferenceActivity {
 
+    private static final String FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks";
+    private static final String FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks";
     private static final int REQUEST_CODE_BACKUP_DIR = 2;
+    private static final int REQUEST_PICKER = 1000;
 
     @Inject Preferences preferences;
 
@@ -25,6 +30,24 @@ public class BackupPreferences extends InjectingPreferenceActivity {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences_backup);
+
+        getPref(R.string.backup_BAc_import).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivityForResult(new Intent(BackupPreferences.this, FileExplore.class) {{
+                    putExtra(FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
+                }}, REQUEST_PICKER);
+                return false;
+            }
+        });
+
+        getPref(R.string.backup_BAc_export).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                newExportTasksDialog().show(getFragmentManager(), FRAG_TAG_EXPORT_TASKS);
+                return false;
+            }
+        });
 
         initializeBackupDirectory();
     }
@@ -36,6 +59,11 @@ public class BackupPreferences extends InjectingPreferenceActivity {
                 String dir = data.getStringExtra(FileExplore.EXTRA_DIRECTORY);
                 preferences.setString(R.string.p_backup_dir, dir);
                 updateBackupDirectory();
+            }
+        } else if (requestCode == REQUEST_PICKER) {
+            if (resultCode == RESULT_OK) {
+                newImportTasksDialog(data.getStringExtra(FileExplore.EXTRA_FILE))
+                        .show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

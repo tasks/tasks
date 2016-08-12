@@ -7,13 +7,11 @@ package com.todoroo.astrid.backup;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.view.WindowManager.BadTokenException;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -51,14 +49,13 @@ public class TasksXmlImporter {
     private final TaskService taskService;
     private final DialogBuilder dialogBuilder;
 
-    private Context context;
+    private Activity activity;
     private Handler handler;
     private int taskCount;
     private int importCount = 0;
     private int skipCount = 0;
     private int errorCount = 0;
     private ProgressDialog progressDialog;
-    private Runnable runAfterImport;
     private String input;
 
     private void setProgressMessage(final String message) {
@@ -79,29 +76,12 @@ public class TasksXmlImporter {
         this.dialogBuilder = dialogBuilder;
     }
 
-    /**
-     * Import tasks.
-     * @param runAfterImport optional runnable after import
-     */
-    public void importTasks(Context context, String input, Runnable runAfterImport) {
-        this.context = context;
+    public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
+        this.activity = activity;
         this.input = input;
-        this.runAfterImport = runAfterImport;
+        this.progressDialog = progressDialog;
 
         handler = new Handler();
-        progressDialog = dialogBuilder.newProgressDialog();
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(true);
-        try {
-            progressDialog.show();
-            if(context instanceof Activity) {
-                progressDialog.setOwnerActivity((Activity) context);
-            }
-        } catch (BadTokenException e) {
-            // Running from a unit test or some such thing
-            Timber.e(e, e.getMessage());
-        }
 
         new Thread(new Runnable() {
             @Override
@@ -145,24 +125,24 @@ public class TasksXmlImporter {
             }
         } finally {
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-            context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            activity.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(progressDialog.isShowing() && context instanceof Activity) {
-                        DialogUtilities.dismissDialog((Activity) context, progressDialog);
+                    if(progressDialog.isShowing()) {
+                        DialogUtilities.dismissDialog(activity, progressDialog);
+                        showSummary();
                     }
-                    showSummary();
                 }
             });
         }
     }
 
     private void showSummary() {
-        Resources r = context.getResources();
+        Resources r = activity.getResources();
         dialogBuilder.newDialog()
                 .setTitle(R.string.import_summary_title)
-                .setMessage(context.getString(R.string.import_summary_message,
+                .setMessage(activity.getString(R.string.import_summary_message,
                         input,
                         r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
                         r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
@@ -172,9 +152,6 @@ public class TasksXmlImporter {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        if (runAfterImport != null) {
-                            handler.post(runAfterImport);
-                        }
                     }
                 })
                 .show();
@@ -219,8 +196,7 @@ public class TasksXmlImporter {
 
         protected void parseTask() {
             taskCount++;
-            setProgressMessage(context.getString(R.string.import_progress_read,
-                    taskCount));
+            setProgressMessage(activity.getString(R.string.import_progress_read, taskCount));
             currentTask.clear();
 
             String title = xpp.getAttributeValue(null, Task.TITLE.name);

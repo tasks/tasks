@@ -373,15 +373,6 @@
             android:label="@string/EPr_manage_header"
             android:theme="@style/Tasks"/>
 
-        <!-- backup -->
-
-        <activity
-            android:name="org.tasks.activities.ExportTaskActivity"
-            android:theme="@style/TranslucentDialog" />
-        <activity
-            android:name="org.tasks.activities.ImportTaskActivity"
-            android:theme="@style/TranslucentDialog" />
-
         <!-- premium -->
         <activity
             android:name="com.todoroo.astrid.files.AACRecordingActivity"

@@ -18,9 +18,7 @@ import org.tasks.activities.CameraActivity;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
-import org.tasks.activities.ExportTaskActivity;
 import org.tasks.activities.FilterSelectionActivity;
-import org.tasks.activities.ImportTaskActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
@@ -77,10 +75,6 @@ public interface BaseActivityComponent {
     void inject(FilterSelectionActivity filterSelectionActivity);
 
     void inject(DateAndTimePickerActivity dateAndTimePickerActivity);
-
-    void inject(ExportTaskActivity exportTaskActivity);
-
-    void inject(ImportTaskActivity importTaskActivity);
 
     void inject(AddAttachmentActivity addAttachmentActivity);
 

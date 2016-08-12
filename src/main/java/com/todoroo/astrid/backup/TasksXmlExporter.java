@@ -29,7 +29,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -98,25 +97,16 @@ public class TasksXmlExporter {
         this.preferences = preferences;
     }
 
-    public void exportTasks(final Context context, final ExportType exportType, DialogBuilder dialogBuilder) {
+    public void exportTasks(final Context context, final ExportType exportType, final ProgressDialog progressDialog) {
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = preferences.getBackupDirectory();
         this.latestSetVersionName = null;
+        this.progressDialog = progressDialog;
 
         handler = exportType == ExportType.EXPORT_TYPE_MANUAL ? new Handler() : null;
-        if(exportType == ExportType.EXPORT_TYPE_MANUAL) {
-            progressDialog = dialogBuilder.newProgressDialog();
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressDialog.setProgress(0);
-            progressDialog.setCancelable(false);
-            progressDialog.setIndeterminate(false);
-            progressDialog.show();
-            if(context instanceof Activity) {
-                progressDialog.setOwnerActivity((Activity) context);
-            }
-        } else {
-            progressDialog = new ProgressDialog(context);
+        if(exportType != ExportType.EXPORT_TYPE_MANUAL) {
+            this.progressDialog = new ProgressDialog(context);
         }
 
         new Thread(new Runnable() {
@@ -144,7 +134,6 @@ public class TasksXmlExporter {
                         public void run() {
                             if(progressDialog.isShowing() && context instanceof Activity) {
                                 DialogUtilities.dismissDialog((Activity) context, progressDialog);
-                                ((Activity) context).finish();
                             }
                         }
                     });

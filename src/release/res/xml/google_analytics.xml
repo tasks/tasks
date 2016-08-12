@@ -12,7 +12,6 @@
     <screenName name="org.tasks.files.MyFilePickerActivity">MyFilePickerActivity</screenName>
     <screenName name="org.tasks.reminders.MissedCallActivity">MissedCallActivity</screenName>
     <screenName name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity">GtasksLoginActivity</screenName>
-    <screenName name="org.tasks.activities.ImportTaskActivity">ImportTaskActivity</screenName>
     <screenName name="org.tasks.voice.VoiceCommandActivity">VoiceCommandActivity</screenName>
     <screenName name="org.tasks.locale.ui.activity.TaskerSettingsActivity">TaskerSettingsActivity</screenName>
     <screenName name="com.todoroo.astrid.activity.TaskListActivity">TaskListActivity</screenName>
@@ -27,7 +26,6 @@
     <screenName name="org.tasks.activities.ColorPickerActivity">ColorPickerActivity</screenName>
     <screenName name="org.tasks.activities.DateAndTimePickerActivity">DateAndTimePickerActivity</screenName>
     <screenName name="org.tasks.activities.DatePickerActivity">DatePickerActivity</screenName>
-    <screenName name="org.tasks.activities.ExportTaskActivity">ExportTaskActivity</screenName>
     <screenName name="org.tasks.activities.FilterSelectionActivity">FilterSelectionActivity</screenName>
     <screenName name="org.tasks.activities.TimePickerActivity">TimePickerActivity</screenName>
     <screenName name="org.tasks.files.FileExplore">FileExplore</screenName>

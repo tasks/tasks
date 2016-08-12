@@ -12,18 +12,10 @@
 
     <Preference
         android:key="@string/backup_BAc_import"
-        android:title="@string/backup_BAc_import">
-        <intent
-            android:targetClass="org.tasks.activities.ImportTaskActivity"
-            android:targetPackage="org.tasks" />
-    </Preference>
+        android:title="@string/backup_BAc_import" />
 
     <Preference
         android:key="@string/backup_BAc_export"
-        android:title="@string/backup_BAc_export">
-        <intent
-            android:targetClass="org.tasks.activities.ExportTaskActivity"
-            android:targetPackage="org.tasks" />
-    </Preference>
+        android:title="@string/backup_BAc_export" />
 
 </PreferenceScreen>
