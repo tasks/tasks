@@ -3,13 +3,13 @@ package org.tasks.widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.RemoteViewsService;
 
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 
-import org.tasks.injection.InjectingRemoteViewsService;
-import org.tasks.injection.ServiceComponent;
+import org.tasks.injection.InjectingApplication;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
@@ -18,7 +18,7 @@ import org.tasks.ui.WidgetCheckBoxes;
 
 import javax.inject.Inject;
 
-public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
+public class ScrollableWidgetUpdateService extends RemoteViewsService {
 
     @Inject Database database;
     @Inject TaskService taskService;
@@ -28,6 +28,15 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
     @Inject WidgetCheckBoxes widgetCheckBoxes;
     @Inject ThemeCache themeCache;
     @Inject Locale locale;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        ((InjectingApplication) getApplication())
+                .getComponent()
+                .inject(this);
+    }
 
     @Override
     public void onStart(Intent intent, int startId) {
@@ -50,10 +59,5 @@ public class ScrollableWidgetUpdateService extends InjectingRemoteViewsService {
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
         return new ScrollableViewsFactory(subtasksHelper, preferences, locale.createConfigurationContext(getApplicationContext()),
                 widgetId, database, taskService, defaultFilterProvider, widgetCheckBoxes, themeCache);
-    }
-
-    @Override
-    protected void inject(ServiceComponent component) {
-        component.inject(this);
     }
 }

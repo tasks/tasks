@@ -13,8 +13,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
-import org.tasks.injection.InjectingDashClockExtension;
-import org.tasks.injection.ServiceComponent;
+import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
@@ -24,7 +23,7 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public class DashClockExtension extends InjectingDashClockExtension {
+public class DashClockExtension extends com.google.android.apps.dashclock.api.DashClockExtension {
 
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject TaskDao taskDao;
@@ -41,6 +40,10 @@ public class DashClockExtension extends InjectingDashClockExtension {
     public void onCreate() {
         super.onCreate();
 
+        ((InjectingApplication) getApplication())
+                .getComponent()
+                .inject(this);
+
         registerReceiver(refreshReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
     }
 
@@ -54,11 +57,6 @@ public class DashClockExtension extends InjectingDashClockExtension {
     @Override
     protected void onUpdateData(int i) {
         refresh();
-    }
-
-    @Override
-    protected void inject(ServiceComponent component) {
-        component.inject(this);
     }
 
     private void refresh() {
