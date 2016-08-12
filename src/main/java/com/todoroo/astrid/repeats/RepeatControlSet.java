@@ -165,12 +165,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
         for(int i = 0; i < 7; i++) {
             final int index = i;
             CheckBox checkBox = (CheckBox) daysOfWeekContainer.getChildAt(i);
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    RepeatControlSet.this.isChecked[index] = isChecked;
-                }
-            });
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked1) -> RepeatControlSet.this.isChecked[index] = isChecked1);
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             checkBox.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));
             daysOfWeek[i] = checkBox;
@@ -179,12 +174,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
         }
 
         // set up listeners
-        value.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                repeatValueClick();
-            }
-        });
+        value.setOnClickListener(v -> repeatValueClick());
 
         setRepeatValue(1);
         interval.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -316,22 +306,14 @@ public class RepeatControlSet extends TaskEditControlFragment {
     private AlertDialog buildDialog() {
         return dialogBuilder.newDialog()
                 .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        doRepeat = true;
+                .setPositiveButton(android.R.string.ok, (dialog12, which) -> {
+                    doRepeat = true;
 
-                        callback.repeatChanged(doRepeat);
+                    callback.repeatChanged(doRepeat);
 
-                        refreshDisplayView();
-                    }
+                    refreshDisplayView();
                 })
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        refreshDisplayView();
-                    }
-                })
+                .setOnCancelListener(dialog1 -> refreshDisplayView())
                 .create();
     }
 
@@ -438,12 +420,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
             dialogValue = 1;
         }
 
-        NumberPickerDialog dialog = new NumberPickerDialog(theme.getThemedDialog(getActivity()), new OnNumberPickedListener() {
-            @Override
-            public void onNumberPicked(int number) {
-                setRepeatValue(number);
-            }
-        }, getResources().getString(R.string.repeat_interval_prompt),
+        NumberPickerDialog dialog = new NumberPickerDialog(theme.getThemedDialog(getActivity()), this::setRepeatValue, getResources().getString(R.string.repeat_interval_prompt),
                 dialogValue, 1, 1, 365);
         theme.applyToContext(dialog.getContext());
         dialog.show();

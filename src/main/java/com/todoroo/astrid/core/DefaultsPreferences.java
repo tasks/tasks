@@ -46,14 +46,11 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
         addPreferencesFromResource(R.xml.preferences_defaults);
 
         defaultCalendarPref = findPreference(getString(R.string.gcal_p_default));
-        defaultCalendarPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                if (permissionRequester.requestCalendarPermissions()) {
-                    startCalendarSelectionActivity();
-                }
-                return false;
+        defaultCalendarPref.setOnPreferenceClickListener(preference -> {
+            if (permissionRequester.requestCalendarPermissions()) {
+                startCalendarSelectionActivity();
             }
+            return false;
         });
         setCalendarSummary(preferences.getStringValue(R.string.gcal_p_default));
     }

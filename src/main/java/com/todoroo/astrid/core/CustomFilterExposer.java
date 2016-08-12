@@ -36,12 +36,7 @@ public final class CustomFilterExposer {
     }
 
     public List<Filter> getFilters() {
-        return newArrayList(transform(storeObjectDao.getSavedFilters(), new Function<StoreObject, Filter>() {
-            @Override
-            public Filter apply(StoreObject input) {
-                return load(input);
-            }
-        }));
+        return newArrayList(transform(storeObjectDao.getSavedFilters(), this::load));
     }
 
     public Filter getFilter(long id) {

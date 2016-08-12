@@ -30,12 +30,7 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return createDialog(dialogBuilder, gtasksListService, new GoogleTaskListSelectionHandler() {
-            @Override
-            public void selectedList(GtasksList list) {
-                handler.selectedList(list);
-            }
-        });
+        return createDialog(dialogBuilder, gtasksListService, list -> handler.selectedList(list));
     }
 
     @Override
@@ -47,26 +42,13 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
 
     public static AlertDialog createDialog(DialogBuilder dialogBuilder, GtasksListService gtasksListService, final GoogleTaskListSelectionHandler handler) {
         final List<GtasksList> lists = gtasksListService.getLists();
-        List<String> listNames = transform(lists, new Function<GtasksList, String>() {
-            @Override
-            public String apply(GtasksList gtasksList) {
-                return gtasksList.getName();
-            }
-        });
+        List<String> listNames = transform(lists, GtasksList::getName);
         return dialogBuilder.newDialog()
-                .setItems(listNames, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.selectedList(lists.get(which));
-                        dialog.dismiss();
-                    }
+                .setItems(listNames, (dialog, which) -> {
+                    handler.selectedList(lists.get(which));
+                    dialog.dismiss();
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss())
                 .show();
     }
 

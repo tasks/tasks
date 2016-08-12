@@ -35,15 +35,10 @@ public class ListNotificationReceiver extends InjectingBroadcastReceiver {
 
         tracker.reportEvent(Tracking.Events.LEGACY_TASKER_TRIGGER);
 
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                notifier.triggerFilterNotification(
-                        intent.getStringExtra(EXTRA_FILTER_TITLE),
-                        intent.getStringExtra(EXTRA_FILTER_QUERY),
-                        intent.getStringExtra(EXTRA_FILTER_VALUES));
-            }
-        });
+        executorService.execute(() -> notifier.triggerFilterNotification(
+                intent.getStringExtra(EXTRA_FILTER_TITLE),
+                intent.getStringExtra(EXTRA_FILTER_QUERY),
+                intent.getStringExtra(EXTRA_FILTER_VALUES)));
     }
 
     @Override

@@ -48,28 +48,22 @@ public class GeofenceApi {
             return;
         }
 
-        newClient(new GoogleApi.GoogleApiClientConnectionHandler() {
-            @Override
-            public void onConnect(final GoogleApiClient client) {
-                @SuppressWarnings("ResourceType")
-                @SuppressLint("MissingPermission")
-                PendingResult<Status> result = LocationServices.GeofencingApi.addGeofences(
-                        client,
-                        getRequests(geofences),
-                        PendingIntent.getService(context, 0, new Intent(context, GeofenceTransitionsIntentService.class), PendingIntent.FLAG_UPDATE_CURRENT));
-                result.setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        if (status.isSuccess()) {
-                            Timber.i("Registered %s", geofences);
-                        } else {
-                            Timber.e("Failed to register %s", geofences);
-                        }
+        newClient(client -> {
+            @SuppressWarnings("ResourceType")
+            @SuppressLint("MissingPermission")
+            PendingResult<Status> result = LocationServices.GeofencingApi.addGeofences(
+                    client,
+                    getRequests(geofences),
+                    PendingIntent.getService(context, 0, new Intent(context, GeofenceTransitionsIntentService.class), PendingIntent.FLAG_UPDATE_CURRENT));
+            result.setResultCallback(status -> {
+                if (status.isSuccess()) {
+                    Timber.i("Registered %s", geofences);
+                } else {
+                    Timber.e("Failed to register %s", geofences);
+                }
 
-                        client.disconnect();
-                    }
-                });
-            }
+                client.disconnect();
+            });
         });
     }
 
@@ -82,31 +76,18 @@ public class GeofenceApi {
             return;
         }
 
-        final List<String> ids = newArrayList(transform(geofences, new Function<Geofence, String>() {
-            @Override
-            public String apply(Geofence geofence) {
-                return Long.toString(geofence.getMetadataId());
-            }
-        }));
+        final List<String> ids = newArrayList(transform(geofences, geofence -> Long.toString(geofence.getMetadataId())));
 
-        newClient(new GoogleApi.GoogleApiClientConnectionHandler() {
-            @Override
-            public void onConnect(final GoogleApiClient client) {
-                LocationServices.GeofencingApi.removeGeofences(client, ids)
-                        .setResultCallback(new ResultCallback<Status>() {
-                            @Override
-                            public void onResult(Status status) {
-                                if (status.isSuccess()) {
-                                    Timber.i("Removed %s", geofences);
-                                } else {
-                                    Timber.e("Failed to remove %s", geofences);
-                                }
+        newClient(client -> LocationServices.GeofencingApi.removeGeofences(client, ids)
+                .setResultCallback(status -> {
+                    if (status.isSuccess()) {
+                        Timber.i("Removed %s", geofences);
+                    } else {
+                        Timber.e("Failed to remove %s", geofences);
+                    }
 
-                                client.disconnect();
-                            }
-                        });
-            }
-        });
+                    client.disconnect();
+                }));
     }
 
     private void newClient(final GoogleApi.GoogleApiClientConnectionHandler handler) {
@@ -114,12 +95,7 @@ public class GeofenceApi {
     }
 
     private List<com.google.android.gms.location.Geofence> getRequests(List<Geofence> geofences) {
-        return newArrayList(transform(geofences, new Function<Geofence, com.google.android.gms.location.Geofence>() {
-            @Override
-            public com.google.android.gms.location.Geofence apply(Geofence geofence) {
-                return toGoogleGeofence(geofence);
-            }
-        }));
+        return newArrayList(transform(geofences, this::toGoogleGeofence));
     }
 
     private com.google.android.gms.location.Geofence toGoogleGeofence(Geofence geofence) {

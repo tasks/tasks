@@ -52,12 +52,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
                 dialog.setAccentColor(themeAccent.getAccentColor());
                 dialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
             }
-            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    finish();
-                }
-            });
+            dialog.setOnCancelListener(dialogInterface -> finish());
             dialog.setOnDateSetListener(this);
         }
     }

@@ -66,12 +66,7 @@ public class SeekBarDialog extends InjectingNativeDialogFragment {
         slider.setValue(initial, true);
         return dialogBuilder.newDialog()
                 .setView(view)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        callback.valueSelected(slider.getValue(), requestCode);
-                    }
-                })
+                .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> callback.valueSelected(slider.getValue(), requestCode))
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }

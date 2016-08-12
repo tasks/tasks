@@ -187,27 +187,25 @@ abstract public class TranslationTests extends AndroidTestCase {
         }
 
 
-        forEachLocale(new Runnable() {
-            public void run() {
-                Locale locale = r.getConfiguration().locale;
-                for(int i = 0; i < strings.length; i++) {
-                    try {
-                        switch(strings[i]) {
-                            case R.string.abc_shareactionprovider_share_with_application:
-                                continue;
-                        }
-                        String string = r.getString(strings[i]);
-                        FormatStringData newFS = new FormatStringData(string);
-                        if(!newFS.matches(formatStrings[i])) {
-                            String name = r.getResourceName(strings[i]);
-                            failures.append(String.format("%s (%s): %s != %s\n",
-                                    name, locale.toString(), newFS, formatStrings[i]));
-                        }
-                    } catch (Exception e) {
-                        String name = r.getResourceName(strings[i]);
-                        failures.append(String.format("%s: error opening %s: %s\n",
-                                locale.toString(), name, e.getMessage()));
+        forEachLocale(() -> {
+            Locale locale = r.getConfiguration().locale;
+            for(int i = 0; i < strings.length; i++) {
+                try {
+                    switch(strings[i]) {
+                        case R.string.abc_shareactionprovider_share_with_application:
+                            continue;
                     }
+                    String string = r.getString(strings[i]);
+                    FormatStringData newFS = new FormatStringData(string);
+                    if(!newFS.matches(formatStrings[i])) {
+                        String name = r.getResourceName(strings[i]);
+                        failures.append(String.format("%s (%s): %s != %s\n",
+                                name, locale.toString(), newFS, formatStrings[i]));
+                    }
+                } catch (Exception e) {
+                    String name = r.getResourceName(strings[i]);
+                    failures.append(String.format("%s: error opening %s: %s\n",
+                            locale.toString(), name, e.getMessage()));
                 }
             }
         });
@@ -225,24 +223,22 @@ abstract public class TranslationTests extends AndroidTestCase {
         final int[] dateStrings = getDateFormatStrings();
         final DateTime date = newDateTime();
 
-        forEachLocale(new Runnable() {
-            public void run() {
-                Locale locale = r.getConfiguration().locale;
-                for (int dateString : dateStrings) {
+        forEachLocale(() -> {
+            Locale locale = r.getConfiguration().locale;
+            for (int dateString : dateStrings) {
+                try {
+                    String string = r.getString(dateString);
                     try {
-                        String string = r.getString(dateString);
-                        try {
-                            date.toString(string);
-                        } catch (Exception e) {
-                            String name = r.getResourceName(dateString);
-                            failures.append(String.format("%s: invalid format string '%s': %s\n",
-                                    locale.toString(), name, e.getMessage()));
-                        }
+                        date.toString(string);
                     } catch (Exception e) {
                         String name = r.getResourceName(dateString);
-                        failures.append(String.format("%s: error opening %s: %s\n",
+                        failures.append(String.format("%s: invalid format string '%s': %s\n",
                                 locale.toString(), name, e.getMessage()));
                     }
+                } catch (Exception e) {
+                    String name = r.getResourceName(dateString);
+                    failures.append(String.format("%s: error opening %s: %s\n",
+                            locale.toString(), name, e.getMessage()));
                 }
             }
         });
@@ -271,28 +267,26 @@ abstract public class TranslationTests extends AndroidTestCase {
             }
         }
 
-        forEachLocale(new Runnable() {
-            public void run() {
-                for(int i = 0; i < arrays.length; i++) {
-                    if(sizes[i] == -1)
-                        continue;
-                    int size;
-                    try {
-                        size = r.getStringArray(arrays[i]).length;
-                    } catch (Resources.NotFoundException e) {
-                        String name = r.getResourceName(arrays[i]);
-                        Locale locale = r.getConfiguration().locale;
-                        failures.append(String.format("%s: error opening %s: %s\n",
-                                locale, name, e.getMessage()));
-                        continue;
-                    }
+        forEachLocale(() -> {
+            for(int i = 0; i < arrays.length; i++) {
+                if(sizes[i] == -1)
+                    continue;
+                int size;
+                try {
+                    size = r.getStringArray(arrays[i]).length;
+                } catch (Resources.NotFoundException e) {
+                    String name = r.getResourceName(arrays[i]);
+                    Locale locale = r.getConfiguration().locale;
+                    failures.append(String.format("%s: error opening %s: %s\n",
+                            locale, name, e.getMessage()));
+                    continue;
+                }
 
-                    if(size != sizes[i]) {
-                        String name = r.getResourceName(arrays[i]);
-                        Locale locale = r.getConfiguration().locale;
-                        failures.append(String.format("%s (%s): size %d != %d\n",
-                                name, locale.toString(), size, sizes[i]));
-                    }
+                if(size != sizes[i]) {
+                    String name = r.getResourceName(arrays[i]);
+                    Locale locale = r.getConfiguration().locale;
+                    failures.append(String.format("%s (%s): size %d != %d\n",
+                            name, locale.toString(), size, sizes[i]));
                 }
             }
         });

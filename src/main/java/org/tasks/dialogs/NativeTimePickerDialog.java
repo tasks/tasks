@@ -40,11 +40,8 @@ public class NativeTimePickerDialog extends InjectingNativeDialogFragment implem
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Context context = theme.wrap(getActivity());
         TimePickerDialog timePickerDialog = new TimePickerDialog(context, this, 0, 0, DateUtilities.is24HourFormat(context));
-        timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                callback.cancel();
-            }
+        timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(android.R.string.cancel), (dialogInterface, i) -> {
+            callback.cancel();
         });
         if (initial != null) {
             timePickerDialog.updateTime(initial.getHourOfDay(), initial.getMinuteOfHour());

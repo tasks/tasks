@@ -43,29 +43,21 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
         filterAdapter.populateList();
 
         dialogBuilder.newDialog()
-                .setSingleChoiceItems(filterAdapter, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
-                        setResult(RESULT_OK, new Intent() {{
-                            if (returnFilter) {
-                                putExtra(EXTRA_FILTER, selectedFilter);
-                            }
-                            putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
-                            putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
-                            if (selectedFilter.valuesForNewTasks != null) {
-                                putExtra(EXTRA_FILTER_VALUES, AndroidUtilities.contentValuesToSerializedString(selectedFilter.valuesForNewTasks));
-                            }
-                        }});
-                        dialog.dismiss();
-                    }
+                .setSingleChoiceItems(filterAdapter, -1, (dialog, which) -> {
+                    final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
+                    setResult(RESULT_OK, new Intent() {{
+                        if (returnFilter) {
+                            putExtra(EXTRA_FILTER, selectedFilter);
+                        }
+                        putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
+                        putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
+                        if (selectedFilter.valuesForNewTasks != null) {
+                            putExtra(EXTRA_FILTER_VALUES, AndroidUtilities.contentValuesToSerializedString(selectedFilter.valuesForNewTasks));
+                        }
+                    }});
+                    dialog.dismiss();
                 })
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        finish();
-                    }
-                })
+                .setOnDismissListener(dialog -> finish())
                 .show();
     }
 

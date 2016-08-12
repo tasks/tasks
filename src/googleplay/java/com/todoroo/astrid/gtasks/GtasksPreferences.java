@@ -55,22 +55,19 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
 
         final CheckBoxPreference gtaskPreference = (CheckBoxPreference) findPreference(getString(R.string.sync_gtasks));
         gtaskPreference.setChecked(syncAdapterHelper.isEnabled());
-        gtaskPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if ((boolean) newValue) {
-                    if (!playServicesAvailability.refreshAndCheck()) {
-                        playServicesAvailability.resolve(GtasksPreferences.this);
-                    } else if (permissionRequestor.requestAccountPermissions()) {
-                        requestLogin();
-                    }
-                    return false;
-                } else {
-                    syncAdapterHelper.enableSynchronization(false);
-                    tracker.reportEvent(Tracking.Events.GTASK_DISABLED);
-                    gtasksPreferenceService.stopOngoing();
-                    return true;
+        gtaskPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            if ((boolean) newValue) {
+                if (!playServicesAvailability.refreshAndCheck()) {
+                    playServicesAvailability.resolve(GtasksPreferences.this);
+                } else if (permissionRequestor.requestAccountPermissions()) {
+                    requestLogin();
                 }
+                return false;
+            } else {
+                syncAdapterHelper.enableSynchronization(false);
+                tracker.reportEvent(Tracking.Events.GTASK_DISABLED);
+                gtasksPreferenceService.stopOngoing();
+                return true;
             }
         });
         if (gtasksPreferenceService.getLastSyncDate() > 0) {
@@ -78,40 +75,28 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     DateUtilities.getDateStringWithTime(GtasksPreferences.this,
                             gtasksPreferenceService.getLastSyncDate())));
         }
-        findPreference(getString(R.string.gtasks_GPr_interval_key)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                syncAdapterHelper.setSynchronizationInterval(Integer.parseInt((String) o));
-                return true;
-            }
+        findPreference(getString(R.string.gtasks_GPr_interval_key)).setOnPreferenceChangeListener((preference, o) -> {
+            syncAdapterHelper.setSynchronizationInterval(Integer.parseInt((String) o));
+            return true;
         });
-        findPreference(getString(R.string.sync_SPr_forget_key)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                dialogBuilder.newMessageDialog(R.string.sync_forget_confirm)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                gtasksPreferenceService.clearLastSyncDate();
-                                gtasksPreferenceService.setUserName(null);
-                                metadataDao.deleteWhere(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY));
-                                syncAdapterHelper.enableSynchronization(false);
-                                tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
-                                gtaskPreference.setChecked(false);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
-                return true;
-            }
+        findPreference(getString(R.string.sync_SPr_forget_key)).setOnPreferenceClickListener(preference -> {
+            dialogBuilder.newMessageDialog(R.string.sync_forget_confirm)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        gtasksPreferenceService.clearLastSyncDate();
+                        gtasksPreferenceService.setUserName(null);
+                        metadataDao.deleteWhere(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY));
+                        syncAdapterHelper.enableSynchronization(false);
+                        tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
+                        gtaskPreference.setChecked(false);
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
+            return true;
         });
-        getPref(R.string.p_gtasks_default_list).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                new NativeGoogleTaskListPicker()
-                        .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
-                return false;
-            }
+        getPref(R.string.p_gtasks_default_list).setOnPreferenceClickListener(preference -> {
+            new NativeGoogleTaskListPicker()
+                    .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
+            return false;
         });
         updateDefaultGoogleTaskList();
     }

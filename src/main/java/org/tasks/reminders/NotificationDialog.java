@@ -50,20 +50,17 @@ public class NotificationDialog extends InjectingDialogFragment {
 
         return dialogBuilder.newDialog()
                 .setTitle(title)
-                .setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                handler.edit();
-                                break;
-                            case 1:
-                                handler.snooze();
-                                break;
-                            case 2:
-                                handler.complete();
-                                break;
-                        }
+                .setItems(items, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            handler.edit();
+                            break;
+                        case 1:
+                            handler.snooze();
+                            break;
+                        case 2:
+                            handler.complete();
+                            break;
                     }
                 })
                 .show();

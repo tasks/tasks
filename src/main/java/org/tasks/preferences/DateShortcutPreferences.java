@@ -53,15 +53,12 @@ public class DateShortcutPreferences extends InjectingPreferenceActivity impleme
 
     private void initializeTimePreference(final TimePreference preference, final int requestCode) {
         preference.setOnPreferenceChangeListener(this);
-        preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference ignored) {
-                final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
-                startActivityForResult(new Intent(DateShortcutPreferences.this, TimePickerActivity.class) {{
-                    putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
-                }}, requestCode);
-                return true;
-            }
+        preference.setOnPreferenceClickListener(ignored -> {
+            final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
+            startActivityForResult(new Intent(DateShortcutPreferences.this, TimePickerActivity.class) {{
+                putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
+            }}, requestCode);
+            return true;
         });
     }
 

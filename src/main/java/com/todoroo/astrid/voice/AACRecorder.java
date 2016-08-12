@@ -30,18 +30,8 @@ public class AACRecorder {
             setOutputFormat(OutputFormat.MPEG_4);
             setAudioEncoder(AudioEncoder.AAC);
             setOutputFile(tempFile);
-            setOnErrorListener(new OnErrorListener() {
-                @Override
-                public void onError(MediaRecorder mr, int what, int extra) {
-                    Timber.e("mediaRecorder.onError(mr, %s, %s)", what, extra);
-                }
-            });
-            setOnInfoListener(new OnInfoListener() {
-                @Override
-                public void onInfo(MediaRecorder mr, int what, int extra) {
-                    Timber.i("mediaRecorder.onInfo(mr, %s, %s)", what, extra);
-                }
-            });
+            setOnErrorListener((mr, what, extra) -> Timber.e("mediaRecorder.onError(mr, %s, %s)", what, extra));
+            setOnInfoListener((mr, what, extra) -> Timber.i("mediaRecorder.onInfo(mr, %s, %s)", what, extra));
         }};
 
         try {

@@ -61,14 +61,11 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
         toolbar.setNavigationIcon(getResources().getDrawable(
                 backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
         toolbar.setTitle(filter.listingTitle);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (backButtonSavesTask) {
-                    discard();
-                } else {
-                    save();
-                }
+        toolbar.setNavigationOnClickListener(v -> {
+            if (backButtonSavesTask) {
+                discard();
+            } else {
+                save();
             }
         });
         toolbar.inflateMenu(R.menu.tag_settings_activity);
@@ -120,13 +117,10 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
 
     private void deleteTag() {
         dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, filter.listingTitle)
-                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        storeObjectDao.delete(filter.getId());
-                        setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED).putExtra(TOKEN_FILTER, filter));
-                        finish();
-                    }
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    storeObjectDao.delete(filter.getId());
+                    setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED).putExtra(TOKEN_FILTER, filter));
+                    finish();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
@@ -138,12 +132,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
             finish();
         } else {
             dialogBuilder.newMessageDialog(R.string.discard_changes)
-                    .setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
+                    .setPositiveButton(R.string.discard, (dialog, which) -> finish())
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }

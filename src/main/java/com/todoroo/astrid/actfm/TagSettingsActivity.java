@@ -100,14 +100,11 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         toolbar.setTitle(isNewTag ? getString(R.string.new_tag) : tagData.getName());
         toolbar.setNavigationIcon(getResources().getDrawable(
                 backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (backButtonSavesTask) {
-                    discard();
-                } else {
-                    save();
-                }
+        toolbar.setNavigationOnClickListener(v -> {
+            if (backButtonSavesTask) {
+                discard();
+            } else {
+                save();
             }
         });
         toolbar.inflateMenu(R.menu.tag_settings_activity);
@@ -237,17 +234,14 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     private void deleteTag() {
         dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, tagData.getName())
-                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (tagData != null) {
-                            String uuid = tagData.getUuid();
-                            metadataDao.deleteWhere(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
-                            tagDataDao.delete(tagData.getId());
-                            setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
-                        }
-                        finish();
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
+                    if (tagData != null) {
+                        String uuid = tagData.getUuid();
+                        metadataDao.deleteWhere(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
+                        tagDataDao.delete(tagData.getId());
+                        setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
                     }
+                    finish();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
@@ -258,12 +252,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             finish();
         } else {
             dialogBuilder.newMessageDialog(R.string.discard_changes)
-                    .setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
+                    .setPositiveButton(R.string.discard, (dialog, which) -> finish())
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }

@@ -21,14 +21,11 @@ public class DialogUtilities {
         if(dialog == null) {
             return;
         }
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    dialog.dismiss();
-                } catch(Exception e) {
-                    Timber.e(e, e.getMessage());
-                }
+        activity.runOnUiThread(() -> {
+            try {
+                dialog.dismiss();
+            } catch(Exception e) {
+                Timber.e(e, e.getMessage());
             }
         });
     }

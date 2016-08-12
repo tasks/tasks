@@ -25,12 +25,7 @@ public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return createDialog(dialogBuilder, gtasksListService, new GoogleTaskListSelectionHandler() {
-            @Override
-            public void selectedList(GtasksList list) {
-                handler.selectedList(list);
-            }
-        });
+        return createDialog(dialogBuilder, gtasksListService, list -> handler.selectedList(list));
     }
 
     @Override

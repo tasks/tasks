@@ -39,17 +39,14 @@ public class SyncExecutor {
     }
 
     private Runnable wrapWithExceptionHandling(final SyncResultCallback callback, final Runnable command) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    command.run();
-                } catch (Exception e) {
-                    Timber.e(e, e.getMessage());
-                    tracker.reportException(e);
-                    executor.shutdownNow();
-                    callback.finished();
-                }
+        return () -> {
+            try {
+                command.run();
+            } catch (Exception e) {
+                Timber.e(e, e.getMessage());
+                tracker.reportException(e);
+                executor.shutdownNow();
+                callback.finished();
             }
         };
     }

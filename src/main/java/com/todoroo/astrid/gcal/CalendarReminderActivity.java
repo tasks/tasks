@@ -54,12 +54,7 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     private View dismissButton;
     private View ignoreSettingsButton;
 
-    private final OnClickListener dismissListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
-    };
+    private final OnClickListener dismissListener = v -> finish();
 
     private final OnClickListener ignoreListener = new OnClickListener() {
         @Override
@@ -69,19 +64,11 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
             ignorePresses++;
             if (ignorePresses == IGNORE_PROMPT_COUNT) {
                 dialogBuilder.newMessageDialog(R.string.CRA_ignore_body)
-                        .setPositiveButton(R.string.CRA_ignore_all, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                preferences.setBoolean(R.string.p_calendar_reminders, false);
-                                dismissListener.onClick(v);
-                            }
+                        .setPositiveButton(R.string.CRA_ignore_all, (dialog, which) -> {
+                            preferences.setBoolean(R.string.p_calendar_reminders, false);
+                            dismissListener.onClick(v);
                         })
-                        .setNegativeButton(R.string.CRA_ignore_this, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dismissListener.onClick(v);
-                            }
-                        })
+                        .setNegativeButton(R.string.CRA_ignore_this, (dialog, which) -> dismissListener.onClick(v))
                         .show();
             } else {
                 dismissListener.onClick(v);
@@ -143,30 +130,17 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
         ignoreButton.setOnClickListener(ignoreListener);
         dismissButton.setOnClickListener(dismissListener);
 
-        ignoreSettingsButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent editPreferences = new Intent(CalendarReminderActivity.this, BasicPreferences.class);
-                startActivity(editPreferences);
-                dismissListener.onClick(v);
-            }
+        ignoreSettingsButton.setOnClickListener(v -> {
+            Intent editPreferences = new Intent(CalendarReminderActivity.this, BasicPreferences.class);
+            startActivity(editPreferences);
+            dismissListener.onClick(v);
         });
 
         if (!fromPostpone) {
-            postponeButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    postpone();
-                }
-            });
+            postponeButton.setOnClickListener(v -> postpone());
         }
 
-        createListButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createNewList(getString(R.string.CRA_default_list_name, eventName));
-            }
-        });
+        createListButton.setOnClickListener(v -> createNewList(getString(R.string.CRA_default_list_name, eventName)));
     }
 
     private void createNewList(final String name) {

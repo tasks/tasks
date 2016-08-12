@@ -79,13 +79,10 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        boolean changed = synchronizeMetadata(taskId, metadata, new SynchronizeMetadataCallback() {
-            @Override
-            public void beforeDeleteMetadata(Metadata m) {
-                // Cancel the alarm before the metadata is deleted
-                PendingIntent pendingIntent = pendingIntentForAlarm(m, taskId);
-                alarmManager.cancel(pendingIntent);
-            }
+        boolean changed = synchronizeMetadata(taskId, metadata, m -> {
+            // Cancel the alarm before the metadata is deleted
+            PendingIntent pendingIntent = pendingIntentForAlarm(m, taskId);
+            alarmManager.cancel(pendingIntent);
         });
 
         if(changed) {
@@ -113,24 +110,14 @@ public class AlarmService {
      * Schedules all alarms
      */
     public void scheduleAllAlarms() {
-        getActiveAlarms(new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata alarm) {
-                scheduleAlarm(alarm);
-            }
-        });
+        getActiveAlarms(this::scheduleAlarm);
     }
 
     /**
      * Schedules alarms for a single task
      */
     private void scheduleAlarms(long taskId) {
-        getActiveAlarmsForTask(taskId, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata alarm) {
-                scheduleAlarm(alarm);
-            }
-        });
+        getActiveAlarmsForTask(taskId, this::scheduleAlarm);
     }
 
     private PendingIntent pendingIntentForAlarm(Metadata alarm, long taskId) {
@@ -181,27 +168,24 @@ public class AlarmService {
             newMetadataValues.add(values);
         }
 
-        metadataDao.byTaskAndKey(taskId, AlarmFields.METADATA_KEY, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata item) {
-                long id = item.getId();
+        metadataDao.byTaskAndKey(taskId, AlarmFields.METADATA_KEY, item -> {
+            long id = item.getId();
 
-                // clear item id when matching with incoming values
-                item.clearValue(Metadata.ID);
-                item.clearValue(Metadata.CREATION_DATE);
-                ContentValues itemMergedValues = item.getMergedValues();
+            // clear item id when matching with incoming values
+            item.clearValue(Metadata.ID);
+            item.clearValue(Metadata.CREATION_DATE);
+            ContentValues itemMergedValues = item.getMergedValues();
 
-                if(newMetadataValues.contains(itemMergedValues)) {
-                    newMetadataValues.remove(itemMergedValues);
-                } else {
-                    // not matched. cut it
-                    item.setId(id);
-                    if (callback != null) {
-                        callback.beforeDeleteMetadata(item);
-                    }
-                    metadataDao.delete(id);
-                    dirty[0] = true;
+            if(newMetadataValues.contains(itemMergedValues)) {
+                newMetadataValues.remove(itemMergedValues);
+            } else {
+                // not matched. cut it
+                item.setId(id);
+                if (callback != null) {
+                    callback.beforeDeleteMetadata(item);
                 }
+                metadataDao.delete(id);
+                dirty[0] = true;
             }
         });
 

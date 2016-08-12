@@ -59,34 +59,30 @@ public class DateUtilitiesTest extends AndroidTestCase {
     }
 
     public void testTimeString() {
-        forEachLocale(new Runnable() {
-            public void run() {
-                DateTime d = newDateTime();
+        forEachLocale(() -> {
+            DateTime d = newDateTime();
 
-                DateUtilities.is24HourOverride = false;
-                for (int i = 0; i < 24; i++) {
-                    d = d.withHourOfDay(i);
-                    getTimeString(getContext(), d);
-                }
+            DateUtilities.is24HourOverride = false;
+            for (int i = 0; i < 24; i++) {
+                d = d.withHourOfDay(i);
+                getTimeString(getContext(), d);
+            }
 
-                DateUtilities.is24HourOverride = true;
-                for (int i = 0; i < 24; i++) {
-                    d = d.withHourOfDay(i);
-                    getTimeString(getContext(), d);
-                }
+            DateUtilities.is24HourOverride = true;
+            for (int i = 0; i < 24; i++) {
+                d = d.withHourOfDay(i);
+                getTimeString(getContext(), d);
             }
         });
     }
 
     public void testDateString() {
-        forEachLocale(new Runnable() {
-            public void run() {
-                DateTime d = newDateTime();
+        forEachLocale(() -> {
+            DateTime d = newDateTime();
 
-                for (int i = 0; i < 12; i++) {
-                    d = d.withMonthOfYear(i);
-                    getDateString(d);
-                }
+            for (int i = 0; i < 12; i++) {
+                d = d.withMonthOfYear(i);
+                getDateString(d);
             }
         });
     }

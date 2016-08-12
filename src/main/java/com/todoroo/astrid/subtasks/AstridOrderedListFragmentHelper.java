@@ -187,12 +187,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor,
                 sqlQueryTemplate, dialogBuilder, checkBoxes, tagService, themeCache);
 
-        taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
-            @Override
-            public void onCompletedTask(Task item, boolean newState) {
-                setCompletedForItemAndSubtasks(item, newState);
-            }
-        });
+        taskAdapter.addOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
         return taskAdapter;
     }
@@ -238,15 +233,12 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
 
         final ArrayList<String> chained = new ArrayList<>();
-        updater.applyToDescendants(itemId, new AstridOrderedListUpdater.OrderedListNodeVisitor() {
-            @Override
-            public void visitNode(AstridOrderedListUpdater.Node node) {
-                String uuid = node.uuid;
-                model.setCompletionDate(completionDate);
-                taskService.update(Task.UUID.eq(uuid), model);
-                model.clear();
-                chained.add(node.uuid);
-            }
+        updater.applyToDescendants(itemId, node -> {
+            String uuid = node.uuid;
+            model.setCompletionDate(completionDate);
+            taskService.update(Task.UUID.eq(uuid), model);
+            model.clear();
+            chained.add(node.uuid);
         });
 
         if(chained.size() > 0) {

@@ -72,30 +72,17 @@ public class CommentsController {
 
         items.clear();
         commentsContainer.removeAllViews();
-        metadataDao.byTaskAndKey(task.getId(), NoteMetadata.METADATA_KEY, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata metadata) {
-                items.add(NoteOrUpdate.fromMetadata(metadata));
-            }
-        });
+        metadataDao.byTaskAndKey(task.getId(), NoteMetadata.METADATA_KEY, metadata -> items.add(NoteOrUpdate.fromMetadata(metadata)));
 
-        userActivityDao.getCommentsForTask(task.getUuid(), new Callback<UserActivity>() {
-            @Override
-            public void apply(UserActivity update) {
-                items.add(NoteOrUpdate.fromUpdate(update));
-            }
-        });
+        userActivityDao.getCommentsForTask(task.getUuid(), update -> items.add(NoteOrUpdate.fromUpdate(update)));
 
-        Collections.sort(items, new Comparator<NoteOrUpdate>() {
-            @Override
-            public int compare(NoteOrUpdate a, NoteOrUpdate b) {
-                if (a.createdAt < b.createdAt) {
-                    return 1;
-                } else if (a.createdAt == b.createdAt) {
-                    return 0;
-                } else {
-                    return -1;
-                }
+        Collections.sort(items, (a, b) -> {
+            if (a.createdAt < b.createdAt) {
+                return 1;
+            } else if (a.createdAt == b.createdAt) {
+                return 0;
+            } else {
+                return -1;
             }
         });
 
@@ -109,13 +96,10 @@ public class CommentsController {
             loadMore.setText(R.string.TEA_load_more);
             loadMore.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
             loadMore.setBackgroundColor(Color.alpha(0));
-            loadMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Perform action on click
-                    commentItems += 10;
-                    reloadView();
-                }
+            loadMore.setOnClickListener(v -> {
+                // Perform action on click
+                commentItems += 10;
+                reloadView();
             });
             commentsContainer.addView(loadMore);
         }
@@ -155,14 +139,9 @@ public class CommentsController {
             String path = getPathFromUri(activity, updateBitmap);
             commentPictureView.setImageBitmap(sampleBitmap(path, commentPictureView.getLayoutParams().width, commentPictureView.getLayoutParams().height));
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.startActivity(new Intent(Intent.ACTION_VIEW) {{
-                        setDataAndType(updateBitmap, "image/*");
-                    }});
-                }
-            });
+            view.setOnClickListener(v -> activity.startActivity(new Intent(Intent.ACTION_VIEW) {{
+                setDataAndType(updateBitmap, "image/*");
+            }}));
         } else {
             commentPictureView.setVisibility(View.GONE);
         }

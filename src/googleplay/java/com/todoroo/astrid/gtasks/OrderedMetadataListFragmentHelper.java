@@ -199,12 +199,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor,
                 sqlQueryTemplate, dialogBuilder, checkBoxes, tagService, themeCache);
 
-        taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
-            @Override
-            public void onCompletedTask(Task item, boolean newState) {
-                setCompletedForItemAndSubtasks(item, newState);
-            }
-        });
+        taskAdapter.addOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
         return taskAdapter;
     }
@@ -253,23 +248,20 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
         final ArrayList<Long> chained = new ArrayList<>();
         final int parentIndent = item.getValue(updater.indentProperty());
-        updater.applyToChildren(list, itemId, new OrderedMetadataListUpdater.OrderedListNodeVisitor() {
-            @Override
-            public void visitNode(OrderedMetadataListUpdater.Node node) {
-                Task childTask = taskService.fetchById(node.taskId, Task.RECURRENCE);
-                if(!TextUtils.isEmpty(childTask.getRecurrence())) {
-                    Metadata metadata = updater.getTaskMetadata(node.taskId);
-                    metadata.setValue(updater.indentProperty(), parentIndent);
-                    metadataDao.persist(metadata);
-                }
-
-                model.setId(node.taskId);
-                model.setCompletionDate(completionDate);
-                taskService.save(model);
-                model.clear();
-
-                chained.add(node.taskId);
+        updater.applyToChildren(list, itemId, node -> {
+            Task childTask = taskService.fetchById(node.taskId, Task.RECURRENCE);
+            if(!TextUtils.isEmpty(childTask.getRecurrence())) {
+                Metadata metadata = updater.getTaskMetadata(node.taskId);
+                metadata.setValue(updater.indentProperty(), parentIndent);
+                metadataDao.persist(metadata);
             }
+
+            model.setId(node.taskId);
+            model.setCompletionDate(completionDate);
+            taskService.save(model);
+            model.clear();
+
+            chained.add(node.taskId);
         });
 
         if(chained.size() > 0) {

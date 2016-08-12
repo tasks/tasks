@@ -44,14 +44,11 @@ public class DashClockSettings extends InjectingPreferenceActivity implements Pu
 
         addPreferencesFromResource(R.xml.preferences_dashclock);
 
-        findPreference(getString(R.string.p_dashclock_filter)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(DashClockSettings.this, FilterSelectionActivity.class) {{
-                    putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-                }}, REQUEST_SELECT_FILTER);
-                return false;
-            }
+        findPreference(getString(R.string.p_dashclock_filter)).setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(DashClockSettings.this, FilterSelectionActivity.class) {{
+                putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            }}, REQUEST_SELECT_FILTER);
+            return false;
         });
 
         refreshPreferences();

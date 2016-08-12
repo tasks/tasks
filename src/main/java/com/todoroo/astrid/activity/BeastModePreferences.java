@@ -65,12 +65,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity imple
         ButterKnife.bind(this);
 
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         toolbar.inflateMenu(R.menu.beast_mode);
         toolbar.setOnMenuItemClickListener(this);
         MenuColorizer.colorToolbar(this, toolbar);
@@ -90,19 +85,11 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity imple
             }
         };
         touchList.setAdapter(adapter);
-        touchList.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
-        touchList.setDropListener(new DropListener() {
-            @Override
-            public void drop(int from, int to) {
-                String s = items.remove(from);
-                items.add(to, s);
-                adapter.notifyDataSetChanged();
-            }
+        touchList.setOnTouchListener((v, event) -> false);
+        touchList.setDropListener((from, to) -> {
+            String s = items.remove(from);
+            items.add(to, s);
+            adapter.notifyDataSetChanged();
         });
     }
 

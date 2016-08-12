@@ -66,7 +66,7 @@ public class ColorPickerActivity extends InjectingAppCompatActivity implements C
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_PURCHASE) {
-            purchaseHelper.handleActivityResult(PurchaseHelperCallback.NO_OP, requestCode, resultCode, data);
+            purchaseHelper.handleActivityResult(null, requestCode, resultCode, data);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

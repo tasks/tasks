@@ -217,12 +217,9 @@ public class CalendarControlSet extends TaskEditControlFragment {
             clear();
         } else {
             dialogBuilder.newMessageDialog(R.string.delete_calendar_event_confirmation)
-                    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_CLEAR_EVENT)) {
-                                clear();
-                            }
+                    .setPositiveButton(R.string.delete, (dialog, which) -> {
+                        if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_CLEAR_EVENT)) {
+                            clear();
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, null)

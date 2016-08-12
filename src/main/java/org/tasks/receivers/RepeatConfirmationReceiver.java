@@ -72,13 +72,10 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
         String dueDateString = getRelativeDateAndTimeString(activity, newDueDate);
         String snackbarText = activity.getString(R.string.repeat_snackbar, task.getTitle(), dueDateString);
         taskListFragment.makeSnackbar(snackbarText)
-                .setAction(R.string.DLG_undo, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        task.setDueDateAdjustingHideUntil(oldDueDate);
-                        task.setCompletionDate(0L);
-                        taskService.save(task);
-                    }
+                .setAction(R.string.DLG_undo, v -> {
+                    task.setDueDateAdjustingHideUntil(oldDueDate);
+                    task.setCompletionDate(0L);
+                    taskService.save(task);
                 })
                 .show();
     }

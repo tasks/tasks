@@ -52,35 +52,29 @@ public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListene
     }
 
     private IabHelper.OnIabSetupFinishedListener getSetupListener(final IabHelper helper) {
-        return new IabHelper.OnIabSetupFinishedListener() {
-            @Override
-            public void onIabSetupFinished(IabResult result) {
-                if (result.isSuccess()) {
-                    helper.queryInventoryAsync(getQueryListener(helper));
-                } else {
-                    Timber.e("setup failed: %s", result.getMessage());
-                    helper.dispose();
-                }
+        return result -> {
+            if (result.isSuccess()) {
+                helper.queryInventoryAsync(getQueryListener(helper));
+            } else {
+                Timber.e("setup failed: %s", result.getMessage());
+                helper.dispose();
             }
         };
     }
 
     private IabHelper.QueryInventoryFinishedListener getQueryListener(final IabHelper helper) {
-        return new IabHelper.QueryInventoryFinishedListener() {
-            @Override
-            public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-                if (result.isSuccess()) {
-                    inventory = inv;
-                    checkPurchase(R.string.sku_tasker, R.string.p_purchased_tasker);
-                    checkPurchase(R.string.sku_tesla_unread, R.string.p_purchased_tesla_unread);
-                    checkPurchase(R.string.sku_dashclock, R.string.p_purchased_dashclock);
-                    checkPurchase(R.string.sku_themes, R.string.p_purchased_themes);
-                    broadcaster.refresh();
-                } else {
-                    Timber.e("query inventory failed: %s", result.getMessage());
-                }
-                helper.dispose();
+        return (result, inv) -> {
+            if (result.isSuccess()) {
+                inventory = inv;
+                checkPurchase(R.string.sku_tasker, R.string.p_purchased_tasker);
+                checkPurchase(R.string.sku_tesla_unread, R.string.p_purchased_tesla_unread);
+                checkPurchase(R.string.sku_dashclock, R.string.p_purchased_dashclock);
+                checkPurchase(R.string.sku_themes, R.string.p_purchased_themes);
+                broadcaster.refresh();
+            } else {
+                Timber.e("query inventory failed: %s", result.getMessage());
             }
+            helper.dispose();
         };
     }
 

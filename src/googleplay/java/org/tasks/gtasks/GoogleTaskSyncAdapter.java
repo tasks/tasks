@@ -409,20 +409,17 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             newMetadataValues.add(metadatum.getMergedValues());
         }
 
-        metadataDao.byTaskAndKey(taskId, metadataKey, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata item) {
-                long id = item.getId();
+        metadataDao.byTaskAndKey(taskId, metadataKey, item -> {
+            long id = item.getId();
 
-                // clear item id when matching with incoming values
-                item.clearValue(Metadata.ID);
-                ContentValues itemMergedValues = item.getMergedValues();
-                if(newMetadataValues.contains(itemMergedValues)) {
-                    newMetadataValues.remove(itemMergedValues);
-                } else {
-                    // not matched. cut it
-                    metadataDao.delete(id);
-                }
+            // clear item id when matching with incoming values
+            item.clearValue(Metadata.ID);
+            ContentValues itemMergedValues = item.getMergedValues();
+            if(newMetadataValues.contains(itemMergedValues)) {
+                newMetadataValues.remove(itemMergedValues);
+            } else {
+                // not matched. cut it
+                metadataDao.delete(id);
             }
         });
 

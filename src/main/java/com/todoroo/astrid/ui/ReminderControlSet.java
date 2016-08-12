@@ -141,12 +141,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
     private List<Long> currentAlarms() {
         final List<Long> alarms = new ArrayList<>();
-        alarmService.getAlarms(taskId, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata entry) {
-                alarms.add(entry.getValue(AlarmFields.TIME));
-            }
-        });
+        alarmService.getAlarms(taskId, entry -> alarms.add(entry.getValue(AlarmFields.TIME)));
         return alarms;
     }
 
@@ -284,12 +279,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
 
     public void addAlarmRow(final Long timestamp) {
-        addAlarmRow(getLongDateStringWithTime(context, timestamp), new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alarms.remove(timestamp);
-            }
-        });
+        addAlarmRow(getLongDateStringWithTime(context, timestamp), v -> alarms.remove(timestamp));
         alarms.add(timestamp);
     }
 
@@ -301,12 +291,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
 
     public void addGeolocationReminder(final Geofence geofence) {
-        addAlarmRow(geofence.getName(), new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                geofences.remove(geofence);
-            }
-        });
+        addAlarmRow(geofence.getName(), v -> geofences.remove(geofence));
         geofences.add(geofence);
     }
 
@@ -349,15 +334,12 @@ public class ReminderControlSet extends TaskEditControlFragment {
     private void addAlarmRow(final View alertItem, String text, final View.OnClickListener onRemove) {
         TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
         display.setText(text);
-        alertItem.findViewById(R.id.clear).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertContainer.removeView(alertItem);
-                if (onRemove != null) {
-                    onRemove.onClick(v);
-                }
-                updateSpinner();
+        alertItem.findViewById(R.id.clear).setOnClickListener(v -> {
+            alertContainer.removeView(alertItem);
+            if (onRemove != null) {
+                onRemove.onClick(v);
             }
+            updateSpinner();
         });
         updateSpinner();
     }
@@ -384,31 +366,16 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
     private void addDue() {
         whenDue = true;
-        addAlarmRow(getString(R.string.when_due), new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                whenDue = false;
-            }
-        });
+        addAlarmRow(getString(R.string.when_due), v -> whenDue = false);
     }
 
     private void addOverdue() {
         whenOverdue = true;
-        addAlarmRow(getString(R.string.when_overdue), new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                whenOverdue = false;
-            }
-        });
+        addAlarmRow(getString(R.string.when_overdue), v -> whenOverdue = false);
     }
 
     private void addRandomReminder(long reminderPeriod) {
-        View alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ", new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                randomControlSet = null;
-            }
-        });
+        View alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ", v -> randomControlSet = null);
         randomControlSet = new RandomReminderControlSet(context, alarmRow, reminderPeriod);
     }
 

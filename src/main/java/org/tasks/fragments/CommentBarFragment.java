@@ -182,12 +182,9 @@ public class CommentBarFragment extends TaskEditControlFragment {
         if (pendingCommentPicture == null) {
             showPictureLauncher(null);
         } else {
-            showPictureLauncher(new ClearImageCallback() {
-                @Override
-                public void clearImage() {
-                    pendingCommentPicture = null;
-                    resetPictureButton();
-                }
+            showPictureLauncher(() -> {
+                pendingCommentPicture = null;
+                resetPictureButton();
             });
         }
     }
@@ -254,34 +251,21 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
         final boolean cameraAvailable = device.hasCamera();
         if (cameraAvailable) {
-            runnables.add(new Runnable() {
-                @Override
-                public void run() {
-                    startActivityForResult(new Intent(activity, CameraActivity.class), REQUEST_CODE_CAMERA);
-                }
-            });
+            runnables.add(() -> startActivityForResult(new Intent(activity, CameraActivity.class), REQUEST_CODE_CAMERA));
             options.add(getString(R.string.take_a_picture));
         }
 
         if (clearImageOption != null) {
-            runnables.add(new Runnable() {
-                @Override
-                public void run() {
-                    clearImageOption.clearImage();
-                }
-            });
+            runnables.add(clearImageOption::clearImage);
             options.add(getString(R.string.actfm_picture_clear));
         }
 
         if (runnables.size() == 1) {
             runnables.get(0).run();
         } else {
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface d, int which) {
-                    runnables.get(which).run();
-                    d.dismiss();
-                }
+            DialogInterface.OnClickListener listener = (d, which) -> {
+                runnables.get(which).run();
+                d.dismiss();
             };
 
             // show a menu of available options

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.google.common.base.Predicate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.utility.Constants;
 
@@ -104,11 +103,6 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
             return false;
         }
         final List<String> myAccounts = accountManager.getAccounts();
-        return any(attendees, new Predicate<AndroidCalendarEventAttendee>() {
-            @Override
-            public boolean apply(AndroidCalendarEventAttendee attendee) {
-                return myAccounts.contains(attendee.getEmail());
-            }
-        });
+        return any(attendees, attendee -> myAccounts.contains(attendee.getEmail()));
     }
 }

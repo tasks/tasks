@@ -41,12 +41,7 @@ public class RefreshScheduler {
         Criterion criterion = Criterion.or(
                 Criterion.and(Task.HIDE_UNTIL.gt(now), Task.HIDE_UNTIL.lt(midnight)),
                 Criterion.and(Task.DUE_DATE.gt(now), Task.DUE_DATE.lt(midnight)));
-        taskDao.selectActive(criterion, new Callback<Task>() {
-            @Override
-            public void apply(Task task) {
-                scheduleRefresh(task);
-            }
-        });
+        taskDao.selectActive(criterion, this::scheduleRefresh);
     }
 
     public void scheduleRefresh(Task task) {

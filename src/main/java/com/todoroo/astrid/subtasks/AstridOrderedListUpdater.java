@@ -65,12 +65,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     public void initializeFromSerializedTree(LIST list, Filter filter, String serializedTree) {
         idToNode.clear();
-        treeRoot = buildTreeModel(serializedTree, new JSONTreeModelBuilder() {
-            @Override
-            public void afterAddNode(Node node) {
-                idToNode.put(node.uuid, node);
-            }
-        });
+        treeRoot = buildTreeModel(serializedTree, node -> idToNode.put(node.uuid, node));
         verifyTreeModel(list, filter);
     }
 

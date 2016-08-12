@@ -65,14 +65,11 @@ public class BackupIntentService extends MidnightIntentService {
     }
 
     private void deleteOldBackups() {
-        FileFilter backupFileFilter = new FileFilter() {
-            @Override
-            public boolean accept(File file) {
-                if (file.getName().matches(BACKUP_FILE_NAME_REGEX)) {
-                    return true;
-                }
-                return false;
+        FileFilter backupFileFilter = file -> {
+            if (file.getName().matches(BACKUP_FILE_NAME_REGEX)) {
+                return true;
             }
+            return false;
         };
         File astridDir = preferences.getBackupDirectory();
         if(astridDir == null) {
@@ -85,12 +82,7 @@ public class BackupIntentService extends MidnightIntentService {
             return;
         }
 
-        Arrays.sort(files, new Comparator<File>() {
-            @Override
-            public int compare(File file1, File file2) {
-                return -Long.valueOf(file1.lastModified()).compareTo(file2.lastModified());
-            }
-        });
+        Arrays.sort(files, (file1, file2) -> -Long.valueOf(file1.lastModified()).compareTo(file2.lastModified()));
         for(int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
             if(!files[i].delete()) {
                 Timber.i("Unable to delete: %s", files[i]);

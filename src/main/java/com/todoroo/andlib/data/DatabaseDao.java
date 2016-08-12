@@ -54,12 +54,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
 
     public List<TYPE> toList(Query query) {
         final List<TYPE> result = new ArrayList<>();
-        query(new Callback<TYPE>() {
-            @Override
-            public void apply(TYPE entry) {
-                result.add(entry);
-            }
-        }, query);
+        query(result::add, query);
         return result;
     }
 

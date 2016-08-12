@@ -74,27 +74,19 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
                     new int[] {999, 59}, new String[] {":", null});
             final NumberPicker hourPicker = dialog.getPicker(0);
             final NumberPicker minutePicker = dialog.getPicker(1);
-            minutePicker.setFormatter(new NumberPicker.Formatter() {
-                @Override
-                public String toString(int value) {
-                    return String.format("%02d", value);
-                }
-            });
-            minutePicker.setOnChangeListener(new NumberPicker.OnChangedListener() {
-                @Override
-                public int onChanged(int newVal) {
-                    if(newVal < 0) {
-                        if(hourPicker.getCurrent() == 0) {
-                            return 0;
-                        }
-                        hourPicker.setCurrent(hourPicker.getCurrent() - 1);
-                        return 60 + newVal;
-                    } else if(newVal > 59) {
-                        hourPicker.setCurrent(hourPicker.getCurrent() + 1);
-                        return newVal % 60;
+            minutePicker.setFormatter(value -> String.format("%02d", value));
+            minutePicker.setOnChangeListener(newVal -> {
+                if(newVal < 0) {
+                    if(hourPicker.getCurrent() == 0) {
+                        return 0;
                     }
-                    return newVal;
+                    hourPicker.setCurrent(hourPicker.getCurrent() - 1);
+                    return 60 + newVal;
+                } else if(newVal > 59) {
+                    hourPicker.setCurrent(hourPicker.getCurrent() + 1);
+                    return newVal % 60;
                 }
+                return newVal;
             });
         }
 

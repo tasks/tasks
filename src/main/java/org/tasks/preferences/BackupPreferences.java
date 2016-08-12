@@ -31,22 +31,16 @@ public class BackupPreferences extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_backup);
 
-        getPref(R.string.backup_BAc_import).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(BackupPreferences.this, FileExplore.class) {{
-                    putExtra(FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
-                }}, REQUEST_PICKER);
-                return false;
-            }
+        getPref(R.string.backup_BAc_import).setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(BackupPreferences.this, FileExplore.class) {{
+                putExtra(FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
+            }}, REQUEST_PICKER);
+            return false;
         });
 
-        getPref(R.string.backup_BAc_export).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                newExportTasksDialog().show(getFragmentManager(), FRAG_TAG_EXPORT_TASKS);
-                return false;
-            }
+        getPref(R.string.backup_BAc_export).setOnPreferenceClickListener(preference -> {
+            newExportTasksDialog().show(getFragmentManager(), FRAG_TAG_EXPORT_TASKS);
+            return false;
         });
 
         initializeBackupDirectory();
@@ -71,15 +65,12 @@ public class BackupPreferences extends InjectingPreferenceActivity {
     }
 
     private void initializeBackupDirectory() {
-        findPreference(getString(R.string.p_backup_dir)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                Intent filesDir = new Intent(BackupPreferences.this, FileExplore.class);
-                filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
-                filesDir.putExtra(FileExplore.EXTRA_START_PATH, getBackupDirectory());
-                startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
-                return true;
-            }
+        findPreference(getString(R.string.p_backup_dir)).setOnPreferenceClickListener(p -> {
+            Intent filesDir = new Intent(BackupPreferences.this, FileExplore.class);
+            filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
+            filesDir.putExtra(FileExplore.EXTRA_START_PATH, getBackupDirectory());
+            startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
+            return true;
         });
         updateBackupDirectory();
     }

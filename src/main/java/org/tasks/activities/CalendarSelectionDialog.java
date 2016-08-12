@@ -72,25 +72,10 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
         adapter = new ArrayAdapter<>(getActivity(), R.layout.simple_list_item_single_choice_themed, calendarNames);
 
         AlertDialogBuilder builder = dialogBuilder.newDialog()
-                .setAdapter(adapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.selectedCalendar(calendars.get(which));
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        handler.cancel();
-                    }
-                });
+                .setAdapter(adapter, (dialog, which) -> handler.selectedCalendar(calendars.get(which)))
+                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> handler.cancel());
         if (enableNone) {
-            builder.setNeutralButton(R.string.none, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    handler.selectedCalendar(AndroidCalendar.NONE);
-                }
-            });
+            builder.setNeutralButton(R.string.none, (dialog, which) -> handler.selectedCalendar(AndroidCalendar.NONE));
         }
 
         return builder.show();
@@ -104,12 +89,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
             calendars.clear();
             calendars.addAll(calendarProvider.getCalendars());
             calendarNames.clear();
-            calendarNames.addAll(transform(calendars, new Function<AndroidCalendar, String>() {
-                @Override
-                public String apply(AndroidCalendar androidCalendar) {
-                    return androidCalendar.getName();
-                }
-            }));
+            calendarNames.addAll(transform(calendars, AndroidCalendar::getName));
             if (calendarNames.isEmpty()) {
                 Toast.makeText(getActivity(), R.string.no_calendars_found, Toast.LENGTH_LONG).show();
                 handler.cancel();

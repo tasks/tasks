@@ -151,12 +151,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         toolbar.setTitle(R.string.FLA_new_filter);
         toolbar.inflateMenu(R.menu.menu_custom_filter_activity);
         toolbar.setOnMenuItemClickListener(this);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                discard();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> discard());
         MenuColorizer.colorToolbar(this, toolbar);
         listView = (ListView) findViewById(android.R.id.list);
 
@@ -186,30 +181,21 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
     }
 
     private void setUpListeners() {
-        findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listView.showContextMenu();
+        findViewById(R.id.add).setOnClickListener(v -> listView.showContextMenu());
+
+        listView.setOnCreateContextMenuListener((menu, v, menuInfo) -> {
+            if(menu.hasVisibleItems()) {
+                /* If it has items already, then the user did not click on the "Add Criteria" button, but instead
+                   long held on a row in the list view, which caused CustomFilterAdapter.onCreateContextMenu
+                   to be invoked before this onCreateContextMenu method was invoked.
+                 */
+                return;
             }
-        });
 
-        listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v,
-                    ContextMenuInfo menuInfo) {
-                if(menu.hasVisibleItems()) {
-                    /* If it has items already, then the user did not click on the "Add Criteria" button, but instead
-                       long held on a row in the list view, which caused CustomFilterAdapter.onCreateContextMenu
-                       to be invoked before this onCreateContextMenu method was invoked.
-                     */
-                    return;
-                }
-
-                int i = 0;
-                for (CustomFilterCriterion item : filterCriteriaProvider.getAll()) {
-                    menu.add(CustomFilterActivity.MENU_GROUP_FILTER, i, 0, item.name);
-                    i++;
-                }
+            int i = 0;
+            for (CustomFilterCriterion item : filterCriteriaProvider.getAll()) {
+                menu.add(CustomFilterActivity.MENU_GROUP_FILTER, i, 0, item.name);
+                i++;
             }
         });
     }
@@ -367,12 +353,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
             finish();
         } else {
             dialogBuilder.newMessageDialog(R.string.discard_changes)
-                    .setPositiveButton(R.string.discard, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
+                    .setPositiveButton(R.string.discard, (dialog, which) -> finish())
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         }
@@ -385,12 +366,9 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
             CustomFilterCriterion criterion = filterCriteriaProvider.getAll().get(item.getItemId());
             final CriterionInstance instance = new CriterionInstance();
             instance.criterion = criterion;
-            adapter.showOptionsFor(instance, new Runnable() {
-                @Override
-                public void run() {
-                    adapter.add(instance);
-                    updateList();
-                }
+            adapter.showOptionsFor(instance, () -> {
+                adapter.add(instance);
+                updateList();
             });
             return true;
         }

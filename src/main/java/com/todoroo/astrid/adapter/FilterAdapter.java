@@ -95,21 +95,11 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     @Override
     public void notifyDataSetChanged() {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                FilterAdapter.super.notifyDataSetChanged();
-            }
-        });
+        activity.runOnUiThread(FilterAdapter.super::notifyDataSetChanged);
     }
 
     public void refreshFilterCount() {
-        filterCounter.refreshFilterCounts(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
+        filterCounter.refreshFilterCounts(this::notifyDataSetChanged);
     }
 
     /**
@@ -286,12 +276,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
         notifyDataSetChanged();
 
-        filterCounter.refreshFilterCounts(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
+        filterCounter.refreshFilterCounts(this::notifyDataSetChanged);
     }
 
     /**

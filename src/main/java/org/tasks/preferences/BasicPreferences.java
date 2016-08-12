@@ -83,148 +83,109 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
 
         Preference themePreference = findPreference(getString(R.string.p_theme));
         themePreference.setSummary(themeBase.getName());
-        themePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
-                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.THEMES);
-                }}, REQUEST_THEME_PICKER);
-                return false;
-            }
+        themePreference.setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
+                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.THEMES);
+            }}, REQUEST_THEME_PICKER);
+            return false;
         });
         Preference colorPreference = findPreference(getString(R.string.p_theme_color));
         colorPreference.setSummary(themeColor.getName());
-        colorPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
-                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
-                }}, REQUEST_COLOR_PICKER);
-                return false;
-            }
+        colorPreference.setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
+                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+            }}, REQUEST_COLOR_PICKER);
+            return false;
         });
         Preference accentPreference = findPreference(getString(R.string.p_theme_accent));
         accentPreference.setSummary(themeAccent.getName());
-        accentPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
-                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.ACCENTS);
-                }}, REQUEST_ACCENT_PICKER);
-                return false;
-            }
+        accentPreference.setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
+                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.ACCENTS);
+            }}, REQUEST_ACCENT_PICKER);
+            return false;
         });
         Preference languagePreference = findPreference(getString(R.string.p_language));
         updateLocale();
-        languagePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                newLocalePickerDialog()
-                        .show(getFragmentManager(), FRAG_TAG_LOCALE_PICKER);
-                return false;
-            }
+        languagePreference.setOnPreferenceClickListener(preference -> {
+            newLocalePickerDialog()
+                    .show(getFragmentManager(), FRAG_TAG_LOCALE_PICKER);
+            return false;
         });
-        findPreference(getString(R.string.p_layout_direction)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_layout_direction, o.toString());
-                int newValue = Integer.parseInt((String) o);
-                if (locale.getDirectionality() != locale.withDirectionality(newValue).getDirectionality()) {
-                    showRestartDialog();
-                }
+        findPreference(getString(R.string.p_layout_direction)).setOnPreferenceChangeListener((preference, o) -> {
+            tracker.reportEvent(Tracking.Events.SET_PREFERENCE, R.string.p_layout_direction, o.toString());
+            int newValue = Integer.parseInt((String) o);
+            if (locale.getDirectionality() != locale.withDirectionality(newValue).getDirectionality()) {
+                showRestartDialog();
+            }
+            return true;
+        });
+        findPreference(getString(R.string.p_collect_statistics)).setOnPreferenceChangeListener((preference, newValue) -> {
+            if (newValue != null) {
+                tracker.setTrackingEnabled((boolean) newValue);
                 return true;
             }
+            return false;
         });
-        findPreference(getString(R.string.p_collect_statistics)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null) {
-                    tracker.setTrackingEnabled((boolean) newValue);
+
+        getPref(R.string.TLA_menu_donate).setOnPreferenceClickListener(preference -> {
+            if (BuildConfig.FLAVOR_store.equals("googleplay")) {
+                newDonationDialog().show(getFragmentManager(), FRAG_TAG_DONATION);
+            } else {
+                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/donate")));
+            }
+            return false;
+        });
+
+        getPref(R.string.p_purchased_themes).setOnPreferenceChangeListener((preference, newValue) -> {
+            if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_themes)) {
+                purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, BasicPreferences.this);
+            }
+            return false;
+        });
+
+        getPref(R.string.p_tesla_unread_enabled).setOnPreferenceChangeListener((preference, newValue) -> {
+            if (newValue != null) {
+                if ((boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tesla_unread)) {
+                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tesla_unread), getString(R.string.p_purchased_tesla_unread), REQUEST_PURCHASE, BasicPreferences.this);
+                } else {
+                    teslaUnreadReceiver.setEnabled((boolean) newValue);
                     return true;
                 }
-                return false;
             }
+            return false;
         });
 
-        getPref(R.string.TLA_menu_donate).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                if (BuildConfig.FLAVOR_store.equals("googleplay")) {
-                    newDonationDialog().show(getFragmentManager(), FRAG_TAG_DONATION);
-                } else {
-                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/donate")));
-                }
-                return false;
+        getPref(R.string.p_purchased_tasker).setOnPreferenceChangeListener((preference, newValue) -> {
+            if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tasker)) {
+                purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, BasicPreferences.this);
             }
+            return false;
         });
 
-        getPref(R.string.p_purchased_themes).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_themes)) {
-                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, BasicPreferences.this);
-                }
-                return false;
+        getPref(R.string.p_purchased_dashclock).setOnPreferenceChangeListener((preference, newValue) -> {
+            if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
+                purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
             }
-        });
-
-        getPref(R.string.p_tesla_unread_enabled).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null) {
-                    if ((boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tesla_unread)) {
-                        purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tesla_unread), getString(R.string.p_purchased_tesla_unread), REQUEST_PURCHASE, BasicPreferences.this);
-                    } else {
-                        teslaUnreadReceiver.setEnabled((boolean) newValue);
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-
-        getPref(R.string.p_purchased_tasker).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tasker)) {
-                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, BasicPreferences.this);
-                }
-                return false;
-            }
-        });
-
-        getPref(R.string.p_purchased_dashclock).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
-                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
-                }
-                return false;
-            }
+            return false;
         });
 
         if (BuildConfig.DEBUG) {
             addPreferencesFromResource(R.xml.preferences_debug);
 
-            findPreference(getString(R.string.debug_unlock_purchases)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    preferences.setBoolean(R.string.p_purchased_dashclock, true);
-                    preferences.setBoolean(R.string.p_purchased_tasker, true);
-                    preferences.setBoolean(R.string.p_purchased_tesla_unread, true);
-                    preferences.setBoolean(R.string.p_purchased_themes, true);
-                    recreate();
-                    return true;
-                }
+            findPreference(getString(R.string.debug_unlock_purchases)).setOnPreferenceClickListener(preference -> {
+                preferences.setBoolean(R.string.p_purchased_dashclock, true);
+                preferences.setBoolean(R.string.p_purchased_tasker, true);
+                preferences.setBoolean(R.string.p_purchased_tesla_unread, true);
+                preferences.setBoolean(R.string.p_purchased_themes, true);
+                recreate();
+                return true;
             });
 
-            findPreference(getString(R.string.debug_consume_purchases)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    purchaseHelper.consumePurchases();
-                    recreate();
-                    return true;
-                }
+            findPreference(getString(R.string.debug_consume_purchases)).setOnPreferenceClickListener(preference -> {
+                purchaseHelper.consumePurchases();
+                recreate();
+                return true;
             });
         }
 
@@ -239,12 +200,9 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     }
 
     private void setupActivity(int key, final Class<?> target) {
-        findPreference(getString(key)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(BasicPreferences.this, target), RC_PREFS);
-                return true;
-            }
+        findPreference(getString(key)).setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(BasicPreferences.this, target), RC_PREFS);
+            return true;
         });
     }
 
@@ -310,14 +268,9 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     private void showRestartDialog() {
         dialogBuilder.newDialog()
                 .setMessage(R.string.restart_required)
-                .setPositiveButton(R.string.restart_now, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ProcessPhoenix.triggerRebirth(BasicPreferences.this, new Intent(BasicPreferences.this, TaskListActivity.class) {{
-                            putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
-                        }});
-                    }
-                })
+                .setPositiveButton(R.string.restart_now, (dialogInterface, i) -> ProcessPhoenix.triggerRebirth(BasicPreferences.this, new Intent(BasicPreferences.this, TaskListActivity.class) {{
+                    putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
+                }}))
                 .setNegativeButton(R.string.restart_later, null)
                 .show();
     }
@@ -339,20 +292,17 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
 
     @Override
     public void purchaseCompleted(final boolean success, final String sku) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (getString(R.string.sku_tasker).equals(sku)) {
-                    ((TwoStatePreference) getPref(R.string.p_purchased_tasker)).setChecked(success);
-                } else if (getString(R.string.sku_tesla_unread).equals(sku)) {
-                    ((TwoStatePreference) getPref(R.string.p_tesla_unread_enabled)).setChecked(success);
-                } else if (getString(R.string.sku_dashclock).equals(sku)) {
-                    ((TwoStatePreference) getPref(R.string.p_purchased_dashclock)).setChecked(success);
-                } else if (getString(R.string.sku_themes).equals(sku)) {
-                    ((TwoStatePreference) getPref(R.string.p_purchased_themes)).setChecked(success);
-                } else {
-                    Timber.d("Unhandled sku: %s", sku);
-                }
+        runOnUiThread(() -> {
+            if (getString(R.string.sku_tasker).equals(sku)) {
+                ((TwoStatePreference) getPref(R.string.p_purchased_tasker)).setChecked(success);
+            } else if (getString(R.string.sku_tesla_unread).equals(sku)) {
+                ((TwoStatePreference) getPref(R.string.p_tesla_unread_enabled)).setChecked(success);
+            } else if (getString(R.string.sku_dashclock).equals(sku)) {
+                ((TwoStatePreference) getPref(R.string.p_purchased_dashclock)).setChecked(success);
+            } else if (getString(R.string.sku_themes).equals(sku)) {
+                ((TwoStatePreference) getPref(R.string.p_purchased_themes)).setChecked(success);
+            } else {
+                Timber.d("Unhandled sku: %s", sku);
             }
         });
     }

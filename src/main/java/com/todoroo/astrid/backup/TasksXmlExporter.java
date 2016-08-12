@@ -79,12 +79,9 @@ public class TasksXmlExporter {
     }
 
     private void setProgress(final int taskNumber, final int total) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.setMax(total);
-                progressDialog.setProgress(taskNumber);
-            }
+        post(() -> {
+            progressDialog.setMax(total);
+            progressDialog.setProgress(taskNumber);
         });
     }
 
@@ -109,35 +106,29 @@ public class TasksXmlExporter {
             this.progressDialog = new ProgressDialog(context);
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String output = setupFile(backupDirectory,
-                            exportType);
-                    int tasks = taskService.countTasks();
+        new Thread(() -> {
+            try {
+                String output = setupFile(backupDirectory,
+                        exportType);
+                int tasks = taskService.countTasks();
 
-                    if(tasks > 0) {
-                        doTasksExport(output);
-                    }
-
-                    preferences.setLong(PREF_BACKUP_LAST_DATE, DateUtilities.now());
-
-                    if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
-                        onFinishExport(output);
-                    }
-                } catch (IOException e) {
-                    Timber.e(e, e.getMessage());
-                } finally {
-                    post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(progressDialog.isShowing() && context instanceof Activity) {
-                                DialogUtilities.dismissDialog((Activity) context, progressDialog);
-                            }
-                        }
-                    });
+                if(tasks > 0) {
+                    doTasksExport(output);
                 }
+
+                preferences.setLong(PREF_BACKUP_LAST_DATE, DateUtilities.now());
+
+                if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
+                    onFinishExport(output);
+                }
+            } catch (IOException e) {
+                Timber.e(e, e.getMessage());
+            } finally {
+                post(() -> {
+                    if(progressDialog.isShowing() && context instanceof Activity) {
+                        DialogUtilities.dismissDialog((Activity) context, progressDialog);
+                    }
+                });
             }
         }).start();
     }
@@ -169,16 +160,13 @@ public class TasksXmlExporter {
     }
 
     private void serializeTagDatas() {
-        tagDataDao.allTags(new Callback<TagData>() {
-            @Override
-            public void apply(TagData tag) {
-                try {
-                    xml.startTag(null, BackupConstants.TAGDATA_TAG);
-                    serializeModel(tag, TagData.PROPERTIES, TagData.ID);
-                    xml.endTag(null, BackupConstants.TAGDATA_TAG);
-                } catch(IOException e) {
-                    throw new RuntimeException(e);
-                }
+        tagDataDao.allTags(tag -> {
+            try {
+                xml.startTag(null, BackupConstants.TAGDATA_TAG);
+                serializeModel(tag, TagData.PROPERTIES, TagData.ID);
+                xml.endTag(null, BackupConstants.TAGDATA_TAG);
+            } catch(IOException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -207,16 +195,13 @@ public class TasksXmlExporter {
     }
 
     private synchronized void serializeMetadata(Task task) {
-        metadataDao.byTask(task.getId(), new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata metadata) {
-                try {
-                    xml.startTag(null, BackupConstants.METADATA_TAG);
-                    serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);
-                    xml.endTag(null, BackupConstants.METADATA_TAG);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        metadataDao.byTask(task.getId(), metadata -> {
+            try {
+                xml.startTag(null, BackupConstants.METADATA_TAG);
+                serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);
+                xml.endTag(null, BackupConstants.METADATA_TAG);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
     }
@@ -308,17 +293,14 @@ public class TasksXmlExporter {
     }
 
     private void onFinishExport(final String outputFile) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                if(exportCount == 0) {
-                    Toast.makeText(context, context.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG).show();
-                } else {
-                    CharSequence text = String.format(context.getString(R.string.export_toast),
-                            context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
-                                    exportCount), outputFile);
-                    Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-                }
+        post(() -> {
+            if(exportCount == 0) {
+                Toast.makeText(context, context.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG).show();
+            } else {
+                CharSequence text = String.format(context.getString(R.string.export_toast),
+                        context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
+                                exportCount), outputFile);
+                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
             }
         });
     }

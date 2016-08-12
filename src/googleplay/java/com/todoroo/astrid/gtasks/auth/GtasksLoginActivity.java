@@ -88,12 +88,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
 
             @Override
             public void authenticationFailed(final String message) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(GtasksLoginActivity.this, message, Toast.LENGTH_LONG).show();
-                    }
-                });
+                runOnUiThread(() -> Toast.makeText(GtasksLoginActivity.this, message, Toast.LENGTH_LONG).show());
                 DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
             }
         });

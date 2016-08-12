@@ -116,26 +116,18 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         if (atLeastLollipop()) {
-            ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout)).setOnInsetsCallback(new ScrimInsetsFrameLayout.OnInsetsCallback() {
-                @Override
-                public void onInsetsChanged(Rect insets) {
-                    mDrawerListView.setPadding(0, insets.top, 0, 0);
-                }
-            });
+            ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout)).setOnInsetsCallback(insets -> mDrawerListView.setPadding(0, insets.top, 0, 0));
         }
         mDrawerListView = (ListView) layout.findViewById(android.R.id.list);
-        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                mDrawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        mDrawerLayout.setDrawerListener(null);
-                        selectItem(position);
-                    }
-                });
-                close();
-            }
+        mDrawerListView.setOnItemClickListener((parent, view, position, id) -> {
+            mDrawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    mDrawerLayout.setDrawerListener(null);
+                    selectItem(position);
+                }
+            });
+            close();
         });
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return layout;

@@ -19,13 +19,8 @@ public class RemoteGtaskListMaker {
         return make(instantiator, properties);
     }
 
-    private static final Instantiator<TaskList> instantiator = new Instantiator<TaskList>() {
-        @Override
-        public TaskList instantiate(final PropertyLookup<TaskList> lookup) {
-            return new TaskList()
-                    .setId(lookup.valueOf(REMOTE_ID, "1"))
-                    .setTitle(lookup.valueOf(NAME, "Default"))
-                    .setUpdated(new DateTime(currentTimeMillis()));
-        }
-    };
+    private static final Instantiator<TaskList> instantiator = lookup -> new TaskList()
+            .setId(lookup.valueOf(REMOTE_ID, "1"))
+            .setTitle(lookup.valueOf(NAME, "Default"))
+            .setUpdated(new DateTime(currentTimeMillis()));
 }

@@ -44,42 +44,19 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
         final List<Runnable> actions = newArrayList();
         if (device.hasCamera()) {
             entries.add(getString(R.string.take_a_picture));
-            actions.add(new Runnable() {
-                @Override
-                public void run() {
-                    callback.takePicture();
-                }
-            });
+            actions.add(() -> callback.takePicture());
         }
         entries.add(getString(R.string.premium_record_audio));
-        actions.add(new Runnable() {
-            @Override
-            public void run() {
-                callback.recordNote();
-            }
-        });
+        actions.add(() -> callback.recordNote());
         if (device.hasGallery()) {
             entries.add(getString(R.string.pick_from_gallery));
-            actions.add(new Runnable() {
-                @Override
-                public void run() {
-                    callback.pickFromGallery();
-                }
-            });
+            actions.add(() -> callback.pickFromGallery());
         }
         entries.add(getString(R.string.pick_from_storage));
-        actions.add(new Runnable() {
-            @Override
-            public void run() {
-                callback.pickFromStorage();
-            }
-        });
+        actions.add(() -> callback.pickFromStorage());
         return dialogBuilder.newDialog()
-                .setItems(entries, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        actions.get(which).run();
-                    }
+                .setItems(entries, (dialog, which) -> {
+                    actions.get(which).run();
                 })
                 .show();
     }

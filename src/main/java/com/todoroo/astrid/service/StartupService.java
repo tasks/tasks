@@ -76,11 +76,8 @@ public class StartupService {
         }
 
         // perform startup activities in a background thread
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                taskDeleter.deleteTasksWithEmptyTitles(null);
-            }
+        new Thread(() -> {
+            taskDeleter.deleteTasksWithEmptyTitles(null);
         }).start();
 
         if (lastVersion == 0) {

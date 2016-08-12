@@ -42,16 +42,13 @@ public class FilterCounter {
     }
 
     public void refreshFilterCounts(final Runnable onComplete) {
-        executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                for (Filter filter : filterCounts.keySet()) {
-                    int size = countTasks(filter);
-                    filterCounts.put(filter, size);
-                }
-                if (onComplete != null) {
-                    onComplete.run();
-                }
+        executorService.submit(() -> {
+            for (Filter filter : filterCounts.keySet()) {
+                int size = countTasks(filter);
+                filterCounts.put(filter, size);
+            }
+            if (onComplete != null) {
+                onComplete.run();
             }
         });
     }

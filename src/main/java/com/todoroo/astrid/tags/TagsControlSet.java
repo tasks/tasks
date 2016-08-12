@@ -111,20 +111,17 @@ public final class TagsControlSet extends TaskEditControlFragment {
     };
 
     private Function<TagData, SpannableString> tagToString(final float maxLength) {
-        return new Function<TagData, SpannableString>() {
-            @Override
-            public SpannableString apply(TagData tagData) {
-                String tagName = tagData.getName();
-                tagName = tagName
-                        .substring(0, Math.min(tagName.length(), (int) maxLength))
-                        .replace(' ', NO_BREAK_SPACE);
-                SpannableString string = new SpannableString(NO_BREAK_SPACE + tagName + NO_BREAK_SPACE);
-                int themeIndex = tagData.getColor();
-                ThemeColor color = themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
-                string.setSpan(new BackgroundColorSpan(color.getPrimaryColor()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                string.setSpan(new ForegroundColorSpan(color.getActionBarTint()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                return string;
-            }
+        return tagData -> {
+            String tagName = tagData.getName();
+            tagName = tagName
+                    .substring(0, Math.min(tagName.length(), (int) maxLength))
+                    .replace(' ', NO_BREAK_SPACE);
+            SpannableString string = new SpannableString(NO_BREAK_SPACE + tagName + NO_BREAK_SPACE);
+            int themeIndex = tagData.getColor();
+            ThemeColor color = themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
+            string.setSpan(new BackgroundColorSpan(color.getPrimaryColor()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            string.setSpan(new ForegroundColorSpan(color.getActionBarTint()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            return string;
         };
     }
 
@@ -223,12 +220,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     private AlertDialog buildDialog() {
         return dialogBuilder.newDialog()
                 .setView(dialogView)
-                .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        refreshDisplayView();
-                    }
-                })
+                .setOnDismissListener(dialogInterface -> refreshDisplayView())
                 .create();
     }
 
@@ -240,12 +232,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
 
     private boolean isSelected(List<TagData> selected, final String name) {
-        return Iterables.any(selected, new Predicate<TagData>() {
-            @Override
-            public boolean apply(TagData input) {
-                return name.equalsIgnoreCase(input.getName());
-            }
-        });
+        return Iterables.any(selected, input -> name.equalsIgnoreCase(input.getName()));
     }
 
     private ArrayList<TagData> getSelectedTags() {
@@ -335,32 +322,26 @@ public final class TagsControlSet extends TaskEditControlFragment {
             }
         });
 
-        textView.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
-                if(actionId != EditorInfo.IME_NULL) {
-                    return false;
-                }
-                if(getLastTextView().getText().length() != 0) {
-                    addTag(""); //$NON-NLS-1$
-                }
-                return true;
+        textView.setOnEditorActionListener((arg0, actionId, arg2) -> {
+            if(actionId != EditorInfo.IME_NULL) {
+                return false;
             }
+            if(getLastTextView().getText().length() != 0) {
+                addTag(""); //$NON-NLS-1$
+            }
+            return true;
         });
 
-        tagItem.findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextView lastView = getLastTextView();
-                if(lastView == textView && textView.getText().length() == 0) {
-                    return;
-                }
+        tagItem.findViewById(R.id.button1).setOnClickListener(v -> {
+            TextView lastView = getLastTextView();
+            if(lastView == textView && textView.getText().length() == 0) {
+                return;
+            }
 
-                if(newTagLayout.getChildCount() > 1) {
-                    newTagLayout.removeView(tagItem);
-                } else {
-                    textView.setText(""); //$NON-NLS-1$
-                }
+            if(newTagLayout.getChildCount() > 1) {
+                newTagLayout.removeView(tagItem);
+            } else {
+                textView.setText(""); //$NON-NLS-1$
             }
         });
     }

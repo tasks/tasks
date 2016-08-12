@@ -84,15 +84,12 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     }
 
     private void initializeAttachmentDirectoryPreference() {
-        findPreference(getString(R.string.p_attachment_dir)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                Intent filesDir = new Intent(MiscellaneousPreferences.this, FileExplore.class);
-                filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
-                filesDir.putExtra(FileExplore.EXTRA_START_PATH, getAttachmentDirectory());
-                startActivityForResult(filesDir, REQUEST_CODE_FILES_DIR);
-                return true;
-            }
+        findPreference(getString(R.string.p_attachment_dir)).setOnPreferenceClickListener(p -> {
+            Intent filesDir = new Intent(MiscellaneousPreferences.this, FileExplore.class);
+            filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
+            filesDir.putExtra(FileExplore.EXTRA_START_PATH, getAttachmentDirectory());
+            startActivityForResult(filesDir, REQUEST_CODE_FILES_DIR);
+            return true;
         });
         updateAttachmentDirectory();
     }
@@ -108,45 +105,39 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
     private void initializeCalendarReminderPreference() {
         CheckBoxPreference calendarReminderPreference = (CheckBoxPreference) findPreference(getString(R.string.p_calendar_reminders));
-        calendarReminderPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if (newValue == null) {
-                    return false;
-                }
-                if (!(Boolean) newValue) {
-                    return true;
-                }
-                if (permissionRequestor.requestCalendarPermissions()) {
-                    backgroundScheduler.scheduleCalendarNotifications();
-                    return true;
-                }
+        calendarReminderPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            if (newValue == null) {
                 return false;
             }
+            if (!(Boolean) newValue) {
+                return true;
+            }
+            if (permissionRequestor.requestCalendarPermissions()) {
+                backgroundScheduler.scheduleCalendarNotifications();
+                return true;
+            }
+            return false;
         });
         calendarReminderPreference.setChecked(calendarReminderPreference.isChecked() && permissionChecker.canAccessCalendars());
     }
 
     private void initializeVoiceReminderPreference() {
-        findPreference(getString(R.string.p_voiceRemindersEnabled)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                boolean enabled = (boolean) newValue;
-                try {
-                    if (enabled && !voiceOutputAssistant.isTTSInitialized()) {
-                        Intent checkIntent = new Intent();
-                        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-                        startActivityForResult(checkIntent, REQUEST_CODE_TTS_CHECK);
-                    } else if (!enabled && voiceOutputAssistant.isTTSInitialized()) {
-                        voiceOutputAssistant.shutdown();
-                    }
-                } catch (VerifyError e) {
-                    Timber.e(e, e.getMessage());
-                    preference.setEnabled(false);
-                    preferences.setBoolean(preference.getKey(), false);
+        findPreference(getString(R.string.p_voiceRemindersEnabled)).setOnPreferenceChangeListener((preference, newValue) -> {
+            boolean enabled = (boolean) newValue;
+            try {
+                if (enabled && !voiceOutputAssistant.isTTSInitialized()) {
+                    Intent checkIntent = new Intent();
+                    checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+                    startActivityForResult(checkIntent, REQUEST_CODE_TTS_CHECK);
+                } else if (!enabled && voiceOutputAssistant.isTTSInitialized()) {
+                    voiceOutputAssistant.shutdown();
                 }
-                return true;
+            } catch (VerifyError e) {
+                Timber.e(e, e.getMessage());
+                preference.setEnabled(false);
+                preferences.setBoolean(preference.getKey(), false);
             }
+            return true;
         });
     }
 

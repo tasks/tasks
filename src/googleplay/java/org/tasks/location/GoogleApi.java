@@ -33,12 +33,7 @@ public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
     }
 
     public void connect(final GoogleApiClientConnectionHandler googleApiClientConnectionHandler) {
-        connect(googleApiClientConnectionHandler, new GoogleApiClient.OnConnectionFailedListener() {
-            @Override
-            public void onConnectionFailed(ConnectionResult connectionResult) {
-                Timber.e("onConnectionFailed(%s)", connectionResult);
-            }
-        });
+        connect(googleApiClientConnectionHandler, connectionResult -> Timber.e("onConnectionFailed(%s)", connectionResult));
     }
 
     private void connect(final GoogleApiClientConnectionHandler googleApiClientConnectionHandler, GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener) {

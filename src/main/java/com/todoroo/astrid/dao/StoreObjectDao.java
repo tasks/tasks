@@ -55,12 +55,7 @@ public class StoreObjectDao {
     }
 
     public List<GtasksList> getGtasksLists() {
-        return newArrayList(transform(getByType(GtasksList.TYPE), new Function<StoreObject, GtasksList>() {
-            @Override
-            public GtasksList apply(StoreObject input) {
-                return new GtasksList(input);
-            }
-        }));
+        return newArrayList(transform(getByType(GtasksList.TYPE), GtasksList::new));
     }
 
     public boolean persist(StoreObject storeObject) {

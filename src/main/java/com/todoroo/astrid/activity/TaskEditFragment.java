@@ -127,14 +127,11 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
         toolbar.setNavigationIcon(getResources().getDrawable(
                 backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (backButtonSavesTask) {
-                    discardButtonClick();
-                } else {
-                    save();
-                }
+        toolbar.setNavigationOnClickListener(v -> {
+            if (backButtonSavesTask) {
+                discardButtonClick();
+            } else {
+                save();
             }
         });
         toolbar.inflateMenu(R.menu.task_edit_fragment);
@@ -274,12 +271,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         if (hasChanges(taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager()))) {
             dialogBuilder.newMessageDialog(R.string.discard_confirmation)
                     .setPositiveButton(R.string.keep_editing, null)
-                    .setNegativeButton(R.string.discard, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            discard();
-                        }
-                    })
+                    .setNegativeButton(R.string.discard, (dialog, which) -> discard())
                     .show();
         } else {
             discard();
@@ -297,13 +289,10 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     protected void deleteButtonClick() {
         dialogBuilder.newMessageDialog(R.string.DLG_delete_this_task_question)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
-                        taskDeleter.delete(model);
-                        callback.taskEditFinished();
-                    }
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
+                    taskDeleter.delete(model);
+                    callback.taskEditFinished();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

@@ -173,14 +173,11 @@ public class GtasksSyncService {
                 startAtCriterion)).
                 orderBy(order);
 
-        metadataDao.query(query, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata entry) {
-                long taskId = entry.getValue(Metadata.TASK);
-                Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
-                if(metadata != null) {
-                    iterator.processTask(taskId, metadata);
-                }
+        metadataDao.query(query, entry -> {
+            long taskId = entry.getValue(Metadata.TASK);
+            Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
+            if(metadata != null) {
+                iterator.processTask(taskId, metadata);
             }
         });
     }
@@ -210,20 +207,17 @@ public class GtasksSyncService {
         final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getValue(GtasksMetadata.INDENT));
         final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK));
         final AtomicReference<String> sibling = new AtomicReference<>();
-        OrderedMetadataListUpdater.OrderedListIterator iterator = new OrderedMetadataListUpdater.OrderedListIterator() {
-            @Override
-            public void processTask(long taskId, Metadata metadata) {
-                Task t = taskDao.fetch(taskId, Task.TITLE, Task.DELETION_DATE);
-                if (t == null || t.isDeleted()) {
-                    return;
-                }
-                int currIndent = metadata.getValue(GtasksMetadata.INDENT);
-                long currParent = metadata.getValue(GtasksMetadata.PARENT_TASK);
+        OrderedMetadataListUpdater.OrderedListIterator iterator = (taskId, metadata) -> {
+            Task t = taskDao.fetch(taskId, Task.TITLE, Task.DELETION_DATE);
+            if (t == null || t.isDeleted()) {
+                return;
+            }
+            int currIndent = metadata.getValue(GtasksMetadata.INDENT);
+            long currParent = metadata.getValue(GtasksMetadata.PARENT_TASK);
 
-                if (currIndent == indentToMatch.get() && currParent == parentToMatch.get()) {
-                    if (sibling.get() == null) {
-                        sibling.set(metadata.getValue(GtasksMetadata.ID));
-                    }
+            if (currIndent == indentToMatch.get() && currParent == parentToMatch.get()) {
+                if (sibling.get() == null) {
+                    sibling.set(metadata.getValue(GtasksMetadata.ID));
                 }
             }
         };

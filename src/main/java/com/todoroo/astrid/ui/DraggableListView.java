@@ -317,25 +317,17 @@ public class DraggableListView extends ListView {
             try {
                 Thread.sleep(300L);
 
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        initiateDrag(ev);
-                    }
-                });
+                post(() -> initiateDrag(ev));
 
                 Thread.sleep(1000L);
 
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        stopDragging();
-                        dragThread = null;
-                        Vibrator v = (Vibrator) getContext().getSystemService(
-                                Context.VIBRATOR_SERVICE);
-                        v.vibrate(50);
-                        mClickListener.onLongClick(viewAtPosition());
-                    }
+                post(() -> {
+                    stopDragging();
+                    dragThread = null;
+                    Vibrator v = (Vibrator) getContext().getSystemService(
+                            Context.VIBRATOR_SERVICE);
+                    v.vibrate(50);
+                    mClickListener.onLongClick(viewAtPosition());
                 });
 
             } catch (InterruptedException e) {

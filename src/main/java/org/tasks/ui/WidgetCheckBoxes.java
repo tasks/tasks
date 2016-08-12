@@ -44,25 +44,22 @@ public class WidgetCheckBoxes {
     }
 
     private static List<Bitmap> convertToBitmap(final List<Drawable> drawables) {
-        return newArrayList(transform(drawables, new Function<Drawable, Bitmap>() {
-            @Override
-            public Bitmap apply(Drawable drawable) {
-                if (drawable instanceof BitmapDrawable) {
-                    BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-                    if (bitmapDrawable.getBitmap() != null) {
-                        return bitmapDrawable.getBitmap();
-                    }
+        return newArrayList(transform(drawables, drawable -> {
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+                if (bitmapDrawable.getBitmap() != null) {
+                    return bitmapDrawable.getBitmap();
                 }
-
-                Bitmap bitmap = drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0
-                        ? Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-                        : Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-
-                Canvas canvas = new Canvas(bitmap);
-                drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-                drawable.draw(canvas);
-                return bitmap;
             }
+
+            Bitmap bitmap = drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0
+                    ? Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+                    : Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+            return bitmap;
         }));
     }
 }

@@ -59,12 +59,7 @@ public class TasksXmlImporter {
     private String input;
 
     private void setProgressMessage(final String message) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.setMessage(message);
-            }
-        });
+        handler.post(() -> progressDialog.setMessage(message));
     }
 
     @Inject
@@ -83,14 +78,11 @@ public class TasksXmlImporter {
 
         handler = new Handler();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    performImport();
-                } catch (IOException | XmlPullParserException e) {
-                    Timber.e(e, e.getMessage());
-                }
+        new Thread(() -> {
+            try {
+                performImport();
+            } catch (IOException | XmlPullParserException e) {
+                Timber.e(e, e.getMessage());
             }
         }).start();
     }
@@ -126,13 +118,10 @@ public class TasksXmlImporter {
         } finally {
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             activity.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if(progressDialog.isShowing()) {
-                        DialogUtilities.dismissDialog(activity, progressDialog);
-                        showSummary();
-                    }
+            handler.post(() -> {
+                if(progressDialog.isShowing()) {
+                    DialogUtilities.dismissDialog(activity, progressDialog);
+                    showSummary();
                 }
             });
         }
@@ -148,12 +137,7 @@ public class TasksXmlImporter {
                         r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
                         r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
                         r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount)))
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
                 .show();
     }
 

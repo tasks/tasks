@@ -78,12 +78,9 @@ public class FilesControlSet extends TaskEditControlFragment {
         }
 
         final List<TaskAttachment> files = new ArrayList<>();
-        taskAttachmentDao.getAttachments(taskUuid, new Callback<TaskAttachment>() {
-            @Override
-            public void apply(TaskAttachment attachment) {
-                files.add(attachment);
-                addAttachment(attachment);
-            }
+        taskAttachmentDao.getAttachments(taskUuid, attachment -> {
+            files.add(attachment);
+            addAttachment(attachment);
         });
         validateFiles(files);
         return view;
@@ -151,32 +148,19 @@ public class FilesControlSet extends TaskEditControlFragment {
         TextView nameView = (TextView) fileRow.findViewById(R.id.file_text);
         String name = LEFT_TO_RIGHT_MARK + taskAttachment.getName();
         nameView.setText(name);
-        nameView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showFile(taskAttachment);
-            }
-        });
+        nameView.setOnClickListener(v -> showFile(taskAttachment));
         View clearFile = fileRow.findViewById(R.id.clear);
-        clearFile.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogBuilder.newMessageDialog(R.string.premium_remove_file_confirm)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                taskAttachmentDao.delete(taskAttachment.getId());
-                                if (taskAttachment.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                                    File f = new File(taskAttachment.getFilePath());
-                                    f.delete();
-                                }
-                                attachmentContainer.removeView(fileRow);
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
-            }
-        });
+        clearFile.setOnClickListener(v -> dialogBuilder.newMessageDialog(R.string.premium_remove_file_confirm)
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    taskAttachmentDao.delete(taskAttachment.getId());
+                    if (taskAttachment.containsNonNullValue(TaskAttachment.FILE_PATH)) {
+                        File f = new File(taskAttachment.getFilePath());
+                        f.delete();
+                    }
+                    attachmentContainer.removeView(fileRow);
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show());
     }
 
     private void validateFiles(List<TaskAttachment> files) {
@@ -226,12 +210,7 @@ public class FilesControlSet extends TaskEditControlFragment {
         final String filePath = m.getFilePath();
 
         if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
-            play(m.getFilePath(), new PlaybackExceptionHandler() {
-                @Override
-                public void playbackFailed() {
-                    showFromIntent(filePath, fileType);
-                }
-            });
+            play(m.getFilePath(), () -> showFromIntent(filePath, fileType));
         } else if (fileType.startsWith(TaskAttachment.FILE_TYPE_IMAGE)) {
             try {
                 Intent intent = new Intent(Intent.ACTION_VIEW);

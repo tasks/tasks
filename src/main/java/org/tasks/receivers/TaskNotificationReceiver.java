@@ -25,14 +25,9 @@ public class TaskNotificationReceiver extends InjectingBroadcastReceiver {
     public void onReceive(Context context, final Intent intent) {
         super.onReceive(context, intent);
 
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                notifier.triggerTaskNotification(
-                        intent.getLongExtra(ID_KEY, 0),
-                        intent.getIntExtra(EXTRAS_TYPE, (byte) 0));
-            }
-        });
+        executorService.execute(() -> notifier.triggerTaskNotification(
+                intent.getLongExtra(ID_KEY, 0),
+                intent.getIntExtra(EXTRAS_TYPE, (byte) 0)));
     }
 
     @Override

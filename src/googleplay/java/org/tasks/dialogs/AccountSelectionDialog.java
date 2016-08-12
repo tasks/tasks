@@ -39,19 +39,13 @@ public class AccountSelectionDialog extends InjectingDialogFragment {
 
         return dialogBuilder.newDialog()
                 .setTitle(R.string.choose_google_account)
-                .setItems(accounts, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        handler.accountSelected(accounts.get(which));
-                        dialog.dismiss();
-                    }
+                .setItems(accounts, (dialog, which) -> {
+                    handler.accountSelected(accounts.get(which));
+                    dialog.dismiss();
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (handler != null) {
-                            handler.onCancel();
-                        }
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    if (handler != null) {
+                        handler.onCancel();
                     }
                 })
                 .show();

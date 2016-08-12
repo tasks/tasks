@@ -49,20 +49,17 @@ public class MissedCallDialog extends InjectingDialogFragment {
 
         return dialogBuilder.newDialog()
                 .setTitle(title)
-                .setItems(actions, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                handler.callNow();
-                                break;
-                            case 1:
-                                handler.callLater();
-                                break;
-                            default:
-                                handler.ignore();
-                                break;
-                        }
+                .setItems(actions, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            handler.callNow();
+                            break;
+                        case 1:
+                            handler.callLater();
+                            break;
+                        default:
+                            handler.ignore();
+                            break;
                     }
                 })
                 .show();

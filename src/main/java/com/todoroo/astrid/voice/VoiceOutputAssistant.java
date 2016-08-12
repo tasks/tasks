@@ -50,13 +50,10 @@ public class VoiceOutputAssistant implements OnInitListener {
         if (mTts != null && isTTSInitialized) {
             final String id = UUID.randomUUID().toString();
             Timber.d("%s: %s (%s)", mTts, textToSpeak, id);
-            mTts.setOnUtteranceCompletedListener(new TextToSpeech.OnUtteranceCompletedListener() {
-                @Override
-                public void onUtteranceCompleted(String utteranceId) {
-                    Timber.d("%s: onUtteranceCompleted", utteranceId);
-                    if(utteranceId.equals(id)) {
-                        shutdown();
-                    }
+            mTts.setOnUtteranceCompletedListener(utteranceId -> {
+                Timber.d("%s: onUtteranceCompleted", utteranceId);
+                if(utteranceId.equals(id)) {
+                    shutdown();
                 }
             });
             mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, new HashMap<String, String>() {{

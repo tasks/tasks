@@ -62,25 +62,15 @@ public class GeofenceService {
     }
 
     public boolean synchronizeGeofences(final long taskId, Set<Geofence> geofences) {
-        List<Metadata> metadata = newArrayList(transform(geofences, new Function<Geofence, Metadata>() {
-            @Override
-            public Metadata apply(final Geofence geofence) {
-                return new Metadata() {{
-                    setKey(GeofenceFields.METADATA_KEY);
-                    setValue(GeofenceFields.PLACE, geofence.getName());
-                    setValue(GeofenceFields.LATITUDE, geofence.getLatitude());
-                    setValue(GeofenceFields.LONGITUDE, geofence.getLongitude());
-                    setValue(GeofenceFields.RADIUS, geofence.getRadius());
-                }};
-            }
-        }));
+        List<Metadata> metadata = newArrayList(transform(geofences, (Function<Geofence, Metadata>) geofence -> new Metadata() {{
+            setKey(GeofenceFields.METADATA_KEY);
+            setValue(GeofenceFields.PLACE, geofence.getName());
+            setValue(GeofenceFields.LATITUDE, geofence.getLatitude());
+            setValue(GeofenceFields.LONGITUDE, geofence.getLongitude());
+            setValue(GeofenceFields.RADIUS, geofence.getRadius());
+        }}));
 
-        boolean changed = synchronizeMetadata(taskId, metadata, new SynchronizeMetadataCallback() {
-            @Override
-            public void beforeDeleteMetadata(Metadata m) {
-                geofenceApi.cancel(new Geofence(m));
-            }
-        });
+        boolean changed = synchronizeMetadata(taskId, metadata, m -> geofenceApi.cancel(new Geofence(m)));
 
         if(changed) {
             setupGeofences(taskId);
@@ -89,12 +79,7 @@ public class GeofenceService {
     }
 
     private List<Geofence> toGeofences(List<Metadata> geofences) {
-        return newArrayList(transform(geofences, new Function<Metadata, Geofence>() {
-            @Override
-            public Geofence apply(Metadata metadata) {
-                return new Geofence(metadata);
-            }
-        }));
+        return newArrayList(transform(geofences, Geofence::new));
     }
 
     private List<Geofence> getActiveGeofences() {
@@ -128,27 +113,24 @@ public class GeofenceService {
             newMetadataValues.add(values);
         }
 
-        metadataDao.byTaskAndKey(taskId, GeofenceFields.METADATA_KEY, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata item) {
-                long id = item.getId();
+        metadataDao.byTaskAndKey(taskId, GeofenceFields.METADATA_KEY, item -> {
+            long id = item.getId();
 
-                // clear item id when matching with incoming values
-                item.clearValue(Metadata.ID);
-                item.clearValue(Metadata.CREATION_DATE);
-                ContentValues itemMergedValues = item.getMergedValues();
+            // clear item id when matching with incoming values
+            item.clearValue(Metadata.ID);
+            item.clearValue(Metadata.CREATION_DATE);
+            ContentValues itemMergedValues = item.getMergedValues();
 
-                if(newMetadataValues.contains(itemMergedValues)) {
-                    newMetadataValues.remove(itemMergedValues);
-                } else {
-                    // not matched. cut it
-                    item.setId(id);
-                    if (callback != null) {
-                        callback.beforeDeleteMetadata(item);
-                    }
-                    metadataDao.delete(id);
-                    dirty[0] = true;
+            if(newMetadataValues.contains(itemMergedValues)) {
+                newMetadataValues.remove(itemMergedValues);
+            } else {
+                // not matched. cut it
+                item.setId(id);
+                if (callback != null) {
+                    callback.beforeDeleteMetadata(item);
                 }
+                metadataDao.delete(id);
+                dirty[0] = true;
             }
         });
 

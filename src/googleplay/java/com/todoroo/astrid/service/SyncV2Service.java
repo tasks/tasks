@@ -40,15 +40,12 @@ public class SyncV2Service {
 
     public void clearCompleted(final GtasksList list, final SyncResultCallback callback) {
         if (syncAdapterHelper.isEnabled()) {
-            syncExecutor.execute(callback, new Runnable() {
-                @Override
-                public void run() {
-                    callback.started();
-                    try {
-                        gtasksSyncService.clearCompleted(list.getRemoteId());
-                    } finally {
-                        callback.finished();
-                    }
+            syncExecutor.execute(callback, () -> {
+                callback.started();
+                try {
+                    gtasksSyncService.clearCompleted(list.getRemoteId());
+                } finally {
+                    callback.finished();
                 }
             });
         }

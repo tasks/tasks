@@ -89,22 +89,14 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         };
 
         return dialogBuilder.newDialog(theme)
-                .setAdapter(adapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (preferences.hasPurchase(R.string.p_purchased_themes) || which < getNumFree()) {
-                            callback.themePicked(palette, which);
-                        } else {
-                            callback.initiateThemePurchase();
-                        }
+                .setAdapter(adapter, (dialog, which) -> {
+                    if (preferences.hasPurchase(R.string.p_purchased_themes) || which < getNumFree()) {
+                        callback.themePicked(palette, which);
+                    } else {
+                        callback.initiateThemePurchase();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        callback.dismissed();
-                    }
-                })
+                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> callback.dismissed())
                 .show();
     }
 

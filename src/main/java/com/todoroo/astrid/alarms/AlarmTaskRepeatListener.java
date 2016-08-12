@@ -43,12 +43,7 @@ public class AlarmTaskRepeatListener extends InjectingBroadcastReceiver {
         }
 
         final Set<Long> alarms = new LinkedHashSet<>();
-        alarmService.getAlarms(taskId, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata metadata) {
-                alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate));
-            }
-        });
+        alarmService.getAlarms(taskId, metadata -> alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate)));
         if (!alarms.isEmpty()) {
             alarmService.synchronizeAlarms(taskId, alarms);
         }

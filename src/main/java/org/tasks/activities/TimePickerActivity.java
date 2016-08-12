@@ -56,12 +56,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
                 dialog.setAccentColor(themeAccent.getAccentColor());
                 dialog.show(fragmentManager, FRAG_TAG_TIME_PICKER);
             }
-            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    finish();
-                }
-            });
+            dialog.setOnCancelListener(dialogInterface -> finish());
             dialog.setOnTimeSetListener(this);
         }
     }

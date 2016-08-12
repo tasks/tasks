@@ -125,18 +125,8 @@ public class TimerControlSet extends TaskEditControlFragment {
     private AlertDialog buildDialog() {
         return dialogBuilder.newDialog()
                 .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        refreshDisplayView();
-                    }
-                })
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        refreshDisplayView();
-                    }
-                })
+                .setPositiveButton(android.R.string.ok, (dialog12, which) -> refreshDisplayView())
+                .setOnCancelListener(dialog1 -> refreshDisplayView())
                 .create();
     }
 
@@ -239,12 +229,9 @@ public class TimerControlSet extends TaskEditControlFragment {
             elapsed += DateUtilities.now() - timerStarted;
             chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
             if (elapsed > DateUtilities.ONE_DAY) {
-                chronometer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-                    @Override
-                    public void onChronometerTick(Chronometer cArg) {
-                        long t = SystemClock.elapsedRealtime() - cArg.getBase();
-                        cArg.setText(DateFormat.format("d'd' h:mm", t)); //$NON-NLS-1$
-                    }
+                chronometer.setOnChronometerTickListener(cArg -> {
+                    long t = SystemClock.elapsedRealtime() - cArg.getBase();
+                    cArg.setText(DateFormat.format("d'd' h:mm", t)); //$NON-NLS-1$
                 });
 
             }

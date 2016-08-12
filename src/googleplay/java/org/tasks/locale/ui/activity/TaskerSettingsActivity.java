@@ -66,27 +66,16 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
 
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_24dp));
         toolbar.setOnMenuItemClickListener(this);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (equalBundles(getResultBundle(), previousBundle)) {
-                    cancel();
-                } else {
-                    dialogBuilder.newMessageDialog(R.string.discard_changes)
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    cancel();
-                                }
-                            })
-                            .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+        toolbar.setNavigationOnClickListener(view -> {
+            if (equalBundles(getResultBundle(), previousBundle)) {
+                cancel();
+            } else {
+                dialogBuilder.newMessageDialog(R.string.discard_changes)
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> cancel())
+                        .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
 
-                                }
-                            })
-                            .show();
-                }
+                        })
+                        .show();
             }
         });
         toolbar.inflateMenu(R.menu.tasker_menu);

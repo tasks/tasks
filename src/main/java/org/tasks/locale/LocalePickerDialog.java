@@ -42,19 +42,11 @@ public class LocalePickerDialog extends InjectingNativeDialogFragment {
         for (String override : getResources().getStringArray(R.array.localization)) {
             locales.add(locale.withLanguage(override));
         }
-        final List<String> display = transform(locales, new Function<Locale, String>() {
-            @Override
-            public String apply(Locale input) {
-                return input.getDisplayName();
-            }
-        });
+        final List<String> display = transform(locales, Locale::getDisplayName);
         return dialogBuilder.newDialog()
-                .setItems(display, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                        callback.onLocaleSelected(locales.get(i));
-                    }
+                .setItems(display, (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                    callback.onLocaleSelected(locales.get(i));
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

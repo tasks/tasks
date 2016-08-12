@@ -175,12 +175,9 @@ public class TaskListFragment extends InjectingListFragment implements
     public void setSyncOngoing(final boolean ongoing) {
         Activity activity = getActivity();
         if (activity != null) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    swipeRefreshLayout.setRefreshing(ongoing);
-                    emptyView.setRefreshing(ongoing);
-                }
+            activity.runOnUiThread(() -> {
+                swipeRefreshLayout.setRefreshing(ongoing);
+                emptyView.setRefreshing(ongoing);
             });
         }
     }
@@ -252,12 +249,7 @@ public class TaskListFragment extends InjectingListFragment implements
 
         toolbar.setTitle(filter.listingTitle);
         toolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callbacks.onNavigationIconClicked();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> callbacks.onNavigationIconClicked());
         inflateMenu(toolbar);
         setupMenu(toolbar.getMenu());
         toolbar.setOnMenuItemClickListener(this);
@@ -390,39 +382,36 @@ public class TaskListFragment extends InjectingListFragment implements
         registerForContextMenu(listView);
 
         // set listener for quick-changing task priority
-        listView.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent event) {
-                if (event.getAction() != KeyEvent.ACTION_UP || view == null) {
-                    return false;
-                }
-
-                boolean filterOn = listView.isTextFilterEnabled();
-                View selected = listView.getSelectedView();
-
-                // hot-key to set task priority - 1-4 or ALT + Q-R
-                if (!filterOn && event.getUnicodeChar() >= '1'
-                        && event.getUnicodeChar() <= '4' && selected != null) {
-                    int importance = event.getNumber() - '1';
-                    Task task = ((ViewHolder) selected.getTag()).task;
-                    task.setImportance(importance);
-                    taskService.save(task);
-                    taskAdapter.setFieldContentsAndVisibility(selected);
-                }
-                // filter
-                else if (!filterOn && event.getUnicodeChar() != 0) {
-                    listView.setTextFilterEnabled(true);
-                    listView.setFilterText(
-                            Character.toString((char) event.getUnicodeChar()));
-                }
-                // turn off filter if nothing is selected
-                else if (filterOn
-                        && TextUtils.isEmpty(listView.getTextFilter())) {
-                    listView.setTextFilterEnabled(false);
-                }
-
+        listView.setOnKeyListener((view, keyCode, event) -> {
+            if (event.getAction() != KeyEvent.ACTION_UP || view == null) {
                 return false;
             }
+
+            boolean filterOn = listView.isTextFilterEnabled();
+            View selected = listView.getSelectedView();
+
+            // hot-key to set task priority - 1-4 or ALT + Q-R
+            if (!filterOn && event.getUnicodeChar() >= '1'
+                    && event.getUnicodeChar() <= '4' && selected != null) {
+                int importance = event.getNumber() - '1';
+                Task task = ((ViewHolder) selected.getTag()).task;
+                task.setImportance(importance);
+                taskService.save(task);
+                taskAdapter.setFieldContentsAndVisibility(selected);
+            }
+            // filter
+            else if (!filterOn && event.getUnicodeChar() != 0) {
+                listView.setTextFilterEnabled(true);
+                listView.setFilterText(
+                        Character.toString((char) event.getUnicodeChar()));
+            }
+            // turn off filter if nothing is selected
+            else if (filterOn
+                    && TextUtils.isEmpty(listView.getTextFilter())) {
+                listView.setTextFilterEnabled(false);
+            }
+
+            return false;
         });
         filter.setFilterQueryOverride(null);
 
@@ -440,19 +429,15 @@ public class TaskListFragment extends InjectingListFragment implements
             return;
         }
 
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                if (taskAdapter != null) {
-                    TodorooCursor<Task> cursor = (TodorooCursor<Task>) taskAdapter.getItem(position);
-                    Task task = new Task(cursor);
-                    if (task.isDeleted()) {
-                        return;
-                    }
-
-                    onTaskListItemClicked(id);
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            if (taskAdapter != null) {
+                TodorooCursor<Task> cursor = (TodorooCursor<Task>) taskAdapter.getItem(position);
+                Task task = new Task(cursor);
+                if (task.isDeleted()) {
+                    return;
                 }
+
+                onTaskListItemClicked(id);
             }
         });
     }
@@ -541,10 +526,7 @@ public class TaskListFragment extends InjectingListFragment implements
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
         return new TaskAdapter(context, preferences, taskAttachmentDao, taskService, this, cursor, sqlQueryTemplate,
-                new OnCompletedTaskListener() {
-                    @Override
-                    public void onCompletedTask(Task item, boolean newState) {
-                    }
+                (item, newState) -> {
                 }, dialogBuilder, checkBoxes, tagService, themeCache);
     }
 
@@ -657,13 +639,10 @@ public class TaskListFragment extends InjectingListFragment implements
     /** Show a dialog box and delete the task specified */
     private void deleteTask(final Task task) {
         dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, task.getTitle())
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onTaskDelete(task);
-                        taskDeleter.delete(task);
-                        loadTaskListContent();
-                    }
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    onTaskDelete(task);
+                    taskDeleter.delete(task);
+                    loadTaskListContent();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
@@ -695,15 +674,12 @@ public class TaskListFragment extends InjectingListFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                Callback<String> quickAddTask = new Callback<String>() {
-                    @Override
-                    public void apply(String title) {
-                        Task task = addTask(title);
-                        taskCreator.addToCalendar(task);
-                        onTaskListItemClicked(task.getId());
-                        loadTaskListContent();
-                        onTaskCreated(task.getId(), task.getUUID());
-                    }
+                Callback<String> quickAddTask = title -> {
+                    Task task = addTask(title);
+                    taskCreator.addToCalendar(task);
+                    onTaskListItemClicked(task.getId());
+                    loadTaskListContent();
+                    onTaskCreated(task.getId(), task.getUUID());
                 };
                 voiceInputAssistant.handleActivityResult(data, quickAddTask);
             }

@@ -31,17 +31,14 @@ public class DonationDialog extends InjectingNativeDialogFragment {
         final List<String> donationValues = getDonationValues();
         return dialogBuilder.newDialog()
                 .setTitle(R.string.select_amount)
-                .setItems(donationValues, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String value = donationValues.get(which);
-                        Pattern pattern = Pattern.compile("\\$(\\d+) USD");
-                        Matcher matcher = pattern.matcher(value);
-                        //noinspection ResultOfMethodCallIgnored
-                        matcher.matches();
-                        String sku = String.format(java.util.Locale.ENGLISH, "%03d", Integer.parseInt(matcher.group(1)));
-                        purchaseHelper.purchase(dialogBuilder, getActivity(), sku, null, BasicPreferences.REQUEST_PURCHASE, (BasicPreferences) getActivity());
-                    }
+                .setItems(donationValues, (dialog, which) -> {
+                    String value = donationValues.get(which);
+                    Pattern pattern = Pattern.compile("\\$(\\d+) USD");
+                    Matcher matcher = pattern.matcher(value);
+                    //noinspection ResultOfMethodCallIgnored
+                    matcher.matches();
+                    String sku = String.format(java.util.Locale.ENGLISH, "%03d", Integer.parseInt(matcher.group(1)));
+                    purchaseHelper.purchase(dialogBuilder, getActivity(), sku, null, BasicPreferences.REQUEST_PURCHASE, (BasicPreferences) getActivity());
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

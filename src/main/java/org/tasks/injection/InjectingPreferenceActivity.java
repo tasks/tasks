@@ -60,12 +60,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
             toolbar.setTitle(getTitle());
         }
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         MenuColorizer.colorToolbar(this, toolbar);
     }
 

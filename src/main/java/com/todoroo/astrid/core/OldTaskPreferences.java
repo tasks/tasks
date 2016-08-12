@@ -5,9 +5,7 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.preference.Preference;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -45,222 +43,181 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_oldtasks);
 
-        findPreference(getString(R.string.EPr_manage_purge_deleted)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                purgeDeletedTasks();
-                return false;
-            }
+        findPreference(getString(R.string.EPr_manage_purge_deleted)).setOnPreferenceClickListener(preference -> {
+            purgeDeletedTasks();
+            return false;
         });
 
-        findPreference(getString(R.string.EPr_manage_delete_completed)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                deleteCompletedTasks();
-                return false;
-            }
+        findPreference(getString(R.string.EPr_manage_delete_completed)).setOnPreferenceClickListener(preference -> {
+            deleteCompletedTasks();
+            return false;
         });
 
-        findPreference(getString(R.string.EPr_manage_delete_completed_gcal)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                deleteCompletedEvents();
-                return false;
-            }
+        findPreference(getString(R.string.EPr_manage_delete_completed_gcal)).setOnPreferenceClickListener(preference -> {
+            deleteCompletedEvents();
+            return false;
         });
 
-        findPreference(getString(R.string.EPr_manage_delete_all_gcal)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                deleteAllCalendarEvents();
-                return false;
-            }
+        findPreference(getString(R.string.EPr_manage_delete_all_gcal)).setOnPreferenceClickListener(preference -> {
+            deleteAllCalendarEvents();
+            return false;
         });
 
-        findPreference(getString(R.string.EPr_reset_preferences)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                resetPreferences();
-                return false;
-            }
+        findPreference(getString(R.string.EPr_reset_preferences)).setOnPreferenceClickListener(preference -> {
+            resetPreferences();
+            return false;
         });
 
-        findPreference(getString(R.string.EPr_delete_task_data)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                deleteTaskData();
-                return false;
-            }
+        findPreference(getString(R.string.EPr_delete_task_data)).setOnPreferenceClickListener(preference -> {
+            deleteTaskData();
+            return false;
         });
     }
 
     private void deleteCompletedTasks() {
         dialogBuilder.newMessageDialog(R.string.EPr_manage_delete_completed_message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
-                            @Override
-                            protected Integer doInBackground(Void... params) {
-                                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
-                                        Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
-                                try {
-                                    int length = cursor.getCount();
-                                    for (int i = 0; i < length; i++) {
-                                        cursor.moveToNext();
-                                        Task task = new Task(cursor);
-                                        gcalHelper.deleteTaskEvent(task);
-                                    }
-                                } finally {
-                                    cursor.close();
-                                }
-                                Task template = new Task();
-                                template.setDeletionDate(DateUtilities.now());
-                                return taskService.update(Task.COMPLETION_DATE.gt(0), template);
+                    protected Integer doInBackground(Void... params) {
+                        TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                                Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
+                        try {
+                            int length = cursor.getCount();
+                            for (int i = 0; i < length; i++) {
+                                cursor.moveToNext();
+                                Task task = new Task(cursor);
+                                gcalHelper.deleteTaskEvent(task);
                             }
-
-                            @Override
-                            protected int getResultResource() {
-                                return R.string.EPr_manage_delete_completed_status;
-                            }
-                        }.execute();
+                        } finally {
+                            cursor.close();
+                        }
+                        Task template = new Task();
+                        template.setDeletionDate(DateUtilities.now());
+                        return taskService.update(Task.COMPLETION_DATE.gt(0), template);
                     }
-                })
+
+                    @Override
+                    protected int getResultResource() {
+                        return R.string.EPr_manage_delete_completed_status;
+                    }
+                }.execute())
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
 
     private void purgeDeletedTasks() {
         dialogBuilder.newMessageDialog(R.string.EPr_manage_purge_deleted_message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
-                            @Override
-                            protected Integer doInBackground(Void... params) {
-                                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE, Task.CALENDAR_URI).where(
-                                        Criterion.and(Task.DELETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
-                                try {
-                                    int length = cursor.getCount();
-                                    for (int i = 0; i < length; i++) {
-                                        cursor.moveToNext();
-                                        Task task = new Task(cursor);
-                                        gcalHelper.deleteTaskEvent(task);
-                                    }
-                                } finally {
-                                    cursor.close();
-                                }
-                                int result = taskDeleter.purgeDeletedTasks();
-                                metadataDao.removeDanglingMetadata();
-                                return result;
+                    protected Integer doInBackground(Void... params) {
+                        TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE, Task.CALENDAR_URI).where(
+                                Criterion.and(Task.DELETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
+                        try {
+                            int length = cursor.getCount();
+                            for (int i = 0; i < length; i++) {
+                                cursor.moveToNext();
+                                Task task = new Task(cursor);
+                                gcalHelper.deleteTaskEvent(task);
                             }
-
-                            @Override
-                            protected int getResultResource() {
-                                return R.string.EPr_manage_purge_deleted_status;
-                            }
-                        }.execute();
+                        } finally {
+                            cursor.close();
+                        }
+                        int result = taskDeleter.purgeDeletedTasks();
+                        metadataDao.removeDanglingMetadata();
+                        return result;
                     }
-                })
+
+                    @Override
+                    protected int getResultResource() {
+                        return R.string.EPr_manage_purge_deleted_status;
+                    }
+                }.execute())
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
 
     private void deleteCompletedEvents() {
         dialogBuilder.newMessageDialog(R.string.EPr_manage_delete_completed_gcal_message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
+
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
-
-                            @Override
-                            protected Integer doInBackground(Void... params) {
-                                int deletedEventCount = 0;
-                                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
-                                        Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
-                                try {
-                                    int length = cursor.getCount();
-                                    for (int i = 0; i < length; i++) {
-                                        cursor.moveToNext();
-                                        Task task = new Task(cursor);
-                                        if (gcalHelper.deleteTaskEvent(task)) {
-                                            deletedEventCount++;
-                                        }
-                                    }
-                                } finally {
-                                    cursor.close();
+                    protected Integer doInBackground(Void... params) {
+                        int deletedEventCount = 0;
+                        TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                                Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
+                        try {
+                            int length = cursor.getCount();
+                            for (int i = 0; i < length; i++) {
+                                cursor.moveToNext();
+                                Task task = new Task(cursor);
+                                if (gcalHelper.deleteTaskEvent(task)) {
+                                    deletedEventCount++;
                                 }
-                                // mass update the CALENDAR_URI here,
-                                // since the GCalHelper doesnt save it due to performance-reasons
-                                Task template = new Task();
-                                template.setCalendarUri(""); //$NON-NLS-1$
-                                taskService.update(
-                                        Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()),
-                                        template);
-                                return deletedEventCount;
                             }
-
-                            @Override
-                            protected int getResultResource() {
-                                return R.string.EPr_manage_delete_completed_gcal_status;
-                            }
-                        }.execute();
+                        } finally {
+                            cursor.close();
+                        }
+                        // mass update the CALENDAR_URI here,
+                        // since the GCalHelper doesnt save it due to performance-reasons
+                        Task template = new Task();
+                        template.setCalendarUri(""); //$NON-NLS-1$
+                        taskService.update(
+                                Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()),
+                                template);
+                        return deletedEventCount;
                     }
-                })
+
+                    @Override
+                    protected int getResultResource() {
+                        return R.string.EPr_manage_delete_completed_gcal_status;
+                    }
+                }.execute())
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
 
     private void deleteAllCalendarEvents() {
         dialogBuilder.newMessageDialog(R.string.EPr_manage_delete_all_gcal_message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
-                            @Override
-                            protected Integer doInBackground(Void... params) {
-                                int deletedEventCount = 0;
-                                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
-                                        Task.CALENDAR_URI.isNotNull()));
-                                try {
-                                    int length = cursor.getCount();
-                                    for (int i = 0; i < length; i++) {
-                                        cursor.moveToNext();
-                                        Task task = new Task(cursor);
-                                        if (gcalHelper.deleteTaskEvent(task)) {
-                                            deletedEventCount++;
-                                        }
-                                    }
-                                } finally {
-                                    cursor.close();
+                    protected Integer doInBackground(Void... params) {
+                        int deletedEventCount = 0;
+                        TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                                Task.CALENDAR_URI.isNotNull()));
+                        try {
+                            int length = cursor.getCount();
+                            for (int i = 0; i < length; i++) {
+                                cursor.moveToNext();
+                                Task task = new Task(cursor);
+                                if (gcalHelper.deleteTaskEvent(task)) {
+                                    deletedEventCount++;
                                 }
-                                // mass update the CALENDAR_URI here,
-                                // since the GCalHelper doesnt save it due to performance-reasons
-                                Task template = new Task();
-                                template.setCalendarUri(""); //$NON-NLS-1$
-                                taskService.update(Task.CALENDAR_URI.isNotNull(), template);
-                                return deletedEventCount;
                             }
-
-                            @Override
-                            protected int getResultResource() {
-                                return R.string.EPr_manage_delete_all_gcal_status;
-                            }
-                        }.execute();
+                        } finally {
+                            cursor.close();
+                        }
+                        // mass update the CALENDAR_URI here,
+                        // since the GCalHelper doesnt save it due to performance-reasons
+                        Task template = new Task();
+                        template.setCalendarUri(""); //$NON-NLS-1$
+                        taskService.update(Task.CALENDAR_URI.isNotNull(), template);
+                        return deletedEventCount;
                     }
-                })
+
+                    @Override
+                    protected int getResultResource() {
+                        return R.string.EPr_manage_delete_all_gcal_status;
+                    }
+                }.execute())
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
 
     private void resetPreferences() {
         dialogBuilder.newMessageDialog(R.string.EPr_reset_preferences_warning)
-                .setPositiveButton(R.string.EPr_reset_preferences, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        preferences.reset();
-                        System.exit(0);
-                    }
+                .setPositiveButton(R.string.EPr_reset_preferences, (dialog, which) -> {
+                    preferences.reset();
+                    System.exit(0);
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
@@ -268,12 +225,9 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
     private void deleteTaskData() {
         dialogBuilder.newMessageDialog(R.string.EPr_delete_task_data_warning)
-                .setPositiveButton(R.string.EPr_delete_task_data, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deleteDatabase(database.getName());
-                        System.exit(0);
-                    }
+                .setPositiveButton(R.string.EPr_delete_task_data, (dialog, which) -> {
+                    deleteDatabase(database.getName());
+                    System.exit(0);
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

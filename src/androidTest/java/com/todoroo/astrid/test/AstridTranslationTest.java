@@ -53,12 +53,10 @@ public class AstridTranslationTest extends TranslationTests {
         final Resources r = getContext().getResources();
         final StringBuilder failures = new StringBuilder();
 
-        forEachLocale(new Runnable() {
-            public void run() {
-                contains(r, R.string.CFC_tag_text, failures, "?");
-                contains(r, R.string.CFC_title_contains_text, failures, "?");
-                contains(r, R.string.CFC_dueBefore_text, failures, "?");
-            }
+        forEachLocale(() -> {
+            contains(r, R.string.CFC_tag_text, failures, "?");
+            contains(r, R.string.CFC_title_contains_text, failures, "?");
+            contains(r, R.string.CFC_dueBefore_text, failures, "?");
         });
 
         assertEquals(failures.toString(), 0,

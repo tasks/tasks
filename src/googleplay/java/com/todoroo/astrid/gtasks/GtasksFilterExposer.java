@@ -46,12 +46,7 @@ public class GtasksFilterExposer {
         for (GtasksList list : gtasksListService.getLists()) {
             listFilters.add(filterFromList(list));
         }
-        Collections.sort(listFilters, new Comparator<Filter>() {
-            @Override
-            public int compare(Filter filter, Filter t1) {
-                return filter.listingTitle.compareTo(t1.listingTitle);
-            }
-        });
+        Collections.sort(listFilters, (filter, t1) -> filter.listingTitle.compareTo(t1.listingTitle));
         return listFilters;
     }
 

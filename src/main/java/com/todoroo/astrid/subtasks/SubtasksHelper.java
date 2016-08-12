@@ -156,17 +156,14 @@ public class SubtasksHelper {
     }
 
     private static void remapLocalTreeToRemote(Node root, HashMap<Long, String> idMap) {
-        remapTree(root, idMap, new TreeRemapHelper<Long>() {
-            @Override
-            public Long getKeyFromOldUuid(String uuid) {
-                Long localId = -1L;
-                try {
-                    localId = Long.parseLong(uuid);
-                } catch (NumberFormatException e) {
-                    Timber.e(e, e.getMessage());
-                }
-                return localId;
+        remapTree(root, idMap, uuid -> {
+            Long localId = -1L;
+            try {
+                localId = Long.parseLong(uuid);
+            } catch (NumberFormatException e) {
+                Timber.e(e, e.getMessage());
             }
+            return localId;
         });
     }
 

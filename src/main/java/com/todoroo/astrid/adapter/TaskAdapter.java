@@ -369,32 +369,26 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final ViewHolder viewHolder = (ViewHolder)container.getTag();
 
         // check box listener
-        OnTouchListener otl = new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                lastTouchYRawY = new Pair<>(event.getY(), event.getRawY());
-                return false;
-            }
+        OnTouchListener otl = (v, event) -> {
+            lastTouchYRawY = new Pair<>(event.getY(), event.getRawY());
+            return false;
         };
         viewHolder.completeBox.setOnTouchListener(otl);
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
         if (viewHolder.taskActionContainer != null) {
-            viewHolder.taskActionContainer.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TaskAction action = (TaskAction) viewHolder.taskActionIcon.getTag();
-                    if (action instanceof NotesAction) {
-                        showEditNotesDialog(viewHolder.task);
-                    } else if (action instanceof FilesAction) {
-                        showFilesDialog(viewHolder.task);
-                    } else if (action != null) {
-                        try {
-                            action.intent.send();
-                        } catch (CanceledException e) {
-                            // Oh well
-                            Timber.e(e, e.getMessage());
-                        }
+            viewHolder.taskActionContainer.setOnClickListener(v -> {
+                TaskAction action = (TaskAction) viewHolder.taskActionIcon.getTag();
+                if (action instanceof NotesAction) {
+                    showEditNotesDialog(viewHolder.task);
+                } else if (action instanceof FilesAction) {
+                    showFilesDialog(viewHolder.task);
+                } else if (action != null) {
+                    try {
+                        action.intent.send();
+                    } catch (CanceledException e) {
+                        // Oh well
+                        Timber.e(e, e.getMessage());
                     }
                 }
             });
@@ -443,25 +437,22 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
-    protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            int[] location = new int[2];
-            v.getLocationOnScreen(location);
-            ViewHolder viewHolder = getTagFromCheckBox(v);
+    protected final View.OnClickListener completeBoxListener = v -> {
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        ViewHolder viewHolder = getTagFromCheckBox(v);
 
-            if(Math.abs(location[1] + lastTouchYRawY.getLeft() - lastTouchYRawY.getRight()) > 10) {
-                viewHolder.completeBox.setChecked(!viewHolder.completeBox.isChecked());
-                return;
-            }
-
-            Task task = viewHolder.task;
-
-            completeTask(task, viewHolder.completeBox.isChecked());
-
-            // set check box to actual action item state
-            setTaskAppearance(viewHolder, task);
+        if(Math.abs(location[1] + lastTouchYRawY.getLeft() - lastTouchYRawY.getRight()) > 10) {
+            viewHolder.completeBox.setChecked(!viewHolder.completeBox.isChecked());
+            return;
         }
+
+        Task task = viewHolder.task;
+
+        completeTask(task, viewHolder.completeBox.isChecked());
+
+        // set check box to actual action item state
+        setTaskAppearance(viewHolder, task);
     };
 
     private ViewHolder getTagFromCheckBox(View v) {
@@ -512,12 +503,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         checkBoxView.invalidate();
     }
 
-    private final Function<String, TagData> uuidToTag = new Function<String, TagData>() {
-        @Override
-        public TagData apply(String input) {
-            return tagMap.get(input);
-        }
-    };
+    private final Function<String, TagData> uuidToTag = tagMap::get;
 
     private final Ordering<TagData> orderByName = new Ordering<TagData>() {
         @Override
@@ -542,18 +528,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     private Function<TagData, SpannableString> tagToString(final float maxLength) {
-        return new Function<TagData, SpannableString>() {
-            @Override
-            public SpannableString apply(TagData tagData) {
-                String tagName = tagData.getName();
-                tagName = tagName.substring(0, Math.min(tagName.length(), (int) maxLength));
-                SpannableString string = new SpannableString(SPACE + tagName + SPACE);
-                int themeIndex = tagData.getColor();
-                ThemeColor color = themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
-                string.setSpan(new BackgroundColorSpan(color.getPrimaryColor()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                string.setSpan(new ForegroundColorSpan(color.getActionBarTint()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                return string;
-            }
+        return tagData -> {
+            String tagName = tagData.getName();
+            tagName = tagName.substring(0, Math.min(tagName.length(), (int) maxLength));
+            SpannableString string = new SpannableString(SPACE + tagName + SPACE);
+            int themeIndex = tagData.getColor();
+            ThemeColor color = themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
+            string.setSpan(new BackgroundColorSpan(color.getPrimaryColor()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            string.setSpan(new ForegroundColorSpan(color.getActionBarTint()), 0, string.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            return string;
         };
     }
 
@@ -648,12 +631,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             this.onCompletedTaskListener = newListener;
         } else {
             final OnCompletedTaskListener old = this.onCompletedTaskListener;
-            this.onCompletedTaskListener = new OnCompletedTaskListener() {
-                @Override
-                public void onCompletedTask(Task item, boolean newState) {
-                    old.onCompletedTask(item, newState);
-                    newListener.onCompletedTask(item, newState);
-                }
+            this.onCompletedTaskListener = (item, newState) -> {
+                old.onCompletedTask(item, newState);
+                newListener.onCompletedTask(item, newState);
             };
         }
     }

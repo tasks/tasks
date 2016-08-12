@@ -225,14 +225,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (syncAdapterHelper.shouldShowBackgroundSyncWarning() && !preferences.getBoolean(R.string.p_sync_warning_shown, false)) {
             if (taskListFragment != null) {
                 taskListFragment.makeSnackbar(R.string.master_sync_warning)
-                        .setAction(R.string.TLA_menu_settings, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity(new Intent(Settings.ACTION_SYNC_SETTINGS) {{
-                                    setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                }});
-                            }
-                        })
+                        .setAction(R.string.TLA_menu_settings, view -> startActivity(new Intent(Settings.ACTION_SYNC_SETTINGS) {{
+                            setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        }}))
                         .setCallback(new Snackbar.Callback() {
                             @Override
                             public void onShown(Snackbar snackbar) {

@@ -75,54 +75,39 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
         CheckBoxPreference showSettings = setupCheckbox(R.string.p_widget_show_settings);
         showSettings.setDependency(showHeader.getKey());
 
-        getPref(R.string.p_widget_filter).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(WidgetConfigActivity.this, FilterSelectionActivity.class) {{
-                    putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-                }}, REQUEST_FILTER);
-                return false;
-            }
+        getPref(R.string.p_widget_filter).setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(WidgetConfigActivity.this, FilterSelectionActivity.class) {{
+                putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            }}, REQUEST_FILTER);
+            return false;
         });
 
-        getPref(R.string.p_widget_theme).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(WidgetConfigActivity.this, ColorPickerActivity.class) {{
-                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND);
-                }}, REQUEST_THEME_SELECTION);
-                return false;
-            }
+        getPref(R.string.p_widget_theme).setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(WidgetConfigActivity.this, ColorPickerActivity.class) {{
+                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND);
+            }}, REQUEST_THEME_SELECTION);
+            return false;
         });
 
         Preference colorPreference = getPref(R.string.p_widget_color);
         colorPreference.setDependency(showHeader.getKey());
-        colorPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(WidgetConfigActivity.this, ColorPickerActivity.class) {{
-                    putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
-                }}, REQUEST_COLOR_SELECTION);
-                return false;
-            }
+        colorPreference.setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(WidgetConfigActivity.this, ColorPickerActivity.class) {{
+                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+            }}, REQUEST_COLOR_SELECTION);
+            return false;
         });
 
-        getPref(R.string.p_widget_opacity).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                newSeekBarDialog(R.layout.dialog_opacity_seekbar, widgetPreferences.getOpacity(), REQUEST_OPACITY)
-                        .show(getFragmentManager(), FRAG_TAG_OPACITY_SEEKBAR);
-                return false;
-            }
+        getPref(R.string.p_widget_opacity).setOnPreferenceClickListener(preference -> {
+            newSeekBarDialog(R.layout.dialog_opacity_seekbar, widgetPreferences.getOpacity(), REQUEST_OPACITY)
+                    .show(getFragmentManager(), FRAG_TAG_OPACITY_SEEKBAR);
+            return false;
         });
 
-        getPref(R.string.p_widget_font_size).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                newSeekBarDialog(R.layout.dialog_font_size_seekbar, widgetPreferences.getFontSize(), REQUEST_FONT_SIZE)
-                        .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
-                return false;
-            }
+        getPref(R.string.p_widget_font_size).setOnPreferenceClickListener(preference -> {
+            newSeekBarDialog(R.layout.dialog_font_size_seekbar, widgetPreferences.getFontSize(), REQUEST_FONT_SIZE)
+                    .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
+            return false;
         });
 
         updateFilter();

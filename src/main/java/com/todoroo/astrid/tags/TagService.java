@@ -72,13 +72,10 @@ public final class TagService {
                         MetadataCriteria.withKey(TaskToTagMetadata.KEY))).
                 orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
         final List<TagData> array = new ArrayList<>();
-        metadataDao.query(query, new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata metadata) {
-                TagData tag = tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID));
-                if (tag != null) {
-                    array.add(tag);
-                }
+        metadataDao.query(query, metadata -> {
+            TagData tag = tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID));
+            if (tag != null) {
+                array.add(tag);
             }
         });
         return array.toArray(new TagData[array.size()]);
@@ -94,12 +91,7 @@ public final class TagService {
                         MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                         Metadata.DELETION_DATE.eq(0),
                         TaskToTagMetadata.TASK_UUID.eq(uuid))));
-        return newArrayList(Iterables.transform(tags, new Function<Metadata, TagData>() {
-            @Override
-            public TagData apply(Metadata metadata) {
-                return tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID));
-            }
-        }));
+        return newArrayList(Iterables.transform(tags, metadata -> tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID))));
     }
 
     public ArrayList<TagData> getTagDataForTask(long taskId) {
@@ -108,12 +100,7 @@ public final class TagService {
                         MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                         Metadata.DELETION_DATE.eq(0),
                         MetadataCriteria.byTask(taskId))));
-        return newArrayList(transform(tags, new Function<Metadata, TagData>() {
-            @Override
-            public TagData apply(Metadata metadata) {
-                return tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID));
-            }
-        }));
+        return newArrayList(transform(tags, metadata -> tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID))));
     }
 
     public ArrayList<String> getTagNames(long taskId) {
@@ -124,11 +111,8 @@ public final class TagService {
                     MetadataCriteria.byTask(taskId)))
                 .orderBy(Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME)));
         final ArrayList<String> tagNames = new ArrayList<>();
-        metadataDao.query(query,  new Callback<Metadata>() {
-            @Override
-            public void apply(Metadata entry) {
-                tagNames.add(entry.getValue(TaskToTagMetadata.TAG_NAME));
-            }
+        metadataDao.query(query, entry -> {
+            tagNames.add(entry.getValue(TaskToTagMetadata.TAG_NAME));
         });
         return tagNames;
     }
@@ -138,12 +122,9 @@ public final class TagService {
      */
     public List<TagData> getTagList() {
         final List<TagData> tagList = new ArrayList<>();
-        tagDataDao.tagDataOrderedByName(new Callback<TagData>() {
-            @Override
-            public void apply(TagData tagData) {
-                if (!TextUtils.isEmpty(tagData.getName())) {
-                    tagList.add(tagData);
-                }
+        tagDataDao.tagDataOrderedByName(tagData -> {
+            if (!TextUtils.isEmpty(tagData.getName())) {
+                tagList.add(tagData);
             }
         });
         return tagList;

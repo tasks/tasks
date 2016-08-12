@@ -83,12 +83,7 @@ public class FilterCriteriaProvider {
 
     private CustomFilterCriterion getTagFilter() {
         // TODO: adding to hash set because duplicate tag name bug hasn't been fixed yet
-        List<String> tags = newArrayList(newLinkedHashSet(transform(tagService.getTagList(), new Function<TagData, String>() {
-            @Override
-            public String apply(TagData tagData) {
-                return tagData.getName();
-            }
-        })));
+        List<String> tags = newArrayList(newLinkedHashSet(transform(tagService.getTagList(), TagData::getName)));
         String[] tagNames = tags.toArray(new String[tags.size()]);
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);

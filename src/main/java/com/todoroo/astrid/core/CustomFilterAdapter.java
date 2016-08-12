@@ -60,12 +60,9 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                 return;
             }
 
-            showOptionsFor(viewHolder.item, new Runnable() {
-                @Override
-                public void run() {
-                    activity.updateList();
-                    notifyDataSetInvalidated();
-                }
+            showOptionsFor(viewHolder.item, () -> {
+                activity.updateList();
+                notifyDataSetInvalidated();
             });
         }
     };
@@ -110,13 +107,10 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         if(item.criterion instanceof MultipleSelectCriterion) {
             MultipleSelectCriterion multiSelectCriterion = (MultipleSelectCriterion) item.criterion;
             final String[] titles = multiSelectCriterion.entryTitles;
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface click, int which) {
-                    item.selectedIndex = which;
-                    if(onComplete != null) {
-                        onComplete.run();
-                    }
+            DialogInterface.OnClickListener listener = (click, which) -> {
+                item.selectedIndex = which;
+                if(onComplete != null) {
+                    onComplete.run();
                 }
             };
             dialog.setItems(titles, listener);
@@ -131,13 +125,10 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                     FrameLayout.LayoutParams.FILL_PARENT,
                     FrameLayout.LayoutParams.WRAP_CONTENT));
             dialog.setView(frameLayout).
-                setPositiveButton(android.R.string.ok, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        item.selectedText = editText.getText().toString();
-                        if(onComplete != null) {
-                            onComplete.run();
-                        }
+                setPositiveButton(android.R.string.ok, (dialogInterface, which) -> {
+                    item.selectedText = editText.getText().toString();
+                    if(onComplete != null) {
+                        onComplete.run();
                     }
                 });
         }

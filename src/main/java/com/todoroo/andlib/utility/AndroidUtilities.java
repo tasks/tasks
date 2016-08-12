@@ -47,13 +47,10 @@ public class AndroidUtilities {
     public static void suppressVirtualKeyboard(final TextView editor) {
         final int inputType = editor.getInputType();
         editor.setInputType(InputType.TYPE_NULL);
-        editor.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                editor.setInputType(inputType);
-                editor.setOnTouchListener(null);
-                return false;
-            }
+        editor.setOnTouchListener((v, event) -> {
+            editor.setInputType(inputType);
+            editor.setOnTouchListener(null);
+            return false;
         });
     }
 
@@ -178,26 +175,23 @@ public class AndroidUtilities {
         }
 
         ContentValues result = new ContentValues();
-        fromSerialized(string, result, new SerializedPut<ContentValues>() {
-            @Override
-            public void put(ContentValues object, String key, char type, String value) throws NumberFormatException {
-                switch(type) {
-                case 'i':
-                    object.put(key, Integer.parseInt(value));
-                    break;
-                case 'd':
-                    object.put(key, Double.parseDouble(value));
-                    break;
-                case 'l':
-                    object.put(key, Long.parseLong(value));
-                    break;
-                case 's':
-                    object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
-                    break;
-                case 'b':
-                    object.put(key, Boolean.parseBoolean(value));
-                    break;
-                }
+        fromSerialized(string, result, (object, key, type, value) -> {
+            switch(type) {
+            case 'i':
+                object.put(key, Integer.parseInt(value));
+                break;
+            case 'd':
+                object.put(key, Double.parseDouble(value));
+                break;
+            case 'l':
+                object.put(key, Long.parseLong(value));
+                break;
+            case 's':
+                object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                break;
+            case 'b':
+                object.put(key, Boolean.parseBoolean(value));
+                break;
             }
         });
         return result;
@@ -212,26 +206,23 @@ public class AndroidUtilities {
         }
 
         Bundle result = new Bundle();
-        fromSerialized(string, result, new SerializedPut<Bundle>() {
-            @Override
-            public void put(Bundle object, String key, char type, String value) throws NumberFormatException {
-                switch(type) {
-                case 'i':
-                    object.putInt(key, Integer.parseInt(value));
-                    break;
-                case 'd':
-                    object.putDouble(key, Double.parseDouble(value));
-                    break;
-                case 'l':
-                    object.putLong(key, Long.parseLong(value));
-                    break;
-                case 's':
-                    object.putString(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
-                    break;
-                case 'b':
-                    object.putBoolean(key, Boolean.parseBoolean(value));
-                    break;
-                }
+        fromSerialized(string, result, (object, key, type, value) -> {
+            switch(type) {
+            case 'i':
+                object.putInt(key, Integer.parseInt(value));
+                break;
+            case 'd':
+                object.putDouble(key, Double.parseDouble(value));
+                break;
+            case 'l':
+                object.putLong(key, Long.parseLong(value));
+                break;
+            case 's':
+                object.putString(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                break;
+            case 'b':
+                object.putBoolean(key, Boolean.parseBoolean(value));
+                break;
             }
         });
         return result;
@@ -328,12 +319,7 @@ public class AndroidUtilities {
      * Sort files by date so the newest file is on top
      */
     public static void sortFilesByDateDesc(File[] files) {
-        Arrays.sort(files, new Comparator<File>() {
-            @Override
-            public int compare(File o1, File o2) {
-                return Long.valueOf(o2.lastModified()).compareTo(o1.lastModified());
-            }
-        });
+        Arrays.sort(files, (o1, o2) -> Long.valueOf(o2.lastModified()).compareTo(o1.lastModified()));
     }
 
     /**

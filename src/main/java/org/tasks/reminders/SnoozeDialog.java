@@ -46,20 +46,17 @@ public class SnoozeDialog extends InjectingDialogFragment {
 
         return dialogBuilder.newDialog()
                 .setTitle(R.string.rmd_NoA_snooze)
-                .setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                            case 1:
-                            case 2:
-                                snoozeCallback.snoozeForTime(snoozeOptions.get(which).getDateTime());
-                                break;
-                            case 3:
-                                dialog.dismiss();
-                                snoozeCallback.pickDateTime();
-                                break;
-                        }
+                .setItems(items, (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                        case 1:
+                        case 2:
+                            snoozeCallback.snoozeForTime(snoozeOptions.get(which).getDateTime());
+                            break;
+                        case 3:
+                            dialog.dismiss();
+                            snoozeCallback.pickDateTime();
+                            break;
                     }
                 })
                 .show();

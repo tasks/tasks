@@ -46,24 +46,18 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
         setExtraOnChange(R.string.p_show_today_filter, EXTRA_FILTERS_CHANGED);
         setExtraOnChange(R.string.p_show_recently_modified_filter, EXTRA_FILTERS_CHANGED);
         setExtraOnChange(R.string.p_show_not_in_list_filter, EXTRA_FILTERS_CHANGED);
-        findPreference(getString(R.string.customize_edit_screen)).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(AppearancePreferences.this, BeastModePreferences.class), REQUEST_CUSTOMIZE);
-                return true;
-            }
+        findPreference(getString(R.string.customize_edit_screen)).setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(AppearancePreferences.this, BeastModePreferences.class), REQUEST_CUSTOMIZE);
+            return true;
         });
         Preference defaultList = findPreference(getString(R.string.p_default_list));
         Filter filter = defaultFilterProvider.getDefaultFilter();
         defaultList.setSummary(filter.listingTitle);
-        defaultList.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                startActivityForResult(new Intent(AppearancePreferences.this, FilterSelectionActivity.class) {{
-                    putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-                }}, REQUEST_DEFAULT_LIST);
-                return true;
-            }
+        defaultList.setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(AppearancePreferences.this, FilterSelectionActivity.class) {{
+                putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            }}, REQUEST_DEFAULT_LIST);
+            return true;
         });
     }
 
@@ -100,13 +94,10 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
     }
 
     private void setExtraOnChange(final int resId, final String extra) {
-        findPreference(getString(resId)).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, newValue.toString());
-                result.putBoolean(extra, true);
-                return true;
-            }
+        findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
+            tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, newValue.toString());
+            result.putBoolean(extra, true);
+            return true;
         });
     }
 

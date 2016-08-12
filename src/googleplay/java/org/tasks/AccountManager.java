@@ -50,12 +50,7 @@ public class AccountManager {
     }
 
     public List<String> getAccounts() {
-        return transform(getAccountList(), new Function<Account, String>() {
-            @Override
-            public String apply(Account account) {
-                return account.name;
-            }
-        });
+        return transform(getAccountList(), account -> account.name);
     }
 
     public boolean hasAccount(final String name) {
@@ -71,19 +66,16 @@ public class AccountManager {
         if (account == null) {
             handler.authenticationFailed(activity.getString(R.string.gtasks_error_accountNotFound, accountName));
         } else {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null);
-                            handler.authenticationSuccessful(accountName);
-                        } catch(UserRecoverableAuthException e) {
-                            Timber.e(e, e.getMessage());
-                            activity.startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
-                        } catch(GoogleAuthException | IOException e) {
-                            Timber.e(e, e.getMessage());
-                            handler.authenticationFailed(context.getString(R.string.gtasks_GLA_errorIOAuth));
-                        }
+                new Thread(() -> {
+                    try {
+                        GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null);
+                        handler.authenticationSuccessful(accountName);
+                    } catch(UserRecoverableAuthException e) {
+                        Timber.e(e, e.getMessage());
+                        activity.startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
+                    } catch(GoogleAuthException | IOException e) {
+                        Timber.e(e, e.getMessage());
+                        handler.authenticationFailed(context.getString(R.string.gtasks_GLA_errorIOAuth));
                     }
                 }).start();
         }
@@ -100,11 +92,6 @@ public class AccountManager {
             return null;
         }
 
-        return tryFind(getAccountList(), new Predicate<Account>() {
-            @Override
-            public boolean apply(Account account) {
-                return name.equalsIgnoreCase(account.name);
-            }
-        }).orNull();
+        return tryFind(getAccountList(), account -> name.equalsIgnoreCase(account.name)).orNull();
     }
 }
