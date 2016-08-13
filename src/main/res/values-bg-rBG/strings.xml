@@ -124,7 +124,6 @@
 	<string name="EPr_manage_delete_all_gcal">Изтрий всички събития в календара за задачи</string>
 	<string name="EPr_manage_delete_all_gcal_message">Наистина ли искате да изтриете всичките си събития за задачи?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Изтрити %d събития от календара!</string>
-	<string name="TWi_loading">Зареждане...</string>
 	<string name="task_defaults">Настройки по подразбиране</string>
 	<string name="EPr_default_urgency_title">Краен срок по подразбиране</string>
 	<string name="EPr_default_importance_title">Приоритет по подразбиране</string>
@@ -196,7 +195,6 @@
 	<string name="audio_recording_title">Записване на Аудио</string>
 	<string name="audio_stop_recording">Спри Записването</string>
 	<string name="file_type_unhandled">Съжаляваме! Не е намерено приложение, което да работи с този тип файл.</string>
-	<string name="back">Назад</string>
 	<string name="file_err_copy">Грешка при копиране на файла за прикачване</string>
 	<string name="ring_once">Звънене веднъж</string>
 	<string name="ring_five_times">Звънене пет пъти</string>
@@ -275,7 +273,6 @@
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Утре</string>
 	<string name="yest">Вчера</string>
-	<string name="DLG_error">Ами сега, изглежда е станала грешка! Ето какво се случи:\n\n%s</string>
 	<string name="DLG_wait">Моля, изчакайте...</string>
 	<string name="sync_status_success">Последна синхронизация:\n%s</string>
 	<string name="sync_SPr_interval_title">Синхронзиране във фонов режим</string>
@@ -373,7 +370,6 @@
 	<string name="themes_purchase_description">Отключете всички теми и да добавите малко цвят към Tasks</string>
 	<string name="tasker_description">Context-Aware списък уведомления. Изисква Tasker или Locale</string>
 	<string name="donate_summary">Даренията са добре дошли</string>
-	<string name="dashclock_description">Показване на броя активни задачи</string>
 	<string name="dashclock_purchase_description">Показване на броя активни задачи. Изисква DashClock Widget</string>
 	<string name="buy">Купи</string>
 	<string name="buy_dashclock_extension">Купи разширение</string>

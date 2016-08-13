@@ -104,7 +104,6 @@
 	<string name="EPr_manage_delete_all_gcal">Zbriši vse dogodke na koledarju z opravki</string>
 	<string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
-	<string name="TWi_loading">Nalagam...</string>
 	<string name="EPr_default_urgency_title">Privzeta dospelost</string>
 	<string name="EPr_default_importance_title">Privzeta dospelost</string>
 	<string name="EPr_default_hideUntil_title">Privzeto skrij do</string>
@@ -234,7 +233,6 @@
 	<string name="yesterday">Včeraj</string>
 	<string name="tmrw">Jutr</string>
 	<string name="yest">Včer</string>
-	<string name="DLG_error">Ups, zdi se, da je prišlo do napake! Tole se je zgodilo:\n\n%s</string>
 	<string name="DLG_wait">Prosimo, počakajte...</string>
 	<string name="sync_status_success">Najnovejše usklajevanje:\n%s</string>
 	<string name="sync_SPr_interval_title">Usklajevanje v ozadju</string>

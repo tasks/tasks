@@ -7,22 +7,15 @@ package com.todoroo.astrid.activity;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
-import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.google.common.base.Strings;
 
 import org.tasks.R;

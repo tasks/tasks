@@ -14,7 +14,7 @@ public interface OrderedListFragmentHelperInterface {
 
     void setUpUiComponents();
     void beforeSetUpTaskList(Filter filter);
-    void onCreateTask(long id, String uuid);
+    void onCreateTask(String uuid);
     void onDeleteTask(Task task);
     TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor, AtomicReference<String> queryTemplate);
     Property<?>[] taskProperties();

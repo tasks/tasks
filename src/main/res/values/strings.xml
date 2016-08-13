@@ -333,11 +333,6 @@ File %1$s contained %2$s.\n\n
     <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
     <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
 
-    <!-- ====================================================== TasksWidget == -->
-
-    <!-- Widget text when loading tasks -->
-    <string name="TWi_loading">Loading...</string>
-
     <!-- ============================================================= Misc == -->
 
     <string name="task_defaults">Task defaults</string>
@@ -536,7 +531,6 @@ File %1$s contained %2$s.\n\n
 
     <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
 
-    <string name="back">Back</string>
     <string name="file_err_copy">Error copying file for attachment</string>
 
     <!--  slide 45a: Task Edit: Reminder mode: ring once -->
@@ -725,9 +719,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- ================================================== Generic Dialogs == -->
 
-    <!-- error dialog (%s => error message)-->
-    <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-
     <!-- Progress dialog shown when doing something slow -->
     <string name="DLG_wait">Please wait...</string>
 
@@ -838,7 +829,6 @@ File %1$s contained %2$s.\n\n
   <string name="themes_purchase_description">Unlock all themes and add some color to Tasks</string>
   <string name="tasker_description">Context-aware list notifications. Requires Tasker or Locale</string>
   <string name="donate_summary">Donations are greatly appreciated</string>
-  <string name="dashclock_description">Display a count of active tasks</string>
   <string name="dashclock_purchase_description">Display a count of active tasks. Requires DashClock Widget</string>
   <string name="buy">Buy</string>
   <string name="buy_dashclock_extension">Buy extension</string>

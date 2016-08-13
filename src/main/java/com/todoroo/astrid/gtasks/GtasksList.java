@@ -56,10 +56,6 @@ public class GtasksList {
         storeObject.setValue(StoreObject.VALUE1, name);
     }
 
-    public int getOrder() {
-        return Integer.parseInt(storeObject.getValue(StoreObject.VALUE2));
-    }
-
     public void setOrder(int order) {
         storeObject.setValue(StoreObject.VALUE2, Integer.toString(order));
     }

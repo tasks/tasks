@@ -581,8 +581,4 @@ public class Task extends RemoteModel {
     private boolean isReminderFlagSet(int flag) {
         return (getReminderFlags() & flag) > 0;
     }
-
-    public boolean hasRandomReminder() {
-        return getReminderPeriod() > 0;
-    }
 }

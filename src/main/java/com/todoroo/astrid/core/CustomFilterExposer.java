@@ -8,7 +8,6 @@ package com.todoroo.astrid.core;
 import android.content.ContentValues;
 import android.text.TextUtils;
 
-import com.google.common.base.Function;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;

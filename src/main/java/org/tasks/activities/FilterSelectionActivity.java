@@ -1,6 +1,5 @@
 package org.tasks.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -39,7 +38,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
         final boolean returnFilter = getIntent().getBooleanExtra(EXTRA_RETURN_FILTER, false);
 
         final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this,
-                null, false, theme, themeCache);
+                false, theme, themeCache);
         filterAdapter.populateList();
 
         dialogBuilder.newDialog()

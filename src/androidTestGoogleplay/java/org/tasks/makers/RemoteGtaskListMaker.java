@@ -4,7 +4,6 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.TaskList;
 import com.natpryce.makeiteasy.Instantiator;
 import com.natpryce.makeiteasy.Property;
-import com.natpryce.makeiteasy.PropertyLookup;
 import com.natpryce.makeiteasy.PropertyValue;
 
 import static com.natpryce.makeiteasy.Property.newProperty;

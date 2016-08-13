@@ -9,13 +9,11 @@ public class WidgetTheme {
             R.color.md_background_dark
     };
     private final String name;
-    private final int index;
     private final int backgroundColor;
     private final int textColor;
 
-    public WidgetTheme(String name, int index, int backgroundColor, int textColor) {
+    public WidgetTheme(String name, int backgroundColor, int textColor) {
         this.name = name;
-        this.index = index;
         this.backgroundColor = backgroundColor;
         this.textColor = textColor;
     }
@@ -30,9 +28,5 @@ public class WidgetTheme {
 
     public String getName() {
         return name;
-    }
-
-    public int getIndex() {
-        return index;
     }
 }

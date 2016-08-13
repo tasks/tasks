@@ -41,26 +41,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         String toString(int value);
     }
 
-    /*
-     * Use a custom NumberPicker formatting callback to use two-digit minutes
-     * strings like "01". Keeping a static formatter etc. is the most efficient
-     * way to do this; it avoids creating temporary objects on every call to
-     * format().
-     */
-    public static final NumberPicker.Formatter TWO_DIGIT_FORMATTER = new NumberPicker.Formatter() {
-        final StringBuilder       mBuilder = new StringBuilder();
-        final java.util.Formatter mFmt     = new java.util.Formatter(mBuilder);
-        final Object[]            mArgs    = new Object[1];
-
-        @Override
-        public String toString(int value) {
-            mArgs[0] = value;
-            mBuilder.delete(0, mBuilder.length());
-            mFmt.format("%02d", mArgs);
-            return mFmt.toString();
-        }
-    };
-
     private int incrementBy = 1;
     public void setIncrementBy(int incrementBy) {
         this.incrementBy = incrementBy;
@@ -247,15 +227,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mText.setText(formatNumber(mCurrent));
     }
 
-    public void validateAndUpdate() {
-        String str = String.valueOf(mText.getText());
-        if (TextUtils.isEmpty(str)) {
-            updateView();
-        } else {
-            validateCurrentView(str, false);
-        }
-    }
-
     private void validateCurrentView(CharSequence str, boolean notifyChange) {
         if (!TextUtils.isEmpty(str)) {
             int val = getSelectedPos(str.toString());
@@ -390,13 +361,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             Timber.e(e, e.getMessage());
             return mStart;
         }
-    }
-
-    /**
-     * Override the number picker's text
-     */
-    public void setText(String text) {
-        mText.setText(text);
     }
 
     /**

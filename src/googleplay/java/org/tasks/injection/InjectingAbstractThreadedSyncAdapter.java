@@ -10,11 +10,6 @@ public abstract class InjectingAbstractThreadedSyncAdapter extends AbstractThrea
         inject(context);
     }
 
-    public InjectingAbstractThreadedSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
-        super(context, autoInitialize, allowParallelSyncs);
-        inject(context);
-    }
-
     private void inject(Context context) {
         inject(((InjectingApplication) context.getApplicationContext())
                 .getComponent()

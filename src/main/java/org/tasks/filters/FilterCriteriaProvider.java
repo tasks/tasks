@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.google.common.base.Function;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;

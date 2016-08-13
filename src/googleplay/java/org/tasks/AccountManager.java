@@ -9,8 +9,6 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.api.client.googleapis.extensions.android.accounts.GoogleAccountManager;
 import com.google.api.services.tasks.TasksScopes;
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 
 import org.tasks.injection.ForApplication;
@@ -84,7 +82,7 @@ public class AccountManager {
     private List<Account> getAccountList() {
         return permissionChecker.canAccessAccounts()
                 ? asList(googleAccountManager.getAccounts())
-                : Collections.<Account>emptyList();
+                : Collections.emptyList();
     }
 
     public Account getAccount(final String name) {

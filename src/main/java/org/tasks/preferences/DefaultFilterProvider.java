@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.google.common.base.Strings;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -12,7 +11,6 @@ import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.gtasks.GtasksFilterExposer;
-import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.R;

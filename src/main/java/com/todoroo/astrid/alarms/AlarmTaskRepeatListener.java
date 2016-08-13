@@ -8,10 +8,8 @@ package com.todoroo.astrid.alarms;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.data.Metadata;
 
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;

@@ -121,7 +121,6 @@
 	<string name="EPr_manage_delete_all_gcal">Удалить все календарные события для задач</string>
 	<string name="EPr_manage_delete_all_gcal_message">Вы уверены, что хотите удалить все ваши события для задач?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Удалено %d календарных событий!</string>
-	<string name="TWi_loading">Загрузка...</string>
 	<string name="task_defaults">Параметры по умолчанию</string>
 	<string name="EPr_default_urgency_title">Актуальность по умолчанию</string>
 	<string name="EPr_default_importance_title">Приоритет по умолчанию</string>
@@ -193,7 +192,6 @@
 	<string name="audio_recording_title">Запись голоса.</string>
 	<string name="audio_stop_recording">Остановить запись</string>
 	<string name="file_type_unhandled">Извините! Не найдена программа для просмотра файлов этого типа.</string>
-	<string name="back">Назад</string>
 	<string name="file_err_copy">Ошибка копирования прикрепляемого файла.</string>
 	<string name="ring_once">1 раз</string>
 	<string name="ring_five_times">5 раз</string>
@@ -272,7 +270,6 @@
 	<string name="yesterday">Вчера</string>
 	<string name="tmrw">Завт</string>
 	<string name="yest">Вчера</string>
-	<string name="DLG_error">Ой, похоже произошла ошибка! Подробности ниже:\n\n%s</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>
 	<string name="sync_status_success">Последняя синхронизация\n%s</string>
 	<string name="sync_SPr_interval_title">Фоновая синхронизация</string>
@@ -370,7 +367,6 @@
 	<string name="themes_purchase_description">Разблокировать все темы и добавить цвета в оформление Tasks</string>
 	<string name="tasker_description">Уведомления списка контекстного подбора. Требуется Tasker или Locale</string>
 	<string name="donate_summary">Благодарю за поддержку</string>
-	<string name="dashclock_description">Показать счетчик активных задач</string>
 	<string name="dashclock_purchase_description">Вывести счетчик активных задач. Нужен DashClock-виджет</string>
 	<string name="buy">Купить</string>
 	<string name="buy_dashclock_extension">Купить расширение</string>

@@ -20,8 +20,6 @@ import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 /**

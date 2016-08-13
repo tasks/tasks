@@ -11,7 +11,6 @@ import com.todoroo.astrid.api.GtasksFilter;
 import org.tasks.gtasks.SyncAdapterHelper;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;

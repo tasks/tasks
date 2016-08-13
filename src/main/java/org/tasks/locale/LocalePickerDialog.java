@@ -2,10 +2,7 @@ package org.tasks.locale;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import com.google.common.base.Function;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;

@@ -35,7 +35,6 @@
 	<string name="MCA_return_call">Hívás most</string>
 	<string name="MCA_add_task">Hívás később</string>
 	<string name="missed_calls">Nem fogadott hívások</string>
-	<string name="TWi_loading">Betöltés...</string>
 	<string-array name="EPr_default_urgency">
 		<item>Nincs határidő</item>
 		<item>Ma</item>
@@ -104,7 +103,6 @@
 	<string name="today">Ma</string>
 	<string name="tomorrow">Holnap</string>
 	<string name="yesterday">Tegnap</string>
-	<string name="DLG_error">Upsz, úgy látszik valami hiba történt! Ez történt:\n\n%s</string>
 	<string name="DLG_wait">Kérlek, várj...</string>
 	<string name="source_code">Forráskód</string>
 	<string name="report_an_issue">Probléma bejelentése</string>

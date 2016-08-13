@@ -7,7 +7,6 @@ package com.todoroo.astrid.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -223,7 +222,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
                 tla.repopulateNavigationDrawer();
             }
             if (isNewTask) {
-                tla.getTaskListFragment().onTaskCreated(model.getId(), model.getUuid());
+                tla.getTaskListFragment().onTaskCreated(model.getUuid());
             }
             callback.taskEditFinished();
         } else {

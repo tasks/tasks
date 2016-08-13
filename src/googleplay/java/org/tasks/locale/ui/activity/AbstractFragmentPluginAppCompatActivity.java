@@ -2,9 +2,7 @@ package org.tasks.locale.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
-import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 
 import timber.log.Timber;

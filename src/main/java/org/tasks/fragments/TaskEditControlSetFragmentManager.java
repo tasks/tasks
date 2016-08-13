@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
-import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -29,9 +28,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 public class TaskEditControlSetFragmentManager {
 

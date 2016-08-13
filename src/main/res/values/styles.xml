@@ -9,10 +9,6 @@
         <item name="android:paddingRight">0dp</item>
     </style>
 
-    <style name="ActionBar.TitleText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">#fff</item>
-    </style>
-
     <style name="TranslucentDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

@@ -29,7 +29,6 @@ import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -102,10 +101,6 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
 
     public GoogleTaskSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
-    }
-
-    public GoogleTaskSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
-        super(context, autoInitialize, allowParallelSyncs);
     }
 
     /**

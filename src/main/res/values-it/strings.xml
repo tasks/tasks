@@ -121,7 +121,6 @@
 	<string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in programmi</string>
 	<string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programmi?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Eliminato il %d degli eventi del calendario!</string>
-	<string name="TWi_loading">Caricamento...</string>
 	<string name="task_defaults">Imp. predefinite attività</string>
 	<string name="EPr_default_urgency_title">Urgenza Predefinita</string>
 	<string name="EPr_default_importance_title">Priorità predefinita</string>
@@ -194,7 +193,6 @@
 	<string name="audio_recording_title">Registrazione Audio</string>
 	<string name="audio_stop_recording">Fine Registrazione</string>
 	<string name="file_type_unhandled">Spiacente! Non è stata trovata nessuna applicazione per gestire questo tipo di file</string>
-	<string name="back">Indietro</string>
 	<string name="file_err_copy">Errore di copia dei file da allegare</string>
 	<string name="ring_once">Suona una volta</string>
 	<string name="ring_five_times">Suona cinque volte</string>
@@ -272,7 +270,6 @@
 	<string name="yesterday">Ieri</string>
 	<string name="tmrw">Domani</string>
 	<string name="yest">Ieri</string>
-	<string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
 	<string name="DLG_wait">Attendi...</string>
 	<string name="sync_status_success">Ultima Sincronizzazione:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
@@ -366,7 +363,6 @@
 	<string name="themes_purchase_description">Sblocca tutti i temi e aggiungi colori alle attività</string>
 	<string name="tasker_description">Lista notifiche in base al contesto. Richiede Tasker o Locale</string>
 	<string name="donate_summary">Sono gradite offerte</string>
-	<string name="dashclock_description">Mostra conteggio attività attive</string>
 	<string name="dashclock_purchase_description">Mostra conteggio attività attive. Richiede Widget DashClock</string>
 	<string name="buy">Acquista</string>
 	<string name="buy_dashclock_extension">Acquista estensione</string>

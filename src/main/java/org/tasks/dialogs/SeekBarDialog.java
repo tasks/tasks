@@ -2,7 +2,6 @@ package org.tasks.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;

@@ -2,7 +2,6 @@ package com.todoroo.astrid.gtasks;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.TaskList;
-import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.test.DatabaseTestCase;

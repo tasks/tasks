@@ -100,10 +100,6 @@ public class Filter extends FilterListItem {
         return sqlQuery;
     }
 
-    public void setSqlQuery(String sqlQuery) {
-        this.sqlQuery = sqlQuery;
-    }
-
     public void setFilterQueryOverride(String filterOverride) {
         this.filterOverride = filterOverride;
     }

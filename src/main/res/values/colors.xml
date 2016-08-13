@@ -90,10 +90,6 @@
     <color name="led_purple">#800080</color>
     <color name="led_white">#ffffff</color>
 
-    <color name="black_primary">#000000</color>
-    <color name="black_primary_dark">#000000</color>
-    <color name="black_accent">#ffffff</color>
-
     <color name="overdue">@color/red_500</color>
     <color name="task_list_done">#ff777777</color>
     <color name="task_edit_deadline_gray">#888888</color>

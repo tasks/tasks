@@ -7,7 +7,6 @@ package com.todoroo.astrid.gtasks;
 
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.sql.Criterion;

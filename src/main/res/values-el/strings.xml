@@ -101,7 +101,6 @@
 	<string name="EPr_manage_delete_all_gcal">Διαγραφή όλων των γεγονότων ημερολογίου για εργασίες</string>
 	<string name="EPr_manage_delete_all_gcal_message">Θέλετε στα αλήθεια την διαγραφή όλων των γεγονότων για τις εργασίες σας;</string>
 	<string name="EPr_manage_delete_all_gcal_status">Διαγράφτηκαν %d γεγονότα ημερολογίου!</string>
-	<string name="TWi_loading">Φόρτωση...</string>
 	<string name="EPr_default_urgency_title">Προκαθοσρισμένη προθεσμία</string>
 	<string name="EPr_default_importance_title">Προκαθορισμένη προτεραιότητα</string>
 	<string name="EPr_default_hideUntil_title">Προκαθορισμένη απόκρυψη μέχρι</string>
@@ -225,7 +224,6 @@
 	<string name="yesterday">Χθές</string>
 	<string name="tmrw">Αύριο</string>
 	<string name="yest">Χθές</string>
-	<string name="DLG_error">Ωπ, προέκυψε σφάλμα!! Νά τι έγινε :\n\n%s</string>
 	<string name="DLG_wait">Παρακαλώ περιμένετε...</string>
 	<string name="sync_status_success">Τελευταίος συγχρονισμός:\n%s</string>
 	<string name="sync_SPr_interval_title">Συγχρονισμός παρασκηνίου</string>

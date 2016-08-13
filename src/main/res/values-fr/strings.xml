@@ -119,7 +119,6 @@
 	<string name="EPr_manage_delete_all_gcal">Supprimer toutes les entrées de calendrier des tâches</string>
 	<string name="EPr_manage_delete_all_gcal_message">Voulez-vous vraiment supprimer tous les événements du calendrier pour Tasks?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d événements du calendrier ont été supprimés!</string>
-	<string name="TWi_loading">Chargement…</string>
 	<string name="task_defaults">Valeurs par défaut</string>
 	<string name="EPr_default_urgency_title">Échéance par défaut</string>
 	<string name="EPr_default_importance_title">Priorité par défaut</string>
@@ -189,7 +188,6 @@
 	<string name="audio_recording_title">Enregistrement Audio</string>
 	<string name="audio_stop_recording">Arrêter l\'enregistrement</string>
 	<string name="file_type_unhandled">Désolé ! Aucune application n\'a été trouvé pour gérer ce type de fichier.</string>
-	<string name="back">Retour</string>
 	<string name="file_err_copy">Erreur lors de la copie du fichier à joindre</string>
 	<string name="ring_once">Sonner une fois</string>
 	<string name="ring_five_times">Sonner cinq fois</string>
@@ -268,7 +266,6 @@
 	<string name="yesterday">Hier</string>
 	<string name="tmrw">Demain</string>
 	<string name="yest">Hier</string>
-	<string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
 	<string name="DLG_wait">Veuillez patienter...</string>
 	<string name="sync_status_success">Dernière synchro. :\n%s</string>
 	<string name="sync_SPr_interval_title">Synchro. en arrière-plan</string>
@@ -363,7 +360,6 @@
 	<string name="themes_purchase_description">Débloquer tous les thèmes et quelques couleurs à Tasks</string>
 	<string name="tasker_description">Notifications de la sensibilité du contexte de la liste. Tasker ou Local est requis.</string>
 	<string name="donate_summary">Les donations sont grandement appréciées.</string>
-	<string name="dashclock_description">Affiche le nombre de tâches actives</string>
 	<string name="dashclock_purchase_description">Affiche le nombre de tâches actives. Requiert le widget DashClock</string>
 	<string name="buy">Acheter</string>
 	<string name="buy_dashclock_extension">Acheter l\'extension</string>

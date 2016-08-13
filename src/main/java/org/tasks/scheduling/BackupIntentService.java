@@ -10,7 +10,6 @@ import org.tasks.preferences.Preferences;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
-import java.util.Comparator;
 
 import javax.inject.Inject;
 

@@ -20,7 +20,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.data.RemoteModel;
@@ -278,7 +277,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     }
 
     @Override
-    public void onCreateTask(long id, String uuid) {
+    public void onCreateTask(String uuid) {
         updater.onCreateTask(list, getFilter(), uuid);
         fragment.reconstructCursor();
         fragment.loadTaskListContent();

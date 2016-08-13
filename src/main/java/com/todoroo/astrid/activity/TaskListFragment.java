@@ -8,7 +8,6 @@ package com.todoroo.astrid.activity;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
@@ -28,11 +27,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.todoroo.andlib.data.Callback;
@@ -46,7 +42,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.FilterSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
@@ -648,7 +643,7 @@ public class TaskListFragment extends InjectingListFragment implements
                 .show();
     }
 
-    public void onTaskCreated(long id, String uuid) {
+    public void onTaskCreated(String uuid) {
     }
 
     protected void onTaskDelete(Task task) {
@@ -679,7 +674,7 @@ public class TaskListFragment extends InjectingListFragment implements
                     taskCreator.addToCalendar(task);
                     onTaskListItemClicked(task.getId());
                     loadTaskListContent();
-                    onTaskCreated(task.getId(), task.getUUID());
+                    onTaskCreated(task.getUUID());
                 };
                 voiceInputAssistant.handleActivityResult(data, quickAddTask);
             }

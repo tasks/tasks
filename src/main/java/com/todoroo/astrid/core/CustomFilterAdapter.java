@@ -6,7 +6,6 @@
 package com.todoroo.astrid.core;
 
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;

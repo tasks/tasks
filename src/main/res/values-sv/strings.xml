@@ -121,7 +121,6 @@
 	<string name="EPr_manage_delete_all_gcal">Radera alla kalenderhändelser för uppgifter</string>
 	<string name="EPr_manage_delete_all_gcal_message">Vill du verkligen radera alla dina händelser i kalendern för uppgifter?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d kalenderhändelser raderade!</string>
-	<string name="TWi_loading">Laddar...</string>
 	<string name="task_defaults">Förval för nya uppgifter</string>
 	<string name="EPr_default_urgency_title">Standardfrist</string>
 	<string name="EPr_default_importance_title">Standard prioritet</string>
@@ -194,7 +193,6 @@
 	<string name="audio_recording_title">Spelar in ljud</string>
 	<string name="audio_stop_recording">Avsluta inspelning</string>
 	<string name="file_type_unhandled">Tyvärr hittades ingen applikation för att hantera den här filtypen</string>
-	<string name="back">Tillbaka</string>
 	<string name="file_err_copy">Ett fel uppstod vid kopiering av filen till bilaga</string>
 	<string name="ring_once">Ring en gång</string>
 	<string name="ring_five_times">Ring fem gånger</string>
@@ -272,7 +270,6 @@
 	<string name="yesterday">Igår</string>
 	<string name="tmrw">imorn</string>
 	<string name="yest">Igår</string>
-	<string name="DLG_error">Oj, det uppstod ett fel! Detta hände:\n\n%s</string>
 	<string name="DLG_wait">Var god vänta...</string>
 	<string name="sync_status_success">Synkroniserades senast:\n%s</string>
 	<string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
@@ -369,7 +366,6 @@
 	<string name="themes_purchase_description">Lås upp alla teman och sätt lite färg på Tasks</string>
 	<string name="tasker_description">Innehållsbaserade listpåminnelser. Kräver Tasker eller Locale</string>
 	<string name="donate_summary">Donationer uppskattas varmt</string>
-	<string name="dashclock_description">Visa antalet aktiva uppgifter</string>
 	<string name="dashclock_purchase_description">Visa antalet aktiva uppgifter. Kräver DashClock Widget</string>
 	<string name="buy">Köp</string>
 	<string name="buy_dashclock_extension">Köp tillägg</string>

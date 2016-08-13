@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import org.tasks.injection.InjectingIntentService;
-import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
-
-import javax.inject.Inject;
 
 import timber.log.Timber;
 

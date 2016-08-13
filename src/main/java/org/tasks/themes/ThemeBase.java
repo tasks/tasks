@@ -40,10 +40,6 @@ public class ThemeBase {
         return name;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
     public int getContentBackground() {
         return contentBackground;
     }

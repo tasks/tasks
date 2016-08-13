@@ -68,7 +68,6 @@
 	<string name="EPr_manage_delete_completed_message">Segur que voleu suprimir totes les tasques completades?</string>
 	<string name="EPr_manage_delete_completed_status">S\'han suprimit %d tasques</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
-	<string name="TWi_loading">S\'està carregant…</string>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>Avui</item>
@@ -131,7 +130,6 @@
 	<string name="today">Avui</string>
 	<string name="tomorrow">Demà</string>
 	<string name="yesterday">Ahir</string>
-	<string name="DLG_error">¡Ui, sembla que hi ha hagut un problema! Això es el que ha passat:\n\n%s</string>
 	<string name="DLG_wait">Si us plau, espera...</string>
 	<string name="sync_status_success">Última sincronització:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>

@@ -10,11 +10,8 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Build;
-import android.os.Bundle;
 import android.text.InputType;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -24,8 +21,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Map.Entry;
 
 import timber.log.Timber;
@@ -80,44 +75,7 @@ public class AndroidUtilities {
         }
     }
 
-    /**
-     * Put an arbitrary object into a {@link ContentValues}
-     */
-    public static void putInto(Bundle target, String key, Object value) {
-        if (value instanceof Boolean) {
-            target.putBoolean(key, (Boolean) value);
-        } else if (value instanceof Byte) {
-            target.putByte(key, (Byte) value);
-        } else if (value instanceof Double) {
-            target.putDouble(key, (Double) value);
-        } else if (value instanceof Float) {
-            target.putFloat(key, (Float) value);
-        } else if (value instanceof Integer) {
-            target.putInt(key, (Integer) value);
-        } else if (value instanceof Long) {
-            target.putLong(key, (Long) value);
-        } else if (value instanceof Short) {
-            target.putShort(key, (Short) value);
-        } else if (value instanceof String) {
-            target.putString(key, (String) value);
-        }
-    }
-
     // --- serialization
-
-    /**
-     * Return index of value in array
-     * @param array array to search
-     * @param value value to look for
-     */
-    public static <TYPE> int indexOf(TYPE[] array, TYPE value) {
-        for(int i = 0; i < array.length; i++) {
-            if (array[i].equals(value)) {
-                return i;
-            }
-        }
-        return -1;
-    }
 
     /**
      * Serializes a content value into a string
@@ -152,21 +110,6 @@ public class AndroidUtilities {
     }
 
     /**
-     * Serializes a {@link android.os.Bundle} into a string
-     */
-    public static String bundleToSerializedString(Bundle source) {
-        StringBuilder result = new StringBuilder();
-        if (source == null) {
-            return null;
-        }
-
-        for(String key : source.keySet()) {
-            addSerialized(result, key, source.get(key));
-        }
-        return result.toString();
-    }
-
-    /**
      * Turn ContentValues into a string
      */
     public static ContentValues contentValuesFromSerializedString(String string) {
@@ -191,37 +134,6 @@ public class AndroidUtilities {
                 break;
             case 'b':
                 object.put(key, Boolean.parseBoolean(value));
-                break;
-            }
-        });
-        return result;
-    }
-
-    /**
-     * Turn {@link android.os.Bundle} into a string
-     */
-    public static Bundle bundleFromSerializedString(String string) {
-        if(string == null) {
-            return new Bundle();
-        }
-
-        Bundle result = new Bundle();
-        fromSerialized(string, result, (object, key, type, value) -> {
-            switch(type) {
-            case 'i':
-                object.putInt(key, Integer.parseInt(value));
-                break;
-            case 'd':
-                object.putDouble(key, Double.parseDouble(value));
-                break;
-            case 'l':
-                object.putLong(key, Long.parseLong(value));
-                break;
-            case 's':
-                object.putString(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
-                break;
-            case 'b':
-                object.putBoolean(key, Boolean.parseBoolean(value));
                 break;
             }
         });
@@ -313,13 +225,6 @@ public class AndroidUtilities {
 
     public static boolean atLeastMarshmallow() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
-    }
-
-    /**
-     * Sort files by date so the newest file is on top
-     */
-    public static void sortFilesByDateDesc(File[] files) {
-        Arrays.sort(files, (o1, o2) -> Long.valueOf(o2.lastModified()).compareTo(o1.lastModified()));
     }
 
     /**

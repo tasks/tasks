@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
@@ -40,8 +39,6 @@ import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.List;
 
-import static org.tasks.preferences.ResourceResolver.getData;
-
 public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     private static final int VIEW_TYPE_COUNT = FilterListItem.Type.values().length;
@@ -53,25 +50,21 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final FilterProvider filterProvider;
     private final FilterCounter filterCounter;
     private final Activity activity;
-    private final ListView listView;
     private boolean navigationDrawer;
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
 
     /** layout inflater */
     private final LayoutInflater inflater;
-    private final Theme theme;
     private final ThemeCache themeCache;
 
     public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity,
-                         ListView listView, boolean navigationDrawer, Theme theme, ThemeCache themeCache) {
+                         boolean navigationDrawer, Theme theme, ThemeCache themeCache) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
-        this.listView = listView;
         this.navigationDrawer = navigationDrawer;
         this.inflater = theme.getLayoutInflater(activity);
-        this.theme = theme;
         this.themeCache = themeCache;
     }
 
@@ -190,24 +183,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
      * ====================================================================== */
 
     private FilterListItem selection = null;
-
-    /**
-     * Sets the selected item to this one
-     */
-    public void setSelection(FilterListItem picked) {
-        selection = picked;
-        int scroll = listView.getScrollY();
-        notifyDataSetInvalidated();
-        listView.scrollTo(0, scroll);
-    }
-
-    /**
-     * Gets the currently selected item
-     * @return null if no item is to be selected
-     */
-    public FilterListItem getSelection() {
-        return selection;
-    }
 
     /* ======================================================================
      * ============================================================= receiver

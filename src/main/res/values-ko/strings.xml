@@ -123,7 +123,6 @@
 	<string name="EPr_manage_delete_all_gcal">일정의 모든 달력 이벤트 삭제하기</string>
 	<string name="EPr_manage_delete_all_gcal_message">일정의 모든 이벤트를 정말 삭제할까요?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d 달력 이벤트를 삭제했습니다!</string>
-	<string name="TWi_loading">로드 중…</string>
 	<string name="task_defaults">일정 기본값</string>
 	<string name="EPr_default_urgency_title">기본 중요도</string>
 	<string name="EPr_default_importance_title">기본 우선순위</string>
@@ -196,7 +195,6 @@
 	<string name="audio_recording_title">오디오 녹음 중</string>
 	<string name="audio_stop_recording">녹음 중단</string>
 	<string name="file_type_unhandled">죄송하지만 이 파일 형식을 다룰 수 있는 프로그램이 없습니다.</string>
-	<string name="back">뒤로</string>
 	<string name="file_err_copy">첨부용 파일 복사 에러</string>
 	<string name="ring_once">한번 울림</string>
 	<string name="ring_five_times">다섯번 울림</string>
@@ -275,7 +273,6 @@
 	<string name="yesterday">어제</string>
 	<string name="tmrw">내일</string>
 	<string name="yest">어제</string>
-	<string name="DLG_error">에러가 발생한 것 같습니다! 발생한 에러는 다음과 같습니다:\n\n%s</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
 	<string name="sync_status_success">마지막 동기화: \n%s</string>
 	<string name="sync_SPr_interval_title">백그라운드 동기화</string>
@@ -367,7 +364,6 @@
 	<string name="themes_purchase_description">모든 테마 잠금 해제 및 색상 추가</string>
 	<string name="tasker_description">컨텍스트 기반의 리스트 알림. Tasker 또는 Locale이 필요합니다.</string>
 	<string name="donate_summary">기부를 해주시면 감사하겠습니다</string>
-	<string name="dashclock_description">활성화된 일정의 개수 표시</string>
 	<string name="dashclock_purchase_description">활성화된 일정의 개수를 표시합니다. DashClock Widget을 필요로 합니다.</string>
 	<string name="buy">구매</string>
 	<string name="buy_dashclock_extension">확장팩 구매</string>

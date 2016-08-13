@@ -8,8 +8,6 @@ import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.google.common.base.Function;
-
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;

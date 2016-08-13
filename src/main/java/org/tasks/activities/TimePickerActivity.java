@@ -1,7 +1,6 @@
 package org.tasks.activities;
 
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;

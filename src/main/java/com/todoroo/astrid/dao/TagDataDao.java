@@ -40,10 +40,6 @@ public class TagDataDao {
         return dao.getFirst(Query.select(properties).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
     }
 
-    public TagData fetch(long id, Property<?>... properties) {
-        return dao.fetch(id, properties);
-    }
-
     public TagData getTagByName(String name, Property<?>... properties) {
         return dao.getFirst(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(name)));
     }
@@ -76,10 +72,6 @@ public class TagDataDao {
 
     public void update(Criterion where, TagData template) {
         dao.update(where, template);
-    }
-
-    public void saveExisting(TagData tagData) {
-        dao.saveExisting(tagData);
     }
 
     public void delete(long id) {

@@ -18,7 +18,6 @@ package org.tasks.ui;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;

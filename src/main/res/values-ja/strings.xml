@@ -121,7 +121,6 @@
 	<string name="EPr_manage_delete_all_gcal">タスクのカレンダーイベントをすべて削除</string>
 	<string name="EPr_manage_delete_all_gcal_message">タスクのイベントをすべて削除してもよろしいですか?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d カレンダーイベントが削除されました!</string>
-	<string name="TWi_loading">読み込んでいます・・・</string>
 	<string name="task_defaults">タスクのデフォルト</string>
 	<string name="EPr_default_urgency_title">期限</string>
 	<string name="EPr_default_importance_title">標準の優先順位</string>
@@ -194,7 +193,6 @@
 	<string name="audio_recording_title">音声を録音中</string>
 	<string name="audio_stop_recording">録音を停止</string>
 	<string name="file_type_unhandled">申し訳ありません! このファイル形式を扱うアプリケーションがありません.</string>
-	<string name="back">戻る</string>
 	<string name="file_err_copy">ファイル添付のコピー中にエラー</string>
 	<string name="ring_once">1回通知音を鳴らす</string>
 	<string name="ring_five_times">5回通知音を鳴らす</string>
@@ -273,7 +271,6 @@
 	<string name="yesterday">昨日</string>
 	<string name="tmrw">明日</string>
 	<string name="yest">昨日</string>
-	<string name="DLG_error">エラーが発生しました! 発生した内容\n\n%s</string>
 	<string name="DLG_wait">お待ちください</string>
 	<string name="sync_status_success">前回の同期:\n%s</string>
 	<string name="sync_SPr_interval_title">バックグラウンド同期</string>
@@ -371,7 +368,6 @@
 	<string name="themes_purchase_description">すべてのテーマのロックを解除して Tasks に色を追加します</string>
 	<string name="tasker_description">コンテキスト アウェア リストの通知。Tasker または Locale が必要です</string>
 	<string name="donate_summary">寄付は大歓迎です</string>
-	<string name="dashclock_description">アクティブなタスクの数を表示</string>
 	<string name="dashclock_purchase_description">アクティブなタスクの数を表示します。DashClock ウィジェットが必要です。</string>
 	<string name="buy">購入</string>
 	<string name="buy_dashclock_extension">購入エクステンション</string>

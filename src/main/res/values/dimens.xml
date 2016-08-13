@@ -4,13 +4,10 @@
     <dimen name="keyline_first">16dp</dimen>
     <dimen name="keyline_second">32dp</dimen>
     <dimen name="keyline_content_inset">72dp</dimen>
-    <dimen name="widget_margin">0dp</dimen>
 
     <dimen name="task_list_footer_height">88dp</dimen>
     <dimen name="task_list_fab_margin">16dp</dimen>
 
-    <dimen name="task_edit_title_padding_top_bottom">18dp</dimen>
-    <dimen name="task_edit_padding_top_bottom">9dp</dimen>
     <dimen name="task_edit_double_padding_top_bottom">18dp</dimen>
     <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
     <dimen name="task_edit_text_size">16sp</dimen>

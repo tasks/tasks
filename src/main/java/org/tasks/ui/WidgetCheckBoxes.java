@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import com.google.common.base.Function;
-
 import java.util.List;
 
 import timber.log.Timber;

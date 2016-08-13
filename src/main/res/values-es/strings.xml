@@ -120,7 +120,6 @@
 	<string name="EPr_manage_delete_all_gcal">Borrar todos los eventos del calendario de las tareas</string>
 	<string name="EPr_manage_delete_all_gcal_message">¿Seguro que quieres borrar todos tus eventos para las tareas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">¡Borrados %d eventos del calendario!</string>
-	<string name="TWi_loading">Cargando…</string>
 	<string name="task_defaults">Configuración por defecto de tareas</string>
 	<string name="EPr_default_urgency_title">Fecha límite predeterminada</string>
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
@@ -192,7 +191,6 @@
 	<string name="audio_recording_title">Grabando Audio</string>
 	<string name="audio_stop_recording">Detener grabación</string>
 	<string name="file_type_unhandled">Lo sentimos! No se encontró ninguna aplicación para abrir este tipo de archivo.</string>
-	<string name="back">Volver</string>
 	<string name="file_err_copy">Error al copiar el archivo a adjuntar</string>
 	<string name="ring_once">Sonar una vez</string>
 	<string name="ring_five_times">Sonar cinco veces</string>
@@ -271,7 +269,6 @@
 	<string name="yesterday">Ayer</string>
 	<string name="tmrw">Mñna</string>
 	<string name="yest">Ayer</string>
-	<string name="DLG_error">¡Uy, parece que ocurró un error! Esto es lo que pasó:\n\n%s</string>
 	<string name="DLG_wait">Por favor, espere...</string>
 	<string name="sync_status_success">Ultima sincronización:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronización en segundo plano</string>
@@ -369,7 +366,6 @@
 	<string name="themes_purchase_description">Desbloquea todos los temas y añade color a Tasks</string>
 	<string name="tasker_description">Notificaciones dependientes del contexto. Requiere Tasker o Locale.</string>
 	<string name="donate_summary">Se agradecen enormemente las donaciones</string>
-	<string name="dashclock_description">Muestra una cuenta de las tareas activas</string>
 	<string name="dashclock_purchase_description">Muestra una cuenta de las tareas activas. Requiere DashClock Widget</string>
 	<string name="buy">Comprar</string>
 	<string name="buy_dashclock_extension">Comprar extensión</string>

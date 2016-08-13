@@ -2,11 +2,9 @@ package org.tasks.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 
-import com.google.common.base.Function;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 

@@ -111,7 +111,6 @@
 	<string name="EPr_manage_delete_all_gcal">Eliminar todos os eventos de calendário das tarefas</string>
 	<string name="EPr_manage_delete_all_gcal_message">Quer mesmo eliminar todos os eventos das tarefas?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Eliminados %d eventos de calendário!</string>
-	<string name="TWi_loading">Carregando...</string>
 	<string name="task_defaults">Predefinições</string>
 	<string name="EPr_default_urgency_title">Prazo predefinido</string>
 	<string name="EPr_default_importance_title">Prioridade predefinida</string>
@@ -179,7 +178,6 @@
 	<string name="audio_recording_title">Gravação áudio</string>
 	<string name="audio_stop_recording">Parar gravação</string>
 	<string name="file_type_unhandled">Não foi encontrada qualquer aplicação para gerir ficheiros deste tipo.</string>
-	<string name="back">Recuar</string>
 	<string name="file_err_copy">Erro ao copiar o ficheiro como anexo</string>
 	<string name="ring_once">Tocar uma vez</string>
 	<string name="ring_five_times">Tocar 5 vezes</string>
@@ -254,7 +252,6 @@
 	<string name="yesterday">Ontem</string>
 	<string name="tmrw">Amanhã</string>
 	<string name="yest">Ontem</string>
-	<string name="DLG_error">Parece que ocorreu um erro! Isto foi o que aconteceu:\n\n%s</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
 	<string name="sync_status_success">Última sincronização:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>

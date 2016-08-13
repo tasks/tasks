@@ -124,7 +124,6 @@
 	<string name="EPr_manage_delete_all_gcal">Видалити всі календарні події для завдань</string>
 	<string name="EPr_manage_delete_all_gcal_message">Ви дійсно хочете видалити всі події для завдань?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Видалено %d календарних подій!</string>
-	<string name="TWi_loading">Завантаження...</string>
 	<string name="task_defaults">Типові налаштування завдань</string>
 	<string name="EPr_default_urgency_title">Кінцевий термін по замовчуванню</string>
 	<string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
@@ -196,7 +195,6 @@
 	<string name="audio_recording_title">Запис аудіо</string>
 	<string name="audio_stop_recording">Зупинити запис</string>
 	<string name="file_type_unhandled">Вибачте! Не знайдено програму для перегляду файлів цього типу.</string>
-	<string name="back">Назад</string>
 	<string name="file_err_copy">Помилка копіювання файлу для вкладення</string>
 	<string name="ring_once">Дзвеніти 1 раз</string>
 	<string name="ring_five_times">Дзвеніти 5 раз</string>
@@ -275,7 +273,6 @@
 	<string name="yesterday">Вчора</string>
 	<string name="tmrw">Звтр</string>
 	<string name="yest">Вчр</string>
-	<string name="DLG_error">Ой, схоже виникла помилка! Ось що сталось::\n\n%s</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
 	<string name="sync_status_success">Остання синхр.:\n%s</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
@@ -369,7 +366,6 @@
 	<string name="themes_purchase_description">Розблокувати усі схеми та додати кольори до Tasks</string>
 	<string name="tasker_description">Контекстні сповіщення списку. Потрібен Tasker або Locale</string>
 	<string name="donate_summary">Пожертви щиро вітаються</string>
-	<string name="dashclock_description">Показати кількість активних завдань</string>
 	<string name="dashclock_purchase_description">Показати кількість активних завдань. Потрібен DashClock Widget</string>
 	<string name="buy">Придбати</string>
 	<string name="buy_dashclock_extension">Придбати розширення</string>

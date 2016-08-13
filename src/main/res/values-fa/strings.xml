@@ -80,7 +80,6 @@
 	<string name="EPr_cal_start_at_due_time">شروع رویدادهای تقویم در موعود</string>
 	<string name="EPr_manage_header">مدیریت وظایف قدیمی</string>
 	<string name="EPr_delete_task_data">حذف داده وظیفه</string>
-	<string name="TWi_loading">در حال بارگیری...</string>
 	<string name="task_defaults">پیش فرض های وظیفه</string>
 	<string name="EPr_default_urgency_title">موعود پیش فرض</string>
 	<string name="EPr_default_importance_title">اولویت پیش فرض</string>
@@ -138,7 +137,6 @@
 	<string name="audio_recording_title">ضبط صدا</string>
 	<string name="audio_stop_recording">توقف ضبط</string>
 	<string name="file_type_unhandled">پوزش! هیچ برنامه ای برای بازکردن این فایل پیدا نشد.</string>
-	<string name="back">عقب</string>
 	<string name="file_err_copy">خطای کپی فایل برای ضمیمه</string>
 	<string name="ring_once">یک بار زنگ بزن</string>
 	<string name="ring_five_times">پنج بار زنگ بزن</string>

@@ -5,7 +5,6 @@ import android.content.IntentFilter;
 
 import com.android.vending.billing.IabBroadcastReceiver;
 import com.android.vending.billing.IabHelper;
-import com.android.vending.billing.IabResult;
 import com.android.vending.billing.Inventory;
 import com.android.vending.billing.Purchase;
 

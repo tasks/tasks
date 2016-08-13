@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
@@ -36,7 +35,6 @@ import org.tasks.reminders.SnoozeActivity;
 import org.tasks.reminders.SnoozeDialog;
 import org.tasks.reminders.SnoozeOption;
 import org.tasks.themes.LEDColor;
-import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeCache;
 
 import java.io.InputStream;

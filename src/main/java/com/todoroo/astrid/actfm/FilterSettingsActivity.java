@@ -6,13 +6,10 @@
 package com.todoroo.astrid.actfm;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;

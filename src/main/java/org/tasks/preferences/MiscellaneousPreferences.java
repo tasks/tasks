@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.Preference;
 import android.speech.tts.TextToSpeech;
 
 import com.todoroo.astrid.voice.VoiceOutputAssistant;

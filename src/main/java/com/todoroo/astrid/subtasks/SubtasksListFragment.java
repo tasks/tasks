@@ -145,8 +145,8 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    public void onTaskCreated(long id, String uuid) {
-        helper.onCreateTask(id, uuid);
+    public void onTaskCreated(String uuid) {
+        helper.onCreateTask(uuid);
     }
 
     @Override

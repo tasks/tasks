@@ -5,14 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.todoroo.astrid.actfm.TagSettingsActivity;
@@ -135,7 +133,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     private void setUpList() {
         adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(),
-                mDrawerListView, true, theme, themeCache);
+                true, theme, themeCache);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }

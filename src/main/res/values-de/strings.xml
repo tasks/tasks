@@ -119,7 +119,6 @@
 	<string name="EPr_manage_delete_all_gcal">Lösche alle Kalendereinträge von Aufgaben</string>
 	<string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereintrage von Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
-	<string name="TWi_loading">Ladevorgang …</string>
 	<string name="task_defaults">Aufgabenstandards</string>
 	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
 	<string name="EPr_default_importance_title">Standard Priorität</string>
@@ -189,7 +188,6 @@
 	<string name="audio_recording_title">Audio aufnehmen</string>
 	<string name="audio_stop_recording">Aufnahme stoppen</string>
 	<string name="file_type_unhandled">Tut mir leid! Dieser Dateityp kann nicht geöffnet werden.</string>
-	<string name="back">Zurück</string>
 	<string name="file_err_copy">Fehler beim Kopieren der anzuhängenden Datei</string>
 	<string name="ring_once">Einmal klingeln</string>
 	<string name="ring_five_times">Fünfmal klingeln</string>
@@ -267,7 +265,6 @@
 	<string name="yesterday">Gestern</string>
 	<string name="tmrw">Morg.</string>
 	<string name="yest">Gest.</string>
-	<string name="DLG_error">Ups, sieht aus, als ob ein Fehler aufgetreten ist! Folgendes ist passiert:\n\n%s</string>
 	<string name="DLG_wait">Bitte warten...</string>
 	<string name="sync_status_success">Letzte Synchronisierung:\n%s</string>
 	<string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
@@ -361,7 +358,6 @@
 	<string name="themes_purchase_description">Entsperre alle Themes</string>
 	<string name="tasker_description">Kontext-bezogene Listenbenachrichtigungen. Benötigt Tasker oder Locale</string>
 	<string name="donate_summary">Spenden sind sehr willkommen</string>
-	<string name="dashclock_description">Anzahl aktiver Aufgaben anzeigen</string>
 	<string name="dashclock_purchase_description">Anzahl aktiver Aufgaben anzeigen. DashClock Widget benötigt</string>
 	<string name="buy">Kaufen</string>
 	<string name="buy_dashclock_extension">Erweiterung kaufen</string>

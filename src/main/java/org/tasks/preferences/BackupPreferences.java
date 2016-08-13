@@ -2,7 +2,6 @@ package org.tasks.preferences;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.Preference;
 
 import org.tasks.R;
 import org.tasks.files.FileExplore;

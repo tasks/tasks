@@ -7,7 +7,6 @@ package com.todoroo.astrid.timers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;

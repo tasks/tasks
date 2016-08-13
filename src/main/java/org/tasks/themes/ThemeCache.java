@@ -52,7 +52,6 @@ public class ThemeCache {
         for (int i = 0; i < WidgetTheme.BACKGROUNDS.length ; i++) {
             widgetThemes.add(new WidgetTheme(
                     widgetBackgroundNames[i],
-                    i,
                     resources.getColor(WidgetTheme.BACKGROUNDS[i]),
                     resources.getColor(i == 0 ? R.color.black_87 : R.color.white_100)));
         }

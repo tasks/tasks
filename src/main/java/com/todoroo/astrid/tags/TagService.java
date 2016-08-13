@@ -7,9 +7,7 @@ package com.todoroo.astrid.tags;
 
 import android.text.TextUtils;
 
-import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;

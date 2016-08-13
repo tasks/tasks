@@ -109,7 +109,6 @@
 	<string name="EPr_manage_delete_all_gcal">Vymazať všetky udalosti kalendára pre úlohy</string>
 	<string name="EPr_manage_delete_all_gcal_message">Naozaj chceš vymazať všetky tvoje udalosti pre úlohy?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Vymazané %d udalosti kalendára!</string>
-	<string name="TWi_loading">Načítavanie</string>
 	<string name="task_defaults">Predvoľby úloh</string>
 	<string name="EPr_default_urgency_title">Predvolený termín dokončenia</string>
 	<string name="EPr_default_importance_title">Predvolená priorita</string>
@@ -173,7 +172,6 @@
 	<string name="audio_recording_title">Nahrávanie zvuku</string>
 	<string name="audio_stop_recording">Zastaviť nahrávanie</string>
 	<string name="file_type_unhandled">Pre tento typ súboru nebola nájdená žiadna aplikácia</string>
-	<string name="back">Späť</string>
 	<string name="file_err_copy">Chyba pri kopírovaní súboru do prílohy</string>
 	<string name="ring_once">Zvoniť raz</string>
 	<string name="ring_five_times">Zvoniť päť krát</string>
@@ -248,7 +246,6 @@
 	<string name="yesterday">Včera</string>
 	<string name="tmrw">Zajtra</string>
 	<string name="yest">Včera</string>
-	<string name="DLG_error">Ups, zdá sa, že sa vyskytla chyba! Tu je čo sa stalo:\n\n%s</string>
 	<string name="DLG_wait">Prosím čakaj...</string>
 	<string name="sync_status_success">Posledná synchronizácia:\n%s</string>
 	<string name="sync_SPr_interval_title">Synchronizácia na pozadí</string>

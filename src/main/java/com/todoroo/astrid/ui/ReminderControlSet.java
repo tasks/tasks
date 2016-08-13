@@ -22,11 +22,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.common.primitives.Longs;
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.alarms.AlarmFields;
 import com.todoroo.astrid.alarms.AlarmService;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;

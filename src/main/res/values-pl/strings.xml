@@ -100,7 +100,6 @@
 	<string name="EPr_manage_delete_all_gcal">Usuń wszystkie zdarzenia kalendarza dla zadań</string>
 	<string name="EPr_manage_delete_all_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zadań?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
-	<string name="TWi_loading">Ładowanie...</string>
 	<string name="EPr_default_urgency_title">Termin końcowy (domyślnie)</string>
 	<string name="EPr_default_importance_title">Domyślny priorytet</string>
 	<string name="EPr_default_hideUntil_title">Ukrywanie zadania (domyślnie)</string>
@@ -163,7 +162,6 @@
 	<string name="audio_recording_title">Nagrywanie dźwięku</string>
 	<string name="audio_stop_recording">Zakończ nagrywanie</string>
 	<string name="file_type_unhandled">Przepraszamy! Nie znaleziono aplikacji do obsługi tego typu pliku.</string>
-	<string name="back">Powrót</string>
 	<string name="file_err_copy">Błąd kopiowania pliku do załącznika</string>
 	<string-array name="TEA_reminder_random">
 		<item>na godzinę</item>
@@ -233,7 +231,6 @@
 	<string name="yesterday">Wczoraj</string>
 	<string name="tmrw">jtr</string>
 	<string name="yest">wcz</string>
-	<string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
 	<string name="DLG_wait">Proszę czekać...</string>
 	<string name="sync_status_success">Ostatnia synchronizacja:\n%s</string>
 	<string name="sync_SPr_interval_title">Synchronizacja w tle</string>

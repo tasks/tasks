@@ -120,7 +120,6 @@
 	<string name="EPr_manage_delete_all_gcal">Verwijder Alle Agenda-items voor Taken</string>
 	<string name="EPr_manage_delete_all_gcal_message">Weet je zeker dat je alle gebeurtenissen voor taken wil verwijderen?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d agenda-items verwijderd!</string>
-	<string name="TWi_loading">Laden…</string>
 	<string name="task_defaults">Basisinstellingen nieuwe taak</string>
 	<string name="EPr_default_urgency_title">Standaard prioriteit</string>
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
@@ -193,7 +192,6 @@
 	<string name="audio_recording_title">Bezig met opname</string>
 	<string name="audio_stop_recording">Opname stoppen</string>
 	<string name="file_type_unhandled">Sorry! Er is geen applicatie gevonden die dit bestandtype ondersteunt.</string>
-	<string name="back">Terug</string>
 	<string name="file_err_copy">Fout bij kopiëren toe te voegen bestand</string>
 	<string name="ring_once">Ring eenmalig</string>
 	<string name="ring_five_times">Ring vijf keer</string>
@@ -271,7 +269,6 @@
 	<string name="yesterday">Gisteren</string>
 	<string name="tmrw">mrgn</string>
 	<string name="yest">gisteren</string>
-	<string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>
 	<string name="sync_status_success">Vorige:\n%s</string>
 	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
@@ -365,7 +362,6 @@
 	<string name="themes_purchase_description">Ontlock alle thema\'s en voeg kleuren toe aan Tasks</string>
 	<string name="tasker_description"> Contextbewuste notificaties. Vereist Tasker of Locale</string>
 	<string name="donate_summary">Donaties worden erg gewaardeerd</string>
-	<string name="dashclock_description">Toon het aantal actieve taken</string>
 	<string name="dashclock_purchase_description">Toon een teller van actieve taken. Vereist DashClock Widget</string>
 	<string name="buy">Kopen</string>
 	<string name="buy_dashclock_extension">Koop uitbreiding</string>

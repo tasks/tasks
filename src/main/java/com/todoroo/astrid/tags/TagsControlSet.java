@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.tags;
 
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,7 +18,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +28,8 @@ import android.widget.CheckedTextView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;

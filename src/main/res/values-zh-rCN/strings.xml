@@ -75,7 +75,6 @@
 	<string name="EPr_manage_delete_all_gcal">删除所有日程表</string>
 	<string name="EPr_manage_delete_all_gcal_message">您真的想删除您所有事件中的各项任务吗？</string>
 	<string name="EPr_manage_delete_all_gcal_status">已经删除了 %d 个日历事件了！</string>
-	<string name="TWi_loading">载入中...</string>
 	<string name="EPr_default_urgency_title">默认截止期</string>
 	<string name="EPr_default_hideUntil_title">默认隐藏直到</string>
 	<string name="EPr_default_reminders_title">默认提醒</string>
@@ -195,7 +194,6 @@
 	<string name="yesterday">昨天</string>
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
-	<string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
 	<string name="DLG_wait">请稍候...</string>
 	<string name="sync_status_success">上次同步：\n%s</string>
 	<string name="sync_SPr_interval_title">后台同步</string>

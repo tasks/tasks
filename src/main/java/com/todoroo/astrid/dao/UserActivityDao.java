@@ -1,7 +1,5 @@
 package com.todoroo.astrid.dao;
 
-import android.content.ContentValues;
-
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
@@ -25,14 +23,6 @@ public class UserActivityDao {
             item.setCreatedAt(DateUtilities.now());
         }
         dao.createNew(item);
-    }
-
-    public boolean saveExisting(UserActivity item) {
-        ContentValues values = item.getSetValues();
-        if (values == null || values.size() == 0) {
-            return false;
-        }
-        return dao.saveExisting(item);
     }
 
     public void getCommentsForTask(String taskUuid, Callback<UserActivity> callback) {

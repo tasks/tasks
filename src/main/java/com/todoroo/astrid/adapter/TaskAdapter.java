@@ -19,9 +19,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
@@ -219,7 +217,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // create view holder
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.task = new Task();
-        viewHolder.view = view;
         viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.completeBox = (CheckableImageView)view.findViewById(R.id.completeBox);
@@ -285,7 +282,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public static class ViewHolder {
         public Task task;
-        public ViewGroup view;
         public ViewGroup rowBody;
         public TextView nameView;
         public CheckableImageView completeBox;
@@ -567,7 +563,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 viewHolder.tagBlock.setVisibility(View.GONE);
             } else {
                 String tags = viewHolder.tagsString;
-                List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.<String>newArrayList();
+                List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
                 Iterable<TagData> t = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
                 List<TagData> firstFourByName = orderByName.leastOf(t, 4);
                 int numTags = firstFourByName.size();

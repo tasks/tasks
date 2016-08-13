@@ -121,7 +121,6 @@
 	<string name="EPr_manage_delete_all_gcal">מחק את כל אירועי היומן הקשורים למשימות</string>
 	<string name="EPr_manage_delete_all_gcal_message">האם אתה בטוח שברצונך למחוק את כל אירועי היומן בעבור המשימות?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d אירועי יומן נמחקו</string>
-	<string name="TWi_loading">טוענת...</string>
 	<string name="task_defaults">ברירות מחדל למשימות</string>
 	<string name="EPr_default_urgency_title">דחיפות ברירת המחדל</string>
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>
@@ -194,7 +193,6 @@
 	<string name="audio_recording_title">מקליטה שֵׁמַע</string>
 	<string name="audio_stop_recording">הפסק הקלטה</string>
 	<string name="file_type_unhandled">\"מצטערת! לא מצאתי ישום שיכול  לטפל בקבצים מסוג זה\"</string>
-	<string name="back">חזרה</string>
 	<string name="file_err_copy">שגיאה בהעתקת הקובץ המצורף</string>
 	<string name="ring_once">צלצל פעם אחת</string>
 	<string name="ring_five_times">צלצל חמש פעמים</string>
@@ -273,7 +271,6 @@
 	<string name="yesterday">אתמול</string>
 	<string name="tmrw">מחר</string>
 	<string name="yest">אתמול</string>
-	<string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
 	<string name="DLG_wait">אנא המתן...</string>
 	<string name="sync_status_success">סנכרון אחרון:\n%s</string>
 	<string name="sync_SPr_interval_title">סנכרון ברקע</string>
@@ -371,7 +368,6 @@
 	<string name="themes_purchase_description">בטל נעילת ערכות נושא והוסף צבע למשימות</string>
 	<string name="tasker_description">Context-aware רשימת משימות. נדרש Tasker או Locale</string>
 	<string name="donate_summary">תרומות יתקבלו בברכה</string>
-	<string name="dashclock_description">הצג ספירה של משימות פעילות</string>
 	<string name="dashclock_purchase_description">הצג כמות של משימות פעילות. נחוץ ישומון DashClock</string>
 	<string name="buy">רכישה</string>
 	<string name="buy_dashclock_extension">רכוש תוספת</string>

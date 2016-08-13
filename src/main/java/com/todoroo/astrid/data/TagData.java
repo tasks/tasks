@@ -54,10 +54,6 @@ public final class TagData extends RemoteModel {
     public static final StringProperty TAG_ORDERING = new StringProperty(
             TABLE, "tagOrdering");
 
-    /** Last autosync */
-    public static final LongProperty LAST_AUTOSYNC = new LongProperty(
-            TABLE, "lastAutosync");
-
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
 
@@ -70,7 +66,6 @@ public final class TagData extends RemoteModel {
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
         defaultValues.put(DELETION_DATE.name, 0);
-        defaultValues.put(LAST_AUTOSYNC.name, 0);
         defaultValues.put(TAG_ORDERING.name, "[]");
         defaultValues.put(COLOR.name, -1);
     }
@@ -105,14 +100,6 @@ public final class TagData extends RemoteModel {
 
     public String getTagOrdering() {
         return getValue(TAG_ORDERING);
-    }
-
-    public Long getLastAutosync() {
-        return getValue(LAST_AUTOSYNC);
-    }
-
-    public void setLastAutosync(Long lastAutosync) {
-        setValue(LAST_AUTOSYNC, lastAutosync);
     }
 
     public void setColor(int color) {

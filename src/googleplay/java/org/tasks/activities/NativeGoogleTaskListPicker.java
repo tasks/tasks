@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 
 import org.tasks.dialogs.DialogBuilder;

@@ -5,13 +5,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.common.base.Function;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;

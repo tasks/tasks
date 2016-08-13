@@ -26,7 +26,6 @@
 	<string name="TEA_control_importance">ความสำคัญ</string>
 	<string name="TEA_control_notes">บันทึกย่อ</string>
 	<string name="EPr_appearance_header">รูปโฉม</string>
-	<string name="TWi_loading">กำลังโหลด...</string>
 	<string-array name="EPr_default_urgency">
 		<item>No deadline</item>
 		<item>วันนี้</item>

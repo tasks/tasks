@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
@@ -32,7 +31,6 @@ import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import javax.inject.Inject;
 

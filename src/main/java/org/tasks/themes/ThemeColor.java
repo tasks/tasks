@@ -39,7 +39,6 @@ public class ThemeColor {
     };
 
     private final String name;
-    private final int index;
     private final int actionBarTint;
     private final int style;
     private final int colorPrimary;
@@ -48,7 +47,6 @@ public class ThemeColor {
 
     public ThemeColor(String name, int index, int colorPrimary, int colorPrimaryDark, int actionBarTint, boolean isDark) {
         this.name = name;
-        this.index = index;
         this.actionBarTint = actionBarTint;
         this.style = COLORS[index];
         this.colorPrimary = colorPrimary;
@@ -95,10 +93,6 @@ public class ThemeColor {
 
     public String getName() {
         return name;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     public int getPrimaryColor() {

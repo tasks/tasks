@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.google.common.base.Function;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;

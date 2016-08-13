@@ -13,7 +13,6 @@ import android.util.Xml;
 import android.widget.Toast;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;

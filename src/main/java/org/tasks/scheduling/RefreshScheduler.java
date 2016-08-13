@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
