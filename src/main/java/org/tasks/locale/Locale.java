@@ -1,5 +1,6 @@
 package org.tasks.locale;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -101,6 +102,7 @@ public class Locale {
         return languageOverride;
     }
 
+    @SuppressLint("NewApi")
     public Context createConfigurationContext(Context context) {
         return hasUserOverrides
                 ? context.createConfigurationContext(getLocaleConfiguration())
@@ -116,6 +118,7 @@ public class Locale {
         return configuration;
     }
 
+    @SuppressLint("NewApi")
     public void applyOverrideConfiguration(ContextThemeWrapper wrapper) {
         if (hasUserOverrides) {
             wrapper.applyOverrideConfiguration(getLocaleConfiguration());
@@ -162,6 +165,7 @@ public class Locale {
                 '}';
     }
 
+    @SuppressLint("NewApi")
     public void applyDirectionality(Dialog dialog) {
         if (hasUserOverrides) {
             dialog.findViewById(android.R.id.content).setLayoutDirection(appDirectionality);

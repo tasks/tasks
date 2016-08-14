@@ -1,5 +1,6 @@
 package org.tasks.scheduling;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 
@@ -31,6 +32,7 @@ public class AlarmManager {
         wakeup(adjustForQuietHours(time), pendingIntent);
     }
 
+    @SuppressLint("NewApi")
     public void wakeup(long time, PendingIntent pendingIntent) {
         if (preferences.isDozeNotificationEnabled()) {
             alarmManager.setExactAndAllowWhileIdle(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
@@ -41,6 +43,7 @@ public class AlarmManager {
         }
     }
 
+    @SuppressLint("NewApi")
     public void noWakeup(long time, PendingIntent pendingIntent) {
         if (preferences.isDozeNotificationEnabled()) {
             alarmManager.setExactAndAllowWhileIdle(android.app.AlarmManager.RTC, time, pendingIntent);

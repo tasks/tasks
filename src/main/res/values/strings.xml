@@ -798,7 +798,7 @@ File %1$s contained %2$s.\n\n
     <string name="show_hidden">Show hidden</string>
     <string name="show_completed">Show completed</string>
     <string name="reverse">Reverse</string>
-    <string name="task_count">%s Tasks</string>
+    <string name="task_count">%d tasks</string>
     <string name="get_plugins">In-app purchases</string>
     <string name="no_application_found">No application found to open attachment</string>
     <string name="add_attachment">Add attachment</string>

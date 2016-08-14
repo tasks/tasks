@@ -1,5 +1,6 @@
 package org.tasks;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.ContentUris;
@@ -298,6 +299,7 @@ public class Notifier {
         return true;
     }
 
+    @SuppressLint("NewApi")
     private void activateNotification(int ringTimes, int notificationId, Notification notification, String text) {
         if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
             notification.flags |= Notification.FLAG_NO_CLEAR;

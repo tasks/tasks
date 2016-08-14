@@ -311,7 +311,6 @@
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar terminadas</string>
 	<string name="reverse">Reverter</string>
-	<string name="task_count">%s tarefas</string>
 	<string name="sync_interval_disable">desativar</string>
 	<string name="sync_interval_one_hour">cada hora</string>
 	<string name="sync_interval_three_hours">cada 3 horas</string>

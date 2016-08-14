@@ -336,7 +336,6 @@
 	<string name="show_hidden">Visa dolda</string>
 	<string name="show_completed">Visa slutförda</string>
 	<string name="reverse">Omvänt</string>
-	<string name="task_count">%s Uppgifter</string>
 	<string name="get_plugins">Köp i app</string>
 	<string name="no_application_found">Ingen applikation hittades för att öppna bilagan</string>
 	<string name="add_attachment">Bifoga filer</string>

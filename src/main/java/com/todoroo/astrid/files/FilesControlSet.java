@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.files;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -202,6 +203,7 @@ public class FilesControlSet extends TaskEditControlFragment {
         }
     }
 
+    @SuppressLint("NewApi")
     private void showFile(final TaskAttachment m) {
         final String fileType = m.containsNonNullValue(TaskAttachment.CONTENT_TYPE) ? m.getContentType() : TaskAttachment.FILE_TYPE_OTHER;
         final String filePath = m.getFilePath();

@@ -327,7 +327,6 @@
 	<string name="show_hidden">Ausgeblendet anzeigen</string>
 	<string name="show_completed">Erledigt anzeigen</string>
 	<string name="reverse">Rückgangig</string>
-	<string name="task_count">%s Aufgaben</string>
 	<string name="get_plugins">In-App Käufe</string>
 	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
 	<string name="add_attachment">Anhang hinzufügen</string>

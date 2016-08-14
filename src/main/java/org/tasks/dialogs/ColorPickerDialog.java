@@ -1,5 +1,6 @@
 package org.tasks.dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -68,6 +69,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
 
         final LayoutInflater inflater = theme.getLayoutInflater(context);
         adapter = new ArrayAdapter<String>(context, R.layout.color_selection_row, themes) {
+            @SuppressLint("NewApi")
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView textView = (TextView) (convertView == null

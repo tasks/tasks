@@ -134,7 +134,7 @@ public class Database {
         try {
             database.execSQL(sql);
         } catch (SQLiteException e) {
-            Timber.e(e, "SQL Error: " + sql);
+            Timber.e(e, "SQL Error: %s", sql);
         }
     }
 

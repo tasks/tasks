@@ -539,7 +539,9 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             TYPE model;
             try {
                 model = cls.newInstance();
-            } catch (IllegalAccessException | InstantiationException e) {
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InstantiationException e) {
                 throw new RuntimeException(e);
             }
             model.setValues = source.readParcelable(ContentValues.class.getClassLoader());

@@ -1,5 +1,6 @@
 package org.tasks.themes;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.res.Resources;
@@ -54,6 +55,7 @@ public class ThemeColor {
         this.isDark = isDark;
     }
 
+    @SuppressLint("NewApi")
     public void applyStatusBarColor(Activity activity) {
         if (atLeastLollipop()) {
             activity.getWindow().setStatusBarColor(getColorPrimaryDark());
@@ -65,6 +67,7 @@ public class ThemeColor {
         }
     }
 
+    @SuppressLint("NewApi")
     public void applyStatusBarColor(DrawerLayout drawerLayout) {
         if (atLeastLollipop()) {
             drawerLayout.setStatusBarBackgroundColor(getColorPrimaryDark());
@@ -85,6 +88,7 @@ public class ThemeColor {
         theme.applyStyle(style, true);
     }
 
+    @SuppressLint("NewApi")
     public void applyTaskDescription(Activity activity, String description) {
         if (atLeastLollipop()) {
             activity.setTaskDescription(new ActivityManager.TaskDescription(description, null, getPrimaryColor()));

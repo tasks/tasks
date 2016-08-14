@@ -335,7 +335,6 @@
 	<string name="show_hidden">Mostrar oculto</string>
 	<string name="show_completed">Mostrar completado</string>
 	<string name="reverse">Invertir</string>
-	<string name="task_count">%s Tareas</string>
 	<string name="get_plugins">Compras en la aplicación</string>
 	<string name="no_application_found">No se ha encontrado una aplicación para abrir el archivo adjunto</string>
 	<string name="add_attachment">Adjuntar archivo</string>

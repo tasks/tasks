@@ -1,5 +1,6 @@
 package org.tasks.activities;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
@@ -33,6 +34,7 @@ public class CameraActivity extends InjectingAppCompatActivity {
 
     private File output;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

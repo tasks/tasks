@@ -293,7 +293,6 @@
 	<string name="filter_settings">Nastavenie filtra</string>
 	<string name="show_hidden">Zobraziť skryté</string>
 	<string name="show_completed">Zobraziť dokončené</string>
-	<string name="task_count">%s úlohy</string>
 	<string name="sync_interval_disable">zakázať</string>
 	<string name="sync_interval_one_hour">každú hodinu</string>
 	<string name="sync_interval_three_hours">každé tri hodiny</string>

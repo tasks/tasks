@@ -3,8 +3,5 @@
     <issue id="InconsistentArrays" severity="error"/>
     <issue id="MissingTranslation" severity="ignore"/>
     <issue id="MissingQuantity" severity="ignore"/>
-    <issue id="InvalidPackage" severity="ignore"/>
-    <issue id="NewApi" severity="ignore"/>
-    <issue id="ValidFragment" severity="ignore"/>
     <issue id="ImpliedQuantity" severity="ignore"/>
 </lint>

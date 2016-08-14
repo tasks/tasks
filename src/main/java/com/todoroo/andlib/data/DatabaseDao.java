@@ -86,7 +86,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         TYPE instance;
         try {
             instance = modelClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
         instance.readPropertiesFromCursor(cursor);
