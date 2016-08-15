@@ -40,6 +40,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.locale.Locale;
 import org.tasks.ui.MenuColorizer;
 
 import java.util.ArrayList;
@@ -134,6 +135,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
     @Inject StoreObjectDao storeObjectDao;
     @Inject DialogBuilder dialogBuilder;
     @Inject FilterCriteriaProvider filterCriteriaProvider;
+    @Inject Locale locale;
 
     @BindView(R.id.tag_name) EditText filterName;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -157,7 +159,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
 
         List<CriterionInstance> startingCriteria = new ArrayList<>();
         startingCriteria.add(getStartingUniverse());
-        adapter = new CustomFilterAdapter(this, dialogBuilder, startingCriteria);
+        adapter = new CustomFilterAdapter(this, dialogBuilder, startingCriteria, locale);
         listView.setAdapter(adapter);
         updateList();
 

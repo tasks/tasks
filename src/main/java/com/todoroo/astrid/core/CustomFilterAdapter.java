@@ -24,6 +24,7 @@ import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import org.tasks.R;
 import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.locale.Locale;
 
 import java.util.List;
 
@@ -38,11 +39,14 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
     private final CustomFilterActivity activity;
     private DialogBuilder dialogBuilder;
     private final LayoutInflater inflater;
+    private final Locale locale;
 
-    public CustomFilterAdapter(CustomFilterActivity activity, DialogBuilder dialogBuilder, List<CriterionInstance> objects) {
+    public CustomFilterAdapter(CustomFilterActivity activity, DialogBuilder dialogBuilder,
+                               List<CriterionInstance> objects, Locale locale) {
         super(activity, R.id.name, objects);
         this.activity = activity;
         this.dialogBuilder = dialogBuilder;
+        this.locale = locale;
         inflater = activity.getLayoutInflater();
     }
 
@@ -189,7 +193,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         }
 
         viewHolder.name.setText(title);
-        viewHolder.filterCount.setText(Integer.toString(item.end));
+        viewHolder.filterCount.setText(locale.formatNumber(item.end));
     }
 
 

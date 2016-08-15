@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:orientation="vertical"
     android:paddingTop="8dp">
 
-    <View style="@style/horizontal_divider"
+    <View
+        android:id="@+id/divider"
+        style="@style/horizontal_divider"
         android:layout_gravity="top" />
 
     <TextView
@@ -14,6 +16,9 @@
         android:paddingEnd="0dp"
         android:paddingLeft="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
+        android:layout_below="@id/divider"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:gravity="start|center_vertical"
         android:id="@+id/subheader_text"
         android:textColor="?attr/asTextColor"
@@ -21,8 +26,8 @@
         android:textAlignment="viewStart"
         android:fontFamily="@string/font_fontFamily_medium"
         android:alpha="0.54"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         tools:ignore="UnusedAttribute" />
 
-</LinearLayout>
+</RelativeLayout>

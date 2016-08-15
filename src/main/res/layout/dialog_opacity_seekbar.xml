@@ -15,12 +15,11 @@
         android:paddingRight="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
         app:sl_discreteMode="true"
-        app:sl_maxValue="100"
-        app:sl_minValue="0"
         app:sl_stepValue="5"
         app:sl_travelAnimDuration="100" />
 
     <TextView
+        android:id="@+id/min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -30,10 +29,10 @@
         android:paddingLeft="@dimen/keyline_first"
         android:paddingRight="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
-        android:paddingTop="5dp"
-        android:text="0" />
+        android:paddingTop="5dp" />
 
     <TextView
+        android:id="@+id/max"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -43,7 +42,6 @@
         android:paddingLeft="@dimen/keyline_first"
         android:paddingRight="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
-        android:paddingTop="5dp"
-        android:text="100" />
+        android:paddingTop="5dp" />
 
 </RelativeLayout>

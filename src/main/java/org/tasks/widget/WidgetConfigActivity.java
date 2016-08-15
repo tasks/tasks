@@ -18,13 +18,12 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 import org.tasks.themes.WidgetTheme;
-
-import java.text.NumberFormat;
 
 import javax.inject.Inject;
 
@@ -47,6 +46,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject ThemeCache themeCache;
+    @Inject Locale locale;
 
     private WidgetPreferences widgetPreferences;
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -99,13 +99,13 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
         });
 
         getPref(R.string.p_widget_opacity).setOnPreferenceClickListener(preference -> {
-            newSeekBarDialog(R.layout.dialog_opacity_seekbar, widgetPreferences.getOpacity(), REQUEST_OPACITY)
+            newSeekBarDialog(R.layout.dialog_opacity_seekbar, 0, 100, widgetPreferences.getOpacity(), REQUEST_OPACITY)
                     .show(getFragmentManager(), FRAG_TAG_OPACITY_SEEKBAR);
             return false;
         });
 
         getPref(R.string.p_widget_font_size).setOnPreferenceClickListener(preference -> {
-            newSeekBarDialog(R.layout.dialog_font_size_seekbar, widgetPreferences.getFontSize(), REQUEST_FONT_SIZE)
+            newSeekBarDialog(R.layout.dialog_font_size_seekbar, 10, 22, widgetPreferences.getFontSize(), REQUEST_FONT_SIZE)
                     .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
             return false;
         });
@@ -127,12 +127,12 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
 
     private void updateOpacity() {
         int opacity = widgetPreferences.getOpacity();
-        getPref(R.string.p_widget_opacity).setSummary(NumberFormat.getPercentInstance().format(opacity / 100.0));
+        getPref(R.string.p_widget_opacity).setSummary(locale.formatPercentage(opacity));
     }
 
     private void updateFontSize() {
         int fontSize = widgetPreferences.getFontSize();
-        getPref(R.string.p_widget_font_size).setSummary(NumberFormat.getIntegerInstance().format(fontSize));
+        getPref(R.string.p_widget_font_size).setSummary(locale.formatNumber(fontSize));
     }
 
     private void updateFilter() {

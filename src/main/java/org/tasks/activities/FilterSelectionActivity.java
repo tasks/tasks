@@ -12,6 +12,7 @@ import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 
@@ -30,6 +31,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
     @Inject DialogBuilder dialogBuilder;
     @Inject Theme theme;
     @Inject ThemeCache themeCache;
+    @Inject Locale locale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
         final boolean returnFilter = getIntent().getBooleanExtra(EXTRA_RETURN_FILTER, false);
 
         final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this,
-                false, theme, themeCache);
+                false, theme, themeCache, locale);
         filterAdapter.populateList();
 
         dialogBuilder.newDialog()

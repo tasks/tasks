@@ -15,6 +15,8 @@ import com.google.common.base.Strings;
 
 import org.tasks.R;
 
+import java.text.NumberFormat;
+
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class Locale {
@@ -136,6 +138,14 @@ public class Locale {
     public String getDisplayName() {
         java.util.Locale locale = getLocale();
         return locale.getDisplayName(locale);
+    }
+
+    public String formatNumber(int number) {
+        return NumberFormat.getNumberInstance(appLocale).format(number);
+    }
+
+    public String formatPercentage(int percentage) {
+        return NumberFormat.getPercentInstance(appLocale).format(percentage / 100.0);
     }
 
     @Override

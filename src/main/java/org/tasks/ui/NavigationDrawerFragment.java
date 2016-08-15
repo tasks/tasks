@@ -27,6 +27,7 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
@@ -64,6 +65,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Inject FilterProvider filterProvider;
     @Inject Theme theme;
     @Inject ThemeCache themeCache;
+    @Inject Locale locale;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,7 +135,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     private void setUpList() {
         adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(),
-                true, theme, themeCache);
+                true, theme, themeCache, locale);
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }

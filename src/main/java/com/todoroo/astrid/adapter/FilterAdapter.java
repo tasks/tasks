@@ -31,6 +31,7 @@ import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
+import org.tasks.locale.Locale;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.themes.Theme;
@@ -51,6 +52,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final FilterCounter filterCounter;
     private final Activity activity;
     private boolean navigationDrawer;
+    private final Locale locale;
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
 
     /** layout inflater */
@@ -58,12 +60,13 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final ThemeCache themeCache;
 
     public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity,
-                         boolean navigationDrawer, Theme theme, ThemeCache themeCache) {
+                         boolean navigationDrawer, Theme theme, ThemeCache themeCache, Locale locale) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
         this.navigationDrawer = navigationDrawer;
+        this.locale = locale;
         this.inflater = theme.getLayoutInflater(activity);
         this.themeCache = themeCache;
     }
@@ -294,7 +297,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         int countInt = 0;
         if(filterCounter.containsKey(filter)) {
             countInt = filterCounter.get(filter);
-            viewHolder.size.setText(Integer.toString(countInt));
+            viewHolder.size.setText(locale.formatNumber(countInt));
         }
         viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.INVISIBLE);
 
