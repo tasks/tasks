@@ -337,6 +337,7 @@
 	<string name="show_hidden">הצגת משימות נסתרות</string>
 	<string name="show_completed">הצגת משימות שבוצעו</string>
 	<string name="reverse">אחורה</string>
+	<string name="task_count">%d משימות</string>
 	<string name="get_plugins">רכישות בתוך הישום</string>
 	<string name="no_application_found">לא נמצאה אפליקצה לפתיחת הקובץ</string>
 	<string name="add_attachment">הוספ/י קובץ</string>

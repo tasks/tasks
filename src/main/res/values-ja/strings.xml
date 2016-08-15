@@ -337,6 +337,7 @@
 	<string name="show_hidden">非表示を表示</string>
 	<string name="show_completed">完了を表示</string>
 	<string name="reverse">逆順</string>
+	<string name="task_count">%d タスク</string>
 	<string name="get_plugins">アプリ内課金</string>
 	<string name="no_application_found">添付ファイルを開くアプリケーションが見つかりません</string>
 	<string name="add_attachment">添付ファイルを追加</string>

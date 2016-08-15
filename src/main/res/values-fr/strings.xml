@@ -329,6 +329,7 @@
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>
 	<string name="reverse">Inverser</string>
+	<string name="task_count">%d tâches</string>
 	<string name="get_plugins">Achats intégrés à l\'application</string>
 	<string name="no_application_found">Aucune application trouvée pour ouvrir la pièce jointe</string>
 	<string name="add_attachment">Ajouter une pièce jointe</string>

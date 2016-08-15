@@ -339,6 +339,7 @@
 	<string name="show_hidden">Покажи скрити</string>
 	<string name="show_completed">Покажи завършени</string>
 	<string name="reverse">Обратно</string>
+	<string name="task_count">%d задачи</string>
 	<string name="get_plugins">Покупки в приложението</string>
 	<string name="no_application_found">Не е намерено приложение за отваряне на прикачения файл</string>
 	<string name="add_attachment">Добавяне на прикачен файл</string>

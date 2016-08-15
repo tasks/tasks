@@ -332,6 +332,7 @@
 	<string name="show_hidden">Toon verborgen</string>
 	<string name="show_completed">Toon voltooide</string>
 	<string name="reverse">Omgekeerde</string>
+	<string name="task_count">%d taken</string>
 	<string name="get_plugins">In-app aankopen</string>
 	<string name="no_application_found">Geen applicatie gevonden om de bijlage te openen</string>
 	<string name="add_attachment">Bijlage toevoegen</string>
@@ -418,4 +419,7 @@
 	<string name="hardware_support_required">Hardware ondersteuning vereist</string>
 	<string name="led_color">LED kleur</string>
 	<string name="no_calendars_found">Geen kalenders gevonden</string>
+	<string name="widget_settings">Widget instellingen</string>
+	<string name="widget_header_settings">Titel instellingen</string>
+	<string name="widget_row_settings">Regel instellingen</string>
 </resources>
