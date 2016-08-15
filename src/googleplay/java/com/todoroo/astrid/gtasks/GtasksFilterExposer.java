@@ -10,7 +10,6 @@ import com.todoroo.astrid.api.GtasksFilter;
 
 import org.tasks.gtasks.SyncAdapterHelper;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -42,10 +41,9 @@ public class GtasksFilterExposer {
         }
 
         List<Filter> listFilters = newArrayList();
-        for (GtasksList list : gtasksListService.getLists()) {
+        for (GtasksList list : gtasksListService.getSortedGtasksList()) {
             listFilters.add(filterFromList(list));
         }
-        Collections.sort(listFilters, (filter, t1) -> filter.listingTitle.compareTo(t1.listingTitle));
         return listFilters;
     }
 

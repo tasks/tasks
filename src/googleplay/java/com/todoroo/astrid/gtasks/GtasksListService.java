@@ -8,6 +8,7 @@ package com.todoroo.astrid.gtasks;
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.StoreObjectDao;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,12 @@ public class GtasksListService {
 
     public List<GtasksList> getLists() {
         return storeObjectDao.getGtasksLists();
+    }
+
+    public List<GtasksList> getSortedGtasksList() {
+        List<GtasksList> lists = getLists();
+        Collections.sort(lists, (left, right) -> left.getName().compareTo(right.getName()));
+        return lists;
     }
 
     public GtasksList getList(long id) {
