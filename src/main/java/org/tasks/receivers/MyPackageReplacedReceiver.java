@@ -19,6 +19,10 @@ public class MyPackageReplacedReceiver extends InjectingBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
+        if (!intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
+            return;
+        }
+
         Timber.d("onReceive(context, %s)", intent);
 
         backgroundScheduler.scheduleEverything();

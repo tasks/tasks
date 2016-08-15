@@ -41,6 +41,10 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
         super.onReceive(context, intent);
 
+        if (!intent.getAction().equals(TelephonyManager.ACTION_PHONE_STATE_CHANGED)) {
+            return;
+        }
+
         if (!preferences.fieldMissedPhoneCalls()) {
             preferences.clear(PREF_LAST_INCOMING_NUMBER);
             return;
