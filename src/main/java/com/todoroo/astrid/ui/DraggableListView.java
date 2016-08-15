@@ -377,7 +377,7 @@ public class DraggableListView extends ListView {
 
     private void startDragging(Bitmap bm, int x, int y) {
         mWindowParams = new WindowManager.LayoutParams();
-        mWindowParams.gravity = Gravity.TOP | Gravity.LEFT;
+        mWindowParams.gravity = Gravity.TOP | Gravity.START;
         mWindowParams.x = x;
         mWindowParams.y = y - mDragPoint.y + mCoordOffset.y;
 

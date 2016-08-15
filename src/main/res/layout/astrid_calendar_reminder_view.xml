@@ -19,8 +19,10 @@
         android:orientation="horizontal"
         android:layout_marginTop="5dip"
         android:layout_marginRight="5dip"
+		android:layout_marginEnd="5dp"
         android:layout_marginBottom="15dip"
-        android:layout_marginLeft="10dip">
+        android:layout_marginLeft="10dip"
+		android:layout_marginStart="10dp">
         
         <TextView 
             android:id="@+id/reminder_title"
@@ -51,7 +53,9 @@
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal"
 	    android:layout_marginLeft="2dip"
+			android:layout_marginStart="2dp"
 	    android:layout_marginRight="5dip"
+			android:layout_marginEnd="5dp"
 	    android:layout_marginBottom="10dip"
 	    android:gravity="bottom">
 	    <ImageView
@@ -68,6 +72,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginRight="5dip"
+			android:layout_marginEnd="5dp"
 	        android:layout_marginBottom="5dip"
 	        android:minHeight="60dip"
 	        android:gravity="center_vertical"
@@ -128,6 +133,7 @@
 	    <ImageView 
 	        android:id="@+id/ignore_settings"
 	        android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
 	        android:layout_width="35dip"
 	        android:layout_height="35dip"
 	        android:padding="4dip"

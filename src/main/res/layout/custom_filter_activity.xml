@@ -56,6 +56,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingLeft="5dip"
+        android:paddingStart="5dp"
+        android:paddingRight="0dp"
+        android:paddingEnd="0dp"
         android:text="@string/CFA_help"
         style="@style/TextAppearance"/>
     
@@ -74,6 +77,7 @@
         android:paddingTop="10dip"
         android:paddingBottom="10dip"
         android:layout_marginRight="3dip"
+          android:layout_marginEnd="3dp"
         android:layout_weight="1"
         android:text="@string/CFA_button_add" />
 

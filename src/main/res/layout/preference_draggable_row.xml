@@ -30,7 +30,10 @@
 	        android:id="@+id/text"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:paddingLeft="10dip"
+	        android:paddingLeft="10dp"
+			android:paddingStart="10dp"
+			android:paddingRight="0dp"
+			android:paddingEnd="0dp"
 	        android:textAppearance="?android:attr/textAppearanceLarge"/>
     </LinearLayout>
 </LinearLayout>

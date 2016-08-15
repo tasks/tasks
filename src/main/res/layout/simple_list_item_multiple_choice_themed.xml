@@ -9,6 +9,7 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
     android:drawableLeft="@drawable/ic_label_24dp"
+    android:drawableStart="@drawable/ic_label_24dp"
     android:drawablePadding="@dimen/keyline_second"
     android:gravity="center_vertical"
     android:paddingEnd="@dimen/keyline_first"

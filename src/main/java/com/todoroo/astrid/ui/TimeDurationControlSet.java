@@ -51,8 +51,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
             return;
         }
 
-        String prefix = "";
-        timeButton.setText(prefix + DateUtils.formatElapsedTime(timeDuration));
+        timeButton.setText(DateUtils.formatElapsedTime(timeDuration));
         int hours = timeDuration / 3600;
         int minutes = timeDuration / 60 - 60 * hours;
         initialValues = new int[] { hours, minutes };
