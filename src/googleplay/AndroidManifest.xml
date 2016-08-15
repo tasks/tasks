@@ -30,7 +30,7 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
 
-    <application>
+    <application tools:ignore="GoogleAppIndexingWarning">
 
         <meta-data
             android:name="com.google.android.backup.api_key"
@@ -146,7 +146,8 @@
 
         <service
             android:name=".gtasks.GoogleTaskSyncService"
-            android:exported="true">
+            android:exported="true"
+            android:permission="signature">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>

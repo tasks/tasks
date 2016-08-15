@@ -6,6 +6,7 @@
 -->
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:configure="org.tasks.widget.WidgetConfigActivity"
     android:widgetCategory="keyguard|home_screen"
     android:minWidth="142dip"
@@ -15,4 +16,5 @@
     android:updatePeriodMillis="86400000"
     android:initialLayout="@layout/scrollable_widget"
     android:initialKeyguardLayout="@layout/scrollable_widget"
-    android:resizeMode="horizontal|vertical"/>
+    android:resizeMode="horizontal|vertical"
+    tools:ignore="UnusedAttribute" />

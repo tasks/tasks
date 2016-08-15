@@ -1,10 +1,12 @@
 <org.tasks.ui.DraggableSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_layout"
     style="@style/task_list_container"
     android:background="?attr/asContentBackground"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/elevation_task_list" >
+    android:elevation="@dimen/elevation_task_list"
+    tools:ignore="UnusedAttribute">
 
     <com.todoroo.astrid.ui.DraggableListView
         android:id="@android:id/list"

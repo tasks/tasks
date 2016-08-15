@@ -4,6 +4,7 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/task_edit_double_padding_top_bottom">
@@ -22,6 +23,7 @@
         android:layout_toStartOf="@id/clear"
         android:gravity="start"
         android:textDirection="locale"
-        android:textColor="?attr/asTextColor" />
+        android:textColor="?attr/asTextColor"
+        tools:ignore="UnusedAttribute" />
 
 </RelativeLayout>

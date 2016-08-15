@@ -33,20 +33,17 @@ public class Tracker {
         tracker = analytics.newTracker(R.xml.google_analytics);
         tracker.setAppVersion(Integer.toString(BuildConfig.VERSION_CODE));
         final StandardExceptionParser standardExceptionParser = new StandardExceptionParser(context, null);
-        exceptionParser = new ExceptionParser() {
-            @Override
-            public String getDescription(String thread, Throwable throwable) {
-                StringBuilder stack = new StringBuilder()
-                        .append(standardExceptionParser.getDescription(thread, throwable))
-                        .append("\n")
-                        .append(throwable.getClass().getName())
+        exceptionParser = (thread, throwable) -> {
+            StringBuilder stack = new StringBuilder()
+                    .append(standardExceptionParser.getDescription(thread, throwable))
+                    .append("\n")
+                    .append(throwable.getClass().getName())
+                    .append("\n");
+            for (StackTraceElement element : throwable.getStackTrace()) {
+                stack.append(element.toString())
                         .append("\n");
-                for (StackTraceElement element : throwable.getStackTrace()) {
-                    stack.append(element.toString())
-                            .append("\n");
-                }
-                return stack.toString();
             }
+            return stack.toString();
         };
         ExceptionReporter reporter = new ExceptionReporter(
                 tracker,

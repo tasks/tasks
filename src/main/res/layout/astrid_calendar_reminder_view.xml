@@ -60,8 +60,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="5dip"
 	        android:src="@mipmap/ic_launcher"
-	        android:scaleType="fitCenter"
-	        android:layout_alignParentLeft="true"/>
+	        android:scaleType="fitCenter" />
 
 
 	    <LinearLayout
@@ -71,10 +70,8 @@
 	        android:layout_marginRight="5dip"
 	        android:layout_marginBottom="5dip"
 	        android:minHeight="60dip"
-	        android:layout_alignParentBottom="true"
 	        android:gravity="center_vertical"
-	        android:background="@drawable/speech_bubble_reminder"
-	        android:layout_toRightOf="@id/astridIcon">
+	        android:background="@drawable/speech_bubble_reminder" >
 	        <TextView
 	            android:id="@+id/reminder_message"
 	            android:layout_width="fill_parent"

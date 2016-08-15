@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.reminders;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -345,7 +346,7 @@ public final class ReminderService  {
 
             // calculate the unique requestCode as a combination of the task-id and alarm-type:
             // concatenate id+type to keep the combo unique
-            String rc = String.format("%d%d", task.getId(), type);
+            @SuppressLint("DefaultLocale") String rc = String.format("%d%d", task.getId(), type);
             int requestCode;
             try {
                 requestCode = Integer.parseInt(rc);

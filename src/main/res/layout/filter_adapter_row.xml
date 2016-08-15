@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="12dp"
@@ -19,7 +20,8 @@
         android:paddingLeft="@dimen/keyline_first"
         android:paddingRight="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
-        android:textColor="?android:attr/textColorSecondary" />
+        android:textColor="?android:attr/textColorSecondary"
+        tools:ignore="UnusedAttribute" />
 
     <ImageView
         android:id="@+id/icon"
@@ -53,6 +55,7 @@
         android:lines="1"
         android:singleLine="true"
         android:textColor="?android:attr/textColorPrimary"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        tools:ignore="UnusedAttribute" />
 
 </RelativeLayout>

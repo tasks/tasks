@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.provider;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -78,6 +79,7 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
 
     private static final UriMatcher uriMatcher;
 
+    @SuppressLint("StaticFieldLeak")
     private static Database databaseOverride;
 
     // --- instance variables

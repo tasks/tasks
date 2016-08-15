@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:orientation="vertical"
@@ -21,6 +22,7 @@
         android:fontFamily="@string/font_fontFamily_medium"
         android:alpha="0.54"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        tools:ignore="UnusedAttribute" />
 
 </LinearLayout>
