@@ -129,20 +129,13 @@
 	<string name="EPr_default_addtocalendar_title">Domyślnie dodawaj do kalendarza</string>
 	<string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
 	<string name="priority_medium">Średnie</string>
-	<string-array name="EPr_default_urgency">
-		<item>Bez nieprzekraczalnego terminu</item>
-		<item>Dzisiaj</item>
-		<item>Jutro</item>
-		<item>Pojutrze</item>
-		<item>Przyszły tydzień</item>
-	</string-array>
+	<string name="no_deadline">Bez nieprzekraczalnego terminu</string>
+	<string name="day_after_tomorrow">Pojutrze</string>
+	<string name="next_week">Przyszły tydzień</string>
 	<string name="dont_hide">Nie ukrywaj</string>
-	<string-array name="EPr_default_reminders">
-		<item>Brak przypomnień dla terminu nieprzekraczalnego</item>
-		<item>W dniu terminu nieprzekraczalnego</item>
-		<item>Gdy zaległe</item>
-		<item>W nieprzekraczalnym terminie lub gdy zaległe</item>
-	</string-array>
+	<string name="no_deadline_reminder">Brak przypomnień dla terminu nieprzekraczalnego</string>
+	<string name="at_deadline">W dniu terminu nieprzekraczalnego</string>
+	<string name="at_deadline_or_overdue">W nieprzekraczalnym terminie lub gdy zaległe</string>
 	<string name="BFE_Active">Moje zadania</string>
 	<string name="BFE_Recent">Niedawno zmodyfikowane</string>
 	<string name="CFA_universe_all">Aktywne zadania</string>
@@ -155,15 +148,8 @@
 	<string name="CFA_button_add">Dodaj kryterium</string>
 	<string name="CFC_dueBefore_text">Termin wykonania: ?</string>
 	<string name="CFC_dueBefore_name">Termin wykonania...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Bez terminu</item>
-		<item>Wczoraj</item>
-		<item>Dzisiaj</item>
-		<item>Jutro</item>
-		<item>Pojutrze</item>
-		<item>W przyszłym tygodniu</item>
-		<item>Przyszły miesiąc</item>
-	</string-array>
+	<string name="no_due_date">Bez terminu</string>
+	<string name="next_month">Przyszły miesiąc</string>
 	<string name="CFC_importance_text">Priorytet przynajmniej?</string>
 	<string name="CFC_importance_name">Priorytet...</string>
 	<string name="CFC_tag_contains_name">Nazwa taga zawiera...</string>
@@ -193,14 +179,12 @@
 	<string name="ring_once">Dzwoń raz</string>
 	<string name="ring_five_times">Dzwoń pięć razy</string>
 	<string name="ring_nonstop">Dzwoń nonstop</string>
-	<string-array name="TEA_reminder_random">
-		<item>na godzinę</item>
-		<item>dziennie</item>
-		<item>na tydzień</item>
-		<item>na dwa tygodnie</item>
-		<item>na miesiąc</item>
-		<item>na dwa miesiące</item>
-	</string-array>
+	<string name="random_reminder_hour">na godzinę</string>
+	<string name="random_reminder_day">dziennie</string>
+	<string name="random_reminder_week">na tydzień</string>
+	<string name="random_reminder_two_weeks">na dwa tygodnie</string>
+	<string name="random_reminder_month">na miesiąc</string>
+	<string name="random_reminder_two_months">na dwa miesiące</string>
 	<string name="rmd_NoA_done">Już wykonano!</string>
 	<string name="rmd_NoA_snooze">Wstrzymaj...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Początek czasu wyciszenia</string>
@@ -212,30 +196,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Maksymalna głośność dla wielu dzwonków przypomnień</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ustawi maksymalną głośność dla wielu dzwonków przypomnień</string>
 	<string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>
-	<string-array name="EPr_reminder_random">
-		<item>wyłączone</item>
-		<item>co godzinę</item>
-		<item>raz dziennie</item>
-		<item>raz w tygodniu</item>
-		<item>raz na dwa tygodnie</item>
-		<item>raz w miesiącu</item>
-		<item>raz na dwa miesiące</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">wyłączone</string>
+	<string name="default_random_reminder_hourly">co godzinę</string>
+	<string name="default_random_reminder_daily">raz dziennie</string>
+	<string name="default_random_reminder_weekly">raz w tygodniu</string>
+	<string name="default_random_reminder_bi_weekly">raz na dwa tygodnie</string>
+	<string name="default_random_reminder_monthly">raz w miesiącu</string>
+	<string name="default_random_reminder_bi_monthly">raz na dwa miesiące</string>
 	<string name="repeat_every">Co %d</string>
 	<string name="repeat_interval_prompt">Odstęp powtarzania</string>
 	<string name="repeat_never">Jednorazowo</string>
-	<string-array name="repeat_interval">
-		<item>Dzień/Dni</item>
-		<item>Tydzień/Tygodni(e)</item>
-		<item>Miesiąc/Miesiący(e)</item>
-		<item>Godzinę(y)/Godzin</item>
-		<item>Minut(a/y)</item>
-		<item>Rok/lata</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>od planowanego terminu</item>
-		<item>od daty ukończenia</item>
-	</string-array>
+	<string name="repeat_interval_day">Dzień/Dni</string>
+	<string name="repeat_interval_week">Tydzień/Tygodni(e)</string>
+	<string name="repeat_interval_month">Miesiąc/Miesiący(e)</string>
+	<string name="repeat_interval_hour">Godzinę(y)/Godzin</string>
+	<string name="repeat_interval_minute">Minut(a/y)</string>
+	<string name="repeat_interval_year">Rok/lata</string>
+	<string name="repeat_type_due">od planowanego terminu</string>
+	<string name="repeat_type_completion">od daty ukończenia</string>
 	<string name="repeat_detail_duedate">Każdy %s</string>
 	<string name="repeat_detail_duedate_until">Co %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>

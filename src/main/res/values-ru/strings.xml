@@ -131,20 +131,13 @@
 	<string name="priority_high">Высокий</string>
 	<string name="priority_medium">Средний</string>
 	<string name="priority_low">Низкий</string>
-	<string-array name="EPr_default_urgency">
-		<item>Без срока выполнения</item>
-		<item>Сегодня</item>
-		<item>Завтра</item>
-		<item>Через день</item>
-		<item>Следующая неделя</item>
-	</string-array>
+	<string name="no_deadline">Без срока выполнения</string>
+	<string name="day_after_tomorrow">Через день</string>
+	<string name="next_week">Следующая неделя</string>
 	<string name="dont_hide">Не скрывать</string>
-	<string-array name="EPr_default_reminders">
-		<item>Нет напоминаний</item>
-		<item>В срок</item>
-		<item>Когда просрочена</item>
-		<item>Вовремя или просрочена</item>
-	</string-array>
+	<string name="no_deadline_reminder">Нет напоминаний</string>
+	<string name="at_deadline">В срок</string>
+	<string name="at_deadline_or_overdue">Вовремя или просрочена</string>
 	<string name="BFE_Active">Мои задачи</string>
 	<string name="BFE_Recent">Недавно изменённые</string>
 	<string name="CFA_universe_all">Активные задачи</string>
@@ -157,15 +150,8 @@
 	<string name="CFA_button_add">Добавить условие</string>
 	<string name="CFC_dueBefore_text">Конечный срок: ?</string>
 	<string name="CFC_dueBefore_name">Конечный срок…</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Нет даты выполнения задания</item>
-		<item>Вчера</item>
-		<item>Сегодня</item>
-		<item>Завтра</item>
-		<item>Через день</item>
-		<item>Через неделю</item>
-		<item>Через месяц</item>
-	</string-array>
+	<string name="no_due_date">Нет даты выполнения задания</string>
+	<string name="next_month">Через месяц</string>
 	<string name="CFC_importance_text">Приоритет меньшего?</string>
 	<string name="CFC_importance_name">Приоритет...</string>
 	<string name="CFC_tag_text">Тег: ? </string>
@@ -196,14 +182,12 @@
 	<string name="ring_once">1 раз</string>
 	<string name="ring_five_times">5 раз</string>
 	<string name="ring_nonstop">Пока не выкл.</string>
-	<string-array name="TEA_reminder_random">
-		<item>час</item>
-		<item>день</item>
-		<item>неделя</item>
-		<item>в две недели</item>
-		<item>месяц</item>
-		<item>в два месяца</item>
-	</string-array>
+	<string name="random_reminder_hour">час</string>
+	<string name="random_reminder_day">день</string>
+	<string name="random_reminder_week">неделя</string>
+	<string name="random_reminder_two_weeks">в две недели</string>
+	<string name="random_reminder_month">месяц</string>
+	<string name="random_reminder_two_months">в два месяца</string>
 	<string name="rmd_NoA_done">Уже готово!</string>
 	<string name="rmd_NoA_snooze">Повтор</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
@@ -215,30 +199,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимальная громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks будет увеличивать громкость для многоразовых напоминаний</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
-	<string-array name="EPr_reminder_random">
-		<item>отключено</item>
-		<item>ежечасно</item>
-		<item>ежедневно</item>
-		<item>еженедельно</item>
-		<item>каждые две недели</item>
-		<item>ежемесячно</item>
-		<item>каждые два месяца</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">отключено</string>
+	<string name="default_random_reminder_hourly">ежечасно</string>
+	<string name="default_random_reminder_daily">ежедневно</string>
+	<string name="default_random_reminder_weekly">еженедельно</string>
+	<string name="default_random_reminder_bi_weekly">каждые две недели</string>
+	<string name="default_random_reminder_monthly">ежемесячно</string>
+	<string name="default_random_reminder_bi_monthly">каждые два месяца</string>
 	<string name="repeat_every">С интервалом в %d</string>
 	<string name="repeat_interval_prompt">Интервал повтора</string>
 	<string name="repeat_never">Без повторений</string>
-	<string-array name="repeat_interval">
-		<item>День(дней)</item>
-		<item>Неделя(ль)</item>
-		<item>Месяц(ев)</item>
-		<item>Час(ов)</item>
-		<item>Минута(ы)</item>
-		<item>Лет (Года)</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>с намеченного времени</item>
-		<item>со времени завершения</item>
-	</string-array>
+	<string name="repeat_interval_day">День(дней)</string>
+	<string name="repeat_interval_week">Неделя(ль)</string>
+	<string name="repeat_interval_month">Месяц(ев)</string>
+	<string name="repeat_interval_hour">Час(ов)</string>
+	<string name="repeat_interval_minute">Минута(ы)</string>
+	<string name="repeat_interval_year">Лет (Года)</string>
+	<string name="repeat_type_due">с намеченного времени</string>
+	<string name="repeat_type_completion">со времени завершения</string>
 	<string name="repeat_detail_duedate">С интервалом %s</string>
 	<string name="repeat_detail_duedate_until">\"Каждые  %1$s до %2$s\"</string>
 	<string name="repeat_forever">Повторять всегда</string>

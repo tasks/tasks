@@ -130,20 +130,13 @@
 	<string name="priority_high">Hoog</string>
 	<string name="priority_medium">Middelmatig</string>
 	<string name="priority_low">Laag</string>
-	<string-array name="EPr_default_urgency">
-		<item>Geen einddatum</item>
-		<item>Vandaag</item>
-		<item>Morgen</item>
-		<item>Overmorgen</item>
-		<item>Volgende week</item>
-	</string-array>
+	<string name="no_deadline">Geen einddatum</string>
+	<string name="day_after_tomorrow">Overmorgen</string>
+	<string name="next_week">Volgende week</string>
 	<string name="dont_hide">Niet verbergen</string>
-	<string-array name="EPr_default_reminders">
-		<item>Herinneringen zonder einddatum</item>
-		<item>Op de einddatum</item>
-		<item>Na de einddatum</item>
-		<item>Op of na de einddatum</item>
-	</string-array>
+	<string name="no_deadline_reminder">Herinneringen zonder einddatum</string>
+	<string name="at_deadline">Op de einddatum</string>
+	<string name="at_deadline_or_overdue">Op of na de einddatum</string>
 	<string name="BFE_Active">Mijn taken</string>
 	<string name="BFE_Recent">Onlangs aangepast</string>
 	<string name="CFA_universe_all">Actieve taken</string>
@@ -156,15 +149,8 @@
 	<string name="CFA_button_add">Criteria toevoegen</string>
 	<string name="CFC_dueBefore_text">Einddatum: ?</string>
 	<string name="CFC_dueBefore_name">Einddatum...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Geen einddatum</item>
-		<item>Gisteren</item>
-		<item>Vandaag</item>
-		<item>Morgen</item>
-		<item>Overmorgen</item>
-		<item>Volgende week</item>
-		<item>Volgende maand</item>
-	</string-array>
+	<string name="no_due_date">Geen einddatum</string>
+	<string name="next_month">Volgende maand</string>
 	<string name="CFC_importance_text">Prioriteit ten minste ?</string>
 	<string name="CFC_importance_name">Prioriteit...</string>
 	<string name="CFC_tag_text">Label: ?</string>
@@ -196,14 +182,12 @@
 	<string name="ring_once">Ring eenmalig</string>
 	<string name="ring_five_times">Ring vijf keer</string>
 	<string name="ring_nonstop">Ring continue</string>
-	<string-array name="TEA_reminder_random">
-		<item>een uur</item>
-		<item>een dag</item>
-		<item>een week</item>
-		<item>over twee weken</item>
-		<item>een maand</item>
-		<item>over twee maanden</item>
-	</string-array>
+	<string name="random_reminder_hour">een uur</string>
+	<string name="random_reminder_day">een dag</string>
+	<string name="random_reminder_week">een week</string>
+	<string name="random_reminder_two_weeks">over twee weken</string>
+	<string name="random_reminder_month">een maand</string>
+	<string name="random_reminder_two_months">over twee maanden</string>
 	<string name="rmd_NoA_done">Reeds voltooid!</string>
 	<string name="rmd_NoA_snooze">Sluimeren...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
@@ -215,30 +199,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Max. volume voor multiple-ring herinneringen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks zal het volume voor multi-ring herinneringen maximaliseren</string>
 	<string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
-	<string-array name="EPr_reminder_random">
-		<item>uitgeschakeld</item>
-		<item>uurlijks</item>
-		<item>dagelijks</item>
-		<item>wekelijks</item>
-		<item>tweewekelijks</item>
-		<item>maandelijks</item>
-		<item>tweemaandelijks</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">uitgeschakeld</string>
+	<string name="default_random_reminder_hourly">uurlijks</string>
+	<string name="default_random_reminder_daily">dagelijks</string>
+	<string name="default_random_reminder_weekly">wekelijks</string>
+	<string name="default_random_reminder_bi_weekly">tweewekelijks</string>
+	<string name="default_random_reminder_monthly">maandelijks</string>
+	<string name="default_random_reminder_bi_monthly">tweemaandelijks</string>
 	<string name="repeat_every">Elke %d</string>
 	<string name="repeat_interval_prompt">Herhaal interval</string>
 	<string name="repeat_never">Niet herhalend</string>
-	<string-array name="repeat_interval">
-		<item>Dag(en)</item>
-		<item>week/weken</item>
-		<item>maand(en)</item>
-		<item>uur/uren</item>
-		<item>Minu(u)t(en)</item>
-		<item>Ja(a)r(en)</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>vanaf einddatum</item>
-		<item>vanaf datum voltooid</item>
-	</string-array>
+	<string name="repeat_interval_day">Dag(en)</string>
+	<string name="repeat_interval_week">week/weken</string>
+	<string name="repeat_interval_month">maand(en)</string>
+	<string name="repeat_interval_hour">uur/uren</string>
+	<string name="repeat_interval_minute">Minu(u)t(en)</string>
+	<string name="repeat_interval_year">Ja(a)r(en)</string>
+	<string name="repeat_type_due">vanaf einddatum</string>
+	<string name="repeat_type_completion">vanaf datum voltooid</string>
 	<string name="repeat_detail_duedate">Elke %s</string>
 	<string name="repeat_detail_duedate_until">Elke %1$s\ntot %2$s</string>
 	<string name="repeat_forever">Altijd herhalen</string>

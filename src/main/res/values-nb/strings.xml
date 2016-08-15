@@ -51,13 +51,6 @@
 	<string name="EPr_default_importance_title">Standardviktighet</string>
 	<string name="EPr_default_hideUntil_title">Standard skjul frem til</string>
 	<string name="EPr_default_reminders_title">Standardpåminnelser</string>
-	<string-array name="EPr_default_urgency">
-		<item>No deadline</item>
-		<item>I dag</item>
-		<item>I morgen</item>
-		<item>Day after tomorrow</item>
-		<item>Next week</item>
-	</string-array>
 	<string name="BFE_Active">Aktive oppgaver</string>
 	<string name="BFE_Recent">Nylig endret</string>
 	<string name="CFA_universe_all">Aktive oppgaver</string>
@@ -69,15 +62,6 @@
 	<string name="CFA_button_add">Legg til kriterium</string>
 	<string name="CFC_dueBefore_text">Forfaller innen: ?</string>
 	<string name="CFC_dueBefore_name">Forfaller innen...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
-		<item>I går</item>
-		<item>I dag</item>
-		<item>I morgen</item>
-		<item>Day After Tomorrow</item>
-		<item>Neste uke</item>
-		<item>Next Month</item>
-	</string-array>
 	<string name="CFC_importance_text">Viktighet minst ?</string>
 	<string name="CFC_importance_name">Viktighet...</string>
 	<string name="CFC_title_contains_name">Tittel inneholder...</string>

@@ -80,20 +80,13 @@
 	<string name="EPr_default_reminders_title">默认提醒</string>
 	<string name="EPr_default_addtocalendar_title">默认添加到日历</string>
 	<string name="EPr_default_reminders_mode_title">默认铃声／振动类型</string>
-	<string-array name="EPr_default_urgency">
-		<item>无截止日</item>
-		<item>今天</item>
-		<item>明天</item>
-		<item>后天</item>
-		<item>下周</item>
-	</string-array>
+	<string name="no_deadline">无截止日</string>
+	<string name="day_after_tomorrow">后天</string>
+	<string name="next_week">下周</string>
 	<string name="dont_hide">不隐藏</string>
-	<string-array name="EPr_default_reminders">
-		<item>无截止期限提醒</item>
-		<item>截止期限时</item>
-		<item>过期时</item>
-		<item>截止期限或过期时</item>
-	</string-array>
+	<string name="no_deadline_reminder">无截止期限提醒</string>
+	<string name="at_deadline">截止期限时</string>
+	<string name="at_deadline_or_overdue">截止期限或过期时</string>
 	<string name="BFE_Recent">最近修改过的</string>
 	<string name="CFA_universe_all">进行中的任务</string>
 	<string name="CFA_type_add">或</string>
@@ -104,15 +97,8 @@
 	<string name="CFA_button_add">添加条件</string>
 	<string name="CFC_dueBefore_text">期限: ?</string>
 	<string name="CFC_dueBefore_name">期限...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>无期限</item>
-		<item>昨天</item>
-		<item>今天</item>
-		<item>明天</item>
-		<item>后天</item>
-		<item>下周</item>
-		<item>下个月</item>
-	</string-array>
+	<string name="no_due_date">无期限</string>
+	<string name="next_month">下个月</string>
 	<string name="CFC_title_contains_name">标题含...</string>
 	<string name="CFC_title_contains_text">标题含: ?</string>
 	<string name="gcal_TEA_error">添加任务到日历时失败！</string>
@@ -132,14 +118,12 @@
 	<string name="audio_stop_recording">停止录制</string>
 	<string name="file_type_unhandled">对不起！找不到应用程序处理这种文件类型。</string>
 	<string name="file_err_copy">复制文件添加附件时出错</string>
-	<string-array name="TEA_reminder_random">
-		<item>一个小时</item>
-		<item>一天</item>
-		<item>一个星期</item>
-		<item>两星期内</item>
-		<item>一个月</item>
-		<item>两个月内</item>
-	</string-array>
+	<string name="random_reminder_hour">一个小时</string>
+	<string name="random_reminder_day">一天</string>
+	<string name="random_reminder_week">一个星期</string>
+	<string name="random_reminder_two_weeks">两星期内</string>
+	<string name="random_reminder_month">一个月</string>
+	<string name="random_reminder_two_months">两个月内</string>
 	<string name="rmd_NoA_done">已完成!</string>
 	<string name="rmd_NoA_snooze">晚点提醒...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
@@ -149,29 +133,23 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">清单小助理将会以最大音量进行多重提醒</string>
 	<string name="rmd_EPr_defaultRemind_title">随机提醒</string>
-	<string-array name="EPr_reminder_random">
-		<item>停用</item>
-		<item>每小时</item>
-		<item>每天</item>
-		<item>每周</item>
-		<item>每两周</item>
-		<item>每月</item>
-		<item>每两个月</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">停用</string>
+	<string name="default_random_reminder_hourly">每小时</string>
+	<string name="default_random_reminder_daily">每天</string>
+	<string name="default_random_reminder_weekly">每周</string>
+	<string name="default_random_reminder_bi_weekly">每两周</string>
+	<string name="default_random_reminder_monthly">每月</string>
+	<string name="default_random_reminder_bi_monthly">每两个月</string>
 	<string name="repeat_every">每 %d</string>
 	<string name="repeat_interval_prompt">重复间隔</string>
-	<string-array name="repeat_interval">
-		<item>日</item>
-		<item>星期</item>
-		<item>月</item>
-		<item>小时</item>
-		<item>分钟</item>
-		<item>年</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>自到期日</item>
-		<item>自完成日</item>
-	</string-array>
+	<string name="repeat_interval_day">日</string>
+	<string name="repeat_interval_week">星期</string>
+	<string name="repeat_interval_month">月</string>
+	<string name="repeat_interval_hour">小时</string>
+	<string name="repeat_interval_minute">分钟</string>
+	<string name="repeat_interval_year">年</string>
+	<string name="repeat_type_due">自到期日</string>
+	<string name="repeat_type_completion">自完成日</string>
 	<string name="repeat_detail_duedate">每隔 %s</string>
 	<string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
 	<string name="repeat_forever">永远重复</string>

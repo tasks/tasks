@@ -358,32 +358,17 @@ File %1$s contained %2$s.\n\n
   <string name="priority_medium">Medium</string>
   <string name="priority_low">Low</string>
 
-    <string-array name="EPr_default_urgency">
-        <!-- urgency: labels for "Task Defaults" preference item. -->
-        <!-- slide 41a-->
-        <item>No deadline</item>
-        <!-- slide 41b -->
-        <item>Today</item>
-        <!-- slide 41c-->
-        <item>Tomorrow</item>
-        <!-- slide 41d -->
-        <item>Day after tomorrow</item>
-        <!-- slide 41e -->
-        <item>Next week</item>
-    </string-array>
+  <string name="no_deadline">No deadline</string>
+  <string name="day_after_tomorrow">Day after tomorrow</string>
+  <string name="next_week">Next week</string>
 
-    <string name="dont_hide">Don\'t hide</string>
+  <string name="dont_hide">Don\'t hide</string>
 
-    <string-array name="EPr_default_reminders">
-        <!-- reminders: labels for "Task Defaults" preference item. -->
-        <item>No deadline reminders</item>
-        <item>At deadline</item>
-        <item>When overdue</item>
-        <item>At deadline or overdue</item>
-    </string-array>
+  <string name="no_deadline_reminder">No deadline reminders</string>
+  <string name="at_deadline">At deadline</string>
+  <string name="at_deadline_or_overdue">At deadline or overdue</string>
 
-
-    <!-- ================================================= Filter Exposer == -->
+  <!-- ================================================= Filter Exposer == -->
 
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">My Tasks</string>
@@ -423,18 +408,11 @@ File %1$s contained %2$s.\n\n
     <string name="CFC_dueBefore_text">Due By: ?</string>
     <!-- Criteria: due by X - name of criteria -->
     <string name="CFC_dueBefore_name">Due By...</string>
-    <string-array name="CFC_dueBefore_entries">
-        <!-- Criteria: due by X - options -->
-        <item>No Due Date</item>
-        <item>Yesterday</item>
-        <item>Today</item>
-        <item>Tomorrow</item>
-        <item>Day After Tomorrow</item>
-        <item>Next Week</item>
-        <item>Next Month</item>
-    </string-array>
 
-    <!-- Criteria: importance - display text (? -> user input)-->
+  <string name="no_due_date">No Due Date</string>
+  <string name="next_month">Next Month</string>
+
+  <!-- Criteria: importance - display text (? -> user input)-->
     <string name="CFC_importance_text">Priority at least ?</string>
     <!-- Criteria: importance - name of criteria -->
     <string name="CFC_importance_name">Priority...</string>
@@ -542,17 +520,14 @@ File %1$s contained %2$s.\n\n
     <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->
     <string name="ring_nonstop">Ring nonstop</string>
 
-    <string-array name="TEA_reminder_random">
-        <!-- random reminder choices for task edit page. -->
-        <item>an hour</item>
-        <item>a day</item>
-        <item>a week</item>
-        <item>in two weeks</item>
-        <item>a month</item>
-        <item>in two months</item>
-    </string-array>
+  <string name="random_reminder_hour">an hour</string>
+  <string name="random_reminder_day">a day</string>
+  <string name="random_reminder_week">a week</string>
+  <string name="random_reminder_two_weeks">in two weeks</string>
+  <string name="random_reminder_month">a month</string>
+  <string name="random_reminder_two_months">in two months</string>
 
-    <!-- ==================================================== notifications == -->
+  <!-- ==================================================== notifications == -->
 
     <!-- Reminder: Task was already done -->
     <string name="rmd_NoA_done">Complete</string>
@@ -588,24 +563,15 @@ File %1$s contained %2$s.\n\n
 
     <!-- slide 39a: Defaults Title -->
 
-    <string-array name="EPr_reminder_random">
-        <!-- slide 44a: Reminder Preference: random reminder choices for preference page. -->
-        <item>disabled</item>
-        <!-- slide 44b -->
-        <item>hourly</item>
-        <!-- slide 44c -->
-        <item>daily</item>
-        <!-- slide 44d-->
-        <item>weekly</item>
-        <!-- slide 44e-->
-        <item>bi-weekly</item>
-        <!-- slide 44f -->
-        <item>monthly</item>
-        <item>bi-monthly</item>
-    </string-array>
+  <string name="default_random_reminder_disabled">disabled</string>
+  <string name="default_random_reminder_hourly">hourly</string>
+  <string name="default_random_reminder_daily">daily</string>
+  <string name="default_random_reminder_weekly">weekly</string>
+  <string name="default_random_reminder_bi_weekly">bi-weekly</string>
+  <string name="default_random_reminder_monthly">monthly</string>
+  <string name="default_random_reminder_bi_monthly">bi-monthly</string>
 
-
-    <!-- Resources for built-in repeat plug-in -->
+  <!-- Resources for built-in repeat plug-in -->
 
     <!-- slide 20b: button for "every x" part of repeat (%d -> repeat value)  -->
     <string name="repeat_every">Every %d</string>
@@ -616,24 +582,17 @@ File %1$s contained %2$s.\n\n
     <!-- slide 19b-->
     <string name="repeat_never">Not repeating</string>
 
-    <string-array name="repeat_interval">
-        <!-- slide 20e: repeat interval (days,weeks,months,hours,minutes,years) -->
-        <item>Day(s)</item>
-        <item>Week(s)</item>
-        <item>Month(s)</item>
-        <item>Hour(s)</item>
-        <item>Minute(s)</item>
-        <item>Year(s)</item>
-    </string-array>
+  <string name="repeat_interval_day">Day(s)</string>
+  <string name="repeat_interval_week">Week(s)</string>
+  <string name="repeat_interval_month">Month(s)</string>
+  <string name="repeat_interval_hour">Hour(s)</string>
+  <string name="repeat_interval_minute">Minute(s)</string>
+  <string name="repeat_interval_year">Year(s)</string>
 
-    <string-array name="repeat_type">
-        <!-- slide 20c: repeat type (date to repeat from) -->
-        <item>from due date</item>
-        <!-- slide 20c -->
-        <item>from completion date</item>
-    </string-array>
+  <string name="repeat_type_due">from due date</string>
+  <string name="repeat_type_completion">from completion date</string>
 
-    <!-- task detail for repeat from due date (%s -> interval) -->
+  <!-- task detail for repeat from due date (%s -> interval) -->
     <string name="repeat_detail_duedate">Every %s</string>
 
     <!-- task detail for repeat until a specific date (%1$s -> interval, %2$s -> finish date)-->

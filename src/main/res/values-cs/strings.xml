@@ -106,20 +106,13 @@
 	<string name="EPr_default_reminders_title">Výchozí připomenutí</string>
 	<string name="EPr_default_addtocalendar_title">Výchozí přidání do kalendáře</string>
 	<string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vybrace</string>
-	<string-array name="EPr_default_urgency">
-		<item>Žádný termín</item>
-		<item>Dnes</item>
-		<item>Zítra</item>
-		<item>Pozítří</item>
-		<item>Příští týden</item>
-	</string-array>
+	<string name="no_deadline">Žádný termín</string>
+	<string name="day_after_tomorrow">Pozítří</string>
+	<string name="next_week">Příští týden</string>
 	<string name="dont_hide">Neskrývat</string>
-	<string-array name="EPr_default_reminders">
-		<item>Žádné upomínky v termínu</item>
-		<item>V termínu</item>
-		<item>Po termínu</item>
-		<item>V termínu nebo po něm</item>
-	</string-array>
+	<string name="no_deadline_reminder">Žádné upomínky v termínu</string>
+	<string name="at_deadline">V termínu</string>
+	<string name="at_deadline_or_overdue">V termínu nebo po něm</string>
 	<string name="BFE_Active">Aktivní úkoly</string>
 	<string name="BFE_Recent">Nedávno upravené</string>
 	<string name="CFA_universe_all">Aktivní úkoly</string>
@@ -132,15 +125,8 @@
 	<string name="CFA_button_add">Přidat podmínku</string>
 	<string name="CFC_dueBefore_text">Podle termínu: ?</string>
 	<string name="CFC_dueBefore_name">Podle termínu...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Žádný termín</item>
-		<item>Včera</item>
-		<item>Dnes</item>
-		<item>Zítra</item>
-		<item>Pozítří</item>
-		<item>Příští týden</item>
-		<item>Příští měsíc</item>
-	</string-array>
+	<string name="no_due_date">Žádný termín</string>
+	<string name="next_month">Příští měsíc</string>
 	<string name="CFC_importance_text">Alespoň důležitost?</string>
 	<string name="CFC_importance_name">Důležitost...</string>
 	<string name="CFC_title_contains_name">Název obsahuje...</string>
@@ -163,14 +149,12 @@
 	<string name="audio_stop_recording">Ukončit záznam</string>
 	<string name="file_type_unhandled">Pro tento typ souborů nebyla nalezena žádná aplikace.</string>
 	<string name="file_err_copy">Chyba při kopírování souboru jako přílohy</string>
-	<string-array name="TEA_reminder_random">
-		<item>hodina</item>
-		<item>den</item>
-		<item>týden</item>
-		<item>za dva týdny</item>
-		<item>měsíc</item>
-		<item>za dva měsíce</item>
-	</string-array>
+	<string name="random_reminder_hour">hodina</string>
+	<string name="random_reminder_day">den</string>
+	<string name="random_reminder_week">týden</string>
+	<string name="random_reminder_two_weeks">za dva týdny</string>
+	<string name="random_reminder_month">měsíc</string>
+	<string name="random_reminder_two_months">za dva měsíce</string>
 	<string name="rmd_NoA_done">Dokončeno!</string>
 	<string name="rmd_NoA_snooze">Později...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
@@ -179,30 +163,24 @@
 	<string name="rmd_EPr_rmd_time_desc">Upozornění na úkoly bez času dokončení se objeví v %s</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Nejvyšší hlasitost pro opakované zvonění upomínky</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
-	<string-array name="EPr_reminder_random">
-		<item>zakázáno</item>
-		<item>každou hodinu</item>
-		<item>denně</item>
-		<item>týdně</item>
-		<item>každých ctrnáct dní</item>
-		<item>měsíčně</item>
-		<item>každý druhý měsíc</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">zakázáno</string>
+	<string name="default_random_reminder_hourly">každou hodinu</string>
+	<string name="default_random_reminder_daily">denně</string>
+	<string name="default_random_reminder_weekly">týdně</string>
+	<string name="default_random_reminder_bi_weekly">každých ctrnáct dní</string>
+	<string name="default_random_reminder_monthly">měsíčně</string>
+	<string name="default_random_reminder_bi_monthly">každý druhý měsíc</string>
 	<string name="repeat_every">Každý %d</string>
 	<string name="repeat_interval_prompt">Opakovací interval</string>
 	<string name="repeat_never">Bez opakování</string>
-	<string-array name="repeat_interval">
-		<item>Dnů</item>
-		<item>Týdnů</item>
-		<item>Měsíců</item>
-		<item>Hodin</item>
-		<item>Minuta(-y)</item>
-		<item>Rok(y)</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>od data splnění</item>
-		<item>od data dokončení</item>
-	</string-array>
+	<string name="repeat_interval_day">Dnů</string>
+	<string name="repeat_interval_week">Týdnů</string>
+	<string name="repeat_interval_month">Měsíců</string>
+	<string name="repeat_interval_hour">Hodin</string>
+	<string name="repeat_interval_minute">Minuta(-y)</string>
+	<string name="repeat_interval_year">Rok(y)</string>
+	<string name="repeat_type_due">od data splnění</string>
+	<string name="repeat_type_completion">od data dokončení</string>
 	<string name="repeat_detail_duedate">Každý %s</string>
 	<string name="repeat_detail_duedate_until">Každý %1$s\n až do %2$s</string>
 	<string name="repeat_forever">Opakovat stále</string>

@@ -131,20 +131,13 @@
 	<string name="priority_high">גבוה</string>
 	<string name="priority_medium">בינוני</string>
 	<string name="priority_low">נמוך</string>
-	<string-array name="EPr_default_urgency">
-		<item>ללא מועד סף</item>
-		<item>היום</item>
-		<item>מחר</item>
-		<item>מחרתיים</item>
-		<item>בשבוע הבא</item>
-	</string-array>
+	<string name="no_deadline">ללא מועד סף</string>
+	<string name="day_after_tomorrow">מחרתיים</string>
+	<string name="next_week">בשבוע הבא</string>
 	<string name="dont_hide">אל תסתיר</string>
-	<string-array name="EPr_default_reminders">
-		<item>ללא תזכורות במועד הסף</item>
-		<item>במועד הסף</item>
-		<item>אחרי מועד היעד</item>
-		<item>במועד היעד או לאחריו</item>
-	</string-array>
+	<string name="no_deadline_reminder">ללא תזכורות במועד הסף</string>
+	<string name="at_deadline">במועד הסף</string>
+	<string name="at_deadline_or_overdue">במועד היעד או לאחריו</string>
 	<string name="BFE_Active">המשימות שלי</string>
 	<string name="BFE_Recent">עודכנו לאחרונה</string>
 	<string name="CFA_universe_all">משימות פעילות</string>
@@ -157,15 +150,8 @@
 	<string name="CFA_button_add">הוסף קריטריון</string>
 	<string name="CFC_dueBefore_text">תאריך יעד: ?</string>
 	<string name="CFC_dueBefore_name">מועד יעד...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>ללא תאריך יעד</item>
-		<item>אתמול</item>
-		<item>היום</item>
-		<item>מחר</item>
-		<item>מחרתיים</item>
-		<item>בשבוע הבא</item>
-		<item>בחודש הבא</item>
-	</string-array>
+	<string name="no_due_date">ללא תאריך יעד</string>
+	<string name="next_month">בחודש הבא</string>
 	<string name="CFC_importance_text">עדיפות לפחות?</string>
 	<string name="CFC_importance_name">עדיפות...</string>
 	<string name="CFC_tag_text">תג: ?</string>
@@ -197,14 +183,12 @@
 	<string name="ring_once">צלצל פעם אחת</string>
 	<string name="ring_five_times">צלצל חמש פעמים</string>
 	<string name="ring_nonstop">צלצל ללא הפסקה</string>
-	<string-array name="TEA_reminder_random">
-		<item>שעה</item>
-		<item>יום</item>
-		<item>שבוע</item>
-		<item>שבועיים</item>
-		<item>חודש</item>
-		<item>חדשיים</item>
-	</string-array>
+	<string name="random_reminder_hour">שעה</string>
+	<string name="random_reminder_day">יום</string>
+	<string name="random_reminder_week">שבוע</string>
+	<string name="random_reminder_two_weeks">שבועיים</string>
+	<string name="random_reminder_month">חודש</string>
+	<string name="random_reminder_two_months">חדשיים</string>
 	<string name="rmd_NoA_done">בוצעה</string>
 	<string name="rmd_NoA_snooze">נודניק</string>
 	<string name="rmd_EPr_quiet_hours_start_title">תחילת שעות השקט</string>
@@ -216,30 +200,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">עוצמת קול מירבית לתזכורות מרובות צילצולים</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">אסטריד תשתמש בעוצמת קול מירבית לתזכורות רבות צלצולים</string>
 	<string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
-	<string-array name="EPr_reminder_random">
-		<item>לא זמין</item>
-		<item>שעתי</item>
-		<item>יומי</item>
-		<item>שבועי</item>
-		<item>דו שבועי</item>
-		<item>חודשי</item>
-		<item>דו חודשי</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">לא זמין</string>
+	<string name="default_random_reminder_hourly">שעתי</string>
+	<string name="default_random_reminder_daily">יומי</string>
+	<string name="default_random_reminder_weekly">שבועי</string>
+	<string name="default_random_reminder_bi_weekly">דו שבועי</string>
+	<string name="default_random_reminder_monthly">חודשי</string>
+	<string name="default_random_reminder_bi_monthly">דו חודשי</string>
 	<string name="repeat_every">כל %d</string>
 	<string name="repeat_interval_prompt">תדירות חזרה</string>
 	<string name="repeat_never">ללא חזרה</string>
-	<string-array name="repeat_interval">
-		<item>יום/ימים</item>
-		<item>שבוע/(ות)</item>
-		<item>חודש/ים</item>
-		<item>שעה/ות</item>
-		<item>דקה/דקות</item>
-		<item>שנה/שנים</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>מתאריך היעד</item>
-		<item>מהיום שהמשימה הושלמה</item>
-	</string-array>
+	<string name="repeat_interval_day">יום/ימים</string>
+	<string name="repeat_interval_week">שבוע/(ות)</string>
+	<string name="repeat_interval_month">חודש/ים</string>
+	<string name="repeat_interval_hour">שעה/ות</string>
+	<string name="repeat_interval_minute">דקה/דקות</string>
+	<string name="repeat_interval_year">שנה/שנים</string>
+	<string name="repeat_type_due">מתאריך היעד</string>
+	<string name="repeat_type_completion">מהיום שהמשימה הושלמה</string>
 	<string name="repeat_detail_duedate">כל %s</string>
 	<string name="repeat_detail_duedate_until">כל %1$s\nעד %2$s</string>
 	<string name="repeat_forever">חזור לנצח</string>

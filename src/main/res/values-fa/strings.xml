@@ -87,20 +87,13 @@
 	<string name="priority_high">زیاد</string>
 	<string name="priority_medium">متوسط</string>
 	<string name="priority_low">کم</string>
-	<string-array name="EPr_default_urgency">
-		<item>بدون موعود</item>
-		<item>امروز</item>
-		<item>فردا</item>
-		<item>پس فردا</item>
-		<item>هفته بعد</item>
-	</string-array>
+	<string name="no_deadline">بدون موعود</string>
+	<string name="day_after_tomorrow">پس فردا</string>
+	<string name="next_week">هفته بعد</string>
 	<string name="dont_hide">مخفی نکن</string>
-	<string-array name="EPr_default_reminders">
-		<item>بدون یادآور موعود</item>
-		<item>روز موعود</item>
-		<item>پس از موعود</item>
-		<item>در روز موعد یا پس از موعود</item>
-	</string-array>
+	<string name="no_deadline_reminder">بدون یادآور موعود</string>
+	<string name="at_deadline">روز موعود</string>
+	<string name="at_deadline_or_overdue">در روز موعد یا پس از موعود</string>
 	<string name="BFE_Active">وظایف من</string>
 	<string name="BFE_Recent">اخیرا ویرایش شده</string>
 	<string name="CFA_universe_all">وظایف فعال</string>
@@ -111,15 +104,8 @@
 	<string name="CFA_help">لمس طولانی روی انتخاب برای گزینه های بیشتر</string>
 	<string name="CFA_button_add">اضافه کردن محتوا</string>
 	<string name="CFC_dueBefore_name">موعود بر اساس</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>بدون موعود</item>
-		<item>دیروز</item>
-		<item>امروز</item>
-		<item>فردا</item>
-		<item>پس فردا</item>
-		<item>هفته بعد</item>
-		<item>ماه بعد</item>
-	</string-array>
+	<string name="no_due_date">بدون موعود</string>
+	<string name="next_month">ماه بعد</string>
 	<string name="CFC_importance_text">اولویت در آخر؟</string>
 	<string name="CFC_importance_name">اولویت</string>
 	<string name="CFC_tag_name">تگ...</string>
@@ -141,42 +127,34 @@
 	<string name="ring_once">یک بار زنگ بزن</string>
 	<string name="ring_five_times">پنج بار زنگ بزن</string>
 	<string name="ring_nonstop">بدون توقف زنگ بزن</string>
-	<string-array name="TEA_reminder_random">
-		<item>یک ساعت</item>
-		<item>یک روز</item>
-		<item>یک هفته</item>
-		<item>دو هفته آینده</item>
-		<item>یک ماه</item>
-		<item>در دو ماه</item>
-	</string-array>
+	<string name="random_reminder_hour">یک ساعت</string>
+	<string name="random_reminder_day">یک روز</string>
+	<string name="random_reminder_week">یک هفته</string>
+	<string name="random_reminder_two_weeks">دو هفته آینده</string>
+	<string name="random_reminder_month">یک ماه</string>
+	<string name="random_reminder_two_months">در دو ماه</string>
 	<string name="rmd_NoA_done">کامل</string>
 	<string name="rmd_EPr_quiet_hours_start_title">شروع ساعات خلوتی</string>
 	<string name="rmd_EPr_quiet_hours_end_title">پایان ساعات خلوتی</string>
 	<string name="rmd_EPr_rmd_time_title">یادآور پیش فرض</string>
 	<string name="rmd_EPr_defaultRemind_title">یادآوری های تصادفی</string>
-	<string-array name="EPr_reminder_random">
-		<item>غیرفعال شده</item>
-		<item>هر ساعت</item>
-		<item>هر روز</item>
-		<item>هر هفته</item>
-		<item>یک هفته در میان</item>
-		<item>هر ماه</item>
-		<item>یک ماه درمیان</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">غیرفعال شده</string>
+	<string name="default_random_reminder_hourly">هر ساعت</string>
+	<string name="default_random_reminder_daily">هر روز</string>
+	<string name="default_random_reminder_weekly">هر هفته</string>
+	<string name="default_random_reminder_bi_weekly">یک هفته در میان</string>
+	<string name="default_random_reminder_monthly">هر ماه</string>
+	<string name="default_random_reminder_bi_monthly">یک ماه درمیان</string>
 	<string name="repeat_interval_prompt">دوره تکرار</string>
 	<string name="repeat_never">بدون تکرار</string>
-	<string-array name="repeat_interval">
-		<item>روز(ها)</item>
-		<item>هفته(ها)</item>
-		<item>ماه(ها)</item>
-		<item>ساعت(ها)</item>
-		<item>دقیقه(ها)</item>
-		<item>سال(ها)</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>از روز موعود</item>
-		<item>از تاریخ اتمام</item>
-	</string-array>
+	<string name="repeat_interval_day">روز(ها)</string>
+	<string name="repeat_interval_week">هفته(ها)</string>
+	<string name="repeat_interval_month">ماه(ها)</string>
+	<string name="repeat_interval_hour">ساعت(ها)</string>
+	<string name="repeat_interval_minute">دقیقه(ها)</string>
+	<string name="repeat_interval_year">سال(ها)</string>
+	<string name="repeat_type_due">از روز موعود</string>
+	<string name="repeat_type_completion">از تاریخ اتمام</string>
 	<string name="repeat_forever">تکرار بینهایت</string>
 	<string name="new_tag">ایجاد تگ جدید</string>
 	<string name="tag_FEx_untagged">دسته بندی نشده</string>

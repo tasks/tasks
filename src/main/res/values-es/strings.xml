@@ -130,20 +130,13 @@
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Media</string>
 	<string name="priority_low">Baja</string>
-	<string-array name="EPr_default_urgency">
-		<item>Sin vencimiento</item>
-		<item>Hoy</item>
-		<item>Mañana</item>
-		<item>Pasado mañana</item>
-		<item>Semana siguiente</item>
-	</string-array>
+	<string name="no_deadline">Sin vencimiento</string>
+	<string name="day_after_tomorrow">Pasado mañana</string>
+	<string name="next_week">Semana siguiente</string>
 	<string name="dont_hide">No ocultar</string>
-	<string-array name="EPr_default_reminders">
-		<item>Sin recordatorios del vencimiento</item>
-		<item>En la fecha de vencimiento</item>
-		<item>Cuando esté vencida</item>
-		<item>En la fecha de vencimiento o ya vencida</item>
-	</string-array>
+	<string name="no_deadline_reminder">Sin recordatorios del vencimiento</string>
+	<string name="at_deadline">En la fecha de vencimiento</string>
+	<string name="at_deadline_or_overdue">En la fecha de vencimiento o ya vencida</string>
 	<string name="BFE_Active">Mis Tareas</string>
 	<string name="BFE_Recent">Recién modificadas</string>
 	<string name="CFA_universe_all">Tareas activas</string>
@@ -156,15 +149,8 @@
 	<string name="CFA_button_add">Añadir Criterio</string>
 	<string name="CFC_dueBefore_text">Vence el: ?</string>
 	<string name="CFC_dueBefore_name">Vence el...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Sin fecha de vencimiento</item>
-		<item>Ayer</item>
-		<item>Hoy</item>
-		<item>Mañana</item>
-		<item>Pasado mañana</item>
-		<item>Próxima semana</item>
-		<item>Próximo mes</item>
-	</string-array>
+	<string name="no_due_date">Sin fecha de vencimiento</string>
+	<string name="next_month">Próximo mes</string>
 	<string name="CFC_importance_text">¿Prioridad mínima?</string>
 	<string name="CFC_importance_name">Prioridad...</string>
 	<string name="CFC_tag_text">Etiqueta: ?</string>
@@ -195,14 +181,12 @@
 	<string name="ring_once">Sonar una vez</string>
 	<string name="ring_five_times">Sonar cinco veces</string>
 	<string name="ring_nonstop">Sonar sin parar</string>
-	<string-array name="TEA_reminder_random">
-		<item>una hora</item>
-		<item>un día</item>
-		<item>una semana</item>
-		<item>en dos semanas</item>
-		<item>un mes</item>
-		<item>en dos meses</item>
-	</string-array>
+	<string name="random_reminder_hour">una hora</string>
+	<string name="random_reminder_day">un día</string>
+	<string name="random_reminder_week">una semana</string>
+	<string name="random_reminder_two_weeks">en dos semanas</string>
+	<string name="random_reminder_month">un mes</string>
+	<string name="random_reminder_two_months">en dos meses</string>
 	<string name="rmd_NoA_done">Terminada</string>
 	<string name="rmd_NoA_snooze">Posponer</string>
 	<string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
@@ -214,30 +198,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Máximo volumen para recordatorios con tonos múltiples</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks fijará el volumen máximo para avisos con tonos múltiples</string>
 	<string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
-	<string-array name="EPr_reminder_random">
-		<item>deshabilitado</item>
-		<item>cada hora</item>
-		<item>diariamente</item>
-		<item>semanalmente</item>
-		<item>quincenalmente</item>
-		<item>mensualmente</item>
-		<item>bimensualmente</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">deshabilitado</string>
+	<string name="default_random_reminder_hourly">cada hora</string>
+	<string name="default_random_reminder_daily">diariamente</string>
+	<string name="default_random_reminder_weekly">semanalmente</string>
+	<string name="default_random_reminder_bi_weekly">quincenalmente</string>
+	<string name="default_random_reminder_monthly">mensualmente</string>
+	<string name="default_random_reminder_bi_monthly">bimensualmente</string>
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetición</string>
 	<string name="repeat_never">Sin repetir</string>
-	<string-array name="repeat_interval">
-		<item>Día(s)</item>
-		<item>Semana(s)</item>
-		<item>Mes(es)</item>
-		<item>Hora(s)</item>
-		<item>Minuto(s)</item>
-		<item>Año(s)</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>desde la fecha de vencimiento</item>
-		<item>Desde la fecha de finalización</item>
-	</string-array>
+	<string name="repeat_interval_day">Día(s)</string>
+	<string name="repeat_interval_week">Semana(s)</string>
+	<string name="repeat_interval_month">Mes(es)</string>
+	<string name="repeat_interval_hour">Hora(s)</string>
+	<string name="repeat_interval_minute">Minuto(s)</string>
+	<string name="repeat_interval_year">Año(s)</string>
+	<string name="repeat_type_due">desde la fecha de vencimiento</string>
+	<string name="repeat_type_completion">Desde la fecha de finalización</string>
 	<string name="repeat_detail_duedate">Cada %s</string>
 	<string name="repeat_detail_duedate_until">Cada %1$s\nhasta %2$s</string>
 	<string name="repeat_forever">Repetir por siempre</string>

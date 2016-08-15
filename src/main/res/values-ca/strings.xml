@@ -68,13 +68,8 @@
 	<string name="EPr_manage_delete_completed_message">Segur que voleu suprimir totes les tasques completades?</string>
 	<string name="EPr_manage_delete_completed_status">S\'han suprimit %d tasques</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
-	<string-array name="EPr_default_urgency">
-		<item>No deadline</item>
-		<item>Avui</item>
-		<item>Demà</item>
-		<item>Demà passat</item>
-		<item>La setmana que ve</item>
-	</string-array>
+	<string name="day_after_tomorrow">Demà passat</string>
+	<string name="next_week">La setmana que ve</string>
 	<string name="BFE_Active">Tasques actives</string>
 	<string name="BFE_Recent">Modificades fa poc</string>
 	<string name="CFA_universe_all">Tasques actives</string>
@@ -86,15 +81,8 @@
 	<string name="CFA_button_add">Afegeix criteris</string>
 	<string name="CFC_dueBefore_text">Vençuda per: ?</string>
 	<string name="CFC_dueBefore_name">Venciment per...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Sense data de venciment</item>
-		<item>Ahir</item>
-		<item>Avui</item>
-		<item>Demà</item>
-		<item>Demà passat</item>
-		<item>La setmana que ve</item>
-		<item>El mes que ve</item>
-	</string-array>
+	<string name="no_due_date">Sense data de venciment</string>
+	<string name="next_month">El mes que ve</string>
 	<string name="CFC_importance_text">Per menys important?</string>
 	<string name="CFC_importance_name">Importància...</string>
 	<string name="CFC_title_contains_name">El títol conté...</string>

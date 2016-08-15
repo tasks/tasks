@@ -133,20 +133,13 @@
 	<string name="priority_high">높음</string>
 	<string name="priority_medium">중간</string>
 	<string name="priority_low">낮음</string>
-	<string-array name="EPr_default_urgency">
-		<item>기한 없음</item>
-		<item>오늘</item>
-		<item>내일</item>
-		<item>모레</item>
-		<item>다음 주</item>
-	</string-array>
+	<string name="no_deadline">기한 없음</string>
+	<string name="day_after_tomorrow">모레</string>
+	<string name="next_week">다음 주</string>
 	<string name="dont_hide">숨기지 않기</string>
-	<string-array name="EPr_default_reminders">
-		<item>기한 알림 없음</item>
-		<item>완료일에</item>
-		<item>마감일 이후</item>
-		<item>마감일이나 그 이후</item>
-	</string-array>
+	<string name="no_deadline_reminder">기한 알림 없음</string>
+	<string name="at_deadline">완료일에</string>
+	<string name="at_deadline_or_overdue">마감일이나 그 이후</string>
 	<string name="BFE_Active">나의 일정</string>
 	<string name="BFE_Recent">최근에 수정한 일정</string>
 	<string name="CFA_universe_all">실행중인 일정</string>
@@ -159,15 +152,8 @@
 	<string name="CFA_button_add">기준 추가</string>
 	<string name="CFC_dueBefore_text">마감일: ?</string>
 	<string name="CFC_dueBefore_name">마감일...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>마감일 없음</item>
-		<item>어제</item>
-		<item>오늘</item>
-		<item>내일</item>
-		<item>모레</item>
-		<item>다음 주</item>
-		<item>다음 달</item>
-	</string-array>
+	<string name="no_due_date">마감일 없음</string>
+	<string name="next_month">다음 달</string>
 	<string name="CFC_importance_text">최소 우선순위?</string>
 	<string name="CFC_importance_name">우선순위...</string>
 	<string name="CFC_tag_text">태그: ?</string>
@@ -199,14 +185,12 @@
 	<string name="ring_once">한번 울림</string>
 	<string name="ring_five_times">다섯번 울림</string>
 	<string name="ring_nonstop">계속 울림</string>
-	<string-array name="TEA_reminder_random">
-		<item>한 시간</item>
-		<item>하루</item>
-		<item>일주일</item>
-		<item>2주일</item>
-		<item>한달</item>
-		<item>두달</item>
-	</string-array>
+	<string name="random_reminder_hour">한 시간</string>
+	<string name="random_reminder_day">하루</string>
+	<string name="random_reminder_week">일주일</string>
+	<string name="random_reminder_two_weeks">2주일</string>
+	<string name="random_reminder_month">한달</string>
+	<string name="random_reminder_two_months">두달</string>
 	<string name="rmd_NoA_done">완료</string>
 	<string name="rmd_NoA_snooze">알림 잠시 미루기</string>
 	<string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
@@ -218,30 +202,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">다중-링 알림의 최대 볼륨</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks는 다중-링 알림을 최대 볼륨으로 출력합니다</string>
 	<string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>
-	<string-array name="EPr_reminder_random">
-		<item>사용안함</item>
-		<item>매시간</item>
-		<item>매일</item>
-		<item>매주</item>
-		<item>격주로</item>
-		<item>매달</item>
-		<item>격월로</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">사용안함</string>
+	<string name="default_random_reminder_hourly">매시간</string>
+	<string name="default_random_reminder_daily">매일</string>
+	<string name="default_random_reminder_weekly">매주</string>
+	<string name="default_random_reminder_bi_weekly">격주로</string>
+	<string name="default_random_reminder_monthly">매달</string>
+	<string name="default_random_reminder_bi_monthly">격월로</string>
 	<string name="repeat_every">매 %d</string>
 	<string name="repeat_interval_prompt">반복 주기</string>
 	<string name="repeat_never">반복하지 않기</string>
-	<string-array name="repeat_interval">
-		<item>일마다</item>
-		<item>주마다</item>
-		<item>월마다</item>
-		<item>시마다</item>
-		<item>분마다</item>
-		<item>년마다</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>마감일로부터</item>
-		<item>완료일로부터</item>
-	</string-array>
+	<string name="repeat_interval_day">일마다</string>
+	<string name="repeat_interval_week">주마다</string>
+	<string name="repeat_interval_month">월마다</string>
+	<string name="repeat_interval_hour">시마다</string>
+	<string name="repeat_interval_minute">분마다</string>
+	<string name="repeat_interval_year">년마다</string>
+	<string name="repeat_type_due">마감일로부터</string>
+	<string name="repeat_type_completion">완료일로부터</string>
 	<string name="repeat_detail_duedate">매 %s</string>
 	<string name="repeat_detail_duedate_until">매 %1$s 마다\n%2$s 까지</string>
 	<string name="repeat_forever">영원히 반복하기</string>

@@ -192,4 +192,62 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+
+    <string-array name="EPr_default_urgency">
+        <item>@string/no_deadline</item>
+        <item>@string/today</item>
+        <item>@string/tomorrow</item>
+        <item>@string/day_after_tomorrow</item>
+        <item>@string/next_week</item>
+    </string-array>
+
+    <string-array name="EPr_default_reminders">
+        <item>@string/no_deadline_reminder</item>
+        <item>@string/at_deadline</item>
+        <item>@string/when_overdue</item>
+        <item>@string/at_deadline_or_overdue</item>
+    </string-array>
+
+    <string-array name="CFC_dueBefore_entries">
+        <item>@string/no_due_date</item>
+        <item>@string/yesterday</item>
+        <item>@string/today</item>
+        <item>@string/tomorrow</item>
+        <item>@string/day_after_tomorrow</item>
+        <item>@string/next_week</item>
+        <item>@string/next_month</item>
+    </string-array>
+
+    <string-array name="TEA_reminder_random">
+        <item>@string/random_reminder_hour</item>
+        <item>@string/random_reminder_day</item>
+        <item>@string/random_reminder_week</item>
+        <item>@string/random_reminder_two_weeks</item>
+        <item>@string/random_reminder_month</item>
+        <item>@string/random_reminder_two_months</item>
+    </string-array>
+
+    <string-array name="EPr_reminder_random">
+        <item>@string/default_random_reminder_disabled</item>
+        <item>@string/default_random_reminder_hourly</item>
+        <item>@string/default_random_reminder_daily</item>
+        <item>@string/default_random_reminder_weekly</item>
+        <item>@string/default_random_reminder_bi_weekly</item>
+        <item>@string/default_random_reminder_monthly</item>
+        <item>@string/default_random_reminder_bi_monthly</item>
+    </string-array>
+
+    <string-array name="repeat_interval">
+        <item>@string/repeat_interval_day</item>
+        <item>@string/repeat_interval_week</item>
+        <item>@string/repeat_interval_month</item>
+        <item>@string/repeat_interval_hour</item>
+        <item>@string/repeat_interval_minute</item>
+        <item>@string/repeat_interval_year</item>
+    </string-array>
+
+    <string-array name="repeat_type">
+        <item>@string/repeat_type_due</item>
+        <item>@string/repeat_type_completion</item>
+    </string-array>
 </resources>

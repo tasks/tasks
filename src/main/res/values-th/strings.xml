@@ -26,13 +26,6 @@
 	<string name="TEA_control_importance">ความสำคัญ</string>
 	<string name="TEA_control_notes">บันทึกย่อ</string>
 	<string name="EPr_appearance_header">รูปโฉม</string>
-	<string-array name="EPr_default_urgency">
-		<item>No deadline</item>
-		<item>วันนี้</item>
-		<item>พรุ่งนี้</item>
-		<item>Day after tomorrow</item>
-		<item>Next week</item>
-	</string-array>
 	<string name="BFE_Active">แผนงานตอนนี้</string>
 	<string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
 	<string name="CFA_universe_all">แผนงานตอนนี้</string>
@@ -41,15 +34,6 @@
 	<string name="CFA_type_intersect">รวมถึง</string>
 	<string name="CFA_context_delete">ลบแถว</string>
 	<string name="CFA_button_add">เพิ่มข้อกำหนด</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
-		<item>เมื่อวาน</item>
-		<item>วันนี้</item>
-		<item>พรุ่งนี้</item>
-		<item>Day After Tomorrow</item>
-		<item>Next Week</item>
-		<item>Next Month</item>
-	</string-array>
 	<string name="CFC_importance_text">มีความสำคัญอย่างน้อย ?</string>
 	<string name="CFC_importance_name">ความสำคัญ...</string>
 	<string name="CFC_title_contains_name">ชื่อที่มีคำว่า...</string>

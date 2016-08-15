@@ -55,13 +55,6 @@
 	<string name="EPr_default_importance_title">Standard Vigtighed</string>
 	<string name="EPr_default_hideUntil_title">Standard Skjul Indtil</string>
 	<string name="EPr_default_reminders_title">Standardpåmindelser</string>
-	<string-array name="EPr_default_urgency">
-		<item>No deadline</item>
-		<item>I dag</item>
-		<item>I morgen</item>
-		<item>Day after tomorrow</item>
-		<item>Next week</item>
-	</string-array>
 	<string name="BFE_Active">Aktive opgaver</string>
 	<string name="BFE_Recent">Senest ændrede</string>
 	<string name="CFA_universe_all">Aktive opgaver</string>
@@ -74,15 +67,6 @@
 	<string name="CFA_button_add">Tilføj kriterier</string>
 	<string name="CFC_dueBefore_text">Deadline: ?</string>
 	<string name="CFC_dueBefore_name">Deadline...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>No Due Date</item>
-		<item>I går</item>
-		<item>I dag</item>
-		<item>I morgen</item>
-		<item>Day After Tomorrow</item>
-		<item>Next Week</item>
-		<item>Next Month</item>
-	</string-array>
 	<string name="CFC_importance_text">Vigtighed mindst ?</string>
 	<string name="CFC_importance_name">Vigtighed...</string>
 	<string name="CFC_title_contains_name">Titel indeholder...</string>
@@ -92,14 +76,9 @@
 	<string name="gcal_TEA_showCalendar_label">Åbn kalender-begivenhed</string>
 	<string name="gcal_completed_title">%s (fuldført)</string>
 	<string name="gtasks_GPr_header">Google Tasks (beta!)</string>
-	<string-array name="TEA_reminder_random">
-		<item>en time</item>
-		<item>en dag</item>
-		<item>en uge</item>
-		<item>in two weeks</item>
-		<item>a month</item>
-		<item>in two months</item>
-	</string-array>
+	<string name="random_reminder_hour">en time</string>
+	<string name="random_reminder_day">en dag</string>
+	<string name="random_reminder_week">en uge</string>
 	<string name="rmd_NoA_done">Allerede udført!</string>
 	<string name="rmd_NoA_snooze">Slumrefunktion...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stille timer start</string>

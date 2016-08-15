@@ -84,20 +84,13 @@
 	<string name="EPr_default_reminders_title">Öntanımlı Hatırlatmalar</string>
 	<string name="EPr_default_addtocalendar_title">Öntanımlı olarak Takvime Ekle</string>
 	<string name="EPr_default_reminders_mode_title">Varsayılan Zil/Titreşim tipi</string>
-	<string-array name="EPr_default_urgency">
-		<item>Son tarih yok</item>
-		<item>Bugün</item>
-		<item>Yarın</item>
-		<item>Yarından Sonra</item>
-		<item>Gelecek Hafta</item>
-	</string-array>
+	<string name="no_deadline">Son tarih yok</string>
+	<string name="day_after_tomorrow">Yarından Sonra</string>
+	<string name="next_week">Gelecek Hafta</string>
 	<string name="dont_hide">Gizleme</string>
-	<string-array name="EPr_default_reminders">
-		<item>Son gün hatırlatması yok</item>
-		<item>Son tarihte</item>
-		<item>Son tarih aşıldığında</item>
-		<item>Son tarihte ya da aşıldığında</item>
-	</string-array>
+	<string name="no_deadline_reminder">Son gün hatırlatması yok</string>
+	<string name="at_deadline">Son tarihte</string>
+	<string name="at_deadline_or_overdue">Son tarihte ya da aşıldığında</string>
 	<string name="BFE_Recent">Yakında Değiştirilenler</string>
 	<string name="CFA_universe_all">Etkin Görevler</string>
 	<string name="CFA_type_add">ya da</string>
@@ -108,15 +101,8 @@
 	<string name="CFA_button_add">Ölçüt Ekle</string>
 	<string name="CFC_dueBefore_text">Şu tarihte: ?</string>
 	<string name="CFC_dueBefore_name">Şu tarihte...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Son Tarih Yok</item>
-		<item>Dün</item>
-		<item>Bugün</item>
-		<item>Yarın</item>
-		<item>Yarından sonra</item>
-		<item>Gelecek Hafta</item>
-		<item>Gelecek Ay</item>
-	</string-array>
+	<string name="no_due_date">Son Tarih Yok</string>
+	<string name="next_month">Gelecek Ay</string>
 	<string name="CFC_title_contains_name">Başlık şunu içersin...</string>
 	<string name="CFC_title_contains_text">Başlık şunu içersin:?</string>
 	<string name="gcal_TEA_error">Takvime görev eklenmesinde hata!</string>
@@ -137,14 +123,12 @@
 	<string name="audio_stop_recording">Kaydı Durdur</string>
 	<string name="file_type_unhandled">Üzgünüm! Bu dosya türünü destekleyen bir uygulama bulunamadı.</string>
 	<string name="file_err_copy">Dosyanın ek olarak kopyalanmasında hata</string>
-	<string-array name="TEA_reminder_random">
-		<item>bir saat</item>
-		<item>bir gün</item>
-		<item>bir hafta</item>
-		<item>iki hafta içinde</item>
-		<item>bir ay</item>
-		<item>iki ay içinde</item>
-	</string-array>
+	<string name="random_reminder_hour">bir saat</string>
+	<string name="random_reminder_day">bir gün</string>
+	<string name="random_reminder_week">bir hafta</string>
+	<string name="random_reminder_two_weeks">iki hafta içinde</string>
+	<string name="random_reminder_month">bir ay</string>
+	<string name="random_reminder_two_months">iki ay içinde</string>
 	<string name="rmd_NoA_done">Tamamlandı</string>
 	<string name="rmd_NoA_snooze">Ertele</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Sessiz saatlerin başlangıcı</string>
@@ -154,29 +138,23 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Çoklu çalan hatırlatmalar için en yüksek ses seviyesi</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Çoklu çalan hatırlatmalar için Tasks ses seviyesini en yükseğe çıkaracaktır</string>
 	<string name="rmd_EPr_defaultRemind_title">Rastgele Hatırlatmalar</string>
-	<string-array name="EPr_reminder_random">
-		<item>devre dışı</item>
-		<item>saat başı</item>
-		<item>her gün</item>
-		<item>her hafta</item>
-		<item>haftada 2 kez</item>
-		<item>ayda bir</item>
-		<item>ayda 2 kez</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">devre dışı</string>
+	<string name="default_random_reminder_hourly">saat başı</string>
+	<string name="default_random_reminder_daily">her gün</string>
+	<string name="default_random_reminder_weekly">her hafta</string>
+	<string name="default_random_reminder_bi_weekly">haftada 2 kez</string>
+	<string name="default_random_reminder_monthly">ayda bir</string>
+	<string name="default_random_reminder_bi_monthly">ayda 2 kez</string>
 	<string name="repeat_every">Her %d</string>
 	<string name="repeat_interval_prompt">Yineleme Aralığı</string>
-	<string-array name="repeat_interval">
-		<item>Gün</item>
-		<item>Hafta</item>
-		<item>Ay</item>
-		<item>Saat</item>
-		<item>Dakika</item>
-		<item>Yıl</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>son tarihten itibaren</item>
-		<item>tamamlanma tarihinden itibaren</item>
-	</string-array>
+	<string name="repeat_interval_day">Gün</string>
+	<string name="repeat_interval_week">Hafta</string>
+	<string name="repeat_interval_month">Ay</string>
+	<string name="repeat_interval_hour">Saat</string>
+	<string name="repeat_interval_minute">Dakika</string>
+	<string name="repeat_interval_year">Yıl</string>
+	<string name="repeat_type_due">son tarihten itibaren</string>
+	<string name="repeat_type_completion">tamamlanma tarihinden itibaren</string>
 	<string name="repeat_detail_duedate">Her %s</string>
 	<string name="repeat_detail_duedate_until">Her %1$s\n%2$s \'e kadar</string>
 	<string name="repeat_forever">Sürekli yinele</string>

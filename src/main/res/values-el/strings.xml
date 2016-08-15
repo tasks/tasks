@@ -107,20 +107,13 @@
 	<string name="EPr_default_reminders_title">Προκαθορισμένες υπενθυμίσεις</string>
 	<string name="EPr_default_addtocalendar_title">Προκαθορισμένη προσθήκη σε ημερολόγιο</string>
 	<string name="EPr_default_reminders_mode_title">Προκαθορισμένος ήχος/τύπος δόνησης</string>
-	<string-array name="EPr_default_urgency">
-		<item>Χωρίς προθεσμία</item>
-		<item>Σήμερα</item>
-		<item>Αύριο</item>
-		<item>Μεθαύριο</item>
-		<item>Επόμενη εβδομάδα</item>
-	</string-array>
+	<string name="no_deadline">Χωρίς προθεσμία</string>
+	<string name="day_after_tomorrow">Μεθαύριο</string>
+	<string name="next_week">Επόμενη εβδομάδα</string>
 	<string name="dont_hide">Μη απόκρυψη</string>
-	<string-array name="EPr_default_reminders">
-		<item>Όχι υπενθυμίσεις προθεσμίας</item>
-		<item>Στην προθεσμία</item>
-		<item>Όταν λήξει</item>
-		<item>Στην λήξη η και μετά</item>
-	</string-array>
+	<string name="no_deadline_reminder">Όχι υπενθυμίσεις προθεσμίας</string>
+	<string name="at_deadline">Στην προθεσμία</string>
+	<string name="at_deadline_or_overdue">Στην λήξη η και μετά</string>
 	<string name="CFA_type_add">ή</string>
 	<string name="CFA_type_subtract">μή</string>
 	<string name="CFA_type_intersect">επίσης</string>
@@ -130,15 +123,8 @@
 	<string name="CFA_button_add">Προσθέστε κριτήριο</string>
 	<string name="CFC_dueBefore_text">Λήγει στίς: ?</string>
 	<string name="CFC_dueBefore_name">Λήγει στίς...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Χωρίς ημερομηνία λήξης</item>
-		<item>Εχθές</item>
-		<item>Σήμερα</item>
-		<item>Αύριο</item>
-		<item>Μεθαύριο</item>
-		<item>Επόμενη εβδομάδα</item>
-		<item>Επόμενος μήνας</item>
-	</string-array>
+	<string name="no_due_date">Χωρίς ημερομηνία λήξης</string>
+	<string name="next_month">Επόμενος μήνας</string>
 	<string name="CFC_importance_text">Προτεραιότητα τουλάχιστον ?</string>
 	<string name="CFC_importance_name">Προτεραιότητα..</string>
 	<string name="CFC_title_contains_name">Ο τίτλος περιέχει...</string>
@@ -161,14 +147,12 @@
 	<string name="audio_stop_recording">Σταμάτημα εγγραφής</string>
 	<string name="file_type_unhandled">Συγγνώμη! Δεν βρέθηκε εφαρμογή που να χειρίζεται τέτοιο τύπο αρχείου</string>
 	<string name="file_err_copy">Σφάλμα αντιγραφής αρχείου προς επισύναψη</string>
-	<string-array name="TEA_reminder_random">
-		<item>μια ώρα</item>
-		<item>μια μέρα</item>
-		<item>μια εβδομάδα</item>
-		<item>σε δύο εβδομάδες</item>
-		<item>εναν μήνα</item>
-		<item>σε δύο μήνες</item>
-	</string-array>
+	<string name="random_reminder_hour">μια ώρα</string>
+	<string name="random_reminder_day">μια μέρα</string>
+	<string name="random_reminder_week">μια εβδομάδα</string>
+	<string name="random_reminder_two_weeks">σε δύο εβδομάδες</string>
+	<string name="random_reminder_month">εναν μήνα</string>
+	<string name="random_reminder_two_months">σε δύο μήνες</string>
 	<string name="rmd_NoA_done">Ολοκληρωμένο</string>
 	<string name="rmd_NoA_snooze">Αναβολή</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ξεκίνησε η ώρα ησυχίας </string>
@@ -177,30 +161,24 @@
 	<string name="rmd_EPr_rmd_time_desc">Ειδοποιήσεις για εργασίες χωρίς ώρα λήξης θα φαίνονται στις %s</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Μέγιστος ήχος για πολλαπλούς ήχους υπενθυμίσεων</string>
 	<string name="rmd_EPr_defaultRemind_title">Τυχαίες υπενθυμίσεις</string>
-	<string-array name="EPr_reminder_random">
-		<item>απενεργοποιημένο</item>
-		<item>ωριαία</item>
-		<item>καθημερινά</item>
-		<item>Εβδομαδιαία</item>
-		<item>κάθε δυο εβδομάδες</item>
-		<item>μηνιαία</item>
-		<item>διμηνιαία</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">απενεργοποιημένο</string>
+	<string name="default_random_reminder_hourly">ωριαία</string>
+	<string name="default_random_reminder_daily">καθημερινά</string>
+	<string name="default_random_reminder_weekly">Εβδομαδιαία</string>
+	<string name="default_random_reminder_bi_weekly">κάθε δυο εβδομάδες</string>
+	<string name="default_random_reminder_monthly">μηνιαία</string>
+	<string name="default_random_reminder_bi_monthly">διμηνιαία</string>
 	<string name="repeat_every">Κάθε %d</string>
 	<string name="repeat_interval_prompt">Διάστημα επανάληψης</string>
 	<string name="repeat_never">Μή επαναλαμβανόμενα</string>
-	<string-array name="repeat_interval">
-		<item>Μέρα(ες)</item>
-		<item>Εβδομαδα(ές)</item>
-		<item>Μήνας(ές)</item>
-		<item>Ώρα(ές)</item>
-		<item>Λεπτό(ά)</item>
-		<item>Χρόνος(ια)</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>απο την ημερομηνία λήξης</item>
-		<item>απο την ημερομηνία ολοκλήρωσης </item>
-	</string-array>
+	<string name="repeat_interval_day">Μέρα(ες)</string>
+	<string name="repeat_interval_week">Εβδομαδα(ές)</string>
+	<string name="repeat_interval_month">Μήνας(ές)</string>
+	<string name="repeat_interval_hour">Ώρα(ές)</string>
+	<string name="repeat_interval_minute">Λεπτό(ά)</string>
+	<string name="repeat_interval_year">Χρόνος(ια)</string>
+	<string name="repeat_type_due">απο την ημερομηνία λήξης</string>
+	<string name="repeat_type_completion">απο την ημερομηνία ολοκλήρωσης </string>
 	<string name="repeat_detail_duedate">Κάθε %s</string>
 	<string name="repeat_detail_duedate_until">Κάθε %1$s\nμέχρι %2$s</string>
 	<string name="repeat_forever">Επανάληψη επ\'αορίστου</string>

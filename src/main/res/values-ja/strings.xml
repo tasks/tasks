@@ -131,20 +131,13 @@
 	<string name="priority_high">高</string>
 	<string name="priority_medium">中</string>
 	<string name="priority_low">低</string>
-	<string-array name="EPr_default_urgency">
-		<item>期限なし</item>
-		<item>今日</item>
-		<item>明日</item>
-		<item>明後日</item>
-		<item>来週</item>
-	</string-array>
+	<string name="no_deadline">期限なし</string>
+	<string name="day_after_tomorrow">明後日</string>
+	<string name="next_week">来週</string>
 	<string name="dont_hide">常に表示する</string>
-	<string-array name="EPr_default_reminders">
-		<item>期限を通知しない</item>
-		<item>期限に</item>
-		<item>期限を過ぎたとき</item>
-		<item>期限または期限を過ぎて</item>
-	</string-array>
+	<string name="no_deadline_reminder">期限を通知しない</string>
+	<string name="at_deadline">期限に</string>
+	<string name="at_deadline_or_overdue">期限または期限を過ぎて</string>
 	<string name="BFE_Active">マイ タスク</string>
 	<string name="BFE_Recent">最近編集したタスク</string>
 	<string name="CFA_universe_all">進行中のタスク</string>
@@ -157,15 +150,8 @@
 	<string name="CFA_button_add">条件の追加</string>
 	<string name="CFC_dueBefore_text">期限: ?</string>
 	<string name="CFC_dueBefore_name">期限</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>期限日がありません</item>
-		<item>昨日</item>
-		<item>今日</item>
-		<item>明日</item>
-		<item>明後日</item>
-		<item>来週</item>
-		<item>来月</item>
-	</string-array>
+	<string name="no_due_date">期限日がありません</string>
+	<string name="next_month">来月</string>
 	<string name="CFC_importance_text">優先順位は少なくとも ?</string>
 	<string name="CFC_importance_name">優先順位...</string>
 	<string name="CFC_tag_text">タグ: ?</string>
@@ -197,14 +183,12 @@
 	<string name="ring_once">1回通知音を鳴らす</string>
 	<string name="ring_five_times">5回通知音を鳴らす</string>
 	<string name="ring_nonstop">通知音を鳴らし続ける</string>
-	<string-array name="TEA_reminder_random">
-		<item>1時間</item>
-		<item>1日</item>
-		<item>1週間</item>
-		<item>2週間以内</item>
-		<item>1か月</item>
-		<item>2か月以内</item>
-	</string-array>
+	<string name="random_reminder_hour">1時間</string>
+	<string name="random_reminder_day">1日</string>
+	<string name="random_reminder_week">1週間</string>
+	<string name="random_reminder_two_weeks">2週間以内</string>
+	<string name="random_reminder_month">1か月</string>
+	<string name="random_reminder_two_months">2か月以内</string>
 	<string name="rmd_NoA_done">既に完了しています!</string>
 	<string name="rmd_NoA_snooze">スヌーズ</string>
 	<string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
@@ -216,30 +200,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">複数の通知音の最大音量</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks は複数の通知音の最大音量です</string>
 	<string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
-	<string-array name="EPr_reminder_random">
-		<item>無効</item>
-		<item>1時間毎</item>
-		<item>毎日</item>
-		<item>毎週</item>
-		<item>一週間おき</item>
-		<item>毎月</item>
-		<item>一ヶ月おき</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">無効</string>
+	<string name="default_random_reminder_hourly">1時間毎</string>
+	<string name="default_random_reminder_daily">毎日</string>
+	<string name="default_random_reminder_weekly">毎週</string>
+	<string name="default_random_reminder_bi_weekly">一週間おき</string>
+	<string name="default_random_reminder_monthly">毎月</string>
+	<string name="default_random_reminder_bi_monthly">一ヶ月おき</string>
 	<string name="repeat_every">%d 毎</string>
 	<string name="repeat_interval_prompt">繰り返し間隔</string>
 	<string name="repeat_never">繰り返しなし</string>
-	<string-array name="repeat_interval">
-		<item>日毎</item>
-		<item>週毎</item>
-		<item>か月毎</item>
-		<item>時間毎</item>
-		<item>分</item>
-		<item>年</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>期限から</item>
-		<item>完了日から</item>
-	</string-array>
+	<string name="repeat_interval_day">日毎</string>
+	<string name="repeat_interval_week">週毎</string>
+	<string name="repeat_interval_month">か月毎</string>
+	<string name="repeat_interval_hour">時間毎</string>
+	<string name="repeat_interval_minute">分</string>
+	<string name="repeat_interval_year">年</string>
+	<string name="repeat_type_due">期限から</string>
+	<string name="repeat_type_completion">完了日から</string>
 	<string name="repeat_detail_duedate">%s</string>
 	<string name="repeat_detail_duedate_until">%1$s 毎\n%2$s まで</string>
 	<string name="repeat_forever">永久に繰り返す</string>

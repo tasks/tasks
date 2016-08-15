@@ -110,20 +110,13 @@
 	<string name="EPr_default_reminders_title">Privzeti opomniki</string>
 	<string name="EPr_default_addtocalendar_title">Privzeto dodati na koledar</string>
 	<string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
-	<string-array name="EPr_default_urgency">
-		<item>Brez dospelosti</item>
-		<item>Danes</item>
-		<item>Jutri</item>
-		<item>Pojutrišnjem</item>
-		<item>Naslednji teden</item>
-	</string-array>
+	<string name="no_deadline">Brez dospelosti</string>
+	<string name="day_after_tomorrow">Pojutrišnjem</string>
+	<string name="next_week">Naslednji teden</string>
 	<string name="dont_hide">Ne skrij</string>
-	<string-array name="EPr_default_reminders">
-		<item>Brez opomnikov o dospelosti</item>
-		<item>Ob dospelosti</item>
-		<item>Po dospelosti</item>
-		<item>Ob dospelosti ali potem</item>
-	</string-array>
+	<string name="no_deadline_reminder">Brez opomnikov o dospelosti</string>
+	<string name="at_deadline">Ob dospelosti</string>
+	<string name="at_deadline_or_overdue">Ob dospelosti ali potem</string>
 	<string name="BFE_Active">Moji Opravki</string>
 	<string name="BFE_Recent">Nedavno spremenjeno</string>
 	<string name="CFA_universe_all">Aktivni Opravki</string>
@@ -136,15 +129,8 @@
 	<string name="CFA_button_add">Dodaj merila</string>
 	<string name="CFC_dueBefore_text">Opraviti do: ?</string>
 	<string name="CFC_dueBefore_name">Opraviti do:</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Brez datuma dospelosti</item>
-		<item>Včeraj</item>
-		<item>Danes</item>
-		<item>Jutri</item>
-		<item>Pojutrišnjem</item>
-		<item>Naslednji teden</item>
-		<item>Naslednji mesec</item>
-	</string-array>
+	<string name="no_due_date">Brez datuma dospelosti</string>
+	<string name="next_month">Naslednji mesec</string>
 	<string name="CFC_importance_text">Prioriteta namanj ?</string>
 	<string name="CFC_importance_name">Prioriteta ...</string>
 	<string name="CFC_title_contains_name">Naslov vsebuje ...</string>
@@ -167,14 +153,12 @@
 	<string name="audio_stop_recording">Prekini snemanje</string>
 	<string name="file_type_unhandled">Žal nobena aplikacija ne ustreza takim datotekam.</string>
 	<string name="file_err_copy">Napaka pri kopiranju datoteke za priponko</string>
-	<string-array name="TEA_reminder_random">
-		<item>na uro</item>
-		<item>dan</item>
-		<item>na teden</item>
-		<item>na dva tedna</item>
-		<item>na mesec</item>
-		<item>na dva meseca</item>
-	</string-array>
+	<string name="random_reminder_hour">na uro</string>
+	<string name="random_reminder_day">dan</string>
+	<string name="random_reminder_week">na teden</string>
+	<string name="random_reminder_two_weeks">na dva tedna</string>
+	<string name="random_reminder_month">na mesec</string>
+	<string name="random_reminder_two_months">na dva meseca</string>
 	<string name="rmd_NoA_done">Končano</string>
 	<string name="rmd_NoA_snooze">Dremež</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>
@@ -184,30 +168,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Največja jakost zvoka opomnikov z večkratnim zvonenjem</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Aplikacija Opravki bo izvajala opomnike z večkratnim zvonenjem pri polni jakosti zvoka.</string>
 	<string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
-	<string-array name="EPr_reminder_random">
-		<item>onemogočen</item>
-		<item>vsako uro</item>
-		<item>dnevno</item>
-		<item>tedensko</item>
-		<item>vsake dva tedna</item>
-		<item>mesečno</item>
-		<item>vsake dva meseca</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">onemogočen</string>
+	<string name="default_random_reminder_hourly">vsako uro</string>
+	<string name="default_random_reminder_daily">dnevno</string>
+	<string name="default_random_reminder_weekly">tedensko</string>
+	<string name="default_random_reminder_bi_weekly">vsake dva tedna</string>
+	<string name="default_random_reminder_monthly">mesečno</string>
+	<string name="default_random_reminder_bi_monthly">vsake dva meseca</string>
 	<string name="repeat_every">Vsakih %d</string>
 	<string name="repeat_interval_prompt">Pogostost ponovitev</string>
 	<string name="repeat_never">Brez ponovitev</string>
-	<string-array name="repeat_interval">
-		<item>Dan/dni</item>
-		<item>V tednih</item>
-		<item>Mesec/a /e /ev</item>
-		<item>V urah</item>
-		<item>V minutah</item>
-		<item>Let/o /i /a</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>od datuma dospelosti</item>
-		<item>od datuma dokončanja</item>
-	</string-array>
+	<string name="repeat_interval_day">Dan/dni</string>
+	<string name="repeat_interval_week">V tednih</string>
+	<string name="repeat_interval_month">Mesec/a /e /ev</string>
+	<string name="repeat_interval_hour">V urah</string>
+	<string name="repeat_interval_minute">V minutah</string>
+	<string name="repeat_interval_year">Let/o /i /a</string>
+	<string name="repeat_type_due">od datuma dospelosti</string>
+	<string name="repeat_type_completion">od datuma dokončanja</string>
 	<string name="repeat_detail_duedate">Vsak %s</string>
 	<string name="repeat_detail_duedate_until">Vsak %1$s\n do  %2$s</string>
 	<string name="repeat_forever">Ponavljaj do preklica</string>

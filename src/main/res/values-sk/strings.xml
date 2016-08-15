@@ -116,20 +116,13 @@
 	<string name="EPr_default_reminders_title">Predvolené pripomienky</string>
 	<string name="EPr_default_addtocalendar_title">Predvoliť pridanie do kalendára</string>
 	<string name="EPr_default_reminders_mode_title">Východzie vyzváňanie/vybrovanie</string>
-	<string-array name="EPr_default_urgency">
-		<item>Žiaden termín</item>
-		<item>Dnes</item>
-		<item>Zajtra</item>
-		<item>Pozajtra</item>
-		<item>Nasledujúci týždeň</item>
-	</string-array>
+	<string name="no_deadline">Žiaden termín</string>
+	<string name="day_after_tomorrow">Pozajtra</string>
+	<string name="next_week">Nasledujúci týždeň</string>
 	<string name="dont_hide">Neskrývať</string>
-	<string-array name="EPr_default_reminders">
-		<item>Žiadne pripomienky v termíne</item>
-		<item>V termíne</item>
-		<item>Po termíne</item>
-		<item>V termíne alebo po termíne</item>
-	</string-array>
+	<string name="no_deadline_reminder">Žiadne pripomienky v termíne</string>
+	<string name="at_deadline">V termíne</string>
+	<string name="at_deadline_or_overdue">V termíne alebo po termíne</string>
 	<string name="BFE_Active">Moje úlohy</string>
 	<string name="BFE_Recent">Naposledy upravené</string>
 	<string name="CFA_universe_all">Aktívne úlohy</string>
@@ -142,15 +135,8 @@
 	<string name="CFA_button_add">Pridať kritériá</string>
 	<string name="CFC_dueBefore_text">Podľa termínu: ?</string>
 	<string name="CFC_dueBefore_name">Podľa termínu...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Bez termínu</item>
-		<item>Včera</item>
-		<item>Dnes</item>
-		<item>Zajtra</item>
-		<item>Pozajtra</item>
-		<item>Nasledujúci týždeň</item>
-		<item>Nasledujúci mesiac</item>
-	</string-array>
+	<string name="no_due_date">Bez termínu</string>
+	<string name="next_month">Nasledujúci mesiac</string>
 	<string name="CFC_importance_text">Najnižšia priorita ?</string>
 	<string name="CFC_importance_name">Priorita...</string>
 	<string name="CFC_title_contains_name">Názov obsahuje...</string>
@@ -176,14 +162,12 @@
 	<string name="ring_once">Zvoniť raz</string>
 	<string name="ring_five_times">Zvoniť päť krát</string>
 	<string name="ring_nonstop">Zvoniť neustále</string>
-	<string-array name="TEA_reminder_random">
-		<item>hodina</item>
-		<item>deň</item>
-		<item>týždeň</item>
-		<item>v dvoch týždňoch</item>
-		<item>mesiac</item>
-		<item>v dvoch mesiacoch</item>
-	</string-array>
+	<string name="random_reminder_hour">hodina</string>
+	<string name="random_reminder_day">deň</string>
+	<string name="random_reminder_week">týždeň</string>
+	<string name="random_reminder_two_weeks">v dvoch týždňoch</string>
+	<string name="random_reminder_month">mesiac</string>
+	<string name="random_reminder_two_months">v dvoch mesiacoch</string>
 	<string name="rmd_NoA_done">Dokončené</string>
 	<string name="rmd_NoA_snooze">Odložiť</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Tiché hodiny začali</string>
@@ -193,30 +177,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Max. hlasitosť pre viacnásobné zvonenie pripomienky</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks bude zvoniť max. hlasitosťou pre viacnásobné pripomienky</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodné pripomienky</string>
-	<string-array name="EPr_reminder_random">
-		<item>zablokovaný</item>
-		<item>každú hodinu</item>
-		<item>denne</item>
-		<item>týždenne</item>
-		<item>každý druhý týždeň</item>
-		<item>mesačne</item>
-		<item>každý druhý mesiac</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">zablokovaný</string>
+	<string name="default_random_reminder_hourly">každú hodinu</string>
+	<string name="default_random_reminder_daily">denne</string>
+	<string name="default_random_reminder_weekly">týždenne</string>
+	<string name="default_random_reminder_bi_weekly">každý druhý týždeň</string>
+	<string name="default_random_reminder_monthly">mesačne</string>
+	<string name="default_random_reminder_bi_monthly">každý druhý mesiac</string>
 	<string name="repeat_every">Každý %d</string>
 	<string name="repeat_interval_prompt">Interval opakovania</string>
 	<string name="repeat_never">Neopakovať</string>
-	<string-array name="repeat_interval">
-		<item>Deň</item>
-		<item>Týždeň</item>
-		<item>Mesiac</item>
-		<item>Hodina</item>
-		<item>Minúta</item>
-		<item>Rok</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>od dátumu ukončenia</item>
-		<item>od dátumu dokončenia</item>
-	</string-array>
+	<string name="repeat_interval_day">Deň</string>
+	<string name="repeat_interval_week">Týždeň</string>
+	<string name="repeat_interval_month">Mesiac</string>
+	<string name="repeat_interval_hour">Hodina</string>
+	<string name="repeat_interval_minute">Minúta</string>
+	<string name="repeat_interval_year">Rok</string>
+	<string name="repeat_type_due">od dátumu ukončenia</string>
+	<string name="repeat_type_completion">od dátumu dokončenia</string>
 	<string name="repeat_detail_duedate">Každý %s</string>
 	<string name="repeat_detail_duedate_until">Každý %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Opakovať donekonečna</string>

@@ -131,20 +131,13 @@
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Media</string>
 	<string name="priority_low">Bassa</string>
-	<string-array name="EPr_default_urgency">
-		<item>Nessun Termine</item>
-		<item>Oggi</item>
-		<item>Domani</item>
-		<item>Dopodomani</item>
-		<item>Settimana successiva</item>
-	</string-array>
+	<string name="no_deadline">Nessun Termine</string>
+	<string name="day_after_tomorrow">Dopodomani</string>
+	<string name="next_week">Settimana successiva</string>
 	<string name="dont_hide">Non nascondere</string>
-	<string-array name="EPr_default_reminders">
-		<item>Nessun promemoria scadenza</item>
-		<item>Alla scadenza</item>
-		<item>Quando è scaduta</item>
-		<item>Alla scadenza o quando scaduto</item>
-	</string-array>
+	<string name="no_deadline_reminder">Nessun promemoria scadenza</string>
+	<string name="at_deadline">Alla scadenza</string>
+	<string name="at_deadline_or_overdue">Alla scadenza o già scaduta</string>
 	<string name="BFE_Active">Le mie attività</string>
 	<string name="BFE_Recent">Modificate di recente</string>
 	<string name="CFA_universe_all">Attività in corso</string>
@@ -157,15 +150,8 @@
 	<string name="CFA_button_add">Aggiungi Criteri</string>
 	<string name="CFC_dueBefore_text">Entro: ?</string>
 	<string name="CFC_dueBefore_name">Entro...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Nessuna data di scadenza</item>
-		<item>Ieri</item>
-		<item>Oggi</item>
-		<item>Domani</item>
-		<item>Dopodomani</item>
-		<item>Prossima Settimana</item>
-		<item>Mese successivo</item>
-	</string-array>
+	<string name="no_due_date">Nessuna data di scadenza</string>
+	<string name="next_month">Mese successivo</string>
 	<string name="CFC_importance_text">Almeno per priorità ?</string>
 	<string name="CFC_importance_name">Priorità...</string>
 	<string name="CFC_tag_text">Etichetta: ?</string>
@@ -197,14 +183,12 @@
 	<string name="ring_once">Suona una volta</string>
 	<string name="ring_five_times">Suona cinque volte</string>
 	<string name="ring_nonstop">Suono continuo</string>
-	<string-array name="TEA_reminder_random">
-		<item>un\'ora</item>
-		<item>ogni giorno</item>
-		<item>ogni settimana</item>
-		<item>ogni due settimane</item>
-		<item>ogni mese</item>
-		<item>ogni due mesi</item>
-	</string-array>
+	<string name="random_reminder_hour">un\'ora</string>
+	<string name="random_reminder_day">ogni giorno</string>
+	<string name="random_reminder_week">ogni settimana</string>
+	<string name="random_reminder_two_weeks">ogni due settimane</string>
+	<string name="random_reminder_month">ogni mese</string>
+	<string name="random_reminder_two_months">ogni due mesi</string>
 	<string name="rmd_NoA_done">Completata</string>
 	<string name="rmd_NoA_snooze">Rimanda...</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
@@ -216,30 +200,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Volume massimo per promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks metterà il volume al massimo per i promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>
-	<string-array name="EPr_reminder_random">
-		<item>disabilitato</item>
-		<item>ogni ora</item>
-		<item>quotidianamente</item>
-		<item>settimanalmente</item>
-		<item>bi-settimanalmente</item>
-		<item>mensilmente</item>
-		<item>bi-mensilmente</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">disabilitato</string>
+	<string name="default_random_reminder_hourly">ogni ora</string>
+	<string name="default_random_reminder_daily">quotidianamente</string>
+	<string name="default_random_reminder_weekly">settimanalmente</string>
+	<string name="default_random_reminder_bi_weekly">bi-settimanalmente</string>
+	<string name="default_random_reminder_monthly">mensilmente</string>
+	<string name="default_random_reminder_bi_monthly">bi-mensilmente</string>
 	<string name="repeat_every">Ogni %d</string>
 	<string name="repeat_interval_prompt">Intervallo di ripetizione</string>
 	<string name="repeat_never">Non ricorrente</string>
-	<string-array name="repeat_interval">
-		<item>Giorno(i)</item>
-		<item>Settimana(e)</item>
-		<item>Mese(i)</item>
-		<item>Ora(e)</item>
-		<item>Minuto(i)</item>
-		<item>Anno(i)</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>dalla data di scadenza</item>
-		<item>dalla data di completamento</item>
-	</string-array>
+	<string name="repeat_interval_day">Giorno(i)</string>
+	<string name="repeat_interval_week">Settimana(e)</string>
+	<string name="repeat_interval_month">Mese(i)</string>
+	<string name="repeat_interval_hour">Ora(e)</string>
+	<string name="repeat_interval_minute">Minuto(i)</string>
+	<string name="repeat_interval_year">Anno(i)</string>
+	<string name="repeat_type_due">dalla data di scadenza</string>
+	<string name="repeat_type_completion">dalla data di completamento</string>
 	<string name="repeat_detail_duedate">Ogni %s</string>
 	<string name="repeat_detail_duedate_until">Ogni %1$s\nfino %2$s</string>
 	<string name="repeat_forever">Ripeti all\'infinito</string>

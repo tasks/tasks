@@ -129,20 +129,13 @@
 	<string name="priority_high">Hoch</string>
 	<string name="priority_medium">Mittel</string>
 	<string name="priority_low">Niedrig</string>
-	<string-array name="EPr_default_urgency">
-		<item>Keine Fälligkeit</item>
-		<item>Heute</item>
-		<item>Morgen</item>
-		<item>Übermorgen</item>
-		<item>Nächste Woche</item>
-	</string-array>
+	<string name="no_deadline">Keine Fälligkeit</string>
+	<string name="day_after_tomorrow">Übermorgen</string>
+	<string name="next_week">Nächste Woche</string>
 	<string name="dont_hide">Nicht verstecken</string>
-	<string-array name="EPr_default_reminders">
-		<item>Keine Fälligkeits-Erinnerungen</item>
-		<item>Am Stichtag</item>
-		<item>Wenn überfällig</item>
-		<item>Am Stichtag oder überfällig</item>
-	</string-array>
+	<string name="no_deadline_reminder">Keine Fälligkeits-Erinnerungen</string>
+	<string name="at_deadline">Am Stichtag</string>
+	<string name="at_deadline_or_overdue">Am Stichtag oder überfällig</string>
 	<string name="BFE_Active">Meine Aufgaben</string>
 	<string name="BFE_Recent">Kürzlich bearbeitet</string>
 	<string name="CFA_universe_all">Aktuelle Aufgaben</string>
@@ -155,15 +148,8 @@
 	<string name="CFA_button_add">Kriterien hinzufügen</string>
 	<string name="CFC_dueBefore_text">Fällig am: ?</string>
 	<string name="CFC_dueBefore_name">Fällig am …</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Kein Fälligkeitsdatum</item>
-		<item>Gestern</item>
-		<item>Heute</item>
-		<item>Morgen</item>
-		<item>Übermorgen</item>
-		<item>Nächste Woche</item>
-		<item>Nächster Monat</item>
-	</string-array>
+	<string name="no_due_date">Kein Fälligkeitsdatum</string>
+	<string name="next_month">Nächster Monat</string>
 	<string name="CFC_importance_text">Mindestpriorität ?</string>
 	<string name="CFC_importance_name">Priorität...</string>
 	<string name="CFC_tag_contains_name">Tag-Name enthält...</string>
@@ -192,14 +178,12 @@
 	<string name="ring_once">Einmal klingeln</string>
 	<string name="ring_five_times">Fünfmal klingeln</string>
 	<string name="ring_nonstop">Ununterbrochen klingeln</string>
-	<string-array name="TEA_reminder_random">
-		<item>einer Stunde</item>
-		<item>einem Tag</item>
-		<item>einer Woche</item>
-		<item>2 Wochen</item>
-		<item>einem Monat</item>
-		<item>in 2 Monaten</item>
-	</string-array>
+	<string name="random_reminder_hour">einer Stunde</string>
+	<string name="random_reminder_day">einem Tag</string>
+	<string name="random_reminder_week">einer Woche</string>
+	<string name="random_reminder_two_weeks">2 Wochen</string>
+	<string name="random_reminder_month">einem Monat</string>
+	<string name="random_reminder_two_months">in 2 Monaten</string>
 	<string name="rmd_NoA_done">Abgeschlossen</string>
 	<string name="rmd_NoA_snooze">Schlummern</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Stille Stunden beginnen.</string>
@@ -211,30 +195,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximalisieren</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
-	<string-array name="EPr_reminder_random">
-		<item>deaktiviert</item>
-		<item>stündlich</item>
-		<item>täglich</item>
-		<item>wöchentlich</item>
-		<item>vierzehntägig</item>
-		<item>monatlich</item>
-		<item>alle zwei Monate</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">deaktiviert</string>
+	<string name="default_random_reminder_hourly">stündlich</string>
+	<string name="default_random_reminder_daily">täglich</string>
+	<string name="default_random_reminder_weekly">wöchentlich</string>
+	<string name="default_random_reminder_bi_weekly">vierzehntägig</string>
+	<string name="default_random_reminder_monthly">monatlich</string>
+	<string name="default_random_reminder_bi_monthly">alle zwei Monate</string>
 	<string name="repeat_every">Jeden %d</string>
 	<string name="repeat_interval_prompt">Wiederholungsintervall</string>
 	<string name="repeat_never">Nicht wiederholen</string>
-	<string-array name="repeat_interval">
-		<item>Tag(e)</item>
-		<item>Woche(n)</item>
-		<item>Monat(e)</item>
-		<item>Stunde(n)</item>
-		<item>Minute(n)</item>
-		<item>Jahr(e)</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>bei Fälligkeit</item>
-		<item>bei Erledigung</item>
-	</string-array>
+	<string name="repeat_interval_day">Tag(e)</string>
+	<string name="repeat_interval_week">Woche(n)</string>
+	<string name="repeat_interval_month">Monat(e)</string>
+	<string name="repeat_interval_hour">Stunde(n)</string>
+	<string name="repeat_interval_minute">Minute(n)</string>
+	<string name="repeat_interval_year">Jahr(e)</string>
+	<string name="repeat_type_due">bei Fälligkeit</string>
+	<string name="repeat_type_completion">bei Erledigung</string>
 	<string name="repeat_detail_duedate">Jede(n) %s</string>
 	<string name="repeat_detail_duedate_until">Jede(n) %1$s\nbis %2$s</string>
 	<string name="repeat_forever">Endlos wiederholen</string>

@@ -134,20 +134,13 @@
 	<string name="priority_high">Високий</string>
 	<string name="priority_medium">Середній</string>
 	<string name="priority_low">Низький</string>
-	<string-array name="EPr_default_urgency">
-		<item>Немає дедлайну</item>
-		<item>Сьогодні</item>
-		<item>Завтра</item>
-		<item>Післязавтра</item>
-		<item>Наступного тижня</item>
-	</string-array>
+	<string name="no_deadline">Немає дедлайну</string>
+	<string name="day_after_tomorrow">Післязавтра</string>
+	<string name="next_week">Наступного тижня</string>
 	<string name="dont_hide">Не приховувати</string>
-	<string-array name="EPr_default_reminders">
-		<item>Нема нагадувань</item>
-		<item>Під час дедлайну</item>
-		<item>Коли прострочено</item>
-		<item>Вчасно або прострочено</item>
-	</string-array>
+	<string name="no_deadline_reminder">Нема нагадувань</string>
+	<string name="at_deadline">Під час дедлайну</string>
+	<string name="at_deadline_or_overdue">Вчасно або прострочено</string>
 	<string name="BFE_Active">Мої завдання</string>
 	<string name="BFE_Recent">Недавно змінені</string>
 	<string name="CFA_universe_all">Активні завдання</string>
@@ -160,15 +153,8 @@
 	<string name="CFA_button_add">Додати критерій</string>
 	<string name="CFC_dueBefore_text">Кінцевий термін: ?</string>
 	<string name="CFC_dueBefore_name">Кінцевий термін...</string>
-	<string-array name="CFC_dueBefore_entries">
-		<item>Немає терміну виконання</item>
-		<item>Вчора</item>
-		<item>Сьогодні</item>
-		<item>Завтра</item>
-		<item>Післязавтра</item>
-		<item>Наступного тижня</item>
-		<item>Наступного місяця</item>
-	</string-array>
+	<string name="no_due_date">Немає терміну виконання</string>
+	<string name="next_month">Наступного місяця</string>
 	<string name="CFC_importance_text">Пріоритет щонайменше?</string>
 	<string name="CFC_importance_name">Пріоритет...</string>
 	<string name="CFC_tag_text">Тег: ?</string>
@@ -199,14 +185,12 @@
 	<string name="ring_once">Дзвеніти 1 раз</string>
 	<string name="ring_five_times">Дзвеніти 5 раз</string>
 	<string name="ring_nonstop">Дзвеніти безперервно</string>
-	<string-array name="TEA_reminder_random">
-		<item>година</item>
-		<item>дня</item>
-		<item>тижня</item>
-		<item>На протязі 2-х тижнів</item>
-		<item>місяця</item>
-		<item>на проязі 2-х місяців</item>
-	</string-array>
+	<string name="random_reminder_hour">година</string>
+	<string name="random_reminder_day">дня</string>
+	<string name="random_reminder_week">тижня</string>
+	<string name="random_reminder_two_weeks">На протязі 2-х тижнів</string>
+	<string name="random_reminder_month">місяця</string>
+	<string name="random_reminder_two_months">на проязі 2-х місяців</string>
 	<string name="rmd_NoA_done">Виконано</string>
 	<string name="rmd_NoA_snooze">Відкласти</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Тихі години стартують</string>
@@ -218,30 +202,24 @@
 	<string name="rmd_EPr_multiple_maxvolume_title">Максимальна гучність для багаторазових нагадувань</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks буде максимізувати гучність для багаторазових нагадувань</string>
 	<string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
-	<string-array name="EPr_reminder_random">
-		<item>вимкнено</item>
-		<item>щогодинно</item>
-		<item>щоденно</item>
-		<item>щотижня</item>
-		<item>два рази на тиждень</item>
-		<item>щомісяця</item>
-		<item>два рази на місяць</item>
-	</string-array>
+	<string name="default_random_reminder_disabled">вимкнено</string>
+	<string name="default_random_reminder_hourly">щогодинно</string>
+	<string name="default_random_reminder_daily">щоденно</string>
+	<string name="default_random_reminder_weekly">щотижня</string>
+	<string name="default_random_reminder_bi_weekly">два рази на тиждень</string>
+	<string name="default_random_reminder_monthly">щомісяця</string>
+	<string name="default_random_reminder_bi_monthly">два рази на місяць</string>
 	<string name="repeat_every">Кожні %d</string>
 	<string name="repeat_interval_prompt">Інтервал повторення</string>
 	<string name="repeat_never">Не повторювати</string>
-	<string-array name="repeat_interval">
-		<item>Днів</item>
-		<item>Тижнів</item>
-		<item>Місяців</item>
-		<item>Годин</item>
-		<item>Хвилин</item>
-		<item>Років</item>
-	</string-array>
-	<string-array name="repeat_type">
-		<item>з кінцевої дати</item>
-		<item>з дати виконання</item>
-	</string-array>
+	<string name="repeat_interval_day">Днів</string>
+	<string name="repeat_interval_week">Тижнів</string>
+	<string name="repeat_interval_month">Місяців</string>
+	<string name="repeat_interval_hour">Годин</string>
+	<string name="repeat_interval_minute">Хвилин</string>
+	<string name="repeat_interval_year">Років</string>
+	<string name="repeat_type_due">з кінцевої дати</string>
+	<string name="repeat_type_completion">з дати виконання</string>
 	<string name="repeat_detail_duedate">Кожні %s</string>
 	<string name="repeat_detail_duedate_until">Кожні %1$s\до %2$s</string>
 	<string name="repeat_forever">Повторювати завжди</string>
