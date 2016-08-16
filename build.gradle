@@ -146,6 +146,8 @@ dependencies {
 
     amazonCompile "com.google.android.gms:play-services-analytics:${GPS_VERSION}"
 
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    androidTestAnnotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
     androidTestCompile 'com.natpryce:make-it-easy:4.0.0'
 }
