@@ -4,7 +4,8 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<resources>
 	<string name="actfm_picture_clear">Vymazať obrázok</string>
 	<string name="TVA_add_comment">Komentovať...</string>
 	<string name="name">Názov</string>

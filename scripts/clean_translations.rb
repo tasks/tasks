@@ -71,7 +71,7 @@ def clean(path)
   remove_items(doc, 'string', find_duplicate_strings(doc))
   remove_items(doc, 'string-array', find_duplicate_string_arrays(doc))
   remove_items(doc, 'plurals', find_duplicate_plurals(doc))
-  prolog, root, *tail = doc.to_s.split("\n").reject { |x| x.strip.eql? "" }
+  prolog, *tail = doc.to_s.split("\n").reject { |x| x.strip.eql? "" }
   File.open(path, 'w') do |f|
     f.puts prolog
     f.puts "<!-- ************************************************************** -->"
@@ -79,7 +79,7 @@ def clean(path)
     f.puts "<!-- ******** http://www.getlocalization.com/tasks_android ******** -->"
     f.puts "<!-- ******************* DO NOT MODIFY MANUALLY ******************* -->"
     f.puts "<!-- ************************************************************** -->"
-    f.puts '<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">'
+    f.puts "<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->"
     f.print tail.join("\n")
   end
 end

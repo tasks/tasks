@@ -4,7 +4,8 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<resources>
 	<string name="actfm_picture_clear">ล้างภาพ</string>
 	<string name="backup_BPr_header">สำรองข้อมูล</string>
 	<string name="import_progress_read">กำลังอ่านแผนงาน %d...</string>

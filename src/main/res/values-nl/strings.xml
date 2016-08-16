@@ -4,7 +4,8 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<resources>
 	<string name="actfm_picture_clear">Verwijder Foto</string>
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
 	<string name="name">Naam</string>

@@ -4,7 +4,8 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<resources>
 	<string name="SSD_sort_drag">Manuaalinen järjestys osatehtäviin</string>
 	<string name="SSD_sort_auto">Älykäs sorttaus</string>
 	<string name="SSD_sort_alpha">Otsikoittain</string>

@@ -4,7 +4,8 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<resources>
 	<string name="actfm_picture_clear">Neteja la selecció d\'imatge</string>
 	<string name="TVA_add_comment">Afegiu un comentari...</string>
 	<string name="backup_BPr_header">Còpies de seguretat</string>
