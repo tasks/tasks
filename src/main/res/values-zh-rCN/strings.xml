@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
 	<string name="actfm_picture_clear">取消选择</string>
 	<string name="TVA_add_comment">添加注释...</string>
 	<string name="backup_BPr_header">备份</string>

@@ -9,7 +9,7 @@
     <!-- ================================================== TagViewActivity == -->
 
     <!-- Tag View Activity: Add Comment hint -->
-    <string name="TVA_add_comment">Add a comment...</string>
+    <string name="TVA_add_comment">Add a comment…</string>
 
     <string name="name">Name</string>
 
@@ -52,7 +52,7 @@ File %1$s contained %2$s.\n\n
   </string>
 
     <!-- Progress Dialog text for import reading task (%d -> task number)-->
-    <string name="import_progress_read">Reading task %d...</string>
+    <string name="import_progress_read">Reading task %d…</string>
 
     <!-- Backup: Dialog when unable to open a file -->
 
@@ -217,7 +217,7 @@ File %1$s contained %2$s.\n\n
     <string name="TEA_control_hidden_section">----Hide Always----</string>
 
     <!-- Text to load more activity -->
-    <string name="TEA_load_more">Load more...</string>
+    <string name="TEA_load_more">Load more…</string>
 
     <!-- ===================================================== MissedCallActivity == -->
 
@@ -407,7 +407,7 @@ File %1$s contained %2$s.\n\n
     <!-- Criteria: due by X - display text (? -> user input) -->
     <string name="CFC_dueBefore_text">Due By: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Due By...</string>
+    <string name="CFC_dueBefore_name">Due By…</string>
 
   <string name="no_due_date">No Due Date</string>
   <string name="next_month">Next Month</string>
@@ -415,20 +415,20 @@ File %1$s contained %2$s.\n\n
   <!-- Criteria: importance - display text (? -> user input)-->
     <string name="CFC_importance_text">Priority at least ?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Priority...</string>
+    <string name="CFC_importance_name">Priority…</string>
 
     <!-- Criteria: tag - display text (? -> user input) -->
     <string name="CFC_tag_text">Tag: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tag...</string>
+    <string name="CFC_tag_name">Tag…</string>
 
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag name contains...</string>
+    <string name="CFC_tag_contains_name">Tag name contains…</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
     <string name="CFC_tag_contains_text">Tag name contains: ?</string>
 
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">Title contains…</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
     <string name="CFC_title_contains_text">Title contains: ?</string>
 
@@ -463,7 +463,7 @@ File %1$s contained %2$s.\n\n
 
     <string name="CFC_gtasks_list_text">In List: ?</string>
 
-    <string name="CFC_gtasks_list_name">In GTasks List...</string>
+    <string name="CFC_gtasks_list_name">In GTasks List…</string>
 
     <!-- Label for clear completed menu item -->
     <string name="gtasks_GTA_clear_completed">Clear Completed</string>
@@ -481,7 +481,7 @@ File %1$s contained %2$s.\n\n
     <!-- Password Label -->
 
     <!--  Authenticating toast -->
-    <string name="gtasks_GLA_authenticating">Authenticating...</string>
+    <string name="gtasks_GLA_authenticating">Authenticating…</string>
 
     <!-- Google Apps for Domain checkbox -->
 
@@ -498,7 +498,7 @@ File %1$s contained %2$s.\n\n
     <!-- ================================================ Synchronization == -->
 
     <!-- Error for account not found -->
-    <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
+    <string name="gtasks_error_accountNotFound">Account %s not found—please log out and log back in from the Google Tasks settings.</string>
 
 
     <string name="premium_record_audio">Record a note</string>
@@ -679,7 +679,7 @@ File %1$s contained %2$s.\n\n
     <!-- ================================================== Generic Dialogs == -->
 
     <!-- Progress dialog shown when doing something slow -->
-    <string name="DLG_wait">Please wait...</string>
+    <string name="DLG_wait">Please wait…</string>
 
     <!-- ================================================== SyncPreferences == -->
 

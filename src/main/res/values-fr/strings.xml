@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
 	<string name="actfm_picture_clear">Supprimer l\'image</string>
 	<string name="TVA_add_comment">Ajouter un commentaire</string>
 	<string name="name">Nom</string>
@@ -152,6 +152,7 @@
 	<string name="next_month">Mois suivant</string>
 	<string name="CFC_importance_text">Priorité au dernier ?</string>
 	<string name="CFC_importance_name">Priorité...</string>
+	<string name="CFC_tag_name">Tag...</string>
 	<string name="CFC_tag_contains_name">Le nom du tag contient ...</string>
 	<string name="CFC_tag_contains_text">Le nom du tag contient: ?</string>
 	<string name="CFC_title_contains_name">Titre contient...</string>

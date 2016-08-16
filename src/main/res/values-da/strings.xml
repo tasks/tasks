@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
 	<string name="actfm_picture_clear">Ryd markering</string>
 	<string name="TVA_add_comment">Tilføj en kommentar</string>
 	<string name="backup_BPr_header">Backup</string>

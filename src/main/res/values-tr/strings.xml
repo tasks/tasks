@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
 	<string name="actfm_picture_clear">Resmi sil</string>
 	<string name="TVA_add_comment">Yorum Gir</string>
 	<string name="backup_BPr_header">Yedekler</string>

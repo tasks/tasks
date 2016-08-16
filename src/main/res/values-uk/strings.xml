@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="TypographyEllipsis,TypographyDashes">
 	<string name="actfm_picture_clear">Очистити картинку</string>
 	<string name="TVA_add_comment">Додати коментар...</string>
 	<string name="name">Ім\'я</string>

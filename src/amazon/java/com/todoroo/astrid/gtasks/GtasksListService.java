@@ -19,4 +19,8 @@ public class GtasksListService {
     public GtasksList getList(long storeId) {
         return null;
     }
+
+    public List<GtasksList> getSortedGtasksList() {
+        return Collections.emptyList();
+    }
 }
