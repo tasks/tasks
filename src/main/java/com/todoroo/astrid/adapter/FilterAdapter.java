@@ -40,6 +40,8 @@ import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.List;
 
+import static android.support.v4.content.ContextCompat.getColor;
+
 public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     private static final int VIEW_TYPE_COUNT = FilterListItem.Type.values().length;
@@ -148,7 +150,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     Filter selected = ((TaskListActivity) activity).getCurrentFilter();
 
                     if (selected != null && selected.equals(viewHolder.item)) {
-                        convertView.setBackgroundColor(activity.getResources().getColor(R.color.drawer_color_selected));
+                        convertView.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
                     }
                 }
                 break;
@@ -287,7 +289,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         viewHolder.icon.setImageResource(filter.icon);
         viewHolder.icon.setColorFilter(filter.tint >= 0
                 ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
-                : getContext().getResources().getColor(R.color.text_primary));
+                : getColor(activity, R.color.text_primary));
 
         String title = filter.listingTitle;
         if(!title.equals(viewHolder.name.getText())) {
@@ -302,7 +304,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.INVISIBLE);
 
         if (selection == viewHolder.item) {
-            viewHolder.view.setBackgroundColor(activity.getResources().getColor(R.color.drawer_color_selected));
+            viewHolder.view.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
         }
     }
 

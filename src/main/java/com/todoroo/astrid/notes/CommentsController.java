@@ -34,6 +34,7 @@ import java.util.Collections;
 
 import javax.inject.Inject;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
 
@@ -92,7 +93,7 @@ public class CommentsController {
         if (items.size() > commentItems) {
             Button loadMore = new Button(activity);
             loadMore.setText(R.string.TEA_load_more);
-            loadMore.setTextColor(activity.getResources().getColor(R.color.task_edit_deadline_gray));
+            loadMore.setTextColor(getColor(activity, R.color.task_edit_deadline_gray));
             loadMore.setBackgroundColor(Color.alpha(0));
             loadMore.setOnClickListener(v -> {
                 // Perform action on click

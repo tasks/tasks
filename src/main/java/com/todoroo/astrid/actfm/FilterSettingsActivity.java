@@ -8,6 +8,7 @@ package com.todoroo.astrid.actfm;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
@@ -55,7 +56,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
         filter = getIntent().getParcelableExtra(TOKEN_FILTER);
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-        toolbar.setNavigationIcon(getResources().getDrawable(
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this,
                 backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
         toolbar.setTitle(filter.listingTitle);
         toolbar.setNavigationOnClickListener(v -> {

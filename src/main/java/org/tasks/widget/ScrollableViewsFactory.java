@@ -31,6 +31,7 @@ import org.tasks.ui.WidgetCheckBoxes;
 
 import timber.log.Timber;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -144,7 +145,6 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
                 return null;
             }
             String textContent;
-            Resources r = context.getResources();
             int textColor = themeTextColor;
 
             textContent = task.getTitle();
@@ -152,7 +152,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             RemoteViews row = new RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_row);
 
             if (task.isCompleted()) {
-                textColor = r.getColor(R.color.task_list_done);
+                textColor = getColor(context, R.color.task_list_done);
                 row.setInt(R.id.widget_text, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
             } else {
                 row.setInt(R.id.widget_text, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
@@ -163,7 +163,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             } else {
                 row.setViewVisibility(R.id.widget_due_date, View.GONE);
                 if (task.hasDueDate() && task.isOverdue()) {
-                    textColor = r.getColor(R.color.overdue);
+                    textColor = getColor(context, R.color.overdue);
                 }
             }
 
@@ -237,7 +237,8 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
             row.setTextViewText(R.id.widget_due_date, task.isCompleted()
                     ? resources.getString(R.string.TAd_completed, DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate()))
                     : DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
-            row.setTextColor(R.id.widget_due_date, task.isOverdue() ? resources.getColor(R.color.overdue) : textColor);
+            //noinspection ResourceAsColor
+            row.setTextColor(R.id.widget_due_date, task.isOverdue() ? getColor(context, R.color.overdue) : textColor);
             row.setFloat(R.id.widget_due_date, "setTextSize", dueDateTextSize);
         } else {
             row.setViewVisibility(R.id.widget_due_date, View.GONE);

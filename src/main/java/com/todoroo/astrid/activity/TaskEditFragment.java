@@ -10,6 +10,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -124,7 +125,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         }
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-        toolbar.setNavigationIcon(getResources().getDrawable(
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(context,
                 backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
         toolbar.setNavigationOnClickListener(v -> {
             if (backButtonSavesTask) {

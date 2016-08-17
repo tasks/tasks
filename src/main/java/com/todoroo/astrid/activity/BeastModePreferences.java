@@ -8,6 +8,7 @@ package com.todoroo.astrid.activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +58,7 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity imple
         setContentView(R.layout.beast_mode_pref_activity);
         ButterKnife.bind(this);
 
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp));
         toolbar.setNavigationOnClickListener(v -> finish());
         toolbar.inflateMenu(R.menu.beast_mode);
         toolbar.setOnMenuItemClickListener(this);

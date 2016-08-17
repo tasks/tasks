@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -128,7 +130,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
             date = savedInstanceState.getLong(EXTRA_DATE);
             time = savedInstanceState.getInt(EXTRA_TIME);
         }
-        final int overdueColor = context.getResources().getColor(R.color.overdue);
+        final int overdueColor = getColor(context, R.color.overdue);
         dueDateAdapter = new HiddenTopArrayAdapter<String>(context, android.R.layout.simple_spinner_item, dueDateOptions) {
             @Override
             public View getView(final int position, final View convertView, final ViewGroup parent) {
@@ -141,11 +143,11 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 tv.setText(dueDateOptions.get(selectedItemPosition));
                 int textColor;
                 if (date == 0) {
-                    textColor = getResources().getColor(R.color.text_tertiary);
+                    textColor = getColor(context, R.color.text_tertiary);
                 } else if (date < newDateTime().startOfDay().getMillis()) {
                     textColor = overdueColor;
                 } else {
-                    textColor = getResources().getColor(R.color.text_primary);
+                    textColor = getColor(context, R.color.text_primary);
                 }
                 dueDateSpinner.setBackgroundDrawable(getUnderline(textColor));
                 tv.setTextColor(textColor);
@@ -166,11 +168,11 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 tv.setText(dueTimeOptions.get(selectedItemPosition));
                 int textColor;
                 if (time == -1) {
-                    textColor = getResources().getColor(R.color.text_tertiary);
+                    textColor = getColor(context, R.color.text_tertiary);
                 } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
                     textColor = overdueColor;
                 } else {
-                    textColor = getResources().getColor(R.color.text_primary);
+                    textColor = getColor(context, R.color.text_primary);
                 }
                 tv.setTextColor(textColor);
                 dueTimeSpinner.setBackgroundDrawable(getUnderline(textColor));
@@ -380,7 +382,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     }
 
     private Drawable getUnderline(int color) {
-        Drawable drawable = DrawableCompat.wrap(context.getResources().getDrawable(R.drawable.textfield_underline_black));
+        Drawable drawable = DrawableCompat.wrap(ContextCompat.getDrawable(context, R.drawable.textfield_underline_black));
         drawable.mutate();
         DrawableCompat.setTint(drawable, color);
         return drawable;

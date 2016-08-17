@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -147,7 +148,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         setContentView(R.layout.custom_filter_activity);
         ButterKnife.bind(this);
 
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_24dp));
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_close_24dp));
         toolbar.setTitle(R.string.FLA_new_filter);
         toolbar.inflateMenu(R.menu.menu_custom_filter_activity);
         toolbar.setOnMenuItemClickListener(this);

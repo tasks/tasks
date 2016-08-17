@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -159,7 +160,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
                 TagData tagData = allTags.get(position);
                 ThemeColor themeColor = themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
                 view.setText(tagData.getName());
-                Drawable original = getResources().getDrawable(R.drawable.ic_label_24dp);
+                Drawable original = ContextCompat.getDrawable(getContext(), R.drawable.ic_label_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());
                 DrawableCompat.setTint(wrapped, themeColor.getPrimaryColor());
                 if (atLeastJellybeanMR1()) {

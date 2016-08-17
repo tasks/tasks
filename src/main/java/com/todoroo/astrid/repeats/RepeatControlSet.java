@@ -56,6 +56,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -445,11 +446,11 @@ public class RepeatControlSet extends TaskEditControlFragment {
     protected void refreshDisplayView() {
         if (doRepeat) {
             displayView.setText(getRepeatString());
-            displayView.setTextColor(getResources().getColor(R.color.text_primary));
+            displayView.setTextColor(getColor(context, R.color.text_primary));
             clear.setVisibility(View.VISIBLE);
         } else {
             displayView.setText(R.string.repeat_never);
-            displayView.setTextColor(getResources().getColor(R.color.text_tertiary));
+            displayView.setTextColor(getColor(context, R.color.text_tertiary));
             clear.setVisibility(View.GONE);
         }
     }

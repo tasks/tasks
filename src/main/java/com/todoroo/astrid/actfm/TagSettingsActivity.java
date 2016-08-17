@@ -8,6 +8,7 @@ package com.todoroo.astrid.actfm;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -97,7 +98,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
         toolbar.setTitle(isNewTag ? getString(R.string.new_tag) : tagData.getName());
-        toolbar.setNavigationIcon(getResources().getDrawable(
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this,
                 backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
         toolbar.setNavigationOnClickListener(v -> {
             if (backButtonSavesTask) {

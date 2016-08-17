@@ -88,6 +88,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
 
 /**
@@ -458,8 +459,8 @@ public class TaskListFragment extends InjectingListFragment implements
 
     public Snackbar makeSnackbar(String text) {
         Snackbar snackbar = Snackbar.make(coordinatorLayout, text, 8000)
-                .setActionTextColor(getResources().getColor(R.color.snackbar_text_color));
-        snackbar.getView().setBackgroundColor(getResources().getColor(R.color.snackbar_background));
+                .setActionTextColor(getColor(context, R.color.snackbar_text_color));
+        snackbar.getView().setBackgroundColor(getColor(context, R.color.snackbar_background));
         return snackbar;
     }
 

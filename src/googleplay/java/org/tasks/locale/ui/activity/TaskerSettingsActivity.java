@@ -2,6 +2,7 @@ package org.tasks.locale.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -61,7 +62,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         }
         updateView();
 
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_close_24dp));
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_close_24dp));
         toolbar.setOnMenuItemClickListener(this);
         toolbar.setNavigationOnClickListener(view -> {
             if (equalBundles(getResultBundle(), previousBundle)) {

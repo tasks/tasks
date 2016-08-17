@@ -67,6 +67,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
@@ -172,7 +173,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         textColorSecondary = getData(context, android.R.attr.textColorSecondary);
         textColorHint = getData(context, android.R.attr.textColorTertiary);
-        textColorOverdue = resources.getColor(R.color.overdue);
+        textColorOverdue = getColor(context, R.color.overdue);
 
         updateTagMap();
         this.minRowHeight = computeMinRowHeight();

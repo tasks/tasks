@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
             Timber.e(e, e.getMessage());
             toolbar.setTitle(getTitle());
         }
-        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_24dp));
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp));
         toolbar.setNavigationOnClickListener(v -> finish());
         MenuColorizer.colorToolbar(this, toolbar);
     }

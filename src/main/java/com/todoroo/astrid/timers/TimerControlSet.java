@@ -37,6 +37,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static android.support.v4.content.ContextCompat.getColor;
+
 /**
  * Control Set for managing repeats
  *
@@ -210,10 +212,10 @@ public class TimerControlSet extends TaskEditControlFragment {
 
         if (!TextUtils.isEmpty(toDisplay)) {
             displayEdit.setText(toDisplay);
-            displayEdit.setTextColor(getResources().getColor(R.color.text_primary));
+            displayEdit.setTextColor(getColor(context, R.color.text_primary));
         } else {
             displayEdit.setText(R.string.TEA_timer_controls);
-            displayEdit.setTextColor(getResources().getColor(R.color.text_tertiary));
+            displayEdit.setTextColor(getColor(context, R.color.text_tertiary));
         }
     }
 

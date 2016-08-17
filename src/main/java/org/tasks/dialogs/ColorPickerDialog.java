@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 TextView textView = (TextView) (convertView == null
                         ? inflater.inflate(R.layout.color_selection_row, parent, false)
                         : convertView);
-                Drawable original = context.getResources().getDrawable(preferences.hasPurchase(R.string.p_purchased_themes) || position < getNumFree()
+                Drawable original = ContextCompat.getDrawable(context, preferences.hasPurchase(R.string.p_purchased_themes) || position < getNumFree()
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());

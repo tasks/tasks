@@ -14,6 +14,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
@@ -65,12 +66,12 @@ public class LinkActionExposer {
 
         Resources r = context.getResources();
         if (hasAttachments) {
-            BitmapDrawable icon = getBitmapDrawable(R.drawable.action_attachments, r);
+            BitmapDrawable icon = getBitmapDrawable(context, R.drawable.action_attachments, r);
             return new FilesAction(icon);
         }
 
         if (hasNotes) {
-            BitmapDrawable icon = getBitmapDrawable(R.drawable.action_notes, r);
+            BitmapDrawable icon = getBitmapDrawable(context, R.drawable.action_notes, r);
             return new NotesAction(icon);
         }
 
@@ -102,11 +103,11 @@ public class LinkActionExposer {
         Resources r = context.getResources();
         Drawable icon;
         if (url.startsWith("mailto")) {
-            icon = getBitmapDrawable(R.drawable.action_mail, r);
+            icon = getBitmapDrawable(context, R.drawable.action_mail, r);
         } else if (url.startsWith("tel")) {
-            icon = getBitmapDrawable(R.drawable.action_tel, r);
+            icon = getBitmapDrawable(context, R.drawable.action_tel, r);
         } else {
-            icon = getBitmapDrawable(R.drawable.action_web, r);
+            icon = getBitmapDrawable(context, R.drawable.action_web, r);
         }
 
         return new TaskAction(PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
@@ -114,11 +115,11 @@ public class LinkActionExposer {
 
     private static final HashMap<Integer, BitmapDrawable> IMAGE_CACHE = new HashMap<>();
 
-    private static BitmapDrawable getBitmapDrawable(int resId, Resources resources) {
+    private static BitmapDrawable getBitmapDrawable(Context context, int resId, Resources resources) {
         if (IMAGE_CACHE.containsKey(resId)) {
             return IMAGE_CACHE.get(resId);
         } else {
-            BitmapDrawable b = (BitmapDrawable) resources.getDrawable(resId);
+            BitmapDrawable b = (BitmapDrawable) ContextCompat.getDrawable(context, resId);
             IMAGE_CACHE.put(resId, b);
             return b;
         }

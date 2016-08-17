@@ -41,6 +41,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -102,14 +103,14 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
                 if (value.setting == Task.HIDE_UNTIL_NONE) {
                     clearButton.setVisibility(View.GONE);
                     tv.setText(value.label);
-                    tv.setTextColor(getContext().getResources().getColor(R.color.text_tertiary));
+                    tv.setTextColor(getColor(context, R.color.text_tertiary));
                 } else {
                     String display = value.label;
                     if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
                         display = display.toLowerCase();
                     }
                     tv.setText(getString(R.string.TEA_hideUntil_display, display));
-                    tv.setTextColor(getContext().getResources().getColor(R.color.text_primary));
+                    tv.setTextColor(getColor(context, R.color.text_primary));
                 }
                 return tv;
             }

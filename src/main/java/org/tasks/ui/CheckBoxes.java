@@ -1,8 +1,8 @@
 package org.tasks.ui;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 
 import com.google.common.collect.ImmutableList;
@@ -11,6 +11,8 @@ import com.google.common.primitives.Ints;
 import org.tasks.R;
 
 import java.util.List;
+
+import static android.support.v4.content.ContextCompat.getColor;
 
 public class CheckBoxes {
 
@@ -31,10 +33,10 @@ public class CheckBoxes {
         repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_repeat_24dp);
         completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
         priorityColors = ImmutableList.of(
-                context.getResources().getColor(R.color.importance_1),
-                context.getResources().getColor(R.color.importance_2),
-                context.getResources().getColor(R.color.importance_3),
-                context.getResources().getColor(R.color.importance_4));
+                getColor(context, R.color.importance_1),
+                getColor(context, R.color.importance_2),
+                getColor(context, R.color.importance_3),
+                getColor(context, R.color.importance_4));
         priorityColorsArray = Ints.toArray(priorityColors);
     }
 
@@ -79,10 +81,9 @@ public class CheckBoxes {
     }
 
     private static Drawable getDrawable(Context context, int resId, int importance) {
-        Resources resources = context.getResources();
-        Drawable original = resources.getDrawable(resId);
+        Drawable original = ContextCompat.getDrawable(context, resId);
         Drawable wrapped = DrawableCompat.wrap(original.mutate());
-        DrawableCompat.setTint(wrapped, resources.getColor(getImportanceResId(importance)));
+        DrawableCompat.setTint(wrapped, getColor(context, getImportanceResId(importance)));
         return wrapped;
     }
 

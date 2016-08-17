@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 
 import com.todoroo.astrid.api.Filter;
 
@@ -43,7 +44,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
                 Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 String filterId = defaultFilterProvider.getFilterPreferenceValue(filter);
                 Intent shortcutIntent = TaskIntents.getTaskListByIdIntent(this, filterId);
-                Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(R.mipmap.ic_launcher)).getBitmap();
+                Bitmap bitmap = ((BitmapDrawable) ContextCompat.getDrawable(this, R.mipmap.ic_launcher)).getBitmap();
                 Intent intent = new Intent();
                 intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
                 intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, filter.listingTitle);

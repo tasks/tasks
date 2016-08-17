@@ -11,6 +11,8 @@ import org.tasks.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.v4.content.ContextCompat.getColor;
+
 public class ThemeCache {
 
     private final List<ThemeBase> themes = new ArrayList<>();
@@ -23,11 +25,11 @@ public class ThemeCache {
     public ThemeCache(Context context) {
         Resources resources = context.getResources();
 
-        themes.add(new ThemeBase(context.getString(R.string.theme_light), 0, resources.getColor(R.color.md_background_light), AppCompatDelegate.MODE_NIGHT_NO));
-        themes.add(new ThemeBase(context.getString(R.string.theme_black), 1, resources.getColor(R.color.widget_background_black), AppCompatDelegate.MODE_NIGHT_YES));
-        themes.add(new ThemeBase(context.getString(R.string.theme_dark), 2, resources.getColor(R.color.md_background_dark), AppCompatDelegate.MODE_NIGHT_YES));
-        themes.add(new ThemeBase(context.getString(R.string.theme_wallpaper), 3, resources.getColor(R.color.black_38), AppCompatDelegate.MODE_NIGHT_YES));
-        themes.add(new ThemeBase(context.getString(R.string.theme_day_night), 4, resources.getColor(R.color.md_background_light), AppCompatDelegate.MODE_NIGHT_AUTO));
+        themes.add(new ThemeBase(context.getString(R.string.theme_light), 0, getColor(context, R.color.md_background_light), AppCompatDelegate.MODE_NIGHT_NO));
+        themes.add(new ThemeBase(context.getString(R.string.theme_black), 1, getColor(context, R.color.widget_background_black), AppCompatDelegate.MODE_NIGHT_YES));
+        themes.add(new ThemeBase(context.getString(R.string.theme_dark), 2, getColor(context, R.color.md_background_dark), AppCompatDelegate.MODE_NIGHT_YES));
+        themes.add(new ThemeBase(context.getString(R.string.theme_wallpaper), 3, getColor(context, R.color.black_38), AppCompatDelegate.MODE_NIGHT_YES));
+        themes.add(new ThemeBase(context.getString(R.string.theme_day_night), 4, getColor(context, R.color.md_background_light), AppCompatDelegate.MODE_NIGHT_AUTO));
 
         String[] colorNames = resources.getStringArray(R.array.colors);
         for (int i = 0 ; i < ThemeColor.COLORS.length ; i++) {
@@ -52,16 +54,16 @@ public class ThemeCache {
         for (int i = 0; i < WidgetTheme.BACKGROUNDS.length ; i++) {
             widgetThemes.add(new WidgetTheme(
                     widgetBackgroundNames[i],
-                    resources.getColor(WidgetTheme.BACKGROUNDS[i]),
-                    resources.getColor(i == 0 ? R.color.black_87 : R.color.white_100)));
+                    getColor(context, WidgetTheme.BACKGROUNDS[i]),
+                    getColor(context, i == 0 ? R.color.black_87 : R.color.white_100)));
         }
         String []ledNames = resources.getStringArray(R.array.led);
         for (int i = 0 ; i < LEDColor.LED_COLORS.length ; i++) {
             led.add(new LEDColor(
                     ledNames[i],
-                    resources.getColor(LEDColor.LED_COLORS[i])));
+                    getColor(context, LEDColor.LED_COLORS[i])));
         }
-        untaggedColor = new ThemeColor(null, 19, resources.getColor(R.color.tag_color_none_background), 0, resources.getColor(R.color.black_87), false);
+        untaggedColor = new ThemeColor(null, 19, getColor(context, R.color.tag_color_none_background), 0, getColor(context, R.color.black_87), false);
     }
 
     public WidgetTheme getWidgetTheme(int index) {

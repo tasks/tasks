@@ -19,12 +19,12 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
-import org.tasks.calendars.AndroidCalendar;
 import com.todoroo.astrid.gcal.GCalHelper;
 
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.analytics.Tracker;
+import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
@@ -40,6 +40,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
+import static android.support.v4.content.ContextCompat.getColor;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class CalendarControlSet extends TaskEditControlFragment {
@@ -300,15 +301,15 @@ public class CalendarControlSet extends TaskEditControlFragment {
     private void refreshDisplayView() {
         if (!Strings.isNullOrEmpty(eventUri)) {
             calendar.setText(R.string.gcal_TEA_showCalendar_label);
-            calendar.setTextColor(getResources().getColor(R.color.text_primary));
+            calendar.setTextColor(getColor(context, R.color.text_primary));
             cancelButton.setVisibility(View.VISIBLE);
         } else if (calendarName != null) {
             calendar.setText(calendarName);
-            calendar.setTextColor(getResources().getColor(R.color.text_primary));
+            calendar.setTextColor(getColor(context, R.color.text_primary));
             cancelButton.setVisibility(View.VISIBLE);
         } else {
             calendar.setText(R.string.gcal_TEA_addToCalendar_label);
-            calendar.setTextColor(getResources().getColor(R.color.text_tertiary));
+            calendar.setTextColor(getColor(context, R.color.text_tertiary));
             cancelButton.setVisibility(View.GONE);
         }
     }
