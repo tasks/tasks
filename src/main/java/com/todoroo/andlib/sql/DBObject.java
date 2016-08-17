@@ -12,11 +12,11 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
     protected String alias;
     protected final String expression;
 
-    protected DBObject(String expression){
+    DBObject(String expression){
         this.expression = expression;
     }
 
-    public T as(String newAlias) {
+    protected T as(String newAlias) {
         try {
             T clone = (T) clone();
             clone.alias = newAlias;
@@ -26,7 +26,7 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
         }
     }
 
-    public boolean hasAlias() {
+    protected boolean hasAlias() {
         return alias != null;
     }
 

@@ -39,7 +39,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
     /** map of task -> prior sibling */
     final HashMap<Long, Long> siblings = new HashMap<>();
 
-    final HashMap<Long, String> localToRemoteIdMap =
+    private final HashMap<Long, String> localToRemoteIdMap =
         new HashMap<>();
 
     private final GtasksSyncService gtasksSyncService;

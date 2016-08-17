@@ -41,7 +41,7 @@ public class Pair<L, R> {
         return equal(getLeft(), other.getLeft()) && equal(getRight(), other.getRight());
     }
 
-    public static boolean equal(Object o1, Object o2) {
+    private static boolean equal(Object o1, Object o2) {
         if (o1 == null) {
             return o2 == null;
         }

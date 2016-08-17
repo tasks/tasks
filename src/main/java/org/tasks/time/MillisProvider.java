@@ -1,5 +1,5 @@
 package org.tasks.time;
 
-public interface MillisProvider {
+interface MillisProvider {
     long getMillis();
 }

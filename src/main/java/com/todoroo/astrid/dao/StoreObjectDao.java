@@ -69,7 +69,7 @@ public class StoreObjectDao {
         dao.saveExisting(storeObject);
     }
 
-    public List<StoreObject> getByType(String type) {
+    private List<StoreObject> getByType(String type) {
         return dao.toList(select(StoreObject.PROPERTIES)
                 .where(StoreObject.TYPE.eq(type)));
     }

@@ -34,7 +34,7 @@ import timber.log.Timber;
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
-public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final WidgetCheckBoxes checkBoxes;
     private final ThemeCache themeCache;
@@ -138,7 +138,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         }
     }
 
-    public RemoteViews buildUpdate(int position) {
+    private RemoteViews buildUpdate(int position) {
         try {
             Task task = getTask(position);
             if (task == null) {
@@ -230,7 +230,7 @@ public class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFac
         return subtasksHelper.applySubtasksToWidgetFilter(filter, query, filter.listingTitle, 0);
     }
 
-    public void formatDueDate(RemoteViews row, Task task, int textColor) {
+    private void formatDueDate(RemoteViews row, Task task, int textColor) {
         if (task.hasDueDate()) {
             Resources resources = context.getResources();
             row.setViewVisibility(R.id.widget_due_date, View.VISIBLE);

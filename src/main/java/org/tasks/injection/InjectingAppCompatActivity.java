@@ -8,7 +8,7 @@ import org.tasks.locale.Locale;
 public abstract class InjectingAppCompatActivity extends AppCompatActivity implements InjectingActivity {
     private ActivityComponent activityComponent;
 
-    public InjectingAppCompatActivity() {
+    protected InjectingAppCompatActivity() {
         Locale.getInstance(this).applyOverrideConfiguration(this);
     }
 

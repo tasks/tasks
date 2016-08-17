@@ -104,7 +104,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     }
 
     @Override
-    public Bundle getResultBundle() {
+    protected Bundle getResultBundle() {
         return PluginBundleValues.generateBundle(defaultFilterProvider.getFilterPreferenceValue(filter));
     }
 

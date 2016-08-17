@@ -68,7 +68,7 @@ public class AstridChronic {
    *     will be made, and the first matching instance of that time will
    *     be used.
    */
-  public static Span parse(String text, Options options) {
+  private static Span parse(String text, Options options) {
     // store now for later =)
     //_now = options.getNow();
 
@@ -119,7 +119,7 @@ public class AstridChronic {
    * to numbers (three => 3), and converting ordinal words to numeric
    * ordinals (third => 3rd)
    */
-  protected static String preNormalize(String text) {
+  private static String preNormalize(String text) {
     String normalizedText = text.toLowerCase();
     normalizedText = Chronic.numericizeNumbers(normalizedText);
     normalizedText = normalizedText.replaceAll("['\"\\.]", "");
@@ -146,7 +146,7 @@ public class AstridChronic {
   /**
    * Convert ordinal words to numeric ordinals (third => 3rd)
    */
-  protected static String numericizeOrdinals(String text) {
+  private static String numericizeOrdinals(String text) {
     return text;
   }
 
@@ -154,7 +154,7 @@ public class AstridChronic {
    * Split the text on spaces and convert each word into
    * a Token
    */
-  protected static List<Token> baseTokenize(String text) {
+  private static List<Token> baseTokenize(String text) {
     String[] words = text.split(" ");
     List<Token> tokens = new LinkedList<>();
     for (String word : words) {
@@ -167,7 +167,7 @@ public class AstridChronic {
    * Guess a specific time within the given span
    */
   // DIFF: We return Span instead of Date
-  protected static Span guess(Span span) {
+  private static Span guess(Span span) {
     if (span == null) {
       return null;
     }

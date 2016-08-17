@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /** Dialog box with an arbitrary number of number pickers */
-public class NNumberPickerDialog extends AlertDialog implements OnClickListener {
+class NNumberPickerDialog extends AlertDialog implements OnClickListener {
 
     public interface OnNNumberPickedListener {
         void onNumbersPicked(int[] number);

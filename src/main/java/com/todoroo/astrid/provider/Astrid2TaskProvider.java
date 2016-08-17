@@ -50,9 +50,9 @@ import timber.log.Timber;
  */
 public class Astrid2TaskProvider extends InjectingContentProvider {
 
-	public static final String AUTHORITY = "org.tasks.tasksprovider";
+	private static final String AUTHORITY = "org.tasks.tasksprovider";
 
-	public static final Uri CONTENT_URI = Uri.parse("content://org.tasks.tasksprovider");
+	private static final Uri CONTENT_URI = Uri.parse("content://org.tasks.tasksprovider");
 
 	private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -71,10 +71,10 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	private final static String TAGS_ID = "tags_id";
 
-	static String[] TASK_FIELD_LIST = new String[] { NAME, IMPORTANCE_COLOR, PREFERRED_DUE_DATE, DEFINITE_DUE_DATE,
+	private static String[] TASK_FIELD_LIST = new String[] { NAME, IMPORTANCE_COLOR, PREFERRED_DUE_DATE, DEFINITE_DUE_DATE,
 			IMPORTANCE, IDENTIFIER, TAGS_ID };
 
-	static String[] TAGS_FIELD_LIST = new String[] { ID, NAME };
+	private static String[] TAGS_FIELD_LIST = new String[] { ID, NAME };
 
 	private static final int URI_TASKS = 0;
 	private static final int URI_TAGS = 1;
@@ -122,7 +122,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	 *
 	 * @return two-column cursor: tag id (string) and tag name
 	 */
-	public Cursor getTags() {
+	private Cursor getTags() {
 
 		TagData[] tags = tagService.get().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
                 Criterion.all);
@@ -167,7 +167,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	 *
 	 * @return cursor as described above
 	 */
-	public Cursor getTasks() {
+	private Cursor getTasks() {
 
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
 

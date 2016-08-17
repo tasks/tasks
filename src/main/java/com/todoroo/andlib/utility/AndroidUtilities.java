@@ -182,7 +182,7 @@ public class AndroidUtilities {
      * Copy stream from source to destination
      * @throws IOException
      */
-    public static void copyStream(InputStream source, OutputStream dest) throws IOException {
+    private static void copyStream(InputStream source, OutputStream dest) throws IOException {
         int bytes;
         byte[] buffer;
         int BUFFER_SIZE = 1024;

@@ -206,7 +206,7 @@ public class TaskDao {
         }
     }
 
-    public boolean handleSQLiteConstraintException(Task task) {
+    private boolean handleSQLiteConstraintException(Task task) {
         TodorooCursor<Task> cursor = dao.query(Query.select(Task.ID).where(
                 Task.UUID.eq(task.getUUID())));
         if (cursor.getCount() > 0) {
@@ -245,7 +245,7 @@ public class TaskDao {
         return false;
     }
 
-    public static void createDefaultHideUntil(Preferences preferences, Task item) {
+    private static void createDefaultHideUntil(Preferences preferences, Task item) {
         if(!item.containsValue(Task.HIDE_UNTIL)) {
             int setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                     Task.HIDE_UNTIL_NONE);

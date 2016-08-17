@@ -29,7 +29,7 @@ import timber.log.Timber;
 
 public class StartupService {
 
-    public static final int V4_8_0 = 380;
+    private static final int V4_8_0 = 380;
 
     private final Context context;
     private final Database database;

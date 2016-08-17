@@ -19,5 +19,5 @@ public abstract class InjectingListFragment extends ListFragment {
         }
     }
 
-    public abstract void inject(FragmentComponent component);
+    protected abstract void inject(FragmentComponent component);
 }

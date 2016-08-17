@@ -38,7 +38,7 @@ public class NavigationDrawerAction extends FilterListItem {
     }
 
     @Override
-    public void readFromParcel(Parcel source) {
+    protected void readFromParcel(Parcel source) {
         super.readFromParcel(source);
         intent = source.readParcelable(Intent.class.getClassLoader());
         requestCode = source.readInt();

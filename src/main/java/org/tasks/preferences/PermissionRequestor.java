@@ -12,7 +12,7 @@ public abstract class PermissionRequestor {
 
     private final PermissionChecker permissionChecker;
 
-    public PermissionRequestor(PermissionChecker permissionChecker) {
+    PermissionRequestor(PermissionChecker permissionChecker) {
         this.permissionChecker = permissionChecker;
     }
 

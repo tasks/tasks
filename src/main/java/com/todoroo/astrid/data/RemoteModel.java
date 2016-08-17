@@ -28,20 +28,20 @@ import timber.log.Timber;
  */
 abstract public class RemoteModel extends AbstractModel {
 
-    public RemoteModel() {
+    RemoteModel() {
         super();
     }
 
-    public RemoteModel(TodorooCursor<? extends AbstractModel> cursor) {
+    RemoteModel(TodorooCursor<? extends AbstractModel> cursor) {
         super(cursor);
     }
 
-    public RemoteModel(AbstractModel model) {
+    RemoteModel(AbstractModel model) {
         super(model);
     }
 
     /** remote id property common to all remote models */
-    public static final String UUID_PROPERTY_NAME = "remoteId"; //$NON-NLS-1$
+    static final String UUID_PROPERTY_NAME = "remoteId"; //$NON-NLS-1$
 
     /** remote id property */
     public static final StringProperty UUID_PROPERTY = new StringProperty(null, UUID_PROPERTY_NAME);
@@ -59,7 +59,7 @@ abstract public class RemoteModel extends AbstractModel {
         }
     }
 
-    protected String getUuidHelper(StringProperty uuid) {
+    String getUuidHelper(StringProperty uuid) {
         if(setValues != null && setValues.containsKey(uuid.name)) {
             return setValues.getAsString(uuid.name);
         } else if(values != null && values.containsKey(uuid.name)) {

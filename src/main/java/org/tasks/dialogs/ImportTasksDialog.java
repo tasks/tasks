@@ -21,7 +21,7 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
         return importTasksDialog;
     }
 
-    public static final String EXTRA_PATH = "extra_path";
+    private static final String EXTRA_PATH = "extra_path";
 
     @Inject TasksXmlImporter xmlImporter;
     @Inject DialogBuilder dialogBuilder;

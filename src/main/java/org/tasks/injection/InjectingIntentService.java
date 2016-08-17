@@ -5,7 +5,7 @@ import android.content.Intent;
 
 public abstract class InjectingIntentService extends IntentService {
 
-    public InjectingIntentService(String name) {
+    protected InjectingIntentService(String name) {
         super(name);
     }
 

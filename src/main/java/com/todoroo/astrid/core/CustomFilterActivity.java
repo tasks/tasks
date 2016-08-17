@@ -65,7 +65,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
 
     private static final String IDENTIFIER_UNIVERSE = "active"; //$NON-NLS-1$
 
-    static final int MENU_GROUP_FILTER = 0;
+    private static final int MENU_GROUP_FILTER = 0;
     static final int MENU_GROUP_CONTEXT_TYPE = 1;
     static final int MENU_GROUP_CONTEXT_DELETE = 2;
 
@@ -223,7 +223,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         }
     }
 
-    void saveAndView() {
+    private void saveAndView() {
         String title = filterName.getText().toString().trim();
 
         if (isEmpty(title)) {

@@ -29,11 +29,11 @@ public final class TaskListMetadata extends RemoteModel {
     // --- properties
 
     /** ID */
-    public static final LongProperty ID = new LongProperty(
+    private static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
     /** Remote id */
-    public static final StringProperty UUID = new StringProperty(
+    private static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
     /** Tag UUID */

@@ -47,13 +47,13 @@ public class Filter extends FilterListItem {
      *      metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"</code>
      * </ul>
      */
-    protected String sqlQuery;
+    String sqlQuery;
 
     /**
      * Field for holding a modified sqlQuery based on sqlQuery. Useful for adjusting
      * query for sort/subtasks without breaking the equality checking based on sqlQuery.
      */
-    protected String filterOverride;
+    private String filterOverride;
 
     /**
      * Values to apply to a task when quick-adding a task from this filter.
@@ -107,7 +107,7 @@ public class Filter extends FilterListItem {
     /**
      * Utility constructor
      */
-    protected Filter() {
+    Filter() {
         // do nothing
     }
 
@@ -169,7 +169,7 @@ public class Filter extends FilterListItem {
     }
 
     @Override
-    public void readFromParcel(Parcel source) {
+    protected void readFromParcel(Parcel source) {
         super.readFromParcel(source);
         source.readString(); // old title
         sqlQuery = source.readString();

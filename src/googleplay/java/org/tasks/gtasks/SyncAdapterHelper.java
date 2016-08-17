@@ -76,7 +76,7 @@ public class SyncAdapterHelper {
                 getAccount() != null;
     }
 
-    public boolean masterSyncEnabled() {
+    private boolean masterSyncEnabled() {
         return ContentResolver.getMasterSyncAutomatically();
     }
 

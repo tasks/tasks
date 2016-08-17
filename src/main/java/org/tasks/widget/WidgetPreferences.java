@@ -5,46 +5,46 @@ import android.content.Context;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
-public class WidgetPreferences {
+class WidgetPreferences {
     private final Context context;
     private final Preferences preferences;
     private final int widgetId;
 
-    public WidgetPreferences(Context context, Preferences preferences, int widgetId) {
+    WidgetPreferences(Context context, Preferences preferences, int widgetId) {
         this.context = context;
         this.preferences = preferences;
         this.widgetId = widgetId;
     }
 
-    public boolean showDueDate() {
+    boolean showDueDate() {
         return preferences.getBoolean(getKey(R.string.p_widget_show_due_date), true);
     }
 
-    public boolean showHeader() {
+    boolean showHeader() {
         return preferences.getBoolean(getKey(R.string.p_widget_show_header), true);
     }
 
-    public boolean showCheckboxes() {
+    boolean showCheckboxes() {
         return preferences.getBoolean(getKey(R.string.p_widget_show_checkboxes), true);
     }
 
-    public boolean showSettings() {
+    boolean showSettings() {
         return preferences.getBoolean(getKey(R.string.p_widget_show_settings), true);
     }
 
-    public int getFontSize() {
+    int getFontSize() {
         return preferences.getInt(getKey(R.string.p_widget_font_size), 16);
     }
 
-    public String getFilterId() {
+    String getFilterId() {
         return preferences.getStringValue(getKey(R.string.p_widget_filter));
     }
 
-    public int getThemeIndex() {
+    int getThemeIndex() {
         return preferences.getInt(getKey(R.string.p_widget_theme), 0);
     }
 
-    public int getColorIndex() {
+    int getColorIndex() {
         return preferences.getInt(getKey(R.string.p_widget_color), 0);
     }
 
@@ -56,7 +56,7 @@ public class WidgetPreferences {
         preferences.setInt(getKey(R.string.p_widget_opacity), value);
     }
 
-    public void setFontSize(int value) {
+    void setFontSize(int value) {
         preferences.setInt(getKey(R.string.p_widget_font_size), value);
     }
 

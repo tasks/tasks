@@ -23,9 +23,9 @@ public class GtasksFilter extends Filter {
 
     private static final int CLOUD = R.drawable.ic_cloud_queue_24dp;
 
-    public long storeId;
+    private long storeId;
 
-    protected GtasksFilter() {
+    private GtasksFilter() {
         super();
     }
 
@@ -67,7 +67,7 @@ public class GtasksFilter extends Filter {
     }
 
     @Override
-    public void readFromParcel(Parcel source) {
+    protected void readFromParcel(Parcel source) {
         super.readFromParcel(source);
         storeId = source.readLong();
     }

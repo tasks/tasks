@@ -14,7 +14,7 @@ import com.todoroo.astrid.data.Metadata;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class NoteMetadata {
+class NoteMetadata {
 
     /** metadata key */
     public static final String METADATA_KEY = "note"; //$NON-NLS-1$

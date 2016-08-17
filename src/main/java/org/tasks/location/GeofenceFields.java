@@ -6,7 +6,7 @@ import com.todoroo.astrid.data.Metadata;
 import static com.todoroo.andlib.data.Property.DoubleProperty;
 import static com.todoroo.andlib.data.Property.StringProperty;
 
-public class GeofenceFields {
+class GeofenceFields {
 
     public static final String METADATA_KEY = "geofence";
 

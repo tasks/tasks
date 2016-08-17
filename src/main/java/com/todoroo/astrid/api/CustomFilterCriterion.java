@@ -58,7 +58,7 @@ abstract public class CustomFilterCriterion implements Parcelable {
     /**
      * Icon for this criteria. Can be null for no bitmap
      */
-    public Bitmap icon;
+    Bitmap icon;
 
     /**
      * Criteria name. This is displayed when users are selecting a criteria
@@ -70,7 +70,7 @@ abstract public class CustomFilterCriterion implements Parcelable {
     /**
      * Utility method to write to parcel
      */
-    public void writeToParcel(Parcel dest) {
+    void writeToParcel(Parcel dest) {
         dest.writeString(identifier);
         dest.writeString(text);
         dest.writeString(sql);
@@ -82,7 +82,7 @@ abstract public class CustomFilterCriterion implements Parcelable {
     /**
      * Utility method to read from parcel
      */
-    public void readFromParcel(Parcel source) {
+    void readFromParcel(Parcel source) {
         identifier = source.readString();
         text = source.readString();
         sql = source.readString();

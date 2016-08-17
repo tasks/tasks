@@ -66,7 +66,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
     /**
      * Use cache to get the column index for the given field name
      */
-    public synchronized int getColumnIndexFromCache(String field) {
+    synchronized int getColumnIndexFromCache(String field) {
         Integer index = columnIndexCache.get(field);
         if(index == null) {
             index = getColumnIndexOrThrow(field);

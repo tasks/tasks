@@ -55,7 +55,7 @@ abstract public class FilterListItem implements Parcelable {
     /**
      * Utility method to read FilterListItem properties from a parcel.
      */
-    public void readFromParcel(Parcel source) {
+    protected void readFromParcel(Parcel source) {
         listingTitle = source.readString();
         icon = source.readInt();
         tint = source.readInt();

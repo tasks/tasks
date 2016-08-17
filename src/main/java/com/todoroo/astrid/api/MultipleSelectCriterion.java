@@ -46,7 +46,7 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
         this.name = name;
     }
 
-    protected MultipleSelectCriterion() {
+    private MultipleSelectCriterion() {
         // constructor for inflating from parceling
     }
 

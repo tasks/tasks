@@ -44,7 +44,7 @@ public class GtasksList {
         return storeObject.getValue(StoreObject.ITEM);
     }
 
-    public void setRemoteId(String remoteId) {
+    private void setRemoteId(String remoteId) {
         storeObject.setValue(StoreObject.ITEM, remoteId);
     }
 

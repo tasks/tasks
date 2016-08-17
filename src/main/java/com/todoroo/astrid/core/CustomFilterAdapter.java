@@ -34,7 +34,7 @@ import java.util.List;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
+class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     private final CustomFilterActivity activity;
     private DialogBuilder dialogBuilder;
@@ -52,7 +52,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     // --- view event handling
 
-    View.OnClickListener filterClickListener = new View.OnClickListener() {
+    private View.OnClickListener filterClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             ViewHolder viewHolder = (ViewHolder) v.getTag();

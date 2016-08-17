@@ -69,7 +69,7 @@ public class TimerControlSet extends TaskEditControlFragment {
     private TimeDurationControlSet estimated;
     private TimeDurationControlSet elapsed;
     private long timerStarted;
-    protected AlertDialog dialog;
+    private AlertDialog dialog;
     private View dialogView;
     private int elapsedSeconds;
     private int estimatedSeconds;

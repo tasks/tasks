@@ -51,7 +51,7 @@ public class GCalHelper {
         cr = context.getContentResolver();
     }
 
-    public String getTaskEventUri(Task task) {
+    private String getTaskEventUri(Task task) {
         String uri;
         if (!TextUtils.isEmpty(task.getCalendarURI())) {
             uri = task.getCalendarURI();
@@ -86,7 +86,7 @@ public class GCalHelper {
         return createTaskEvent(task, values, true);
     }
 
-    public Uri createTaskEvent(Task task, ContentValues values, boolean deleteEventIfExists) {
+    private Uri createTaskEvent(Task task, ContentValues values, boolean deleteEventIfExists) {
         if (!permissionChecker.canAccessCalendars()) {
             return null;
         }

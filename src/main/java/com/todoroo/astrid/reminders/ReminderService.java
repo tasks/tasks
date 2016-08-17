@@ -46,7 +46,7 @@ public final class ReminderService  {
 
     // --- constants
 
-    public static final Property<?>[] NOTIFICATION_PROPERTIES = new Property<?>[] {
+    private static final Property<?>[] NOTIFICATION_PROPERTIES = new Property<?>[] {
         Task.ID,
         Task.CREATION_DATE,
         Task.COMPLETION_DATE,
@@ -125,7 +125,7 @@ public final class ReminderService  {
         scheduleAlarm(task, taskDao);
     }
 
-    public void clearAllAlarms(Task task) {
+    private void clearAllAlarms(Task task) {
         scheduler.createAlarm(context, task, NO_ALARM, TYPE_SNOOZE);
         scheduler.createAlarm(context, task, NO_ALARM, TYPE_RANDOM);
         scheduler.createAlarm(context, task, NO_ALARM, TYPE_DUE);

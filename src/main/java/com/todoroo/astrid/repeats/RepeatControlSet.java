@@ -80,12 +80,12 @@ public class RepeatControlSet extends TaskEditControlFragment {
 
     // --- spinner constants
 
-    public static final int INTERVAL_DAYS = 0;
-    public static final int INTERVAL_WEEKS = 1;
-    public static final int INTERVAL_MONTHS = 2;
-    public static final int INTERVAL_HOURS = 3;
-    public static final int INTERVAL_MINUTES = 4;
-    public static final int INTERVAL_YEARS = 5;
+    private static final int INTERVAL_DAYS = 0;
+    private static final int INTERVAL_WEEKS = 1;
+    private static final int INTERVAL_MONTHS = 2;
+    private static final int INTERVAL_HOURS = 3;
+    private static final int INTERVAL_MINUTES = 4;
+    private static final int INTERVAL_YEARS = 5;
 
     private static final int TYPE_DUE_DATE = 0;
     private static final int TYPE_COMPLETION_DATE = 1;
@@ -413,7 +413,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
         updateRepeatUntilOptions();
     }
 
-    protected void repeatValueClick() {
+    private void repeatValueClick() {
         int dialogValue = repeatValue;
         if(dialogValue == 0) {
             dialogValue = 1;
@@ -443,7 +443,7 @@ public class RepeatControlSet extends TaskEditControlFragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    protected void refreshDisplayView() {
+    private void refreshDisplayView() {
         if (doRepeat) {
             displayView.setText(getRepeatString());
             displayView.setTextColor(getColor(context, R.color.text_primary));

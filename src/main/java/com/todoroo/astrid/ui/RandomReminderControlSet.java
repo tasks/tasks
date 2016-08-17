@@ -21,7 +21,7 @@ import org.tasks.R;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RandomReminderControlSet {
+class RandomReminderControlSet {
 
     private int selectedIndex;
     private final int[] hours;

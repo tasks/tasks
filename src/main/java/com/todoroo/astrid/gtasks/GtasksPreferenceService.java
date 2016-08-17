@@ -21,7 +21,7 @@ public class GtasksPreferenceService {
 
     private final Preferences preferences;
 
-    public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
+    private static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
 
     private static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
     private static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
@@ -47,9 +47,9 @@ public class GtasksPreferenceService {
         preferences.setString(PREF_USER_NAME, userName);
     }
 
-    protected static final String PREF_LAST_SYNC = "_last_sync"; //$NON-NLS-1$
+    private static final String PREF_LAST_SYNC = "_last_sync"; //$NON-NLS-1$
 
-    protected static final String PREF_ONGOING = "_ongoing"; //$NON-NLS-1$
+    private static final String PREF_ONGOING = "_ongoing"; //$NON-NLS-1$
 
     /** @return Last Successful Sync Date, or 0 */
     public long getLastSyncDate() {

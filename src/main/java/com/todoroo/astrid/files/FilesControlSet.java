@@ -257,7 +257,7 @@ public class FilesControlSet extends TaskEditControlFragment {
         }
     }
 
-    public void createNewFileAttachment(String path, String fileName, String fileType) {
+    private void createNewFileAttachment(String path, String fileName, String fileType) {
         TaskAttachment attachment = TaskAttachment.createNewAttachment(taskUuid, path, fileName, fileType);
         taskAttachmentDao.createNew(attachment);
         addAttachment(attachment);

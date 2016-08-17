@@ -120,9 +120,9 @@ public class TaskListFragment extends InjectingListFragment implements
 
     // --- menu codes
 
-    protected static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;
-    protected static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
-    protected static final int CONTEXT_MENU_UNDELETE_TASK_ID = R.string.TAd_contextUndeleteTask;
+    private static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;
+    private static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
+    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = R.string.TAd_contextUndeleteTask;
 
     // --- instance variables
 
@@ -168,7 +168,7 @@ public class TaskListFragment extends InjectingListFragment implements
         }
     }
 
-    public void setSyncOngoing(final boolean ongoing) {
+    protected void setSyncOngoing(final boolean ongoing) {
         Activity activity = getActivity();
         if (activity != null) {
             activity.runOnUiThread(() -> {
@@ -492,7 +492,7 @@ public class TaskListFragment extends InjectingListFragment implements
      * Called by the RefreshReceiver when the task list receives a refresh
      * broadcast. Subclasses should override this.
      */
-    protected void refresh() {
+    private void refresh() {
         loadTaskListContent();
 
         setSyncOngoing(gtasksPreferenceService.isOngoing());
@@ -534,7 +534,7 @@ public class TaskListFragment extends InjectingListFragment implements
     /**
      * Fill in the Task List with current items
      */
-    public void setTaskAdapter() {
+    protected void setTaskAdapter() {
         if (filter == null) {
             return;
         }
@@ -735,7 +735,7 @@ public class TaskListFragment extends InjectingListFragment implements
         }
     }
 
-    protected void duplicateTask(long itemId) {
+    private void duplicateTask(long itemId) {
         long cloneId = taskDuplicator.duplicateTask(itemId);
         onTaskListItemClicked(cloneId);
     }

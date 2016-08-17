@@ -65,7 +65,7 @@ public class GtasksSyncService {
     }
 
     private class MoveOp implements SyncOnSaveOperation {
-        protected Metadata metadata;
+        Metadata metadata;
 
         public MoveOp(Metadata metadata) {
             this.metadata = metadata;
@@ -143,7 +143,7 @@ public class GtasksSyncService {
         operationQueue.offer(new MoveOp(metadata));
     }
 
-    public void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {
+    private void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {
         AndroidUtilities.sleepDeep(1000L);
 
         String taskId = model.getValue(GtasksMetadata.ID);

@@ -22,7 +22,7 @@ public class TagFilter extends Filter {
 
     private String uuid;
 
-    protected TagFilter() {
+    private TagFilter() {
         super();
     }
 
@@ -65,7 +65,7 @@ public class TagFilter extends Filter {
     }
 
     @Override
-    public void readFromParcel(Parcel source) {
+    protected void readFromParcel(Parcel source) {
         super.readFromParcel(source);
         uuid = source.readString();
     }

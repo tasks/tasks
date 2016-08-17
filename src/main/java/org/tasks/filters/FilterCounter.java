@@ -36,7 +36,7 @@ public class FilterCounter {
         this(taskDao, new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<>()));
     }
 
-    FilterCounter(TaskDao taskDao, ExecutorService executorService) {
+    private FilterCounter(TaskDao taskDao, ExecutorService executorService) {
         this.taskDao = taskDao;
         this.executorService = executorService;
     }

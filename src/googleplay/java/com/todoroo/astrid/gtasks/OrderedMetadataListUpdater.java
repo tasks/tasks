@@ -39,15 +39,15 @@ abstract public class OrderedMetadataListUpdater<LIST> {
 
     abstract protected Metadata createEmptyMetadata(LIST list, long taskId);
 
-    public OrderedMetadataListUpdater(MetadataDao metadataDao) {
+    OrderedMetadataListUpdater(MetadataDao metadataDao) {
         this.metadataDao = metadataDao;
     }
 
-    protected void beforeIndent(LIST list) {
+    void beforeIndent(LIST list) {
         //
     }
 
-    protected void onMovedOrIndented(Metadata metadata) {
+    void onMovedOrIndented(Metadata metadata) {
         //
     }
 
@@ -204,7 +204,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         }
     }
 
-    protected void traverseTreeAndWriteValues(LIST list, Node node, AtomicLong order, int indent) {
+    private void traverseTreeAndWriteValues(LIST list, Node node, AtomicLong order, int indent) {
         if(node.taskId != Task.NO_ID) {
             Metadata metadata = getTaskMetadata(node.taskId);
             if(metadata == null) {
@@ -229,7 +229,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         }
     }
 
-    protected Node findNode(Node node, long taskId) {
+    private Node findNode(Node node, long taskId) {
         if(node.taskId == taskId) {
             return node;
         }
@@ -242,7 +242,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         return null;
     }
 
-    protected Node buildTreeModel(LIST list) {
+    private Node buildTreeModel(LIST list) {
         final Node root = new Node(Task.NO_ID, null);
         final AtomicInteger previoustIndent = new AtomicInteger(-1);
         final AtomicReference<Node> currentNode = new AtomicReference<>(root);
@@ -277,7 +277,7 @@ abstract public class OrderedMetadataListUpdater<LIST> {
         return root;
     }
 
-    protected void saveAndUpdateModifiedDate(Metadata metadata) {
+    private void saveAndUpdateModifiedDate(Metadata metadata) {
         if(metadata.getSetValues().size() == 0) {
             return;
         }

@@ -142,7 +142,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             indent(which, -1);
         }
 
-        protected void indent(int which, int delta) {
+        void indent(int which, int delta) {
             String targetTaskId = taskAdapter.getItemUuid(which);
             if (!RemoteModel.isValidUuid(targetTaskId)) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)

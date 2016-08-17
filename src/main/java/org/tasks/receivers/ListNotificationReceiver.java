@@ -20,9 +20,9 @@ public class ListNotificationReceiver extends InjectingBroadcastReceiver {
 
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-    public static final String EXTRA_FILTER_TITLE = "extra_filter_title";
-    public static final String EXTRA_FILTER_QUERY = "extra_filter_query";
-    public static final String EXTRA_FILTER_VALUES = "extra_filter_values";
+    private static final String EXTRA_FILTER_TITLE = "extra_filter_title";
+    private static final String EXTRA_FILTER_QUERY = "extra_filter_query";
+    private static final String EXTRA_FILTER_VALUES = "extra_filter_values";
 
     @Inject Notifier notifier;
     @Inject Tracker tracker;

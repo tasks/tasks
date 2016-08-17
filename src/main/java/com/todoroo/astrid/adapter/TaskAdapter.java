@@ -120,22 +120,22 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
 
-    protected final Context context;
-    protected final TaskListFragment fragment;
+    private final Context context;
+    private final TaskListFragment fragment;
     private DialogBuilder dialogBuilder;
     private final TagService tagService;
     private ThemeCache themeCache;
-    protected final Resources resources;
-    protected OnCompletedTaskListener onCompletedTaskListener = null;
-    protected final LayoutInflater inflater;
+    private final Resources resources;
+    private OnCompletedTaskListener onCompletedTaskListener = null;
+    private final LayoutInflater inflater;
     private int fontSize;
 
     private final AtomicReference<String> query;
 
     // measure utilities
-    protected final DisplayMetrics displayMetrics;
+    private final DisplayMetrics displayMetrics;
 
-    protected final int minRowHeight;
+    private final int minRowHeight;
     private final float tagCharacters;
 
     private final Map<String, TagData> tagMap = new HashMap<>();
@@ -179,7 +179,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.minRowHeight = computeMinRowHeight();
     }
 
-    protected int computeMinRowHeight() {
+    private int computeMinRowHeight() {
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return (int) (metrics.density * 40);
     }
@@ -434,7 +434,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
-    protected final View.OnClickListener completeBoxListener = v -> {
+    private final View.OnClickListener completeBoxListener = v -> {
         int[] location = new int[2];
         v.getLocationOnScreen(location);
         ViewHolder viewHolder = getTagFromCheckBox(v);
@@ -459,7 +459,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     /** Helper method to adjust a tasks' appearance if the task is completed or
      * uncompleted.
      */
-    protected void setTaskAppearance(ViewHolder viewHolder, Task task) {
+    private void setTaskAppearance(ViewHolder viewHolder, Task task) {
         boolean completed = task.isCompleted();
 
         TextView name = viewHolder.nameView;
@@ -606,7 +606,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param newState
      *            state that this task should be set to
      */
-    protected void completeTask(final Task task, final boolean newState) {
+    private void completeTask(final Task task, final boolean newState) {
         if(task == null) {
             return;
         }

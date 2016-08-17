@@ -48,8 +48,8 @@ public class TouchListView extends ListView {
 	private int mUpperBound;
 	private int mLowerBound;
 	private int mHeight;
-	public static final int SLIDE_RIGHT = 1;
-	public static final int SLIDE_LEFT = 2;
+	private static final int SLIDE_RIGHT = 1;
+	private static final int SLIDE_LEFT = 2;
 	private int mRemoveMode = -1;
 	private final Rect mTempRect = new Rect();
 	private Bitmap mDragBitmap;
@@ -169,7 +169,7 @@ public class TouchListView extends ListView {
 			return super.onInterceptTouchEvent(ev);
 	}
 
-	protected boolean isDraggableRow(View view) {
+	private boolean isDraggableRow(View view) {
     return(view.findViewById(grabberId)!=null);
 	}
 

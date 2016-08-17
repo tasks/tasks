@@ -16,7 +16,7 @@ public abstract class SubtasksUpdater<T> extends AstridOrderedListUpdater<T> {
     public static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; //$NON-NLS-1$
     public static final String TODAY_TASKS_ORDER = "today_tasks_order"; //$NON-NLS-1$
 
-    public SubtasksUpdater(TaskService taskService) {
+    SubtasksUpdater(TaskService taskService) {
         super(taskService);
     }
 
@@ -27,7 +27,7 @@ public abstract class SubtasksUpdater<T> extends AstridOrderedListUpdater<T> {
     }
 
     @Override
-    public void applyToFilter(Filter filter) {
+    protected void applyToFilter(Filter filter) {
         String query = filter.getSqlQuery();
 
         query = query.replaceAll("ORDER BY .*", "");

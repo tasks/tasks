@@ -51,7 +51,7 @@ public class DateTime {
         this(timestamp, TimeZone.getDefault());
     }
 
-    public DateTime(long timestamp, TimeZone timeZone) {
+    private DateTime(long timestamp, TimeZone timeZone) {
         this.timestamp = timestamp;
         this.timeZone = timeZone;
     }

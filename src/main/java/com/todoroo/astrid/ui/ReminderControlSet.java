@@ -276,19 +276,19 @@ public class ReminderControlSet extends TaskEditControlFragment {
         }
     }
 
-    public void addAlarmRow(final Long timestamp) {
+    private void addAlarmRow(final Long timestamp) {
         addAlarmRow(getLongDateStringWithTime(context, timestamp), v -> alarms.remove(timestamp));
         alarms.add(timestamp);
     }
 
-    public void pickLocation() {
+    private void pickLocation() {
         Intent intent = PlacePicker.getIntent(getActivity());
         if (intent != null) {
             startActivityForResult(intent, REQUEST_LOCATION_REMINDER);
         }
     }
 
-    public void addGeolocationReminder(final Geofence geofence) {
+    private void addGeolocationReminder(final Geofence geofence) {
         addAlarmRow(geofence.getName(), v -> geofences.remove(geofence));
         geofences.add(geofence);
     }

@@ -9,9 +9,9 @@ import timber.log.Timber;
 
 public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInjectingAppCompatActivity {
 
-    protected boolean mIsCancelled = false;
+    boolean mIsCancelled = false;
 
-    /* package */ static boolean isLocalePluginIntent(final Intent intent) {
+    /* package */ private static boolean isLocalePluginIntent(final Intent intent) {
         final String action = intent.getAction();
 
         return com.twofortyfouram.locale.api.Intent.ACTION_EDIT_CONDITION.equals(action)
@@ -71,7 +71,7 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInje
      * editing.  Internally, this method relies on {@link #isBundleValid(Bundle)}.  If
      * the bundle exists but is not valid, this method will return null.
      */
-    public final Bundle getPreviousBundle() {
+    private Bundle getPreviousBundle() {
         final Bundle bundle = getIntent().getBundleExtra(
                 com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
 
@@ -90,7 +90,7 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInje
      * previously saved to the host and subsequently passed back to this Activity for further
      * editing.
      */
-    public final String getPreviousBlurb() {
+    private String getPreviousBlurb() {
         return getIntent().getStringExtra(
                 com.twofortyfouram.locale.api.Intent.EXTRA_STRING_BLURB);
     }
@@ -103,7 +103,7 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInje
      *               Activity.  {@code bundle} should not be mutated by this method.
      * @return true if {@code bundle} is valid for the plug-in.
      */
-    public abstract boolean isBundleValid(final Bundle bundle);
+    protected abstract boolean isBundleValid(final Bundle bundle);
 
     /**
      * Plug-in Activity lifecycle callback to allow the Activity to restore
@@ -123,18 +123,18 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInje
      * @param previousBundle Previous bundle that the Activity saved.
      * @param previousBlurb  Previous blurb that the Activity saved
      */
-    public abstract void onPostCreateWithPreviousResult(
+    protected abstract void onPostCreateWithPreviousResult(
             final Bundle previousBundle, final String previousBlurb);
 
     /**
      * @return Bundle for the plug-in or {@code null} if a valid Bundle cannot
      * be generated.
      */
-    public abstract Bundle getResultBundle();
+    protected abstract Bundle getResultBundle();
 
     /**
      * @param bundle Valid bundle for the component.
      * @return Blurb for {@code bundle}.
      */
-    public abstract String getResultBlurb(final Bundle bundle);
+    protected abstract String getResultBlurb(final Bundle bundle);
 }

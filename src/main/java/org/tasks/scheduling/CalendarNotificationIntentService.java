@@ -25,7 +25,7 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
 
     private static final long FIFTEEN_MINUTES = TimeUnit.MINUTES.toMillis(15);
 
-    public static final String URI_PREFIX = "cal-reminder";
+    private static final String URI_PREFIX = "cal-reminder";
     public static final String URI_PREFIX_POSTPONE = "cal-postpone";
 
     @Inject Preferences preferences;

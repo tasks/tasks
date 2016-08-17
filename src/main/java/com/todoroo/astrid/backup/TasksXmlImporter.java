@@ -147,10 +147,10 @@ public class TasksXmlImporter {
     private static final String FORMAT2 = "2"; //$NON-NLS-1$
     private class Format2TaskImporter {
 
-        protected XmlPullParser xpp;
-        protected Task currentTask = new Task();
-        protected Metadata metadata = new Metadata();
-        protected TagData tagdata = new TagData();
+        XmlPullParser xpp;
+        Task currentTask = new Task();
+        Metadata metadata = new Metadata();
+        TagData tagdata = new TagData();
 
         public Format2TaskImporter() { }
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
@@ -177,7 +177,7 @@ public class TasksXmlImporter {
             }
         }
 
-        protected void parseTask() {
+        void parseTask() {
             taskCount++;
             setProgressMessage(activity.getString(R.string.import_progress_read, taskCount));
             currentTask.clear();
@@ -223,7 +223,7 @@ public class TasksXmlImporter {
             importCount++;
         }
 
-        protected void parseMetadata(int format) {
+        void parseMetadata(int format) {
             if(!currentTask.isSaved()) {
                 return;
             }
@@ -257,7 +257,7 @@ public class TasksXmlImporter {
         /**
          * Turn a model into xml attributes
          */
-        protected void deserializeModel(AbstractModel model, Property<?>[] properties) {
+        void deserializeModel(AbstractModel model, Property<?>[] properties) {
             for(Property<?> property : properties) {
                 try {
                     property.accept(xmlReadingVisitor, model);

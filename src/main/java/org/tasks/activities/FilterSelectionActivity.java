@@ -22,9 +22,9 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
     public static final String EXTRA_RETURN_FILTER = "extra_include_filter";
     public static final String EXTRA_FILTER = "extra_filter";
-    public static final String EXTRA_FILTER_NAME = "extra_filter_name";
-    public static final String EXTRA_FILTER_SQL = "extra_filter_query";
-    public static final String EXTRA_FILTER_VALUES = "extra_filter_values";
+    private static final String EXTRA_FILTER_NAME = "extra_filter_name";
+    private static final String EXTRA_FILTER_SQL = "extra_filter_query";
+    private static final String EXTRA_FILTER_VALUES = "extra_filter_values";
 
     @Inject FilterProvider filterProvider;
     @Inject FilterCounter filterCounter;

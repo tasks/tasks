@@ -24,9 +24,9 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     private ActivityComponent activityComponent;
 
-    protected Toolbar toolbar;
+    private Toolbar toolbar;
 
-    public InjectingPreferenceActivity() {
+    protected InjectingPreferenceActivity() {
         Locale.getInstance(this).applyOverrideConfiguration(this);
     }
 
@@ -87,7 +87,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
         remove(getPreferenceScreen(), resIds);
     }
 
-    protected void remove(PreferenceGroup preferenceGroup, int[] resIds) {
+    private void remove(PreferenceGroup preferenceGroup, int[] resIds) {
         for (int resId : resIds) {
             preferenceGroup.removePreference(findPreference(resId));
         }

@@ -33,7 +33,7 @@ public final class TaskAttachment extends RemoteModel {
             TABLE, ID_PROPERTY_NAME);
 
     /** Remote id */
-    public static final StringProperty UUID = new StringProperty(
+    private static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
     /** Task uuid */
@@ -41,7 +41,7 @@ public final class TaskAttachment extends RemoteModel {
             TABLE, "task_id");
 
     /** File name */
-    public static final StringProperty NAME = new StringProperty(
+    private static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
     /** File path (on local storage) */
@@ -107,11 +107,11 @@ public final class TaskAttachment extends RemoteModel {
 
     public static final Creator<TaskAttachment> CREATOR = new ModelCreator<>(TaskAttachment.class);
 
-    public void setDeletedAt(Long deletedAt) {
+    private void setDeletedAt(Long deletedAt) {
         setValue(DELETED_AT, deletedAt);
     }
 
-    public void setTaskUUID(String taskUuid) {
+    private void setTaskUUID(String taskUuid) {
         setValue(TASK_UUID, taskUuid);
     }
 
@@ -119,7 +119,7 @@ public final class TaskAttachment extends RemoteModel {
         return getValue(NAME);
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         setValue(NAME, name);
     }
 

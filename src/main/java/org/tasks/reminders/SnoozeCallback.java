@@ -2,7 +2,7 @@ package org.tasks.reminders;
 
 import org.tasks.time.DateTime;
 
-public interface SnoozeCallback {
+interface SnoozeCallback {
 
     void snoozeForTime(DateTime time);
 

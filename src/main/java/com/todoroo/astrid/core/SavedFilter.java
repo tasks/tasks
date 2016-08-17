@@ -37,7 +37,7 @@ public class SavedFilter {
             StoreObject.VALUE2.name);
 
     /** serialized list of filters applied */
-    public static final StringProperty FILTERS = new StringProperty(StoreObject.TABLE,
+    private static final StringProperty FILTERS = new StringProperty(StoreObject.TABLE,
             StoreObject.VALUE3.name);
 
     // --- data storage and retrieval methods

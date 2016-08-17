@@ -202,7 +202,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 .commit();
     }
 
-    public NavigationDrawerFragment getNavigationDrawerFragment() {
+    private NavigationDrawerFragment getNavigationDrawerFragment() {
         return (NavigationDrawerFragment) getSupportFragmentManager()
                 .findFragmentById(NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
     }
@@ -458,7 +458,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         return getTaskEditFragment().startTimer();
     }
 
-    public boolean isDoublePaneLayout() {
+    private boolean isDoublePaneLayout() {
         return getResources().getBoolean(R.bool.two_pane_layout);
     }
 
@@ -490,7 +490,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         reloadCurrentFilter();
     }
 
-    void reloadCurrentFilter() {
+    private void reloadCurrentFilter() {
         onFilterItemClicked(getCurrentFilter());
     }
 

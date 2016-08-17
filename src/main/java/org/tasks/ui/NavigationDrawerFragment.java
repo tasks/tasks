@@ -42,11 +42,11 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     public static final int FRAGMENT_NAVIGATION_DRAWER = R.id.navigation_drawer;
 
-    public static final String TOKEN_LAST_SELECTED = "lastSelected"; //$NON-NLS-1$
+    private static final String TOKEN_LAST_SELECTED = "lastSelected"; //$NON-NLS-1$
 
     public static final int REQUEST_NEW_LIST = 4;
 
-    public FilterAdapter adapter = null;
+    private FilterAdapter adapter = null;
 
     private final RefreshReceiver refreshReceiver = new RefreshReceiver();
 
@@ -235,7 +235,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
         void onFilterItemClicked(FilterListItem item);
     }
 
-    public void clear() {
+    private void clear() {
         adapter.clear();
     }
 

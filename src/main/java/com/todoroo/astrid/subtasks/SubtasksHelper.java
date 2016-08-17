@@ -138,7 +138,7 @@ public class SubtasksHelper {
         T getKeyFromOldUuid(String uuid);
     }
 
-    public static <T> void remapTree(Node root, HashMap<T, String> idMap, TreeRemapHelper<T> helper) {
+    private static <T> void remapTree(Node root, HashMap<T, String> idMap, TreeRemapHelper<T> helper) {
         ArrayList<Node> children = root.children;
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);

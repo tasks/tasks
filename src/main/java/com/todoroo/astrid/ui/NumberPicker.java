@@ -77,7 +77,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         this(context, null);
     }
 
-    protected int getLayout() {
+    private int getLayout() {
         return R.layout.number_picker;
     }
 
@@ -85,7 +85,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
      * @return The number of allowable digits that can be typed in (-1 for unlimited)
      * e.g. return 2 if you don't want to allow 00002 even if 2 is in range.
      */
-    protected int getMaxDigits() {
+    private int getMaxDigits() {
         return -1;
     }
 
@@ -217,7 +217,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     }
 
-    public void updateView() {
+    private void updateView() {
 
         /*
          * If we don't have displayed values then use the current number else
@@ -297,7 +297,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private final NumberPickerButton  mIncrementButton;
     private final NumberPickerButton  mDecrementButton;
 
-    class NumberPickerInputFilter implements InputFilter {
+    private class NumberPickerInputFilter implements InputFilter {
         @Override
         public CharSequence filter(CharSequence source, int start, int end,
                 Spanned dest, int dstart, int dend) {
@@ -306,7 +306,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
     }
 
-    class NumberRangeKeyListener extends NumberKeyListener {
+    private class NumberRangeKeyListener extends NumberKeyListener {
 
         @Override
         protected char[] getAcceptedChars() {

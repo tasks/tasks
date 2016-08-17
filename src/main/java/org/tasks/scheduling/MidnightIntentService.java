@@ -21,7 +21,7 @@ public abstract class MidnightIntentService extends InjectingIntentService {
 
     private final String name;
 
-    public MidnightIntentService(String name) {
+    MidnightIntentService(String name) {
         super(name);
         this.name = name;
     }
@@ -55,7 +55,7 @@ public abstract class MidnightIntentService extends InjectingIntentService {
 
     abstract void run();
 
-    protected String getLastRunPreference() {
+    String getLastRunPreference() {
         return null;
     }
 }

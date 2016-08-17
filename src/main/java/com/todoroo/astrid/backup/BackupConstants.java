@@ -11,7 +11,7 @@ package com.todoroo.astrid.backup;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class BackupConstants {
+class BackupConstants {
 
     // Do NOT edit the constants in this file! You will break compatibility with old backups
 

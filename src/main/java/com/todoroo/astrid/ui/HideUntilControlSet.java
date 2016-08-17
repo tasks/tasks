@@ -298,7 +298,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
         refreshDisplayView();
     }
 
-    public void setCustomDate(long timestamp) {
+    private void setCustomDate(long timestamp) {
         updateSpinnerOptions(timestamp);
         spinner.setSelection(0);
         refreshDisplayView();

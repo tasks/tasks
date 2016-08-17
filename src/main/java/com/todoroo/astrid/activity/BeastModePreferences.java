@@ -43,9 +43,9 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity imple
 
     private ArrayList<String> items;
 
-    public static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v3"; //$NON-NLS-1$
+    private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v3"; //$NON-NLS-1$
 
-    public static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";"; //$NON-NLS-1$
+    private static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";"; //$NON-NLS-1$
 
     private HashMap<String, String> prefsToDescriptions;
 

@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class MultilineHelper {
-    protected static void makeMultiline(View view) {
+class MultilineHelper {
+    static void makeMultiline(View view) {
         if (view instanceof ViewGroup) {
 
             ViewGroup grp = (ViewGroup) view;

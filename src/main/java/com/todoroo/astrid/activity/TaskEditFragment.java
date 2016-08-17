@@ -287,7 +287,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         callback.taskEditFinished();
     }
 
-    protected void deleteButtonClick() {
+    private void deleteButtonClick() {
         dialogBuilder.newMessageDialog(R.string.DLG_delete_this_task_question)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);

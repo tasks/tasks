@@ -97,11 +97,11 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         component.inject(this);
     }
 
-    static boolean repeatFinished(long newDueDate, long repeatUntil) {
+    private static boolean repeatFinished(long newDueDate, long repeatUntil) {
         return repeatUntil > 0 && newDateTime(newDueDate).startOfDay().isAfter(newDateTime(repeatUntil).startOfDay());
     }
 
-    public static void rescheduleTask(GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
+    private static void rescheduleTask(GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
         task.setReminderSnooze(0L);
         task.setCompletionDate(0L);
         task.setDueDateAdjustingHideUntil(newDueDate);
@@ -273,7 +273,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         }
     }
 
-    static long handleSubdayRepeat(DateTime startDate, RRule rrule) {
+    private static long handleSubdayRepeat(DateTime startDate, RRule rrule) {
         long millis;
         switch(rrule.getFreq()) {
         case HOURLY:

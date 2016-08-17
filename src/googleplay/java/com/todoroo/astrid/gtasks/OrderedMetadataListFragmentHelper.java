@@ -93,7 +93,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         return fragment.getListView();
     }
 
-    public DraggableListView getTouchListView() {
+    private DraggableListView getTouchListView() {
         return (DraggableListView) fragment.getListView();
     }
 
@@ -156,7 +156,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
             indent(which, -1);
         }
 
-        protected void indent(int which, int delta) {
+        void indent(int which, int delta) {
             long targetTaskId = taskAdapter.getItemId(which);
             if (targetTaskId <= 0) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)

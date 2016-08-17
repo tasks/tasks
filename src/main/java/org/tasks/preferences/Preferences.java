@@ -36,7 +36,7 @@ public class Preferences {
 
     private static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
 
-    protected final Context context;
+    private final Context context;
     private final PermissionChecker permissionChecker;
     private final SharedPreferences prefs;
     private final SharedPreferences publicPrefs;
@@ -189,7 +189,7 @@ public class Preferences {
         }
     }
 
-    public boolean notificationsEnabled() {
+    private boolean notificationsEnabled() {
         return getBoolean(R.string.p_rmd_enabled, true);
     }
 

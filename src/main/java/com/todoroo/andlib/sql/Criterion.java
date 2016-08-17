@@ -13,7 +13,7 @@ import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 public abstract class Criterion {
-    protected final Operator operator;
+    final Operator operator;
 
     public Criterion(Operator operator) {
         this.operator = operator;

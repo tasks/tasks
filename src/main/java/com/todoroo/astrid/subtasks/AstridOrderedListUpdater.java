@@ -21,7 +21,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     private final TaskService taskService;
 
-    public AstridOrderedListUpdater(TaskService taskService) {
+    AstridOrderedListUpdater(TaskService taskService) {
         this.taskService = taskService;
         idToNode = new HashMap<>();
     }
@@ -135,7 +135,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         return ids.toArray(new String[ids.size()]);
     }
 
-    public String getOrderString() {
+    String getOrderString() {
         String[] ids = getOrderedIds();
         return buildOrderString(ids);
     }
@@ -414,7 +414,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
     }
 
-    protected String serializeTree() {
+    String serializeTree() {
         return serializeTree(treeRoot);
     }
 

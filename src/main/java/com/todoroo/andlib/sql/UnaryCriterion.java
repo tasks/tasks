@@ -8,10 +8,10 @@ package com.todoroo.andlib.sql;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 public class UnaryCriterion extends Criterion {
-    protected final Field expression;
-    protected final Object value;
+    private final Field expression;
+    private final Object value;
 
-    UnaryCriterion(Field expression, Operator operator, Object value) {
+    private UnaryCriterion(Field expression, Operator operator, Object value) {
         super(operator);
         this.expression = expression;
         this.value = value;
@@ -28,15 +28,18 @@ public class UnaryCriterion extends Criterion {
         return new UnaryCriterion(expression, Operator.eq, value);
     }
 
-    protected void beforePopulateOperator(StringBuilder sb) {
+    @SuppressWarnings("WeakerAccess")
+    void beforePopulateOperator(StringBuilder sb) {
         sb.append(expression);
     }
 
-    protected void populateOperator(StringBuilder sb) {
+    @SuppressWarnings("WeakerAccess")
+    void populateOperator(StringBuilder sb) {
         sb.append(operator);
     }
 
-    protected void afterPopulateOperator(StringBuilder sb) {
+    @SuppressWarnings("WeakerAccess")
+    void afterPopulateOperator(StringBuilder sb) {
         if(value == null) {
             return;
         }

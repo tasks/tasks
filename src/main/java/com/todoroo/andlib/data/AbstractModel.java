@@ -73,16 +73,17 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     protected ContentValues values = null;
 
     /** Transitory Metadata (not saved in database) */
-    protected HashMap<String, Object> transitoryData = null;
+    @SuppressWarnings("WeakerAccess")
+    HashMap<String, Object> transitoryData = null;
 
-    public AbstractModel() {
+    protected AbstractModel() {
     }
 
-    public AbstractModel(TodorooCursor<? extends AbstractModel> cursor) {
+    protected AbstractModel(TodorooCursor<? extends AbstractModel> cursor) {
         readPropertiesFromCursor(cursor);
     }
 
-    public AbstractModel(AbstractModel abstractModel) {
+    protected AbstractModel(AbstractModel abstractModel) {
         if (abstractModel != null) {
             if (abstractModel.setValues != null) {
                 setValues = new ContentValues(abstractModel.setValues);
@@ -308,7 +309,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * Check whether the user has changed this property value and it should be
      * stored for saving in the database
      */
-    protected synchronized <TYPE> boolean shouldSaveValue(
+    private synchronized <TYPE> boolean shouldSaveValue(
             Property<TYPE> property, TYPE newValue) {
 
     	// we've already decided to save it, so overwrite old value
@@ -394,14 +395,14 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         transitoryData.put(key, value);
     }
 
-    public Object getTransitory(String key) {
+    private Object getTransitory(String key) {
         if(transitoryData == null) {
             return null;
         }
         return transitoryData.get(key);
     }
 
-    public Object clearTransitory(String key) {
+    private Object clearTransitory(String key) {
         if (transitoryData == null) {
             return null;
         }

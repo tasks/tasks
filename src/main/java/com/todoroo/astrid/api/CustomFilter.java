@@ -45,7 +45,7 @@ public class CustomFilter extends Filter {
     }
 
     @Override
-    public void readFromParcel(Parcel source) {
+    protected void readFromParcel(Parcel source) {
         super.readFromParcel(source);
         id = source.readLong();
     }

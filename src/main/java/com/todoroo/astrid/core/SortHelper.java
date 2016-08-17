@@ -63,7 +63,7 @@ public class SortHelper {
         return originalSql;
     }
 
-    public static Order orderForSortType(int sortType) {
+    private static Order orderForSortType(int sortType) {
         Order order;
         switch(sortType) {
         case SORT_ALPHA:

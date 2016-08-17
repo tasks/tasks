@@ -58,7 +58,7 @@ public class Broadcaster {
         sendOrderedBroadcast(intent, null);
     }
 
-    void sendOrderedBroadcast(Intent intent, String permissions) {
+    private void sendOrderedBroadcast(Intent intent, String permissions) {
         context.sendOrderedBroadcast(intent, permissions);
     }
 

@@ -21,7 +21,7 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject TasksXmlExporter tasksXmlExporter;
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     @NonNull
     @Override

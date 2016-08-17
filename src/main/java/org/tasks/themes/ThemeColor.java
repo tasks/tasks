@@ -110,7 +110,7 @@ public class ThemeColor {
         return actionBarTint;
     }
 
-    public int getColorPrimaryDark() {
+    private int getColorPrimaryDark() {
         return colorPrimaryDark;
     }
 

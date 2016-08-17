@@ -337,7 +337,7 @@ public class DraggableListView extends ListView {
         }
     }
 
-    protected void initiateDrag(MotionEvent ev) {
+    private void initiateDrag(MotionEvent ev) {
         int x = (int) mTouchCurrentX;
         int y = (int) mTouchCurrentY;
         int itemNum = pointToPosition(x, y);

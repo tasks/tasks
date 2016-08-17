@@ -277,7 +277,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     }
 
     /** Adds a tag to the tag field */
-    void addTag(String tagName) {
+    private void addTag(String tagName) {
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         // check if already exists
@@ -373,7 +373,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         return !existingSet.equals(selectedSet);
     }
 
-    protected void refreshDisplayView() {
+    private void refreshDisplayView() {
         selectedTags = getSelectedTags();
         CharSequence tagString = buildTagString();
         if (TextUtils.isEmpty(tagString)) {

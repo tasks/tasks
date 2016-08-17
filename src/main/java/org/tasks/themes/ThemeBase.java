@@ -10,7 +10,7 @@ import org.tasks.R;
 
 public class ThemeBase {
 
-    public static final int[] THEMES = new int[]{
+    private static final int[] THEMES = new int[]{
             R.style.TasksOverride,
             R.style.ThemeBlack,
             R.style.TasksOverride,

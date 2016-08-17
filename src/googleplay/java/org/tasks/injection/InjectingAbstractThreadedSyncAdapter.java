@@ -5,7 +5,7 @@ import android.content.Context;
 
 public abstract class InjectingAbstractThreadedSyncAdapter extends AbstractThreadedSyncAdapter {
 
-    public InjectingAbstractThreadedSyncAdapter(Context context, boolean autoInitialize) {
+    protected InjectingAbstractThreadedSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         inject(context);
     }

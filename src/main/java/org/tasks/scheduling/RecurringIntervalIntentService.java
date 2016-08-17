@@ -21,7 +21,7 @@ public abstract class RecurringIntervalIntentService extends InjectingIntentServ
     @Inject Preferences preferences;
     @Inject AlarmManager alarmManager;
 
-    public RecurringIntervalIntentService(String name) {
+    RecurringIntervalIntentService(String name) {
         super(name);
     }
 

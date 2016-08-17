@@ -21,7 +21,7 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
     /**
      * Text area prompt
      */
-    public String prompt;
+    private String prompt;
 
     /**
      * Text area hint
@@ -44,7 +44,7 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
         this.name = name;
     }
 
-    protected TextInputCriterion() {
+    private TextInputCriterion() {
         // constructor for inflating from parceling
     }
 

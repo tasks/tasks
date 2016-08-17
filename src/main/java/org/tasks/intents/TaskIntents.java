@@ -24,7 +24,7 @@ public class TaskIntents {
         return taskListIntent;
     }
 
-    public static Intent getEditTaskIntent(Context context, final Filter filter, final long taskId) {
+    private static Intent getEditTaskIntent(Context context, final Filter filter, final long taskId) {
         Intent taskListIntent = getTaskListIntent(context, filter);
         taskListIntent.putExtra(TaskListActivity.OPEN_TASK, taskId);
         return taskListIntent;

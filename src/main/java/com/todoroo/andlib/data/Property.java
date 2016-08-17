@@ -48,13 +48,13 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     /** Is this field for pictures? (usually as a json object containing "path" key or urls) */
     public static final int PROP_FLAG_PICTURE = 1 << 5;
 
-    public int flags = 0;
+    private int flags = 0;
 
     /**
      * Create a property by table and column name. Uses the default property
      * expression which is derived from default table name
      */
-    protected Property(Table table, String columnName) {
+    Property(Table table, String columnName) {
         this(table, columnName, (table == null) ? (columnName) : (table.name() + "." + columnName));
     }
 
@@ -62,7 +62,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * Create a property by table and column name. Uses the default property
      * expression which is derived from default table name
      */
-    protected Property(Table table, String columnName, int flags) {
+    Property(Table table, String columnName, int flags) {
         this(table, columnName, (table == null) ? (columnName) : (table.name() + "." + columnName));
         this.flags = flags;
     }
@@ -71,7 +71,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * Create a property by table and column name, manually specifying an
      * expression to use in SQL
      */
-    protected Property(Table table, String columnName, String expression) {
+    Property(Table table, String columnName, String expression) {
         super(expression);
         this.table = table;
         this.name = columnName;
@@ -98,7 +98,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     /**
      * Return a clone of this property
      */
-    public Property<TYPE> cloneAs(String tableAlias, String columnAlias) {
+    Property<TYPE> cloneAs(String tableAlias, String columnAlias) {
         Table aliasedTable = this.table;
         if (!TextUtils.isEmpty(tableAlias)) {
             aliasedTable = table.as(tableAlias);
@@ -147,7 +147,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
             super(table, name);
         }
 
-        protected IntegerProperty(String name, String expression) {
+        IntegerProperty(String name, String expression) {
             super(null, name, expression);
         }
 
