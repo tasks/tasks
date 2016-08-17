@@ -18,6 +18,8 @@
         <item name="android:textColorPrimary">@color/text_primary</item>
         <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:textColorTertiary">@color/text_tertiary</item>
+        <item name="nnf_toolbarTheme">?attr/overlay_theme</item>
+        <item name="nnf_separator_color">@color/nnf_light_separator_color</item>
     </style>
 
     <style name="TasksOverride" parent="Tasks">

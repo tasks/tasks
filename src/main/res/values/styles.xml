@@ -108,15 +108,7 @@
         <item name="android:layout_gravity">end|bottom</item>
     </style>
 
-    <!-- ==================================================== TaskAdapter == -->
-
     <style name="task_list_container"/>
-
-    <style name="FilePickerTheme" parent="NNF_BaseTheme.Light">
-         <item name="nnf_toolbarTheme">?attr/overlay_theme</item>
-    </style>
-
-    <!-- ========================================================= Premium == -->
 
     <style name="TextAppearance.Medium">
         <item name="android:textSize">18sp</item>

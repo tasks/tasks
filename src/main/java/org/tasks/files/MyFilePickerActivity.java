@@ -4,11 +4,14 @@ import android.os.Bundle;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
+import org.tasks.R;
 import org.tasks.injection.ActivityModule;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
+
+import static org.tasks.preferences.ResourceResolver.getData;
 
 public class MyFilePickerActivity extends FilePickerActivity {
 
@@ -23,5 +26,6 @@ public class MyFilePickerActivity extends FilePickerActivity {
         theme.applyThemeAndStatusBarColor(this, getDelegate());
         setTitle(null);
         super.onCreate(savedInstanceState);
+        getWindow().getDecorView().setBackgroundColor(getData(this, R.attr.asContentBackground));
     }
 }
