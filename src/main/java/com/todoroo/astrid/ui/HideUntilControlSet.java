@@ -55,8 +55,8 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
 
     public static final int TAG = R.string.TEA_ctrl_hide_until_pref;
 
-    private static String EXTRA_CUSTOM = "extra_custom";
-    private static String EXTRA_SELECTION = "extra_selection";
+    private static final String EXTRA_CUSTOM = "extra_custom";
+    private static final String EXTRA_SELECTION = "extra_selection";
 
     private static final int SPECIFIC_DATE = -1;
     private static final int EXISTING_TIME_UNSET = -2;
@@ -222,9 +222,9 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
      *
      */
     private class HideUntilValue {
-        public String label;
-        public int setting;
-        public long date;
+        public final String label;
+        public final int setting;
+        public final long date;
 
         public HideUntilValue(String label, int setting) {
             this(label, setting, 0);

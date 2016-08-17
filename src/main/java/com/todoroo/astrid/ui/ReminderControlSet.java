@@ -97,10 +97,10 @@ public class ReminderControlSet extends TaskEditControlFragment {
     private RandomReminderControlSet randomControlSet;
     private boolean whenDue;
     private boolean whenOverdue;
-    private List<String> spinnerOptions = new ArrayList<>();
+    private final List<String> spinnerOptions = new ArrayList<>();
     private ArrayAdapter<String> remindAdapter;
-    private Set<Long> alarms = new LinkedHashSet<>();
-    private Set<Geofence> geofences = new LinkedHashSet<>();
+    private final Set<Long> alarms = new LinkedHashSet<>();
+    private final Set<Geofence> geofences = new LinkedHashSet<>();
 
     @OnItemSelected(R.id.reminder_alarm)
     void ringModeSelected(int position) {

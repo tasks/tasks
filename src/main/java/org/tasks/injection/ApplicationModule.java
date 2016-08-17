@@ -21,7 +21,7 @@ import static org.tasks.ui.WidgetCheckBoxes.newWidgetCheckBoxes;
 
 @Module
 public class ApplicationModule {
-    private Context context;
+    private final Context context;
 
     public ApplicationModule(Context context) {
         this.context = context;

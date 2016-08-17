@@ -14,7 +14,7 @@ import java.util.List;
 
 public class HiddenTopArrayAdapter<T> extends ArrayAdapter<T> {
 
-    private List<String> hints;
+    private final List<String> hints;
 
     public HiddenTopArrayAdapter(Context context, int resources, List<T> objects) {
         this(context, resources, objects, new ArrayList<>());

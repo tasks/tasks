@@ -169,7 +169,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         }
     }
 
-    private static Comparator<WeekdayNum> weekdayCompare = (object1, object2) -> object1.wday.javaDayNum - object2.wday.javaDayNum;
+    private static final Comparator<WeekdayNum> weekdayCompare = (object1, object2) -> object1.wday.javaDayNum - object2.wday.javaDayNum;
 
     private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay, DateTime date) {
         WeekdayNum next = byDay.get(0);

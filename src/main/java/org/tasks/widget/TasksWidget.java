@@ -39,7 +39,7 @@ import static org.tasks.intents.TaskIntents.getEditTaskIntent;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
 
-    private static int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
+    private static final int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
 
     @Inject Broadcaster broadcaster;
     @Inject Preferences preferences;

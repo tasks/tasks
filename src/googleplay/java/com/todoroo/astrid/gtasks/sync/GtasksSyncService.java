@@ -65,7 +65,7 @@ public class GtasksSyncService {
     }
 
     private class MoveOp implements SyncOnSaveOperation {
-        Metadata metadata;
+        final Metadata metadata;
 
         public MoveOp(Metadata metadata) {
             this.metadata = metadata;

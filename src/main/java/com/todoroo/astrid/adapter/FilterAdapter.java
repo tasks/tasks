@@ -53,7 +53,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final FilterProvider filterProvider;
     private final FilterCounter filterCounter;
     private final Activity activity;
-    private boolean navigationDrawer;
+    private final boolean navigationDrawer;
     private final Locale locale;
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
 
@@ -187,7 +187,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
      * ============================================================ selection
      * ====================================================================== */
 
-    private FilterListItem selection = null;
+    private final FilterListItem selection = null;
 
     /* ======================================================================
      * ============================================================= receiver

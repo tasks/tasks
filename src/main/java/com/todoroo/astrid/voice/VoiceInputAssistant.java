@@ -57,7 +57,7 @@ public class VoiceInputAssistant {
      * Use the mightier constructor to specify your own requestCode in this case for every additional use on an fragment.
      * If you only use one microphone-button on an fragment, you can leave it to its default, VOICE_RECOGNITION_REQUEST_CODE.
      */
-    private Fragment fragment;
+    private final Fragment fragment;
 
     /**
      * This constructor can be called from a widget with a voice-button calling a dummy-activity.

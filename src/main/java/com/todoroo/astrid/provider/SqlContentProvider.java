@@ -35,7 +35,7 @@ public class SqlContentProvider extends InjectingContentProvider {
 
     // --- instance variables
 
-    private static UriMatcher uriMatcher;
+    private static final UriMatcher uriMatcher;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);

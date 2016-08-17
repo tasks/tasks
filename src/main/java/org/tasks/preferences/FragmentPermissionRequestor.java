@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import javax.inject.Inject;
 
 public class FragmentPermissionRequestor extends PermissionRequestor {
-    private Fragment fragment;
+    private final Fragment fragment;
 
     @Inject
     public FragmentPermissionRequestor(Fragment fragment, PermissionChecker permissionChecker) {

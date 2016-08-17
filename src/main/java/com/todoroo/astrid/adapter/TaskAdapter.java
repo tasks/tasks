@@ -122,9 +122,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final Context context;
     private final TaskListFragment fragment;
-    private DialogBuilder dialogBuilder;
+    private final DialogBuilder dialogBuilder;
     private final TagService tagService;
-    private ThemeCache themeCache;
+    private final ThemeCache themeCache;
     private final Resources resources;
     private OnCompletedTaskListener onCompletedTaskListener = null;
     private final LayoutInflater inflater;

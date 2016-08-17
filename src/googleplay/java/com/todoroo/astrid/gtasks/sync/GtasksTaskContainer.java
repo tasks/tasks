@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class GtasksTaskContainer {
 
-    public Task task;
-    public ArrayList<Metadata> metadata;
+    public final Task task;
+    public final ArrayList<Metadata> metadata;
 
     public Metadata gtaskMetadata;
     private final long updateTime;

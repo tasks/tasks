@@ -8,7 +8,7 @@ import org.tasks.injection.ForApplication;
 import javax.inject.Inject;
 
 public class BackgroundScheduler {
-    private Context context;
+    private final Context context;
 
     @Inject
     public BackgroundScheduler(@ForApplication Context context) {

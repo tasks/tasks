@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
 
-    private TaskListMetadataDao taskListMetadataDao;
+    private final TaskListMetadataDao taskListMetadataDao;
 
     @Inject
     public SubtasksFilterUpdater(TaskListMetadataDao taskListMetadataDao, TaskService taskService) {

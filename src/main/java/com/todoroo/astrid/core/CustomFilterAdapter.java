@@ -37,7 +37,7 @@ import java.util.List;
 class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     private final CustomFilterActivity activity;
-    private DialogBuilder dialogBuilder;
+    private final DialogBuilder dialogBuilder;
     private final LayoutInflater inflater;
     private final Locale locale;
 
@@ -52,7 +52,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     // --- view event handling
 
-    private View.OnClickListener filterClickListener = new View.OnClickListener() {
+    private final View.OnClickListener filterClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             ViewHolder viewHolder = (ViewHolder) v.getTag();

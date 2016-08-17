@@ -15,7 +15,7 @@ import org.tasks.time.DateTime;
 public class TimePreference extends Preference {
 
     private int millisOfDay;
-    private String summary;
+    private final String summary;
 
     public TimePreference(Context context, AttributeSet attrs) {
         super(context, attrs);

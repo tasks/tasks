@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 public class TaskNotificationReceiver extends InjectingBroadcastReceiver {
 
-    private static ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static final String ID_KEY = "id"; //$NON-NLS-1$
     public static final String EXTRAS_TYPE = "type"; //$NON-NLS-1$

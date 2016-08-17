@@ -71,10 +71,10 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	private final static String TAGS_ID = "tags_id";
 
-	private static String[] TASK_FIELD_LIST = new String[] { NAME, IMPORTANCE_COLOR, PREFERRED_DUE_DATE, DEFINITE_DUE_DATE,
+	private static final String[] TASK_FIELD_LIST = new String[] { NAME, IMPORTANCE_COLOR, PREFERRED_DUE_DATE, DEFINITE_DUE_DATE,
 			IMPORTANCE, IDENTIFIER, TAGS_ID };
 
-	private static String[] TAGS_FIELD_LIST = new String[] { ID, NAME };
+	private static final String[] TAGS_FIELD_LIST = new String[] { ID, NAME };
 
 	private static final int URI_TASKS = 0;
 	private static final int URI_TAGS = 1;

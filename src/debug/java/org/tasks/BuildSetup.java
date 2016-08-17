@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 public class BuildSetup {
-    private Context context;
+    private final Context context;
 
     @Inject
     public BuildSetup(@ForApplication Context context) {

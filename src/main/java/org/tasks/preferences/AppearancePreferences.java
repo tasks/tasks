@@ -22,8 +22,8 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
     private static final int REQUEST_DEFAULT_LIST = 1005;
 
     private static final String EXTRA_BUNDLE = "extra_bundle";
-    public static String EXTRA_RESTART = "extra_restart";
-    public static String EXTRA_FILTERS_CHANGED = "extra_filters_changed";
+    public static final String EXTRA_RESTART = "extra_restart";
+    public static final String EXTRA_FILTERS_CHANGED = "extra_filters_changed";
 
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;

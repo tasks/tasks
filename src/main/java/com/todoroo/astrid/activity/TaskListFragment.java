@@ -149,7 +149,7 @@ public class TaskListFragment extends InjectingListFragment implements
     @BindView(R.id.task_list_coordinator) CoordinatorLayout coordinatorLayout;
 
     private TaskAdapter taskAdapter = null;
-    private RefreshReceiver refreshReceiver = new RefreshReceiver();
+    private final RefreshReceiver refreshReceiver = new RefreshReceiver();
     private TaskListFragmentCallbackHandler callbacks;
 
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();

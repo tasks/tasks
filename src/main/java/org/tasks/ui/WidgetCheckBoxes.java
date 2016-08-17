@@ -18,9 +18,9 @@ public class WidgetCheckBoxes {
         return new WidgetCheckBoxes(checkBoxes);
     }
 
-    private List<Bitmap> checkboxes;
-    private List<Bitmap> repeatingCheckboxes;
-    private List<Bitmap> completedCheckboxes;
+    private final List<Bitmap> checkboxes;
+    private final List<Bitmap> repeatingCheckboxes;
+    private final List<Bitmap> completedCheckboxes;
 
     private WidgetCheckBoxes(CheckBoxes checkBoxes) {
         Timber.d("Initializing widget checkboxes");

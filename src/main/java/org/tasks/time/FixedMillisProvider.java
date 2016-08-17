@@ -2,7 +2,7 @@ package org.tasks.time;
 
 public class FixedMillisProvider implements MillisProvider {
 
-    private long millis;
+    private final long millis;
 
     public FixedMillisProvider(long millis) {
         this.millis = millis;

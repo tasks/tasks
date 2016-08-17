@@ -33,7 +33,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
 
     private final TaskService taskService;
     private final Activity activity;
-    private Tracker tracker;
+    private final Tracker tracker;
 
     @Inject
     public RepeatConfirmationReceiver(TaskService taskService, Activity activity, Tracker tracker) {

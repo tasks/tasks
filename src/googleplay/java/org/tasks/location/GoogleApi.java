@@ -15,7 +15,7 @@ import timber.log.Timber;
 
 public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
 
-    private GoogleApiClient.Builder builder;
+    private final GoogleApiClient.Builder builder;
     private GoogleApiClient googleApiClient;
     private GoogleApiClientConnectionHandler googleApiClientConnectionHandler;
 

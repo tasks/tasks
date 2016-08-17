@@ -51,10 +51,10 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final OrderedMetadataListUpdater<LIST> updater;
-    private DialogBuilder dialogBuilder;
-    private CheckBoxes checkBoxes;
+    private final DialogBuilder dialogBuilder;
+    private final CheckBoxes checkBoxes;
     private final TagService tagService;
-    private ThemeCache themeCache;
+    private final ThemeCache themeCache;
     private final TaskListFragment fragment;
 
     private final Preferences preferences;

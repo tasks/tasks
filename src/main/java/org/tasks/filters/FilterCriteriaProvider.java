@@ -45,11 +45,11 @@ public class FilterCriteriaProvider {
     private static final String IDENTIFIER_TAG_IS = "tag_is"; //$NON-NLS-1$
     private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; //$NON-NLS-1$
 
-    private Context context;
-    private TagService tagService;
-    private GtasksListService gtasksListService;
-    private GtasksMetadata gtasksMetadata;
-    private Resources r;
+    private final Context context;
+    private final TagService tagService;
+    private final GtasksListService gtasksListService;
+    private final GtasksMetadata gtasksMetadata;
+    private final Resources r;
     private final SyncAdapterHelper syncAdapterHelper;
 
     @Inject

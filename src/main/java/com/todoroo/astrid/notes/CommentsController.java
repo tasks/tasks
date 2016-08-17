@@ -44,7 +44,7 @@ public class CommentsController {
     private final UserActivityDao userActivityDao;
     private final ArrayList<NoteOrUpdate> items = new ArrayList<>();
     private final Activity activity;
-    private Preferences preferences;
+    private final Preferences preferences;
 
     private int commentItems = 10;
     private Task task;

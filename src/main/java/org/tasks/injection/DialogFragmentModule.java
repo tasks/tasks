@@ -8,7 +8,7 @@ import dagger.Provides;
 
 @Module
 public class DialogFragmentModule {
-    private DialogFragment dialogFragment;
+    private final DialogFragment dialogFragment;
 
     public DialogFragmentModule(DialogFragment dialogFragment) {
         this.dialogFragment = dialogFragment;

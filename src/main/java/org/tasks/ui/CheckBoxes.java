@@ -22,11 +22,11 @@ public class CheckBoxes {
 
     private static final int MAX_IMPORTANCE_INDEX = 3;
 
-    private List<Drawable> checkboxes;
-    private List<Drawable> repeatingCheckboxes;
-    private List<Drawable> completedCheckboxes;
-    private List<Integer> priorityColors;
-    private int[] priorityColorsArray;
+    private final List<Drawable> checkboxes;
+    private final List<Drawable> repeatingCheckboxes;
+    private final List<Drawable> completedCheckboxes;
+    private final List<Integer> priorityColors;
+    private final int[] priorityColorsArray;
 
     private CheckBoxes(Context context) {
         checkboxes = wrapDrawable(context, R.drawable.ic_check_box_outline_blank_24dp);

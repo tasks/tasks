@@ -16,7 +16,7 @@ public class TaskCreator {
 
     private final TaskService taskService;
     private final GCalHelper gcalHelper;
-    private Preferences preferences;
+    private final Preferences preferences;
 
     @Inject
     public TaskCreator(TaskService taskService, GCalHelper gcalHelper, Preferences preferences) {

@@ -23,7 +23,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class Locale {
 
-    private static Locale DEFAULT = new Locale(java.util.Locale.getDefault(), null, -1);
+    private static final Locale DEFAULT = new Locale(java.util.Locale.getDefault(), null, -1);
     private static Locale INSTANCE;
 
     public static Locale getInstance(Context context) {

@@ -148,9 +148,9 @@ public class TasksXmlImporter {
     private class Format2TaskImporter {
 
         XmlPullParser xpp;
-        Task currentTask = new Task();
-        Metadata metadata = new Metadata();
-        TagData tagdata = new TagData();
+        final Task currentTask = new Task();
+        final Metadata metadata = new Metadata();
+        final TagData tagdata = new TagData();
 
         public Format2TaskImporter() { }
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {

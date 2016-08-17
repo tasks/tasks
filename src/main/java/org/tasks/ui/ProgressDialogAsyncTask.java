@@ -13,8 +13,8 @@ import timber.log.Timber;
 public abstract class ProgressDialogAsyncTask extends AsyncTask<Void, Void, Integer> {
 
     private ProgressDialog progressDialog;
-    private Activity activity;
-    private DialogBuilder dialogBuilder;
+    private final Activity activity;
+    private final DialogBuilder dialogBuilder;
 
     public ProgressDialogAsyncTask(Activity activity, DialogBuilder dialogBuilder) {
         this.activity = activity;

@@ -25,7 +25,7 @@ public class StoreObjectDao {
 
     private final DatabaseDao<StoreObject> dao;
 
-    private static Criterion isSavedFilter = StoreObject.TYPE.eq(SavedFilter.TYPE);
+    private static final Criterion isSavedFilter = StoreObject.TYPE.eq(SavedFilter.TYPE);
 
     @Inject
     public StoreObjectDao(Database database) {

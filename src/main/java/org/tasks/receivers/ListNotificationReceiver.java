@@ -18,7 +18,7 @@ import timber.log.Timber;
 
 public class ListNotificationReceiver extends InjectingBroadcastReceiver {
 
-    private static ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     private static final String EXTRA_FILTER_TITLE = "extra_filter_title";
     private static final String EXTRA_FILTER_QUERY = "extra_filter_query";

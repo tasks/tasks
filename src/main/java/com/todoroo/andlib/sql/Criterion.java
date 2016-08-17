@@ -19,7 +19,7 @@ public abstract class Criterion {
         this.operator = operator;
     }
 
-    public static Criterion all = new Criterion(Operator.exists) {
+    public static final Criterion all = new Criterion(Operator.exists) {
         @Override
         protected void populate(StringBuilder sb) {
             sb.append(1);

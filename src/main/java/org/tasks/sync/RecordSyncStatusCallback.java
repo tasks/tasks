@@ -7,8 +7,8 @@ import org.tasks.Broadcaster;
 
 public class RecordSyncStatusCallback implements SyncResultCallback {
 
-    private GtasksPreferenceService gtasksPreferenceService;
-    private Broadcaster broadcaster;
+    private final GtasksPreferenceService gtasksPreferenceService;
+    private final Broadcaster broadcaster;
 
     public RecordSyncStatusCallback(GtasksPreferenceService gtasksPreferenceService, Broadcaster broadcaster) {
         this.gtasksPreferenceService = gtasksPreferenceService;

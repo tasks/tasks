@@ -19,7 +19,7 @@ import static java.util.Arrays.asList;
 
 public class Device {
 
-    private Context context;
+    private final Context context;
 
     @Inject
     public Device(@ForApplication Context context) {

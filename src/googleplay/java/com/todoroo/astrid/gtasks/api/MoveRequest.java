@@ -19,7 +19,7 @@ import timber.log.Timber;
 public class MoveRequest {
 
     private final GtasksInvoker service;
-    private String taskId;
+    private final String taskId;
     private final String destinationList;
     private String parentId;
     private String priorSiblingId;

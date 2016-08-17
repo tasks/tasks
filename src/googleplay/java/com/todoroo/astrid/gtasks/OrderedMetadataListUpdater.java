@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 abstract public class OrderedMetadataListUpdater<LIST> {
 
-    private MetadataDao metadataDao;
+    private final MetadataDao metadataDao;
 
     public interface OrderedListIterator {
         void processTask(long taskId, Metadata metadata);

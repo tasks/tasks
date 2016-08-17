@@ -46,8 +46,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
-    private DialogBuilder dialogBuilder;
-    private CheckBoxes checkBoxes;
+    private final DialogBuilder dialogBuilder;
+    private final CheckBoxes checkBoxes;
     private final TagService tagService;
     private final TaskListFragment fragment;
     private final Preferences preferences;

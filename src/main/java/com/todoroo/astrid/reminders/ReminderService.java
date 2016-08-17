@@ -77,8 +77,8 @@ public final class ReminderService  {
     private AlarmScheduler scheduler;
 
     private long now = -1; // For tracking when reminders might be scheduled all at once
-    private Context context;
-    private Preferences preferences;
+    private final Context context;
+    private final Preferences preferences;
 
     @Inject
     ReminderService(@ForApplication Context context, Preferences preferences, AlarmManager alarmManager) {

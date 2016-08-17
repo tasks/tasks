@@ -29,7 +29,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
 
     private SnoozeCallback snoozeCallback;
     private DialogInterface.OnCancelListener onCancelListener;
-    private List<String> items = new ArrayList<>();
+    private final List<String> items = new ArrayList<>();
 
     @NonNull
     @Override

@@ -29,9 +29,9 @@ import static java.util.Collections.singletonList;
 
 public class GeofenceApi {
 
-    private Context context;
-    private Preferences preferences;
-    private PermissionChecker permissionChecker;
+    private final Context context;
+    private final Preferences preferences;
+    private final PermissionChecker permissionChecker;
 
     @Inject
     public GeofenceApi(@ForApplication Context context, Preferences preferences, PermissionChecker permissionChecker) {
