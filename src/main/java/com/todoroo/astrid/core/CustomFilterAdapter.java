@@ -6,6 +6,7 @@
 package com.todoroo.astrid.core;
 
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -141,8 +142,9 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     // --- view construction
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.custom_filter_row, parent, false);
             ViewHolder viewHolder = new ViewHolder();

@@ -1,6 +1,7 @@
 package org.tasks.ui;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class HiddenTopArrayAdapter<T> extends ArrayAdapter<T> {
     }
 
     @Override
-    public View getDropDownView(final int position, final View convertView, final ViewGroup parent) {
+    public View getDropDownView(final int position, final View convertView, @NonNull final ViewGroup parent) {
         View v;
 
         if (position == 0) {

@@ -8,6 +8,7 @@ package com.todoroo.astrid.tags;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -153,9 +154,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
         newTagLayout = (LinearLayout) dialogView.findViewById(R.id.newTags);
         tagListView = (ListView) dialogView.findViewById(R.id.existingTags);
         tagListView.setAdapter(new ArrayAdapter<TagData>(getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTags) {
+            @NonNull
             @SuppressLint("NewApi")
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
                 CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
                 TagData tagData = allTags.get(position);
                 ThemeColor themeColor = themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);

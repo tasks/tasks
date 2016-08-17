@@ -3,6 +3,7 @@ package org.tasks.dialogs;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import org.tasks.R;
 import org.tasks.injection.DialogFragmentComponent;
@@ -38,6 +39,7 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
     private AddAttachmentCallback callback;
     private DialogInterface.OnCancelListener onCancelListener;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         List<String> entries = newArrayList();

@@ -8,6 +8,7 @@ package com.todoroo.astrid.files;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.widget.Chronometer;
 
 import com.todoroo.astrid.voice.AACRecorder;
@@ -99,7 +100,7 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements 
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_MIC) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startRecording();

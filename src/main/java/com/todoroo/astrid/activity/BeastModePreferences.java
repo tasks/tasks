@@ -8,6 +8,7 @@ package com.todoroo.astrid.activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -70,8 +71,9 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity imple
         items = constructOrderedControlList(preferences, this);
 
         adapter = new ArrayAdapter<String>(this, R.layout.preference_draggable_row, R.id.text, items) {
+            @NonNull
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
                 View v = super.getView(position, convertView, parent);
                 TextView display = (TextView) v.findViewById(R.id.text);
                 display.setText(prefsToDescriptions.get(getItem(position)));

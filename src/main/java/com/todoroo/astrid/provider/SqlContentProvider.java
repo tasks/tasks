@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
@@ -53,7 +54,7 @@ public class SqlContentProvider extends InjectingContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         switch (uriMatcher.match(uri)) {
         case 0:
             return "vnd.android.cursor.dir/vnd.astrid";
@@ -71,7 +72,7 @@ public class SqlContentProvider extends InjectingContentProvider {
      * @return number of rows deleted
      */
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
@@ -83,7 +84,7 @@ public class SqlContentProvider extends InjectingContentProvider {
      * Insert key/value pairs into given table
      */
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
@@ -92,7 +93,7 @@ public class SqlContentProvider extends InjectingContentProvider {
      * ====================================================================== */
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         throw new UnsupportedOperationException("unimplemented");
     }
 
@@ -108,8 +109,8 @@ public class SqlContentProvider extends InjectingContentProvider {
      * name of a column
      */
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
-            String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
 
         return getDatabase().rawQuery(selection);
     }

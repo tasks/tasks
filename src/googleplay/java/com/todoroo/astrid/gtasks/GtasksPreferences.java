@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.support.annotation.NonNull;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -118,7 +119,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_ACCOUNTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 requestLogin();

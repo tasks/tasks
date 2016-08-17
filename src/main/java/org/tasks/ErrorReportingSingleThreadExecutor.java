@@ -1,5 +1,7 @@
 package org.tasks;
 
+import android.support.annotation.NonNull;
+
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import org.tasks.analytics.Tracker;
@@ -23,7 +25,7 @@ public class ErrorReportingSingleThreadExecutor implements Executor, Thread.Unca
     }
 
     @Override
-    public void execute(Runnable runnable) {
+    public void execute(@NonNull Runnable runnable) {
         try {
             executorService.execute(runnable);
         } catch (Exception e) {

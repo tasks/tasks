@@ -3,6 +3,7 @@ package org.tasks.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
 import com.todoroo.astrid.gtasks.GtasksList;
@@ -26,6 +27,7 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
 
     private GoogleTaskListSelectionHandler handler;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return createDialog(dialogBuilder, gtasksListService, list -> handler.selectedList(list));

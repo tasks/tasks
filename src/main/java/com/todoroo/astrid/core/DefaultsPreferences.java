@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.support.annotation.NonNull;
 
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
@@ -67,7 +68,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startCalendarSelectionActivity();

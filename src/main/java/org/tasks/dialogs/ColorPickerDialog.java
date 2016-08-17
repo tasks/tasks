@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
@@ -57,6 +58,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     private ThemePickerCallback callback;
     private ArrayAdapter<String> adapter;
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -70,9 +72,10 @@ public class ColorPickerDialog extends InjectingDialogFragment {
 
         final LayoutInflater inflater = theme.getLayoutInflater(context);
         adapter = new ArrayAdapter<String>(context, R.layout.color_selection_row, themes) {
+            @NonNull
             @SuppressLint("NewApi")
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
                 TextView textView = (TextView) (convertView == null
                         ? inflater.inflate(R.layout.color_selection_row, parent, false)
                         : convertView);

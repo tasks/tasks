@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -109,7 +110,7 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         switch (uriMatcher.match(uri)) {
         case URI_DIR:
         case URI_GROUP:
@@ -201,7 +202,7 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
      * @return number of rows deleted
      */
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         UriHelper<?> helper = generateHelper(uri, false);
         switch (uriMatcher.match(uri)) {
 
@@ -242,7 +243,7 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
      * Insert key/value pairs into given table
      */
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         UriHelper<?> helper = generateHelper(uri, true);
         switch (uriMatcher.match(uri)) {
 
@@ -277,8 +278,8 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
      * ====================================================================== */
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
-            String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection,
+                      String[] selectionArgs) {
         UriHelper<?> helper = generateHelper(uri, true);
 
         switch (uriMatcher.match(uri)) {
@@ -361,8 +362,8 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
      * name of a column
      */
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
-            String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
 
         String groupBy = null;
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -132,8 +133,9 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         }
         final int overdueColor = getColor(context, R.color.overdue);
         dueDateAdapter = new HiddenTopArrayAdapter<String>(context, android.R.layout.simple_spinner_item, dueDateOptions) {
+            @NonNull
             @Override
-            public View getView(final int position, final View convertView, final ViewGroup parent) {
+            public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
                 int selectedItemPosition = position;
                 if (parent instanceof AdapterView) {
                     selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
@@ -157,8 +159,9 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         dueDateSpinner.setAdapter(dueDateAdapter);
 
         dueTimeAdapter = new HiddenTopArrayAdapter<String>(context, android.R.layout.simple_spinner_item, dueTimeOptions, dueTimeHint) {
+            @NonNull
             @Override
-            public View getView(final int position, final View convertView, final ViewGroup parent) {
+            public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
                 int selectedItemPosition = position;
                 if (parent instanceof AdapterView) {
                     selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
