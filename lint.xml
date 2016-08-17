@@ -2,6 +2,8 @@
 <lint>
     <issue id="InconsistentArrays" severity="error"/>
     <issue id="MissingTranslation" severity="ignore"/>
+    <issue id="VectorRaster" severity="ignore" />
+
     <issue id="MissingQuantity" severity="ignore"/>
     <issue id="ImpliedQuantity" severity="ignore"/>
 </lint>

@@ -33,7 +33,7 @@ public class FilterCounter {
 
     @Inject
     public FilterCounter(TaskDao taskDao) {
-        this(taskDao, new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>()));
+        this(taskDao, new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<>()));
     }
 
     FilterCounter(TaskDao taskDao, ExecutorService executorService) {

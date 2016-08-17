@@ -93,7 +93,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
         }
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "EmptyMethod"})
     @Override
     public void addPreferencesFromResource(int preferencesResId) {
         super.addPreferencesFromResource(preferencesResId);

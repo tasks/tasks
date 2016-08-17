@@ -59,10 +59,10 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
 
         setTitle(title);
         LayoutParams npLayout = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.FILL_PARENT);
+                LayoutParams.MATCH_PARENT);
         npLayout.gravity = 1;
         LayoutParams sepLayout = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.FILL_PARENT);
+                LayoutParams.MATCH_PARENT);
         for(int i = 0; i < incrementBy.length; i++) {
             NumberPicker np = new NumberPicker(context, null);
             np.setIncrementBy(incrementBy[i]);

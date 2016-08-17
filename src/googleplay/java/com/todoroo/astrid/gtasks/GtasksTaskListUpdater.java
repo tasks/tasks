@@ -100,7 +100,7 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
 
     public void correctOrderAndIndentForList(String listId) {
         orderAndIndentHelper(listId, new AtomicLong(0L), Task.NO_ID, 0,
-                new HashSet<Long>());
+                new HashSet<>());
     }
 
     private void orderAndIndentHelper(final String listId, final AtomicLong order, final long parent, final int indentLevel, final Set<Long> alreadyChecked) {

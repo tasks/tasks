@@ -99,6 +99,7 @@ public class GtasksSyncService {
 
         @Override
         public void run() {
+            //noinspection InfiniteLoopStatement
             while (true) {
                 SyncOnSaveOperation op;
                 try {

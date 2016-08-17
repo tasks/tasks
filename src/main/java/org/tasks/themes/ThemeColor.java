@@ -1,9 +1,11 @@
 package org.tasks.themes;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.res.Resources;
+import android.os.Build;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -78,6 +80,7 @@ public class ThemeColor {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private int applyLightStatusBarFlag(int flag) {
         return isDark
                 ? flag | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR

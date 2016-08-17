@@ -23,12 +23,11 @@ import org.tasks.R;
  */
 public class RandomReminderControlSet {
 
-    private final Spinner periodSpinner;
     private int selectedIndex;
     private final int[] hours;
 
     public RandomReminderControlSet(Context context, View parentView, long reminderPeriod) {
-        periodSpinner = (Spinner) parentView.findViewById(R.id.reminder_random_interval);
+        Spinner periodSpinner = (Spinner) parentView.findViewById(R.id.reminder_random_interval);
         periodSpinner.setVisibility(View.VISIBLE);
         // create adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

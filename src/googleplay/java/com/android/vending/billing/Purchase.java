@@ -21,6 +21,7 @@ import org.json.JSONObject;
 /**
  * Represents an in-app billing purchase.
  */
+@SuppressWarnings("ALL")
 public class Purchase {
     String mItemType;  // ITEM_TYPE_INAPP or ITEM_TYPE_SUBS
     String mOrderId;

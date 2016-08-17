@@ -1,10 +1,12 @@
 package org.tasks.locale;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.text.TextUtilsCompat;
 import android.view.ContextThemeWrapper;
@@ -111,6 +113,7 @@ public class Locale {
                 : context;
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private Configuration getLocaleConfiguration() {
         Configuration configuration = new Configuration();
         configuration.locale = getLocale();
