@@ -91,7 +91,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     .show();
             return true;
         });
-        getPref(R.string.p_gtasks_default_list).setOnPreferenceClickListener(preference -> {
+        findPreference(R.string.p_gtasks_default_list).setOnPreferenceClickListener(preference -> {
             new NativeGoogleTaskListPicker()
                     .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
             return false;
@@ -144,7 +144,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     private void updateDefaultGoogleTaskList() {
         GtasksList list = gtasksListService.getList(gtasksPreferenceService.getDefaultList());
         if (list != null) {
-            getPref(R.string.p_gtasks_default_list).setSummary(list.getName());
+            findPreference(R.string.p_gtasks_default_list).setSummary(list.getName());
         }
     }
 }

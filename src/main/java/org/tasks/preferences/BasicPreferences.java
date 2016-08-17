@@ -127,7 +127,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
             return false;
         });
 
-        getPref(R.string.TLA_menu_donate).setOnPreferenceClickListener(preference -> {
+        findPreference(R.string.TLA_menu_donate).setOnPreferenceClickListener(preference -> {
             if (BuildConfig.FLAVOR_store.equals("googleplay")) {
                 newDonationDialog().show(getFragmentManager(), FRAG_TAG_DONATION);
             } else {
@@ -136,14 +136,14 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
             return false;
         });
 
-        getPref(R.string.p_purchased_themes).setOnPreferenceChangeListener((preference, newValue) -> {
+        findPreference(R.string.p_purchased_themes).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_themes)) {
                 purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, BasicPreferences.this);
             }
             return false;
         });
 
-        getPref(R.string.p_tesla_unread_enabled).setOnPreferenceChangeListener((preference, newValue) -> {
+        findPreference(R.string.p_tesla_unread_enabled).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null) {
                 if ((boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tesla_unread)) {
                     purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tesla_unread), getString(R.string.p_purchased_tesla_unread), REQUEST_PURCHASE, BasicPreferences.this);
@@ -155,14 +155,14 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
             return false;
         });
 
-        getPref(R.string.p_purchased_tasker).setOnPreferenceChangeListener((preference, newValue) -> {
+        findPreference(R.string.p_purchased_tasker).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tasker)) {
                 purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, BasicPreferences.this);
             }
             return false;
         });
 
-        getPref(R.string.p_purchased_dashclock).setOnPreferenceChangeListener((preference, newValue) -> {
+        findPreference(R.string.p_purchased_dashclock).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
                 purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
             }
@@ -293,13 +293,13 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     public void purchaseCompleted(final boolean success, final String sku) {
         runOnUiThread(() -> {
             if (getString(R.string.sku_tasker).equals(sku)) {
-                ((TwoStatePreference) getPref(R.string.p_purchased_tasker)).setChecked(success);
+                ((TwoStatePreference) findPreference(R.string.p_purchased_tasker)).setChecked(success);
             } else if (getString(R.string.sku_tesla_unread).equals(sku)) {
-                ((TwoStatePreference) getPref(R.string.p_tesla_unread_enabled)).setChecked(success);
+                ((TwoStatePreference) findPreference(R.string.p_tesla_unread_enabled)).setChecked(success);
             } else if (getString(R.string.sku_dashclock).equals(sku)) {
-                ((TwoStatePreference) getPref(R.string.p_purchased_dashclock)).setChecked(success);
+                ((TwoStatePreference) findPreference(R.string.p_purchased_dashclock)).setChecked(success);
             } else if (getString(R.string.sku_themes).equals(sku)) {
-                ((TwoStatePreference) getPref(R.string.p_purchased_themes)).setChecked(success);
+                ((TwoStatePreference) findPreference(R.string.p_purchased_themes)).setChecked(success);
             } else {
                 Timber.d("Unhandled sku: %s", sku);
             }

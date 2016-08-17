@@ -75,21 +75,21 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
         CheckBoxPreference showSettings = setupCheckbox(R.string.p_widget_show_settings);
         showSettings.setDependency(showHeader.getKey());
 
-        getPref(R.string.p_widget_filter).setOnPreferenceClickListener(preference -> {
+        findPreference(R.string.p_widget_filter).setOnPreferenceClickListener(preference -> {
             startActivityForResult(new Intent(WidgetConfigActivity.this, FilterSelectionActivity.class) {{
                 putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
             }}, REQUEST_FILTER);
             return false;
         });
 
-        getPref(R.string.p_widget_theme).setOnPreferenceClickListener(preference -> {
+        findPreference(R.string.p_widget_theme).setOnPreferenceClickListener(preference -> {
             startActivityForResult(new Intent(WidgetConfigActivity.this, ColorPickerActivity.class) {{
                 putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND);
             }}, REQUEST_THEME_SELECTION);
             return false;
         });
 
-        Preference colorPreference = getPref(R.string.p_widget_color);
+        Preference colorPreference = findPreference(R.string.p_widget_color);
         colorPreference.setDependency(showHeader.getKey());
         colorPreference.setOnPreferenceClickListener(preference -> {
             startActivityForResult(new Intent(WidgetConfigActivity.this, ColorPickerActivity.class) {{
@@ -98,13 +98,13 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
             return false;
         });
 
-        getPref(R.string.p_widget_opacity).setOnPreferenceClickListener(preference -> {
+        findPreference(R.string.p_widget_opacity).setOnPreferenceClickListener(preference -> {
             newSeekBarDialog(R.layout.dialog_opacity_seekbar, 0, 100, widgetPreferences.getOpacity(), REQUEST_OPACITY)
                     .show(getFragmentManager(), FRAG_TAG_OPACITY_SEEKBAR);
             return false;
         });
 
-        getPref(R.string.p_widget_font_size).setOnPreferenceClickListener(preference -> {
+        findPreference(R.string.p_widget_font_size).setOnPreferenceClickListener(preference -> {
             newSeekBarDialog(R.layout.dialog_font_size_seekbar, 10, 22, widgetPreferences.getFontSize(), REQUEST_FONT_SIZE)
                     .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
             return false;
@@ -118,7 +118,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
     }
 
     private CheckBoxPreference setupCheckbox(int resId) {
-        CheckBoxPreference preference = (CheckBoxPreference) getPref(resId);
+        CheckBoxPreference preference = (CheckBoxPreference) findPreference(resId);
         String key = getString(resId) + appWidgetId;
         preference.setKey(key);
         preference.setChecked(preferences.getBoolean(key, true));
@@ -127,27 +127,27 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
 
     private void updateOpacity() {
         int opacity = widgetPreferences.getOpacity();
-        getPref(R.string.p_widget_opacity).setSummary(locale.formatPercentage(opacity));
+        findPreference(R.string.p_widget_opacity).setSummary(locale.formatPercentage(opacity));
     }
 
     private void updateFontSize() {
         int fontSize = widgetPreferences.getFontSize();
-        getPref(R.string.p_widget_font_size).setSummary(locale.formatNumber(fontSize));
+        findPreference(R.string.p_widget_font_size).setSummary(locale.formatNumber(fontSize));
     }
 
     private void updateFilter() {
         Filter filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.getFilterId());
-        getPref(R.string.p_widget_filter).setSummary(filter.listingTitle);
+        findPreference(R.string.p_widget_filter).setSummary(filter.listingTitle);
     }
 
     private void updateTheme() {
         WidgetTheme widgetTheme = themeCache.getWidgetTheme(widgetPreferences.getThemeIndex());
-        getPref(R.string.p_widget_theme).setSummary(widgetTheme.getName());
+        findPreference(R.string.p_widget_theme).setSummary(widgetTheme.getName());
     }
 
     private void updateColor() {
         ThemeColor themeColor = themeCache.getThemeColor(widgetPreferences.getColorIndex());
-        getPref(R.string.p_widget_color).setSummary(themeColor.getName());
+        findPreference(R.string.p_widget_color).setSummary(themeColor.getName());
     }
 
     @Override

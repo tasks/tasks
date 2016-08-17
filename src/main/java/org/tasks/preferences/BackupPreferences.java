@@ -30,14 +30,14 @@ public class BackupPreferences extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_backup);
 
-        getPref(R.string.backup_BAc_import).setOnPreferenceClickListener(preference -> {
+        findPreference(R.string.backup_BAc_import).setOnPreferenceClickListener(preference -> {
             startActivityForResult(new Intent(BackupPreferences.this, FileExplore.class) {{
                 putExtra(FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
             }}, REQUEST_PICKER);
             return false;
         });
 
-        getPref(R.string.backup_BAc_export).setOnPreferenceClickListener(preference -> {
+        findPreference(R.string.backup_BAc_export).setOnPreferenceClickListener(preference -> {
             newExportTasksDialog().show(getFragmentManager(), FRAG_TAG_EXPORT_TASKS);
             return false;
         });

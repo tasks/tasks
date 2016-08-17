@@ -77,17 +77,33 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     protected void requires(boolean passesCheck, int... resIds) {
         if (!passesCheck) {
-            remove(getPreferenceScreen(), resIds);
+            remove(resIds);
         }
     }
 
-    private void remove(PreferenceGroup preferenceGroup, int[] resIds) {
+    protected void remove(int... resIds) {
+        //noinspection deprecation
+        remove(getPreferenceScreen(), resIds);
+    }
+
+    protected void remove(PreferenceGroup preferenceGroup, int[] resIds) {
         for (int resId : resIds) {
-            preferenceGroup.removePreference(getPref(resId));
+            preferenceGroup.removePreference(findPreference(resId));
         }
     }
 
-    protected Preference getPref(int resId) {
+    @SuppressWarnings("deprecation")
+    @Override
+    public void addPreferencesFromResource(int preferencesResId) {
+        super.addPreferencesFromResource(preferencesResId);
+    }
+
+    protected Preference findPreference(int resId) {
         return findPreference(getString(resId));
+    }
+
+    protected Preference findPreference(String key) {
+        //noinspection deprecation
+        return super.findPreference(key);
     }
 }

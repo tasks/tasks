@@ -31,7 +31,6 @@ public class DialogBuilder {
         return new AlertDialogBuilder(activity, theme, locale);
     }
 
-    @Deprecated
     public AlertDialogBuilder newMessageDialog(int message, Object... formatArgs) {
         return newDialog().setMessage(message, formatArgs);
     }

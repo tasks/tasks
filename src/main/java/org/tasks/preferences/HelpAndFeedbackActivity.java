@@ -31,10 +31,6 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
         }
     }
 
-    private void remove(int resId) {
-        getPreferenceScreen().removePreference(findPreference(getString(resId)));
-    }
-
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
