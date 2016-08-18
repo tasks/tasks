@@ -62,18 +62,6 @@ android {
         }
     }
 
-    if (project.hasProperty('keyAlias') &&
-            project.hasProperty('storeFile') &&
-            project.hasProperty('storePassword') &&
-            project.hasProperty('keyPassword')) {
-        android.signingConfigs.release.keyAlias = keyAlias
-        android.signingConfigs.release.storeFile = file(storeFile)
-        android.signingConfigs.release.storePassword = storePassword
-        android.signingConfigs.release.keyPassword = keyPassword
-    } else {
-        buildTypes.release.signingConfig = null
-    }
-
     flavorDimensions 'store', 'env'
 
     productFlavors {
@@ -87,12 +75,24 @@ android {
             dimension 'store'
         }
         dev {
-            dimension 'env'
             minSdkVersion 21
+            dimension 'env'
         }
         prod {
             dimension 'env'
         }
+    }
+
+    if (project.hasProperty('keyAlias') &&
+            project.hasProperty('storeFile') &&
+            project.hasProperty('storePassword') &&
+            project.hasProperty('keyPassword')) {
+        android.signingConfigs.release.keyAlias = keyAlias
+        android.signingConfigs.release.storeFile = file(storeFile)
+        android.signingConfigs.release.storePassword = storePassword
+        android.signingConfigs.release.keyPassword = keyPassword
+    } else {
+        buildTypes.release.signingConfig = null
     }
 }
 
@@ -137,7 +137,7 @@ dependencies {
     }
 
     googleplayCompile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
-    googleplayCompile 'com.twofortyfouram:android-plugin-api-for-locale:[1.0.1,2.0['
+    googleplayCompile 'com.twofortyfouram:android-plugin-api-for-locale:1.0.2'
     googleplayCompile "com.google.android.gms:play-services-location:${GPS_VERSION}"
     googleplayCompile "com.google.android.gms:play-services-analytics:${GPS_VERSION}"
     googleplayCompile "com.google.android.gms:play-services-auth:${GPS_VERSION}"

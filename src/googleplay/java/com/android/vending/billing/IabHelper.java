@@ -15,6 +15,7 @@
 
 package com.android.vending.billing;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -68,6 +69,7 @@ import java.util.concurrent.Executor;
  *
  */
 @SuppressWarnings("ALL")
+@SuppressLint("all")
 public class IabHelper {
 
     private final Executor executor;

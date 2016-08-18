@@ -15,6 +15,7 @@
 
 package com.android.vending.billing;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -38,6 +39,7 @@ import java.security.spec.X509EncodedKeySpec;
  * purchases as verified.
  */
 @SuppressWarnings("ALL")
+@SuppressLint("all")
 public class Security {
     private static final String TAG = "IABUtil/Security";
 
