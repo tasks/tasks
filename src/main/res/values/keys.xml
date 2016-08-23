@@ -320,6 +320,7 @@
   <string name="p_widget_show_checkboxes">widget-show-checkboxes-</string>
   <string name="p_widget_show_header">widget-show-header-</string>
   <string name="p_widget_show_settings">widget-show-settings-</string>
+  <string name="p_dashclock_filter">dashclock_filter</string>
 
   <string name="sku_tasker">tasker</string>
   <string name="sku_tesla_unread">tesla_unread</string>

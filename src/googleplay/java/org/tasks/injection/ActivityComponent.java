@@ -52,8 +52,6 @@ public interface ActivityComponent {
 
     void inject(GtasksLoginActivity gtasksLoginActivity);
 
-    void inject(DashClockSettings dashClockSettings);
-
     Theme getTheme();
 
     FragmentComponent plus(FragmentModule module);
@@ -61,6 +59,8 @@ public interface ActivityComponent {
     DialogFragmentComponent plus(DialogFragmentModule dialogFragmentModule);
 
     NativeDialogFragmentComponent plus(NativeDialogFragmentModule nativeDialogFragmentModule);
+
+    void inject(DashClockSettings dashClockSettings);
 
     void inject(AACRecordingActivity aacRecordingActivity);
 

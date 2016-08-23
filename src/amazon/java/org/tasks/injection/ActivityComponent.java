@@ -20,6 +20,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.TimePickerActivity;
+import org.tasks.dashclock.DashClockSettings;
 import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
 import org.tasks.preferences.AppearancePreferences;
@@ -48,6 +49,8 @@ public interface ActivityComponent {
     DialogFragmentComponent plus(DialogFragmentModule dialogFragmentModule);
 
     NativeDialogFragmentComponent plus(NativeDialogFragmentModule nativeDialogFragmentModule);
+
+    void inject(DashClockSettings dashClockSettings);
 
     void inject(AACRecordingActivity aacRecordingActivity);
 

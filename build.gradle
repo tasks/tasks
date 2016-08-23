@@ -126,6 +126,7 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.1.2'
     compile 'com.google.guava:guava:19.0'
     compile 'com.jakewharton:process-phoenix:1.0.2'
+    compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {
         transitive = false
     }
@@ -136,7 +137,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
-    googleplayCompile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     googleplayCompile 'com.twofortyfouram:android-plugin-api-for-locale:1.0.2'
     googleplayCompile "com.google.android.gms:play-services-location:${GPS_VERSION}"
     googleplayCompile "com.google.android.gms:play-services-analytics:${GPS_VERSION}"
