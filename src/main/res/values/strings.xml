@@ -854,5 +854,7 @@ File %1$s contained %2$s.\n\n
   <string name="widget_settings">Widget settings</string>
   <string name="widget_header_settings">Header settings</string>
   <string name="widget_row_settings">Row settings</string>
+  <string name="notification_shade">Notification shade</string>
+  <string name="notification_description">Show task description</string>
 
 </resources>

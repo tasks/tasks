@@ -88,7 +88,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
             return false;
         });
 
-        requires(atLeastJellybean(), R.string.p_rmd_notif_actions_enabled, R.string.p_notification_priority);
+        requires(R.string.notification_shade, atLeastJellybean(), R.string.p_rmd_notif_actions_enabled, R.string.p_notification_priority, R.string.p_rmd_show_description);
         requires(atLeastMarshmallow(), R.string.p_doze_notifications);
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
 

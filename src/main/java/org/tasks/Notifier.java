@@ -13,6 +13,7 @@ import android.provider.ContactsContract;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
+import com.google.common.base.Strings;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -261,9 +262,10 @@ public class Notifier {
                 .setWhen(currentTimeMillis())
                 .setContentTitle(taskTitle)
                 .setContentText(text)
-                .setStyle(new NotificationCompat.BigTextStyle()
-                    .bigText(taskDescription.equals("") ? text : taskDescription))
                 .setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+        if (!Strings.isNullOrEmpty(taskDescription) && preferences.getBoolean(R.string.p_rmd_show_description, true)) {
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
+        }
         if (preferences.useNotificationActions()) {
             PendingIntent completeIntent = PendingIntent.getBroadcast(context, (int) id, new Intent(context, CompleteTaskReceiver.class) {{
                 putExtra(CompleteTaskReceiver.TASK_ID, id);

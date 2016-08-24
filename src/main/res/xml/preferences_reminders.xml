@@ -12,19 +12,6 @@
         android:defaultValue="true"
         android:key="@string/p_rmd_enabled"
         android:title="@string/enabled" />
-    <com.todoroo.astrid.ui.MultilineListPreference
-        android:defaultValue="1"
-        android:dependency="@string/p_rmd_enabled"
-        android:entries="@array/notification_priority_entries"
-        android:entryValues="@array/notification_priority_values"
-        android:key="@string/p_notification_priority"
-        android:title="@string/notification_priority" />
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_rmd_notif_actions_enabled"
-        android:summary="@string/notification_actions_summary"
-        android:title="@string/notification_actions" />
     <RingtonePreference
         android:defaultValue="content://settings/system/notification_sound"
         android:dependency="@string/p_rmd_enabled"
@@ -35,12 +22,6 @@
         android:title="@string/sound" />
     <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:defaultValue="true"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_rmd_persistent"
-        android:summary="@string/persistent_notifications_description"
-        android:title="@string/persistent_notifications" />
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:defaultValue="false"
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_doze_notifications"
         android:summaryOff="@string/doze_notifications_off"
@@ -63,6 +44,36 @@
         android:key="@string/p_rmd_maxvolume"
         android:summary="@string/rmd_EPr_multiple_maxvolume_desc_true"
         android:title="@string/rmd_EPr_multiple_maxvolume_title" />
+
+    <PreferenceCategory
+        android:key="@string/notification_shade"
+        android:title="@string/notification_shade">
+        <com.todoroo.astrid.ui.MultilineListPreference
+            android:defaultValue="1"
+            android:dependency="@string/p_rmd_enabled"
+            android:entries="@array/notification_priority_entries"
+            android:entryValues="@array/notification_priority_values"
+            android:key="@string/p_notification_priority"
+            android:title="@string/notification_priority" />
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:dependency="@string/p_rmd_enabled"
+            android:key="@string/p_rmd_persistent"
+            android:summary="@string/persistent_notifications_description"
+            android:title="@string/persistent_notifications" />
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:dependency="@string/p_rmd_enabled"
+            android:key="@string/p_rmd_notif_actions_enabled"
+            android:summary="@string/notification_actions_summary"
+            android:title="@string/notification_actions" />
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:dependency="@string/p_rmd_enabled"
+            android:key="@string/p_rmd_show_description"
+            android:title="@string/notification_description" />
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/led_notification">
