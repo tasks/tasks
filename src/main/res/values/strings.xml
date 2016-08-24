@@ -20,9 +20,6 @@
 
     <string name="choose_google_account">Choose Google Account</string>
 
-
-    <!-- Resources for built-in backup plug-in -->
-
     <!-- ================================================= BackupPreferences == -->
 
     <!-- slide 33c/48d: Backup Preferences Title -->
@@ -53,8 +50,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- Progress Dialog text for import reading task (%d -> task number)-->
     <string name="import_progress_read">Reading task %d…</string>
-
-    <!-- Backup: Dialog when unable to open a file -->
 
     <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
     <string name="DLG_error_sdcard">Cannot access folder: %s</string>
@@ -196,22 +191,17 @@ File %1$s contained %2$s.\n\n
 
     <!-- Task edit control set descriptors -->
 
-    <!-- slide 9c/ 35a -->
     <string name="TEA_control_when">When</string>
     <string name="TEA_control_repeat">Repeat</string>
     <string name="TEA_control_gcal">Calendar</string>
-    <!-- slide 16a/35c -->
     <string name="TEA_control_importance">Priority</string>
-    <!-- slide 16c/35e -->
     <string name="TEA_control_notes">Description</string>
 
     <string name="TEA_control_files">Files</string>
   <string name="TEA_control_google_task_list">Google Task List</string>
 
-    <!-- slide 16e / slide 35g-->
     <string name="TEA_control_reminders">Reminders</string>
 
-    <!-- slide 16f -->
     <string name="TEA_control_timer">Timer Controls</string>
 
     <string name="TEA_control_hidden_section">----Hide Always----</string>
@@ -232,7 +222,7 @@ File %1$s contained %2$s.\n\n
     <!-- Missed call: return call -->
     <string name="MCA_ignore">Ignore</string>
 
-    <string name="missed_calls">Missed Calls</string>
+    <string name="missed_calls">Missed calls</string>
 
     <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
     <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
@@ -288,7 +278,6 @@ File %1$s contained %2$s.\n\n
     <!-- Edit screen preference category -->
     <string name="EPr_edit_screen_options">Edit screen options</string>
 
-    <!-- slide 35j -->
     <string name="EPr_beastMode_reset">Reset to defaults</string>
 
     <!-- slide 34b: Preferences: Wrap task titles to two lines -->
@@ -308,27 +297,21 @@ File %1$s contained %2$s.\n\n
 
     <!-- slide 33a/47c: Preference Screen Header: Old Task Management -->
     <string name="EPr_manage_header">Manage old tasks</string>
-    <!-- slide 47d -->
     <string name="EPr_manage_delete_completed">Delete completed tasks</string>
     <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
-    <!-- slide 47a -->
     <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
-    <!-- slide 47e -->
     <string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
     <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
     <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
-    <!-- slide 47h-->
     <string name="EPr_reset_preferences">Reset preferences</string>
     <string name="EPr_reset_preferences_warning">Preferences will be reset to default values</string>
     <string name="EPr_delete_task_data">Delete task data</string>
     <string name="EPr_delete_task_data_warning">All tasks will be permanently deleted</string>
 
-    <!-- slide 47f -->
     <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
     <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
     <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
 
-    <!-- slide 47g-->
     <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
     <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
     <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
@@ -374,7 +357,7 @@ File %1$s contained %2$s.\n\n
     <string name="BFE_Active">My Tasks</string>
 
     <!-- slide 10b: Recently Modified -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="BFE_Recent">Recently modified</string>
 
     <!-- =========================================== CustomFilterActivity == -->
 
@@ -432,15 +415,10 @@ File %1$s contained %2$s.\n\n
     <!-- Criteria: title_contains - text (? -> user input) -->
     <string name="CFC_title_contains_text">Title contains: ?</string>
 
-
-    <!-- Resources for built-in tag plug-in -->
-
     <!-- =============================================== Task Edit Controls == -->
 
     <!-- Error message for adding to calendar  -->
     <string name="gcal_TEA_error">Error adding task to calendar!</string>
-
-    <!-- Label for adding task to calendar -->
 
     <!-- slide 21c: Label for adding task to calendar -->
     <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
@@ -474,18 +452,8 @@ File %1$s contained %2$s.\n\n
 
     <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
 
-    <!-- Sign In Button -->
-
-    <!-- E-mail Address Label -->
-
-    <!-- Password Label -->
-
     <!--  Authenticating toast -->
     <string name="gtasks_GLA_authenticating">Authenticating…</string>
-
-    <!-- Google Apps for Domain checkbox -->
-
-    <!-- Error Message when fields aren't filled out -->
 
     <!-- Error Message when we receive an IO Exception -->
     <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
@@ -563,13 +531,13 @@ File %1$s contained %2$s.\n\n
 
     <!-- slide 39a: Defaults Title -->
 
-  <string name="default_random_reminder_disabled">disabled</string>
-  <string name="default_random_reminder_hourly">hourly</string>
-  <string name="default_random_reminder_daily">daily</string>
-  <string name="default_random_reminder_weekly">weekly</string>
-  <string name="default_random_reminder_bi_weekly">bi-weekly</string>
-  <string name="default_random_reminder_monthly">monthly</string>
-  <string name="default_random_reminder_bi_monthly">bi-monthly</string>
+  <string name="default_random_reminder_disabled">Disabled</string>
+  <string name="default_random_reminder_hourly">Hourly</string>
+  <string name="default_random_reminder_daily">Daily</string>
+  <string name="default_random_reminder_weekly">Weekly</string>
+  <string name="default_random_reminder_bi_weekly">Bi-weekly</string>
+  <string name="default_random_reminder_monthly">Monthly</string>
+  <string name="default_random_reminder_bi_monthly">Bi-monthly</string>
 
   <!-- Resources for built-in repeat plug-in -->
 
@@ -579,7 +547,6 @@ File %1$s contained %2$s.\n\n
     <!-- hint when opening repeat interval -->
     <string name="repeat_interval_prompt">Repeat interval</string>
 
-    <!-- slide 19b-->
     <string name="repeat_never">Not repeating</string>
 
   <string name="repeat_interval_day">Day(s)</string>
@@ -716,13 +683,13 @@ File %1$s contained %2$s.\n\n
     <string name="source_code">Source code</string>
     <string name="translations">Contribute translations</string>
     <string name="report_an_issue">Report an issue</string>
-    <string name="help_and_feedback">Help &amp; Feedback</string>
+    <string name="help_and_feedback">Help &amp; feedback</string>
     <string name="contact_developer">Contact developer</string>
     <string name="rate_tasks">Rate Tasks</string>
     <string name="quiet_hours_summary">No reminders during quiet hours</string>
     <string name="TLA_menu_donate">Donate</string>
     <string name="select_amount">Select amount</string>
-    <string name="notification_actions">Notification Actions</string>
+    <string name="notification_actions">Notification actions</string>
     <string name="notification_actions_summary">Show snooze and complete actions in notification</string>
     <string name="add_reminder">Add reminder</string>
     <string name="remove">Remove</string>
@@ -764,7 +731,7 @@ File %1$s contained %2$s.\n\n
     <string name="high_priority">High</string>
     <string name="default_priority">Default</string>
     <string name="low_priority">Low</string>
-    <string name="notification_priority">Notification Priority</string>
+    <string name="notification_priority">Notification priority</string>
     <string name="vibration_count">Number of vibrations</string>
     <string name="vibration_duration">Length of each vibration (milliseconds)</string>
     <string name="vibration_pause">Pause between vibrations (milliseconds)</string>
@@ -803,24 +770,24 @@ File %1$s contained %2$s.\n\n
   <string name="theme_red">Red</string>
   <string name="theme_pink">Pink</string>
   <string name="theme_purple">Purple</string>
-  <string name="theme_deep_purple">Deep Purple</string>
+  <string name="theme_deep_purple">Deep purple</string>
   <string name="theme_indigo">Indigo</string>
   <string name="theme_blue">Blue</string>
-  <string name="theme_light_blue">Light Blue</string>
+  <string name="theme_light_blue">Light blue</string>
   <string name="theme_cyan">Cyan</string>
   <string name="theme_teal">Teal</string>
   <string name="theme_green">Green</string>
-  <string name="theme_light_green">Light Green</string>
+  <string name="theme_light_green">Light green</string>
   <string name="theme_lime">Lime</string>
   <string name="theme_yellow">Yellow</string>
   <string name="theme_amber">Amber</string>
   <string name="theme_orange">Orange</string>
-  <string name="theme_deep_orange">Deep Orange</string>
+  <string name="theme_deep_orange">Deep orange</string>
   <string name="theme_brown">Brown</string>
   <string name="theme_grey">Grey</string>
-  <string name="theme_blue_grey">Blue Grey</string>
+  <string name="theme_blue_grey">Blue grey</string>
   <string name="theme_black">Black</string>
-  <string name="theme_dark_grey">Dark Grey</string>
+  <string name="theme_dark_grey">Dark grey</string>
   <string name="theme_white">White</string>
   <string name="theme_light">Light</string>
   <string name="theme_dark">Dark</string>
@@ -828,14 +795,14 @@ File %1$s contained %2$s.\n\n
   <string name="theme_day_night">Day/Night</string>
   <string name="default_value">Default</string>
 
-  <string name="sync_interval_disable">disable</string>
-  <string name="sync_interval_one_hour">every hour</string>
-  <string name="sync_interval_three_hours">every three hours</string>
-  <string name="sync_interval_six_hours">every six hours</string>
-  <string name="sync_interval_twelve_hours">every twelve hours</string>
-  <string name="sync_interval_one_day">every day</string>
-  <string name="sync_interval_three_days">every three days</string>
-  <string name="sync_interval_one_week">every week</string>
+  <string name="sync_interval_disable">Disable</string>
+  <string name="sync_interval_one_hour">Every hour</string>
+  <string name="sync_interval_three_hours">Every three hours</string>
+  <string name="sync_interval_six_hours">Every six hours</string>
+  <string name="sync_interval_twelve_hours">Every twelve hours</string>
+  <string name="sync_interval_one_day">Every day</string>
+  <string name="sync_interval_three_days">Every three days</string>
+  <string name="sync_interval_one_week">Every week</string>
   <string name="master_sync_warning">Automatic synchronization is currently disabled by Android</string>
   <string name="settings_general">General</string>
   <string name="language">Language</string>
@@ -847,7 +814,7 @@ File %1$s contained %2$s.\n\n
   <string name="layout_direction_locale">Use locale direction</string>
   <string name="layout_direction_left_to_right">Left to right</string>
   <string name="layout_direction_right_to_left">Right to left</string>
-  <string name="led_notification">LED Notification</string>
+  <string name="led_notification">LED notification</string>
   <string name="hardware_support_required">Hardware support required</string>
   <string name="led_color">LED color</string>
   <string name="no_calendars_found">No calendars found</string>
