@@ -101,7 +101,7 @@ configurations {
     all*.exclude group: 'org.apache.httpcomponents', module: 'httpclient'
 }
 
-final DAGGER_VERSION = '2.6'
+final DAGGER_VERSION = '2.6.1'
 final BUTTERKNIFE_VERSION = '8.3.0'
 final GPS_VERSION = '9.4.0'
 final SUPPORT_VERSION = '24.2.0'
