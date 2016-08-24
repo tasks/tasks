@@ -1,11 +1,18 @@
 package com.todoroo.astrid.subtasks;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import javax.inject.Inject;
 
+@RunWith(AndroidJUnit4.class)
 public class SubtasksMovingTest extends SubtasksTestCase {
 
     @Inject TaskService taskService;
@@ -60,7 +67,9 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     * F
     */
 
-    public void disabled_testMoveBeforeIntoSelf() { // Should have no effect
+    @Ignore
+    @Test
+    public void testMoveBeforeIntoSelf() { // Should have no effect
         whenTriggerMoveBefore(A, B);
 
         expectParentAndPosition(A, null, 0);
@@ -71,7 +80,9 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         expectParentAndPosition(F, null, 2);
     }
 
-    public void disabled_testMoveIntoDescendant() { // Should have no effect
+    @Ignore
+    @Test
+    public void testMoveIntoDescendant() { // Should have no effect
         whenTriggerMoveBefore(A, C);
 
         expectParentAndPosition(A, null, 0);
@@ -82,7 +93,9 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         expectParentAndPosition(F, null, 2);
     }
 
-    public void disabled_testMoveToEndOfChildren() { // Should have no effect
+    @Ignore
+    @Test
+    public void testMoveToEndOfChildren() { // Should have no effect
         whenTriggerMoveBefore(A, E);
 
         expectParentAndPosition(A, null, 0);
@@ -93,7 +106,9 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         expectParentAndPosition(F, null, 2);
     }
 
-    public void disabled_testStandardMove() {
+    @Ignore
+    @Test
+    public void testStandardMove() {
         whenTriggerMoveBefore(A, F);
 
         expectParentAndPosition(A, null, 1);
@@ -104,7 +119,9 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         expectParentAndPosition(F, null, 2);
     }
 
-    public void disabled_testMoveToEndOfList() {
+    @Ignore
+    @Test
+    public void testMoveToEndOfList() {
         whenTriggerMoveBefore(A, null);
 
         expectParentAndPosition(A, null, 2);

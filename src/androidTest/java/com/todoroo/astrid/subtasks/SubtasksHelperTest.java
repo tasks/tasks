@@ -1,19 +1,27 @@
 package com.todoroo.astrid.subtasks;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertEquals;
+
+@RunWith(AndroidJUnit4.class)
 public class SubtasksHelperTest extends SubtasksTestCase {
 
     @Inject TaskService taskService;
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
         createTasks();
         TaskListMetadata m = new TaskListMetadata();
@@ -39,6 +47,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
 
     private static final String[] EXPECTED_ORDER = { "-1", "1", "2", "3", "4", "5", "6" };
 
+    @Test
     public void testOrderedIdArray() {
         String[] ids = SubtasksHelper.getStringIdArray(DEFAULT_SERIALIZED_TREE);
         assertEquals(EXPECTED_ORDER.length, ids.length);
@@ -50,7 +59,9 @@ public class SubtasksHelperTest extends SubtasksTestCase {
     // Default order: "[-1, [1, 2, [3, 4]], 5, 6]"
 
     private static String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]".replaceAll("\\s", "");
-    public void disabled_testLocalToRemoteIdMapping() {
+    @Ignore
+    @Test
+    public void testLocalToRemoteIdMapping() {
         String mapped = SubtasksHelper.convertTreeToRemoteIds(taskService, DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
         assertEquals(EXPECTED_REMOTE, mapped);
     }

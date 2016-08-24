@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
@@ -12,6 +14,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 
 import java.util.ArrayList;
@@ -19,7 +24,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+
 @SuppressWarnings("nls")
+@RunWith(AndroidJUnit4.class)
 public class GtasksIndentActionTest extends DatabaseTestCase {
 
     @Inject GtasksListService gtasksListService;
@@ -31,6 +40,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     private Task task;
     private GtasksList storeList;
 
+    @Test
     public void testIndentWithoutMetadata() {
         givenTask(taskWithoutMetadata());
 
@@ -39,6 +49,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         // should not crash
     }
 
+    @Test
     public void disabled_testIndentWithMetadataButNoOtherTasks() {
         givenTask(taskWithMetadata(0, 0));
 
@@ -47,6 +58,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(0);
     }
 
+    @Test
     public void testIndentWithMetadata() {
         taskWithMetadata(0, 0);
         givenTask(taskWithMetadata(1, 0));
@@ -56,6 +68,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(1);
     }
 
+    @Test
     public void testDeindentWithMetadata() {
         givenTask(taskWithMetadata(0, 1));
 
@@ -64,6 +77,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(0);
     }
 
+    @Test
     public void testDeindentWithoutMetadata() {
         givenTask(taskWithoutMetadata());
 
@@ -72,6 +86,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         // should not crash
     }
 
+    @Test
     public void testDeindentWhenAlreadyZero() {
         givenTask(taskWithMetadata(0, 0));
 
@@ -80,7 +95,9 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(0);
     }
 
-    public void disabled_testIndentWithChildren() {
+    @Ignore
+    @Test
+    public void testIndentWithChildren() {
         taskWithMetadata(0, 0);
         givenTask(taskWithMetadata(1, 0));
         Task child = taskWithMetadata(2, 1);
@@ -91,6 +108,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(child, 2);
     }
 
+    @Test
     public void testDeindentWithChildren() {
         taskWithMetadata(0, 0);
         givenTask(taskWithMetadata(1, 1));
@@ -102,6 +120,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(child, 1);
     }
 
+    @Test
     public void testIndentWithSiblings() {
         taskWithMetadata(0, 0);
         givenTask(taskWithMetadata(1, 0));
@@ -113,7 +132,9 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(sibling, 0);
     }
 
-    public void disabled_testIndentWithChildrensChildren() {
+    @Ignore
+    @Test
+    public void testIndentWithChildrensChildren() {
         taskWithMetadata(0, 0);
         givenTask(taskWithMetadata(1, 0));
         Task child = taskWithMetadata(2, 1);
@@ -137,7 +158,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     }
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
 
         List<TaskList> items = new ArrayList<>();
@@ -188,5 +209,4 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         taskService.save(task);
         return task;
     }
-
-}//*/
+}

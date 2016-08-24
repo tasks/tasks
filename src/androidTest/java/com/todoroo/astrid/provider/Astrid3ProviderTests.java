@@ -9,6 +9,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -18,8 +19,16 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.fail;
+
+@RunWith(AndroidJUnit4.class)
 public class Astrid3ProviderTests extends DatabaseTestCase {
 
     String[] PROJECTION = new String[] {
@@ -28,7 +37,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     };
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
 
         // set up database
@@ -42,8 +51,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     }
 
     /** Test CRUD over tasks with the ALL ITEMS cursor */
+    @Test
     public void testAllItemsCrud() {
-        ContentResolver resolver = getContext().getContentResolver();
+        ContentResolver resolver = getTargetContext().getContentResolver();
 
         // fetch all tasks, get nothing
         Uri uri = Task.CONTENT_URI;
@@ -83,8 +93,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     }
 
     /** Test selecting data */
+    @Test
     public void testSelection() {
-        ContentResolver resolver = getContext().getContentResolver();
+        ContentResolver resolver = getTargetContext().getContentResolver();
         Uri uri = Task.CONTENT_URI;
 
         // insert some tasks
@@ -128,8 +139,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     }
 
     /** Test updating */
+    @Test
     public void testUpdating() {
-        ContentResolver resolver = getContext().getContentResolver();
+        ContentResolver resolver = getTargetContext().getContentResolver();
 
         // insert some tasks
         ContentValues values = new ContentValues();
@@ -191,8 +203,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     }
 
     /** Test deleting */
+    @Test
     public void testDeleting() {
-        ContentResolver resolver = getContext().getContentResolver();
+        ContentResolver resolver = getTargetContext().getContentResolver();
         Uri allItemsUri = Task.CONTENT_URI;
 
         // insert some tasks
@@ -250,8 +263,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     }
 
     /** Test CRUD over SINGLE ITEM uri */
+    @Test
     public void testSingleItemCrud() {
-        ContentResolver resolver = getContext().getContentResolver();
+        ContentResolver resolver = getTargetContext().getContentResolver();
 
         Uri uri = StoreObject.CONTENT_URI;
 
@@ -295,8 +309,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     }
 
     /** Test GROUP BY uri */
+    @Test
     public void testGroupByCrud() {
-        ContentResolver resolver = getContext().getContentResolver();
+        ContentResolver resolver = getTargetContext().getContentResolver();
         Uri uri = Task.CONTENT_URI;
 
         ContentValues values = new ContentValues();

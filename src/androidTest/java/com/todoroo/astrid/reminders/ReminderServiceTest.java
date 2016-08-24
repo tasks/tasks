@@ -6,21 +6,32 @@
 package com.todoroo.astrid.reminders;
 
 import android.content.Context;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 
+import org.junit.After;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
 import javax.inject.Inject;
 
+import static android.support.test.InstrumentationRegistry.getContext;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.Freeze.thaw;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
+@RunWith(AndroidJUnit4.class)
 public class ReminderServiceTest extends InjectingTestCase {
 
     @Inject TaskDao taskDao;
@@ -37,11 +48,12 @@ public class ReminderServiceTest extends InjectingTestCase {
         component.inject(this);
     }
 
-    @Override
+    @After
     public void tearDown() {
         thaw();
     }
 
+    @Test
     public void testNoReminders() {
         reminderService.setScheduler(new NoAlarmExpected());
 
@@ -53,13 +65,14 @@ public class ReminderServiceTest extends InjectingTestCase {
         reminderService.scheduleAlarm(taskDao, task);
     }
 
+    @Test
     public void testDueDates() {
         reminderService.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Context context, Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(getTargetContext(), task, time, type);
                 assertEquals((long) task.getDueDate(), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
@@ -78,7 +91,9 @@ public class ReminderServiceTest extends InjectingTestCase {
         assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
     }
 
-    public void disabled_testRandom() {
+    @Ignore
+    @Test
+    public void testRandom() {
         // test random
         final Task task = new Task();
         task.setTitle("water");
@@ -98,6 +113,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
     }
 
+    @Test
     public void testOverdue() {
         // test due date in the future
         reminderService.setScheduler(new AlarmExpected() {
@@ -150,6 +166,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
     }
 
+    @Test
     public void testMultipleReminders() {
         // test due date in the future, enable random
         final Task task = new Task();
@@ -193,6 +210,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
     }
 
+    @Test
     public void testSnoozeReminders() {
         thaw(); // TODO: get rid of this
 

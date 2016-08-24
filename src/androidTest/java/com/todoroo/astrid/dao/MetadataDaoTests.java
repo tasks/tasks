@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.dao;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -12,12 +14,23 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
+@RunWith(AndroidJUnit4.class)
 public class MetadataDaoTests extends DatabaseTestCase {
 
     @Inject MetadataDao metadataDao;
@@ -41,6 +54,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
     /**
      * Test basic creation, fetch, and save
      */
+    @Test
     public void testCrud() throws Exception {
         assertTrue(metadataDao.toList(Query.select(Metadata.ID)).isEmpty());
 
@@ -85,7 +99,9 @@ public class MetadataDaoTests extends DatabaseTestCase {
     /**
      * Test metadata bound to task
      */
-    public void disabled_testMetadataConditions() {
+    @Ignore
+    @Test
+    public void testMetadataConditions() {
         // create "happy"
         Metadata metadata = new Metadata();
         metadata.setKey("with1");
@@ -113,6 +129,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertEquals(1, metadataDao.toList(Query.select(KEYS)).size());
     }
 
+    @Test
     public void testDontSaveMetadataWithoutTaskId() {
         try {
             metadataDao.persist(metadata);
@@ -122,6 +139,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         }
     }
 
+    @Test
     public void testSaveMetadata() {
         metadata.setTask(1L);
         metadataDao.persist(metadata);
@@ -129,6 +147,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertNotNull(metadataDao.fetch(metadata.getId()));
     }
 
+    @Test
     public void testDontDeleteValidMetadata() {
         final Task task = new Task();
         taskDao.save(task);
@@ -140,6 +159,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertNotNull(metadataDao.fetch(metadata.getId()));
     }
 
+    @Test
     public void testDeleteDangling() {
         metadata.setTask(1L);
         metadataDao.persist(metadata);

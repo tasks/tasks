@@ -14,6 +14,10 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+
 /**
  * Contains useful methods common to all subtasks tests
  * @author Sam
@@ -40,9 +44,9 @@ public class SubtasksTestCase extends DatabaseTestCase {
     public static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]".replaceAll("\\s", "");
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
-        filter = BuiltInFilterExposer.getMyTasksFilter(getContext().getResources());
+        filter = BuiltInFilterExposer.getMyTasksFilter(getTargetContext().getResources());
         preferences.clear(SubtasksUpdater.ACTIVE_TASKS_ORDER);
         updater = new SubtasksFilterUpdater(taskListMetadataDao, taskService);
     }

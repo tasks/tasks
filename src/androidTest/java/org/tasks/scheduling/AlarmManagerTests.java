@@ -1,15 +1,22 @@
 package org.tasks.scheduling;
 
 import android.annotation.SuppressLint;
-import android.test.AndroidTestCase;
+import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
 import java.util.concurrent.TimeUnit;
 
-public class AlarmManagerTests extends AndroidTestCase {
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static junit.framework.Assert.assertEquals;
+
+@RunWith(AndroidJUnit4.class)
+public class AlarmManagerTests {
 
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
@@ -17,14 +24,15 @@ public class AlarmManagerTests extends AndroidTestCase {
     private Preferences preferences;
     private AlarmManager alarmManager;
 
-    @Override
+    @Before
     public void setUp() {
-        preferences = new Preferences(getContext(), null);
+        preferences = new Preferences(getTargetContext(), null);
         preferences.clear();
         preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
-        alarmManager = new AlarmManager(getContext(), preferences);
+        alarmManager = new AlarmManager(getTargetContext(), preferences);
     }
 
+    @Test
     public void testNotQuietWhenQuietHoursDisabled() {
         preferences.setBoolean(R.string.p_rmd_enable_quiet, false);
         setQuietHoursStart(22);
@@ -35,6 +43,7 @@ public class AlarmManagerTests extends AndroidTestCase {
         assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testIsQuietAtStartOfQuietHoursNoWrap() {
         setQuietHoursStart(18);
         setQuietHoursEnd(19);
@@ -45,6 +54,7 @@ public class AlarmManagerTests extends AndroidTestCase {
                 alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testIsQuietAtStartOfQuietHoursWrap() {
         setQuietHoursStart(22);
         setQuietHoursEnd(10);
@@ -55,6 +65,7 @@ public class AlarmManagerTests extends AndroidTestCase {
                 alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testAdjustForQuietHoursNightWrap() {
         setQuietHoursStart(22);
         setQuietHoursEnd(10);
@@ -65,6 +76,7 @@ public class AlarmManagerTests extends AndroidTestCase {
                 alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testAdjustForQuietHoursMorningWrap() {
         setQuietHoursStart(22);
         setQuietHoursEnd(10);
@@ -75,6 +87,7 @@ public class AlarmManagerTests extends AndroidTestCase {
                 alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testAdjustForQuietHoursWhenStartAndEndAreSame() {
         setQuietHoursStart(18);
         setQuietHoursEnd(18);
@@ -84,6 +97,7 @@ public class AlarmManagerTests extends AndroidTestCase {
         assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testIsNotQuietAtEndOfQuietHoursNoWrap() {
         setQuietHoursStart(17);
         setQuietHoursEnd(18);
@@ -93,6 +107,7 @@ public class AlarmManagerTests extends AndroidTestCase {
         assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testIsNotQuietAtEndOfQuietHoursWrap() {
         setQuietHoursStart(22);
         setQuietHoursEnd(10);
@@ -102,6 +117,7 @@ public class AlarmManagerTests extends AndroidTestCase {
         assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testIsNotQuietBeforeNoWrap() {
         setQuietHoursStart(17);
         setQuietHoursEnd(18);
@@ -111,6 +127,7 @@ public class AlarmManagerTests extends AndroidTestCase {
         assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testIsNotQuietAfterNoWrap() {
         setQuietHoursStart(17);
         setQuietHoursEnd(18);
@@ -120,6 +137,7 @@ public class AlarmManagerTests extends AndroidTestCase {
         assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
     }
 
+    @Test
     public void testIsNotQuietWrap() {
         setQuietHoursStart(22);
         setQuietHoursEnd(10);

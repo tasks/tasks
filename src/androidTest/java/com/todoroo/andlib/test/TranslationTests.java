@@ -8,9 +8,9 @@ package com.todoroo.andlib.test;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.test.AndroidTestCase;
 import android.util.DisplayMetrics;
 
+import org.junit.Test;
 import org.tasks.R;
 import org.tasks.time.DateTime;
 
@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -29,7 +33,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-abstract public class TranslationTests extends AndroidTestCase {
+abstract public class TranslationTests {
 
     // --- abstract methods
 
@@ -57,8 +61,8 @@ abstract public class TranslationTests extends AndroidTestCase {
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
-        DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
-        getContext().getResources().updateConfiguration(config, metrics);
+        DisplayMetrics metrics = getTargetContext().getResources().getDisplayMetrics();
+        getTargetContext().getResources().updateConfiguration(config, metrics);
     }
 
     /**
@@ -135,6 +139,7 @@ abstract public class TranslationTests extends AndroidTestCase {
     /**
      * Internal test of format string parser
      */
+    @Test
     public void testFormatStringParser() {
         String s = "abc";
         FormatStringData data = new FormatStringData(s);
@@ -168,8 +173,9 @@ abstract public class TranslationTests extends AndroidTestCase {
      * Test that the format specifiers in translations match exactly the
      * translations in the default text
      */
+    @Test
     public void testFormatStringsMatch() throws Exception {
-        final Resources r = getContext().getResources();
+        final Resources r = getTargetContext().getResources();
         final int[] strings = getResourceIds(getStringResources());
         final FormatStringData[] formatStrings = new FormatStringData[strings.length];
 
@@ -216,8 +222,9 @@ abstract public class TranslationTests extends AndroidTestCase {
     /**
      * Test that date formatters parse correctly
      */
+    @Test
     public void testDateFormats() throws Exception {
-        final Resources r = getContext().getResources();
+        final Resources r = getTargetContext().getResources();
 
         final StringBuilder failures = new StringBuilder();
         final int[] dateStrings = getDateFormatStrings();
@@ -250,8 +257,9 @@ abstract public class TranslationTests extends AndroidTestCase {
     /**
      * Test that there are the same number of array entries in each locale
      */
+    @Test
     public void testArraySizesMatch() throws Exception {
-        final Resources r = getContext().getResources();
+        final Resources r = getTargetContext().getResources();
         final int[] arrays = getResourceIds(getArrayResources());
         final int[] sizes = new int[arrays.length];
         final StringBuilder failures = new StringBuilder();

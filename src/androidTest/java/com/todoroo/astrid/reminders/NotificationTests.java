@@ -7,12 +7,15 @@ package com.todoroo.astrid.reminders;
 
 import android.app.Notification;
 import android.content.Context;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.Broadcaster;
 import org.tasks.Notifier;
 import org.tasks.injection.TestComponent;
@@ -25,12 +28,14 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.Subcomponent;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+@RunWith(AndroidJUnit4.class)
 public class NotificationTests extends DatabaseTestCase {
 
     @Module
@@ -70,13 +75,14 @@ public class NotificationTests extends DatabaseTestCase {
     @Inject Notifier notifier;
 
     @Override
-    protected void tearDown() {
+    public void tearDown() {
         super.tearDown();
 
         verifyNoMoreInteractions(notificationManager);
         verifyNoMoreInteractions(broadcaster);
     }
 
+    @Test
     public void testAlarmToNotification() {
         final Task task = new Task() {{
             setTitle("rubberduck");
@@ -90,6 +96,7 @@ public class NotificationTests extends DatabaseTestCase {
         verify(notificationManager).notify(eq((int) task.getId()), any(Notification.class));
     }
 
+    @Test
     public void testDeletedTaskDoesntTriggerNotification() {
         final Task task = new Task() {{
             setTitle("gooeyduck");
@@ -102,6 +109,7 @@ public class NotificationTests extends DatabaseTestCase {
         verify(notificationManager).cancel((int) task.getId());
     }
 
+    @Test
     public void testCompletedTaskDoesntTriggerNotification() {
         final Task task = new Task() {{
             setTitle("rubberduck");
@@ -179,7 +187,7 @@ public class NotificationTests extends DatabaseTestCase {
     @Override
     protected void inject(TestComponent component) {
         component
-                .plus(new NotificationTestsModule(getContext()))
+                .plus(new NotificationTestsModule(getTargetContext()))
                 .inject(this);
     }
 }

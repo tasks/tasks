@@ -7,25 +7,28 @@ package com.todoroo.astrid.test;
 
 import com.todoroo.astrid.dao.Database;
 
+import org.junit.After;
 import org.tasks.injection.InjectingTestCase;
+
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 
 public abstract class DatabaseTestCase extends InjectingTestCase {
 
     protected Database database;
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
 
         database = component.getDatabase();
 
         database.close();
-        getContext().deleteDatabase(database.getName());
+        getTargetContext().deleteDatabase(database.getName());
         database.openForWriting();
     }
 
-    @Override
-    protected void tearDown() {
+    @After
+    public void tearDown() {
         database.close();
     }
 }

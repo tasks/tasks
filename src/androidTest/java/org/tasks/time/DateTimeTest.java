@@ -1,24 +1,34 @@
 package org.tasks.time;
 
-import android.test.AndroidTestCase;
+import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.Freeze;
 import org.tasks.Snippet;
 
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-public class DateTimeTest extends AndroidTestCase {
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+
+@RunWith(AndroidJUnit4.class)
+public class DateTimeTest {
+    @Test
     public void testGetMillisOfDay() {
         assertEquals(7248412, new DateTime(2015, 10, 6, 2, 0, 48, 412).getMillisOfDay());
     }
 
+    @Test
     public void testWithMillisOfDay() {
         assertEquals(
                 new DateTime(2015, 10, 6, 2, 0, 48, 412),
                 new DateTime(2015, 10, 6, 0, 0, 0, 0).withMillisOfDay(7248412));
     }
 
+    @Test
     public void testWithMillisOfDayDuringDST() {
         TimeZone def = TimeZone.getDefault();
         try {
@@ -29,6 +39,7 @@ public class DateTimeTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testWithMillisOfDayAfterDST() {
         TimeZone def = TimeZone.getDefault();
         try {
@@ -39,6 +50,7 @@ public class DateTimeTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testWithMillisOfDayStartDST() {
         TimeZone def = TimeZone.getDefault();
         try {
@@ -56,6 +68,7 @@ public class DateTimeTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testWithMillisOfDayEndDST() {
         TimeZone def = TimeZone.getDefault();
         try {
@@ -68,38 +81,45 @@ public class DateTimeTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testPlusMonths() {
         assertEquals(
                 new DateTime(2015, 11, 6, 2, 0, 48, 412),
                 new DateTime(2015, 10, 6, 2, 0, 48, 412).plusMonths(1));
     }
 
+    @Test
     public void testPlusMonthsWrapYear() {
         assertEquals(
                 new DateTime(2016, 1, 6, 2, 0, 48, 412),
                 new DateTime(2015, 10, 6, 2, 0, 48, 412).plusMonths(3));
     }
 
+    @Test
     public void testGetDayOfMonth() {
         assertEquals(5, new DateTime(2015, 10, 5, 0, 0, 0).getDayOfMonth());
     }
 
+    @Test
     public void testPlusDays() {
         assertEquals(
                 new DateTime(2015, 10, 6, 2, 0, 48, 412),
                 new DateTime(2015, 10, 5, 2, 0, 48, 412).plusDays(1));
     }
 
+    @Test
     public void testPlusDaysWrapMonth() {
         assertEquals(
                 new DateTime(2015, 11, 1, 2, 0, 48, 412),
                 new DateTime(2015, 10, 31, 2, 0, 48, 412).plusDays(1));
     }
 
+    @Test
     public void testMinuteOfHour() {
         assertEquals(43, new DateTime(2015, 10, 5, 2, 43, 48).getMinuteOfHour());
     }
 
+    @Test
     public void testIsEndOfMonth() {
         assertTrue(new DateTime(2014, 1, 31, 0, 0, 0).isLastDayOfMonth());
         assertTrue(new DateTime(2014, 2, 28, 0, 0, 0).isLastDayOfMonth());
@@ -115,6 +135,7 @@ public class DateTimeTest extends AndroidTestCase {
         assertTrue(new DateTime(2014, 12, 31, 0, 0, 0).isLastDayOfMonth());
     }
 
+    @Test
     public void testNotTheEndOfTheMonth() {
         for (int month = 1; month <= 12; month++) {
             int lastDay = new DateTime(2014, month, 1, 0, 0, 0, 0).getNumberOfDaysInMonth();
@@ -124,12 +145,13 @@ public class DateTimeTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void testCheckEndOfMonthDuringLeapYear() {
         assertFalse(new DateTime(2016, 2, 28, 0, 0, 0).isLastDayOfMonth());
         assertTrue(new DateTime(2016, 2, 29, 0, 0, 0).isLastDayOfMonth());
     }
 
-
+    @Test
     public void testNumberOfDaysInMonth() {
         assertEquals(31, new DateTime(2015, 1, 5, 9, 45, 34).getNumberOfDaysInMonth());
         assertEquals(28, new DateTime(2015, 2, 5, 9, 45, 34).getNumberOfDaysInMonth());
@@ -145,40 +167,47 @@ public class DateTimeTest extends AndroidTestCase {
         assertEquals(31, new DateTime(2015, 12, 5, 9, 45, 34).getNumberOfDaysInMonth());
     }
 
+    @Test
     public void testWithMillisOfSecond() {
         assertEquals(
                 new DateTime(2015, 11, 6, 13, 34, 56, 453),
                 new DateTime(2015, 11, 6, 13, 34, 56, 0).withMillisOfSecond(453));
     }
 
+    @Test
     public void testWithHourOfDay() {
         assertEquals(
                 new DateTime(2015, 11, 6, 23, 0, 0),
                 new DateTime(2015, 11, 6, 1, 0, 0).withHourOfDay(23));
     }
 
+    @Test
     public void testWithMinuteOfHour() {
         assertEquals(
                 new DateTime(2015, 11, 6, 23, 13, 0),
                 new DateTime(2015, 11, 6, 23, 1, 0).withMinuteOfHour(13));
     }
 
+    @Test
     public void testWithSecondOfMinute() {
         assertEquals(
                 new DateTime(2015, 11, 6, 23, 13, 56),
                 new DateTime(2015, 11, 6, 23, 13, 1).withSecondOfMinute(56));
     }
 
+    @Test
     public void testGetYear() {
         assertEquals(2015, new DateTime(2015, 1, 1, 1, 1, 1).getYear());
     }
 
+    @Test
     public void testMinusMinutes() {
         assertEquals(
                 new DateTime(2015, 11, 4, 23, 59, 0),
                 new DateTime(2015, 11, 5, 0, 1, 0).minusMinutes(2));
     }
 
+    @Test
     public void testIsBefore() {
         assertTrue(new DateTime(2015, 11, 4, 23, 59, 0)
                 .isBefore(new DateTime(2015, 11, 4, 23, 59, 1)));
@@ -187,10 +216,12 @@ public class DateTimeTest extends AndroidTestCase {
                 .isBefore(new DateTime(2015, 11, 4, 23, 59, 0)));
     }
 
+    @Test
     public void testGetMonthOfYear() {
         assertEquals(1, new DateTime(2015, 1, 2, 3, 4, 5).getMonthOfYear());
     }
 
+    @Test
     public void testIsAfter() {
         assertTrue(new DateTime(2015, 11, 4, 23, 59, 1)
                 .isAfter(new DateTime(2015, 11, 4, 23, 59, 0)));
@@ -199,46 +230,54 @@ public class DateTimeTest extends AndroidTestCase {
                 .isAfter(new DateTime(2015, 11, 4, 23, 59, 0)));
     }
 
+    @Test
     public void testWithYear() {
         assertEquals(
                 new DateTime(2016, 1, 1, 1, 1, 1),
                 new DateTime(2015, 1, 1, 1, 1, 1).withYear(2016));
     }
 
+    @Test
     public void testWithMonthOfYear() {
         assertEquals(
                 new DateTime(2015, 1, 2, 3, 4, 5),
                 new DateTime(2015, 2, 2, 3, 4, 5).withMonthOfYear(1));
     }
 
+    @Test
     public void testGetHourOfDay() {
         assertEquals(3, new DateTime(2015, 1, 2, 3, 4, 5).getHourOfDay());
     }
 
+    @Test
     public void testWithDayOfMonth() {
         assertEquals(
                 new DateTime(2015, 1, 2, 3, 4, 5),
                 new DateTime(2015, 1, 1, 3, 4, 5).withDayOfMonth(2));
     }
 
+    @Test
     public void testPlusMinutes() {
         assertEquals(
                 new DateTime(2015, 1, 2, 3, 4, 5),
                 new DateTime(2015, 1, 2, 2, 59, 5).plusMinutes(5));
     }
 
+    @Test
     public void testPlusHours() {
         assertEquals(
                 new DateTime(2015, 1, 2, 3, 4, 5),
                 new DateTime(2015, 1, 1, 3, 4, 5).plusHours(24));
     }
 
+    @Test
     public void testPlusWeeks() {
         assertEquals(
                 new DateTime(2015, 1, 2, 3, 4, 5),
                 new DateTime(2014, 12, 12, 3, 4, 5).plusWeeks(3));
     }
 
+    @Test
     public void testIsBeforeNow() {
         Freeze.freezeAt(new DateTime(2015, 10, 6, 16, 15, 27)).thawAfter(new Snippet() {{
             assertFalse(new DateTime(2015, 10, 6, 16, 15, 27).isBeforeNow());
@@ -246,12 +285,14 @@ public class DateTimeTest extends AndroidTestCase {
         }});
     }
 
+    @Test
     public void testMinusMillis() {
         assertEquals(
                 new DateTime(2015, 11, 6, 16, 18, 20, 452),
                 new DateTime(2015, 11, 6, 16, 18, 21, 374).minusMillis(922));
     }
 
+    @Test
     public void testMinusDays() {
         assertEquals(
                 new DateTime(2015, 11, 6, 16, 19, 16),
@@ -262,10 +303,12 @@ public class DateTimeTest extends AndroidTestCase {
                 new DateTime(2015, 11, 7, 16, 19, 16).minusDays(1));
     }
 
+    @Test
     public void testGetSecondOfMinute() {
         assertEquals(32, new DateTime(2015, 11, 6, 16, 19, 32).getSecondOfMinute());
     }
 
+    @Test
     public void testToUTC() {
         TimeZone def = TimeZone.getDefault();
         try {

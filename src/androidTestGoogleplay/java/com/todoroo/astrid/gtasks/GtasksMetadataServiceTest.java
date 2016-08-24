@@ -6,6 +6,7 @@
 package com.todoroo.astrid.gtasks;
 
 import android.content.Context;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
@@ -13,6 +14,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
@@ -22,7 +25,12 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.Subcomponent;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+
 @SuppressWarnings("nls")
+@RunWith(AndroidJUnit4.class)
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
     @Module
@@ -69,10 +77,11 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     @Override
     protected void inject(TestComponent component) {
         component
-                .plus(new GtasksMetadataServiceTestModule(getContext()))
+                .plus(new GtasksMetadataServiceTestModule(getTargetContext()))
                 .inject(this);
     }
 
+    @Test
     public void testMetadataFound() {
         givenTask(taskWithMetadata(null));
 
@@ -81,6 +90,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         thenExpectMetadataFound();
     }
 
+    @Test
     public void testMetadataDoesntExist() {
         givenTask(taskWithoutMetadata());
 

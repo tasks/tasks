@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.dao;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -12,12 +14,22 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+
+@RunWith(AndroidJUnit4.class)
 public class TaskDaoTests extends DatabaseTestCase {
 
     public static Property<?>[] IDS = new Property<?>[] { Task.ID };
@@ -30,7 +42,9 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test basic task creation, fetch, and save
      */
-    public void disabled_testTaskCreation() {
+    @Ignore
+    @Test
+    public void testTaskCreation() {
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());
 
         // create task "happy"
@@ -66,7 +80,9 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test various task fetch conditions
      */
-    public void disabled_testTaskConditions() {
+    @Ignore
+    @Test
+    public void testTaskConditions() {
         // create normal task
         Task task = new Task();
         task.setTitle("normal");
@@ -115,7 +131,9 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test task deletion
      */
-    public void disabled_testTDeletion() {
+    @Ignore
+    @Test
+    public void testTDeletion() {
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());
 
         // create task "happy"
@@ -133,7 +151,9 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test save without prior create doesn't work
      */
-    public void disabled_testSaveWithoutCreate() {
+    @Ignore
+    @Test
+    public void testSaveWithoutCreate() {
         // try to save task "happy"
         Task task = new Task();
         task.setTitle("happy");
@@ -147,7 +167,9 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test passing invalid task indices to various things
      */
-    public void disabled_testInvalidIndex() {
+    @Ignore
+    @Test
+    public void testInvalidIndex() {
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());
 
         assertNull(taskDao.fetch(1, IDS));

@@ -5,7 +5,7 @@
  */
 package com.todoroo.astrid.repeats;
 
-import android.test.AndroidTestCase;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
@@ -14,15 +14,20 @@ import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.time.DateTime;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static junit.framework.Assert.assertEquals;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
-public class AdvancedRepeatTest extends AndroidTestCase {
+@RunWith(AndroidJUnit4.class)
+public class AdvancedRepeatTest {
 
     private static final int PREV_PREV = -2;
     private static final int PREV = -1;
@@ -33,7 +38,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     private long nextDueDate;
     private RRule rrule;
 
-    @Override
+    @Before
     public void setUp() {
         task = new Task();
         task.setCompletionDate(DateUtilities.now());
@@ -42,6 +47,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
 
     // --- date with time tests
 
+    @Test
     public void testDueDateSpecificTime() throws ParseException {
         buildRRule(1, Frequency.DAILY);
 
@@ -54,6 +60,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
         assertDateTimeEquals(nextDayWithTime, nextDueDate);
     }
 
+    @Test
     public void testCompletionDateSpecificTime() throws ParseException {
         buildRRule(1, Frequency.DAILY);
 
@@ -76,6 +83,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     // --- due date tests
 
     /** test multiple days per week - DUE DATE */
+    @Test
     public void testDueDateInPastSingleWeekMultiDay() throws Exception {
         buildRRule(1, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
 
@@ -93,6 +101,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     }
 
     /** test single day repeats - DUE DATE */
+    @Test
     public void testDueDateSingleDay() throws Exception {
         buildRRule(1, Frequency.WEEKLY, Weekday.MO);
 
@@ -122,6 +131,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     }
 
     /** test multiple days per week - DUE DATE */
+    @Test
     public void testDueDateSingleWeekMultiDay() throws Exception {
 
         buildRRule(1, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
@@ -140,6 +150,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     }
 
     /** test multiple days per week, multiple intervals - DUE DATE */
+    @Test
     public void testDueDateMultiWeekMultiDay() throws Exception {
         buildRRule(2, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
 
@@ -159,6 +170,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     // --- completion tests
 
     /** test multiple days per week - COMPLETE DATE */
+    @Test
     public void testCompleteDateSingleWeek() throws Exception {
         for(Weekday wday : Weekday.values()) {
             buildRRule(1, Frequency.WEEKLY, wday);
@@ -184,6 +196,7 @@ public class AdvancedRepeatTest extends AndroidTestCase {
     }
 
     /** test multiple days per week, multiple intervals - COMPLETE DATE */
+    @Test
     public void testCompleteDateMultiWeek() throws Exception {
         for(Weekday wday : Weekday.values()) {
             buildRRule(2, Frequency.WEEKLY, wday);

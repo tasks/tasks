@@ -6,6 +6,7 @@
 package com.todoroo.astrid.repeats;
 
 import android.content.Intent;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
@@ -21,6 +22,9 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.R;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
@@ -32,15 +36,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
+@RunWith(AndroidJUnit4.class)
 public class NewRepeatTests extends DatabaseTestCase {
 
     @Inject TaskDao taskDao;
     @Inject Preferences preferences;
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
         preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
     }
@@ -59,7 +68,7 @@ public class NewRepeatTests extends DatabaseTestCase {
 
         Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-        new RepeatTaskCompleteListener().onReceive(getContext(), intent);
+        new RepeatTaskCompleteListener().onReceive(getTargetContext(), intent);
     }
 
     protected void waitAndSync() {
@@ -92,7 +101,9 @@ public class NewRepeatTests extends DatabaseTestCase {
      * Tests for no sync
      */
 
-    public void disabled_testNoRepeat() {
+    @Ignore
+    @Test
+    public void testNoRepeat() {
         Task t = new Task();
         t.setTitle("no repeat");
         taskDao.save(t);
@@ -249,102 +260,150 @@ public class NewRepeatTests extends DatabaseTestCase {
 
     /** Tests for repeating from due date */
 
-    public void disabled_testRepeatMinutelyFromDueDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatMinutelyFromDueDateCompleteBefore() {
         testFromDueDate(true, Frequency.MINUTELY, "minutely-before");
     }
 
-    public void disabled_testRepeatMinutelyFromDueDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatMinutelyFromDueDateCompleteAfter() {
         testFromDueDate(false, Frequency.MINUTELY, "minutely-after");
     }
 
-    public void disabled_testRepeatHourlyFromDueDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatHourlyFromDueDateCompleteBefore() {
         testFromDueDate(true, Frequency.HOURLY, "hourly-before");
     }
 
-    public void disabled_testRepeatHourlyFromDueDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatHourlyFromDueDateCompleteAfter() {
         testFromDueDate(false, Frequency.HOURLY, "hourly-after");
     }
 
-    public void disabled_testRepeatDailyFromDueDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatDailyFromDueDateCompleteBefore() {
         testFromDueDate(true, Frequency.DAILY, "daily-before");
     }
 
-    public void disabled_testRepeatDailyFromDueDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatDailyFromDueDateCompleteAfter() {
         testFromDueDate(false, Frequency.DAILY, "daily-after");
     }
 
-    public void disabled_testRepeatWeeklyFromDueDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatWeeklyFromDueDateCompleteBefore() {
         testFromDueDate(true, Frequency.WEEKLY, "weekly-before");
     }
 
-    public void disabled_testRepeatWeeklyFromDueDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatWeeklyFromDueDateCompleteAfter() {
         testFromDueDate(false, Frequency.WEEKLY, "weekly-after");
     }
 
-    public void disabled_testRepeatMonthlyFromDueDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatMonthlyFromDueDateCompleteBefore() {
         testFromDueDate(true, Frequency.MONTHLY, "monthly-before");
     }
 
-    public void disabled_testRepeatMonthlyFromDueDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatMonthlyFromDueDateCompleteAfter() {
         testFromDueDate(false, Frequency.MONTHLY, "monthly-after");
     }
 
-    public void disabled_testRepeatYearlyFromDueDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatYearlyFromDueDateCompleteBefore() {
         testFromDueDate(true, Frequency.YEARLY, "yearly-before");
     }
 
-    public void disabled_testRepeatYearlyFromDueDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatYearlyFromDueDateCompleteAfter() {
         testFromDueDate(false, Frequency.YEARLY, "yearly-after");
     }
 
 
     /** Tests for repeating from completionDate */
 
-    public void disabled_testRepeatMinutelyFromCompleteDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatMinutelyFromCompleteDateCompleteBefore() {
         testFromCompletionDate(true, Frequency.MINUTELY, "minutely-before");
     }
 
-    public void disabled_testRepeatMinutelyFromCompleteDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatMinutelyFromCompleteDateCompleteAfter() {
         testFromCompletionDate(false, Frequency.MINUTELY, "minutely-after");
     }
 
-    public void disabled_testRepeatHourlyFromCompleteDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatHourlyFromCompleteDateCompleteBefore() {
         testFromCompletionDate(true, Frequency.HOURLY, "hourly-before");
     }
 
-    public void disabled_testRepeatHourlyFromCompleteDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatHourlyFromCompleteDateCompleteAfter() {
         testFromCompletionDate(false, Frequency.HOURLY, "hourly-after");
     }
 
-    public void disabled_testRepeatDailyFromCompleteDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatDailyFromCompleteDateCompleteBefore() {
         testFromCompletionDate(true, Frequency.DAILY, "daily-before");
     }
 
-    public void disabled_testRepeatDailyFromCompleteDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatDailyFromCompleteDateCompleteAfter() {
         testFromCompletionDate(false, Frequency.DAILY, "daily-after");
     }
 
-    public void disabled_testRepeatWeeklyFromCompleteDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatWeeklyFromCompleteDateCompleteBefore() {
         testFromCompletionDate(true, Frequency.WEEKLY, "weekly-before");
     }
 
-    public void disabled_testRepeatWeeklyFromCompleteDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatWeeklyFromCompleteDateCompleteAfter() {
         testFromCompletionDate(false, Frequency.WEEKLY, "weekly-after");
     }
 
-    public void disabled_testRepeatMonthlyFromCompleteDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatMonthlyFromCompleteDateCompleteBefore() {
         testFromCompletionDate(true, Frequency.MONTHLY, "monthly-before");
     }
 
-    public void disabled_testRepeatMonthlyFromCompleteDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatMonthlyFromCompleteDateCompleteAfter() {
         testFromCompletionDate(false, Frequency.MONTHLY, "monthly-after");
     }
 
-    public void disabled_testRepeatYearlyFromCompleteDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testRepeatYearlyFromCompleteDateCompleteBefore() {
         testFromCompletionDate(true, Frequency.YEARLY, "yearly-before");
     }
 
-    public void disabled_testRepeatYearlyFromCompleteDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testRepeatYearlyFromCompleteDateCompleteAfter() {
         testFromCompletionDate(false, Frequency.YEARLY, "yearly-after");
     }
 
@@ -377,19 +436,27 @@ public class NewRepeatTests extends DatabaseTestCase {
 
 
     // disabled until test can be fixed
-    public void disabled_testAdvancedRepeatWeeklyFromDueDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testAdvancedRepeatWeeklyFromDueDateCompleteBefore() {
         testAdvancedWeeklyFromDueDate(true, "advanced-weekly-before");
     }
 
-    public void disabled_testAdvancedRepeatWeeklyFromDueDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testAdvancedRepeatWeeklyFromDueDateCompleteAfter() {
         testAdvancedWeeklyFromDueDate(false, "advanced-weekly-after");
     }
 
-    public void disabled_testAdvancedRepeatWeeklyFromCompleteDateCompleteBefore() {
+    @Ignore
+    @Test
+    public void testAdvancedRepeatWeeklyFromCompleteDateCompleteBefore() {
         testAdvancedWeeklyFromCompleteDate(true, "advanced-weekly-before");
     }
 
-    public void disabled_testAdvancedRepeatWeeklyFromCompleteDateCompleteAfter() {
+    @Ignore
+    @Test
+    public void testAdvancedRepeatWeeklyFromCompleteDateCompleteAfter() {
         testAdvancedWeeklyFromCompleteDate(false, "advanced-weekly-after");
     }
 }

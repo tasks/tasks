@@ -5,9 +5,13 @@
  */
 package com.todoroo.astrid.service;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 
 import java.util.ArrayList;
@@ -16,20 +20,19 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertEquals;
+
+@RunWith(AndroidJUnit4.class)
 public class QuickAddMarkupTest extends DatabaseTestCase {
 
     @Inject TaskService taskService;
-
-    @Override
-    protected void setUp() {
-        super.setUp();
-    }
 
     @Override
     protected void inject(TestComponent component) {
         component.inject(this);
     }
 
+    @Test
     public void testTags() {
         whenTitleIs("this #cool");
         assertTitleBecomes("this");
@@ -44,6 +47,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
         assertTagsAre("nice", "cute");
     }
 
+    @Test
     public void testContexts() {
         whenTitleIs("eat @home");
         assertTitleBecomes("eat");
@@ -58,6 +62,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
         assertTagsAre();
     }
 
+    @Test
     public void testImportances() {
         whenTitleIs("eat !1");
         assertTitleBecomes("eat");
@@ -71,6 +76,7 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
         assertImportanceIs(Task.IMPORTANCE_DO_OR_DIE);
     }
 
+    @Test
     public void testMixed() {
         whenTitleIs("eat #food !2");
         assertTitleBecomes("eat");

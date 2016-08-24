@@ -5,12 +5,17 @@
  */
 package org.tasks.scheduling;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.backup.TasksXmlExporter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.R;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
@@ -20,9 +25,14 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import static android.support.test.InstrumentationRegistry.getContext;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
+@RunWith(AndroidJUnit4.class)
 public class BackupServiceTests extends DatabaseTestCase {
 
     private static final long BACKUP_WAIT_TIME = 500L;
@@ -34,7 +44,7 @@ public class BackupServiceTests extends DatabaseTestCase {
     @Inject Preferences preferences;
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
 
         try {
@@ -62,7 +72,7 @@ public class BackupServiceTests extends DatabaseTestCase {
     }
 
     @Override
-    protected void tearDown() {
+    public void tearDown() {
         super.tearDown();
 
         if (temporaryDirectory != null) {
@@ -72,7 +82,9 @@ public class BackupServiceTests extends DatabaseTestCase {
         }
     }
 
-    public void disabled_testBackup() {
+    @Ignore
+    @Test
+    public void testBackup() {
         assertEquals(0, temporaryDirectory.list().length);
 
         preferences.setLong(TasksXmlExporter.PREF_BACKUP_LAST_DATE, 0);
@@ -92,6 +104,7 @@ public class BackupServiceTests extends DatabaseTestCase {
         assertTrue(preferences.getLong(TasksXmlExporter.PREF_BACKUP_LAST_DATE, 0) > 0);
     }
 
+    @Test
     public void testDeletion() throws IOException {
         // create a bunch of backups
         assertEquals(0, temporaryDirectory.list().length);

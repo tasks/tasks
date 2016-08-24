@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.service;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.astrid.data.Task;
@@ -12,6 +14,9 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.TitleParser;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.R;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
@@ -22,8 +27,13 @@ import java.util.Calendar;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertTrue;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
+@RunWith(AndroidJUnit4.class)
 public class TitleParserTest extends DatabaseTestCase {
 
     @Inject TaskService taskService;
@@ -31,7 +41,7 @@ public class TitleParserTest extends DatabaseTestCase {
     @Inject Preferences preferences;
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
         preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
     }
@@ -42,6 +52,7 @@ public class TitleParserTest extends DatabaseTestCase {
     }
 
     /** test that completing a task w/ no regular expressions creates a simple task with no date, no repeat, no lists*/
+    @Test
   public void testNoRegexes() throws Exception{
       Task task = new Task();
       Task nothing = new Task();
@@ -53,6 +64,7 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   /** Tests correct date is parsed **/
+  @Test
   public void testMonthDate() {
       Task task = new Task();
       String[] titleMonthStrings = {
@@ -78,6 +90,7 @@ public class TitleParserTest extends DatabaseTestCase {
       }
   }
 
+    @Test
   public void testMonthSlashDay() {
       Task task = new Task();
       for (int i = 1; i < 13; i++) {
@@ -90,6 +103,7 @@ public class TitleParserTest extends DatabaseTestCase {
       }
   }
 
+    @Test
   public void testArmyTime() {
       Task task = new Task();
       String testTitle = "Jog on 23:21.";
@@ -99,6 +113,7 @@ public class TitleParserTest extends DatabaseTestCase {
       assertEquals(date.getMinuteOfHour(), 21);
   }
 
+    @Test
   public void test_AM_PM() {
       Task task = new Task();
       String testTitle = "Jog at 8:33 PM.";
@@ -108,6 +123,7 @@ public class TitleParserTest extends DatabaseTestCase {
       assertEquals(date.getMinuteOfHour(), 33);
   }
 
+    @Test
   public void test_at_hour() {
       Task task = new Task();
       String testTitle = "Jog at 8 PM.";
@@ -117,6 +133,7 @@ public class TitleParserTest extends DatabaseTestCase {
       assertEquals(date.getMinuteOfHour(), 0);
   }
 
+    @Test
   public void test_oclock_AM() {
       Task task = new Task();
       String testTitle = "Jog at 8 o'clock AM.";
@@ -126,6 +143,7 @@ public class TitleParserTest extends DatabaseTestCase {
       assertEquals(date.getMinuteOfHour(), 0);
   }
 
+    @Test
   public void test_several_forms_of_eight() {
       Task task = new Task();
       String[] testTitles = {
@@ -141,6 +159,7 @@ public class TitleParserTest extends DatabaseTestCase {
       }
   }
 
+    @Test
   public void test_several_forms_of_1230PM() {
       Task task = new Task();
       String[] testTitles = {
@@ -166,7 +185,9 @@ public class TitleParserTest extends DatabaseTestCase {
 
 
    // ----------------Days begin----------------//
-    public void disabled_testDays() {
+   @Ignore
+   @Test
+    public void testDays() {
         Calendar today = Calendar.getInstance();
         Task task = new Task();
 
@@ -226,6 +247,7 @@ public class TitleParserTest extends DatabaseTestCase {
 
     //----------------Priority begin----------------//
     /** tests all words using priority 0 */
+    @Test
     public void testPriority0() throws Exception {
         String[] acceptedStrings = {
                 "priority 0",
@@ -250,6 +272,7 @@ public class TitleParserTest extends DatabaseTestCase {
         }
     }
 
+    @Test
     public void testPriority1() throws Exception {
         String[] acceptedStringsAtEnd = {
                 "priority 1",
@@ -286,6 +309,7 @@ public class TitleParserTest extends DatabaseTestCase {
         }
     }
 
+    @Test
     public void testPriority2() throws Exception {
         String[] acceptedStringsAtEnd = {
                 "priority 2",
@@ -325,6 +349,7 @@ public class TitleParserTest extends DatabaseTestCase {
         }
     }
 
+    @Test
     public void testPriority3() throws Exception {
         String[] acceptedStringsAtEnd = {
                 "priority 3",
@@ -367,13 +392,12 @@ public class TitleParserTest extends DatabaseTestCase {
         }
     }
 
-
-
     //----------------Priority end----------------//
 
 
     //----------------Repeats begin----------------//
     /** test daily repeat from due date, but with no due date set */
+    @Test
     public void testDailyWithNoDueDate() throws Exception {
         Task task = new Task();
         String title = "Jog daily";
@@ -407,6 +431,7 @@ public class TitleParserTest extends DatabaseTestCase {
     }
 
     /** test weekly repeat from due date, with no due date & time set */
+    @Test
     public void testWeeklyWithNoDueDate() throws Exception {
         Task task = new Task();
         String title = "Jog weekly";
@@ -439,6 +464,7 @@ public class TitleParserTest extends DatabaseTestCase {
     }
 
     /** test hourly repeat from due date, with no due date but no time */
+    @Test
     public void testMonthlyFromNoDueDate() throws Exception {
         Task task = new Task();
         String title = "Jog monthly";
@@ -470,6 +496,7 @@ public class TitleParserTest extends DatabaseTestCase {
         }
     }
 
+    @Test
     public void testDailyFromDueDate() throws Exception {
         Task task = new Task();
         String title = "Jog daily starting from today";
@@ -500,6 +527,7 @@ public class TitleParserTest extends DatabaseTestCase {
         }
     }
 
+    @Test
     public void testWeeklyFromDueDate() throws Exception {
         Task task = new Task();
         String title = "Jog weekly starting from today";
@@ -535,6 +563,7 @@ public class TitleParserTest extends DatabaseTestCase {
 
     //----------------Tags begin----------------//
     /** tests all words using priority 0 */
+    @Test
     public void testTagsPound() throws Exception {
         String[] acceptedStrings = {
                 "#tag",
@@ -554,6 +583,7 @@ public class TitleParserTest extends DatabaseTestCase {
     }
 
     /** tests all words using priority 0 */
+    @Test
     public void testTagsAt() throws Exception {
         String[] acceptedStrings = {
                 "@tag",
@@ -571,10 +601,4 @@ public class TitleParserTest extends DatabaseTestCase {
             assertTrue("testTagsAt failed for string: " + acceptedString+ " for tags: " + tags.toString(), tags.contains(tag));
         }
     }
-
-
-
-    //----------------Priority end----------------//
-
-
 }

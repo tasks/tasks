@@ -1,34 +1,41 @@
 package com.todoroo.astrid.model;
 
 import android.content.ContentValues;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.andlib.data.Property;
-
-import org.tasks.injection.InjectingTestCase;
-
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.Snippet;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.RemoteModelHelpers.asQueryProperties;
 import static org.tasks.RemoteModelHelpers.compareRemoteModel;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
+@RunWith(AndroidJUnit4.class)
 public class TaskTest extends InjectingTestCase {
 
     @Inject TaskService taskService;
     @Inject Preferences preferences;
 
+    @Test
     public void testNewTaskHasNoCreationDate() {
         assertFalse(new Task().containsValue(Task.CREATION_DATE));
     }
 
+    @Test
     public void testSavedTaskHasCreationDate() {
         freezeClock().thawAfter(new Snippet() {{
             Task task = new Task();
@@ -37,6 +44,7 @@ public class TaskTest extends InjectingTestCase {
         }});
     }
 
+    @Test
     public void testReadTaskFromDb() {
         Task task = new Task();
         taskService.save(task);
@@ -45,6 +53,7 @@ public class TaskTest extends InjectingTestCase {
         compareRemoteModel(task, fromDb);
     }
 
+    @Test
     public void testDefaults() {
         preferences.setDefaults();
         ContentValues defaults = new Task().getDefaultValues();

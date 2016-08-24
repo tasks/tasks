@@ -1,19 +1,20 @@
 package org.tasks.injection;
 
-import android.test.AndroidTestCase;
+import org.junit.Before;
 
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static org.tasks.TestUtilities.initializeMockito;
 
-public abstract class InjectingTestCase extends AndroidTestCase {
+public abstract class InjectingTestCase {
 
     protected TestComponent component;
 
-    @Override
-    protected void setUp() {
-        initializeMockito(getContext());
+    @Before
+    public void setUp() {
+        initializeMockito(getTargetContext());
 
         component = DaggerTestComponent.builder()
-                .testModule(new TestModule(getContext()))
+                .testModule(new TestModule(getTargetContext()))
                 .build();
         inject(component);
     }

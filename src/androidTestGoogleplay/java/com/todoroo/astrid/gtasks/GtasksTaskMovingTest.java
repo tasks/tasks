@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
@@ -12,6 +14,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 
 import java.util.ArrayList;
@@ -19,7 +24,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+
 @SuppressWarnings("nls")
+@RunWith(AndroidJUnit4.class)
 public class GtasksTaskMovingTest extends DatabaseTestCase {
 
     private static final int VALUE_UNSET = -1;
@@ -43,7 +52,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
      * F
      */
 
-    public void disabled_testMoveDownFromListBottom() {
+    @Ignore
+    @Test
+    public void testMoveDownFromListBottom() {
         givenTasksABCDEF();
 
         whenTriggerMove(F, null);
@@ -52,7 +63,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(F, 5, 0);
     }
 
-    public void disabled_testMoveDownToListBottom() {
+    @Ignore
+    @Test
+    public void testMoveDownToListBottom() {
         givenTasksABCDEF();
 
         whenTriggerMove(E, null);
@@ -61,7 +74,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(F, 4, 0);
     }
 
-    public void disabled_testMoveUpSimple() {
+    @Ignore
+    @Test
+    public void testMoveUpSimple() {
         givenTasksABCDEF();
 
         whenTriggerMove(F, E);
@@ -70,7 +85,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(F, 4, 0);
     }
 
-    public void disabled_testMoveUpWithSubtasks() {
+    @Ignore
+    @Test
+    public void testMoveUpWithSubtasks() {
         givenTasksABCDEF();
 
         whenTriggerMove(C, B);
@@ -88,7 +105,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(D, 2, 2);
     }
 
-    public void disabled_testMoveDownThroughSubtasks() {
+    @Ignore
+    @Test
+    public void testMoveDownThroughSubtasks() {
         givenTasksABCDEF();
 
         whenTriggerMove(B, E);
@@ -107,7 +126,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(D, 2, 2);
     }
 
-    public void disabled_testMoveUpAboveParent() {
+    @Ignore
+    @Test
+    public void testMoveUpAboveParent() {
         givenTasksABCDEF();
 
         whenTriggerMove(B, A);
@@ -126,7 +147,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(C, 2, 1);
     }
 
-    public void disabled_testMoveDownWithChildren() {
+    @Ignore
+    @Test
+    public void testMoveDownWithChildren() {
         givenTasksABCDEF();
 
         whenTriggerMove(C, F);
@@ -147,7 +170,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(E, 2, 0);
     }
 
-    public void disabled_testMoveDownIndentingTwice() {
+    @Ignore
+    @Test
+    public void testMoveDownIndentingTwice() {
         givenTasksABCDEF();
 
         whenTriggerMove(D, F);
@@ -167,7 +192,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(E, 3, 0);
     }
 
-    public void disabled_testMoveUpMultiple() {
+    @Ignore
+    @Test
+    public void testMoveUpMultiple() {
         givenTasksABCDEF();
 
         whenTriggerMove(C, A);
@@ -185,7 +212,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(D, 1, 1);
     }
 
-    public void disabled_testMoveUpIntoSublist() {
+    @Ignore
+    @Test
+    public void testMoveUpIntoSublist() {
         givenTasksABCDEF();
 
         whenTriggerMove(F, D);
@@ -206,7 +235,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(F, 3, 2);
     }
 
-    public void disabled_testMoveDownMultiple() {
+    @Ignore
+    @Test
+    public void testMoveDownMultiple() {
         givenTasksABCDEF();
 
         whenTriggerMove(B, F);
@@ -243,7 +274,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     }
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
 
         List<TaskList> items = new ArrayList<>();
@@ -291,5 +322,4 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         metadataDao.persist(metadata);
         return task;
     }
-
 }

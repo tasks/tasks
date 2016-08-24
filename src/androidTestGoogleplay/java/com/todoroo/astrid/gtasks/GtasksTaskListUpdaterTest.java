@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
@@ -12,6 +14,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
 
 import java.util.ArrayList;
@@ -19,7 +24,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+
 @SuppressWarnings("nls")
+@RunWith(AndroidJUnit4.class)
 public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
     private static final int VALUE_UNSET = -1;
@@ -30,6 +39,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     @Inject TaskService taskService;
     @Inject GtasksMetadata gtasksMetadata;
 
+    @Test
     public void testBasicParentComputation() {
         Task[] tasks = givenTasksABCDE();
 
@@ -42,7 +52,9 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectParent(tasks[4], null);
     }
 
-    public void disabled_testBasicSiblingComputation() {
+    @Ignore
+    @Test
+    public void testBasicSiblingComputation() {
         Task[] tasks = givenTasksABCDE();
 
         whenCalculatingParentsAndSiblings();
@@ -54,7 +66,9 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectSibling(tasks[4], tasks[0]);
     }
 
-    public void disabled_testMetadataParentComputation() {
+    @Ignore
+    @Test
+    public void testMetadataParentComputation() {
         Task[] tasks = givenTasksABCDE();
 
         thenExpectMetadataParent(tasks[0], null);
@@ -64,7 +78,9 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectMetadataParent(tasks[4], null);
     }
 
-    public void disabled_testMetadataOrderComputation() {
+    @Ignore
+    @Test
+    public void testMetadataOrderComputation() {
         Task[] tasks = givenTasksABCDE();
 
         thenExpectMetadataIndentAndOrder(tasks[0], 0, 0);
@@ -74,7 +90,9 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectMetadataIndentAndOrder(tasks[4], 4, 0);
     }
 
-    public void disabled_testNewTaskOrder() {
+    @Ignore
+    @Test
+    public void testNewTaskOrder() {
         givenTasksABCDE();
 
         Task newTask = createTask("F", VALUE_UNSET, 0);
@@ -121,7 +139,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     }
 
     @Override
-    protected void setUp() {
+    public void setUp() {
         super.setUp();
 
         List<TaskList> items = new ArrayList<>();
@@ -178,5 +196,4 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         metadataDao.persist(metadata);
         return task;
     }
-
-}//*/
+}
