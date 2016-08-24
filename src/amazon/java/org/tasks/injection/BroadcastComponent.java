@@ -7,6 +7,7 @@ import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.timers.TimerTaskCompleteListener;
 
+import org.tasks.locale.receiver.FireReceiver;
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.FirstLaunchReceiver;
@@ -21,6 +22,8 @@ import dagger.Subcomponent;
 
 @Subcomponent(modules = BroadcastModule.class)
 public interface BroadcastComponent {
+    void inject(FireReceiver fireReceiver);
+
     void inject(TimerTaskCompleteListener timerTaskCompleteListener);
 
     void inject(PhoneStateChangedReceiver phoneStateChangedReceiver);

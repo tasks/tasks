@@ -193,7 +193,6 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
 
         if (!BuildConfig.FLAVOR_store.equals("googleplay")) {
             requires(R.string.settings_general, false, R.string.synchronization);
-            requires(R.string.get_plugins, false, R.string.p_purchased_tasker, R.string.p_purchased_dashclock);
             requires(R.string.privacy, false, R.string.p_collect_statistics);
         }
     }

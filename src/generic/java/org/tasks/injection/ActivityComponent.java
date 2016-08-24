@@ -23,6 +23,7 @@ import org.tasks.activities.TimePickerActivity;
 import org.tasks.dashclock.DashClockSettings;
 import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
+import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
@@ -49,6 +50,8 @@ public interface ActivityComponent {
     DialogFragmentComponent plus(DialogFragmentModule dialogFragmentModule);
 
     NativeDialogFragmentComponent plus(NativeDialogFragmentModule nativeDialogFragmentModule);
+
+    void inject(TaskerSettingsActivity taskerSettingsActivity);
 
     void inject(DashClockSettings dashClockSettings);
 

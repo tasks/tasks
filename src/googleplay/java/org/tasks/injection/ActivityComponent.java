@@ -48,8 +48,6 @@ public interface ActivityComponent {
 
     void inject(GtasksPreferences gtasksPreferences);
 
-    void inject(TaskerSettingsActivity taskerSettingsActivity);
-
     void inject(GtasksLoginActivity gtasksLoginActivity);
 
     Theme getTheme();
@@ -59,6 +57,8 @@ public interface ActivityComponent {
     DialogFragmentComponent plus(DialogFragmentModule dialogFragmentModule);
 
     NativeDialogFragmentComponent plus(NativeDialogFragmentModule nativeDialogFragmentModule);
+
+    void inject(TaskerSettingsActivity taskerSettingsActivity);
 
     void inject(DashClockSettings dashClockSettings);
 
