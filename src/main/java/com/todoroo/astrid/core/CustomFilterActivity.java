@@ -354,8 +354,8 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
             finish();
         } else {
             dialogBuilder.newMessageDialog(R.string.discard_changes)
-                    .setPositiveButton(R.string.discard, (dialog, which) -> finish())
-                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(R.string.keep_editing, null)
+                    .setNegativeButton(R.string.discard, (dialog, which) -> finish())
                     .show();
         }
     }
