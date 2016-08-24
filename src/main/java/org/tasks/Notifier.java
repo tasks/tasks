@@ -197,7 +197,7 @@ public class Notifier {
         Task task;
         try {
             task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
-                    Task.DUE_DATE, Task.DELETION_DATE, Task.REMINDER_FLAGS);
+                    Task.DUE_DATE, Task.DELETION_DATE, Task.REMINDER_FLAGS, Task.NOTES);
             if (task == null) {
                 throw new IllegalArgumentException("cound not find item with id"); //$NON-NLS-1$
             }
@@ -232,6 +232,7 @@ public class Notifier {
 
         // read properties
         final String taskTitle = task.getTitle();
+        final String taskDescription = task.getNotes();
         boolean nonstopMode = task.isNotifyModeNonstop();
         boolean ringFiveMode = task.isNotifyModeFive();
         int ringTimes = nonstopMode ? -1 : (ringFiveMode ? 5 : 1);
@@ -260,6 +261,8 @@ public class Notifier {
                 .setWhen(currentTimeMillis())
                 .setContentTitle(taskTitle)
                 .setContentText(text)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(taskDescription.equals("") ? text : taskDescription))
                 .setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
         if (preferences.useNotificationActions()) {
             PendingIntent completeIntent = PendingIntent.getBroadcast(context, (int) id, new Intent(context, CompleteTaskReceiver.class) {{
