@@ -341,7 +341,6 @@
 	<string name="buy">Kaufen</string>
 	<string name="buy_dashclock_extension">Erweiterung kaufen</string>
 	<string name="billing_service_busy">Dienst für In-App Käufe ist beschäftigt, versuchen Sie es später noch einmal</string>
-	<string name="select_filter">Filter auswählen</string>
 	<string name="opacity">Durchsichtigkeit</string>
 	<string name="color">Farbe</string>
 	<string name="accent">Akzent</string>

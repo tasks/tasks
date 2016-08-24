@@ -3,11 +3,11 @@ package org.tasks.locale.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.injection.InjectingPreferenceActivity;
 
 import timber.log.Timber;
 
-public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInjectingAppCompatActivity {
+public abstract class AbstractFragmentPluginAppCompatActivity extends InjectingPreferenceActivity {
 
     boolean mIsCancelled = false;
 
@@ -19,7 +19,7 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInje
     }
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (isLocalePluginIntent(getIntent())) {

@@ -345,7 +345,6 @@
 	<string name="buy">Acquista</string>
 	<string name="buy_dashclock_extension">Acquista estensione</string>
 	<string name="billing_service_busy">Servizio fatturazione in-app è occupato, prova più tardi</string>
-	<string name="select_filter">Seleziona Filtro</string>
 	<string name="filter">Filtra</string>
 	<string name="opacity">Opacità</string>
 	<string name="theme">Tema</string>

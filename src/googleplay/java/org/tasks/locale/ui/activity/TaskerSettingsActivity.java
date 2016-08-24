@@ -2,10 +2,8 @@ package org.tasks.locale.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.todoroo.astrid.api.Filter;
 
@@ -18,15 +16,8 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.PluginBundleValues;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.MenuColorizer;
-
-import java.util.Set;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompatActivity implements PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
 
@@ -34,9 +25,6 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     private static final int REQUEST_PURCHASE = 10125;
     private static final String EXTRA_FILTER = "extra_filter";
     private static final String EXTRA_PURCHASE_INITIATED = "extra_purchase_initiated";
-
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.text_view) TextView filterTitle;
 
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
@@ -48,10 +36,10 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     private boolean purchaseInitiated;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tasker_settings);
-        ButterKnife.bind(this);
+
+        addPreferencesFromResource(R.xml.preferences_tasker);
 
         if (savedInstanceState != null) {
             previousBundle = savedInstanceState.getParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
@@ -60,42 +48,26 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         } else {
             filter = defaultFilterProvider.getDefaultFilter();
         }
-        updateView();
 
-        toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_close_24dp));
-        toolbar.setOnMenuItemClickListener(this);
-        toolbar.setNavigationOnClickListener(view -> {
-            if (equalBundles(getResultBundle(), previousBundle)) {
-                cancel();
-            } else {
-                dialogBuilder.newMessageDialog(R.string.discard_changes)
-                        .setPositiveButton(android.R.string.ok, (dialog, which) -> cancel())
-                        .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-
-                        })
-                        .show();
-            }
+        findPreference(R.string.filter).setOnPreferenceClickListener(preference -> {
+            startActivityForResult(new Intent(TaskerSettingsActivity.this, FilterSelectionActivity.class) {{
+                putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            }}, REQUEST_SELECT_FILTER);
+            return false;
         });
-        toolbar.inflateMenu(R.menu.tasker_menu);
-        MenuColorizer.colorToolbar(this, toolbar);
+
+        refreshPreferences();
 
         if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInitiated) {
             purchaseInitiated = purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, this);
         }
     }
 
-    @OnClick(R.id.filter_selection)
-    void selectFilter() {
-        startActivityForResult(new Intent(TaskerSettingsActivity.this, FilterSelectionActivity.class) {{
-            putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-        }}, REQUEST_SELECT_FILTER);
-    }
-
     @Override
     public void onPostCreateWithPreviousResult(final Bundle previousBundle, final String previousBlurb) {
         this.previousBundle = previousBundle;
         this.filter = defaultFilterProvider.getFilterFromPreference(PluginBundleValues.getFilter(previousBundle));
-        updateView();
+        refreshPreferences();
     }
 
     @Override
@@ -118,45 +90,12 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         finish();
     }
 
-    private boolean equalBundles(Bundle one, Bundle two) {
-        if (one == null) {
-            return two == null;
-        }
-        if (two == null) {
-            return false;
-        }
-
-        if(one.size() != two.size())
-            return false;
-
-        Set<String> setOne = one.keySet();
-        Object valueOne;
-        Object valueTwo;
-
-        for(String key : setOne) {
-            valueOne = one.get(key);
-            valueTwo = two.get(key);
-            if(valueOne instanceof Bundle && valueTwo instanceof Bundle &&
-                    !equalBundles((Bundle) valueOne, (Bundle) valueTwo)) {
-                return false;
-            }
-            else if(valueOne == null) {
-                if(valueTwo != null || !two.containsKey(key))
-                    return false;
-            }
-            else if(!valueOne.equals(valueTwo))
-                return false;
-        }
-
-        return true;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SELECT_FILTER) {
             if (resultCode == RESULT_OK) {
                 filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
-                updateView();
+                refreshPreferences();
             }
         } else if (requestCode == REQUEST_PURCHASE) {
             purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
@@ -182,8 +121,8 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         outState.putBoolean(EXTRA_PURCHASE_INITIATED, purchaseInitiated);
     }
 
-    private void updateView() {
-        filterTitle.setText(filter.listingTitle);
+    private void refreshPreferences() {
+        findPreference(getString(R.string.filter)).setSummary(filter.listingTitle);
     }
 
     @Override

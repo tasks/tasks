@@ -339,7 +339,6 @@
 	<string name="buy">Kup</string>
 	<string name="buy_dashclock_extension">Kup rozszerzenie</string>
 	<string name="billing_service_busy">Serwis zakupów w aplikacji jest zajęty, spróbuj później</string>
-	<string name="select_filter">Wybierz filtr</string>
 	<string name="filter">Filtr</string>
 	<string name="opacity">Przezroczystość</string>
 	<string name="theme">Motyw</string>

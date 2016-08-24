@@ -343,7 +343,6 @@
 	<string name="buy">Acheter</string>
 	<string name="buy_dashclock_extension">Acheter l\'extension</string>
 	<string name="billing_service_busy">Le service de facturation intégré à l\'application est surchargé, réessayez plus tard.</string>
-	<string name="select_filter">Sélectionner le filtre</string>
 	<string name="filter">Filtre</string>
 	<string name="opacity">Transparence</string>
 	<string name="theme">Thème</string>

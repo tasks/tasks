@@ -759,7 +759,6 @@ File %1$s contained %2$s.\n\n
   <string name="buy">Buy</string>
   <string name="buy_dashclock_extension">Buy extension</string>
   <string name="billing_service_busy">In-app billing service is busy, try again later</string>
-  <string name="select_filter">Select Filter</string>
   <string name="filter">Filter</string>
   <string name="opacity">Opacity</string>
 

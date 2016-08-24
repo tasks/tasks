@@ -346,7 +346,6 @@
 	<string name="buy">구매</string>
 	<string name="buy_dashclock_extension">확장팩 구매</string>
 	<string name="billing_service_busy">인앱 결제 서비스가 혼잡합니다, 나중에 다시 시도하세요</string>
-	<string name="select_filter">필터 선택</string>
 	<string name="filter">필터</string>
 	<string name="opacity">불투명도</string>
 	<string name="theme">테마</string>

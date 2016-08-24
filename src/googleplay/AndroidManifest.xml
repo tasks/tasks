@@ -53,7 +53,7 @@
         <activity
             android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
             android:label="@string/synchronization"
-            android:theme="@style/BlueGrey" />
+            android:theme="@style/Tasks" />
 
         <receiver android:name=".receivers.GoogleTaskPushReceiver">
             <intent-filter>
@@ -93,7 +93,7 @@
             android:name=".locale.ui.activity.TaskerSettingsActivity"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/BlueGrey"
+            android:theme="@style/Tasks"
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="adjustResize"/>
 

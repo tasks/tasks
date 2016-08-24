@@ -351,7 +351,6 @@
 	<string name="buy">購入</string>
 	<string name="buy_dashclock_extension">購入エクステンション</string>
 	<string name="billing_service_busy">アプリ内課金サービスがビジー状態です。後でもう一度試してください</string>
-	<string name="select_filter">フィルターの選択</string>
 	<string name="filter">フィルター</string>
 	<string name="opacity">透明度</string>
 	<string name="theme">テーマ</string>

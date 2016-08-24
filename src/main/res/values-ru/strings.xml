@@ -349,7 +349,6 @@
 	<string name="buy">Купить</string>
 	<string name="buy_dashclock_extension">Купить расширение</string>
 	<string name="billing_service_busy">Встроенный сервис перегружен, попробуйте позже</string>
-	<string name="select_filter">Выберите Фильтр</string>
 	<string name="filter">Фильтр</string>
 	<string name="opacity">Прозрачность</string>
 	<string name="theme">Тема</string>
