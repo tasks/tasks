@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![codecov.io](http://codecov.io/github/tasks/tasks/coverage.svg?branch=master)](http://codecov.io/github/tasks/tasks?branch=master)
+[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks)
 
 [![Make a contribution](https://pledgie.com/campaigns/24281.png?skin_name=chrome)](https://pledgie.com/campaigns/24281)
 

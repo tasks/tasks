@@ -23,8 +23,4 @@ before_install:
 
 script:
   - ./gradlew :lintGoogleplayProdDebug
-  - ./gradlew :createGoogleplayProdDebugAndroidTestCoverageReport
-
-after_success:
-  - mv build/reports/coverage/googleplayProd/debug/report.xml build/reports/coverage/googleplayProd/debug/coverage.xml
-  - bash <(curl -s https://codecov.io/bash)
+  - ./gradlew :connectedGoogleplayProdDebugAndroidTest
