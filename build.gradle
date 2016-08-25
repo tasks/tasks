@@ -24,6 +24,8 @@ repositories {
 android {
     lintOptions {
         lintConfig file("lint.xml")
+        textReport true
+        textOutput 'stdout'
     }
 
     compileSdkVersion 24
