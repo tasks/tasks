@@ -1,6 +1,5 @@
 language: android
 sudo: required
-dist: trusty
 jdk: oraclejdk8
 env:
   matrix:
@@ -16,14 +15,6 @@ android:
     - extra-google-m2repository
   licenses:
     - 'android-sdk-license-.+'
-
-before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
 
 before_install:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
