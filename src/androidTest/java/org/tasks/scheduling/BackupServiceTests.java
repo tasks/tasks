@@ -25,7 +25,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import static android.support.test.InstrumentationRegistry.getContext;
+import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -91,7 +91,7 @@ public class BackupServiceTests extends DatabaseTestCase {
 
         // create a backup
         BackupIntentService service = new BackupIntentService();
-        service.testBackup(xmlExporter, preferences, getContext());
+        service.testBackup(xmlExporter, preferences, getTargetContext());
 
         AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
@@ -129,7 +129,7 @@ public class BackupServiceTests extends DatabaseTestCase {
 
         // backup
         BackupIntentService service = new BackupIntentService();
-        service.testBackup(xmlExporter, preferences, getContext());
+        service.testBackup(xmlExporter, preferences, getTargetContext());
 
         AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
@@ -138,7 +138,7 @@ public class BackupServiceTests extends DatabaseTestCase {
         assertFalse(files[4].exists());
 
         // assert user file still exists
-        service.testBackup(xmlExporter, preferences, getContext());
+        service.testBackup(xmlExporter, preferences, getTargetContext());
         assertTrue(myFile.exists());
     }
 }

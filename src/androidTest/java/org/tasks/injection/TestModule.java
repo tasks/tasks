@@ -5,6 +5,8 @@ import android.content.Context;
 import com.todoroo.astrid.dao.Database;
 
 import org.tasks.analytics.Tracker;
+import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.PermissivePermissionChecker;
 
 import dagger.Module;
 import dagger.Provides;
@@ -35,5 +37,10 @@ public class TestModule {
     @ForApplication
     public Context getContext() {
         return context;
+    }
+
+    @Provides
+    public PermissionChecker getPermissionChecker() {
+        return new PermissivePermissionChecker(context);
     }
 }
