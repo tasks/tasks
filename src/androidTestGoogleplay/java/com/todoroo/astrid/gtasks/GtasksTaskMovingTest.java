@@ -14,7 +14,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
@@ -52,7 +51,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
      * F
      */
 
-    @Ignore
     @Test
     public void testMoveDownFromListBottom() {
         givenTasksABCDEF();
@@ -63,7 +61,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(F, 5, 0);
     }
 
-    @Ignore
     @Test
     public void testMoveDownToListBottom() {
         givenTasksABCDEF();
@@ -74,7 +71,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(F, 4, 0);
     }
 
-    @Ignore
     @Test
     public void testMoveUpSimple() {
         givenTasksABCDEF();
@@ -85,7 +81,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(F, 4, 0);
     }
 
-    @Ignore
     @Test
     public void testMoveUpWithSubtasks() {
         givenTasksABCDEF();
@@ -105,7 +100,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(D, 2, 2);
     }
 
-    @Ignore
     @Test
     public void testMoveDownThroughSubtasks() {
         givenTasksABCDEF();
@@ -126,7 +120,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(D, 2, 2);
     }
 
-    @Ignore
     @Test
     public void testMoveUpAboveParent() {
         givenTasksABCDEF();
@@ -147,7 +140,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(C, 2, 1);
     }
 
-    @Ignore
     @Test
     public void testMoveDownWithChildren() {
         givenTasksABCDEF();
@@ -170,7 +162,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(E, 2, 0);
     }
 
-    @Ignore
     @Test
     public void testMoveDownIndentingTwice() {
         givenTasksABCDEF();
@@ -192,7 +183,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(E, 3, 0);
     }
 
-    @Ignore
     @Test
     public void testMoveUpMultiple() {
         givenTasksABCDEF();
@@ -212,7 +202,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(D, 1, 1);
     }
 
-    @Ignore
     @Test
     public void testMoveUpIntoSublist() {
         givenTasksABCDEF();
@@ -235,7 +224,6 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         thenExpectMetadataOrderAndIndent(F, 3, 2);
     }
 
-    @Ignore
     @Test
     public void testMoveDownMultiple() {
         givenTasksABCDEF();

@@ -4,7 +4,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.time.DateTime;
@@ -60,7 +59,6 @@ public class GtasksApiUtilitiesTest {
                 unixTimeToGtasksDueDate(now.getMillis()).getValue());
     }
 
-    @Ignore
     @Test
     public void testConvertGoogleDueDateToUnixTime() {
         com.google.api.client.util.DateTime googleDueDate =

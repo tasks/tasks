@@ -6,7 +6,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.service.TaskService;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
@@ -59,7 +58,6 @@ public class SubtasksHelperTest extends SubtasksTestCase {
     // Default order: "[-1, [1, 2, [3, 4]], 5, 6]"
 
     private static String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]".replaceAll("\\s", "");
-    @Ignore
     @Test
     public void testLocalToRemoteIdMapping() {
         String mapped = SubtasksHelper.convertTreeToRemoteIds(taskService, DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");

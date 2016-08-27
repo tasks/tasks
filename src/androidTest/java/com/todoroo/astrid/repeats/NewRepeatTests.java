@@ -101,7 +101,6 @@ public class NewRepeatTests extends DatabaseTestCase {
      * Tests for no sync
      */
 
-    @Ignore
     @Test
     public void testNoRepeat() {
         Task t = new Task();

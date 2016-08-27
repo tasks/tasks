@@ -14,7 +14,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
@@ -99,7 +98,6 @@ public class MetadataDaoTests extends DatabaseTestCase {
     /**
      * Test metadata bound to task
      */
-    @Ignore
     @Test
     public void testMetadataConditions() {
         // create "happy"

@@ -14,7 +14,6 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
@@ -42,7 +41,6 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test basic task creation, fetch, and save
      */
-    @Ignore
     @Test
     public void testTaskCreation() {
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());
@@ -80,7 +78,6 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test various task fetch conditions
      */
-    @Ignore
     @Test
     public void testTaskConditions() {
         // create normal task
@@ -131,7 +128,6 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test task deletion
      */
-    @Ignore
     @Test
     public void testTDeletion() {
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());
@@ -151,7 +147,6 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test save without prior create doesn't work
      */
-    @Ignore
     @Test
     public void testSaveWithoutCreate() {
         // try to save task "happy"
@@ -167,7 +162,6 @@ public class TaskDaoTests extends DatabaseTestCase {
     /**
      * Test passing invalid task indices to various things
      */
-    @Ignore
     @Test
     public void testInvalidIndex() {
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());

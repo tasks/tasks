@@ -52,7 +52,6 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectParent(tasks[4], null);
     }
 
-    @Ignore
     @Test
     public void testBasicSiblingComputation() {
         Task[] tasks = givenTasksABCDE();
@@ -78,7 +77,6 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         thenExpectMetadataParent(tasks[4], null);
     }
 
-    @Ignore
     @Test
     public void testMetadataOrderComputation() {
         Task[] tasks = givenTasksABCDE();

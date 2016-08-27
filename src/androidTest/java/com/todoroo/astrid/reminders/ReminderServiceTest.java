@@ -14,7 +14,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.InjectingTestCase;
@@ -91,7 +90,6 @@ public class ReminderServiceTest extends InjectingTestCase {
         assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
     }
 
-    @Ignore
     @Test
     public void testRandom() {
         // test random

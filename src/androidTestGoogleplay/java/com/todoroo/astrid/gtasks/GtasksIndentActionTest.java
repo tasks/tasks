@@ -14,7 +14,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.TestComponent;
@@ -95,7 +94,6 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(0);
     }
 
-    @Ignore
     @Test
     public void testIndentWithChildren() {
         taskWithMetadata(0, 0);
@@ -132,7 +130,6 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(sibling, 0);
     }
 
-    @Ignore
     @Test
     public void testIndentWithChildrensChildren() {
         taskWithMetadata(0, 0);
