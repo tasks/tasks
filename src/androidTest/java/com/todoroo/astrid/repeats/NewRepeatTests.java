@@ -30,6 +30,7 @@ import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -37,6 +38,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static com.todoroo.astrid.repeats.RepeatTaskCompleteListener.computeNextDueDate;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -71,28 +73,17 @@ public class NewRepeatTests extends DatabaseTestCase {
         new RepeatTaskCompleteListener().onReceive(getTargetContext(), intent);
     }
 
-    protected void waitAndSync() {
+    private void waitAndSync() {
         // Subclasses can override this to insert sync functionality
         AndroidUtilities.sleepDeep(200L); // Delay to make sure changes persist
     }
 
-    protected long setCompletionDate(boolean completeBefore, Task t, long dueDate) {
-        long completionDate;
-        if (completeBefore)
-            completionDate = dueDate - DateUtilities.ONE_DAY;
-        else
-            completionDate = dueDate + DateUtilities.ONE_DAY;
-        t.setCompletionDate(completionDate);
-        saveAndTriggerRepeatListener(t);
-        return completionDate;
-    }
-
-    protected void assertTimesMatch(long expectedTime, long newDueDate) {
+    private void assertTimesMatch(long expectedTime, long newDueDate) {
         assertTrue(String.format("Expected %s, was %s", newDateTime(expectedTime), newDateTime(newDueDate)),
                 Math.abs(expectedTime - newDueDate) < 5000);
     }
 
-    protected void assertTimesWithinOneHour(long expectedTime, long newDueDate) {
+    private void assertTimesWithinOneHour(long expectedTime, long newDueDate) {
         assertTrue(String.format("Expected %s, was %s", newDateTime(expectedTime), newDateTime(newDueDate)),
                 Math.abs(expectedTime - newDueDate) <= DateUtilities.ONE_HOUR);
     }
@@ -113,7 +104,7 @@ public class NewRepeatTests extends DatabaseTestCase {
         assertEquals(1, taskDao.toList(Query.select(Task.ID)).size());
     }
 
-    protected void testRepeating(boolean completeBefore, boolean fromCompletion,
+    private void testRepeating(boolean completeBefore, boolean fromCompletion,
             RRule rrule, Frequency frequency, String title) {
         Task t = new Task();
         t.setTitle(title);
@@ -140,7 +131,13 @@ public class NewRepeatTests extends DatabaseTestCase {
         waitAndSync();
         t = taskDao.fetch(t.getId(), Task.PROPERTIES); // Refetch
 
-        long completionDate = setCompletionDate(completeBefore, t, dueDate);
+        long completionDate;
+        if (completeBefore)
+            completionDate = dueDate - DateUtilities.ONE_DAY;
+        else
+            completionDate = dueDate + DateUtilities.ONE_DAY;
+        t.setCompletionDate(completionDate);
+        saveAndTriggerRepeatListener(t);
         System.err.println("Completion date: " + newDateTime(completionDate));
 
         waitAndSync();
@@ -215,7 +212,7 @@ public class NewRepeatTests extends DatabaseTestCase {
 
 
     /** Advanced weekly repeating tests */
-    protected long computeNextDueDateFromDate(long fromDate, RRule rrule, boolean fromCompletion) {
+    private long computeNextDueDateFromDate(long fromDate, RRule rrule, boolean fromCompletion) {
         long expectedTime = fromDate;
         Frequency frequency = rrule.getFreq();
         int interval = rrule.getInterval();
@@ -248,89 +245,59 @@ public class NewRepeatTests extends DatabaseTestCase {
         return expectedTime;
     }
 
-    private void testFromDueDate(boolean completeBefore, Frequency frequency, String title) {
-        testRepeating(completeBefore, false, null, frequency, title);
-    }
-
     private void testFromCompletionDate(boolean completeBefore, Frequency frequency, String title) {
         testRepeating(completeBefore, true, null, frequency, title);
     }
 
-
     /** Tests for repeating from due date */
 
-    @Ignore
     @Test
-    public void testRepeatMinutelyFromDueDateCompleteBefore() {
-        testFromDueDate(true, Frequency.MINUTELY, "minutely-before");
+    public void testRepeatMinutelyFromDueDate() throws ParseException {
+        DateTime dueDateTime = newDayTime(2016, 8, 26, 12, 30);
+        Task task = newFromDue(Frequency.MINUTELY, 1, dueDateTime);
+
+        assertEquals(newDayTime(2016, 8, 26, 12, 31), calculateNextDueDate(task));
     }
 
-    @Ignore
     @Test
-    public void testRepeatMinutelyFromDueDateCompleteAfter() {
-        testFromDueDate(false, Frequency.MINUTELY, "minutely-after");
+    public void testRepeatHourlyFromDueDate() throws ParseException {
+        DateTime dueDateTime = newDayTime(2016, 8, 26, 12, 30);
+        Task task = newFromDue(Frequency.HOURLY, 1, dueDateTime);
+
+        assertEquals(newDayTime(2016, 8, 26, 13, 30), calculateNextDueDate(task));
     }
 
-    @Ignore
     @Test
-    public void testRepeatHourlyFromDueDateCompleteBefore() {
-        testFromDueDate(true, Frequency.HOURLY, "hourly-before");
+    public void testRepeatDailyFromDueDate() throws ParseException {
+        DateTime dueDateTime = newDayTime(2016, 8, 26, 12, 30);
+        Task task = newFromDue(Frequency.DAILY, 1, dueDateTime);
+
+        assertEquals(newDayTime(2016, 8, 27, 12, 30), calculateNextDueDate(task));
     }
 
-    @Ignore
     @Test
-    public void testRepeatHourlyFromDueDateCompleteAfter() {
-        testFromDueDate(false, Frequency.HOURLY, "hourly-after");
+    public void testRepeatWeeklyFromDueDate() throws ParseException {
+        DateTime dueDateTime = newDayTime(2016, 8, 28, 1, 34);
+        Task task = newFromDue(Frequency.WEEKLY, 1, dueDateTime);
+
+        assertEquals(newDayTime(2016, 9, 4, 1, 34), calculateNextDueDate(task));
     }
 
-    @Ignore
     @Test
-    public void testRepeatDailyFromDueDateCompleteBefore() {
-        testFromDueDate(true, Frequency.DAILY, "daily-before");
+    public void testRepeatMonthlyFromDueDate() throws ParseException {
+        DateTime dueDateTime = newDayTime(2016, 8, 28, 1, 44);
+        Task task = newFromDue(Frequency.MONTHLY, 1, dueDateTime);
+
+        assertEquals(newDayTime(2016, 9, 28, 1, 44), calculateNextDueDate(task));
     }
 
-    @Ignore
     @Test
-    public void testRepeatDailyFromDueDateCompleteAfter() {
-        testFromDueDate(false, Frequency.DAILY, "daily-after");
-    }
+    public void testRepeatYearlyFromDueDate() throws ParseException {
+        DateTime dueDateTime = newDayTime(2016, 8, 28, 1, 44);
+        Task task = newFromDue(Frequency.YEARLY, 1, dueDateTime);
 
-    @Ignore
-    @Test
-    public void testRepeatWeeklyFromDueDateCompleteBefore() {
-        testFromDueDate(true, Frequency.WEEKLY, "weekly-before");
+        assertEquals(newDayTime(2017, 8, 28, 1, 44), calculateNextDueDate(task));
     }
-
-    @Ignore
-    @Test
-    public void testRepeatWeeklyFromDueDateCompleteAfter() {
-        testFromDueDate(false, Frequency.WEEKLY, "weekly-after");
-    }
-
-    @Ignore
-    @Test
-    public void testRepeatMonthlyFromDueDateCompleteBefore() {
-        testFromDueDate(true, Frequency.MONTHLY, "monthly-before");
-    }
-
-    @Ignore
-    @Test
-    public void testRepeatMonthlyFromDueDateCompleteAfter() {
-        testFromDueDate(false, Frequency.MONTHLY, "monthly-after");
-    }
-
-    @Ignore
-    @Test
-    public void testRepeatYearlyFromDueDateCompleteBefore() {
-        testFromDueDate(true, Frequency.YEARLY, "yearly-before");
-    }
-
-    @Ignore
-    @Test
-    public void testRepeatYearlyFromDueDateCompleteAfter() {
-        testFromDueDate(false, Frequency.YEARLY, "yearly-after");
-    }
-
 
     /** Tests for repeating from completionDate */
 
@@ -457,5 +424,31 @@ public class NewRepeatTests extends DatabaseTestCase {
     @Test
     public void testAdvancedRepeatWeeklyFromCompleteDateCompleteAfter() {
         testAdvancedWeeklyFromCompleteDate(false, "advanced-weekly-after");
+    }
+
+    private DateTime newDayTime(int year, int month, int day, int hour, int minute) {
+        return new DateTime(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new DateTime(year, month, day, hour, minute).getMillis()));
+    }
+
+    private DateTime calculateNextDueDate(Task task) throws ParseException {
+        return new DateTime(computeNextDueDate(task, task.sanitizedRecurrence(), task.repeatAfterCompletion()));
+    }
+
+    private Task newFromDue(Frequency frequency, int interval, DateTime dueDate) {
+        return new Task() {{
+            setRecurrence(getRecurrenceRule(frequency, interval, false));
+            setDueDate(dueDate.getMillis());
+        }};
+    }
+
+    private String getRecurrenceRule(Frequency frequency, int interval, boolean fromCompletion) {
+        RRule rrule = new RRule();
+        rrule.setFreq(frequency);
+        rrule.setInterval(interval);
+        String result = rrule.toIcal();
+        if (fromCompletion) {
+            result += ";FROM=COMPLETION";
+        }
+        return result;
     }
 }
