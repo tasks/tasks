@@ -14,7 +14,6 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.TitleParser;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;
@@ -185,7 +184,6 @@ public class TitleParserTest extends DatabaseTestCase {
 
 
    // ----------------Days begin----------------//
-   @Ignore
    @Test
     public void testDays() {
         Calendar today = Calendar.getInstance();
@@ -195,7 +193,7 @@ public class TitleParserTest extends DatabaseTestCase {
         task.setTitle(title);
         taskService.createWithValues(task, null, title);
         DateTime date = newDateTime(task.getDueDate());
-        assertEquals(date.getDayOfMonth(), today.get(Calendar.DAY_OF_WEEK));
+        assertEquals(date.getDayOfWeek(), today.get(Calendar.DAY_OF_WEEK));
         //Calendar starts 1-6, date.getDay() starts at 0
 
         task = new Task();
@@ -230,14 +228,14 @@ public class TitleParserTest extends DatabaseTestCase {
             task.setTitle(title);
             taskService.createWithValues(task, null, title);
             date = newDateTime(task.getDueDate());
-            assertEquals(date.getDayOfWeek(), i);
+            assertEquals(date.getDayOfWeek(), i + 1);
 
             task = new Task();
             title = "Jog "+ abrevDays[i];
             task.setTitle(title);
             taskService.createWithValues(task, null, title);
             date = newDateTime(task.getDueDate());
-            assertEquals(date.getDayOfWeek(), i);
+            assertEquals(date.getDayOfWeek(), i + 1);
         }
 
         }
