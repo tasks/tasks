@@ -243,23 +243,19 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
     /** Set up repeat start date */
     private static DateTime setUpStartDate(Task task, boolean repeatAfterCompletion, Frequency frequency) {
-        DateTime startDate = newDateTime();
-        if(task.hasDueDate()) {
-            DateTime dueDate = newDateTime(task.getDueDate());
-            if(repeatAfterCompletion) {
-                startDate = newDateTime(task.getCompletionDate());
-            } else {
-                startDate = dueDate;
-            }
-
+        if (repeatAfterCompletion) {
+            DateTime startDate = task.isCompleted() ? newDateTime(task.getCompletionDate()) : newDateTime();
             if(task.hasDueTime() && frequency != Frequency.HOURLY && frequency != Frequency.MINUTELY) {
+                DateTime dueDate = newDateTime(task.getDueDate());
                 startDate = startDate
                         .withHourOfDay(dueDate.getHourOfDay())
                         .withMinuteOfHour(dueDate.getMinuteOfHour())
                         .withSecondOfMinute(dueDate.getSecondOfMinute());
             }
+            return startDate;
+        } else {
+            return task.hasDueDate() ? newDateTime(task.getDueDate()) : newDateTime();
         }
-        return startDate;
     }
 
     private static DateValue setUpStartDateAsDV(Task task, DateTime startDate) {
