@@ -65,9 +65,9 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
             return;
         }
         widgetPreferences = new WidgetPreferences(this, preferences, appWidgetId);
-        setResult(RESULT_OK, new Intent() {{
-            putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        }});
+        Intent data = new Intent();
+        data.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        setResult(RESULT_OK, data);
 
         setupCheckbox(R.string.p_widget_show_due_date);
         setupCheckbox(R.string.p_widget_show_checkboxes);
@@ -76,25 +76,25 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
         showSettings.setDependency(showHeader.getKey());
 
         findPreference(R.string.p_widget_filter).setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(WidgetConfigActivity.this, FilterSelectionActivity.class) {{
-                putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-            }}, REQUEST_FILTER);
+            Intent intent = new Intent(WidgetConfigActivity.this, FilterSelectionActivity.class);
+            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            startActivityForResult(intent, REQUEST_FILTER);
             return false;
         });
 
         findPreference(R.string.p_widget_theme).setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(WidgetConfigActivity.this, ColorPickerActivity.class) {{
-                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND);
-            }}, REQUEST_THEME_SELECTION);
+            Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND);
+            startActivityForResult(intent, REQUEST_THEME_SELECTION);
             return false;
         });
 
         Preference colorPreference = findPreference(R.string.p_widget_color);
         colorPreference.setDependency(showHeader.getKey());
         colorPreference.setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(WidgetConfigActivity.this, ColorPickerActivity.class) {{
-                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
-            }}, REQUEST_COLOR_SELECTION);
+            Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+            startActivityForResult(intent, REQUEST_COLOR_SELECTION);
             return false;
         });
 
@@ -156,10 +156,10 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
 
         broadcaster.refresh();
         // force update after setting preferences
-        sendBroadcast(new Intent(this, TasksWidget.class) {{
-            setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{appWidgetId});
-        }});
+        Intent intent = new Intent(this, TasksWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{appWidgetId});
+        sendBroadcast(intent);
     }
 
     @Override

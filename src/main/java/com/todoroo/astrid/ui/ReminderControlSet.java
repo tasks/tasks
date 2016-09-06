@@ -318,9 +318,9 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
 
     private void addNewAlarm() {
-        startActivityForResult(new Intent(getActivity(), DateAndTimePickerActivity.class) {{
-            putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, newDateTime().startOfDay().getMillis());
-        }}, REQUEST_NEW_ALARM);
+        Intent intent = new Intent(getActivity(), DateAndTimePickerActivity.class);
+        intent.putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, newDateTime().startOfDay().getMillis());
+        startActivityForResult(intent, REQUEST_NEW_ALARM);
     }
 
     private View addAlarmRow(String text, final OnClickListener onRemove) {

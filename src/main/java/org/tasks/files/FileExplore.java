@@ -97,9 +97,9 @@ public class FileExplore extends InjectingAppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = data.getData();
                 final File file = new File(uri.getPath());
-                setResult(Activity.RESULT_OK, new Intent() {{
-                    putExtra(directoryMode ? EXTRA_DIRECTORY : EXTRA_FILE, file.getAbsolutePath());
-                }});
+                Intent intent = new Intent();
+                intent.putExtra(directoryMode ? EXTRA_DIRECTORY : EXTRA_FILE, file.getAbsolutePath());
+                setResult(Activity.RESULT_OK, intent);
             }
             finish();
         } else {

@@ -81,13 +81,13 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
     }
 
     private void timeSet(final int hour, final int minute) {
-        setResult(RESULT_OK, new Intent() {{
-            putExtra(EXTRA_TIMESTAMP, initial
-                    .startOfDay()
-                    .withHourOfDay(hour)
-                    .withMinuteOfHour(minute)
-                    .getMillis());
-        }});
+        Intent data = new Intent();
+        data.putExtra(EXTRA_TIMESTAMP, initial
+                .startOfDay()
+                .withHourOfDay(hour)
+                .withMinuteOfHour(minute)
+                .getMillis());
+        setResult(RESULT_OK, data);
         finish();
     }
 }

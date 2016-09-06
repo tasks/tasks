@@ -289,9 +289,9 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
                             .withSecondOfMinute(0);
 
             final Activity activity = getActivity();
-            startActivityForResult(new Intent(activity, DateAndTimePickerActivity.class) {{
-                putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, customDate.getMillis());
-            }}, REQUEST_HIDE_UNTIL);
+            Intent intent = new Intent(activity, DateAndTimePickerActivity.class);
+            intent.putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, customDate.getMillis());
+            startActivityForResult(intent, REQUEST_HIDE_UNTIL);
             spinner.setSelection(previousSetting);
         } else {
             previousSetting = position;

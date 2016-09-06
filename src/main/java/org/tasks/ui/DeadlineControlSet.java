@@ -212,9 +212,9 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 setDate(today.plusWeeks(1).getMillis());
                 break;
             case 4:
-                startActivityForResult(new Intent(context, DatePickerActivity.class) {{
-                    putExtra(DatePickerActivity.EXTRA_TIMESTAMP, date);
-                }}, REQUEST_DATE);
+                Intent intent = new Intent(context, DatePickerActivity.class);
+                intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, date);
+                startActivityForResult(intent, REQUEST_DATE);
                 updateDueDateOptions();
                 break;
         }
@@ -241,9 +241,9 @@ public class DeadlineControlSet extends TaskEditControlFragment {
                 setTime(dateShortcutNight);
                 break;
             case 6:
-                startActivityForResult(new Intent(context, TimePickerActivity.class) {{
-                    putExtra(TimePickerActivity.EXTRA_TIMESTAMP, getDueDateTime());
-                }}, REQUEST_TIME);
+                Intent intent = new Intent(context, TimePickerActivity.class);
+                intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, getDueDateTime());
+                startActivityForResult(intent, REQUEST_TIME);
                 updateDueTimeOptions();
                 break;
         }

@@ -96,9 +96,9 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     public void pickDateTime() {
         pickingDateTime = true;
 
-        startActivityForResult(new Intent(this, DateAndTimePickerActivity.class) {{
-            putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, new DateTime().plusMinutes(30).getMillis());
-        }}, REQUEST_DATE_TIME);
+        Intent intent = new Intent(this, DateAndTimePickerActivity.class);
+        intent.putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, new DateTime().plusMinutes(30).getMillis());
+        startActivityForResult(intent, REQUEST_DATE_TIME);
     }
 
     @Override

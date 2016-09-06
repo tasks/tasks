@@ -136,9 +136,9 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     @OnClick(R.id.theme_row)
     protected void showThemePicker() {
-        startActivityForResult(new Intent(TagSettingsActivity.this, ColorPickerActivity.class) {{
-            putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
-        }}, REQUEST_COLOR_PICKER);
+        Intent intent = new Intent(TagSettingsActivity.this, ColorPickerActivity.class);
+        intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+        startActivityForResult(intent, REQUEST_COLOR_PICKER);
     }
 
     @OnClick(R.id.clear)

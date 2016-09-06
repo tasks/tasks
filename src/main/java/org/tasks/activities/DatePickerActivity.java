@@ -77,9 +77,9 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
     }
 
     private void dateSet(final int year, final int month, final int day) {
-        setResult(RESULT_OK, new Intent() {{
-            putExtra(EXTRA_TIMESTAMP, new DateTime(year, month + 1, day).getMillis());
-        }});
+        Intent data = new Intent();
+        data.putExtra(EXTRA_TIMESTAMP, new DateTime(year, month + 1, day).getMillis());
+        setResult(RESULT_OK, data);
         finish();
     }
 }

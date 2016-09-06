@@ -31,9 +31,9 @@ public class BackupPreferences extends InjectingPreferenceActivity {
         addPreferencesFromResource(R.xml.preferences_backup);
 
         findPreference(R.string.backup_BAc_import).setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(BackupPreferences.this, FileExplore.class) {{
-                putExtra(FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
-            }}, REQUEST_PICKER);
+            Intent intent = new Intent(BackupPreferences.this, FileExplore.class);
+            intent.putExtra(FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
+            startActivityForResult(intent, REQUEST_PICKER);
             return false;
         });
 

@@ -86,11 +86,10 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements Mi
 
     @Override
     public void callLater() {
-        Task task = new Task() {{
-            setTitle(TextUtils.isEmpty(name)
-                    ? getString(R.string.MCA_task_title_no_name, number)
-                    : getString(R.string.MCA_task_title_name, name, number));
-        }};
+        Task task = new Task();
+        task.setTitle(TextUtils.isEmpty(name)
+                ? getString(R.string.MCA_task_title_no_name, number)
+                : getString(R.string.MCA_task_title_name, name, number));
         taskService.save(task);
         TaskIntents
                 .getEditTaskStack(this, null, task.getId())

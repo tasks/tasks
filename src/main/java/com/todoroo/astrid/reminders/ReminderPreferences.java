@@ -82,9 +82,9 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
 
         findPreference(getString(R.string.p_led_color)).setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(ReminderPreferences.this, ColorPickerActivity.class) {{
-                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.LED);
-            }}, REQUEST_LED_PICKER);
+            Intent intent = new Intent(ReminderPreferences.this, ColorPickerActivity.class);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.LED);
+            startActivityForResult(intent, REQUEST_LED_PICKER);
             return false;
         });
 
@@ -130,9 +130,9 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private void initializeTimePreference(final TimePreference preference, final int requestCode) {
         preference.setOnPreferenceClickListener(ignored -> {
             final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
-            startActivityForResult(new Intent(ReminderPreferences.this, TimePickerActivity.class) {{
-                putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
-            }}, requestCode);
+            Intent intent = new Intent(ReminderPreferences.this, TimePickerActivity.class);
+            intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
+            startActivityForResult(intent, requestCode);
             return true;
         });
     }

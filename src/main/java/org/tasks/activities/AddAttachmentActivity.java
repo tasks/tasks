@@ -81,9 +81,8 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
 
     @Override
     public void pickFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI) {{
-            setType("image/*");
-        }};
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_GALLERY);
         }
@@ -103,20 +102,20 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
                 String path = file.getPath();
                 Timber.i("Saved %s", file.getAbsolutePath());
                 final String extension = path.substring(path.lastIndexOf('.') + 1);
-                setResult(RESULT_OK, new Intent() {{
-                    putExtra(EXTRA_PATH, file.getAbsolutePath());
-                    putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
-                }});
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_PATH, file.getAbsolutePath());
+                intent.putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
+                setResult(RESULT_OK, intent);
             }
             finish();
         } else if (requestCode == REQUEST_CODE_RECORD) {
             if (resultCode == RESULT_OK) {
                 final String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
                 final String extension = recordedAudioPath.substring(recordedAudioPath.lastIndexOf('.') + 1);
-                setResult(RESULT_OK, new Intent() {{
-                    putExtra(EXTRA_PATH, recordedAudioPath);
-                    putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_AUDIO + extension);
-                }});
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_PATH, recordedAudioPath);
+                intent.putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_AUDIO + extension);
+                setResult(RESULT_OK, intent);
             }
             finish();
         } else if (requestCode == REQUEST_GALLERY) {
@@ -133,10 +132,10 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                setResult(RESULT_OK, new Intent() {{
-                    putExtra(EXTRA_PATH, tempFile.getAbsolutePath());
-                    putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
-                }});
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_PATH, tempFile.getAbsolutePath());
+                intent.putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
+                setResult(RESULT_OK, intent);
             }
             finish();
         } else if (requestCode == REQUEST_STORAGE) {
@@ -146,10 +145,10 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
                 if (destination != null) {
                     Timber.i("Copied %s to %s", path, destination);
                     final String extension = destination.substring(path.lastIndexOf('.') + 1);
-                    setResult(RESULT_OK, new Intent() {{
-                        putExtra(EXTRA_PATH, destination);
-                        putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
-                    }});
+                    Intent intent = new Intent();
+                    intent.putExtra(EXTRA_PATH, destination);
+                    intent.putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_IMAGE + extension);
+                    setResult(RESULT_OK, intent);
                 }
             }
             finish();

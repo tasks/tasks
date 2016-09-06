@@ -31,6 +31,16 @@ public class Geofence implements Serializable, Parcelable {
         this.radius = radius;
     }
 
+    public Metadata toMetadata() {
+        Metadata metadata = new Metadata();
+        metadata.setKey(GeofenceFields.METADATA_KEY);
+        metadata.setValue(GeofenceFields.PLACE, name);
+        metadata.setValue(GeofenceFields.LATITUDE, latitude);
+        metadata.setValue(GeofenceFields.LONGITUDE, longitude);
+        metadata.setValue(GeofenceFields.RADIUS, radius);
+        return metadata;
+    }
+
     public String getName() {
         return name;
     }

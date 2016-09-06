@@ -89,9 +89,9 @@ abstract public class RemoteModel extends AbstractModel {
 
         public static JSONObject savePictureJson(final Uri uri) {
             try {
-                return new JSONObject() {{
-                    put("uri", uri.toString());
-                }};
+                JSONObject json = new JSONObject();
+                json.put("uri", uri.toString());
+                return json;
             } catch (JSONException e) {
                 Timber.e(e, e.getMessage());
             }

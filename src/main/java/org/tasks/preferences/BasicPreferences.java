@@ -83,25 +83,25 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         Preference themePreference = findPreference(getString(R.string.p_theme));
         themePreference.setSummary(themeBase.getName());
         themePreference.setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
-                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.THEMES);
-            }}, REQUEST_THEME_PICKER);
+            Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.THEMES);
+            startActivityForResult(intent, REQUEST_THEME_PICKER);
             return false;
         });
         Preference colorPreference = findPreference(getString(R.string.p_theme_color));
         colorPreference.setSummary(themeColor.getName());
         colorPreference.setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
-                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
-            }}, REQUEST_COLOR_PICKER);
+            Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+            startActivityForResult(intent, REQUEST_COLOR_PICKER);
             return false;
         });
         Preference accentPreference = findPreference(getString(R.string.p_theme_accent));
         accentPreference.setSummary(themeAccent.getName());
         accentPreference.setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(BasicPreferences.this, ColorPickerActivity.class) {{
-                putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.ACCENTS);
-            }}, REQUEST_ACCENT_PICKER);
+            Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.ACCENTS);
+            startActivityForResult(intent, REQUEST_ACCENT_PICKER);
             return false;
         });
         Preference languagePreference = findPreference(getString(R.string.p_language));
@@ -266,9 +266,11 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     private void showRestartDialog() {
         dialogBuilder.newDialog()
                 .setMessage(R.string.restart_required)
-                .setPositiveButton(R.string.restart_now, (dialogInterface, i) -> ProcessPhoenix.triggerRebirth(BasicPreferences.this, new Intent(BasicPreferences.this, TaskListActivity.class) {{
-                    putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
-                }}))
+                .setPositiveButton(R.string.restart_now, (dialogInterface, i) -> {
+                    Intent nextIntent = new Intent(BasicPreferences.this, TaskListActivity.class);
+                    nextIntent.putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
+                    ProcessPhoenix.triggerRebirth(BasicPreferences.this, nextIntent);
+                })
                 .setNegativeButton(R.string.restart_later, null)
                 .show();
     }
@@ -281,9 +283,9 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
 
     @Override
     public void finish() {
-        setResult(Activity.RESULT_OK, new Intent() {{
-            putExtras(result);
-        }});
+        Intent data = new Intent();
+        data.putExtras(result);
+        setResult(Activity.RESULT_OK, data);
 
         super.finish();
     }

@@ -54,9 +54,9 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
         Filter filter = defaultFilterProvider.getDefaultFilter();
         defaultList.setSummary(filter.listingTitle);
         defaultList.setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(AppearancePreferences.this, FilterSelectionActivity.class) {{
-                putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-            }}, REQUEST_DEFAULT_LIST);
+            Intent intent = new Intent(AppearancePreferences.this, FilterSelectionActivity.class);
+            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            startActivityForResult(intent, REQUEST_DEFAULT_LIST);
             return true;
         });
     }
@@ -70,9 +70,9 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
 
     @Override
     public void finish() {
-        setResult(RESULT_OK, new Intent() {{
-            putExtras(result);
-        }});
+        Intent data = new Intent();
+        data.putExtras(result);
+        setResult(RESULT_OK, data);
         super.finish();
     }
 

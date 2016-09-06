@@ -2,7 +2,6 @@ package org.tasks.location;
 
 import android.content.ContentValues;
 
-import com.google.common.base.Function;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
@@ -61,15 +60,9 @@ public class GeofenceService {
     }
 
     public boolean synchronizeGeofences(final long taskId, Set<Geofence> geofences) {
-        List<Metadata> metadata = newArrayList(transform(geofences, (Function<Geofence, Metadata>) geofence -> new Metadata() {{
-            setKey(GeofenceFields.METADATA_KEY);
-            setValue(GeofenceFields.PLACE, geofence.getName());
-            setValue(GeofenceFields.LATITUDE, geofence.getLatitude());
-            setValue(GeofenceFields.LONGITUDE, geofence.getLongitude());
-            setValue(GeofenceFields.RADIUS, geofence.getRadius());
-        }}));
+        List<Metadata> metadatas = newArrayList(transform(geofences, Geofence::toMetadata));
 
-        boolean changed = synchronizeMetadata(taskId, metadata, m -> geofenceApi.cancel(new Geofence(m)));
+        boolean changed = synchronizeMetadata(taskId, metadatas, m -> geofenceApi.cancel(new Geofence(m)));
 
         if(changed) {
             setupGeofences(taskId);

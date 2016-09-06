@@ -87,13 +87,13 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
         }
 
         if (shouldShowReminder && isMeeting(event)) {
-            context.startActivity(new Intent(context, CalendarReminderActivity.class) {{
-                putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
-                putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, event.getTitle());
-                putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, event.getEnd());
-                putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
-                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            }});
+            Intent intent = new Intent(context, CalendarReminderActivity.class);
+            intent.putExtra(CalendarReminderActivity.TOKEN_EVENT_ID, eventId);
+            intent.putExtra(CalendarReminderActivity.TOKEN_EVENT_NAME, event.getTitle());
+            intent.putExtra(CalendarReminderActivity.TOKEN_EVENT_END_TIME, event.getEnd());
+            intent.putExtra(CalendarReminderActivity.TOKEN_FROM_POSTPONE, fromPostpone);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            context.startActivity(intent);
         }
     }
 

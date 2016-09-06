@@ -37,10 +37,10 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
 
     @Override
     public void selectedCalendar(final AndroidCalendar androidCalendar) {
-        setResult(RESULT_OK, new Intent() {{
-            putExtra(EXTRA_CALENDAR_ID, androidCalendar.getId());
-            putExtra(EXTRA_CALENDAR_NAME, androidCalendar.getName());
-        }});
+        Intent data = new Intent();
+        data.putExtra(EXTRA_CALENDAR_ID, androidCalendar.getId());
+        data.putExtra(EXTRA_CALENDAR_NAME, androidCalendar.getName());
+        setResult(RESULT_OK, data);
         finish();
     }
 

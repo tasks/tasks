@@ -56,10 +56,10 @@ public class VoiceOutputAssistant implements OnInitListener {
                     shutdown();
                 }
             });
-            mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, new HashMap<String, String>() {{
-                put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_NOTIFICATION));
-                put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, id);
-            }});
+            HashMap<String, String> params = new HashMap<>();
+            params.put(TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_NOTIFICATION));
+            params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, id);
+            mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, params);
         } else {
             lastTextToSpeak = textToSpeak;
             initTTS();

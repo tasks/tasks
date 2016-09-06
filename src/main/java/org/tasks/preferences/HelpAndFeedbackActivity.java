@@ -21,11 +21,10 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
 
         addPreferencesFromResource(R.xml.preferences_help);
 
-        findPreference(getString(R.string.contact_developer)).setIntent(
-                new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null)) {{
-                    putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
-                    putExtra(Intent.EXTRA_TEXT, device.getDebugInfo());
-                }});
+        Intent mailto = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null));
+        mailto.putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
+        mailto.putExtra(Intent.EXTRA_TEXT, device.getDebugInfo());
+        findPreference(getString(R.string.contact_developer)).setIntent(mailto);
         if (!getResources().getBoolean(R.bool.google_play_store_available)) {
             remove(R.string.rate_tasks);
         }

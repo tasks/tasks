@@ -31,9 +31,9 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        startActivityForResult(new Intent(this, FilterSelectionActivity.class) {{
-            putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-        }}, REQUEST_FILTER);
+        Intent intent = new Intent(this, FilterSelectionActivity.class);
+        intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+        startActivityForResult(intent, REQUEST_FILTER);
     }
 
     @Override

@@ -46,16 +46,16 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
         dialogBuilder.newDialog()
                 .setSingleChoiceItems(filterAdapter, -1, (dialog, which) -> {
                     final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
-                    setResult(RESULT_OK, new Intent() {{
-                        if (returnFilter) {
-                            putExtra(EXTRA_FILTER, selectedFilter);
-                        }
-                        putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
-                        putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
-                        if (selectedFilter.valuesForNewTasks != null) {
-                            putExtra(EXTRA_FILTER_VALUES, AndroidUtilities.contentValuesToSerializedString(selectedFilter.valuesForNewTasks));
-                        }
-                    }});
+                    Intent data = new Intent();
+                    if (returnFilter) {
+                        data.putExtra(EXTRA_FILTER, selectedFilter);
+                    }
+                    data.putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
+                    data.putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
+                    if (selectedFilter.valuesForNewTasks != null) {
+                        data.putExtra(EXTRA_FILTER_VALUES, AndroidUtilities.contentValuesToSerializedString(selectedFilter.valuesForNewTasks));
+                    }
+                    setResult(RESULT_OK, data);
                     dialog.dismiss();
                 })
                 .setOnDismissListener(dialog -> finish())

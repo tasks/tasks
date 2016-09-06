@@ -133,13 +133,13 @@ public class RepeatControlSet extends TaskEditControlFragment {
         dialogView = inflater.inflate(R.layout.control_set_repeat, null);
         value = (Button) dialogView.findViewById(R.id.repeatValue);
         Spinner interval = (Spinner) dialogView.findViewById(R.id.repeatInterval);
-        interval.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_interval)) {{
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        }});
+        ArrayAdapter<String> intervalAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_interval));
+        intervalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        interval.setAdapter(intervalAdapter);
         Spinner type = (Spinner) dialogView.findViewById(R.id.repeatType);
-        type.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_type)) {{
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        }});
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_type));
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        type.setAdapter(typeAdapter);
         type.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -426,9 +426,9 @@ public class RepeatControlSet extends TaskEditControlFragment {
     }
 
     private void repeatUntilClick() {
-        startActivityForResult(new Intent(context, DatePickerActivity.class) {{
-            putExtra(DatePickerActivity.EXTRA_TIMESTAMP, repeatUntilValue > 0 ? repeatUntilValue : 0L);
-        }}, REQUEST_PICK_DATE);
+        Intent intent = new Intent(context, DatePickerActivity.class);
+        intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, repeatUntilValue > 0 ? repeatUntilValue : 0L);
+        startActivityForResult(intent, REQUEST_PICK_DATE);
     }
 
     @Override

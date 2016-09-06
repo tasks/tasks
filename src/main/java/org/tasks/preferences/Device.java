@@ -31,9 +31,9 @@ public class Device {
     }
 
     public boolean hasGallery() {
-        return new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI) {{
-            setType("image/*");
-        }}.resolveActivity(context.getPackageManager()) != null;
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        return intent.resolveActivity(context.getPackageManager()) != null;
     }
 
     public boolean supportsLocationServices() {

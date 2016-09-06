@@ -14,9 +14,9 @@ public class TaskEditActivity extends Activity {
 
         final long taskId = getIntent().getLongExtra(TOKEN_ID, 0);
 
-        startActivity(new Intent(this, TaskListActivity.class) {{
-            putExtra(TaskListActivity.OPEN_TASK, taskId);
-        }});
+        Intent intent = new Intent(this, TaskListActivity.class);
+        intent.putExtra(TaskListActivity.OPEN_TASK, taskId);
+        startActivity(intent);
 
         finish();
     }

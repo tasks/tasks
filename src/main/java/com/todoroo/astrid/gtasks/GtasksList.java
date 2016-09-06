@@ -17,11 +17,15 @@ public class GtasksList {
     private StoreObject storeObject;
 
     public GtasksList(final String remoteId) {
-        this(new StoreObject() {{
-            setType(GtasksList.TYPE);
-        }});
+        this(newStoreObject());
         setLastSync(0L);
         setRemoteId(remoteId);
+    }
+
+    private static StoreObject newStoreObject() {
+        StoreObject storeObject = new StoreObject();
+        storeObject.setType(GtasksList.TYPE);
+        return storeObject;
     }
 
     public GtasksList(StoreObject storeObject) {

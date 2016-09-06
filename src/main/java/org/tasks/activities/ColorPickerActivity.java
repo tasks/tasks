@@ -46,10 +46,10 @@ public class ColorPickerActivity extends InjectingAppCompatActivity implements C
 
     @Override
     public void themePicked(final ColorPickerDialog.ColorPalette palette, final int index) {
-        setResult(RESULT_OK, new Intent() {{
-            putExtra(EXTRA_PALETTE, palette);
-            putExtra(EXTRA_THEME_INDEX, index);
-        }});
+        Intent data = new Intent();
+        data.putExtra(EXTRA_PALETTE, palette);
+        data.putExtra(EXTRA_THEME_INDEX, index);
+        setResult(RESULT_OK, data);
         finish();
     }
 

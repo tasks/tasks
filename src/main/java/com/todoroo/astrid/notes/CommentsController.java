@@ -138,9 +138,11 @@ public class CommentsController {
             String path = getPathFromUri(activity, updateBitmap);
             commentPictureView.setImageBitmap(sampleBitmap(path, commentPictureView.getLayoutParams().width, commentPictureView.getLayoutParams().height));
 
-            view.setOnClickListener(v -> activity.startActivity(new Intent(Intent.ACTION_VIEW) {{
-                setDataAndType(updateBitmap, "image/*");
-            }}));
+            view.setOnClickListener(v -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(updateBitmap, "image/*");
+                activity.startActivity(intent);
+            });
         } else {
             commentPictureView.setVisibility(View.GONE);
         }

@@ -69,15 +69,15 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
             if (count == 0) {
                 publish(null);
             } else {
+                Intent clickIntent = new Intent(this, TaskListActivity.class);
+                clickIntent.putExtra(TaskListActivity.LOAD_FILTER, filterPreference);
                 ExtensionData extensionData = new ExtensionData()
                         .visible(true)
                         .icon(R.drawable.ic_check_white_24dp)
                         .status(Integer.toString(count))
                         .expandedTitle(getString(R.string.task_count, count))
                         .expandedBody(filter.listingTitle)
-                        .clickIntent(new Intent(this, TaskListActivity.class) {{
-                            putExtra(TaskListActivity.LOAD_FILTER, filterPreference);
-                        }});
+                        .clickIntent(clickIntent);
                 if (count == 1) {
                     List<Task> tasks = taskDao.query(filter);
                     if (!tasks.isEmpty()) {

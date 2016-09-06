@@ -104,10 +104,10 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
         final long timestamp = new DateTime(year, month + 1, day)
                 .withMillisOfDay(initial.getMillisOfDay())
                 .getMillis();
-        startActivity(new Intent(this, TimePickerActivity.class) {{
-            addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-            putExtra(TimePickerActivity.EXTRA_TIMESTAMP, timestamp);
-        }});
+        Intent intent = new Intent(this, TimePickerActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, timestamp);
+        startActivity(intent);
         finish();
     }
 }

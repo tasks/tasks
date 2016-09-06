@@ -21,14 +21,14 @@ public class CustomFilter extends Filter {
     }
 
     public StoreObject toStoreObject() {
-        return new StoreObject() {{
-            setId(id);
-            setValue(SavedFilter.NAME, listingTitle);
-            setValue(SavedFilter.SQL, sqlQuery);
-            if (valuesForNewTasks != null && valuesForNewTasks.size() > 0) {
-                setValue(SavedFilter.VALUES, AndroidUtilities.contentValuesToSerializedString(valuesForNewTasks));
-            }
-        }};
+        StoreObject storeObject = new StoreObject();
+        storeObject.setId(id);
+        storeObject.setValue(SavedFilter.NAME, listingTitle);
+        storeObject.setValue(SavedFilter.SQL, sqlQuery);
+        if (valuesForNewTasks != null && valuesForNewTasks.size() > 0) {
+            storeObject.setValue(SavedFilter.VALUES, AndroidUtilities.contentValuesToSerializedString(valuesForNewTasks));
+        }
+        return storeObject;
     }
 
     public long getId() {

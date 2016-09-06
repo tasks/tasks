@@ -50,9 +50,9 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         }
 
         findPreference(R.string.filter).setOnPreferenceClickListener(preference -> {
-            startActivityForResult(new Intent(TaskerSettingsActivity.this, FilterSelectionActivity.class) {{
-                putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-            }}, REQUEST_SELECT_FILTER);
+            Intent intent = new Intent(TaskerSettingsActivity.this, FilterSelectionActivity.class);
+            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            startActivityForResult(intent, REQUEST_SELECT_FILTER);
             return false;
         });
 

@@ -63,9 +63,9 @@ public class TagViewFragment extends TaskListFragment {
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_tag_settings:
-                startActivityForResult(new Intent(getActivity(), TagSettingsActivity.class) {{
-                    putExtra(TagSettingsActivity.EXTRA_TAG_DATA, tagData);
-                }}, REQUEST_EDIT_TAG);
+                Intent intent = new Intent(getActivity(), TagSettingsActivity.class);
+                intent.putExtra(TagSettingsActivity.EXTRA_TAG_DATA, tagData);
+                startActivityForResult(intent, REQUEST_EDIT_TAG);
                 return true;
             default:
                 return super.onMenuItemClick(item);

@@ -25,14 +25,13 @@ public class AACRecorder {
             return;
         }
 
-        mediaRecorder = new MediaRecorder() {{
-            setAudioSource(AudioSource.MIC);
-            setOutputFormat(OutputFormat.MPEG_4);
-            setAudioEncoder(AudioEncoder.AAC);
-            setOutputFile(tempFile);
-            setOnErrorListener((mr, what, extra) -> Timber.e("mediaRecorder.onError(mr, %s, %s)", what, extra));
-            setOnInfoListener((mr, what, extra) -> Timber.i("mediaRecorder.onInfo(mr, %s, %s)", what, extra));
-        }};
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        mediaRecorder.setOutputFile(tempFile);
+        mediaRecorder.setOnErrorListener((mr, what, extra) -> Timber.e("mediaRecorder.onError(mr, %s, %s)", what, extra));
+        mediaRecorder.setOnInfoListener((mr, what, extra) -> Timber.i("mediaRecorder.onInfo(mr, %s, %s)", what, extra));
 
         try {
             mediaRecorder.prepare();

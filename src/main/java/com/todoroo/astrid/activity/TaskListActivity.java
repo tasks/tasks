@@ -225,9 +225,11 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (syncAdapterHelper.shouldShowBackgroundSyncWarning() && !preferences.getBoolean(R.string.p_sync_warning_shown, false)) {
             if (taskListFragment != null) {
                 taskListFragment.makeSnackbar(R.string.master_sync_warning)
-                        .setAction(R.string.TLA_menu_settings, view -> startActivity(new Intent(Settings.ACTION_SYNC_SETTINGS) {{
-                            setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        }}))
+                        .setAction(R.string.TLA_menu_settings, view -> {
+                            Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        })
                         .setCallback(new Snackbar.Callback() {
                             @Override
                             public void onShown(Snackbar snackbar) {
@@ -326,9 +328,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
             final String listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME);
             intent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
-            startActivityForResult(new Intent(TaskListActivity.this, TagSettingsActivity.class) {{
-                putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName);
-            }}, NavigationDrawerFragment.REQUEST_NEW_LIST);
+            Intent activityIntent = new Intent(TaskListActivity.this, TagSettingsActivity.class);
+            activityIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName);
+            startActivityForResult(activityIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
         }
     }
 

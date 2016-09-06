@@ -338,9 +338,9 @@ public class TaskListFragment extends InjectingListFragment implements
                 broadcaster.refresh();
                 return true;
             case R.id.menu_filter_settings:
-                startActivityForResult(new Intent(getActivity(), FilterSettingsActivity.class) {{
-                    putExtra(FilterSettingsActivity.TOKEN_FILTER, filter);
-                }}, REQUEST_EDIT_FILTER);
+                Intent intent = new Intent(getActivity(), FilterSettingsActivity.class);
+                intent.putExtra(FilterSettingsActivity.TOKEN_FILTER, filter);
+                startActivityForResult(intent, REQUEST_EDIT_FILTER);
             default:
                 return super.onOptionsItemSelected(item);
         }

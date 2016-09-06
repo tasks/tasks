@@ -31,16 +31,16 @@ public class Broadcaster {
     }
 
     private void completeTask(final long taskId, final boolean flipState) {
-        sendOrderedBroadcast(new Intent(context, CompleteTaskReceiver.class) {{
-            putExtra(CompleteTaskReceiver.TASK_ID, taskId);
-            putExtra(CompleteTaskReceiver.TOGGLE_STATE, flipState);
-        }});
+        Intent intent = new Intent(context, CompleteTaskReceiver.class);
+        intent.putExtra(CompleteTaskReceiver.TASK_ID, taskId);
+        intent.putExtra(CompleteTaskReceiver.TOGGLE_STATE, flipState);
+        sendOrderedBroadcast(intent);
     }
 
     public void taskCompleted(final long id) {
-        sendOrderedBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED) {{
-            putExtra(AstridApiConstants.EXTRAS_TASK_ID, id);
-        }});
+        Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, id);
+        sendOrderedBroadcast(intent);
     }
 
     public void refresh() {
@@ -48,10 +48,10 @@ public class Broadcaster {
     }
 
     public void taskUpdated(final Task task, final ContentValues values) {
-        context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_SAVED) {{
-            putExtra(AstridApiConstants.EXTRAS_TASK, task);
-            putExtra(AstridApiConstants.EXTRAS_VALUES, values);
-        }});
+        Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_SAVED);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK, task);
+        intent.putExtra(AstridApiConstants.EXTRAS_VALUES, values);
+        context.sendBroadcast(intent);
     }
 
     private void sendOrderedBroadcast(Intent intent) {

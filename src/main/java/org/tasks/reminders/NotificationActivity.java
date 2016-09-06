@@ -12,6 +12,8 @@ import org.tasks.notifications.NotificationManager;
 
 import javax.inject.Inject;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class NotificationActivity extends InjectingAppCompatActivity implements NotificationDialog.NotificationHandler {
 
     private static final String FRAG_TAG_NOTIFICATION_FRAGMENT = "frag_tag_notification_fragment";
@@ -72,10 +74,10 @@ public class NotificationActivity extends InjectingAppCompatActivity implements 
     @Override
     public void snooze() {
         finish();
-        startActivity(new Intent(this, SnoozeActivity.class) {{
-            setFlags(FLAG_ACTIVITY_NEW_TASK);
-            putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
-        }});
+        Intent intent = new Intent(this, SnoozeActivity.class);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(SnoozeActivity.EXTRA_TASK_ID, taskId);
+        startActivity(intent);
     }
 
     @Override

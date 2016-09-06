@@ -43,10 +43,9 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
         long end = now + TimeUnit.DAYS.toMillis(1);
 
         for (final AndroidCalendarEvent event : calendarEventProvider.getEventsBetween(now, end)) {
-            Intent eventAlarm = new Intent(context, CalendarAlarmReceiver.class) {{
-                setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
-                setData(Uri.parse(URI_PREFIX + "://" + event.getId()));
-            }};
+            Intent eventAlarm = new Intent(context, CalendarAlarmReceiver.class);
+            eventAlarm.setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
+            eventAlarm.setData(Uri.parse(URI_PREFIX + "://" + event.getId()));
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                     CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, PendingIntent.FLAG_CANCEL_CURRENT);

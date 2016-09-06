@@ -36,11 +36,11 @@ public class FilterProvider {
     }
 
     public List<Filter> getFilters() {
-        return new ArrayList<Filter>() {{
-            addAll(builtInFilterExposer.getFilters());
-            addAll(timerFilterExposer.getFilters());
-            addAll(customFilterExposer.getFilters());
-        }};
+        ArrayList<Filter> filters = new ArrayList<>();
+        filters.addAll(builtInFilterExposer.getFilters());
+        filters.addAll(timerFilterExposer.getFilters());
+        filters.addAll(customFilterExposer.getFilters());
+        return filters;
     }
 
     public List<Filter> getTags() {

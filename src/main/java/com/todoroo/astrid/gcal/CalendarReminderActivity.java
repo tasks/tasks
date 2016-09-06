@@ -143,9 +143,9 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     }
 
     private void createNewList(final String name) {
-        startActivity(new Intent(CalendarReminderActivity.this, TaskListActivity.class) {{
-            putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST_NAME, name);
-        }});
+        Intent intent = new Intent(CalendarReminderActivity.this, TaskListActivity.class);
+        intent.putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST_NAME, name);
+        startActivity(intent);
         dismissButton.performClick(); // finish with animation
     }
 

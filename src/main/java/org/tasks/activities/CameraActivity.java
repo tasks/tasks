@@ -70,9 +70,9 @@ public class CameraActivity extends InjectingAppCompatActivity {
             if (resultCode == RESULT_OK) {
                 if (output != null) {
                     final Uri uri = Uri.fromFile(output);
-                    setResult(RESULT_OK, new Intent() {{
-                        putExtra(EXTRA_URI, uri);
-                    }});
+                    Intent intent = new Intent();
+                    intent.putExtra(EXTRA_URI, uri);
+                    setResult(RESULT_OK, intent);
                 }
             }
             finish();
