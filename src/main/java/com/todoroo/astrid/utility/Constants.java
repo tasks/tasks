@@ -18,4 +18,5 @@ public final class Constants {
 
     /** Notification Manager id for timing */
     public static final int NOTIFICATION_TIMER = -2;
+    public static final int NOTIFICATION_SYNC_ERROR = -3;
 }

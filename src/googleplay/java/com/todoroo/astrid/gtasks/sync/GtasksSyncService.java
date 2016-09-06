@@ -7,6 +7,7 @@ package com.todoroo.astrid.gtasks.sync;
 
 import android.text.TextUtils;
 
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
@@ -24,6 +25,7 @@ import com.todoroo.astrid.gtasks.OrderedMetadataListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 
+import org.tasks.analytics.Tracker;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ApplicationScope;
 
@@ -46,17 +48,19 @@ public class GtasksSyncService {
     private final GtasksInvoker gtasksInvoker;
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
     private final SyncAdapterHelper syncAdapterHelper;
+    private final Tracker tracker;
 
     @Inject
     public GtasksSyncService(MetadataDao metadataDao, TaskDao taskDao,
                              GtasksPreferenceService gtasksPreferenceService,
                              GtasksInvoker gtasksInvoker,
-                             SyncAdapterHelper syncAdapterHelper) {
+                             SyncAdapterHelper syncAdapterHelper, Tracker tracker) {
         this.metadataDao = metadataDao;
         this.taskDao = taskDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksInvoker = gtasksInvoker;
         this.syncAdapterHelper = syncAdapterHelper;
+        this.tracker = tracker;
         new OperationPushThread(operationQueue).start();
     }
 
@@ -110,8 +114,10 @@ public class GtasksSyncService {
                 }
                 try {
                     op.op(gtasksInvoker);
+                } catch (UserRecoverableAuthIOException ignored) {
+
                 } catch (IOException e) {
-                    Timber.e(e, e.getMessage());
+                    tracker.reportException(e);
                 }
             }
         }

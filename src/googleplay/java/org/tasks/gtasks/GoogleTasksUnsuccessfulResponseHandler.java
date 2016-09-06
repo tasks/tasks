@@ -42,7 +42,10 @@ public class GoogleTasksUnsuccessfulResponseHandler implements HttpUnsuccessfulR
         }
         int statusCode = response.getStatusCode();
         if ((statusCode == HttpStatusCodes.STATUS_CODE_UNAUTHORIZED || statusCode == HttpStatusCodes.STATUS_CODE_FORBIDDEN)) {
-            clearToken(googleAccountCredential);
+            boolean shouldRetry = clearToken(googleAccountCredential);
+            if (!shouldRetry) {
+                return false;
+            }
         } else if (statusCode == 400) { // bad request
             throw httpResponseException;
         } else if (statusCode == HttpStatusCodes.STATUS_CODE_NOT_FOUND) {
@@ -52,15 +55,19 @@ public class GoogleTasksUnsuccessfulResponseHandler implements HttpUnsuccessfulR
         return backoffHandler.handleResponse(request, response, supportsRetry);
     }
 
-    private void clearToken(GoogleAccountCredential credential) throws IOException {
+    private boolean clearToken(GoogleAccountCredential credential){
         try {
             String token = credential.getToken();
             Timber.d("Invalidating %s", token);
             GoogleAuthUtil.clearToken(context, token);
-            GoogleAuthUtil.getTokenWithNotification(context, credential.getSelectedAccount(), "oauth2:" + TasksScopes.TASKS, null);
+            GoogleAuthUtil.getToken(context, credential.getSelectedAccount(), "oauth2:" + TasksScopes.TASKS, null);
+            return true;
         } catch (GoogleAuthException e) {
             Timber.e(e, e.getMessage());
-            throw new IOException(e);
+            return false;
+        } catch (IOException e) {
+            Timber.e(e, e.getMessage());
+            return true;
         }
     }
 }

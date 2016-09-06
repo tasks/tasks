@@ -17,14 +17,18 @@
 package org.tasks.gtasks;
 
 import android.accounts.Account;
+import android.app.PendingIntent;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
+import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
@@ -50,12 +54,14 @@ import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.InjectingAbstractThreadedSyncAdapter;
 import org.tasks.injection.SyncAdapterComponent;
+import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.RecordSyncStatusCallback;
 import org.tasks.time.DateTime;
@@ -98,6 +104,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     @Inject MetadataDao metadataDao;
     @Inject GtasksMetadata gtasksMetadataFactory;
     @Inject Tracker tracker;
+    @Inject NotificationManager notificationManager;
 
     public GoogleTaskSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -135,12 +142,31 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             callback.started();
             synchronize();
             gtasksPreferenceService.recordSuccessfulSync();
+        } catch (UserRecoverableAuthIOException e) {
+            Timber.e(e, e.getMessage());
+            sendNotification(getContext(), e.getIntent());
+        } catch (IOException e) {
+            Timber.e(e, e.getMessage());
         } catch (Exception e) {
             tracker.reportException(e);
         } finally {
             callback.finished();
             Timber.d("%s: end sync", account);
         }
+    }
+
+    private void sendNotification(Context context, Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_FROM_BACKGROUND);
+
+        PendingIntent resolve = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setAutoCancel(true)
+                .setContentIntent(resolve)
+                .setContentTitle(context.getString(R.string.sync_error_permissions))
+                .setContentText(context.getString(R.string.common_google_play_services_notification_ticker))
+                .setAutoCancel(true)
+                .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                .setTicker(context.getString(R.string.common_google_play_services_notification_ticker));
+        notificationManager.notify(Constants.NOTIFICATION_SYNC_ERROR, builder.build());
     }
 
     private void synchronize() throws IOException {
@@ -168,13 +194,15 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         }
     }
 
-    private void pushLocalChanges() {
+    private void pushLocalChanges() throws UserRecoverableAuthIOException {
         List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES)
                 .join(Join.left(Metadata.TABLE, Criterion.and(MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK))))
                 .where(Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC), GtasksMetadata.ID.eq(""))));
         for (Task task : tasks) {
             try {
                 pushTask(task, task.getMergedValues(), gtasksInvoker);
+            } catch (UserRecoverableAuthIOException e) {
+                throw e;
             } catch (IOException e) {
                 tracker.reportException(e);
             }
@@ -292,7 +320,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                 MetadataDao.MetadataCriteria.isDeleted()));
     }
 
-    private synchronized void fetchAndApplyRemoteChanges(GtasksList list) {
+    private synchronized void fetchAndApplyRemoteChanges(GtasksList list) throws UserRecoverableAuthIOException {
         String listId = list.getRemoteId();
         long lastSyncDate = list.getLastSync();
 
@@ -327,6 +355,8 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                 storeObjectDao.persist(list);
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
+        } catch (UserRecoverableAuthIOException e) {
+            throw e;
         } catch (IOException e) {
             tracker.reportException(e);
         }

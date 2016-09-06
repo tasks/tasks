@@ -17,7 +17,6 @@ import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.BuildConfig;
-import org.tasks.analytics.Tracker;
 import org.tasks.gtasks.GoogleTasksUnsuccessfulResponseHandler;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
@@ -39,14 +38,12 @@ import timber.log.Timber;
 public class GtasksInvoker {
 
     private final Context context;
-    private final Tracker tracker;
     private final GoogleAccountCredential credential;
     private final Tasks service;
 
     @Inject
-    public GtasksInvoker(@ForApplication Context context, GtasksPreferenceService preferenceService, Tracker tracker) {
+    public GtasksInvoker(@ForApplication Context context, GtasksPreferenceService preferenceService) {
         this.context = context;
-        this.tracker = tracker;
         credential = GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS));
         setUserName(preferenceService.getUserName());
         service = new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
@@ -124,16 +121,10 @@ public class GtasksInvoker {
     private synchronized <T> T execute(TasksRequest<T> request) throws IOException {
         String caller = getCaller();
         Timber.d("%s request: %s", caller, request);
-        T response;
-        try {
-            HttpRequest httpRequest = request.buildHttpRequest();
-            httpRequest.setUnsuccessfulResponseHandler(new GoogleTasksUnsuccessfulResponseHandler(context, credential));
-            HttpResponse httpResponse = httpRequest.execute();
-            response = httpResponse.parseAs(request.getResponseClass());
-        } catch (IOException e) {
-            tracker.reportException(e);
-            throw e;
-        }
+        HttpRequest httpRequest = request.buildHttpRequest();
+        httpRequest.setUnsuccessfulResponseHandler(new GoogleTasksUnsuccessfulResponseHandler(context, credential));
+        HttpResponse httpResponse = httpRequest.execute();
+        T response = httpResponse.parseAs(request.getResponseClass());
         Timber.d("%s response: %s", caller, prettyPrint(response));
         return response;
     }
