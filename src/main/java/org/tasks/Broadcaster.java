@@ -34,13 +34,13 @@ public class Broadcaster {
         Intent intent = new Intent(context, CompleteTaskReceiver.class);
         intent.putExtra(CompleteTaskReceiver.TASK_ID, taskId);
         intent.putExtra(CompleteTaskReceiver.TOGGLE_STATE, flipState);
-        sendOrderedBroadcast(intent);
+        context.sendBroadcast(intent);
     }
 
     public void taskCompleted(final long id) {
         Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, id);
-        sendOrderedBroadcast(intent);
+        context.sendOrderedBroadcast(intent, null);
     }
 
     public void refresh() {
@@ -52,14 +52,6 @@ public class Broadcaster {
         intent.putExtra(AstridApiConstants.EXTRAS_TASK, task);
         intent.putExtra(AstridApiConstants.EXTRAS_VALUES, values);
         context.sendBroadcast(intent);
-    }
-
-    private void sendOrderedBroadcast(Intent intent) {
-        sendOrderedBroadcast(intent, null);
-    }
-
-    private void sendOrderedBroadcast(Intent intent, String permissions) {
-        context.sendOrderedBroadcast(intent, permissions);
     }
 
     public void firstLaunch() {
