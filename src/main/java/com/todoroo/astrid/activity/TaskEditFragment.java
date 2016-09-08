@@ -76,6 +76,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     private static final String EXTRA_TASK = "extra_task";
     private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
+    private static final String EXTRA_SAVE_ON_DESTROY = "extra_save_on_destroy";
 
     @Inject TaskService taskService;
     @Inject UserActivityDao userActivityDao;
@@ -97,6 +98,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     /** true if editing started with a new task */
     private boolean isNewTask = false;
+    private boolean saveOnDestroy = true;
     /** task model */
     Task model = null;
 
@@ -122,6 +124,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         if (savedInstanceState != null) {
             model = savedInstanceState.getParcelable(EXTRA_TASK);
             isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
+            saveOnDestroy = savedInstanceState.getBoolean(EXTRA_SAVE_ON_DESTROY);
         }
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
@@ -208,13 +211,9 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     public void save() {
         List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager());
         if (hasChanges(fragments)) {
-            for (TaskEditControlFragment fragment : fragments) {
-                fragment.apply(model);
-            }
-            boolean databaseChanged = taskService.save(model);
-            if (!databaseChanged && model.checkTransitory(SyncFlags.FORCE_SYNC)) {
-                broadcaster.taskUpdated(model, null);
-            }
+            saveOnDestroy = false;
+
+            persistChanges(fragments);
 
             boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
 
@@ -228,6 +227,16 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             callback.taskEditFinished();
         } else {
             discard();
+        }
+    }
+
+    private void persistChanges(List<TaskEditControlFragment> fragments) {
+        for (TaskEditControlFragment fragment : fragments) {
+            fragment.apply(model);
+        }
+        boolean databaseChanged = taskService.save(model);
+        if (!databaseChanged && model.checkTransitory(SyncFlags.FORCE_SYNC)) {
+            broadcaster.taskUpdated(model, null);
         }
     }
 
@@ -279,6 +288,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     }
 
     public void discard() {
+        saveOnDestroy = false;
+
         if (isNewTask) {
             TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
             taskDeleter.delete(model);
@@ -305,6 +316,20 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
         outState.putParcelable(EXTRA_TASK, model);
         outState.putBoolean(EXTRA_IS_NEW_TASK, isNewTask);
+        outState.putBoolean(EXTRA_SAVE_ON_DESTROY, saveOnDestroy);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (saveOnDestroy) {
+            List<TaskEditControlFragment> fragments =
+                    taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager());
+            if (hasChanges(fragments)) {
+                persistChanges(fragments);
+            }
+        }
+
+        super.onDestroy();
     }
 
     /*
