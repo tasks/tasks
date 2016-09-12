@@ -7,6 +7,7 @@ import android.preference.Preference;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.Filter;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
@@ -28,6 +29,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject Tracker tracker;
+    @Inject Broadcaster broadcaster;
 
     private Bundle result;
 
@@ -87,6 +89,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
                 Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 defaultFilterProvider.setDefaultFilter(filter);
                 findPreference(getString(R.string.p_default_list)).setSummary(filter.listingTitle);
+                broadcaster.refresh();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
