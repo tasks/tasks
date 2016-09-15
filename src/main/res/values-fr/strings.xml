@@ -95,7 +95,7 @@
 	<string name="none">Aucun</string>
 	<string name="EPr_appearance_header">Apparence</string>
 	<string name="EPr_filters_to_show_title">Filtres à afficher</string>
-	<string name="EPr_edit_screen_options">Édition des options d\'affichage</string>
+	<string name="EPr_edit_screen_options">Édition les options d\'affichage</string>
 	<string name="EPr_beastMode_reset">Rétablir les valeurs par défaut</string>
 	<string name="EPr_fullTask_title">Voir le titre complet de la tâche</string>
 	<string name="EPr_show_task_edit_comments">Afficher les commentaires dans l\'édition de tâches</string>
@@ -398,4 +398,7 @@
 	<string name="widget_settings">Paramètres du Widget</string>
 	<string name="widget_header_settings">Paramètres de l\'en-tête</string>
 	<string name="widget_row_settings">Paramètres de la ligne</string>
+	<string name="notification_shade">Fréquence de notification</string>
+	<string name="notification_description">Montrer la description de la tâche</string>
+	<string name="sync_error_permissions">Permissions requises de Tasks.</string>
 </resources>

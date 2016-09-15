@@ -210,7 +210,7 @@
 	<string name="default_random_reminder_bi_monthly">一ヶ月おき</string>
 	<string name="repeat_every">%d 毎</string>
 	<string name="repeat_interval_prompt">繰り返し間隔</string>
-	<string name="repeat_never">繰り返しなし</string>
+	<string name="repeat_never">Tasks はアクセス許可が必要です</string>
 	<string name="repeat_interval_day">日毎</string>
 	<string name="repeat_interval_week">週毎</string>
 	<string name="repeat_interval_month">か月毎</string>
@@ -410,4 +410,7 @@
 	<string name="widget_settings">ウィジェット設定</string>
 	<string name="widget_header_settings">ヘッダー設定</string>
 	<string name="widget_row_settings">行設定</string>
+	<string name="notification_shade">通知の影</string>
+	<string name="notification_description">タスクの概要を表示する</string>
+	<string name="sync_error_permissions">Tasks はアクセス許可が必要です</string>
 </resources>

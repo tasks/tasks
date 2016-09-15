@@ -412,4 +412,7 @@
 	<string name="widget_settings">Настройки на widget </string>
 	<string name="widget_header_settings">Настройки на заглавието</string>
 	<string name="widget_row_settings">Настройки на реда</string>
+	<string name="notification_shade">Уведомления нюанс</string>
+	<string name="notification_description">Покажи описание на задачата</string>
+	<string name="sync_error_permissions">Tasks изисква разрешения</string>
 </resources>

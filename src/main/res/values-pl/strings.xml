@@ -31,7 +31,7 @@
 	<string name="DLG_undo">Cofnij</string>
 	<string name="WID_dateButtonUnset">Kliknij, aby ustawić</string>
 	<string name="TLA_no_items">Brak zadań</string>
-	<string name="TLA_menu_sort">Sortowanie</string>
+	<string name="TLA_menu_sort">Sortuj</string>
 	<string name="TLA_menu_search">Szukaj</string>
 	<string name="TLA_menu_settings">Ustawienia</string>
 	<string name="TAd_hiddenFormat">%s [ukryte]</string>
@@ -40,11 +40,11 @@
 	<string name="TAd_actionEditTask">Edytuj</string>
 	<string name="TAd_contextCopyTask">Kopiuj zadanie</string>
 	<string name="TAd_contextDeleteTask">Usuń zadanie</string>
-	<string name="TAd_contextUndeleteTask">Przywrócone zadanie</string>
+	<string name="TAd_contextUndeleteTask">Przywróć zadanie</string>
 	<string name="SSD_sort_drag">Ręczne z podzadaniami</string>
 	<string name="SSD_sort_auto">Automatyczne</string>
-	<string name="SSD_sort_alpha">Wg. tytułu</string>
-	<string name="SSD_sort_due">Wg. daty</string>
+	<string name="SSD_sort_alpha">Wg tytułu</string>
+	<string name="SSD_sort_due">Wg daty</string>
 	<string name="SSD_sort_importance">Wg priorytetów</string>
 	<string name="SSD_sort_modified">Wg. ostatniej modyfikacji</string>
 	<string name="FLA_search_filter">Pasujących do: %s</string>
@@ -61,8 +61,8 @@
 	<string name="TEA_timer_est">zał. %s</string>
 	<string name="TEA_timer_elap">Minęło %s</string>
 	<string name="TEA_no_time">Bez godziny</string>
-	<string name="due_date">W terminie</string>
-	<string name="due_time">Termin</string>
+	<string name="due_date">W dniu terminu</string>
+	<string name="due_time">Dokładnie w terminie</string>
 	<string name="day_before_due">Dzień przed terminem</string>
 	<string name="week_before_due">Tydzień przed terminem</string>
 	<string name="TEA_control_when">Kiedy</string>
@@ -129,7 +129,9 @@
 	<string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
 	<string name="EPr_default_addtocalendar_title">Domyślnie dodawaj do kalendarza</string>
 	<string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
-	<string name="priority_medium">Średnie</string>
+	<string name="priority_high">Ważne</string>
+	<string name="priority_medium">Średnio ważne</string>
+	<string name="priority_low">Mało ważne</string>
 	<string name="no_deadline">Bez nieprzekraczalnego terminu</string>
 	<string name="day_after_tomorrow">Pojutrze</string>
 	<string name="next_week">Przyszły tydzień</string>
@@ -220,6 +222,7 @@
 	<string name="repeat_detail_duedate_until">Co %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
+	<string name="repeat_snackbar">%1$s przełożone na %2$s</string>
 	<string name="new_tag">Stwórz nowy tag</string>
 	<string name="tag_FEx_untagged">Na żadnej liście</string>
 	<string name="delete_tag_confirmation">Usunąć %s?</string>
@@ -253,6 +256,7 @@
 	<string name="sync_SPr_forget_description">Czyści wszystkie dane synchronizacji</string>
 	<string name="sync_forget_confirm">Wyloguj / wyczyść dane synchronizacji?</string>
 	<string name="widget_show_due_date">Pokaż terminy</string>
+	<string name="widget_show_checkboxes">Pokaż przyciski wyboru</string>
 	<string name="widget_show_header">Pokaż nagłówek</string>
 	<string name="widget_show_settings">Pokaż ustawienia</string>
 	<string name="notifications">Powiadomienia</string>
@@ -289,6 +293,7 @@
 	<string name="when_overdue">Gdy zaległe</string>
 	<string name="when_due">Gdy w terminie</string>
 	<string name="geofence_radius_title">Zasięg (metrów)</string>
+	<string name="geofence_responsiveness_title">Czas reakcji (wyższa wartość oszczędza baterię)</string>
 	<string name="geolocation_reminders">Przypomnienie geolokacyjne</string>
 	<string name="tags">Tagi</string>
 	<string name="filters">Filtry</string>
@@ -300,6 +305,8 @@
 	<string name="date_shortcut_night">Noc</string>
 	<string name="date_shortcut_tomorrow_morning">Jutro rano</string>
 	<string name="date_shortcut_tomorrow_afternoon">Jutro po południu</string>
+	<string name="date_shortcut_must_come_before">%1$s musi być przed %2$s</string>
+	<string name="date_shortcut_must_come_after">%1$s musi być po %2$s</string>
 	<string name="discard_changes">Odrzuć zmiany</string>
 	<string name="discard">Odrzuć</string>
 	<string name="tag_settings">Ustawienia tagów</string>
@@ -312,7 +319,7 @@
 	<string name="get_plugins">Zakupy w aplikacji</string>
 	<string name="no_application_found">Nie znaleziono aplikacji do otwarcia załącznika</string>
 	<string name="add_attachment">Dodaj załącznik</string>
-	<string name="high_priority">Wysoki</string>
+	<string name="high_priority">Ważne</string>
 	<string name="default_priority">Domyślne</string>
 	<string name="low_priority">Mało ważne</string>
 	<string name="notification_priority">Priorytet powiadomienia</string>
@@ -327,12 +334,15 @@
 	<string name="send_anonymous_statistics">Ulepsz Tasks</string>
 	<string name="send_anonymous_statistics_summary">Wyślij anonimowe statyki użycia i raporty o awariach celem ulepszenia Tasks. Żadne prywatne dane nie będą gromadzone.</string>
 	<string name="tag_already_exists">Tag już istnieje</string>
+	<string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
+	<string name="doze_notifications">Przerwij tryb Doze dla powiadomień</string>
 	<string name="doze_notifications_off">Android będzie znacznie opóźniał powiadomienia w czasie trybu drzemki.</string>
 	<string name="doze_notifications_on">Android będzie pozwalał na ograniczone przerwania kiedy urządzenie jest w trybie drzemki.</string>
 	<string name="no_title">(Bez tytułu)</string>
 	<string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
 	<string name="default_list">Domyślna lista</string>
 	<string name="plugin_description">Tasks jest projektem typu Open Source utrzymywanym przez niezależnego autora. Niektóre funkcjonalności są dostępne jako zakupy w aplikacji w celu wpierania jej rozwoju.</string>
+	<string name="tesla_unread_description">Pokaż licznik aktywnych zadań w domyślnej liście. Wymaga TeslaUnread dla Nova Launcher</string>
 	<string name="themes_purchase_description">Odblokuj wszystkie motywy i dodaj trochę kolorów do Tasks</string>
 	<string name="donate_summary">Dotacje są bardzo mile widziane</string>
 	<string name="dashclock_purchase_description">Wyświetla liczbę aktywnych zadań. Wymaga DashClock Widget</string>
@@ -343,18 +353,19 @@
 	<string name="opacity">Przezroczystość</string>
 	<string name="theme">Motyw</string>
 	<string name="color">Kolor</string>
+	<string name="accent">Akcent</string>
 	<string name="themes">Dodatkowe motywy</string>
 	<string name="theme_red">Czerwony</string>
 	<string name="theme_pink">Różowy</string>
 	<string name="theme_purple">Fioletowy</string>
-	<string name="theme_deep_purple">Ciemno fioletowy</string>
+	<string name="theme_deep_purple">Ciemnofioletowy</string>
 	<string name="theme_indigo">Indygo</string>
 	<string name="theme_blue">Niebieski</string>
-	<string name="theme_light_blue">Jasno niebieski</string>
+	<string name="theme_light_blue">Jasnoniebieski</string>
 	<string name="theme_cyan">Cyjan</string>
 	<string name="theme_teal">Morski</string>
 	<string name="theme_green">Zielony</string>
-	<string name="theme_light_green">Jasno zielony</string>
+	<string name="theme_light_green">Jasnozielony</string>
 	<string name="theme_lime">Cytrynowy</string>
 	<string name="theme_yellow">Żółty</string>
 	<string name="theme_amber">Bursztynowy</string>
@@ -364,8 +375,9 @@
 	<string name="theme_grey">Szary</string>
 	<string name="theme_blue_grey">Niebiesko Szary</string>
 	<string name="theme_black">Czarny</string>
-	<string name="theme_dark_grey">Ciemno Szary</string>
+	<string name="theme_dark_grey">Ciemnoszary</string>
 	<string name="theme_white">Biały</string>
+	<string name="theme_light">Jasny</string>
 	<string name="theme_dark">Ciemny</string>
 	<string name="theme_wallpaper">Tapeta</string>
 	<string name="theme_day_night">Dzień/noc</string>
@@ -396,4 +408,7 @@
 	<string name="widget_settings">Ustawienie widgetu</string>
 	<string name="widget_header_settings">Ustawienia nagłówka</string>
 	<string name="widget_row_settings">Ustawienia rzędu</string>
+	<string name="notification_shade">Panel powiadomień</string>
+	<string name="notification_description">Pokaż opis zadania</string>
+	<string name="sync_error_permissions">Tasks wymaga uprawnienia</string>
 </resources>

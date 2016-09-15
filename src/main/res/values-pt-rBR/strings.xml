@@ -239,6 +239,7 @@
 	<string name="backup_directory">Diretório de backup</string>
 	<string name="customize_edit_screen">Personalizar tela de edição</string>
 	<string name="source_code">Código fonte</string>
+	<string name="translations">Ajude com as traduções</string>
 	<string name="report_an_issue">Relatar um problema</string>
 	<string name="help_and_feedback">Ajuda e Feedback</string>
 	<string name="contact_developer">Contatar desenvolvedor</string>
@@ -254,6 +255,7 @@
 	<string name="geolocation_reminders">Lembretes com Geolocalização</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
+	<string name="filter_settings">Configurações de filtro</string>
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar completas</string>
 	<string name="get_plugins">Compras no app</string>
@@ -315,4 +317,9 @@
 	<string name="sync_interval_one_day">diariamente</string>
 	<string name="sync_interval_three_days">a cada três dias</string>
 	<string name="sync_interval_one_week">semanalmente</string>
+	<string name="master_sync_warning">Sincronização automática está atualmente desabilitada pelo Android</string>
+	<string name="settings_localization">Localização</string>
+	<string name="layout_direction">Direção do Layout</string>
+	<string name="layout_direction_left_to_right">Esquerda para direita</string>
+	<string name="layout_direction_right_to_left">Direita para esquerda</string>
 </resources>

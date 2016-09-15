@@ -400,4 +400,6 @@
 	<string name="widget_settings">Widget instellingen</string>
 	<string name="widget_header_settings">Titel instellingen</string>
 	<string name="widget_row_settings">Regel instellingen</string>
+	<string name="notification_shade">Notificatie schaduw</string>
+	<string name="notification_description">Toon taak omschrijving</string>
 </resources>

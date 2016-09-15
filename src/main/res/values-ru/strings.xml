@@ -315,6 +315,7 @@
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse"> Реверс</string>
+	<string name="task_count">%d задач</string>
 	<string name="get_plugins">Покупки в приложении</string>
 	<string name="no_application_found">Не найдено приложение, позволяющее открыть прикреплённый файл</string>
 	<string name="add_attachment">Прикрепить файл</string>
@@ -408,4 +409,6 @@
 	<string name="widget_settings">Настройки виджета</string>
 	<string name="widget_header_settings">Настройки закоголовка</string>
 	<string name="widget_row_settings">Настройки строк</string>
+	<string name="notification_description">Показать описание задачи</string>
+	<string name="sync_error_permissions">Запрашиваемые разрешения</string>
 </resources>

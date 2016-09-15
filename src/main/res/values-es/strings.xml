@@ -314,6 +314,7 @@
 	<string name="show_hidden">Mostrar oculto</string>
 	<string name="show_completed">Mostrar completado</string>
 	<string name="reverse">Invertir</string>
+	<string name="task_count">%d tareas</string>
 	<string name="get_plugins">Compras en la aplicación</string>
 	<string name="no_application_found">No se ha encontrado una aplicación para abrir el archivo adjunto</string>
 	<string name="add_attachment">Adjuntar archivo</string>
@@ -329,8 +330,8 @@
 	<string name="pick_from_storage">Elegir desde almacenamiento</string>
 	<string name="privacy">Privacidad</string>
 	<string name="privacy_policy">Política de privacidad</string>
-	<string name="send_anonymous_statistics">Mejorar Task</string>
-	<string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Task. No se recogerán datos personales.</string>
+	<string name="send_anonymous_statistics">Mejorar Tasks</string>
+	<string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Tasks. No se recogerán datos personales.</string>
 	<string name="tag_already_exists">La etiqueta ya existe</string>
 	<string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
 	<string name="doze_notifications">Interrumpir modo reposo con notificaciones</string>
@@ -339,7 +340,7 @@
 	<string name="no_title">(Sin título)</string>
 	<string name="back_button_saves_task">Botón atrás guarda la tarea</string>
 	<string name="default_list">Lista por defecto</string>
-	<string name="plugin_description">Task es un proyecto de código abierto mantenido por un único desarrollador. Algunas características especializadas se podrán comprar desde la aplicación para mantener su desarrollo.</string>
+	<string name="plugin_description">Tasks es un proyecto de código abierto mantenido por un único desarrollador. Algunas características especializadas se podrán comprar desde la aplicación para mantener su desarrollo.</string>
 	<string name="tesla_unread_description">Mostrar distintivo con número de tareas activas en la lista predeterminada. Requiere TeslaUnread de Nova Launcher.</string>
 	<string name="themes_purchase_description">Desbloquea todos los temas y añade color a Tasks</string>
 	<string name="tasker_description">Notificaciones dependientes del contexto. Requiere Tasker o Locale.</string>
@@ -405,4 +406,6 @@
 	<string name="widget_settings">Configuración de widget</string>
 	<string name="widget_header_settings">Configuración de encabezado</string>
 	<string name="widget_row_settings">Configuración de fila</string>
+	<string name="notification_shade">Panel de notificaciones</string>
+	<string name="notification_description">Mostrar descripción de tarea</string>
 </resources>

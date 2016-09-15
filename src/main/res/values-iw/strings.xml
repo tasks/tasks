@@ -410,4 +410,5 @@
 	<string name="widget_settings">הגדרות ווידג\'ט</string>
 	<string name="widget_header_settings">הגדרות כותרת</string>
 	<string name="widget_row_settings">הגדרות שורה</string>
+	<string name="notification_description">הצג תיאור משימה</string>
 </resources>

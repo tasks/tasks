@@ -255,6 +255,10 @@
 	<string name="sync_SPr_forget">Esci</string>
 	<string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
 	<string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
+	<string name="widget_show_due_date">Mostra scadenze</string>
+	<string name="widget_show_checkboxes">Mostra caselle selezione</string>
+	<string name="widget_show_header">Mostra intestazione</string>
+	<string name="widget_show_settings">Mostra impostazioni</string>
 	<string name="notifications">Notifiche</string>
 	<string name="silent">Silente</string>
 	<string name="sound">Sonoro</string>
@@ -311,6 +315,7 @@
 	<string name="show_hidden">Mostra nascoste</string>
 	<string name="show_completed">Mostra completate</string>
 	<string name="reverse">Contrario</string>
+	<string name="task_count">%d attività</string>
 	<string name="get_plugins">Acquisti nell\'app.</string>
 	<string name="no_application_found">Nessuna applicazione in grado di aprire l\'allegato </string>
 	<string name="add_attachment">Aggiungi allegato</string>
@@ -400,4 +405,11 @@
 	<string name="led_notification">LED di notifica</string>
 	<string name="hardware_support_required">E\' richiesto il supporto Hardware</string>
 	<string name="led_color">Colore LED</string>
+	<string name="no_calendars_found">Nessun calendario</string>
+	<string name="widget_settings">Impostazioni widget</string>
+	<string name="widget_header_settings">Impostazioni intestazione</string>
+	<string name="widget_row_settings">Impostazioni riga</string>
+	<string name="notification_shade">Sfumatura notifiche</string>
+	<string name="notification_description">Mostra descrizione attività</string>
+	<string name="sync_error_permissions">L\'attività richiede l\'autorizzazione</string>
 </resources>

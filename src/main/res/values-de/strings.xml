@@ -13,7 +13,7 @@
 	<string name="choose_google_account">Google-Account auswählen</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
-	<string name="export_toast">Gesichert von %1$s bis %2$s.</string>
+	<string name="export_toast">%1$s bis %2$s gesichert.</string>
 	<string name="export_toast_no_tasks">Keine Aufgaben zu exportieren.</string>
 	<string name="import_summary_title">Zusammenfassung wiederherstellen</string>
 	<string name="import_summary_message">Datei %1$s enthielt %2$s Aufgaben.\n\n %3$s wurden importiert,\n %4$s waren schon vorhanden (übersprungen)\n %5$s waren fehlerhaft\n</string>
@@ -135,8 +135,8 @@
 	<string name="next_week">Nächste Woche</string>
 	<string name="dont_hide">Nicht verstecken</string>
 	<string name="no_deadline_reminder">Keine Fälligkeits-Erinnerungen</string>
-	<string name="at_deadline">Am Stichtag</string>
-	<string name="at_deadline_or_overdue">Am Stichtag oder überfällig</string>
+	<string name="at_deadline">Zur Fälligkeit</string>
+	<string name="at_deadline_or_overdue">Zur Fälligkeit oder überfällig</string>
 	<string name="BFE_Active">Meine Aufgaben</string>
 	<string name="BFE_Recent">Kürzlich bearbeitet</string>
 	<string name="CFA_universe_all">Aktuelle Aufgaben</string>
@@ -188,7 +188,7 @@
 	<string name="random_reminder_two_months">in 2 Monaten</string>
 	<string name="rmd_NoA_done">Abgeschlossen</string>
 	<string name="rmd_NoA_snooze">Schlummern</string>
-	<string name="rmd_EPr_quiet_hours_start_title">Stille Stunden beginnen.</string>
+	<string name="rmd_EPr_quiet_hours_start_title">Beginn der Ruhezeit</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
 	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
@@ -251,6 +251,10 @@
 	<string name="sync_SPr_forget">Abmelden</string>
 	<string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
 	<string name="sync_forget_confirm">Ausloggen / Synchronisierte Daten löschen?</string>
+	<string name="widget_show_due_date">Zeige Fälligkeitsdaten</string>
+	<string name="widget_show_checkboxes">Checkboxen anzeigen</string>
+	<string name="widget_show_header">Kopf anzeigen</string>
+	<string name="widget_show_settings">Einstellungen anzeigen</string>
 	<string name="notifications">Benachrichtigungen</string>
 	<string name="silent">Ton Aus</string>
 	<string name="sound">Ton</string>
@@ -307,6 +311,7 @@
 	<string name="show_hidden">Ausgeblendet anzeigen</string>
 	<string name="show_completed">Erledigt anzeigen</string>
 	<string name="reverse">Rückgangig</string>
+	<string name="task_count">%d Aufgaben</string>
 	<string name="get_plugins">In-App Käufe</string>
 	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
 	<string name="add_attachment">Anhang hinzufügen</string>
@@ -347,7 +352,7 @@
 	<string name="themes">Zusätzliche Themes</string>
 	<string name="theme_red">Rot</string>
 	<string name="theme_purple">Lila</string>
-	<string name="theme_deep_purple">Dunkel Lila</string>
+	<string name="theme_deep_purple">Lila dunkel</string>
 	<string name="theme_indigo">Indigoblau</string>
 	<string name="theme_blue">Blau</string>
 	<string name="theme_light_blue">Hellblau</string>
@@ -362,7 +367,8 @@
 	<string name="theme_grey">Grau</string>
 	<string name="theme_blue_grey">Blaugrau</string>
 	<string name="theme_black">Schwarz</string>
-	<string name="theme_dark_grey">Dunkel Grau</string>
+	<string name="theme_dark_grey">Dunkelgrau</string>
+	<string name="theme_white">Weiß</string>
 	<string name="theme_light">Hell</string>
 	<string name="theme_dark">Dunkel</string>
 	<string name="theme_wallpaper">Hintergrundbild</string>
@@ -382,8 +388,19 @@
 	<string name="restart_required">Tasks muss neugestartet werden um die Änderungen zu übernehmen</string>
 	<string name="restart_now">Jetzt neustarten</string>
 	<string name="restart_later">Später</string>
+	<string name="settings_localization">Übersetzung</string>
 	<string name="layout_direction">Schreibrichtung</string>
-	<string name="layout_direction_locale">Systemeinstellungen</string>
+	<string name="layout_direction_locale">Aus Systemeinstellungen</string>
 	<string name="layout_direction_left_to_right">Links nach rechts</string>
 	<string name="layout_direction_right_to_left">Rechts nach links</string>
+	<string name="led_notification">Benachrichtigungs-LED</string>
+	<string name="hardware_support_required">Hardware-Unterstützung benötigt</string>
+	<string name="led_color">LED-Farbe</string>
+	<string name="no_calendars_found">Es wurden keine Kalender gefunden</string>
+	<string name="widget_settings">Widget-Einstellungen</string>
+	<string name="widget_header_settings">Kopf-Einstellungen</string>
+	<string name="widget_row_settings">Reihen-Einstellungen</string>
+	<string name="notification_shade">Benachrichtigungsanzeige</string>
+	<string name="notification_description">Aufgabenbeschreibung anzeigen</string>
+	<string name="sync_error_permissions">Tasks benötigt Zugriff</string>
 </resources>
