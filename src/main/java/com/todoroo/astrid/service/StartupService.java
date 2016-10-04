@@ -10,8 +10,19 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableListMultimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Multimaps;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
@@ -22,6 +33,7 @@ import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -30,6 +42,7 @@ import timber.log.Timber;
 public class StartupService {
 
     private static final int V4_8_0 = 380;
+    private static final int V4_9_5 = 434;
 
     private final Context context;
     private final Database database;
@@ -37,16 +50,23 @@ public class StartupService {
     private final TaskDeleter taskDeleter;
     private final Broadcaster broadcaster;
     private final Tracker tracker;
+    private final TagDataDao tagDataDao;
+    private final TagService tagService;
+    private final MetadataDao metadataDao;
 
     @Inject
-    public StartupService(@ForApplication Context context, Database database, Preferences preferences, TaskDeleter taskDeleter,
-                          Broadcaster broadcaster, Tracker tracker) {
+    public StartupService(@ForApplication Context context, Database database, Preferences preferences,
+                          TaskDeleter taskDeleter, Broadcaster broadcaster, Tracker tracker,
+                          TagDataDao tagDataDao, TagService tagService, MetadataDao metadataDao) {
         this.context = context;
         this.database = database;
         this.preferences = preferences;
         this.taskDeleter = taskDeleter;
         this.broadcaster = broadcaster;
         this.tracker = tracker;
+        this.tagDataDao = tagDataDao;
+        this.tagService = tagService;
+        this.metadataDao = metadataDao;
     }
 
     /** Called when this application is started up */
@@ -91,6 +111,9 @@ public class StartupService {
                 if (from < V4_8_0) {
                     performMarshmallowMigration();
                 }
+                if (from < V4_9_5) {
+                    removeDuplicateTags();
+                }
                 tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
             }
             preferences.setCurrentVersion(to);
@@ -114,6 +137,36 @@ public class StartupService {
             }
         } catch (Exception e) {
             tracker.reportException(e);
+        }
+    }
+
+    private void removeDuplicateTags() {
+        ListMultimap<String, TagData> tagsByUuid = Multimaps.index(tagService.getTagList(), TagData::getUuid);
+        for (String uuid : tagsByUuid.keySet()) {
+            removeDuplicateTagData(tagsByUuid.get(uuid));
+            removeDuplicateTagMetadata(uuid);
+        }
+        broadcaster.refresh();
+    }
+
+    private void removeDuplicateTagData(List<TagData> tagData) {
+        for (int i = 1 ; i < tagData.size() ; i++) {
+            tagDataDao.delete(tagData.get(i).getId());
+        }
+    }
+
+    private void removeDuplicateTagMetadata(String uuid) {
+        Criterion fullCriterion = Criterion.and(
+                Metadata.KEY.eq(TaskToTagMetadata.KEY),
+                TaskToTagMetadata.TAG_UUID.eq(uuid),
+                Metadata.DELETION_DATE.eq(0));
+        List<Metadata> metadatas = metadataDao.toList(fullCriterion);
+        ImmutableListMultimap<Long, Metadata> metadataByTask = Multimaps.index(metadatas, Metadata::getTask);
+        for (Long key : metadataByTask.keySet()) {
+            ImmutableList<Metadata> tagData = metadataByTask.get(key);
+            for (int i = 1 ; i < tagData.size() ; i++) {
+                metadataDao.delete(tagData.get(i).getId());
+            }
         }
     }
 }

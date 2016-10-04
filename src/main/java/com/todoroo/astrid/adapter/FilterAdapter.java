@@ -81,10 +81,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     @Override
     public void add(FilterListItem item) {
-        if (getPosition(item) >= 0) {
-            return;
-        }
-
         super.add(item);
         // load sizes
         if (item instanceof Filter) {
