@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
 
+import com.google.common.collect.Iterables;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -36,6 +37,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -229,6 +231,13 @@ public class TasksXmlImporter {
             }
             metadata.clear();
             deserializeModel(metadata, Metadata.PROPERTIES);
+            if (metadata.getKey().equals(TaskToTagMetadata.KEY)) {
+                String uuid = metadata.getValue(TaskToTagMetadata.TAG_UUID);
+                List<Metadata> metadatas = metadataDao.byTaskAndKey(currentTask.getId(), TaskToTagMetadata.KEY);
+                if (Iterables.any(metadatas, existing -> uuid.equals(existing.getValue(TaskToTagMetadata.TAG_UUID)))) {
+                    return;
+                }
+            }
             metadata.setId(Metadata.NO_ID);
             metadata.setTask(currentTask.getId());
             metadataDao.persist(metadata);
@@ -350,7 +359,9 @@ public class TasksXmlImporter {
         private void parseTagdata() {
             tagdata.clear();
             deserializeModel(tagdata, TagData.PROPERTIES);
-            tagDataDao.persist(tagdata);
+            if (tagDataDao.getByUuid(tagdata.getUuid()) == null) {
+                tagDataDao.persist(tagdata);
+            }
         }
     }
 }
