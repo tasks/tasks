@@ -4,6 +4,7 @@ import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.RecordAudioDialog;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.reminders.MissedCallDialog;
 import org.tasks.reminders.NotificationDialog;
@@ -28,4 +29,6 @@ public interface DialogFragmentComponent {
     void inject(SortDialog sortDialog);
 
     void inject(ColorPickerDialog colorPickerDialog);
+
+    void inject(RecordAudioDialog recordAudioDialog);
 }

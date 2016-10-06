@@ -380,7 +380,7 @@
             android:name="com.todoroo.astrid.files.AACRecordingActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/TasksDialog" />
+            android:theme="@style/TranslucentDialog" />
 
         <activity
             android:name=".files.MyFilePickerActivity"
