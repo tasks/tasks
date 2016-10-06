@@ -24,11 +24,13 @@ public class UserActivity extends RemoteModel {
     // --- properties
 
     /** ID */
-    private static final LongProperty ID = new LongProperty(
+    @SuppressWarnings("WeakerAccess")
+    public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
     /** Remote ID */
-    private static final StringProperty UUID = new StringProperty(
+    @SuppressWarnings("WeakerAccess")
+    public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
     /** Action */
@@ -36,11 +38,13 @@ public class UserActivity extends RemoteModel {
             TABLE, "action");
 
     /** Message */
-    private static final StringProperty MESSAGE = new StringProperty(
+    @SuppressWarnings("WeakerAccess")
+    public static final StringProperty MESSAGE = new StringProperty(
             TABLE, "message");
 
     /** Picture */
-    private static final StringProperty PICTURE = new StringProperty(
+    @SuppressWarnings("WeakerAccess")
+    public static final StringProperty PICTURE = new StringProperty(
             TABLE, "picture", Property.PROP_FLAG_JSON | Property.PROP_FLAG_PICTURE);
 
     /** Target id */

@@ -33,7 +33,8 @@ public final class TaskAttachment extends RemoteModel {
             TABLE, ID_PROPERTY_NAME);
 
     /** Remote id */
-    private static final StringProperty UUID = new StringProperty(
+    @SuppressWarnings("WeakerAccess")
+    public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
     /** Task uuid */
@@ -41,7 +42,8 @@ public final class TaskAttachment extends RemoteModel {
             TABLE, "task_id");
 
     /** File name */
-    private static final StringProperty NAME = new StringProperty(
+    @SuppressWarnings("WeakerAccess")
+    public static final StringProperty NAME = new StringProperty(
             TABLE, "name");
 
     /** File path (on local storage) */
