@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.format.DateUtils;
@@ -27,8 +28,10 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.R;
+import org.tasks.files.FileHelper;
 import org.tasks.preferences.Preferences;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -139,8 +142,11 @@ public class CommentsController {
             commentPictureView.setImageBitmap(sampleBitmap(path, commentPictureView.getLayoutParams().width, commentPictureView.getLayoutParams().height));
 
             view.setOnClickListener(v -> {
+                File file = new File(updateBitmap.getPath());
+                Uri uri = FileProvider.getUriForFile(activity, "org.tasks.files", file.getAbsoluteFile());
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(updateBitmap, "image/*");
+                intent.setDataAndType(uri, "image/*");
+                FileHelper.grantReadPermissions(activity, intent, uri);
                 activity.startActivity(intent);
             });
         } else {

@@ -1,9 +1,19 @@
 package org.tasks.files;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+
+import java.io.File;
+import java.util.List;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class FileHelper {
     public static String getPathFromUri(Activity activity, Uri uri) {
@@ -17,6 +27,33 @@ public class FileHelper {
             return cursor.getString(column_index);
         } else {
             return uri.getPath();
+        }
+    }
+
+    public static Intent getReadableActionView(Context context, String path, String type) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = FileProvider.getUriForFile(context, "org.tasks.files", new File(path));
+        intent.setDataAndType(uri, type);
+        grantReadPermissions(context, intent, uri);
+        return intent;
+    }
+
+    public static void grantReadPermissions(Context context, Intent intent, Uri uri) {
+        if (atLeastLollipop()) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        } else {
+            if (atLeastLollipop()) {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            } else {
+                List<ResolveInfo> resolveInfoList = context.getPackageManager()
+                        .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                for (ResolveInfo resolveInfo : resolveInfoList) {
+                    context.grantUriPermission(
+                            resolveInfo.activityInfo.packageName,
+                            uri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                }
+            }
         }
     }
 }

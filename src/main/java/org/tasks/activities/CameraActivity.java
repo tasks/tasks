@@ -1,11 +1,13 @@
 package org.tasks.activities;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
 import org.tasks.R;
@@ -15,6 +17,7 @@ import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
@@ -47,12 +50,19 @@ public class CameraActivity extends InjectingAppCompatActivity {
                 Toast.makeText(this, R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
             } else {
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                Uri uri = Uri.fromFile(output);
-                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Uri uri = FileProvider.getUriForFile(this, "org.tasks.files", output);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 if (atLeastLollipop()) {
-                    intent.setClipData(ClipData.newRawUri(null, uri));
+                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                } else {
+                    List<ResolveInfo> resolveInfoList = getPackageManager()
+                            .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    for (ResolveInfo resolveInfo : resolveInfoList) {
+                        grantUriPermission(
+                                resolveInfo.activityInfo.packageName,
+                                uri,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    }
                 }
                 startActivityForResult(intent, REQUEST_CODE_CAMERA);
             }

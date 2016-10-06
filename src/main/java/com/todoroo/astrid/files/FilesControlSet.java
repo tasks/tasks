@@ -8,11 +8,9 @@ package com.todoroo.astrid.files;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -33,6 +31,7 @@ import com.todoroo.astrid.data.TaskAttachment;
 import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.files.FileHelper;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.ui.TaskEditControlFragment;
@@ -46,8 +45,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class FilesControlSet extends TaskEditControlFragment {
 
@@ -212,14 +209,7 @@ public class FilesControlSet extends TaskEditControlFragment {
             play(m.getFilePath(), () -> showFromIntent(filePath, fileType));
         } else if (fileType.startsWith(TaskAttachment.FILE_TYPE_IMAGE)) {
             try {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                Uri uri = Uri.fromFile(new File(filePath));
-                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                intent.setDataAndType(uri, TaskAttachment.FILE_TYPE_IMAGE + "*");
-                if (atLeastLollipop()) {
-                    intent.setClipData(ClipData.newRawUri(null, uri));
-                }
+                Intent intent = FileHelper.getReadableActionView(context, filePath, TaskAttachment.FILE_TYPE_IMAGE + "*");
                 getActivity().startActivity(intent);
             } catch(ActivityNotFoundException e) {
                 Timber.e(e, e.getMessage());
@@ -247,9 +237,7 @@ public class FilesControlSet extends TaskEditControlFragment {
 
     private void showFromIntent(String file, String type) {
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(new File(file)), type);
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Intent intent = FileHelper.getReadableActionView(context, file, type);
             getActivity().startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Timber.e(e, e.getMessage());
