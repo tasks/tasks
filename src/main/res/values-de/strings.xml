@@ -69,7 +69,7 @@
 	<string name="TEA_control_importance">Priorität</string>
 	<string name="TEA_control_notes">Beschreibung</string>
 	<string name="TEA_control_files">Dateien</string>
-	<string name="TEA_control_google_task_list">Google Aufgabenliste</string>
+	<string name="TEA_control_google_task_list">Google Tasks-Liste</string>
 	<string name="TEA_control_reminders">Erinnerungen</string>
 	<string name="TEA_control_timer">Timer-Einstellungen</string>
 	<string name="TEA_control_hidden_section">----Immer Verbergen----</string>
@@ -99,7 +99,7 @@
 	<string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>
 	<string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
 	<string name="EPr_show_task_edit_comments">Kommentare bei Aufgabeneingabe anzeigen </string>
-	<string name="task_list_options">Aufgabenlistenoptionen</string>
+	<string name="task_list_options">Aufgabenlisten-Optionen</string>
 	<string name="EPr_cal_end_or_start_at_due_time">Zeitpunkt Kalendertermin</string>
 	<string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
 	<string name="EPr_cal_start_at_due_time">Kalendereintrag Startet zur Fälligkeits-Uhrzeit</string>
@@ -120,9 +120,9 @@
 	<string name="EPr_manage_delete_all_gcal">Lösche alle Kalendereinträge von Aufgaben</string>
 	<string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereintrage von Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
-	<string name="task_defaults">Aufgabenstandards</string>
-	<string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
-	<string name="EPr_default_importance_title">Standard Priorität</string>
+	<string name="task_defaults">Standards für Aufgaben</string>
+	<string name="EPr_default_urgency_title">Standard-Dringlichkeit</string>
+	<string name="EPr_default_importance_title">Standard-Priorität</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
 	<string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
 	<string name="EPr_default_addtocalendar_title">Standardmäßig in Kalender eintragen</string>
@@ -170,7 +170,7 @@
 	<string name="gtasks_GLA_noaccounts">Keine Google-Accounts zum synchronisieren verfügbar.</string>
 	<string name="gtasks_GLA_authenticating">Authentifizierung ...</string>
 	<string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
-	<string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut einloggen über die Einstellungen von Google Tasks.</string>
+	<string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut über die Einstellungen von Google Tasks einloggen .</string>
 	<string name="premium_record_audio">Notiz aufzeichnen</string>
 	<string name="premium_remove_file_confirm">Sind Sie sicher? Das kann nicht rückgängig gemacht werden</string>
 	<string name="audio_recording_title">Audio aufnehmen</string>
@@ -195,7 +195,7 @@
 	<string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
 	<string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximalisieren</string>
+	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximieren</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
 	<string name="default_random_reminder_disabled">deaktiviert</string>
 	<string name="default_random_reminder_hourly">stündlich</string>
@@ -256,11 +256,11 @@
 	<string name="widget_show_header">Kopf anzeigen</string>
 	<string name="widget_show_settings">Einstellungen anzeigen</string>
 	<string name="notifications">Benachrichtigungen</string>
-	<string name="silent">Ton Aus</string>
-	<string name="sound">Ton</string>
+	<string name="silent">Ohne Ton</string>
+	<string name="sound">Mit Ton</string>
 	<string name="vibrations">Vibration</string>
 	<string name="quiet_hours">Ruhezeit</string>
-	<string name="attachment_directory">Anhängeordner</string>
+	<string name="attachment_directory">Ordner für Anhänge</string>
 	<string name="backup_directory">Sicherungsordner</string>
 	<string name="miscellaneous">Verschiedenes</string>
 	<string name="synchronization">Synchronisierung</string>
@@ -268,7 +268,7 @@
 	<string name="font_size">Schriftgröße</string>
 	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
 	<string name="source_code">Quelltext</string>
-	<string name="translations">Übersetzung beitragen</string>
+	<string name="translations">Zur Übersetzung beitragen</string>
 	<string name="report_an_issue">Fehler melden</string>
 	<string name="help_and_feedback">Hilfe &amp; Feedback</string>
 	<string name="contact_developer">Entwickler kontaktieren</string>
@@ -312,7 +312,7 @@
 	<string name="show_completed">Erledigt anzeigen</string>
 	<string name="reverse">Rückgangig</string>
 	<string name="task_count">%d Aufgaben</string>
-	<string name="get_plugins">In-App Käufe</string>
+	<string name="get_plugins">In App-Käufe</string>
 	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
 	<string name="add_attachment">Anhang hinzufügen</string>
 	<string name="high_priority">Hoch</string>
@@ -320,8 +320,8 @@
 	<string name="low_priority">Niedrig</string>
 	<string name="notification_priority">Benachrichtigungspriorität</string>
 	<string name="vibration_count">Anzahl Vibrationen</string>
-	<string name="vibration_duration">Dauer jeder Vibration (Millisekunden)</string>
-	<string name="vibration_pause">Pause zwischen Vibrationen</string>
+	<string name="vibration_duration">Dauer der Vibration in Millisekunden</string>
+	<string name="vibration_pause">Pause zwischen Vibrationen in Millisekunden</string>
 	<string name="take_a_picture">Bild aufnehmen</string>
 	<string name="pick_from_gallery">Aus Galerie wählen</string>
 	<string name="pick_from_storage">Von Speicher auswählen</string>
@@ -336,8 +336,8 @@
 	<string name="doze_notifications_on">Android erlaubt nur eine begrenzte Anzahl von Unterbrechungen des Doze-Modus</string>
 	<string name="no_title">(kein Titel)</string>
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
-	<string name="default_list">Standard Liste</string>
-	<string name="plugin_description">Tasks ist ein Open Source Projekt, gepflegt von einem Entwickler. Manche Funktionen werden als In-App Käufe angeboten, um die Entwicklung zu unterstützen.</string>
+	<string name="default_list">Standard-Liste</string>
+	<string name="plugin_description">Tasks ist ein Open Source-Projekt eines einzelnen Entwicklers. Manche Funktionen werden daher als In App-Käufe angeboten, um die Entwicklung zu unterstützen.</string>
 	<string name="tesla_unread_description">Badge anzeigen mit der Anzahl an aktiven Augaben in der Standard-Liste. Benötigt TeslaUnread für Nova Launcher</string>
 	<string name="themes_purchase_description">Entsperre alle Themes</string>
 	<string name="tasker_description">Kontext-bezogene Listenbenachrichtigungen. Benötigt Tasker oder Locale</string>

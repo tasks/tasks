@@ -25,7 +25,7 @@
 	<string name="read_permission_label">Разрешения Tasks</string>
 	<string name="write_permission_label">Разрешения Tasks</string>
 	<string name="discard_confirmation">Вы действительно хотите отказаться от сделанных изменений?</string>
-	<string name="keep_editing">Продолжайте редактировать</string>
+	<string name="keep_editing">Продолжить редактировать</string>
 	<string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
 	<string name="DLG_undo">Отмена</string>
@@ -409,6 +409,7 @@
 	<string name="widget_settings">Настройки виджета</string>
 	<string name="widget_header_settings">Настройки закоголовка</string>
 	<string name="widget_row_settings">Настройки строк</string>
+	<string name="notification_shade">Тень уведомления</string>
 	<string name="notification_description">Показать описание задачи</string>
 	<string name="sync_error_permissions">Запрашиваемые разрешения</string>
 </resources>

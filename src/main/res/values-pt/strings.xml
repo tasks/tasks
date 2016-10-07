@@ -240,6 +240,7 @@
 	<string name="notifications">Notificações</string>
 	<string name="silent">Silêncio</string>
 	<string name="sound">Som</string>
+	<string name="vibrations">Vibrações</string>
 	<string name="quiet_hours">Horas de silêncio</string>
 	<string name="attachment_directory">Diretório do anexo</string>
 	<string name="backup_directory">Diretório de backup</string>
@@ -290,6 +291,27 @@
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar terminadas</string>
 	<string name="reverse">Reverter</string>
+	<string name="get_plugins">Compras na aplicação</string>
+	<string name="add_attachment">Adicionar anexo</string>
+	<string name="vibration_count">Número de vibrações</string>
+	<string name="privacy">Privacidade</string>
+	<string name="privacy_policy">Política de privacidade</string>
+	<string name="default_list">Lista padrão</string>
+	<string name="themes">Temas adicionais</string>
+	<string name="theme_red">Vermelho</string>
+	<string name="theme_pink">Rosa</string>
+	<string name="theme_purple">Púrpura</string>
+	<string name="theme_blue">Azul</string>
+	<string name="theme_light_blue">Azul claro</string>
+	<string name="theme_green">Verde</string>
+	<string name="theme_light_green">Verde claro</string>
+	<string name="theme_yellow">Amarelo</string>
+	<string name="theme_orange">Laranja</string>
+	<string name="theme_brown">Castanho</string>
+	<string name="theme_grey">Cinzento</string>
+	<string name="theme_black">Preto</string>
+	<string name="theme_dark">Escuro</string>
+	<string name="theme_day_night">Dia/Noite</string>
 	<string name="sync_interval_disable">desativar</string>
 	<string name="sync_interval_one_hour">cada hora</string>
 	<string name="sync_interval_three_hours">cada 3 horas</string>
@@ -298,4 +320,9 @@
 	<string name="sync_interval_one_day">todos os dias</string>
 	<string name="sync_interval_three_days">cada 3 dias</string>
 	<string name="sync_interval_one_week">todas as semanas</string>
+	<string name="restart_now">Reiniciar agora</string>
+	<string name="layout_direction_left_to_right">Da esquerda para a direita</string>
+	<string name="layout_direction_right_to_left">Da direita para a esquerda</string>
+	<string name="no_calendars_found">Calendário não encontrado</string>
+	<string name="widget_settings">Definições do widget</string>
 </resources>

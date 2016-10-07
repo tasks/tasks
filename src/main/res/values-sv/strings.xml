@@ -389,10 +389,12 @@
 	<string name="restart_now">Starta om nu</string>
 	<string name="restart_later">Senare</string>
 	<string name="settings_localization">Språk</string>
+	<string name="layout_direction_locale">Använd språkets standard</string>
 	<string name="layout_direction_left_to_right">Vänster till höger</string>
 	<string name="layout_direction_right_to_left">Höger till vänster</string>
 	<string name="led_notification">LED Notifiering</string>
 	<string name="hardware_support_required">Hårdvarustöd krävs</string>
 	<string name="led_color">LED färg</string>
+	<string name="no_calendars_found">Inga kalendrar hittades</string>
 	<string name="widget_settings">Inställningar för widget</string>
 </resources>
