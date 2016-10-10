@@ -46,7 +46,7 @@ import timber.log.Timber;
 @ApplicationScope
 public class Database {
 
-    private static final int VERSION = 36;
+    private static final int VERSION = 37;
     private static final String NAME = "database";
     private static final Table[] TABLES =  new Table[] {
             Task.TABLE,
@@ -118,12 +118,9 @@ public class Database {
         SqlConstructorVisitor visitor = new SqlConstructorVisitor();
         switch(oldVersion) {
             case 35:
-                try {
-                    tryExecSQL(addColumnSql(TagData.TABLE, TagData.COLOR, visitor, "-1"));
-                } catch (SQLiteException e) {
-                    tracker.reportException(e);
-                }
-
+                tryExecSQL(addColumnSql(TagData.TABLE, TagData.COLOR, visitor, "-1"));
+            case 36:
+                tryExecSQL(addColumnSql(StoreObject.TABLE, StoreObject.DELETION_DATE, visitor, "0"));
                 return true;
         }
 
@@ -134,7 +131,7 @@ public class Database {
         try {
             database.execSQL(sql);
         } catch (SQLiteException e) {
-            Timber.e(e, "SQL Error: %s", sql);
+            tracker.reportException(e);
         }
     }
 

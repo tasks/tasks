@@ -60,6 +60,10 @@ public class StoreObject extends AbstractModel {
     public static final StringProperty VALUE3 = new StringProperty(
             TABLE, "value3");
 
+    /** Unixtime Task was deleted. 0 means not deleted */
+    public static final LongProperty DELETION_DATE = new LongProperty(
+            TABLE, "deleted", Property.PROP_FLAG_DATE);
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(StoreObject.class);
 
@@ -67,6 +71,10 @@ public class StoreObject extends AbstractModel {
 
     /** Default values container */
     private static final ContentValues defaultValues = new ContentValues();
+
+    static {
+        defaultValues.put(DELETION_DATE.name, 0);
+    }
 
     @Override
     public ContentValues getDefaultValues() {
