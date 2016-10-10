@@ -224,6 +224,7 @@
 	<string name="repeat_until">Herhalen tot %s</string>
 	<string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
 	<string name="new_tag">Nieuwe tag aanmaken</string>
+	<string name="new_list">Nieuwe lijst aanmaken</string>
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>
 	<string name="delete_tag_confirmation">Verwijder %s?</string>
 	<string name="TPl_notification">Timers ingeschakeld voor %s!</string>
