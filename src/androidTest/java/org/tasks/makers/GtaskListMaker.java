@@ -16,17 +16,24 @@ public class GtaskListMaker {
     public static final Property<GtasksList, String> REMOTE_ID = newProperty();
     public static final Property<GtasksList, Long> LAST_SYNC = newProperty();
     public static final Property<GtasksList, String> NAME = newProperty();
+    public static final Property<GtasksList, Boolean> SAVED = newProperty();
 
     public static GtasksList newGtaskList(PropertyValue<? super GtasksList, ?>... properties) {
         return make(instantiator, properties);
     }
 
-    private static final Instantiator<GtasksList> instantiator = lookup -> new GtasksList(new StoreObject() {{
-        setType(GtasksList.TYPE);
-        setValue(StoreObject.ID, lookup.valueOf(GtaskListMaker.ID, 1L));
-        setValue(StoreObject.ITEM, lookup.valueOf(REMOTE_ID, "1"));
-        setValue(StoreObject.VALUE1, lookup.valueOf(NAME, "Default"));
-        setValue(StoreObject.VALUE2, String.valueOf(lookup.valueOf(ORDER, 0)));
-        setValue(StoreObject.VALUE3, String.valueOf(lookup.valueOf(LAST_SYNC, 0L)));
-    }});
+    private static final Instantiator<GtasksList> instantiator = lookup -> {
+        StoreObject storeObject = new StoreObject() {{
+            setType(GtasksList.TYPE);
+            setValue(StoreObject.ID, lookup.valueOf(GtaskListMaker.ID, 0L));
+            setValue(StoreObject.ITEM, lookup.valueOf(REMOTE_ID, "1"));
+            setValue(StoreObject.VALUE1, lookup.valueOf(NAME, "Default"));
+            setValue(StoreObject.VALUE2, String.valueOf(lookup.valueOf(ORDER, 0)));
+            setValue(StoreObject.VALUE3, String.valueOf(lookup.valueOf(LAST_SYNC, 0L)));
+        }};
+        if (lookup.valueOf(SAVED, false)) {
+            storeObject.markSaved();
+        }
+        return new GtasksList(storeObject);
+    };
 }

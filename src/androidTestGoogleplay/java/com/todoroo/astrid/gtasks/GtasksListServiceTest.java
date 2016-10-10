@@ -21,6 +21,8 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
+import static org.tasks.makers.GtaskListMaker.ID;
+import static org.tasks.makers.GtaskListMaker.SAVED;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.makers.GtaskListMaker.LAST_SYNC;
 import static org.tasks.makers.GtaskListMaker.NAME;
@@ -55,14 +57,16 @@ public class GtasksListServiceTest extends DatabaseTestCase {
                 with(RemoteGtaskListMaker.NAME, "Default")));
 
         verify(storeObjectDao).persist(newGtaskList(
+                with(ID, 1L),
                 with(REMOTE_ID, "1"),
-                with(NAME, "Default")));
+                with(NAME, "Default"),
+                with(SAVED, true)));
     }
 
     @Test
     public void testGetListByRemoteId() {
         GtasksList list = newGtaskList(with(REMOTE_ID, "1"));
-        storeObjectDao.createNew(list.getStoreObject());
+        storeObjectDao.persist(list);
 
         assertEquals(list, gtasksListService.getList("1"));
     }
@@ -74,7 +78,7 @@ public class GtasksListServiceTest extends DatabaseTestCase {
 
     @Test
     public void testDeleteMissingList() {
-        storeObjectDao.createNew(newGtaskList(with(REMOTE_ID, "1")).getStoreObject());
+        storeObjectDao.persist(newGtaskList(with(REMOTE_ID, "1")));
 
         setLists(newRemoteList(with(RemoteGtaskListMaker.REMOTE_ID, "2")));
 
@@ -83,9 +87,9 @@ public class GtasksListServiceTest extends DatabaseTestCase {
 
     @Test
     public void testUpdateListName() {
-        storeObjectDao.createNew(newGtaskList(
+        storeObjectDao.persist(newGtaskList(
                 with(REMOTE_ID, "1"),
-                with(NAME, "oldName")).getStoreObject());
+                with(NAME, "oldName")));
 
         setLists(newRemoteList(
                 with(RemoteGtaskListMaker.REMOTE_ID, "1"),
@@ -108,7 +112,7 @@ public class GtasksListServiceTest extends DatabaseTestCase {
         setLists(taskList);
 
         assertEquals(
-                asList(newGtaskList(with(REMOTE_ID, "1"), with(LAST_SYNC, 0L))),
+                asList(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(LAST_SYNC, 0L), with(SAVED, true))),
                 gtasksListService.getListsToUpdate(asList(taskList)));
     }
 

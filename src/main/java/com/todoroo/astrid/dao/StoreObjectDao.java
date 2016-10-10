@@ -82,9 +82,5 @@ public class StoreObjectDao {
     public void delete(long id) {
         dao.delete(id);
     }
-
-    public void createNew(StoreObject storeObject) {
-        dao.createNew(storeObject);
-    }
 }
 
