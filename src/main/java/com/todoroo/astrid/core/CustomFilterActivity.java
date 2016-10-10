@@ -23,7 +23,7 @@ import android.widget.ListView;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
-import com.todoroo.astrid.actfm.TagSettingsActivity;
+import org.tasks.activities.TagSettingsActivity;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;

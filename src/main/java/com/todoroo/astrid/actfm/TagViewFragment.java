@@ -22,6 +22,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.activities.TagSettingsActivity;
 import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;

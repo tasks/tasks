@@ -3,7 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.astrid.actfm;
+package org.tasks.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +29,6 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
-import org.tasks.activities.ColorPickerActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.ColorPickerDialog;

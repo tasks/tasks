@@ -15,14 +15,14 @@
     <screenName name="org.tasks.voice.VoiceCommandActivity">VoiceCommandActivity</screenName>
     <screenName name="org.tasks.locale.ui.activity.TaskerSettingsActivity">TaskerSettingsActivity</screenName>
     <screenName name="com.todoroo.astrid.activity.TaskListActivity">TaskListActivity</screenName>
-    <screenName name="com.todoroo.astrid.actfm.TagSettingsActivity">TagSettingsActivity</screenName>
+    <screenName name="org.tasks.activities.TagSettingsActivity">TagSettingsActivity</screenName>
     <screenName name="org.tasks.reminders.SnoozeActivity">SnoozeActivity</screenName>
     <screenName name="com.todoroo.astrid.core.CustomFilterActivity">CustomFilterActivity</screenName>
     <screenName name="org.tasks.activities.CameraActivity">CameraActivity</screenName>
     <screenName name="org.tasks.activities.CalendarSelectionActivity">CalendarSelectionActivity</screenName>
     <screenName name="com.todoroo.astrid.gcal.CalendarReminderActivity">CalendarReminderActivity</screenName>
     <screenName name="com.todoroo.astrid.activity.BeastModePreferences">BeastModePreferences</screenName>
-    <screenName name="com.todoroo.astrid.actfm.FilterSettingsActivity">FilterSettingsActivity</screenName>
+    <screenName name="org.tasks.activities.FilterSettingsActivity">FilterSettingsActivity</screenName>
     <screenName name="org.tasks.activities.ColorPickerActivity">ColorPickerActivity</screenName>
     <screenName name="org.tasks.activities.DateAndTimePickerActivity">DateAndTimePickerActivity</screenName>
     <screenName name="org.tasks.activities.DatePickerActivity">DatePickerActivity</screenName>

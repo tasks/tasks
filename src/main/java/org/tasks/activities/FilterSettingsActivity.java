@@ -3,7 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.astrid.actfm;
+package org.tasks.activities;
 
 import android.content.Context;
 import android.content.Intent;

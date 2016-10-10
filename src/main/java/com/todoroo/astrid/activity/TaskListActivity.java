@@ -19,7 +19,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.TagSettingsActivity;
+import org.tasks.activities.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
