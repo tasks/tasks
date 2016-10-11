@@ -17,7 +17,6 @@ import android.widget.ListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -39,7 +38,6 @@ import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,16 +109,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     @Override
     public void beforeSetUpTaskList(Filter filter) {
     }
-
-    @Override
-    public Property<?>[] taskProperties() {
-        Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
-        ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(baseProperties));
-        properties.add(updater.indentProperty());
-        properties.add(updater.orderProperty());
-        return properties.toArray(new Property<?>[properties.size()]);
-    }
-
 
     private final DropListener dropListener = new DropListener() {
         @Override

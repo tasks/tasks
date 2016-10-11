@@ -12,7 +12,6 @@ import android.widget.ListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -265,11 +264,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             chainedCompletions.put(itemId, chained);
             taskAdapter.notifyDataSetInvalidated();
         }
-    }
-
-    @Override
-    public Property<?>[] taskProperties() {
-        return fragment.taskProperties();
     }
 
     public void setList(LIST list) {

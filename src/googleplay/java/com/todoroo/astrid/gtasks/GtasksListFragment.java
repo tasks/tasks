@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -29,6 +30,9 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 
@@ -122,6 +126,10 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     public Property<?>[] taskProperties() {
-        return helper.taskProperties();
+        Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
+        ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(baseProperties));
+        properties.add(gtasksTaskListUpdater.indentProperty());
+        properties.add(gtasksTaskListUpdater.orderProperty());
+        return properties.toArray(new Property<?>[properties.size()]);
     }
 }
