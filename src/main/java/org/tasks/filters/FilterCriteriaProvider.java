@@ -179,7 +179,7 @@ public class FilterCriteriaProvider {
     }
 
     private CustomFilterCriterion getGtasksFilterCriteria() {
-        List<GtasksList> lists = gtasksListService.getSortedGtasksList();
+        List<GtasksList> lists = gtasksListService.getLists();
 
         String[] listNames = new String[lists.size()];
         String[] listIds = new String[lists.size()];

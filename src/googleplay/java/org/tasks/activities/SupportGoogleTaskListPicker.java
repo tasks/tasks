@@ -41,7 +41,7 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
     }
 
     public static AlertDialog createDialog(DialogBuilder dialogBuilder, GtasksListService gtasksListService, final GoogleTaskListSelectionHandler handler) {
-        final List<GtasksList> lists = gtasksListService.getSortedGtasksList();
+        final List<GtasksList> lists = gtasksListService.getLists();
         List<String> listNames = transform(lists, GtasksList::getName);
         return dialogBuilder.newDialog()
                 .setItems(listNames, (dialog, which) -> {

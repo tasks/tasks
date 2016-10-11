@@ -41,7 +41,7 @@ public class GtasksFilterExposer {
         }
 
         List<Filter> listFilters = newArrayList();
-        for (GtasksList list : gtasksListService.getSortedGtasksList()) {
+        for (GtasksList list : gtasksListService.getLists()) {
             listFilters.add(filterFromList(list));
         }
         return listFilters;

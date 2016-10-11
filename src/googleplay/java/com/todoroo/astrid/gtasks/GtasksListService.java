@@ -7,8 +7,8 @@ package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.data.StoreObject;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 public class GtasksListService {
@@ -30,13 +31,11 @@ public class GtasksListService {
     }
 
     public List<GtasksList> getLists() {
-        return storeObjectDao.getGtasksLists();
+        return toGtasksList(storeObjectDao.getGtasksLists());
     }
 
-    public List<GtasksList> getSortedGtasksList() {
-        List<GtasksList> lists = getLists();
-        Collections.sort(lists, (left, right) -> left.getName().compareTo(right.getName()));
-        return lists;
+    private static List<GtasksList> toGtasksList(List<StoreObject> storeObjects) {
+        return transform(storeObjects, GtasksList::new);
     }
 
     public GtasksList getList(long id) {

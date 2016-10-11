@@ -16,8 +16,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.google.common.collect.Iterables.transform;
-import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.sql.Criterion.and;
 import static com.todoroo.andlib.sql.Query.select;
 
@@ -53,8 +51,10 @@ public class StoreObjectDao {
         return new GtasksList(result);
     }
 
-    public List<GtasksList> getGtasksLists() {
-        return newArrayList(transform(getByType(GtasksList.TYPE), GtasksList::new));
+    public List<StoreObject> getGtasksLists() {
+        return dao.toList(select(StoreObject.PROPERTIES)
+                .where(and(StoreObject.DELETION_DATE.eq(0), StoreObject.TYPE.eq(GtasksList.TYPE)))
+                .orderBy(Order.asc(StoreObject.VALUE1)));
     }
 
     public boolean persist(StoreObject storeObject) {
@@ -67,11 +67,6 @@ public class StoreObjectDao {
 
     public void update(StoreObject storeObject) {
         dao.saveExisting(storeObject);
-    }
-
-    private List<StoreObject> getByType(String type) {
-        return dao.toList(select(StoreObject.PROPERTIES)
-                .where(StoreObject.TYPE.eq(type)));
     }
 
     public StoreObject getSavedFilterByName(String title) {
