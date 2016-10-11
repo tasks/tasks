@@ -208,7 +208,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
                                      Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder,
                                      CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
-            super(context, preferences, taskAttachmentDao, taskService, activity, c, query, null,
+            super(context, preferences, taskAttachmentDao, taskService, activity, c, query,
                     dialogBuilder, checkBoxes, tagService, themeCache);
         }
 

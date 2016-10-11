@@ -521,9 +521,8 @@ public class TaskListFragment extends InjectingListFragment implements
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(context, preferences, taskAttachmentDao, taskService, this, cursor, sqlQueryTemplate,
-                (item, newState) -> {
-                }, dialogBuilder, checkBoxes, tagService, themeCache);
+        return new TaskAdapter(context, preferences, taskAttachmentDao, taskService, this, cursor,
+                sqlQueryTemplate, dialogBuilder, checkBoxes, tagService, themeCache);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$

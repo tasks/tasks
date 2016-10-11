@@ -144,9 +144,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final int textColorHint;
     private final int textColorOverdue;
 
-    public TaskAdapter(Context context, Preferences preferences, TaskAttachmentDao taskAttachmentDao, TaskService taskService, TaskListFragment fragment,
-                       Cursor c, AtomicReference<String> query, OnCompletedTaskListener onCompletedTaskListener,
-                       DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
+    public TaskAdapter(Context context, Preferences preferences, TaskAttachmentDao taskAttachmentDao,
+                       TaskService taskService, TaskListFragment fragment, Cursor c,
+                       AtomicReference<String> query, DialogBuilder dialogBuilder,
+                       CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
         super(context, c, false);
         this.checkBoxes = checkBoxes;
         this.preferences = preferences;
@@ -159,7 +160,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.tagService = tagService;
         this.themeCache = themeCache;
         this.resources = fragment.getResources();
-        this.onCompletedTaskListener = onCompletedTaskListener;
         inflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
