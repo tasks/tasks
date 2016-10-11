@@ -39,13 +39,12 @@ import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import org.tasks.activities.FilterSettingsActivity;
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -67,6 +66,7 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.gtasks.SyncAdapterHelper;
@@ -561,8 +561,8 @@ public class TaskListFragment extends InjectingListFragment implements
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.DELETION_DATE.name).eq(0),
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)));
 
-        if (this instanceof TagViewFragment) {
-            String uuid = ((TagViewFragment) this).getTagData().getUuid();
+        if (filter instanceof TagFilter) {
+            String uuid = ((TagFilter) filter).getUuid();
             tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name).neq(uuid));
         }
 
