@@ -16,6 +16,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -55,6 +56,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Inject TagService tagService;
     @Inject ThemeCache themeCache;
     @Inject Theme theme;
+    @Inject TaskDao taskDao;
 
     private AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
@@ -65,7 +67,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
         super.onAttach(activity);
 
         helper = new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao, taskService,
-                this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache);
+                this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache, taskDao);
     }
 
     @Override

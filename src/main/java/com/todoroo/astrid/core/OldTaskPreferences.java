@@ -13,10 +13,10 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.TaskDeleter;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -30,12 +30,12 @@ import javax.inject.Inject;
 public class OldTaskPreferences extends InjectingPreferenceActivity {
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
     @Inject TaskDeleter taskDeleter;
     @Inject MetadataDao metadataDao;
     @Inject Preferences preferences;
     @Inject Database database;
+    @Inject TaskDao taskDao;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
                                 Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
                         try {
                             int length = cursor.getCount();
@@ -93,7 +93,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                         }
                         Task template = new Task();
                         template.setDeletionDate(DateUtilities.now());
-                        return taskService.update(Task.COMPLETION_DATE.gt(0), template);
+                        return taskDao.update(Task.COMPLETION_DATE.gt(0), template);
                     }
 
                     @Override
@@ -110,7 +110,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE, Task.CALENDAR_URI).where(
+                        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.CALENDAR_URI).where(
                                 Criterion.and(Task.DELETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
                         try {
                             int length = cursor.getCount();
@@ -143,7 +143,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                     @Override
                     protected Integer doInBackground(Void... params) {
                         int deletedEventCount = 0;
-                        TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
                                 Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
                         try {
                             int length = cursor.getCount();
@@ -161,7 +161,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                         // since the GCalHelper doesnt save it due to performance-reasons
                         Task template = new Task();
                         template.setCalendarUri(""); //$NON-NLS-1$
-                        taskService.update(
+                        taskDao.update(
                                 Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()),
                                 template);
                         return deletedEventCount;
@@ -182,7 +182,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                     @Override
                     protected Integer doInBackground(Void... params) {
                         int deletedEventCount = 0;
-                        TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
                                 Task.CALENDAR_URI.isNotNull()));
                         try {
                             int length = cursor.getCount();
@@ -200,7 +200,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                         // since the GCalHelper doesnt save it due to performance-reasons
                         Task template = new Task();
                         template.setCalendarUri(""); //$NON-NLS-1$
-                        taskService.update(Task.CALENDAR_URI.isNotNull(), template);
+                        taskDao.update(Task.CALENDAR_URI.isNotNull(), template);
                         return deletedEventCount;
                     }
 

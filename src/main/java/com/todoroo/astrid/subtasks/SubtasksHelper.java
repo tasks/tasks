@@ -10,13 +10,13 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 
 import org.tasks.R;
@@ -35,15 +35,16 @@ public class SubtasksHelper {
 
     private final Context context;
     private final Preferences preferences;
-    private final TaskService taskService;
+    private final TaskDao taskDao;
     private final TagDataDao tagDataDao;
     private final TaskListMetadataDao taskListMetadataDao;
 
     @Inject
-    public SubtasksHelper(@ForApplication Context context, Preferences preferences, TaskService taskService, TagDataDao tagDataDao, TaskListMetadataDao taskListMetadataDao) {
+    public SubtasksHelper(@ForApplication Context context, Preferences preferences, TaskDao taskDao,
+                          TagDataDao tagDataDao, TaskListMetadataDao taskListMetadataDao) {
         this.context = context;
         this.preferences = preferences;
-        this.taskService = taskService;
+        this.taskDao = taskDao;
         this.tagDataDao = tagDataDao;
         this.taskListMetadataDao = taskListMetadataDao;
     }
@@ -86,7 +87,7 @@ public class SubtasksHelper {
         if (tlm != null) {
             serialized = tlm.getTaskIDs();
         } else if (tagData != null) {
-            serialized = convertTreeToRemoteIds(taskService, tagData.getTagOrdering());
+            serialized = convertTreeToRemoteIds(taskDao, tagData.getTagOrdering());
         } else {
             serialized = "[]"; //$NON-NLS-1$
         }
@@ -124,9 +125,9 @@ public class SubtasksHelper {
     /**
      * Takes a subtasks string containing local ids and remaps it to one containing UUIDs
      */
-    public static String convertTreeToRemoteIds(TaskService taskService, String localTree) {
+    public static String convertTreeToRemoteIds(TaskDao taskDao, String localTree) {
         List<Long> localIds = getIdList(localTree);
-        HashMap<Long, String> idMap = getIdMap(taskService, localIds, Task.ID, Task.UUID);
+        HashMap<Long, String> idMap = getIdMap(taskDao, localIds, Task.ID, Task.UUID);
         idMap.put(-1L, "-1"); //$NON-NLS-1$
 
         Node tree = AstridOrderedListUpdater.buildTreeModel(localTree, null);
@@ -167,9 +168,9 @@ public class SubtasksHelper {
         });
     }
 
-    private static <A, B> HashMap<A, B> getIdMap(TaskService taskService, Iterable<A> keys, Property<A> keyProperty, Property<B> valueProperty) {
+    private static <A, B> HashMap<A, B> getIdMap(TaskDao taskDao, Iterable<A> keys, Property<A> keyProperty, Property<B> valueProperty) {
         HashMap<A, B> map = new HashMap<>();
-        TodorooCursor<Task> tasks = taskService.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
+        TodorooCursor<Task> tasks = taskDao.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 A key = tasks.get(keyProperty);

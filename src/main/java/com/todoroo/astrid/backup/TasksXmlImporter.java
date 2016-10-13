@@ -23,6 +23,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -49,6 +50,7 @@ public class TasksXmlImporter {
     private final MetadataDao metadataDao;
     private final TaskService taskService;
     private final DialogBuilder dialogBuilder;
+    private final TaskDao taskDao;
 
     private Activity activity;
     private Handler handler;
@@ -65,11 +67,12 @@ public class TasksXmlImporter {
 
     @Inject
     public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService,
-                            DialogBuilder dialogBuilder) {
+                            DialogBuilder dialogBuilder, TaskDao taskDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.taskService = taskService;
         this.dialogBuilder = dialogBuilder;
+        this.taskDao = taskDao;
     }
 
     public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
@@ -195,7 +198,7 @@ public class TasksXmlImporter {
 
             // if the task's name and creation date match an existing task, skip
             long existingTask = 0;
-            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
+            TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID,
                         Task.COMPLETION_DATE, Task.DELETION_DATE).
                     where(Criterion.and(Task.TITLE.eq(title), Task.CREATION_DATE.eq(created))));
             try {

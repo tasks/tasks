@@ -2,9 +2,9 @@ package com.todoroo.astrid.subtasks;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.service.TaskService;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 @RunWith(AndroidJUnit4.class)
 public class SubtasksMovingTest extends SubtasksTestCase {
 
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
 
     private Task A, B, C, D, E, F;
 
@@ -25,7 +25,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
         createTasks();
         TaskListMetadata m = new TaskListMetadata();
         m.setFilter(TaskListMetadata.FILTER_ID_ALL);
-        updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(taskService, DEFAULT_SERIALIZED_TREE));
+        updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE));
 
         // Assert initial state is correct
         expectParentAndPosition(A, null, 0);
@@ -48,7 +48,7 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     private Task createTask(String title) {
         Task task = new Task();
         task.setTitle(title);
-        taskService.save(task);
+        taskDao.save(task);
         return task;
     }
 

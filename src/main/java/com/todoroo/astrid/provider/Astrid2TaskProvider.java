@@ -19,6 +19,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -85,6 +86,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	@Inject Lazy<TaskService> taskService;
     @Inject Lazy<TagService> tagService;
 	@Inject Lazy<CheckBoxes> checkBoxes;
+	@Inject Lazy<TaskDao> taskDao;
 
 	static {
 		URI_MATCHER.addURI(AUTHORITY, "tasks", URI_TASKS);
@@ -172,7 +174,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
 
-		TodorooCursor<Task> cursor = taskService.get().query(Query.select(Task.ID, Task.TITLE,
+		TodorooCursor<Task> cursor = taskDao.get().query(Query.select(Task.ID, Task.TITLE,
                 Task.IMPORTANCE, Task.DUE_DATE).where(Criterion.and(TaskCriteria.isActive(),
                 TaskCriteria.isVisible())).
                 orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
@@ -254,7 +256,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
                 replace(ID, Task.ID.name).
                 replace(IMPORTANCE, Task.IMPORTANCE.name);
 
-            return taskService.get().updateBySelection(criteria, selectionArgs, task);
+            return updateBySelection(criteria, selectionArgs, task);
 
         case URI_TAGS:
             throw new UnsupportedOperationException("tags updating: not yet");
@@ -262,6 +264,22 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
         default:
             throw new IllegalStateException("Unrecognized URI:" + uri);
         }
+	}
+
+	/**
+	 * Update database based on selection and values
+	 */
+	private int updateBySelection(String selection, String[] selectionArgs, Task taskValues) {
+		TodorooCursor<Task> cursor = taskDao.get().rawQuery(selection, selectionArgs, Task.ID);
+		try {
+			for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+				taskValues.setID(cursor.get(Task.ID));
+				taskService.get().save(taskValues);
+			}
+			return cursor.getCount();
+		} finally {
+			cursor.close();
+		}
 	}
 
 	public static void notifyDatabaseModification(Context context) {

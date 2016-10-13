@@ -18,6 +18,7 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
@@ -65,6 +66,7 @@ public class SubtasksListFragment extends TaskListFragment {
     @Inject TagService tagService;
     @Inject ThemeCache themeCache;
     @Inject Theme theme;
+    @Inject TaskDao taskDao;
 
     @Override
     public void onAttach(Activity activity) {
@@ -75,7 +77,7 @@ public class SubtasksListFragment extends TaskListFragment {
 
     protected OrderedListFragmentHelperInterface createFragmentHelper() {
         return new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao, taskService,
-                this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache);
+                this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache, taskDao);
     }
 
     @Override
@@ -119,7 +121,7 @@ public class SubtasksListFragment extends TaskListFragment {
             if (TextUtils.isEmpty(defaultOrder)) {
                 defaultOrder = "[]"; //$NON-NLS-1$
             }
-            defaultOrder = SubtasksHelper.convertTreeToRemoteIds(taskService, defaultOrder);
+            defaultOrder = SubtasksHelper.convertTreeToRemoteIds(taskDao, defaultOrder);
             taskListMetadata = new TaskListMetadata();
             taskListMetadata.setFilter(filterId);
             taskListMetadata.setTaskIDs(defaultOrder);

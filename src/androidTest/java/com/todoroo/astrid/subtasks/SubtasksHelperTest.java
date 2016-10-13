@@ -2,9 +2,9 @@ package com.todoroo.astrid.subtasks;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.service.TaskService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class SubtasksHelperTest extends SubtasksTestCase {
 
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
 
     @Override
     public void setUp() {
@@ -25,14 +25,14 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         createTasks();
         TaskListMetadata m = new TaskListMetadata();
         m.setFilter(TaskListMetadata.FILTER_ID_ALL);
-        updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(taskService, DEFAULT_SERIALIZED_TREE));
+        updater.initializeFromSerializedTree(m, filter, SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE));
     }
 
     private void createTask(String title, String uuid) {
         Task t = new Task();
         t.setTitle(title);
         t.setUuid(uuid);
-        taskService.save(t);
+        taskDao.save(t);
     }
 
     private void createTasks() {
@@ -60,7 +60,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
     private static String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]".replaceAll("\\s", "");
     @Test
     public void testLocalToRemoteIdMapping() {
-        String mapped = SubtasksHelper.convertTreeToRemoteIds(taskService, DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
+        String mapped = SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE).replaceAll("\\s", "");
         assertEquals(EXPECTED_REMOTE, mapped);
     }
 

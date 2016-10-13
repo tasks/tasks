@@ -100,6 +100,19 @@ public class TaskDao {
         return dao.rawQuery(selection, selectionArgs, id);
     }
 
+    /**
+     * Update all matching a clause to have the values set on template object.
+     * <p>
+     * Example (updates "joe" => "bob" in metadata value1):
+     * {code}
+     * Metadata item = new Metadata();
+     * item.setVALUE1("bob");
+     * update(item, Metadata.VALUE1.eq("joe"));
+     * {code}
+     * @param where sql criteria
+     * @param template set fields on this object in order to set them in the db.
+     * @return # of updated items
+     */
     public int update(Criterion where, Task template) {
         return dao.update(where, template);
     }

@@ -68,13 +68,6 @@ public class TaskService {
     // --- service layer
 
     /**
-     * Query underlying database
-     */
-    public TodorooCursor<Task> query(Query query) {
-        return taskDao.query(query);
-    }
-
-    /**
      * @return item, or null if it doesn't exist
      */
     public Task fetchById(long id, Property<?>... properties) {
@@ -142,40 +135,6 @@ public class TaskService {
         sql = PermaSql.replacePlaceholders(sql);
 
         return taskDao.query(Query.select(properties).withQueryTemplate(sql));
-    }
-
-    /**
-     * Update database based on selection and values
-     */
-    public int updateBySelection(String selection, String[] selectionArgs,
-            Task taskValues) {
-        TodorooCursor<Task> cursor = taskDao.rawQuery(selection, selectionArgs, Task.ID);
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                taskValues.setID(cursor.get(Task.ID));
-                save(taskValues);
-            }
-            return cursor.getCount();
-        } finally {
-            cursor.close();
-        }
-    }
-
-    /**
-     * Update all matching a clause to have the values set on template object.
-     * <p>
-     * Example (updates "joe" => "bob" in metadata value1):
-     * {code}
-     * Metadata item = new Metadata();
-     * item.setVALUE1("bob");
-     * update(item, Metadata.VALUE1.eq("joe"));
-     * {code}
-     * @param where sql criteria
-     * @param template set fields on this object in order to set them in the db.
-     * @return # of updated items
-     */
-    public int update(Criterion where, Task template) {
-        return taskDao.update(where, template);
     }
 
     /**

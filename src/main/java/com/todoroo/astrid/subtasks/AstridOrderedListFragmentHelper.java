@@ -21,6 +21,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -53,6 +54,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final TaskAttachmentDao taskAttachmentDao;
     private final TaskService taskService;
     private final ThemeCache themeCache;
+    private final TaskDao taskDao;
 
     private DraggableTaskAdapter taskAdapter;
 
@@ -61,7 +63,8 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     public AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
                                            TaskService taskService, TaskListFragment fragment,
                                            AstridOrderedListUpdater<LIST> updater, DialogBuilder dialogBuilder,
-                                           CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
+                                           CheckBoxes checkBoxes, TagService tagService,
+                                           ThemeCache themeCache, TaskDao taskDao) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskService = taskService;
@@ -71,6 +74,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         this.checkBoxes = checkBoxes;
         this.tagService = tagService;
         this.themeCache = themeCache;
+        this.taskDao = taskDao;
     }
 
     // --- ui component setup
@@ -222,7 +226,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
             if(chained != null) {
                 for(String taskId : chained) {
                     model.setCompletionDate(completionDate);
-                    taskService.update(Task.UUID.eq(taskId), model);
+                    taskDao.update(Task.UUID.eq(taskId), model);
                     model.clear();
                 }
                 taskAdapter.notifyDataSetInvalidated();
@@ -234,14 +238,14 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         updater.applyToDescendants(itemId, node -> {
             String uuid = node.uuid;
             model.setCompletionDate(completionDate);
-            taskService.update(Task.UUID.eq(uuid), model);
+            taskDao.update(Task.UUID.eq(uuid), model);
             model.clear();
             chained.add(node.uuid);
         });
 
         if(chained.size() > 0) {
             // move recurring items to item parent
-            TodorooCursor<Task> recurring = taskService.query(Query.select(Task.UUID, Task.RECURRENCE).where(
+            TodorooCursor<Task> recurring = taskDao.query(Query.select(Task.UUID, Task.RECURRENCE).where(
                     Criterion.and(Task.UUID.in(chained.toArray(new String[chained.size()])),
                                    Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
             try {
