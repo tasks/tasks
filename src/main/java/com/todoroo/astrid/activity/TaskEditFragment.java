@@ -37,7 +37,6 @@ import com.todoroo.astrid.utility.Flags;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
@@ -88,6 +87,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject Preferences preferences;
     @Inject Tracker tracker;
     @Inject Broadcaster broadcaster;
+    @Inject TimerPlugin timerPlugin;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.comments) LinearLayout comments;
@@ -176,7 +176,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     }
 
     public Task stopTimer() {
-        TimerPlugin.stopTimer(notificationManager, taskService, context, model);
+        timerPlugin.stopTimer(model);
         String elapsedTime = DateUtils.formatElapsedTime(model.getElapsedSeconds());
         addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
                         getString(R.string.TEA_timer_comment_stopped),
@@ -188,8 +188,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     }
 
     public Task startTimer() {
-        tracker.reportEvent(Tracking.Events.TIMER_START);
-        TimerPlugin.startTimer(notificationManager, taskService, context, model);
+        timerPlugin.startTimer(model);
         addComment(String.format("%s %s",
                         getString(R.string.TEA_timer_comment_started),
                         DateUtilities.getTimeString(getActivity(), newDateTime())),
@@ -280,7 +279,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     public void discard() {
         if (isNewTask) {
-            TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
+            timerPlugin.stopTimer(model);
             taskDeleter.delete(model);
         }
 
@@ -290,7 +289,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     private void deleteButtonClick() {
         dialogBuilder.newMessageDialog(R.string.DLG_delete_this_task_question)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    TimerPlugin.stopTimer(notificationManager, taskService, getActivity(), model);
+                    timerPlugin.stopTimer(model);
                     taskDeleter.delete(model);
                     callback.taskEditFinished();
                 })

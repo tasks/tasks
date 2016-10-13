@@ -20,26 +20,46 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
+import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
+
+import javax.inject.Inject;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class TimerPlugin {
 
-    public static void startTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task) {
-        updateTimer(notificationManager, taskService, context, task, true);
+    private final Context context;
+    private final NotificationManager notificationManager;
+    private final TaskService taskService;
+    private final Tracker tracker;
+
+    @Inject
+    public TimerPlugin(@ForApplication Context context, NotificationManager notificationManager,
+                       TaskService taskService, Tracker tracker) {
+        this.context = context;
+        this.notificationManager = notificationManager;
+        this.taskService = taskService;
+        this.tracker = tracker;
     }
 
-    public static void stopTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task) {
-        updateTimer(notificationManager, taskService, context, task, false);
+    public void startTimer(Task task) {
+        tracker.reportEvent(Tracking.Events.TIMER_START);
+        updateTimer(task, true);
+    }
+
+    public void stopTimer(Task task) {
+        updateTimer(task, false);
     }
 
     /**
      * toggles timer and updates elapsed time.
      * @param start if true, start timer. else, stop it
      */
-    private static void updateTimer(NotificationManager notificationManager, TaskService taskService, Context context, Task task, boolean start) {
+    private void updateTimer(Task task, boolean start) {
         if (task == null) {
             return;
         }
@@ -67,10 +87,10 @@ public class TimerPlugin {
         taskService.save(task);
 
         // update notification
-        TimerPlugin.updateNotifications(notificationManager, taskService, context);
+        updateNotifications();
     }
 
-    private static void updateNotifications(NotificationManager notificationManager, TaskService taskService, Context context) {
+    private void updateNotifications() {
         int count = taskService.count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0)));
         if(count == 0) {

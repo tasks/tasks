@@ -133,6 +133,7 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject TagService tagService;
     @Inject ThemeCache themeCache;
     @Inject protected TaskListDataProvider taskListDataProvider;
+    @Inject TimerPlugin timerPlugin;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -599,7 +600,7 @@ public class TaskListFragment extends InjectingListFragment implements
                 tef.discard();
             }
         }
-        TimerPlugin.stopTimer(notificationManager, taskService, context, task);
+        timerPlugin.stopTimer(task);
     }
 
     @Override
