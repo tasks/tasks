@@ -53,7 +53,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.Broadcaster;
@@ -93,7 +92,6 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject Broadcaster broadcaster;
-    @Inject TaskService taskService;
     @Inject StoreObjectDao storeObjectDao;
     @Inject GtasksSyncService gtasksSyncService;
     @Inject GtasksListService gtasksListService;
@@ -389,7 +387,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         //  merge astrid dates with google dates
 
         if(task.task.isSaved()) {
-            Task local = taskService.fetchById(task.task.getId(), Task.PROPERTIES);
+            Task local = taskDao.fetch(task.task.getId(), Task.PROPERTIES);
             if (local == null) {
                 task.task.clearValue(Task.ID);
                 task.task.clearValue(Task.UUID);

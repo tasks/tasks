@@ -14,8 +14,8 @@ import android.provider.CalendarContract;
 import android.text.TextUtils;
 
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.injection.BroadcastComponent;
@@ -27,7 +27,7 @@ import timber.log.Timber;
 
 public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
 
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -38,7 +38,7 @@ public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
             return;
         }
 
-        Task task = taskService.fetchById(taskId, Task.ID, Task.TITLE, Task.CALENDAR_URI);
+        Task task = taskDao.fetch(taskId, Task.ID, Task.TITLE, Task.CALENDAR_URI);
         if(task == null) {
             return;
         }

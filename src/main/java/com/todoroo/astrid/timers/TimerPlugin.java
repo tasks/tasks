@@ -75,7 +75,7 @@ public class TimerPlugin {
             // if this call comes from tasklist, then we need to fill in the gaps to handle this correctly
             // this is needed just for stopping a task
             if (!task.containsNonNullValue(Task.TIMER_START)) {
-                task = taskService.fetchById(task.getId(), Task.ID, Task.TIMER_START, Task.ELAPSED_SECONDS);
+                task = taskDao.fetch(task.getId(), Task.ID, Task.TIMER_START, Task.ELAPSED_SECONDS);
             }
             if (task == null) {
                 return;

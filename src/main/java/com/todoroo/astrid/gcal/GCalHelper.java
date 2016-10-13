@@ -14,8 +14,8 @@ import android.text.TextUtils;
 import android.text.format.Time;
 
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
@@ -35,16 +35,16 @@ public class GCalHelper {
     /** If task has no estimated time, how early to set a task in calendar (seconds)*/
     private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
-    private final TaskService taskService;
+    private final TaskDao taskDao;
     private final Preferences preferences;
     private final PermissionChecker permissionChecker;
     private final CalendarEventProvider calendarEventProvider;
     private final ContentResolver cr;
 
     @Inject
-    public GCalHelper(@ForApplication Context context, TaskService taskService, Preferences preferences,
+    public GCalHelper(@ForApplication Context context, TaskDao taskDao, Preferences preferences,
                       PermissionChecker permissionChecker, CalendarEventProvider calendarEventProvider) {
-        this.taskService = taskService;
+        this.taskDao = taskDao;
         this.preferences = preferences;
         this.permissionChecker = permissionChecker;
         this.calendarEventProvider = calendarEventProvider;
@@ -56,7 +56,7 @@ public class GCalHelper {
         if (!TextUtils.isEmpty(task.getCalendarURI())) {
             uri = task.getCalendarURI();
         } else {
-            task = taskService.fetchById(task.getId(), Task.CALENDAR_URI);
+            task = taskDao.fetch(task.getId(), Task.CALENDAR_URI);
             if(task == null) {
                 return null;
             }
@@ -151,7 +151,7 @@ public class GCalHelper {
         if(task.containsNonNullValue(Task.CALENDAR_URI)) {
             uri = task.getCalendarURI();
         } else {
-            task = taskService.fetchById(task.getId(), Task.CALENDAR_URI);
+            task = taskDao.fetch(task.getId(), Task.CALENDAR_URI);
             if(task == null) {
                 return false;
             }

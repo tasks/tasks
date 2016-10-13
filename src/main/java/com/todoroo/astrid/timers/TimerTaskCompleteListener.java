@@ -9,8 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 public class TimerTaskCompleteListener extends InjectingBroadcastReceiver {
 
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
     @Inject TimerPlugin timerPlugin;
 
     @Override
@@ -31,7 +31,7 @@ public class TimerTaskCompleteListener extends InjectingBroadcastReceiver {
             return;
         }
 
-        Task task = taskService.fetchById(taskId, Task.ID, Task.ELAPSED_SECONDS,
+        Task task = taskDao.fetch(taskId, Task.ID, Task.ELAPSED_SECONDS,
                 Task.TIMER_START);
         if(task == null || task.getTimerStart() == 0) {
             return;
