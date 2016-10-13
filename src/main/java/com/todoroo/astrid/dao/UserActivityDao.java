@@ -26,10 +26,11 @@ public class UserActivityDao {
     }
 
     public void getCommentsForTask(String taskUuid, Callback<UserActivity> callback) {
-        dao.query(callback, Query.select(UserActivity.PROPERTIES).where(
+        Query query = Query.select(UserActivity.PROPERTIES).where(
                 Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
                         UserActivity.TARGET_ID.eq(taskUuid),
-                        UserActivity.DELETED_AT.eq(0))
-        ).orderBy(Order.desc("1")));
+                        UserActivity.DELETED_AT.eq(0)))
+                .orderBy(Order.desc("1"));
+        dao.query(query, callback);
     }
 }

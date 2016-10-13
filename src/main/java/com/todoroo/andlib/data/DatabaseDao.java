@@ -56,10 +56,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     public void query(Query query, Callback<TYPE> callback) {
-        query(callback, query);
-    }
-
-    public void query(Callback<TYPE> callback, Query query) {
         query(query).forEach(callback);
     }
 

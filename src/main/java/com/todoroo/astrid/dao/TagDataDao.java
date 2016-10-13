@@ -46,9 +46,10 @@ public class TagDataDao {
 
     public void allTags(Callback<TagData> callback) {
         // TODO: does this need to be ordered?
-        dao.query(callback, Query.select(TagData.PROPERTIES)
+        Query query = Query.select(TagData.PROPERTIES)
                 .where(TagData.DELETION_DATE.eq(0))
-                .orderBy(Order.asc(TagData.ID)));
+                .orderBy(Order.asc(TagData.ID));
+        dao.query(query, callback);
     }
 
     public TagData getByUuid(String uuid) {
@@ -60,10 +61,11 @@ public class TagDataDao {
     }
 
     public void tagDataOrderedByName(Callback<TagData> callback) {
-        dao.query(callback, Query.select(TagData.PROPERTIES).where(Criterion.and(
-                        TagData.DELETION_DATE.eq(0),
-                        TagData.NAME.isNotNull())
-        ).orderBy(Order.asc(Functions.upper(TagData.NAME))));
+        Query query = Query.select(TagData.PROPERTIES).where(Criterion.and(
+                TagData.DELETION_DATE.eq(0),
+                TagData.NAME.isNotNull()))
+                .orderBy(Order.asc(Functions.upper(TagData.NAME)));
+        dao.query(query, callback);
     }
 
     public void persist(TagData tagData) {

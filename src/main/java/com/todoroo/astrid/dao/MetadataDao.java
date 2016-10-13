@@ -142,7 +142,8 @@ public class MetadataDao {
     }
 
     public void byTask(long taskId, Callback<Metadata> callback) {
-        dao.query(callback, Query.select(Metadata.PROPERTIES).where(Metadata.TASK.eq(taskId)));
+        Query query = Query.select(Metadata.PROPERTIES).where(Metadata.TASK.eq(taskId));
+        dao.query(query, callback);
     }
 
     public List<Metadata> byTaskAndKey(long taskId, String key) {
@@ -151,8 +152,9 @@ public class MetadataDao {
     }
 
     public void byTaskAndKey(long taskId, String key, Callback<Metadata> callback) {
-        dao.query(callback, Query.select(Metadata.PROPERTIES).where(
-                Criterion.and(Metadata.TASK.eq(taskId), Metadata.KEY.eq(key))));
+        Query query = Query.select(Metadata.PROPERTIES)
+                .where(Criterion.and(Metadata.TASK.eq(taskId), Metadata.KEY.eq(key)));
+        dao.query(query, callback);
     }
 }
 

@@ -27,7 +27,8 @@ public class TaskAttachmentDao {
     }
 
     public void getAttachments(String taskUuid, Callback<TaskAttachment> callback) {
-        dao.query(callback, byUuid(taskUuid, TaskAttachment.PROPERTIES));
+        Query query = byUuid(taskUuid, TaskAttachment.PROPERTIES);
+        dao.query(query, callback);
     }
 
     private static Query byUuid(String taskUuid, Property<?>... properties) {
