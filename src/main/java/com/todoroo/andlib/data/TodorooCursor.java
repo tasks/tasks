@@ -10,6 +10,8 @@ import android.database.CursorWrapper;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.WeakHashMap;
 
 /**
@@ -23,6 +25,7 @@ import java.util.WeakHashMap;
  */
 public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
 
+    private final Class<TYPE> modelClass;
     /** Properties read by this cursor */
     private final Property<?>[] properties;
 
@@ -39,11 +42,61 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      *
      * @param properties properties read from this cursor
      */
-    public TodorooCursor(Cursor cursor, Property<?>[] properties) {
+    public TodorooCursor(Class<TYPE> modelClass, Cursor cursor, Property<?>[] properties) {
         super(cursor);
+        this.modelClass = modelClass;
 
         this.properties = properties;
         columnIndexCache = new WeakHashMap<>();
+    }
+
+    public List<TYPE> toList() {
+        try {
+            List<TYPE> result = new ArrayList<>();
+            forEach(result::add);
+            return result;
+        } finally {
+            close();
+        }
+    }
+
+    public void forEach(Callback<TYPE> function) {
+        try {
+            for (moveToFirst() ; !isAfterLast() ; moveToNext()) {
+                function.apply(toModel());
+            }
+        } finally {
+            close();
+        }
+    }
+
+    public TYPE toModel() {
+        TYPE instance;
+        try {
+            instance = modelClass.newInstance();
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        instance.readPropertiesFromCursor(this);
+        return instance;
+    }
+
+    public int count() {
+        try {
+            return getCount();
+        } finally {
+            close();
+        }
+    }
+
+    public TYPE first() {
+        try {
+            return moveToFirst() ? toModel() : null;
+        } finally {
+            close();
+        }
     }
 
     /**

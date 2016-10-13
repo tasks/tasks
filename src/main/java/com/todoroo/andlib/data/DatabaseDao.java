@@ -14,7 +14,6 @@ import com.todoroo.astrid.dao.Database;
 
 import org.tasks.BuildConfig;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -53,9 +52,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     // --- dao methods
 
     public List<TYPE> toList(Query query) {
-        final List<TYPE> result = new ArrayList<>();
-        query(result::add, query);
-        return result;
+        return query(query).toList();
     }
 
     public void query(Query query, Callback<TYPE> callback) {
@@ -63,36 +60,11 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     public void query(Callback<TYPE> callback, Query query) {
-        TodorooCursor<TYPE> cursor = query(query);
-        try {
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                callback.apply(fromCursor(cursor));
-            }
-        } finally {
-            cursor.close();
-        }
+        query(query).forEach(callback);
     }
 
     public TYPE getFirst(Query query) {
-        TodorooCursor<TYPE> cursor = query(query);
-        try {
-            return cursor.moveToFirst() ? fromCursor(cursor) : null;
-        } finally {
-            cursor.close();
-        }
-    }
-
-    private TYPE fromCursor(TodorooCursor<TYPE> cursor) {
-        TYPE instance;
-        try {
-            instance = modelClass.newInstance();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-        instance.readPropertiesFromCursor(cursor);
-        return instance;
+        return query(query).first();
     }
 
     /**
@@ -105,7 +77,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             Timber.v(queryString);
         }
         Cursor cursor = database.rawQuery(queryString);
-        return new TodorooCursor<>(cursor, query.getFields());
+        return new TodorooCursor<>(modelClass, cursor, query.getFields());
     }
 
     /**
@@ -116,7 +88,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         for(int i = 0; i < properties.length; i++) {
             fields[i] = properties[i].name;
         }
-        return new TodorooCursor<>(database.getDatabase().query(table.name,
+        return new TodorooCursor<>(modelClass, database.getDatabase().query(table.name,
                 fields, selection, selectionArgs, null, null, null),
                 properties);
     }
@@ -269,11 +241,6 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     // --- helper methods
 
     public int count(Query query) {
-        TodorooCursor<TYPE> cursor = query(query);
-        try {
-            return cursor.getCount();
-        } finally {
-            cursor.close();
-        }
+        return query(query).count();
     }
 }
