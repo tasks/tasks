@@ -11,8 +11,8 @@ import android.content.res.Resources;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
@@ -32,17 +32,17 @@ import static java.util.Collections.emptyList;
  */
 public final class TimerFilterExposer {
 
-    private final TaskService taskService;
+    private final TaskDao taskDao;
     private final Context context;
 
     @Inject
-    public TimerFilterExposer(@ForApplication Context context, TaskService taskService) {
+    public TimerFilterExposer(@ForApplication Context context, TaskDao taskDao) {
         this.context = context;
-        this.taskService = taskService;
+        this.taskDao = taskDao;
     }
 
     public List<Filter> getFilters() {
-        if(taskService.count(Query.select(Task.ID).where(Task.TIMER_START.gt(0))) == 0) {
+        if(taskDao.count(Query.select(Task.ID).where(Task.TIMER_START.gt(0))) == 0) {
             return emptyList();
         }
 

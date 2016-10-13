@@ -15,6 +15,7 @@ import android.support.v7.app.NotificationCompat;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
@@ -36,14 +37,16 @@ public class TimerPlugin {
     private final NotificationManager notificationManager;
     private final TaskService taskService;
     private final Tracker tracker;
+    private final TaskDao taskDao;
 
     @Inject
     public TimerPlugin(@ForApplication Context context, NotificationManager notificationManager,
-                       TaskService taskService, Tracker tracker) {
+                       TaskService taskService, Tracker tracker, TaskDao taskDao) {
         this.context = context;
         this.notificationManager = notificationManager;
         this.taskService = taskService;
         this.tracker = tracker;
+        this.taskDao = taskDao;
     }
 
     public void startTimer(Task task) {
@@ -91,7 +94,7 @@ public class TimerPlugin {
     }
 
     private void updateNotifications() {
-        int count = taskService.count(Query.select(Task.ID).
+        int count = taskDao.count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0)));
         if(count == 0) {
             notificationManager.cancel(Constants.NOTIFICATION_TIMER);

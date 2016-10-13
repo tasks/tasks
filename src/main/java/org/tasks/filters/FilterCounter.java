@@ -1,6 +1,5 @@
 package org.tasks.filters;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -68,13 +67,8 @@ public class FilterCounter {
     }
 
     private int countTasks(Filter filter) {
-        String queryTemplate = PermaSql.replacePlaceholders(filter.getSqlQuery());
-        TodorooCursor<Task> cursor = taskDao.query(
-                Query.select(Task.ID).withQueryTemplate(queryTemplate));
-        try {
-            return cursor.getCount();
-        } finally {
-            cursor.close();
-        }
+        Query query = Query.select(Task.ID)
+                .withQueryTemplate(PermaSql.replacePlaceholders(filter.getSqlQuery()));
+        return taskDao.count(query);
     }
 }

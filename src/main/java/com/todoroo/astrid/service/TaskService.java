@@ -145,13 +145,6 @@ public class TaskService {
     }
 
     /**
-     * @return how many tasks are matched by this query
-     */
-    public int count(Query query) {
-        return taskDao.count(query);
-    }
-
-    /**
      * Update database based on selection and values
      */
     public int updateBySelection(String selection, String[] selectionArgs,
@@ -183,18 +176,6 @@ public class TaskService {
      */
     public int update(Criterion where, Task template) {
         return taskDao.update(where, template);
-    }
-
-    /**
-     * Count tasks overall
-     */
-    public int countTasks() {
-        TodorooCursor<Task> cursor = query(Query.select(Task.ID));
-        try {
-            return cursor.getCount();
-        } finally {
-            cursor.close();
-        }
     }
 
     /**

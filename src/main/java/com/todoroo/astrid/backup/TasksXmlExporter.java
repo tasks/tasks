@@ -22,10 +22,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
@@ -57,7 +57,7 @@ public class TasksXmlExporter {
 
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
-    private final TaskService taskService;
+    private final TaskDao taskDao;
     private final Preferences preferences;
 
     // 3 is started on Version 4.6.10
@@ -85,11 +85,11 @@ public class TasksXmlExporter {
     }
 
     @Inject
-    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService,
+    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskDao taskDao,
                             Preferences preferences) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
-        this.taskService = taskService;
+        this.taskDao = taskDao;
         this.preferences = preferences;
     }
 
@@ -109,7 +109,7 @@ public class TasksXmlExporter {
             try {
                 String output = setupFile(backupDirectory,
                         exportType);
-                int tasks = taskService.countTasks();
+                int tasks = taskDao.count(Query.select(Task.ID));
 
                 if(tasks > 0) {
                     doTasksExport(output);
@@ -172,7 +172,7 @@ public class TasksXmlExporter {
 
     private void serializeTasks() throws IOException {
         TodorooCursor<Task> cursor;
-        cursor = taskService.query(Query.select(
+        cursor = taskDao.query(Query.select(
                 Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
         try {
             int length = cursor.getCount();
