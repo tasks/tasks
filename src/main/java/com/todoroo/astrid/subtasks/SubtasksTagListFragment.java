@@ -123,7 +123,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
 
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return helper.createTaskAdapter(theme.wrap(context), cursor, sqlQueryTemplate);
+        return helper.createTaskAdapter(theme.wrap(context), cursor, taskListDataProvider.getSqlQueryTemplate());
     }
 
     @Override

@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -35,8 +34,6 @@ import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -44,13 +41,9 @@ import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TaskCreator;
@@ -60,13 +53,13 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
+import org.tasks.data.TaskListDataProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.gtasks.SyncAdapterHelper;
@@ -79,14 +72,11 @@ import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 
-import java.util.concurrent.atomic.AtomicReference;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
@@ -142,6 +132,7 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject Broadcaster broadcaster;
     @Inject TagService tagService;
     @Inject ThemeCache themeCache;
+    @Inject protected TaskListDataProvider taskListDataProvider;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -152,7 +143,6 @@ public class TaskListFragment extends InjectingListFragment implements
     private final RefreshReceiver refreshReceiver = new RefreshReceiver();
     private TaskListFragmentCallbackHandler callbacks;
 
-    protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     protected Filter filter;
 
     /*
@@ -522,7 +512,7 @@ public class TaskListFragment extends InjectingListFragment implements
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
         return new TaskAdapter(context, preferences, taskAttachmentDao, taskService, this, cursor,
-                sqlQueryTemplate, dialogBuilder, checkBoxes, tagService, themeCache);
+                taskListDataProvider.getSqlQueryTemplate(), dialogBuilder, checkBoxes, tagService, themeCache);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
@@ -538,7 +528,7 @@ public class TaskListFragment extends InjectingListFragment implements
             return;
         }
 
-        TodorooCursor<Task> currentCursor = constructCursor();
+        TodorooCursor<Task> currentCursor = taskListDataProvider.constructCursor(filter, taskProperties());
         if (currentCursor == null) {
             return;
         }
@@ -555,55 +545,10 @@ public class TaskListFragment extends InjectingListFragment implements
         return filter;
     }
 
-    private TodorooCursor<Task> constructCursor() {
-        Criterion tagsJoinCriterion = Criterion.and(
-                Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY), //$NON-NLS-1$
-                Field.field(TAGS_METADATA_JOIN + "." + Metadata.DELETION_DATE.name).eq(0),
-                Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)));
 
-        if (filter instanceof TagFilter) {
-            String uuid = ((TagFilter) filter).getUuid();
-            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name).neq(uuid));
-        }
-
-        // TODO: For now, we'll modify the query to join and include the things like tag data here.
-        // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
-        String joinedQuery =
-                Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
-                        tagsJoinCriterion).toString() //$NON-NLS-1$
-                + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN + "." + TaskAttachment.TASK_UUID.name)))
-                + filter.getSqlQuery();
-
-        sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                preferences, joinedQuery, preferences.getSortMode()));
-
-        String groupedQuery;
-        if (sqlQueryTemplate.get().contains("GROUP BY")) {
-            groupedQuery = sqlQueryTemplate.get();
-        } else if (sqlQueryTemplate.get().contains("ORDER BY")) //$NON-NLS-1$
-        {
-            groupedQuery = sqlQueryTemplate.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
-        } else {
-            groupedQuery = sqlQueryTemplate.get() + " GROUP BY " + Task.ID;
-        }
-        sqlQueryTemplate.set(groupedQuery);
-
-        // Peform query
-        try {
-            return taskService.fetchFiltered(
-                sqlQueryTemplate.get(), null, taskProperties());
-        } catch (SQLiteException e) {
-            // We don't show this error anymore--seems like this can get triggered
-            // by a strange bug, but there seems to not be any negative side effect.
-            // For now, we'll suppress the error
-            // See http://astrid.com/home#tags-7tsoi/task-1119pk
-            Timber.e(e, e.getMessage());
-            return null;
-        }
-    }
 
     public void reconstructCursor() {
-        TodorooCursor<Task> cursor = constructCursor();
+        TodorooCursor<Task> cursor = taskListDataProvider.constructCursor(filter, taskProperties());
         if (cursor == null || taskAdapter == null) {
             return;
         }
