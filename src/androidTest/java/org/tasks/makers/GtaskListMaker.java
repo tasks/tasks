@@ -25,6 +25,7 @@ public class GtaskListMaker {
     private static final Instantiator<GtasksList> instantiator = lookup -> {
         StoreObject storeObject = new StoreObject() {{
             setType(GtasksList.TYPE);
+            setValue(StoreObject.DELETION_DATE, 0L);
             setValue(StoreObject.ID, lookup.valueOf(GtaskListMaker.ID, 0L));
             setValue(StoreObject.ITEM, lookup.valueOf(REMOTE_ID, "1"));
             setValue(StoreObject.VALUE1, lookup.valueOf(NAME, "Default"));

@@ -56,11 +56,13 @@ public class GtasksListServiceTest extends DatabaseTestCase {
                 with(RemoteGtaskListMaker.REMOTE_ID, "1"),
                 with(RemoteGtaskListMaker.NAME, "Default")));
 
-        verify(storeObjectDao).persist(newGtaskList(
-                with(ID, 1L),
-                with(REMOTE_ID, "1"),
-                with(NAME, "Default"),
-                with(SAVED, true)));
+        assertEquals(
+                newGtaskList(
+                        with(ID, 1L),
+                        with(REMOTE_ID, "1"),
+                        with(NAME, "Default"),
+                        with(SAVED, true)),
+                storeObjectDao.getGtasksList(1L));
     }
 
     @Test
