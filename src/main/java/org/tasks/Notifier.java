@@ -14,7 +14,6 @@ import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.google.common.base.Strings;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -144,24 +143,9 @@ public class Notifier {
     public void triggerFilterNotification(final Filter filter) {
         String title = filter.listingTitle;
         String query = filter.getSqlQuery();
-        TodorooCursor<Task> taskTodorooCursor = null;
-        int count;
-        try {
-            taskTodorooCursor = taskDao.fetchFiltered(query, Task.ID);
-            if (taskTodorooCursor == null) {
-                return;
-            }
-            count = taskTodorooCursor.getCount();
-            if (count == 0) {
-                return;
-            }
-        } catch (Exception e) {
-            Timber.e(e, e.getMessage());
+        int count = taskDao.count(filter);
+        if (count == 0) {
             return;
-        } finally {
-            if (taskTodorooCursor != null) {
-                taskTodorooCursor.close();
-            }
         }
 
         String subtitle = context.getString(R.string.task_count, count);

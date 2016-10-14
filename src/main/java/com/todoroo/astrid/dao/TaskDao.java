@@ -78,6 +78,10 @@ public class TaskDao {
         return dao.query(query);
     }
 
+    public void forEach(Query query, Callback<Task> callback) {
+        query(query).forEach(callback);
+    }
+
     public void selectActive(Criterion criterion, Callback<Task> callback) {
         dao.query(Query.select(Task.PROPERTIES).where(Criterion.and(TaskCriteria.isActive(), criterion)), callback);
     }
@@ -456,13 +460,17 @@ public class TaskDao {
     }
 
     public TodorooCursor<Task> fetchFiltered(String queryTemplate, Property<?>... properties) {
-        if(queryTemplate == null) {
-            return query(Query.selectDistinct(properties));
+        return query(fetchFilteredQuery(queryTemplate, properties));
+    }
+
+    public Query fetchFilteredQuery(String queryTemplate, Property<?>... properties) {
+        if (queryTemplate == null) {
+            return Query.selectDistinct(properties);
         }
 
         String sql = PermaSql.replacePlaceholders(queryTemplate);
 
-        return query(Query.select(properties).withQueryTemplate(sql));
+        return Query.select(properties).withQueryTemplate(sql);
     }
 }
 
