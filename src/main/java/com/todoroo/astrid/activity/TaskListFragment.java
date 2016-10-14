@@ -344,7 +344,7 @@ public class TaskListFragment extends InjectingListFragment implements
     }
 
     public Task addTask(String title) {
-        return taskService.createWithValues(filter.valuesForNewTasks, title);
+        return taskCreator.createWithValues(filter.valuesForNewTasks, title);
     }
 
     @Override

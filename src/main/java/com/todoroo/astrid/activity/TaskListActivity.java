@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import org.tasks.activities.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -28,13 +27,14 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
@@ -42,6 +42,7 @@ import com.todoroo.astrid.timers.TimerControlSet;
 
 import org.tasks.Broadcaster;
 import org.tasks.R;
+import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.SortDialog;
@@ -83,7 +84,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     @Inject Preferences preferences;
     @Inject SubtasksHelper subtasksHelper;
-    @Inject TaskService taskService;
     @Inject RepeatConfirmationReceiver repeatConfirmationReceiver;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject GtasksListService gtasksListService;
@@ -93,6 +93,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject ThemeCache themeCache;
     @Inject SyncAdapterHelper syncAdapterHelper;
     @Inject Tracker tracker;
+    @Inject TaskCreator taskCreator;
+    @Inject TaskDao taskDao;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
@@ -417,7 +419,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         Task model = null;
 
         if (taskId> -1L) {
-            model = taskService.fetchById(taskId, Task.PROPERTIES);
+            model = taskDao.fetch(taskId, Task.PROPERTIES);
         }
 
         // not found by id or was never passed an id
@@ -434,7 +436,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 // oops, can't serialize
                 Timber.e(e, e.getMessage());
             }
-            model = taskService.createWithValues(values, null);
+            model = taskCreator.createWithValues(values, null);
         }
 
         return model;

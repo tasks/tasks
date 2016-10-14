@@ -25,7 +25,7 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class QuickAddMarkupTest extends DatabaseTestCase {
 
-    @Inject TaskService taskService;
+    @Inject TaskCreator taskCreator;
 
     @Override
     protected void inject(TestComponent component) {
@@ -102,11 +102,10 @@ public class QuickAddMarkupTest extends DatabaseTestCase {
         task = new Task();
         task.setTitle(title);
         tags.clear();
-        taskService.parseQuickAddMarkup(task, tags);
+        taskCreator.parseQuickAddMarkup(task, tags);
     }
 
     private void assertImportanceIs(int importance) {
         assertEquals(importance, (int)task.getImportance());
     }
-
 }
