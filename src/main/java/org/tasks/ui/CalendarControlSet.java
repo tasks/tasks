@@ -26,6 +26,7 @@ import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.calendars.AndroidCalendar;
+import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
@@ -68,6 +69,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Inject Tracker tracker;
     @Inject DialogBuilder dialogBuilder;
     @Inject ThemeBase themeBase;
+    @Inject CalendarEventProvider calendarEventProvider;
 
     private String calendarId;
     private String calendarName;
@@ -153,7 +155,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
         if (!isNullOrEmpty(task.getCalendarURI())) {
             if (eventUri == null) {
-                gcalHelper.deleteTaskEvent(task);
+                calendarEventProvider.deleteEvent(task);
             } else if (!calendarEntryExists(task.getCalendarURI())) {
                 task.setCalendarUri("");
             }

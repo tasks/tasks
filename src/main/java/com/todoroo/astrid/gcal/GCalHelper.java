@@ -94,7 +94,7 @@ public class GCalHelper {
         String eventuri = getTaskEventUri(task);
 
         if(!TextUtils.isEmpty(eventuri) && deleteEventIfExists) {
-            deleteTaskEvent(task);
+            calendarEventProvider.deleteEvent(task);
         }
 
         try {
@@ -143,35 +143,6 @@ public class GCalHelper {
 
         Uri uri = createTaskEvent(task, cv, false);
         task.setCalendarUri(uri.toString());
-    }
-
-    public boolean deleteTaskEvent(Task task) {
-        boolean eventDeleted = false;
-        String uri;
-        if(task.containsNonNullValue(Task.CALENDAR_URI)) {
-            uri = task.getCalendarURI();
-        } else {
-            task = taskDao.fetch(task.getId(), Task.CALENDAR_URI);
-            if(task == null) {
-                return false;
-            }
-            uri = task.getCalendarURI();
-        }
-
-        if(!TextUtils.isEmpty(uri)) {
-            try {
-                Uri calendarUri = Uri.parse(uri);
-                if (calendarEventProvider.hasEvent(calendarUri)) {
-                    cr.delete(calendarUri, null, null);
-                    eventDeleted = true;
-                }
-                task.setCalendarUri("");
-            } catch (Exception e) {
-                Timber.e(e, e.getMessage());
-            }
-        }
-
-        return eventDeleted;
     }
 
     public void createStartAndEndDate(Task task, ContentValues values) {

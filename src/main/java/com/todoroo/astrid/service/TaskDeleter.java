@@ -5,19 +5,20 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gcal.GCalHelper;
+
+import org.tasks.calendars.CalendarEventProvider;
 
 import javax.inject.Inject;
 
 public class TaskDeleter {
 
-    private final GCalHelper gcalHelper;
     private final TaskDao taskDao;
+    private final CalendarEventProvider calendarEventProvider;
 
     @Inject
-    public TaskDeleter(GCalHelper gcalHelper, TaskDao taskDao) {
-        this.gcalHelper = gcalHelper;
+    public TaskDeleter(TaskDao taskDao, CalendarEventProvider calendarEventProvider) {
         this.taskDao = taskDao;
+        this.calendarEventProvider = calendarEventProvider;
     }
 
     /**
@@ -58,7 +59,7 @@ public class TaskDeleter {
             long id = item.getId();
             item.clear();
             item.setId(id);
-            gcalHelper.deleteTaskEvent(item);
+            calendarEventProvider.deleteEvent(item);
             item.setDeletionDate(DateUtilities.now());
             taskDao.save(item);
         }
