@@ -15,9 +15,7 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
-import org.tasks.Broadcaster;
 import org.tasks.injection.ApplicationScope;
-import org.tasks.scheduling.RefreshScheduler;
 
 import javax.inject.Inject;
 
@@ -32,14 +30,10 @@ import javax.inject.Inject;
 public class TaskService {
 
     private final TaskDao taskDao;
-    private final Broadcaster broadcaster;
-    private final RefreshScheduler refreshScheduler;
 
     @Inject
-    public TaskService(TaskDao taskDao, Broadcaster broadcaster, RefreshScheduler refreshScheduler) {
+    public TaskService(TaskDao taskDao) {
         this.taskDao = taskDao;
-        this.broadcaster = broadcaster;
-        this.refreshScheduler = refreshScheduler;
     }
 
     // --- service layer
@@ -67,11 +61,8 @@ public class TaskService {
     /**
      * Create or save the given action item
      */
-    public boolean save(Task item) {
-        boolean databaseChanged = taskDao.save(item);
-        broadcaster.refresh();
-        refreshScheduler.scheduleRefresh(item);
-        return databaseChanged;
+    public void save(Task item) {
+        taskDao.save(item);
     }
 
     /**

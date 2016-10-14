@@ -20,6 +20,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.ReminderService;
@@ -30,6 +31,7 @@ import org.tasks.injection.ApplicationScope;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
+import org.tasks.scheduling.RefreshScheduler;
 
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class TaskDao {
     public static final String TRANS_SUPPRESS_REFRESH = "suppress-refresh";
 
     private final RemoteModelDao<Task> dao;
+    private final RefreshScheduler refreshScheduler;
 
     private final MetadataDao metadataDao;
     private final Broadcaster broadcaster;
@@ -60,7 +63,7 @@ public class TaskDao {
     @Inject
 	public TaskDao(Database database, MetadataDao metadataDao, final Broadcaster broadcaster,
                    ReminderService reminderService, NotificationManager notificationManager,
-                   Preferences preferences, GeofenceService geofenceService) {
+                   Preferences preferences, GeofenceService geofenceService, RefreshScheduler refreshScheduler) {
         this.geofenceService = geofenceService;
         this.preferences = preferences;
         this.metadataDao = metadataDao;
@@ -68,6 +71,7 @@ public class TaskDao {
         this.reminderService = reminderService;
         this.notificationManager = notificationManager;
         dao = new RemoteModelDao<>(database, Task.class);
+        this.refreshScheduler = refreshScheduler;
     }
 
     public TodorooCursor<Task> query(Query query) {
@@ -206,7 +210,16 @@ public class TaskDao {
      * exist. Returns true on success.
      *
      */
-    public boolean save(Task task) {
+    public void save(Task task) {
+        ContentValues modifiedValues = createOrUpdate(task);
+        if (modifiedValues != null) {
+            afterSave(task, modifiedValues);
+        } else if (task.checkTransitory(SyncFlags.FORCE_SYNC)) {
+            broadcaster.taskUpdated(task, null);
+        }
+    }
+
+    private ContentValues createOrUpdate(Task task) {
         if (task.getId() == Task.NO_ID) {
             try {
                 return createNew(task);
@@ -219,7 +232,7 @@ public class TaskDao {
         }
     }
 
-    private boolean handleSQLiteConstraintException(Task task) {
+    private ContentValues handleSQLiteConstraintException(Task task) {
         TodorooCursor<Task> cursor = dao.query(Query.select(Task.ID).where(
                 Task.UUID.eq(task.getUUID())));
         if (cursor.getCount() > 0) {
@@ -227,10 +240,10 @@ public class TaskDao {
             task.setId(cursor.get(Task.ID));
             return saveExisting(task);
         }
-        return false;
+        return null;
     }
 
-    public boolean createNew(Task item) {
+    public ContentValues createNew(Task item) {
         if(!item.containsValue(Task.CREATION_DATE)) {
             item.setCreationDate(DateUtilities.now());
         }
@@ -252,10 +265,9 @@ public class TaskDao {
 
         ContentValues values = item.getSetValues();
         if(dao.createNew(item)) {
-            afterSave(item, values);
-            return true;
+            return values;
         }
-        return false;
+        return null;
     }
 
     private static void createDefaultHideUntil(Preferences preferences, Task item) {
@@ -280,10 +292,10 @@ public class TaskDao {
         }
     }
 
-    public boolean saveExisting(Task item) {
+    public ContentValues saveExisting(Task item) {
         ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0) {
-            return false;
+            return null;
         }
         if(!TaskApiDao.insignificantChange(values)) {
             if(!values.containsKey(Task.MODIFICATION_DATE.name)) {
@@ -291,10 +303,9 @@ public class TaskDao {
             }
         }
         if(dao.saveExisting(item)) {
-            afterSave(item, values);
-            return true;
+            return values;
         }
-        return false;
+        return null;
     }
 
     private static final Property<?>[] SQL_CONSTRAINT_MERGE_PROPERTIES = new Property<?>[] {
@@ -373,10 +384,6 @@ public class TaskDao {
      * Astrid. Order matters here!
      */
     private void afterSave(Task task, ContentValues values) {
-        if(values == null) {
-            return;
-        }
-
         task.markSaved();
         boolean completionDateModified = values.containsKey(Task.COMPLETION_DATE.name);
         boolean deletionDateModified = values.containsKey(Task.DELETION_DATE.name);
@@ -416,6 +423,7 @@ public class TaskDao {
         }
 
         broadcaster.taskUpdated(task, values);
+        refreshScheduler.scheduleRefresh(task);
         broadcastRefresh(task);
     }
 

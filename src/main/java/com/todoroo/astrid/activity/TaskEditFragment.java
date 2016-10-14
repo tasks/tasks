@@ -21,20 +21,18 @@ import android.widget.LinearLayout;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.service.TaskDeleter;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.utility.Flags;
 
-import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
@@ -76,7 +74,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     private static final String EXTRA_TASK = "extra_task";
     private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
 
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
     @Inject UserActivityDao userActivityDao;
     @Inject TaskDeleter taskDeleter;
     @Inject NotificationManager notificationManager;
@@ -86,7 +84,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject CommentsController commentsController;
     @Inject Preferences preferences;
     @Inject Tracker tracker;
-    @Inject Broadcaster broadcaster;
     @Inject TimerPlugin timerPlugin;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -210,10 +207,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             for (TaskEditControlFragment fragment : fragments) {
                 fragment.apply(model);
             }
-            boolean databaseChanged = taskService.save(model);
-            if (!databaseChanged && model.checkTransitory(SyncFlags.FORCE_SYNC)) {
-                broadcaster.taskUpdated(model, null);
-            }
+            taskDao.save(model);
 
             boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
 

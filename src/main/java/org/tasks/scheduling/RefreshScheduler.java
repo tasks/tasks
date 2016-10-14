@@ -4,8 +4,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.injection.ForApplication;
@@ -23,24 +21,13 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 public class RefreshScheduler {
 
-    private final TaskDao taskDao;
     private final Context context;
     private final AlarmManager alarmManager;
 
     @Inject
-    public RefreshScheduler(TaskDao taskDao, @ForApplication Context context, AlarmManager alarmManager) {
-        this.taskDao = taskDao;
+    public RefreshScheduler(@ForApplication Context context, AlarmManager alarmManager) {
         this.context = context;
         this.alarmManager = alarmManager;
-    }
-
-    public void scheduleApplicationRefreshes() {
-        long now = currentTimeMillis();
-        long midnight = nextMidnight(now);
-        Criterion criterion = Criterion.or(
-                Criterion.and(Task.HIDE_UNTIL.gt(now), Task.HIDE_UNTIL.lt(midnight)),
-                Criterion.and(Task.DUE_DATE.gt(now), Task.DUE_DATE.lt(midnight)));
-        taskDao.selectActive(criterion, this::scheduleRefresh);
     }
 
     public void scheduleRefresh(Task task) {
