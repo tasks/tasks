@@ -455,38 +455,12 @@ public class TaskDao {
         save(item);
     }
 
-    /**
-     * Fetch tasks for the given filter
-     * @param constraint text constraint, or null
-     */
-    public TodorooCursor<Task> fetchFiltered(String queryTemplate, CharSequence constraint,
-                                             Property<?>... properties) {
-        Criterion whereConstraint = null;
-        if(constraint != null) {
-            whereConstraint = Functions.upper(Task.TITLE).like("%" +
-                    constraint.toString().toUpperCase() + "%");
-        }
-
+    public TodorooCursor<Task> fetchFiltered(String queryTemplate, Property<?>... properties) {
         if(queryTemplate == null) {
-            if(whereConstraint == null) {
-                return query(Query.selectDistinct(properties));
-            } else {
-                return query(Query.selectDistinct(properties).where(whereConstraint));
-            }
+            return query(Query.selectDistinct(properties));
         }
 
-        String sql;
-        if(whereConstraint != null) {
-            if(!queryTemplate.toUpperCase().contains("WHERE")) {
-                sql = queryTemplate + " WHERE " + whereConstraint;
-            } else {
-                sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
-            }
-        } else {
-            sql = queryTemplate;
-        }
-
-        sql = PermaSql.replacePlaceholders(sql);
+        String sql = PermaSql.replacePlaceholders(queryTemplate);
 
         return query(Query.select(properties).withQueryTemplate(sql));
     }

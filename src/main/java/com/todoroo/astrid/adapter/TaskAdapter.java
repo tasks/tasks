@@ -36,9 +36,13 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
@@ -203,7 +207,43 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return getFilterQueryProvider().runQuery(constraint);
         }
 
-        return taskDao.fetchFiltered(query.get(), constraint, fragment.taskProperties());
+        return fetchFiltered(query.get(), constraint, fragment.taskProperties());
+    }
+
+    /**
+     * Fetch tasks for the given filter
+     * @param constraint text constraint, or null
+     */
+    private TodorooCursor<Task> fetchFiltered(String queryTemplate, CharSequence constraint,
+                                             Property<?>... properties) {
+        Criterion whereConstraint = null;
+        if(constraint != null) {
+            whereConstraint = Functions.upper(Task.TITLE).like("%" +
+                    constraint.toString().toUpperCase() + "%");
+        }
+
+        if(queryTemplate == null) {
+            if(whereConstraint == null) {
+                return taskDao.query(Query.selectDistinct(properties));
+            } else {
+                return taskDao.query(Query.selectDistinct(properties).where(whereConstraint));
+            }
+        }
+
+        String sql;
+        if(whereConstraint != null) {
+            if(!queryTemplate.toUpperCase().contains("WHERE")) {
+                sql = queryTemplate + " WHERE " + whereConstraint;
+            } else {
+                sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
+            }
+        } else {
+            sql = queryTemplate;
+        }
+
+        sql = PermaSql.replacePlaceholders(sql);
+
+        return taskDao.query(Query.select(properties).withQueryTemplate(sql));
     }
 
     /* ======================================================================

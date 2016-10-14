@@ -147,7 +147,7 @@ public class Notifier {
         TodorooCursor<Task> taskTodorooCursor = null;
         int count;
         try {
-            taskTodorooCursor = taskDao.fetchFiltered(query, null, Task.ID);
+            taskTodorooCursor = taskDao.fetchFiltered(query, Task.ID);
             if (taskTodorooCursor == null) {
                 return;
             }

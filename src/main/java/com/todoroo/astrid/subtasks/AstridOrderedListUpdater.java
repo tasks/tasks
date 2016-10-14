@@ -79,7 +79,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         Set<String> idsInQuery = new HashSet<>();
         String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", "");  //$NON-NLS-1$//$NON-NLS-2$
         sql = sql + String.format(" ORDER BY %s", Task.CREATION_DATE); //$NON-NLS-1$
-        TodorooCursor<Task> tasks = taskDao.fetchFiltered(sql, null, Task.UUID);
+        TodorooCursor<Task> tasks = taskDao.fetchFiltered(sql, Task.UUID);
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 String id = tasks.getString(0);

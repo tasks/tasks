@@ -78,7 +78,7 @@ public class TaskListDataProvider {
 
         // Peform query
         try {
-            return taskDao.fetchFiltered(sqlQueryTemplate.get(), null, properties);
+            return taskDao.fetchFiltered(sqlQueryTemplate.get(), properties);
         } catch (SQLiteException e) {
             // We don't show this error anymore--seems like this can get triggered
             // by a strange bug, but there seems to not be any negative side effect.

@@ -200,7 +200,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private TodorooCursor<Task> getCursor() {
         String query = getQuery();
-        return taskDao.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE, Task.IMPORTANCE, Task.RECURRENCE);
+        return taskDao.fetchFiltered(query, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE, Task.IMPORTANCE, Task.RECURRENCE);
     }
 
     private Task getTask(int position) {
