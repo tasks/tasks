@@ -10,8 +10,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -31,15 +31,15 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
                     Task.REPEAT_UNTIL
             };
 
-    private final TaskService taskService;
     private final Activity activity;
     private final Tracker tracker;
+    private final TaskDao taskDao;
 
     @Inject
-    public RepeatConfirmationReceiver(TaskService taskService, Activity activity, Tracker tracker) {
-        this.taskService = taskService;
+    public RepeatConfirmationReceiver(Activity activity, Tracker tracker, TaskDao taskDao) {
         this.activity = activity;
         this.tracker = tracker;
+        this.taskDao = taskDao;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
         if (taskId > 0) {
             long oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
             long newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
-            Task task = taskService.fetchById(taskId, REPEAT_RESCHEDULED_PROPERTIES);
+            Task task = taskDao.fetch(taskId, REPEAT_RESCHEDULED_PROPERTIES);
 
             try {
                 showSnackbar(taskListFragment, task, oldDueDate, newDueDate);
@@ -74,7 +74,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
                 .setAction(R.string.DLG_undo, v -> {
                     task.setDueDateAdjustingHideUntil(oldDueDate);
                     task.setCompletionDate(0L);
-                    taskService.save(task);
+                    taskDao.save(task);
                 })
                 .show();
     }

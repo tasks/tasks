@@ -9,9 +9,9 @@ import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
@@ -59,8 +59,8 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
     @Inject GtasksTestPreferenceService preferences;
     @Inject MetadataDao metadataDao;
-    @Inject TaskService taskService;
     @Inject GtasksMetadata gtasksMetadata;
+    @Inject TaskDao taskDao;
 
     private Task task;
     private Metadata metadata;
@@ -116,7 +116,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     private Task taskWithMetadata(String id) {
         Task task = new Task();
         task.setTitle("cats");
-        taskService.save(task);
+        taskDao.save(task);
         Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
         if (id != null)
             metadata.setValue(GtasksMetadata.ID, id);
@@ -132,7 +132,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     private Task taskWithoutMetadata() {
         Task task = new Task();
         task.setTitle("dogs");
-        taskService.save(task);
+        taskDao.save(task);
         return task;
     }
 }

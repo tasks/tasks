@@ -43,13 +43,13 @@ import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagService;
@@ -117,7 +117,6 @@ public class TaskListFragment extends InjectingListFragment implements
     // --- instance variables
 
     @Inject SyncAdapterHelper syncAdapterHelper;
-    @Inject TaskService taskService;
     @Inject TaskDeleter taskDeleter;
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
@@ -134,6 +133,7 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject ThemeCache themeCache;
     @Inject protected TaskListDataProvider taskListDataProvider;
     @Inject TimerPlugin timerPlugin;
+    @Inject TaskDao taskDao;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -383,7 +383,7 @@ public class TaskListFragment extends InjectingListFragment implements
                 int importance = event.getNumber() - '1';
                 Task task = ((ViewHolder) selected.getTag()).task;
                 task.setImportance(importance);
-                taskService.save(task);
+                taskDao.save(task);
                 taskAdapter.setFieldContentsAndVisibility(selected);
             }
             // filter
@@ -512,7 +512,7 @@ public class TaskListFragment extends InjectingListFragment implements
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(context, preferences, taskAttachmentDao, taskService, this, cursor,
+        return new TaskAdapter(context, preferences, taskAttachmentDao, taskDao, this, cursor,
                 taskListDataProvider.getSqlQueryTemplate(), dialogBuilder, checkBoxes, tagService, themeCache);
     }
 
@@ -660,7 +660,7 @@ public class TaskListFragment extends InjectingListFragment implements
             return true;
         case CONTEXT_MENU_DELETE_TASK_ID: {
             itemId = item.getGroupId();
-            Task task = taskService.fetchById(itemId, Task.ID, Task.TITLE, Task.UUID);
+            Task task = taskDao.fetch(itemId, Task.ID, Task.TITLE, Task.UUID);
             if (task != null) {
                 deleteTask(task);
             }
@@ -671,7 +671,7 @@ public class TaskListFragment extends InjectingListFragment implements
             Task task = new Task();
             task.setId(itemId);
             task.setDeletionDate(0L);
-            taskService.save(task);
+            taskDao.save(task);
             loadTaskListContent();
             return true;
         }

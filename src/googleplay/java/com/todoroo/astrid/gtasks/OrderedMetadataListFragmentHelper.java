@@ -24,9 +24,9 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DraggableListView;
@@ -57,7 +57,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
     private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
-    private final TaskService taskService;
+    private final TaskDao taskDao;
     private final MetadataDao metadataDao;
 
     private DraggableTaskAdapter taskAdapter;
@@ -65,13 +65,13 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
     private LIST list;
 
     public OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
-                                             TaskService taskService, MetadataDao metadataDao,
+                                             TaskDao taskDao, MetadataDao metadataDao,
                                              TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater,
                                              DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagService tagService,
                                              ThemeCache themeCache) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
-        this.taskService = taskService;
+        this.taskDao = taskDao;
         this.metadataDao = metadataDao;
         this.fragment = fragment;
         this.updater = updater;
@@ -196,7 +196,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
                                      Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder,
                                      CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
-            super(context, preferences, taskAttachmentDao, taskService, activity, c, query,
+            super(context, preferences, taskAttachmentDao, taskDao, activity, c, query,
                     dialogBuilder, checkBoxes, tagService, themeCache);
         }
 
@@ -225,7 +225,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
                 for(Long taskId : chained) {
                     model.setId(taskId);
                     model.setCompletionDate(completionDate);
-                    taskService.save(model);
+                    taskDao.save(model);
                     model.clear();
                 }
                 taskAdapter.notifyDataSetInvalidated();
@@ -236,7 +236,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         final ArrayList<Long> chained = new ArrayList<>();
         final int parentIndent = item.getValue(updater.indentProperty());
         updater.applyToChildren(list, itemId, node -> {
-            Task childTask = taskService.fetchById(node.taskId, Task.RECURRENCE);
+            Task childTask = taskDao.fetch(node.taskId, Task.RECURRENCE);
             if(!TextUtils.isEmpty(childTask.getRecurrence())) {
                 Metadata metadata = updater.getTaskMetadata(node.taskId);
                 metadata.setValue(updater.indentProperty(), parentIndent);
@@ -245,7 +245,7 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
 
             model.setId(node.taskId);
             model.setCompletionDate(completionDate);
-            taskService.save(model);
+            taskDao.save(model);
             model.clear();
 
             chained.add(node.taskId);

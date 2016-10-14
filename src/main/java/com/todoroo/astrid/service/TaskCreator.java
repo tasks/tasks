@@ -32,7 +32,6 @@ import timber.log.Timber;
 
 public class TaskCreator {
 
-    private final TaskService taskService;
     private final GCalHelper gcalHelper;
     private final Preferences preferences;
     private final MetadataDao metadataDao;
@@ -41,10 +40,8 @@ public class TaskCreator {
     private final TagService tagService;
 
     @Inject
-    public TaskCreator(TaskService taskService, GCalHelper gcalHelper, Preferences preferences,
-                       MetadataDao metadataDao, TagDataDao tagDataDao, TaskDao taskDao,
-                       TagService tagService) {
-        this.taskService = taskService;
+    public TaskCreator(GCalHelper gcalHelper, Preferences preferences, MetadataDao metadataDao,
+                       TagDataDao tagDataDao, TaskDao taskDao, TagService tagService) {
         this.gcalHelper = gcalHelper;
         this.preferences = preferences;
         this.metadataDao = metadataDao;
@@ -72,7 +69,7 @@ public class TaskCreator {
             Uri calendarUri = gcalHelper.createTaskEvent(task, new ContentValues());
             task.setCalendarUri(calendarUri.toString());
             task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-            taskService.save(task);
+            taskDao.save(task);
         }
     }
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.RemoteViewsService;
 
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.injection.InjectingApplication;
@@ -21,7 +21,7 @@ import javax.inject.Inject;
 public class ScrollableWidgetUpdateService extends RemoteViewsService {
 
     @Inject Database database;
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
     @Inject Preferences preferences;
     @Inject SubtasksHelper subtasksHelper;
     @Inject DefaultFilterProvider defaultFilterProvider;
@@ -58,6 +58,6 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
 
         int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
         return new ScrollableViewsFactory(subtasksHelper, preferences, locale.createConfigurationContext(getApplicationContext()),
-                widgetId, database, taskService, defaultFilterProvider, widgetCheckBoxes, themeCache);
+                widgetId, database, taskDao, defaultFilterProvider, widgetCheckBoxes, themeCache);
     }
 }

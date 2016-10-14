@@ -2,6 +2,7 @@ package com.todoroo.astrid.service;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
@@ -17,15 +18,15 @@ import timber.log.Timber;
 
 public class TaskDuplicator {
 
-    private final TaskService taskService;
     private final GCalHelper gcalHelper;
     private final MetadataDao metadataDao;
+    private final TaskDao taskDao;
 
     @Inject
-    public TaskDuplicator(TaskService taskService, GCalHelper gcalHelper, MetadataDao metadataDao) {
-        this.taskService = taskService;
+    public TaskDuplicator(GCalHelper gcalHelper, MetadataDao metadataDao, TaskDao taskDao) {
         this.gcalHelper = gcalHelper;
         this.metadataDao = metadataDao;
+        this.taskDao = taskDao;
     }
 
     /**
@@ -33,7 +34,7 @@ public class TaskDuplicator {
      * @return cloned item id
      */
     public long duplicateTask(long itemId) {
-        Task original = taskService.fetchById(itemId, Task.PROPERTIES);
+        Task original = taskDao.fetch(itemId, Task.PROPERTIES);
         Timber.d("Cloning %s", original);
         Task clone = new Task(original);
         clone.setCreationDate(DateUtilities.now());
@@ -48,7 +49,7 @@ public class TaskDuplicator {
             clone.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
         }
 
-        taskService.save(clone);
+        taskDao.save(clone);
 
         for (Metadata oldMetadata : metadataList) {
             if(!oldMetadata.containsNonNullValue(Metadata.KEY)) {

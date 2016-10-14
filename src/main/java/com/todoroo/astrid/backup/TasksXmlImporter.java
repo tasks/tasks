@@ -27,7 +27,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
@@ -48,7 +47,6 @@ public class TasksXmlImporter {
 
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
-    private final TaskService taskService;
     private final DialogBuilder dialogBuilder;
     private final TaskDao taskDao;
 
@@ -66,11 +64,10 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskService taskService,
+    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao,
                             DialogBuilder dialogBuilder, TaskDao taskDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
-        this.taskService = taskService;
         this.dialogBuilder = dialogBuilder;
         this.taskDao = taskDao;
     }
@@ -224,7 +221,7 @@ public class TasksXmlImporter {
             }
 
             // Save the task to the database.
-            taskService.save(currentTask);
+            taskDao.save(currentTask);
             importCount++;
         }
 

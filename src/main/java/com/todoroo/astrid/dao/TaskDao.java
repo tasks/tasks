@@ -441,5 +441,54 @@ public class TaskDao {
         notificationManager.cancel(taskId);
         geofenceService.cancelGeofences(taskId);
     }
+
+    /**
+     * Mark the given task as completed and save it.
+     */
+    public void setComplete(Task item, boolean completed) {
+        if(completed) {
+            item.setCompletionDate(DateUtilities.now());
+        } else {
+            item.setCompletionDate(0L);
+        }
+
+        save(item);
+    }
+
+    /**
+     * Fetch tasks for the given filter
+     * @param constraint text constraint, or null
+     */
+    public TodorooCursor<Task> fetchFiltered(String queryTemplate, CharSequence constraint,
+                                             Property<?>... properties) {
+        Criterion whereConstraint = null;
+        if(constraint != null) {
+            whereConstraint = Functions.upper(Task.TITLE).like("%" +
+                    constraint.toString().toUpperCase() + "%");
+        }
+
+        if(queryTemplate == null) {
+            if(whereConstraint == null) {
+                return query(Query.selectDistinct(properties));
+            } else {
+                return query(Query.selectDistinct(properties).where(whereConstraint));
+            }
+        }
+
+        String sql;
+        if(whereConstraint != null) {
+            if(!queryTemplate.toUpperCase().contains("WHERE")) {
+                sql = queryTemplate + " WHERE " + whereConstraint;
+            } else {
+                sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
+            }
+        } else {
+            sql = queryTemplate;
+        }
+
+        sql = PermaSql.replacePlaceholders(sql);
+
+        return query(Query.select(properties).withQueryTemplate(sql));
+    }
 }
 

@@ -16,8 +16,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 
 import org.tasks.BuildConfig;
@@ -40,7 +40,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private final ThemeCache themeCache;
     private final int widgetId;
     private final Database database;
-    private final TaskService taskService;
+    private final TaskDao taskDao;
     private final DefaultFilterProvider defaultFilterProvider;
     private final SubtasksHelper subtasksHelper;
     private final Preferences preferences;
@@ -62,7 +62,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
             Context context,
             int widgetId,
             Database database,
-            TaskService taskService,
+            TaskDao taskDao,
             DefaultFilterProvider defaultFilterProvider,
             WidgetCheckBoxes checkBoxes,
             ThemeCache themeCache) {
@@ -71,7 +71,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         this.context = context;
         this.widgetId = widgetId;
         this.database = database;
-        this.taskService = taskService;
+        this.taskDao = taskDao;
         this.defaultFilterProvider = defaultFilterProvider;
         this.checkBoxes = checkBoxes;
         this.themeCache = themeCache;
@@ -200,7 +200,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private TodorooCursor<Task> getCursor() {
         String query = getQuery();
-        return taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE, Task.IMPORTANCE, Task.RECURRENCE);
+        return taskDao.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE, Task.IMPORTANCE, Task.RECURRENCE);
     }
 
     private Task getTask(int position) {

@@ -15,10 +15,10 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.SyncV2Service;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncResultCallback;
@@ -47,7 +47,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     private static final String EXTRA_STORE_OBJECT = "extra_store_object";
 
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
     @Inject MetadataDao metadataDao;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject GtasksPreferenceService gtasksPreferenceService;
@@ -64,7 +64,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected OrderedListFragmentHelperInterface createFragmentHelper() {
-        return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskService,
+        return new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskDao,
                 metadataDao, this, gtasksTaskListUpdater, dialogBuilder, checkBoxes, tagService, themeCache);
     }
 

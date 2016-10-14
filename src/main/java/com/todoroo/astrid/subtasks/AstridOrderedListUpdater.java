@@ -2,9 +2,9 @@ package com.todoroo.astrid.subtasks;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,10 +19,10 @@ import timber.log.Timber;
 
 public abstract class AstridOrderedListUpdater<LIST> {
 
-    private final TaskService taskService;
+    private final TaskDao taskDao;
 
-    AstridOrderedListUpdater(TaskService taskService) {
-        this.taskService = taskService;
+    AstridOrderedListUpdater(TaskDao taskDao) {
+        this.taskDao = taskDao;
         idToNode = new HashMap<>();
     }
 
@@ -79,7 +79,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         Set<String> idsInQuery = new HashSet<>();
         String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", "");  //$NON-NLS-1$//$NON-NLS-2$
         sql = sql + String.format(" ORDER BY %s", Task.CREATION_DATE); //$NON-NLS-1$
-        TodorooCursor<Task> tasks = taskService.fetchFiltered(sql, null, Task.UUID);
+        TodorooCursor<Task> tasks = taskDao.fetchFiltered(sql, null, Task.UUID);
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 String id = tasks.getString(0);

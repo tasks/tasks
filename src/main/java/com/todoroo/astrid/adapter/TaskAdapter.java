@@ -42,13 +42,13 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.ui.CheckableImageView;
@@ -118,7 +118,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final CheckBoxes checkBoxes;
     private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
-    private final TaskService taskService;
+    private final TaskDao taskDao;
 
     private final Context context;
     private final TaskListFragment fragment;
@@ -145,14 +145,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final int textColorOverdue;
 
     public TaskAdapter(Context context, Preferences preferences, TaskAttachmentDao taskAttachmentDao,
-                       TaskService taskService, TaskListFragment fragment, Cursor c,
+                       TaskDao taskDao, TaskListFragment fragment, Cursor c,
                        AtomicReference<String> query, DialogBuilder dialogBuilder,
                        CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
         super(context, c, false);
         this.checkBoxes = checkBoxes;
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
-        this.taskService = taskService;
+        this.taskDao = taskDao;
         this.context = context;
         this.query = query;
         this.fragment = fragment;
@@ -203,7 +203,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return getFilterQueryProvider().runQuery(constraint);
         }
 
-        return taskService.fetchFiltered(query.get(), constraint, fragment.taskProperties());
+        return taskDao.fetchFiltered(query.get(), constraint, fragment.taskProperties());
     }
 
     /* ======================================================================
@@ -394,7 +394,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private void showEditNotesDialog(final Task task) {
         String notes = null;
-        Task t = taskService.fetchById(task.getId(), Task.NOTES);
+        Task t = taskDao.fetch(task.getId(), Task.NOTES);
         if (t != null) {
             notes = t.getNotes();
         }
@@ -616,7 +616,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 onCompletedTaskListener.onCompletedTask(task, newState);
             }
 
-            taskService.setComplete(task, newState);
+            taskDao.setComplete(task, newState);
         }
     }
 

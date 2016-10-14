@@ -9,9 +9,9 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     @Inject GtasksListService gtasksListService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject MetadataDao metadataDao;
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
     @Inject GtasksMetadata gtasksMetadata;
 
     private Task A, B, C, D, E, F;
@@ -300,7 +300,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     private Task createTask(String title, long order, int indent) {
         Task task = new Task();
         task.setTitle(title);
-        taskService.save(task);
+        taskDao.save(task);
         Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.LIST_ID, "1");
         if(order != VALUE_UNSET)

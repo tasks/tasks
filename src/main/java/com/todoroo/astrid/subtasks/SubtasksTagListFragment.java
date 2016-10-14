@@ -22,7 +22,6 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
@@ -45,7 +44,6 @@ public class SubtasksTagListFragment extends TagViewFragment {
         return fragment;
     }
 
-    @Inject TaskService taskService;
     @Inject SubtasksFilterUpdater subtasksFilterUpdater;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject Preferences preferences;
@@ -66,7 +64,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        helper = new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao, taskService,
+        helper = new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao,
                 this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache, taskDao);
     }
 

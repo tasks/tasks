@@ -9,9 +9,9 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
@@ -33,8 +33,8 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     @Inject GtasksListService gtasksListService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
     @Inject MetadataDao metadataDao;
-    @Inject TaskService taskService;
     @Inject GtasksMetadata gtasksMetadata;
+    @Inject TaskDao taskDao;
 
     private Task task;
     private GtasksList storeList;
@@ -175,7 +175,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
 
     private Task taskWithMetadata(long order, int indentation) {
         Task newTask = new Task();
-        taskService.save(newTask);
+        taskDao.save(newTask);
         Metadata metadata = gtasksMetadata.createEmptyMetadata(newTask.getId());
         metadata.setValue(GtasksMetadata.INDENT, indentation);
         metadata.setValue(GtasksMetadata.ORDER, order);
@@ -203,7 +203,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
 
     private Task taskWithoutMetadata() {
         Task task = new Task();
-        taskService.save(task);
+        taskDao.save(task);
         return task;
     }
 }

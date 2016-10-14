@@ -6,9 +6,9 @@ package com.todoroo.astrid.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskCreator;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -24,8 +24,8 @@ import static org.tasks.intents.TaskIntents.getEditTaskStack;
  */
 public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
-    @Inject TaskService taskService;
     @Inject TaskCreator taskCreator;
+    @Inject TaskDao taskDao;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
         Task task = taskCreator.basicQuickAddTask(subject);
         if (task != null) {
             task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
-            taskService.save(task);
+            taskDao.save(task);
             getEditTaskStack(this, null, task.getId()).startActivities();
         }
         finish();

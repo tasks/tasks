@@ -11,13 +11,11 @@ import javax.inject.Inject;
 
 public class TaskDeleter {
 
-    private final TaskService taskService;
     private final GCalHelper gcalHelper;
     private final TaskDao taskDao;
 
     @Inject
-    public TaskDeleter(TaskService taskService, GCalHelper gcalHelper, TaskDao taskDao) {
-        this.taskService = taskService;
+    public TaskDeleter(GCalHelper gcalHelper, TaskDao taskDao) {
         this.gcalHelper = gcalHelper;
         this.taskDao = taskDao;
     }
@@ -62,7 +60,7 @@ public class TaskDeleter {
             item.setId(id);
             gcalHelper.deleteTaskEvent(item);
             item.setDeletionDate(DateUtilities.now());
-            taskService.save(item);
+            taskDao.save(item);
         }
     }
 }

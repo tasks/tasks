@@ -18,9 +18,9 @@ import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
@@ -42,8 +42,8 @@ import static org.tasks.date.DateTimeUtils.newDateUtc;
 
 public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
-    @Inject TaskService taskService;
     @Inject GCalHelper gcalHelper;
+    @Inject TaskDao taskDao;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -54,7 +54,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
             return;
         }
 
-        Task task = taskService.fetchById(taskId, Task.PROPERTIES);
+        Task task = taskDao.fetch(taskId, Task.PROPERTIES);
         if(task == null || !task.isCompleted()) {
             return;
         }
@@ -81,7 +81,7 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
                 return;
             }
 
-            rescheduleTask(gcalHelper, taskService, task, newDueDate);
+            rescheduleTask(gcalHelper, taskDao, task, newDueDate);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
@@ -101,13 +101,13 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         return repeatUntil > 0 && newDateTime(newDueDate).startOfDay().isAfter(newDateTime(repeatUntil).startOfDay());
     }
 
-    private static void rescheduleTask(GCalHelper gcalHelper, TaskService taskService, Task task, long newDueDate) {
+    private static void rescheduleTask(GCalHelper gcalHelper, TaskDao taskDao, Task task, long newDueDate) {
         task.setReminderSnooze(0L);
         task.setCompletionDate(0L);
         task.setDueDateAdjustingHideUntil(newDueDate);
 
         gcalHelper.rescheduleRepeatingTask(task);
-        taskService.save(task);
+        taskDao.save(task);
     }
 
     /** Compute next due date */

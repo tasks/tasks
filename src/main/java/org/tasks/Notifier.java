@@ -22,7 +22,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 import org.tasks.injection.ForApplication;
@@ -58,7 +57,6 @@ public class Notifier {
     private final Context context;
     private final TaskDao taskDao;
     private final NotificationManager notificationManager;
-    private final TaskService taskService;
     private final TelephonyManager telephonyManager;
     private final AudioManager audioManager;
     private final VoiceOutputAssistant voiceOutputAssistant;
@@ -67,14 +65,12 @@ public class Notifier {
 
     @Inject
     public Notifier(@ForApplication Context context, TaskDao taskDao,
-                    NotificationManager notificationManager, TaskService taskService,
-                    TelephonyManager telephonyManager, AudioManager audioManager,
-                    VoiceOutputAssistant voiceOutputAssistant, Preferences preferences,
-                    ThemeCache themeCache) {
+                    NotificationManager notificationManager, TelephonyManager telephonyManager,
+                    AudioManager audioManager, VoiceOutputAssistant voiceOutputAssistant,
+                    Preferences preferences, ThemeCache themeCache) {
         this.context = context;
         this.taskDao = taskDao;
         this.notificationManager = notificationManager;
-        this.taskService = taskService;
         this.telephonyManager = telephonyManager;
         this.audioManager = audioManager;
         this.voiceOutputAssistant = voiceOutputAssistant;
@@ -151,7 +147,7 @@ public class Notifier {
         TodorooCursor<Task> taskTodorooCursor = null;
         int count;
         try {
-            taskTodorooCursor = taskService.fetchFiltered(query, null, Task.ID);
+            taskTodorooCursor = taskDao.fetchFiltered(query, null, Task.ID);
             if (taskTodorooCursor == null) {
                 return;
             }

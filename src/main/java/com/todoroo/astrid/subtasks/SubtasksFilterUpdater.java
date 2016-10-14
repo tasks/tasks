@@ -2,10 +2,10 @@ package com.todoroo.astrid.subtasks;
 
 import android.text.TextUtils;
 
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.service.TaskService;
 
 import javax.inject.Inject;
 
@@ -14,8 +14,8 @@ public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
     private final TaskListMetadataDao taskListMetadataDao;
 
     @Inject
-    public SubtasksFilterUpdater(TaskListMetadataDao taskListMetadataDao, TaskService taskService) {
-        super(taskService);
+    public SubtasksFilterUpdater(TaskListMetadataDao taskListMetadataDao, TaskDao taskDao) {
+        super(taskDao);
 
         this.taskListMetadataDao = taskListMetadataDao;
     }

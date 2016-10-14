@@ -17,7 +17,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
@@ -35,16 +34,14 @@ public class TimerPlugin {
 
     private final Context context;
     private final NotificationManager notificationManager;
-    private final TaskService taskService;
     private final Tracker tracker;
     private final TaskDao taskDao;
 
     @Inject
     public TimerPlugin(@ForApplication Context context, NotificationManager notificationManager,
-                       TaskService taskService, Tracker tracker, TaskDao taskDao) {
+                       Tracker tracker, TaskDao taskDao) {
         this.context = context;
         this.notificationManager = notificationManager;
-        this.taskService = taskService;
         this.tracker = tracker;
         this.taskDao = taskDao;
     }
@@ -87,7 +84,7 @@ public class TimerPlugin {
                 task.setElapsedSeconds(task.getElapsedSeconds() + newElapsed);
             }
         }
-        taskService.save(task);
+        taskDao.save(task);
 
         // update notification
         updateNotifications();

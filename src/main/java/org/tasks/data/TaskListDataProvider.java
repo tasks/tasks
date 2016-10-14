@@ -10,10 +10,10 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.preferences.Preferences;
@@ -30,12 +30,12 @@ import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
 public class TaskListDataProvider {
 
     private final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
-    private final TaskService taskService;
+    private final TaskDao taskDao;
     private final Preferences preferences;
 
     @Inject
-    public TaskListDataProvider(TaskService taskService, Preferences preferences) {
-        this.taskService = taskService;
+    public TaskListDataProvider(TaskDao taskDao, Preferences preferences) {
+        this.taskDao = taskDao;
         this.preferences = preferences;
     }
 
@@ -78,7 +78,7 @@ public class TaskListDataProvider {
 
         // Peform query
         try {
-            return taskService.fetchFiltered(sqlQueryTemplate.get(), null, properties);
+            return taskDao.fetchFiltered(sqlQueryTemplate.get(), null, properties);
         } catch (SQLiteException e) {
             // We don't show this error anymore--seems like this can get triggered
             // by a strange bug, but there seems to not be any negative side effect.

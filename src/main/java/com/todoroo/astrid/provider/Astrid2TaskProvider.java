@@ -23,7 +23,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.injection.ContentProviderComponent;
@@ -83,7 +82,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	private static final String TAG_SEPARATOR = "|";
 
-	@Inject Lazy<TaskService> taskService;
     @Inject Lazy<TagService> tagService;
 	@Inject Lazy<CheckBoxes> checkBoxes;
 	@Inject Lazy<TaskDao> taskDao;
@@ -274,7 +272,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 		try {
 			for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 				taskValues.setID(cursor.get(Task.ID));
-				taskService.get().save(taskValues);
+				taskDao.get().save(taskValues);
 			}
 			return cursor.getCount();
 		} finally {

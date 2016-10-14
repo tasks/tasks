@@ -23,7 +23,6 @@ import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.gtasks.GtasksListFragment;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
@@ -55,7 +54,6 @@ public class SubtasksListFragment extends TaskListFragment {
 
     private int lastVisibleIndex = -1;
 
-    @Inject TaskService taskService;
     @Inject SubtasksFilterUpdater subtasksFilterUpdater;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject Preferences preferences;
@@ -76,7 +74,7 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     protected OrderedListFragmentHelperInterface createFragmentHelper() {
-        return new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao, taskService,
+        return new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao,
                 this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache, taskDao);
     }
 

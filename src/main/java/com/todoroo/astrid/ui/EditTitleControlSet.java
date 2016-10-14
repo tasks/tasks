@@ -17,8 +17,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.common.base.Strings;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.tasks.R;
 import org.tasks.injection.FragmentComponent;
@@ -46,7 +46,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     private static final String EXTRA_REPEATING = "extra_repeating";
     private static final String EXTRA_PRIORITY = "extra_priority";
 
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
     @Inject CheckBoxes checkBoxes;
 
     @BindView(R.id.title) EditText editText;
@@ -179,7 +179,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
                 ? getString(R.string.no_title)
                 : title);
         if (isComplete != task.isCompleted()) {
-            taskService.setComplete(task, isComplete);
+            taskDao.setComplete(task, isComplete);
         }
     }
 }

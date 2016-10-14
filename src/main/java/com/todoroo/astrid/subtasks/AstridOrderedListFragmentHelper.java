@@ -24,7 +24,6 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DraggableListView;
 
@@ -52,7 +51,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private final TaskListFragment fragment;
     private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
-    private final TaskService taskService;
     private final ThemeCache themeCache;
     private final TaskDao taskDao;
 
@@ -61,13 +59,11 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
     private LIST list;
 
     public AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
-                                           TaskService taskService, TaskListFragment fragment,
-                                           AstridOrderedListUpdater<LIST> updater, DialogBuilder dialogBuilder,
-                                           CheckBoxes checkBoxes, TagService tagService,
-                                           ThemeCache themeCache, TaskDao taskDao) {
+                                           TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater,
+                                           DialogBuilder dialogBuilder, CheckBoxes checkBoxes,
+                                           TagService tagService, ThemeCache themeCache, TaskDao taskDao) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
-        this.taskService = taskService;
         this.fragment = fragment;
         this.updater = updater;
         this.dialogBuilder = dialogBuilder;
@@ -199,7 +195,7 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
                                      Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder,
                                      CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
-            super(context, preferences, taskAttachmentDao, taskService, activity, c, query, dialogBuilder, checkBoxes, tagService, themeCache);
+            super(context, preferences, taskAttachmentDao, taskDao, activity, c, query, dialogBuilder, checkBoxes, tagService, themeCache);
         }
 
         @Override

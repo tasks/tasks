@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.andlib.data.Property;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +27,7 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 @RunWith(AndroidJUnit4.class)
 public class TaskTest extends InjectingTestCase {
 
-    @Inject TaskService taskService;
+    @Inject TaskDao taskDao;
     @Inject Preferences preferences;
 
     @Test
@@ -39,7 +39,7 @@ public class TaskTest extends InjectingTestCase {
     public void testSavedTaskHasCreationDate() {
         freezeClock().thawAfter(new Snippet() {{
             Task task = new Task();
-            taskService.save(task);
+            taskDao.save(task);
             assertEquals(currentTimeMillis(), (long) task.getCreationDate());
         }});
     }
@@ -47,9 +47,9 @@ public class TaskTest extends InjectingTestCase {
     @Test
     public void testReadTaskFromDb() {
         Task task = new Task();
-        taskService.save(task);
+        taskDao.save(task);
         Property[] properties = asQueryProperties(Task.TABLE, task.getDatabaseValues());
-        final Task fromDb = taskService.fetchById(task.getId(), properties);
+        final Task fromDb = taskDao.fetch(task.getId(), properties);
         compareRemoteModel(task, fromDb);
     }
 
