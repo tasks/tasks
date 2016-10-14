@@ -16,7 +16,6 @@ import com.google.common.collect.Iterables;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -194,35 +193,19 @@ public class TasksXmlImporter {
             }
 
             // if the task's name and creation date match an existing task, skip
-            long existingTask = 0;
-            TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID,
-                        Task.COMPLETION_DATE, Task.DELETION_DATE).
-                    where(Criterion.and(Task.TITLE.eq(title), Task.CREATION_DATE.eq(created))));
-            try {
-                if(cursor.getCount() > 0) {
-                    cursor.moveToNext();
-
-                    if(existingTask == 0) {
-                        skipCount++;
-                        return;
-                    }
-                }
-            } finally {
-                cursor.close();
-            }
-
-            // else, make a new task model and add away.
-            deserializeModel(currentTask, Task.PROPERTIES);
-
-            if(existingTask > 0) {
-                currentTask.setId(existingTask);
+            Query query = Query.select(Task.ID, Task.COMPLETION_DATE, Task.DELETION_DATE)
+                    .where(Criterion.and(Task.TITLE.eq(title), Task.CREATION_DATE.eq(created)));
+            if (taskDao.count(query) > 0) {
+                skipCount++;
             } else {
-                currentTask.setId(Task.NO_ID);
-            }
+                deserializeModel(currentTask, Task.PROPERTIES);
 
-            // Save the task to the database.
-            taskDao.save(currentTask);
-            importCount++;
+                currentTask.setId(Task.NO_ID);
+
+                // Save the task to the database.
+                taskDao.save(currentTask);
+                importCount++;
+            }
         }
 
         void parseMetadata(int format) {

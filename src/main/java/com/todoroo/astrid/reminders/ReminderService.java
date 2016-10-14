@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -95,20 +94,12 @@ public final class ReminderService  {
      * Schedules all alarms
      */
     public void scheduleAllAlarms(TaskDao taskDao) {
-        TodorooCursor<Task> cursor = getTasksWithReminders(taskDao, NOTIFICATION_PROPERTIES);
-        try {
-            now = DateUtilities.now(); // Before mass scheduling, initialize now variable
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Task task = new Task(cursor);
-                scheduleAlarm(task, null);
-            }
-        } catch (Exception e) {
-            // suppress
-            Timber.e(e, e.getMessage());
-        } finally {
-            cursor.close();
-            now = -1; // Signal done with now variable
-        }
+        now = DateUtilities.now(); // Before mass scheduling, initialize now variable
+        Query query = Query.select(NOTIFICATION_PROPERTIES).where(Criterion.and(
+                TaskCriteria.isActive(),
+                Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0))));
+        taskDao.forEach(query, task -> scheduleAlarm(task, null));
+        now = -1; // Signal done with now variable
     }
 
     private long getNowValue() {
@@ -367,17 +358,5 @@ public final class ReminderService  {
                 alarmManager.wakeupAdjustingForQuietHours(time, pendingIntent);
             }
         }
-    }
-
-    // --- data fetching methods
-
-    /**
-     * Gets a listing of all tasks that are active &
-     * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
-     */
-    private TodorooCursor<Task> getTasksWithReminders(TaskDao taskDao, Property<?>... properties) {
-        return taskDao.query(Query.select(properties).where(Criterion.and(
-                TaskCriteria.isActive(),
-                Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0)))));
     }
 }

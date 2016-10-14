@@ -104,8 +104,8 @@ public class TaskDao {
         return dao.toList(Query.select(Task.PROPERTIES).withQueryTemplate(query));
     }
 
-    public TodorooCursor<Task> rawQuery(String selection, String[] selectionArgs, Property.LongProperty id) {
-        return dao.rawQuery(selection, selectionArgs, id);
+    public List<Task> rawQuery(String selection, String[] selectionArgs, Property.LongProperty id) {
+        return dao.rawQuery(selection, selectionArgs, id).toList();
     }
 
     /**

@@ -14,7 +14,6 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskDeleter;
 
 import org.tasks.R;
 import org.tasks.calendars.CalendarEventProvider;
@@ -31,7 +30,6 @@ import javax.inject.Inject;
 public class OldTaskPreferences extends InjectingPreferenceActivity {
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject TaskDeleter taskDeleter;
     @Inject MetadataDao metadataDao;
     @Inject Preferences preferences;
     @Inject Database database;
@@ -106,7 +104,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                         Query query = Query.select(Task.ID, Task.CALENDAR_URI)
                                 .where(Criterion.and(Task.DELETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()));
                         taskDao.forEach(query, calendarEventProvider::deleteEvent);
-                        int result = taskDeleter.purgeDeletedTasks();
+                        int result = taskDao.deleteWhere(Task.DELETION_DATE.gt(0));
                         metadataDao.removeDanglingMetadata();
                         return result;
                     }

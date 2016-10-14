@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -25,26 +24,13 @@ public class TaskDeleter {
      * Clean up tasks. Typically called on startup
      */
     public void deleteTasksWithEmptyTitles(Long suppress) {
-        TodorooCursor<Task> cursor = taskDao.query(
-                Query.select(Task.ID).where(TaskDao.TaskCriteria.hasNoTitle()));
-        try {
-            if(cursor.getCount() == 0) {
-                return;
+        Query query = Query.select(Task.ID).where(TaskDao.TaskCriteria.hasNoTitle());
+        taskDao.forEach(query, task -> {
+            long id = task.getId();
+            if (suppress == null || suppress != id) {
+                taskDao.delete(id);
             }
-
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                long id = cursor.getLong(0);
-                if (suppress == null || suppress != id) {
-                    taskDao.delete(id);
-                }
-            }
-        } finally {
-            cursor.close();
-        }
-    }
-
-    public int purgeDeletedTasks() {
-        return taskDao.deleteWhere(Task.DELETION_DATE.gt(0));
+        });
     }
 
     public void delete(Task item) {

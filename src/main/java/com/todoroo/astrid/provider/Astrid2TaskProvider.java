@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.google.common.base.Joiner;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -169,36 +168,25 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	 * @return cursor as described above
 	 */
 	private Cursor getTasks() {
-
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
+		List<Integer> importanceColors = checkBoxes.get().getPriorityColors();
+		Query query = Query.select(Task.ID, Task.TITLE, Task.IMPORTANCE, Task.DUE_DATE)
+				.where(Criterion.and(TaskCriteria.isActive(), TaskCriteria.isVisible()))
+				.orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS);
+		taskDao.get().forEach(query, task -> {
+			String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
 
-		TodorooCursor<Task> cursor = taskDao.get().query(Query.select(Task.ID, Task.TITLE,
-                Task.IMPORTANCE, Task.DUE_DATE).where(Criterion.and(TaskCriteria.isActive(),
-                TaskCriteria.isVisible())).
-                orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
-		try {
-    		List<Integer> importanceColors = checkBoxes.get().getPriorityColors();
-    		for (int i = 0; i < cursor.getCount(); i++) {
-    			cursor.moveToNext();
-                Task task = new Task(cursor);
+			Object[] values = new Object[7];
+			values[0] = task.getTitle();
+			values[1] = importanceColors.get(task.getImportance());
+			values[2] = task.getDueDate();
+			values[3] = task.getDueDate();
+			values[4] = task.getImportance();
+			values[5] = task.getId();
+			values[6] = taskTags;
 
-                String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
-
-    			Object[] values = new Object[7];
-    			values[0] = task.getTitle();
-    			values[1] = importanceColors.get(task.getImportance());
-    			values[2] = task.getDueDate();
-    			values[3] = task.getDueDate();
-    			values[4] = task.getImportance();
-    			values[5] = task.getId();
-    			values[6] = taskTags;
-
-    			ret.addRow(values);
-    		}
-		} finally {
-		    cursor.close();
-		}
-
+			ret.addRow(values);
+		});
 		return ret;
 	}
 
@@ -268,16 +256,12 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	 * Update database based on selection and values
 	 */
 	private int updateBySelection(String selection, String[] selectionArgs, Task taskValues) {
-		TodorooCursor<Task> cursor = taskDao.get().rawQuery(selection, selectionArgs, Task.ID);
-		try {
-			for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-				taskValues.setID(cursor.get(Task.ID));
-				taskDao.get().save(taskValues);
-			}
-			return cursor.getCount();
-		} finally {
-			cursor.close();
+		List<Task> tasks = taskDao.get().rawQuery(selection, selectionArgs, Task.ID);
+		for (Task task : tasks) {
+			taskValues.setID(task.getId());
+			taskDao.get().save(taskValues);
 		}
+		return tasks.size();
 	}
 
 	public static void notifyDatabaseModification(Context context) {
