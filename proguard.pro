@@ -11,8 +11,8 @@
 # google-rfc-2445-20110304
 -dontwarn com.google.ical.compat.jodatime.**
 
-# https://github.com/JakeWharton/butterknife/blob/dd54788c2629e2bdd64232de7ccfa8d58910e06c/butterknife/proguard-rules.txt
--keep public class * implements butterknife.internal.ViewBinder { public <init>(); }
+# https://github.com/JakeWharton/butterknife/blob/7c39e473efd501269a444f2e3d03184eb41d2d05/butterknife/proguard-rules.txt
+-keep public class * implements butterknife.Unbinder { public <init>(...); }
 -keep class butterknife.*
 -keepclasseswithmembernames class * { @butterknife.* <methods>; }
 -keepclasseswithmembernames class * { @butterknife.* <fields>; }
