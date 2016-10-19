@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_layout"
     style="@style/task_list_container"
-    android:background="?attr/asContentBackground"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:elevation="@dimen/elevation_task_list"

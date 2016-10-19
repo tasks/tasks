@@ -108,7 +108,9 @@
         <item name="android:layout_gravity">end|bottom</item>
     </style>
 
-    <style name="task_list_container"/>
+    <style name="task_list_container">
+        <item name="android:background">?attr/asContentBackground</item>
+    </style>
 
     <style name="TextAppearance.Medium">
         <item name="android:textSize">18sp</item>
