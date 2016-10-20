@@ -1,7 +1,5 @@
 package org.tasks.injection;
 
-import com.todoroo.astrid.actfm.FilterSettingsActivity;
-import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -19,6 +17,8 @@ import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
+import org.tasks.activities.FilterSettingsActivity;
+import org.tasks.activities.TagSettingsActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dashclock.DashClockSettings;
 import org.tasks.files.FileExplore;
