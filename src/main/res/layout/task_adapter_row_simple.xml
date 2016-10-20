@@ -76,10 +76,12 @@
 
                     <ImageView
                         android:id="@+id/taskActionIcon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:scaleType="fitCenter"
-                        tools:ignore="ContentDescription" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:alpha="?attr/alpha_secondary"
+                        android:scaleType="center"
+                        android:tint="?attr/icon_tint" />
                 </LinearLayout>
 
             </LinearLayout>

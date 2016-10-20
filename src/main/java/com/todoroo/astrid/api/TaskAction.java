@@ -6,7 +6,6 @@
 package com.todoroo.astrid.api;
 
 import android.app.PendingIntent;
-import android.graphics.drawable.BitmapDrawable;
 
 /**
  * Represents an intent that can be called on a task
@@ -24,12 +23,12 @@ public class TaskAction {
     /**
      * Quick action icon
      */
-    public BitmapDrawable icon = null;
+    public int icon = 0;
 
     /**
      * Create an EditOperation object
      */
-    public TaskAction(PendingIntent intent, BitmapDrawable icon) {
+    public TaskAction(PendingIntent intent, int icon) {
         super();
         this.intent = intent;
         this.icon = icon;

@@ -372,7 +372,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             TaskAction action = getTaskAction(task, viewHolder.hasFiles, viewHolder.hasNotes);
             if (action != null) {
                 viewHolder.taskActionContainer.setVisibility(View.VISIBLE);
-                taskAction.setImageDrawable(action.icon);
+                taskAction.setImageResource(action.icon);
                 taskAction.setTag(action);
             } else {
                 viewHolder.taskActionContainer.setVisibility(View.GONE);

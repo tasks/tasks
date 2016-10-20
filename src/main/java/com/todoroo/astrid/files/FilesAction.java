@@ -5,13 +5,11 @@
  */
 package com.todoroo.astrid.files;
 
-import android.graphics.drawable.BitmapDrawable;
-
 import com.todoroo.astrid.api.TaskAction;
 
 public class FilesAction extends TaskAction {
 
-    public FilesAction(BitmapDrawable icon) {
+    public FilesAction(int icon) {
         super(null, icon);
     }
 }

@@ -11,10 +11,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
@@ -26,7 +23,6 @@ import com.todoroo.astrid.notes.NotesAction;
 
 import org.tasks.R;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -64,15 +60,12 @@ public class LinkActionExposer {
             }
         }
 
-        Resources r = context.getResources();
         if (hasAttachments) {
-            BitmapDrawable icon = getBitmapDrawable(context, R.drawable.action_attachments, r);
-            return new FilesAction(icon);
+            return new FilesAction(R.drawable.ic_attachment_24dp);
         }
 
         if (hasNotes) {
-            BitmapDrawable icon = getBitmapDrawable(context, R.drawable.action_notes, r);
-            return new NotesAction(icon);
+            return new NotesAction(R.drawable.ic_event_note_24dp);
         }
 
         return null;
@@ -101,28 +94,15 @@ public class LinkActionExposer {
         }
 
         Resources r = context.getResources();
-        Drawable icon;
+        int icon;
         if (url.startsWith("mailto")) {
-            icon = getBitmapDrawable(context, R.drawable.action_mail, r);
+            icon = R.drawable.ic_email_black_24dp;
         } else if (url.startsWith("tel")) {
-            icon = getBitmapDrawable(context, R.drawable.action_tel, r);
+            icon = R.drawable.ic_phone_white_24dp;
         } else {
-            icon = getBitmapDrawable(context, R.drawable.action_web, r);
+            icon = R.drawable.ic_public_black_24dp;
         }
 
-        return new TaskAction(PendingIntent.getActivity(context, (int)id, actionIntent, 0), (BitmapDrawable)icon);
+        return new TaskAction(PendingIntent.getActivity(context, (int)id, actionIntent, 0), icon);
     }
-
-    private static final HashMap<Integer, BitmapDrawable> IMAGE_CACHE = new HashMap<>();
-
-    private static BitmapDrawable getBitmapDrawable(Context context, int resId, Resources resources) {
-        if (IMAGE_CACHE.containsKey(resId)) {
-            return IMAGE_CACHE.get(resId);
-        } else {
-            BitmapDrawable b = (BitmapDrawable) ContextCompat.getDrawable(context, resId);
-            IMAGE_CACHE.put(resId, b);
-            return b;
-        }
-    }
-
 }
