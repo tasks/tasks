@@ -12,7 +12,7 @@ buildscript {
 
     dependencies {
         classpath 'com.google.guava:guava:19.0'
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.2'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.2'
     }
 }
@@ -28,7 +28,7 @@ android {
         textReport true
     }
 
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion "24.0.2"
 
     defaultConfig {
@@ -36,7 +36,7 @@ android {
         versionCode 436
         versionName "4.9.6"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 25
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         jackOptions {
@@ -103,7 +103,7 @@ configurations {
 final DAGGER_VERSION = '2.6.1'
 final BUTTERKNIFE_VERSION = '8.4.0'
 final GPS_VERSION = '9.6.1'
-final SUPPORT_VERSION = '24.2.1'
+final SUPPORT_VERSION = '25.0.0'
 final STETHO_VERSION = '1.3.1'
 final TESTING_SUPPORT_VERSION = '0.5'
 
