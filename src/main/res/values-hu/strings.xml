@@ -15,7 +15,13 @@
 	<string name="backup_BPr_header">Mentések</string>
 	<string name="backup_BAc_import">Feladatok importálása</string>
 	<string name="backup_BAc_export">Feladatok exportálása</string>
+	<string name="export_toast">%1$s lementve ide: %2$s</string>
 	<string name="export_toast_no_tasks">Nincsenek exportálható feladatok.</string>
+	<string name="import_summary_title">Összefoglaló visszaállítása</string>
+	<string name="import_summary_message">A(z) %1$s file %2$s-t tartalmazott.\n\n
+%3$s importálva,\n
+%4$s már létezett\n
+%5$s hibás\n</string>
 	<string name="DLG_error_sdcard">Könyvtár nem elérhető: %s</string>
 	<string name="DLG_error_sdcard_general">SD kártya nem elérhető</string>
 	<string name="read_permission_label">Tasks Engedélyek</string>
@@ -72,16 +78,25 @@
 	<string name="MCA_task_title_name">%1$s visszahívása ekkor: %2$s</string>
 	<string name="MCA_task_title_no_name">%s visszahívása</string>
 	<string name="CRA_ignore">Kihagy</string>
+	<string name="CRA_title">Szeretne egy listát a találkozókról?</string>
 	<string name="CRA_ignore_body">Kihagytál jónéhány naptáreseményt. Ne kérdezzen rá többet a Tasks?</string>
 	<string name="CRA_ignore_all">Minden esemény kihagyása</string>
 	<string name="CRA_ignore_this">Jelenlegi esemény kihagyása</string>
+	<string name="CRA_speech_bubble_start">Úgy tűnik, a(z) %s nemsokára kezdődik. Szeretne létrehozni egy listát az akciópontoknak?</string>
+	<string name="CRA_speech_bubble_end">Úgy tűnik, a(z) %s véget ért. Szeretne létrehozni egy listát az akciópontoknak?</string>
 	<string name="CRA_postpone">Talán később</string>
+	<string name="CRA_calendar_reminders_pref_title">Naptár segéd</string>
+	<string name="CRA_calendar_reminders_pref_desc_enabled">A Tasks emlékeztetni fog a közelgő naptáreseményekre, és a felkészülésre</string>
+	<string name="CRA_default_list_name">Akciópontok: %s</string>
 	<string name="EPr_appearance_header">Megjelenés</string>
 	<string name="EPr_filters_to_show_title">Megjelenítendő szűrők</string>
 	<string name="EPr_edit_screen_options">Szerkesztési képernyő beállításai</string>
 	<string name="EPr_beastMode_reset">Visszaállítás alapértékre</string>
 	<string name="EPr_fullTask_title">Feladat teljes címének megjelenítése</string>
 	<string name="EPr_show_task_edit_comments">Megjegyzések megjelenítése feladat szerkesztésekor</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Naptáresemény ideje</string>
+	<string name="EPr_cal_end_at_due_time">Naptáresemények befejezése határidőkor</string>
+	<string name="EPr_cal_start_at_due_time">Naptáresemények kezdése határidőkor</string>
 	<string name="EPr_manage_header">Régi feladatok kezelése</string>
 	<string name="EPr_manage_delete_completed">Elvégzett feladatok törlése</string>
 	<string name="EPr_manage_delete_completed_message">Biztosan törölni akarja az összes elvégzett feladatot?</string>
@@ -93,7 +108,11 @@
 	<string name="EPr_reset_preferences_warning">A beállítások visszaállnak alapértékre</string>
 	<string name="EPr_delete_task_data">Feledet adatok törlése</string>
 	<string name="EPr_delete_task_data_warning">Az összes feladat végleges törlésre kerül</string>
+	<string name="EPr_manage_delete_completed_gcal">Elvégzett feladatok naptárbejegyzésének törlése</string>
+	<string name="EPr_manage_delete_completed_gcal_message">Biztosan törölni akarja az elvégzett feladatokhoz tartozó eseményeket?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">%d naptárbejegyzés törölve!</string>
+	<string name="EPr_manage_delete_all_gcal">Feladatok naptárbejegyzésének törlése</string>
+	<string name="EPr_manage_delete_all_gcal_message">Biztosan törölni akarja a feladatokhoz tartozó eseményeket?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d naptárbejegyzés törölve!</string>
 	<string name="priority_high">Magas</string>
 	<string name="priority_medium">Közepes</string>
@@ -121,6 +140,7 @@
 	<string name="CFC_importance_text">Prioritás legalább ?</string>
 	<string name="CFC_importance_name">Prioritás...</string>
 	<string name="CFC_tag_text">Címke: ?</string>
+	<string name="CFC_tag_contains_text">A címke neve ?-t tartalmaz</string>
 	<string name="CFC_title_contains_name">A név tartalmazza ezt..</string>
 	<string name="CFC_title_contains_text">A név tartalmazza ezt: ?</string>
 	<string name="gcal_TEA_error">Nem sikerült a feladat hozzáadása a naptárhoz!</string>
@@ -128,7 +148,7 @@
 	<string name="gcal_TEA_showCalendar_label">Naptáresemény megnyitása</string>
 	<string name="gcal_completed_title">%s (befejezve)</string>
 	<string name="CFC_gtasks_list_text">Listában: ?</string>
-	<string name="gtasks_GTA_clear_completed">Elvégzettek megjelenítése</string>
+	<string name="gtasks_GTA_clear_completed">Elvégzettek törlése</string>
 	<string name="gtasks_GLA_noaccounts">Nincs elérhető Google fiók a szinkronizáláshoz.</string>
 	<string name="gtasks_GLA_authenticating">Azonosítás...</string>
 	<string name="gtasks_GLA_errorIOAuth">Sajnáljuk, de hiba történt a Google szervereival való kommunikálás során. Próbáld újra később.</string>
@@ -169,19 +189,28 @@
 	<string name="repeat_interval_hour">Óra</string>
 	<string name="repeat_interval_minute">Perc</string>
 	<string name="repeat_interval_year">Év</string>
+	<string name="repeat_type_due">A határidőtől</string>
+	<string name="repeat_type_completion">A befejezés időpontjától</string>
 	<string name="repeat_detail_duedate">Minden %s</string>
 	<string name="repeat_detail_duedate_until">Minden %1$s\neddig: %2$s</string>
 	<string name="repeat_forever">Ismétlés örökké</string>
 	<string name="repeat_until">Ismétlés eddig: %s</string>
+	<string name="repeat_snackbar">%1$s újraütemezve ekkorra: %2$s</string>
 	<string name="new_tag">Új címke létrehozása</string>
+	<string name="new_list">Új lista létrehozása</string>
 	<string name="tag_FEx_untagged">Kategória nélküli</string>
 	<string name="delete_tag_confirmation">%s törlése?</string>
+	<string name="TPl_notification">Időzítők aktiválva eddig: %s!</string>
 	<string name="TEA_timer_controls">Időzítő</string>
 	<string name="TEA_timer_comment_started">feladat megkezdve:</string>
 	<string name="TEA_timer_comment_stopped">feladat leállítva:</string>
 	<string name="TEA_timer_comment_spent">Eltöltött idő:</string>
+	<string name="voice_create_prompt">Feladat létrehozásához kedjen beszélni</string>
+	<string name="EPr_voiceInputEnabled_title">Hang bemenet</string>
 	<string name="EPr_voiceRemindersEnabled_title">Kimondott emlékeztetők</string>
+	<string name="EPr_voiceRemindersEnabled_desc_enabled">A Tasks kimondja a feladatcímeket emlékeztetőkor</string>
 	<string name="delete_task">Feladat törlése</string>
+	<string name="voice_command_added_task">Hozzáadott feladat</string>
 	<string name="external_storage_unavailable">Külső tárhely nem elérhető</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 feladat</item>
@@ -196,7 +225,7 @@
 	<string name="widget_show_checkboxes">Jelölőnégyzetek megjelenítése</string>
 	<string name="widget_show_header">Fejléc megjelenítése</string>
 	<string name="widget_show_settings">Beállítások megjelenítése</string>
-	<string name="notifications">Emlékeztetők</string>
+	<string name="notifications">Értesítések</string>
 	<string name="vibrations">Rezgés</string>
 	<string name="backup_directory">Mentési könyvtár</string>
 	<string name="synchronization">Szinkronizáció</string>
@@ -216,6 +245,7 @@
 	<string name="notification_actions_summary">Szundi és az összes művelet mutatása az értesítésben</string>
 	<string name="add_reminder">Emlékeztető hozzáadása</string>
 	<string name="remove">Eltávolítás</string>
+	<string name="randomly_once">Véletlenszerűen egyszer</string>
 	<string name="randomly">Véletlenszerűen</string>
 	<string name="pick_a_date">Dátum kiválasztása</string>
 	<string name="pick_a_time">Időpont kiválasztása</string>
@@ -225,7 +255,7 @@
 	<string name="when_due">Határidő elérésekor</string>
 	<string name="geofence_radius_title">Sugár (méterekben)</string>
 	<string name="geofence_responsiveness_title">Válaszidő (a magasabb érték kíméli az akkumulátort)</string>
-	<string name="geolocation_reminders">Helyhez Kötött Emlékeztetők</string>
+	<string name="geolocation_reminders">Helyhez kötött Emlékeztetők</string>
 	<string name="tags">Címkék</string>
 	<string name="filters">Szűrők</string>
 	<string name="date_shortcut_morning">Reggel</string>
@@ -240,14 +270,15 @@
 	<string name="delete">Törlés</string>
 	<string name="filter_settings">Szűrő beállítások</string>
 	<string name="show_hidden">Rejtettek mutatása</string>
-	<string name="show_completed">Befejezettek mutatása</string>
+	<string name="show_completed">Elvégzettek megjelenítése</string>
 	<string name="reverse">Fenntart</string>
+	<string name="task_count">%d feladat</string>
 	<string name="no_application_found">A csatolmány megnyitására alkalmas program nem található</string>
 	<string name="add_attachment">Csatolmány hozzáadása</string>
-	<string name="high_priority">Magas</string>
+	<string name="high_priority">Értesítéskor kilépés Szundikáló módból</string>
 	<string name="default_priority">Alapértelmezett</string>
 	<string name="low_priority">Alacsony</string>
-	<string name="notification_priority">Emlékeztető prioritása</string>
+	<string name="notification_priority">Értesítés prioritása</string>
 	<string name="vibration_count">Rezgések száma</string>
 	<string name="vibration_duration">Rezgések hossza (ezredmásodpercben)</string>
 	<string name="vibration_pause">Szünet a rezgések között (ezredmásodpercben)</string>
@@ -257,6 +288,9 @@
 	<string name="send_anonymous_statistics_summary">Anonim felhasználási statisztikák és hibajelentések küldése a Tasks fejlesztése érdekében. Személyes adatok gyűjtése nem történik.</string>
 	<string name="tag_already_exists">A címke már létezik</string>
 	<string name="name_cannot_be_empty">A cím nem lehet üres</string>
+	<string name="doze_notifications">Értesítéskor kilépés Szundikáló módból</string>
+	<string name="doze_notifications_off">Az Android jelentősen késlelteti az értesítéseket Szundikáló módban</string>
+	<string name="doze_notifications_on">Az Android csak bizonyos megszakításokat engedélyez, amennyiben az eszköz Szundikáló módban van</string>
 	<string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
 	<string name="plugin_description">A Tasks egyetlen fejlesztő által karbantartott nyílt forráskódú projekt. Néhány funkció csak alkalmazáson belüli vásárlással érhető el, ezzel is támogatva a fejlesztést.</string>
 	<string name="themes_purchase_description">Az összes Tasks téma és szín elérhetővé tétele</string>
@@ -281,6 +315,7 @@
 	<string name="theme_teal">Zöldeskék</string>
 	<string name="theme_green">Zöld</string>
 	<string name="theme_light_green">Világoszöld</string>
+	<string name="theme_lime">Sárgászöld</string>
 	<string name="theme_yellow">Sárga</string>
 	<string name="theme_amber">Borostyán</string>
 	<string name="theme_orange">Narancs</string>
@@ -318,5 +353,7 @@
 	<string name="led_notification">LED értesítés</string>
 	<string name="hardware_support_required">Hardveres támogatás szükséges</string>
 	<string name="led_color">LED színe</string>
+	<string name="notification_shade">Értesítés árnyéka</string>
 	<string name="notification_description">Feladat leírásának megjelenítése</string>
+	<string name="sync_error_permissions">A Tasks engedélyre vár</string>
 </resources>
