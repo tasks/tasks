@@ -39,6 +39,11 @@ public class AlertDialogBuilder {
         return this;
     }
 
+    public AlertDialogBuilder setMessage(CharSequence charSequence) {
+        builder.setMessage(charSequence);
+        return this;
+    }
+
     public AlertDialogBuilder setPositiveButton(int ok, DialogInterface.OnClickListener onClickListener) {
         builder.setPositiveButton(ok, onClickListener);
         return this;

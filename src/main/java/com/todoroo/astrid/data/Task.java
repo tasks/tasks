@@ -8,6 +8,7 @@ package com.todoroo.astrid.data;
 
 import android.content.ContentValues;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
@@ -516,6 +517,10 @@ public class Task extends RemoteModel {
 
     public String getNotes() {
         return getValue(NOTES);
+    }
+
+    public boolean hasNotes() {
+        return !TextUtils.isEmpty(getValue(NOTES));
     }
 
     public void setNotes(String notes) {

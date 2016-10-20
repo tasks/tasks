@@ -10,12 +10,15 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
+import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -433,19 +436,20 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void showEditNotesDialog(final Task task) {
-        String notes = null;
         Task t = taskDao.fetch(task.getId(), Task.NOTES);
-        if (t != null) {
-            notes = t.getNotes();
-        }
-        if (TextUtils.isEmpty(notes)) {
+        if (t == null || !t.hasNotes()) {
             return;
         }
-
-        dialogBuilder.newDialog()
-                .setMessage(notes)
+        SpannableString description = new SpannableString(t.getNotes());
+        Linkify.addLinks(description, Linkify.ALL);
+        AlertDialog dialog = dialogBuilder.newDialog()
+                .setMessage(description)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
+        View message = dialog.findViewById(android.R.id.message);
+        if (message != null && message instanceof TextView) {
+            ((TextView) message).setMovementMethod(LinkMovementMethod.getInstance());
+        }
     }
 
     private void showFilesDialog(Task task) {
