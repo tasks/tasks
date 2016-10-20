@@ -8,9 +8,9 @@ android:
   components:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - tools # https://github.com/travis-ci/travis-ci/issues/6040
-    - android-24
+    - android-25
     - platform-tools
-    - build-tools-24.0.2
+    - build-tools-25.0.0
     - extra-android-m2repository
     - extra-google-m2repository
   licenses:
