@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.text.TextUtils;
-
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.sql.Criterion;
@@ -41,9 +39,6 @@ public class GtasksTaskListUpdater {
 
     /** map of task -> prior sibling */
     final HashMap<Long, Long> siblings = new HashMap<>();
-
-    private final HashMap<Long, String> localToRemoteIdMap =
-        new HashMap<>();
 
     private final GtasksSyncService gtasksSyncService;
     private final MetadataDao metadataDao;
@@ -151,9 +146,6 @@ public class GtasksTaskListUpdater {
 
             previousTask.set(taskId);
             previousIndent.set(indent);
-            if(!TextUtils.isEmpty(metadata.getValue(GtasksMetadata.ID))) {
-                localToRemoteIdMap.put(taskId, metadata.getValue(GtasksMetadata.ID));
-            }
         });
     }
 
