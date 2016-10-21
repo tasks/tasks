@@ -22,7 +22,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.gtasks.GtasksListFragment;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
@@ -50,7 +49,7 @@ public class SubtasksListFragment extends TaskListFragment {
         return fragment;
     }
 
-    protected OrderedListFragmentHelperInterface helper;
+    protected AstridOrderedListFragmentHelper<TaskListMetadata> helper;
 
     private int lastVisibleIndex = -1;
 
@@ -70,11 +69,7 @@ public class SubtasksListFragment extends TaskListFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        helper = createFragmentHelper();
-    }
-
-    protected OrderedListFragmentHelperInterface createFragmentHelper() {
-        return new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao,
+        helper = new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao,
                 this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache, taskDao);
     }
 
@@ -92,9 +87,7 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     public void setTaskAdapter() {
-        if (helper instanceof AstridOrderedListFragmentHelper) {
-            ((AstridOrderedListFragmentHelper<TaskListMetadata>) helper).setList(initializeTaskListMetadata());
-        }
+        helper.setList(initializeTaskListMetadata());
         helper.beforeSetUpTaskList(filter);
 
         super.setTaskAdapter();
@@ -162,10 +155,6 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     public void inject(FragmentComponent component) {
-        if (this instanceof GtasksListFragment) {
-            component.inject((GtasksListFragment) this);
-        } else {
-            component.inject(this);
-        }
+        component.inject(this);
     }
 }

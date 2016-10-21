@@ -267,7 +267,7 @@ public class TaskListFragment extends InjectingListFragment implements
             completed.setEnabled(false);
         }
 
-        if (this instanceof SubtasksTagListFragment || this instanceof SubtasksListFragment) {
+        if (this instanceof SubtasksTagListFragment || this instanceof SubtasksListFragment || this instanceof GtasksListFragment) {
             hidden.setChecked(true);
             hidden.setEnabled(false);
         }
@@ -412,7 +412,7 @@ public class TaskListFragment extends InjectingListFragment implements
             listView.setItemsCanFocus(false);
         }
 
-        if ((this instanceof SubtasksListFragment) || (this instanceof SubtasksTagListFragment)) {
+        if (this instanceof SubtasksListFragment || this instanceof SubtasksTagListFragment || this instanceof GtasksListFragment) {
             return;
         }
 

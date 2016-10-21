@@ -41,7 +41,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
-public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface {
+public class AstridOrderedListFragmentHelper<LIST> {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final AstridOrderedListUpdater<LIST> updater;
@@ -87,7 +87,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         return fragment.getFilter();
     }
 
-    @Override
     public void setUpUiComponents() {
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.colorAccent, tv, false);
@@ -101,7 +100,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         draggableListView.setItemHightNormal(taskAdapter.computeFullRowHeight());
     }
 
-    @Override
     public void beforeSetUpTaskList(Filter filter) {
         updater.initialize(list, filter);
     }
@@ -178,7 +176,6 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         }
     };
 
-    @Override
     public TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
@@ -270,14 +267,12 @@ public class AstridOrderedListFragmentHelper<LIST> implements OrderedListFragmen
         this.list = list;
     }
 
-    @Override
     public void onCreateTask(String uuid) {
         updater.onCreateTask(list, getFilter(), uuid);
         fragment.reconstructCursor();
         fragment.loadTaskListContent();
     }
 
-    @Override
     public void onDeleteTask(Task task) {
         updater.onDeleteTask(list, getFilter(), task.getUuid());
         taskAdapter.notifyDataSetInvalidated();

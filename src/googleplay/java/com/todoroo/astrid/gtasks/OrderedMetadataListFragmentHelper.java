@@ -27,7 +27,6 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.subtasks.OrderedListFragmentHelperInterface;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DraggableListView;
 
@@ -45,7 +44,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
-public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragmentHelperInterface {
+public class OrderedMetadataListFragmentHelper<LIST> {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final OrderedMetadataListUpdater<LIST> updater;
@@ -95,7 +94,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         return (DraggableListView) fragment.getListView();
     }
 
-    @Override
     public void setUpUiComponents() {
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.colorAccent, tv, false);
@@ -106,7 +104,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
-    @Override
     public void beforeSetUpTaskList(Filter filter) {
     }
 
@@ -179,7 +176,6 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         }
     };
 
-    @Override
     public TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
@@ -261,15 +257,12 @@ public class OrderedMetadataListFragmentHelper<LIST> implements OrderedListFragm
         this.list = list;
     }
 
-    @Override
     public void onCreateTask(String uuid) {
         //
     }
 
-    @Override
     public void onDeleteTask(Task task) {
         updater.onDeleteTask(list, task.getId());
         taskAdapter.notifyDataSetInvalidated();
     }
-
 }
