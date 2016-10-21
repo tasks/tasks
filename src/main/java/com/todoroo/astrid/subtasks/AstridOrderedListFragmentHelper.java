@@ -24,6 +24,7 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DraggableListView;
 
@@ -41,10 +42,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
-public class AstridOrderedListFragmentHelper<LIST> {
+public class AstridOrderedListFragmentHelper {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
-    private final AstridOrderedListUpdater<LIST> updater;
+    private final AstridOrderedListUpdater updater;
     private final DialogBuilder dialogBuilder;
     private final CheckBoxes checkBoxes;
     private final TagService tagService;
@@ -56,10 +57,10 @@ public class AstridOrderedListFragmentHelper<LIST> {
 
     private DraggableTaskAdapter taskAdapter;
 
-    private LIST list;
+    private TaskListMetadata list;
 
     public AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
-                                           TaskListFragment fragment, AstridOrderedListUpdater<LIST> updater,
+                                           TaskListFragment fragment, AstridOrderedListUpdater updater,
                                            DialogBuilder dialogBuilder, CheckBoxes checkBoxes,
                                            TagService tagService, ThemeCache themeCache, TaskDao taskDao) {
         this.preferences = preferences;
@@ -263,7 +264,7 @@ public class AstridOrderedListFragmentHelper<LIST> {
         }
     }
 
-    public void setList(LIST list) {
+    public void setList(TaskListMetadata list) {
         this.list = list;
     }
 

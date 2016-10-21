@@ -56,7 +56,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Inject Theme theme;
     @Inject TaskDao taskDao;
 
-    private AstridOrderedListFragmentHelper<TaskListMetadata> helper;
+    private AstridOrderedListFragmentHelper helper;
 
     private int lastVisibleIndex = -1;
 
@@ -64,7 +64,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        helper = new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao,
+        helper = new AstridOrderedListFragmentHelper(preferences, taskAttachmentDao,
                 this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache, taskDao);
     }
 

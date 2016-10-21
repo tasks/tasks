@@ -49,7 +49,7 @@ public class SubtasksListFragment extends TaskListFragment {
         return fragment;
     }
 
-    protected AstridOrderedListFragmentHelper<TaskListMetadata> helper;
+    protected AstridOrderedListFragmentHelper helper;
 
     private int lastVisibleIndex = -1;
 
@@ -69,7 +69,7 @@ public class SubtasksListFragment extends TaskListFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        helper = new AstridOrderedListFragmentHelper<>(preferences, taskAttachmentDao,
+        helper = new AstridOrderedListFragmentHelper(preferences, taskAttachmentDao,
                 this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache, taskDao);
     }
 

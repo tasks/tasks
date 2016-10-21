@@ -5,6 +5,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskListMetadata;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +18,7 @@ import java.util.Set;
 
 import timber.log.Timber;
 
-public abstract class AstridOrderedListUpdater<LIST> {
+public abstract class AstridOrderedListUpdater {
 
     private final TaskDao taskDao;
 
@@ -47,8 +48,8 @@ public abstract class AstridOrderedListUpdater<LIST> {
 
     private final HashMap<String, Node> idToNode;
 
-    protected abstract String getSerializedTree(LIST list);
-    protected abstract void writeSerialization(LIST list, String serialized, boolean shouldQueueSync);
+    protected abstract String getSerializedTree(TaskListMetadata list);
+    protected abstract void writeSerialization(TaskListMetadata list, String serialized, boolean shouldQueueSync);
     protected abstract void applyToFilter(Filter filter);
 
     public int getIndentForTask(String targetTaskId) {
@@ -59,17 +60,17 @@ public abstract class AstridOrderedListUpdater<LIST> {
         return n.indent;
     }
 
-    public void initialize(LIST list, Filter filter) {
+    public void initialize(TaskListMetadata list, Filter filter) {
         initializeFromSerializedTree(list, filter, getSerializedTree(list));
     }
 
-    public void initializeFromSerializedTree(LIST list, Filter filter, String serializedTree) {
+    public void initializeFromSerializedTree(TaskListMetadata list, Filter filter, String serializedTree) {
         idToNode.clear();
         treeRoot = buildTreeModel(serializedTree, node -> idToNode.put(node.uuid, node));
         verifyTreeModel(list, filter);
     }
 
-    private void verifyTreeModel(LIST list, Filter filter) {
+    private void verifyTreeModel(TaskListMetadata list, Filter filter) {
         boolean changedThings = false;
         Set<String> keySet = idToNode.keySet();
         Set<String> currentIds = new HashSet<>();
@@ -180,12 +181,12 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
     }
 
-    public void indent(LIST list, Filter filter, String targetTaskId, int delta) {
+    public void indent(TaskListMetadata list, Filter filter, String targetTaskId, int delta) {
         Node node = idToNode.get(targetTaskId);
         indentHelper(list, filter, node, delta);
     }
 
-    private void indentHelper(LIST list, Filter filter, Node node, int delta) {
+    private void indentHelper(TaskListMetadata list, Filter filter, Node node, int delta) {
         if (node == null) {
             return;
         }
@@ -246,7 +247,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         }
     }
 
-    public void moveTo(LIST list, Filter filter, String targetTaskId, String beforeTaskId) {
+    public void moveTo(TaskListMetadata list, Filter filter, String targetTaskId, String beforeTaskId) {
         Node target = idToNode.get(targetTaskId);
         if (target == null) {
             return;
@@ -290,7 +291,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         setNodeIndent(toMove, toMove.parent.indent + 1);
     }
 
-    private void moveHelper(LIST list, Filter filter, Node moveThis, Node beforeThis) {
+    private void moveHelper(TaskListMetadata list, Filter filter, Node moveThis, Node beforeThis) {
         Node oldParent = moveThis.parent;
         ArrayList<Node> oldSiblings = oldParent.children;
 
@@ -331,7 +332,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         return false;
     }
 
-    private void moveToEndOfList(LIST list, Filter filter, Node moveThis) {
+    private void moveToEndOfList(TaskListMetadata list, Filter filter, Node moveThis) {
         Node parent = moveThis.parent;
         parent.children.remove(moveThis);
         treeRoot.children.add(moveThis);
@@ -341,7 +342,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         applyToFilter(filter);
     }
 
-    public void onCreateTask(LIST list, Filter filter, String uuid) {
+    public void onCreateTask(TaskListMetadata list, Filter filter, String uuid) {
         if (idToNode.containsKey(uuid) || !RemoteModel.isValidUuid(uuid)) {
             return;
         }
@@ -353,7 +354,7 @@ public abstract class AstridOrderedListUpdater<LIST> {
         applyToFilter(filter);
     }
 
-    public void onDeleteTask(LIST list, Filter filter, String taskId) {
+    public void onDeleteTask(TaskListMetadata list, Filter filter, String taskId) {
         Node task = idToNode.get(taskId);
         if (task == null) {
             return;

@@ -44,10 +44,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
-public class OrderedMetadataListFragmentHelper<LIST> {
+public class OrderedMetadataListFragmentHelper {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
-    private final OrderedMetadataListUpdater<LIST> updater;
+    private final OrderedMetadataListUpdater<GtasksList> updater;
     private final DialogBuilder dialogBuilder;
     private final CheckBoxes checkBoxes;
     private final TagService tagService;
@@ -61,11 +61,11 @@ public class OrderedMetadataListFragmentHelper<LIST> {
 
     private DraggableTaskAdapter taskAdapter;
 
-    private LIST list;
+    private GtasksList list;
 
     public OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
                                              TaskDao taskDao, MetadataDao metadataDao,
-                                             TaskListFragment fragment, OrderedMetadataListUpdater<LIST> updater,
+                                             TaskListFragment fragment, OrderedMetadataListUpdater<GtasksList> updater,
                                              DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagService tagService,
                                              ThemeCache themeCache) {
         this.preferences = preferences;
@@ -253,7 +253,7 @@ public class OrderedMetadataListFragmentHelper<LIST> {
         }
     }
 
-    public void setList(LIST list) {
+    public void setList(GtasksList list) {
         this.list = list;
     }
 

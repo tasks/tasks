@@ -66,7 +66,7 @@ public class GtasksListFragment extends TaskListFragment {
     @Inject Theme theme;
 
     private GtasksList list;
-    protected OrderedMetadataListFragmentHelper<GtasksList> helper;
+    protected OrderedMetadataListFragmentHelper helper;
     private int lastVisibleIndex = -1;
 
     @Override
@@ -139,7 +139,7 @@ public class GtasksListFragment extends TaskListFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        helper = new OrderedMetadataListFragmentHelper<>(preferences, taskAttachmentDao, taskDao,
+        helper = new OrderedMetadataListFragmentHelper(preferences, taskAttachmentDao, taskDao,
                 metadataDao, this, gtasksTaskListUpdater, dialogBuilder, checkBoxes, tagService, themeCache);
     }
 

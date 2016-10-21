@@ -5,7 +5,6 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
@@ -29,7 +28,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
     @Inject TaskDao taskDao;
     @Inject Preferences preferences;
 
-    protected SubtasksUpdater<TaskListMetadata> updater;
+    protected SubtasksUpdater updater;
     protected Filter filter;
 
     /* Starting State:

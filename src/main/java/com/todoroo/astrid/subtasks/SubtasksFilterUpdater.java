@@ -9,7 +9,7 @@ import com.todoroo.astrid.data.TaskListMetadata;
 
 import javax.inject.Inject;
 
-public class SubtasksFilterUpdater extends SubtasksUpdater<TaskListMetadata> {
+public class SubtasksFilterUpdater extends SubtasksUpdater {
 
     private final TaskListMetadataDao taskListMetadataDao;
 
