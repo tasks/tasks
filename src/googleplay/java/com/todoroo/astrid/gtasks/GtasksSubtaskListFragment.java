@@ -41,10 +41,10 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
-public class GtasksListFragment extends TaskListFragment {
+public class GtasksSubtaskListFragment extends TaskListFragment {
 
     public static TaskListFragment newGtasksListFragment(GtasksFilter filter, GtasksList list) {
-        GtasksListFragment fragment = new GtasksListFragment();
+        GtasksSubtaskListFragment fragment = new GtasksSubtaskListFragment();
         fragment.filter = filter;
         fragment.list = list;
         return fragment;

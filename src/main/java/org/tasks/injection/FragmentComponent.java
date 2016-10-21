@@ -3,7 +3,7 @@ package org.tasks.injection;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.gtasks.GtasksListFragment;
+import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
@@ -62,7 +62,7 @@ public interface FragmentComponent {
 
     void inject(TagListFragment tagListFragment);
 
-    void inject(GtasksListFragment gtasksListFragment);
+    void inject(GtasksSubtaskListFragment gtasksSubtaskListFragment);
 
     void inject(SubtasksListFragment subtasksListFragment);
 

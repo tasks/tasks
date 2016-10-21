@@ -19,9 +19,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-
-import org.tasks.tasklist.TagListFragment;
-
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -33,7 +30,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
-import com.todoroo.astrid.gtasks.GtasksListFragment;
+import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskCreator;
@@ -57,6 +54,7 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
+import org.tasks.tasklist.TagListFragment;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
@@ -300,7 +298,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             GtasksFilter gtasksFilter = (GtasksFilter) filter;
             GtasksList list = gtasksListService.getList(gtasksFilter.getStoreId());
             if (list != null) {
-                return GtasksListFragment.newGtasksListFragment(gtasksFilter, list);
+                return GtasksSubtaskListFragment.newGtasksListFragment(gtasksFilter, list);
             }
         } else if (filter != null) {
             return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)

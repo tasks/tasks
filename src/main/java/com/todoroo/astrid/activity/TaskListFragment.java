@@ -45,7 +45,7 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksListFragment;
+import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -261,13 +261,13 @@ public class TaskListFragment extends InjectingListFragment implements
         if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
             completed.setChecked(true);
         }
-        if (this instanceof GtasksListFragment) {
+        if (this instanceof GtasksSubtaskListFragment) {
             menu.findItem(R.id.menu_sort).setVisible(false);
             completed.setChecked(true);
             completed.setEnabled(false);
         }
 
-        if (this instanceof SubtasksTagListFragment || this instanceof SubtasksListFragment || this instanceof GtasksListFragment) {
+        if (this instanceof SubtasksTagListFragment || this instanceof SubtasksListFragment || this instanceof GtasksSubtaskListFragment) {
             hidden.setChecked(true);
             hidden.setEnabled(false);
         }
@@ -412,7 +412,7 @@ public class TaskListFragment extends InjectingListFragment implements
             listView.setItemsCanFocus(false);
         }
 
-        if (this instanceof SubtasksListFragment || this instanceof SubtasksTagListFragment || this instanceof GtasksListFragment) {
+        if (this instanceof SubtasksListFragment || this instanceof SubtasksTagListFragment || this instanceof GtasksSubtaskListFragment) {
             return;
         }
 
