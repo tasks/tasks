@@ -130,8 +130,8 @@ public class GtasksListFragment extends TaskListFragment {
     public Property<?>[] taskProperties() {
         Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
         ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(baseProperties));
-        properties.add(gtasksTaskListUpdater.indentProperty());
-        properties.add(gtasksTaskListUpdater.orderProperty());
+        properties.add(GtasksMetadata.INDENT);
+        properties.add(GtasksMetadata.ORDER);
         return properties.toArray(new Property<?>[properties.size()]);
     }
 

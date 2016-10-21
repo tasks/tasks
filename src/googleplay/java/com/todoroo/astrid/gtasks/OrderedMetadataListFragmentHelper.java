@@ -201,7 +201,7 @@ public class OrderedMetadataListFragmentHelper {
             super.setFieldContentsAndVisibility(view);
 
             ViewHolder vh = (ViewHolder) view.getTag();
-            int indent = vh.task.getValue(updater.indentProperty());
+            int indent = vh.task.getValue(GtasksMetadata.INDENT);
             vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
         }
     }
@@ -230,12 +230,12 @@ public class OrderedMetadataListFragmentHelper {
         }
 
         final ArrayList<Long> chained = new ArrayList<>();
-        final int parentIndent = item.getValue(updater.indentProperty());
+        final int parentIndent = item.getValue(GtasksMetadata.INDENT);
         updater.applyToChildren(list, itemId, node -> {
             Task childTask = taskDao.fetch(node.taskId, Task.RECURRENCE);
             if(!TextUtils.isEmpty(childTask.getRecurrence())) {
                 Metadata metadata = updater.getTaskMetadata(node.taskId);
-                metadata.setValue(updater.indentProperty(), parentIndent);
+                metadata.setValue(GtasksMetadata.INDENT, parentIndent);
                 metadataDao.persist(metadata);
             }
 

@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
@@ -50,18 +48,6 @@ public class GtasksTaskListUpdater {
     }
 
     // --- overrides
-
-    protected IntegerProperty indentProperty() {
-        return GtasksMetadata.INDENT;
-    }
-
-    protected LongProperty orderProperty() {
-        return GtasksMetadata.ORDER;
-    }
-
-    protected LongProperty parentProperty() {
-        return GtasksMetadata.PARENT_TASK;
-    }
 
     protected Metadata getTaskMetadata(long taskId) {
         return metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
@@ -172,25 +158,25 @@ public class GtasksTaskListUpdater {
             if(!metadata.isSaved()) {
                 metadata = createEmptyMetadata(list, taskId);
             }
-            int indent = metadata.containsNonNullValue(indentProperty()) ?
-                    metadata.getValue(indentProperty()) : 0;
+            int indent = metadata.containsNonNullValue(GtasksMetadata.INDENT) ?
+                    metadata.getValue(GtasksMetadata.INDENT) : 0;
 
             long order = globalOrder.incrementAndGet();
-            metadata.setValue(orderProperty(), order);
+            metadata.setValue(GtasksMetadata.ORDER, order);
 
             if(targetTaskId == taskId) {
                 // if indenting is warranted, indent me and my children
                 if(indent + delta <= previousIndent.get() + 1 && indent + delta >= 0) {
                     targetTaskIndent.set(indent);
-                    metadata.setValue(indentProperty(), indent + delta);
+                    metadata.setValue(GtasksMetadata.INDENT, indent + delta);
 
-                    if(parentProperty() != null) {
+                    if(GtasksMetadata.PARENT_TASK != null) {
                         long newParent = computeNewParent(list,
                                 taskId, indent + delta - 1);
                         if (newParent == taskId) {
-                            metadata.setValue(parentProperty(), Task.NO_ID);
+                            metadata.setValue(GtasksMetadata.PARENT_TASK, Task.NO_ID);
                         } else {
-                            metadata.setValue(parentProperty(), newParent);
+                            metadata.setValue(GtasksMetadata.PARENT_TASK, newParent);
                         }
                     }
                     saveAndUpdateModifiedDate(metadata);
@@ -200,7 +186,7 @@ public class GtasksTaskListUpdater {
                 if(indent <= targetTaskIndent.get()) {
                     targetTaskIndent.set(-1);
                 } else {
-                    metadata.setValue(indentProperty(), indent + delta);
+                    metadata.setValue(GtasksMetadata.INDENT, indent + delta);
                     saveAndUpdateModifiedDate(metadata);
                 }
             } else {
@@ -230,7 +216,7 @@ public class GtasksTaskListUpdater {
                 computedParent.set(true);
             }
 
-            int indent = metadata.getValue(indentProperty());
+            int indent = metadata.getValue(GtasksMetadata.INDENT);
             if (!computedParent.get() && indent == desiredParentIndent.get()) {
                 lastPotentialParent.set(taskId);
             }
@@ -310,13 +296,13 @@ public class GtasksTaskListUpdater {
             if(metadata == null) {
                 metadata = createEmptyMetadata(list, node.taskId);
             }
-            metadata.setValue(orderProperty(), order.getAndIncrement());
-            metadata.setValue(indentProperty(), indent);
+            metadata.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
+            metadata.setValue(GtasksMetadata.INDENT, indent);
             boolean parentChanged = false;
-            if(parentProperty() != null && metadata.getValue(parentProperty()) !=
+            if(GtasksMetadata.PARENT_TASK != null && metadata.getValue(GtasksMetadata.PARENT_TASK) !=
                     node.parent.taskId) {
                 parentChanged = true;
-                metadata.setValue(parentProperty(), node.parent.taskId);
+                metadata.setValue(GtasksMetadata.PARENT_TASK, node.parent.taskId);
             }
             saveAndUpdateModifiedDate(metadata);
             if(parentChanged) {
@@ -348,7 +334,7 @@ public class GtasksTaskListUpdater {
         final AtomicReference<Node> currentNode = new AtomicReference<>(root);
 
         iterateThroughList(list, (taskId, metadata) -> {
-            int indent = metadata.getValue(indentProperty());
+            int indent = metadata.getValue(GtasksMetadata.INDENT);
 
             int previousIndentValue = previoustIndent.get();
             if(indent == previousIndentValue) { // sibling
