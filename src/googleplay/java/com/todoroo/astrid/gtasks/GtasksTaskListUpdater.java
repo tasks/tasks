@@ -20,18 +20,21 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
 import org.tasks.injection.ApplicationScope;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
 @ApplicationScope
-public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList> {
+public class GtasksTaskListUpdater {
 
     /** map of task -> parent task */
     final HashMap<Long, Long> parents = new HashMap<>();
@@ -47,51 +50,42 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
 
     @Inject
     public GtasksTaskListUpdater(GtasksSyncService gtasksSyncService, MetadataDao metadataDao) {
-        super(metadataDao);
         this.gtasksSyncService = gtasksSyncService;
         this.metadataDao = metadataDao;
     }
 
     // --- overrides
 
-    @Override
     protected IntegerProperty indentProperty() {
         return GtasksMetadata.INDENT;
     }
 
-    @Override
     protected LongProperty orderProperty() {
         return GtasksMetadata.ORDER;
     }
 
-    @Override
     protected LongProperty parentProperty() {
         return GtasksMetadata.PARENT_TASK;
     }
 
-    @Override
     protected Metadata getTaskMetadata(long taskId) {
         return metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
     }
-    @Override
     protected Metadata createEmptyMetadata(GtasksList list, long taskId) {
         Metadata metadata = GtasksMetadata.createEmptyMetadataWithoutList(taskId);
         metadata.setValue(GtasksMetadata.LIST_ID, list.getRemoteId());
         return metadata;
     }
 
-    @Override
     protected void beforeIndent(GtasksList list) {
         updateParentSiblingMapsFor(list);
     }
 
-    @Override
     protected void iterateThroughList(GtasksList list, OrderedListIterator iterator) {
         String listId = list.getRemoteId();
         gtasksSyncService.iterateThroughList(listId, iterator, 0, false);
     }
 
-    @Override
     protected void onMovedOrIndented(Metadata metadata) {
         gtasksSyncService.triggerMoveForMetadata(metadata);
     }
@@ -161,6 +155,293 @@ public class GtasksTaskListUpdater extends OrderedMetadataListUpdater<GtasksList
                 localToRemoteIdMap.put(taskId, metadata.getValue(GtasksMetadata.ID));
             }
         });
+    }
+
+    public interface OrderedListIterator {
+        void processTask(long taskId, Metadata metadata);
+    }
+
+    /**
+     * Indent a task and all its children
+     */
+    public void indent(final GtasksList list, final long targetTaskId, final int delta) {
+        if(list == null) {
+            return;
+        }
+
+        beforeIndent(list);
+
+        final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
+        final AtomicInteger previousIndent = new AtomicInteger(-1);
+        final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
+        final AtomicLong globalOrder = new AtomicLong(-1);
+
+        iterateThroughList(list, (taskId, metadata) -> {
+            if(!metadata.isSaved()) {
+                metadata = createEmptyMetadata(list, taskId);
+            }
+            int indent = metadata.containsNonNullValue(indentProperty()) ?
+                    metadata.getValue(indentProperty()) : 0;
+
+            long order = globalOrder.incrementAndGet();
+            metadata.setValue(orderProperty(), order);
+
+            if(targetTaskId == taskId) {
+                // if indenting is warranted, indent me and my children
+                if(indent + delta <= previousIndent.get() + 1 && indent + delta >= 0) {
+                    targetTaskIndent.set(indent);
+                    metadata.setValue(indentProperty(), indent + delta);
+
+                    if(parentProperty() != null) {
+                        long newParent = computeNewParent(list,
+                                taskId, indent + delta - 1);
+                        if (newParent == taskId) {
+                            metadata.setValue(parentProperty(), Task.NO_ID);
+                        } else {
+                            metadata.setValue(parentProperty(), newParent);
+                        }
+                    }
+                    saveAndUpdateModifiedDate(metadata);
+                }
+            } else if(targetTaskIndent.get() > -1) {
+                // found first task that is not beneath target
+                if(indent <= targetTaskIndent.get()) {
+                    targetTaskIndent.set(-1);
+                } else {
+                    metadata.setValue(indentProperty(), indent + delta);
+                    saveAndUpdateModifiedDate(metadata);
+                }
+            } else {
+                previousIndent.set(indent);
+                previousTask.set(taskId);
+            }
+
+            if(!metadata.isSaved()) {
+                saveAndUpdateModifiedDate(metadata);
+            }
+        });
+        onMovedOrIndented(getTaskMetadata(targetTaskId));
+    }
+
+    /**
+     * Helper function to iterate through a list and compute a new parent for the target task
+     * based on the target parent's indent
+     */
+    private long computeNewParent(GtasksList list, long targetTaskId, int targetParentIndent) {
+        final AtomicInteger desiredParentIndent = new AtomicInteger(targetParentIndent);
+        final AtomicLong targetTask = new AtomicLong(targetTaskId);
+        final AtomicLong lastPotentialParent = new AtomicLong(Task.NO_ID);
+        final AtomicBoolean computedParent = new AtomicBoolean(false);
+
+        iterateThroughList(list, (taskId, metadata) -> {
+            if (targetTask.get() == taskId) {
+                computedParent.set(true);
+            }
+
+            int indent = metadata.getValue(indentProperty());
+            if (!computedParent.get() && indent == desiredParentIndent.get()) {
+                lastPotentialParent.set(taskId);
+            }
+        });
+
+        if (lastPotentialParent.get() == Task.NO_ID) {
+            return Task.NO_ID;
+        }
+        return lastPotentialParent.get();
+    }
+
+    // --- task moving
+
+    /**
+     * Move a task and all its children to the position right above
+     * taskIdToMoveto. Will change the indent level to match taskIdToMoveTo.
+     */
+    public void moveTo(GtasksList list, final long targetTaskId,
+                       final long moveBeforeTaskId) {
+        if(list == null) {
+            return;
+        }
+
+        Node root = buildTreeModel(list);
+        Node target = findNode(root, targetTaskId);
+
+        if(target != null && target.parent != null) {
+            if(moveBeforeTaskId == -1) {
+                target.parent.children.remove(target);
+                root.children.add(target);
+                target.parent = root;
+            } else {
+                Node sibling = findNode(root, moveBeforeTaskId);
+                if(sibling != null && !ancestorOf(target, sibling)) {
+                    int index = sibling.parent.children.indexOf(sibling);
+
+                    if(target.parent == sibling.parent &&
+                            target.parent.children.indexOf(target) < index) {
+                        index--;
+                    }
+
+                    target.parent.children.remove(target);
+                    sibling.parent.children.add(index, target);
+                    target.parent = sibling.parent;
+                }
+            }
+        }
+
+        traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
+        onMovedOrIndented(getTaskMetadata(targetTaskId));
+    }
+
+    private boolean ancestorOf(Node ancestor, Node descendant) {
+        if(descendant.parent == ancestor) {
+            return true;
+        }
+        if(descendant.parent == null) {
+            return false;
+        }
+        return ancestorOf(ancestor, descendant.parent);
+    }
+
+    protected static class Node {
+        public final long taskId;
+        public Node parent;
+        public final ArrayList<Node> children = new ArrayList<>();
+
+        public Node(long taskId, Node parent) {
+            this.taskId = taskId;
+            this.parent = parent;
+        }
+    }
+
+    private void traverseTreeAndWriteValues(GtasksList list, Node node, AtomicLong order, int indent) {
+        if(node.taskId != Task.NO_ID) {
+            Metadata metadata = getTaskMetadata(node.taskId);
+            if(metadata == null) {
+                metadata = createEmptyMetadata(list, node.taskId);
+            }
+            metadata.setValue(orderProperty(), order.getAndIncrement());
+            metadata.setValue(indentProperty(), indent);
+            boolean parentChanged = false;
+            if(parentProperty() != null && metadata.getValue(parentProperty()) !=
+                    node.parent.taskId) {
+                parentChanged = true;
+                metadata.setValue(parentProperty(), node.parent.taskId);
+            }
+            saveAndUpdateModifiedDate(metadata);
+            if(parentChanged) {
+                onMovedOrIndented(metadata);
+            }
+        }
+
+        for(Node child : node.children) {
+            traverseTreeAndWriteValues(list, child, order, indent + 1);
+        }
+    }
+
+    private Node findNode(Node node, long taskId) {
+        if(node.taskId == taskId) {
+            return node;
+        }
+        for(Node child : node.children) {
+            Node found = findNode(child, taskId);
+            if(found != null) {
+                return found;
+            }
+        }
+        return null;
+    }
+
+    private Node buildTreeModel(GtasksList list) {
+        final Node root = new Node(Task.NO_ID, null);
+        final AtomicInteger previoustIndent = new AtomicInteger(-1);
+        final AtomicReference<Node> currentNode = new AtomicReference<>(root);
+
+        iterateThroughList(list, (taskId, metadata) -> {
+            int indent = metadata.getValue(indentProperty());
+
+            int previousIndentValue = previoustIndent.get();
+            if(indent == previousIndentValue) { // sibling
+                Node parent = currentNode.get().parent;
+                currentNode.set(new Node(taskId, parent));
+                parent.children.add(currentNode.get());
+            } else if(indent > previousIndentValue) { // child
+                Node parent = currentNode.get();
+                currentNode.set(new Node(taskId, parent));
+                parent.children.add(currentNode.get());
+            } else { // in a different tree
+                Node node = currentNode.get().parent;
+                for(int i = indent; i < previousIndentValue; i++) {
+                    node = node.parent;
+                    if(node == null) {
+                        node = root;
+                        break;
+                    }
+                }
+                currentNode.set(new Node(taskId, node));
+                node.children.add(currentNode.get());
+            }
+
+            previoustIndent.set(indent);
+        });
+        return root;
+    }
+
+    private void saveAndUpdateModifiedDate(Metadata metadata) {
+        if(metadata.getSetValues().size() == 0) {
+            return;
+        }
+        metadataDao.persist(metadata);
+    }
+
+    // --- task cascading operations
+
+    public interface OrderedListNodeVisitor {
+        void visitNode(Node node);
+    }
+
+    /**
+     * Apply an operation only to the children of the task
+     */
+    public void applyToChildren(GtasksList list, long targetTaskId,
+                                OrderedListNodeVisitor visitor) {
+
+        Node root = buildTreeModel(list);
+        Node target = findNode(root, targetTaskId);
+
+        if(target != null) {
+            for (Node child : target.children) {
+                applyVisitor(child, visitor);
+            }
+        }
+    }
+
+    private void applyVisitor(Node node, OrderedListNodeVisitor visitor) {
+        visitor.visitNode(node);
+        for(Node child : node.children) {
+            applyVisitor(child, visitor);
+        }
+    }
+
+    /**
+     * Removes a task from the order hierarchy and un-indent children
+     */
+    public void onDeleteTask(GtasksList list, final long targetTaskId) {
+        if(list == null) {
+            return;
+        }
+
+        Node root = buildTreeModel(list);
+        Node target = findNode(root, targetTaskId);
+
+        if(target != null && target.parent != null) {
+            int targetIndex = target.parent.children.indexOf(target);
+            target.parent.children.remove(targetIndex);
+            for(Node node : target.children) {
+                node.parent = target.parent;
+                target.parent.children.add(targetIndex++, node);
+            }
+        }
+
+        traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
     }
 }
 

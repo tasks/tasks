@@ -21,7 +21,7 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.OrderedMetadataListUpdater;
+import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 
@@ -167,7 +167,7 @@ public class GtasksSyncService {
         }
     }
 
-    public void iterateThroughList(String listId, final OrderedMetadataListUpdater.OrderedListIterator iterator, long startAtOrder, boolean reverse) {
+    public void iterateThroughList(String listId, final GtasksTaskListUpdater.OrderedListIterator iterator, long startAtOrder, boolean reverse) {
         Field orderField = Functions.cast(GtasksMetadata.ORDER, "LONG");
         Order order = reverse ? Order.desc(orderField) : Order.asc(orderField);
         Criterion startAtCriterion = reverse ?  Functions.cast(GtasksMetadata.ORDER, "LONG").lt(startAtOrder) :
@@ -213,7 +213,7 @@ public class GtasksSyncService {
         final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getValue(GtasksMetadata.INDENT));
         final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK));
         final AtomicReference<String> sibling = new AtomicReference<>();
-        OrderedMetadataListUpdater.OrderedListIterator iterator = (taskId, metadata) -> {
+        GtasksTaskListUpdater.OrderedListIterator iterator = (taskId, metadata) -> {
             Task t = taskDao.fetch(taskId, Task.TITLE, Task.DELETION_DATE);
             if (t == null || t.isDeleted()) {
                 return;

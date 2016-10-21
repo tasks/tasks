@@ -47,7 +47,7 @@ import timber.log.Timber;
 public class OrderedMetadataListFragmentHelper {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
-    private final OrderedMetadataListUpdater<GtasksList> updater;
+    private final GtasksTaskListUpdater updater;
     private final DialogBuilder dialogBuilder;
     private final CheckBoxes checkBoxes;
     private final TagService tagService;
@@ -65,7 +65,7 @@ public class OrderedMetadataListFragmentHelper {
 
     public OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
                                              TaskDao taskDao, MetadataDao metadataDao,
-                                             TaskListFragment fragment, OrderedMetadataListUpdater<GtasksList> updater,
+                                             TaskListFragment fragment, GtasksTaskListUpdater updater,
                                              DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagService tagService,
                                              ThemeCache themeCache) {
         this.preferences = preferences;
