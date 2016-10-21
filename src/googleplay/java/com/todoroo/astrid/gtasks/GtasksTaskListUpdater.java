@@ -49,25 +49,22 @@ public class GtasksTaskListUpdater {
 
     // --- overrides
 
-    protected Metadata getTaskMetadata(long taskId) {
+    Metadata getTaskMetadata(long taskId) {
         return metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
     }
-    protected Metadata createEmptyMetadata(GtasksList list, long taskId) {
+
+    private Metadata createEmptyMetadata(GtasksList list, long taskId) {
         Metadata metadata = GtasksMetadata.createEmptyMetadataWithoutList(taskId);
         metadata.setValue(GtasksMetadata.LIST_ID, list.getRemoteId());
         return metadata;
     }
 
-    protected void beforeIndent(GtasksList list) {
-        updateParentSiblingMapsFor(list);
-    }
-
-    protected void iterateThroughList(GtasksList list, OrderedListIterator iterator) {
+    private void iterateThroughList(GtasksList list, OrderedListIterator iterator) {
         String listId = list.getRemoteId();
         gtasksSyncService.iterateThroughList(listId, iterator, 0, false);
     }
 
-    protected void onMovedOrIndented(Metadata metadata) {
+    private void onMovedOrIndented(Metadata metadata) {
         gtasksSyncService.triggerMoveForMetadata(metadata);
     }
 
@@ -147,7 +144,7 @@ public class GtasksTaskListUpdater {
             return;
         }
 
-        beforeIndent(list);
+        updateParentSiblingMapsFor(list);
 
         final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
@@ -234,7 +231,7 @@ public class GtasksTaskListUpdater {
      * Move a task and all its children to the position right above
      * taskIdToMoveto. Will change the indent level to match taskIdToMoveTo.
      */
-    public void moveTo(GtasksList list, final long targetTaskId,
+    void moveTo(GtasksList list, final long targetTaskId,
                        final long moveBeforeTaskId) {
         if(list == null) {
             return;
@@ -279,12 +276,12 @@ public class GtasksTaskListUpdater {
         return ancestorOf(ancestor, descendant.parent);
     }
 
-    protected static class Node {
+    static class Node {
         public final long taskId;
         public Node parent;
-        public final ArrayList<Node> children = new ArrayList<>();
+        final ArrayList<Node> children = new ArrayList<>();
 
-        public Node(long taskId, Node parent) {
+        Node(long taskId, Node parent) {
             this.taskId = taskId;
             this.parent = parent;
         }
@@ -372,14 +369,14 @@ public class GtasksTaskListUpdater {
 
     // --- task cascading operations
 
-    public interface OrderedListNodeVisitor {
+    interface OrderedListNodeVisitor {
         void visitNode(Node node);
     }
 
     /**
      * Apply an operation only to the children of the task
      */
-    public void applyToChildren(GtasksList list, long targetTaskId,
+    void applyToChildren(GtasksList list, long targetTaskId,
                                 OrderedListNodeVisitor visitor) {
 
         Node root = buildTreeModel(list);
@@ -402,7 +399,7 @@ public class GtasksTaskListUpdater {
     /**
      * Removes a task from the order hierarchy and un-indent children
      */
-    public void onDeleteTask(GtasksList list, final long targetTaskId) {
+    void onDeleteTask(GtasksList list, final long targetTaskId) {
         if(list == null) {
             return;
         }

@@ -27,8 +27,8 @@ import timber.log.Timber;
 
 public class SubtasksFilterUpdater {
 
-    public static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; //$NON-NLS-1$
-    public static final String TODAY_TASKS_ORDER = "today_tasks_order"; //$NON-NLS-1$
+    static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; //$NON-NLS-1$
+    static final String TODAY_TASKS_ORDER = "today_tasks_order"; //$NON-NLS-1$
 
     private final TaskListMetadataDao taskListMetadataDao;
     private final TaskDao taskDao;
@@ -41,7 +41,7 @@ public class SubtasksFilterUpdater {
         this.taskListMetadataDao = taskListMetadataDao;
     }
 
-    protected String getSerializedTree(TaskListMetadata list) {
+    private String getSerializedTree(TaskListMetadata list) {
         if (list == null) {
             return "[]"; //$NON-NLS-1$
         }
@@ -54,7 +54,7 @@ public class SubtasksFilterUpdater {
         return order;
     }
 
-    protected void writeSerialization(TaskListMetadata list, String serialized, boolean shouldQueueSync) {
+    void writeSerialization(TaskListMetadata list, String serialized, boolean shouldQueueSync) {
         if (list != null) {
             list.setTaskIDs(serialized);
             if (!shouldQueueSync) {
@@ -69,7 +69,7 @@ public class SubtasksFilterUpdater {
         applyToFilter(filter);
     }
 
-    protected void applyToFilter(Filter filter) {
+    private void applyToFilter(Filter filter) {
         String query = filter.getSqlQuery();
 
         query = query.replaceAll("ORDER BY .*", "");
@@ -81,24 +81,24 @@ public class SubtasksFilterUpdater {
         filter.setFilterQueryOverride(query);
     }
 
-    public interface OrderedListNodeVisitor {
+    interface OrderedListNodeVisitor {
         void visitNode(Node node);
     }
 
-    public static class Node {
+    static class Node {
         public String uuid;
         public Node parent;
         public int indent;
-        public final ArrayList<Node> children = new ArrayList<>();
+        final ArrayList<Node> children = new ArrayList<>();
 
-        public Node(String uuid, Node parent, int indent) {
+        Node(String uuid, Node parent, int indent) {
             this.uuid = uuid;
             this.parent = parent;
             this.indent = indent;
         }
     }
 
-    public int getIndentForTask(String targetTaskId) {
+    int getIndentForTask(String targetTaskId) {
         Node n = idToNode.get(targetTaskId);
         if (n == null) {
             return 0;
@@ -106,7 +106,7 @@ public class SubtasksFilterUpdater {
         return n.indent;
     }
 
-    public void initializeFromSerializedTree(TaskListMetadata list, Filter filter, String serializedTree) {
+    void initializeFromSerializedTree(TaskListMetadata list, Filter filter, String serializedTree) {
         idToNode.clear();
         treeRoot = buildTreeModel(serializedTree, node -> idToNode.put(node.uuid, node));
         verifyTreeModel(list, filter);
@@ -178,12 +178,12 @@ public class SubtasksFilterUpdater {
         return ids.toArray(new String[ids.size()]);
     }
 
-    String getOrderString() {
+    private String getOrderString() {
         String[] ids = getOrderedIds();
         return buildOrderString(ids);
     }
 
-    public static String buildOrderString(String[] ids) {
+    static String buildOrderString(String[] ids) {
         StringBuilder builder = new StringBuilder();
         if (ids.length == 0) {
             return "(1)"; //$NON-NLS-1$
@@ -207,7 +207,7 @@ public class SubtasksFilterUpdater {
         }
     }
 
-    public void applyToDescendants(String taskId, OrderedListNodeVisitor visitor) {
+    void applyToDescendants(String taskId, OrderedListNodeVisitor visitor) {
         Node n = idToNode.get(taskId);
         if (n == null) {
             return;
@@ -289,7 +289,7 @@ public class SubtasksFilterUpdater {
         }
     }
 
-    public void moveTo(TaskListMetadata list, Filter filter, String targetTaskId, String beforeTaskId) {
+    void moveTo(TaskListMetadata list, Filter filter, String targetTaskId, String beforeTaskId) {
         Node target = idToNode.get(targetTaskId);
         if (target == null) {
             return;
@@ -313,7 +313,7 @@ public class SubtasksFilterUpdater {
         moveHelper(list, filter, target, before);
     }
 
-    public void moveToParentOf(String moveThis, String toParentOfThis) {
+    void moveToParentOf(String moveThis, String toParentOfThis) {
         Node target = idToNode.get(toParentOfThis);
         if (target == null) {
             return;
@@ -384,7 +384,7 @@ public class SubtasksFilterUpdater {
         applyToFilter(filter);
     }
 
-    public void onCreateTask(TaskListMetadata list, Filter filter, String uuid) {
+    void onCreateTask(TaskListMetadata list, Filter filter, String uuid) {
         if (idToNode.containsKey(uuid) || !RemoteModel.isValidUuid(uuid)) {
             return;
         }
@@ -396,7 +396,7 @@ public class SubtasksFilterUpdater {
         applyToFilter(filter);
     }
 
-    public void onDeleteTask(TaskListMetadata list, Filter filter, String taskId) {
+    void onDeleteTask(TaskListMetadata list, Filter filter, String taskId) {
         Node task = idToNode.get(taskId);
         if (task == null) {
             return;
@@ -425,7 +425,7 @@ public class SubtasksFilterUpdater {
         void afterAddNode(Node node);
     }
 
-    public static Node buildTreeModel(String serializedTree, JSONTreeModelBuilder callback) {
+    static Node buildTreeModel(String serializedTree, JSONTreeModelBuilder callback) {
         Node root = new Node("-1", null, -1); //$NON-NLS-1$
         try {
             JSONArray tree = new JSONArray(serializedTree);
@@ -461,7 +461,7 @@ public class SubtasksFilterUpdater {
         return serializeTree(treeRoot);
     }
 
-    public static String serializeTree(Node root) {
+    static String serializeTree(Node root) {
         JSONArray tree = new JSONArray();
         if (root == null) {
             return tree.toString();

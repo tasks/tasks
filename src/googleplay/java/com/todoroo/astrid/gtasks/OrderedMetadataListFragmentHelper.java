@@ -44,7 +44,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
-public class OrderedMetadataListFragmentHelper {
+class OrderedMetadataListFragmentHelper {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final GtasksTaskListUpdater updater;
@@ -63,7 +63,7 @@ public class OrderedMetadataListFragmentHelper {
 
     private GtasksList list;
 
-    public OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
+    OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
                                              TaskDao taskDao, MetadataDao metadataDao,
                                              TaskListFragment fragment, GtasksTaskListUpdater updater,
                                              DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagService tagService,
@@ -94,7 +94,7 @@ public class OrderedMetadataListFragmentHelper {
         return (DraggableListView) fragment.getListView();
     }
 
-    public void setUpUiComponents() {
+    void setUpUiComponents() {
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.colorAccent, tv, false);
         getTouchListView().setDragndropBackgroundColor(tv.data);
@@ -176,7 +176,7 @@ public class OrderedMetadataListFragmentHelper {
         }
     };
 
-    public TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
+    TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
         taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor,
@@ -261,7 +261,7 @@ public class OrderedMetadataListFragmentHelper {
         //
     }
 
-    public void onDeleteTask(Task task) {
+    void onDeleteTask(Task task) {
         updater.onDeleteTask(list, task.getId());
         taskAdapter.notifyDataSetInvalidated();
     }

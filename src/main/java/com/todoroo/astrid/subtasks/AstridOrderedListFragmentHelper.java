@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import timber.log.Timber;
 
-public class AstridOrderedListFragmentHelper {
+class AstridOrderedListFragmentHelper {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final SubtasksFilterUpdater updater;
@@ -59,7 +59,7 @@ public class AstridOrderedListFragmentHelper {
 
     private TaskListMetadata list;
 
-    public AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
+    AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
                                            TaskListFragment fragment, SubtasksFilterUpdater updater,
                                            DialogBuilder dialogBuilder, CheckBoxes checkBoxes,
                                            TagService tagService, ThemeCache themeCache, TaskDao taskDao) {
@@ -88,7 +88,7 @@ public class AstridOrderedListFragmentHelper {
         return fragment.getFilter();
     }
 
-    public void setUpUiComponents() {
+    void setUpUiComponents() {
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.colorAccent, tv, false);
         DraggableListView draggableListView = (DraggableListView) fragment.getListView();
@@ -101,7 +101,7 @@ public class AstridOrderedListFragmentHelper {
         draggableListView.setItemHightNormal(taskAdapter.computeFullRowHeight());
     }
 
-    public void beforeSetUpTaskList(Filter filter) {
+    void beforeSetUpTaskList(Filter filter) {
         updater.initialize(list, filter);
     }
 
@@ -177,7 +177,7 @@ public class AstridOrderedListFragmentHelper {
         }
     };
 
-    public TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
+    TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
         taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor,
@@ -268,13 +268,13 @@ public class AstridOrderedListFragmentHelper {
         this.list = list;
     }
 
-    public void onCreateTask(String uuid) {
+    void onCreateTask(String uuid) {
         updater.onCreateTask(list, getFilter(), uuid);
         fragment.reconstructCursor();
         fragment.loadTaskListContent();
     }
 
-    public void onDeleteTask(Task task) {
+    void onDeleteTask(Task task) {
         updater.onDeleteTask(list, getFilter(), task.getUuid());
         taskAdapter.notifyDataSetInvalidated();
     }

@@ -111,7 +111,7 @@ public class SubtasksHelper {
         return ids;
     }
 
-    public static String[] getStringIdArray(String serializedTree) {
+    static String[] getStringIdArray(String serializedTree) {
         ArrayList<String> ids = new ArrayList<>();
         String[] values = serializedTree.split("[\\[\\],\"\\s]"); // Split on [ ] , or whitespace chars
         for (String idString : values) {
@@ -125,7 +125,7 @@ public class SubtasksHelper {
     /**
      * Takes a subtasks string containing local ids and remaps it to one containing UUIDs
      */
-    public static String convertTreeToRemoteIds(TaskDao taskDao, String localTree) {
+    static String convertTreeToRemoteIds(TaskDao taskDao, String localTree) {
         List<Long> localIds = getIdList(localTree);
         HashMap<Long, String> idMap = getIdMap(taskDao, localIds, Task.ID, Task.UUID);
         idMap.put(-1L, "-1"); //$NON-NLS-1$
@@ -135,7 +135,7 @@ public class SubtasksHelper {
         return SubtasksFilterUpdater.serializeTree(tree);
     }
 
-    public interface TreeRemapHelper<T> {
+    interface TreeRemapHelper<T> {
         T getKeyFromOldUuid(String uuid);
     }
 
