@@ -45,7 +45,7 @@ import timber.log.Timber;
 public class AstridOrderedListFragmentHelper {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
-    private final AstridOrderedListUpdater updater;
+    private final SubtasksFilterUpdater updater;
     private final DialogBuilder dialogBuilder;
     private final CheckBoxes checkBoxes;
     private final TagService tagService;
@@ -60,7 +60,7 @@ public class AstridOrderedListFragmentHelper {
     private TaskListMetadata list;
 
     public AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
-                                           TaskListFragment fragment, AstridOrderedListUpdater updater,
+                                           TaskListFragment fragment, SubtasksFilterUpdater updater,
                                            DialogBuilder dialogBuilder, CheckBoxes checkBoxes,
                                            TagService tagService, ThemeCache themeCache, TaskDao taskDao) {
         this.preferences = preferences;

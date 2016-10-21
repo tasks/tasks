@@ -5,7 +5,7 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
+import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.tasks.injection.TestComponent;

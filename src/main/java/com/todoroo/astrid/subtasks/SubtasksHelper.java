@@ -17,7 +17,7 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.subtasks.AstridOrderedListUpdater.Node;
+import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
@@ -92,7 +92,7 @@ public class SubtasksHelper {
             serialized = "[]"; //$NON-NLS-1$
         }
 
-        return AstridOrderedListUpdater.buildOrderString(getStringIdArray(serialized));
+        return SubtasksFilterUpdater.buildOrderString(getStringIdArray(serialized));
     }
 
     @Deprecated
@@ -130,9 +130,9 @@ public class SubtasksHelper {
         HashMap<Long, String> idMap = getIdMap(taskDao, localIds, Task.ID, Task.UUID);
         idMap.put(-1L, "-1"); //$NON-NLS-1$
 
-        Node tree = AstridOrderedListUpdater.buildTreeModel(localTree, null);
+        Node tree = SubtasksFilterUpdater.buildTreeModel(localTree, null);
         remapLocalTreeToRemote(tree, idMap);
-        return AstridOrderedListUpdater.serializeTree(tree);
+        return SubtasksFilterUpdater.serializeTree(tree);
     }
 
     public interface TreeRemapHelper<T> {
@@ -182,5 +182,4 @@ public class SubtasksHelper {
         }
         return map;
     }
-
 }
