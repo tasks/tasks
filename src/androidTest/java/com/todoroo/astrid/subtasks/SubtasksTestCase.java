@@ -28,7 +28,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
     @Inject TaskDao taskDao;
     @Inject Preferences preferences;
 
-    protected SubtasksUpdater updater;
+    protected SubtasksFilterUpdater updater;
     protected Filter filter;
 
     /* Starting State:
@@ -46,7 +46,7 @@ public class SubtasksTestCase extends DatabaseTestCase {
     public void setUp() {
         super.setUp();
         filter = BuiltInFilterExposer.getMyTasksFilter(getTargetContext().getResources());
-        preferences.clear(SubtasksUpdater.ACTIVE_TASKS_ORDER);
+        preferences.clear(SubtasksFilterUpdater.ACTIVE_TASKS_ORDER);
         updater = new SubtasksFilterUpdater(taskListMetadataDao, taskDao);
     }
 

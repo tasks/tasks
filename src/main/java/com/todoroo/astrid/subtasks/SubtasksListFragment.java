@@ -98,10 +98,10 @@ public class SubtasksListFragment extends TaskListFragment {
         String prefId = null;
         if (BuiltInFilterExposer.isInbox(context, filter)) {
             filterId = TaskListMetadata.FILTER_ID_ALL;
-            prefId = SubtasksUpdater.ACTIVE_TASKS_ORDER;
+            prefId = SubtasksFilterUpdater.ACTIVE_TASKS_ORDER;
         } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
             filterId = TaskListMetadata.FILTER_ID_TODAY;
-            prefId = SubtasksUpdater.TODAY_TASKS_ORDER;
+            prefId = SubtasksFilterUpdater.TODAY_TASKS_ORDER;
         }
         if (TextUtils.isEmpty(filterId)) {
             return null;
