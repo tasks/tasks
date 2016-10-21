@@ -19,7 +19,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.actfm.TagViewFragment;
+
+import org.tasks.tasklist.TagListFragment;
+
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -292,7 +294,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             if (tagData != null) {
                 return preferences.getBoolean(R.string.p_manual_sort, false)
                         ? SubtasksTagListFragment.newSubtasksTagListFragment(tagFilter, tagData)
-                        : TagViewFragment.newTagViewFragment(tagFilter, tagData);
+                        : TagListFragment.newTagViewFragment(tagFilter, tagData);
             }
         } else if (filter instanceof GtasksFilter) {
             GtasksFilter gtasksFilter = (GtasksFilter) filter;

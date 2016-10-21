@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.astrid.actfm.TagViewFragment;
+import org.tasks.tasklist.TagListFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TagFilter;
@@ -35,7 +35,7 @@ import org.tasks.ui.CheckBoxes;
 
 import javax.inject.Inject;
 
-public class SubtasksTagListFragment extends TagViewFragment {
+public class SubtasksTagListFragment extends TagListFragment {
 
     public static TaskListFragment newSubtasksTagListFragment(TagFilter filter, TagData tagData) {
         SubtasksTagListFragment fragment = new SubtasksTagListFragment();

@@ -1,9 +1,4 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
-package com.todoroo.astrid.actfm;
+package org.tasks.tasklist;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,12 +22,12 @@ import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
 
-public class TagViewFragment extends TaskListFragment {
+public class TagListFragment extends TaskListFragment {
 
     private static final int REQUEST_EDIT_TAG = 11543;
 
     public static TaskListFragment newTagViewFragment(TagFilter filter, TagData tagData) {
-        TagViewFragment fragment = new TagViewFragment();
+        TagListFragment fragment = new TagListFragment();
         fragment.filter = filter;
         fragment.tagData = tagData;
         return fragment;

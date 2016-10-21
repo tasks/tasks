@@ -1,6 +1,5 @@
 package org.tasks.injection;
 
-import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.files.FilesControlSet;
@@ -15,6 +14,7 @@ import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 
 import org.tasks.fragments.CommentBarFragment;
+import org.tasks.tasklist.TagListFragment;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -60,7 +60,7 @@ public interface FragmentComponent {
 
     void inject(TaskListFragment taskListFragment);
 
-    void inject(TagViewFragment tagViewFragment);
+    void inject(TagListFragment tagListFragment);
 
     void inject(GtasksListFragment gtasksListFragment);
 
