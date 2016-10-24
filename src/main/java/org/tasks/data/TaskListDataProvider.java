@@ -68,8 +68,7 @@ public class TaskListDataProvider {
         String groupedQuery;
         if (sqlQueryTemplate.get().contains("GROUP BY")) {
             groupedQuery = sqlQueryTemplate.get();
-        } else if (sqlQueryTemplate.get().contains("ORDER BY")) //$NON-NLS-1$
-        {
+        } else if (sqlQueryTemplate.get().contains("ORDER BY")) {
             groupedQuery = sqlQueryTemplate.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
         } else {
             groupedQuery = sqlQueryTemplate.get() + " GROUP BY " + Task.ID;

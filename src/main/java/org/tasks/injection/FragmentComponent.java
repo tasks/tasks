@@ -14,6 +14,7 @@ import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 
 import org.tasks.fragments.CommentBarFragment;
+import org.tasks.tasklist.GtasksListFragment;
 import org.tasks.tasklist.TagListFragment;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
@@ -69,4 +70,6 @@ public interface FragmentComponent {
     void inject(SubtasksTagListFragment subtasksTagListFragment);
 
     void inject(GoogleTaskListFragment googleTaskListFragment);
+
+    void inject(GtasksListFragment gtasksListFragment);
 }

@@ -54,6 +54,7 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
+import org.tasks.tasklist.GtasksListFragment;
 import org.tasks.tasklist.TagListFragment;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
@@ -298,7 +299,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             GtasksFilter gtasksFilter = (GtasksFilter) filter;
             GtasksList list = gtasksListService.getList(gtasksFilter.getStoreId());
             if (list != null) {
-                return GtasksSubtaskListFragment.newGtasksListFragment(gtasksFilter, list);
+                return preferences.getBoolean(R.string.p_manual_sort, false)
+                        ? GtasksSubtaskListFragment.newGtasksSubtaskListFragment(gtasksFilter, list)
+                        : GtasksListFragment.newGtasksListFragment(gtasksFilter, list);
             }
         } else if (filter != null) {
             return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)

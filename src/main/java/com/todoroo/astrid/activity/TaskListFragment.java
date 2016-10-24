@@ -262,7 +262,6 @@ public class TaskListFragment extends InjectingListFragment implements
             completed.setChecked(true);
         }
         if (this instanceof GtasksSubtaskListFragment) {
-            menu.findItem(R.id.menu_sort).setVisible(false);
             completed.setChecked(true);
             completed.setEnabled(false);
         }

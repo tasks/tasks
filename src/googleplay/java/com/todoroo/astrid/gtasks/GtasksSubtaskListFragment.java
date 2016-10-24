@@ -8,8 +8,6 @@ package com.todoroo.astrid.gtasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -21,10 +19,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.SyncV2Service;
-import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
@@ -32,6 +27,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.GtasksListFragment;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
@@ -41,21 +37,18 @@ import java.util.Arrays;
 
 import javax.inject.Inject;
 
-public class GtasksSubtaskListFragment extends TaskListFragment {
+public class GtasksSubtaskListFragment extends GtasksListFragment {
 
-    public static TaskListFragment newGtasksListFragment(GtasksFilter filter, GtasksList list) {
+    public static TaskListFragment newGtasksSubtaskListFragment(GtasksFilter filter, GtasksList list) {
         GtasksSubtaskListFragment fragment = new GtasksSubtaskListFragment();
         fragment.filter = filter;
         fragment.list = list;
         return fragment;
     }
 
-    private static final String EXTRA_STORE_OBJECT = "extra_store_object";
-
     @Inject TaskDao taskDao;
     @Inject MetadataDao metadataDao;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Inject SyncV2Service syncService;
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject Preferences preferences;
     @Inject DialogBuilder dialogBuilder;
@@ -65,7 +58,6 @@ public class GtasksSubtaskListFragment extends TaskListFragment {
     @Inject @ForApplication Context context;
     @Inject Theme theme;
 
-    private GtasksList list;
     protected OrderedMetadataListFragmentHelper helper;
     private int lastVisibleIndex = -1;
 
@@ -73,57 +65,13 @@ public class GtasksSubtaskListFragment extends TaskListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            StoreObject storeObject = savedInstanceState.getParcelable(EXTRA_STORE_OBJECT);
-            list = new GtasksList(storeObject);
-        }
-
         helper.setList(list);
-    }
-
-    @Override
-    protected void inflateMenu(Toolbar toolbar) {
-        super.inflateMenu(toolbar);
-        toolbar.inflateMenu(R.menu.menu_gtasks_list_fragment);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(EXTRA_STORE_OBJECT, list.getStoreObject());
     }
 
     @Override
     protected void onTaskDelete(Task task) {
         super.onTaskDelete(task);
         helper.onDeleteTask(task);
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_clear_completed:
-                clearCompletedTasks();
-                return true;
-            default:
-                return super.onMenuItemClick(item);
-        }
-    }
-
-    private void clearCompletedTasks() {
-        syncService.clearCompleted(list, new SyncResultCallback() {
-            @Override
-            public void started() {
-                setSyncOngoing(true);
-            }
-
-            @Override
-            public void finished() {
-                setSyncOngoing(false);
-
-                onRefresh();
-            }
-        });
     }
 
     @Override
@@ -157,6 +105,7 @@ public class GtasksSubtaskListFragment extends TaskListFragment {
 
     @Override
     public void setTaskAdapter() {
+        helper.setList(list);
         helper.beforeSetUpTaskList(filter);
 
         super.setTaskAdapter();

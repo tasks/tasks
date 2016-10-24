@@ -105,6 +105,7 @@ class OrderedMetadataListFragmentHelper {
     }
 
     public void beforeSetUpTaskList(Filter filter) {
+        updater.initialize(filter);
     }
 
     private final DropListener dropListener = new DropListener() {

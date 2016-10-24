@@ -6,9 +6,7 @@ import android.os.Parcelable;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -40,12 +38,12 @@ public class GtasksFilter extends Filter {
     }
 
     private static QueryTemplate getQueryTemplate(GtasksList list) {
-        return new QueryTemplate().join(
-                Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
+        Criterion fullCriterion = Criterion.and(
                 MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                TaskDao.TaskCriteria.notDeleted(),
-                GtasksMetadata.LIST_ID.eq(list.getRemoteId()))).orderBy(
-                Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG")));
+                TaskDao.TaskCriteria.activeAndVisible(),
+                GtasksMetadata.LIST_ID.eq(list.getRemoteId()));
+        return new QueryTemplate().join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
+                .where(fullCriterion);
     }
 
     private static ContentValues getValuesForNewTasks(GtasksList list) {
