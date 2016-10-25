@@ -5,16 +5,11 @@
  */
 package com.todoroo.astrid.utility;
 
+import org.tasks.BuildConfig;
+
 public final class Constants {
 
-    // --- general application constants
-
-    /**
-     * Application Package
-     */
-    public static final String PACKAGE = "org.tasks";
-
-    // --- notification id's
+    public static final String FILE_PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 
     /** Notification Manager id for timing */
     public static final int NOTIFICATION_TIMER = -2;

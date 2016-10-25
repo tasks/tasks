@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.widget.Toast;
 
+import com.todoroo.astrid.utility.Constants;
+
 import org.tasks.R;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -50,7 +52,7 @@ public class CameraActivity extends InjectingAppCompatActivity {
                 Toast.makeText(this, R.string.external_storage_unavailable, Toast.LENGTH_LONG).show();
             } else {
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                Uri uri = FileProvider.getUriForFile(this, "org.tasks.files", output);
+                Uri uri = FileProvider.getUriForFile(this, Constants.FILE_PROVIDER_AUTHORITY, output);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
                 if (atLeastLollipop()) {
                     intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);

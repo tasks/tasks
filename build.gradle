@@ -51,6 +51,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        incremental false
     }
 
     buildTypes {
@@ -120,7 +121,7 @@ dependencies {
 
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.nononsenseapps:filepicker:3.1.0'
+    compile 'com.nononsenseapps:filepicker:4.0.0-beta1'
     compile "com.android.support:design:${SUPPORT_VERSION}"
     compile "com.android.support:support-annotations:${SUPPORT_VERSION}"
     compile 'com.jakewharton.timber:timber:4.3.1'

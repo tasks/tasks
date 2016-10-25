@@ -26,6 +26,7 @@ import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;
 import org.tasks.files.FileHelper;
@@ -143,7 +144,7 @@ public class CommentsController {
 
             view.setOnClickListener(v -> {
                 File file = new File(updateBitmap.getPath());
-                Uri uri = FileProvider.getUriForFile(activity, "org.tasks.files", file.getAbsoluteFile());
+                Uri uri = FileProvider.getUriForFile(activity, Constants.FILE_PROVIDER_AUTHORITY, file.getAbsoluteFile());
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(uri, "image/*");
                 FileHelper.grantReadPermissions(activity, intent, uri);

@@ -87,7 +87,6 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
         findPreference(getString(R.string.p_attachment_dir)).setOnPreferenceClickListener(p -> {
             Intent filesDir = new Intent(MiscellaneousPreferences.this, FileExplore.class);
             filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
-            filesDir.putExtra(FileExplore.EXTRA_START_PATH, getAttachmentDirectory());
             startActivityForResult(filesDir, REQUEST_CODE_FILES_DIR);
             return true;
         });

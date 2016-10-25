@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 
+import com.todoroo.astrid.utility.Constants;
+
 import java.io.File;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class FileHelper {
 
     public static Intent getReadableActionView(Context context, String path, String type) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = FileProvider.getUriForFile(context, "org.tasks.files", new File(path));
+        Uri uri = FileProvider.getUriForFile(context, Constants.FILE_PROVIDER_AUTHORITY, new File(path));
         intent.setDataAndType(uri, type);
         grantReadPermissions(context, intent, uri);
         return intent;

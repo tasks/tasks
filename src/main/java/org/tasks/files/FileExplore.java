@@ -96,7 +96,7 @@ public class FileExplore extends InjectingAppCompatActivity {
         if (requestCode == REQUEST_PICKER) {
             if (resultCode == Activity.RESULT_OK) {
                 Uri uri = data.getData();
-                final File file = new File(uri.getPath());
+                File file = com.nononsenseapps.filepicker.Utils.getFileForUri(uri);
                 Intent intent = new Intent();
                 intent.putExtra(directoryMode ? EXTRA_DIRECTORY : EXTRA_FILE, file.getAbsolutePath());
                 setResult(Activity.RESULT_OK, intent);

@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.AccountManager;
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.AndroidCalendarEventAttendee;
@@ -28,7 +28,7 @@ import static com.google.common.collect.Iterables.any;
 public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
     public static final int REQUEST_CODE_CAL_REMINDER = 100;
-    public static final String BROADCAST_CALENDAR_REMINDER = Constants.PACKAGE + ".CALENDAR_EVENT";
+    public static final String BROADCAST_CALENDAR_REMINDER = BuildConfig.APPLICATION_ID + ".CALENDAR_EVENT";
 
     @Inject Preferences preferences;
     @Inject CalendarEventProvider calendarEventProvider;

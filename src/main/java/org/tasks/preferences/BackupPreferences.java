@@ -67,7 +67,6 @@ public class BackupPreferences extends InjectingPreferenceActivity {
         findPreference(getString(R.string.p_backup_dir)).setOnPreferenceClickListener(p -> {
             Intent filesDir = new Intent(BackupPreferences.this, FileExplore.class);
             filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
-            filesDir.putExtra(FileExplore.EXTRA_START_PATH, getBackupDirectory());
             startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
             return true;
         });
