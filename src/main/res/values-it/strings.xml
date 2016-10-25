@@ -311,6 +311,7 @@
 	<string name="discard_changes">Annullo le modifiche?</string>
 	<string name="discard">Abbandona</string>
 	<string name="tag_settings">Imposta etichetta</string>
+	<string name="list_settings">Impostazioni lista</string>
 	<string name="delete">Elimina</string>
 	<string name="filter_settings">Preferenze di filtro</string>
 	<string name="show_hidden">Mostra nascoste</string>
@@ -413,4 +414,7 @@
 	<string name="notification_shade">Sfumatura notifiche</string>
 	<string name="notification_description">Mostra descrizione attività</string>
 	<string name="sync_error_permissions">L\'attività richiede l\'autorizzazione</string>
+	<string name="creating_new_list">Crea nuova lista</string>
+	<string name="deleting_list">Cancella lista</string>
+	<string name="renaming_list">RInomina lista</string>
 </resources>

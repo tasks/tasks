@@ -224,6 +224,7 @@
 	<string name="repeat_until">Powtarzaj do %s</string>
 	<string name="repeat_snackbar">%1$s przełożone na %2$s</string>
 	<string name="new_tag">Stwórz nowy tag</string>
+	<string name="new_list">Utwórz nową listę</string>
 	<string name="tag_FEx_untagged">Na żadnej liście</string>
 	<string name="delete_tag_confirmation">Usunąć %s?</string>
 	<string name="TPl_notification">Minutnkiki aktywne przez %s!</string>
@@ -310,6 +311,7 @@
 	<string name="discard_changes">Odrzuć zmiany</string>
 	<string name="discard">Odrzuć</string>
 	<string name="tag_settings">Ustawienia tagów</string>
+	<string name="list_settings">Ustawienie listy</string>
 	<string name="delete">Usuń</string>
 	<string name="filter_settings">Ustawienia filtrów</string>
 	<string name="show_hidden">Pokaż ukryte</string>
@@ -411,4 +413,7 @@
 	<string name="notification_shade">Panel powiadomień</string>
 	<string name="notification_description">Pokaż opis zadania</string>
 	<string name="sync_error_permissions">Tasks wymaga uprawnienia</string>
+	<string name="creating_new_list">Tworzenie nowej listy</string>
+	<string name="deleting_list">Usuwanie listy</string>
+	<string name="renaming_list">Zmiana nazwy listy</string>
 </resources>

@@ -107,6 +107,7 @@
 	<string name="no_deadline_reminder">无截止期限提醒</string>
 	<string name="at_deadline">截止期限时</string>
 	<string name="at_deadline_or_overdue">截止期限或过期时</string>
+	<string name="BFE_Active">待办任务</string>
 	<string name="BFE_Recent">最近修改过的</string>
 	<string name="CFA_universe_all">进行中的任务</string>
 	<string name="CFA_type_add">或</string>

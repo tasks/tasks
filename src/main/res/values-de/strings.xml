@@ -307,6 +307,7 @@
 	<string name="discard_changes">Änderungen verwerfen?</string>
 	<string name="discard">Verwerfen</string>
 	<string name="tag_settings">Schlagwort Einstellungen</string>
+	<string name="list_settings">Listeneinstellungen</string>
 	<string name="delete">Löschen</string>
 	<string name="filter_settings">Filter-Einstellungen</string>
 	<string name="show_hidden">Ausgeblendet anzeigen</string>
@@ -343,7 +344,7 @@
 	<string name="themes_purchase_description">Entsperre alle Themes</string>
 	<string name="tasker_description">Kontext-bezogene Listenbenachrichtigungen. Benötigt Tasker oder Locale</string>
 	<string name="donate_summary">Spenden sind sehr willkommen</string>
-	<string name="dashclock_purchase_description">Anzahl aktiver Aufgaben anzeigen. DashClock Widget benötigt</string>
+	<string name="dashclock_purchase_description">Anzahl aktiver Aufgaben anzeigen (DashClock-Widget benötigt).</string>
 	<string name="buy">Kaufen</string>
 	<string name="buy_dashclock_extension">Erweiterung kaufen</string>
 	<string name="billing_service_busy">Dienst für In-App Käufe ist beschäftigt, versuchen Sie es später noch einmal</string>
@@ -404,4 +405,7 @@
 	<string name="notification_shade">Benachrichtigungsanzeige</string>
 	<string name="notification_description">Aufgabenbeschreibung anzeigen</string>
 	<string name="sync_error_permissions">Tasks benötigt Zugriff</string>
+	<string name="creating_new_list">Erstelle neue Liste</string>
+	<string name="deleting_list">Lösche Liste</string>
+	<string name="renaming_list">Benenne Liste um</string>
 </resources>

@@ -220,6 +220,7 @@
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
 	<string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
 	<string name="new_tag">Créer un nouveau tag</string>
+	<string name="new_list">Créer une nouvelle liste</string>
 	<string name="tag_FEx_untagged">Non classé</string>
 	<string name="delete_tag_confirmation">Effacer %s ?</string>
 	<string name="TPl_notification">Chronomètre actif pour %s !</string>
@@ -303,6 +304,7 @@
 	<string name="discard_changes">Annuler les modifications</string>
 	<string name="discard">Annuler</string>
 	<string name="tag_settings">Paramètres des tags</string>
+	<string name="list_settings">Paramètres de la liste</string>
 	<string name="delete">Effacer</string>
 	<string name="filter_settings">Paramètres du filtre</string>
 	<string name="show_hidden">Afficher les tâches cachées</string>
@@ -401,4 +403,7 @@
 	<string name="notification_shade">Fréquence de notification</string>
 	<string name="notification_description">Montrer la description de la tâche</string>
 	<string name="sync_error_permissions">Permissions requises de Tasks.</string>
+	<string name="creating_new_list">Création d\'une nouvelle liste</string>
+	<string name="deleting_list">Suppression de la liste</string>
+	<string name="renaming_list">Renommer la liste</string>
 </resources>

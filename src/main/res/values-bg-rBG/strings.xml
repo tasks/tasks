@@ -314,6 +314,7 @@
 	<string name="discard_changes">Откажи промените</string>
 	<string name="discard">Откажи</string>
 	<string name="tag_settings">Настройки на тага</string>
+	<string name="list_settings">Настройки на списъка</string>
 	<string name="delete">Изтрий</string>
 	<string name="filter_settings">Настройки на филтъра</string>
 	<string name="show_hidden">Покажи скрити</string>
@@ -416,4 +417,7 @@
 	<string name="notification_shade">Уведомления нюанс</string>
 	<string name="notification_description">Покажи описание на задачата</string>
 	<string name="sync_error_permissions">Tasks изисква разрешения</string>
+	<string name="creating_new_list">Нов списък</string>
+	<string name="deleting_list">Изтриване на списък</string>
+	<string name="renaming_list">Преименуване на списък</string>
 </resources>

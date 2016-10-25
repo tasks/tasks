@@ -312,6 +312,7 @@
 	<string name="discard_changes">変更を破棄しますか?</string>
 	<string name="discard">破棄</string>
 	<string name="tag_settings">タグ設定</string>
+	<string name="list_settings">リスト設定</string>
 	<string name="delete">削除</string>
 	<string name="filter_settings">フィルター設定</string>
 	<string name="show_hidden">非表示を表示</string>
@@ -414,4 +415,7 @@
 	<string name="notification_shade">通知の影</string>
 	<string name="notification_description">タスクの概要を表示する</string>
 	<string name="sync_error_permissions">Tasks はアクセス許可が必要です</string>
+	<string name="creating_new_list">新しいリストを作成中</string>
+	<string name="deleting_list">リストの削除中</string>
+	<string name="renaming_list">リストの名前を変更中</string>
 </resources>
