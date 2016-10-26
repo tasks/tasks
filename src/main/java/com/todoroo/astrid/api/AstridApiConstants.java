@@ -63,6 +63,7 @@ public class AstridApiConstants {
      * Action name for broadcast intent notifying Astrid task list to refresh
      */
     public static final String BROADCAST_EVENT_REFRESH = BuildConfig.APPLICATION_ID + ".REFRESH";
+    public static final String BROADCAST_EVENT_REFRESH_LISTS = BuildConfig.APPLICATION_ID + ".REFRESH_LISTS";
 
     /**
      * Action name for broadcast intent notifying that task was completed

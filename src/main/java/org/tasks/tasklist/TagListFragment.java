@@ -89,7 +89,6 @@ public class TagListFragment extends TaskListFragment {
                     }
                 }
 
-                activity.repopulateNavigationDrawer();
                 broadcaster.refresh();
             }
         } else {

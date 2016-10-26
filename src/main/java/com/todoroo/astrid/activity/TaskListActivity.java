@@ -380,10 +380,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         }
     }
 
-    public void repopulateNavigationDrawer() {
-        navigationDrawer.repopulateList();
-    }
-
     public TaskListFragment getTaskListFragment() {
         return (TaskListFragment) getSupportFragmentManager()
                 .findFragmentByTag(FRAG_TAG_TASK_LIST);

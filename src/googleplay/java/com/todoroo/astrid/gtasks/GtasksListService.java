@@ -9,6 +9,8 @@ import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 
+import org.tasks.Broadcaster;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,10 +26,12 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 public class GtasksListService {
 
     private final StoreObjectDao storeObjectDao;
+    private final Broadcaster broadcaster;
 
     @Inject
-    public GtasksListService(StoreObjectDao storeObjectDao) {
+    public GtasksListService(StoreObjectDao storeObjectDao, Broadcaster broadcaster) {
         this.storeObjectDao = storeObjectDao;
+        this.broadcaster = broadcaster;
     }
 
     public List<GtasksList> getLists() {
@@ -83,6 +87,8 @@ public class GtasksListService {
         for(Long listId : previousLists) {
             storeObjectDao.delete(listId);
         }
+
+        broadcaster.refreshLists();
     }
 
     public List<GtasksList> getListsToUpdate(List<TaskList> remoteLists) {

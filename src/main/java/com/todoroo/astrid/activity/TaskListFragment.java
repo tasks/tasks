@@ -629,7 +629,6 @@ public class TaskListFragment extends InjectingListFragment implements
                     ((TaskListActivity) getActivity()).onFilterItemClicked(null);
                 }
 
-                ((TaskListActivity) getActivity()).repopulateNavigationDrawer();
                 broadcaster.refresh();
             }
         } else {

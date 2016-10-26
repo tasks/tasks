@@ -47,6 +47,10 @@ public class Broadcaster {
         context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
     }
 
+    public void refreshLists() {
+        context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH_LISTS));
+    }
+
     public void taskUpdated(final Task task, final ContentValues values) {
         Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_SAVED);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK, task);

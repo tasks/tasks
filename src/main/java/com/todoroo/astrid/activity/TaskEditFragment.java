@@ -33,6 +33,7 @@ import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.utility.Flags;
 
+import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
@@ -85,6 +86,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject Preferences preferences;
     @Inject Tracker tracker;
     @Inject TimerPlugin timerPlugin;
+    @Inject Broadcaster broadcaster;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.comments) LinearLayout comments;
@@ -209,14 +211,14 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             }
             taskDao.save(model);
 
-            boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
-
-            TaskListActivity tla = (TaskListActivity) getActivity();
-            if (tagsChanged) {
-                tla.repopulateNavigationDrawer();
+            if (Flags.check(Flags.TAGS_CHANGED)) {
+                broadcaster.refreshLists();
             }
+
             if (isNewTask) {
-                tla.getTaskListFragment().onTaskCreated(model.getUuid());
+                ((TaskListActivity) getActivity())
+                        .getTaskListFragment()
+                        .onTaskCreated(model.getUuid());
             }
             callback.taskEditFinished();
         } else {

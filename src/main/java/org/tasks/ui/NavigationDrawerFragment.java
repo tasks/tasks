@@ -88,9 +88,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == FilterAdapter.REQUEST_SETTINGS && resultCode == Activity.RESULT_OK && data != null) {
-            if (data.getBooleanExtra(AppearancePreferences.EXTRA_FILTERS_CHANGED, false)) {
-                repopulateList();
-            }
             if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
                 TaskListActivity activity = (TaskListActivity) getActivity();
                 activity.restart();
@@ -231,12 +228,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
         void onFilterItemClicked(FilterListItem item);
     }
 
-    public void repopulateList() {
+    private void repopulateList() {
         adapter.populateList();
-    }
-
-    private void refreshFilterCount() {
-        adapter.refreshFilterCount();
     }
 
     @Override
@@ -246,11 +239,12 @@ public class NavigationDrawerFragment extends InjectingFragment {
             adapter.registerRecevier();
         }
 
-        // also load sync actions
-        getActivity().registerReceiver(refreshReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+        intentFilter.addAction(AstridApiConstants.BROADCAST_EVENT_REFRESH_LISTS);
+        getActivity().registerReceiver(refreshReceiver, intentFilter);
 
-        refreshFilterCount();
+        repopulateList();
     }
 
     /**
@@ -262,11 +256,15 @@ public class NavigationDrawerFragment extends InjectingFragment {
     protected class RefreshReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction())) {
+            if (intent == null) {
                 return;
             }
-
-            refreshFilterCount();
+            String action = intent.getAction();
+            if (AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(action)) {
+                adapter.refreshFilterCount();
+            } else if (AstridApiConstants.BROADCAST_EVENT_REFRESH_LISTS.equals(action)) {
+                repopulateList();
+            }
         }
     }
 }

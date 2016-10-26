@@ -10,6 +10,7 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.Broadcaster;
 import org.tasks.injection.TestComponent;
 import org.tasks.makers.RemoteGtaskListMaker;
 
@@ -22,18 +23,19 @@ import static junit.framework.Assert.assertNull;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.tasks.makers.GtaskListMaker.ID;
-import static org.tasks.makers.GtaskListMaker.SAVED;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.makers.GtaskListMaker.LAST_SYNC;
 import static org.tasks.makers.GtaskListMaker.NAME;
 import static org.tasks.makers.GtaskListMaker.REMOTE_ID;
+import static org.tasks.makers.GtaskListMaker.SAVED;
 import static org.tasks.makers.GtaskListMaker.newGtaskList;
 import static org.tasks.makers.RemoteGtaskListMaker.newRemoteList;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @RunWith(AndroidJUnit4.class)
 public class GtasksListServiceTest extends DatabaseTestCase {
 
     @Inject Database database;
+    @Inject Broadcaster broadcaster;
 
     private StoreObjectDao storeObjectDao;
     private GtasksListService gtasksListService;
@@ -42,7 +44,7 @@ public class GtasksListServiceTest extends DatabaseTestCase {
     public void setUp() {
         super.setUp();
         storeObjectDao = spy(new StoreObjectDao(database));
-        gtasksListService = new GtasksListService(storeObjectDao);
+        gtasksListService = new GtasksListService(storeObjectDao, broadcaster);
     }
 
     @Override
