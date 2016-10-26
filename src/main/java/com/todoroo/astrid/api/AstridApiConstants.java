@@ -79,18 +79,4 @@ public class AstridApiConstants {
     public static final String BROADCAST_EVENT_TASK_REPEATED = BuildConfig.APPLICATION_ID + ".TASK_REPEATED";
 
     public static final String BROADCAST_EVENT_TASK_SAVED = BuildConfig.APPLICATION_ID + ".TASK_SAVED";
-
-    /**
-     * Action name for broadcast intent notifying that tag was deleted
-     */
-    public static final String BROADCAST_EVENT_TAG_DELETED = BuildConfig.APPLICATION_ID + ".TAG_DELETED";
-
-    /**
-     * Action name for broadcast intent notifying that tag was renamed
-     */
-    public static final String BROADCAST_EVENT_TAG_RENAMED = BuildConfig.APPLICATION_ID + ".TAG_RENAMED";
-
-    public static final String BROADCAST_EVENT_FILTER_DELETED = BuildConfig.APPLICATION_ID + ".FILTER_DELETED";
-
-    public static final String BROADCAST_EVENT_FILTER_RENAMED = BuildConfig.APPLICATION_ID + ".FILTER_RENAMED";
 }

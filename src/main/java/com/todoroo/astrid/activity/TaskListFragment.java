@@ -622,10 +622,10 @@ public class TaskListFragment extends InjectingListFragment implements
         } else if (requestCode == REQUEST_EDIT_FILTER) {
             if (resultCode == Activity.RESULT_OK) {
                 String action = data.getAction();
-                if (AstridApiConstants.BROADCAST_EVENT_FILTER_RENAMED.equals(action)) {
+                if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
                     CustomFilter customFilter = data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER);
                     ((TaskListActivity) getActivity()).onFilterItemClicked(customFilter);
-                } else if(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED.equals(action)) {
+                } else if(FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
                     ((TaskListActivity) getActivity()).onFilterItemClicked(null);
                 }
 

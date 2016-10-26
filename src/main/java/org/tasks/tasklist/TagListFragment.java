@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -75,7 +74,7 @@ public class TagListFragment extends TaskListFragment {
                 String action = data.getAction();
                 String uuid = data.getStringExtra(TagSettingsActivity.EXTRA_TAG_UUID);
                 TaskListActivity activity = (TaskListActivity) getActivity();
-                if (AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED.equals(action)) {
+                if (TagSettingsActivity.ACTION_TAG_RENAMED.equals(action)) {
                     if (tagData.getUuid().equals(uuid)) {
                         TagData newTagData = tagDataDao.fetch(uuid, TagData.PROPERTIES);
                         if (newTagData != null) {
@@ -83,7 +82,7 @@ public class TagListFragment extends TaskListFragment {
                             activity.onFilterItemClicked(filter);
                         }
                     }
-                } else if (AstridApiConstants.BROADCAST_EVENT_TAG_DELETED.equals(action)) {
+                } else if (TagSettingsActivity.ACTION_TAG_DELETED.equals(action)) {
                     String activeUuid = tagData.getUuid();
                     if (activeUuid.equals(uuid)) {
                         activity.onFilterItemClicked(null);

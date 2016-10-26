@@ -15,7 +15,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.dao.StoreObjectDao;
 
@@ -36,6 +35,9 @@ import static android.text.TextUtils.isEmpty;
 public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     public static final String TOKEN_FILTER = "token_filter";
+
+    public static final String ACTION_FILTER_DELETED = "filterDeleted";
+    public static final String ACTION_FILTER_RENAMED = "filterRenamed";
 
     private CustomFilter filter;
 
@@ -91,7 +93,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
         if (nameChanged) {
             filter.listingTitle = newName;
             storeObjectDao.update(filter.toStoreObject());
-            setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_RENAMED).putExtra(TOKEN_FILTER, filter));
+            setResult(RESULT_OK, new Intent(ACTION_FILTER_RENAMED).putExtra(TOKEN_FILTER, filter));
         }
 
         finish();
@@ -117,7 +119,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
         dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, filter.listingTitle)
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                     storeObjectDao.delete(filter.getId());
-                    setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_FILTER_DELETED).putExtra(TOKEN_FILTER, filter));
+                    setResult(RESULT_OK, new Intent(ACTION_FILTER_DELETED).putExtra(TOKEN_FILTER, filter));
                     finish();
                 })
                 .setNegativeButton(android.R.string.cancel, null)

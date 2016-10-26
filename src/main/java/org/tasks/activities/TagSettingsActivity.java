@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
@@ -57,6 +56,9 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
     public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
     public static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
+
+    public static final String ACTION_TAG_RENAMED = "tagRenamed";
+    public static final String ACTION_TAG_DELETED = "tagDeleted";
 
     private boolean isNewTag;
     private TagData tagData;
@@ -188,7 +190,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             metadataDao.update(Criterion.and(
                     MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                     TaskToTagMetadata.TAG_UUID.eq(tagData.getUUID())), m);
-            setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_RENAMED).putExtra(EXTRA_TAG_UUID, tagData.getUuid()));
+            setResult(RESULT_OK, new Intent(ACTION_TAG_RENAMED).putExtra(EXTRA_TAG_UUID, tagData.getUuid()));
         }
 
         finish();
@@ -238,7 +240,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
                         String uuid = tagData.getUuid();
                         metadataDao.deleteWhere(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
                         tagDataDao.delete(tagData.getId());
-                        setResult(RESULT_OK, new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
+                        setResult(RESULT_OK, new Intent(ACTION_TAG_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
                     }
                     finish();
                 })
