@@ -104,10 +104,6 @@ public class TaskListFragment extends InjectingListFragment implements
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
     private static final int REQUEST_EDIT_FILTER = 11544;
 
-    // --- activities
-
-    public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
-
     // --- menu codes
 
     private static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;

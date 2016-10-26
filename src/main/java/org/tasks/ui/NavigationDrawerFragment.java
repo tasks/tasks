@@ -13,15 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import org.tasks.activities.TagSettingsActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 
 import org.tasks.R;
+import org.tasks.activities.TagSettingsActivity;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
@@ -45,6 +44,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private static final String TOKEN_LAST_SELECTED = "lastSelected"; //$NON-NLS-1$
 
     public static final int REQUEST_NEW_LIST = 4;
+    public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     private FilterAdapter adapter = null;
 
@@ -95,17 +95,13 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 TaskListActivity activity = (TaskListActivity) getActivity();
                 activity.restart();
             }
-        } else if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
-                requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
-                resultCode == Activity.RESULT_OK) {
-            if(data == null) {
-                return;
-            }
-
-            Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
-            if (newList != null) {
-                mCallbacks.onFilterItemClicked(newList);
-                clear();
+        } else if (requestCode == REQUEST_NEW_LIST ||
+                requestCode == ACTIVITY_REQUEST_NEW_FILTER) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
+                if (newList != null) {
+                    mCallbacks.onFilterItemClicked(newList);
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -233,10 +229,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     public interface OnFilterItemClickedListener {
         void onFilterItemClicked(FilterListItem item);
-    }
-
-    private void clear() {
-        adapter.clear();
     }
 
     public void repopulateList() {

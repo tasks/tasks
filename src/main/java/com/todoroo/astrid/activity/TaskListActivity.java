@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.activity;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -30,8 +29,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
-import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.gtasks.GtasksListService;
+import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -378,26 +377,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             }
         } else {
             finish();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((requestCode == NavigationDrawerFragment.REQUEST_NEW_LIST ||
-                requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
-                resultCode == Activity.RESULT_OK) {
-            if(data == null) {
-                return;
-            }
-
-            Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
-            if (newList != null) {
-                onFilterItemClicked(newList);
-            }
-
-            repopulateNavigationDrawer();
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -222,7 +221,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     activity.getResources().getString(R.string.FLA_new_filter),
                     R.drawable.ic_add_24dp,
                     new Intent(activity, CustomFilterActivity.class),
-                    TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER));
+                    NavigationDrawerFragment.ACTIVITY_REQUEST_NEW_FILTER));
         }
 
         addSubMenu(R.string.tags, filterProvider.getTags(), false);
