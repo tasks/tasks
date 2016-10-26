@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
-** Copyright (c) 2012 Todoroo Inc
-**
-** See the file "LICENSE" for the full license governing this code. 
--->
-
+<!-- 2x2: https://developer.android.com/guide/practices/ui_guidelines/widget_design.html -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:configure="org.tasks.widget.WidgetConfigActivity"
     android:widgetCategory="keyguard|home_screen"
-    android:minWidth="142dip"
-    android:minHeight="142dip"
-    android:minResizeWidth="142dip"
-    android:minResizeHeight="142dip"
+    android:minWidth="110dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="110dp"
     android:updatePeriodMillis="86400000"
     android:initialLayout="@layout/scrollable_widget"
     android:initialKeyguardLayout="@layout/scrollable_widget"
-    android:resizeMode="horizontal|vertical"
-    tools:ignore="UnusedAttribute" />
+    android:resizeMode="horizontal|vertical" />
