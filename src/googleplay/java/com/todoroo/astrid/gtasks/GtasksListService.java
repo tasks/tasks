@@ -6,10 +6,14 @@
 package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
+import com.todoroo.astrid.api.GtasksFilter;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskDeleter;
 
 import org.tasks.Broadcaster;
+import org.tasks.data.TaskListDataProvider;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,20 +30,23 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 public class GtasksListService {
 
     private final StoreObjectDao storeObjectDao;
+    private final TaskListDataProvider taskListDataProvider;
+    private final TaskDeleter taskDeleter;
+    private final MetadataDao metadataDao;
     private final Broadcaster broadcaster;
 
     @Inject
-    public GtasksListService(StoreObjectDao storeObjectDao, Broadcaster broadcaster) {
+    public GtasksListService(StoreObjectDao storeObjectDao, TaskListDataProvider taskListDataProvider,
+                             TaskDeleter taskDeleter, MetadataDao metadataDao, Broadcaster broadcaster) {
         this.storeObjectDao = storeObjectDao;
+        this.taskListDataProvider = taskListDataProvider;
+        this.taskDeleter = taskDeleter;
+        this.metadataDao = metadataDao;
         this.broadcaster = broadcaster;
     }
 
     public List<GtasksList> getLists() {
-        return toGtasksList(storeObjectDao.getGtasksLists());
-    }
-
-    private static List<GtasksList> toGtasksList(List<StoreObject> storeObjects) {
-        return transform(storeObjects, GtasksList::new);
+        return transform(storeObjectDao.getGtasksLists(), GtasksList::new);
     }
 
     public GtasksList getList(long id) {
@@ -85,10 +92,21 @@ public class GtasksListService {
 
         // check for lists that aren't on remote server
         for(Long listId : previousLists) {
-            storeObjectDao.delete(listId);
+            deleteList(storeObjectDao.getGtasksList(listId));
         }
 
         broadcaster.refreshLists();
+    }
+
+    public void deleteList(GtasksList gtasksList) {
+        taskListDataProvider
+                .constructCursor(new GtasksFilter(gtasksList), Task.PROPERTIES)
+                .forEach(task -> {
+                    metadataDao.deleteWhere(MetadataDao.MetadataCriteria
+                            .byTaskAndwithKey(task.getId(), GtasksMetadata.METADATA_KEY));
+                    taskDeleter.delete(task);
+                });
+        storeObjectDao.delete(gtasksList.getId());
     }
 
     public List<GtasksList> getListsToUpdate(List<TaskList> remoteLists) {

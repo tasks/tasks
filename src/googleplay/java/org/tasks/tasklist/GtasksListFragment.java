@@ -1,9 +1,11 @@
 package org.tasks.tasklist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.StoreObject;
@@ -12,9 +14,12 @@ import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
 import org.tasks.R;
+import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
+
+import static android.app.Activity.RESULT_OK;
 
 public class GtasksListFragment extends TaskListFragment {
 
@@ -26,6 +31,7 @@ public class GtasksListFragment extends TaskListFragment {
     }
 
     private static final String EXTRA_STORE_OBJECT = "extra_store_object";
+    private static final int REQUEST_LIST_SETTINGS = 10101;
 
     @Inject SyncV2Service syncService;
 
@@ -53,8 +59,29 @@ public class GtasksListFragment extends TaskListFragment {
             case R.id.menu_clear_completed:
                 clearCompletedTasks();
                 return true;
+            case R.id.menu_gtasks_list_settings:
+                Intent intent = new Intent(getActivity(), GoogleTaskListSettingsActivity.class);
+                intent.putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, list.getStoreObject());
+                startActivityForResult(intent, REQUEST_LIST_SETTINGS);
+                return true;
             default:
                 return super.onMenuItemClick(item);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_LIST_SETTINGS) {
+            if (resultCode == RESULT_OK) {
+                TaskListActivity activity = (TaskListActivity) getActivity();
+                if (GoogleTaskListSettingsActivity.ACTION_DELETED.equals(data.getAction())) {
+                    activity.onFilterItemClicked(null);
+                } else if (GoogleTaskListSettingsActivity.ACTION_RENAMED.equals(data.getAction())) {
+                    activity.onFilterItemClicked(data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

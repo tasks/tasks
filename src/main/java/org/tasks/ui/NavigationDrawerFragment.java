@@ -20,7 +20,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 
 import org.tasks.R;
-import org.tasks.activities.TagSettingsActivity;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
@@ -35,6 +34,7 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static android.app.Activity.RESULT_OK;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class NavigationDrawerFragment extends InjectingFragment {
@@ -45,6 +45,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     public static final int REQUEST_NEW_LIST = 4;
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
+    public static final int REQUEST_NEW_GTASK_LIST = 6;
 
     private FilterAdapter adapter = null;
 
@@ -93,9 +94,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 activity.restart();
             }
         } else if (requestCode == REQUEST_NEW_LIST ||
-                requestCode == ACTIVITY_REQUEST_NEW_FILTER) {
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
+                requestCode == ACTIVITY_REQUEST_NEW_FILTER ||
+                requestCode == REQUEST_NEW_GTASK_LIST) {
+            if (resultCode == RESULT_OK && data != null) {
+                Filter newList = data.getParcelableExtra(TaskListActivity.OPEN_FILTER);
                 if (newList != null) {
                     mCallbacks.onFilterItemClicked(newList);
                 }

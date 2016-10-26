@@ -5,12 +5,15 @@ import android.support.test.runner.AndroidJUnit4;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.Broadcaster;
+import org.tasks.data.TaskListDataProvider;
 import org.tasks.injection.TestComponent;
 import org.tasks.makers.RemoteGtaskListMaker;
 
@@ -35,6 +38,9 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 public class GtasksListServiceTest extends DatabaseTestCase {
 
     @Inject Database database;
+    @Inject TaskListDataProvider taskListDataProvider;
+    @Inject TaskDeleter taskDeleter;
+    @Inject MetadataDao metadataDao;
     @Inject Broadcaster broadcaster;
 
     private StoreObjectDao storeObjectDao;
@@ -44,7 +50,7 @@ public class GtasksListServiceTest extends DatabaseTestCase {
     public void setUp() {
         super.setUp();
         storeObjectDao = spy(new StoreObjectDao(database));
-        gtasksListService = new GtasksListService(storeObjectDao, broadcaster);
+        gtasksListService = new GtasksListService(storeObjectDao, taskListDataProvider, taskDeleter, metadataDao, broadcaster);
     }
 
     @Override

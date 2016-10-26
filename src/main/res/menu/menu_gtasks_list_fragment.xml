@@ -5,4 +5,8 @@
         android:id="@+id/menu_clear_completed"
         android:title="@string/gtasks_GTA_clear_completed"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_gtasks_list_settings"
+        android:title="@string/list_settings"
+        app:showAsAction="never" />
 </menu>

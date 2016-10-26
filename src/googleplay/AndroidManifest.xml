@@ -46,6 +46,8 @@
 
         <service android:name=".location.GeofenceTransitionsIntentService"/>
 
+        <activity android:name=".activities.GoogleTaskListSettingsActivity" />
+
         <activity
             android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
             android:theme="@style/TranslucentDialog" />

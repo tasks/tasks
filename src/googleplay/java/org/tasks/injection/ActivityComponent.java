@@ -20,6 +20,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.FilterSettingsActivity;
+import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dashclock.DashClockSettings;
@@ -127,4 +128,6 @@ public interface ActivityComponent {
     void inject(ColorPickerActivity colorPickerActivity);
 
     void inject(BasicPreferences basicPreferences);
+
+    void inject(GoogleTaskListSettingsActivity googleTaskListSettingsActivity);
 }

@@ -23,7 +23,7 @@ import android.widget.ListView;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
-import org.tasks.activities.TagSettingsActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;
@@ -272,7 +272,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
 
         StoreObject storeObject = SavedFilter.persist(storeObjectDao, adapter, title, sql.toString(), values);
         Filter filter = new CustomFilter(title, sql.toString(), values, storeObject.getId());
-        setResult(RESULT_OK, new Intent().putExtra(TagSettingsActivity.TOKEN_NEW_FILTER, filter));
+        setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, filter));
         finish();
     }
 

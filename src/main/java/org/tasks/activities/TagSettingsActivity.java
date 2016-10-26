@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
@@ -52,7 +53,6 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     private static final int REQUEST_COLOR_PICKER = 10109;
 
-    public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
     public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
     public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
     public static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
@@ -179,7 +179,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             tagData.setName(newName);
             tagData.setColor(selectedTheme);
             tagDataDao.persist(tagData);
-            setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER, TagFilterExposer.filterFromTag(tagData)));
+            setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, TagFilterExposer.filterFromTag(tagData)));
         } else if (hasChanges()) {
             tagData.setName(newName);
             tagData.setColor(selectedTheme);

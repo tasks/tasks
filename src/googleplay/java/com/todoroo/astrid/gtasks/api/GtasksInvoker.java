@@ -102,6 +102,24 @@ public class GtasksInvoker {
                 .setPrevious(previousId));
     }
 
+    public void deleteGtaskList(String listId) throws IOException {
+        execute(service
+                .tasklists()
+                .delete(listId));
+    }
+
+    public TaskList renameGtaskList(String listId, String title) throws IOException {
+        return execute(service
+                .tasklists()
+                .patch(listId, new TaskList().setTitle(title)));
+    }
+
+    public TaskList createGtaskList(String title) throws IOException {
+        return execute(service
+                .tasklists()
+                .insert(new TaskList().setTitle(title)));
+    }
+
     public void clearCompleted(String listId) throws IOException {
         execute(service
                 .tasks()

@@ -25,6 +25,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
 
 import org.tasks.R;
+import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
@@ -235,6 +236,14 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         }
 
         addSubMenu(R.string.gtasks_GPr_header, filterProvider.getGoogleTaskFilters(), true);
+
+        if (navigationDrawer) {
+            add(new NavigationDrawerAction(
+                    activity.getResources().getString(R.string.new_list),
+                    R.drawable.ic_add_24dp,
+                    new Intent(activity, GoogleTaskListSettingsActivity.class),
+                    NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
+        }
 
         if (navigationDrawer) {
             add(new NavigationDrawerSeparator());

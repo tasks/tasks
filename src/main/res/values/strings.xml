@@ -720,6 +720,7 @@ File %1$s contained %2$s.\n\n
     <string name="discard_changes">Discard changes?</string>
     <string name="discard">Discard</string>
     <string name="tag_settings">Tag Settings</string>
+  <string name="list_settings">List settings</string>
     <string name="delete">Delete</string>
     <string name="filter_settings">Filter Settings</string>
     <string name="show_hidden">Show hidden</string>
@@ -824,5 +825,8 @@ File %1$s contained %2$s.\n\n
   <string name="notification_shade">Notification shade</string>
   <string name="notification_description">Show task description</string>
   <string name="sync_error_permissions">Tasks requires permission</string>
+  <string name="creating_new_list">Creating new list</string>
+  <string name="deleting_list">Deleting list</string>
+  <string name="renaming_list">Renaming list</string>
 
 </resources>
