@@ -202,7 +202,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             } catch (UserRecoverableAuthIOException e) {
                 throw e;
             } catch (IOException e) {
-                tracker.reportException(e);
+                Timber.e(e, e.getMessage());
             }
         }
     }
@@ -286,7 +286,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             try {
                 invoker.updateGtask(listId, remoteModel);
             } catch(HttpNotFoundException e) {
-                tracker.reportException(e);
+                Timber.e(e, e.getMessage());
                 metadataDao.delete(gtasksMetadata.getId());
                 return;
             }
@@ -356,7 +356,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         } catch (UserRecoverableAuthIOException e) {
             throw e;
         } catch (IOException e) {
-            tracker.reportException(e);
+            Timber.e(e, e.getMessage());
         }
     }
 

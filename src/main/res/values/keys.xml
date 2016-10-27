@@ -286,6 +286,9 @@
   <string name="tracking_action_add">Add</string>
   <string name="tracking_action_start">Start</string>
   <string name="tracking_action_move">Move</string>
+  <string name="tracking_action_new_list">New List</string>
+  <string name="tracking_action_rename_list">Rename List</string>
+  <string name="tracking_action_delete_list">Delete List</string>
   <string name="tracking_action_on">On</string>
   <string name="tracking_action_off">Off</string>
   <string name="tracking_action_clear">Clear</string>

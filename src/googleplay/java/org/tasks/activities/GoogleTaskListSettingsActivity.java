@@ -19,6 +19,8 @@ import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.CreateListDialog;
 import org.tasks.gtasks.DeleteListDialog;
@@ -57,6 +59,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject GtasksListService gtasksListService;
+    @Inject Tracker tracker;
 
     @BindView(R.id.tag_name) EditText listName;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -189,6 +192,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
     @Override
     public void onListCreated(TaskList taskList) {
+        tracker.reportEvent(Tracking.Events.GTASK_NEW_LIST);
         GtasksList list = new GtasksList(taskList.getId());
         list.setName(taskList.getTitle());
         storeObjectDao.persist(list);
@@ -198,6 +202,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
     @Override
     public void onListDeleted() {
+        tracker.reportEvent(Tracking.Events.GTASK_DELETE_LIST);
         gtasksListService.deleteList(gtasksList);
         setResult(RESULT_OK, new Intent(ACTION_DELETED));
         finish();
@@ -205,6 +210,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
     @Override
     public void onListRenamed(TaskList taskList) {
+        tracker.reportEvent(Tracking.Events.GTASK_RENAME_LIST);
         gtasksList.setName(taskList.getTitle());
         storeObjectDao.persist(gtasksList);
         setResult(RESULT_OK, new Intent(ACTION_RENAMED).putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
