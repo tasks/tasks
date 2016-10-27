@@ -9,11 +9,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -29,6 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -46,6 +47,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
     @Inject Preferences preferences;
 
     @BindView(R.id.name) TextInputEditText name;
+    @BindView(R.id.name_layout) TextInputLayout nameLayout;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
@@ -75,6 +77,11 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
         name.setText(filter.listingTitle);
     }
 
+    @OnTextChanged(R.id.name)
+    void onTextChanged(CharSequence text) {
+        nameLayout.setError(null);
+    }
+
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
@@ -85,7 +92,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
         String newName = name.getText().toString().trim();
 
         if (isEmpty(newName)) {
-            Toast.makeText(this, R.string.name_cannot_be_empty, Toast.LENGTH_LONG).show();
+            nameLayout.setError(getString(R.string.name_cannot_be_empty));
             return;
         }
 

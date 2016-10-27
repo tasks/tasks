@@ -9,12 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -44,6 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import butterknife.OnTextChanged;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -74,6 +75,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     @Inject Tracker tracker;
 
     @BindView(R.id.name) TextInputEditText name;
+    @BindView(R.id.name_layout) TextInputLayout nameLayout;
     @BindView(R.id.color) TextInputEditText color;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
@@ -129,6 +131,11 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         updateTheme();
     }
 
+    @OnTextChanged(R.id.name)
+    void onTextChanged(CharSequence text) {
+        nameLayout.setError(null);
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -170,12 +177,12 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         String newName = getNewName();
 
         if (isEmpty(newName)) {
-            Toast.makeText(this, R.string.name_cannot_be_empty, Toast.LENGTH_LONG).show();
+            nameLayout.setError(getString(R.string.name_cannot_be_empty));
             return;
         }
 
         if (clashes(newName)) {
-            Toast.makeText(this, R.string.tag_already_exists, Toast.LENGTH_LONG).show();
+            nameLayout.setError(getString(R.string.tag_already_exists));
             return;
         }
 
