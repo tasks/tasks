@@ -46,7 +46,7 @@ import timber.log.Timber;
 @ApplicationScope
 public class Database {
 
-    private static final int VERSION = 37;
+    private static final int VERSION = 38;
     private static final String NAME = "database";
     private static final Table[] TABLES =  new Table[] {
             Task.TABLE,
@@ -121,6 +121,8 @@ public class Database {
                 tryExecSQL(addColumnSql(TagData.TABLE, TagData.COLOR, visitor, "-1"));
             case 36:
                 tryExecSQL(addColumnSql(StoreObject.TABLE, StoreObject.DELETION_DATE, visitor, "0"));
+            case 37:
+                tryExecSQL(addColumnSql(StoreObject.TABLE, StoreObject.VALUE4, visitor, "-1"));
                 return true;
         }
 

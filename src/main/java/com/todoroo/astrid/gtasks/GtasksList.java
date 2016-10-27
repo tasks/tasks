@@ -64,6 +64,16 @@ public class GtasksList {
         storeObject.setValue(StoreObject.VALUE2, Integer.toString(order));
     }
 
+    public int getColor() {
+        return storeObject.containsNonNullValue(StoreObject.VALUE4)
+                ? Integer.parseInt(storeObject.getValue(StoreObject.VALUE4))
+                : -1;
+    }
+
+    public void setColor(int color) {
+        storeObject.setValue(StoreObject.VALUE4, Integer.toString(color));
+    }
+
     public long getLastSync() {
         return storeObject.containsNonNullValue(StoreObject.VALUE3)
                 ? Long.parseLong(storeObject.getValue(StoreObject.VALUE3))

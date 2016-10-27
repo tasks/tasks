@@ -60,6 +60,10 @@ public class StoreObject extends AbstractModel {
     public static final StringProperty VALUE3 = new StringProperty(
             TABLE, "value3");
 
+    /** Store Value Column 3 */
+    public static final StringProperty VALUE4 = new StringProperty(
+            TABLE, "value4");
+
     /** Unixtime Task was deleted. 0 means not deleted */
     public static final LongProperty DELETION_DATE = new LongProperty(
             TABLE, "deleted", Property.PROP_FLAG_DATE);

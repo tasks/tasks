@@ -19,7 +19,7 @@ import org.tasks.R;
 
 public class GtasksFilter extends Filter {
 
-    private static final int CLOUD = R.drawable.ic_cloud_queue_24dp;
+    private static final int CLOUD = R.drawable.ic_cloud_black_24dp;
 
     private long storeId;
 
@@ -30,6 +30,7 @@ public class GtasksFilter extends Filter {
     public GtasksFilter(GtasksList list) {
         super(list.getName(), getQueryTemplate(list), getValuesForNewTasks(list));
         storeId = list.getId();
+        tint = list.getColor();
         icon = CLOUD;
     }
 

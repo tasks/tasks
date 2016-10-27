@@ -10,6 +10,7 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
+import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
 
@@ -19,12 +20,13 @@ public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
 
     @Inject DialogBuilder dialogBuilder;
     @Inject GtasksListService gtasksListService;
+    @Inject ThemeCache themeCache;
 
     private GoogleTaskListSelectionHandler handler;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return createDialog(dialogBuilder, gtasksListService, list -> handler.selectedList(list));
+        return createDialog(getActivity(), themeCache, dialogBuilder, gtasksListService, list -> handler.selectedList(list));
     }
 
     @Override

@@ -8,11 +8,11 @@ package org.tasks.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.todoroo.astrid.api.CustomFilter;
@@ -45,7 +45,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
 
-    @BindView(R.id.tag_name) EditText filterName;
+    @BindView(R.id.name) TextInputEditText name;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Override
@@ -72,7 +72,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
         toolbar.setOnMenuItemClickListener(this);
         MenuColorizer.colorToolbar(this, toolbar);
 
-        filterName.setText(filter.listingTitle);
+        name.setText(filter.listingTitle);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
 
     private void save() {
         String oldName = filter.listingTitle;
-        String newName = filterName.getText().toString().trim();
+        String newName = name.getText().toString().trim();
 
         if (isEmpty(newName)) {
             Toast.makeText(this, R.string.name_cannot_be_empty, Toast.LENGTH_LONG).show();
@@ -102,7 +102,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
     @Override
     public void finish() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(filterName.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
         super.finish();
     }
 
@@ -127,7 +127,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
     }
 
     private void discard() {
-        String tagName = this.filterName.getText().toString().trim();
+        String tagName = this.name.getText().toString().trim();
         if (filter.listingTitle.equals(tagName)) {
             finish();
         } else {

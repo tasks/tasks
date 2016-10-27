@@ -20,6 +20,7 @@ public class Tracking {
         GTASK_NEW_LIST(R.string.tracking_category_google_tasks, R.string.tracking_action_new_list),
         GTASK_RENAME_LIST(R.string.tracking_category_google_tasks, R.string.tracking_action_rename_list),
         GTASK_DELETE_LIST(R.string.tracking_category_google_tasks, R.string.tracking_action_delete_list),
+        GTASK_SET_COLOR(R.string.tracking_category_google_tasks, R.string.p_theme_color),
         UPGRADE(R.string.tracking_category_event, R.string.tracking_event_upgrade),
         LEGACY_TASKER_TRIGGER(R.string.tracking_category_event, R.string.tracking_event_legacy_tasker_trigger),
         NIGHT_MODE_MISMATCH(R.string.tracking_category_event, R.string.tracking_event_night_mode_mismatch),

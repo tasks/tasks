@@ -8,13 +8,12 @@ package org.tasks.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.todoroo.andlib.sql.Criterion;
@@ -44,6 +43,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 
 import static android.text.TextUtils.isEmpty;
 
@@ -73,10 +73,9 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     @Inject ThemeColor themeColor;
     @Inject Tracker tracker;
 
-    @BindView(R.id.tag_name) EditText tagName;
+    @BindView(R.id.name) TextInputEditText name;
+    @BindView(R.id.color) TextInputEditText color;
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.theme) TextView themeName;
-    @BindView(R.id.clear) View clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,17 +111,19 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         toolbar.setOnMenuItemClickListener(this);
         toolbar.showOverflowMenu();
 
-        tagName.setText(tagData.getName());
+        color.setInputType(InputType.TYPE_NULL);
+
+        name.setText(tagData.getName());
 
         String autopopulateName = getIntent().getStringExtra(TOKEN_AUTOPOPULATE_NAME);
         if (!isEmpty(autopopulateName)) {
-            tagName.setText(autopopulateName);
+            name.setText(autopopulateName);
             getIntent().removeExtra(TOKEN_AUTOPOPULATE_NAME);
         } else if (isNewTag) {
             toolbar.getMenu().findItem(R.id.delete).setVisible(false);
-            tagName.requestFocus();
+            name.requestFocus();
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(tagName, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
         }
 
         updateTheme();
@@ -135,17 +136,20 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         outState.putInt(EXTRA_SELECTED_THEME, selectedTheme);
     }
 
-    @OnClick(R.id.theme_row)
+    @OnFocusChange(R.id.color)
+    void onFocusChange(boolean focused) {
+        if (focused) {
+            color.clearFocus();
+            showThemePicker();
+        }
+    }
+
+    @OnClick(R.id.color)
     protected void showThemePicker() {
         Intent intent = new Intent(TagSettingsActivity.this, ColorPickerActivity.class);
         intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+        intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, true);
         startActivityForResult(intent, REQUEST_COLOR_PICKER);
-    }
-
-    @OnClick(R.id.clear)
-    void clearColor() {
-        selectedTheme = -1;
-        updateTheme();
     }
 
     @Override
@@ -154,7 +158,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     }
 
     private String getNewName() {
-        return tagName.getText().toString().trim();
+        return name.getText().toString().trim();
     }
 
     private boolean clashes(String newName) {
@@ -206,7 +210,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     @Override
     public void finish() {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
         super.finish();
     }
 
@@ -260,19 +264,16 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     }
 
     private void updateTheme() {
-        ThemeColor color;
+        ThemeColor themeColor;
         if (selectedTheme < 0) {
-            color = themeColor;
-            themeName.setText(R.string.none);
-            clear.setVisibility(View.GONE);
-
+            themeColor = this.themeColor;
+            color.setText(R.string.none);
         } else {
-            color = themeCache.getThemeColor(selectedTheme);
-            themeName.setText(color.getName());
-            clear.setVisibility(View.VISIBLE);
+            themeColor = themeCache.getThemeColor(selectedTheme);
+            color.setText(themeColor.getName());
         }
-        color.apply(toolbar);
-        color.applyStatusBarColor(this);
+        themeColor.apply(toolbar);
+        themeColor.applyStatusBarColor(this);
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 public class ColorPickerDialog extends InjectingDialogFragment {
 
     private static final String EXTRA_PALETTE = "extra_palette";
+    private static final String EXTRA_SHOW_NONE = "extra_show_none";
 
     public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND, LED}
 
@@ -42,9 +44,12 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         void dismissed();
     }
 
-    public static ColorPickerDialog newColorPickerDialog(ColorPalette palette) {
+    public static ColorPickerDialog newColorPickerDialog(ColorPalette palette, boolean showNone) {
         ColorPickerDialog dialog = new ColorPickerDialog();
-        dialog.palette = palette;
+        Bundle args = new Bundle();
+        args.putSerializable(EXTRA_PALETTE, palette);
+        args.putBoolean(EXTRA_SHOW_NONE, showNone);
+        dialog.setArguments(args);
         return dialog;
     }
 
@@ -57,13 +62,16 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     private ColorPalette palette;
     private ThemePickerCallback callback;
     private ArrayAdapter<String> adapter;
+    private Dialog dialog;
 
-    @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            palette = (ColorPalette) savedInstanceState.getSerializable(EXTRA_PALETTE);
-        }
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        Bundle arguments = getArguments();
+        palette = (ColorPalette) arguments.getSerializable(EXTRA_PALETTE);
+        boolean showNone = arguments.getBoolean(EXTRA_SHOW_NONE);
+
         if (palette == ColorPickerDialog.ColorPalette.THEMES || palette == ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND) {
             theme = theme.withBaseTheme(themeCache.getThemeBase(2));
         }
@@ -94,7 +102,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
             }
         };
 
-        return dialogBuilder.newDialog(theme)
+        AlertDialogBuilder builder = dialogBuilder.newDialog(theme)
                 .setAdapter(adapter, (dialog, which) -> {
                     if (preferences.hasPurchase(R.string.p_purchased_themes) || which < getNumFree()) {
                         callback.themePicked(palette, which);
@@ -102,8 +110,17 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                         callback.initiateThemePurchase();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> callback.dismissed())
-                .show();
+                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> callback.dismissed());
+        if (showNone) {
+            builder.setNeutralButton(R.string.none, (dialogInterface, i) -> callback.themePicked(palette, -1));
+        }
+        dialog = builder.create();
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return dialog;
     }
 
     @Override
@@ -123,13 +140,6 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         super.onAttach(activity);
 
         callback = (ThemePickerCallback) activity;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable(EXTRA_PALETTE, palette);
     }
 
     @Override

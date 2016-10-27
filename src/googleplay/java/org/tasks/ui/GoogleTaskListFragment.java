@@ -100,7 +100,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @Override
     protected int getIcon() {
-        return R.drawable.ic_cloud_queue_24dp;
+        return R.drawable.ic_cloud_black_24dp;
     }
 
     @Override

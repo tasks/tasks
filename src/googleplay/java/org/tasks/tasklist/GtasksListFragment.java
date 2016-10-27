@@ -74,9 +74,11 @@ public class GtasksListFragment extends TaskListFragment {
         if (requestCode == REQUEST_LIST_SETTINGS) {
             if (resultCode == RESULT_OK) {
                 TaskListActivity activity = (TaskListActivity) getActivity();
-                if (GoogleTaskListSettingsActivity.ACTION_DELETED.equals(data.getAction())) {
+                String action = data.getAction();
+                if (GoogleTaskListSettingsActivity.ACTION_DELETED.equals(action)) {
                     activity.onFilterItemClicked(null);
-                } else if (GoogleTaskListSettingsActivity.ACTION_RENAMED.equals(data.getAction())) {
+                } else if (GoogleTaskListSettingsActivity.ACTION_RENAMED.equals(action) ||
+                        GoogleTaskListSettingsActivity.ACTION_THEME_CHANGED.equals(action)) {
                     activity.onFilterItemClicked(data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
                 }
             }

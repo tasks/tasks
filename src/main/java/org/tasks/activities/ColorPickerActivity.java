@@ -7,6 +7,7 @@ import org.tasks.R;
 import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.dialogs.ColorPickerDialog.ColorPalette;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -21,6 +22,7 @@ public class ColorPickerActivity extends InjectingAppCompatActivity implements C
     private static final int REQUEST_PURCHASE = 1006;
 
     public static final String EXTRA_PALETTE = "extra_palette";
+    public static final String EXTRA_SHOW_NONE = "extra_show_none";
     public static final String EXTRA_THEME_INDEX = "extra_index";
 
     @Inject PurchaseHelper purchaseHelper;
@@ -35,7 +37,9 @@ public class ColorPickerActivity extends InjectingAppCompatActivity implements C
     protected void onPostResume() {
         super.onPostResume();
 
-        newColorPickerDialog((ColorPickerDialog.ColorPalette) getIntent().getSerializableExtra(EXTRA_PALETTE))
+        ColorPalette palette = (ColorPalette) getIntent().getSerializableExtra(EXTRA_PALETTE);
+        boolean showNone = getIntent().getBooleanExtra(EXTRA_SHOW_NONE, false);
+        newColorPickerDialog(palette, showNone)
                 .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
     }
 
@@ -45,7 +49,7 @@ public class ColorPickerActivity extends InjectingAppCompatActivity implements C
     }
 
     @Override
-    public void themePicked(final ColorPickerDialog.ColorPalette palette, final int index) {
+    public void themePicked(final ColorPalette palette, final int index) {
         Intent data = new Intent();
         data.putExtra(EXTRA_PALETTE, palette);
         data.putExtra(EXTRA_THEME_INDEX, index);

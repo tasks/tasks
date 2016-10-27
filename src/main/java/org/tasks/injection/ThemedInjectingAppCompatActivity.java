@@ -22,9 +22,9 @@ public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity
         activityComponent = ((InjectingApplication) getApplication()).getComponent().plus(new ActivityModule(this));
         inject(activityComponent);
         setTitle(null);
+        super.onCreate(savedInstanceState);
         theme.applyTheme(this);
         theme.applyStatusBarColor(this);
-        super.onCreate(savedInstanceState);
     }
 
     @Override

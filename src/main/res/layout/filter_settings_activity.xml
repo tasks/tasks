@@ -12,36 +12,28 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tag_label"
-                style="@style/TextAppearance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="@string/name" />
+            <android.support.design.widget.TextInputLayout style="@style/TagSettingsRow">
 
-            <EditText
-                android:id="@+id/tag_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tag_label"
-                android:layout_marginTop="16dp"
-                android:background="#00000000"
-                android:hint="@string/enter_tag_name"
-                android:imeOptions="flagNoExtractUi"
-                android:inputType="textCapSentences"
-                android:singleLine="true"
-                android:gravity="start"
-                android:textAlignment="viewStart"
-                android:textColor="?attr/asTextColorHint"
-                android:textColorHint="?attr/asTextColorHint"
-                android:textSize="15sp" />
-        </RelativeLayout>
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textCapSentences|textFilter"
+                    android:maxLines="1"
+                    android:textColor="?attr/asTextColor" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

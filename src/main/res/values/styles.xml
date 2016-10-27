@@ -65,7 +65,11 @@
     </style>
 
     <style name="TagSettingsRow">
-        <item name="android:padding">@dimen/keyline_first</item>
+        <item name="android:paddingLeft">@dimen/keyline_first</item>
+        <item name="android:paddingRight">@dimen/keyline_first</item>
+        <item name="android:paddingStart">@dimen/keyline_first</item>
+        <item name="android:paddingEnd">@dimen/keyline_first</item>
+        <item name="android:paddingTop">@dimen/keyline_first</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
