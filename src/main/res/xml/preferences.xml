@@ -49,12 +49,6 @@
                 android:targetPackage="org.tasks" />
         </Preference>
 
-        <Preference android:title="@string/backup_BPr_header">
-            <intent
-                android:targetClass="org.tasks.preferences.BackupPreferences"
-                android:targetPackage="org.tasks" />
-        </Preference>
-
         <Preference
             android:key="@string/EPr_manage_header"
             android:title="@string/EPr_manage_header" />
@@ -64,6 +58,23 @@
                 android:targetClass="org.tasks.preferences.MiscellaneousPreferences"
                 android:targetPackage="org.tasks" />
         </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/backup_BPr_header">
+
+        <Preference
+            android:key="@string/p_backup_dir"
+            android:title="@string/backup_directory" />
+
+        <Preference
+            android:key="@string/backup_BAc_import"
+            android:title="@string/backup_BAc_import" />
+
+        <Preference
+            android:key="@string/backup_BAc_export"
+            android:title="@string/backup_BAc_export" />
 
     </PreferenceCategory>
 

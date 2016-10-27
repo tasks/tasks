@@ -192,11 +192,6 @@
             android:label="@string/miscellaneous"
             android:theme="@style/Tasks" />
 
-        <activity
-            android:name=".preferences.BackupPreferences"
-            android:label="@string/backup_BPr_header"
-            android:theme="@style/Tasks" />
-
         <!-- Activity that configures widget -->
         <!--suppress AndroidLintExportedPreferenceActivity -->
         <activity

@@ -26,7 +26,6 @@ import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.preferences.AppearancePreferences;
-import org.tasks.preferences.BackupPreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DateShortcutPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
@@ -105,8 +104,6 @@ public interface ActivityComponent {
     void inject(DefaultsPreferences defaultsPreferences);
 
     void inject(ShortcutConfigActivity shortcutConfigActivity);
-
-    void inject(BackupPreferences backupPreferences);
 
     void inject(MiscellaneousPreferences miscellaneousPreferences);
 

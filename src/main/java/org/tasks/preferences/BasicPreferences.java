@@ -23,6 +23,7 @@ import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.files.FileExplore;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
@@ -33,12 +34,16 @@ import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static org.tasks.dialogs.DonationDialog.newDonationDialog;
+import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
+import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
 import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
 
 public class BasicPreferences extends InjectingPreferenceActivity implements
@@ -47,11 +52,15 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     private static final String EXTRA_RESULT = "extra_result";
     private static final String FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker";
     private static final String FRAG_TAG_DONATION = "frag_tag_donation";
+    private static final String FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks";
+    private static final String FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks";
     private static final int RC_PREFS = 10001;
     private static final int REQUEST_THEME_PICKER = 10002;
     private static final int REQUEST_COLOR_PICKER = 10003;
     private static final int REQUEST_ACCENT_PICKER = 10004;
     public static final int REQUEST_PURCHASE = 10005;
+    private static final int REQUEST_CODE_BACKUP_DIR = 10005;
+    private static final int REQUEST_PICKER = 10006;
 
     @Inject Tracker tracker;
     @Inject Preferences preferences;
@@ -188,6 +197,20 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
             });
         }
 
+        findPreference(R.string.backup_BAc_import).setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(BasicPreferences.this, FileExplore.class);
+            intent.putExtra(FileExplore.EXTRA_START_PATH, preferences.getBackupDirectory().getAbsolutePath());
+            startActivityForResult(intent, REQUEST_PICKER);
+            return false;
+        });
+
+        findPreference(R.string.backup_BAc_export).setOnPreferenceClickListener(preference -> {
+            newExportTasksDialog().show(getFragmentManager(), FRAG_TAG_EXPORT_TASKS);
+            return false;
+        });
+
+        initializeBackupDirectory();
+
         requires(R.string.get_plugins, atLeastJellybeanMR1(), R.string.p_purchased_dashclock);
         requires(R.string.settings_localization, atLeastJellybeanMR1(), R.string.p_language, R.string.p_layout_direction);
 
@@ -240,6 +263,17 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         } else if (requestCode == RC_PREFS) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 result.putAll(data.getExtras());
+            }
+        } else if (requestCode == REQUEST_CODE_BACKUP_DIR) {
+            if (resultCode == RESULT_OK && data != null) {
+                String dir = data.getStringExtra(FileExplore.EXTRA_DIRECTORY);
+                preferences.setString(R.string.p_backup_dir, dir);
+                updateBackupDirectory();
+            }
+        } else if (requestCode == REQUEST_PICKER) {
+            if (resultCode == RESULT_OK) {
+                newImportTasksDialog(data.getStringExtra(FileExplore.EXTRA_FILE))
+                        .show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
             }
         } else if (requestCode == REQUEST_PURCHASE) {
                 purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
@@ -314,6 +348,25 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         if (!isChangingConfigurations()) {
             purchaseHelper.disposeIabHelper();
         }
+    }
+
+    private void initializeBackupDirectory() {
+        findPreference(getString(R.string.p_backup_dir)).setOnPreferenceClickListener(p -> {
+            Intent filesDir = new Intent(BasicPreferences.this, FileExplore.class);
+            filesDir.putExtra(FileExplore.EXTRA_DIRECTORY_MODE, true);
+            startActivityForResult(filesDir, REQUEST_CODE_BACKUP_DIR);
+            return true;
+        });
+        updateBackupDirectory();
+    }
+
+    private void updateBackupDirectory() {
+        findPreference(getString(R.string.p_backup_dir)).setSummary(getBackupDirectory());
+    }
+
+    private String getBackupDirectory() {
+        File dir = preferences.getBackupDirectory();
+        return dir == null ? "" : dir.getAbsolutePath();
     }
 
     @Override
