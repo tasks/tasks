@@ -235,14 +235,17 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     NavigationDrawerFragment.REQUEST_NEW_LIST));
         }
 
-        addSubMenu(R.string.gtasks_GPr_header, filterProvider.getGoogleTaskFilters(), true);
+        List<Filter> googleTaskFilters = filterProvider.getGoogleTaskFilters();
+        if (!googleTaskFilters.isEmpty()) {
+            addSubMenu(R.string.gtasks_GPr_header, googleTaskFilters, true);
 
-        if (navigationDrawer) {
-            add(new NavigationDrawerAction(
-                    activity.getResources().getString(R.string.new_list),
-                    R.drawable.ic_add_24dp,
-                    new Intent(activity, GoogleTaskListSettingsActivity.class),
-                    NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
+            if (navigationDrawer) {
+                add(new NavigationDrawerAction(
+                        activity.getResources().getString(R.string.new_list),
+                        R.drawable.ic_add_24dp,
+                        new Intent(activity, GoogleTaskListSettingsActivity.class),
+                        NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
+            }
         }
 
         if (navigationDrawer) {
