@@ -1,5 +1,6 @@
 package org.tasks.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -55,6 +56,7 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
     public static AlertDialog createDialog(Context context, ThemeCache themeCache, DialogBuilder dialogBuilder, GtasksListService gtasksListService, final GoogleTaskListSelectionHandler handler) {
         final List<GtasksList> lists = gtasksListService.getLists();
         ArrayAdapter<GtasksList> adapter = new ArrayAdapter<GtasksList>(context, R.layout.simple_list_item_single_choice_themed, lists) {
+            @SuppressLint("NewApi")
             @NonNull
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
