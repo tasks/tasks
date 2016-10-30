@@ -157,6 +157,7 @@ public class Notifier {
 
         Notification notification = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setTicker(title)
                 .setWhen(currentTimeMillis())
                 .setContentTitle(title)
@@ -237,6 +238,7 @@ public class Notifier {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setTicker(taskTitle)
                 .setWhen(currentTimeMillis())
                 .setContentTitle(taskTitle)
