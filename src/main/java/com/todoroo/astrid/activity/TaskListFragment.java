@@ -39,7 +39,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -62,10 +61,9 @@ import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingListFragment;
-import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
-import org.tasks.tasklist.TagFormatter;
 import org.tasks.tasklist.ViewHolder;
+import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 
@@ -114,8 +112,6 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
     @Inject Preferences preferences;
-    @Inject NotificationManager notificationManager;
-    @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
     @Inject CheckBoxes checkBoxes;
@@ -125,7 +121,7 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject protected TaskListDataProvider taskListDataProvider;
     @Inject TimerPlugin timerPlugin;
     @Inject TaskDao taskDao;
-    @Inject TagFormatter tagFormatter;
+    @Inject ViewHolderFactory viewHolderFactory;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -471,8 +467,8 @@ public class TaskListFragment extends InjectingListFragment implements
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
-        return new TaskAdapter(context, preferences, taskAttachmentDao, taskDao, this, cursor,
-                taskListDataProvider.getSqlQueryTemplate(), dialogBuilder, checkBoxes, tagFormatter);
+        return new TaskAdapter(context, taskDao, this, cursor,
+                taskListDataProvider.getSqlQueryTemplate(), viewHolderFactory);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$

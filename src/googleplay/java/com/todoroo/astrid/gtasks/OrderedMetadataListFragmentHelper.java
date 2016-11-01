@@ -20,7 +20,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -30,12 +29,8 @@ import com.todoroo.astrid.ui.DraggableListView.GrabberClickListener;
 import com.todoroo.astrid.ui.DraggableListView.SwipeListener;
 
 import org.tasks.R;
-import org.tasks.dialogs.DialogBuilder;
-import org.tasks.preferences.Preferences;
-import org.tasks.tasklist.ManualSortHelper;
-import org.tasks.tasklist.TagFormatter;
 import org.tasks.tasklist.ViewHolder;
-import org.tasks.ui.CheckBoxes;
+import org.tasks.tasklist.ViewHolderFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,39 +38,34 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.inject.Inject;
+
 import timber.log.Timber;
 
 class OrderedMetadataListFragmentHelper {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
     private final GtasksTaskListUpdater updater;
-    private final DialogBuilder dialogBuilder;
-    private final CheckBoxes checkBoxes;
-    private final TagFormatter tagFormatter;
-    private final TaskListFragment fragment;
+    private final ViewHolderFactory viewHolderFactory;
 
-    private final Preferences preferences;
-    private final TaskAttachmentDao taskAttachmentDao;
     private final TaskDao taskDao;
     private final MetadataDao metadataDao;
 
     private DraggableTaskAdapter taskAdapter;
-
+    private TaskListFragment fragment;
     private GtasksList list;
 
-    OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
-                                      TaskDao taskDao, MetadataDao metadataDao,
-                                      TaskListFragment fragment, GtasksTaskListUpdater updater,
-                                      DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagFormatter tagFormatter) {
-        this.preferences = preferences;
-        this.taskAttachmentDao = taskAttachmentDao;
+    @Inject
+    OrderedMetadataListFragmentHelper(TaskDao taskDao, MetadataDao metadataDao,
+                                      GtasksTaskListUpdater updater, ViewHolderFactory viewHolderFactory) {
         this.taskDao = taskDao;
         this.metadataDao = metadataDao;
-        this.fragment = fragment;
         this.updater = updater;
-        this.dialogBuilder = dialogBuilder;
-        this.checkBoxes = checkBoxes;
-        this.tagFormatter = tagFormatter;
+        this.viewHolderFactory = viewHolderFactory;
+    }
+
+    void setTaskListFragment(TaskListFragment fragment) {
+        this.fragment = fragment;
     }
 
     // --- ui component setup
@@ -99,7 +89,7 @@ class OrderedMetadataListFragmentHelper {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
-    public void beforeSetUpTaskList(Filter filter) {
+    void beforeSetUpTaskList(Filter filter) {
         updater.initialize(filter);
     }
 
@@ -175,32 +165,22 @@ class OrderedMetadataListFragmentHelper {
     TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
 
-        taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor,
-                sqlQueryTemplate, dialogBuilder, checkBoxes, tagFormatter);
+        taskAdapter = new DraggableTaskAdapter(context, fragment, cursor, sqlQueryTemplate);
 
-        taskAdapter.addOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
+        taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
         return taskAdapter;
     }
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private final ManualSortHelper manualSortHelper;
-
-        private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
-                                     Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder,
-                                     CheckBoxes checkBoxes, TagFormatter tagFormatter) {
-            super(context, preferences, taskAttachmentDao, taskDao, activity, c, query,
-                    dialogBuilder, checkBoxes, tagFormatter);
-            manualSortHelper = new ManualSortHelper(context);
+        private DraggableTaskAdapter(Context context, TaskListFragment activity,
+                                     Cursor c, AtomicReference<String> query) {
+            super(context, taskDao, activity, c, query, viewHolderFactory);
         }
 
         @Override
-        public synchronized void setFieldContentsAndVisibility(View view) {
-            super.setFieldContentsAndVisibility(view);
-
-            ViewHolder vh = (ViewHolder) view.getTag();
-            vh.setMinimumHeight(manualSortHelper.getMinRowHeight());
+        protected void adjustView(ViewHolder vh) {
             int indent = vh.task.getValue(GtasksMetadata.INDENT);
             vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
         }
@@ -255,10 +235,6 @@ class OrderedMetadataListFragmentHelper {
 
     public void setList(GtasksList list) {
         this.list = list;
-    }
-
-    public void onCreateTask(String uuid) {
-        //
     }
 
     void onDeleteTask(Task task) {

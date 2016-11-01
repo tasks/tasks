@@ -17,20 +17,16 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 
 import org.tasks.R;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
-import org.tasks.tasklist.TagFormatter;
 import org.tasks.themes.Theme;
-import org.tasks.ui.CheckBoxes;
 
 import javax.inject.Inject;
 
@@ -48,27 +44,20 @@ public class SubtasksListFragment extends TaskListFragment {
         return fragment;
     }
 
-    protected AstridOrderedListFragmentHelper helper;
-
     private int lastVisibleIndex = -1;
 
-    @Inject SubtasksFilterUpdater subtasksFilterUpdater;
-    @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject Preferences preferences;
     @Inject @ForApplication Context context;
-    @Inject DialogBuilder dialogBuilder;
     @Inject TaskListMetadataDao taskListMetadataDao;
-    @Inject CheckBoxes checkBoxes;
     @Inject Theme theme;
     @Inject TaskDao taskDao;
-    @Inject TagFormatter tagFormatter;
+    @Inject AstridOrderedListFragmentHelper helper;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        helper = new AstridOrderedListFragmentHelper(preferences, taskAttachmentDao,
-                this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagFormatter, taskDao);
+        helper.setTaskListFragment(this);
     }
 
     @Override

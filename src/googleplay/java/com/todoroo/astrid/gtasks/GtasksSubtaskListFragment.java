@@ -16,20 +16,13 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.preferences.Preferences;
 import org.tasks.tasklist.GtasksListFragment;
-import org.tasks.tasklist.TagFormatter;
 import org.tasks.themes.Theme;
-import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,18 +38,10 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
         return fragment;
     }
 
-    @Inject TaskDao taskDao;
-    @Inject MetadataDao metadataDao;
-    @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Inject TaskAttachmentDao taskAttachmentDao;
-    @Inject Preferences preferences;
-    @Inject DialogBuilder dialogBuilder;
-    @Inject CheckBoxes checkBoxes;
     @Inject @ForApplication Context context;
     @Inject Theme theme;
-    @Inject TagFormatter tagFormatter;
+    @Inject OrderedMetadataListFragmentHelper helper;
 
-    protected OrderedMetadataListFragmentHelper helper;
     private int lastVisibleIndex = -1;
 
     @Override
@@ -85,8 +70,7 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        helper = new OrderedMetadataListFragmentHelper(preferences, taskAttachmentDao, taskDao,
-                metadataDao, this, gtasksTaskListUpdater, dialogBuilder, checkBoxes, tagFormatter);
+        helper.setTaskListFragment(this);
     }
 
     @Override
@@ -123,11 +107,6 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
             listView.setSelection(lastVisibleIndex);
         }
         unregisterForContextMenu(listView);
-    }
-
-    @Override
-    public void onTaskCreated(String uuid) {
-        helper.onCreateTask(uuid);
     }
 
     @Override
