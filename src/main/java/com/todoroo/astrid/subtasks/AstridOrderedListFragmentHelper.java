@@ -31,6 +31,7 @@ import com.todoroo.astrid.ui.DraggableListView.SwipeListener;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.ManualSortHelper;
 import org.tasks.tasklist.ViewHolder;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
@@ -98,8 +99,6 @@ class AstridOrderedListFragmentHelper {
         draggableListView.setClickListener(rowClickListener);
         draggableListView.setSwipeListener(swipeListener);
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        draggableListView.setItemHightNormal(taskAdapter.computeFullRowHeight());
     }
 
     void beforeSetUpTaskList(Filter filter) {
@@ -191,10 +190,14 @@ class AstridOrderedListFragmentHelper {
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
+        private final ManualSortHelper manualSortHelper;
+
         private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
                                      Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder,
                                      CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
             super(context, preferences, taskAttachmentDao, taskDao, activity, c, query, dialogBuilder, checkBoxes, tagService, themeCache);
+
+            manualSortHelper = new ManualSortHelper(context);
         }
 
         @Override
@@ -202,6 +205,7 @@ class AstridOrderedListFragmentHelper {
             super.setFieldContentsAndVisibility(view);
 
             ViewHolder vh = (ViewHolder) view.getTag();
+            vh.setMinimumHeight(manualSortHelper.getMinRowHeight());
             int indent = updater.getIndentForTask(vh.task.getUuid());
             vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
         }

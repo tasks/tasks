@@ -33,6 +33,7 @@ import com.todoroo.astrid.ui.DraggableListView.SwipeListener;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.ManualSortHelper;
 import org.tasks.tasklist.ViewHolder;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
@@ -91,17 +92,14 @@ class OrderedMetadataListFragmentHelper {
         return fragment.getListView();
     }
 
-    private DraggableListView getTouchListView() {
-        return (DraggableListView) fragment.getListView();
-    }
-
     void setUpUiComponents() {
         TypedValue tv = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.colorAccent, tv, false);
-        getTouchListView().setDragndropBackgroundColor(tv.data);
-        getTouchListView().setDropListener(dropListener);
-        getTouchListView().setClickListener(rowClickListener);
-        getTouchListView().setSwipeListener(swipeListener);
+        DraggableListView draggableListView = (DraggableListView) fragment.getListView();
+        draggableListView.setDragndropBackgroundColor(tv.data);
+        draggableListView.setDropListener(dropListener);
+        draggableListView.setClickListener(rowClickListener);
+        draggableListView.setSwipeListener(swipeListener);
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
@@ -191,11 +189,14 @@ class OrderedMetadataListFragmentHelper {
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
+        private final ManualSortHelper manualSortHelper;
+
         private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
                                      Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder,
                                      CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
             super(context, preferences, taskAttachmentDao, taskDao, activity, c, query,
                     dialogBuilder, checkBoxes, tagService, themeCache);
+            manualSortHelper = new ManualSortHelper(context);
         }
 
         @Override
@@ -203,6 +204,7 @@ class OrderedMetadataListFragmentHelper {
             super.setFieldContentsAndVisibility(view);
 
             ViewHolder vh = (ViewHolder) view.getTag();
+            vh.setMinimumHeight(manualSortHelper.getMinRowHeight());
             int indent = vh.task.getValue(GtasksMetadata.INDENT);
             vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
         }

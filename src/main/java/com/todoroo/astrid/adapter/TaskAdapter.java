@@ -19,7 +19,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.util.Linkify;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,10 +139,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final AtomicReference<String> query;
 
-    // measure utilities
-    private final DisplayMetrics displayMetrics;
-
-    private final int minRowHeight;
     private final float tagCharacters;
 
     private final Map<String, TagData> tagMap = new HashMap<>();
@@ -176,30 +171,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         tagCharacters = typedValue.getFloat();
 
         fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
-        displayMetrics = new DisplayMetrics();
-        fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         textColorSecondary = getData(context, android.R.attr.textColorSecondary);
         textColorHint = getData(context, android.R.attr.textColorTertiary);
         textColorOverdue = getColor(context, R.color.overdue);
 
         updateTagMap();
-        this.minRowHeight = computeMinRowHeight();
     }
 
-    private int computeMinRowHeight() {
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return (int) (metrics.density * 40);
-    }
-
-    public int computeFullRowHeight() {
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        if (fontSize < 16) {
-            return (int) (39 * metrics.density);
-        } else {
-            return minRowHeight + (int) (10 * metrics.density);
-        }
-    }
 
     /* ======================================================================
      * =========================================================== filterable
@@ -261,7 +240,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         boolean showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
 
         // create view holder
-        new ViewHolder(view, showFullTaskTitle);
+        new ViewHolder(view, showFullTaskTitle, fontSize);
 
         // add UI component listeners
         addListeners(view);
@@ -297,13 +276,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
-        if (fontSize < 16) {
-            viewHolder.rowBody.setMinimumHeight(0);
-            viewHolder.completeBox.setMinimumHeight(0);
-        } else {
-            viewHolder.rowBody.setMinimumHeight(minRowHeight);
-            viewHolder.completeBox.setMinimumHeight(minRowHeight);
-        }
 
         // name
         final TextView nameView = viewHolder.nameView; {
@@ -422,7 +394,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
         updateTagMap();
     }
 
@@ -633,5 +604,4 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             };
         }
     }
-
 }

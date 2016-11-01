@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
  * @author Tim Su <tim@todoroo.com>
  */
 public class ViewHolder {
-    public Task task;
     @BindView(R.id.rowBody) public ViewGroup rowBody;
     @BindView(R.id.title) public TextView nameView;
     @BindView(R.id.completeBox) public CheckableImageView completeBox;
@@ -30,11 +29,14 @@ public class ViewHolder {
     @BindView(R.id.taskActionContainer) public View taskActionContainer;
     @BindView(R.id.taskActionIcon) public ImageView taskActionIcon;
 
+    public Task task;
     public String tagsString; // From join query, not part of the task model
     public boolean hasFiles; // From join query, not part of the task model
     public boolean hasNotes;
+    private final int fontSize;
 
-    public ViewHolder(ViewGroup view, boolean showFullTaskTitle) {
+    public ViewHolder(ViewGroup view, boolean showFullTaskTitle, int fontSize) {
+        this.fontSize = fontSize;
         ButterKnife.bind(this, view);
 
         task = new Task();
@@ -58,5 +60,15 @@ public class ViewHolder {
 
         // TODO: see if this is a performance issue
         task = new Task(cursor);
+    }
+
+    public void setMinimumHeight(int minRowHeight) {
+        if (fontSize < 16) {
+            rowBody.setMinimumHeight(0);
+            completeBox.setMinimumHeight(0);
+        } else {
+            rowBody.setMinimumHeight(minRowHeight);
+            completeBox.setMinimumHeight(minRowHeight);
+        }
     }
 }
