@@ -9,9 +9,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ListView;
 
-import com.commonsware.cwac.tlv.TouchListView.DropListener;
-import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
-import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
@@ -27,6 +24,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DraggableListView;
+import com.todoroo.astrid.ui.DraggableListView.DropListener;
+import com.todoroo.astrid.ui.DraggableListView.GrabberClickListener;
+import com.todoroo.astrid.ui.DraggableListView.SwipeListener;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;

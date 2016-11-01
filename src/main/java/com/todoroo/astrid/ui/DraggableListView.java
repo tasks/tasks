@@ -35,9 +35,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.commonsware.cwac.tlv.TouchListView.DropListener;
-import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
-import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
@@ -518,4 +515,16 @@ public class DraggableListView extends ListView {
                 "Headers are not supported with TouchListView");
     }
 
+    public interface GrabberClickListener {
+        void onClick(View v);
+        void onLongClick(View v);
+    }
+
+    public interface DropListener {
+        void drop(int from, int to);
+    }
+    public interface SwipeListener {
+        void swipeLeft(int which);
+        void swipeRight(int which);
+    }
 }
