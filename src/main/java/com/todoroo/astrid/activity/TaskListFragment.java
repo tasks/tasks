@@ -49,7 +49,6 @@ import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 
@@ -65,8 +64,8 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingListFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.TagFormatter;
 import org.tasks.tasklist.ViewHolder;
-import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 
@@ -123,11 +122,10 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject VoiceInputAssistant voiceInputAssistant;
     @Inject TaskCreator taskCreator;
     @Inject Broadcaster broadcaster;
-    @Inject TagService tagService;
-    @Inject ThemeCache themeCache;
     @Inject protected TaskListDataProvider taskListDataProvider;
     @Inject TimerPlugin timerPlugin;
     @Inject TaskDao taskDao;
+    @Inject TagFormatter tagFormatter;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
@@ -474,7 +472,7 @@ public class TaskListFragment extends InjectingListFragment implements
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
 
         return new TaskAdapter(context, preferences, taskAttachmentDao, taskDao, this, cursor,
-                taskListDataProvider.getSqlQueryTemplate(), dialogBuilder, checkBoxes, tagService, themeCache);
+                taskListDataProvider.getSqlQueryTemplate(), dialogBuilder, checkBoxes, tagFormatter);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$

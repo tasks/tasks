@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import org.tasks.tasklist.TagListFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TagFilter;
@@ -22,15 +21,15 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.TagFormatter;
+import org.tasks.tasklist.TagListFragment;
 import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
 import javax.inject.Inject;
@@ -51,10 +50,9 @@ public class SubtasksTagListFragment extends TagListFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject CheckBoxes checkBoxes;
-    @Inject TagService tagService;
-    @Inject ThemeCache themeCache;
     @Inject Theme theme;
     @Inject TaskDao taskDao;
+    @Inject TagFormatter tagFormatter;
 
     private AstridOrderedListFragmentHelper helper;
 
@@ -65,7 +63,7 @@ public class SubtasksTagListFragment extends TagListFragment {
         super.onAttach(activity);
 
         helper = new AstridOrderedListFragmentHelper(preferences, taskAttachmentDao,
-                this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagService, themeCache, taskDao);
+                this, subtasksFilterUpdater, dialogBuilder, checkBoxes, tagFormatter, taskDao);
     }
 
     @Override

@@ -20,7 +20,6 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -28,8 +27,8 @@ import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.tasklist.GtasksListFragment;
+import org.tasks.tasklist.TagFormatter;
 import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
@@ -53,10 +52,9 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
     @Inject Preferences preferences;
     @Inject DialogBuilder dialogBuilder;
     @Inject CheckBoxes checkBoxes;
-    @Inject TagService tagService;
-    @Inject ThemeCache themeCache;
     @Inject @ForApplication Context context;
     @Inject Theme theme;
+    @Inject TagFormatter tagFormatter;
 
     protected OrderedMetadataListFragmentHelper helper;
     private int lastVisibleIndex = -1;
@@ -88,7 +86,7 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
         super.onAttach(activity);
 
         helper = new OrderedMetadataListFragmentHelper(preferences, taskAttachmentDao, taskDao,
-                metadataDao, this, gtasksTaskListUpdater, dialogBuilder, checkBoxes, tagService, themeCache);
+                metadataDao, this, gtasksTaskListUpdater, dialogBuilder, checkBoxes, tagFormatter);
     }
 
     @Override

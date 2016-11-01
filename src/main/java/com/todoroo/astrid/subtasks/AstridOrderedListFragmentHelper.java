@@ -22,7 +22,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DraggableListView;
 import com.todoroo.astrid.ui.DraggableListView.DropListener;
 import com.todoroo.astrid.ui.DraggableListView.GrabberClickListener;
@@ -32,8 +31,8 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import org.tasks.tasklist.ManualSortHelper;
+import org.tasks.tasklist.TagFormatter;
 import org.tasks.tasklist.ViewHolder;
-import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
@@ -50,11 +49,10 @@ class AstridOrderedListFragmentHelper {
     private final SubtasksFilterUpdater updater;
     private final DialogBuilder dialogBuilder;
     private final CheckBoxes checkBoxes;
-    private final TagService tagService;
     private final TaskListFragment fragment;
     private final Preferences preferences;
     private final TaskAttachmentDao taskAttachmentDao;
-    private final ThemeCache themeCache;
+    private final TagFormatter tagFormatter;
     private final TaskDao taskDao;
 
     private DraggableTaskAdapter taskAdapter;
@@ -64,15 +62,14 @@ class AstridOrderedListFragmentHelper {
     AstridOrderedListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
                                            TaskListFragment fragment, SubtasksFilterUpdater updater,
                                            DialogBuilder dialogBuilder, CheckBoxes checkBoxes,
-                                           TagService tagService, ThemeCache themeCache, TaskDao taskDao) {
+                                           TagFormatter tagFormatter, TaskDao taskDao) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.fragment = fragment;
         this.updater = updater;
         this.dialogBuilder = dialogBuilder;
         this.checkBoxes = checkBoxes;
-        this.tagService = tagService;
-        this.themeCache = themeCache;
+        this.tagFormatter = tagFormatter;
         this.taskDao = taskDao;
     }
 
@@ -181,7 +178,7 @@ class AstridOrderedListFragmentHelper {
             AtomicReference<String> sqlQueryTemplate) {
 
         taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor,
-                sqlQueryTemplate, dialogBuilder, checkBoxes, tagService, themeCache);
+                sqlQueryTemplate, dialogBuilder, checkBoxes, tagFormatter);
 
         taskAdapter.addOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -194,8 +191,9 @@ class AstridOrderedListFragmentHelper {
 
         private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
                                      Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder,
-                                     CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
-            super(context, preferences, taskAttachmentDao, taskDao, activity, c, query, dialogBuilder, checkBoxes, tagService, themeCache);
+                                     CheckBoxes checkBoxes, TagFormatter tagFormatter) {
+            super(context, preferences, taskAttachmentDao, taskDao, activity, c, query,
+                    dialogBuilder, checkBoxes, tagFormatter);
 
             manualSortHelper = new ManualSortHelper(context);
         }

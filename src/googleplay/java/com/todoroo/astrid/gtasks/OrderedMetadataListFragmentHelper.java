@@ -24,7 +24,6 @@ import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DraggableListView;
 import com.todoroo.astrid.ui.DraggableListView.DropListener;
 import com.todoroo.astrid.ui.DraggableListView.GrabberClickListener;
@@ -34,8 +33,8 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
 import org.tasks.tasklist.ManualSortHelper;
+import org.tasks.tasklist.TagFormatter;
 import org.tasks.tasklist.ViewHolder;
-import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
@@ -52,8 +51,7 @@ class OrderedMetadataListFragmentHelper {
     private final GtasksTaskListUpdater updater;
     private final DialogBuilder dialogBuilder;
     private final CheckBoxes checkBoxes;
-    private final TagService tagService;
-    private final ThemeCache themeCache;
+    private final TagFormatter tagFormatter;
     private final TaskListFragment fragment;
 
     private final Preferences preferences;
@@ -66,10 +64,9 @@ class OrderedMetadataListFragmentHelper {
     private GtasksList list;
 
     OrderedMetadataListFragmentHelper(Preferences preferences, TaskAttachmentDao taskAttachmentDao,
-                                             TaskDao taskDao, MetadataDao metadataDao,
-                                             TaskListFragment fragment, GtasksTaskListUpdater updater,
-                                             DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagService tagService,
-                                             ThemeCache themeCache) {
+                                      TaskDao taskDao, MetadataDao metadataDao,
+                                      TaskListFragment fragment, GtasksTaskListUpdater updater,
+                                      DialogBuilder dialogBuilder, CheckBoxes checkBoxes, TagFormatter tagFormatter) {
         this.preferences = preferences;
         this.taskAttachmentDao = taskAttachmentDao;
         this.taskDao = taskDao;
@@ -78,8 +75,7 @@ class OrderedMetadataListFragmentHelper {
         this.updater = updater;
         this.dialogBuilder = dialogBuilder;
         this.checkBoxes = checkBoxes;
-        this.tagService = tagService;
-        this.themeCache = themeCache;
+        this.tagFormatter = tagFormatter;
     }
 
     // --- ui component setup
@@ -180,7 +176,7 @@ class OrderedMetadataListFragmentHelper {
             AtomicReference<String> sqlQueryTemplate) {
 
         taskAdapter = new DraggableTaskAdapter(context, preferences, fragment, cursor,
-                sqlQueryTemplate, dialogBuilder, checkBoxes, tagService, themeCache);
+                sqlQueryTemplate, dialogBuilder, checkBoxes, tagFormatter);
 
         taskAdapter.addOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -193,9 +189,9 @@ class OrderedMetadataListFragmentHelper {
 
         private DraggableTaskAdapter(Context context, Preferences preferences, TaskListFragment activity,
                                      Cursor c, AtomicReference<String> query, DialogBuilder dialogBuilder,
-                                     CheckBoxes checkBoxes, TagService tagService, ThemeCache themeCache) {
+                                     CheckBoxes checkBoxes, TagFormatter tagFormatter) {
             super(context, preferences, taskAttachmentDao, taskDao, activity, c, query,
-                    dialogBuilder, checkBoxes, tagService, themeCache);
+                    dialogBuilder, checkBoxes, tagFormatter);
             manualSortHelper = new ManualSortHelper(context);
         }
 
