@@ -18,10 +18,8 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,8 +43,8 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
@@ -363,38 +361,6 @@ public class TaskListFragment extends InjectingListFragment implements
         final ListView listView = getListView();
         registerForContextMenu(listView);
 
-        // set listener for quick-changing task priority
-        listView.setOnKeyListener((view, keyCode, event) -> {
-            if (event.getAction() != KeyEvent.ACTION_UP || view == null) {
-                return false;
-            }
-
-            boolean filterOn = listView.isTextFilterEnabled();
-            View selected = listView.getSelectedView();
-
-            // hot-key to set task priority - 1-4 or ALT + Q-R
-            if (!filterOn && event.getUnicodeChar() >= '1'
-                    && event.getUnicodeChar() <= '4' && selected != null) {
-                int importance = event.getNumber() - '1';
-                Task task = ((ViewHolder) selected.getTag()).task;
-                task.setImportance(importance);
-                taskDao.save(task);
-                taskAdapter.setFieldContentsAndVisibility(selected);
-            }
-            // filter
-            else if (!filterOn && event.getUnicodeChar() != 0) {
-                listView.setTextFilterEnabled(true);
-                listView.setFilterText(
-                        Character.toString((char) event.getUnicodeChar()));
-            }
-            // turn off filter if nothing is selected
-            else if (filterOn
-                    && TextUtils.isEmpty(listView.getTextFilter())) {
-                listView.setTextFilterEnabled(false);
-            }
-
-            return false;
-        });
         filter.setFilterQueryOverride(null);
 
         setListAdapter(taskAdapter);
