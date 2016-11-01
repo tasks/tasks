@@ -31,6 +31,7 @@ import com.todoroo.astrid.ui.DraggableListView.SwipeListener;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.ViewHolder;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
 

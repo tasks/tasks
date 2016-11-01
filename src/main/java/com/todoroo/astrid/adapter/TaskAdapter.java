@@ -63,6 +63,7 @@ import com.todoroo.astrid.ui.CheckableImageView;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.ViewHolder;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 import org.tasks.ui.CheckBoxes;
@@ -94,9 +95,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private static final char SPACE = '\u0020';
     private static final char HAIR_SPACE = '\u200a';
-    private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name + ", '')"+ ", ',')").as("tags");
-    private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
-    private static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
+    public static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name + ", '')"+ ", ',')").as("tags");
+    public static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
+    public static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
     // --- other constants
 
@@ -257,30 +258,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         ViewGroup view = (ViewGroup)inflater.inflate(R.layout.task_adapter_row_simple, parent, false);
+        boolean showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
 
         // create view holder
-        ViewHolder viewHolder = new ViewHolder();
-        viewHolder.task = new Task();
-        viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
-        viewHolder.nameView = (TextView)view.findViewById(R.id.title);
-        viewHolder.completeBox = (CheckableImageView)view.findViewById(R.id.completeBox);
-        viewHolder.dueDate = (TextView)view.findViewById(R.id.due_date);
-        viewHolder.tagBlock = (TextView) view.findViewById(R.id.tag_block);
-        viewHolder.taskActionContainer = view.findViewById(R.id.taskActionContainer);
-        viewHolder.taskActionIcon = (ImageView)view.findViewById(R.id.taskActionIcon);
-
-        boolean showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
-        if (showFullTaskTitle) {
-            viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
-            viewHolder.nameView.setSingleLine(false);
-            viewHolder.nameView.setEllipsize(null);
-        }
-
-
-        view.setTag(viewHolder);
-        for(int i = 0; i < view.getChildCount(); i++) {
-            view.getChildAt(i).setTag(viewHolder);
-        }
+        new ViewHolder(view, showFullTaskTitle);
 
         // add UI component listeners
         addListeners(view);
@@ -293,13 +274,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void bindView(View view, Context context, Cursor c) {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
-
-        viewHolder.tagsString = cursor.get(TAGS);
-        viewHolder.hasFiles = cursor.get(FILE_ID_PROPERTY) > 0;
-        viewHolder.hasNotes = cursor.get(HAS_NOTES_PROPERTY) > 0;
-
-        // TODO: see if this is a performance issue
-        viewHolder.task = new Task(cursor);
+        viewHolder.bindView(cursor);
 
         setFieldContentsAndVisibility(view);
         setTaskAppearance(viewHolder, viewHolder.task);
@@ -316,26 +291,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         } else {
             return RemoteModel.NO_UUID;
         }
-    }
-
-    /**
-     * View Holder saves a lot of findViewById lookups.
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public static class ViewHolder {
-        public Task task;
-        public ViewGroup rowBody;
-        public TextView nameView;
-        public CheckableImageView completeBox;
-        public TextView dueDate;
-        public TextView tagBlock;
-        public View taskActionContainer;
-        public ImageView taskActionIcon;
-        public String tagsString; // From join query, not part of the task model
-        public boolean hasFiles; // From join query, not part of the task model
-        public boolean hasNotes;
     }
 
     /** Helper method to set the contents and visibility of each field */
