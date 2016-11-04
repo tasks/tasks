@@ -16,7 +16,6 @@
 	<string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
 	<string name="TLA_menu_sort">Sort &amp; Hidden</string>
 	<string name="TAd_actionEditTask">แก้ไข</string>
-	<string name="TAd_contextUndeleteTask">แผนงานที่ลบไม่ได้</string>
 	<string name="SSD_sort_auto">จัดเรียงด้วย Tasks Smart</string>
 	<string name="SSD_sort_alpha">ตามชื่อ</string>
 	<string name="SSD_sort_importance">ตามความสำคัญ</string>

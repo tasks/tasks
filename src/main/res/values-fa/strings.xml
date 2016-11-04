@@ -28,7 +28,6 @@
 	<string name="TAd_actionEditTask">ویرایش</string>
 	<string name="TAd_contextCopyTask">کپی وظایف</string>
 	<string name="TAd_contextDeleteTask">حذف وظیفه</string>
-	<string name="TAd_contextUndeleteTask">بازگرداندن وظیفه حذف شده</string>
 	<string name="SSD_sort_drag">چینش دستی بهمراه زیروظایف</string>
 	<string name="SSD_sort_auto">چینش هوشمندانه</string>
 	<string name="SSD_sort_alpha">براساس موضوع</string>

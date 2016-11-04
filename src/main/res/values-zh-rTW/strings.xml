@@ -28,12 +28,10 @@
 	<string name="TLA_menu_search">搜索</string>
 	<string name="TLA_menu_settings">設定</string>
 	<string name="TAd_hiddenFormat">%s [隱藏]</string>
-	<string name="TAd_deletedFormat">%s [刪除]</string>
 	<string name="TAd_completed">%s\n完成</string>
 	<string name="TAd_actionEditTask">編輯</string>
 	<string name="TAd_contextCopyTask">複製任務工作</string>
 	<string name="TAd_contextDeleteTask">刪除任務工作</string>
-	<string name="TAd_contextUndeleteTask">還原工作刪除</string>
 	<string name="SSD_sort_auto">Tasks智慧排序</string>
 	<string name="SSD_sort_alpha">依主旨</string>
 	<string name="SSD_sort_due">依到期日</string>

@@ -105,9 +105,6 @@ File %1$s contained %2$s.\n\n
     <!-- Format string to indicate task is hidden (%s => task name) -->
     <string name="TAd_hiddenFormat">%s [hidden]</string>
 
-    <!-- Format string to indicate task is deleted (%s => task name) -->
-    <string name="TAd_deletedFormat">%s [deleted]</string>
-
     <!-- slide 22b: indicates task was completed. %s => date or time ago -->
     <string name="TAd_completed">Finished\n%s</string>
 
@@ -119,9 +116,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- Context Item: delete task -->
     <string name="TAd_contextDeleteTask">Delete Task</string>
-
-    <!-- Context Item: undelete task -->
-    <string name="TAd_contextUndeleteTask">Undelete Task</string>
 
     <!-- ============================================== SortSelectionDialog == -->
 

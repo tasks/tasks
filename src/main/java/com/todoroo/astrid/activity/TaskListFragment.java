@@ -104,7 +104,6 @@ public class TaskListFragment extends InjectingFragment implements
 
     private static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;
     private static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
-    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = R.string.TAd_contextUndeleteTask;
 
     // --- instance variables
 
@@ -498,12 +497,8 @@ public class TaskListFragment extends InjectingFragment implements
         int id = (int) task.getId();
         menu.setHeaderTitle(task.getTitle());
 
-        if (task.isDeleted()) {
-            menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE, R.string.TAd_contextUndeleteTask);
-        } else {
-            menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE, R.string.TAd_contextCopyTask);
-            menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE, R.string.TAd_contextDeleteTask);
-        }
+        menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE, R.string.TAd_contextCopyTask);
+        menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE, R.string.TAd_contextDeleteTask);
     }
 
     /** Show a dialog box and delete the task specified */
@@ -580,29 +575,17 @@ public class TaskListFragment extends InjectingFragment implements
         long itemId;
 
         switch (item.getItemId()) {
-        // --- context menu items
-
-        case CONTEXT_MENU_COPY_TASK_ID:
-            itemId = item.getGroupId();
-            duplicateTask(itemId);
-            return true;
-        case CONTEXT_MENU_DELETE_TASK_ID: {
-            itemId = item.getGroupId();
-            Task task = taskDao.fetch(itemId, Task.ID, Task.TITLE, Task.UUID);
-            if (task != null) {
-                deleteTask(task);
-            }
-            return true;
-        }
-        case CONTEXT_MENU_UNDELETE_TASK_ID: {
-            itemId = item.getGroupId();
-            Task task = new Task();
-            task.setId(itemId);
-            task.setDeletionDate(0L);
-            taskDao.save(task);
-            loadTaskListContent();
-            return true;
-        }
+            case CONTEXT_MENU_COPY_TASK_ID:
+                itemId = item.getGroupId();
+                duplicateTask(itemId);
+                return true;
+            case CONTEXT_MENU_DELETE_TASK_ID:
+                itemId = item.getGroupId();
+                Task task = taskDao.fetch(itemId, Task.ID, Task.TITLE, Task.UUID);
+                if (task != null) {
+                    deleteTask(task);
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

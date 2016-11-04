@@ -38,12 +38,10 @@
 	<string name="TLA_menu_search">검색</string>
 	<string name="TLA_menu_settings">설정</string>
 	<string name="TAd_hiddenFormat">%s [숨김]</string>
-	<string name="TAd_deletedFormat">%s [지움]</string>
 	<string name="TAd_completed">일정 완료\n%s</string>
 	<string name="TAd_actionEditTask">편집</string>
 	<string name="TAd_contextCopyTask">일정 복사하기</string>
 	<string name="TAd_contextDeleteTask">일정 지우기</string>
-	<string name="TAd_contextUndeleteTask">일정 복구하기</string>
 	<string name="SSD_sort_drag">수동 정렬 (하위일정 포함)</string>
 	<string name="SSD_sort_auto">Tasks 스마트 정렬</string>
 	<string name="SSD_sort_alpha">제목 순서</string>

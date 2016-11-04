@@ -26,9 +26,7 @@
 	<string name="TLA_menu_sort">Sorter &amp; skjulte</string>
 	<string name="TLA_menu_settings">Opsætning</string>
 	<string name="TAd_hiddenFormat">%s [skjult]</string>
-	<string name="TAd_deletedFormat">%s [slettet]</string>
 	<string name="TAd_actionEditTask">Rediger</string>
-	<string name="TAd_contextUndeleteTask">Gendan opgave</string>
 	<string name="SSD_sort_drag">Manuel ordre med delopgaver</string>
 	<string name="SSD_sort_auto">Tasks Intelligent sortering</string>
 	<string name="SSD_sort_alpha">Efter titel</string>

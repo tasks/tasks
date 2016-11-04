@@ -171,9 +171,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         String nameValue = task.getTitle();
 
         long hiddenUntil = task.getHideUntil();
-        if(task.getDeletionDate() > 0) {
-            nameValue = context.getResources().getString(R.string.TAd_deletedFormat, nameValue);
-        }
         if(hiddenUntil > DateUtilities.now()) {
             nameValue = context.getResources().getString(R.string.TAd_hiddenFormat, nameValue);
         }

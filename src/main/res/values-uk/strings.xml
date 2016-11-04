@@ -38,12 +38,10 @@
 	<string name="TLA_menu_search">Пошук</string>
 	<string name="TLA_menu_settings">Налаштування</string>
 	<string name="TAd_hiddenFormat">%s [приховано]</string>
-	<string name="TAd_deletedFormat">%s [видалено]</string>
 	<string name="TAd_completed">Завершено\n%s</string>
 	<string name="TAd_actionEditTask">Редагувати</string>
 	<string name="TAd_contextCopyTask">Копіювати завдання</string>
 	<string name="TAd_contextDeleteTask">Видалити завдання</string>
-	<string name="TAd_contextUndeleteTask">Відмінити видалення завдання</string>
 	<string name="SSD_sort_drag">Ручний порядок з підзадачами</string>
 	<string name="SSD_sort_auto">Розумне сортування</string>
 	<string name="SSD_sort_alpha">За назвою</string>

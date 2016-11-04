@@ -30,12 +30,10 @@
 	<string name="TLA_menu_search">Buscar</string>
 	<string name="TLA_menu_settings">Configurações</string>
 	<string name="TAd_hiddenFormat">%s [oculta]</string>
-	<string name="TAd_deletedFormat">%s [excluída]</string>
 	<string name="TAd_completed">Concluída\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
 	<string name="TAd_contextCopyTask">Copiar tarefa</string>
 	<string name="TAd_contextDeleteTask">Excluir tarefa</string>
-	<string name="TAd_contextUndeleteTask">Restaurar tarefa</string>
 	<string name="SSD_sort_drag">Ordem manual com subtarefas</string>
 	<string name="SSD_sort_auto">Ordenação inteligente Tasks</string>
 	<string name="SSD_sort_alpha">Por título</string>

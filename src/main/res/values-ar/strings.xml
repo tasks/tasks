@@ -24,7 +24,6 @@
 	<string name="TAd_actionEditTask">تعديل</string>
 	<string name="TAd_contextCopyTask">نسخ المهمه</string>
 	<string name="TAd_contextDeleteTask">حذف المهمة</string>
-	<string name="TAd_contextUndeleteTask">الغاء حذف المهمة</string>
 	<string name="SSD_sort_auto">الترتيب الذكي</string>
 	<string name="SSD_sort_alpha">بالعنوان</string>
 	<string name="SSD_sort_modified">بواسطة التعديل الأخير</string>

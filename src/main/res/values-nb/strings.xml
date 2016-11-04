@@ -24,11 +24,9 @@
 	<string name="TLA_menu_sort">Sorter &amp; Skjult</string>
 	<string name="TLA_menu_settings">Innstillinger</string>
 	<string name="TAd_hiddenFormat">%s [skjult]</string>
-	<string name="TAd_deletedFormat">%s [slettet]</string>
 	<string name="TAd_actionEditTask">Rediger</string>
 	<string name="TAd_contextCopyTask">Kopier oppgave</string>
 	<string name="TAd_contextDeleteTask">Slett oppgave</string>
-	<string name="TAd_contextUndeleteTask">Gjenopprett slettet oppgave</string>
 	<string name="SSD_sort_auto">Tasks intelligent sortering</string>
 	<string name="SSD_sort_alpha">Etter tittel</string>
 	<string name="SSD_sort_due">Etter forfallsdato</string>
