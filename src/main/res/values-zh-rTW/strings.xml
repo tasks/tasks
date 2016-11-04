@@ -79,8 +79,6 @@
 	<string name="EPr_beastMode_reset">恢復默認值</string>
 	<string name="EPr_fullTask_title">顯示完整的任務工作標題</string>
 	<string name="EPr_manage_header">管理舊任務工作</string>
-	<string name="EPr_manage_delete_completed">刪除已完成任務工作</string>
-	<string name="EPr_manage_delete_completed_message">您真的要刪除所有已完成任務工作嗎？</string>
 	<string name="EPr_manage_delete_completed_status">刪除了 %d 個任務工作！</string>
 	<string name="EPr_manage_purge_deleted">清除已刪除任務工作</string>
 	<string name="EPr_manage_purge_deleted_message">您真的要清楚所有已刪除任務工作嗎？ \n\n 這些任務工作將會被徹底永久刪除！</string>

@@ -149,6 +149,10 @@ public class TaskDao {
     	    return Task.DELETION_DATE.eq(0);
     	}
 
+        public static Criterion notCompleted() {
+            return Task.COMPLETION_DATE.eq(0);
+        }
+
     	/** @return tasks that have not yet been completed or deleted */
     	public static Criterion activeAndVisible() {
             return Criterion.and(Task.COMPLETION_DATE.eq(0),

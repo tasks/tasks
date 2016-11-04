@@ -106,8 +106,6 @@
 	<string name="EPr_cal_end_at_due_time">Avsluta kalenderhändelser vid förfallotid</string>
 	<string name="EPr_cal_start_at_due_time">Påbörja kalenderhändelser vid förfallotid</string>
 	<string name="EPr_manage_header">Hantera gamla uppgifter</string>
-	<string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
-	<string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>
 	<string name="EPr_manage_delete_completed_status">%d uppgifter raderade!</string>
 	<string name="EPr_manage_purge_deleted">Rensa bort raderade uppgifter</string>
 	<string name="EPr_manage_purge_deleted_message">Vill du verkligen rensa bort alla dina raderade uppgifter?\n\nDe här uppgifterna kommer att tas bort för alltid!</string>

@@ -59,8 +59,6 @@
 	<string name="EPr_fullTask_title">إظهار عنوان المهمه</string>
 	<string name="task_list_options">خيارات قائمة المهام</string>
 	<string name="EPr_manage_header"> إدارة المهام القديمة</string>
-	<string name="EPr_manage_delete_completed">حذف المهمه المٌتمَمه</string>
-	<string name="EPr_manage_delete_completed_message">هل فعلا تريد حذف كل المهام المُتَممه؟</string>
 	<string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
 	<string name="EPr_manage_delete_all_gcal">حذف جميع نشاطات التقويم للمهام</string>
 	<string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام ؟</string>

@@ -96,8 +96,6 @@
 	<string name="EPr_cal_end_at_due_time">Eventos da agenda terminou no devido tempo</string>
 	<string name="EPr_cal_start_at_due_time">Eventos da agenda iniciaram no devido tempo</string>
 	<string name="EPr_manage_header">Gerenciar tarefas antigas</string>
-	<string name="EPr_manage_delete_completed">Exclui as tarefas concluídas</string>
-	<string name="EPr_manage_delete_completed_message">Você realmente deseja excluir todas as tarefas concluídas?</string>
 	<string name="EPr_manage_delete_completed_status">%d tarefas excluídas!</string>
 	<string name="EPr_manage_purge_deleted">Limpar tarefas excluídas</string>
 	<string name="EPr_manage_purge_deleted_message">Você realmente deseja limpar todas as suas tarefas excluídas?\n\nEstas tarefas irão desaparecer para sempre!</string>

@@ -80,8 +80,6 @@
 	<string name="EPr_fullTask_title">显示完整的任务标题</string>
 	<string name="task_list_options">任务列表选项</string>
 	<string name="EPr_manage_header">管理旧任务</string>
-	<string name="EPr_manage_delete_completed">删除已完成任务</string>
-	<string name="EPr_manage_delete_completed_message">您真的要删除所有已完成任务吗？</string>
 	<string name="EPr_manage_delete_completed_status">删除了 %d 个任务！</string>
 	<string name="EPr_manage_purge_deleted">清除已删除任务</string>
 	<string name="EPr_manage_purge_deleted_message">您真的要清楚所有已删除任务吗？ \n\n 这些任务将会被彻底永久删除！</string>

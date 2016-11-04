@@ -93,8 +93,6 @@
 	<string name="EPr_cal_end_at_due_time">Končaj dogodke na koledarju ob dospelosti</string>
 	<string name="EPr_cal_start_at_due_time">Začni dogodke na koledarju ob dospelosti</string>
 	<string name="EPr_manage_header">Upravljanje s preteklimi opravki</string>
-	<string name="EPr_manage_delete_completed">Zbriši dokončane opravke</string>
-	<string name="EPr_manage_delete_completed_message">Ste prepričani, da želite zbrisati vse dokončane opravke?</string>
 	<string name="EPr_manage_delete_completed_status">Število zbrisanih opravkov: %d </string>
 	<string name="EPr_manage_purge_deleted">Popolnoma odstrani zbrisane opravke</string>
 	<string name="EPr_manage_purge_deleted_message">Ste prepričani, da želite popolnoma odstraniti vse zbrisane opravke?\n\nTega ukaza ne bo mogoče razveljaviti! </string>

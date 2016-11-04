@@ -297,8 +297,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- slide 33a/47c: Preference Screen Header: Old Task Management -->
     <string name="EPr_manage_header">Manage old tasks</string>
-    <string name="EPr_manage_delete_completed">Delete completed tasks</string>
-    <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
     <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
     <string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
     <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
@@ -828,5 +826,6 @@ File %1$s contained %2$s.\n\n
   <string name="creating_new_list">Creating new list</string>
   <string name="deleting_list">Deleting list</string>
   <string name="renaming_list">Renaming list</string>
+  <string name="clear_completed_tasks_confirmation">Clear completed tasks?</string>
 
 </resources>

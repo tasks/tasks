@@ -7,10 +7,6 @@
     android:title="@string/EPr_manage_header">
 
     <com.todoroo.astrid.ui.MultilinePreference
-        android:key="@string/EPr_manage_delete_completed"
-        android:title="@string/EPr_manage_delete_completed" />
-
-    <com.todoroo.astrid.ui.MultilinePreference
         android:key="@string/EPr_manage_purge_deleted"
         android:title="@string/EPr_manage_purge_deleted" />
 

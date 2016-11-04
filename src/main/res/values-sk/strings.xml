@@ -98,8 +98,6 @@
 	<string name="EPr_cal_end_at_due_time">Ukončiť udalosť kalendára v danom čase</string>
 	<string name="EPr_cal_start_at_due_time">Začať kalendárne udalosti v danom čase</string>
 	<string name="EPr_manage_header">Spravovať staré úlohy</string>
-	<string name="EPr_manage_delete_completed">Vymazať dokončené úlohy</string>
-	<string name="EPr_manage_delete_completed_message">Naozaj chceš vymazať všetky dokončené úlohy?</string>
 	<string name="EPr_manage_delete_completed_status">Vymazané %d úlohy</string>
 	<string name="EPr_manage_purge_deleted">Zbaviť sa vymazaných úloh</string>
 	<string name="EPr_manage_purge_deleted_message">Naozaj chceš vyhodiť všetky tvoje vymazané úlohy?\n\nTieto budú vymazané navždy!</string>

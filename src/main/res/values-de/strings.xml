@@ -104,8 +104,6 @@
 	<string name="EPr_cal_end_at_due_time">Kalendereintrag endet zur Fälligkeits-Uhrzeit</string>
 	<string name="EPr_cal_start_at_due_time">Kalendereintrag Startet zur Fälligkeits-Uhrzeit</string>
 	<string name="EPr_manage_header">Alte Aufgaben verwalten</string>
-	<string name="EPr_manage_delete_completed">Erledigte Aufgaben löschen</string>
-	<string name="EPr_manage_delete_completed_message">Willst du wirklich alle erledigten Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_completed_status">%d Aufgaben gelöscht</string>
 	<string name="EPr_manage_purge_deleted">Gelöschte Aufgaben endgültig löschen</string>
 	<string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>

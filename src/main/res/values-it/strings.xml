@@ -106,8 +106,6 @@
 	<string name="EPr_cal_end_at_due_time">Calendario eventi fino alla scadenza</string>
 	<string name="EPr_cal_start_at_due_time">Calendario eventi dalla scadenza</string>
 	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
-	<string name="EPr_manage_delete_completed">Elimina i compiti completati</string>
-	<string name="EPr_manage_delete_completed_message">Vuoi davvero eliminare tutti i compiti completati?</string>
 	<string name="EPr_manage_delete_completed_status">Eliminate %d attività!</string>
 	<string name="EPr_manage_purge_deleted">Elimina definitivamente i compiti eliminati</string>
 	<string name="EPr_manage_purge_deleted_message">Vuoi davvero eliminare definitivamente i compiti eliminati?\n\nQuesti compiti saranno persi per sempre!</string>

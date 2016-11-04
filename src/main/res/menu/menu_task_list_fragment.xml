@@ -30,4 +30,8 @@
             android:title="@string/show_completed"
             android:checkable="true" />
     </group>
+    <item
+        android:id="@+id/menu_clear_completed"
+        android:title="@string/gtasks_GTA_clear_completed"
+        app:showAsAction="never" />
 </menu>

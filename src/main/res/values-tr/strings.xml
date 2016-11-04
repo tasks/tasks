@@ -68,8 +68,6 @@
 	<string name="EPr_beastMode_reset">Varsayılanlara sıfırla</string>
 	<string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
 	<string name="EPr_manage_header">Eski Görevleri Yönet</string>
-	<string name="EPr_manage_delete_completed">Tamamlanan Görevleri Sil</string>
-	<string name="EPr_manage_delete_completed_message">Gerçekten tüm tamamlanmış görevleri silmek istiyor musun?</string>
 	<string name="EPr_manage_delete_completed_status">%d görev silindi!</string>
 	<string name="EPr_manage_purge_deleted">Silinen Görevleri Temizle</string>
 	<string name="EPr_manage_purge_deleted_message">Tüm silinen görevleri temizlemek istediğine emin misin?\n\nBu görevler tamamen silinecek!</string>

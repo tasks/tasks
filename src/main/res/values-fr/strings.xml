@@ -104,8 +104,6 @@
 	<string name="EPr_cal_end_at_due_time">Terminer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_cal_start_at_due_time">Commencer les événements dans le calendrier à l\'échéance</string>
 	<string name="EPr_manage_header">Gérer les anciennes tâches</string>
-	<string name="EPr_manage_delete_completed">Supprimer les tâches terminées</string>
-	<string name="EPr_manage_delete_completed_message">Voulez-vous vraiment la suppression de toutes les tâches terminées ?</string>
 	<string name="EPr_manage_delete_completed_status">%d tâches supprimées !</string>
 	<string name="EPr_manage_purge_deleted">Supprimer définitivement les tâches supprimées</string>
 	<string name="EPr_manage_purge_deleted_message">Voulez vous vraiment supprimer définitivement toutes les tâches supprimées ?\n\nCes tâches seront perdues à jamais !</string>

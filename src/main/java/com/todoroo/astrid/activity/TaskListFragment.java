@@ -52,6 +52,8 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
 import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.data.TaskListDataProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
@@ -65,6 +67,7 @@ import org.tasks.tasklist.ViewHolder;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
+import org.tasks.ui.ProgressDialogAsyncTask;
 
 import javax.inject.Inject;
 
@@ -120,6 +123,7 @@ public class TaskListFragment extends InjectingFragment implements
     @Inject TimerPlugin timerPlugin;
     @Inject TaskDao taskDao;
     @Inject ViewHolderFactory viewHolderFactory;
+    @Inject protected Tracker tracker;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyRefreshLayout;
@@ -304,9 +308,31 @@ public class TaskListFragment extends InjectingFragment implements
                 Intent intent = new Intent(getActivity(), FilterSettingsActivity.class);
                 intent.putExtra(FilterSettingsActivity.TOKEN_FILTER, filter);
                 startActivityForResult(intent, REQUEST_EDIT_FILTER);
+                return true;
+            case R.id.menu_clear_completed:
+                dialogBuilder.newMessageDialog(R.string.clear_completed_tasks_confirmation)
+                        .setPositiveButton(android.R.string.ok, (dialog, which) -> clearCompleted())
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    protected void clearCompleted() {
+        tracker.reportEvent(Tracking.Events.CLEAR_COMPLETED);
+        new ProgressDialogAsyncTask(getActivity(), dialogBuilder) {
+            @Override
+            protected Integer doInBackground(Void... params) {
+                return taskDeleter.clearCompleted(filter);
+            }
+
+            @Override
+            protected int getResultResource() {
+                return R.string.EPr_manage_delete_completed_status;
+            }
+        }.execute();
     }
 
     @OnClick(R.id.fab)

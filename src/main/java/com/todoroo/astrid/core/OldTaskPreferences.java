@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -47,11 +46,6 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
             return false;
         });
 
-        findPreference(getString(R.string.EPr_manage_delete_completed)).setOnPreferenceClickListener(preference -> {
-            deleteCompletedTasks();
-            return false;
-        });
-
         findPreference(getString(R.string.EPr_manage_delete_completed_gcal)).setOnPreferenceClickListener(preference -> {
             deleteCompletedEvents();
             return false;
@@ -73,36 +67,13 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
         });
     }
 
-    private void deleteCompletedTasks() {
-        dialogBuilder.newMessageDialog(R.string.EPr_manage_delete_completed_message)
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
-                    @Override
-                    protected Integer doInBackground(Void... params) {
-                        Query query = Query.select(Task.ID, Task.CALENDAR_URI)
-                                .where(Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()));
-                        taskDao.forEach(query, calendarEventProvider::deleteEvent);
-                        Task template = new Task();
-                        template.setDeletionDate(DateUtilities.now());
-                        template.setCalendarUri("");
-                        return taskDao.update(Task.COMPLETION_DATE.gt(0), template);
-                    }
-
-                    @Override
-                    protected int getResultResource() {
-                        return R.string.EPr_manage_delete_completed_status;
-                    }
-                }.execute())
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
-    }
-
     private void purgeDeletedTasks() {
         dialogBuilder.newMessageDialog(R.string.EPr_manage_purge_deleted_message)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
                     protected Integer doInBackground(Void... params) {
                         Query query = Query.select(Task.ID, Task.CALENDAR_URI)
-                                .where(Criterion.and(Task.DELETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()));
+                                .where(Criterion.and(Task.DELETION_DATE.gt(0)));
                         taskDao.forEach(query, calendarEventProvider::deleteEvent);
                         int result = taskDao.deleteWhere(Task.DELETION_DATE.gt(0));
                         metadataDao.removeDanglingMetadata();

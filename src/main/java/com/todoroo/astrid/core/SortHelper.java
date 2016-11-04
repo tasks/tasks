@@ -10,10 +10,11 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
+
+import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 
 /**
  * Helpers for sorting a list of tasks
@@ -56,7 +57,7 @@ public class SortHelper {
                     Criterion.or(Task.COMPLETION_DATE.lte(0), Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000)).toString());
         }
         if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
-            originalSql = originalSql.replace(TaskCriteria.isVisible().toString(),
+            originalSql = originalSql.replace(isVisible().toString(),
                     Criterion.all.toString());
         }
 

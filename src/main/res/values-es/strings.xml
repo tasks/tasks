@@ -105,8 +105,6 @@
 	<string name="EPr_cal_end_at_due_time">Finalizar eventos del calendario al vencimiento</string>
 	<string name="EPr_cal_start_at_due_time">Iniciar eventos del calendario al vencimiento</string>
 	<string name="EPr_manage_header">Administrar tareas antiguas</string>
-	<string name="EPr_manage_delete_completed">Borrar tareas completadas</string>
-	<string name="EPr_manage_delete_completed_message">¿Seguro que desea borrar todas las tareas completadas?</string>
 	<string name="EPr_manage_delete_completed_status">¡%d tareas borradas!</string>
 	<string name="EPr_manage_purge_deleted">Limpiar tareas eliminadas</string>
 	<string name="EPr_manage_purge_deleted_message">¿Seguro que desea limpiar todas las tareas eliminadas?\n\n¡Estas tareas se perderán por siempre!</string>

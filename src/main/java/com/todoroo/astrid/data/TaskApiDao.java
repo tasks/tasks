@@ -7,9 +7,6 @@ package com.todoroo.astrid.data;
 
 import android.content.ContentValues;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-
 /**
  * Data access object for accessing Astrid's {@link Task} table. If you
  * are looking to store extended information about a Task, you probably
@@ -19,17 +16,6 @@ import com.todoroo.andlib.sql.Functions;
  *
  */
 public class TaskApiDao {
-
-    /**
-     * Generates SQL clauses
-     */
-    public static class TaskCriteria {
-
-        /** @return tasks that are not hidden at current time */
-        public static Criterion isVisible() {
-            return Task.HIDE_UNTIL.lt(Functions.now());
-        }
-    }
 
     /** @return true if task change shouldn't be broadcast */
     public static boolean insignificantChange(ContentValues values) {

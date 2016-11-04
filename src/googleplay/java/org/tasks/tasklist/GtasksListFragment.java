@@ -15,6 +15,7 @@ import com.todoroo.astrid.sync.SyncResultCallback;
 
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
+import org.tasks.analytics.Tracking;
 import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
@@ -56,9 +57,6 @@ public class GtasksListFragment extends TaskListFragment {
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.menu_clear_completed:
-                clearCompletedTasks();
-                return true;
             case R.id.menu_gtasks_list_settings:
                 Intent intent = new Intent(getActivity(), GoogleTaskListSettingsActivity.class);
                 intent.putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, list.getStoreObject());
@@ -87,7 +85,9 @@ public class GtasksListFragment extends TaskListFragment {
         }
     }
 
-    private void clearCompletedTasks() {
+    @Override
+    protected void clearCompleted() {
+        tracker.reportEvent(Tracking.Events.GTASK_CLEAR_COMPLETED);
         syncService.clearCompleted(list, new SyncResultCallback() {
             @Override
             public void started() {

@@ -109,8 +109,6 @@
 	<string name="EPr_cal_end_at_due_time">Завершення календарної події при настанні терміну</string>
 	<string name="EPr_cal_start_at_due_time">Початок календарної події при настанні терміну</string>
 	<string name="EPr_manage_header">Управління старими завданнями</string>
-	<string name="EPr_manage_delete_completed">Видалити виконані завдання</string>
-	<string name="EPr_manage_delete_completed_message">Ви дійсно хочете видалити всі завершені завдання?</string>
 	<string name="EPr_manage_delete_completed_status">Видалено %d завдань!</string>
 	<string name="EPr_manage_purge_deleted">Очистити видалені завдання</string>
 	<string name="EPr_manage_purge_deleted_message">Ви дійсно хочете очистити всі видалені завдання?\n\nЦя операція незворотна!</string>

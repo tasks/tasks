@@ -292,6 +292,7 @@
   <string name="tracking_action_on">On</string>
   <string name="tracking_action_off">Off</string>
   <string name="tracking_action_clear">Clear</string>
+  <string name="tracking_action_clear_completed">Clear completed</string>
   <string name="tracking_event_night_mode_mismatch">Night Mismatch</string>
   <string name="tracking_event_play_services_error">Play Services Error</string>
   <string name="tracking_event_upgrade">Upgrade</string>
