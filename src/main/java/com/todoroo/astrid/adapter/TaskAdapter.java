@@ -23,15 +23,13 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
-import org.tasks.tasklist.ViewHolder;
-
 /**
  * Adapter for displaying a user's tasks as a list
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskAdapter extends CursorAdapter implements Filterable, ViewHolder.ViewHolderCallbacks {
+public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     public interface OnCompletedTaskListener {
         void onCompletedTask(Task item, boolean newState);
@@ -65,12 +63,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable, ViewHolder
 
     // --- instance variables
 
-    private final TaskListFragment fragment;
     private OnCompletedTaskListener onCompletedTaskListener = null;
 
-    public TaskAdapter(Context context, TaskListFragment fragment, Cursor c) {
+    public TaskAdapter(Context context, Cursor c) {
         super(context, c, false);
-        this.fragment = fragment;
     }
 
     @Override
@@ -126,12 +122,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable, ViewHolder
         }
     }
 
-    @Override
-    public void onClick(long id) {
-        fragment.onTaskListItemClicked(id);
-    }
-
-    @Override
     public void onCompletedTask(Task task, boolean newState) {
         if (onCompletedTaskListener != null) {
             onCompletedTaskListener.onCompletedTask(task, newState);

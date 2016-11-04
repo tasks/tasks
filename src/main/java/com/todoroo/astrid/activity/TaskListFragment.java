@@ -433,7 +433,7 @@ public class TaskListFragment extends InjectingFragment implements
     }
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return new TaskAdapter(context, this, cursor);
+        return new TaskAdapter(context, cursor);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
@@ -455,7 +455,7 @@ public class TaskListFragment extends InjectingFragment implements
 
         // set up list adapters
         taskAdapter = createTaskAdapter(currentCursor);
-        recyclerAdapter = new TaskListRecyclerAdapter(context, taskAdapter, viewHolderFactory);
+        recyclerAdapter = new TaskListRecyclerAdapter(context, taskAdapter, viewHolderFactory, this);
     }
 
     public Property<?>[] taskProperties() {

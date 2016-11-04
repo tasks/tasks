@@ -52,7 +52,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public interface ViewHolderCallbacks {
         void onCompletedTask(Task task, boolean newState);
 
-        void onClick(long id);
+        void onClick(ViewHolder viewHolder);
     }
 
     @BindView(R.id.row) public ViewGroup row;
@@ -294,11 +294,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         completeBox.setOnTouchListener(otl);
         completeBox.setOnClickListener(completeBoxListener);
 
-        rowBody.setOnClickListener(view -> {
-            if (!task.isDeleted()) {
-                callback.onClick(task.getId());
-            }
-        });
+        rowBody.setOnClickListener(view -> callback.onClick(this));
 
         if (taskActionContainer != null) {
             taskActionContainer.setOnClickListener(v -> {

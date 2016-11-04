@@ -50,7 +50,7 @@ class AstridOrderedListFragmentHelper {
     }
 
     TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor) {
-        taskAdapter = new DraggableTaskAdapter(context, fragment, cursor);
+        taskAdapter = new DraggableTaskAdapter(context, cursor);
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -59,8 +59,8 @@ class AstridOrderedListFragmentHelper {
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(Context context, TaskListFragment activity, Cursor c) {
-            super(context, activity, c);
+        private DraggableTaskAdapter(Context context, Cursor c) {
+            super(context, c);
         }
 
         @Override

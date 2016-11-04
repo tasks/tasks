@@ -9,23 +9,27 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
 
-public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> implements ViewHolder.ViewHolderCallbacks {
 
     private final Context context;
     private final TaskAdapter adapter;
     private final ViewHolderFactory viewHolderFactory;
+    private final TaskListFragment taskList;
     private final ItemTouchHelper itemTouchHelper;
 
-    public TaskListRecyclerAdapter(Context context, TaskAdapter adapter, ViewHolderFactory viewHolderFactory) {
+    public TaskListRecyclerAdapter(Context context, TaskAdapter adapter,
+                                   ViewHolderFactory viewHolderFactory, TaskListFragment taskList) {
         this.context = context;
         this.adapter = adapter;
         this.viewHolderFactory = viewHolderFactory;
+        this.taskList = taskList;
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback());
     }
 
@@ -38,7 +42,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewGroup view = (ViewGroup) LayoutInflater.from(context)
                 .inflate(R.layout.task_adapter_row_simple, parent, false);
-        return viewHolderFactory.newViewHolder(view, adapter);
+        return viewHolderFactory.newViewHolder(view, this);
     }
 
     @Override
@@ -52,6 +56,19 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public int getItemCount() {
         return adapter.getCount();
+    }
+
+    @Override
+    public void onCompletedTask(Task task, boolean newState) {
+        adapter.onCompletedTask(task, newState);
+    }
+
+    @Override
+    public void onClick(ViewHolder viewHolder) {
+        Task task = viewHolder.task;
+        if (!task.isDeleted()) {
+            taskList.onTaskListItemClicked(task.getId());
+        }
     }
 
     private class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
