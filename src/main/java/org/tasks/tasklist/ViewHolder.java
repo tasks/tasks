@@ -1,5 +1,6 @@
 package org.tasks.tasklist;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Paint;
@@ -119,6 +120,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         addListeners();
     }
 
+    @SuppressLint("NewApi")
     public void setIndent(int indent) {
         this.indent = indent;
         int indentSize = getIndentSize(indent);

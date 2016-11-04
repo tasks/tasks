@@ -113,7 +113,7 @@
     </style>
 
     <style name="task_list_container">
-        <item name="android:elevation">@dimen/elevation_refresh_indicator</item>
+        <item name="android:elevation" tools:ignore="NewApi">@dimen/elevation_refresh_indicator</item>
     </style>
 
     <style name="TextAppearance.Medium">

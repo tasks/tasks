@@ -31,13 +31,12 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.R.id.list;
 import static java.util.Arrays.asList;
 
 public class BeastModePreferences extends ThemedInjectingAppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(list) RecyclerView recyclerView;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
     private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v3"; //$NON-NLS-1$
 
