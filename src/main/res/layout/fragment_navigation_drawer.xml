@@ -16,6 +16,7 @@
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
         android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"
         android:clipToPadding="false"
         android:listSelector="?attr/selectableItemBackground"
         android:drawSelectorOnTop="true"
