@@ -257,20 +257,11 @@ public class TaskListFragment extends InjectingFragment implements
                 query = query.trim();
                 String title = getString(R.string.FLA_search_filter, query);
                 Filter savedFilter = new Filter(title,
-                        new QueryTemplate().where
-                                (Criterion.or(Task.NOTES.
-                                                        like(
-                                                                "%" + //$NON-NLS-1$
-                                                                        query + "%"
-                                                        ),
-                                                Task.TITLE.
-                                                        like(
-                                                                "%" + //$NON-NLS-1$
-                                                                        query + "%"
-                                                        )
-                                        )
-                                ));
-
+                        new QueryTemplate().where(Criterion.and(
+                                        Task.DELETION_DATE.eq(0),
+                                        Criterion.or(
+                                                Task.NOTES.like("%" + query + "%"),
+                                                Task.TITLE.like("%" + query + "%")))));
                 ((TaskListActivity) getActivity()).onFilterItemClicked(savedFilter);
                 MenuItemCompat.collapseActionView(item);
                 return true;
