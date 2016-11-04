@@ -43,12 +43,9 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
-import com.todoroo.astrid.subtasks.SubtasksListFragment;
-import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 
@@ -240,12 +237,9 @@ public class TaskListFragment extends InjectingFragment implements
         if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
             completed.setChecked(true);
         }
-        if (this instanceof GtasksSubtaskListFragment) {
+        if (taskAdapter.isManuallySorted()) {
             completed.setChecked(true);
             completed.setEnabled(false);
-        }
-
-        if (this instanceof SubtasksTagListFragment || this instanceof SubtasksListFragment || this instanceof GtasksSubtaskListFragment) {
             hidden.setChecked(true);
             hidden.setEnabled(false);
         }

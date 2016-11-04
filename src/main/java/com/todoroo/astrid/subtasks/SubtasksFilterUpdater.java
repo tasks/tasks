@@ -3,7 +3,6 @@ package com.todoroo.astrid.subtasks;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
@@ -73,10 +72,10 @@ public class SubtasksFilterUpdater {
         String query = filter.getSqlQuery();
 
         query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY %s, %s, %s",
-                Task.DELETION_DATE, getOrderString(), Task.CREATION_DATE);
-        query = query.replace(TaskDao.TaskCriteria.isVisible().toString(),
-                Criterion.all.toString());
+        query = query + String.format(" ORDER BY %s", getOrderString());
+        query = query.replace(
+                TaskDao.TaskCriteria.activeAndVisible().toString(),
+                TaskDao.TaskCriteria.notDeleted().toString());
 
         filter.setFilterQueryOverride(query);
     }
@@ -122,6 +121,9 @@ public class SubtasksFilterUpdater {
         Set<String> idsInQuery = new HashSet<>();
         String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", "");  //$NON-NLS-1$//$NON-NLS-2$
         sql = sql + String.format(" ORDER BY %s", Task.CREATION_DATE); //$NON-NLS-1$
+        sql = sql.replace(
+                TaskDao.TaskCriteria.activeAndVisible().toString(),
+                TaskDao.TaskCriteria.notDeleted().toString());
         TodorooCursor<Task> tasks = taskDao.fetchFiltered(sql, Task.UUID);
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
