@@ -416,4 +416,5 @@
 	<string name="creating_new_list">新しいリストを作成中</string>
 	<string name="deleting_list">リストの削除中</string>
 	<string name="renaming_list">リストの名前を変更中</string>
+	<string name="clear_completed_tasks_confirmation">完了したタスクをクリアしますか?</string>
 </resources>

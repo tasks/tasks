@@ -309,6 +309,7 @@
 	<string name="discard_changes">Отменить изменения?</string>
 	<string name="discard">Не сохранять</string>
 	<string name="tag_settings">Настройки тегов</string>
+	<string name="list_settings">Настройки списка</string>
 	<string name="delete">Удалить</string>
 	<string name="filter_settings">Настройки фильтра</string>
 	<string name="show_hidden">Показать скрытые</string>
@@ -411,4 +412,7 @@
 	<string name="notification_shade">Тень уведомления</string>
 	<string name="notification_description">Показать описание задачи</string>
 	<string name="sync_error_permissions">Запрашиваемые разрешения</string>
+	<string name="creating_new_list">Создание нового списка</string>
+	<string name="deleting_list">Удаление списка</string>
+	<string name="renaming_list">Переименование списка</string>
 </resources>

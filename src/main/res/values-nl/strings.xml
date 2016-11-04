@@ -305,6 +305,7 @@
 	<string name="discard_changes">Negeer veranderingen?</string>
 	<string name="discard">Negeer</string>
 	<string name="tag_settings">Label Instellingen</string>
+	<string name="list_settings">Lijst instellingen</string>
 	<string name="delete">Verwijder</string>
 	<string name="filter_settings">Filter instellingen</string>
 	<string name="show_hidden">Toon verborgen</string>
@@ -402,4 +403,7 @@
 	<string name="notification_shade">Notificatie schaduw</string>
 	<string name="notification_description">Toon taak omschrijving</string>
 	<string name="sync_error_permissions">Tasks vereist permissie</string>
+	<string name="creating_new_list">Nieuwe lijst aanmaken</string>
+	<string name="deleting_list">Verwijder lijst</string>
+	<string name="renaming_list">Hernoem lijst</string>
 </resources>
