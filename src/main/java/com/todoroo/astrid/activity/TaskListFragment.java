@@ -16,6 +16,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -26,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
@@ -60,8 +61,9 @@ import org.tasks.dialogs.SortDialog;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.injection.InjectingListFragment;
+import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.Preferences;
+import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolder;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
@@ -83,9 +85,8 @@ import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListFragment extends InjectingListFragment implements
-        SwipeRefreshLayout.OnRefreshListener,
-        Toolbar.OnMenuItemClickListener {
+public class TaskListFragment extends InjectingFragment implements
+        SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
 
     public static TaskListFragment newTaskListFragment(Filter filter) {
         TaskListFragment fragment = new TaskListFragment();
@@ -124,11 +125,13 @@ public class TaskListFragment extends InjectingListFragment implements
     @Inject ViewHolderFactory viewHolderFactory;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyView;
+    @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyRefreshLayout;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.task_list_coordinator) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
     private TaskAdapter taskAdapter = null;
+    private TaskListRecyclerAdapter recyclerAdapter;
     private final RefreshReceiver refreshReceiver = new RefreshReceiver();
     private TaskListFragmentCallbackHandler callbacks;
 
@@ -152,7 +155,7 @@ public class TaskListFragment extends InjectingListFragment implements
         if (activity != null) {
             activity.runOnUiThread(() -> {
                 swipeRefreshLayout.setRefreshing(ongoing);
-                emptyView.setRefreshing(ongoing);
+                emptyRefreshLayout.setRefreshing(ongoing);
             });
         }
     }
@@ -177,15 +180,6 @@ public class TaskListFragment extends InjectingListFragment implements
     @Override
     public void inject(FragmentComponent component) {
         component.inject(this);
-    }
-
-    /**
-     * @return view to attach to the body of the task list. must contain two
-     *         elements, a view with id android:id/empty and a list view with id
-     *         android:id/list. It should NOT be attached to root
-     */
-    protected int getListBody() {
-        return R.layout.task_list_body_standard;
     }
 
     /** Called when loading up the activity */
@@ -215,12 +209,9 @@ public class TaskListFragment extends InjectingListFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View parent = inflater.inflate(R.layout.fragment_task_list, container, false);
-        ((ViewGroup) parent.findViewById(R.id.task_list_body)).addView(inflater.inflate(getListBody(), null), 0);
         ButterKnife.bind(this, parent);
         setupRefresh(swipeRefreshLayout);
-        setupRefresh(emptyView);
-        ListView listView = (ListView) swipeRefreshLayout.findViewById(android.R.id.list);
-        listView.setEmptyView(emptyView);
+        setupRefresh(emptyRefreshLayout);
 
         toolbar.setTitle(filter.listingTitle);
         toolbar.setNavigationIcon(R.drawable.ic_menu_24dp);
@@ -334,15 +325,6 @@ public class TaskListFragment extends InjectingListFragment implements
         return taskCreator.createWithValues(filter.valuesForNewTasks, title);
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        ListView listView = getListView();
-        View footer = getActivity().getLayoutInflater().inflate(R.layout.task_list_footer, listView, false);
-        listView.addFooterView(footer, null, false);
-    }
-
     private void setupRefresh(SwipeRefreshLayout layout) {
         layout.setOnRefreshListener(this);
         layout.setColorSchemeColors(checkBoxes.getPriorityColorsArray());
@@ -352,43 +334,21 @@ public class TaskListFragment extends InjectingListFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
-        final ListView listView = getListView();
-        registerForContextMenu(listView);
+//        registerForContextMenu(recyclerView);
 
         filter.setFilterQueryOverride(null);
 
-        setListAdapter(taskAdapter);
+        recyclerAdapter.applyToRecyclerView(recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         loadTaskListContent();
 
         if (getResources().getBoolean(R.bool.two_pane_layout)) {
             // In dual-pane mode, the list view highlights the selected item.
-            listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            listView.setItemsCanFocus(false);
+//            listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//            listView.setItemsCanFocus(false);
         }
-
-        if (this instanceof SubtasksListFragment || this instanceof SubtasksTagListFragment || this instanceof GtasksSubtaskListFragment) {
-            return;
-        }
-
-        listView.setOnItemClickListener((parent, view, position, id) -> {
-            if (taskAdapter != null) {
-                TodorooCursor<Task> cursor = (TodorooCursor<Task>) taskAdapter.getItem(position);
-                Task task = new Task(cursor);
-                if (task.isDeleted()) {
-                    return;
-                }
-
-                onTaskListItemClicked(id);
-            }
-        });
     }
-
-    /*
-     * ======================================================================
-     * ============================================================ lifecycle
-     * ======================================================================
-     */
 
     @Override
     public void onResume() {
@@ -462,19 +422,23 @@ public class TaskListFragment extends InjectingListFragment implements
         Cursor taskCursor = taskAdapter.getCursor();
 
         taskCursor.requery();
-        taskAdapter.notifyDataSetChanged();
+        recyclerAdapter.notifyDataSetChanged();
+        if (recyclerAdapter.getItemCount() == 0) {
+            swipeRefreshLayout.setVisibility(View.GONE);
+            emptyRefreshLayout.setVisibility(View.VISIBLE);
+        } else {
+            swipeRefreshLayout.setVisibility(View.VISIBLE);
+            emptyRefreshLayout.setVisibility(View.GONE);
+        }
     }
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-
-        return new TaskAdapter(context, taskDao, this, cursor,
-                taskListDataProvider.getSqlQueryTemplate(), viewHolderFactory);
+        return new TaskAdapter(context, this, cursor);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
 
     public  static final String FILE_METADATA_JOIN = "for_actions"; //$NON-NLS-1$
-
 
     /**
      * Fill in the Task List with current items
@@ -491,6 +455,7 @@ public class TaskListFragment extends InjectingListFragment implements
 
         // set up list adapters
         taskAdapter = createTaskAdapter(currentCursor);
+        recyclerAdapter = new TaskListRecyclerAdapter(context, taskAdapter, viewHolderFactory);
     }
 
     public Property<?>[] taskProperties() {
@@ -500,8 +465,6 @@ public class TaskListFragment extends InjectingListFragment implements
     public Filter getFilter() {
         return filter;
     }
-
-
 
     public void reconstructCursor() {
         TodorooCursor<Task> cursor = taskListDataProvider.constructCursor(filter, taskProperties());
@@ -558,13 +521,13 @@ public class TaskListFragment extends InjectingListFragment implements
         timerPlugin.stopTimer(task);
     }
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        if (getResources().getBoolean(R.bool.two_pane_layout)) {
-            setSelection(position);
-        }
-    }
+//    @Override
+//    public void onListItemClick(ListView l, View v, int position, long id) {
+//        super.onListItemClick(l, v, position, id);
+//        if (getResources().getBoolean(R.bool.two_pane_layout)) {
+//            setSelection(position);
+//        }
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

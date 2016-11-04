@@ -133,7 +133,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
                 save();
             }
         });
-        toolbar.inflateMenu(R.menu.task_edit_fragment);
+        toolbar.inflateMenu(R.menu.menu_task_edit_fragment);
         toolbar.setOnMenuItemClickListener(this);
         MenuColorizer.colorToolbar(context, toolbar);
 

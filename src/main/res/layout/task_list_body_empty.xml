@@ -4,12 +4,13 @@
     style="@style/task_list_container"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:elevation="@dimen/elevation_task_list"
     tools:ignore="UnusedAttribute">
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/elevation_task_list"
+        android:background="?attr/asWindowBackground">
 
         <LinearLayout
             android:layout_width="wrap_content"

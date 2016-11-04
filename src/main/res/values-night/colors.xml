@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_color">@color/md_background_dark</color>
-    <color name="background_color_dialog">@color/md_background_dark_dialog</color>
+    <color name="window_background">@color/md_background_dark</color>
+    <color name="content_background">@color/grey_800</color>
+    <color name="dialog_background">@color/grey_800</color>
     <color name="icon_tint">@color/icon_tint_dark</color>
     <color name="drawer_color">@color/drawer_background_dark</color>
     <color name="drawer_color_selected">@color/drawer_background_dark_selected</color>

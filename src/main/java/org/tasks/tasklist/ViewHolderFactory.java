@@ -30,6 +30,7 @@ public class ViewHolderFactory {
     private final TaskDao taskDao;
     private final DialogBuilder dialogBuilder;
     private final int minRowHeight;
+    private final DisplayMetrics metrics;
 
     @Inject
     public ViewHolderFactory(@ForActivity Context context, Preferences preferences,
@@ -45,18 +46,13 @@ public class ViewHolderFactory {
         textColorOverdue = getColor(context, R.color.overdue);
         showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
         fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
-        tagFormatter.updateTagMap();
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        metrics = context.getResources().getDisplayMetrics();
         minRowHeight = (int) (metrics.density * 40);
     }
 
-    public ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.OnCompletedTaskCallback onCompletedTaskCallback) {
+    ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks) {
         return new ViewHolder(context, viewGroup, showFullTaskTitle, fontSize, checkBoxes,
                 tagFormatter, textColorOverdue, textColorSecondary, textColorHint, taskDao,
-                dialogBuilder, onCompletedTaskCallback, minRowHeight);
-    }
-
-    public void updateTagMap() {
-        tagFormatter.updateTagMap();
+                dialogBuilder, callbacks, minRowHeight, metrics);
     }
 }

@@ -23,14 +23,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="?attr/asWindowBackground"
+            android:elevation="@dimen/elevation_task_list">
 
             <FrameLayout
-                android:id="@+id/task_list_body"
-                style="@style/task_list_container"
+                android:layout_weight="100"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="100">
+                android:layout_height="match_parent">
+
+                <include layout="@layout/task_list_body_standard" />
 
                 <include layout="@layout/task_list_body_empty" />
 
@@ -39,7 +41,6 @@
             <View style="@style/vertical_divider" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 

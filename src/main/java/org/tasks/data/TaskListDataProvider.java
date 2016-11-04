@@ -39,10 +39,6 @@ public class TaskListDataProvider {
         this.preferences = preferences;
     }
 
-    public AtomicReference<String> getSqlQueryTemplate() {
-        return sqlQueryTemplate;
-    }
-
     public TodorooCursor<Task> constructCursor(Filter filter, Property<?>[] properties) {
         Criterion tagsJoinCriterion = Criterion.and(
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY), //$NON-NLS-1$

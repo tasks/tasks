@@ -128,6 +128,10 @@ public final class TagService {
         return tagList;
     }
 
+    public TagData getTagByUuid(String uuid) {
+        return tagDataDao.getByUuid(uuid);
+    }
+
     /**
      * If a tag already exists in the database that case insensitively matches the
      * given tag, return that. Otherwise, return the argument

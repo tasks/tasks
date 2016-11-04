@@ -1,13 +1,8 @@
 package com.todoroo.astrid.subtasks;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.ListView;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -21,20 +16,11 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.ui.DraggableListView;
-import com.todoroo.astrid.ui.DraggableListView.DropListener;
-import com.todoroo.astrid.ui.DraggableListView.GrabberClickListener;
-import com.todoroo.astrid.ui.DraggableListView.SwipeListener;
-
-import org.tasks.R;
-import org.tasks.tasklist.ViewHolder;
-import org.tasks.tasklist.ViewHolderFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
@@ -42,131 +28,29 @@ import timber.log.Timber;
 
 class AstridOrderedListFragmentHelper {
 
-    private final DisplayMetrics metrics = new DisplayMetrics();
     private final SubtasksFilterUpdater updater;
     private final TaskDao taskDao;
-    private final ViewHolderFactory viewHolderFactory;
 
     private DraggableTaskAdapter taskAdapter;
     private TaskListFragment fragment;
     private TaskListMetadata list;
 
     @Inject
-    AstridOrderedListFragmentHelper(SubtasksFilterUpdater updater, TaskDao taskDao, ViewHolderFactory viewHolderFactory) {
+    AstridOrderedListFragmentHelper(SubtasksFilterUpdater updater, TaskDao taskDao) {
         this.updater = updater;
         this.taskDao = taskDao;
-        this.viewHolderFactory = viewHolderFactory;
     }
 
     void setTaskListFragment(TaskListFragment fragment) {
         this.fragment = fragment;
     }
 
-    // --- ui component setup
-
-    private Activity getActivity() {
-        return fragment.getActivity();
-    }
-
-    private ListView getListView() {
-        return fragment.getListView();
-    }
-
-    private Filter getFilter() {
-        return fragment.getFilter();
-    }
-
-    void setUpUiComponents() {
-        TypedValue tv = new TypedValue();
-        getActivity().getTheme().resolveAttribute(R.attr.colorAccent, tv, false);
-        DraggableListView draggableListView = (DraggableListView) fragment.getListView();
-        draggableListView.setDragndropBackgroundColor(tv.data);
-        draggableListView.setDropListener(dropListener);
-        draggableListView.setClickListener(rowClickListener);
-        draggableListView.setSwipeListener(swipeListener);
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    }
-
     void beforeSetUpTaskList(Filter filter) {
         updater.initialize(list, filter);
     }
 
-    private final DropListener dropListener = new DropListener() {
-        @Override
-        public void drop(int from, int to) {
-            String targetTaskId = taskAdapter.getItemUuid(from);
-            if (!RemoteModel.isValidUuid(targetTaskId)) {
-                return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
-            }
-            String destinationTaskId = taskAdapter.getItemUuid(to);
-
-            try {
-                if(to >= getListView().getCount()) {
-                    updater.moveTo(list, getFilter(), targetTaskId, "-1"); //$NON-NLS-1$
-                } else {
-                    updater.moveTo(list, getFilter(), targetTaskId, destinationTaskId);
-                }
-            } catch (Exception e) {
-                Timber.e(e, e.getMessage());
-            }
-
-            fragment.reconstructCursor();
-            fragment.loadTaskListContent();
-        }
-    };
-
-    private final SwipeListener swipeListener = new SwipeListener() {
-        @Override
-        public void swipeRight(int which) {
-            indent(which, 1);
-        }
-
-        @Override
-        public void swipeLeft(int which) {
-            indent(which, -1);
-        }
-
-        void indent(int which, int delta) {
-            String targetTaskId = taskAdapter.getItemUuid(which);
-            if (!RemoteModel.isValidUuid(targetTaskId)) {
-                return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
-            }
-            try {
-                updater.indent(list, getFilter(), targetTaskId, delta);
-            } catch (Exception e) {
-                Timber.e(e, e.getMessage());
-            }
-
-            fragment.reconstructCursor();
-            fragment.loadTaskListContent();
-        }
-    };
-
-    private final GrabberClickListener rowClickListener = new GrabberClickListener() {
-        @Override
-        public void onLongClick(final View v) {
-            if(v == null) {
-                return;
-            }
-
-            fragment.registerForContextMenu(getListView());
-            getListView().showContextMenuForChild(v);
-            fragment.unregisterForContextMenu(getListView());
-        }
-
-        @Override
-        public void onClick(View v) {
-            if(v == null) {
-                return;
-            }
-            taskAdapter.onClick(v);
-        }
-    };
-
-    TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor,
-            AtomicReference<String> sqlQueryTemplate) {
-
-        taskAdapter = new DraggableTaskAdapter(context, fragment, cursor, sqlQueryTemplate);
+    TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor) {
+        taskAdapter = new DraggableTaskAdapter(context, fragment, cursor);
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -175,15 +59,63 @@ class AstridOrderedListFragmentHelper {
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(Context context, TaskListFragment activity, Cursor c,
-                                     AtomicReference<String> query) {
-            super(context, taskDao, activity, c, query, viewHolderFactory);
+        private DraggableTaskAdapter(Context context, TaskListFragment activity, Cursor c) {
+            super(context, activity, c);
         }
 
         @Override
-        protected void adjustView(ViewHolder vh) {
-            int indent = updater.getIndentForTask(vh.task.getUuid());
-            vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
+        public int getIndent(Task task) {
+            return updater.getIndentForTask(task.getUuid());
+        }
+
+        @Override
+        public boolean canIndent(int position, Task task) {
+            String parentUuid = taskAdapter.getItemUuid(position - 1);
+            int parentIndent = updater.getIndentForTask(parentUuid);
+            return getIndent(task) <= parentIndent;
+        }
+
+        @Override
+        public boolean isManuallySorted() {
+            return true;
+        }
+
+        @Override
+        public void moved(int from, int to) {
+            String targetTaskId = taskAdapter.getItemUuid(from);
+            if (!RemoteModel.isValidUuid(targetTaskId)) {
+                return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            }
+            String destinationTaskId = taskAdapter.getItemUuid(to);
+
+            try {
+                if(to >= taskAdapter.getCount()) {
+                    updater.moveTo(list, fragment.getFilter(), targetTaskId, "-1"); //$NON-NLS-1$
+                } else {
+                    updater.moveTo(list, fragment.getFilter(), targetTaskId, destinationTaskId);
+                }
+            } catch (Exception e) {
+                Timber.e(e, e.getMessage());
+            }
+
+            fragment.reconstructCursor();
+            fragment.loadTaskListContent();
+        }
+
+        @Override
+        public void indented(int which, int delta) {
+            String targetTaskId = taskAdapter.getItemUuid(which);
+            if (!RemoteModel.isValidUuid(targetTaskId)) {
+                return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+            }
+            try {
+                updater.indent(list, fragment.getFilter(), targetTaskId, delta);
+            } catch (Exception e) {
+                Timber.e(e, e.getMessage());
+            }
+
+            fragment.reconstructCursor();
+            fragment.loadTaskListContent();
         }
     }
 
@@ -250,13 +182,13 @@ class AstridOrderedListFragmentHelper {
     }
 
     void onCreateTask(String uuid) {
-        updater.onCreateTask(list, getFilter(), uuid);
+        updater.onCreateTask(list, fragment.getFilter(), uuid);
         fragment.reconstructCursor();
         fragment.loadTaskListContent();
     }
 
     void onDeleteTask(Task task) {
-        updater.onDeleteTask(list, getFilter(), task.getUuid());
+        updater.onDeleteTask(list, fragment.getFilter(), task.getUuid());
         taskAdapter.notifyDataSetInvalidated();
     }
 }

@@ -15,7 +15,9 @@
         android:layout_height="0dp"
         android:layout_weight="100"
         android:background="?attr/asContentBackground"
-        android:overScrollMode="never">
+        android:elevation="0dp"
+        android:overScrollMode="never"
+        android:scrollbarStyle="outsideOverlay">
 
         <LinearLayout
             android:id="@+id/control_sets"
@@ -95,6 +97,7 @@
 
     <FrameLayout
         android:id="@+id/comment_bar"
+        android:elevation="@dimen/elevation_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

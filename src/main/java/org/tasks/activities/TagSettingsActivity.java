@@ -109,7 +109,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
                 save();
             }
         });
-        toolbar.inflateMenu(R.menu.tag_settings_activity);
+        toolbar.inflateMenu(R.menu.menu_tag_settings);
         toolbar.setOnMenuItemClickListener(this);
         toolbar.showOverflowMenu();
 

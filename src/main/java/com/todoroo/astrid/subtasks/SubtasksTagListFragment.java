@@ -20,7 +20,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 
-import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.tasklist.TagListFragment;
@@ -42,25 +41,11 @@ public class SubtasksTagListFragment extends TagListFragment {
     @Inject Theme theme;
     @Inject AstridOrderedListFragmentHelper helper;
 
-    private int lastVisibleIndex = -1;
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
         helper.setTaskListFragment(this);
-    }
-
-    @Override
-    protected int getListBody() {
-        return R.layout.task_list_body_subtasks;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        helper.setUpUiComponents();
     }
 
     @Override
@@ -79,21 +64,6 @@ public class SubtasksTagListFragment extends TagListFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        lastVisibleIndex = getListView().getFirstVisiblePosition();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (lastVisibleIndex >= 0) {
-            getListView().setSelection(lastVisibleIndex);
-        }
-        unregisterForContextMenu(getListView());
-    }
-
-    @Override
     public void onTaskCreated(String uuid) {
         helper.onCreateTask(uuid);
     }
@@ -106,7 +76,7 @@ public class SubtasksTagListFragment extends TagListFragment {
 
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return helper.createTaskAdapter(theme.wrap(context), cursor, taskListDataProvider.getSqlQueryTemplate());
+        return helper.createTaskAdapter(theme.wrap(context), cursor);
     }
 
     @Override

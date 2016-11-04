@@ -97,13 +97,6 @@ public class TagListFragment extends TaskListFragment {
     }
 
     @Override
-    public void onActivityCreated(final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        getListView().setOnKeyListener(null);
-    }
-
-    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 

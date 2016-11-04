@@ -8,8 +8,6 @@ package com.todoroo.astrid.gtasks;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -18,7 +16,6 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.Task;
 
-import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.tasklist.GtasksListFragment;
@@ -41,8 +38,6 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
     @Inject @ForApplication Context context;
     @Inject Theme theme;
     @Inject OrderedMetadataListFragmentHelper helper;
-
-    private int lastVisibleIndex = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,18 +69,6 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
     }
 
     @Override
-    protected int getListBody() {
-        return R.layout.task_list_body_subtasks;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        helper.setUpUiComponents();
-    }
-
-    @Override
     public void setTaskAdapter() {
         helper.setList(list);
         helper.beforeSetUpTaskList(filter);
@@ -94,24 +77,8 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        lastVisibleIndex = getListView().getFirstVisiblePosition();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ListView listView = getListView();
-        if (lastVisibleIndex >= 0) {
-            listView.setSelection(lastVisibleIndex);
-        }
-        unregisterForContextMenu(listView);
-    }
-
-    @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return helper.createTaskAdapter(theme.wrap(context), cursor, taskListDataProvider.getSqlQueryTemplate());
+        return helper.createTaskAdapter(theme.wrap(context), cursor);
     }
 
     @Override

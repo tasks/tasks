@@ -46,16 +46,13 @@ public class TagFormatter {
         TypedValue typedValue = new TypedValue();
         context.getResources().getValue(R.dimen.tag_characters, typedValue, true);
         tagCharacters = typedValue.getFloat();
-    }
 
-    public void updateTagMap() {
-        tagMap.clear();
         for (TagData tagData : tagService.getTagList()) {
             tagMap.put(tagData.getUuid(), tagData);
         }
     }
 
-    public CharSequence getTagString(List<String> tagUuids) {
+    CharSequence getTagString(List<String> tagUuids) {
         Iterable<TagData> t = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
         List<TagData> firstFourByName = orderByName.leastOf(t, 4);
         int numTags = firstFourByName.size();
@@ -99,7 +96,16 @@ public class TagFormatter {
         };
     }
 
-    private final Function<String, TagData> uuidToTag = tagMap::get;
+    private TagData getTag(String uuid) {
+        TagData tagData = tagMap.get(uuid);
+        if (tagData == null) {
+            tagData = tagService.getTagByUuid(uuid);
+            tagMap.put(uuid, tagData);
+        }
+        return tagData;
+    }
+
+    private final Function<String, TagData> uuidToTag = this::getTag;
 
     private final Ordering<TagData> orderByName = new Ordering<TagData>() {
         @Override

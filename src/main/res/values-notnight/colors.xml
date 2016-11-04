@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_color">@color/md_background_light</color>
-    <color name="background_color_dialog">@color/md_background_light_dialog</color>
+    <color name="window_background">@color/grey_50</color>
+    <color name="content_background">@android:color/white</color>
+    <color name="dialog_background">@android:color/white</color>
     <color name="icon_tint">@color/icon_tint_light</color>
     <color name="drawer_color">@color/drawer_background_light</color>
     <color name="drawer_color_selected">@color/drawer_background_light_selected</color>

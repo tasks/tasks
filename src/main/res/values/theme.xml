@@ -4,7 +4,8 @@
     <style name="Tasks" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@null</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="asContentBackground">@color/background_color</item>
+        <item name="asWindowBackground">@color/window_background</item>
+        <item name="asContentBackground">@color/content_background</item>
         <item name="asTextColor">@color/text_primary</item>
         <item name="asTextColorHint">@color/text_tertiary</item>
         <item name="icon_tint">@color/icon_tint</item>
@@ -22,32 +23,36 @@
         <item name="nnf_separator_color">@color/nnf_light_separator_color</item>
         <item name="nnf_save_icon_color">?attr/colorAccent</item>
         <item name="nnf_dir_icon_color">?attr/colorAccent</item>
+        <item name="card_elevation">2dp</item>
     </style>
 
     <style name="TasksOverride" parent="Tasks">
     </style>
 
     <style name="TasksDialogAlert" parent="@style/Theme.AppCompat.DayNight.Dialog.Alert">
-        <item name="android:windowBackground">@color/background_color_dialog</item>
+        <item name="android:windowBackground">@color/dialog_background</item>
         <item name="colorAccent">?attr/colorAccentDialog</item>
         <item name="asTextColor">@color/text_primary</item>
         <item name="icon_tint">@color/icon_tint</item>
     </style>
 
     <style name="TasksDialog" parent="@style/Theme.AppCompat.DayNight.Dialog">
-        <item name="android:windowBackground">@color/background_color_dialog</item>
+        <item name="android:windowBackground">@color/dialog_background</item>
         <item name="colorAccent">?attr/colorAccentDialog</item>
         <item name="asTextColor">@color/text_primary</item>
         <item name="icon_tint">@color/icon_tint</item>
     </style>
 
     <style name="ThemeBlack" parent="TasksOverride">
+        <item name="asWindowBackground">@color/grey_900</item>
         <item name="asContentBackground">@android:color/black</item>
     </style>
 
     <style name="Wallpaper" parent="TasksOverride">
-        <item name="asContentBackground">@color/black_38</item>
+        <item name="asWindowBackground">@color/black_38</item>
+        <item name="asContentBackground">@color/black_54</item>
         <item name="android:windowShowWallpaper">true</item>
+        <item name="card_elevation">0dp</item>
     </style>
 
 </resources>

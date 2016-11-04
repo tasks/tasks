@@ -25,11 +25,11 @@ public class ThemeCache {
     public ThemeCache(Context context) {
         Resources resources = context.getResources();
 
-        themes.add(new ThemeBase(context.getString(R.string.theme_light), 0, getColor(context, R.color.md_background_light), AppCompatDelegate.MODE_NIGHT_NO));
+        themes.add(new ThemeBase(context.getString(R.string.theme_light), 0, getColor(context, R.color.grey_50), AppCompatDelegate.MODE_NIGHT_NO));
         themes.add(new ThemeBase(context.getString(R.string.theme_black), 1, getColor(context, R.color.widget_background_black), AppCompatDelegate.MODE_NIGHT_YES));
         themes.add(new ThemeBase(context.getString(R.string.theme_dark), 2, getColor(context, R.color.md_background_dark), AppCompatDelegate.MODE_NIGHT_YES));
         themes.add(new ThemeBase(context.getString(R.string.theme_wallpaper), 3, getColor(context, R.color.black_38), AppCompatDelegate.MODE_NIGHT_YES));
-        themes.add(new ThemeBase(context.getString(R.string.theme_day_night), 4, getColor(context, R.color.md_background_light), AppCompatDelegate.MODE_NIGHT_AUTO));
+        themes.add(new ThemeBase(context.getString(R.string.theme_day_night), 4, getColor(context, R.color.grey_50), AppCompatDelegate.MODE_NIGHT_AUTO));
 
         String[] colorNames = resources.getStringArray(R.array.colors);
         for (int i = 0 ; i < ThemeColor.COLORS.length ; i++) {

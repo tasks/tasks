@@ -70,7 +70,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
                 save();
             }
         });
-        toolbar.inflateMenu(R.menu.tag_settings_activity);
+        toolbar.inflateMenu(R.menu.menu_tag_settings);
         toolbar.setOnMenuItemClickListener(this);
         MenuColorizer.colorToolbar(this, toolbar);
 

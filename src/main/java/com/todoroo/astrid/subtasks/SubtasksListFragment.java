@@ -7,10 +7,7 @@ package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.ListView;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -22,7 +19,6 @@ import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 
-import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
@@ -44,8 +40,6 @@ public class SubtasksListFragment extends TaskListFragment {
         return fragment;
     }
 
-    private int lastVisibleIndex = -1;
-
     @Inject Preferences preferences;
     @Inject @ForApplication Context context;
     @Inject TaskListMetadataDao taskListMetadataDao;
@@ -58,18 +52,6 @@ public class SubtasksListFragment extends TaskListFragment {
         super.onAttach(activity);
 
         helper.setTaskListFragment(this);
-    }
-
-    @Override
-    protected int getListBody() {
-        return R.layout.task_list_body_subtasks;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        helper.setUpUiComponents();
     }
 
     @Override
@@ -109,22 +91,6 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        lastVisibleIndex = getListView().getFirstVisiblePosition();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ListView listView = getListView();
-        if (lastVisibleIndex >= 0) {
-            listView.setSelection(lastVisibleIndex);
-        }
-        unregisterForContextMenu(listView);
-    }
-
-    @Override
     public void onTaskCreated(String uuid) {
         helper.onCreateTask(uuid);
     }
@@ -137,7 +103,7 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return helper.createTaskAdapter(theme.wrap(context), cursor, taskListDataProvider.getSqlQueryTemplate());
+        return helper.createTaskAdapter(theme.wrap(context), cursor);
     }
 
     @Override
