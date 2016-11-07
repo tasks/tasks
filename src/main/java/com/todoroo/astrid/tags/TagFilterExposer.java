@@ -44,7 +44,7 @@ public class TagFilterExposer {
     }
 
     /** Create filter from new tag object */
-    public static TagFilter filterFromTag(TagData tag) {
+    private static TagFilter filterFromTag(TagData tag) {
         if (tag == null || Strings.isNullOrEmpty(tag.getName())) {
             return null;
         }

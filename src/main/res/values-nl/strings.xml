@@ -103,7 +103,6 @@
 	<string name="EPr_cal_end_at_due_time">Agenda item op tijd afronden</string>
 	<string name="EPr_cal_start_at_due_time">Agenda item op tijd starten</string>
 	<string name="EPr_manage_header">Oude taken beheren</string>
-	<string name="EPr_manage_delete_completed_status">%d taken verwijderd!</string>
 	<string name="EPr_manage_purge_deleted">Verwijderde taken opruimen</string>
 	<string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
 	<string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeruimd!</string>

@@ -51,7 +51,7 @@ public class Theme {
     }
 
     public void applyStatusBarColor(Activity activity) {
-        themeColor.applyStatusBarColor(activity);
+        themeColor.applyToStatusBar(activity);
         themeColor.applyTaskDescription(activity, activity.getString(R.string.app_name));
     }
 
@@ -71,9 +71,5 @@ public class Theme {
         ContextThemeWrapper wrapper = themeBase.wrap(context);
         applyToContext(wrapper);
         return wrapper;
-    }
-
-    public Theme withColor(ThemeColor themeColor) {
-        return new Theme(themeBase, themeColor, themeAccent);
     }
 }

@@ -18,7 +18,7 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 public class ThemeColor {
 
-    public static final int[] COLORS = new int[] {
+    static final int[] COLORS = new int[] {
             R.style.BlueGrey,
             R.style.DarkGrey,
             R.style.Red,
@@ -58,10 +58,9 @@ public class ThemeColor {
     }
 
     @SuppressLint("NewApi")
-    public void applyStatusBarColor(Activity activity) {
-        if (atLeastLollipop()) {
-            activity.getWindow().setStatusBarColor(getColorPrimaryDark());
-        }
+    public void applyToStatusBar(Activity activity) {
+        setStatusBarColor(activity);
+
         if (atLeastMarshmallow()) {
             View decorView = activity.getWindow().getDecorView();
             int systemUiVisibility = applyLightStatusBarFlag(decorView.getSystemUiVisibility());
@@ -69,8 +68,14 @@ public class ThemeColor {
         }
     }
 
+    public void setStatusBarColor(Activity activity) {
+        if (atLeastLollipop()) {
+            activity.getWindow().setStatusBarColor(getColorPrimaryDark());
+        }
+    }
+
     @SuppressLint("NewApi")
-    public void applyStatusBarColor(DrawerLayout drawerLayout) {
+    public void applyToStatusBar(DrawerLayout drawerLayout) {
         if (atLeastLollipop()) {
             drawerLayout.setStatusBarBackgroundColor(getColorPrimaryDark());
         }
@@ -110,7 +115,7 @@ public class ThemeColor {
         return actionBarTint;
     }
 
-    private int getColorPrimaryDark() {
+    public int getColorPrimaryDark() {
         return colorPrimaryDark;
     }
 

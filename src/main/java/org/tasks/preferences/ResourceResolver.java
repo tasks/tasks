@@ -10,4 +10,10 @@ public class ResourceResolver {
         context.getTheme().resolveAttribute(attr, typedValue, true);
         return typedValue.data;
     }
+
+    @Deprecated public static int getResourceId(Context context, int attr) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(attr, typedValue, true);
+        return typedValue.resourceId;
+    }
 }

@@ -297,6 +297,8 @@
   <string name="tracking_event_play_services_error">Play Services Error</string>
   <string name="tracking_event_upgrade">Upgrade</string>
   <string name="tracking_event_legacy_tasker_trigger">Legacy Tasker</string>
+  <string name="tracking_event_multiselect_delete">Multiselect delete</string>
+  <string name="tracking_event_multiselect_clone">Multiselect clone</string>
   <string name="p_tesla_unread_enabled">tesla_unread_enabled</string>
   <string name="p_purchased_tesla_unread">purchased_tesla_unread</string>
   <string name="p_purchased_tasker">purchased_tasker</string>

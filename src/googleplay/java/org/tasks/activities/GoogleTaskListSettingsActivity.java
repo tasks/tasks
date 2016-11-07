@@ -58,8 +58,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
     public static final String EXTRA_STORE_DATA = "extra_store_data";
     public static final String ACTION_DELETED = "action_deleted";
-    public static final String ACTION_RENAMED = "action_renamed";
-    public static final String ACTION_THEME_CHANGED = "action_theme_changed";
+    public static final String ACTION_RELOAD = "action_reload";
 
     private boolean isNewList;
     private GtasksList gtasksList;
@@ -174,7 +173,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
             if (colorChanged()) {
                 gtasksList.setColor(selectedTheme);
                 storeObjectDao.persist(gtasksList);
-                setResult(RESULT_OK, new Intent(ACTION_THEME_CHANGED).putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+                setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
             }
             finish();
         }
@@ -269,7 +268,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         gtasksList.setName(taskList.getTitle());
         gtasksList.setColor(selectedTheme);
         storeObjectDao.persist(gtasksList);
-        setResult(RESULT_OK, new Intent(ACTION_RENAMED).putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+        setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
         finish();
     }
 
@@ -302,6 +301,6 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
             color.setText(themeColor.getName());
         }
         themeColor.apply(toolbar);
-        themeColor.applyStatusBarColor(this);
+        themeColor.applyToStatusBar(this);
     }
 }

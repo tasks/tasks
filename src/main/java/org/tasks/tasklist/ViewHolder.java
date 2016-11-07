@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
@@ -16,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bignerdranch.android.multiselector.MultiSelector;
+import com.bignerdranch.android.multiselector.MultiSelectorBindingHolder;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -47,12 +48,55 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class ViewHolder extends RecyclerView.ViewHolder {
+class ViewHolder extends MultiSelectorBindingHolder {
 
-    public interface ViewHolderCallbacks {
+    @Override
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
+        updateBackground();
+    }
+
+    @Override
+    public boolean isSelectable() {
+        return selectable;
+    }
+
+    @Override
+    public void setActivated(boolean selected) {
+        this.selected = selected;
+        updateBackground();
+    }
+
+    void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    boolean isMoving() {
+        return moving;
+    }
+
+    void updateBackground() {
+        if (selected || moving) {
+            rowBody.setBackgroundColor(selectedColor);
+        } else if (selectable) {
+            rowBody.setBackgroundColor(0);
+        } else {
+            rowBody.setBackgroundResource(background);
+            rowBody.getBackground().jumpToCurrentState();
+        }
+    }
+
+    @Override
+    public boolean isActivated() {
+        return selected;
+    }
+
+    interface ViewHolderCallbacks {
         void onCompletedTask(Task task, boolean newState);
 
         void onClick(ViewHolder viewHolder);
+
+        boolean onLongPress(ViewHolder viewHolder);
     }
 
     @BindView(R.id.row) public ViewGroup row;
@@ -79,16 +123,21 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     private final DialogBuilder dialogBuilder;
     private final ViewHolderCallbacks callback;
     private final DisplayMetrics metrics;
+    private final int background;
+    private final int selectedColor;
     private final int textColorOverdue;
     private Pair<Float, Float> lastTouchYRawY = new Pair<>(0f, 0f);
     private int indent;
+    private boolean selectable = false;
+    private boolean selected;
+    private boolean moving;
 
-    public ViewHolder(Context context, ViewGroup view, boolean showFullTaskTitle, int fontSize,
-                      CheckBoxes checkBoxes, TagFormatter tagFormatter,
-                      int textColorOverdue, int textColorSecondary, int textColorHint, TaskDao taskDao,
-                      DialogBuilder dialogBuilder, ViewHolderCallbacks callback, int minRowHeight,
-                      DisplayMetrics metrics) {
-        super(view);
+    ViewHolder(Context context, ViewGroup view, boolean showFullTaskTitle, int fontSize,
+               CheckBoxes checkBoxes, TagFormatter tagFormatter,
+               int textColorOverdue, int textColorSecondary, int textColorHint, TaskDao taskDao,
+               DialogBuilder dialogBuilder, ViewHolderCallbacks callback, int minRowHeight,
+               DisplayMetrics metrics, int background, int selectedColor, MultiSelector multiSelector) {
+        super(view, multiSelector);
         this.context = context;
         this.fontSize = fontSize;
         this.checkBoxes = checkBoxes;
@@ -100,6 +149,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         this.dialogBuilder = dialogBuilder;
         this.callback = callback;
         this.metrics = metrics;
+        this.background = background;
+        this.selectedColor = selectedColor;
         ButterKnife.bind(this, view);
 
         task = new Task();
@@ -292,6 +343,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         completeBox.setOnClickListener(completeBoxListener);
 
         rowBody.setOnClickListener(view -> callback.onClick(this));
+
+        rowBody.setOnLongClickListener(view -> callback.onLongPress(this));
 
         if (taskActionContainer != null) {
             taskActionContainer.setOnClickListener(v -> {

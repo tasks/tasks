@@ -10,16 +10,11 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
-import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.tags.TagFilterExposer;
 
-import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.injection.FragmentComponent;
-
-import javax.inject.Inject;
 
 public class TagListFragment extends TaskListFragment {
 
@@ -33,9 +28,6 @@ public class TagListFragment extends TaskListFragment {
     }
 
     private static final String EXTRA_TAG_DATA = "extra_tag_data";
-
-    @Inject TagDataDao tagDataDao;
-    @Inject Broadcaster broadcaster;
 
     protected TagData tagData;
 
@@ -72,24 +64,14 @@ public class TagListFragment extends TaskListFragment {
         if (requestCode == REQUEST_EDIT_TAG) {
             if (resultCode == Activity.RESULT_OK) {
                 String action = data.getAction();
-                String uuid = data.getStringExtra(TagSettingsActivity.EXTRA_TAG_UUID);
                 TaskListActivity activity = (TaskListActivity) getActivity();
-                if (TagSettingsActivity.ACTION_TAG_RENAMED.equals(action)) {
-                    if (tagData.getUuid().equals(uuid)) {
-                        TagData newTagData = tagDataDao.fetch(uuid, TagData.PROPERTIES);
-                        if (newTagData != null) {
-                            Filter filter = TagFilterExposer.filterFromTag(newTagData);
-                            activity.onFilterItemClicked(filter);
-                        }
-                    }
-                } else if (TagSettingsActivity.ACTION_TAG_DELETED.equals(action)) {
-                    String activeUuid = tagData.getUuid();
-                    if (activeUuid.equals(uuid)) {
-                        activity.onFilterItemClicked(null);
-                    }
+                if (TagSettingsActivity.ACTION_DELETED.equals(action)) {
+                    activity.onFilterItemClicked(null);
+                } else if (TagSettingsActivity.ACTION_RELOAD.equals(action)) {
+                    activity.getIntent().putExtra(TaskListActivity.OPEN_FILTER,
+                            (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+                    activity.recreate();
                 }
-
-                broadcaster.refresh();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

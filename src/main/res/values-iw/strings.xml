@@ -104,7 +104,6 @@
 	<string name="EPr_cal_end_at_due_time">סיים את אירועי היומן במועד היעד?</string>
 	<string name="EPr_cal_start_at_due_time">התחל את מאורעות היומן במועד היעד</string>
 	<string name="EPr_manage_header">נהל משימות ישנות</string>
-	<string name="EPr_manage_delete_completed_status">%d משימות נמחקו!</string>
 	<string name="EPr_manage_purge_deleted">מחק לצמיתות משימות שנמחקו</string>
 	<string name="EPr_manage_purge_deleted_message">האם אתה בטוח שברצונך למחוק לצמיתות את כל המשימות שנמחקו?</string>
 	<string name="EPr_manage_purge_deleted_status">%d משימות אֻיְּנוּ!</string>

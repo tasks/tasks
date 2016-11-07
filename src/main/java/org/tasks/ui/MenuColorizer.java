@@ -63,6 +63,12 @@ public class MenuColorizer {
         colorMenu(toolbar.getMenu(), color);
     }
 
+    public static void colorMenu(Context context, Menu menu) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.actionBarPrimaryText, typedValue, true);
+        colorMenu(menu, typedValue.data);
+    }
+
     /** Sets a color filter on all menu icons, including the overflow button (if it exists) */
     private static void colorMenu(final Menu menu, final int color) {
         for (int i = 0, size = menu.size(); i < size; i++) {

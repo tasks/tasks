@@ -104,7 +104,6 @@
 	<string name="EPr_cal_end_at_due_time">Zakończ zadania kalendarza w ustalonym czasie</string>
 	<string name="EPr_cal_start_at_due_time">Rozpocznij zadania kalendarza w ustalonym czasie</string>
 	<string name="EPr_manage_header">Zarządzaj starymi zadaniami</string>
-	<string name="EPr_manage_delete_completed_status">Usunięto %d zadań!</string>
 	<string name="EPr_manage_purge_deleted">Skasuj usunięte zadania</string>
 	<string name="EPr_manage_purge_deleted_message">Czy na pewno chcesz, aby oczyścić wszystkie usunięte zadania?\n\n Te zadania znikną na zawsze!</string>
 	<string name="EPr_manage_purge_deleted_status">Oczyszczone %d zadań!</string>

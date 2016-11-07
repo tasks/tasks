@@ -3,6 +3,7 @@
     android:id="@+id/row"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/asContentBackground"
     android:orientation="vertical">
 
     <include layout="@layout/task_adapter_row_body" />

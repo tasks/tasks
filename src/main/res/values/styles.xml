@@ -55,12 +55,10 @@
     </style>
 
     <style name="WhiteToolbarOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!--<item name="android:textColorPrimary">@color/white_100</item>-->
         <item name="colorControlNormal">@color/white_100</item>
     </style>
 
     <style name="BlackToolbarOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!--<item name="android:textColorPrimary">@color/black_87</item>-->
         <item name="colorControlNormal">@color/black_87</item>
     </style>
 

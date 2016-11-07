@@ -106,7 +106,6 @@
 	<string name="EPr_cal_end_at_due_time">설정한 시간에 달력 이벤트 종료</string>
 	<string name="EPr_cal_start_at_due_time">설정한 시간에 달력 이벤트 시작</string>
 	<string name="EPr_manage_header">오래된 일정 관리하기</string>
-	<string name="EPr_manage_delete_completed_status">%d 일정을 삭제했습니다!</string>
 	<string name="EPr_manage_purge_deleted">삭제한 일정을 비우기</string>
 	<string name="EPr_manage_purge_deleted_message">삭제한 일정을 모두 비울까요?\n\n비운 일정은 다시 살릴 수 없습니다!</string>
 	<string name="EPr_manage_purge_deleted_status">%d 일정을 비웠습니다!</string>

@@ -11,9 +11,11 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.view.ActionMode;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -68,7 +70,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.astrid.activity.TaskEditFragment.newTaskEditFragment;
+import static org.tasks.tasklist.ActionUtils.applySupportActionModeColor;
 import static org.tasks.ui.NavigationDrawerFragment.OnFilterItemClickedListener;
 
 public class TaskListActivity extends InjectingAppCompatActivity implements
@@ -110,6 +114,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     private int currentNightMode;
 
     private Filter filter;
+    private ActionMode actionMode = null;
 
     /**
      * @see android.app.Activity#onCreate(Bundle)
@@ -180,13 +185,15 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     private void loadTaskListFragment(TaskListFragment taskListFragment) {
+        finishActionMode();
+
         filter = taskListFragment.filter;
-        ThemeColor themeColor = filter.tint >= 0
-                ? themeCache.getThemeColor(filter.tint)
-                : theme.getThemeColor();
-        themeColor.applyStatusBarColor(drawerLayout);
-        themeColor.applyTaskDescription(this, filter.listingTitle);
-        theme.withColor(themeColor).applyToContext(this);
+        ThemeColor filterColor = getFilterColor();
+
+        filterColor.applyToStatusBar(drawerLayout);
+
+        filterColor.applyTaskDescription(this, filter.listingTitle);
+        filterColor.applyStyle(getTheme());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -196,7 +203,15 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 .commit();
     }
 
+    private ThemeColor getFilterColor() {
+        return filter != null && filter.tint >= 0
+                ? themeCache.getThemeColor(filter.tint)
+                : theme.getThemeColor();
+    }
+
     private void loadTaskEditFragment(TaskEditFragment taskEditFragment) {
+        finishActionMode();
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(isDoublePaneLayout() ? R.id.detail_dual : R.id.single_pane, taskEditFragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
@@ -447,6 +462,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void taskEditFinished() {
         getSupportFragmentManager().popBackStackImmediate(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getTaskListFragment().clearSelections();
         hideKeyboard();
     }
 
@@ -483,5 +499,34 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void selectedList(GtasksList list) {
         getTaskEditFragment().onGoogleTaskListChanged(list);
+    }
+
+    @Override
+    public void onSupportActionModeStarted(@NonNull ActionMode mode) {
+        super.onSupportActionModeStarted(mode);
+
+        actionMode = mode;
+
+        ThemeColor filterColor = getFilterColor();
+
+        applySupportActionModeColor(filterColor, mode);
+
+        filterColor.setStatusBarColor(this);
+    }
+
+    @Override
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
+        super.onSupportActionModeFinished(mode);
+
+        if (atLeastLollipop()) {
+            getWindow().setStatusBarColor(0);
+        }
+    }
+
+    private void finishActionMode() {
+        if (actionMode != null) {
+            actionMode.finish();
+            actionMode = null;
+        }
     }
 }

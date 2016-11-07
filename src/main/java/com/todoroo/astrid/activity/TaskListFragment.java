@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
@@ -20,14 +21,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
@@ -40,7 +38,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TaskCreator;
@@ -63,11 +60,12 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
-import org.tasks.tasklist.ViewHolder;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.ProgressDialogAsyncTask;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -100,11 +98,6 @@ public class TaskListFragment extends InjectingFragment implements
     public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
     private static final int REQUEST_EDIT_FILTER = 11544;
 
-    // --- menu codes
-
-    private static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;
-    private static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
-
     // --- instance variables
 
     @Inject SyncAdapterHelper syncAdapterHelper;
@@ -120,7 +113,6 @@ public class TaskListFragment extends InjectingFragment implements
     @Inject Broadcaster broadcaster;
     @Inject protected TaskListDataProvider taskListDataProvider;
     @Inject TimerPlugin timerPlugin;
-    @Inject TaskDao taskDao;
     @Inject ViewHolderFactory viewHolderFactory;
     @Inject protected Tracker tracker;
 
@@ -157,6 +149,15 @@ public class TaskListFragment extends InjectingFragment implements
                 swipeRefreshLayout.setRefreshing(ongoing);
                 emptyRefreshLayout.setRefreshing(ongoing);
             });
+        }
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            recyclerAdapter.restoreSaveState(savedInstanceState);
         }
     }
 
@@ -203,6 +204,7 @@ public class TaskListFragment extends InjectingFragment implements
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(EXTRA_FILTER, filter);
+        outState.putAll(recyclerAdapter.getSaveState());
     }
 
     @Override
@@ -320,7 +322,7 @@ public class TaskListFragment extends InjectingFragment implements
 
             @Override
             protected int getResultResource() {
-                return R.string.EPr_manage_delete_completed_status;
+                return R.string.delete_multiple_tasks_confirmation;
             }
         }.execute();
     }
@@ -343,8 +345,6 @@ public class TaskListFragment extends InjectingFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // We have a menu item to show in action bar.
-//        registerForContextMenu(recyclerView);
 
         filter.setFilterQueryOverride(null);
 
@@ -352,12 +352,6 @@ public class TaskListFragment extends InjectingFragment implements
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         loadTaskListContent();
-
-        if (getResources().getBoolean(R.bool.two_pane_layout)) {
-            // In dual-pane mode, the list view highlights the selected item.
-//            listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-//            listView.setItemsCanFocus(false);
-        }
     }
 
     @Override
@@ -465,7 +459,8 @@ public class TaskListFragment extends InjectingFragment implements
 
         // set up list adapters
         taskAdapter = createTaskAdapter(currentCursor);
-        recyclerAdapter = new TaskListRecyclerAdapter(context, taskAdapter, viewHolderFactory, this);
+        recyclerAdapter = new TaskListRecyclerAdapter(getActivity(), taskAdapter, viewHolderFactory,
+                this, taskDeleter, taskDuplicator, tracker);
     }
 
     public Property<?>[] taskProperties() {
@@ -490,30 +485,20 @@ public class TaskListFragment extends InjectingFragment implements
      * ======================================================================
      */
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) menuInfo;
-        Task task = ((ViewHolder) adapterInfo.targetView.getTag()).task;
-        int id = (int) task.getId();
-        menu.setHeaderTitle(task.getTitle());
-
-        menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE, R.string.TAd_contextCopyTask);
-        menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE, R.string.TAd_contextDeleteTask);
-    }
-
-    /** Show a dialog box and delete the task specified */
-    private void deleteTask(final Task task) {
-        dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, task.getTitle())
-                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    onTaskDelete(task);
-                    taskDeleter.delete(task);
-                    loadTaskListContent();
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
+    public void onTaskCreated(List<Task> tasks) {
+        for (Task task : tasks) {
+            onTaskCreated(task.getUuid());
+        }
+        syncAdapterHelper.requestSynchronization();
     }
 
     public void onTaskCreated(String uuid) {
+    }
+
+    public void onTaskDelete(List<Task> tasks) {
+        for (Task task : tasks) {
+            onTaskDelete(task);
+        }
     }
 
     protected void onTaskDelete(Task task) {
@@ -526,14 +511,6 @@ public class TaskListFragment extends InjectingFragment implements
         }
         timerPlugin.stopTimer(task);
     }
-
-//    @Override
-//    public void onListItemClick(ListView l, View v, int position, long id) {
-//        super.onListItemClick(l, v, position, id);
-//        if (getResources().getBoolean(R.bool.two_pane_layout)) {
-//            setSelection(position);
-//        }
-//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -551,14 +528,14 @@ public class TaskListFragment extends InjectingFragment implements
         } else if (requestCode == REQUEST_EDIT_FILTER) {
             if (resultCode == Activity.RESULT_OK) {
                 String action = data.getAction();
-                if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
-                    CustomFilter customFilter = data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER);
-                    ((TaskListActivity) getActivity()).onFilterItemClicked(customFilter);
-                } else if(FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
-                    ((TaskListActivity) getActivity()).onFilterItemClicked(null);
+                TaskListActivity activity = (TaskListActivity) getActivity();
+                if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
+                    activity.onFilterItemClicked(null);
+                } else if(FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
+                    activity.getIntent().putExtra(TaskListActivity.OPEN_FILTER,
+                            (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
+                    activity.recreate();
                 }
-
-                broadcaster.refresh();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -569,38 +546,15 @@ public class TaskListFragment extends InjectingFragment implements
     public boolean onContextItemSelected(android.view.MenuItem item) {
         return onOptionsItemSelected(item);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        long itemId;
-
-        switch (item.getItemId()) {
-            case CONTEXT_MENU_COPY_TASK_ID:
-                itemId = item.getGroupId();
-                duplicateTask(itemId);
-                return true;
-            case CONTEXT_MENU_DELETE_TASK_ID:
-                itemId = item.getGroupId();
-                Task task = taskDao.fetch(itemId, Task.ID, Task.TITLE, Task.UUID);
-                if (task != null) {
-                    deleteTask(task);
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void duplicateTask(long itemId) {
-        long cloneId = taskDuplicator.duplicateTask(itemId);
-        onTaskListItemClicked(cloneId);
-    }
-
     public void onTaskListItemClicked(long taskId) {
         callbacks.onTaskListItemClicked(taskId);
     }
 
     protected boolean hasDraggableOption() {
         return BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter);
+    }
+
+    public void clearSelections() {
+        recyclerAdapter.clearSelections();
     }
 }

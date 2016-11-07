@@ -18,12 +18,12 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
-import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
@@ -58,8 +58,8 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
     public static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
 
-    public static final String ACTION_TAG_RENAMED = "tagRenamed";
-    public static final String ACTION_TAG_DELETED = "tagDeleted";
+    public static final String ACTION_RELOAD = "tagRenamed";
+    public static final String ACTION_DELETED = "tagDeleted";
 
     private boolean isNewTag;
     private TagData tagData;
@@ -190,7 +190,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             tagData.setName(newName);
             tagData.setColor(selectedTheme);
             tagDataDao.persist(tagData);
-            setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, TagFilterExposer.filterFromTag(tagData)));
+            setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
         } else if (hasChanges()) {
             tagData.setName(newName);
             tagData.setColor(selectedTheme);
@@ -201,7 +201,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             metadataDao.update(Criterion.and(
                     MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
                     TaskToTagMetadata.TAG_UUID.eq(tagData.getUUID())), m);
-            setResult(RESULT_OK, new Intent(ACTION_TAG_RENAMED).putExtra(EXTRA_TAG_UUID, tagData.getUuid()));
+            setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
         }
 
         finish();
@@ -251,7 +251,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
                         String uuid = tagData.getUuid();
                         metadataDao.deleteWhere(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
                         tagDataDao.delete(tagData.getId());
-                        setResult(RESULT_OK, new Intent(ACTION_TAG_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
+                        setResult(RESULT_OK, new Intent(ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
                     }
                     finish();
                 })
@@ -280,7 +280,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             color.setText(themeColor.getName());
         }
         themeColor.apply(toolbar);
-        themeColor.applyStatusBarColor(this);
+        themeColor.applyToStatusBar(this);
     }
 
     @Override

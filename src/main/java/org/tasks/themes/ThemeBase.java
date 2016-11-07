@@ -11,11 +11,11 @@ import org.tasks.R;
 public class ThemeBase {
 
     private static final int[] THEMES = new int[]{
-            R.style.TasksOverride,
+            R.style.Tasks,
             R.style.ThemeBlack,
-            R.style.TasksOverride,
+            R.style.Tasks,
             R.style.Wallpaper,
-            R.style.TasksOverride
+            R.style.Tasks
     };
 
     private final String name;

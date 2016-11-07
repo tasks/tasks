@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksList;
@@ -75,9 +76,10 @@ public class GtasksListFragment extends TaskListFragment {
                 String action = data.getAction();
                 if (GoogleTaskListSettingsActivity.ACTION_DELETED.equals(action)) {
                     activity.onFilterItemClicked(null);
-                } else if (GoogleTaskListSettingsActivity.ACTION_RENAMED.equals(action) ||
-                        GoogleTaskListSettingsActivity.ACTION_THEME_CHANGED.equals(action)) {
-                    activity.onFilterItemClicked(data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+                } else if (GoogleTaskListSettingsActivity.ACTION_RELOAD.equals(action)) {
+                    activity.getIntent().putExtra(TaskListActivity.OPEN_FILTER,
+                            (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+                    activity.recreate();
                 }
             }
         } else {

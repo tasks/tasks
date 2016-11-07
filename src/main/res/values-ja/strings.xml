@@ -104,7 +104,6 @@
 	<string name="EPr_cal_end_at_due_time">カレンダーイベント終了時間</string>
 	<string name="EPr_cal_start_at_due_time">カレンダーイベント開始時間</string>
 	<string name="EPr_manage_header">古いタスクを管理</string>
-	<string name="EPr_manage_delete_completed_status">%d タスクが削除されました!</string>
 	<string name="EPr_manage_purge_deleted">削除済のタスクを消去</string>
 	<string name="EPr_manage_purge_deleted_message">削除済のタスクをすべて消去してもよろしいですか?\n\nこれらのタスクは永久になくなります!</string>
 	<string name="EPr_manage_purge_deleted_status">%d タスクを消去しました!</string>

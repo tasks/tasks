@@ -107,7 +107,6 @@
 	<string name="EPr_cal_end_at_due_time">Naptáresemények befejezése határidőkor</string>
 	<string name="EPr_cal_start_at_due_time">Naptáresemények kezdése határidőkor</string>
 	<string name="EPr_manage_header">Régi feladatok kezelése</string>
-	<string name="EPr_manage_delete_completed_status">%d feladat törölve!</string>
 	<string name="EPr_manage_purge_deleted">Törölt feladatok elvetése</string>
 	<string name="EPr_manage_purge_deleted_message">Biztosan el akarja vetni az összes törölt feladatot?\n\nEzek a feladatok többé nem lesznek visszaállíthatóak!</string>
 	<string name="EPr_manage_purge_deleted_status">%d feladat elvetve</string>

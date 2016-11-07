@@ -10,6 +10,9 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import org.tasks.Broadcaster;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,21 +24,27 @@ public class TaskDuplicator {
     private final GCalHelper gcalHelper;
     private final MetadataDao metadataDao;
     private final TaskDao taskDao;
+    private final Broadcaster broadcaster;
 
     @Inject
-    public TaskDuplicator(GCalHelper gcalHelper, MetadataDao metadataDao, TaskDao taskDao) {
+    public TaskDuplicator(GCalHelper gcalHelper, MetadataDao metadataDao, TaskDao taskDao,
+                          Broadcaster broadcaster) {
         this.gcalHelper = gcalHelper;
         this.metadataDao = metadataDao;
         this.taskDao = taskDao;
+        this.broadcaster = broadcaster;
     }
 
-    /**
-     * Create an uncompleted copy of this task and edit it
-     * @return cloned item id
-     */
-    public long duplicateTask(long itemId) {
-        Task original = taskDao.fetch(itemId, Task.PROPERTIES);
-        Timber.d("Cloning %s", original);
+    public List<Task> duplicate(List<Task> tasks) {
+        List<Task> result = new ArrayList<>();
+        for (Task task : tasks) {
+            result.add(clone(taskDao.fetch(task.getId(), Task.PROPERTIES), true));
+        }
+        broadcaster.refresh();
+        return result;
+    }
+
+    private Task clone(Task original, boolean suppressRefresh) {
         Task clone = new Task(original);
         clone.setCreationDate(DateUtilities.now());
         clone.setCompletionDate(0L);
@@ -44,9 +53,12 @@ public class TaskDuplicator {
         clone.clearValue(Task.ID);
         clone.clearValue(Task.UUID);
 
-        List<Metadata> metadataList = metadataDao.byTask(itemId);
+        List<Metadata> metadataList = metadataDao.byTask(original.getId());
         if (!metadataList.isEmpty()) {
             clone.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+        }
+        if (suppressRefresh) {
+            clone.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
         }
 
         taskDao.save(clone);
@@ -56,19 +68,21 @@ public class TaskDuplicator {
                 continue;
             }
             Timber.d("Cloning %s", oldMetadata);
-            Metadata metadata = new Metadata(oldMetadata);
-            if(GtasksMetadata.METADATA_KEY.equals(metadata.getKey())) {
-                metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-            } else if (TaskToTagMetadata.KEY.equals(metadata.getKey())) {
+            if(GtasksMetadata.METADATA_KEY.equals(oldMetadata.getKey())) {
+                Metadata gtaskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(clone.getId());
+                gtaskMetadata.setValue(GtasksMetadata.LIST_ID, oldMetadata.getValue(GtasksMetadata.LIST_ID));
+                metadataDao.createNew(gtaskMetadata);
+            } else if (TaskToTagMetadata.KEY.equals(oldMetadata.getKey())) {
+                Metadata metadata = new Metadata(oldMetadata);
                 metadata.setValue(TaskToTagMetadata.TASK_UUID, clone.getUuid());
+                metadata.setTask(clone.getId());
+                metadata.clearValue(Metadata.ID);
+                metadataDao.createNew(metadata);
             }
-            metadata.setTask(clone.getId());
-            metadata.clearValue(Metadata.ID);
-            metadataDao.createNew(metadata);
         }
 
         gcalHelper.createTaskEventIfEnabled(clone);
 
-        return clone.getId();
+        return clone;
     }
 }

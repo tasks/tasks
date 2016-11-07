@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 
+import com.bignerdranch.android.multiselector.MultiSelector;
 import com.todoroo.astrid.dao.TaskDao;
 
 import org.tasks.R;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static org.tasks.preferences.ResourceResolver.getData;
+import static org.tasks.preferences.ResourceResolver.getResourceId;
 
 public class ViewHolderFactory {
 
@@ -31,6 +33,8 @@ public class ViewHolderFactory {
     private final DialogBuilder dialogBuilder;
     private final int minRowHeight;
     private final DisplayMetrics metrics;
+    private final int background;
+    private final int selectedColor;
 
     @Inject
     public ViewHolderFactory(@ForActivity Context context, Preferences preferences,
@@ -44,15 +48,17 @@ public class ViewHolderFactory {
         textColorSecondary = getData(context, android.R.attr.textColorSecondary);
         textColorHint = getData(context, android.R.attr.textColorTertiary);
         textColorOverdue = getColor(context, R.color.overdue);
+        background = getResourceId(context, R.attr.selectableItemBackground);
+        selectedColor = getData(context, R.attr.colorControlHighlight);
         showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
         fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
         metrics = context.getResources().getDisplayMetrics();
         minRowHeight = (int) (metrics.density * 40);
     }
 
-    ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks) {
+    ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks, MultiSelector multiSelector) {
         return new ViewHolder(context, viewGroup, showFullTaskTitle, fontSize, checkBoxes,
                 tagFormatter, textColorOverdue, textColorSecondary, textColorHint, taskDao,
-                dialogBuilder, callbacks, minRowHeight, metrics);
+                dialogBuilder, callbacks, minRowHeight, metrics, background, selectedColor, multiSelector);
     }
 }

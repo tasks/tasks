@@ -6,15 +6,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
-import org.tasks.Broadcaster;
-import org.tasks.calendars.CalendarEventProvider;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.google.common.collect.Iterables.transform;
 import static com.todoroo.andlib.sql.Criterion.all;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
@@ -22,14 +18,10 @@ import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
 public class TaskDeleter {
 
     private final TaskDao taskDao;
-    private final CalendarEventProvider calendarEventProvider;
-    private final Broadcaster broadcaster;
 
     @Inject
-    public TaskDeleter(TaskDao taskDao, CalendarEventProvider calendarEventProvider, Broadcaster broadcaster) {
+    public TaskDeleter(TaskDao taskDao) {
         this.taskDao = taskDao;
-        this.calendarEventProvider = calendarEventProvider;
-        this.broadcaster = broadcaster;
     }
 
     /**
@@ -54,22 +46,31 @@ public class TaskDeleter {
             taskDao.delete(item.getId());
             item.setId(Task.NO_ID);
         } else {
-            long id = item.getId();
-            item.clear();
-            item.setId(id);
-            item.setDeletionDate(DateUtilities.now());
-            taskDao.save(item);
+            Task template = new Task();
+            template.setId(item.getId());
+            template.setDeletionDate(DateUtilities.now());
+            taskDao.save(template);
+        }
+    }
+
+    public int delete(List<Task> tasks) {
+        return markDeleted(tasks);
+    }
+
+    public void undelete(List<Task> tasks) {
+        for (Task task : tasks) {
+            Task template = new Task();
+            template.setId(task.getId());
+            template.setDeletionDate(0L);
+            taskDao.save(template);
         }
     }
 
     private int markDeleted(List<Task> tasks) {
-        Task template = new Task();
-        template.setDeletionDate(DateUtilities.now());
-        int count = taskDao.update(Task.ID.in(transform(tasks, Task::getId)), template);
-        if (count > 0) {
-            broadcaster.refresh();
+        for (Task task : tasks) {
+            delete(task);
         }
-        return count;
+        return tasks.size();
     }
 
     public int clearCompleted(Filter filter) {
