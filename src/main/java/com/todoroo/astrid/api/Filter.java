@@ -200,7 +200,7 @@ public class Filter extends FilterListItem {
         }
     };
 
-    public boolean isTagFilter() {
+    public boolean supportsSubtasks() {
         return false;
     }
 

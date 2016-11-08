@@ -6,7 +6,9 @@ import android.os.Parcelable;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -34,6 +36,14 @@ public class GtasksFilter extends Filter {
         icon = CLOUD;
     }
 
+    public static String toManualOrder(String query) {
+        query = query.replaceAll("ORDER BY .*", "");
+        query = query + String.format(" ORDER BY %s", Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG")));
+        return query.replace(
+                TaskDao.TaskCriteria.activeAndVisible().toString(),
+                TaskDao.TaskCriteria.notDeleted().toString());
+    }
+
     public long getStoreId() {
         return storeId;
     }
@@ -54,6 +64,11 @@ public class GtasksFilter extends Filter {
         values.put(GtasksMetadata.LIST_ID.name, list.getRemoteId());
         values.put(GtasksMetadata.ORDER.name, PermaSql.VALUE_NOW);
         return values;
+    }
+
+    @Override
+    public boolean supportsSubtasks() {
+        return true;
     }
 
     /**

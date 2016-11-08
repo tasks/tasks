@@ -8,10 +8,10 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
@@ -52,30 +52,31 @@ public class SubtasksHelper {
     public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
         return preferences.getBoolean(R.string.p_manual_sort, false) &&
                 filter != null &&
-                (BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter) || filter.isTagFilter());
+                (filter.supportsSubtasks() ||
+                        BuiltInFilterExposer.isInbox(context, filter) ||
+                        BuiltInFilterExposer.isTodayFilter(context, filter));
     }
 
-    public String applySubtasksToWidgetFilter(Filter filter, String query, String tagName, int limit) {
+    public String applySubtasksToWidgetFilter(Filter filter, String query) {
         if (shouldUseSubtasksFragmentForFilter(filter)) {
-            // care for manual ordering
-            TagData tagData = tagDataDao.getTagByName(tagName, TagData.UUID, TagData.TAG_ORDERING);
-            TaskListMetadata tlm = null;
-            if (tagData != null) {
-                tlm = taskListMetadataDao.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
-            } else if (BuiltInFilterExposer.isInbox(context, filter)) {
-                tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.TASK_IDS);
-            } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
-                tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.TASK_IDS);
-            }
 
-            query = query.replaceAll("ORDER BY .*", "");
-            query = query + String.format(" ORDER BY %s, %s, %s",
-                    Task.DELETION_DATE, getOrderString(tagData, tlm), Task.CREATION_DATE);
-            if (limit > 0) {
-                query = query + " LIMIT " + limit;
+            if (filter instanceof GtasksFilter) {
+                query = GtasksFilter.toManualOrder(query);
+            } else {
+                TagData tagData = tagDataDao.getTagByName(filter.listingTitle, TagData.UUID, TagData.TAG_ORDERING);
+                TaskListMetadata tlm = null;
+                if (tagData != null) {
+                    tlm = taskListMetadataDao.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
+                } else if (BuiltInFilterExposer.isInbox(context, filter)) {
+                    tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.TASK_IDS);
+                } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
+                    tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.TASK_IDS);
+                }
+
+                query = query.replaceAll("ORDER BY .*", "");
+                query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
+                query = query.replace(TaskDao.TaskCriteria.isVisible().toString(), Criterion.all.toString());
             }
-            query = query.replace(TaskCriteria.isVisible().toString(),
-                    Criterion.all.toString());
 
             filter.setFilterQueryOverride(query);
         }

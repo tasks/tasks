@@ -227,7 +227,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         }
         appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
         String query = SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort).replaceAll("LIMIT \\d+", "");
-        return subtasksHelper.applySubtasksToWidgetFilter(filter, query, filter.listingTitle, 0);
+        return subtasksHelper.applySubtasksToWidgetFilter(filter, query);
     }
 
     private void formatDueDate(RemoteViews row, Task task, int textColor) {

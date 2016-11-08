@@ -10,8 +10,8 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
@@ -50,12 +50,7 @@ public class GtasksTaskListUpdater {
     }
 
     public void initialize(Filter filter) {
-        String query = filter.getSqlQuery();
-        query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY %s", Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG")));
-        query = query.replace(
-                TaskDao.TaskCriteria.activeAndVisible().toString(),
-                TaskDao.TaskCriteria.notDeleted().toString());
+        String query = GtasksFilter.toManualOrder(filter.getSqlQuery());
         filter.setFilterQueryOverride(query);
     }
 

@@ -96,7 +96,7 @@ public class TagFilter extends Filter {
     };
 
     @Override
-    public boolean isTagFilter() {
+    public boolean supportsSubtasks() {
         return true;
     }
 }
