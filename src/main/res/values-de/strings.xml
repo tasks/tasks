@@ -403,4 +403,7 @@
 	<string name="creating_new_list">Erstelle neue Liste</string>
 	<string name="deleting_list">Lösche Liste</string>
 	<string name="renaming_list">Benenne Liste um</string>
+	<string name="clear_completed_tasks_confirmation">Erledigte Aufgaben löschen?</string>
+	<string name="copy_multiple_tasks_confirmation">%s kopiert</string>
+	<string name="delete_multiple_tasks_confirmation">%s gelöscht</string>
 </resources>

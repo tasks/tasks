@@ -412,4 +412,5 @@
 	<string name="creating_new_list">Создание нового списка</string>
 	<string name="deleting_list">Удаление списка</string>
 	<string name="renaming_list">Переименование списка</string>
+	<string name="clear_completed_tasks_confirmation">Очистить завершённую задачу?</string>
 </resources>

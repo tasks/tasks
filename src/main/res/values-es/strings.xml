@@ -163,7 +163,7 @@
 	<string name="gcal_completed_title">%s (completado)</string>
 	<string name="CFC_gtasks_list_text">En la Lista: ?</string>
 	<string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
-	<string name="gtasks_GTA_clear_completed">Limpiar completadas</string>
+	<string name="gtasks_GTA_clear_completed">Quitar finalizadas</string>
 	<string name="gtasks_GLA_noaccounts">No hay disponible una cuenta de Google con la cual sincronizarse.</string>
 	<string name="gtasks_GLA_authenticating">Autenticando...</string>
 	<string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
@@ -271,7 +271,7 @@
 	<string name="report_an_issue">Informa de un error</string>
 	<string name="help_and_feedback">Ayuda y valoraciones</string>
 	<string name="contact_developer">Contactar con el desarrollador </string>
-	<string name="rate_tasks">Calificar a Tasks</string>
+	<string name="rate_tasks">Valorar Tasks</string>
 	<string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
 	<string name="TLA_menu_donate">Donar</string>
 	<string name="select_amount">Elegir cantidad</string>
@@ -305,6 +305,7 @@
 	<string name="discard_changes">¿Descartar cambios?</string>
 	<string name="discard">Descartar</string>
 	<string name="tag_settings">Configuración de Etiquetas</string>
+	<string name="list_settings">Configuración de lista</string>
 	<string name="delete">Eliminar</string>
 	<string name="filter_settings">Configuración de Filtros</string>
 	<string name="show_hidden">Mostrar oculto</string>
@@ -405,4 +406,10 @@
 	<string name="notification_shade">Panel de notificaciones</string>
 	<string name="notification_description">Mostrar descripción de tarea</string>
 	<string name="sync_error_permissions">Tasks requiere permisos</string>
+	<string name="creating_new_list">Creando nueva lista</string>
+	<string name="deleting_list">Borrando lista</string>
+	<string name="renaming_list">Renombrando lista</string>
+	<string name="clear_completed_tasks_confirmation">¿Borrar tareas completadas?</string>
+	<string name="copy_multiple_tasks_confirmation">%s copiadas</string>
+	<string name="delete_multiple_tasks_confirmation">%s borradas</string>
 </resources>

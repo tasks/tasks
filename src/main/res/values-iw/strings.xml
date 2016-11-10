@@ -307,6 +307,7 @@
 	<string name="discard_changes">להתעלם מהשינויים ?</string>
 	<string name="discard">התעלם</string>
 	<string name="tag_settings">הגדרות תגיות</string>
+	<string name="list_settings">הגדרות רשימה</string>
 	<string name="delete">מחק</string>
 	<string name="filter_settings">הגדרות מסנן</string>
 	<string name="show_hidden">הצגת משימות נסתרות</string>
@@ -406,5 +407,11 @@
 	<string name="widget_settings">הגדרות ווידג\'ט</string>
 	<string name="widget_header_settings">הגדרות כותרת</string>
 	<string name="widget_row_settings">הגדרות שורה</string>
+	<string name="notification_shade">וילון ההתראות</string>
 	<string name="notification_description">הצג תיאור משימה</string>
+	<string name="sync_error_permissions">דרושות הרשאות</string>
+	<string name="creating_new_list">יוצר רשימה חדשה</string>
+	<string name="deleting_list">מוחק רשימה</string>
+	<string name="renaming_list">משנה שם רשימה</string>
+	<string name="clear_completed_tasks_confirmation">למחוק משימות שבוצעו?</string>
 </resources>
