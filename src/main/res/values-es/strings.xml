@@ -38,7 +38,6 @@
 	<string name="TAd_completed">Terminado\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
 	<string name="TAd_contextCopyTask">Copiar tarea</string>
-	<string name="TAd_contextDeleteTask">Eliminar tarea</string>
 	<string name="SSD_sort_drag">Orden manual con subtareas</string>
 	<string name="SSD_sort_auto">Ordenación inteligente</string>
 	<string name="SSD_sort_alpha">Por título</string>

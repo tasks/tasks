@@ -350,8 +350,6 @@ public class TaskListFragment extends InjectingFragment implements
 
         recyclerAdapter.applyToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-        loadTaskListContent();
     }
 
     @Override
@@ -418,19 +416,18 @@ public class TaskListFragment extends InjectingFragment implements
      * Load or re-load action items and update views
      */
     public void loadTaskListContent() {
-        if (taskAdapter == null) {
-            setTaskAdapter();
-            return;
-        }
-
         Cursor taskCursor = taskAdapter.getCursor();
 
+        // stash selected items
+        Bundle saveState = recyclerAdapter.getSaveState();
+
         taskCursor.requery();
-        recyclerAdapter.notifyDataSetChanged();
-        if (recyclerAdapter.getItemCount() == 0) {
+        if (taskAdapter.getCount() == 0) {
             swipeRefreshLayout.setVisibility(View.GONE);
             emptyRefreshLayout.setVisibility(View.VISIBLE);
         } else {
+            recyclerAdapter.notifyDataSetChanged();
+            recyclerAdapter.restoreSaveState(saveState);
             swipeRefreshLayout.setVisibility(View.VISIBLE);
             emptyRefreshLayout.setVisibility(View.GONE);
         }
@@ -552,9 +549,5 @@ public class TaskListFragment extends InjectingFragment implements
 
     protected boolean hasDraggableOption() {
         return BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer.isTodayFilter(context, filter);
-    }
-
-    public void clearSelections() {
-        recyclerAdapter.clearSelections();
     }
 }

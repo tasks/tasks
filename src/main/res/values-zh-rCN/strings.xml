@@ -35,7 +35,6 @@
 	<string name="TAd_completed">完成\n%s 项</string>
 	<string name="TAd_actionEditTask">编辑</string>
 	<string name="TAd_contextCopyTask">复制任务</string>
-	<string name="TAd_contextDeleteTask">删除任务</string>
 	<string name="SSD_sort_auto">清单小助理智能排序</string>
 	<string name="SSD_sort_alpha">按标题</string>
 	<string name="SSD_sort_due">按到期日</string>

@@ -23,6 +23,11 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.todoroo.andlib.data.AbstractModel.NO_ID;
+
 /**
  * Adapter for displaying a user's tasks as a list
  *
@@ -30,6 +35,17 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
  *
  */
 public class TaskAdapter extends CursorAdapter implements Filterable  {
+
+    public List<Integer> getTaskPositions(List<Long> longs) {
+        List<Integer> result = new ArrayList<>();
+        TodorooCursor<Task> taskCursor = getTaskCursor();
+        for (taskCursor.moveToFirst() ; !taskCursor.isAfterLast() ; taskCursor.moveToNext()) {
+            if (longs.contains(taskCursor.get(Task.ID))) {
+                result.add(taskCursor.getPosition());
+            }
+        }
+        return result;
+    }
 
     public interface OnCompletedTaskListener {
         void onCompletedTask(Task item, boolean newState);
@@ -99,8 +115,22 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     }
 
+    private TodorooCursor<Task> getTaskCursor() {
+        return (TodorooCursor<Task>) getCursor();
+    }
+
+    public long getTaskId(int position) {
+        TodorooCursor<Task> c = getTaskCursor();
+        if (c != null) {
+            if (c.moveToPosition(position)) {
+                return c.get(Task.ID);
+            }
+        }
+        return NO_ID;
+    }
+
     public Task getTask(int position) {
-        TodorooCursor<Task> c = (TodorooCursor<Task>) getCursor();
+        TodorooCursor<Task> c = getTaskCursor();
         if (c != null) {
             if (c.moveToPosition(position)) {
                 return c.toModel();
@@ -110,7 +140,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
     }
 
     protected String getItemUuid(int position) {
-        TodorooCursor<Task> c = (TodorooCursor<Task>) getCursor();
+        TodorooCursor<Task> c = getTaskCursor();
         if (c != null) {
             if (c.moveToPosition(position)) {
                 return c.get(Task.UUID);

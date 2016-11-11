@@ -462,7 +462,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void taskEditFinished() {
         getSupportFragmentManager().popBackStackImmediate(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        getTaskListFragment().clearSelections();
         hideKeyboard();
     }
 

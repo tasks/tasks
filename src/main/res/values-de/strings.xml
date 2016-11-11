@@ -36,7 +36,6 @@
 	<string name="TAd_completed">Abgeschlossen\n%s</string>
 	<string name="TAd_actionEditTask">Bearbeiten</string>
 	<string name="TAd_contextCopyTask">Aufgabe kopieren</string>
-	<string name="TAd_contextDeleteTask">Aufgabe löschen</string>
 	<string name="SSD_sort_drag">Manuelle Sortierung mit Unteraufgaben</string>
 	<string name="SSD_sort_auto">Smarte Sortierung</string>
 	<string name="SSD_sort_alpha">Nach Titel</string>

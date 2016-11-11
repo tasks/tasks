@@ -38,7 +38,6 @@
 	<string name="TAd_completed">%s\nに完了</string>
 	<string name="TAd_actionEditTask">編集する</string>
 	<string name="TAd_contextCopyTask">タスクをコピー</string>
-	<string name="TAd_contextDeleteTask">タスクを削除</string>
 	<string name="SSD_sort_drag">サブタスクの手動設定順</string>
 	<string name="SSD_sort_auto">自動</string>
 	<string name="SSD_sort_alpha">タイトル順</string>

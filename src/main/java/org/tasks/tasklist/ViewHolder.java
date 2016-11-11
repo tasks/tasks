@@ -69,10 +69,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
 
     void setMoving(boolean moving) {
         this.moving = moving;
-    }
-
-    boolean isMoving() {
-        return moving;
+        updateBackground();
     }
 
     void updateBackground() {
