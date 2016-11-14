@@ -9,7 +9,6 @@ package com.todoroo.andlib.test;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.text.TextUtilsCompat;
 
 import com.todoroo.andlib.data.Callback;
 
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Locale;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
-import static android.support.v4.view.ViewCompat.LAYOUT_DIRECTION_LTR;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -201,9 +199,8 @@ public class TranslationTests {
      * check if string contains contains substrings
      */
     private void contains(Resources r, int resource, StringBuilder failures, String expected) {
-        String base = getTargetContext().getResources().getString(resource);
         String translation = r.getString(resource);
-        if(!base.equals(translation) && !translation.contains(expected)) {
+        if(!translation.contains(expected)) {
             Locale locale = r.getConfiguration().locale;
             String name = r.getResourceName(resource);
             failures.append(String.format("%s: %s did not contain: %s\n",
@@ -219,13 +216,11 @@ public class TranslationTests {
         final StringBuilder failures = new StringBuilder();
 
         forEachLocale(r -> {
-            int layoutDirection = TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault());
-            String expected = layoutDirection == LAYOUT_DIRECTION_LTR ? "?" : "؟";
-            contains(r, R.string.CFC_tag_text, failures, expected);
-            contains(r, R.string.CFC_title_contains_text, failures, expected);
-            contains(r, R.string.CFC_dueBefore_text, failures, expected);
-            contains(r, R.string.CFC_tag_contains_text, failures, expected);
-            contains(r, R.string.CFC_gtasks_list_text, failures, expected);
+            contains(r, R.string.CFC_tag_text, failures, "?");
+            contains(r, R.string.CFC_title_contains_text, failures, "?");
+            contains(r, R.string.CFC_dueBefore_text, failures, "?");
+            contains(r, R.string.CFC_tag_contains_text, failures, "?");
+            contains(r, R.string.CFC_gtasks_list_text, failures, "?");
         });
 
         assertEquals(failures.toString(), 0,

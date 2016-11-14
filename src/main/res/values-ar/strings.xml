@@ -82,14 +82,13 @@
 	<string name="CFA_context_delete">حذف الصف</string>
 	<string name="CFA_help">ضغط مطول على الموضوع من أجل خيارات إضافية</string>
 	<string name="CFA_button_add">إضافة معايير</string>
-	<string name="CFC_dueBefore_text">مستحق بحسب :؟</string>
+	<string name="CFC_dueBefore_text">مستحق بحسب :?</string>
 	<string name="next_month">الشهر القادم</string>
-	<string name="CFC_importance_text">أولوية على الأقل</string>
 	<string name="CFC_title_contains_name">العنوان يحتوي على..</string>
-	<string name="CFC_title_contains_text">العنوان يحتوي على :؟</string>
+	<string name="CFC_title_contains_text">العنوان يحتوي على :?</string>
 	<string name="gcal_TEA_addToCalendar_label">أضف إلى التقويم</string>
 	<string name="gcal_TEA_showCalendar_label">إفتح أحداث التقويم</string>
-	<string name="CFC_gtasks_list_text">في القائمة:؟</string>
+	<string name="CFC_gtasks_list_text">في القائمة :?</string>
 	<string name="gtasks_GTA_clear_completed">انتهاء الحذف</string>
 	<string name="gtasks_GLA_noaccounts">لا يوجد حساب قوقل للتزامن مع.</string>
 	<string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع خادم قوقل. أعد المحاولة مرة أخرى لاحقا.</string>
