@@ -300,6 +300,7 @@
 	<string name="tag_settings">Paramètres des tags</string>
 	<string name="list_settings">Paramètres de la liste</string>
 	<string name="delete">Effacer</string>
+	<string name="copy">Copier</string>
 	<string name="filter_settings">Paramètres du filtre</string>
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>

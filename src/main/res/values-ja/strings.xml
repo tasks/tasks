@@ -308,6 +308,7 @@
 	<string name="tag_settings">タグ設定</string>
 	<string name="list_settings">リスト設定</string>
 	<string name="delete">削除</string>
+	<string name="copy">コピー</string>
 	<string name="filter_settings">フィルター設定</string>
 	<string name="show_hidden">非表示を表示</string>
 	<string name="show_completed">完了を表示</string>

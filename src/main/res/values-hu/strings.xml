@@ -310,6 +310,7 @@
 	<string name="tag_settings">Címkék beállításai</string>
 	<string name="list_settings">Lista beállításai</string>
 	<string name="delete">Törlés</string>
+	<string name="copy">Másolás</string>
 	<string name="filter_settings">Szűrő beállítások</string>
 	<string name="show_hidden">Rejtettek mutatása</string>
 	<string name="show_completed">Elvégzettek megjelenítése</string>

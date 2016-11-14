@@ -306,6 +306,7 @@
 	<string name="tag_settings">Configuración de Etiquetas</string>
 	<string name="list_settings">Configuración de lista</string>
 	<string name="delete">Eliminar</string>
+	<string name="copy">Copiar</string>
 	<string name="filter_settings">Configuración de Filtros</string>
 	<string name="show_hidden">Mostrar oculto</string>
 	<string name="show_completed">Mostrar completado</string>
@@ -390,7 +391,7 @@
 	<string name="restart_required">Debe reiniciar Tasks para que los cambios tengan efecto</string>
 	<string name="restart_now">Reiniciar ahora</string>
 	<string name="restart_later">Más tarde</string>
-	<string name="settings_localization">Adaptación regional</string>
+	<string name="settings_localization">Configuración regional</string>
 	<string name="layout_direction">Sentido de la escritura</string>
 	<string name="layout_direction_locale">Usar disposición regional</string>
 	<string name="layout_direction_left_to_right">De izquierda a derecha</string>

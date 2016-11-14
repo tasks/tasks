@@ -303,6 +303,7 @@
 	<string name="tag_settings">Schlagwort Einstellungen</string>
 	<string name="list_settings">Listeneinstellungen</string>
 	<string name="delete">Löschen</string>
+	<string name="copy">Kopieren</string>
 	<string name="filter_settings">Filter-Einstellungen</string>
 	<string name="show_hidden">Ausgeblendet anzeigen</string>
 	<string name="show_completed">Erledigt anzeigen</string>

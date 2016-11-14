@@ -307,6 +307,7 @@
 	<string name="tag_settings">Ustawienia tagów</string>
 	<string name="list_settings">Ustawienie listy</string>
 	<string name="delete">Usuń</string>
+	<string name="copy">Kopiuj</string>
 	<string name="filter_settings">Ustawienia filtrów</string>
 	<string name="show_hidden">Pokaż ukryte</string>
 	<string name="show_completed">Pokaż ukończone</string>
@@ -410,4 +411,7 @@
 	<string name="creating_new_list">Tworzenie nowej listy</string>
 	<string name="deleting_list">Usuwanie listy</string>
 	<string name="renaming_list">Zmiana nazwy listy</string>
+	<string name="clear_completed_tasks_confirmation">Wyczyścić ukończone zadania?</string>
+	<string name="copy_multiple_tasks_confirmation">%s skopiowanych</string>
+	<string name="delete_multiple_tasks_confirmation">%s usuniętych</string>
 </resources>

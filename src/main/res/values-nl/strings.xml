@@ -303,6 +303,7 @@
 	<string name="tag_settings">Label Instellingen</string>
 	<string name="list_settings">Lijst instellingen</string>
 	<string name="delete">Verwijder</string>
+	<string name="copy">Kopiëer</string>
 	<string name="filter_settings">Filter instellingen</string>
 	<string name="show_hidden">Toon verborgen</string>
 	<string name="show_completed">Toon voltooide</string>
@@ -402,4 +403,7 @@
 	<string name="creating_new_list">Nieuwe lijst aanmaken</string>
 	<string name="deleting_list">Verwijder lijst</string>
 	<string name="renaming_list">Hernoem lijst</string>
+	<string name="clear_completed_tasks_confirmation">Verwijder voltooide taken?</string>
+	<string name="copy_multiple_tasks_confirmation">%s gekopieerd</string>
+	<string name="delete_multiple_tasks_confirmation">%s verwijderd</string>
 </resources>
