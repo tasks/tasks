@@ -457,7 +457,7 @@ public class TaskListFragment extends InjectingFragment implements
         // set up list adapters
         taskAdapter = createTaskAdapter(currentCursor);
         recyclerAdapter = new TaskListRecyclerAdapter(getActivity(), taskAdapter, viewHolderFactory,
-                this, taskDeleter, taskDuplicator, tracker);
+                this, taskDeleter, taskDuplicator, tracker, dialogBuilder);
     }
 
     public Property<?>[] taskProperties() {

@@ -29,6 +29,7 @@ import com.todoroo.astrid.utility.Flags;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.ui.MenuColorizer;
 
 import java.util.List;
@@ -49,6 +50,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     private final TaskDeleter taskDeleter;
     private final TaskDuplicator taskDuplicator;
     private final Tracker tracker;
+    private final DialogBuilder dialogBuilder;
     private final ItemTouchHelper itemTouchHelper;
 
     private ActionMode mode = null;
@@ -56,7 +58,8 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     public TaskListRecyclerAdapter(Activity activity, TaskAdapter adapter,
                                    ViewHolderFactory viewHolderFactory,
                                    TaskListFragment taskList, TaskDeleter taskDeleter,
-                                   TaskDuplicator taskDuplicator, Tracker tracker) {
+                                   TaskDuplicator taskDuplicator, Tracker tracker,
+                                   DialogBuilder dialogBuilder) {
         this.activity = activity;
         this.adapter = adapter;
         this.viewHolderFactory = viewHolderFactory;
@@ -64,6 +67,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         this.taskDeleter = taskDeleter;
         this.taskDuplicator = taskDuplicator;
         this.tracker = tracker;
+        this.dialogBuilder = dialogBuilder;
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback());
     }
 
@@ -172,24 +176,14 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         for (int position : Ordering.natural().reverse().sortedCopy(multiSelector.getSelectedPositions())) {
             notifyItemRemoved(position);
         }
-        taskList.makeSnackbar(activity.getString(R.string.delete_multiple_tasks_confirmation, Integer.toString(result)))
-                .setAction(R.string.DLG_undo, v -> {
-                    taskDeleter.undelete(tasks);
-                    taskList.loadTaskListContent();
-                })
-                .show();
+        taskList.makeSnackbar(activity.getString(R.string.delete_multiple_tasks_confirmation, Integer.toString(result))).show();
     }
 
     private void copySelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_CLONE);
         List<Task> duplicates = taskDuplicator.duplicate(getTasks());
         taskList.onTaskCreated(duplicates);
-        taskList.makeSnackbar(activity.getString(R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size())))
-                .setAction(R.string.DLG_undo, v -> {
-                    taskDeleter.delete(duplicates);
-                    taskList.onTaskDelete(duplicates);
-                })
-                .show();
+        taskList.makeSnackbar(activity.getString(R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size()))).show();
     }
 
     private void updateModeTitle() {
@@ -211,12 +205,22 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.delete:
-                    deleteSelectedItems();
-                    mode.finish();
+                    dialogBuilder.newMessageDialog(R.string.delete_selected_tasks)
+                            .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                                deleteSelectedItems();
+                                mode.finish();
+                            })
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
                     return true;
                 case R.id.copy_tasks:
-                    copySelectedItems();
-                    mode.finish();
+                    dialogBuilder.newMessageDialog(R.string.copy_selected_tasks)
+                            .setPositiveButton(android.R.string.ok, ((dialogInterface, i) -> {
+                                copySelectedItems();
+                                mode.finish();
+                            }))
+                            .setNegativeButton(android.R.string.cancel, null)
+                            .show();
                     return true;
                 default:
                     return false;

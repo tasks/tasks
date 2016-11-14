@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/copy_tasks"
-        android:title="@string/TAd_contextCopyTask"
+        android:title="@string/copy"
         android:icon="@drawable/ic_content_copy_black_24dp"
         app:showAsAction="ifRoom" />
 
