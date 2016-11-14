@@ -29,11 +29,9 @@
 	<string name="SSD_sort_due">بحسب تاريخ الإستحقاق</string>
 	<string name="SSD_sort_importance">بحسب الأولوية</string>
 	<string name="SSD_sort_modified">بواسطة التعديل الأخير</string>
-	<string name="FLA_search_filter">مطابقة %</string>
 	<string name="TEA_title_hint">اسم المهمة</string>
 	<string name="TEA_importance_label">الأولوية</string>
 	<string name="TEA_hideUntil_label">إخفاء حتى...</string>
-	<string name="TEA_hideUntil_display">إخفاء حتى</string>
 	<string name="TEA_note_label">وصف</string>
 	<string name="TEA_estimatedDuration_label">كم من الوقت ستأخذ؟</string>
 	<string name="TEA_elapsedDuration_label">الوقت المنقضي</string>
@@ -81,7 +79,6 @@
 	<string name="CFA_type_add">أو</string>
 	<string name="CFA_type_subtract">ليس</string>
 	<string name="CFA_type_intersect">أيضا</string>
-	<string name="CFA_context_chain">% لديه معايير</string>
 	<string name="CFA_context_delete">حذف الصف</string>
 	<string name="CFA_help">ضغط مطول على الموضوع من أجل خيارات إضافية</string>
 	<string name="CFA_button_add">إضافة معايير</string>
@@ -89,10 +86,9 @@
 	<string name="next_month">الشهر القادم</string>
 	<string name="CFC_importance_text">أولوية على الأقل</string>
 	<string name="CFC_title_contains_name">العنوان يحتوي على..</string>
-	<string name="CFC_title_contains_text">العنوان يحتوي على....</string>
+	<string name="CFC_title_contains_text">العنوان يحتوي على :؟</string>
 	<string name="gcal_TEA_addToCalendar_label">أضف إلى التقويم</string>
 	<string name="gcal_TEA_showCalendar_label">إفتح أحداث التقويم</string>
-	<string name="gcal_completed_title">المكتملة%</string>
 	<string name="CFC_gtasks_list_text">في القائمة:؟</string>
 	<string name="gtasks_GTA_clear_completed">انتهاء الحذف</string>
 	<string name="gtasks_GLA_noaccounts">لا يوجد حساب قوقل للتزامن مع.</string>
@@ -120,7 +116,6 @@
 	<string name="default_random_reminder_bi_weekly">مرتين في الاسبوع</string>
 	<string name="default_random_reminder_monthly">شهري</string>
 	<string name="default_random_reminder_bi_monthly">مرتين في الشهر</string>
-	<string name="repeat_every">كل كم يوم</string>
 	<string name="repeat_interval_prompt">مجال التكرار</string>
 	<string name="repeat_never">لا تتكرر</string>
 	<string name="repeat_interval_day">أيام</string>
@@ -131,9 +126,7 @@
 	<string name="repeat_interval_year">سنين</string>
 	<string name="repeat_type_due">من تاريخ الموعد</string>
 	<string name="repeat_type_completion">من تاريخ الاتمام</string>
-	<string name="repeat_detail_duedate">كل كم؟</string>
 	<string name="repeat_forever">تكرار دائم</string>
-	<string name="repeat_until">تكرار حتى ....</string>
 	<string name="tag_FEx_untagged">غير مصنف</string>
 	<string name="TEA_timer_controls">مؤقت</string>
 	<string name="TEA_timer_comment_started">بدء هذه المهمة:</string>

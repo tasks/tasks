@@ -9,7 +9,9 @@ package com.todoroo.andlib.test;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.DisplayMetrics;
+import android.support.v4.text.TextUtilsCompat;
+
+import com.todoroo.andlib.data.Callback;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
+import static android.support.v4.view.ViewCompat.LAYOUT_DIRECTION_LTR;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -37,26 +40,20 @@ import static junit.framework.Assert.assertTrue;
 public class TranslationTests {
 
     /**
-     * Sets locale
-     */
-    private void setLocale(Locale locale) {
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        DisplayMetrics metrics = getTargetContext().getResources().getDisplayMetrics();
-        getTargetContext().getResources().updateConfiguration(config, metrics);
-    }
-
-    /**
      * Loop through each locale and call runnable
      */
-    private void forEachLocale(Runnable r) {
+    private void forEachLocale(Callback<Resources> callback) {
         Locale[] locales = Locale.getAvailableLocales();
         for(Locale locale : locales) {
-            setLocale(locale);
-
-            r.run();
+            callback.apply(getResourcesForLocale(locale));
         }
+    }
+
+    private Resources getResourcesForLocale(Locale locale) {
+        Resources resources = getTargetContext().getResources();
+        Configuration configuration = new Configuration(resources.getConfiguration());
+        configuration.locale = locale;
+        return new Resources(resources.getAssets(), resources.getDisplayMetrics(), configuration);
     }
 
     private static final class FormatStringData {
@@ -157,7 +154,7 @@ public class TranslationTests {
      */
     @Test
     public void testFormatStringsMatch() throws Exception {
-        final Resources r = getTargetContext().getResources();
+        final Resources resources = getTargetContext().getResources();
         final int[] strings = getResourceIds(R.string.class);
         final FormatStringData[] formatStrings = new FormatStringData[strings.length];
 
@@ -165,16 +162,16 @@ public class TranslationTests {
 
         for(int i = 0; i < strings.length; i++) {
             try {
-                String string = r.getString(strings[i]);
+                String string = resources.getString(strings[i]);
                 formatStrings[i] = new FormatStringData(string);
             } catch (Exception e) {
-                String name = r.getResourceName(strings[i]);
+                String name = resources.getResourceName(strings[i]);
                 failures.append(String.format("error opening %s: %s\n",
                         name, e.getMessage()));
             }
         }
 
-        forEachLocale(() -> {
+        forEachLocale(r -> {
             Locale locale = r.getConfiguration().locale;
             for(int i = 0; i < strings.length; i++) {
                 try {
@@ -203,15 +200,15 @@ public class TranslationTests {
     /**
      * check if string contains contains substrings
      */
-    private void contains(Resources r, int resource, StringBuilder failures, String... contains) {
-        String string = r.getString(resource);
-        for(String contain : contains)
-            if(!string.contains(contain)) {
-                Locale locale = r.getConfiguration().locale;
-                String name = r.getResourceName(resource);
-                failures.append(String.format("%s: %s did not contain: %s\n",
-                        locale.toString(), name, contain));
-            }
+    private void contains(Resources r, int resource, StringBuilder failures, String expected) {
+        String base = getTargetContext().getResources().getString(resource);
+        String translation = r.getString(resource);
+        if(!base.equals(translation) && !translation.contains(expected)) {
+            Locale locale = r.getConfiguration().locale;
+            String name = r.getResourceName(resource);
+            failures.append(String.format("%s: %s did not contain: %s\n",
+                    locale.toString(), name, expected));
+        }
     }
 
     /**
@@ -219,13 +216,16 @@ public class TranslationTests {
      */
     @Test
     public void testSpecialStringsMatch() throws Exception {
-        final Resources r = getTargetContext().getResources();
         final StringBuilder failures = new StringBuilder();
 
-        forEachLocale(() -> {
-            contains(r, R.string.CFC_tag_text, failures, "?");
-            contains(r, R.string.CFC_title_contains_text, failures, "?");
-            contains(r, R.string.CFC_dueBefore_text, failures, "?");
+        forEachLocale(r -> {
+            int layoutDirection = TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault());
+            String expected = layoutDirection == LAYOUT_DIRECTION_LTR ? "?" : "؟";
+            contains(r, R.string.CFC_tag_text, failures, expected);
+            contains(r, R.string.CFC_title_contains_text, failures, expected);
+            contains(r, R.string.CFC_dueBefore_text, failures, expected);
+            contains(r, R.string.CFC_tag_contains_text, failures, expected);
+            contains(r, R.string.CFC_gtasks_list_text, failures, expected);
         });
 
         assertEquals(failures.toString(), 0,

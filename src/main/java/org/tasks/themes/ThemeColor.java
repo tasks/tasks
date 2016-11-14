@@ -68,6 +68,7 @@ public class ThemeColor {
         }
     }
 
+    @SuppressLint("NewApi")
     public void setStatusBarColor(Activity activity) {
         if (atLeastLollipop()) {
             activity.getWindow().setStatusBarColor(getColorPrimaryDark());

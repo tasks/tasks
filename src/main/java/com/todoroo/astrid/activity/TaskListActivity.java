@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.activity;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -514,6 +515,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     @Override
+    @SuppressLint("NewApi")
     public void onSupportActionModeFinished(@NonNull ActionMode mode) {
         super.onSupportActionModeFinished(mode);
 
