@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">Очистити картинку</string>
 	<string name="TVA_add_comment">Додати коментар...</string>
 	<string name="name">Ім\'я</string>
-	<string name="enter_tag_name">Введіть ім\'я тегу</string>
 	<string name="enter_filter_name">Введіть назву фільтра</string>
 	<string name="choose_google_account">Оберіть Google аккаунт</string>
 	<string name="backup_BPr_header">Резервні копії</string>
@@ -40,7 +39,6 @@
 	<string name="TAd_hiddenFormat">%s [приховано]</string>
 	<string name="TAd_completed">Завершено\n%s</string>
 	<string name="TAd_actionEditTask">Редагувати</string>
-	<string name="TAd_contextCopyTask">Копіювати завдання</string>
 	<string name="SSD_sort_drag">Ручний порядок з підзадачами</string>
 	<string name="SSD_sort_auto">Розумне сортування</string>
 	<string name="SSD_sort_alpha">За назвою</string>

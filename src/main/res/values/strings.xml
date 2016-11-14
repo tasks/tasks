@@ -13,7 +13,6 @@
 
     <string name="name">Name</string>
 
-    <string name="enter_tag_name">Enter tag name</string>
     <string name="enter_filter_name">Enter filter name</string>
 
     <!-- ========================================= sharing login activity == -->
@@ -110,9 +109,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- slide 15a: Action Button: edit task -->
     <string name="TAd_actionEditTask">Edit</string>
-
-    <!-- Context Item: copy task -->
-    <string name="TAd_contextCopyTask">Copy Task</string>
 
     <!-- ============================================== SortSelectionDialog == -->
 

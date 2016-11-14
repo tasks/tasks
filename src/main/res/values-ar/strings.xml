@@ -22,7 +22,6 @@
 	<string name="TLA_menu_search">ابحث</string>
 	<string name="TLA_menu_settings">إعدادات</string>
 	<string name="TAd_actionEditTask">تعديل</string>
-	<string name="TAd_contextCopyTask">نسخ المهمه</string>
 	<string name="SSD_sort_drag">ترتيب يدوي مع مهام فرعية</string>
 	<string name="SSD_sort_auto">ترتيب ذكي</string>
 	<string name="SSD_sort_alpha">بالعنوان</string>

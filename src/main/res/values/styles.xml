@@ -80,16 +80,6 @@
 
     <!--=============================================== TaskListActivity == -->
 
-    <style name="ListView">
-        <item name="android:divider">@android:color/transparent</item>
-        <item name="android:dividerHeight">1px</item>
-        <item name="android:scrollbars">vertical</item>
-        <item name="android:cacheColorHint">#00000000</item>
-        <item name="android:smoothScrollbar">true</item>
-    </style>
-
-    <style name="TaskListView" parent="ListView" />
-
     <style name="divider">
         <item name="android:background">@color/divider</item>
     </style>

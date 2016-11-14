@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">写真を削除</string>
 	<string name="TVA_add_comment">コメントする</string>
 	<string name="name">名前</string>
-	<string name="enter_tag_name">タグ名を入力してください</string>
 	<string name="enter_filter_name">フィルター名を入力</string>
 	<string name="choose_google_account">Google アカウントを選択</string>
 	<string name="backup_BPr_header">バックアップ</string>
@@ -37,7 +36,6 @@
 	<string name="TAd_hiddenFormat">%s [非表示]</string>
 	<string name="TAd_completed">%s\nに完了</string>
 	<string name="TAd_actionEditTask">編集する</string>
-	<string name="TAd_contextCopyTask">タスクをコピー</string>
 	<string name="SSD_sort_drag">サブタスクの手動設定順</string>
 	<string name="SSD_sort_auto">自動</string>
 	<string name="SSD_sort_alpha">タイトル順</string>

@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">Limpar imagem</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
 	<string name="name">Nome</string>
-	<string name="enter_tag_name">Digite o nome da etiqueta</string>
 	<string name="enter_filter_name">Introduza o nome do fitro</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
@@ -35,7 +34,6 @@
 	<string name="TAd_hiddenFormat">%s [oculta]</string>
 	<string name="TAd_completed">Terminada\n%s</string>
 	<string name="TAd_actionEditTask">Editar</string>
-	<string name="TAd_contextCopyTask">Copiar tarefa</string>
 	<string name="SSD_sort_drag">Ordem manual com subtarefas</string>
 	<string name="SSD_sort_auto">Ordenação Inteligente Tasks</string>
 	<string name="SSD_sort_alpha">Por Título</string>

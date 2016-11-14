@@ -29,7 +29,6 @@
 	<string name="TAd_hiddenFormat">%s [gizli]</string>
 	<string name="TAd_completed">Bitti\n%s</string>
 	<string name="TAd_actionEditTask">Düzenle</string>
-	<string name="TAd_contextCopyTask">Görevi Kopyala</string>
 	<string name="SSD_sort_auto">Tasks Akıllı Sıralama</string>
 	<string name="SSD_sort_alpha">Başlığa göre</string>
 	<string name="SSD_sort_due">Bitiş Tarihine Göre</string>

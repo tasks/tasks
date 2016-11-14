@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">Rensa bild</string>
 	<string name="TVA_add_comment">Lägg till en kommentar...</string>
 	<string name="name">Namn</string>
-	<string name="enter_tag_name">Ange namn för ettikett</string>
 	<string name="enter_filter_name">Ange ett namn för filtret</string>
 	<string name="choose_google_account">Välj Googlekonto</string>
 	<string name="backup_BPr_header">Säkerhetskopior</string>
@@ -37,7 +36,6 @@
 	<string name="TAd_hiddenFormat">%s [dold]</string>
 	<string name="TAd_completed">Avslutad\n%s</string>
 	<string name="TAd_actionEditTask">Redigera</string>
-	<string name="TAd_contextCopyTask">Kopiera uppgift</string>
 	<string name="SSD_sort_drag">Manuell sortering med underuppgifter</string>
 	<string name="SSD_sort_auto">Tasks intelligent sortering</string>
 	<string name="SSD_sort_alpha">Efter titel</string>

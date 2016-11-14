@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">הסר תמונה</string>
 	<string name="TVA_add_comment">הוסף הערה</string>
 	<string name="name">שם</string>
-	<string name="enter_tag_name">הזן שם תגית</string>
 	<string name="enter_filter_name">הזן שם מסנן</string>
 	<string name="choose_google_account">בחר חשבון גוגל</string>
 	<string name="backup_BPr_header">גיבויים</string>
@@ -37,7 +36,6 @@
 	<string name="TAd_hiddenFormat">%s [מוסתרת]</string>
 	<string name="TAd_completed">הסתיימה\n%s</string>
 	<string name="TAd_actionEditTask">עריכה</string>
-	<string name="TAd_contextCopyTask">העתק משימה</string>
 	<string name="SSD_sort_drag">סידור ידני עם תתי-משימות</string>
 	<string name="SSD_sort_auto">מיון חכם</string>
 	<string name="SSD_sort_alpha">ע״פ כותרת</string>

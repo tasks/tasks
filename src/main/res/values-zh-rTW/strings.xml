@@ -30,7 +30,6 @@
 	<string name="TAd_hiddenFormat">%s [隱藏]</string>
 	<string name="TAd_completed">%s\n完成</string>
 	<string name="TAd_actionEditTask">編輯</string>
-	<string name="TAd_contextCopyTask">複製任務工作</string>
 	<string name="SSD_sort_auto">Tasks智慧排序</string>
 	<string name="SSD_sort_alpha">依主旨</string>
 	<string name="SSD_sort_due">依到期日</string>

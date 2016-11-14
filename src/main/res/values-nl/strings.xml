@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">Verwijder Foto</string>
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
 	<string name="name">Naam</string>
-	<string name="enter_tag_name">Noteer label naam</string>
 	<string name="enter_filter_name">Vul een filter naam in</string>
 	<string name="choose_google_account">Kies Google Account</string>
 	<string name="backup_BPr_header">Back-ups</string>
@@ -37,7 +36,6 @@
 	<string name="TAd_hiddenFormat">%s [verborgen]</string>
 	<string name="TAd_completed">Afgerond\n%s</string>
 	<string name="TAd_actionEditTask">Bewerken</string>
-	<string name="TAd_contextCopyTask">Taak kopiëren</string>
 	<string name="SSD_sort_drag">Handmatige volgorde met subtaken</string>
 	<string name="SSD_sort_auto">Slim Sorteren</string>
 	<string name="SSD_sort_alpha">Op titel</string>

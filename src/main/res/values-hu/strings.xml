@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">Kép törlése</string>
 	<string name="TVA_add_comment">Hozzászólás írása...</string>
 	<string name="name">Cím</string>
-	<string name="enter_tag_name">Adja meg a címke nevét</string>
 	<string name="enter_filter_name">Kérem a szűrő nevét</string>
 	<string name="choose_google_account">Google Fiók kiválasztása</string>
 	<string name="backup_BPr_header">Mentések</string>
@@ -40,7 +39,6 @@
 	<string name="TAd_hiddenFormat">%s [rejtett]</string>
 	<string name="TAd_completed">Befejezve\n%s</string>
 	<string name="TAd_actionEditTask">Szerkesztés</string>
-	<string name="TAd_contextCopyTask">Feladat másolása</string>
 	<string name="SSD_sort_drag">Manuális sorrend részfeladatokkal</string>
 	<string name="SSD_sort_auto">Intelligens rendezés</string>
 	<string name="SSD_sort_alpha">Név alapján</string>

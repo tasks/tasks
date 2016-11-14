@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">پاک کردن عکس</string>
 	<string name="TVA_add_comment">اضافه کردن نظر</string>
 	<string name="name">نام</string>
-	<string name="enter_tag_name">نام تگ را وارد کنید</string>
 	<string name="enter_filter_name">نام فیلتر را وارد نمایید</string>
 	<string name="choose_google_account">انتخاب حساب کاربری گوگل</string>
 	<string name="backup_BPr_header">پشتیبان ها</string>
@@ -26,7 +25,6 @@
 	<string name="TLA_menu_search">جست و جو</string>
 	<string name="TLA_menu_settings">تنظیمات</string>
 	<string name="TAd_actionEditTask">ویرایش</string>
-	<string name="TAd_contextCopyTask">کپی وظایف</string>
 	<string name="SSD_sort_drag">چینش دستی بهمراه زیروظایف</string>
 	<string name="SSD_sort_auto">چینش هوشمندانه</string>
 	<string name="SSD_sort_alpha">براساس موضوع</string>

@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">사진 제거하기</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
 	<string name="name">이름</string>
-	<string name="enter_tag_name">태그 이름 입력</string>
 	<string name="enter_filter_name">필터 이름 입력</string>
 	<string name="choose_google_account">구글 계정 선택</string>
 	<string name="backup_BPr_header">백업</string>
@@ -40,7 +39,6 @@
 	<string name="TAd_hiddenFormat">%s [숨김]</string>
 	<string name="TAd_completed">일정 완료\n%s</string>
 	<string name="TAd_actionEditTask">편집</string>
-	<string name="TAd_contextCopyTask">일정 복사하기</string>
 	<string name="SSD_sort_drag">수동 정렬 (하위일정 포함)</string>
 	<string name="SSD_sort_auto">Tasks 스마트 정렬</string>
 	<string name="SSD_sort_alpha">제목 순서</string>

@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">Usuń obrazek</string>
 	<string name="TVA_add_comment">Dodaj komentarz...</string>
 	<string name="name">Nazwa</string>
-	<string name="enter_tag_name">Podaj nazwę taga</string>
 	<string name="enter_filter_name">Podaj nazwę filtra</string>
 	<string name="choose_google_account">Wybierz konto Google</string>
 	<string name="backup_BPr_header">Kopie zapasowe</string>
@@ -37,7 +36,6 @@
 	<string name="TAd_hiddenFormat">%s [ukryte]</string>
 	<string name="TAd_completed">Ukończono\n%s</string>
 	<string name="TAd_actionEditTask">Edytuj</string>
-	<string name="TAd_contextCopyTask">Kopiuj zadanie</string>
 	<string name="SSD_sort_drag">Ręczne z podzadaniami</string>
 	<string name="SSD_sort_auto">Automatyczne</string>
 	<string name="SSD_sort_alpha">Wg tytułu</string>
