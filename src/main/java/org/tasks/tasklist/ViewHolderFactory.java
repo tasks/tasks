@@ -31,7 +31,6 @@ public class ViewHolderFactory {
     private final int fontSize;
     private final TaskDao taskDao;
     private final DialogBuilder dialogBuilder;
-    private final int minRowHeight;
     private final DisplayMetrics metrics;
     private final int background;
     private final int selectedColor;
@@ -51,14 +50,13 @@ public class ViewHolderFactory {
         background = getResourceId(context, R.attr.selectableItemBackground);
         selectedColor = getData(context, R.attr.colorControlHighlight);
         showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
-        fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 18);
+        fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 16);
         metrics = context.getResources().getDisplayMetrics();
-        minRowHeight = (int) (metrics.density * 40);
     }
 
     ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks, MultiSelector multiSelector) {
         return new ViewHolder(context, viewGroup, showFullTaskTitle, fontSize, checkBoxes,
                 tagFormatter, textColorOverdue, textColorSecondary, textColorHint, taskDao,
-                dialogBuilder, callbacks, minRowHeight, metrics, background, selectedColor, multiSelector);
+                dialogBuilder, callbacks, metrics, background, selectedColor, multiSelector);
     }
 }

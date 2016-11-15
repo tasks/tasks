@@ -25,4 +25,8 @@ public class SyncAdapterHelper {
     public boolean isEnabled() {
         return false;
     }
+
+    public void requestSynchronization() {
+
+    }
 }

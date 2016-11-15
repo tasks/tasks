@@ -97,7 +97,7 @@ public class CommentsController {
         if (items.size() > commentItems) {
             Button loadMore = new Button(activity);
             loadMore.setText(R.string.TEA_load_more);
-            loadMore.setTextColor(getColor(activity, R.color.task_edit_deadline_gray));
+            loadMore.setTextColor(getColor(activity, R.color.text_secondary));
             loadMore.setBackgroundColor(Color.alpha(0));
             loadMore.setOnClickListener(v -> {
                 // Perform action on click

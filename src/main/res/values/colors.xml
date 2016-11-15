@@ -92,10 +92,6 @@
     <color name="led_purple">#800080</color>
     <color name="led_white">#ffffff</color>
 
-    <color name="overdue">@color/red_500</color>
-    <color name="task_list_done">#ff777777</color>
-    <color name="task_edit_deadline_gray">#888888</color>
-
     <color name="black_87">#de000000</color>
     <color name="black_54">#8a000000</color>
     <color name="black_38">#61000000</color>
@@ -105,6 +101,8 @@
     <color name="white_70">#b3ffffff</color>
     <color name="white_50">#80ffffff</color>
     <color name="white_12">#1fffffff</color>
+
+    <color name="overdue">@color/red_500</color>
 
     <color name="md_background_dark">#303030</color>
     <color name="widget_background_black">#000000</color>

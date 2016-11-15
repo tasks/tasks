@@ -20,7 +20,6 @@ import com.bignerdranch.android.multiselector.MultiSelectorBindingHolder;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.core.LinkActionExposer;
@@ -38,16 +37,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
 import timber.log.Timber;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
-/**
- * View Holder saves a lot of findViewById lookups.
- *
- * @author Tim Su <tim@todoroo.com>
- */
 class ViewHolder extends MultiSelectorBindingHolder {
 
     @Override
@@ -72,7 +68,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
         updateBackground();
     }
 
-    void updateBackground() {
+    private void updateBackground() {
         if (selected || moving) {
             rowBody.setBackgroundColor(selectedColor);
         } else if (selectable) {
@@ -102,7 +98,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
     @BindView(R.id.completeBox) CheckableImageView completeBox;
     @BindView(R.id.due_date) public TextView dueDate;
     @BindView(R.id.tag_block) TextView tagBlock;
-    @BindView(R.id.taskActionContainer) View taskActionContainer;
     @BindView(R.id.taskActionIcon) ImageView taskActionIcon;
 
     public Task task;
@@ -111,7 +106,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
     private boolean hasFiles; // From join query, not part of the task model
     private boolean hasNotes;
     private final Context context;
-    private final int fontSize;
     private final CheckBoxes checkBoxes;
     private final TagFormatter tagFormatter;
     private final int textColorSecondary;
@@ -123,7 +117,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
     private final int background;
     private final int selectedColor;
     private final int textColorOverdue;
-    private Pair<Float, Float> lastTouchYRawY = new Pair<>(0f, 0f);
     private int indent;
     private boolean selectable = false;
     private boolean selected;
@@ -132,11 +125,10 @@ class ViewHolder extends MultiSelectorBindingHolder {
     ViewHolder(Context context, ViewGroup view, boolean showFullTaskTitle, int fontSize,
                CheckBoxes checkBoxes, TagFormatter tagFormatter,
                int textColorOverdue, int textColorSecondary, int textColorHint, TaskDao taskDao,
-               DialogBuilder dialogBuilder, ViewHolderCallbacks callback, int minRowHeight,
+               DialogBuilder dialogBuilder, ViewHolderCallbacks callback,
                DisplayMetrics metrics, int background, int selectedColor, MultiSelector multiSelector) {
         super(view, multiSelector);
         this.context = context;
-        this.fontSize = fontSize;
         this.checkBoxes = checkBoxes;
         this.tagFormatter = tagFormatter;
         this.textColorOverdue = textColorOverdue;
@@ -158,14 +150,21 @@ class ViewHolder extends MultiSelectorBindingHolder {
             nameView.setEllipsize(null);
         }
 
+        if (fontSize < 16) {
+            // developer.android.com/guide/practices/screens_support.html#dips-pels
+            int fontSizeInDP = (int) (fontSize * metrics.density + 0.5f);
+            rowBody.setPadding(0, fontSizeInDP, 0, fontSizeInDP);
+        }
+
+        nameView.setTextSize(fontSize);
+        int fontSizeDetails = Math.max(10, fontSize - 2);
+        dueDate.setTextSize(fontSizeDetails);
+        tagBlock.setTextSize(fontSizeDetails);
+
         view.setTag(this);
         for(int i = 0; i < view.getChildCount(); i++) {
             view.getChildAt(i).setTag(this);
         }
-
-        setMinimumHeight(minRowHeight);
-
-        addListeners();
     }
 
     @SuppressLint("NewApi")
@@ -176,7 +175,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) row.getLayoutParams();
             layoutParams.setMarginStart(indentSize);
         } else {
-            rowBody.setPadding(indentSize, row.getPaddingTop(), 0, row.getPaddingBottom());
+            rowBody.setPadding(indentSize, rowBody.getPaddingTop(), 0, rowBody.getPaddingBottom());
         }
     }
 
@@ -204,16 +203,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
         setTaskAppearance();
     }
 
-    private void setMinimumHeight(int minRowHeight) {
-        if (fontSize < 16) {
-            rowBody.setMinimumHeight(0);
-            completeBox.setMinimumHeight(0);
-        } else {
-            rowBody.setMinimumHeight(minRowHeight);
-            completeBox.setMinimumHeight(minRowHeight);
-        }
-    }
-
     /** Helper method to set the contents and visibility of each field */
     private synchronized void setFieldContentsAndVisibility() {
         String nameValue = task.getTitle();
@@ -227,17 +216,14 @@ class ViewHolder extends MultiSelectorBindingHolder {
         setupDueDateAndTags();
 
         // Task action
-        ImageView taskAction = taskActionIcon;
-        if (taskAction != null) {
-            TaskAction action = getTaskAction(task, hasFiles, hasNotes);
-            if (action != null) {
-                taskActionContainer.setVisibility(View.VISIBLE);
-                taskAction.setImageResource(action.icon);
-                taskAction.setTag(action);
-            } else {
-                taskActionContainer.setVisibility(View.GONE);
-                taskAction.setTag(null);
-            }
+        TaskAction action = getTaskAction(task, hasFiles, hasNotes);
+        if (action != null) {
+            taskActionIcon.setVisibility(View.VISIBLE);
+            taskActionIcon.setImageResource(action.icon);
+            taskActionIcon.setTag(action);
+        } else {
+            taskActionIcon.setVisibility(View.GONE);
+            taskActionIcon.setTag(null);
         }
     }
 
@@ -259,15 +245,8 @@ class ViewHolder extends MultiSelectorBindingHolder {
             name.setEnabled(true);
             name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
-        name.setTextSize(fontSize);
 
         setupDueDateAndTags();
-
-        float detailTextSize = Math.max(10, fontSize * 14 / 20);
-        if(dueDate != null) {
-            dueDate.setTextSize(detailTextSize);
-            dueDate.setTypeface(null, 0);
-        }
 
         setupCompleteBox();
     }
@@ -326,39 +305,47 @@ class ViewHolder extends MultiSelectorBindingHolder {
         }
     }
 
-    /**
-     * Set listeners for this view. This is called once per view when it is
-     * created.
-     */
-    private void addListeners() {
-        // check box listener
-        View.OnTouchListener otl = (v, event) -> {
-            lastTouchYRawY = new Pair<>(event.getY(), event.getRawY());
-            return false;
-        };
-        completeBox.setOnTouchListener(otl);
-        completeBox.setOnClickListener(completeBoxListener);
+    @OnClick(R.id.rowBody)
+    void onRowBodyClick() {
+        callback.onClick(this);
+    }
 
-        rowBody.setOnClickListener(view -> callback.onClick(this));
+    @OnLongClick(R.id.rowBody)
+    boolean onRowBodyLongClick() {
+        return callback.onLongPress(this);
+    }
 
-        rowBody.setOnLongClickListener(view -> callback.onLongPress(this));
+    @OnClick(R.id.completeBox)
+    void onCompleteBoxClick(View v) {
+        if(task == null) {
+            return;
+        }
 
-        if (taskActionContainer != null) {
-            taskActionContainer.setOnClickListener(v -> {
-                TaskAction action = (TaskAction) taskActionIcon.getTag();
-                if (action instanceof NotesAction) {
-                    showEditNotesDialog(task);
-                } else if (action instanceof FilesAction) {
-                    showFilesDialog(task);
-                } else if (action != null) {
-                    try {
-                        action.intent.send();
-                    } catch (PendingIntent.CanceledException e) {
-                        // Oh well
-                        Timber.e(e, e.getMessage());
-                    }
-                }
-            });
+        boolean newState = completeBox.isChecked();
+
+        if (newState != task.isCompleted()) {
+            callback.onCompletedTask(task, newState);
+            taskDao.setComplete(task, newState);
+        }
+
+        // set check box to actual action item state
+        setTaskAppearance();
+    }
+
+    @OnClick(R.id.taskActionIcon)
+    void onTaskActionClick() {
+        TaskAction action = (TaskAction) taskActionIcon.getTag();
+        if (action instanceof NotesAction) {
+            showEditNotesDialog(task);
+        } else if (action instanceof FilesAction) {
+            showFilesDialog(task);
+        } else if (action != null) {
+            try {
+                action.intent.send();
+            } catch (PendingIntent.CanceledException e) {
+                // Oh well
+                Timber.e(e, e.getMessage());
+            }
         }
     }
 
@@ -385,38 +372,5 @@ class ViewHolder extends MultiSelectorBindingHolder {
 //        filesControlSet.hideAddAttachmentButton();
 //        filesControlSet.readFromTask(task);
 //        filesControlSet.getView().performClick();
-    }
-
-    private final View.OnClickListener completeBoxListener = v -> {
-        int[] location = new int[2];
-        v.getLocationOnScreen(location);
-
-        if(Math.abs(location[1] + lastTouchYRawY.getLeft() - lastTouchYRawY.getRight()) > 10) {
-            completeBox.setChecked(!completeBox.isChecked());
-            return;
-        }
-
-        completeTask(task, completeBox.isChecked());
-
-        // set check box to actual action item state
-        setTaskAppearance();
-    };
-
-    /**
-     * This method is called when user completes a task via check box or other
-     * means
-     *
-     * @param newState
-     *            state that this task should be set to
-     */
-    private void completeTask(final Task task, final boolean newState) {
-        if(task == null) {
-            return;
-        }
-
-        if (newState != task.isCompleted()) {
-            callback.onCompletedTask(task, newState);
-            taskDao.setComplete(task, newState);
-        }
     }
 }

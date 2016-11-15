@@ -10,20 +10,26 @@ public class WidgetTheme {
     };
     private final String name;
     private final int backgroundColor;
-    private final int textColor;
+    private final int textColorPrimary;
+    private final int textColorSecondary;
 
-    public WidgetTheme(String name, int backgroundColor, int textColor) {
+    public WidgetTheme(String name, int backgroundColor, int textColorPrimary, int textColorSecondary) {
         this.name = name;
         this.backgroundColor = backgroundColor;
-        this.textColor = textColor;
+        this.textColorPrimary = textColorPrimary;
+        this.textColorSecondary = textColorSecondary;
     }
 
     public int getBackgroundColor() {
         return backgroundColor;
     }
 
-    public int getTextColor() {
-        return textColor;
+    public int getTextColorPrimary() {
+        return textColorPrimary;
+    }
+
+    public int getTextColorSecondary() {
+        return textColorSecondary;
     }
 
     public String getName() {

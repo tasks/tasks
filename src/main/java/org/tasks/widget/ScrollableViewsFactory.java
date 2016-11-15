@@ -52,11 +52,12 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private float textSize;
     private float dueDateTextSize;
     private String filterId;
-    private int themeTextColor;
+    private int textColorPrimary;
+    private int textColorSecondary;
 
     private TodorooCursor<Task> cursor;
 
-    public ScrollableViewsFactory(
+    ScrollableViewsFactory(
             SubtasksHelper subtasksHelper,
             Preferences preferences,
             Context context,
@@ -145,30 +146,30 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
                 return null;
             }
             String textContent;
-            int textColor = themeTextColor;
+            int textColorTitle = textColorPrimary;
 
             textContent = task.getTitle();
 
             RemoteViews row = new RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_row);
 
             if (task.isCompleted()) {
-                textColor = getColor(context, R.color.task_list_done);
+                textColorTitle = textColorSecondary;
                 row.setInt(R.id.widget_text, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
             } else {
                 row.setInt(R.id.widget_text, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
             }
             row.setFloat(R.id.widget_text, "setTextSize", textSize);
             if (showDueDates) {
-                formatDueDate(row, task, textColor);
+                formatDueDate(row, task);
             } else {
                 row.setViewVisibility(R.id.widget_due_date, View.GONE);
                 if (task.hasDueDate() && task.isOverdue()) {
-                    textColor = getColor(context, R.color.overdue);
+                    textColorTitle = getColor(context, R.color.overdue);
                 }
             }
 
             row.setTextViewText(R.id.widget_text, textContent);
-            row.setTextColor(R.id.widget_text, textColor);
+            row.setTextColor(R.id.widget_text, textColorTitle);
             row.setImageViewBitmap(R.id.widget_complete_box, getCheckbox(task));
 
             long taskId = task.getId();
@@ -230,7 +231,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         return subtasksHelper.applySubtasksToWidgetFilter(filter, query);
     }
 
-    private void formatDueDate(RemoteViews row, Task task, int textColor) {
+    private void formatDueDate(RemoteViews row, Task task) {
         if (task.hasDueDate()) {
             Resources resources = context.getResources();
             row.setViewVisibility(R.id.widget_due_date, View.VISIBLE);
@@ -238,7 +239,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
                     ? resources.getString(R.string.TAd_completed, DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate()))
                     : DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
             //noinspection ResourceAsColor
-            row.setTextColor(R.id.widget_due_date, task.isOverdue() ? getColor(context, R.color.overdue) : textColor);
+            row.setTextColor(R.id.widget_due_date, task.isOverdue() ? getColor(context, R.color.overdue) : textColorSecondary);
             row.setFloat(R.id.widget_due_date, "setTextSize", dueDateTextSize);
         } else {
             row.setViewVisibility(R.id.widget_due_date, View.GONE);
@@ -247,11 +248,12 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private void updateSettings() {
         WidgetTheme widgetTheme = themeCache.getWidgetTheme(widgetPreferences.getThemeIndex());
-        themeTextColor = widgetTheme.getTextColor();
+        textColorPrimary = widgetTheme.getTextColorPrimary();
+        textColorSecondary = widgetTheme.getTextColorSecondary();
         showDueDates = widgetPreferences.showDueDate();
         showCheckboxes = widgetPreferences.showCheckboxes();
         textSize = widgetPreferences.getFontSize();
-        dueDateTextSize = Math.max(10, textSize * 14 / 20);
+        dueDateTextSize = Math.max(10, textSize - 2);
         filterId = widgetPreferences.getFilterId();
     }
 }

@@ -55,7 +55,8 @@ public class ThemeCache {
             widgetThemes.add(new WidgetTheme(
                     widgetBackgroundNames[i],
                     getColor(context, WidgetTheme.BACKGROUNDS[i]),
-                    getColor(context, i == 0 ? R.color.black_87 : R.color.white_100)));
+                    getColor(context, i == 0 ? R.color.black_87 : R.color.white_100),
+                    getColor(context, i == 0 ? R.color.black_54 : R.color.white_70)));
         }
         String []ledNames = resources.getStringArray(R.array.led);
         for (int i = 0 ; i < LEDColor.LED_COLORS.length ; i++) {
