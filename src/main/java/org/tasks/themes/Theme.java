@@ -28,6 +28,10 @@ public class Theme {
         return new Theme(themeBase, themeColor, themeAccent);
     }
 
+    public Theme withThemeColor(ThemeColor themeColor) {
+        return new Theme(themeBase, themeColor, themeAccent);
+    }
+
     public ThemeBase getThemeBase() {
         return themeBase;
     }
