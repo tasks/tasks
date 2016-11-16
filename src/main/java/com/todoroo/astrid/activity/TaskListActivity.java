@@ -133,6 +133,13 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         navigationDrawer = getNavigationDrawerFragment();
         navigationDrawer.setUp(drawerLayout);
 
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                finishActionMode();
+            }
+        });
+
         handleIntent();
     }
 

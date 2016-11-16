@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
-import com.google.common.collect.Ordering;
 import com.google.common.primitives.Longs;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -54,6 +53,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     private final ItemTouchHelper itemTouchHelper;
 
     private ActionMode mode = null;
+    private boolean dragging;
 
     public TaskListRecyclerAdapter(Activity activity, TaskAdapter adapter,
                                    ViewHolderFactory viewHolderFactory,
@@ -109,6 +109,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         Cursor cursor = adapter.getCursor();
         cursor.moveToPosition(position);
         holder.bindView((TodorooCursor<Task>) cursor);
+        holder.setMoving(false);
         holder.setIndent(adapter.getIndent(holder.task));
     }
 
@@ -124,42 +125,40 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
 
     @Override
     public void onClick(ViewHolder viewHolder) {
-        if (multiSelector.tapSelection(viewHolder)) {
-            viewHolder.setMoving(false);
-            updateActionMode();
-        } else {
+        if (mode == null) {
             Task task = viewHolder.task;
             taskList.onTaskListItemClicked(task.getId());
+        } else {
+            toggle(viewHolder);
         }
     }
 
     @Override
     public boolean onLongPress(ViewHolder viewHolder) {
-        multiSelector.setSelectable(true);
-        if (adapter.isManuallySorted()) {
-            viewHolder.setMoving(true);
-            Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH);
-            return false;
-        }
-
-        multiSelector.tapSelection(viewHolder);
-        updateActionMode();
+        toggle(viewHolder);
         return true;
     }
 
-    private void updateActionMode() {
-        if (mode == null) {
-            mode = ((TaskListActivity) activity).startSupportActionMode(actionModeCallback);
-        }
-        afterSelect();
-    }
-
-    private void afterSelect() {
+    private void toggle(ViewHolder viewHolder) {
+        multiSelector.setSelectable(true);
+        multiSelector.tapSelection(viewHolder);
         if (multiSelector.getSelectedPositions().isEmpty()) {
+            dragging = false;
             if (mode != null) {
                 mode.finish();
             }
         } else {
+            if (mode == null) {
+                mode = ((TaskListActivity) activity).startSupportActionMode(actionModeCallback);
+                if (adapter.isManuallySorted()) {
+                    dragging = true;
+                    Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH);
+                } else {
+                    dragging = false;
+                }
+            } else {
+                dragging = false;
+            }
             updateModeTitle();
         }
     }
@@ -171,17 +170,17 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     private void deleteSelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_DELETE);
         List<Task> tasks = getTasks();
+        mode.finish();
         int result = taskDeleter.delete(tasks);
         taskList.onTaskDelete(tasks);
-        for (int position : Ordering.natural().reverse().sortedCopy(multiSelector.getSelectedPositions())) {
-            notifyItemRemoved(position);
-        }
         taskList.makeSnackbar(activity.getString(R.string.delete_multiple_tasks_confirmation, Integer.toString(result))).show();
     }
 
     private void copySelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_CLONE);
-        List<Task> duplicates = taskDuplicator.duplicate(getTasks());
+        List<Task> tasks = getTasks();
+        mode.finish();
+        List<Task> duplicates = taskDuplicator.duplicate(tasks);
         taskList.onTaskCreated(duplicates);
         taskList.makeSnackbar(activity.getString(R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size()))).show();
     }
@@ -206,19 +205,13 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
             switch (item.getItemId()) {
                 case R.id.delete:
                     dialogBuilder.newMessageDialog(R.string.delete_selected_tasks)
-                            .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                                deleteSelectedItems();
-                                mode.finish();
-                            })
+                            .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> deleteSelectedItems())
                             .setNegativeButton(android.R.string.cancel, null)
                             .show();
                     return true;
                 case R.id.copy_tasks:
                     dialogBuilder.newMessageDialog(R.string.copy_selected_tasks)
-                            .setPositiveButton(android.R.string.ok, ((dialogInterface, i) -> {
-                                copySelectedItems();
-                                mode.finish();
-                            }))
+                            .setPositiveButton(android.R.string.ok, ((dialogInterface, i) -> copySelectedItems()))
                             .setNegativeButton(android.R.string.cancel, null)
                             .show();
                     return true;
@@ -241,25 +234,41 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         private int to = -1;
 
         @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            super.onSelectedChanged(viewHolder, actionState);
+            if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
+                ((ViewHolder) viewHolder).setMoving(true);
+            }
+        }
+
+        @Override
         public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-            if (!adapter.isManuallySorted() || mode != null) {
+            if (!adapter.isManuallySorted()) {
                 return makeMovementFlags(0, 0);
             }
-
             ViewHolder vh = (ViewHolder) viewHolder;
-            int indentFlags = 0;
-            if (vh.isIndented()) {
-                indentFlags |= ItemTouchHelper.LEFT;
+            if (mode == null) {
+                int indentFlags = 0;
+                if (vh.isIndented()) {
+                    indentFlags |= ItemTouchHelper.LEFT;
+                }
+                int position = vh.getAdapterPosition();
+                if (position > 0 && adapter.canIndent(position, vh.task)) {
+                    indentFlags |= ItemTouchHelper.RIGHT;
+                }
+                return makeMovementFlags(0, indentFlags);
             }
-            int position = vh.getAdapterPosition();
-            if (position > 0 && adapter.canIndent(position, vh.task)) {
-                indentFlags |= ItemTouchHelper.RIGHT;
+            if (dragging) {
+                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0);
             }
-            return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, indentFlags);
+            return makeMovementFlags(0, 0);
         }
 
         @Override
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
+            if (mode != null) {
+                mode.finish();
+            }
             int fromPosition = source.getAdapterPosition();
             int toPosition = target.getAdapterPosition();
             if (from == -1) {
@@ -288,14 +297,10 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
             super.clearView(recyclerView, viewHolder);
             ViewHolder vh = (ViewHolder) viewHolder;
-            vh.setMoving(false);
-            if (multiSelector.isSelectable()) {
-                if (from == -1) {
-                    multiSelector.setSelected(vh, true);
-                    updateActionMode();
-                } else {
-                    multiSelector.clearSelections();
-                    multiSelector.setSelectable(false);
+            if (dragging) {
+                vh.setMoving(false);
+                dragging = false;
+                if (from != -1) {
                     if (from >= 0 && from != to) {
                         if (from < to) {
                             to++;

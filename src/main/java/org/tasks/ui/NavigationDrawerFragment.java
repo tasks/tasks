@@ -115,10 +115,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
         }
         mDrawerListView = (ListView) layout.findViewById(android.R.id.list);
         mDrawerListView.setOnItemClickListener((parent, view, position, id) -> {
-            mDrawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
                 @Override
                 public void onDrawerClosed(View drawerView) {
-                    mDrawerLayout.setDrawerListener(null);
+                    mDrawerLayout.removeDrawerListener(this);
                     selectItem(position);
                 }
             });
