@@ -305,6 +305,7 @@
 	<string name="tag_settings">Imposta etichetta</string>
 	<string name="list_settings">Impostazioni lista</string>
 	<string name="delete">Elimina</string>
+	<string name="copy">Copia</string>
 	<string name="filter_settings">Preferenze di filtro</string>
 	<string name="show_hidden">Mostra nascoste</string>
 	<string name="show_completed">Mostra completate</string>
@@ -410,4 +411,8 @@
 	<string name="deleting_list">Cancella lista</string>
 	<string name="renaming_list">RInomina lista</string>
 	<string name="clear_completed_tasks_confirmation">Elimino le attività completate?</string>
+	<string name="copy_multiple_tasks_confirmation">%s copiati</string>
+	<string name="delete_multiple_tasks_confirmation">%s eliminati</string>
+	<string name="delete_selected_tasks">Elimino i compiti selezionati?</string>
+	<string name="copy_selected_tasks">Copio i compiti selezionati?</string>
 </resources>

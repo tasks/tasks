@@ -305,6 +305,7 @@
 	<string name="tag_settings">Настройки тегов</string>
 	<string name="list_settings">Настройки списка</string>
 	<string name="delete">Удалить</string>
+	<string name="copy">Копия</string>
 	<string name="filter_settings">Настройки фильтра</string>
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
@@ -410,4 +411,8 @@
 	<string name="deleting_list">Удаление списка</string>
 	<string name="renaming_list">Переименование списка</string>
 	<string name="clear_completed_tasks_confirmation">Очистить завершённую задачу?</string>
+	<string name="copy_multiple_tasks_confirmation">%s скопировано</string>
+	<string name="delete_multiple_tasks_confirmation">%s удалено</string>
+	<string name="delete_selected_tasks">Удалить выделенные задачи?</string>
+	<string name="copy_selected_tasks">Скопировать выделенные задачи?</string>
 </resources>

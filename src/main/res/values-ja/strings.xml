@@ -414,4 +414,6 @@
 	<string name="clear_completed_tasks_confirmation">完了したタスクをクリアしますか?</string>
 	<string name="copy_multiple_tasks_confirmation">%s コピー済</string>
 	<string name="delete_multiple_tasks_confirmation">%s 削除済</string>
+	<string name="delete_selected_tasks">選択したタスクを削除しますか?</string>
+	<string name="copy_selected_tasks">選択したタスクをコピーしますか?</string>
 </resources>

@@ -402,4 +402,6 @@
 	<string name="clear_completed_tasks_confirmation">Supprimer les tâches terminées ?</string>
 	<string name="copy_multiple_tasks_confirmation">%s copié</string>
 	<string name="delete_multiple_tasks_confirmation">%s supprimé</string>
+	<string name="delete_selected_tasks">Supprimer les tâches sélectionnées ?</string>
+	<string name="copy_selected_tasks">Copier les tâches sélectionnées ?</string>
 </resources>

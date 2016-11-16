@@ -410,4 +410,6 @@
 	<string name="clear_completed_tasks_confirmation">¿Borrar tareas completadas?</string>
 	<string name="copy_multiple_tasks_confirmation">%s copiadas</string>
 	<string name="delete_multiple_tasks_confirmation">%s borradas</string>
+	<string name="delete_selected_tasks">¿Borrar tareas seleccionadas?</string>
+	<string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
 </resources>
