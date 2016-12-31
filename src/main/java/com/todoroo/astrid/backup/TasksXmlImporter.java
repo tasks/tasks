@@ -316,6 +316,8 @@ public class TasksXmlImporter {
     private static final String FORMAT3 = "3"; //$NON-NLS-1$
     private class Format3TaskImporter extends Format2TaskImporter {
 
+        final UserActivity userActivity = new UserActivity();
+
         public Format3TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
