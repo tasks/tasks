@@ -154,6 +154,7 @@ public class TasksXmlImporter {
 
         XmlPullParser xpp;
         final Task currentTask = new Task();
+        final UserActivity userActivity = new UserActivity();
         final Metadata metadata = new Metadata();
         final TagData tagdata = new TagData();
 
@@ -171,6 +172,9 @@ public class TasksXmlImporter {
                     if (tag.equals(BackupConstants.TASK_TAG)) {
                         // Parse <task ... >
                         parseTask();
+                    } else if (tag.equals(BackupConstants.COMMENT_TAG)) {
+                        // Process <comment ... >
+                        parseComment();
                     } else if (tag.equals(BackupConstants.METADATA_TAG)) {
                         // Process <metadata ... >
                         parseMetadata(2);
@@ -210,6 +214,30 @@ public class TasksXmlImporter {
                 taskDao.save(currentTask);
                 importCount++;
             }
+        }
+
+        /**
+         * Imports a comment from the XML we're reading.
+         * taken from EditNoteActivity.addComment()
+         */
+        void parseComment() {
+            if (!currentTask.isSaved()) {
+                return;
+            }
+            userActivity.clear();
+
+            // We only want to import these fields.
+            // These are the fields that are sent in EditNoteActivity.addComment() when a user creates a comment.
+            final Property<?>[] NEW_PROPERTIES = new Property<?>[4];
+            NEW_PROPERTIES[0] = UserActivity.MESSAGE;
+            NEW_PROPERTIES[1] = UserActivity.ACTION;
+            NEW_PROPERTIES[2] = UserActivity.TARGET_ID;
+            NEW_PROPERTIES[3] = UserActivity.CREATED_AT;
+            deserializeModel(userActivity, NEW_PROPERTIES);
+
+            userActivity.setId(UserActivity.NO_ID);
+
+            userActivityDao.createNew(userActivity);
         }
 
         void parseMetadata(int format) {
@@ -316,8 +344,6 @@ public class TasksXmlImporter {
     private static final String FORMAT3 = "3"; //$NON-NLS-1$
     private class Format3TaskImporter extends Format2TaskImporter {
 
-        final UserActivity userActivity = new UserActivity();
-
         public Format3TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
@@ -346,30 +372,6 @@ public class TasksXmlImporter {
                     Timber.e(e, e.getMessage());
                 }
             }
-        }
-
-        /**
-         * Imports a comment from the XML we're reading.
-         * taken from EditNoteActivity.addComment()
-         */
-        private void parseComment() {
-            if (!currentTask.isSaved()) {
-                return;
-            }
-            userActivity.clear();
-
-            // We only want to import these fields.
-            // These are the fields that are sent in EditNoteActivity.addComment() when a user creates a comment.
-            final Property<?>[] NEW_PROPERTIES = new Property<?>[4];
-            NEW_PROPERTIES[0] = UserActivity.MESSAGE;
-            NEW_PROPERTIES[1] = UserActivity.ACTION;
-            NEW_PROPERTIES[2] = UserActivity.TARGET_ID;
-            NEW_PROPERTIES[3] = UserActivity.CREATED_AT;
-            deserializeModel(userActivity, NEW_PROPERTIES);
-
-            userActivity.setId(UserActivity.NO_ID);
-
-            userActivityDao.createNew(userActivity);
         }
 
         private void parseTagdata() {
