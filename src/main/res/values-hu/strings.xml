@@ -42,7 +42,7 @@
 	<string name="SSD_sort_drag">Manuális sorrend részfeladatokkal</string>
 	<string name="SSD_sort_auto">Intelligens rendezés</string>
 	<string name="SSD_sort_alpha">Név alapján</string>
-	<string name="SSD_sort_due">Határidő szerint</string>
+	<string name="SSD_sort_due">Határidő alapján</string>
 	<string name="SSD_sort_importance">Prioritás alapján</string>
 	<string name="SSD_sort_modified">Utolsó módosítás alapján</string>
 	<string name="FLA_search_filter">Találat \'%s\'</string>
@@ -58,7 +58,7 @@
 	<string name="save">Mentés</string>
 	<string name="TEA_timer_est">Kb. %s</string>
 	<string name="TEA_timer_elap">Eltelt %s</string>
-	<string name="TEA_no_time">Idő nélkül</string>
+	<string name="TEA_no_time">Időpont nélkül</string>
 	<string name="due_date">Határidő</string>
 	<string name="due_time">Esedékesség ideje</string>
 	<string name="day_before_due">Egy nappal a határidő előtt</string>
@@ -72,7 +72,7 @@
 	<string name="TEA_control_google_task_list">Google Teendők Lista</string>
 	<string name="TEA_control_reminders">Emlékeztetők</string>
 	<string name="TEA_control_timer">Időzítő Beállítása</string>
-	<string name="TEA_control_hidden_section">---Mindig Elrejt---</string>
+	<string name="TEA_control_hidden_section">---Elrejtve---</string>
 	<string name="TEA_load_more">Továbbiak betöltése...</string>
 	<string name="missed_call">Nem fogadott hívás tőle: %s</string>
 	<string name="MCA_return_call">Hívás most</string>
@@ -100,7 +100,7 @@
 	<string name="EPr_fullTask_title">Feladat teljes nevének megjelenítése</string>
 	<string name="EPr_show_task_edit_comments">Megjegyzések megjelenítése feladat szerkesztésekor</string>
 	<string name="task_list_options">Feladat lista opciók</string>
-	<string name="EPr_cal_end_or_start_at_due_time">Naptáresemény ideje</string>
+	<string name="EPr_cal_end_or_start_at_due_time">Naptáresemény időzítése</string>
 	<string name="EPr_cal_end_at_due_time">Naptáresemények befejezése határidőkor</string>
 	<string name="EPr_cal_start_at_due_time">Naptáresemények kezdése határidőkor</string>
 	<string name="EPr_manage_header">Régi feladatok kezelése</string>
@@ -109,7 +109,7 @@
 	<string name="EPr_manage_purge_deleted_status">%d feladat elvetve</string>
 	<string name="EPr_reset_preferences">Beállítások alapértékre állítása</string>
 	<string name="EPr_reset_preferences_warning">A beállítások visszaállnak alapértékre</string>
-	<string name="EPr_delete_task_data">Feledet adatok törlése</string>
+	<string name="EPr_delete_task_data">Feladat adatok törlése</string>
 	<string name="EPr_delete_task_data_warning">Az összes feladat végleges törlésre kerül</string>
 	<string name="EPr_manage_delete_completed_gcal">Elvégzett feladatok naptárbejegyzésének törlése</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Biztosan törölni akarja az elvégzett feladatokhoz tartozó eseményeket?</string>
@@ -117,7 +117,7 @@
 	<string name="EPr_manage_delete_all_gcal">Feladatok naptárbejegyzésének törlése</string>
 	<string name="EPr_manage_delete_all_gcal_message">Biztosan törölni akarja a feladatokhoz tartozó eseményeket?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d naptárbejegyzés törölve!</string>
-	<string name="task_defaults">Feledat alapértelmezései</string>
+	<string name="task_defaults">Feladat alapértelmezései</string>
 	<string name="EPr_default_urgency_title">Alapértelmezett határidő</string>
 	<string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
 	<string name="EPr_default_hideUntil_title">Alapértelmezett elrejtési idő</string>
@@ -262,7 +262,7 @@
 	<string name="quiet_hours">Csendes órák</string>
 	<string name="attachment_directory">Csatolmányok könyvtára</string>
 	<string name="backup_directory">Mentési könyvtár</string>
-	<string name="miscellaneous">Vegyes</string>
+	<string name="miscellaneous">Egyéb</string>
 	<string name="synchronization">Szinkronizáció</string>
 	<string name="enabled">Engedélyezve</string>
 	<string name="font_size">Karakter méret</string>
@@ -273,7 +273,7 @@
 	<string name="help_and_feedback">Súgó és visszajelzés</string>
 	<string name="contact_developer">Kapcsolatfelvétel a fejlesztővel</string>
 	<string name="rate_tasks">A Tasks értékelése</string>
-	<string name="quiet_hours_summary">Emlékeztetők mellőzése elcsendesítés alatt</string>
+	<string name="quiet_hours_summary">Emlékeztetők mellőzése csendes órák alatt</string>
 	<string name="TLA_menu_donate">Adakozás</string>
 	<string name="select_amount">Mennyiség kiválasztása</string>
 	<string name="notification_actions">Értesítési műveletek</string>
@@ -288,8 +288,8 @@
 	<string name="pick_a_location">Válassza ki a helyet</string>
 	<string name="when_overdue">Határidő lejárta után</string>
 	<string name="when_due">Határidő elérésekor</string>
-	<string name="geofence_radius_title">Sugár (méterekben)</string>
-	<string name="geofence_responsiveness_title">Válaszidő (a magasabb érték kíméli az akkumulátort)</string>
+	<string name="geofence_radius_title">Távolság (méterben)</string>
+	<string name="geofence_responsiveness_title">Válaszidő (magasabb érték kíméli az akkumulátort)</string>
 	<string name="geolocation_reminders">Helyhez kötött Emlékeztetők</string>
 	<string name="tags">Címkék</string>
 	<string name="filters">Szűrők</string>
@@ -310,9 +310,9 @@
 	<string name="delete">Törlés</string>
 	<string name="copy">Másolás</string>
 	<string name="filter_settings">Szűrő beállítások</string>
-	<string name="show_hidden">Rejtettek mutatása</string>
+	<string name="show_hidden">Rejtettek megjelenítése</string>
 	<string name="show_completed">Elvégzettek megjelenítése</string>
-	<string name="reverse">Fenntart</string>
+	<string name="reverse">Visszafelé</string>
 	<string name="task_count">%d feladat</string>
 	<string name="get_plugins">Alkalmazáson belüli vásárlások</string>
 	<string name="no_application_found">A csatolmány megnyitására alkalmas program nem található</string>
@@ -344,7 +344,7 @@
 	<string name="themes_purchase_description">Az összes Tasks téma és szín elérhetővé tétele</string>
 	<string name="tasker_description">Kontextus-függő lista emlékeztető. Használatához Tasker vagy Locale szükséges.</string>
 	<string name="donate_summary">Támogatását nagyra értékeljük</string>
-	<string name="dashclock_purchase_description">Aktív feladatok számának megjelenítése. DashClock Widget megléte szükséges</string>
+	<string name="dashclock_purchase_description">Aktív feladatok számának megjelenítése. DashClock Widget megléte szükséges.</string>
 	<string name="buy">Vásárlás</string>
 	<string name="buy_dashclock_extension">Kiterjesztés vásárlása</string>
 	<string name="billing_service_busy">Az alkalmazáson belüli vásárlások szolgáltatás nem elérhető, kérem, próbálja később.</string>
@@ -382,13 +382,13 @@
 	<string name="theme_day_night">Nappal/Éjszaka</string>
 	<string name="default_value">Alapértelmezett</string>
 	<string name="sync_interval_disable">Letiltás</string>
-	<string name="sync_interval_one_hour">Minden órában</string>
+	<string name="sync_interval_one_hour">Óránként</string>
 	<string name="sync_interval_three_hours">Háromóránként</string>
 	<string name="sync_interval_six_hours">Hatóránként</string>
 	<string name="sync_interval_twelve_hours">Tizenkét óránként</string>
-	<string name="sync_interval_one_day">Minden nap</string>
+	<string name="sync_interval_one_day">Naponta</string>
 	<string name="sync_interval_three_days">Háromnaponta</string>
-	<string name="sync_interval_one_week">Minden héten</string>
+	<string name="sync_interval_one_week">Hetente</string>
 	<string name="master_sync_warning">Az Android pillanatnyilag letiltotta az automatikus szinkronizálást.</string>
 	<string name="settings_general">Általános</string>
 	<string name="language">Nyelv</string>
@@ -396,7 +396,7 @@
 	<string name="restart_now">Újraindítás most</string>
 	<string name="restart_later">Később</string>
 	<string name="settings_localization">Lokalizáció</string>
-	<string name="layout_direction">Elrendezés iránya</string>
+	<string name="layout_direction">Szövegirány</string>
 	<string name="layout_direction_locale">Nyelv alapértelmezés használata</string>
 	<string name="layout_direction_left_to_right">Balról jobbra</string>
 	<string name="layout_direction_right_to_left">Jobbról balra</string>

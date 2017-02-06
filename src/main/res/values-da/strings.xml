@@ -102,6 +102,7 @@
 	<string name="sync_SPr_interval_title">Baggrunds Synk</string>
 	<string name="sync_SPr_forget">Log af</string>
 	<string name="sync_SPr_forget_description">Sletter al synkroniserings data</string>
+	<string name="source_code">Kildekode</string>
 	<string name="sync_interval_one_hour">hver time</string>
 	<string name="sync_interval_three_hours">hver 3. time</string>
 	<string name="sync_interval_six_hours">hver 6. time</string>

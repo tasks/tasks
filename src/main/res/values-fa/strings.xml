@@ -36,10 +36,12 @@
 	<string name="TEA_importance_label">اولویت</string>
 	<string name="TEA_no_date">بدون تاریخ</string>
 	<string name="TEA_hideUntil_label">مخفی تا</string>
+	<string name="TEA_hideUntil_display">پنهان باشد تا %s</string>
 	<string name="TEA_note_label">توضیحات</string>
 	<string name="TEA_estimatedDuration_label">این چقدر طول میکشد ؟</string>
 	<string name="TEA_elapsedDuration_label">زمان سپری شده</string>
 	<string name="save">ذخیره</string>
+	<string name="TEA_timer_elap">سپری‌شده %s</string>
 	<string name="TEA_no_time">بدون زمان</string>
 	<string name="due_date">تاریخ موعود</string>
 	<string name="due_time">زمان موعود</string>
@@ -110,6 +112,7 @@
 	<string name="gcal_TEA_error">خطا در اضافه کردن وظیفه به تقویم</string>
 	<string name="gcal_TEA_addToCalendar_label">اضاقه به تقویم</string>
 	<string name="gcal_TEA_showCalendar_label">بازکردن رویداد تقویم</string>
+	<string name="gcal_completed_title">%s (کامل‌شده)</string>
 	<string name="gtasks_GTA_clear_completed">حذف انجام شد</string>
 	<string name="gtasks_GLA_noaccounts">اکانت گوگلی برای همگام سازی موجود نیست</string>
 	<string name="gtasks_GLA_authenticating">اعتبارسنجی...</string>
@@ -142,6 +145,7 @@
 	<string name="default_random_reminder_bi_weekly">یک هفته در میان</string>
 	<string name="default_random_reminder_monthly">هر ماه</string>
 	<string name="default_random_reminder_bi_monthly">یک ماه درمیان</string>
+	<string name="repeat_every">هر %d</string>
 	<string name="repeat_interval_prompt">دوره تکرار</string>
 	<string name="repeat_never">بدون تکرار</string>
 	<string name="repeat_interval_day">روز(ها)</string>
@@ -152,7 +156,10 @@
 	<string name="repeat_interval_year">سال(ها)</string>
 	<string name="repeat_type_due">از روز موعود</string>
 	<string name="repeat_type_completion">از تاریخ اتمام</string>
+	<string name="repeat_detail_duedate">هر %s</string>
+	<string name="repeat_detail_duedate_until">هر %1$s\nتا %2$s</string>
 	<string name="repeat_forever">تکرار بینهایت</string>
+	<string name="repeat_until">تکرار تا %s</string>
 	<string name="new_tag">ایجاد تگ جدید</string>
 	<string name="tag_FEx_untagged">دسته بندی نشده</string>
 	<string name="TFE_workingOn">وظایف زمانبندی شده</string>
@@ -178,6 +185,10 @@
 	<string name="DLG_wait">لطفا منتظر بمانید...</string>
 	<string name="sync_SPr_interval_title">سینک پیش زمینه</string>
 	<string name="sync_SPr_forget">خروج از حساب کاربری</string>
+	<string name="widget_show_due_date">نمایش تاریخ موعود</string>
+	<string name="widget_show_checkboxes">نمایش محل تیک</string>
+	<string name="widget_show_header">نمایش سربرگ</string>
+	<string name="widget_show_settings">نمایش تنظیمات</string>
 	<string name="notifications">اعلان ها</string>
 	<string name="silent">سکوت</string>
 	<string name="sound">صدا</string>
@@ -189,6 +200,7 @@
 	<string name="enabled">فعال شده</string>
 	<string name="font_size">اندازه فونت</string>
 	<string name="source_code">کد مبدا</string>
+	<string name="translations">مشارکت در ترجمه</string>
 	<string name="report_an_issue">گزارش یک مطلب</string>
 	<string name="help_and_feedback">کمک و بازخورد</string>
 	<string name="contact_developer">تماس با توسعه دهنده</string>
@@ -197,6 +209,7 @@
 	<string name="TLA_menu_donate">کمک مالی</string>
 	<string name="select_amount">انتخاب مقدار</string>
 	<string name="notification_actions">عمل اعلان</string>
+	<string name="notification_actions_summary">در اعلانات، «تعویق» و «کامل‌شده» را نشان بده</string>
 	<string name="add_reminder">اضافه کردن یادآورد</string>
 	<string name="remove">حذف</string>
 	<string name="randomly_once">به طور تصادفی یک دفعه</string>
@@ -209,6 +222,7 @@
 	<string name="when_due">روز موعود</string>
 	<string name="geofence_radius_title">شعاع (متر)</string>
 	<string name="geofence_responsiveness_title">زمان پاسخگویی (مقدار بالاتر مصرف کمتر باتری)</string>
+	<string name="geolocation_reminders">یادآوری‌های وابسته به مکان</string>
 	<string name="tags">برچسب ها</string>
 	<string name="filters">فیلترها</string>
 	<string name="date_shortcut_hour">برای یک ساعت</string>
@@ -233,10 +247,17 @@
 	<string name="low_priority">کم</string>
 	<string name="notification_priority">اولویت اعلان</string>
 	<string name="vibration_count">تعداد لرزش ها</string>
+	<string name="vibration_duration">مدت هر لرزش (میلی‌ثانیه)</string>
+	<string name="vibration_pause">مکث بین لرزش‌ها (میلی‌ثانیه)</string>
 	<string name="take_a_picture">گرفتن عکس</string>
 	<string name="send_anonymous_statistics">بهبود وظیفه</string>
+	<string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>
+	<string name="doze_notifications">برای اعلانات، حالت Doze را موقتاً قطع کن</string>
 	<string name="no_title">(بدون عنوان)</string>
 	<string name="default_list">لیست پیش فرض</string>
+	<string name="plugin_description">Tasks پروژه‌ای متن‌باز است که عمدتاً توسط یک‌نفر توسعه داده می‌شود. برای حمایت از این تلاش، برخی ویژگی‌ها به‌صورت خریدهای داخل برنامه ارائه شده‌اند.</string>
+	<string name="opacity">شفافیت</string>
+	<string name="theme_white">سفید</string>
 	<string name="sync_interval_disable">غیرفعال</string>
 	<string name="sync_interval_one_hour">هر ساعت</string>
 	<string name="sync_interval_three_hours">هر سه ساعت</string>
@@ -245,4 +266,12 @@
 	<string name="sync_interval_one_day">هر روز</string>
 	<string name="sync_interval_three_days">هر سه روز</string>
 	<string name="sync_interval_one_week">هر هفته</string>
+	<string name="master_sync_warning">درحال‌حاضر هماهنگ‌سازی خودکار توسط اندروید غیرفعال است</string>
+	<string name="settings_general">عمومی</string>
+	<string name="language">زبان</string>
+	<string name="settings_localization">محلی‌سازی</string>
+	<string name="layout_direction">چینش صفحه</string>
+	<string name="layout_direction_locale">از چینش محلی استفاده کن</string>
+	<string name="layout_direction_left_to_right">چپ به راست</string>
+	<string name="layout_direction_right_to_left">راست به چپ</string>
 </resources>
