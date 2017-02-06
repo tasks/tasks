@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.getkeepsafe.dexcount'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14.1'
+    gradleVersion = '3.3'
 }
 
 buildscript {
@@ -12,8 +11,7 @@ buildscript {
 
     dependencies {
         classpath 'com.google.guava:guava:19.0'
-        classpath 'com.android.tools.build:gradle:2.2.2'
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.2'
+        classpath 'com.android.tools.build:gradle:2.3.0-beta3'
     }
 }
 
