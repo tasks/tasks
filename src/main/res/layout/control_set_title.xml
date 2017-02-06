@@ -46,7 +46,7 @@
             android:freezesText="true"
             android:hint="@string/TEA_title_hint"
             android:imeOptions="flagNoExtractUi"
-            android:inputType="textCapSentences"
+            android:inputType="textCapSentences|textAutoCorrect"
             android:nextFocusLeft="@id/title"
             android:nextFocusUp="@id/title"
             android:scrollbars="vertical"
