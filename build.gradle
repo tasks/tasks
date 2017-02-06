@@ -10,7 +10,6 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.google.guava:guava:19.0'
         classpath 'com.android.tools.build:gradle:2.3.0-beta3'
     }
 }
@@ -99,7 +98,7 @@ configurations {
     all*.exclude group: 'org.apache.httpcomponents', module: 'httpclient'
 }
 
-final DAGGER_VERSION = '2.7'
+final DAGGER_VERSION = '2.9'
 final BUTTERKNIFE_VERSION = '8.5.1'
 final GPS_VERSION = '9.6.1'
 final SUPPORT_VERSION = '25.1.1'
