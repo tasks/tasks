@@ -22,11 +22,15 @@ public class BuildSetup {
         this.context = context;
     }
 
-    public void setup() {
+    public boolean setup() {
         Timber.plant(new Timber.DebugTree());
         Timber.plant(new StethoTree());
         Stetho.initializeWithDefaults(context);
-        LeakCanary.install((Application) context.getApplicationContext());
+        Application application = (Application) context.getApplicationContext();
+        if (LeakCanary.isInAnalyzerProcess(context)) {
+            return false;
+        }
+        LeakCanary.install(application);
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads()
                 .detectDiskWrites()
@@ -38,5 +42,6 @@ public class BuildSetup {
                 .detectLeakedClosableObjects()
                 .penaltyLog()
                 .build());
+        return true;
     }
 }

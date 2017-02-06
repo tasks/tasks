@@ -102,7 +102,7 @@ final DAGGER_VERSION = '2.9'
 final BUTTERKNIFE_VERSION = '8.5.1'
 final GPS_VERSION = '9.6.1'
 final SUPPORT_VERSION = '25.1.1'
-final STETHO_VERSION = '1.4.1'
+final STETHO_VERSION = '1.4.2'
 final TESTING_SUPPORT_VERSION = '0.5'
 
 dependencies {
@@ -114,16 +114,16 @@ dependencies {
 
     debugCompile "com.facebook.stetho:stetho:${STETHO_VERSION}"
     debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
 
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.nononsenseapps:filepicker:4.0.0-beta1'
+    compile 'com.nononsenseapps:filepicker:4.0.0'
     compile "com.android.support:design:${SUPPORT_VERSION}"
     compile "com.android.support:support-annotations:${SUPPORT_VERSION}"
-    compile 'com.jakewharton.timber:timber:4.3.1'
+    compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'com.google.guava:guava:20.0'
-    compile 'com.jakewharton:process-phoenix:1.1.0'
+    compile 'com.jakewharton:process-phoenix:1.1.1'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.twofortyfouram:android-plugin-api-for-locale:1.0.2'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
@@ -133,7 +133,7 @@ dependencies {
     compile ('org.scala-saddle:google-rfc-2445:20110304') {
         transitive = false
     }
-    compile ('com.wdullaer:materialdatetimepicker:2.5.0') {
+    compile ('com.wdullaer:materialdatetimepicker:3.1.1') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
@@ -141,7 +141,7 @@ dependencies {
     googleplayCompile "com.google.android.gms:play-services-analytics:${GPS_VERSION}"
     googleplayCompile "com.google.android.gms:play-services-auth:${GPS_VERSION}"
     googleplayCompile "com.google.android.gms:play-services-places:${GPS_VERSION}"
-    googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev45-1.22.0'
+    googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev46-1.22.0'
     googleplayCompile 'com.google.api-client:google-api-client-android:1.22.0'
 
     amazonCompile "com.google.android.gms:play-services-analytics:${GPS_VERSION}"

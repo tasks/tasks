@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 
-import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import org.tasks.dialogs.MyTimePickerDialog;
@@ -66,7 +65,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
     }
 
     @Override
-    public void onTimeSet(RadialPickerLayout radialPickerLayout, final int hours, final int minutes, int seconds) {
+    public void onTimeSet(TimePickerDialog timePickerDialog, final int hours, final int minutes, int seconds) {
         timeSet(hours, minutes);
     }
 

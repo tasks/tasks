@@ -13,8 +13,9 @@ public class BuildSetup {
 
     }
 
-    public void setup() {
+    public boolean setup() {
         Timber.plant(new ErrorReportingTree());
+        return true;
     }
 
     private static class ErrorReportingTree extends Timber.Tree {
