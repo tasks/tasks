@@ -122,7 +122,7 @@ dependencies {
     compile "com.android.support:design:${SUPPORT_VERSION}"
     compile "com.android.support:support-annotations:${SUPPORT_VERSION}"
     compile 'com.jakewharton.timber:timber:4.3.1'
-    compile 'com.google.guava:guava:19.0'
+    compile 'com.google.guava:guava:20.0'
     compile 'com.jakewharton:process-phoenix:1.1.0'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.twofortyfouram:android-plugin-api-for-locale:1.0.2'
