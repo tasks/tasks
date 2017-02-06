@@ -13,7 +13,7 @@
 
         <!-- Task List -->
         <FrameLayout
-            android:id="@+id/master_dual"
+            android:id="@+id/master"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="60"
@@ -21,7 +21,7 @@
 
         <!-- Task Edit -->
         <FrameLayout
-            android:id="@+id/detail_dual"
+            android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="40"

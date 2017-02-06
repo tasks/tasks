@@ -19,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.view.ActionMode;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -102,6 +103,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject TaskDao taskDao;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.master) FrameLayout master;
+    @BindView(R.id.detail) FrameLayout detail;
 
     private NavigationDrawerFragment navigationDrawer;
 
@@ -156,58 +159,72 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         Intent intent = getIntent();
 
         TaskEditFragment taskEditFragment = getTaskEditFragment();
-        if (taskEditFragment != null) {
-            if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(LOAD_FILTER) || intent.hasExtra(OPEN_TASK)) {
-                taskEditFragment.save();
-                taskEditFragment = null;
-            }
+        if (taskEditFragment == null) {
+            hideDetailFragment();
+        } else if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(LOAD_FILTER) || intent.hasExtra(OPEN_TASK)) {
+            taskEditFragment.save();
+            taskEditFinished();
+        } else {
+            showDetailFragment();
         }
 
-        TaskListFragment taskListFragment;
+        TaskListFragment taskListFragment = getTaskListFragment();
         if (intent.hasExtra(OPEN_FILTER)) {
             Filter filter = intent.getParcelableExtra(OPEN_FILTER);
             intent.removeExtra(OPEN_FILTER);
-            taskListFragment = newTaskListFragment(filter);
+            loadTaskListFragment(filter);
         } else if (intent.hasExtra(LOAD_FILTER)) {
             Filter filter = defaultFilterProvider.getFilterFromPreference(intent.getStringExtra(LOAD_FILTER));
             intent.removeExtra(LOAD_FILTER);
-            taskListFragment = newTaskListFragment(filter);
+            loadTaskListFragment(filter);
+        } else if (taskListFragment == null) {
+            loadTaskListFragment(null);
         } else {
-            taskListFragment = getTaskListFragment();
-        }
-
-        if (taskListFragment == null) {
-            taskListFragment = newTaskListFragment(defaultFilterProvider.getDefaultFilter());
-        }
-        loadTaskListFragment(taskListFragment);
-
-        if (isDoublePaneLayout()) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.detail_dual, new EmptyTaskEditFragment())
-                    .commit();
-        }
-
-        if (taskEditFragment != null) {
-            loadTaskEditFragment(taskEditFragment);
+            applyTheme(taskListFragment);
         }
     }
 
-    private void loadTaskListFragment(TaskListFragment taskListFragment) {
+    private void showDetailFragment() {
+        if (!isDoublePaneLayout()) {
+            detail.setVisibility(View.VISIBLE);
+            master.setVisibility(View.GONE);
+        }
+    }
+
+    private void hideDetailFragment() {
+        if (isDoublePaneLayout()) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.detail, new EmptyTaskEditFragment())
+                    .commit();
+        } else {
+            master.setVisibility(View.VISIBLE);
+            detail.setVisibility(View.GONE);
+        }
+    }
+
+    private void loadTaskListFragment(Filter filter) {
+        if (filter == null) {
+            filter = defaultFilterProvider.getDefaultFilter();
+        }
+        TaskListFragment taskListFragment = newTaskListFragment(filter);
+
         finishActionMode();
 
+        applyTheme(taskListFragment);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
+                .commit();
+    }
+
+    private void applyTheme(TaskListFragment taskListFragment) {
         filter = taskListFragment.filter;
         ThemeColor filterColor = getFilterColor();
 
         filterColor.applyToStatusBar(drawerLayout);
         filterColor.applyTaskDescription(this, filter.listingTitle);
         theme.withThemeColor(filterColor).applyToContext(this);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        fragmentManager.beginTransaction()
-                .replace(isDoublePaneLayout() ? R.id.master_dual : R.id.single_pane, taskListFragment, FRAG_TAG_TASK_LIST)
-                .addToBackStack(FRAG_TAG_TASK_LIST)
-                .commit();
     }
 
     private ThemeColor getFilterColor() {
@@ -221,9 +238,13 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(isDoublePaneLayout() ? R.id.detail_dual : R.id.single_pane, taskEditFragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
+                .replace(R.id.detail, taskEditFragment, TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
                 .addToBackStack(TaskEditFragment.TAG_TASKEDIT_FRAGMENT)
                 .commit();
+
+        getSupportFragmentManager().executePendingTransactions();
+
+        showDetailFragment();
     }
 
     private NavigationDrawerFragment getNavigationDrawerFragment() {
@@ -469,6 +490,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void taskEditFinished() {
         getSupportFragmentManager().popBackStackImmediate(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        hideDetailFragment();
         hideKeyboard();
     }
 
