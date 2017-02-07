@@ -34,7 +34,6 @@ android {
         versionName "4.9.8"
         minSdkVersion 15
         targetSdkVersion 25
-        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         jackOptions {
             enabled true
@@ -52,6 +51,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            multiDexEnabled true
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
@@ -115,9 +117,10 @@ dependencies {
     debugCompile "com.facebook.stetho:stetho:${STETHO_VERSION}"
     debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //noinspection GradleCompatible
+    debugCompile 'com.android.support:multidex:1.0.1'
 
     compile 'com.github.rey5137:material:1.2.4'
-    compile 'com.android.support:multidex:1.0.1'
     compile 'com.nononsenseapps:filepicker:4.0.0'
     compile "com.android.support:design:${SUPPORT_VERSION}"
     compile "com.android.support:support-annotations:${SUPPORT_VERSION}"
