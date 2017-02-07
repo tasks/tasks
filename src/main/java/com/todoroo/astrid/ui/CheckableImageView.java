@@ -6,12 +6,12 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.ViewDebug;
 import android.widget.Checkable;
-import android.widget.ImageView;
 
-public class CheckableImageView extends ImageView implements Checkable {
+public class CheckableImageView extends AppCompatImageView implements Checkable {
 
     private static final int[] CHECKED_STATE_SET = {
         android.R.attr.state_checked

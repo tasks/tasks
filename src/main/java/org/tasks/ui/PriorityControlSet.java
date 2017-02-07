@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.CompoundButtonCompat;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,7 +125,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
     private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
         int color = checkBoxes.getPriorityColors().get(priority);
-        radioButton.setSupportButtonTintList(new ColorStateList(new int[][]{
+        CompoundButtonCompat.setButtonTintList(radioButton, new ColorStateList(new int[][]{
                 new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}},
                 new int[]{color, color}));
     }

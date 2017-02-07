@@ -6,17 +6,17 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.ImageButton;
 
 import org.tasks.R;
 
 /**
  * This class exists purely to cancel long click events.
  */
-public class NumberPickerButton extends ImageButton {
+public class NumberPickerButton extends AppCompatImageButton {
 
     private NumberPicker mNumberPicker;
 

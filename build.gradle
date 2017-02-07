@@ -121,6 +121,8 @@ dependencies {
     compile 'com.nononsenseapps:filepicker:4.0.0'
     compile "com.android.support:design:${SUPPORT_VERSION}"
     compile "com.android.support:support-annotations:${SUPPORT_VERSION}"
+    compile "com.android.support:support-v13:${SUPPORT_VERSION}"
+    compile "com.android.support:cardview-v7:${SUPPORT_VERSION}"
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'com.google.guava:guava:20.0'
     compile 'com.jakewharton:process-phoenix:1.1.1'
