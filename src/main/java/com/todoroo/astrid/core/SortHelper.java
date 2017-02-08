@@ -31,6 +31,8 @@ public class SortHelper {
     public static final int SORT_MODIFIED = 4;
     public static final int SORT_WIDGET = 5;
 
+    private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
+
     /**
      * Takes a SQL query, and if there isn't already an order, creates an order.
      */
@@ -68,7 +70,7 @@ public class SortHelper {
         Order order;
         switch(sortType) {
         case SORT_ALPHA:
-            order = Order.asc(Functions.upper(Task.TITLE));
+            order = ORDER_TITLE;
             break;
         case SORT_DUE:
             order = Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
@@ -86,7 +88,7 @@ public class SortHelper {
             order = defaultTaskOrder();
         }
         if (sortType != SORT_ALPHA) {
-            order.addSecondaryExpression(Order.asc(Task.TITLE));
+            order.addSecondaryExpression(ORDER_TITLE);
         }
 
         return order;
