@@ -31,6 +31,9 @@ class BackupConstants {
     /** Tag containing a task */
     public static final String TASK_TAG = "task";
 
+    /** Tag containing a comment item */
+    public static final String COMMENT_TAG = "comment";
+
     /** Tag containing a metadata item */
     public static final String METADATA_TAG = "metadata";
 
