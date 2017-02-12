@@ -12,6 +12,9 @@ import android.os.Handler;
 import android.util.Xml;
 import android.widget.Toast;
 
+import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.data.UserActivity;
+
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -58,6 +61,7 @@ public class TasksXmlExporter {
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
     private final TaskDao taskDao;
+    private UserActivityDao userActivityDao;
     private final Preferences preferences;
 
     // 3 is started on Version 4.6.10
@@ -85,11 +89,12 @@ public class TasksXmlExporter {
     }
 
     @Inject
-    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskDao taskDao,
+    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskDao taskDao, UserActivityDao userActivityDao,
                             Preferences preferences) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.taskDao = taskDao;
+        this.userActivityDao = userActivityDao;
         this.preferences = preferences;
     }
 
@@ -185,11 +190,26 @@ public class TasksXmlExporter {
                 xml.startTag(null, BackupConstants.TASK_TAG);
                 serializeModel(task, Task.PROPERTIES, Task.ID);
                 serializeMetadata(task);
+                serializeComments(task);
                 xml.endTag(null, BackupConstants.TASK_TAG);
                 this.exportCount++;
             }
         } finally {
             cursor.close();
+        }
+    }
+
+    /** export the comments made to a particular task. See 'Tasks' issue #373. */
+    private synchronized void serializeComments(Task task) {
+        userActivityDao.getCommentsForTask(task.getUuid(), this::writeComment);
+    }
+    private void writeComment(UserActivity userActivity) {
+        try {
+            xml.startTag(null, BackupConstants.COMMENT_TAG);
+            serializeModel(userActivity, UserActivity.PROPERTIES, Metadata.ID, Metadata.TASK);
+            xml.endTag(null, BackupConstants.COMMENT_TAG);
+        } catch (IOException e) {
+            // ignore
         }
     }
 
