@@ -23,9 +23,11 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
@@ -46,6 +48,7 @@ public class TasksXmlImporter {
 
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
+    private final UserActivityDao userActivityDao;
     private final DialogBuilder dialogBuilder;
     private final TaskDao taskDao;
 
@@ -63,10 +66,11 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao,
+    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, UserActivityDao userActivityDao,
                             DialogBuilder dialogBuilder, TaskDao taskDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
+        this.userActivityDao = userActivityDao;
         this.dialogBuilder = dialogBuilder;
         this.taskDao = taskDao;
     }
@@ -150,6 +154,7 @@ public class TasksXmlImporter {
 
         XmlPullParser xpp;
         final Task currentTask = new Task();
+        final UserActivity userActivity = new UserActivity();
         final Metadata metadata = new Metadata();
         final TagData tagdata = new TagData();
 
@@ -167,6 +172,9 @@ public class TasksXmlImporter {
                     if (tag.equals(BackupConstants.TASK_TAG)) {
                         // Parse <task ... >
                         parseTask();
+                    } else if (tag.equals(BackupConstants.COMMENT_TAG)) {
+                        // Process <comment ... >
+                        parseComment();
                     } else if (tag.equals(BackupConstants.METADATA_TAG)) {
                         // Process <metadata ... >
                         parseMetadata(2);
@@ -206,6 +214,30 @@ public class TasksXmlImporter {
                 taskDao.save(currentTask);
                 importCount++;
             }
+        }
+
+        /**
+         * Imports a comment from the XML we're reading.
+         * taken from EditNoteActivity.addComment()
+         */
+        void parseComment() {
+            if (!currentTask.isSaved()) {
+                return;
+            }
+            userActivity.clear();
+
+            // We only want to import these fields.
+            // These are the fields that are sent in EditNoteActivity.addComment() when a user creates a comment.
+            final Property<?>[] NEW_PROPERTIES = new Property<?>[4];
+            NEW_PROPERTIES[0] = UserActivity.MESSAGE;
+            NEW_PROPERTIES[1] = UserActivity.ACTION;
+            NEW_PROPERTIES[2] = UserActivity.TARGET_ID;
+            NEW_PROPERTIES[3] = UserActivity.CREATED_AT;
+            deserializeModel(userActivity, NEW_PROPERTIES);
+
+            userActivity.setId(UserActivity.NO_ID);
+
+            userActivityDao.createNew(userActivity);
         }
 
         void parseMetadata(int format) {
@@ -327,6 +359,9 @@ public class TasksXmlImporter {
                             break;
                         case BackupConstants.METADATA_TAG:
                             parseMetadata(3);
+                            break;
+                        case BackupConstants.COMMENT_TAG:
+                            parseComment();
                             break;
                         case BackupConstants.TAGDATA_TAG:
                             parseTagdata();
