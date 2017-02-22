@@ -31,6 +31,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
+import org.tasks.scheduling.BackgroundScheduler;
 
 import java.io.File;
 import java.util.List;
@@ -53,11 +54,13 @@ public class StartupService {
     private final TagDataDao tagDataDao;
     private final TagService tagService;
     private final MetadataDao metadataDao;
+    private final BackgroundScheduler backgroundScheduler;
 
     @Inject
     public StartupService(@ForApplication Context context, Database database, Preferences preferences,
                           TaskDeleter taskDeleter, Broadcaster broadcaster, Tracker tracker,
-                          TagDataDao tagDataDao, TagService tagService, MetadataDao metadataDao) {
+                          TagDataDao tagDataDao, TagService tagService, MetadataDao metadataDao,
+                          BackgroundScheduler backgroundScheduler) {
         this.context = context;
         this.database = database;
         this.preferences = preferences;
@@ -67,6 +70,7 @@ public class StartupService {
         this.tagDataDao = tagDataDao;
         this.tagService = tagService;
         this.metadataDao = metadataDao;
+        this.backgroundScheduler = backgroundScheduler;
     }
 
     /** Called when this application is started up */
@@ -100,9 +104,7 @@ public class StartupService {
             taskDeleter.deleteTasksWithEmptyTitles(null);
         }).start();
 
-        if (lastVersion == 0) {
-            broadcaster.firstLaunch();
-        }
+        backgroundScheduler.scheduleEverything();
     }
 
     private void upgrade(int from, int to) {

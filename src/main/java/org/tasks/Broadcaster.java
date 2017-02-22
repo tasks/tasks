@@ -9,7 +9,6 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.injection.ForApplication;
 import org.tasks.receivers.CompleteTaskReceiver;
-import org.tasks.receivers.FirstLaunchReceiver;
 
 import javax.inject.Inject;
 
@@ -56,9 +55,5 @@ public class Broadcaster {
         intent.putExtra(AstridApiConstants.EXTRAS_TASK, task);
         intent.putExtra(AstridApiConstants.EXTRAS_VALUES, values);
         context.sendBroadcast(intent);
-    }
-
-    public void firstLaunch() {
-        context.sendBroadcast(new Intent(context, FirstLaunchReceiver.class));
     }
 }

@@ -429,7 +429,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".receivers.FirstLaunchReceiver"/>
         <receiver android:name=".receivers.CompleteTaskReceiver"/>
 
         <receiver android:name=".receivers.MyPackageReplacedReceiver">

@@ -10,7 +10,6 @@ import com.todoroo.astrid.timers.TimerTaskCompleteListener;
 import org.tasks.locale.receiver.FireReceiver;
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
-import org.tasks.receivers.FirstLaunchReceiver;
 import org.tasks.receivers.GoogleTaskPushReceiver;
 import org.tasks.receivers.ListNotificationReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
@@ -46,8 +45,6 @@ public interface BroadcastComponent {
     void inject(TaskNotificationReceiver taskNotificationReceiver);
 
     void inject(CompleteTaskReceiver completeTaskReceiver);
-
-    void inject(FirstLaunchReceiver firstLaunchReceiver);
 
     void inject(ListNotificationReceiver listNotificationReceiver);
 
