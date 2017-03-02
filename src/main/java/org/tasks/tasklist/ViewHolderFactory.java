@@ -52,7 +52,7 @@ public class ViewHolderFactory {
         background = getResourceId(context, R.attr.selectableItemBackground);
         selectedColor = getData(context, R.attr.colorControlHighlight);
         showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
-        fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 16);
+        fontSize = preferences.getFontSize();
         metrics = context.getResources().getDisplayMetrics();
         rowPadding = convertDpToPixels(metrics, preferences.getInt(R.string.p_rowPadding, 16));
     }

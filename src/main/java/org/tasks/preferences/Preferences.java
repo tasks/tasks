@@ -153,6 +153,10 @@ public class Preferences {
         return getInt(R.string.p_rowPadding, 16);
     }
 
+    public int getFontSize() {
+        return getInt(R.string.p_fontSize, 16);
+    }
+
     public int getIntegerFromString(int keyResource, int defaultValue) {
         Resources r = context.getResources();
         String value = prefs.getString(r.getString(keyResource), null);

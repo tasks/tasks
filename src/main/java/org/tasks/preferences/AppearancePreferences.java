@@ -26,7 +26,9 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
     private static final int REQUEST_CUSTOMIZE = 1004;
     private static final int REQUEST_DEFAULT_LIST = 1005;
     private static final int REQUEST_ROW_PADDING = 1006;
+    private static final int REQUEST_FONT_SIZE = 1007;
     private static final String FRAG_TAG_ROW_PADDING_SEEKBAR = "frag_tag_row_padding_seekbar";
+    private static final String FRAG_TAG_FONT_SIZE_SEEKBAR = "frag_tag_font_size_seekbar";
 
     private static final String EXTRA_BUNDLE = "extra_bundle";
     public static final String EXTRA_RESTART = "extra_restart";
@@ -51,6 +53,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
         addPreferencesFromResource(R.xml.preferences_appearance);
 
         setExtraOnChange(R.string.p_fontSize, EXTRA_RESTART);
+        setExtraOnChange(R.string.p_rowPadding, EXTRA_RESTART);
         setExtraOnChange(R.string.p_fullTaskTitle, EXTRA_RESTART);
         setExtraOnChange(R.string.p_show_today_filter, EXTRA_FILTERS_CHANGED);
         setExtraOnChange(R.string.p_show_recently_modified_filter, EXTRA_FILTERS_CHANGED);
@@ -59,6 +62,14 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
             startActivityForResult(new Intent(AppearancePreferences.this, BeastModePreferences.class), REQUEST_CUSTOMIZE);
             return true;
         });
+
+        findPreference(R.string.p_fontSize).setOnPreferenceClickListener(preference -> {
+            newSeekBarDialog(R.layout.dialog_font_size_seekbar, 10, 48, preferences.getFontSize(), REQUEST_FONT_SIZE)
+                    .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
+            return false;
+        });
+        updateFontSize();
+
         findPreference(R.string.p_rowPadding).setOnPreferenceClickListener(preference -> {
             newSeekBarDialog(R.layout.dialog_font_size_seekbar, 0, 16, preferences.getRowPadding(), REQUEST_ROW_PADDING)
                     .show(getFragmentManager(), FRAG_TAG_ROW_PADDING_SEEKBAR);
@@ -124,11 +135,24 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
 
     @Override
     public void valueSelected(int value, int requestCode) {
+        int resId = 0;
         if (requestCode == REQUEST_ROW_PADDING) {
             preferences.setInt(R.string.p_rowPadding, value);
-            result.putBoolean(EXTRA_RESTART, true);
             updateRowPadding();
+            resId = R.string.p_rowPadding;
+        } else if (requestCode == REQUEST_FONT_SIZE) {
+            preferences.setInt(R.string.p_fontSize, value);
+            updateFontSize();
+            resId = R.string.p_fontSize;
         }
+        if (resId > 0) {
+            result.putBoolean(EXTRA_RESTART, true);
+            tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, Integer.toString(value));
+        }
+    }
+
+    private void updateFontSize() {
+        findPreference(R.string.p_fontSize).setSummary(locale.formatNumber(preferences.getFontSize()));
     }
 
     private void updateRowPadding() {

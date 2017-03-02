@@ -88,29 +88,11 @@
 
   <!-- ======================================================= APPEARANCE == -->
 
-  <string name="p_fontSize">font_size</string>
+  <string name="p_fontSize">font_size_v2</string>
   <string name="p_rowPadding">row_padding</string>
 
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
 
-  <string-array name="EPr_font_size">
-    <!-- font_size: options for preference menu -->
-    <item>10</item>
-    <item>12</item>
-    <item>14</item>
-    <item>16</item>
-    <item>18</item>
-    <item>20</item>
-    <item>22</item>
-    <item>24</item>
-    <item>26</item>
-    <item>28</item>
-    <item>30</item>
-    <item>32</item>
-    <item>36</item>
-    <item>48</item>
-  </string-array>
-  
   <string name="p_fullTaskTitle">fullTaskTitle</string>
   
   <!-- ========================================================= DEFAULTS == -->
