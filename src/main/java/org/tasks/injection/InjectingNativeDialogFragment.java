@@ -1,6 +1,7 @@
 package org.tasks.injection;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.DialogFragment;
 
 public abstract class InjectingNativeDialogFragment extends DialogFragment {
@@ -16,6 +17,16 @@ public abstract class InjectingNativeDialogFragment extends DialogFragment {
                     .plus(new NativeDialogFragmentModule(this)));
             injected = true;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        // https://code.google.com/p/android/issues/detail?id=17423
+        Dialog dialog = getDialog();
+        if (dialog != null && getRetainInstance()) {
+            dialog.setDismissMessage(null);
+        }
+        super.onDestroyView();
     }
 
     protected abstract void inject(NativeDialogFragmentComponent component);

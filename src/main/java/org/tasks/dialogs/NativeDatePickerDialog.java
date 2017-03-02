@@ -16,9 +16,17 @@ import javax.inject.Inject;
 
 public class NativeDatePickerDialog extends InjectingNativeDialogFragment implements DatePickerDialog.OnDateSetListener {
 
+    private static final String EXTRA_YEAR = "extra_year";
+    private static final String EXTRA_MONTH = "extra_month";
+    private static final String EXTRA_DAY = "extra_day";
+
     public static NativeDatePickerDialog newNativeDatePickerDialog(DateTime initial) {
         NativeDatePickerDialog dialog = new NativeDatePickerDialog();
-        dialog.initial = initial;
+        Bundle args = new Bundle();
+        args.putInt(EXTRA_YEAR, initial.getYear());
+        args.putInt(EXTRA_MONTH, initial.getMonthOfYear() - 1);
+        args.putInt(EXTRA_DAY, initial.getDayOfMonth());
+        dialog.setArguments(args);
         return dialog;
     }
 
@@ -31,14 +39,18 @@ public class NativeDatePickerDialog extends InjectingNativeDialogFragment implem
     @Inject Theme theme;
 
     private NativeDatePickerDialogCallback callback;
-    private DateTime initial;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setRetainInstance(true);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(theme.wrap(getActivity()), this, 0, 0, 0);
-        if (initial != null) {
-            datePickerDialog.updateDate(initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
-        }
+        Bundle args = getArguments();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(theme.wrap(getActivity()), this, args.getInt(EXTRA_YEAR), args.getInt(EXTRA_MONTH), args.getInt(EXTRA_DAY));
         datePickerDialog.setTitle("");
         return datePickerDialog;
     }
