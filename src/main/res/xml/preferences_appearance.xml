@@ -16,7 +16,7 @@
         <Preference
             android:defaultValue="16"
             android:key="@string/p_rowPadding"
-            android:title="Row spacing" />
+            android:title="@string/row_spacing" />
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="false"
