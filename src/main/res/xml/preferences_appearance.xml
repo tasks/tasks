@@ -15,6 +15,11 @@
             android:key="@string/p_fontSize"
             android:title="@string/font_size" />
 
+        <Preference
+            android:defaultValue="16"
+            android:key="@string/p_rowPadding"
+            android:title="Row spacing" />
+
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="false"
             android:key="@string/p_fullTaskTitle"

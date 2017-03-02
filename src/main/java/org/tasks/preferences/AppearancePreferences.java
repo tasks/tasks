@@ -12,15 +12,21 @@ import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.locale.Locale;
 
 import javax.inject.Inject;
 
-public class AppearancePreferences extends InjectingPreferenceActivity {
+import static org.tasks.dialogs.SeekBarDialog.newSeekBarDialog;
+
+public class AppearancePreferences extends InjectingPreferenceActivity implements SeekBarDialog.SeekBarCallback {
 
     private static final int REQUEST_CUSTOMIZE = 1004;
     private static final int REQUEST_DEFAULT_LIST = 1005;
+    private static final int REQUEST_ROW_PADDING = 1006;
+    private static final String FRAG_TAG_ROW_PADDING_SEEKBAR = "frag_tag_row_padding_seekbar";
 
     private static final String EXTRA_BUNDLE = "extra_bundle";
     public static final String EXTRA_RESTART = "extra_restart";
@@ -30,6 +36,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject Tracker tracker;
     @Inject Broadcaster broadcaster;
+    @Inject Locale locale;
 
     private Bundle result;
 
@@ -52,6 +59,12 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
             startActivityForResult(new Intent(AppearancePreferences.this, BeastModePreferences.class), REQUEST_CUSTOMIZE);
             return true;
         });
+        findPreference(R.string.p_rowPadding).setOnPreferenceClickListener(preference -> {
+            newSeekBarDialog(R.layout.dialog_font_size_seekbar, 0, 16, preferences.getRowPadding(), REQUEST_ROW_PADDING)
+                    .show(getFragmentManager(), FRAG_TAG_ROW_PADDING_SEEKBAR);
+            return false;
+        });
+        updateRowPadding();
         Preference defaultList = findPreference(getString(R.string.p_default_list));
         Filter filter = defaultFilterProvider.getDefaultFilter();
         defaultList.setSummary(filter.listingTitle);
@@ -107,5 +120,18 @@ public class AppearancePreferences extends InjectingPreferenceActivity {
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    public void valueSelected(int value, int requestCode) {
+        if (requestCode == REQUEST_ROW_PADDING) {
+            preferences.setInt(R.string.p_rowPadding, value);
+            result.putBoolean(EXTRA_RESTART, true);
+            updateRowPadding();
+        }
+    }
+
+    private void updateRowPadding() {
+        findPreference(R.string.p_rowPadding).setSummary(locale.formatNumber(preferences.getRowPadding()));
     }
 }

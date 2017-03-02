@@ -149,6 +149,10 @@ public class Preferences {
         return getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
     }
 
+    public int getRowPadding() {
+        return getInt(R.string.p_rowPadding, 16);
+    }
+
     public int getIntegerFromString(int keyResource, int defaultValue) {
         Resources r = context.getResources();
         String value = prefs.getString(r.getString(keyResource), null);

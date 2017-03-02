@@ -89,6 +89,7 @@
   <!-- ======================================================= APPEARANCE == -->
 
   <string name="p_fontSize">font_size</string>
+  <string name="p_rowPadding">row_padding</string>
 
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
 
