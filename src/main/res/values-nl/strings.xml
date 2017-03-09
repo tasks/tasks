@@ -286,7 +286,6 @@
 	<string name="geofence_responsiveness_title">Antwoord tijd (hogere waarde verbruikt meer batterij)</string>
 	<string name="geolocation_reminders">Geolocatie Herinneringen</string>
 	<string name="tags">Labels</string>
-	<string name="date_shortcuts">Datum snelkoppelingen</string>
 	<string name="date_shortcut_hour">Voor een uur</string>
 	<string name="date_shortcut_morning">Ochtend</string>
 	<string name="date_shortcut_afternoon">Middag</string>

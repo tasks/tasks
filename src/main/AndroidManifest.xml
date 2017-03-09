@@ -289,8 +289,8 @@
             android:theme="@style/Tasks" />
 
         <activity
-            android:name=".preferences.DateShortcutPreferences"
-            android:label="@string/date_shortcuts"
+            android:name=".preferences.DateTimePreferences"
+            android:label="@string/date_and_time"
             android:theme="@style/Tasks" />
 
         <activity

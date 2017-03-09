@@ -12,7 +12,7 @@ import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.ui.TimePreference;
 
-public class DateShortcutPreferences extends InjectingPreferenceActivity implements Preference.OnPreferenceChangeListener {
+public class DateTimePreferences extends InjectingPreferenceActivity implements Preference.OnPreferenceChangeListener {
 
     private static final int REQUEST_MORNING = 10001;
     private static final int REQUEST_AFTERNOON = 10002;
@@ -23,7 +23,7 @@ public class DateShortcutPreferences extends InjectingPreferenceActivity impleme
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.preferences_date_shortcuts);
+        addPreferencesFromResource(R.xml.preferences_date_time);
 
         initializeTimePreference(getMorningPreference(), REQUEST_MORNING);
         initializeTimePreference(getAfternoonPreference(), REQUEST_AFTERNOON);
@@ -55,7 +55,7 @@ public class DateShortcutPreferences extends InjectingPreferenceActivity impleme
         preference.setOnPreferenceChangeListener(this);
         preference.setOnPreferenceClickListener(ignored -> {
             final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
-            Intent intent = new Intent(DateShortcutPreferences.this, TimePickerActivity.class);
+            Intent intent = new Intent(DateTimePreferences.this, TimePickerActivity.class);
             intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
             startActivityForResult(intent, requestCode);
             return true;

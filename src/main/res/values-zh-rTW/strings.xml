@@ -221,7 +221,6 @@
 	<string name="TLA_menu_donate">贊助</string>
 	<string name="tags">標籤</string>
 	<string name="filters">過濾</string>
-	<string name="date_shortcuts">日期捷徑</string>
 	<string name="filter_settings">過濾器設定</string>
 	<string name="show_hidden">顯示隱藏</string>
 	<string name="show_completed">顯示已完成</string>

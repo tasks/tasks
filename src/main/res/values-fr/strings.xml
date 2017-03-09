@@ -283,7 +283,6 @@
 	<string name="geofence_responsiveness_title">Temps de réponse (les valeurs élevées améliorent l\'autonomie)</string>
 	<string name="geolocation_reminders">Rappels géolocalisés</string>
 	<string name="filters">Filtres</string>
-	<string name="date_shortcuts">Raccourcis pour les dates</string>
 	<string name="date_shortcut_hour">Pour une heure</string>
 	<string name="date_shortcut_morning">Matin</string>
 	<string name="date_shortcut_afternoon">Après-midi</string>

@@ -291,7 +291,6 @@
 	<string name="geolocation_reminders">התראות מיקום</string>
 	<string name="tags">תגיות</string>
 	<string name="filters">פילטרים</string>
-	<string name="date_shortcuts">קיצורי תאריך</string>
 	<string name="date_shortcut_hour">בעוד שעה</string>
 	<string name="date_shortcut_morning">בוקר</string>
 	<string name="date_shortcut_afternoon">אחר הצהריים</string>

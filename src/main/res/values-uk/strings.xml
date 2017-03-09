@@ -293,7 +293,6 @@
 	<string name="geolocation_reminders">Геолокаційні нагадування</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фільтри</string>
-	<string name="date_shortcuts">Частини дня</string>
 	<string name="date_shortcut_hour">На годину</string>
 	<string name="date_shortcut_morning">Зранку</string>
 	<string name="date_shortcut_afternoon">Опівдні</string>

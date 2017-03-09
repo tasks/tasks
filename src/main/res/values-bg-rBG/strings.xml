@@ -293,7 +293,6 @@
 	<string name="geolocation_reminders">Напомняния за геолокация</string>
 	<string name="tags">Тагове</string>
 	<string name="filters">Филтри</string>
-	<string name="date_shortcuts">Дати - бърз достъп</string>
 	<string name="date_shortcut_hour">За час</string>
 	<string name="date_shortcut_morning">Сутрин</string>
 	<string name="date_shortcut_afternoon">Следобед</string>

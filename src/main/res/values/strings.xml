@@ -692,7 +692,6 @@ File %1$s contained %2$s.\n\n
     <string name="geolocation_reminders">Geolocation Reminders</string>
     <string name="tags">Tags</string>
     <string name="filters">Filters</string>
-    <string name="date_shortcuts">Date shortcuts</string>
     <string name="date_shortcut_hour">For an hour</string>
     <string name="date_shortcut_morning">Morning</string>
     <string name="date_shortcut_afternoon">Afternoon</string>
@@ -819,5 +818,6 @@ File %1$s contained %2$s.\n\n
   <string name="delete_multiple_tasks_confirmation">%s deleted</string>
   <string name="delete_selected_tasks">Delete selected tasks?</string>
   <string name="copy_selected_tasks">Copy selected tasks?</string>
+  <string name="date_and_time">Date and time</string>
 
 </resources>

@@ -290,7 +290,6 @@
 	<string name="geolocation_reminders">Przypomnienie geolokacyjne</string>
 	<string name="tags">Tagi</string>
 	<string name="filters">Filtry</string>
-	<string name="date_shortcuts">Skróty dat</string>
 	<string name="date_shortcut_hour">Na godzinę</string>
 	<string name="date_shortcut_morning">Rano</string>
 	<string name="date_shortcut_afternoon">Po południu</string>

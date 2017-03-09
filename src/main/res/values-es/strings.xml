@@ -289,7 +289,6 @@
 	<string name="geolocation_reminders">Recordatorios de Geolocalización</string>
 	<string name="tags">Etiquetas</string>
 	<string name="filters">Filtros</string>
-	<string name="date_shortcuts">Atajos para fechas</string>
 	<string name="date_shortcut_hour">Por una hora</string>
 	<string name="date_shortcut_morning">Mañana</string>
 	<string name="date_shortcut_afternoon">Tarde</string>

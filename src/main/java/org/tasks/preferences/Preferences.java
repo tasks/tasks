@@ -114,7 +114,7 @@ public class Preferences {
     public void setDefaults() {
         PreferenceManager.setDefaultValues(context, R.xml.preferences, true);
         PreferenceManager.setDefaultValues(context, R.xml.preferences_appearance, true);
-        PreferenceManager.setDefaultValues(context, R.xml.preferences_date_shortcuts, true);
+        PreferenceManager.setDefaultValues(context, R.xml.preferences_date_time, true);
         PreferenceManager.setDefaultValues(context, R.xml.preferences_defaults, true);
         PreferenceManager.setDefaultValues(context, R.xml.preferences_gtasks, true);
         PreferenceManager.setDefaultValues(context, R.xml.preferences_misc, true);

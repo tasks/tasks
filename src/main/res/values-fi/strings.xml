@@ -293,7 +293,6 @@
 	<string name="geolocation_reminders">Paikannuksen muistutukset</string>
 	<string name="tags">Tunniste</string>
 	<string name="filters">Suodattimet</string>
-	<string name="date_shortcuts">Päivämäärän pikakuvake</string>
 	<string name="date_shortcut_hour">Tunnin verran</string>
 	<string name="date_shortcut_morning">Aamu</string>
 	<string name="date_shortcut_afternoon">Iltapäivä</string>

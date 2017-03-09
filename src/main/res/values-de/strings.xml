@@ -286,7 +286,6 @@
 	<string name="geolocation_reminders">Geo-/Ortsbasierte Erinnerungen</string>
 	<string name="tags">Schlagworte</string>
 	<string name="filters">Filter</string>
-	<string name="date_shortcuts">Datumsabkürzungen</string>
 	<string name="date_shortcut_hour">Für eine Stunde</string>
 	<string name="date_shortcut_morning">Morgen</string>
 	<string name="date_shortcut_afternoon">Nachmittag</string>
