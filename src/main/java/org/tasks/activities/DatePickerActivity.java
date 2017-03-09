@@ -10,6 +10,7 @@ import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.dialogs.NativeDatePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.Device;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
@@ -17,6 +18,7 @@ import org.tasks.time.DateTime;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static org.tasks.dialogs.NativeDatePickerDialog.newNativeDatePickerDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -28,6 +30,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
 
     @Inject ThemeBase themeBase;
     @Inject ThemeAccent themeAccent;
+    @Inject Device device;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
         DateTime initial = (timestamp > 0 ? new DateTime(timestamp) : new DateTime()).startOfDay();
 
         FragmentManager fragmentManager = getFragmentManager();
-        if (atLeastLollipop()) {
+        if (atLeastMarshmallow() || (atLeastLollipop() && !device.isBaneOfMyExistence())) {
             if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
                 newNativeDatePickerDialog(initial)
                         .show(fragmentManager, FRAG_TAG_DATE_PICKER);
@@ -47,6 +50,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
             if (dialog == null) {
                 dialog = new MyDatePickerDialog();
                 dialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
+                dialog.setVersion(DatePickerDialog.Version.VERSION_2);
                 dialog.setThemeDark(themeBase.isDarkTheme(this));
                 dialog.setAccentColor(themeAccent.getAccentColor());
                 dialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);

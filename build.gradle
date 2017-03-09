@@ -138,7 +138,7 @@ dependencies {
     compile ('org.scala-saddle:google-rfc-2445:20110304') {
         transitive = false
     }
-    compile ('com.wdullaer:materialdatetimepicker:3.1.1') {
+    compile ('com.wdullaer:materialdatetimepicker:3.1.3') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
