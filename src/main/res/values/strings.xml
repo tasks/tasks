@@ -797,7 +797,6 @@ File %1$s contained %2$s.\n\n
   <string name="restart_later">Later</string>
   <string name="settings_localization">Localization</string>
   <string name="layout_direction">Layout direction</string>
-  <string name="layout_direction_locale">Use locale direction</string>
   <string name="layout_direction_left_to_right">Left to right</string>
   <string name="layout_direction_right_to_left">Right to left</string>
   <string name="led_notification">LED notification</string>
@@ -819,5 +818,6 @@ File %1$s contained %2$s.\n\n
   <string name="delete_selected_tasks">Delete selected tasks?</string>
   <string name="copy_selected_tasks">Copy selected tasks?</string>
   <string name="date_and_time">Date and time</string>
-
+  <string name="start_of_week">Start of week</string>
+  <string name="use_locale_default">Use locale default</string>
 </resources>

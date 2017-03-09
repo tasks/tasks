@@ -1,5 +1,6 @@
 package org.tasks.dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -9,10 +10,13 @@ import android.widget.DatePicker;
 
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 public class NativeDatePickerDialog extends InjectingNativeDialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -37,6 +41,7 @@ public class NativeDatePickerDialog extends InjectingNativeDialogFragment implem
     }
 
     @Inject Theme theme;
+    @Inject Preferences preferences;
 
     private NativeDatePickerDialogCallback callback;
 
@@ -47,10 +52,15 @@ public class NativeDatePickerDialog extends InjectingNativeDialogFragment implem
         setRetainInstance(true);
     }
 
+    @SuppressLint("NewApi")
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
         DatePickerDialog datePickerDialog = new DatePickerDialog(theme.wrap(getActivity()), this, args.getInt(EXTRA_YEAR), args.getInt(EXTRA_MONTH), args.getInt(EXTRA_DAY));
+        int firstDayOfWeek = preferences.getFirstDayOfWeek();
+        if (firstDayOfWeek >= 1 && firstDayOfWeek <= 7 && atLeastMarshmallow()) {
+            datePickerDialog.getDatePicker().setFirstDayOfWeek(firstDayOfWeek);
+        }
         datePickerDialog.setTitle("");
         return datePickerDialog;
     }

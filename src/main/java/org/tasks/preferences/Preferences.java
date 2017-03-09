@@ -104,6 +104,11 @@ public class Preferences {
         return atLeastMarshmallow() && getBoolean(R.string.p_doze_notifications, false);
     }
 
+    public int getFirstDayOfWeek() {
+        int firstDayOfWeek = getIntegerFromString(R.string.p_start_of_week, 0);
+        return firstDayOfWeek < 1 || firstDayOfWeek > 7 ? 0 : firstDayOfWeek;
+    }
+
     public void clear() {
         prefs
                 .edit()

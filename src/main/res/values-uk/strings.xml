@@ -396,7 +396,6 @@
 	<string name="restart_later">Пізніше</string>
 	<string name="settings_localization">Локалізація</string>
 	<string name="layout_direction">Напрям письма</string>
-	<string name="layout_direction_locale">Використовувати напрям пристрою</string>
 	<string name="layout_direction_left_to_right">Зліва направо</string>
 	<string name="layout_direction_right_to_left">Зправа наліво</string>
 	<string name="led_notification">LED-сповіщення</string>

@@ -318,5 +318,6 @@
   <string name="debug_consume_purchases">Consume purchases</string>
   <string name="debug">Debug</string>
   <string name="p_rmd_show_description">rmd_show_description</string>
+  <string name="p_start_of_week">start_of_week</string>
 
 </resources>

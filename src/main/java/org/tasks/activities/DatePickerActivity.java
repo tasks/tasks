@@ -11,6 +11,7 @@ import org.tasks.dialogs.NativeDatePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Device;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
@@ -31,6 +32,7 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
     @Inject ThemeBase themeBase;
     @Inject ThemeAccent themeAccent;
     @Inject Device device;
+    @Inject Preferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,10 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
                 dialog.setVersion(DatePickerDialog.Version.VERSION_2);
                 dialog.setThemeDark(themeBase.isDarkTheme(this));
                 dialog.setAccentColor(themeAccent.getAccentColor());
+                int firstDayOfWeek = preferences.getFirstDayOfWeek();
+                if (firstDayOfWeek >= 1 && firstDayOfWeek <= 7) {
+                    dialog.setFirstDayOfWeek(firstDayOfWeek);
+                }
                 dialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
             }
             dialog.setOnCancelListener(dialogInterface -> finish());

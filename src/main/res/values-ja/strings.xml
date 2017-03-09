@@ -394,7 +394,6 @@
 	<string name="restart_later">後で</string>
 	<string name="settings_localization">ローカライズ</string>
 	<string name="layout_direction">レイアウトの向き</string>
-	<string name="layout_direction_locale">ロケールの向きを使用する</string>
 	<string name="layout_direction_left_to_right">左から右</string>
 	<string name="layout_direction_right_to_left">右から左</string>
 	<string name="led_notification">LED 通知</string>

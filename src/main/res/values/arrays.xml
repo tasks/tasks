@@ -185,7 +185,7 @@
     </string-array>
 
     <string-array name="layout_direction_entries">
-        <item>@string/layout_direction_locale</item>
+        <item>@string/use_locale_default</item>
         <item>@string/layout_direction_left_to_right</item>
         <item>@string/layout_direction_right_to_left</item>
     </string-array>
@@ -252,5 +252,11 @@
     <string-array name="repeat_type">
         <item>@string/repeat_type_due</item>
         <item>@string/repeat_type_completion</item>
+    </string-array>
+
+    <string-array name="day_of_week_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 </resources>

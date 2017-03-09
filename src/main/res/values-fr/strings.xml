@@ -382,7 +382,6 @@
 	<string name="restart_later">Plus tard</string>
 	<string name="settings_localization">Localisation</string>
 	<string name="layout_direction">Direction de lecture</string>
-	<string name="layout_direction_locale">Utiliser les directions locales</string>
 	<string name="layout_direction_left_to_right">Gauche à droite</string>
 	<string name="layout_direction_right_to_left">Droite à gauche</string>
 	<string name="led_notification">Notification de la LED</string>

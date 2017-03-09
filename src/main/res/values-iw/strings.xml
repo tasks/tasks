@@ -394,7 +394,6 @@
 	<string name="restart_later">מאוחר יותר</string>
 	<string name="settings_localization">לוקאליזציה</string>
 	<string name="layout_direction">כיוון הממשק</string>
-	<string name="layout_direction_locale">לפי השפה</string>
 	<string name="layout_direction_left_to_right">משמאל לימין</string>
 	<string name="layout_direction_right_to_left">מימין לשמאל</string>
 	<string name="led_notification">תאורת התראות</string>

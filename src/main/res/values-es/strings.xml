@@ -390,7 +390,6 @@
 	<string name="restart_later">Más tarde</string>
 	<string name="settings_localization">Configuración regional</string>
 	<string name="layout_direction">Sentido de la escritura</string>
-	<string name="layout_direction_locale">Usar disposición regional</string>
 	<string name="layout_direction_left_to_right">De izquierda a derecha</string>
 	<string name="layout_direction_right_to_left">De derecha a izquierda</string>
 	<string name="led_notification">Notificación de la LED</string>

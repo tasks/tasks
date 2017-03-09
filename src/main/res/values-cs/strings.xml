@@ -342,7 +342,6 @@
 	<string name="restart_later">Později</string>
 	<string name="settings_localization">Překlad</string>
 	<string name="layout_direction">Orientace</string>
-	<string name="layout_direction_locale">Použít lokální směr</string>
 	<string name="layout_direction_left_to_right">Zleva do prava</string>
 	<string name="layout_direction_right_to_left">Zprava do leva</string>
 	<string name="led_color">Barva LED</string>

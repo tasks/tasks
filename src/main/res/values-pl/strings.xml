@@ -392,7 +392,6 @@
 	<string name="restart_later">Póżniej</string>
 	<string name="settings_localization">Ustawienia regionalne</string>
 	<string name="layout_direction">Kierunek tekstów</string>
-	<string name="layout_direction_locale">Użyj lokalnych ustawień</string>
 	<string name="layout_direction_left_to_right">Od lewa do prawa</string>
 	<string name="layout_direction_right_to_left">Od prawa do lewa</string>
 	<string name="led_notification">Powiadomienie LED</string>

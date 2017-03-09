@@ -384,7 +384,6 @@
 	<string name="restart_later">Später</string>
 	<string name="settings_localization">Übersetzung</string>
 	<string name="layout_direction">Schreibrichtung</string>
-	<string name="layout_direction_locale">Aus Systemeinstellungen</string>
 	<string name="layout_direction_left_to_right">Links nach rechts</string>
 	<string name="layout_direction_right_to_left">Rechts nach links</string>
 	<string name="led_notification">Benachrichtigungs-LED</string>

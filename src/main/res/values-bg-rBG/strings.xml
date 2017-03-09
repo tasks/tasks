@@ -396,7 +396,6 @@
 	<string name="restart_later">По-късно</string>
 	<string name="settings_localization">Локализация</string>
 	<string name="layout_direction">Направление на изгледа</string>
-	<string name="layout_direction_locale">Използвай направление според местополжението</string>
 	<string name="layout_direction_left_to_right">Отляво надясно</string>
 	<string name="layout_direction_right_to_left">Отдясно наляво</string>
 	<string name="led_notification">LED нотификация</string>

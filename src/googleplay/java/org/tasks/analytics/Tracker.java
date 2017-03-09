@@ -75,17 +75,21 @@ public class Tracker {
     }
 
     public void reportEvent(Tracking.Events event, String label) {
-        reportEvent(event.category, event.action, label);
+        reportEvent(event, event.action, label);
     }
 
     public void reportEvent(Tracking.Events event, int action, String label) {
+        reportEvent(event, context.getString(action), label);
+    }
+
+    public void reportEvent(Tracking.Events event, String action, String label) {
         reportEvent(event.category, action, label);
     }
 
-    private void reportEvent(int category, int action, String label) {
+    private void reportEvent(int category, String action, String label) {
         HitBuilders.EventBuilder eventBuilder = new HitBuilders.EventBuilder()
                 .setCategory(context.getString(category))
-                .setAction(context.getString(action));
+                .setAction(action);
         if (!Strings.isNullOrEmpty(label)) {
             eventBuilder.setLabel(label);
         }
