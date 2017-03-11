@@ -25,7 +25,13 @@
             android:entryValues="@array/sync_SPr_interval_values"
             android:key="@string/gtasks_GPr_interval_key"
             android:title="@string/sync_SPr_interval_title" />
-
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="true"
+            android:dependency="@string/sync_gtasks"
+            android:key="@string/gtasks_sync_metadata_using_note_key"
+            android:summaryOff="@string/sync_metadata_using_note_off"
+            android:summaryOn="@string/sync_metadata_using_note_on"
+            android:title="@string/sync_metadata_using_note" />
         <com.todoroo.astrid.ui.MultilinePreference
             android:dependency="@string/sync_gtasks"
             android:key="@string/sync_SPr_forget_key"

@@ -25,6 +25,7 @@ public class GtasksPreferenceService {
 
     private static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
     private static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
+    private static final String PREF_USE_NOTE_FOR_METADATA_SYNC = IDENTIFIER + "_noteMetadataSync"; //$NON-NLS-1$
 
     @Inject
     public GtasksPreferenceService(Preferences preferences) {
@@ -45,6 +46,14 @@ public class GtasksPreferenceService {
 
     public void setUserName(String userName) {
         preferences.setString(PREF_USER_NAME, userName);
+    }
+
+    public boolean getUseNoteForMetadataSync() {
+        return preferences.getBoolean(PREF_USE_NOTE_FOR_METADATA_SYNC, false);
+    }
+
+    public void setUseNoteForMetadataSync(boolean useNoteForMetadataSync) {
+        preferences.setBoolean(PREF_USE_NOTE_FOR_METADATA_SYNC, useNoteForMetadataSync);
     }
 
     private static final String PREF_LAST_SYNC = "_last_sync"; //$NON-NLS-1$

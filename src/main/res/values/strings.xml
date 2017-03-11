@@ -641,6 +641,11 @@ File %1$s contained %2$s.\n\n
     <!-- Preference: Synchronization Interval Title -->
     <string name="sync_SPr_interval_title">Background sync</string>
 
+  <string name="sync_metadata_using_note_off">The note field is not modified.</string>
+  <string name="sync_metadata_using_note_on">The note field is used to sync additional information.</string>
+  <string name="sync_metadata_using_note">Sync additional information with note field?</string>
+
+
     <!-- Sync: Clear Data Title -->
     <string name="sync_SPr_forget">Log out</string>
     <!-- Sync: Clear Data Description -->

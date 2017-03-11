@@ -51,6 +51,10 @@ public class GtasksTaskContainer {
         updateTime = updated == null ? 0 : updated.getValue();
     }
 
+    public Task getTask() {
+        return task;
+    }
+
     public long getUpdateTime() {
         return updateTime;
     }

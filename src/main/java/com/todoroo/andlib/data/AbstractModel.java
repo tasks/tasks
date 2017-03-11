@@ -122,6 +122,19 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         return mergedValues;
     }
 
+    public ContentValues getChangedValues() {
+        ContentValues mergedValues = getMergedValues();
+        ContentValues defaultValues = getDefaultValues();
+        for(String key: defaultValues.keySet()) {
+            Object val = mergedValues.get(key);
+            Object defaultVal = defaultValues.get(key);
+            if (defaultVal != null && defaultVal.equals(val)) {
+                mergedValues.remove(key);
+            }
+        }
+        return mergedValues;
+    }
+
     /**
      * Clear all data on this model
      */

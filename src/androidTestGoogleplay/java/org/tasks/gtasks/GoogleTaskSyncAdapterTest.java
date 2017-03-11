@@ -1,12 +1,28 @@
 package org.tasks.gtasks;
 
+import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+
+import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.tasks.injection.ApplicationComponent;
+import org.tasks.injection.InjectingApplication;
+import org.tasks.injection.SyncAdapterComponent;
+import org.tasks.injection.SyncAdapterModule;
 import org.tasks.time.DateTime;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE;
@@ -105,4 +121,9 @@ public class GoogleTaskSyncAdapterTest {
 
         assertEquals(0, remote.getHideUntil().longValue());
     }
+
+
+
+
+
 }

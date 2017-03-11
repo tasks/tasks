@@ -175,6 +175,7 @@
   <!-- =========================================================== GTASKS == -->
   
     <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
+    <string name="gtasks_sync_metadata_using_note_key">gtasks_noteMetadataSync</string>
     
   <!-- ============================================================ OTHER == -->
   
