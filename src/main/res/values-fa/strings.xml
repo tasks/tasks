@@ -271,7 +271,6 @@
 	<string name="language">زبان</string>
 	<string name="settings_localization">محلی‌سازی</string>
 	<string name="layout_direction">چینش صفحه</string>
-	<string name="layout_direction_locale">از چینش محلی استفاده کن</string>
 	<string name="layout_direction_left_to_right">چپ به راست</string>
 	<string name="layout_direction_right_to_left">راست به چپ</string>
 </resources>

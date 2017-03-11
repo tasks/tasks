@@ -94,6 +94,10 @@ public class Locale {
         return appLocale;
     }
 
+    public java.util.Locale getDeviceLocale() {
+        return deviceLocale;
+    }
+
     public char getDirectionalityMark() {
         return appDirectionalityMark;
     }

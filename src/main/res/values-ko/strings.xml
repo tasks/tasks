@@ -287,7 +287,6 @@
 	<string name="geolocation_reminders">위치정보 알림</string>
 	<string name="tags">태그</string>
 	<string name="filters">필터</string>
-	<string name="date_shortcuts">날짜 바로가기</string>
 	<string name="date_shortcut_hour">한 시간동안</string>
 	<string name="date_shortcut_morning">아침</string>
 	<string name="date_shortcut_afternoon">오후</string>

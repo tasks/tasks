@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0-rc1'
+        classpath 'com.android.tools.build:gradle:2.3.0'
     }
 }
 
@@ -30,8 +30,8 @@ android {
 
     defaultConfig {
         applicationId "org.tasks"
-        versionCode 446
-        versionName "4.9.8"
+        versionCode 448
+        versionName "4.9.10"
         minSdkVersion 15
         targetSdkVersion 25
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -127,6 +127,7 @@ dependencies {
     compile "com.android.support:support-v13:${SUPPORT_VERSION}"
     compile "com.android.support:cardview-v7:${SUPPORT_VERSION}"
     compile 'com.jakewharton.timber:timber:4.5.1'
+    compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     compile 'com.google.guava:guava:20.0'
     compile 'com.jakewharton:process-phoenix:1.1.1'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
@@ -138,7 +139,7 @@ dependencies {
     compile ('org.scala-saddle:google-rfc-2445:20110304') {
         transitive = false
     }
-    compile ('com.wdullaer:materialdatetimepicker:3.1.1') {
+    compile ('com.wdullaer:materialdatetimepicker:3.1.3') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 

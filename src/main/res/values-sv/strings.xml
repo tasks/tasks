@@ -290,7 +290,6 @@
 	<string name="geolocation_reminders">Platsbaserade påminnelser</string>
 	<string name="tags">Etiketter</string>
 	<string name="filters">Filter</string>
-	<string name="date_shortcuts">Snabbval tid</string>
 	<string name="date_shortcut_hour">En timme</string>
 	<string name="date_shortcut_morning">På morgonen</string>
 	<string name="date_shortcut_afternoon">På eftermiddagen</string>
@@ -384,7 +383,6 @@
 	<string name="restart_now">Starta om nu</string>
 	<string name="restart_later">Senare</string>
 	<string name="settings_localization">Språk</string>
-	<string name="layout_direction_locale">Använd språkets standard</string>
 	<string name="layout_direction_left_to_right">Vänster till höger</string>
 	<string name="layout_direction_right_to_left">Höger till vänster</string>
 	<string name="led_notification">LED Notifiering</string>

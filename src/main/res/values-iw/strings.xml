@@ -291,7 +291,6 @@
 	<string name="geolocation_reminders">התראות מיקום</string>
 	<string name="tags">תגיות</string>
 	<string name="filters">פילטרים</string>
-	<string name="date_shortcuts">קיצורי תאריך</string>
 	<string name="date_shortcut_hour">בעוד שעה</string>
 	<string name="date_shortcut_morning">בוקר</string>
 	<string name="date_shortcut_afternoon">אחר הצהריים</string>
@@ -395,7 +394,6 @@
 	<string name="restart_later">מאוחר יותר</string>
 	<string name="settings_localization">לוקאליזציה</string>
 	<string name="layout_direction">כיוון הממשק</string>
-	<string name="layout_direction_locale">לפי השפה</string>
 	<string name="layout_direction_left_to_right">משמאל לימין</string>
 	<string name="layout_direction_right_to_left">מימין לשמאל</string>
 	<string name="led_notification">תאורת התראות</string>

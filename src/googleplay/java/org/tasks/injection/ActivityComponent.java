@@ -29,7 +29,7 @@ import org.tasks.files.MyFilePickerActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
-import org.tasks.preferences.DateShortcutPreferences;
+import org.tasks.preferences.DateTimePreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.MissedCallActivity;
@@ -116,7 +116,7 @@ public interface ActivityComponent {
 
     void inject(HelpAndFeedbackActivity helpAndFeedbackActivity);
 
-    void inject(DateShortcutPreferences dateShortcutPreferences);
+    void inject(DateTimePreferences dateTimePreferences);
 
     void inject(AppearancePreferences appearancePreferences);
 

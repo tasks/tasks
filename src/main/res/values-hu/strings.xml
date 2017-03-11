@@ -293,7 +293,6 @@
 	<string name="geolocation_reminders">Helyhez kötött Emlékeztetők</string>
 	<string name="tags">Címkék</string>
 	<string name="filters">Szűrők</string>
-	<string name="date_shortcuts">Gyorselérésű időpontok</string>
 	<string name="date_shortcut_hour">Egy órára</string>
 	<string name="date_shortcut_morning">Reggel</string>
 	<string name="date_shortcut_afternoon">Délután</string>
@@ -397,7 +396,6 @@
 	<string name="restart_later">Később</string>
 	<string name="settings_localization">Lokalizáció</string>
 	<string name="layout_direction">Szövegirány</string>
-	<string name="layout_direction_locale">Nyelv alapértelmezés használata</string>
 	<string name="layout_direction_left_to_right">Balról jobbra</string>
 	<string name="layout_direction_right_to_left">Jobbról balra</string>
 	<string name="led_notification">LED értesítés</string>

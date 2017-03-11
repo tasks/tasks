@@ -35,9 +35,9 @@
                 android:targetPackage="org.tasks" />
         </Preference>
 
-        <Preference android:title="@string/date_shortcuts">
+        <Preference android:title="@string/date_and_time">
             <intent
-                android:targetClass="org.tasks.preferences.DateShortcutPreferences"
+                android:targetClass="org.tasks.preferences.DateTimePreferences"
                 android:targetPackage="org.tasks" />
         </Preference>
 

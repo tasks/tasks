@@ -221,7 +221,6 @@
 	<string name="TLA_menu_donate">贊助</string>
 	<string name="tags">標籤</string>
 	<string name="filters">過濾</string>
-	<string name="date_shortcuts">日期捷徑</string>
 	<string name="filter_settings">過濾器設定</string>
 	<string name="show_hidden">顯示隱藏</string>
 	<string name="show_completed">顯示已完成</string>
@@ -246,7 +245,6 @@
 	<string name="settings_general">一般</string>
 	<string name="language">語言</string>
 	<string name="layout_direction">排版方向</string>
-	<string name="layout_direction_locale">使用當地方向</string>
 	<string name="layout_direction_left_to_right">由左至右</string>
 	<string name="layout_direction_right_to_left">由右至左</string>
 	<string name="led_color">LED 顏色</string>

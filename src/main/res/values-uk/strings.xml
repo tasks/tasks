@@ -293,7 +293,6 @@
 	<string name="geolocation_reminders">Геолокаційні нагадування</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фільтри</string>
-	<string name="date_shortcuts">Частини дня</string>
 	<string name="date_shortcut_hour">На годину</string>
 	<string name="date_shortcut_morning">Зранку</string>
 	<string name="date_shortcut_afternoon">Опівдні</string>
@@ -397,7 +396,6 @@
 	<string name="restart_later">Пізніше</string>
 	<string name="settings_localization">Локалізація</string>
 	<string name="layout_direction">Напрям письма</string>
-	<string name="layout_direction_locale">Використовувати напрям пристрою</string>
 	<string name="layout_direction_left_to_right">Зліва направо</string>
 	<string name="layout_direction_right_to_left">Зправа наліво</string>
 	<string name="led_notification">LED-сповіщення</string>

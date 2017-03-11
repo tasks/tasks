@@ -19,9 +19,15 @@ import javax.inject.Inject;
 
 public class NativeTimePickerDialog extends InjectingNativeDialogFragment implements TimePickerDialog.OnTimeSetListener {
 
+    private static final String EXTRA_HOUR = "extra_hour";
+    private static final String EXTRA_MINUTE = "extra_minute";
+
     public static NativeTimePickerDialog newNativeTimePickerDialog(DateTime initial) {
         NativeTimePickerDialog dialog = new NativeTimePickerDialog();
-        dialog.initial = initial;
+        Bundle args = new Bundle();
+        args.putInt(EXTRA_HOUR, initial.getHourOfDay());
+        args.putInt(EXTRA_MINUTE, initial.getMinuteOfHour());
+        dialog.setArguments(args);
         return dialog;
     }
 
@@ -34,18 +40,19 @@ public class NativeTimePickerDialog extends InjectingNativeDialogFragment implem
     @Inject Theme theme;
 
     private NativeTimePickerDialogCallback callback;
-    private DateTime initial;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setRetainInstance(true);
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Context context = theme.wrap(getActivity());
-        TimePickerDialog timePickerDialog = new TimePickerDialog(context, this, 0, 0, DateUtilities.is24HourFormat(context));
-        timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(android.R.string.cancel), (dialogInterface, i) -> {
-            callback.cancel();
-        });
-        if (initial != null) {
-            timePickerDialog.updateTime(initial.getHourOfDay(), initial.getMinuteOfHour());
-        }
+        Bundle args = getArguments();
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, this, args.getInt(EXTRA_HOUR), args.getInt(EXTRA_MINUTE), DateUtilities.is24HourFormat(context));
         timePickerDialog.setTitle("");
         return timePickerDialog;
     }

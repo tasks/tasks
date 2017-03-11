@@ -16,6 +16,7 @@ import org.tasks.ui.CheckBoxes;
 import javax.inject.Inject;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.todoroo.andlib.utility.AndroidUtilities.convertDpToPixels;
 import static org.tasks.preferences.ResourceResolver.getData;
 import static org.tasks.preferences.ResourceResolver.getResourceId;
 
@@ -34,6 +35,7 @@ public class ViewHolderFactory {
     private final DisplayMetrics metrics;
     private final int background;
     private final int selectedColor;
+    private final int rowPadding;
 
     @Inject
     public ViewHolderFactory(@ForActivity Context context, Preferences preferences,
@@ -50,13 +52,14 @@ public class ViewHolderFactory {
         background = getResourceId(context, R.attr.selectableItemBackground);
         selectedColor = getData(context, R.attr.colorControlHighlight);
         showFullTaskTitle = preferences.getBoolean(R.string.p_fullTaskTitle, false);
-        fontSize = preferences.getIntegerFromString(R.string.p_fontSize, 16);
+        fontSize = preferences.getFontSize();
         metrics = context.getResources().getDisplayMetrics();
+        rowPadding = convertDpToPixels(metrics, preferences.getInt(R.string.p_rowPadding, 16));
     }
 
     ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks, MultiSelector multiSelector) {
         return new ViewHolder(context, viewGroup, showFullTaskTitle, fontSize, checkBoxes,
                 tagFormatter, textColorOverdue, textColorSecondary, textColorHint, taskDao,
-                dialogBuilder, callbacks, metrics, background, selectedColor, multiSelector);
+                dialogBuilder, callbacks, metrics, background, selectedColor, multiSelector, rowPadding);
     }
 }

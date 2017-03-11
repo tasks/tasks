@@ -290,7 +290,6 @@
 	<string name="geolocation_reminders">Przypomnienie geolokacyjne</string>
 	<string name="tags">Tagi</string>
 	<string name="filters">Filtry</string>
-	<string name="date_shortcuts">Skróty dat</string>
 	<string name="date_shortcut_hour">Na godzinę</string>
 	<string name="date_shortcut_morning">Rano</string>
 	<string name="date_shortcut_afternoon">Po południu</string>
@@ -393,7 +392,6 @@
 	<string name="restart_later">Póżniej</string>
 	<string name="settings_localization">Ustawienia regionalne</string>
 	<string name="layout_direction">Kierunek tekstów</string>
-	<string name="layout_direction_locale">Użyj lokalnych ustawień</string>
 	<string name="layout_direction_left_to_right">Od lewa do prawa</string>
 	<string name="layout_direction_right_to_left">Od prawa do lewa</string>
 	<string name="led_notification">Powiadomienie LED</string>

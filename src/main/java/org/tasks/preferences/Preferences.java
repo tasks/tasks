@@ -104,6 +104,11 @@ public class Preferences {
         return atLeastMarshmallow() && getBoolean(R.string.p_doze_notifications, false);
     }
 
+    public int getFirstDayOfWeek() {
+        int firstDayOfWeek = getIntegerFromString(R.string.p_start_of_week, 0);
+        return firstDayOfWeek < 1 || firstDayOfWeek > 7 ? 0 : firstDayOfWeek;
+    }
+
     public void clear() {
         prefs
                 .edit()
@@ -114,7 +119,7 @@ public class Preferences {
     public void setDefaults() {
         PreferenceManager.setDefaultValues(context, R.xml.preferences, true);
         PreferenceManager.setDefaultValues(context, R.xml.preferences_appearance, true);
-        PreferenceManager.setDefaultValues(context, R.xml.preferences_date_shortcuts, true);
+        PreferenceManager.setDefaultValues(context, R.xml.preferences_date_time, true);
         PreferenceManager.setDefaultValues(context, R.xml.preferences_defaults, true);
         PreferenceManager.setDefaultValues(context, R.xml.preferences_gtasks, true);
         PreferenceManager.setDefaultValues(context, R.xml.preferences_misc, true);
@@ -147,6 +152,14 @@ public class Preferences {
 
     public int getDefaultRingMode() {
         return getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
+    }
+
+    public int getRowPadding() {
+        return getInt(R.string.p_rowPadding, 16);
+    }
+
+    public int getFontSize() {
+        return getInt(R.string.p_fontSize, 16);
     }
 
     public int getIntegerFromString(int keyResource, int defaultValue) {

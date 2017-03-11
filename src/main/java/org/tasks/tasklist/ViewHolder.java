@@ -126,7 +126,8 @@ class ViewHolder extends MultiSelectorBindingHolder {
                CheckBoxes checkBoxes, TagFormatter tagFormatter,
                int textColorOverdue, int textColorSecondary, int textColorHint, TaskDao taskDao,
                DialogBuilder dialogBuilder, ViewHolderCallbacks callback,
-               DisplayMetrics metrics, int background, int selectedColor, MultiSelector multiSelector) {
+               DisplayMetrics metrics, int background, int selectedColor, MultiSelector multiSelector,
+               int rowPadding) {
         super(view, multiSelector);
         this.context = context;
         this.checkBoxes = checkBoxes;
@@ -150,11 +151,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
             nameView.setEllipsize(null);
         }
 
-        if (fontSize < 16) {
-            // developer.android.com/guide/practices/screens_support.html#dips-pels
-            int fontSizeInDP = (int) (fontSize * metrics.density + 0.5f);
-            rowBody.setPadding(0, fontSizeInDP, 0, fontSizeInDP);
-        }
+        rowBody.setPadding(0, rowPadding, 0, rowPadding);
 
         nameView.setTextSize(fontSize);
         int fontSizeDetails = Math.max(10, fontSize - 2);

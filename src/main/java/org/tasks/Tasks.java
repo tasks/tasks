@@ -1,5 +1,6 @@
 package org.tasks;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.todoroo.astrid.service.StartupService;
 
 import org.tasks.analytics.Tracker;
@@ -26,6 +27,8 @@ public class Tasks extends InjectingApplication {
         super.onCreate();
 
         tracker.setTrackingEnabled(preferences.isTrackingEnabled());
+
+        AndroidThreeTen.init(this);
 
         if (!buildSetup.setup()) {
             return;

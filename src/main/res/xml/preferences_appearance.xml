@@ -8,12 +8,15 @@
             android:key="@string/p_default_list"
             android:title="@string/default_list" />
 
-        <com.todoroo.astrid.ui.MultilineListPreference
+        <Preference
             android:defaultValue="16"
-            android:entries="@array/EPr_font_size"
-            android:entryValues="@array/EPr_font_size"
             android:key="@string/p_fontSize"
             android:title="@string/font_size" />
+
+        <Preference
+            android:defaultValue="16"
+            android:key="@string/p_rowPadding"
+            android:title="@string/row_spacing" />
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="false"

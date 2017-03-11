@@ -293,7 +293,6 @@
 	<string name="geolocation_reminders">Paikannuksen muistutukset</string>
 	<string name="tags">Tunniste</string>
 	<string name="filters">Suodattimet</string>
-	<string name="date_shortcuts">Päivämäärän pikakuvake</string>
 	<string name="date_shortcut_hour">Tunnin verran</string>
 	<string name="date_shortcut_morning">Aamu</string>
 	<string name="date_shortcut_afternoon">Iltapäivä</string>
@@ -396,7 +395,6 @@
 	<string name="restart_later">Myöhemmin</string>
 	<string name="settings_localization">Paikallistaminen</string>
 	<string name="layout_direction">Asettelun suunta</string>
-	<string name="layout_direction_locale">Käytä paikallista asetusta</string>
 	<string name="layout_direction_left_to_right">Vasemmalta oikealle</string>
 	<string name="layout_direction_right_to_left">Oikealta vasemmalle</string>
 	<string name="led_notification">LED muistutus</string>

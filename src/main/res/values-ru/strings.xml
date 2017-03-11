@@ -290,7 +290,6 @@
 	<string name="geolocation_reminders">Напоминания по местонахождению:</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фильтры</string>
-	<string name="date_shortcuts">Метки по времени</string>
 	<string name="date_shortcut_hour">Через час</string>
 	<string name="date_shortcut_morning">Утро</string>
 	<string name="date_shortcut_afternoon">Обед</string>
@@ -394,7 +393,6 @@
 	<string name="restart_later">Позже</string>
 	<string name="settings_localization">Локализация</string>
 	<string name="layout_direction">Ориентация интерфейса</string>
-	<string name="layout_direction_locale">Как в системе</string>
 	<string name="layout_direction_left_to_right">Слева направо</string>
 	<string name="layout_direction_right_to_left">Справа налево</string>
 	<string name="led_notification">LED уведомления</string>

@@ -11,6 +11,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.os.Build;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -201,6 +202,11 @@ public class AndroidUtilities {
             dest.write(buffer, 0, bytes);
             dest.flush();
         }
+    }
+
+    public static int convertDpToPixels(DisplayMetrics displayMetrics, int dp) {
+        // developer.android.com/guide/practices/screens_support.html#dips-pels
+        return (int) (dp * displayMetrics.density + 0.5f);
     }
 
     public static boolean preLollipop() {

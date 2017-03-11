@@ -201,6 +201,5 @@
 	<string name="master_sync_warning">المزامنة التلقائية معطلة الآن من طرف أندرويد</string>
 	<string name="settings_localization">تخصيص اللغة و الجهة</string>
 	<string name="layout_direction">إتجاه التنسيق</string>
-	<string name="layout_direction_locale">إستخدام الإتجاه المحلي</string>
 	<string name="layout_direction_left_to_right">من اليمين إلى اليسار</string>
 </resources>
