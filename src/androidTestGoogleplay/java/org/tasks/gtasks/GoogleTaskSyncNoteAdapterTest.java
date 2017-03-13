@@ -256,7 +256,25 @@ public class GoogleTaskSyncNoteAdapterTest {
         Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-tags:test3;test2;test}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-prio:MUST}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-hide:1970-01-13T20:38:31.111Z}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-remind:at;after;five}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-recur:RRULE:FREQ=MONTHLY;INTERVAL=1;1970-01-02T10:17:36.789Z}", enhancedNotes);
     }
 
-
+    @Test
+    public void testStoreMetadataSkipTags() {
+        task.setNotes("xxx");
+        addTag("test");
+        addTag("test2");
+        addTag("test4;");
+        addTag("{test4");
+        addTag("}test4");
+        addTag("tes;t4");
+        addTag("test4{");
+        addTag("test3");
+        addTag("");
+        addTag("    ");
+        addTag(null);
+        addTag("test");
+        adapter.writeNotesIfNecessary(task, remoteModel);
+        enhancedNotes = remoteModel.getNotes();
+        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-tags:test3;test2;test}", enhancedNotes);
+    }
 
     @Test
     public void testReadMetadataToNote() {
@@ -325,14 +343,21 @@ public class GoogleTaskSyncNoteAdapterTest {
         Assert.assertTrue(persistedTags.contains("test2"));
         Assert.assertTrue(persistedTags.contains("test3"));
         Assert.assertEquals(Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE | Task.NOTIFY_MODE_NONSTOP | Task.NOTIFY_MODE_FIVE, (int)task.getReminderFlags());
-        RRule rrule = new RRule();
-        rrule.setFreq(Frequency.MONTHLY);
-        rrule.setInterval(1);
-        String recurrence = rrule.toIcal();
-        //Assert.assertEquals("RRULE:FREQ=MONTHLY;RRULE:FREQ=MONTHLY;INTERVAL=1", task.getRecurrence());
-        //Assert.assertEquals(123456789l, (long)task.getRepeatUntil());
+        Assert.assertEquals("RRULE:FREQ=MONTHLY;INTERVAL=1", task.getRecurrence());
+        Assert.assertEquals(123456789l, (long)task.getRepeatUntil());
         Assert.assertEquals(1111111111l, (long)task.getHideUntil());
         Assert.assertEquals(Task.IMPORTANCE_DO_OR_DIE, (long)task.getImportance());
+    }
+
+    @Test
+    public void testReadMetadataFromNoteRecurrenceWithoutRepeatUntil() {
+        enhancedNotes = "xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED +  "{tasks-recur:RRULE:FREQ=MONTHLY;INTERVAL=1}";
+        task = new Task();
+        task.setNotes(enhancedNotes);
+        adapter.processNotes(task);
+        Assert.assertEquals("xxx", task.getNotes());
+        Assert.assertEquals("RRULE:FREQ=MONTHLY;INTERVAL=1", task.getRecurrence());
+        Assert.assertEquals(0, (long)task.getRepeatUntil());
     }
 
 }

@@ -392,7 +392,11 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                 if (uuid!=null) {
                     TagData tagData = tagDataDao.getByUuid(uuid, TagData.ID);
                     if (tagData!=null) {
-                        tags.add(tagData.getName());
+                        String tagName = tagData.getName();
+                        // Skip empty tags or tags containig { } ;
+                        if (tagName!=null && tagName.trim().length()>0 && tagName.indexOf('{')<0 && tagName.indexOf('}')<0 && tagName.indexOf(';')<0) {
+                            tags.add(tagName.trim());
+                        }
                     }
                 }
             }
@@ -433,9 +437,16 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                 case NOTE_METADATA_KEY_RECURRENCE:
                     String[] rec = metadataValue.split("" + GtasksApiUtilities.NOTE_METADATA_VALUE_SPLIT_CHAR);
                     if (rec!=null && rec.length>0) {
-                        task.setRecurrence(rec[0]);
                         if (rec.length>1) {
-                            task.setRepeatUntil(GtasksApiUtilities.gtasksStringTimeToUnixTime(rec[1]));
+                            long repeatUntil = GtasksApiUtilities.gtasksStringTimeToUnixTime(rec[rec.length-1]);
+                            if (repeatUntil>0) {
+                                task.setRepeatUntil(repeatUntil);
+                                task.setRecurrence(metadataValue.substring(0, metadataValue.lastIndexOf(GtasksApiUtilities.NOTE_METADATA_VALUE_SPLIT_CHAR)));
+                            } else {
+                                task.setRecurrence(metadataValue);
+                            }
+                        } else {
+                            task.setRecurrence(metadataValue);
                         }
                     }
                     break;
