@@ -104,6 +104,8 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     private static final String NOTE_METADATA_KEY_RECURRENCE = "recur";
     private static final Pattern PATTERN_NOTES_METADATA = Pattern.compile("(.*)\\{" + NOTE_METADATA_PREFIX + "\\-([a-zA-Z0-9\\-\\_]+):([^}]+)\\}\\s*", Pattern.DOTALL);
     public static final String LINE_FEED = "\n";
+    private static final int NOTE_MAX_LENGTH = 8100; // seams to be 8192
+
 
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
@@ -369,11 +371,10 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             if (task.getMergedValues().containsKey(Task.NOTES.name)) {
                 notes.append(task.getNotes());
             }
-            int maxLength = 500;
-            if (additionalMetaData.size() > 0 && notes.length() + LINE_FEED.length() < maxLength) {
+            if (additionalMetaData.size() > 0 && notes.length() + LINE_FEED.length() < NOTE_MAX_LENGTH) {
                 notes.append(LINE_FEED);
                 for (String add : additionalMetaData) {
-                    if (add != null && (notes.length() + add.length() + LINE_FEED.length()) < maxLength) {
+                    if (add != null && (notes.length() + add.length() + LINE_FEED.length()) < NOTE_MAX_LENGTH) {
                         notes.append(LINE_FEED);
                         notes.append(add);
                     }
