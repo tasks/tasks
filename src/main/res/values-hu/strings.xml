@@ -266,6 +266,7 @@
 	<string name="synchronization">Szinkronizáció</string>
 	<string name="enabled">Engedélyezve</string>
 	<string name="font_size">Karakter méret</string>
+	<string name="row_spacing">Sorköz</string>
 	<string name="customize_edit_screen">Szerkesztő képernyő testreszabása</string>
 	<string name="source_code">Forráskód</string>
 	<string name="translations">Részvétel a fordításban</string>
@@ -416,4 +417,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s törölve</string>
 	<string name="delete_selected_tasks">Kiválasztott feladatok törlése?</string>
 	<string name="copy_selected_tasks">Kiválasztott feladatok másolása?</string>
+	<string name="date_and_time">Dátum és időpont</string>
+	<string name="start_of_week">Hét kezdőnapja</string>
+	<string name="use_locale_default">Beállított nyelv alapján</string>
+	<string name="use_native_datetime_pickers">Natív dátum és időpont kijelölő használata</string>
 </resources>

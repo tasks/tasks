@@ -259,6 +259,7 @@
 	<string name="synchronization">Synchronisierung</string>
 	<string name="enabled">Aktiviert</string>
 	<string name="font_size">Schriftgröße</string>
+	<string name="row_spacing">Reihen-Abstand</string>
 	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
 	<string name="source_code">Quelltext</string>
 	<string name="translations">Zur Übersetzung beitragen</string>
@@ -404,4 +405,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s gelöscht</string>
 	<string name="delete_selected_tasks">Ausgewählte Aufgaben löschen?</string>
 	<string name="copy_selected_tasks">Ausgewählte Aufgaben kopieren?</string>
+	<string name="date_and_time">Tag und Uhrzeit</string>
+	<string name="start_of_week">Beginn der Woche</string>
+	<string name="use_locale_default">Aus Systemeinstellungen</string>
+	<string name="use_native_datetime_pickers">Datum- und Zeitauswahl des Systems benutzen</string>
 </resources>

@@ -263,6 +263,7 @@
 	<string name="synchronization">Синхронизация</string>
 	<string name="enabled">Показывать уведомления</string>
 	<string name="font_size">Размер шрифта</string>
+	<string name="row_spacing">Интервал между строк</string>
 	<string name="customize_edit_screen">Порядок полей в задаче...</string>
 	<string name="source_code">Исходный код</string>
 	<string name="translations">Участвовать в переводе программы</string>
@@ -413,4 +414,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s удалено</string>
 	<string name="delete_selected_tasks">Удалить выделенные задачи?</string>
 	<string name="copy_selected_tasks">Скопировать выделенные задачи?</string>
+	<string name="date_and_time">Дата и время</string>
+	<string name="start_of_week">Начало недели</string>
+	<string name="use_locale_default">Как в системе</string>
+	<string name="use_native_datetime_pickers">Встроенные элементы даты/времени</string>
 </resources>

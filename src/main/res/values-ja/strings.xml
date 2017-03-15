@@ -264,6 +264,7 @@
 	<string name="synchronization">同期</string>
 	<string name="enabled">有効</string>
 	<string name="font_size">フォントサイズ</string>
+	<string name="row_spacing">行間隔</string>
 	<string name="customize_edit_screen">編集画面をカスタマイズ</string>
 	<string name="source_code">ソースコード</string>
 	<string name="translations">翻訳に貢献する</string>
@@ -414,4 +415,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s 削除済</string>
 	<string name="delete_selected_tasks">選択したタスクを削除しますか?</string>
 	<string name="copy_selected_tasks">選択したタスクをコピーしますか?</string>
+	<string name="date_and_time">日付と時刻</string>
+	<string name="start_of_week">週の始まり</string>
+	<string name="use_locale_default">ロケールのデフォルトを使用する</string>
+	<string name="use_native_datetime_pickers">ネイティブの日付と時刻選択を使用する</string>
 </resources>
