@@ -103,7 +103,7 @@ configurations {
 final DAGGER_VERSION = '2.9'
 final BUTTERKNIFE_VERSION = '8.5.1'
 final GPS_VERSION = '10.0.1'
-final SUPPORT_VERSION = '25.2.0'
+final SUPPORT_VERSION = '25.3.0'
 final STETHO_VERSION = '1.4.2'
 final TESTING_SUPPORT_VERSION = '0.5'
 
