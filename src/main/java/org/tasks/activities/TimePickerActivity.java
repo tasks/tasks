@@ -7,17 +7,18 @@ import android.text.format.DateFormat;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import org.tasks.R;
 import org.tasks.dialogs.MyTimePickerDialog;
 import org.tasks.dialogs.NativeTimePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.dialogs.NativeTimePickerDialog.newNativeTimePickerDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -30,6 +31,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
 
     @Inject ThemeBase themeBase;
     @Inject ThemeAccent themeAccent;
+    @Inject Preferences preferences;
 
     private DateTime initial;
 
@@ -40,7 +42,7 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements Ti
         initial = new DateTime(getIntent().getLongExtra(EXTRA_TIMESTAMP, currentTimeMillis()));
 
         FragmentManager fragmentManager = getFragmentManager();
-        if (atLeastLollipop()) {
+        if (preferences.getBoolean(R.string.p_use_native_datetime_pickers, false)) {
             if (fragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER) == null) {
                 newNativeTimePickerDialog(initial)
                         .show(fragmentManager, FRAG_TAG_TIME_PICKER);

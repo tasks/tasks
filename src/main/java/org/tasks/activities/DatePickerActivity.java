@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.tasks.R;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.dialogs.NativeDatePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
@@ -18,8 +18,6 @@ import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static org.tasks.dialogs.NativeDatePickerDialog.newNativeDatePickerDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -31,7 +29,6 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
 
     @Inject ThemeBase themeBase;
     @Inject ThemeAccent themeAccent;
-    @Inject Device device;
     @Inject Preferences preferences;
 
     @Override
@@ -42,7 +39,8 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements Da
         DateTime initial = (timestamp > 0 ? new DateTime(timestamp) : new DateTime()).startOfDay();
 
         FragmentManager fragmentManager = getFragmentManager();
-        if (atLeastMarshmallow() || (atLeastLollipop() && !device.isBaneOfMyExistence())) {
+
+        if (preferences.getBoolean(R.string.p_use_native_datetime_pickers, false)) {
             if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
                 newNativeDatePickerDialog(initial)
                         .show(fragmentManager, FRAG_TAG_DATE_PICKER);

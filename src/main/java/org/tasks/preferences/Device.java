@@ -29,10 +29,6 @@ public class Device {
         this.locale = locale;
     }
 
-    public boolean isBaneOfMyExistence() {
-        return Build.MANUFACTURER.equalsIgnoreCase("samsung");
-    }
-
     public boolean hasCamera() {
         return context.getPackageManager().queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), 0).size() > 0;
     }

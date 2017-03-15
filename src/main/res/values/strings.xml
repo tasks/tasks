@@ -820,4 +820,5 @@ File %1$s contained %2$s.\n\n
   <string name="date_and_time">Date and time</string>
   <string name="start_of_week">Start of week</string>
   <string name="use_locale_default">Use locale default</string>
+  <string name="use_native_datetime_pickers">Use native date and time pickers</string>
 </resources>

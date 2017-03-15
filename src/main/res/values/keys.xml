@@ -319,5 +319,6 @@
   <string name="debug">Debug</string>
   <string name="p_rmd_show_description">rmd_show_description</string>
   <string name="p_start_of_week">start_of_week</string>
+  <string name="p_use_native_datetime_pickers">use_native_datetime_pickers</string>
 
 </resources>
