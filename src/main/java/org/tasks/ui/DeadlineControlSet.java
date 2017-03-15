@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 
@@ -37,6 +38,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
+import butterknife.OnTouch;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.google.common.collect.Lists.newArrayList;
@@ -194,6 +196,12 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         date = 0;
         time = -1;
         refreshDisplayView();
+    }
+
+    @OnTouch({R.id.due_date, R.id.due_time})
+    boolean onSpinnersTouched() {
+        AndroidUtilities.hideKeyboard(getActivity());
+        return false;
     }
 
     @OnItemSelected(R.id.due_date)
