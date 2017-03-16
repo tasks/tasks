@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,6 +43,7 @@ import timber.log.Timber;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class CalendarControlSet extends TaskEditControlFragment {
 
@@ -289,11 +289,11 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CODE_OPEN_EVENT) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (verifyPermissions(grantResults)) {
                 openCalendarEvent();
             }
         } else if (requestCode == REQUEST_CODE_CLEAR_EVENT) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (verifyPermissions(grantResults)) {
                 clear();
             }
         } else {

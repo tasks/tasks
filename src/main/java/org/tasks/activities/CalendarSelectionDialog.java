@@ -1,7 +1,6 @@
 package org.tasks.activities;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import org.tasks.calendars.CalendarProvider;
 import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
-import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.FragmentPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
@@ -47,7 +45,6 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
 
     @Inject DialogBuilder dialogBuilder;
     @Inject CalendarProvider calendarProvider;
-    @Inject @ForActivity Context context;
     @Inject FragmentPermissionRequestor fragmentPermissionRequestor;
     @Inject PermissionChecker permissionChecker;
     @Inject Theme theme;
@@ -114,7 +111,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
-            if (grantResults.length > 0 && !verifyPermissions(grantResults)) {
+            if (!verifyPermissions(grantResults)) {
                 handler.cancel();
             }
         } else {

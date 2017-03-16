@@ -8,7 +8,6 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -58,6 +57,7 @@ import butterknife.OnItemSelected;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.DateUtilities.getLongDateStringWithTime;
+import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -269,7 +269,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (verifyPermissions(grantResults)) {
                 pickLocation();
             }
         } else {

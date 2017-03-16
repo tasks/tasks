@@ -6,7 +6,6 @@
 package com.todoroo.astrid.reminders;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -40,6 +39,7 @@ import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class ReminderPreferences extends InjectingPreferenceActivity {
 
@@ -117,12 +117,9 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_CONTACTS) {
-            for (int grantResult : grantResults) {
-                if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
+            if (verifyPermissions(grantResults)) {
+                fieldMissedCalls.setChecked(true);
             }
-            fieldMissedCalls.setChecked(true);
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
