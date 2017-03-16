@@ -34,7 +34,8 @@ public abstract class MidnightIntentService extends InjectingIntentService {
         Preferences preferences = new Preferences(context);
         AlarmManager alarmManager = new AlarmManager(context, preferences);
 
-        long lastRun = preferences.getLong(getLastRunPreference(), 0);
+        String lastRunPreference = getLastRunPreference();
+        long lastRun = lastRunPreference == null ? 0 : preferences.getLong(lastRunPreference, 0);
         long nextRun = nextMidnight(lastRun);
         long now = currentTimeMillis();
 
