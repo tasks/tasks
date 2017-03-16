@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import org.tasks.R;
@@ -143,8 +144,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
                 preference.setSummary(R.string.silent);
             } else {
                 Ringtone ringtone = RingtoneManager.getRingtone(ReminderPreferences.this, value == null
-                        ? RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_NOTIFICATION)
-                        : Uri.parse((String) value));
+                        ? Settings.System.DEFAULT_NOTIFICATION_URI : Uri.parse((String) value));
                 preference.setSummary(ringtone == null ? "" : ringtone.getTitle(ReminderPreferences.this));
             }
             return true;
