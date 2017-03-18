@@ -102,8 +102,9 @@ configurations {
 
 final DAGGER_VERSION = '2.9'
 final BUTTERKNIFE_VERSION = '8.5.1'
-final GPS_VERSION = '10.0.1'
+final GPS_VERSION = '10.2.1'
 final SUPPORT_VERSION = '25.3.0'
+final SUPPORT_ANNOTATIONS_VERSION = '26.0.0-alpha1'
 final STETHO_VERSION = '1.4.2'
 final TESTING_SUPPORT_VERSION = '0.5'
 
@@ -158,5 +159,5 @@ dependencies {
     androidTestCompile 'com.natpryce:make-it-easy:4.0.1'
     androidTestCompile "com.android.support.test:runner:${TESTING_SUPPORT_VERSION}"
     androidTestCompile "com.android.support.test:rules:${TESTING_SUPPORT_VERSION}"
-    androidTestCompile "com.android.support:support-annotations:${SUPPORT_VERSION}"
+    androidTestCompile "com.android.support:support-annotations:${SUPPORT_ANNOTATIONS_VERSION}"
 }
