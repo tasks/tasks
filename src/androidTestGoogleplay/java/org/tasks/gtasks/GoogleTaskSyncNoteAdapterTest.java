@@ -14,7 +14,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
-import junit.framework.Assert;
+import junit.framework.Assert; 
 
 import org.junit.Before;
 import org.junit.Test;
