@@ -330,9 +330,6 @@
 	<string name="send_anonymous_statistics_summary">שליחת סטסיטיקות ודיווחי קריסה של האפליקציה באופן אנונימי. מידע אישי לא נאסף כלל.</string>
 	<string name="tag_already_exists">תגית כבר קיימת</string>
 	<string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
-	<string name="doze_notifications">ניטרול Doze Mode בהתראות</string>
-	<string name="doze_notifications_off">אנדרואיד יעכב את ההתראות באופן משמעותי כאשר Doze mode פעיל</string>
-	<string name="doze_notifications_on">מערכת אנדרואיד תאפשר מספר מוגבל של יקיצות כאשר המכשיר במצב Doze</string>
 	<string name="no_title">(אין כותרת)</string>
 	<string name="back_button_saves_task">כפתור \"חזרה\" שומר שינויים במשימה</string>
 	<string name="default_list">רשימת ברירת מחדל</string>

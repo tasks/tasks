@@ -329,9 +329,6 @@
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
 	<string name="tag_already_exists">Etichetta già presente</string>
 	<string name="name_cannot_be_empty">Il nome non può essere omesso</string>
-	<string name="doze_notifications">Le notifiche interrompono il pisolino</string>
-	<string name="doze_notifications_off">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
-	<string name="doze_notifications_on">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
 	<string name="no_title">(nessun titolo)</string>
 	<string name="back_button_saves_task">Il tasto indietro salva l\'attività</string>
 	<string name="default_list">Lista predefinita</string>

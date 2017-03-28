@@ -291,9 +291,6 @@
 	<string name="send_anonymous_statistics">Vylepšit Úkoly</string>
 	<string name="send_anonymous_statistics_summary">Odesílat anonymní statistiky využití a zprávy o selhání ke zlepšení Úkolů. Žádné osobní údaje nebudou shromažďovány.</string>
 	<string name="tag_already_exists">Štítek již existuje</string>
-	<string name="doze_notifications">Přerušit Doze mód pro oznámení</string>
-	<string name="doze_notifications_off">Když je zařízení v Doze režimu, Android může významně zpozdit upozornění</string>
-	<string name="doze_notifications_on">Když je zařízení v Doze režimu, Android může významně zpozdit upozornění</string>
 	<string name="no_title">(Bez názvu)</string>
 	<string name="back_button_saves_task">Tlačítko zpět uloží úkol</string>
 	<string name="default_list">Výchozí seznam</string>

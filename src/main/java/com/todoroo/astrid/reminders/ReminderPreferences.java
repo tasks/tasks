@@ -38,7 +38,6 @@ import org.tasks.ui.TimePreference;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class ReminderPreferences extends InjectingPreferenceActivity {
@@ -65,7 +64,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
         rescheduleNotificationsOnChange(
                 R.string.p_rmd_time,
-                R.string.p_doze_notifications,
                 R.string.p_rmd_enable_quiet,
                 R.string.p_rmd_quietStart,
                 R.string.p_rmd_quietEnd);
@@ -90,7 +88,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         });
 
         requires(R.string.notification_shade, atLeastJellybean(), R.string.p_rmd_notif_actions_enabled, R.string.p_notification_priority, R.string.p_rmd_show_description);
-        requires(atLeastMarshmallow(), R.string.p_doze_notifications);
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
 
         updateLEDColor();

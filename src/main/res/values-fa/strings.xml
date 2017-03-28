@@ -252,7 +252,6 @@
 	<string name="take_a_picture">گرفتن عکس</string>
 	<string name="send_anonymous_statistics">بهبود وظیفه</string>
 	<string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>
-	<string name="doze_notifications">برای اعلانات، حالت Doze را موقتاً قطع کن</string>
 	<string name="no_title">(بدون عنوان)</string>
 	<string name="default_list">لیست پیش فرض</string>
 	<string name="plugin_description">Tasks پروژه‌ای متن‌باز است که عمدتاً توسط یک‌نفر توسعه داده می‌شود. برای حمایت از این تلاش، برخی ویژگی‌ها به‌صورت خریدهای داخل برنامه ارائه شده‌اند.</string>

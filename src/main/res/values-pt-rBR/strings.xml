@@ -266,9 +266,6 @@
 	<string name="send_anonymous_statistics">Melhorar o Tasks</string>
 	<string name="send_anonymous_statistics_summary">Enviar estatísticas de uso e relatórios de falha anonimamente para ajudar a melhorar o Tasks. Nenhuma informação pessoal será coletada.</string>
 	<string name="tag_already_exists">Etiqueta já existe</string>
-	<string name="doze_notifications">Interromper modo Doze para notificações</string>
-	<string name="doze_notifications_off">O Android irá adiar as notificações significativamente enquanto o dispositivo estiver no modo Doze</string>
-	<string name="doze_notifications_on">O Android irá permitir interrupções limitadas enquanto o dispositivo estiver no modo Doze</string>
 	<string name="back_button_saves_task">Botão voltar salva a tarefa</string>
 	<string name="default_list">Lista padrão</string>
 	<string name="plugin_description">Tasks é um projeto de código aberto mantido por um desenvolvedor. Algumas funções são oferecidas como compras dentro do app a fim de apoiar o desenvolvimento.</string>

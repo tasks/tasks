@@ -331,9 +331,6 @@
 	<string name="send_anonymous_statistics_summary">Lähetä nimettömästi käyttäjätilastoja ja virheilmoituksia Tasks -ohjelman parantamiseksi. Mitään henkilökohtaisia tietoja ei kerätä.</string>
 	<string name="tag_already_exists">Tunniste on jo olemassa</string>
 	<string name="name_cannot_be_empty">Nimi ei voi olla tyhjä</string>
-	<string name="doze_notifications">Keskeytä Doze -tila ilmoituksia varten</string>
-	<string name="doze_notifications_off">Android viivästyttää merkittävästi ilmoituksia kun laite on Doze -tilassa</string>
-	<string name="doze_notifications_on">Android sallii rajoitetusti keskeytyksiä kun laite on Doze -tilassa</string>
 	<string name="no_title">(Ei nimikettä)</string>
 	<string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
 	<string name="default_list">Oletuslista</string>

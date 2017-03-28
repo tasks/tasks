@@ -329,9 +329,6 @@
 	<string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Task. No se recogerán datos personales.</string>
 	<string name="tag_already_exists">La etiqueta ya existe</string>
 	<string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
-	<string name="doze_notifications">Interrumpir modo reposo con notificaciones</string>
-	<string name="doze_notifications_off">Android retrasará las notificaciones si el dispositivo está en modo reposo</string>
-	<string name="doze_notifications_on">Android permitirá interrupciones limitadas si el dispositivo está en modo reposo</string>
 	<string name="no_title">(Sin título)</string>
 	<string name="back_button_saves_task">Botón atrás guarda la tarea</string>
 	<string name="default_list">Lista por defecto</string>

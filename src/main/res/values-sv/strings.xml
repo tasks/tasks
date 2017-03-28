@@ -327,9 +327,6 @@
 	<string name="send_anonymous_statistics_summary">Skicka anonym användarstatistik och crashrapporter för att hjälpa till att förbättra Tasks. Ingen personlig information kommer samlas in.</string>
 	<string name="tag_already_exists">Etiketten finns redan</string>
 	<string name="name_cannot_be_empty">Namn måste anges</string>
-	<string name="doze_notifications">Avbryt Doze-läge för påminnelser</string>
-	<string name="doze_notifications_off">Android kommer att avsevärt fördröja påminnelser medan enheten är i Doze-läge</string>
-	<string name="doze_notifications_on">Android kommer att tillåta begränsade avbrott medan enheten är i Doze-läge</string>
 	<string name="no_title">(Ingen titel)</string>
 	<string name="back_button_saves_task">Bakåtknapp sparar uppgift</string>
 	<string name="default_list">Standardlista</string>

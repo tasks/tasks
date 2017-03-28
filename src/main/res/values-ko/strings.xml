@@ -322,9 +322,6 @@
 	<string name="send_anonymous_statistics">Tasks 향상</string>
 	<string name="send_anonymous_statistics_summary">Tasks를 향상시키기 위해 사용 기록과 충돌 보고서를 익명으로 전송합니다. 개인 정보는 수집되지 않습니다.</string>
 	<string name="tag_already_exists">태그가 이미 존재합니다</string>
-	<string name="doze_notifications">알림을 위해 Doze Mode 방해하기</string>
-	<string name="doze_notifications_off">Android는 기기가 Doze Mode에 있을 때 알림을 매우 늦춥니다</string>
-	<string name="doze_notifications_on">Android는 기기가 Doze Mode에 있을 때 제한된 수준에서 이 모드를 방해합니다</string>
 	<string name="no_title">(제목 없음)</string>
 	<string name="back_button_saves_task">뒤로가기 버튼으로 일정 저장</string>
 	<string name="default_list">기본 목록</string>

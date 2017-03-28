@@ -20,13 +20,6 @@
         android:showDefault="true"
         android:showSilent="true"
         android:title="@string/sound" />
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:defaultValue="true"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_doze_notifications"
-        android:summaryOff="@string/doze_notifications_off"
-        android:summaryOn="@string/doze_notifications_on"
-        android:title="@string/doze_notifications" />
     <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="@string/p_rmd_enabled"

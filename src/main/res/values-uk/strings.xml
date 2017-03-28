@@ -332,9 +332,6 @@
 	<string name="send_anonymous_statistics_summary">Відсилати анонімну статистику використання і звіти про помилки щоб покращити Tasks. Жодних персональних даних не буде передано.</string>
 	<string name="tag_already_exists">Тег вже існує</string>
 	<string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
-	<string name="doze_notifications">Переривати режим \"Doze\" для сповіщень</string>
-	<string name="doze_notifications_off">Андроїд зазвичай буде значно відкладати повідомлення коли пристрій в режимі \"Doze\"</string>
-	<string name="doze_notifications_on">Android дозволить деякі переривання в режимі \"Doze\"</string>
 	<string name="no_title">(без назви)</string>
 	<string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
 	<string name="default_list">Типовий список</string>

@@ -330,9 +330,6 @@
 	<string name="send_anonymous_statistics_summary">Wyślij anonimowe statyki użycia i raporty o awariach celem ulepszenia Tasks. Żadne prywatne dane nie będą gromadzone.</string>
 	<string name="tag_already_exists">Tag już istnieje</string>
 	<string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
-	<string name="doze_notifications">Przerwij tryb Doze dla powiadomień</string>
-	<string name="doze_notifications_off">Android będzie znacznie opóźniał powiadomienia w czasie trybu drzemki.</string>
-	<string name="doze_notifications_on">Android będzie pozwalał na ograniczone przerwania kiedy urządzenie jest w trybie drzemki.</string>
 	<string name="no_title">(Bez tytułu)</string>
 	<string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
 	<string name="default_list">Domyślna lista</string>

@@ -326,9 +326,6 @@
 	<string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
 	<string name="tag_already_exists">Tag existiert bereits</string>
 	<string name="name_cannot_be_empty">Name darf nicht leer sein</string>
-	<string name="doze_notifications">Doze-Modus für Benachrichtigungen unterbrechen</string>
-	<string name="doze_notifications_off">Im Doze-Modus von Android erfolgen Benachrichtigungen mit deutlicher Verzögerung</string>
-	<string name="doze_notifications_on">Android erlaubt nur eine begrenzte Anzahl von Unterbrechungen des Doze-Modus</string>
 	<string name="no_title">(kein Titel)</string>
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
 	<string name="default_list">Standard-Liste</string>

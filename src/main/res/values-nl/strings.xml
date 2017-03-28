@@ -324,9 +324,6 @@
 	<string name="send_anonymous_statistics_summary">Verstuur anoniem gebruikersstatistieken en crash rapporten om Tasks te verbeteren. Er worden geen persoonlijke gegevens verzameld.</string>
 	<string name="tag_already_exists">Label bestaat reeds</string>
 	<string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
-	<string name="doze_notifications">Onderbreek Snooze mode voor notificaties</string>
-	<string name="doze_notifications_off">Android zal vertraagd notificaties weergeven in Snooze mode</string>
-	<string name="doze_notifications_on">Android zal gelimiteerd onderbreken in Snooze mode</string>
 	<string name="no_title">(geen titel)</string>
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string name="default_list">Standaard lijst</string>

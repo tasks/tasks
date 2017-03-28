@@ -12,6 +12,7 @@ import org.tasks.time.DateTime;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 public class AlarmManager {
 
@@ -34,7 +35,7 @@ public class AlarmManager {
 
     @SuppressLint("NewApi")
     public void wakeup(long time, PendingIntent pendingIntent) {
-        if (preferences.isDozeNotificationEnabled()) {
+        if (atLeastMarshmallow()) {
             alarmManager.setExactAndAllowWhileIdle(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
         } else if (atLeastKitKat()) {
             alarmManager.setExact(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
@@ -45,7 +46,7 @@ public class AlarmManager {
 
     @SuppressLint("NewApi")
     public void noWakeup(long time, PendingIntent pendingIntent) {
-        if (preferences.isDozeNotificationEnabled()) {
+        if (atLeastMarshmallow()) {
             alarmManager.setExactAndAllowWhileIdle(android.app.AlarmManager.RTC, time, pendingIntent);
         } else if (atLeastKitKat()) {
             alarmManager.setExact(android.app.AlarmManager.RTC, time, pendingIntent);

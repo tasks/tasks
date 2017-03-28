@@ -323,9 +323,6 @@
 	<string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
 	<string name="tag_already_exists">Le tag existe déjà</string>
 	<string name="name_cannot_be_empty">Le nom ne peut pas être vide</string>
-	<string name="doze_notifications">Interrompt le Doze mode pour les notifications</string>
-	<string name="doze_notifications_off">Android va différer les notifications de façon importante lorsque l\'appareil sera en Doze mode</string>
-	<string name="doze_notifications_on">Android autorisera des interruptions limitées lorsque l\'appareil sera en Doze mode</string>
 	<string name="no_title">(Sans titre)</string>
 	<string name="back_button_saves_task">Faire un retour-arrière pour sauvegarder la tâche</string>
 	<string name="default_list">Liste par défaut</string>

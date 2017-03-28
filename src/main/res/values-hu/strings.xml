@@ -333,9 +333,6 @@
 	<string name="send_anonymous_statistics_summary">Anonim felhasználási statisztikák és hibajelentések küldése a Tasks fejlesztése érdekében. Személyes adatok gyűjtése nem történik.</string>
 	<string name="tag_already_exists">A címke már létezik</string>
 	<string name="name_cannot_be_empty">A cím nem lehet üres</string>
-	<string name="doze_notifications">Értesítéskor kilépés Szundikáló módból</string>
-	<string name="doze_notifications_off">Az Android jelentősen késlelteti az értesítéseket Szundikáló módban</string>
-	<string name="doze_notifications_on">Az Android csak bizonyos megszakításokat engedélyez, amennyiben az eszköz Szundikáló módban van</string>
 	<string name="no_title">(Név nélkül)</string>
 	<string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
 	<string name="default_list">Alapértelmezett lista</string>
