@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 
-import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
@@ -58,8 +57,8 @@ public class AlarmManager {
     long adjustForQuietHours(long time) {
         if (preferences.quietHoursEnabled()) {
             DateTime dateTime = new DateTime(time);
-            DateTime start = dateTime.withMillisOfDay(preferences.getInt(R.string.p_rmd_quietStart));
-            DateTime end = dateTime.withMillisOfDay(preferences.getInt(R.string.p_rmd_quietEnd));
+            DateTime start = dateTime.withMillisOfDay(preferences.getQuietHoursStart());
+            DateTime end = dateTime.withMillisOfDay(preferences.getQuietHoursEnd());
             if (start.isAfter(end)) {
                 if (dateTime.isBefore(end)) {
                     return end.getMillis();

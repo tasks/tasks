@@ -60,6 +60,14 @@ public class Preferences {
         return getBoolean(R.string.p_rmd_enable_quiet, false);
     }
 
+    public int getQuietHoursStart() {
+        return getMillisPerDayPref(R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start);
+    }
+
+    public int getQuietHoursEnd() {
+        return getMillisPerDayPref(R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end);
+    }
+
     public int getDateShortcutMorning() {
         return getMillisPerDayPref(R.string.p_date_shortcut_morning, R.integer.default_morning);
     }
@@ -77,9 +85,11 @@ public class Preferences {
     }
 
     private int getMillisPerDayPref(int resId, int defResId) {
-        int defaultValue = context.getResources().getInteger(defResId);
-        int setting = getInt(resId, defaultValue);
-        return setting < 0 || setting > DateTime.MAX_MILLIS_PER_DAY ? defaultValue : setting;
+        int setting = getInt(resId, -1);
+        if (setting < 0 || setting > DateTime.MAX_MILLIS_PER_DAY) {
+            return context.getResources().getInteger(defResId);
+        }
+        return setting;
     }
 
     public boolean isDefaultCalendarSet() {

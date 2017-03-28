@@ -27,7 +27,7 @@ public class TimePreference extends Preference {
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
-        return a.getString(index);
+        return a.getInteger(index, -1);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class TimePreference extends Preference {
             int noon = new DateTime().startOfDay().withHourOfDay(12).getMillisOfDay();
             millisOfDay = getPersistedInt(noon);
         } else {
-            millisOfDay = Integer.parseInt((String) defaultValue);
+            millisOfDay = (Integer) defaultValue;
         }
 
         setMillisOfDay(millisOfDay);
