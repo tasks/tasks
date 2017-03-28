@@ -37,3 +37,13 @@
 # https://github.com/facebook/stetho/blob/2807d4248c6fa06cdd3626b6afb9bfc42ba50d55/stetho/proguard-consumer.pro
 -keep class com.facebook.stetho.** { *; }
 -dontwarn com.facebook.stetho.**
+
+# https://github.com/evernote/android-job/blob/7f81ac43d0b161f4f0bed1e02c2455a3cda57041/library/proguard.txt
+-dontwarn com.evernote.android.job.gcm.**
+-dontwarn com.evernote.android.job.util.GcmAvailableHelper
+
+-keep public class com.evernote.android.job.v21.PlatformJobService
+-keep public class com.evernote.android.job.v14.PlatformAlarmService
+-keep public class com.evernote.android.job.v14.PlatformAlarmReceiver
+-keep public class com.evernote.android.job.JobBootReceiver
+-keep public class com.evernote.android.job.JobRescheduleService

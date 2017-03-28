@@ -1,4 +1,4 @@
-package org.tasks.scheduling;
+package org.tasks.preferences;
 
 import android.annotation.SuppressLint;
 import android.support.test.runner.AndroidJUnit4;
@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;
-import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
 import java.util.concurrent.TimeUnit;
@@ -16,20 +15,18 @@ import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
-public class AlarmManagerTests {
+public class PreferenceTests {
 
     @SuppressLint("NewApi")
     private static final int MILLIS_PER_HOUR = (int) TimeUnit.HOURS.toMillis(1);
 
     private Preferences preferences;
-    private AlarmManager alarmManager;
 
     @Before
     public void setUp() {
         preferences = new Preferences(getTargetContext(), null);
         preferences.clear();
         preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
-        alarmManager = new AlarmManager(getTargetContext(), preferences);
     }
 
     @Test
@@ -40,7 +37,7 @@ public class AlarmManagerTests {
 
         long dueDate = new DateTime(2015, 12, 29, 8, 0, 1).getMillis();
 
-        assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
+        assertEquals(dueDate, preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -51,7 +48,7 @@ public class AlarmManagerTests {
         long dueDate = new DateTime(2015, 12, 29, 18, 0, 1).getMillis();
 
         assertEquals(new DateTime(2015, 12, 29, 19, 0).getMillis(),
-                alarmManager.adjustForQuietHours(dueDate));
+                preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -62,7 +59,7 @@ public class AlarmManagerTests {
         long dueDate = new DateTime(2015, 12, 29, 22, 0, 1).getMillis();
 
         assertEquals(new DateTime(2015, 12, 30, 10, 0).getMillis(),
-                alarmManager.adjustForQuietHours(dueDate));
+                preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -73,7 +70,7 @@ public class AlarmManagerTests {
         long dueDate = new DateTime(2015, 12, 29, 23, 30).getMillis();
 
         assertEquals(new DateTime(2015, 12, 30, 10, 0).getMillis(),
-                alarmManager.adjustForQuietHours(dueDate));
+                preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -84,7 +81,7 @@ public class AlarmManagerTests {
         long dueDate = new DateTime(2015, 12, 30, 7, 15).getMillis();
 
         assertEquals(new DateTime(2015, 12, 30, 10, 0).getMillis(),
-                alarmManager.adjustForQuietHours(dueDate));
+                preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -94,7 +91,7 @@ public class AlarmManagerTests {
 
         long dueDate = new DateTime(2015, 12, 29, 18, 0, 0).getMillis();
 
-        assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
+        assertEquals(dueDate, preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -104,7 +101,7 @@ public class AlarmManagerTests {
 
         long dueDate = new DateTime(2015, 12, 29, 18, 0).getMillis();
 
-        assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
+        assertEquals(dueDate, preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -114,7 +111,7 @@ public class AlarmManagerTests {
 
         long dueDate = new DateTime(2015, 12, 29, 10, 0).getMillis();
 
-        assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
+        assertEquals(dueDate, preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -124,7 +121,7 @@ public class AlarmManagerTests {
 
         long dueDate = new DateTime(2015, 12, 29, 11, 30).getMillis();
 
-        assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
+        assertEquals(dueDate, preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -134,7 +131,7 @@ public class AlarmManagerTests {
 
         long dueDate = new DateTime(2015, 12, 29, 22, 15).getMillis();
 
-        assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
+        assertEquals(dueDate, preferences.adjustForQuietHours(dueDate));
     }
 
     @Test
@@ -144,7 +141,7 @@ public class AlarmManagerTests {
 
         long dueDate = new DateTime(2015, 12, 29, 13, 45).getMillis();
 
-        assertEquals(dueDate, alarmManager.adjustForQuietHours(dueDate));
+        assertEquals(dueDate, preferences.adjustForQuietHours(dueDate));
     }
 
     private void setQuietHoursStart(int hour) {

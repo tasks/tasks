@@ -13,14 +13,14 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public class ReminderSchedulerIntentService extends InjectingIntentService {
+public class NotificationSchedulerIntentService extends InjectingIntentService {
 
     @Inject AlarmService alarmService;
     @Inject ReminderService reminderService;
     @Inject TaskDao taskDao;
 
-    public ReminderSchedulerIntentService() {
-        super(ReminderSchedulerIntentService.class.getSimpleName());
+    public NotificationSchedulerIntentService() {
+        super(NotificationSchedulerIntentService.class.getSimpleName());
     }
 
     @Override
@@ -28,6 +28,9 @@ public class ReminderSchedulerIntentService extends InjectingIntentService {
         super.onHandleIntent(intent);
 
         Timber.d("onHandleIntent(%s)", intent);
+
+        reminderService.clear();
+        alarmService.clear();
 
         reminderService.scheduleAllAlarms(taskDao);
         alarmService.scheduleAllAlarms();

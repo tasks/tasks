@@ -5,13 +5,11 @@
  */
 package com.todoroo.astrid.reminders;
 
-import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 
 import org.junit.After;
 import org.junit.Test;
@@ -21,8 +19,6 @@ import org.tasks.injection.TestComponent;
 
 import javax.inject.Inject;
 
-import static android.support.test.InstrumentationRegistry.getContext;
-import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
@@ -68,10 +64,10 @@ public class ReminderServiceTest extends InjectingTestCase {
     public void testDueDates() {
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getTargetContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertEquals((long) task.getDueDate(), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
@@ -98,10 +94,10 @@ public class ReminderServiceTest extends InjectingTestCase {
         task.setReminderPeriod(DateUtilities.ONE_WEEK);
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now());
                 assertTrue(time < DateUtilities.now() + 1.2 * DateUtilities.ONE_WEEK);
                 assertEquals(type, ReminderService.TYPE_RANDOM);
@@ -116,10 +112,10 @@ public class ReminderServiceTest extends InjectingTestCase {
         // test due date in the future
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertTrue(time > task.getDueDate());
                 assertTrue(time < task.getDueDate() + DateUtilities.ONE_DAY);
                 assertEquals(type, ReminderService.TYPE_OVERDUE);
@@ -135,10 +131,10 @@ public class ReminderServiceTest extends InjectingTestCase {
         task.setDueDate(DateUtilities.now() - DateUtilities.ONE_DAY);
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now() - 1000L);
                 assertTrue(time < DateUtilities.now() + 2 * DateUtilities.ONE_DAY);
                 assertEquals(type, ReminderService.TYPE_OVERDUE);
@@ -151,10 +147,10 @@ public class ReminderServiceTest extends InjectingTestCase {
         task.setReminderLast(DateUtilities.now());
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now() + DateUtilities.ONE_HOUR);
                 assertTrue(time < DateUtilities.now() + DateUtilities.ONE_DAY);
                 assertEquals(type, ReminderService.TYPE_OVERDUE);
@@ -174,10 +170,10 @@ public class ReminderServiceTest extends InjectingTestCase {
         task.setReminderPeriod(DateUtilities.ONE_HOUR);
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now());
                 assertTrue(time < DateUtilities.now() + DateUtilities.ONE_DAY);
                 assertEquals(type, ReminderService.TYPE_RANDOM);
@@ -196,10 +192,10 @@ public class ReminderServiceTest extends InjectingTestCase {
         task.setDueDate(DateUtilities.now() + DateUtilities.ONE_HOUR);
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertEquals((long) task.getDueDate(), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
@@ -220,10 +216,10 @@ public class ReminderServiceTest extends InjectingTestCase {
         task.setReminderSnooze(DateUtilities.now() + DateUtilities.ONE_WEEK);
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now() + DateUtilities.ONE_WEEK - 1000L);
                 assertTrue(time < DateUtilities.now() + DateUtilities.ONE_WEEK + 1000L);
                 assertEquals(type, ReminderService.TYPE_SNOOZE);
@@ -236,10 +232,10 @@ public class ReminderServiceTest extends InjectingTestCase {
         task.setReminderSnooze(DateUtilities.now() - DateUtilities.ONE_WEEK);
         reminderService.setScheduler(new AlarmExpected() {
             @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
+            public void createAlarm(Task task, long time, int type) {
                 if (time == ReminderService.NO_ALARM)
                     return;
-                super.createAlarm(getContext(), task, time, type);
+                super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now() - 1000L);
                 assertTrue(time < DateUtilities.now() + 5000L);
                 assertEquals(type, ReminderService.TYPE_DUE);
@@ -252,17 +248,30 @@ public class ReminderServiceTest extends InjectingTestCase {
     // --- helper classes
 
     public class NoAlarmExpected implements AlarmScheduler {
-        public void createAlarm(Context context, Task task, long time, int type) {
+        @Override
+        public void createAlarm(Task task, long time, int type) {
             if(time == 0 || time == Long.MAX_VALUE)
                 return;
             fail("created alarm, no alarm expected (" + type + ": " + newDateTime(time));
+        }
+
+        @Override
+        public void clear() {
+
         }
     }
 
     public class AlarmExpected implements AlarmScheduler {
         public boolean alarmCreated = false;
-        public void createAlarm(Context context, Task task, long time, int type) {
+
+        @Override
+        public void createAlarm(Task task, long time, int type) {
             alarmCreated = true;
+        }
+
+        @Override
+        public void clear() {
+
         }
     }
 }

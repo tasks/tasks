@@ -16,6 +16,8 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 
+import com.todoroo.astrid.alarms.AlarmService;
+
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.TimePickerActivity;
@@ -29,7 +31,7 @@ import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
-import org.tasks.scheduling.ReminderSchedulerIntentService;
+import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.themes.LEDColor;
 import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
@@ -53,6 +55,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject ThemeCache themeCache;
+    @Inject AlarmService alarmService;
 
     private CheckBoxPreference fieldMissedCalls;
 
@@ -96,7 +99,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private void rescheduleNotificationsOnChange(int... resIds) {
         for (int resId : resIds) {
             findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-                startService(new Intent(ReminderPreferences.this, ReminderSchedulerIntentService.class));
+                startService(new Intent(ReminderPreferences.this, NotificationSchedulerIntentService.class));
                 return true;
             });
         }

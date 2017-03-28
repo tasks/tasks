@@ -12,6 +12,7 @@ import static org.tasks.makers.Maker.make;
 
 public class TaskMaker {
 
+    public static Property<Task, Long> ID = newProperty();
     public static Property<Task, DateTime> DUE_DATE = newProperty();
     public static Property<Task, DateTime> DUE_TIME = newProperty();
     public static Property<Task, DateTime> REMINDER_LAST = newProperty();
@@ -25,6 +26,11 @@ public class TaskMaker {
 
     private static final Instantiator<Task> instantiator = lookup -> {
         Task task = new Task();
+
+        long id = lookup.valueOf(ID, Task.NO_ID);
+        if (id != Task.NO_ID) {
+            task.setId(id);
+        }
 
         DateTime dueDate = lookup.valueOf(DUE_DATE, (DateTime) null);
         if (dueDate != null) {

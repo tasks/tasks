@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
-import static android.support.test.InstrumentationRegistry.getContext;
 import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static com.todoroo.astrid.data.Task.NOTIFY_AT_DEADLINE;
@@ -30,7 +29,7 @@ public class NotifyAtDeadlineTest {
     @Before
     public void setUp() {
         Preferences preferences = new Preferences(getTargetContext(), null);
-        reminderService = new ReminderService(getContext(), preferences, null);
+        reminderService = new ReminderService(preferences, null);
     }
 
     @Test

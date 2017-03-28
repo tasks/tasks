@@ -1,33 +1,33 @@
 package org.tasks.scheduling;
 
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-
 import com.todoroo.astrid.data.Task;
 
-import org.tasks.injection.ForApplication;
-import org.tasks.receivers.RefreshReceiver;
+import org.tasks.injection.ApplicationScope;
+import org.tasks.jobs.JobManager;
+
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
-import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.DateUtilities.ONE_MINUTE;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
-import static org.tasks.time.DateTimeUtils.nextMidnight;
-import static org.tasks.time.DateTimeUtils.printTimestamp;
 
+@ApplicationScope
 public class RefreshScheduler {
 
-    private final Context context;
-    private final AlarmManager alarmManager;
+    private final JobManager jobManager;
+    private final SortedSet<Long> jobs = new TreeSet<>();
 
     @Inject
-    public RefreshScheduler(@ForApplication Context context, AlarmManager alarmManager) {
-        this.context = context;
-        this.alarmManager = alarmManager;
+    public RefreshScheduler(JobManager jobManager) {
+        this.jobManager = jobManager;
+    }
+
+    public void clear() {
+        jobs.clear();
+        jobManager.cancelRefreshes();
     }
 
     public void scheduleRefresh(Task task) {
@@ -43,13 +43,30 @@ public class RefreshScheduler {
 
     private void scheduleRefresh(Long refreshTime) {
         long now = currentTimeMillis();
-        if (now < refreshTime && refreshTime < nextMidnight(now)) {
+        if (now < refreshTime) {
             refreshTime += 1000; // this is ghetto
-            Timber.d("Scheduling refresh at %s", printTimestamp(refreshTime));
-            Intent intent = new Intent(context, RefreshReceiver.class);
-            intent.setAction(Long.toString(refreshTime));
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
-            alarmManager.noWakeup(refreshTime, pendingIntent);
+            schedule(refreshTime);
+        }
+    }
+
+    public void scheduleNext() {
+        scheduleNext(false);
+    }
+
+    private void schedule(long timestamp) {
+        SortedSet<Long> upcoming = jobs.tailSet(currentTimeMillis());
+        boolean reschedule = upcoming.isEmpty() || timestamp < upcoming.first();
+        jobs.add(timestamp);
+        if (reschedule) {
+            scheduleNext(true);
+        }
+    }
+
+    private void scheduleNext(boolean cancelCurrent) {
+        long now = currentTimeMillis();
+        jobs.removeAll(newArrayList(jobs.headSet(now + 1)));
+        if (!jobs.isEmpty()) {
+            jobManager.scheduleRefresh(jobs.first(), cancelCurrent);
         }
     }
 }

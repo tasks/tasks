@@ -94,6 +94,7 @@
         android:label="@string/app_name"
         android:theme="@style/Tasks"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_config"
         android:name=".Tasks"
         android:supportsRtl="true"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
@@ -207,13 +208,9 @@
 
         <!-- ======================================================= Receivers = -->
 
-        <receiver android:name=".receivers.TaskNotificationReceiver" />
-
         <receiver
             android:name=".receivers.ListNotificationReceiver"
             android:exported="true" />
-
-        <receiver android:name=".receivers.RefreshReceiver" />
 
         <!-- widgets -->
         <receiver
@@ -441,13 +438,10 @@
             android:name=".scheduling.GeofenceSchedulingIntentService"
             android:exported="false" />
         <service
-            android:name=".scheduling.BackupIntentService"
+            android:name=".scheduling.SchedulerIntentService"
             android:exported="false" />
         <service
-            android:name=".scheduling.RefreshSchedulerIntentService"
-            android:exported="false" />
-        <service
-            android:name=".scheduling.ReminderSchedulerIntentService"
+            android:name=".scheduling.NotificationSchedulerIntentService"
             android:exported="false" />
         <service
             android:name=".scheduling.CalendarNotificationIntentService"

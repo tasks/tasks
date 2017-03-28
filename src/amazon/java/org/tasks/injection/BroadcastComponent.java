@@ -12,8 +12,6 @@ import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.ListNotificationReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
-import org.tasks.receivers.RefreshReceiver;
-import org.tasks.receivers.TaskNotificationReceiver;
 import org.tasks.receivers.TeslaUnreadReceiver;
 import org.tasks.widget.TasksWidget;
 
@@ -36,10 +34,6 @@ public interface BroadcastComponent {
     void inject(RepeatTaskCompleteListener repeatTaskCompleteListener);
 
     void inject(MyPackageReplacedReceiver myPackageReplacedReceiver);
-
-    void inject(RefreshReceiver refreshReceiver);
-
-    void inject(TaskNotificationReceiver taskNotificationReceiver);
 
     void inject(CompleteTaskReceiver completeTaskReceiver);
 

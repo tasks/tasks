@@ -1,55 +1,50 @@
-package org.tasks.scheduling;
+package org.tasks.jobs;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
+import com.evernote.android.job.Job;
 import com.todoroo.astrid.backup.TasksXmlExporter;
 
-import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
-public class BackupIntentService extends MidnightIntentService {
+public class BackupJob extends Job {
+
+    public static final String TAG = "job_backup";
 
     public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
     private static final int DAYS_TO_KEEP_BACKUP = 7;
 
-    @Inject TasksXmlExporter xmlExporter;
-    @Inject Preferences preferences;
+    private final Context context;
+    private final JobManager jobManager;
+    private TasksXmlExporter tasksXmlExporter;
+    private Preferences preferences;
 
-    public BackupIntentService() {
-        super(BackupIntentService.class.getSimpleName());
-    }
-
-    @Override
-    void run() {
-        startBackup(this);
-    }
-
-    @Override
-    protected String getLastRunPreference() {
-        return TasksXmlExporter.PREF_BACKUP_LAST_DATE;
-    }
-
-    /**
-     * Test hook for backup
-     */
-    void testBackup(TasksXmlExporter xmlExporter, Preferences preferences, Context context) {
-        this.xmlExporter = xmlExporter;
+    public BackupJob(Context context, JobManager jobManager, TasksXmlExporter tasksXmlExporter, Preferences preferences) {
+        this.context = context;
+        this.jobManager = jobManager;
+        this.tasksXmlExporter = tasksXmlExporter;
         this.preferences = preferences;
-        startBackup(context);
     }
 
-    private void startBackup(Context context) {
-        if (context == null || context.getResources() == null) {
-            return;
+    @NonNull
+    @Override
+    protected Result onRunJob(Params params) {
+        try {
+            startBackup(context);
+            return Result.SUCCESS;
+        } finally {
+            jobManager.scheduleMidnightBackup(false);
         }
+    }
+
+    void startBackup(Context context) {
         try {
             deleteOldBackups();
         } catch (Exception e) {
@@ -57,7 +52,7 @@ public class BackupIntentService extends MidnightIntentService {
         }
 
         try {
-            xmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE, null);
+            tasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE, null);
         } catch (Exception e) {
             Timber.e(e, e.getMessage());
         }
@@ -87,10 +82,5 @@ public class BackupIntentService extends MidnightIntentService {
                 Timber.i("Unable to delete: %s", files[i]);
             }
         }
-    }
-
-    @Override
-    protected void inject(IntentServiceComponent component) {
-        component.inject(this);
     }
 }

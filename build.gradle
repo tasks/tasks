@@ -134,6 +134,7 @@ dependencies {
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.twofortyfouram:android-plugin-api-for-locale:1.0.2'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
+    compile 'com.evernote:android-job:1.1.8'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {
         transitive = false
     }

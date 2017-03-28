@@ -56,6 +56,40 @@ public class Preferences {
         return getBoolean(R.string.p_back_button_saves_task, false);
     }
 
+    public boolean isCurrentlyQuietHours() {
+        if (quietHoursEnabled()) {
+            DateTime dateTime = new DateTime();
+            DateTime start = dateTime.withMillisOfDay(getQuietHoursStart());
+            DateTime end = dateTime.withMillisOfDay(getQuietHoursEnd());
+            if (start.isAfter(end)) {
+                return dateTime.isBefore(end) || dateTime.isAfter(start);
+            } else {
+                return dateTime.isAfter(start) && dateTime.isBefore(end);
+            }
+        }
+        return false;
+    }
+
+    public long adjustForQuietHours(long time) {
+        if (quietHoursEnabled()) {
+            DateTime dateTime = new DateTime(time);
+            DateTime start = dateTime.withMillisOfDay(getQuietHoursStart());
+            DateTime end = dateTime.withMillisOfDay(getQuietHoursEnd());
+            if (start.isAfter(end)) {
+                if (dateTime.isBefore(end)) {
+                    return end.getMillis();
+                } else if (dateTime.isAfter(start)) {
+                    return end.plusDays(1).getMillis();
+                }
+            } else {
+                if (dateTime.isAfter(start) && dateTime.isBefore(end)) {
+                    return end.getMillis();
+                }
+            }
+        }
+        return time;
+    }
+
     public boolean quietHoursEnabled() {
         return getBoolean(R.string.p_rmd_enable_quiet, false);
     }
