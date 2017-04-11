@@ -16,13 +16,10 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 
-import com.todoroo.astrid.alarms.AlarmService;
-
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.ColorPickerDialog;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
@@ -52,10 +49,8 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Inject Device device;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
-    @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject ThemeCache themeCache;
-    @Inject AlarmService alarmService;
 
     private CheckBoxPreference fieldMissedCalls;
 

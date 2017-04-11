@@ -28,16 +28,8 @@ public class JobManager {
         jobManager.addJobCreator(jobCreator);
     }
 
-    public void scheduleAlarm(long time, boolean cancelCurrent) {
-        new JobRequest.Builder(AlarmJob.TAG)
-                .setExact(Math.max(time - currentTimeMillis(), 5000))
-                .setUpdateCurrent(cancelCurrent)
-                .build()
-                .schedule();
-    }
-
-    public void scheduleReminder(long time, boolean cancelCurrent) {
-        new JobRequest.Builder(ReminderJob.TAG)
+    public void schedule(String tag, long time, boolean cancelCurrent) {
+        new JobRequest.Builder(tag)
                 .setExact(Math.max(time - currentTimeMillis(), 5000))
                 .setUpdateCurrent(cancelCurrent)
                 .build()
@@ -69,15 +61,11 @@ public class JobManager {
                 .schedule();
     }
 
-    public void cancelAlarms() {
-        jobManager.cancelAllForTag(AlarmJob.TAG);
+    public void cancel(String tag) {
+        jobManager.cancelAllForTag(tag);
     }
 
     public void cancelRefreshes() {
         jobManager.cancelAllForTag(RefreshJob.TAG);
-    }
-
-    public void cancelReminders() {
-        jobManager.cancelAllForTag(ReminderJob.TAG);
     }
 }

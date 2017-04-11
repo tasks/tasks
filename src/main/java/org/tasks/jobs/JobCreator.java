@@ -6,7 +6,7 @@ import com.evernote.android.job.Job;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.backup.TasksXmlExporter;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.reminders.ReminderAlarmScheduler;
+import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Broadcaster;
 import org.tasks.Notifier;
@@ -29,13 +29,13 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
     private final RefreshScheduler refreshScheduler;
     private final AlarmService alarmService;
     private final TaskDao taskDao;
-    private final ReminderAlarmScheduler reminderAlarmScheduler;
+    private final ReminderService reminderService;
 
     @Inject
     public JobCreator(@ForApplication Context context, Notifier notifier, JobManager jobManager,
                       Broadcaster broadcaster, TasksXmlExporter tasksXmlExporter,
                       Preferences preferences, RefreshScheduler refreshScheduler,
-                      AlarmService alarmService, TaskDao taskDao, ReminderAlarmScheduler reminderAlarmScheduler) {
+                      AlarmService alarmService, TaskDao taskDao, ReminderService reminderService) {
         this.context = context;
         this.notifier = notifier;
         this.jobManager = jobManager;
@@ -45,14 +45,14 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
         this.refreshScheduler = refreshScheduler;
         this.alarmService = alarmService;
         this.taskDao = taskDao;
-        this.reminderAlarmScheduler = reminderAlarmScheduler;
+        this.reminderService = reminderService;
     }
 
     @Override
     public Job create(String tag) {
         switch (tag) {
             case ReminderJob.TAG:
-                return new ReminderJob(preferences, reminderAlarmScheduler, notifier);
+                return new ReminderJob(preferences, reminderService, notifier);
             case AlarmJob.TAG:
                 return new AlarmJob(preferences, alarmService, notifier, taskDao);
             case RefreshJob.TAG:

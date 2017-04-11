@@ -17,26 +17,37 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 public class JobQueue<T extends JobQueueEntry> {
     private final TreeMultimap<Long, T> jobs = TreeMultimap.create(Ordering.natural(), (l, r) -> Longs.compare(l.getId(), r.getId()));
     private final Preferences preferences;
+    private final JobManager jobManager;
+    private final String tag;
 
-    public JobQueue(Preferences preferences) {
+    public static JobQueue<Reminder> newReminderQueue(Preferences preferences, JobManager jobManager) {
+        return new JobQueue<>(preferences, jobManager, ReminderJob.TAG);
+    }
+
+    public static JobQueue<Alarm> newAlarmQueue(Preferences preferences, JobManager jobManager) {
+        return new JobQueue<>(preferences, jobManager, AlarmJob.TAG);
+    }
+
+    JobQueue(Preferences preferences, JobManager jobManager, String tag) {
         this.preferences = preferences;
+        this.jobManager = jobManager;
+        this.tag = tag;
     }
 
-    public boolean add(T entry) {
-        boolean result = jobs.isEmpty() || entry.getTime() < firstTime();
+    public void add(T entry) {
+        boolean reschedule = jobs.isEmpty() || entry.getTime() < firstTime();
         jobs.put(entry.getTime(), entry);
-        return result;
-    }
-
-    public boolean isEmpty() {
-        return jobs.isEmpty();
+        if (reschedule) {
+            scheduleNext(true);
+        }
     }
 
     public void clear() {
         jobs.clear();
+        jobManager.cancel(tag);
     }
 
-    public boolean cancel(long id) {
+    public void cancel(long id) {
         boolean reschedule = false;
         long firstTime = firstTime();
         List<T> existing = newArrayList(filter(jobs.values(), r -> r.getId() == id));
@@ -44,11 +55,9 @@ public class JobQueue<T extends JobQueueEntry> {
             reschedule |= entry.getTime() == firstTime;
             jobs.remove(entry.getTime(), entry);
         }
-        return reschedule;
-    }
-
-    List<T> getJobs() {
-        return ImmutableList.copyOf(jobs.values());
+        if (reschedule) {
+            scheduleNext(true);
+        }
     }
 
     public List<T> removeOverdueJobs() {
@@ -60,16 +69,34 @@ public class JobQueue<T extends JobQueueEntry> {
         return result;
     }
 
-    public int size() {
-        return jobs.size();
+    public void scheduleNext() {
+        scheduleNext(false);
+    }
+
+    private void scheduleNext(boolean cancelCurrent) {
+        if (jobs.isEmpty()) {
+            if (cancelCurrent) {
+                jobManager.cancel(tag);
+            }
+        } else {
+            jobManager.schedule(tag, nextScheduledTime(), cancelCurrent);
+        }
     }
 
     private long firstTime() {
         return jobs.isEmpty() ? 0 : jobs.asMap().firstKey();
     }
 
-    public long nextScheduledTime() {
+    long nextScheduledTime() {
         long next = firstTime();
         return next > 0 ? preferences.adjustForQuietHours(next) : 0;
+    }
+
+    int size() {
+        return jobs.size();
+    }
+
+    List<T> getJobs() {
+        return ImmutableList.copyOf(jobs.values());
     }
 }

@@ -48,13 +48,11 @@ public class AlarmService {
     private final JobQueue<Alarm> jobs;
 
     private final MetadataDao metadataDao;
-    private final JobManager jobManager;
 
     @Inject
     public AlarmService(MetadataDao metadataDao, JobManager jobManager, Preferences preferences) {
         this.metadataDao = metadataDao;
-        this.jobManager = jobManager;
-        jobs = new JobQueue<>(preferences);
+        jobs = JobQueue.newAlarmQueue(preferences, jobManager);
     }
 
     public void getAlarms(long taskId, Callback<Metadata> callback) {
@@ -77,7 +75,7 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        boolean changed = synchronizeMetadata(taskId, metadata, m -> cancelAlarm(m.getId()));
+        boolean changed = synchronizeMetadata(taskId, metadata, m -> jobs.cancel(m.getId()));
 
         if(changed) {
             scheduleAlarms(taskId);
@@ -103,7 +101,6 @@ public class AlarmService {
 
     public void clear() {
         jobs.clear();
-        jobManager.cancelAlarms();
     }
 
     /**
@@ -131,17 +128,9 @@ public class AlarmService {
         Alarm alarm = new Alarm(metadata);
         long time = alarm.getTime();
         if(time == 0 || time == NO_ALARM) {
-            cancelAlarm(alarm.getId());
+            jobs.cancel(alarm.getId());
         } else {
-            if (jobs.add(alarm)) {
-                scheduleNext(true);
-            }
-        }
-    }
-
-    private void cancelAlarm(Long alarmId) {
-        if (jobs.cancel(alarmId)) {
-            scheduleNext(true);
+            jobs.add(alarm);
         }
     }
 
@@ -197,13 +186,7 @@ public class AlarmService {
     }
 
     public void scheduleNextJob() {
-        scheduleNext(false);
-    }
-
-    private void scheduleNext(boolean cancelCurrent) {
-        if (!jobs.isEmpty()) {
-            jobManager.scheduleAlarm(jobs.nextScheduledTime(), cancelCurrent);
-        }
+        jobs.scheduleNext();
     }
 
     public List<Alarm> removePastDueAlarms() {
