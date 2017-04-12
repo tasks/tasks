@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.util.Xml;
 import android.widget.Toast;
 
@@ -98,7 +99,7 @@ public class TasksXmlExporter {
         this.preferences = preferences;
     }
 
-    public void exportTasks(final Context context, final ExportType exportType, final ProgressDialog progressDialog) {
+    public void exportTasks(final Context context, final ExportType exportType, @Nullable final ProgressDialog progressDialog) {
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = preferences.getBackupDirectory();
@@ -106,9 +107,6 @@ public class TasksXmlExporter {
         this.progressDialog = progressDialog;
 
         handler = exportType == ExportType.EXPORT_TYPE_MANUAL ? new Handler() : null;
-        if(exportType != ExportType.EXPORT_TYPE_MANUAL) {
-            this.progressDialog = new ProgressDialog(context);
-        }
 
         new Thread(() -> {
             try {
@@ -129,7 +127,7 @@ public class TasksXmlExporter {
                 Timber.e(e, e.getMessage());
             } finally {
                 post(() -> {
-                    if(progressDialog.isShowing() && context instanceof Activity) {
+                    if(progressDialog != null && progressDialog.isShowing() && context instanceof Activity) {
                         DialogUtilities.dismissDialog((Activity) context, progressDialog);
                     }
                 });
