@@ -34,7 +34,7 @@ public class JobQueue<T extends JobQueueEntry> {
         this.tag = tag;
     }
 
-    public void add(T entry) {
+    public synchronized void add(T entry) {
         boolean reschedule = jobs.isEmpty() || entry.getTime() < firstTime();
         jobs.put(entry.getTime(), entry);
         if (reschedule) {
@@ -42,12 +42,12 @@ public class JobQueue<T extends JobQueueEntry> {
         }
     }
 
-    public void clear() {
+    public synchronized void clear() {
         jobs.clear();
         jobManager.cancel(tag);
     }
 
-    public void cancel(long id) {
+    public synchronized void cancel(long id) {
         boolean reschedule = false;
         long firstTime = firstTime();
         List<T> existing = newArrayList(filter(jobs.values(), r -> r.getId() == id));
@@ -60,7 +60,7 @@ public class JobQueue<T extends JobQueueEntry> {
         }
     }
 
-    public List<T> removeOverdueJobs() {
+    public synchronized List<T> removeOverdueJobs() {
         List<T> result = newArrayList();
         SortedSet<Long> lapsed = jobs.keySet().headSet(currentTimeMillis() + 1);
         for (Long key : lapsed) {
@@ -69,7 +69,7 @@ public class JobQueue<T extends JobQueueEntry> {
         return result;
     }
 
-    public void scheduleNext() {
+    public synchronized void scheduleNext() {
         scheduleNext(false);
     }
 
