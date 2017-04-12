@@ -19,10 +19,10 @@ import org.tasks.jobs.JobManager;
 import org.tasks.jobs.JobQueue;
 import org.tasks.jobs.Reminder;
 import org.tasks.preferences.Preferences;
+import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -57,22 +57,23 @@ public final class ReminderService  {
     /** flag for an alarm reminder */
     public static final int TYPE_ALARM = 4;
 
-    private static final Random random = new Random();
     private static final long NO_ALARM = Long.MAX_VALUE;
 
     private final JobQueue<Reminder> jobs;
+    private final Random random;
     private final Preferences preferences;
 
     private long now = -1; // For tracking when reminders might be scheduled all at once
 
     @Inject
     ReminderService(Preferences preferences, JobManager jobManager) {
-        this(preferences, JobQueue.newReminderQueue(preferences, jobManager));
+        this(preferences, JobQueue.newReminderQueue(preferences, jobManager), new Random());
     }
 
-    ReminderService(Preferences preferences, JobQueue<Reminder> jobs) {
+    ReminderService(Preferences preferences, JobQueue<Reminder> jobs, Random random) {
         this.preferences = preferences;
         this.jobs = jobs;
+        this.random = random;
     }
 
     private static final int MILLIS_PER_HOUR = 60 * 60 * 1000;
@@ -138,7 +139,6 @@ public final class ReminderService  {
 
         // notifications at due date
         long whenDueDate = calculateNextDueDateReminder(task);
-
 
         // notifications after due date
         long whenOverdue = calculateNextOverdueReminder(task);

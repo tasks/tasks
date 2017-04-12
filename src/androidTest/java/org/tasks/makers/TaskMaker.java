@@ -9,8 +9,8 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.time.DateTime;
 
 import static com.natpryce.makeiteasy.Property.newProperty;
+import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.makers.Maker.make;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class TaskMaker {
 
@@ -18,10 +18,12 @@ public class TaskMaker {
     public static Property<Task, String> TITLE = newProperty();
     public static Property<Task, DateTime> DUE_DATE = newProperty();
     public static Property<Task, DateTime> DUE_TIME = newProperty();
+    public static Property<Task, Integer> PRIORITY = newProperty();
     public static Property<Task, DateTime> REMINDER_LAST = newProperty();
     public static Property<Task, Long> RANDOM_REMINDER_PERIOD = newProperty();
     public static Property<Task, Integer> HIDE_TYPE = newProperty();
     public static Property<Task, Integer> REMINDERS = newProperty();
+    public static Property<Task, DateTime> CREATION_TIME = newProperty();
     public static Property<Task, DateTime> COMPLETION_TIME = newProperty();
     public static Property<Task, DateTime> DELETION_TIME = newProperty();
     public static Property<Task, DateTime> SNOOZE_TIME = newProperty();
@@ -42,6 +44,11 @@ public class TaskMaker {
         long id = lookup.valueOf(ID, Task.NO_ID);
         if (id != Task.NO_ID) {
             task.setId(id);
+        }
+
+        int priority = lookup.valueOf(PRIORITY, -1);
+        if (priority >= 0) {
+            task.setImportance(priority);
         }
 
         DateTime dueDate = lookup.valueOf(DUE_DATE, (DateTime) null);
@@ -89,7 +96,8 @@ public class TaskMaker {
             task.setReminderPeriod(randomReminderPeriod);
         }
 
-        task.setCreationDate(currentTimeMillis());
+        DateTime creationTime = lookup.valueOf(CREATION_TIME, newDateTime());
+        task.setCreationDate(creationTime.getMillis());
 
         return task;
     };
