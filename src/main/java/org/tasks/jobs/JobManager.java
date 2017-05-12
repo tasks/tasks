@@ -1,71 +1,78 @@
 package org.tasks.jobs;
 
+import android.app.PendingIntent;
 import android.content.Context;
-
-import com.evernote.android.job.JobCreator;
-import com.evernote.android.job.JobRequest;
+import android.content.Intent;
 
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
+import org.tasks.scheduling.AlarmManager;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.nextMidnight;
+import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 @ApplicationScope
 public class JobManager {
 
-    private final com.evernote.android.job.JobManager jobManager;
+    private Context context;
+    private AlarmManager alarmManager;
 
     @Inject
-    public JobManager(@ForApplication Context context) {
-        jobManager = com.evernote.android.job.JobManager.create(context);
-        jobManager.cancelAll();
+    public JobManager(@ForApplication Context context, AlarmManager alarmManager) {
+        this.context = context;
+        this.alarmManager = alarmManager;
     }
 
-    public void addJobCreator(JobCreator jobCreator) {
-        jobManager.addJobCreator(jobCreator);
+    public void schedule(String tag, long time) {
+        Timber.d("%s: %s", tag, printTimestamp(time));
+        alarmManager.wakeup(adjust(time), getPendingIntent(tag));
     }
 
-    public void schedule(String tag, long time, boolean cancelCurrent) {
-        new JobRequest.Builder(tag)
-                .setExact(Math.max(time - currentTimeMillis(), 5000))
-                .setUpdateCurrent(cancelCurrent)
-                .build()
-                .schedule();
+    public void scheduleRefresh(long time) {
+        Timber.d("%s: %s", RefreshJob.TAG, printTimestamp(time));
+        alarmManager.noWakeup(adjust(time), getPendingIntent(RefreshJob.class));
     }
 
-    public void scheduleRefresh(long time, boolean cancelExisting) {
-        new JobRequest.Builder(RefreshJob.TAG)
-                .setExact(Math.max(time - currentTimeMillis(), 5000))
-                .setUpdateCurrent(cancelExisting)
-                .build()
-                .schedule();
+    public void scheduleMidnightRefresh() {
+        long time = nextMidnight();
+        Timber.d("%s: %s", MidnightRefreshJob.TAG, printTimestamp(time));
+        alarmManager.noWakeup(adjust(time), getPendingIntent(MidnightRefreshJob.class));
     }
 
-    public void scheduleMidnightRefresh(boolean cancelExisting) {
-        scheduleMidnightJob(MidnightRefreshJob.TAG, cancelExisting);
-    }
-
-    public void scheduleMidnightBackup(boolean cancelExisting) {
-        scheduleMidnightJob(BackupJob.TAG, cancelExisting);
-    }
-
-    private void scheduleMidnightJob(String tag, boolean cancelExisting) {
-        long now = System.currentTimeMillis();
-        new JobRequest.Builder(tag)
-                .setExact(nextMidnight(now) - now)
-                .setUpdateCurrent(cancelExisting)
-                .build()
-                .schedule();
+    public void scheduleMidnightBackup() {
+        long time = nextMidnight();
+        Timber.d("%s: %s", BackupJob.TAG, printTimestamp(time));
+        alarmManager.wakeup(adjust(time), getPendingIntent(BackupJob.class));
     }
 
     public void cancel(String tag) {
-        jobManager.cancelAllForTag(tag);
+        Timber.d("CXL %s", tag);
+        alarmManager.cancel(getPendingIntent(tag));
     }
 
-    public void cancelRefreshes() {
-        jobManager.cancelAllForTag(RefreshJob.TAG);
+    private long adjust(long time) {
+        return Math.max(time, currentTimeMillis() + 5000);
+    }
+
+    private PendingIntent getPendingIntent(String tag) {
+        switch (tag) {
+            case ReminderJob.TAG:
+                return getPendingIntent(ReminderJob.class);
+            case AlarmJob.TAG:
+                return getPendingIntent(AlarmJob.class);
+            case RefreshJob.TAG:
+                return getPendingIntent(RefreshJob.class);
+            default:
+                throw new RuntimeException("Unexpected tag: " + tag);
+        }
+    }
+
+    private <T> PendingIntent getPendingIntent(Class<T> c) {
+        return PendingIntent.getService(context, 0, new Intent(context, c), 0);
     }
 }

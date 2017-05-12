@@ -1,5 +1,10 @@
 package org.tasks.injection;
 
+import org.tasks.jobs.AlarmJob;
+import org.tasks.jobs.BackupJob;
+import org.tasks.jobs.MidnightRefreshJob;
+import org.tasks.jobs.RefreshJob;
+import org.tasks.jobs.ReminderJob;
 import org.tasks.location.GeofenceTransitionsIntentService;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
@@ -19,4 +24,14 @@ public interface IntentServiceComponent {
     void inject(GeofenceTransitionsIntentService geofenceTransitionsIntentService);
 
     void inject(NotificationSchedulerIntentService notificationSchedulerIntentService);
+
+    void inject(AlarmJob alarmJob);
+
+    void inject(BackupJob backupJob);
+
+    void inject(MidnightRefreshJob midnightRefreshJob);
+
+    void inject(RefreshJob refreshJob);
+
+    void inject(ReminderJob reminderJob);
 }

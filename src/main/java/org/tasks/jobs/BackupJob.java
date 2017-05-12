@@ -1,47 +1,54 @@
 package org.tasks.jobs;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
-import com.evernote.android.job.Job;
 import com.todoroo.astrid.backup.TasksXmlExporter;
 
+import org.tasks.injection.ForApplication;
+import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import timber.log.Timber;
 
-public class BackupJob extends Job {
+public class BackupJob extends MidnightJob {
 
     public static final String TAG = "job_backup";
 
     public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
     private static final int DAYS_TO_KEEP_BACKUP = 7;
 
-    private final Context context;
-    private final JobManager jobManager;
-    private TasksXmlExporter tasksXmlExporter;
-    private Preferences preferences;
+    @Inject @ForApplication Context context;
+    @Inject JobManager jobManager;
+    @Inject TasksXmlExporter tasksXmlExporter;
+    @Inject Preferences preferences;
 
-    public BackupJob(Context context, JobManager jobManager, TasksXmlExporter tasksXmlExporter, Preferences preferences) {
+    public BackupJob() {
+        super(BackupJob.class.getSimpleName());
+    }
+
+    BackupJob(Context context, JobManager jobManager, TasksXmlExporter tasksXmlExporter, Preferences preferences) {
+        this();
+
         this.context = context;
         this.jobManager = jobManager;
         this.tasksXmlExporter = tasksXmlExporter;
         this.preferences = preferences;
     }
 
-    @NonNull
     @Override
-    protected Result onRunJob(Params params) {
-        try {
-            startBackup(context);
-            return Result.SUCCESS;
-        } finally {
-            jobManager.scheduleMidnightBackup(false);
-        }
+    protected void run() {
+        startBackup(context);
+    }
+
+    @Override
+    protected void scheduleNext() {
+        jobManager.scheduleMidnightBackup();
     }
 
     void startBackup(Context context) {
@@ -82,5 +89,10 @@ public class BackupJob extends Job {
                 Timber.i("Unable to delete: %s", files[i]);
             }
         }
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 }

@@ -4,6 +4,7 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.JobManager;
+import org.tasks.jobs.RefreshJob;
 
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -27,7 +28,7 @@ public class RefreshScheduler {
 
     public void clear() {
         jobs.clear();
-        jobManager.cancelRefreshes();
+        jobManager.cancel(RefreshJob.TAG);
     }
 
     public void scheduleRefresh(Task task) {
@@ -49,24 +50,20 @@ public class RefreshScheduler {
         }
     }
 
-    public void scheduleNext() {
-        scheduleNext(false);
-    }
-
     private void schedule(long timestamp) {
         SortedSet<Long> upcoming = jobs.tailSet(currentTimeMillis());
         boolean reschedule = upcoming.isEmpty() || timestamp < upcoming.first();
         jobs.add(timestamp);
         if (reschedule) {
-            scheduleNext(true);
+            scheduleNext();
         }
     }
 
-    private void scheduleNext(boolean cancelCurrent) {
+    public void scheduleNext() {
         long now = currentTimeMillis();
         jobs.removeAll(newArrayList(jobs.headSet(now + 1)));
         if (!jobs.isEmpty()) {
-            jobManager.scheduleRefresh(jobs.first(), cancelCurrent);
+            jobManager.scheduleRefresh(jobs.first());
         }
     }
 }

@@ -6,8 +6,6 @@ import com.todoroo.astrid.service.StartupService;
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingApplication;
-import org.tasks.jobs.JobManager;
-import org.tasks.jobs.JobCreator;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.TeslaUnreadReceiver;
 import org.tasks.themes.ThemeCache;
@@ -23,8 +21,6 @@ public class Tasks extends InjectingApplication {
     @Inject BuildSetup buildSetup;
     @Inject ThemeCache themeCache;
     @Inject TeslaUnreadReceiver teslaUnreadReceiver;
-    @Inject JobManager jobManager;
-    @Inject JobCreator jobCreator;
 
     @Override
     public void onCreate() {
@@ -37,8 +33,6 @@ public class Tasks extends InjectingApplication {
         }
 
         AndroidThreeTen.init(this);
-
-        jobManager.addJobCreator(jobCreator);
 
         flavorSetup.setup();
 

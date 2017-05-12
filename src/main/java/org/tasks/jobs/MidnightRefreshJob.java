@@ -1,31 +1,33 @@
 package org.tasks.jobs;
 
-import android.support.annotation.NonNull;
-
-import com.evernote.android.job.Job;
-
 import org.tasks.Broadcaster;
+import org.tasks.injection.IntentServiceComponent;
 
-public class MidnightRefreshJob extends Job {
+import javax.inject.Inject;
+
+public class MidnightRefreshJob extends MidnightJob {
 
     public static final String TAG = "job_midnight_refresh";
 
-    private final Broadcaster broadcaster;
-    private final JobManager jobManager;
+    @Inject Broadcaster broadcaster;
+    @Inject JobManager jobManager;
 
-    public MidnightRefreshJob(Broadcaster broadcaster, JobManager jobManager) {
-        this.broadcaster = broadcaster;
-        this.jobManager = jobManager;
+    public MidnightRefreshJob() {
+        super(MidnightRefreshJob.class.getSimpleName());
     }
 
-    @NonNull
     @Override
-    protected Result onRunJob(Params params) {
-        try {
-            broadcaster.refresh();
-            return Result.SUCCESS;
-        } finally {
-            jobManager.scheduleMidnightRefresh(false);
-        }
+    protected void run() {
+        broadcaster.refresh();
+    }
+
+    @Override
+    protected void scheduleNext() {
+        jobManager.scheduleMidnightRefresh();
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 }

@@ -94,7 +94,6 @@
         android:label="@string/app_name"
         android:theme="@style/Tasks"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_config"
         android:name=".Tasks"
         android:supportsRtl="true"
         android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
@@ -445,6 +444,21 @@
             android:exported="false" />
         <service
             android:name=".scheduling.CalendarNotificationIntentService"
+            android:exported="false" />
+        <service
+            android:name=".jobs.AlarmJob"
+            android:exported="false" />
+        <service
+            android:name=".jobs.BackupJob"
+            android:exported="false" />
+        <service
+            android:name=".jobs.MidnightRefreshJob"
+            android:exported="false" />
+        <service
+            android:name=".jobs.RefreshJob"
+            android:exported="false" />
+        <service
+            android:name=".jobs.ReminderJob"
             android:exported="false" />
 
         <!-- Uses Library -->

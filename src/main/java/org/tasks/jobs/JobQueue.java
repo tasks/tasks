@@ -79,7 +79,7 @@ public class JobQueue<T extends JobQueueEntry> {
                 jobManager.cancel(tag);
             }
         } else {
-            jobManager.schedule(tag, nextScheduledTime(), cancelCurrent);
+            jobManager.schedule(tag, nextScheduledTime());
         }
     }
 

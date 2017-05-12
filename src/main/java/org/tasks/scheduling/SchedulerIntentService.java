@@ -32,8 +32,8 @@ public class SchedulerIntentService extends InjectingIntentService {
 
         Timber.d("onHandleIntent(%s)", intent);
 
-        jobManager.scheduleMidnightBackup(true);
-        jobManager.scheduleMidnightRefresh(true);
+        jobManager.scheduleMidnightBackup();
+        jobManager.scheduleMidnightRefresh();
 
         refreshScheduler.clear();
         long now = currentTimeMillis();

@@ -1,32 +1,34 @@
 package org.tasks.jobs;
 
-import android.support.annotation.NonNull;
-
-import com.evernote.android.job.Job;
-
 import org.tasks.Broadcaster;
+import org.tasks.injection.IntentServiceComponent;
 import org.tasks.scheduling.RefreshScheduler;
+
+import javax.inject.Inject;
 
 public class RefreshJob extends Job {
 
     public static final String TAG = "job_refresh";
 
-    private final RefreshScheduler refreshScheduler;
-    private final Broadcaster broadcaster;
+    @Inject RefreshScheduler refreshScheduler;
+    @Inject Broadcaster broadcaster;
 
-    public RefreshJob(RefreshScheduler refreshScheduler, Broadcaster broadcaster) {
-        this.refreshScheduler = refreshScheduler;
-        this.broadcaster = broadcaster;
+    public RefreshJob() {
+        super(RefreshJob.class.getSimpleName());
     }
 
-    @NonNull
     @Override
-    protected Result onRunJob(Params params) {
-        try {
-            broadcaster.refresh();
-            return Result.SUCCESS;
-        } finally {
-            refreshScheduler.scheduleNext();
-        }
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
+    }
+
+    @Override
+    protected void run() {
+        broadcaster.refresh();
+    }
+
+    @Override
+    protected void scheduleNext() {
+        refreshScheduler.scheduleNext();
     }
 }

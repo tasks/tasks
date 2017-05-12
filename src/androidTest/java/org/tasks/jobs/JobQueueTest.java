@@ -53,7 +53,7 @@ public class JobQueueTest {
         queue.add(new Reminder(1, 1, 0));
         queue.add(new Reminder(2, 1, 0));
 
-        verify(jobManager).schedule(TAG, 1, true);
+        verify(jobManager).schedule(TAG, 1);
 
         assertEquals(2, queue.size());
     }
@@ -62,7 +62,7 @@ public class JobQueueTest {
     public void rescheduleForFirstJob() {
         queue.add(new Reminder(1, 1, 0));
 
-        verify(jobManager).schedule(TAG, 1, true);
+        verify(jobManager).schedule(TAG, 1);
     }
 
     @Test
@@ -70,7 +70,7 @@ public class JobQueueTest {
         queue.add(new Reminder(1, 1, 0));
         queue.add(new Reminder(2, 2, 0));
 
-        verify(jobManager).schedule(TAG, 1, true);
+        verify(jobManager).schedule(TAG, 1);
     }
 
     @Test
@@ -79,8 +79,8 @@ public class JobQueueTest {
         queue.add(new Reminder(1, 1, 0));
 
         InOrder order = inOrder(jobManager);
-        order.verify(jobManager).schedule(TAG, 2, true);
-        order.verify(jobManager).schedule(TAG, 1, true);
+        order.verify(jobManager).schedule(TAG, 2);
+        order.verify(jobManager).schedule(TAG, 1);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class JobQueueTest {
         queue.cancel(1);
 
         InOrder order = inOrder(jobManager);
-        order.verify(jobManager).schedule(TAG, 2, true);
+        order.verify(jobManager).schedule(TAG, 2);
         order.verify(jobManager).cancel(TAG);
     }
 
@@ -101,8 +101,8 @@ public class JobQueueTest {
         queue.cancel(1);
 
         InOrder order = inOrder(jobManager);
-        order.verify(jobManager).schedule(TAG, 1, true);
-        order.verify(jobManager).schedule(TAG, 2, true);
+        order.verify(jobManager).schedule(TAG, 1);
+        order.verify(jobManager).schedule(TAG, 2);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class JobQueueTest {
 
         queue.cancel(2);
 
-        verify(jobManager).schedule(TAG, 1, true);
+        verify(jobManager).schedule(TAG, 1);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class JobQueueTest {
         when(preferences.adjustForQuietHours(anyLong())).thenReturn(1234L);
         queue.add(new Reminder(1, 1, 1));
 
-        verify(jobManager).schedule(TAG, 1234, true);
+        verify(jobManager).schedule(TAG, 1234);
     }
 
     @Test
@@ -137,7 +137,7 @@ public class JobQueueTest {
         queue.add(new Reminder(1, now, TYPE_DUE));
         queue.add(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
 
-        verify(jobManager).schedule(TAG, now, true);
+        verify(jobManager).schedule(TAG, now);
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
@@ -153,7 +153,7 @@ public class JobQueueTest {
         queue.add(new Reminder(1, now, TYPE_DUE));
         queue.add(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
 
-        verify(jobManager).schedule(TAG, now, true);
+        verify(jobManager).schedule(TAG, now);
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             queue.removeOverdueJobs();
@@ -171,7 +171,7 @@ public class JobQueueTest {
         queue.clear();
 
         InOrder order = inOrder(jobManager);
-        order.verify(jobManager).schedule(TAG, 1, true);
+        order.verify(jobManager).schedule(TAG, 1);
         order.verify(jobManager).cancel(TAG);
         assertEquals(0, queue.size());
     }
@@ -183,6 +183,6 @@ public class JobQueueTest {
         queue.add(new Reminder(1, now, TYPE_DUE));
         queue.cancel(2);
 
-        verify(jobManager).schedule(TAG, now, true);
+        verify(jobManager).schedule(TAG, now);
     }
 }

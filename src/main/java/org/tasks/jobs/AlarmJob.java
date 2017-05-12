@@ -1,47 +1,48 @@
 package org.tasks.jobs;
 
-import android.support.annotation.NonNull;
-
-import com.evernote.android.job.Job;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Notifier;
+import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
+
+import javax.inject.Inject;
 
 public class AlarmJob extends Job {
 
     public static final String TAG = "job_alarm";
 
-    private final Preferences preferences;
-    private final AlarmService alarmService;
-    private final Notifier notifier;
-    private final TaskDao taskDao;
+    @Inject Preferences preferences;
+    @Inject AlarmService alarmService;
+    @Inject Notifier notifier;
+    @Inject TaskDao taskDao;
 
-    public AlarmJob(Preferences preferences, AlarmService alarmService, Notifier notifier, TaskDao taskDao) {
-        this.preferences = preferences;
-        this.alarmService = alarmService;
-        this.notifier = notifier;
-        this.taskDao = taskDao;
+    public AlarmJob() {
+        super(AlarmJob.class.getSimpleName());
     }
 
-    @NonNull
     @Override
-    protected Result onRunJob(Params params) {
-        try {
-            if (!preferences.isCurrentlyQuietHours()) {
-                for (Alarm alarm : alarmService.removePastDueAlarms()) {
-                    Task task = taskDao.fetch(alarm.getTaskId(), Task.REMINDER_LAST);
-                    if (task != null && task.getReminderLast() < alarm.getTime()) {
-                        notifier.triggerTaskNotification(alarm.getTaskId(), ReminderService.TYPE_ALARM);
-                    }
+    protected void run() {
+        if (!preferences.isCurrentlyQuietHours()) {
+            for (Alarm alarm : alarmService.removePastDueAlarms()) {
+                Task task = taskDao.fetch(alarm.getTaskId(), Task.REMINDER_LAST);
+                if (task != null && task.getReminderLast() < alarm.getTime()) {
+                    notifier.triggerTaskNotification(alarm.getTaskId(), ReminderService.TYPE_ALARM);
                 }
             }
-            return Result.SUCCESS;
-        } finally {
-            alarmService.scheduleNextJob();
         }
+    }
+
+    @Override
+    protected void scheduleNext() {
+        alarmService.scheduleNextJob();
+    }
+
+    @Override
+    protected void inject(IntentServiceComponent component) {
+        component.inject(this);
     }
 }
