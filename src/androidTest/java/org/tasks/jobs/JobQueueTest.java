@@ -165,6 +165,25 @@ public class JobQueueTest {
     }
 
     @Test
+    public void multipleOverduePeriodsLapsed() {
+        long now = currentTimeMillis();
+
+        queue.add(new Reminder(1, now, TYPE_DUE));
+        queue.add(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
+        queue.add(new Reminder(3, now + 2 * ONE_MINUTE, TYPE_DUE));
+
+        verify(jobManager).schedule(TAG, now);
+
+        Freeze.freezeAt(now + ONE_MINUTE).thawAfter(new Snippet() {{
+            queue.removeOverdueJobs();
+        }});
+
+        assertEquals(
+                singletonList(new Reminder(3, now + 2 * ONE_MINUTE, TYPE_DUE)),
+                queue.getJobs());
+    }
+
+    @Test
     public void clearShouldCancelExisting() {
         queue.add(new Reminder(1, 1, 0));
 

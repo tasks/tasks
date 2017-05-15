@@ -1,6 +1,7 @@
 package org.tasks.jobs;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.TreeMultimap;
 import com.google.common.primitives.Longs;
@@ -8,6 +9,7 @@ import com.google.common.primitives.Longs;
 import org.tasks.preferences.Preferences;
 
 import java.util.List;
+import java.util.NavigableSet;
 import java.util.SortedSet;
 
 import static com.google.common.collect.Iterables.filter;
@@ -63,7 +65,7 @@ public class JobQueue<T extends JobQueueEntry> {
     public synchronized List<T> removeOverdueJobs() {
         List<T> result = newArrayList();
         SortedSet<Long> lapsed = jobs.keySet().headSet(currentTimeMillis() + 1);
-        for (Long key : lapsed) {
+        for (Long key : ImmutableSortedSet.copyOf(lapsed)) {
             result.addAll(jobs.removeAll(key));
         }
         return result;
