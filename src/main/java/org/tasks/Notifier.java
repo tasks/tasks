@@ -243,6 +243,8 @@ public class Notifier {
                 .setWhen(currentTimeMillis())
                 .setContentTitle(taskTitle)
                 .setContentText(text)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(taskDescription.equals("") ? text : taskDescription))
                 .setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
         if (!Strings.isNullOrEmpty(taskDescription) && preferences.getBoolean(R.string.p_rmd_show_description, true)) {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
