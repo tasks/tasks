@@ -371,6 +371,9 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         assertEquals(45, cursor.getInt(0));
         cursor.moveToNext();
         assertEquals(20, cursor.getInt(0));
+		if (cursor != null) {
+			cursor.close();
+		}
     }
 
 }
