@@ -7,10 +7,13 @@ task wrapper(type: Wrapper) {
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com'
+        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha1'
     }
 }
 
@@ -26,18 +29,14 @@ android {
     }
 
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "org.tasks"
         versionCode 455
         versionName "4.9.13"
-        minSdkVersion 15
         targetSdkVersion 25
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions {
-            enabled true
-        }
     }
 
     signingConfigs {
@@ -47,7 +46,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-        incremental false
     }
 
     buildTypes {
@@ -78,6 +76,7 @@ android {
             dimension 'env'
         }
         prod {
+            minSdkVersion 15
             dimension 'env'
         }
     }
@@ -115,7 +114,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
 
-    debugCompile "com.facebook.stetho:stetho:${STETHO_VERSION}"
+    debugCompile ("com.facebook.stetho:stetho:${STETHO_VERSION}") {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
     debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     //noinspection GradleCompatible
