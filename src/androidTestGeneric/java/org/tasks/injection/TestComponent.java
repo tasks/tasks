@@ -14,7 +14,7 @@ import com.todoroo.astrid.subtasks.SubtasksHelperTest;
 import com.todoroo.astrid.subtasks.SubtasksTestCase;
 import com.todoroo.astrid.sync.NewSyncTestCase;
 
-import org.tasks.scheduling.BackupServiceTests;
+import org.tasks.jobs.BackupServiceTests;
 
 import dagger.Component;
 

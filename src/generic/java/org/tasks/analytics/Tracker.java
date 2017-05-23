@@ -34,4 +34,8 @@ public class Tracker {
     public void reportEvent(Tracking.Events setPreference, int resId, String s) {
 
     }
+
+    public void reportEvent(Tracking.Events category, String action, String label) {
+
+    }
 }
