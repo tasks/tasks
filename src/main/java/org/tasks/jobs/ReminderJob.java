@@ -1,5 +1,7 @@
 package org.tasks.jobs;
 
+import android.content.Intent;
+
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Notifier;
@@ -8,7 +10,7 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-public class ReminderJob extends Job {
+public class ReminderJob extends WakefulJob {
 
     public static final String TAG = "job_reminder";
 
@@ -37,5 +39,10 @@ public class ReminderJob extends Job {
     @Override
     protected void scheduleNext() {
         reminderService.scheduleNextJob();
+    }
+
+    @Override
+    protected void completeWakefulIntent(Intent intent) {
+        ReminderJobBroadcast.completeWakefulIntent(intent);
     }
 }

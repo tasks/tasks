@@ -461,6 +461,14 @@
             android:name=".jobs.ReminderJob"
             android:exported="false" />
 
+        <receiver
+            android:name=".jobs.AlarmJobBroadcast"
+            android:exported="false" />
+
+        <receiver
+            android:name=".jobs.ReminderJobBroadcast"
+            android:exported="false" />
+
         <!-- Uses Library -->
         <uses-library
             android:name="com.google.android.maps"

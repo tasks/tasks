@@ -1,5 +1,7 @@
 package org.tasks.jobs;
 
+import android.content.Intent;
+
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -11,7 +13,7 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-public class AlarmJob extends Job {
+public class AlarmJob extends WakefulJob {
 
     public static final String TAG = "job_alarm";
 
@@ -44,5 +46,10 @@ public class AlarmJob extends Job {
     @Override
     protected void inject(IntentServiceComponent component) {
         component.inject(this);
+    }
+
+    @Override
+    protected void completeWakefulIntent(Intent intent) {
+        AlarmJobBroadcast.completeWakefulIntent(intent);
     }
 }

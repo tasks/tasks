@@ -35,19 +35,19 @@ public class JobManager {
 
     public void scheduleRefresh(long time) {
         Timber.d("%s: %s", RefreshJob.TAG, printTimestamp(time));
-        alarmManager.noWakeup(adjust(time), getPendingIntent(RefreshJob.class));
+        alarmManager.noWakeup(adjust(time), getPendingService(RefreshJob.class));
     }
 
     public void scheduleMidnightRefresh() {
         long time = nextMidnight();
         Timber.d("%s: %s", MidnightRefreshJob.TAG, printTimestamp(time));
-        alarmManager.noWakeup(adjust(time), getPendingIntent(MidnightRefreshJob.class));
+        alarmManager.noWakeup(adjust(time), getPendingService(MidnightRefreshJob.class));
     }
 
     public void scheduleMidnightBackup() {
         long time = nextMidnight();
         Timber.d("%s: %s", BackupJob.TAG, printTimestamp(time));
-        alarmManager.wakeup(adjust(time), getPendingIntent(BackupJob.class));
+        alarmManager.noWakeup(adjust(time), getPendingService(BackupJob.class));
     }
 
     public void cancel(String tag) {
@@ -62,17 +62,21 @@ public class JobManager {
     private PendingIntent getPendingIntent(String tag) {
         switch (tag) {
             case ReminderJob.TAG:
-                return getPendingIntent(ReminderJob.class);
+                return getPendingBroadcast(ReminderJobBroadcast.class);
             case AlarmJob.TAG:
-                return getPendingIntent(AlarmJob.class);
+                return getPendingBroadcast(AlarmJobBroadcast.class);
             case RefreshJob.TAG:
-                return getPendingIntent(RefreshJob.class);
+                return getPendingService(RefreshJob.class);
             default:
                 throw new RuntimeException("Unexpected tag: " + tag);
         }
     }
 
-    private <T> PendingIntent getPendingIntent(Class<T> c) {
+    private <T> PendingIntent getPendingBroadcast(Class<T> c) {
+        return PendingIntent.getBroadcast(context, 0, new Intent(context, c), 0);
+    }
+
+    private <T> PendingIntent getPendingService(Class<T> c) {
         return PendingIntent.getService(context, 0, new Intent(context, c), 0);
     }
 }
