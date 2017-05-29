@@ -83,7 +83,12 @@ public final class BuiltInFilterExposer {
      */
     public static Filter getMyTasksFilter(Resources r) {
         return new Filter(r.getString(R.string.BFE_Active),
-                new QueryTemplate().where(TaskCriteria.activeAndVisible()));
+                new QueryTemplate().where(
+                        Criterion.and(TaskCriteria.activeAndVisible(),
+                                Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
+                                        Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
+                                                TaskToTagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
+                null);
     }
 
     public static Filter getTodayFilter(Resources r) {
