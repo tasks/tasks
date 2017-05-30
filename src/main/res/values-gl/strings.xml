@@ -136,7 +136,7 @@
 	<string name="CFA_type_add">ou</string>
 	<string name="CFA_type_subtract">non</string>
 	<string name="CFA_type_intersect">tamén</string>
-	<string name="CFA_context_chain">%s cumple o criterio</string>
+	<string name="CFA_context_chain">%s cumpre o criterio</string>
 	<string name="CFA_context_delete">Eliminar Fila</string>
 	<string name="CFA_help">Mantén pulsado sobre os elementos para opcións adicionáis</string>
 	<string name="CFA_button_add">Engadir Criterio</string>
@@ -144,17 +144,18 @@
 	<string name="CFC_dueBefore_name">Vence el...</string>
 	<string name="no_due_date">Sin fecha de vencimiento</string>
 	<string name="next_month">Próximo mes</string>
-	<string name="CFC_importance_text">¿Prioridad mínima?</string>
+	<string name="CFC_importance_text">Prioridade mínima?</string>
 	<string name="CFC_importance_name">Prioridad...</string>
 	<string name="CFC_tag_text">Etiqueta: ?</string>
 	<string name="CFC_tag_name">Etiqueta...</string>
 	<string name="CFC_tag_contains_name">El nombre de la etiqueta contiene...</string>
 	<string name="CFC_tag_contains_text">El nombre de la etiqueta contiene: ?</string>
 	<string name="CFC_title_contains_name">Título contiene...</string>
-	<string name="CFC_title_contains_text">Título contiene: ?</string>
-	<string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>
-	<string name="gcal_TEA_addToCalendar_label">Agregar al calendario</string>
-	<string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
+	<string name="CFC_title_contains_text">Contén título:?</string>
+	<string name="gcal_TEA_error">Erro ao engadir a tarefa ao calendario!</string>
+	<string name="gcal_TEA_addToCalendar_label">Engadir ao calendario</string>
+	<string name="gcal_TEA_showCalendar_label">Abrir o evento do calendario
+</string>
 	<string name="delete_calendar_event_confirmation">¿Borrar evento de calendario?</string>
 	<string name="calendar_event_not_found">Evento de calendario no encontrado</string>
 	<string name="gcal_completed_title">%s (completado)</string>
@@ -200,7 +201,7 @@
 	<string name="default_random_reminder_bi_monthly">bimensualmente</string>
 	<string name="repeat_every">Cada %d</string>
 	<string name="repeat_interval_prompt">Intervalo de repetición</string>
-	<string name="repeat_never">Sin repetir</string>
+	<string name="repeat_never">Sen repetir</string>
 	<string name="repeat_interval_day">Día(s)</string>
 	<string name="repeat_interval_week">Semana(s)</string>
 	<string name="repeat_interval_month">Mes(es)</string>
@@ -228,7 +229,7 @@
 	<string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
 	<string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
 	<string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
-	<string name="delete_task">Eliminar tarea</string>
+	<string name="delete_task">Eliminar tarefa</string>
 	<string name="voice_command_added_task">Tarea agregada</string>
 	<string name="external_storage_unavailable">Almacenamiento externo inaccesible</string>
 	<plurals name="Ntasks">
@@ -264,11 +265,11 @@
 	<string name="font_size">Tamaño de la fuente</string>
 	<string name="row_spacing">Espaciado de fila</string>
 	<string name="customize_edit_screen">Personalizar pantalla de edición</string>
-	<string name="source_code">Código fuente</string>
-	<string name="translations">Contribuye con la traducción</string>
-	<string name="report_an_issue">Informa de un error</string>
+	<string name="source_code">Código fonte</string>
+	<string name="translations">Contribúe coa tradución</string>
+	<string name="report_an_issue">Informa dun erro</string>
 	<string name="help_and_feedback">Ayuda y valoraciones</string>
-	<string name="contact_developer">Contactar con el desarrollador </string>
+	<string name="contact_developer">Contactar co revelador</string>
 	<string name="rate_tasks">Valorar Tasks</string>
 	<string name="quiet_hours_summary">Sen avisos en horario silencioso</string>
 	<string name="TLA_menu_donate">Donar</string>
@@ -388,7 +389,7 @@
 	<string name="restart_required">Debe reiniciar Tasks para que los cambios tengan efecto</string>
 	<string name="restart_now">Reiniciar ahora</string>
 	<string name="restart_later">Más tarde</string>
-	<string name="settings_localization">Configuración regional</string>
+	<string name="settings_localization">Localización</string>
 	<string name="layout_direction">Sentido da escritura</string>
 	<string name="layout_direction_left_to_right">De esquerda a dereita</string>
 	<string name="layout_direction_right_to_left">De derecha a izquierda</string>
@@ -410,4 +411,5 @@
 	<string name="delete_multiple_tasks_confirmation">%s borradas</string>
 	<string name="delete_selected_tasks">¿Borrar tareas seleccionadas?</string>
 	<string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
+	<string name="use_native_datetime_pickers">Escoller data e hora</string>
 </resources>

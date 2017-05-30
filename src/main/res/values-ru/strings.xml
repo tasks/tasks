@@ -57,7 +57,7 @@
 	<string name="TEA_timer_elap">Прошло %s</string>
 	<string name="TEA_no_time">Без времени</string>
 	<string name="due_date">Намеченная дата</string>
-	<string name="due_time">Время</string>
+	<string name="due_time">Намеченное время</string>
 	<string name="day_before_due">Сутки до намеченной даты</string>
 	<string name="week_before_due">Неделя до намеченной даты</string>
 	<string name="TEA_control_when">Когда</string>
