@@ -15,9 +15,7 @@ public abstract class InjectingApplication extends BaseApplication {
 
         Context context = Locale.getInstance(this).createConfigurationContext(getApplicationContext());
 
-        applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(context))
-                .build();
+        applicationComponent = Dagger.get(context).getApplicationComponent();
 
         inject(applicationComponent);
     }

@@ -28,11 +28,16 @@ public class Locale {
 
     public static Locale getInstance(Context context) {
         if (INSTANCE == null) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            String language = prefs.getString(context.getString(R.string.p_language), null);
-            int directionOverride = Integer.parseInt(prefs.getString(context.getString(R.string.p_layout_direction), "-1"));
-            INSTANCE = new Locale(DEFAULT.getLocale(), language, directionOverride);
-            java.util.Locale.setDefault(INSTANCE.getLocale());
+            synchronized (DEFAULT) {
+                if (INSTANCE == null) {
+                    Context applicationContext = context.getApplicationContext();
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+                    String language = prefs.getString(applicationContext.getString(R.string.p_language), null);
+                    int directionOverride = Integer.parseInt(prefs.getString(applicationContext.getString(R.string.p_layout_direction), "-1"));
+                    INSTANCE = new Locale(DEFAULT.getLocale(), language, directionOverride);
+                    java.util.Locale.setDefault(INSTANCE.getLocale());
+                }
+            }
         }
 
         return getInstance();
