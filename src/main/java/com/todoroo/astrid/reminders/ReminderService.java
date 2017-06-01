@@ -143,11 +143,12 @@ public final class ReminderService  {
         // notifications after due date
         long whenOverdue = calculateNextOverdueReminder(task);
 
-        // For alarms around/before now, increment the now value so the next one will be later
-        if (whenDueDate <= now || whenOverdue <= now) {
+        if (whenDueDate <= now) {
             whenDueDate = now;
+        }
+
+        if (whenOverdue <= now) {
             whenOverdue = now;
-            now += 30 * DateUtilities.ONE_MINUTE; // Prevents overdue tasks from being scheduled all at once
         }
 
         // if random reminders are too close to due date, favor due date
