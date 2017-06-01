@@ -97,7 +97,8 @@ public class SnoozeDialog extends InjectingDialogFragment {
 
         List<SnoozeOption> snoozeOptions = new ArrayList<>();
 
-        snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_hour, now.plusHours(1)));
+        DateTime oneHour = now.plusHours(1).withSecondOfMinute(0).withMillisOfSecond(0);
+        snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_hour, oneHour));
 
         if (morning.isAfter(hourCutoff)) {
             snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_morning, morning));
