@@ -375,14 +375,6 @@
 	<string name="theme_wallpaper">Как обои</string>
 	<string name="theme_day_night">День / ночь</string>
 	<string name="default_value">По умолчанию</string>
-	<string name="sync_interval_disable">отключить</string>
-	<string name="sync_interval_one_hour">каждый час</string>
-	<string name="sync_interval_three_hours">каждые 3 часа</string>
-	<string name="sync_interval_six_hours">каждые 6 часов</string>
-	<string name="sync_interval_twelve_hours">каждые 12 часов</string>
-	<string name="sync_interval_one_day">каждый день</string>
-	<string name="sync_interval_three_days">каждые 3 дня</string>
-	<string name="sync_interval_one_week">каждую неделю</string>
 	<string name="master_sync_warning">Автосинхронизация в Android выключена</string>
 	<string name="settings_general">Общие</string>
 	<string name="language">Язык</string>

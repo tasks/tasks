@@ -375,14 +375,6 @@
 	<string name="theme_wallpaper">תמונת רקע</string>
 	<string name="theme_day_night">יום / לילה</string>
 	<string name="default_value">ברירת מחדל</string>
-	<string name="sync_interval_disable">השבת</string>
-	<string name="sync_interval_one_hour">כל שעה</string>
-	<string name="sync_interval_three_hours">כל שלוש שעות</string>
-	<string name="sync_interval_six_hours">כל שש שעות</string>
-	<string name="sync_interval_twelve_hours">כל שתים עשרה שעות</string>
-	<string name="sync_interval_one_day">כל יום</string>
-	<string name="sync_interval_three_days">כל שלושה ימים</string>
-	<string name="sync_interval_one_week">כל שבוע</string>
 	<string name="master_sync_warning">סנכרון אוטומטי כרגע מושבת ע\"י Android</string>
 	<string name="settings_general">כללי</string>
 	<string name="language">שפה</string>

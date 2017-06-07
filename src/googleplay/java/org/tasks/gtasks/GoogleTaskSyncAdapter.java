@@ -19,7 +19,6 @@ package org.tasks.gtasks;
 import android.accounts.Account;
 import android.app.PendingIntent;
 import android.content.ContentProviderClient;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -130,9 +129,6 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             Timber.d("Sync not enabled for %s", account);
             syncResult.stats.numAuthExceptions++;
             return;
-        }
-        if (!extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false)) {
-            preferences.setBoolean(R.string.p_sync_warning_shown, false);
         }
         Timber.d("%s: start sync", account);
         RecordSyncStatusCallback callback = new RecordSyncStatusCallback(gtasksPreferenceService, broadcaster);

@@ -8,6 +8,7 @@ package com.todoroo.astrid.gtasks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.support.annotation.NonNull;
 
 import com.todoroo.andlib.utility.DateUtilities;
@@ -75,8 +76,8 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     DateUtilities.getDateStringWithTime(GtasksPreferences.this,
                             gtasksPreferenceService.getLastSyncDate())));
         }
-        findPreference(getString(R.string.gtasks_GPr_interval_key)).setOnPreferenceChangeListener((preference, o) -> {
-            syncAdapterHelper.setSynchronizationInterval(Integer.parseInt((String) o));
+        findPreference(getString(R.string.gtask_background_sync)).setOnPreferenceChangeListener((preference, o) -> {
+            syncAdapterHelper.enableSynchronization((Boolean) o);
             return true;
         });
         findPreference(getString(R.string.sync_SPr_forget_key)).setOnPreferenceClickListener(preference -> {
@@ -103,6 +104,19 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
 
     private void requestLogin() {
         startActivityForResult(new Intent(GtasksPreferences.this, GtasksLoginActivity.class), REQUEST_LOGIN);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        CheckBoxPreference backgroundSync = (CheckBoxPreference) findPreference(getString(R.string.gtask_background_sync));
+        backgroundSync.setChecked(syncAdapterHelper.isSyncEnabled());
+        if (syncAdapterHelper.isMasterSyncEnabled()) {
+            backgroundSync.setSummary(null);
+        } else {
+            backgroundSync.setSummary(R.string.master_sync_warning);
+        }
     }
 
     @Override

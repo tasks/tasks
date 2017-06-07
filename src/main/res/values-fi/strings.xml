@@ -376,14 +376,6 @@
 	<string name="theme_wallpaper">Taustakuva</string>
 	<string name="theme_day_night">Päivä/Yö</string>
 	<string name="default_value">Oletus</string>
-	<string name="sync_interval_disable">Poistettu</string>
-	<string name="sync_interval_one_hour">Joka tunti</string>
-	<string name="sync_interval_three_hours">Joka kolmas tunti</string>
-	<string name="sync_interval_six_hours">Joka kuudes tunti</string>
-	<string name="sync_interval_twelve_hours">Joka 12. tunti</string>
-	<string name="sync_interval_one_day">Joka päivä</string>
-	<string name="sync_interval_three_days">Joka kolmas päivä</string>
-	<string name="sync_interval_one_week">Joka viikko</string>
 	<string name="master_sync_warning">Android on estänyt automaattisen synkronoinnin</string>
 	<string name="settings_general">Yleinen</string>
 	<string name="language">Kieli</string>

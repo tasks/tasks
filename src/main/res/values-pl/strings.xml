@@ -374,14 +374,6 @@
 	<string name="theme_wallpaper">Tapeta</string>
 	<string name="theme_day_night">Dzień/noc</string>
 	<string name="default_value">Domyślny</string>
-	<string name="sync_interval_disable">Wyłączone</string>
-	<string name="sync_interval_one_hour">co godzinę</string>
-	<string name="sync_interval_three_hours">co 3 godziny</string>
-	<string name="sync_interval_six_hours">co 6 godzin</string>
-	<string name="sync_interval_twelve_hours">co 12 godzin</string>
-	<string name="sync_interval_one_day">raz dziennie</string>
-	<string name="sync_interval_three_days">co 3 dni</string>
-	<string name="sync_interval_one_week">co tydzień</string>
 	<string name="master_sync_warning">Automatyczna synchronizacja jest obecnie wyłączona przez Androida</string>
 	<string name="settings_general">Podstawowe</string>
 	<string name="language">Język</string>

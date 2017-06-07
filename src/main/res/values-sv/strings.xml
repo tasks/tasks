@@ -366,14 +366,6 @@
 	<string name="theme_dark">Mörkt</string>
 	<string name="theme_wallpaper">Bakgrundsbild</string>
 	<string name="theme_day_night">Dag/Natt</string>
-	<string name="sync_interval_disable">inaktivera</string>
-	<string name="sync_interval_one_hour">varje timme</string>
-	<string name="sync_interval_three_hours">var tredje timme</string>
-	<string name="sync_interval_six_hours">var sjätte timme</string>
-	<string name="sync_interval_twelve_hours">var tolfte timme</string>
-	<string name="sync_interval_one_day">varje dag</string>
-	<string name="sync_interval_three_days">var tredje dag</string>
-	<string name="sync_interval_one_week">varje vecka</string>
 	<string name="settings_general">Allmäna</string>
 	<string name="language">Språk</string>
 	<string name="restart_required">Tasks måste startas om innan ändringarna börjar gälla</string>

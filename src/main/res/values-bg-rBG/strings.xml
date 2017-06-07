@@ -378,14 +378,6 @@
 	<string name="theme_wallpaper">Тапет</string>
 	<string name="theme_day_night">Ден/Нощ</string>
 	<string name="default_value">По подразбиране</string>
-	<string name="sync_interval_disable">изключено</string>
-	<string name="sync_interval_one_hour">на всеки час</string>
-	<string name="sync_interval_three_hours">на всеки три часа</string>
-	<string name="sync_interval_six_hours">на всеки шест часа</string>
-	<string name="sync_interval_twelve_hours">на всеки дванадесет часа</string>
-	<string name="sync_interval_one_day">всеки ден</string>
-	<string name="sync_interval_three_days">на всеки три дена</string>
-	<string name="sync_interval_one_week">всяка седмица</string>
 	<string name="master_sync_warning">Автоматичната синхронизация в момента е деактивирана от Android</string>
 	<string name="settings_general">Общи</string>
 	<string name="language">Език</string>

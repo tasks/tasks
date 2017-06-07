@@ -158,24 +158,8 @@
   
   <!-- ============================================================ SYNC == -->
   
-    <string-array name="sync_SPr_interval_values">
-        <!-- sync_SPr_interval_values: interval in seconds for sync entries (do not edit) -->
-        <item>0</item>
-        <item>3600</item>
-        <item>10800</item>
-        <item>21600</item>
-        <item>43200</item>
-        <item>86400</item>
-        <item>259200</item>
-        <item>604800</item>
-    </string-array>
-
     <string name="sync_SPr_forget_key">sync_forget</string>
 
-  <!-- =========================================================== GTASKS == -->
-  
-    <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
-    
   <!-- ============================================================ OTHER == -->
   
   <!-- Default Calendar Preference Key (do not translate) -->
@@ -293,7 +277,6 @@
   <string name="p_theme_color">theme_color</string>
   <string name="p_theme_accent">theme_accent</string>
   <string name="p_gtasks_default_list">default_gtasks_list</string>
-  <string name="p_sync_warning_shown">sync_warning_shown</string>
   <string name="p_language">language</string>
   <string name="p_layout_direction">layout_direction</string>
   <string name="p_led_color">led_color</string>
@@ -319,5 +302,6 @@
   <string name="p_rmd_show_description">rmd_show_description</string>
   <string name="p_start_of_week">start_of_week</string>
   <string name="p_use_native_datetime_pickers">use_native_datetime_pickers</string>
+  <string name="gtask_background_sync">gtask_background_sync</string>
 
 </resources>

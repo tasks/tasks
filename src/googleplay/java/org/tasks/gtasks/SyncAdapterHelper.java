@@ -13,6 +13,8 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.preferences.Preferences;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Inject;
 
 import timber.log.Timber;
@@ -76,7 +78,7 @@ public class SyncAdapterHelper {
                 getAccount() != null;
     }
 
-    private boolean masterSyncEnabled() {
+    public boolean isMasterSyncEnabled() {
         return ContentResolver.getMasterSyncAutomatically();
     }
 
@@ -84,35 +86,21 @@ public class SyncAdapterHelper {
         Account account = getAccount();
         if (account != null) {
             Timber.d("enableSynchronization=%s", enabled);
-            ContentResolver.setIsSyncable(account, AUTHORITY, 1);
+            ContentResolver.setSyncAutomatically(account, AUTHORITY, enabled);
             if (enabled) {
-                setSynchronizationInterval(preferences.getIntegerFromString(R.string.gtasks_GPr_interval_key, 0));
-            } else {
-                setSynchronizationInterval(0);
-            }
-        }
-    }
-
-    public void setSynchronizationInterval(int seconds) {
-        Account account = getAccount();
-        if (account != null) {
-            boolean syncAutomatically = seconds > 0;
-            ContentResolver.setSyncAutomatically(account, AUTHORITY, syncAutomatically);
-            Timber.d("syncAutomatically=%s, syncInterval=%s", syncAutomatically, seconds);
-            if (syncAutomatically) {
-                ContentResolver.addPeriodicSync(account, AUTHORITY, Bundle.EMPTY, seconds);
+                ContentResolver.addPeriodicSync(account, AUTHORITY, Bundle.EMPTY, TimeUnit.HOURS.toSeconds(1));
             } else {
                 ContentResolver.removePeriodicSync(account, AUTHORITY, Bundle.EMPTY);
             }
         }
     }
 
-    private Account getAccount() {
-        return accountManager.getAccount(gtasksPreferenceService.getUserName());
+    public boolean isSyncEnabled() {
+        return isEnabled() && ContentResolver.getSyncAutomatically(getAccount(), AUTHORITY);
     }
 
-    public boolean shouldShowBackgroundSyncWarning() {
-        return isEnabled() && !masterSyncEnabled() && !ContentResolver.getPeriodicSyncs(getAccount(), AUTHORITY).isEmpty();
+    private Account getAccount() {
+        return accountManager.getAccount(gtasksPreferenceService.getUserName());
     }
 
     public void checkPlayServices(TaskListFragment taskListFragment) {

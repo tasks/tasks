@@ -374,14 +374,6 @@
 	<string name="theme_wallpaper">Sfondo</string>
 	<string name="theme_day_night">Giorno/Notte</string>
 	<string name="default_value">Predefinito</string>
-	<string name="sync_interval_disable">disabilita</string>
-	<string name="sync_interval_one_hour">ogni ora</string>
-	<string name="sync_interval_three_hours">ogni tre ore</string>
-	<string name="sync_interval_six_hours">ogni sei ore</string>
-	<string name="sync_interval_twelve_hours">ogni dodici ore</string>
-	<string name="sync_interval_one_day">ogni giorno</string>
-	<string name="sync_interval_three_days">ogni tre giorni</string>
-	<string name="sync_interval_one_week">Ogni settimana</string>
 	<string name="master_sync_warning">La sincronizzazione automatica è disabilitata da Android</string>
 	<string name="settings_general">Generale</string>
 	<string name="language">Lingua</string>

@@ -377,14 +377,6 @@
 	<string name="theme_wallpaper">Шпалери</string>
 	<string name="theme_day_night">День/Ніч</string>
 	<string name="default_value">Типово</string>
-	<string name="sync_interval_disable">вимкнути</string>
-	<string name="sync_interval_one_hour">кожну годину</string>
-	<string name="sync_interval_three_hours">кожні 3 години</string>
-	<string name="sync_interval_six_hours">кожні 6 годин</string>
-	<string name="sync_interval_twelve_hours">кожні 12 годин</string>
-	<string name="sync_interval_one_day">щодня</string>
-	<string name="sync_interval_three_days">кожні 3 дня</string>
-	<string name="sync_interval_one_week">кожного тижня</string>
 	<string name="master_sync_warning">Автоматична синхронізація наразі недоступна в Android</string>
 	<string name="settings_general">Загальні</string>
 	<string name="language">Мова</string>

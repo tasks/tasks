@@ -376,14 +376,6 @@
 	<string name="theme_wallpaper">壁紙</string>
 	<string name="theme_day_night">デイナイト</string>
 	<string name="default_value">デフォルト</string>
-	<string name="sync_interval_disable">無効</string>
-	<string name="sync_interval_one_hour">1時間毎</string>
-	<string name="sync_interval_three_hours">3時間毎</string>
-	<string name="sync_interval_six_hours">6時間毎</string>
-	<string name="sync_interval_twelve_hours">12時間毎</string>
-	<string name="sync_interval_one_day">毎日</string>
-	<string name="sync_interval_three_days">3日に一度</string>
-	<string name="sync_interval_one_week">毎週</string>
 	<string name="master_sync_warning">自動同期は、現在 Android によって無効にされています</string>
 	<string name="settings_general">全般</string>
 	<string name="language">言語</string>

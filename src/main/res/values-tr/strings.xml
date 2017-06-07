@@ -210,14 +210,6 @@
 	<string name="vibration_pause">Titreşimler arasında duraklama (milisaniye)</string>
 	<string name="plugin_description">Tasks, bir geliştirici tarafından tutulan açık kaynaklı bir projedir. Bazı özellikleri, geliştirmeyi desteklemek için uygulama içi satın alma olarak sunulmaktadır.</string>
 	<string name="opacity">Şeffaflık</string>
-	<string name="sync_interval_disable">devre dışı bırak</string>
-	<string name="sync_interval_one_hour">her saat</string>
-	<string name="sync_interval_three_hours">her 3 saat</string>
-	<string name="sync_interval_six_hours">her 6 saat</string>
-	<string name="sync_interval_twelve_hours">her 12 saat</string>
-	<string name="sync_interval_one_day">hergün</string>
-	<string name="sync_interval_three_days">her 3 gün</string>
-	<string name="sync_interval_one_week">her hafta</string>
 	<string name="master_sync_warning">Otomatik eşitleme şu anda Android tarafından devre dışı bırakıldı</string>
 	<string name="settings_localization">Yerelleştirme</string>
 	<string name="layout_direction">Yerleşim yönü</string>

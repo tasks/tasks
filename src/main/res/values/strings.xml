@@ -778,14 +778,6 @@ File %1$s contained %2$s.\n\n
   <string name="theme_day_night">Day/Night</string>
   <string name="default_value">Default</string>
 
-  <string name="sync_interval_disable">Disable</string>
-  <string name="sync_interval_one_hour">Every hour</string>
-  <string name="sync_interval_three_hours">Every three hours</string>
-  <string name="sync_interval_six_hours">Every six hours</string>
-  <string name="sync_interval_twelve_hours">Every twelve hours</string>
-  <string name="sync_interval_one_day">Every day</string>
-  <string name="sync_interval_three_days">Every three days</string>
-  <string name="sync_interval_one_week">Every week</string>
   <string name="master_sync_warning">Automatic synchronization is currently disabled by Android</string>
   <string name="settings_general">General</string>
   <string name="language">Language</string>

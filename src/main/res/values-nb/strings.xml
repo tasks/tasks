@@ -96,12 +96,4 @@
 	<string name="sync_SPr_forget">Logg ut</string>
 	<string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
 	<string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>
-	<string name="sync_interval_disable">deaktiver</string>
-	<string name="sync_interval_one_hour">hver time</string>
-	<string name="sync_interval_three_hours">hver tredje time</string>
-	<string name="sync_interval_six_hours">hver sjette time</string>
-	<string name="sync_interval_twelve_hours">hver tolvte time</string>
-	<string name="sync_interval_one_day">daglig</string>
-	<string name="sync_interval_three_days">hver tredje dag</string>
-	<string name="sync_interval_one_week">hver uke</string>
 </resources>

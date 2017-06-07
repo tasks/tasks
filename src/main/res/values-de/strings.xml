@@ -366,14 +366,6 @@
 	<string name="theme_wallpaper">Hintergrundbild</string>
 	<string name="theme_day_night">Tag/Nacht</string>
 	<string name="default_value">Standard</string>
-	<string name="sync_interval_disable">deaktivieren</string>
-	<string name="sync_interval_one_hour">stündlich</string>
-	<string name="sync_interval_three_hours">alle 3 Stunden</string>
-	<string name="sync_interval_six_hours">alle 6 Stunden</string>
-	<string name="sync_interval_twelve_hours">alle 12 Stunden</string>
-	<string name="sync_interval_one_day">täglich</string>
-	<string name="sync_interval_three_days">jeden dritten Tag</string>
-	<string name="sync_interval_one_week">wöchentlich</string>
 	<string name="master_sync_warning">Automatische Syncronisation ist aktuell im System deaktiviert</string>
 	<string name="settings_general">Allgemein</string>
 	<string name="language">Sprache</string>

@@ -378,14 +378,6 @@
 	<string name="theme_wallpaper">Háttérkép</string>
 	<string name="theme_day_night">Nappal/Éjszaka</string>
 	<string name="default_value">Alapértelmezett</string>
-	<string name="sync_interval_disable">Letiltás</string>
-	<string name="sync_interval_one_hour">Óránként</string>
-	<string name="sync_interval_three_hours">Háromóránként</string>
-	<string name="sync_interval_six_hours">Hatóránként</string>
-	<string name="sync_interval_twelve_hours">Tizenkét óránként</string>
-	<string name="sync_interval_one_day">Naponta</string>
-	<string name="sync_interval_three_days">Háromnaponta</string>
-	<string name="sync_interval_one_week">Hetente</string>
 	<string name="master_sync_warning">Az Android pillanatnyilag letiltotta az automatikus szinkronizálást.</string>
 	<string name="settings_general">Általános</string>
 	<string name="language">Nyelv</string>

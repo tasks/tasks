@@ -236,14 +236,6 @@
 	<string name="theme_blue_grey">蓝灰色</string>
 	<string name="theme_black">黑色</string>
 	<string name="theme_dark_grey">深灰色</string>
-	<string name="sync_interval_disable">停用</string>
-	<string name="sync_interval_one_hour">每小时</string>
-	<string name="sync_interval_three_hours">每3小时</string>
-	<string name="sync_interval_six_hours">每6小时</string>
-	<string name="sync_interval_twelve_hours">每12小时</string>
-	<string name="sync_interval_one_day">每天</string>
-	<string name="sync_interval_three_days">每3天</string>
-	<string name="sync_interval_one_week">每周</string>
 	<string name="language">语言</string>
 	<string name="restart_now">马上重启</string>
 	<string name="restart_later">稍后</string>

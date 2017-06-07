@@ -137,14 +137,6 @@
 	<string name="default_priority">Predeterminat</string>
 	<string name="low_priority">Baix</string>
 	<string name="theme_white">Blanc</string>
-	<string name="sync_interval_disable">desactivat</string>
-	<string name="sync_interval_one_hour">cada hora</string>
-	<string name="sync_interval_three_hours">cada tres hores</string>
-	<string name="sync_interval_six_hours">cada sis hores</string>
-	<string name="sync_interval_twelve_hours">cada dotze hores</string>
-	<string name="sync_interval_one_day">diàriament</string>
-	<string name="sync_interval_three_days">cada tres dies</string>
-	<string name="sync_interval_one_week">setmanalment</string>
 	<string name="language">Idioma</string>
 	<string name="settings_localization">Localització</string>
 	<string name="layout_direction_left_to_right">D\'esquerra a dreta</string>

@@ -265,12 +265,4 @@
 	<string name="show_hidden">Zobraziť skryté</string>
 	<string name="show_completed">Zobraziť dokončené</string>
 	<string name="low_priority">Nízka </string>
-	<string name="sync_interval_disable">zakázať</string>
-	<string name="sync_interval_one_hour">každú hodinu</string>
-	<string name="sync_interval_three_hours">každé tri hodiny</string>
-	<string name="sync_interval_six_hours">každých šesť hodín</string>
-	<string name="sync_interval_twelve_hours">každých dvanásť hodín</string>
-	<string name="sync_interval_one_day">každý deň</string>
-	<string name="sync_interval_three_days">každý tretí deň</string>
-	<string name="sync_interval_one_week">každý týždeň</string>
 </resources>
