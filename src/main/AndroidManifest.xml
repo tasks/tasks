@@ -48,6 +48,11 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
 
+    <!-- *********************************** -->
+    <!-- keep device awake for notifications -->
+    <!-- *********************************** -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <!-- ============================================== Exported Permissions = -->
 
     <!-- for v2 tasks provider -->
