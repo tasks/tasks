@@ -29,11 +29,12 @@ public class AlarmJob extends WakefulJob {
     @Override
     protected void run() {
         if (!preferences.isCurrentlyQuietHours()) {
-            for (Alarm alarm : alarmService.removePastDueAlarms()) {
+            for (Alarm alarm : alarmService.getOverdueAlarms()) {
                 Task task = taskDao.fetch(alarm.getTaskId(), Task.REMINDER_LAST);
                 if (task != null && task.getReminderLast() < alarm.getTime()) {
                     notifier.triggerTaskNotification(alarm.getTaskId(), ReminderService.TYPE_ALARM);
                 }
+                alarmService.remove(alarm);
             }
         }
     }

@@ -189,7 +189,11 @@ public class AlarmService {
         jobs.scheduleNext();
     }
 
-    public List<Alarm> removePastDueAlarms() {
-        return jobs.removeOverdueJobs();
+    public List<Alarm> getOverdueAlarms() {
+        return jobs.getOverdueJobs();
+    }
+
+    public boolean remove(Alarm alarm) {
+        return jobs.remove(alarm);
     }
 }

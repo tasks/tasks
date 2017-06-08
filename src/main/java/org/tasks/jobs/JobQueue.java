@@ -62,13 +62,16 @@ public class JobQueue<T extends JobQueueEntry> {
         }
     }
 
-    public synchronized List<T> removeOverdueJobs() {
+    public synchronized List<T> getOverdueJobs() {
         List<T> result = newArrayList();
-        SortedSet<Long> lapsed = jobs.keySet().headSet(currentTimeMillis() + 1);
-        for (Long key : ImmutableSortedSet.copyOf(lapsed)) {
-            result.addAll(jobs.removeAll(key));
+        for (Long key : jobs.keySet().headSet(currentTimeMillis() + 1)) {
+            result.addAll(jobs.get(key));
         }
         return result;
+    }
+
+    public synchronized boolean remove(T entry) {
+        return jobs.remove(entry.getTime(), entry);
     }
 
     public synchronized void scheduleNext() {

@@ -142,7 +142,39 @@ public class JobQueueTest {
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
                     singletonList(new Reminder(1, now, TYPE_DUE)),
-                    queue.removeOverdueJobs());
+                    queue.getOverdueJobs());
+        }});
+    }
+
+    @Test
+    public void twoOverdueJobsAtSameTimeReturned() {
+        long now = currentTimeMillis();
+
+        queue.add(new Reminder(1, now, TYPE_DUE));
+        queue.add(new Reminder(2, now, TYPE_DUE));
+
+        verify(jobManager).schedule(TAG, now);
+
+        Freeze.freezeAt(now).thawAfter(new Snippet() {{
+            assertEquals(
+                    asList(new Reminder(1, now, TYPE_DUE), new Reminder(2, now, TYPE_DUE)),
+                    queue.getOverdueJobs());
+        }});
+    }
+
+    @Test
+    public void twoOverdueJobsAtDifferentTimes() {
+        long now = currentTimeMillis();
+
+        queue.add(new Reminder(1, now, TYPE_DUE));
+        queue.add(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
+
+        verify(jobManager).schedule(TAG, now);
+
+        Freeze.freezeAt(now + 2 * ONE_MINUTE).thawAfter(new Snippet() {{
+            assertEquals(
+                    asList(new Reminder(1, now, TYPE_DUE), new Reminder(2, now + ONE_MINUTE, TYPE_DUE)),
+                    queue.getOverdueJobs());
         }});
     }
 
@@ -156,7 +188,7 @@ public class JobQueueTest {
         verify(jobManager).schedule(TAG, now);
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
-            queue.removeOverdueJobs();
+            queue.remove(new Reminder(1, now, TYPE_DUE));
         }});
 
         assertEquals(
@@ -175,7 +207,8 @@ public class JobQueueTest {
         verify(jobManager).schedule(TAG, now);
 
         Freeze.freezeAt(now + ONE_MINUTE).thawAfter(new Snippet() {{
-            queue.removeOverdueJobs();
+            queue.remove(new Reminder(1, now, TYPE_DUE));
+            queue.remove(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
         }});
 
         assertEquals(

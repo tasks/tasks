@@ -32,6 +32,7 @@ public class ReminderJob extends WakefulJob {
         if (!preferences.isCurrentlyQuietHours()) {
             for (Reminder reminder : reminderService.getPastReminders()) {
                 notifier.triggerTaskNotification(reminder.getId(), reminder.getType());
+                reminderService.remove(reminder);
             }
         }
     }

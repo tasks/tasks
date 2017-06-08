@@ -97,7 +97,11 @@ public final class ReminderService  {
     }
 
     public List<Reminder> getPastReminders() {
-        return jobs.removeOverdueJobs();
+        return jobs.getOverdueJobs();
+    }
+
+    public boolean remove(Reminder reminder) {
+        return jobs.remove(reminder);
     }
 
     public void scheduleNextJob() {

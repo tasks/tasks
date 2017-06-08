@@ -15,6 +15,7 @@ public abstract class Job extends InjectingIntentService {
 
     public Job(String name) {
         super(name);
+        setIntentRedelivery(true);
     }
 
     @Override
