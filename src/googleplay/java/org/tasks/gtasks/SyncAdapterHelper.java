@@ -22,6 +22,7 @@ import timber.log.Timber;
 public class SyncAdapterHelper {
 
     private static final String AUTHORITY = "org.tasks";
+    public static final String SYNC_FULL = "full";
 
     private final AccountManager accountManager;
     private final Preferences preferences;
@@ -60,6 +61,20 @@ public class SyncAdapterHelper {
         // Disable sync backoff and ignore sync preferences. In other words...perform sync NOW!
         extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         extras.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        ContentResolver.requestSync(account, AUTHORITY, extras);
+        return true;
+    }
+
+    public boolean initiateManualFullSync() {
+        Account account = getAccount();
+        if (account == null) {
+            return false;
+        }
+        Bundle extras = new Bundle();
+        // Disable sync backoff and ignore sync preferences. In other words...perform sync NOW!
+        extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        extras.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        extras.putBoolean(SYNC_FULL, true);
         ContentResolver.requestSync(account, AUTHORITY, extras);
         return true;
     }

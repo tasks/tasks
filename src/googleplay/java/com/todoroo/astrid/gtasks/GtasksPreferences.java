@@ -80,6 +80,24 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
             syncAdapterHelper.enableSynchronization((Boolean) o);
             return true;
         });
+        boolean useNote = gtasksPreferenceService.getUseNoteForMetadataSync();
+        final CheckBoxPreference gtaskUseNotePreference = (CheckBoxPreference) findPreference(getString(R.string.gtasks_sync_metadata_using_note_key));
+        gtaskUseNotePreference.setChecked(useNote);
+        gtaskUseNotePreference.setOnPreferenceChangeListener((preference, o) -> {
+            String summary = getString(((Boolean) o)?R.string.sync_force_add:R.string.sync_force_delete);
+            findPreference(getString(R.string.sync_force)).setSummary(summary);
+            return true;
+        });
+        Preference gtaskForcePreference = findPreference(getString(R.string.sync_force));
+        gtaskForcePreference.setEnabled(!gtasksPreferenceService.isOngoing());
+        gtaskForcePreference.setOnPreferenceClickListener(preference -> {
+            gtaskForcePreference.setEnabled(false);
+            if (!gtasksPreferenceService.isOngoing()) {
+                syncAdapterHelper.initiateManualFullSync();
+            }
+            return true;
+        });
+        findPreference(getString(R.string.sync_force)).setSummary(getString(useNote?R.string.sync_force_add:R.string.sync_force_delete));
         findPreference(getString(R.string.sync_SPr_forget_key)).setOnPreferenceClickListener(preference -> {
             dialogBuilder.newMessageDialog(R.string.sync_forget_confirm)
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {

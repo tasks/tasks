@@ -153,7 +153,8 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         RecordSyncStatusCallback callback = new RecordSyncStatusCallback(gtasksPreferenceService, broadcaster);
         try {
             callback.started();
-            synchronize();
+            boolean full = extras.getBoolean(SyncAdapterHelper.SYNC_FULL, false);
+            synchronize(full);
             gtasksPreferenceService.recordSuccessfulSync();
         } catch (UserRecoverableAuthIOException e) {
             Timber.e(e, e.getMessage());
@@ -182,8 +183,8 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         notificationManager.notify(Constants.NOTIFICATION_SYNC_ERROR, builder.build());
     }
 
-    private void synchronize() throws IOException {
-        pushLocalChanges();
+    private void synchronize(boolean full) throws IOException {
+        pushLocalChanges(full);
 
         List<TaskList> gtaskLists = new ArrayList<>();
         String nextPageToken = null;
@@ -207,10 +208,12 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         }
     }
 
-    private void pushLocalChanges() throws UserRecoverableAuthIOException {
-        List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES)
-                .join(Join.left(Metadata.TABLE, Criterion.and(MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK))))
-                .where(Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC), GtasksMetadata.ID.eq(""))));
+    private void pushLocalChanges(boolean full) throws UserRecoverableAuthIOException {
+        Query query = Query.select(Task.PROPERTIES).join(Join.left(Metadata.TABLE, Criterion.and(MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK))));
+        if (!full) {
+            query = query.where(Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC), GtasksMetadata.ID.eq("")));
+        }
+        List<Task> tasks = taskDao.toList(query);
         for (Task task : tasks) {
             try {
                 pushTask(task, task.getMergedValues(), gtasksInvoker);

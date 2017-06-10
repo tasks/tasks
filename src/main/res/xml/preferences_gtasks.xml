@@ -32,6 +32,11 @@
             android:title="@string/sync_metadata_using_note" />
         <com.todoroo.astrid.ui.MultilinePreference
             android:dependency="@string/sync_gtasks"
+            android:key="@string/sync_force"
+            android:title="@string/sync_force">
+        </com.todoroo.astrid.ui.MultilinePreference>
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:dependency="@string/sync_gtasks"
             android:key="@string/sync_SPr_forget_key"
             android:summary="@string/sync_SPr_forget_description"
             android:title="@string/sync_SPr_forget">
