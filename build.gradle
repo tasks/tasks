@@ -7,10 +7,13 @@ task wrapper(type: Wrapper) {
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url 'https://maven.google.com'
+        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:3.0.0-alpha3'
     }
 }
 
@@ -26,18 +29,15 @@ android {
     }
 
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "org.tasks"
-        versionCode 448
-        versionName "4.9.10"
-        minSdkVersion 15
+        versionCode 457
+        versionName "4.9.14"
         targetSdkVersion 25
+        minSdkVersion 15
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions {
-            enabled true
-        }
     }
 
     signingConfigs {
@@ -47,7 +47,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-        incremental false
     }
 
     buildTypes {
@@ -61,7 +60,7 @@ android {
         }
     }
 
-    flavorDimensions 'store', 'env'
+    flavorDimensions 'store'
 
     productFlavors {
         generic {
@@ -72,13 +71,6 @@ android {
         }
         amazon {
             dimension 'store'
-        }
-        dev {
-            minSdkVersion 21
-            dimension 'env'
-        }
-        prod {
-            dimension 'env'
         }
     }
 
@@ -101,9 +93,10 @@ configurations {
 }
 
 final DAGGER_VERSION = '2.9'
-final BUTTERKNIFE_VERSION = '8.5.1'
-final GPS_VERSION = '10.0.1'
-final SUPPORT_VERSION = '25.2.0'
+final BUTTERKNIFE_VERSION = '8.6.0'
+final GPS_VERSION = '10.2.6'
+final SUPPORT_VERSION = '25.3.1'
+final SUPPORT_ANNOTATIONS_VERSION = '26.0.0-alpha1'
 final STETHO_VERSION = '1.4.2'
 final TESTING_SUPPORT_VERSION = '0.5'
 
@@ -114,7 +107,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
 
-    debugCompile "com.facebook.stetho:stetho:${STETHO_VERSION}"
+    debugCompile ("com.facebook.stetho:stetho:${STETHO_VERSION}") {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
     debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     //noinspection GradleCompatible
@@ -128,6 +123,7 @@ dependencies {
     compile "com.android.support:cardview-v7:${SUPPORT_VERSION}"
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+    //noinspection GradleDependency
     compile 'com.google.guava:guava:20.0'
     compile 'com.jakewharton:process-phoenix:1.1.1'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
@@ -158,5 +154,5 @@ dependencies {
     androidTestCompile 'com.natpryce:make-it-easy:4.0.1'
     androidTestCompile "com.android.support.test:runner:${TESTING_SUPPORT_VERSION}"
     androidTestCompile "com.android.support.test:rules:${TESTING_SUPPORT_VERSION}"
-    androidTestCompile "com.android.support:support-annotations:${SUPPORT_VERSION}"
+    androidTestCompile "com.android.support:support-annotations:${SUPPORT_ANNOTATIONS_VERSION}"
 }

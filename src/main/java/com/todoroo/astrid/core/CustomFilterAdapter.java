@@ -44,7 +44,7 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     public CustomFilterAdapter(CustomFilterActivity activity, DialogBuilder dialogBuilder,
                                List<CriterionInstance> objects, Locale locale) {
-        super(activity, R.id.name, objects);
+        super(activity, 0, objects);
         this.activity = activity;
         this.dialogBuilder = dialogBuilder;
         this.locale = locale;

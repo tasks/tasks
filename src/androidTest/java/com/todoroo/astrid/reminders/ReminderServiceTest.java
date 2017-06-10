@@ -1,45 +1,72 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
 package com.todoroo.astrid.reminders;
 
-import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
+import org.tasks.Snippet;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
+import org.tasks.jobs.JobQueue;
+import org.tasks.jobs.Reminder;
+import org.tasks.preferences.Preferences;
+import org.tasks.reminders.Random;
+import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
-import static android.support.test.InstrumentationRegistry.getContext;
-import static android.support.test.InstrumentationRegistry.getTargetContext;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import static com.natpryce.makeiteasy.MakeItEasy.with;
+import static com.todoroo.andlib.utility.DateUtilities.ONE_HOUR;
+import static com.todoroo.andlib.utility.DateUtilities.ONE_WEEK;
+import static com.todoroo.astrid.data.Task.NOTIFY_AFTER_DEADLINE;
+import static com.todoroo.astrid.data.Task.NOTIFY_AT_DEADLINE;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 import static org.tasks.Freeze.freezeClock;
-import static org.tasks.Freeze.thaw;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.makers.TaskMaker.COMPLETION_TIME;
+import static org.tasks.makers.TaskMaker.CREATION_TIME;
+import static org.tasks.makers.TaskMaker.DELETION_TIME;
+import static org.tasks.makers.TaskMaker.DUE_DATE;
+import static org.tasks.makers.TaskMaker.DUE_TIME;
+import static org.tasks.makers.TaskMaker.ID;
+import static org.tasks.makers.TaskMaker.PRIORITY;
+import static org.tasks.makers.TaskMaker.RANDOM_REMINDER_PERIOD;
+import static org.tasks.makers.TaskMaker.REMINDERS;
+import static org.tasks.makers.TaskMaker.REMINDER_LAST;
+import static org.tasks.makers.TaskMaker.SNOOZE_TIME;
+import static org.tasks.makers.TaskMaker.newTask;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @RunWith(AndroidJUnit4.class)
 public class ReminderServiceTest extends InjectingTestCase {
 
-    @Inject TaskDao taskDao;
-    @Inject ReminderService reminderService;
+    @Inject Preferences preferences;
 
-    @Override
-    public void setUp() {
-        super.setUp();
-        freezeClock();
+    private ReminderService service;
+    private Random random;
+    private JobQueue<Reminder> jobs;
+
+    @Before
+    public void before() {
+        jobs = mock(JobQueue.class);
+        random = mock(Random.class);
+        when(random.nextFloat()).thenReturn(1.0f);
+        service = new ReminderService(preferences, jobs, random);
+    }
+
+    @After
+    public void after() {
+        verifyNoMoreInteractions(jobs);
     }
 
     @Override
@@ -47,222 +74,280 @@ public class ReminderServiceTest extends InjectingTestCase {
         component.inject(this);
     }
 
-    @After
-    public void tearDown() {
-        thaw();
+    @Test
+    public void dontScheduleDueDateReminderWhenFlagNotSet() {
+        service.scheduleAlarm(null, newTask(with(ID, 1L), with(DUE_TIME, newDateTime())));
+
+        verify(jobs).cancel(1);
     }
 
     @Test
-    public void testNoReminders() {
-        reminderService.setScheduler(new NoAlarmExpected());
+    public void dontScheduleDueDateReminderWhenTimeNotSet() {
+        service.scheduleAlarm(null, newTask(with(ID, 1L), with(REMINDERS, NOTIFY_AT_DEADLINE)));
 
-        Task task = new Task();
-        task.setTitle("water");
-        task.setReminderFlags(0);
-        task.setReminderPeriod(0L);
-        taskDao.save(task);
-        reminderService.scheduleAlarm(taskDao, task);
+        verify(jobs).cancel(1);
     }
 
     @Test
-    public void testDueDates() {
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getTargetContext(), task, time, type);
-                assertEquals((long) task.getDueDate(), time);
-                assertEquals(type, ReminderService.TYPE_DUE);
-            }
-        });
+    public void schedulePastDueDate() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, newDateTime().minusDays(1)),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
+        service.scheduleAlarm(null, task);
 
-        // test due date in the past
-        final Task task = new Task();
-        task.setTitle("water");
-        task.setDueDate(DateUtilities.now() - DateUtilities.ONE_DAY);
-        task.setReminderFlags(Task.NOTIFY_AT_DEADLINE);
-        taskDao.save(task);
-
-        // test due date in the future
-        task.setDueDate(DateUtilities.now() + DateUtilities.ONE_DAY);
-        taskDao.save(task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancel(1);
+        order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
     }
 
     @Test
-    public void testRandom() {
-        // test random
-        final Task task = new Task();
-        task.setTitle("water");
-        task.setReminderPeriod(DateUtilities.ONE_WEEK);
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getContext(), task, time, type);
-                assertTrue(time > DateUtilities.now());
-                assertTrue(time < DateUtilities.now() + 1.2 * DateUtilities.ONE_WEEK);
-                assertEquals(type, ReminderService.TYPE_RANDOM);
-            }
-        });
-        taskDao.save(task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
+    public void scheduleFutureDueDate() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, newDateTime().plusDays(1)),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
+        service.scheduleAlarm(null, task);
+
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancel(1);
+        order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
     }
 
     @Test
-    public void testOverdue() {
-        // test due date in the future
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getContext(), task, time, type);
-                assertTrue(time > task.getDueDate());
-                assertTrue(time < task.getDueDate() + DateUtilities.ONE_DAY);
-                assertEquals(type, ReminderService.TYPE_OVERDUE);
-            }
-        });
-        final Task task = new Task();
-        task.setTitle("water");
-        task.setDueDate(DateUtilities.now() + DateUtilities.ONE_DAY);
-        task.setReminderFlags(Task.NOTIFY_AFTER_DEADLINE);
-        taskDao.save(task);
+    public void scheduleReminderAtDefaultDueTime() {
+        DateTime now = newDateTime();
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_DATE, now),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
+        service.scheduleAlarm(null, task);
 
-        // test due date in the past
-        task.setDueDate(DateUtilities.now() - DateUtilities.ONE_DAY);
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getContext(), task, time, type);
-                assertTrue(time > DateUtilities.now() - 1000L);
-                assertTrue(time < DateUtilities.now() + 2 * DateUtilities.ONE_DAY);
-                assertEquals(type, ReminderService.TYPE_OVERDUE);
-            }
-        });
-        taskDao.save(task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
-
-        // test due date in the past, but recently notified
-        task.setReminderLast(DateUtilities.now());
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getContext(), task, time, type);
-                assertTrue(time > DateUtilities.now() + DateUtilities.ONE_HOUR);
-                assertTrue(time < DateUtilities.now() + DateUtilities.ONE_DAY);
-                assertEquals(type, ReminderService.TYPE_OVERDUE);
-            }
-        });
-        taskDao.save(task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancel(1);
+        order.verify(jobs).add(new Reminder(1, now.startOfDay().withHourOfDay(18).getMillis(), ReminderService.TYPE_DUE));
     }
 
     @Test
-    public void testMultipleReminders() {
-        // test due date in the future, enable random
-        final Task task = new Task();
-        task.setTitle("water");
-        task.setDueDate(DateUtilities.now() + DateUtilities.ONE_WEEK);
-        task.setReminderFlags(Task.NOTIFY_AT_DEADLINE);
-        task.setReminderPeriod(DateUtilities.ONE_HOUR);
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getContext(), task, time, type);
-                assertTrue(time > DateUtilities.now());
-                assertTrue(time < DateUtilities.now() + DateUtilities.ONE_DAY);
-                assertEquals(type, ReminderService.TYPE_RANDOM);
-            }
-        });
-        taskDao.save(task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
+    public void dontScheduleReminderForCompletedTask() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, newDateTime().plusDays(1)),
+                with(COMPLETION_TIME, newDateTime()),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
 
-        // now set the due date in the past
-        task.setDueDate(DateUtilities.now() - DateUtilities.ONE_WEEK);
-        ((AlarmExpected) reminderService.getScheduler()).alarmCreated = false;
-        reminderService.scheduleAlarm(taskDao, task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
+        service.scheduleAlarm(null, task);
 
-        // now set the due date before the random
-        task.setDueDate(DateUtilities.now() + DateUtilities.ONE_HOUR);
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getContext(), task, time, type);
-                assertEquals((long) task.getDueDate(), time);
-                assertEquals(type, ReminderService.TYPE_DUE);
-            }
-        });
-        taskDao.save(task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
+        verify(jobs).cancel(1);
     }
 
     @Test
-    public void testSnoozeReminders() {
-        thaw(); // TODO: get rid of this
+    public void dontScheduleReminderForDeletedTask() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, newDateTime().plusDays(1)),
+                with(DELETION_TIME, newDateTime()),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
 
-        // test due date and snooze in the future
-        final Task task = new Task();
-        task.setTitle("spacemen");
-        task.setDueDate(DateUtilities.now() + 5000L);
-        task.setReminderFlags(Task.NOTIFY_AT_DEADLINE);
-        task.setReminderSnooze(DateUtilities.now() + DateUtilities.ONE_WEEK);
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getContext(), task, time, type);
-                assertTrue(time > DateUtilities.now() + DateUtilities.ONE_WEEK - 1000L);
-                assertTrue(time < DateUtilities.now() + DateUtilities.ONE_WEEK + 1000L);
-                assertEquals(type, ReminderService.TYPE_SNOOZE);
-            }
-        });
-        taskDao.save(task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
+        service.scheduleAlarm(null, task);
 
-        // snooze in the past
-        task.setReminderSnooze(DateUtilities.now() - DateUtilities.ONE_WEEK);
-        reminderService.setScheduler(new AlarmExpected() {
-            @Override
-            public void createAlarm(Context context, Task task, long time, int type) {
-                if (time == ReminderService.NO_ALARM)
-                    return;
-                super.createAlarm(getContext(), task, time, type);
-                assertTrue(time > DateUtilities.now() - 1000L);
-                assertTrue(time < DateUtilities.now() + 5000L);
-                assertEquals(type, ReminderService.TYPE_DUE);
-            }
-        });
-        taskDao.save(task);
-        assertTrue(((AlarmExpected) reminderService.getScheduler()).alarmCreated);
+        verify(jobs).cancel(1);
     }
 
-    // --- helper classes
+    @Test
+    public void dontScheduleDueDateReminderWhenAlreadyReminded() {
+        DateTime now = newDateTime();
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, now),
+                with(REMINDER_LAST, now.plusSeconds(1)),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
 
-    public class NoAlarmExpected implements AlarmScheduler {
-        public void createAlarm(Context context, Task task, long time, int type) {
-            if(time == 0 || time == Long.MAX_VALUE)
-                return;
-            fail("created alarm, no alarm expected (" + type + ": " + newDateTime(time));
-        }
+        service.scheduleAlarm(null, task);
+
+        verify(jobs).cancel(1);
     }
 
-    public class AlarmExpected implements AlarmScheduler {
-        public boolean alarmCreated = false;
-        public void createAlarm(Context context, Task task, long time, int type) {
-            alarmCreated = true;
-        }
+    @Test
+    public void ignoreLapsedSnoozeTime() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, newDateTime()),
+                with(SNOOZE_TIME, newDateTime().minusMinutes(5)),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
+        service.scheduleAlarm(null, task);
+
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancel(1);
+        order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
+
+    }
+
+    @Test
+    public void scheduleInitialRandomReminder() {
+        freezeClock().thawAfter(new Snippet() {{
+            DateTime now = newDateTime();
+            when(random.nextFloat()).thenReturn(0.3865f);
+            Task task = newTask(
+                    with(ID, 1L),
+                    with(REMINDER_LAST, (DateTime) null),
+                    with(CREATION_TIME, now.minusDays(1)),
+                    with(RANDOM_REMINDER_PERIOD, ONE_WEEK));
+
+            service.scheduleAlarm(null, task);
+
+            InOrder order = inOrder(jobs);
+            order.verify(jobs).cancel(1);
+            order.verify(jobs).add(new Reminder(1L, now.minusDays(1).getMillis() + 584206592, ReminderService.TYPE_RANDOM));
+        }});
+    }
+
+    @Test
+    public void scheduleNextRandomReminder() {
+        freezeClock().thawAfter(new Snippet() {{
+            DateTime now = newDateTime();
+            when(random.nextFloat()).thenReturn(0.3865f);
+            Task task = newTask(
+                    with(ID, 1L),
+                    with(REMINDER_LAST, now.minusDays(1)),
+                    with(CREATION_TIME, now.minusDays(30)),
+                    with(RANDOM_REMINDER_PERIOD, ONE_WEEK));
+
+            service.scheduleAlarm(null, task);
+
+            InOrder order = inOrder(jobs);
+            order.verify(jobs).cancel(1);
+            order.verify(jobs).add(new Reminder(1L, now.minusDays(1).getMillis() + 584206592, ReminderService.TYPE_RANDOM));
+        }});
+    }
+
+    @Test
+    public void scheduleOverdueRandomReminder() {
+        freezeClock().thawAfter(new Snippet() {{
+            DateTime now = newDateTime();
+            when(random.nextFloat()).thenReturn(0.3865f);
+            Task task = newTask(
+                    with(ID, 1L),
+                    with(REMINDER_LAST, now.minusDays(14)),
+                    with(CREATION_TIME, now.minusDays(30)),
+                    with(RANDOM_REMINDER_PERIOD, ONE_WEEK));
+
+            service.scheduleAlarm(null, task);
+
+            InOrder order = inOrder(jobs);
+            order.verify(jobs).cancel(1);
+            order.verify(jobs).add(new Reminder(1L, now.getMillis() + 10148400, ReminderService.TYPE_RANDOM));
+        }});
+    }
+
+    @Test
+    public void scheduleOverdueForFutureDueDate() {
+        freezeClock().thawAfter(new Snippet() {{
+            when(random.nextFloat()).thenReturn(0.3865f);
+            Task task = newTask(
+                    with(ID, 1L),
+                    with(DUE_TIME, newDateTime().plusMinutes(5)),
+                    with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+
+            service.scheduleAlarm(null, task);
+
+            InOrder order = inOrder(jobs);
+            order.verify(jobs).cancel(1);
+            order.verify(jobs).add(new Reminder(1L, task.getDueDate() + 4582800, ReminderService.TYPE_OVERDUE));
+        }});
+    }
+
+    @Test
+    public void scheduleOverdueForPastDueDateWithNoReminderPastDueDate() {
+        freezeClock().thawAfter(new Snippet() {{
+            DateTime now = newDateTime();
+            Task task = newTask(
+                    with(ID, 1L),
+                    with(DUE_TIME, now.minusMinutes(5)),
+                    with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+
+            service.scheduleAlarm(null, task);
+
+            InOrder order = inOrder(jobs);
+            order.verify(jobs).cancel(1);
+            order.verify(jobs).add(new Reminder(1L, currentTimeMillis(), ReminderService.TYPE_OVERDUE));
+        }});
+    }
+
+    @Test
+    public void scheduleOverdueForPastDueDateLastReminderSixHoursAgo() {
+        freezeClock().thawAfter(new Snippet() {{
+            Task task = newTask(
+                    with(ID, 1L),
+                    with(DUE_TIME, newDateTime().minusHours(12)),
+                    with(REMINDER_LAST, newDateTime().minusHours(6)),
+                    with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+
+            service.scheduleAlarm(null, task);
+
+            InOrder order = inOrder(jobs);
+            order.verify(jobs).cancel(1);
+            order.verify(jobs).add(new Reminder(1L, currentTimeMillis(), ReminderService.TYPE_OVERDUE));
+        }});
+    }
+
+    @Test
+    public void scheduleOverdueForPastDueDateLastReminderWithinSixHours() {
+        freezeClock().thawAfter(new Snippet() {{
+            when(random.nextFloat()).thenReturn(0.3865f);
+            Task task = newTask(
+                    with(ID, 1L),
+                    with(DUE_TIME, newDateTime().minusHours(12)),
+                    with(PRIORITY, 2),
+                    with(REMINDER_LAST, newDateTime().minusHours(3)),
+                    with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+
+            service.scheduleAlarm(null, task);
+
+            InOrder order = inOrder(jobs);
+            order.verify(jobs).cancel(1);
+            order.verify(jobs).add(new Reminder(1L, currentTimeMillis() + 22748400, ReminderService.TYPE_OVERDUE));
+        }});
+    }
+
+    @Test
+    public void snoozeOverridesAll() {
+        DateTime now = newDateTime();
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, now),
+                with(SNOOZE_TIME, now.plusMonths(12)),
+                with(REMINDERS, NOTIFY_AT_DEADLINE | NOTIFY_AFTER_DEADLINE),
+                with(RANDOM_REMINDER_PERIOD, ONE_HOUR));
+
+        service.scheduleAlarm(null, task);
+
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancel(1);
+        order.verify(jobs).add(new Reminder(1, now.plusMonths(12).getMillis(), ReminderService.TYPE_SNOOZE));
+    }
+
+    @Test
+    @Ignore
+    public void randomReminderBeforeDueAndOverdue() {
+
+    }
+
+    @Test
+    @Ignore
+    public void randomReminderAfterDue() {
+
+    }
+
+    @Test
+    @Ignore
+    public void randomReminderAfterOverdue() {
+
+    }
+
+    @Test
+    @Ignore
+    public void dueDateBeforeOverdue() {
+
     }
 }

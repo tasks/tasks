@@ -2,7 +2,6 @@ package org.tasks.files;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,6 +18,8 @@ import org.tasks.preferences.PermissionRequestor;
 import java.io.File;
 
 import javax.inject.Inject;
+
+import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class FileExplore extends InjectingAppCompatActivity {
 
@@ -79,12 +80,10 @@ public class FileExplore extends InjectingAppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_FILE_WRITE) {
-            if (grantResults.length > 0) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    launchPicker();
-                } else {
-                    finish();
-                }
+            if (verifyPermissions(grantResults)) {
+                launchPicker();
+            } else {
+                finish();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

@@ -31,6 +31,8 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 public class AddAttachmentActivity extends InjectingAppCompatActivity implements DialogInterface.OnCancelListener, AddAttachmentDialog.AddAttachmentCallback {
 
     private static final String FRAG_TAG_ATTACHMENT_DIALOG = "frag_tag_attachment_dialog";
@@ -159,7 +161,9 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
 
     private File getFilename(String extension) {
         AtomicReference<String> nameRef = new AtomicReference<>();
-        if (!extension.startsWith(".")) {
+        if (isNullOrEmpty(extension)) {
+            extension = "";
+        } else if (!extension.startsWith(".")) {
             extension = "." + extension;
         }
         try {

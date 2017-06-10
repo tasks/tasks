@@ -330,9 +330,6 @@
 	<string name="send_anonymous_statistics_summary">שליחת סטסיטיקות ודיווחי קריסה של האפליקציה באופן אנונימי. מידע אישי לא נאסף כלל.</string>
 	<string name="tag_already_exists">תגית כבר קיימת</string>
 	<string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
-	<string name="doze_notifications">ניטרול Doze Mode בהתראות</string>
-	<string name="doze_notifications_off">אנדרואיד יעכב את ההתראות באופן משמעותי כאשר Doze mode פעיל</string>
-	<string name="doze_notifications_on">מערכת אנדרואיד תאפשר מספר מוגבל של יקיצות כאשר המכשיר במצב Doze</string>
 	<string name="no_title">(אין כותרת)</string>
 	<string name="back_button_saves_task">כפתור \"חזרה\" שומר שינויים במשימה</string>
 	<string name="default_list">רשימת ברירת מחדל</string>
@@ -378,14 +375,6 @@
 	<string name="theme_wallpaper">תמונת רקע</string>
 	<string name="theme_day_night">יום / לילה</string>
 	<string name="default_value">ברירת מחדל</string>
-	<string name="sync_interval_disable">השבת</string>
-	<string name="sync_interval_one_hour">כל שעה</string>
-	<string name="sync_interval_three_hours">כל שלוש שעות</string>
-	<string name="sync_interval_six_hours">כל שש שעות</string>
-	<string name="sync_interval_twelve_hours">כל שתים עשרה שעות</string>
-	<string name="sync_interval_one_day">כל יום</string>
-	<string name="sync_interval_three_days">כל שלושה ימים</string>
-	<string name="sync_interval_one_week">כל שבוע</string>
 	<string name="master_sync_warning">סנכרון אוטומטי כרגע מושבת ע\"י Android</string>
 	<string name="settings_general">כללי</string>
 	<string name="language">שפה</string>

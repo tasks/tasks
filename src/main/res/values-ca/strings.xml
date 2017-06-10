@@ -65,6 +65,7 @@
 	<string name="EPr_manage_delete_completed_gcal_message">Segur que voleu suprimir els esdeveniments de calendari de les tasques completades?</string>
 	<string name="day_after_tomorrow">Demà passat</string>
 	<string name="next_week">La setmana que ve</string>
+	<string name="dont_hide">No amagis</string>
 	<string name="BFE_Active">Tasques actives</string>
 	<string name="BFE_Recent">Modificades fa poc</string>
 	<string name="CFA_universe_all">Tasques actives</string>
@@ -106,6 +107,7 @@
 	<string name="TFE_workingOn">Tasques sent cronometrades</string>
 	<string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
 	<string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
+	<string name="TEA_timer_comment_spent">Temps invertit</string>
 	<string name="delete_task">Eliminar tasca</string>
 	<plurals name="Ntasks">
 		<item quantity="one">1 tasca</item>
@@ -125,21 +127,19 @@
 	<string name="report_an_issue">Informa d\'un problema</string>
 	<string name="contact_developer">Contacta amb el desenvolupador</string>
 	<string name="quiet_hours_summary">Sense recordatoris durant les hores de silenci</string>
+	<string name="geofence_radius_title">Radi (metres)</string>
+	<string name="filters">Filtres</string>
 	<string name="filter_settings">Configuració dels filtres</string>
 	<string name="show_hidden">Mostra ocultes</string>
 	<string name="show_completed">Mostra completades</string>
+	<string name="reverse">Ordenació inversa</string>
 	<string name="high_priority">Alta</string>
 	<string name="default_priority">Predeterminat</string>
 	<string name="low_priority">Baix</string>
-	<string name="sync_interval_disable">desactivat</string>
-	<string name="sync_interval_one_hour">cada hora</string>
-	<string name="sync_interval_three_hours">cada tres hores</string>
-	<string name="sync_interval_six_hours">cada sis hores</string>
-	<string name="sync_interval_twelve_hours">cada dotze hores</string>
-	<string name="sync_interval_one_day">diàriament</string>
-	<string name="sync_interval_three_days">cada tres dies</string>
-	<string name="sync_interval_one_week">setmanalment</string>
+	<string name="theme_white">Blanc</string>
+	<string name="language">Idioma</string>
 	<string name="settings_localization">Localització</string>
 	<string name="layout_direction_left_to_right">D\'esquerra a dreta</string>
 	<string name="layout_direction_right_to_left">De dreta a esquerra</string>
+	<string name="led_notification">Led de notificació</string>
 </resources>

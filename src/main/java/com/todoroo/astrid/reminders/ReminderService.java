@@ -5,11 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import android.annotation.SuppressLint;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
@@ -20,26 +15,19 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
-import org.tasks.injection.ForApplication;
+import org.tasks.jobs.JobManager;
+import org.tasks.jobs.JobQueue;
+import org.tasks.jobs.Reminder;
 import org.tasks.preferences.Preferences;
-import org.tasks.receivers.TaskNotificationReceiver;
-import org.tasks.scheduling.AlarmManager;
+import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
 
-import java.util.Random;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
-/**
- * Data service for reminders
- *
- * @author Tim Su <tim@todoroo.com>
- *
- */
 @ApplicationScope
 public final class ReminderService  {
 
@@ -69,37 +57,38 @@ public final class ReminderService  {
     /** flag for an alarm reminder */
     public static final int TYPE_ALARM = 4;
 
-    private static final Random random = new Random();
+    private static final long NO_ALARM = Long.MAX_VALUE;
 
-    // --- instance variables
-
-    private AlarmScheduler scheduler;
-
-    private long now = -1; // For tracking when reminders might be scheduled all at once
-    private final Context context;
+    private final JobQueue<Reminder> jobs;
+    private final Random random;
     private final Preferences preferences;
 
+    private long now = -1; // For tracking when reminders might be scheduled all at once
+
     @Inject
-    ReminderService(@ForApplication Context context, Preferences preferences, AlarmManager alarmManager) {
-        this.context = context;
+    ReminderService(Preferences preferences, JobManager jobManager) {
+        this(preferences, JobQueue.newReminderQueue(preferences, jobManager), new Random());
+    }
+
+    ReminderService(Preferences preferences, JobQueue<Reminder> jobs, Random random) {
         this.preferences = preferences;
-        scheduler = new ReminderAlarmScheduler(alarmManager);
+        this.jobs = jobs;
+        this.random = random;
     }
 
     private static final int MILLIS_PER_HOUR = 60 * 60 * 1000;
 
-    // --- reminder scheduling logic
-
-    /**
-     * Schedules all alarms
-     */
     public void scheduleAllAlarms(TaskDao taskDao) {
         now = DateUtilities.now(); // Before mass scheduling, initialize now variable
         Query query = Query.select(NOTIFICATION_PROPERTIES).where(Criterion.and(
                 TaskCriteria.isActive(),
                 Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0))));
-        taskDao.forEach(query, task -> scheduleAlarm(task, null));
+        taskDao.forEach(query, task -> scheduleAlarm(null, task));
         now = -1; // Signal done with now variable
+    }
+
+    public void clear() {
+        jobs.clear();
     }
 
     private long getNowValue() {
@@ -107,32 +96,29 @@ public final class ReminderService  {
         return (now == -1 ? DateUtilities.now() : now);
     }
 
-    public static final long NO_ALARM = Long.MAX_VALUE;
+    public List<Reminder> getPastReminders() {
+        return jobs.getOverdueJobs();
+    }
 
-    /**
-     * Schedules alarms for a single task
-     */
+    public boolean remove(Reminder reminder) {
+        return jobs.remove(reminder);
+    }
+
+    public void scheduleNextJob() {
+        jobs.scheduleNext();
+    }
+
     public void scheduleAlarm(TaskDao taskDao, Task task) {
-        scheduleAlarm(task, taskDao);
-    }
-
-    private void clearAllAlarms(Task task) {
-        scheduler.createAlarm(context, task, NO_ALARM, TYPE_SNOOZE);
-        scheduler.createAlarm(context, task, NO_ALARM, TYPE_RANDOM);
-        scheduler.createAlarm(context, task, NO_ALARM, TYPE_DUE);
-        scheduler.createAlarm(context, task, NO_ALARM, TYPE_OVERDUE);
-    }
-
-    private void scheduleAlarm(Task task, TaskDao taskDao) {
         if(task == null || !task.isSaved()) {
             return;
         }
 
         // read data if necessary
+        long taskId = task.getId();
         if(taskDao != null) {
             for(Property<?> property : NOTIFICATION_PROPERTIES) {
                 if(!task.containsValue(property)) {
-                    task = taskDao.fetch(task.getId(), NOTIFICATION_PROPERTIES);
+                    task = taskDao.fetch(taskId, NOTIFICATION_PROPERTIES);
                     if(task == null) {
                         return;
                     }
@@ -143,7 +129,8 @@ public final class ReminderService  {
 
         // Make sure no alarms are scheduled other than the next one. When that one is shown, it
         // will schedule the next one after it, and so on and so forth.
-        clearAllAlarms(task);
+        jobs.cancel(taskId);
+
         if(task.isCompleted() || task.isDeleted()) {
             return;
         }
@@ -157,15 +144,15 @@ public final class ReminderService  {
         // notifications at due date
         long whenDueDate = calculateNextDueDateReminder(task);
 
-
         // notifications after due date
         long whenOverdue = calculateNextOverdueReminder(task);
 
-        // For alarms around/before now, increment the now value so the next one will be later
-        if (whenDueDate <= now || whenOverdue <= now) {
+        if (whenDueDate <= now) {
             whenDueDate = now;
+        }
+
+        if (whenOverdue <= now) {
             whenOverdue = now;
-            now += 30 * DateUtilities.ONE_MINUTE; // Prevents overdue tasks from being scheduled all at once
         }
 
         // if random reminders are too close to due date, favor due date
@@ -175,15 +162,13 @@ public final class ReminderService  {
 
         // snooze trumps all
         if(whenSnooze != NO_ALARM) {
-            scheduler.createAlarm(context, task, whenSnooze, TYPE_SNOOZE);
+            jobs.add(new Reminder(taskId, whenSnooze, TYPE_SNOOZE));
         } else if(whenRandom < whenDueDate && whenRandom < whenOverdue) {
-            scheduler.createAlarm(context, task, whenRandom, TYPE_RANDOM);
+            jobs.add(new Reminder(taskId, whenRandom, TYPE_RANDOM));
         } else if(whenDueDate < whenOverdue) {
-            scheduler.createAlarm(context, task, whenDueDate, TYPE_DUE);
+            jobs.add(new Reminder(taskId, whenDueDate, TYPE_DUE));
         } else if(whenOverdue != NO_ALARM) {
-            scheduler.createAlarm(context, task, whenOverdue, TYPE_OVERDUE);
-        } else {
-            scheduler.createAlarm(context, task, 0, 0);
+            jobs.add(new Reminder(taskId, whenOverdue, TYPE_OVERDUE));
         }
     }
 
@@ -249,7 +234,7 @@ public final class ReminderService  {
      * If the date was indicated to not have a due time, we read from
      * preferences and assign a time.
      */
-    long calculateNextDueDateReminder(Task task) {
+    private long calculateNextDueDateReminder(Task task) {
         if(task.hasDueDate() && task.isNotifyAtDeadline()) {
             long dueDate = task.getDueDate();
             long lastReminder = task.getReminderLast();
@@ -295,68 +280,5 @@ public final class ReminderService  {
             return when;
         }
         return NO_ALARM;
-    }
-
-    // --- alarm manager alarm creation
-
-    /**
-     * Interface for testing
-     */
-    public interface AlarmScheduler {
-        void createAlarm(Context context, Task task, long time, int type);
-    }
-
-    public void setScheduler(AlarmScheduler scheduler) {
-        this.scheduler = scheduler;
-    }
-
-    public AlarmScheduler getScheduler() {
-        return scheduler;
-    }
-
-    private static class ReminderAlarmScheduler implements AlarmScheduler {
-        private final AlarmManager alarmManager;
-
-        public ReminderAlarmScheduler(AlarmManager alarmManager) {
-            this.alarmManager = alarmManager;
-        }
-
-        /**
-         * Create an alarm for the given task at the given type
-         */
-        @Override
-        public void createAlarm(Context context, Task task, long time, int type) {
-            if(task.getId() == Task.NO_ID) {
-                return;
-            }
-            Intent intent = new Intent(context, TaskNotificationReceiver.class);
-            intent.setType(Long.toString(task.getId()));
-            intent.setAction(Integer.toString(type));
-            intent.putExtra(TaskNotificationReceiver.ID_KEY, task.getId());
-            intent.putExtra(TaskNotificationReceiver.EXTRAS_TYPE, type);
-
-            // calculate the unique requestCode as a combination of the task-id and alarm-type:
-            // concatenate id+type to keep the combo unique
-            @SuppressLint("DefaultLocale") String rc = String.format("%d%d", task.getId(), type);
-            int requestCode;
-            try {
-                requestCode = Integer.parseInt(rc);
-            } catch (Exception e) {
-                Timber.e(e, e.getMessage());
-                requestCode = type;
-            }
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
-                    intent, 0);
-
-            if (time == 0 || time == NO_ALARM) {
-                alarmManager.cancel(pendingIntent);
-            } else {
-                if(time < DateUtilities.now()) {
-                    time = DateUtilities.now() + 5000L;
-                }
-
-                alarmManager.wakeupAdjustingForQuietHours(time, pendingIntent);
-            }
-        }
     }
 }

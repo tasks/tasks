@@ -4,7 +4,8 @@ import android.content.pm.PackageManager;
 
 public abstract class PermissionUtil {
     public static boolean verifyPermissions(int[] grantResults) {
-        if(grantResults.length < 1){
+        if(grantResults.length == 0) {
+            // request canceled
             return false;
         }
 

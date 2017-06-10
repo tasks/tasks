@@ -40,18 +40,6 @@
         <item>600</item>
     </string-array>
 
-    <string-array name="sync_interval_entries">
-        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-        <item>@string/sync_interval_disable</item>
-        <item>@string/sync_interval_one_hour</item>
-        <item>@string/sync_interval_three_hours</item>
-        <item>@string/sync_interval_six_hours</item>
-        <item>@string/sync_interval_twelve_hours</item>
-        <item>@string/sync_interval_one_day</item>
-        <item>@string/sync_interval_three_days</item>
-        <item>@string/sync_interval_one_week</item>
-    </string-array>
-
     <string-array name="TEA_hideUntil">
         <item>@string/due_date</item>
         <item>@string/due_time</item>

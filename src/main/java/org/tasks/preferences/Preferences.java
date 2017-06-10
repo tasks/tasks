@@ -28,7 +28,6 @@ import timber.log.Timber;
 
 import static android.content.SharedPreferences.Editor;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
 public class Preferences {
 
@@ -57,8 +56,50 @@ public class Preferences {
         return getBoolean(R.string.p_back_button_saves_task, false);
     }
 
+    public boolean isCurrentlyQuietHours() {
+        if (quietHoursEnabled()) {
+            DateTime dateTime = new DateTime();
+            DateTime start = dateTime.withMillisOfDay(getQuietHoursStart());
+            DateTime end = dateTime.withMillisOfDay(getQuietHoursEnd());
+            if (start.isAfter(end)) {
+                return dateTime.isBefore(end) || dateTime.isAfter(start);
+            } else {
+                return dateTime.isAfter(start) && dateTime.isBefore(end);
+            }
+        }
+        return false;
+    }
+
+    public long adjustForQuietHours(long time) {
+        if (quietHoursEnabled()) {
+            DateTime dateTime = new DateTime(time);
+            DateTime start = dateTime.withMillisOfDay(getQuietHoursStart());
+            DateTime end = dateTime.withMillisOfDay(getQuietHoursEnd());
+            if (start.isAfter(end)) {
+                if (dateTime.isBefore(end)) {
+                    return end.getMillis();
+                } else if (dateTime.isAfter(start)) {
+                    return end.plusDays(1).getMillis();
+                }
+            } else {
+                if (dateTime.isAfter(start) && dateTime.isBefore(end)) {
+                    return end.getMillis();
+                }
+            }
+        }
+        return time;
+    }
+
     public boolean quietHoursEnabled() {
         return getBoolean(R.string.p_rmd_enable_quiet, false);
+    }
+
+    public int getQuietHoursStart() {
+        return getMillisPerDayPref(R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start);
+    }
+
+    public int getQuietHoursEnd() {
+        return getMillisPerDayPref(R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end);
     }
 
     public int getDateShortcutMorning() {
@@ -78,9 +119,11 @@ public class Preferences {
     }
 
     private int getMillisPerDayPref(int resId, int defResId) {
-        int defaultValue = context.getResources().getInteger(defResId);
-        int setting = getInt(resId, defaultValue);
-        return setting < 0 || setting > DateTime.MAX_MILLIS_PER_DAY ? defaultValue : setting;
+        int setting = getInt(resId, -1);
+        if (setting < 0 || setting > DateTime.MAX_MILLIS_PER_DAY) {
+            return context.getResources().getInteger(defResId);
+        }
+        return setting;
     }
 
     public boolean isDefaultCalendarSet() {
@@ -98,10 +141,6 @@ public class Preferences {
 
     public String getDefaultCalendar() {
         return getStringValue(R.string.gcal_p_default);
-    }
-
-    public boolean isDozeNotificationEnabled() {
-        return atLeastMarshmallow() && getBoolean(R.string.p_doze_notifications, false);
     }
 
     public int getFirstDayOfWeek() {

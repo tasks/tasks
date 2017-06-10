@@ -48,6 +48,11 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
 
+    <!-- *********************************** -->
+    <!-- keep device awake for notifications -->
+    <!-- *********************************** -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <!-- ============================================== Exported Permissions = -->
 
     <!-- for v2 tasks provider -->
@@ -207,13 +212,9 @@
 
         <!-- ======================================================= Receivers = -->
 
-        <receiver android:name=".receivers.TaskNotificationReceiver" />
-
         <receiver
             android:name=".receivers.ListNotificationReceiver"
             android:exported="true" />
-
-        <receiver android:name=".receivers.RefreshReceiver" />
 
         <!-- widgets -->
         <receiver
@@ -441,16 +442,36 @@
             android:name=".scheduling.GeofenceSchedulingIntentService"
             android:exported="false" />
         <service
-            android:name=".scheduling.BackupIntentService"
+            android:name=".scheduling.SchedulerIntentService"
             android:exported="false" />
         <service
-            android:name=".scheduling.RefreshSchedulerIntentService"
-            android:exported="false" />
-        <service
-            android:name=".scheduling.ReminderSchedulerIntentService"
+            android:name=".scheduling.NotificationSchedulerIntentService"
             android:exported="false" />
         <service
             android:name=".scheduling.CalendarNotificationIntentService"
+            android:exported="false" />
+        <service
+            android:name=".jobs.AlarmJob"
+            android:exported="false" />
+        <service
+            android:name=".jobs.BackupJob"
+            android:exported="false" />
+        <service
+            android:name=".jobs.MidnightRefreshJob"
+            android:exported="false" />
+        <service
+            android:name=".jobs.RefreshJob"
+            android:exported="false" />
+        <service
+            android:name=".jobs.ReminderJob"
+            android:exported="false" />
+
+        <receiver
+            android:name=".jobs.AlarmJobBroadcast"
+            android:exported="false" />
+
+        <receiver
+            android:name=".jobs.ReminderJobBroadcast"
             android:exported="false" />
 
         <!-- Uses Library -->

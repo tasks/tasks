@@ -266,6 +266,7 @@
 	<string name="synchronization">Синхронизация</string>
 	<string name="enabled">Активирано</string>
 	<string name="font_size">Размер на шрифта</string>
+	<string name="row_spacing">Разстояние между редовете</string>
 	<string name="customize_edit_screen">Настройване на екрана за редактиране</string>
 	<string name="source_code">Source код</string>
 	<string name="translations">Подпомагане с преводи</string>
@@ -332,9 +333,6 @@
 	<string name="send_anonymous_statistics_summary">Изпрати анонимна статистика за използването и отчети за грешки за да помогнеш да се подобри Tasks. Няма да бъдат събирани персонални данни.</string>
 	<string name="tag_already_exists">Този таг вече съществува</string>
 	<string name="name_cannot_be_empty">Името не може да е празно</string>
-	<string name="doze_notifications">Прекъсване на Doze режим за уведомления</string>
-	<string name="doze_notifications_off">Android значително ще забави уведомленията когато устройството е в Doze режим</string>
-	<string name="doze_notifications_on">Android ще позволява ограничен брой прекъсвания когато устройството е в Doze режим</string>
 	<string name="no_title">(Без заглавие)</string>
 	<string name="back_button_saves_task">Бутон \"Назад\" запазва задачата</string>
 	<string name="default_list">Списък по подразбиране</string>
@@ -380,14 +378,6 @@
 	<string name="theme_wallpaper">Тапет</string>
 	<string name="theme_day_night">Ден/Нощ</string>
 	<string name="default_value">По подразбиране</string>
-	<string name="sync_interval_disable">изключено</string>
-	<string name="sync_interval_one_hour">на всеки час</string>
-	<string name="sync_interval_three_hours">на всеки три часа</string>
-	<string name="sync_interval_six_hours">на всеки шест часа</string>
-	<string name="sync_interval_twelve_hours">на всеки дванадесет часа</string>
-	<string name="sync_interval_one_day">всеки ден</string>
-	<string name="sync_interval_three_days">на всеки три дена</string>
-	<string name="sync_interval_one_week">всяка седмица</string>
 	<string name="master_sync_warning">Автоматичната синхронизация в момента е деактивирана от Android</string>
 	<string name="settings_general">Общи</string>
 	<string name="language">Език</string>
@@ -416,4 +406,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s изтрити</string>
 	<string name="delete_selected_tasks">Изтриване на избраните задачи?</string>
 	<string name="copy_selected_tasks">Копиране на избраните задачи?</string>
+	<string name="date_and_time">Дата и време</string>
+	<string name="start_of_week">Начало на седмицата</string>
+	<string name="use_locale_default">Локализация по подразбиране</string>
+	<string name="use_native_datetime_pickers">Контроли за избор на дата и време по подразбиране </string>
 </resources>

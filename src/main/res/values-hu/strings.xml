@@ -266,6 +266,7 @@
 	<string name="synchronization">Szinkronizáció</string>
 	<string name="enabled">Engedélyezve</string>
 	<string name="font_size">Karakter méret</string>
+	<string name="row_spacing">Sorköz</string>
 	<string name="customize_edit_screen">Szerkesztő képernyő testreszabása</string>
 	<string name="source_code">Forráskód</string>
 	<string name="translations">Részvétel a fordításban</string>
@@ -332,9 +333,6 @@
 	<string name="send_anonymous_statistics_summary">Anonim felhasználási statisztikák és hibajelentések küldése a Tasks fejlesztése érdekében. Személyes adatok gyűjtése nem történik.</string>
 	<string name="tag_already_exists">A címke már létezik</string>
 	<string name="name_cannot_be_empty">A cím nem lehet üres</string>
-	<string name="doze_notifications">Értesítéskor kilépés Szundikáló módból</string>
-	<string name="doze_notifications_off">Az Android jelentősen késlelteti az értesítéseket Szundikáló módban</string>
-	<string name="doze_notifications_on">Az Android csak bizonyos megszakításokat engedélyez, amennyiben az eszköz Szundikáló módban van</string>
 	<string name="no_title">(Név nélkül)</string>
 	<string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
 	<string name="default_list">Alapértelmezett lista</string>
@@ -380,14 +378,6 @@
 	<string name="theme_wallpaper">Háttérkép</string>
 	<string name="theme_day_night">Nappal/Éjszaka</string>
 	<string name="default_value">Alapértelmezett</string>
-	<string name="sync_interval_disable">Letiltás</string>
-	<string name="sync_interval_one_hour">Óránként</string>
-	<string name="sync_interval_three_hours">Háromóránként</string>
-	<string name="sync_interval_six_hours">Hatóránként</string>
-	<string name="sync_interval_twelve_hours">Tizenkét óránként</string>
-	<string name="sync_interval_one_day">Naponta</string>
-	<string name="sync_interval_three_days">Háromnaponta</string>
-	<string name="sync_interval_one_week">Hetente</string>
 	<string name="master_sync_warning">Az Android pillanatnyilag letiltotta az automatikus szinkronizálást.</string>
 	<string name="settings_general">Általános</string>
 	<string name="language">Nyelv</string>
@@ -416,4 +406,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s törölve</string>
 	<string name="delete_selected_tasks">Kiválasztott feladatok törlése?</string>
 	<string name="copy_selected_tasks">Kiválasztott feladatok másolása?</string>
+	<string name="date_and_time">Dátum és időpont</string>
+	<string name="start_of_week">Hét kezdőnapja</string>
+	<string name="use_locale_default">Beállított nyelv alapján</string>
+	<string name="use_native_datetime_pickers">Natív dátum és időpont kijelölő használata</string>
 </resources>

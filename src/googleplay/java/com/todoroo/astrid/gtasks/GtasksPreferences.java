@@ -6,9 +6,9 @@
 package com.todoroo.astrid.gtasks;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.support.annotation.NonNull;
 
 import com.todoroo.andlib.utility.DateUtilities;
@@ -30,6 +30,8 @@ import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
 
 import javax.inject.Inject;
+
+import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class GtasksPreferences extends InjectingPreferenceActivity implements GoogleTaskListSelectionHandler {
 
@@ -74,8 +76,8 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     DateUtilities.getDateStringWithTime(GtasksPreferences.this,
                             gtasksPreferenceService.getLastSyncDate())));
         }
-        findPreference(getString(R.string.gtasks_GPr_interval_key)).setOnPreferenceChangeListener((preference, o) -> {
-            syncAdapterHelper.setSynchronizationInterval(Integer.parseInt((String) o));
+        findPreference(getString(R.string.gtask_background_sync)).setOnPreferenceChangeListener((preference, o) -> {
+            syncAdapterHelper.enableSynchronization((Boolean) o);
             return true;
         });
         findPreference(getString(R.string.sync_SPr_forget_key)).setOnPreferenceClickListener(preference -> {
@@ -105,6 +107,19 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        CheckBoxPreference backgroundSync = (CheckBoxPreference) findPreference(getString(R.string.gtask_background_sync));
+        backgroundSync.setChecked(syncAdapterHelper.isSyncEnabled());
+        if (syncAdapterHelper.isMasterSyncEnabled()) {
+            backgroundSync.setSummary(null);
+        } else {
+            backgroundSync.setSummary(R.string.master_sync_warning);
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_LOGIN) {
             boolean enabled = resultCode == RESULT_OK;
@@ -121,7 +136,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_ACCOUNTS) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (verifyPermissions(grantResults)) {
                 requestLogin();
             }
         } else {

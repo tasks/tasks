@@ -145,7 +145,7 @@
 	<string name="CFC_dueBefore_name">Entro...</string>
 	<string name="no_due_date">Nessuna data di scadenza</string>
 	<string name="next_month">Mese successivo</string>
-	<string name="CFC_importance_text">Almeno per priorità ?</string>
+	<string name="CFC_importance_text">Solo per priorità ?</string>
 	<string name="CFC_importance_name">Priorità...</string>
 	<string name="CFC_tag_text">Etichetta: ?</string>
 	<string name="CFC_tag_name">Etichetta...</string>
@@ -263,6 +263,7 @@
 	<string name="synchronization">Sincronizzazione</string>
 	<string name="enabled">Abilitata</string>
 	<string name="font_size">Dimensione Carattere</string>
+	<string name="row_spacing">Interlinea</string>
 	<string name="customize_edit_screen">Personalizza schermata di modifica</string>
 	<string name="source_code">Codice sorgente</string>
 	<string name="translations">Contribuisci alla traduzione</string>
@@ -314,7 +315,6 @@
 	<string name="no_application_found">Nessuna applicazione in grado di aprire l\'allegato </string>
 	<string name="add_attachment">Aggiungi allegato</string>
 	<string name="high_priority">Alta</string>
-	<string name="default_priority">Predefinita</string>
 	<string name="low_priority">Bassa</string>
 	<string name="notification_priority">Priorità avvisi</string>
 	<string name="vibration_count">Numero di vibrazioni</string>
@@ -329,9 +329,6 @@
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
 	<string name="tag_already_exists">Etichetta già presente</string>
 	<string name="name_cannot_be_empty">Il nome non può essere omesso</string>
-	<string name="doze_notifications">Le notifiche interrompono il pisolino</string>
-	<string name="doze_notifications_off">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
-	<string name="doze_notifications_on">Android limiterà le notifiche se il dispositivo è in modalità riposo</string>
 	<string name="no_title">(nessun titolo)</string>
 	<string name="back_button_saves_task">Il tasto indietro salva l\'attività</string>
 	<string name="default_list">Lista predefinita</string>
@@ -377,14 +374,6 @@
 	<string name="theme_wallpaper">Sfondo</string>
 	<string name="theme_day_night">Giorno/Notte</string>
 	<string name="default_value">Predefinito</string>
-	<string name="sync_interval_disable">disabilita</string>
-	<string name="sync_interval_one_hour">ogni ora</string>
-	<string name="sync_interval_three_hours">ogni tre ore</string>
-	<string name="sync_interval_six_hours">ogni sei ore</string>
-	<string name="sync_interval_twelve_hours">ogni dodici ore</string>
-	<string name="sync_interval_one_day">ogni giorno</string>
-	<string name="sync_interval_three_days">ogni tre giorni</string>
-	<string name="sync_interval_one_week">Ogni settimana</string>
 	<string name="master_sync_warning">La sincronizzazione automatica è disabilitata da Android</string>
 	<string name="settings_general">Generale</string>
 	<string name="language">Lingua</string>
@@ -413,4 +402,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s eliminati</string>
 	<string name="delete_selected_tasks">Elimino i compiti selezionati?</string>
 	<string name="copy_selected_tasks">Copio i compiti selezionati?</string>
+	<string name="date_and_time">Data e ora</string>
+	<string name="start_of_week">Inizio settimana</string>
+	<string name="use_locale_default">Usa default locale</string>
+	<string name="use_native_datetime_pickers">Usa data e ora locali</string>
 </resources>

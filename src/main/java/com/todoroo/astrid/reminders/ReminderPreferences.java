@@ -6,7 +6,6 @@
 package com.todoroo.astrid.reminders;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -14,13 +13,13 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.ColorPickerDialog;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
@@ -29,7 +28,7 @@ import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
-import org.tasks.scheduling.ReminderSchedulerIntentService;
+import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.themes.LEDColor;
 import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
@@ -38,7 +37,7 @@ import org.tasks.ui.TimePreference;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class ReminderPreferences extends InjectingPreferenceActivity {
 
@@ -50,7 +49,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Inject Device device;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
-    @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject ThemeCache themeCache;
 
@@ -64,7 +62,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
         rescheduleNotificationsOnChange(
                 R.string.p_rmd_time,
-                R.string.p_doze_notifications,
                 R.string.p_rmd_enable_quiet,
                 R.string.p_rmd_quietStart,
                 R.string.p_rmd_quietEnd);
@@ -89,7 +86,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         });
 
         requires(R.string.notification_shade, atLeastJellybean(), R.string.p_rmd_notif_actions_enabled, R.string.p_notification_priority, R.string.p_rmd_show_description);
-        requires(atLeastMarshmallow(), R.string.p_doze_notifications);
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
 
         updateLEDColor();
@@ -98,7 +94,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private void rescheduleNotificationsOnChange(int... resIds) {
         for (int resId : resIds) {
             findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-                startService(new Intent(ReminderPreferences.this, ReminderSchedulerIntentService.class));
+                startService(new Intent(ReminderPreferences.this, NotificationSchedulerIntentService.class));
                 return true;
             });
         }
@@ -116,12 +112,9 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_CONTACTS) {
-            for (int grantResult : grantResults) {
-                if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
+            if (verifyPermissions(grantResults)) {
+                fieldMissedCalls.setChecked(true);
             }
-            fieldMissedCalls.setChecked(true);
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -143,8 +136,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
                 preference.setSummary(R.string.silent);
             } else {
                 Ringtone ringtone = RingtoneManager.getRingtone(ReminderPreferences.this, value == null
-                        ? RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_NOTIFICATION)
-                        : Uri.parse((String) value));
+                        ? Settings.System.DEFAULT_NOTIFICATION_URI : Uri.parse((String) value));
                 preference.setSummary(ringtone == null ? "" : ringtone.getTitle(ReminderPreferences.this));
             }
             return true;

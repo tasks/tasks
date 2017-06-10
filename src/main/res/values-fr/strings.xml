@@ -257,6 +257,7 @@
 	<string name="synchronization">Synchronisation</string>
 	<string name="enabled">Activé</string>
 	<string name="font_size">Taille de police</string>
+	<string name="row_spacing">Écartement de la ligne</string>
 	<string name="customize_edit_screen">Personnaliser l\'écran d\'édition</string>
 	<string name="source_code">Code source</string>
 	<string name="translations">Contribuer aux traductions</string>
@@ -322,14 +323,11 @@
 	<string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
 	<string name="tag_already_exists">Le tag existe déjà</string>
 	<string name="name_cannot_be_empty">Le nom ne peut pas être vide</string>
-	<string name="doze_notifications">Interrompt le Doze mode pour les notifications</string>
-	<string name="doze_notifications_off">Android va différer les notifications de façon importante lorsque l\'appareil sera en Doze mode</string>
-	<string name="doze_notifications_on">Android autorisera des interruptions limitées lorsque l\'appareil sera en Doze mode</string>
 	<string name="no_title">(Sans titre)</string>
 	<string name="back_button_saves_task">Faire un retour-arrière pour sauvegarder la tâche</string>
 	<string name="default_list">Liste par défaut</string>
 	<string name="plugin_description">Tasks est un projet à source ouverte entretenu par un développeur. Quelques contenus payants sont disponible dans l\'application pour supporter le développement.</string>
-	<string name="tesla_unread_description">Affiche un badge pour le nombre de tâches actives dans votre liste par défaut. TeslaUnread pour Nova Launcher est requis</string>
+	<string name="tesla_unread_description">Affiche un badge pour le nombre de tâches actives dans votre liste par défaut. TeslaUnread pour Nova Launcher est requis.</string>
 	<string name="themes_purchase_description">Débloquer tous les thèmes et quelques couleurs à Tasks</string>
 	<string name="tasker_description">Notifications de la sensibilité du contexte de la liste. Tasker ou Local est requis.</string>
 	<string name="donate_summary">Les donations sont grandement appréciées.</string>
@@ -366,14 +364,6 @@
 	<string name="theme_wallpaper">Fond d\'écran</string>
 	<string name="theme_day_night">Jour/Nuit</string>
 	<string name="default_value">Par défaut</string>
-	<string name="sync_interval_disable">désactiver</string>
-	<string name="sync_interval_one_hour">toutes les heures</string>
-	<string name="sync_interval_three_hours">toutes les trois heures</string>
-	<string name="sync_interval_six_hours">toutes les six heures</string>
-	<string name="sync_interval_twelve_hours">toutes les douze heures</string>
-	<string name="sync_interval_one_day">tous les jours</string>
-	<string name="sync_interval_three_days">tous les trois jours</string>
-	<string name="sync_interval_one_week">toutes les semaines</string>
 	<string name="master_sync_warning">La synchronisation automatique est actuellement déactivé par Android</string>
 	<string name="settings_general">Général</string>
 	<string name="language">Langage</string>
@@ -402,4 +392,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s supprimé</string>
 	<string name="delete_selected_tasks">Supprimer les tâches sélectionnées ?</string>
 	<string name="copy_selected_tasks">Copier les tâches sélectionnées ?</string>
+	<string name="date_and_time">Date et heure</string>
+	<string name="start_of_week">Début de la semaine</string>
+	<string name="use_locale_default">Par défaut du lieu d\'utilisation</string>
+	<string name="use_native_datetime_pickers">Utiliser la date et l\'heure native</string>
 </resources>

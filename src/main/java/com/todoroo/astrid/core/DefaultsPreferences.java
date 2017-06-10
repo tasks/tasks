@@ -6,7 +6,6 @@
 package com.todoroo.astrid.core;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.support.annotation.NonNull;
@@ -22,6 +21,8 @@ import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
+
+import static org.tasks.PermissionUtil.verifyPermissions;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -70,7 +71,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (verifyPermissions(grantResults)) {
                 startCalendarSelectionActivity();
             }
         } else {

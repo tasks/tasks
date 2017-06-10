@@ -28,11 +28,12 @@ public class Tasks extends InjectingApplication {
 
         tracker.setTrackingEnabled(preferences.isTrackingEnabled());
 
-        AndroidThreeTen.init(this);
-
         if (!buildSetup.setup()) {
             return;
         }
+
+        AndroidThreeTen.init(this);
+
         flavorSetup.setup();
 
         teslaUnreadReceiver.setEnabled(preferences.getBoolean(R.string.p_tesla_unread_enabled, false));

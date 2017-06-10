@@ -259,6 +259,7 @@
 	<string name="synchronization">Synchronisierung</string>
 	<string name="enabled">Aktiviert</string>
 	<string name="font_size">Schriftgröße</string>
+	<string name="row_spacing">Reihen-Abstand</string>
 	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
 	<string name="source_code">Quelltext</string>
 	<string name="translations">Zur Übersetzung beitragen</string>
@@ -325,9 +326,6 @@
 	<string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
 	<string name="tag_already_exists">Tag existiert bereits</string>
 	<string name="name_cannot_be_empty">Name darf nicht leer sein</string>
-	<string name="doze_notifications">Doze-Modus für Benachrichtigungen unterbrechen</string>
-	<string name="doze_notifications_off">Im Doze-Modus von Android erfolgen Benachrichtigungen mit deutlicher Verzögerung</string>
-	<string name="doze_notifications_on">Android erlaubt nur eine begrenzte Anzahl von Unterbrechungen des Doze-Modus</string>
 	<string name="no_title">(kein Titel)</string>
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
 	<string name="default_list">Standard-Liste</string>
@@ -368,14 +366,6 @@
 	<string name="theme_wallpaper">Hintergrundbild</string>
 	<string name="theme_day_night">Tag/Nacht</string>
 	<string name="default_value">Standard</string>
-	<string name="sync_interval_disable">deaktivieren</string>
-	<string name="sync_interval_one_hour">stündlich</string>
-	<string name="sync_interval_three_hours">alle 3 Stunden</string>
-	<string name="sync_interval_six_hours">alle 6 Stunden</string>
-	<string name="sync_interval_twelve_hours">alle 12 Stunden</string>
-	<string name="sync_interval_one_day">täglich</string>
-	<string name="sync_interval_three_days">jeden dritten Tag</string>
-	<string name="sync_interval_one_week">wöchentlich</string>
 	<string name="master_sync_warning">Automatische Syncronisation ist aktuell im System deaktiviert</string>
 	<string name="settings_general">Allgemein</string>
 	<string name="language">Sprache</string>
@@ -404,4 +394,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s gelöscht</string>
 	<string name="delete_selected_tasks">Ausgewählte Aufgaben löschen?</string>
 	<string name="copy_selected_tasks">Ausgewählte Aufgaben kopieren?</string>
+	<string name="date_and_time">Tag und Uhrzeit</string>
+	<string name="start_of_week">Beginn der Woche</string>
+	<string name="use_locale_default">Aus Systemeinstellungen</string>
+	<string name="use_native_datetime_pickers">Datum- und Zeitauswahl des Systems benutzen</string>
 </resources>

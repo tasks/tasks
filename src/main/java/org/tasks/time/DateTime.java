@@ -189,6 +189,10 @@ public class DateTime {
         return subtract(Calendar.DATE, days);
     }
 
+    public DateTime minusHours(int hours) {
+        return subtract(Calendar.HOUR, hours);
+    }
+
     public DateTime minusMinutes(int minutes) {
         return subtract(Calendar.MINUTE, minutes);
     }

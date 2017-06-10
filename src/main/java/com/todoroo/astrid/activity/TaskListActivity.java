@@ -266,26 +266,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 repeatConfirmationReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
 
-        TaskListFragment taskListFragment = getTaskListFragment();
-        if (syncAdapterHelper.shouldShowBackgroundSyncWarning() && !preferences.getBoolean(R.string.p_sync_warning_shown, false)) {
-            if (taskListFragment != null) {
-                taskListFragment.makeSnackbar(R.string.master_sync_warning)
-                        .setAction(R.string.TLA_menu_settings, view -> {
-                            Intent intent = new Intent(Settings.ACTION_SYNC_SETTINGS);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        })
-                        .setCallback(new Snackbar.Callback() {
-                            @Override
-                            public void onShown(Snackbar snackbar) {
-                                preferences.setBoolean(R.string.p_sync_warning_shown, true);
-                            }
-                        })
-                        .show();
-            }
-        }
-
-        syncAdapterHelper.checkPlayServices(taskListFragment);
+        syncAdapterHelper.checkPlayServices(getTaskListFragment());
     }
 
     public void restart() {

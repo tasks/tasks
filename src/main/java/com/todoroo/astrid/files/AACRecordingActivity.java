@@ -6,25 +6,20 @@
 package com.todoroo.astrid.files;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
-import android.widget.Chronometer;
 
-import org.tasks.R;
 import org.tasks.dialogs.RecordAudioDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
-import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-
+import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.dialogs.RecordAudioDialog.newRecordAudioDialog;
 
 public class AACRecordingActivity extends InjectingAppCompatActivity implements RecordAudioDialog.RecordAudioDialogCallback {
@@ -33,11 +28,8 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements 
 
     public static final String RESULT_OUTFILE = "outfile"; //$NON-NLS-1$
 
-    @Inject Preferences preferences;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject Theme theme;
-
-    @BindView(R.id.timer) Chronometer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +58,7 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_MIC) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (verifyPermissions(grantResults)) {
                 showDialog();
             } else {
                 finish();

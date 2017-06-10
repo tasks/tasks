@@ -2,5 +2,6 @@
 <sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
     android:accountType="com.google"
     android:contentAuthority="org.tasks"
-    android:supportsUploading="false"
+    android:supportsUploading="true"
+    android:isAlwaysSyncable="true"
     android:userVisible="false" />

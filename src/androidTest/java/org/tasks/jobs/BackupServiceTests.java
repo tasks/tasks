@@ -3,7 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
-package org.tasks.scheduling;
+package org.tasks.jobs;
 
 import android.support.test.runner.AndroidJUnit4;
 
@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.tasks.R;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
+import org.tasks.scheduling.AlarmManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +30,7 @@ import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -90,15 +92,15 @@ public class BackupServiceTests extends DatabaseTestCase {
         preferences.setLong(TasksXmlExporter.PREF_BACKUP_LAST_DATE, 0);
 
         // create a backup
-        BackupIntentService service = new BackupIntentService();
-        service.testBackup(xmlExporter, preferences, getTargetContext());
+        BackupJob service = new BackupJob(getTargetContext(), new JobManager(getTargetContext(), mock(AlarmManager.class)), xmlExporter, preferences);
+        service.startBackup(getTargetContext());
 
         AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
         // assert file created
         File[] files = temporaryDirectory.listFiles();
         assertEquals(1, files.length);
-        assertTrue(files[0].getName().matches(BackupIntentService.BACKUP_FILE_NAME_REGEX));
+        assertTrue(files[0].getName().matches(BackupJob.BACKUP_FILE_NAME_REGEX));
 
         // assert summary updated
         assertTrue(preferences.getLong(TasksXmlExporter.PREF_BACKUP_LAST_DATE, 0) > 0);
@@ -128,8 +130,8 @@ public class BackupServiceTests extends DatabaseTestCase {
         assertEquals(11, files.length);
 
         // backup
-        BackupIntentService service = new BackupIntentService();
-        service.testBackup(xmlExporter, preferences, getTargetContext());
+        BackupJob service = new BackupJob(getTargetContext(), new JobManager(getTargetContext(), mock(AlarmManager.class)), xmlExporter, preferences);
+        service.startBackup(getTargetContext());
 
         AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
@@ -138,7 +140,7 @@ public class BackupServiceTests extends DatabaseTestCase {
         assertFalse(files[4].exists());
 
         // assert user file still exists
-        service.testBackup(xmlExporter, preferences, getTargetContext());
+        service.startBackup(getTargetContext());
         assertTrue(myFile.exists());
     }
 }

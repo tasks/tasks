@@ -264,6 +264,7 @@
 	<string name="synchronization">同期</string>
 	<string name="enabled">有効</string>
 	<string name="font_size">フォントサイズ</string>
+	<string name="row_spacing">行間隔</string>
 	<string name="customize_edit_screen">編集画面をカスタマイズ</string>
 	<string name="source_code">ソースコード</string>
 	<string name="translations">翻訳に貢献する</string>
@@ -330,9 +331,6 @@
 	<string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
 	<string name="tag_already_exists">タグは既に存在します</string>
 	<string name="name_cannot_be_empty">名前は空にできません。</string>
-	<string name="doze_notifications">通知の Doze モード割り込み</string>
-	<string name="doze_notifications_off">デバイスが Doze モードの間、Android は通知を大幅に遅らせます</string>
-	<string name="doze_notifications_on">デバイスが Doze モードの間、Android は限定された割り込みを許可します</string>
 	<string name="no_title">(タイトルなし)</string>
 	<string name="back_button_saves_task">戻るボタンでタスクを保存します</string>
 	<string name="default_list">デフォルトリスト</string>
@@ -378,14 +376,6 @@
 	<string name="theme_wallpaper">壁紙</string>
 	<string name="theme_day_night">デイナイト</string>
 	<string name="default_value">デフォルト</string>
-	<string name="sync_interval_disable">無効</string>
-	<string name="sync_interval_one_hour">1時間毎</string>
-	<string name="sync_interval_three_hours">3時間毎</string>
-	<string name="sync_interval_six_hours">6時間毎</string>
-	<string name="sync_interval_twelve_hours">12時間毎</string>
-	<string name="sync_interval_one_day">毎日</string>
-	<string name="sync_interval_three_days">3日に一度</string>
-	<string name="sync_interval_one_week">毎週</string>
 	<string name="master_sync_warning">自動同期は、現在 Android によって無効にされています</string>
 	<string name="settings_general">全般</string>
 	<string name="language">言語</string>
@@ -414,4 +404,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s 削除済</string>
 	<string name="delete_selected_tasks">選択したタスクを削除しますか?</string>
 	<string name="copy_selected_tasks">選択したタスクをコピーしますか?</string>
+	<string name="date_and_time">日付と時刻</string>
+	<string name="start_of_week">週の始まり</string>
+	<string name="use_locale_default">ロケールのデフォルトを使用する</string>
+	<string name="use_native_datetime_pickers">ネイティブの日付と時刻選択を使用する</string>
 </resources>

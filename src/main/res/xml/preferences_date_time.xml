@@ -7,6 +7,11 @@
         android:key="@string/p_start_of_week"
         android:title="@string/start_of_week" />
 
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:defaultValue="false"
+        android:key="@string/p_use_native_datetime_pickers"
+        android:title="@string/use_native_datetime_pickers" />
+
     <org.tasks.ui.TimePreference
         android:defaultValue="@integer/default_morning"
         android:key="@string/p_date_shortcut_morning"

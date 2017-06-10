@@ -11,8 +11,8 @@ public abstract class InjectingAbstractThreadedSyncAdapter extends AbstractThrea
     }
 
     private void inject(Context context) {
-        inject(((InjectingApplication) context.getApplicationContext())
-                .getComponent()
+        inject(Dagger.get(context)
+                .getApplicationComponent()
                 .plus(new SyncAdapterModule()));
     }
 

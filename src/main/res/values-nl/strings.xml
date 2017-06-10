@@ -324,9 +324,6 @@
 	<string name="send_anonymous_statistics_summary">Verstuur anoniem gebruikersstatistieken en crash rapporten om Tasks te verbeteren. Er worden geen persoonlijke gegevens verzameld.</string>
 	<string name="tag_already_exists">Label bestaat reeds</string>
 	<string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
-	<string name="doze_notifications">Onderbreek Snooze mode voor notificaties</string>
-	<string name="doze_notifications_off">Android zal vertraagd notificaties weergeven in Snooze mode</string>
-	<string name="doze_notifications_on">Android zal gelimiteerd onderbreken in Snooze mode</string>
 	<string name="no_title">(geen titel)</string>
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string name="default_list">Standaard lijst</string>
@@ -369,14 +366,6 @@
 	<string name="theme_wallpaper">Achtergrond</string>
 	<string name="theme_day_night">Dag/Nacht</string>
 	<string name="default_value">Standaard</string>
-	<string name="sync_interval_disable">uitschakelen</string>
-	<string name="sync_interval_one_hour">elk uur</string>
-	<string name="sync_interval_three_hours">elke 3 uur</string>
-	<string name="sync_interval_six_hours">elke 6 uur</string>
-	<string name="sync_interval_twelve_hours">elke 12 uur</string>
-	<string name="sync_interval_one_day">elke dag</string>
-	<string name="sync_interval_three_days">elke 3 dagen</string>
-	<string name="sync_interval_one_week">elke week</string>
 	<string name="master_sync_warning">Automatische synchronisatie is momenteel uitgezet door Android</string>
 	<string name="settings_general">Globaal</string>
 	<string name="language">Taal</string>

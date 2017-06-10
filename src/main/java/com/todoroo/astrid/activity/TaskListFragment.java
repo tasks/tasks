@@ -361,10 +361,6 @@ public class TaskListFragment extends InjectingFragment implements
         refresh();
     }
 
-    public Snackbar makeSnackbar(int resId) {
-        return makeSnackbar(getString(resId));
-    }
-
     public Snackbar makeSnackbar(String text) {
         Snackbar snackbar = Snackbar.make(coordinatorLayout, text, 8000)
                 .setActionTextColor(getColor(context, R.color.snackbar_text_color));

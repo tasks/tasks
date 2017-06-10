@@ -5,10 +5,7 @@
  */
 package com.todoroo.astrid.alarms;
 
-import android.app.PendingIntent;
 import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
 
 import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
@@ -21,13 +18,13 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
 import org.tasks.injection.ApplicationScope;
-import org.tasks.injection.ForApplication;
-import org.tasks.receivers.TaskNotificationReceiver;
-import org.tasks.scheduling.AlarmManager;
+import org.tasks.jobs.Alarm;
+import org.tasks.jobs.JobManager;
+import org.tasks.jobs.JobQueue;
+import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -48,15 +45,14 @@ public class AlarmService {
 
     private static final long NO_ALARM = Long.MAX_VALUE;
 
+    private final JobQueue<Alarm> jobs;
+
     private final MetadataDao metadataDao;
-    private final Context context;
-    private final AlarmManager alarmManager;
 
     @Inject
-    public AlarmService(MetadataDao metadataDao, @ForApplication Context context, AlarmManager alarmManager) {
+    public AlarmService(MetadataDao metadataDao, JobManager jobManager, Preferences preferences) {
         this.metadataDao = metadataDao;
-        this.context = context;
-        this.alarmManager = alarmManager;
+        jobs = JobQueue.newAlarmQueue(preferences, jobManager);
     }
 
     public void getAlarms(long taskId, Callback<Metadata> callback) {
@@ -79,11 +75,7 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        boolean changed = synchronizeMetadata(taskId, metadata, m -> {
-            // Cancel the alarm before the metadata is deleted
-            PendingIntent pendingIntent = pendingIntentForAlarm(m, taskId);
-            alarmManager.cancel(pendingIntent);
-        });
+        boolean changed = synchronizeMetadata(taskId, metadata, m -> jobs.cancel(m.getId()));
 
         if(changed) {
             scheduleAlarms(taskId);
@@ -94,16 +86,21 @@ public class AlarmService {
     // --- alarm scheduling
 
     private void getActiveAlarms(Callback<Metadata> callback) {
-        metadataDao.query(callback, Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
+        metadataDao.query(callback, Query.select(Metadata.PROPERTIES).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-                where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
+                where(Criterion.and(TaskCriteria.isActive(),
+                        MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
     }
 
     private void getActiveAlarmsForTask(long taskId, Callback<Metadata> callback) {
-        metadataDao.query(callback, Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
+        metadataDao.query(callback, Query.select(Metadata.PROPERTIES).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
+    }
+
+    public void clear() {
+        jobs.clear();
     }
 
     /**
@@ -120,33 +117,20 @@ public class AlarmService {
         getActiveAlarmsForTask(taskId, this::scheduleAlarm);
     }
 
-    private PendingIntent pendingIntentForAlarm(Metadata alarm, long taskId) {
-        Intent intent = new Intent(context, TaskNotificationReceiver.class);
-        intent.setAction("ALARM" + alarm.getId()); //$NON-NLS-1$
-        intent.putExtra(TaskNotificationReceiver.ID_KEY, taskId);
-        intent.putExtra(TaskNotificationReceiver.EXTRAS_TYPE, ReminderService.TYPE_ALARM);
-
-        return PendingIntent.getBroadcast(context, (int)alarm.getId(),
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
-
     /**
      * Schedules alarms for a single task
      */
-    private void scheduleAlarm(Metadata alarm) {
-        if(alarm == null) {
+    private void scheduleAlarm(Metadata metadata) {
+        if(metadata == null) {
             return;
         }
 
-        long taskId = alarm.getTask();
-
-        PendingIntent pendingIntent = pendingIntentForAlarm(alarm, taskId);
-
-        long time = alarm.getValue(AlarmFields.TIME);
+        Alarm alarm = new Alarm(metadata);
+        long time = alarm.getTime();
         if(time == 0 || time == NO_ALARM) {
-            alarmManager.cancel(pendingIntent);
-        } else if(time > DateUtilities.now()) {
-            alarmManager.wakeupAdjustingForQuietHours(time, pendingIntent);
+            jobs.cancel(alarm.getId());
+        } else {
+            jobs.add(alarm);
         }
     }
 
@@ -199,5 +183,17 @@ public class AlarmService {
         }
 
         return dirty[0];
+    }
+
+    public void scheduleNextJob() {
+        jobs.scheduleNext();
+    }
+
+    public List<Alarm> getOverdueAlarms() {
+        return jobs.getOverdueJobs();
+    }
+
+    public boolean remove(Alarm alarm) {
+        return jobs.remove(alarm);
     }
 }

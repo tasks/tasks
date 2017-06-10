@@ -18,13 +18,11 @@
             android:key="@string/p_gtasks_default_list"
             android:title="@string/default_list" />
 
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:defaultValue="3600"
+        <CheckBoxPreference
+            android:defaultValue="true"
             android:dependency="@string/sync_gtasks"
-            android:entries="@array/sync_interval_entries"
-            android:entryValues="@array/sync_SPr_interval_values"
-            android:key="@string/gtasks_GPr_interval_key"
-            android:title="@string/sync_SPr_interval_title" />
+            android:key="@string/gtask_background_sync"
+            android:title="@string/sync_SPr_interval_title"/>
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="true"
             android:dependency="@string/sync_gtasks"

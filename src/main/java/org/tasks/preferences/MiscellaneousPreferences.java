@@ -1,7 +1,6 @@
 package org.tasks.preferences;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.speech.tts.TextToSpeech;
@@ -20,6 +19,8 @@ import java.io.File;
 import javax.inject.Inject;
 
 import timber.log.Timber;
+
+import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class MiscellaneousPreferences extends InjectingPreferenceActivity {
 
@@ -143,7 +144,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (verifyPermissions(grantResults)) {
                 calendarReminderPreference.setChecked(true);
             }
         } else {

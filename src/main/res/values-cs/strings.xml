@@ -291,9 +291,6 @@
 	<string name="send_anonymous_statistics">Vylepšit Úkoly</string>
 	<string name="send_anonymous_statistics_summary">Odesílat anonymní statistiky využití a zprávy o selhání ke zlepšení Úkolů. Žádné osobní údaje nebudou shromažďovány.</string>
 	<string name="tag_already_exists">Štítek již existuje</string>
-	<string name="doze_notifications">Přerušit Doze mód pro oznámení</string>
-	<string name="doze_notifications_off">Když je zařízení v Doze režimu, Android může významně zpozdit upozornění</string>
-	<string name="doze_notifications_on">Když je zařízení v Doze režimu, Android může významně zpozdit upozornění</string>
 	<string name="no_title">(Bez názvu)</string>
 	<string name="back_button_saves_task">Tlačítko zpět uloží úkol</string>
 	<string name="default_list">Výchozí seznam</string>
@@ -326,14 +323,6 @@
 	<string name="theme_wallpaper">Tapeta</string>
 	<string name="theme_day_night">Den/Noc</string>
 	<string name="default_value">Výchozí</string>
-	<string name="sync_interval_disable">zakázat</string>
-	<string name="sync_interval_one_hour">každou hodinu</string>
-	<string name="sync_interval_three_hours">každé tři hodiny</string>
-	<string name="sync_interval_six_hours">každých šest hodin</string>
-	<string name="sync_interval_twelve_hours">každých dvanáct hodin</string>
-	<string name="sync_interval_one_day">každý den</string>
-	<string name="sync_interval_three_days">každé tři dny</string>
-	<string name="sync_interval_one_week">každý týden</string>
 	<string name="master_sync_warning">Automatická synchronizace je právě zakázána Androidem</string>
 	<string name="settings_general">Všeobecný</string>
 	<string name="language">Jazyk</string>

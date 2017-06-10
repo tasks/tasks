@@ -303,14 +303,6 @@
 	<string name="theme_black">Preto</string>
 	<string name="theme_dark">Escuro</string>
 	<string name="theme_day_night">Dia/Noite</string>
-	<string name="sync_interval_disable">desativar</string>
-	<string name="sync_interval_one_hour">cada hora</string>
-	<string name="sync_interval_three_hours">cada 3 horas</string>
-	<string name="sync_interval_six_hours">cada 6 horas</string>
-	<string name="sync_interval_twelve_hours">cada 12 horas</string>
-	<string name="sync_interval_one_day">todos os dias</string>
-	<string name="sync_interval_three_days">cada 3 dias</string>
-	<string name="sync_interval_one_week">todas as semanas</string>
 	<string name="restart_now">Reiniciar agora</string>
 	<string name="layout_direction_left_to_right">Da esquerda para a direita</string>
 	<string name="layout_direction_right_to_left">Da direita para a esquerda</string>
