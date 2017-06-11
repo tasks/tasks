@@ -31,6 +31,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecovera
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
+import com.google.gson.JsonSyntaxException;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
@@ -54,7 +55,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.Constants;
 
@@ -70,12 +70,14 @@ import org.tasks.time.DateTime;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javax.inject.Inject;
 
@@ -95,17 +97,11 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
-    private static final String NOTE_METADATA_PREFIX = "tasks";
-    private static final String NOTE_METADATA_KEY_TAGS = "tags";
-    private static final String NOTE_METADATA_KEY_IMPORTANCE = "prio";
-    private static final String NOTE_METADATA_KEY_HIDE = "hide";
-    private static final String NOTE_METADATA_KEY_REMINDER = "remind";
-    private static final String NOTE_METADATA_KEY_RECURRENCE = "recur";
-    private static final Pattern PATTERN_NOTES_METADATA = Pattern.compile("(.*)\\{" + NOTE_METADATA_PREFIX + "\\-([a-zA-Z0-9\\-\\_]+):([^}]+)\\}\\s*", Pattern.DOTALL);
+    private static final String NOTE_METADATA_KEYWORD = "tasks:additionalMetadata";
+    private static final Pattern PATTERN_NOTES_METADATA = Pattern.compile("(.*)\\{" + NOTE_METADATA_KEYWORD + "(\\{.*\\})\\}\\s*", Pattern.DOTALL);
     public static final String LINE_FEED = "\n";
     private static final int NOTE_MAX_LENGTH = 8100; // seams to be 8192
-
-
+    private Gson gsonBulider = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject Broadcaster broadcaster;
@@ -337,31 +333,42 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
 
     void writeNotesIfNecessary(Task task, com.google.api.services.tasks.model.Task remoteModel) {
         ContentValues values = task.getChangedValues();
-        List<String> additionalMetaData = new ArrayList<>();
+        String additionalMetadata = null;
         if (gtasksPreferenceService.getUseNoteForMetadataSync()) {
-            String tags = createTagList(task);
-            if (tags!=null) {
-                additionalMetaData.add(createNoteMetadata(NOTE_METADATA_KEY_TAGS, tags));
+            GoogleTaskAdditionalMetadata additionalMetadataObject = new GoogleTaskAdditionalMetadata();
+            List<String> tags = createTagList(task);
+            if (tags.size() > 0) {
+                additionalMetadataObject.setTags(tags);
             }
             int defaultImportance = preferences.getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO);
-            if (task.getImportance()!=defaultImportance) {
-                additionalMetaData.add(createNoteMetadata(NOTE_METADATA_KEY_IMPORTANCE, GtasksApiUtilities.importanceToGtasksString(task.getImportance())));
+            if (task.getImportance() != defaultImportance) {
+                additionalMetadataObject.setImportance(GoogleTaskAdditionalMetadata.Importance.valueOf(task.getImportance()));
             }
             if (values.containsKey(Task.HIDE_UNTIL.name)) {
-                additionalMetaData.add(createNoteMetadata(NOTE_METADATA_KEY_HIDE, GtasksApiUtilities.unixTimeToGtasksStringTime(task.getHideUntil())));
+                additionalMetadataObject.setHideUntil(GtasksApiUtilities.unixTimeToDateTime(task.getHideUntil()));
             }
-            if (values.containsKey(Task.REMINDER_FLAGS.name)) {
-                additionalMetaData.add(createNoteMetadata(NOTE_METADATA_KEY_REMINDER, GtasksApiUtilities.reminderFlagsToGtasksString(task.isNotifyAtDeadline(), task.isNotifyAfterDeadline(), task.isNotifyModeNonstop(), task.isNotifyModeFive())));
+            int defaultReminderFlags = preferences.getIntegerFromString(R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
+            if ((defaultReminderFlags & Task.NOTIFY_AT_DEADLINE) != (task.getReminderFlags() & Task.NOTIFY_AT_DEADLINE)) {
+                additionalMetadataObject.setNotifyAtDeadline(task.isNotifyAtDeadline());
+            }
+            if ((defaultReminderFlags & Task.NOTIFY_AFTER_DEADLINE) != (task.getReminderFlags() & Task.NOTIFY_AFTER_DEADLINE)) {
+                additionalMetadataObject.setNotifyAfterDeadline(task.isNotifyAfterDeadline());
+            }
+            if (task.isNotifyModeNonstop()) {
+                additionalMetadataObject.setNotifyModeNonstop(task.isNotifyModeNonstop());
+            }
+            if (task.isNotifyModeFive()) {
+                additionalMetadataObject.setNotifyModeFive(task.isNotifyModeFive());
             }
             if (values.containsKey(Task.RECURRENCE.name)) {
-                String repeatUntil = "";
+                additionalMetadataObject.setRecurrence(task.getRecurrence());
                 if (values.containsKey(Task.REPEAT_UNTIL.name)) {
-                    repeatUntil = GtasksApiUtilities.NOTE_METADATA_VALUE_SPLIT_CHAR + GtasksApiUtilities.unixTimeToGtasksStringTime(task.getRepeatUntil());
+                    additionalMetadataObject.setRepeatUntil(GtasksApiUtilities.unixTimeToDateTime(task.getRepeatUntil()));
                 }
-                additionalMetaData.add(createNoteMetadata(NOTE_METADATA_KEY_RECURRENCE, task.getRecurrence() + repeatUntil));
             }
+            additionalMetadata = gsonBulider.toJson(additionalMetadataObject);
         }
-        if (additionalMetaData.size()==0) {
+        if (additionalMetadata==null || additionalMetadata.trim().length()<=2) {
             if (task.getMergedValues().containsKey(Task.NOTES.name)) {
                 remoteModel.setNotes(task.getNotes());
             }
@@ -370,22 +377,21 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             if (task.getMergedValues().containsKey(Task.NOTES.name)) {
                 notes.append(task.getNotes());
             }
-            if (additionalMetaData.size() > 0 && notes.length() + LINE_FEED.length() < NOTE_MAX_LENGTH) {
+            if (notes.length() + additionalMetadata.length() < NOTE_MAX_LENGTH) {
                 notes.append(LINE_FEED);
-                for (String add : additionalMetaData) {
-                    if (add != null && (notes.length() + add.length() + LINE_FEED.length()) < NOTE_MAX_LENGTH) {
-                        notes.append(LINE_FEED);
-                        notes.append(add);
-                    }
-                }
+                notes.append(LINE_FEED);
+                notes.append("{");
+                notes.append(NOTE_METADATA_KEYWORD);
+                notes.append(additionalMetadata);
+                notes.append("}");
             }
             remoteModel.setNotes(notes.toString());
         }
     }
 
-    private String createTagList(Task task) {
+    private List<String> createTagList(Task task) {
         List<Metadata> metadatas = metadataDao.byTaskAndKey(task.getId(), TaskToTagMetadata.KEY);
-        Set<String> tags = new HashSet<>();
+        Set<String> tags = new TreeSet<>();
         for(Metadata metadata: metadatas) {
             if (metadata!=null)  {
                 String uuid = metadata.getValue(Metadata.VALUE2);
@@ -393,71 +399,87 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                     TagData tagData = tagDataDao.getByUuid(uuid, TagData.ID);
                     if (tagData!=null) {
                         String tagName = tagData.getName();
-                        // Skip empty tags or tags containig { } ;
-                        if (tagName!=null && tagName.trim().length()>0 && tagName.indexOf('{')<0 && tagName.indexOf('}')<0 && tagName.indexOf(';')<0) {
+                        // Skip empty tags or tags containig { } , ; [ ] # ' \
+                        if (tagName!=null && tagName.trim().length()>0 && tagName.indexOf('{')<0 && tagName.indexOf('}')<0 && tagName.indexOf('[')<0 && tagName.indexOf(']')<0 && tagName.indexOf(',')<0 && tagName.indexOf(';')<0 && tagName.indexOf('"')<0 && tagName.indexOf('\'')<0 && tagName.indexOf('\\')<0) {
                             tags.add(tagName.trim());
                         }
                     }
                 }
             }
         }
-        return GtasksApiUtilities.tagsToGtaskTags(tags);
-    }
-
-    private String createNoteMetadata(String key, String value) {
-        if (value!=null) {
-            return "{" + NOTE_METADATA_PREFIX + "-" + key + ":" + value + "}";
-        } else {
-            return null;
-        }
+        return new ArrayList<>(tags);
     }
 
     void processNotes(Task task) {
         String notes = task.getNotes();
         Matcher m = PATTERN_NOTES_METADATA.matcher(notes);
-        while(m.matches()) {
+        if(m.matches()) {
             notes = m.group(1).trim();
-            String metadataKey = m.group(2);
-            String metadataValue = m.group(3);
-            m = PATTERN_NOTES_METADATA.matcher(notes);
-            switch(metadataKey) {
-                case NOTE_METADATA_KEY_TAGS:
-                    Set<String> tags = GtasksApiUtilities.gtasksTagsToTags(metadataValue);
+            String gson = m.group(2);
+            try {
+                GoogleTaskAdditionalMetadata additionalMetadataObject = gsonBulider.fromJson(gson, GoogleTaskAdditionalMetadata.class);
+                List<String> tags = additionalMetadataObject.getTags();
+                if (tags!=null && tags.size() > 0) {
                     for(String tag: tags) {
                         createLink(task, tag);
                     }
-                    break;
-                case NOTE_METADATA_KEY_HIDE:
-                    task.setHideUntil(GtasksApiUtilities.gtasksStringTimeToUnixTime(metadataValue));
-                    break;
-                case NOTE_METADATA_KEY_IMPORTANCE:
-                    int defaultImportance = preferences.getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO);
-                    task.setImportance(GtasksApiUtilities.gtasksStringToImportance(metadataValue, defaultImportance));
-                    break;
-                case NOTE_METADATA_KEY_RECURRENCE:
-                    String[] rec = metadataValue.split("" + GtasksApiUtilities.NOTE_METADATA_VALUE_SPLIT_CHAR);
-                    if (rec!=null && rec.length>0) {
-                        if (rec.length>1) {
-                            long repeatUntil = GtasksApiUtilities.gtasksStringTimeToUnixTime(rec[rec.length-1]);
-                            if (repeatUntil>0) {
-                                task.setRepeatUntil(repeatUntil);
-                                task.setRecurrence(metadataValue.substring(0, metadataValue.lastIndexOf(GtasksApiUtilities.NOTE_METADATA_VALUE_SPLIT_CHAR)));
-                            } else {
-                                task.setRecurrence(metadataValue);
-                            }
-                        } else {
-                            task.setRecurrence(metadataValue);
-                        }
+                }
+                if (additionalMetadataObject.getHideUntil()!=null) {
+                    task.setHideUntil(GtasksApiUtilities.dateTimeToUnixTime(additionalMetadataObject.getHideUntil()));
+                }
+                if (additionalMetadataObject.getRecurrence()!=null) {
+                    task.setRecurrence(additionalMetadataObject.getRecurrence());
+                }
+                if (additionalMetadataObject.getRepeatUntil()!=null) {
+                    task.setRepeatUntil(GtasksApiUtilities.dateTimeToUnixTime(additionalMetadataObject.getRepeatUntil()));
+                }
+                int defaultImportance = preferences.getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO);
+                if (additionalMetadataObject.getImportance()!=null && additionalMetadataObject.getImportance().getTaskImportance()!=defaultImportance) {
+                    task.setImportance(additionalMetadataObject.getImportance().getTaskImportance());
+                }
+                int defaultReminderFlags = preferences.getIntegerFromString(R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
+                int reminderFlags = defaultReminderFlags;
+                boolean setRemindeFlags = false;
+                if (isSetAndNotDefault(additionalMetadataObject.isNotifyAtDeadline(), Task.NOTIFY_AT_DEADLINE, defaultReminderFlags)) {
+                   setRemindeFlags = true;
+                   if(additionalMetadataObject.isNotifyAtDeadline()) {
+                       reminderFlags |= Task.NOTIFY_AT_DEADLINE;
+                   } else {
+                       reminderFlags &= ~Task.NOTIFY_AT_DEADLINE;
+                   }
+                }
+                if (isSetAndNotDefault(additionalMetadataObject.isNotifyAfterDeadline(), Task.NOTIFY_AFTER_DEADLINE, defaultReminderFlags)) {
+                    setRemindeFlags = true;
+                    if(additionalMetadataObject.isNotifyAfterDeadline()) {
+                        reminderFlags |= Task.NOTIFY_AFTER_DEADLINE;
+                    } else {
+                        reminderFlags &= ~Task.NOTIFY_AFTER_DEADLINE;
                     }
-                    break;
-                case NOTE_METADATA_KEY_REMINDER:
-                    task.setReminderFlags(GtasksApiUtilities.gtasksReminderFlagsTimeToFlags(metadataValue));
-                    break;
-                default:
-                    // Ignore
+                }
+                if (additionalMetadataObject.isNotifyModeFive()!=null) {
+                    setRemindeFlags = true;
+                    reminderFlags |= Task.NOTIFY_MODE_FIVE;
+                }
+                if (additionalMetadataObject.isNotifyModeNonstop()!=null) {
+                    setRemindeFlags = true;
+                    reminderFlags |= Task.NOTIFY_MODE_NONSTOP;
+                }
+                if (setRemindeFlags) {
+                    task.setReminderFlags(reminderFlags);
+                }
+            } catch (JsonSyntaxException ex) {
+                // Ignore corrupt JSON
             }
         }
         task.setNotes(notes);
+    }
+
+    private boolean isSetAndNotDefault(Boolean reminderFlag, int reminderFlagConstant, int defaultReminderFlags) {
+        return reminderFlag!=null &&
+                (
+                        (reminderFlag && (defaultReminderFlags & reminderFlagConstant)==0) ||
+                                (!reminderFlag && (defaultReminderFlags & reminderFlagConstant)!=0)
+                );
     }
 
     private void createLink(Task task, String tagName) {

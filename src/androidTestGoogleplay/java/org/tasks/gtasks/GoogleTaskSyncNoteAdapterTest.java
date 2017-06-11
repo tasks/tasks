@@ -19,6 +19,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.tasks.R;
 import org.tasks.injection.ApplicationComponent;
@@ -41,6 +42,11 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class GoogleTaskSyncNoteAdapterTest {
 
+    private static int DEFAULT_WRITE_IMPORTANCE = Task.IMPORTANCE_SHOULD_DO;
+    private static int DEFAULT_WRITE_REMINDER_FLAGS = Task.NOTIFY_AT_DEADLINE |  Task.NOTIFY_AFTER_DEADLINE;
+    private static int DEFAULT_READ_IMPORTANCE = Task.IMPORTANCE_SHOULD_DO;
+    private static int DEFAULT_READ_REMINDER_FLAGS = Task.NOTIFY_AT_DEADLINE |  Task.NOTIFY_AFTER_DEADLINE;
+
     private GoogleTaskSyncAdapter adapter;
     private TagDataDao tagDataDao;
     private Task task;
@@ -50,6 +56,8 @@ public class GoogleTaskSyncNoteAdapterTest {
     private com.google.api.services.tasks.model.Task remoteModel;
     private String enhancedNotes;
     private boolean enableNoteMetadataSync = true;
+
+
 
     @Before
     public void setup() {
@@ -64,7 +72,8 @@ public class GoogleTaskSyncNoteAdapterTest {
 
 
         Preferences preferences = Mockito.mock(Preferences.class);
-        Mockito.when(preferences.getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO)).thenReturn(Task.IMPORTANCE_SHOULD_DO);
+        Mockito.when(preferences.getIntegerFromString(Matchers.eq(R.string.p_default_importance_key), Mockito.anyInt())).thenReturn(DEFAULT_WRITE_IMPORTANCE);
+        Mockito.when(preferences.getIntegerFromString(Matchers.eq(R.string.p_default_reminders_key), Mockito.anyInt())).thenReturn(DEFAULT_WRITE_REMINDER_FLAGS);
         adapter.preferences = preferences;
         GtasksPreferenceService gtasksPreferenceService = new GtasksPreferenceService(preferences) {
             public boolean getUseNoteForMetadataSync() {
@@ -101,7 +110,8 @@ public class GoogleTaskSyncNoteAdapterTest {
 
 
         task = new Task();
-        task.setImportance(Task.IMPORTANCE_SHOULD_DO);
+        task.setImportance(DEFAULT_WRITE_IMPORTANCE);
+        task.setReminderFlags(DEFAULT_WRITE_REMINDER_FLAGS);
         remoteModel = new com.google.api.services.tasks.model.Task();
         remoteModel.setNotes(null);
 
@@ -195,7 +205,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         addTag("test");
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-tags:test}", enhancedNotes);
+        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
@@ -203,7 +213,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         addTag("test");
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks-tags:test}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
 
@@ -213,16 +223,16 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setHideUntil(0l);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks-tags:test}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
     public void testStoreMetadataImportanceDefault() {
         addTag("test");
-        task.setImportance(Task.IMPORTANCE_SHOULD_DO);
+        task.setImportance(DEFAULT_WRITE_IMPORTANCE);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks-tags:test}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
     @Test
@@ -231,9 +241,26 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setImportance(Task.IMPORTANCE_NONE);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks-tags:test}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-prio:LOW}", enhancedNotes);
+        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"importance\":\"LOW\",\"tags\":[\"test\"]}}", enhancedNotes);
     }
 
+    @Test
+    public void testStoreMetadataReminderNone() {
+        addTag("test");
+        task.setReminderFlags(0);
+        adapter.writeNotesIfNecessary(task, remoteModel);
+        enhancedNotes = remoteModel.getNotes();
+        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"notifyAfterDeadline\":false,\"notifyAtDeadline\":false,\"tags\":[\"test\"]}}", enhancedNotes);
+    }
+
+    @Test
+    public void testStoreMetadataReminderDefault() {
+        addTag("test");
+        task.setReminderFlags(DEFAULT_WRITE_REMINDER_FLAGS);
+        adapter.writeNotesIfNecessary(task, remoteModel);
+        enhancedNotes = remoteModel.getNotes();
+        Assert.assertEquals(GoogleTaskSyncAdapter.LINE_FEED + GoogleTaskSyncAdapter.LINE_FEED  + "{tasks:additionalMetadata{\"tags\":[\"test\"]}}", enhancedNotes);
+    }
 
     @Test
     public void testStoreMetadataToNoteAll() {
@@ -253,7 +280,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         task.setImportance(Task.IMPORTANCE_DO_OR_DIE);
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-tags:test3;test2;test}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-prio:MUST}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-hide:1970-01-13T20:38:31.111Z}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-remind:at;after;five}" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-recur:RRULE:FREQ=MONTHLY;INTERVAL=1;1970-01-02T10:17:36.789Z}", enhancedNotes);
+        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks:additionalMetadata{\"hideUntil\":\"1970-01-13T20:38:31\",\"importance\":\"MUST\",\"notifyModeFive\":true,\"recurrence\":\"RRULE:FREQ\\u003dMONTHLY;INTERVAL\\u003d1\",\"repeatUntil\":\"1970-01-02T10:17:36\",\"tags\":[\"test\",\"test2\",\"test3\"]}}", enhancedNotes);
     }
 
     @Test
@@ -273,7 +300,7 @@ public class GoogleTaskSyncNoteAdapterTest {
         addTag("test");
         adapter.writeNotesIfNecessary(task, remoteModel);
         enhancedNotes = remoteModel.getNotes();
-        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks-tags:test3;test2;test}", enhancedNotes);
+        Assert.assertEquals("xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED + "{tasks:additionalMetadata{\"tags\":[\"test\",\"test2\",\"test3\"]}}", enhancedNotes);
     }
 
     @Test
@@ -311,23 +338,49 @@ public class GoogleTaskSyncNoteAdapterTest {
     public void testReadMetadataImportanceDefault() {
         testStoreMetadataImportanceDefault();
         task = new Task();
-        task.setImportance(Task.IMPORTANCE_DO_OR_DIE);
+        task.setImportance(DEFAULT_READ_IMPORTANCE);
         task.setNotes(enhancedNotes);
         adapter.processNotes(task);
         Assert.assertEquals("", task.getNotes());
         Assert.assertTrue(persistedTags.contains("test"));
-        Assert.assertEquals(Task.IMPORTANCE_DO_OR_DIE, (int)task.getImportance());
+        Assert.assertEquals(DEFAULT_READ_IMPORTANCE, (int)task.getImportance());
     }
 
     @Test
     public void testReadMetadataImportanceLow() {
         testStoreMetadataImportanceLow();
         task = new Task();
+        task.setImportance(DEFAULT_READ_IMPORTANCE);
         task.setNotes(enhancedNotes);
         adapter.processNotes(task);
         Assert.assertEquals("", task.getNotes());
         Assert.assertTrue(persistedTags.contains("test"));
         Assert.assertEquals(Task.IMPORTANCE_NONE, (int)task.getImportance());
+    }
+
+    @Test
+    public void testReadMetadataReminderDefault() {
+        testStoreMetadataReminderDefault();
+        task = new Task();
+        task.setReminderFlags(DEFAULT_READ_REMINDER_FLAGS);
+        task.setNotes(enhancedNotes);
+        adapter.processNotes(task);
+        Assert.assertEquals("", task.getNotes());
+        Assert.assertTrue(persistedTags.contains("test"));
+        Assert.assertEquals(DEFAULT_READ_REMINDER_FLAGS, (int)task.getReminderFlags());
+    }
+
+
+    @Test
+    public void testReadMetadataReminderNone() {
+        testStoreMetadataReminderNone();
+        task = new Task();
+        task.setReminderFlags(DEFAULT_WRITE_REMINDER_FLAGS);
+        task.setNotes(enhancedNotes);
+        adapter.processNotes(task);
+        Assert.assertEquals("", task.getNotes());
+        Assert.assertTrue(persistedTags.contains("test"));
+        Assert.assertEquals(0, (int)task.getReminderFlags());
     }
 
 
@@ -342,21 +395,32 @@ public class GoogleTaskSyncNoteAdapterTest {
         Assert.assertTrue(persistedTags.contains("test"));
         Assert.assertTrue(persistedTags.contains("test2"));
         Assert.assertTrue(persistedTags.contains("test3"));
-        Assert.assertEquals(Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE | Task.NOTIFY_MODE_NONSTOP | Task.NOTIFY_MODE_FIVE, (int)task.getReminderFlags());
+        Assert.assertEquals(Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE  | Task.NOTIFY_MODE_FIVE, (int)task.getReminderFlags());
         Assert.assertEquals("RRULE:FREQ=MONTHLY;INTERVAL=1", task.getRecurrence());
-        Assert.assertEquals(123456789l, (long)task.getRepeatUntil());
-        Assert.assertEquals(1111111111l, (long)task.getHideUntil());
+        Assert.assertEquals(123456000l, (long)task.getRepeatUntil());
+        Assert.assertEquals(1111111000l, (long)task.getHideUntil());
         Assert.assertEquals(Task.IMPORTANCE_DO_OR_DIE, (long)task.getImportance());
     }
 
     @Test
     public void testReadMetadataFromNoteRecurrenceWithoutRepeatUntil() {
-        enhancedNotes = "xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED +  "{tasks-recur:RRULE:FREQ=MONTHLY;INTERVAL=1}";
+        enhancedNotes = "xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED +  "{tasks:additionalMetadata{\"recurrence\":\"RRULE:FREQ=MONTHLY;INTERVAL=1\"}}";
         task = new Task();
         task.setNotes(enhancedNotes);
         adapter.processNotes(task);
         Assert.assertEquals("xxx", task.getNotes());
         Assert.assertEquals("RRULE:FREQ=MONTHLY;INTERVAL=1", task.getRecurrence());
+        Assert.assertEquals(0, (long)task.getRepeatUntil());
+    }
+
+    @Test
+    public void testReadMetadataFromNoteCorruptJSON() {
+        enhancedNotes = "xxx" + GoogleTaskSyncAdapter.LINE_FEED + "" + GoogleTaskSyncAdapter.LINE_FEED +  "{tasks:additionalMetadata{\"recurrence\":\"}}";
+        task = new Task();
+        task.setNotes(enhancedNotes);
+        adapter.processNotes(task);
+        Assert.assertEquals("xxx", task.getNotes());
+        Assert.assertEquals("", task.getRecurrence());
         Assert.assertEquals(0, (long)task.getRepeatUntil());
     }
 

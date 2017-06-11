@@ -145,6 +145,7 @@ dependencies {
     googleplayCompile "com.google.android.gms:play-services-places:${GPS_VERSION}"
     googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev46-1.22.0'
     googleplayCompile 'com.google.api-client:google-api-client-android:1.22.0'
+    googleplayCompile 'com.google.code.gson:gson:2.8.0'
 
     amazonCompile "com.google.android.gms:play-services-analytics:${GPS_VERSION}"
 
