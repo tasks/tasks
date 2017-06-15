@@ -14,6 +14,7 @@ import org.tasks.preferences.Preferences;
 import java.util.concurrent.TimeUnit;
 
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_DUE;
+import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;

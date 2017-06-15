@@ -82,7 +82,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:ellipsize="none"
-            android:maxLines="1"
             android:paddingEnd="@dimen/keyline_first"
             android:paddingLeft="0dp"
             android:paddingRight="@dimen/keyline_first"

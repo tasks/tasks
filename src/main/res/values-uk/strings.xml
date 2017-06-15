@@ -214,7 +214,7 @@
 	<string name="repeat_type_due">з кінцевої дати</string>
 	<string name="repeat_type_completion">з дати виконання</string>
 	<string name="repeat_detail_duedate">Кожні %s</string>
-	<string name="repeat_detail_duedate_until">Кожні %1$s\до %2$s</string>
+	<string name="repeat_detail_duedate_until">Кожні %1$s\nдо %2$s</string>
 	<string name="repeat_forever">Повторювати завжди</string>
 	<string name="repeat_until">Повторювати до %s</string>
 	<string name="repeat_snackbar">%1$s перенесено на %2$s</string>
