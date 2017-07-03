@@ -137,7 +137,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         });
 
         findPreference(R.string.TLA_menu_donate).setOnPreferenceClickListener(preference -> {
-            if (BuildConfig.FLAVOR.equals("googleplay")) {
+            if (BuildConfig.FLAVOR_store.equals("googleplay")) {
                 newDonationDialog().show(getFragmentManager(), FRAG_TAG_DONATION);
             } else {
                 startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/donate")));
@@ -214,7 +214,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         requires(R.string.get_plugins, atLeastJellybeanMR1(), R.string.p_purchased_dashclock);
         requires(R.string.settings_localization, atLeastJellybeanMR1(), R.string.p_language, R.string.p_layout_direction);
 
-        if (!BuildConfig.FLAVOR.equals("googleplay")) {
+        if (!BuildConfig.FLAVOR_store.equals("googleplay")) {
             requires(R.string.settings_general, false, R.string.synchronization);
             requires(R.string.privacy, false, R.string.p_collect_statistics);
         }

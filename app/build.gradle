@@ -7,13 +7,10 @@ task wrapper(type: Wrapper) {
 buildscript {
     repositories {
         jcenter()
-        maven {
-            url 'https://maven.google.com'
-        }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha3'
+        classpath 'com.android.tools.build:gradle:2.3.3'
     }
 }
 
@@ -36,8 +33,10 @@ android {
         versionCode 457
         versionName "4.9.14"
         targetSdkVersion 25
-        minSdkVersion 15
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        jackOptions {
+            enabled true
+        }
     }
 
     signingConfigs {
@@ -60,7 +59,7 @@ android {
         }
     }
 
-    flavorDimensions 'store'
+    flavorDimensions 'store', 'env'
 
     productFlavors {
         generic {
@@ -71,6 +70,14 @@ android {
         }
         amazon {
             dimension 'store'
+        }
+        dev {
+            minSdkVersion 21
+            dimension 'env'
+        }
+        prod {
+            minSdkVersion 15
+            dimension 'env'
         }
     }
 
