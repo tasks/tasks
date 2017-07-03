@@ -261,6 +261,7 @@
 	<string name="synchronization">Synchronisatie</string>
 	<string name="enabled">Actief</string>
 	<string name="font_size">Font grootte</string>
+	<string name="row_spacing">Regelruimte</string>
 	<string name="customize_edit_screen">Edit scherm aanpassen</string>
 	<string name="source_code">Bron code</string>
 	<string name="translations">Help vertalen</string>
@@ -393,4 +394,8 @@
 	<string name="delete_multiple_tasks_confirmation">%s verwijderd</string>
 	<string name="delete_selected_tasks">Verwijder geselecteerde taken?</string>
 	<string name="copy_selected_tasks">Kopieer geselecteerde taken?</string>
+	<string name="date_and_time">Datum en tijd</string>
+	<string name="start_of_week">Begin van de week</string>
+	<string name="use_locale_default">Gebruik lokale instellingen</string>
+	<string name="use_native_datetime_pickers">Gebruik standaard datum- en tijd selectie</string>
 </resources>

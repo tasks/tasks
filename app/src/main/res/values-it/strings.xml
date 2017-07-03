@@ -139,7 +139,7 @@
 	<string name="CFA_type_intersect">anche</string>
 	<string name="CFA_context_chain">%s ha dei criteri</string>
 	<string name="CFA_context_delete">Cancella Riga</string>
-	<string name="CFA_help">Pressione lunga per accedere alle opzioni aggiuntive</string>
+	<string name="CFA_help">Tenere premuto sulla voce per le opzioni aggiuntive</string>
 	<string name="CFA_button_add">Aggiungi Criteri</string>
 	<string name="CFC_dueBefore_text">Entro: ?</string>
 	<string name="CFC_dueBefore_name">Entro...</string>

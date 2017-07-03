@@ -333,7 +333,7 @@
 	<string name="no_title">(Bez tytułu)</string>
 	<string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
 	<string name="default_list">Domyślna lista</string>
-	<string name="plugin_description">Tasks jest projektem typu Open Source utrzymywanym przez niezależnego autora. Niektóre funkcjonalności są dostępne jako zakupy w aplikacji w celu wpierania jej rozwoju.</string>
+	<string name="plugin_description">Tasks jest projektem na licencji open source utrzymywanym przez jednego developera. Płatne funkcje wspierają rozwój aplikacji.</string>
 	<string name="tesla_unread_description">Pokaż licznik aktywnych zadań w domyślnej liście. Wymaga TeslaUnread dla Nova Launcher</string>
 	<string name="themes_purchase_description">Odblokuj wszystkie motywy i dodaj trochę kolorów do Tasks</string>
 	<string name="donate_summary">Dotacje są bardzo mile widziane</string>

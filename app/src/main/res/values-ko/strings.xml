@@ -196,7 +196,7 @@
 	<string name="persistent_notifications_description">항구적 알림은 지울 수 없습니다</string>
 	<string name="rmd_EPr_multiple_maxvolume_title">다중-링 알림의 최대 볼륨</string>
 	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks는 다중 소리 알림을 최대 볼륨으로 출력합니다</string>
-	<string name="rmd_EPr_defaultRemind_title">랜덤 알림</string>
+	<string name="rmd_EPr_defaultRemind_title">무작위 알림</string>
 	<string name="default_random_reminder_disabled">사용안함</string>
 	<string name="default_random_reminder_hourly">매시간</string>
 	<string name="default_random_reminder_daily">매일</string>
@@ -222,7 +222,7 @@
 	<string name="repeat_snackbar">%1$s 이 %2$s 로 변경되었습니다</string>
 	<string name="new_tag">새 태그 만들기</string>
 	<string name="new_list">새 목록 만들기</string>
-	<string name="tag_FEx_untagged">미분류 일정</string>
+	<string name="tag_FEx_untagged">미분류 할일</string>
 	<string name="delete_tag_confirmation">%s 삭제할까요?</string>
 	<string name="TPl_notification">%s 동안 타이머 작동함!</string>
 	<string name="TFE_workingOn">기한이 정해진 할일</string>
@@ -312,7 +312,7 @@
 	<string name="delete">삭제</string>
 	<string name="copy">복사</string>
 	<string name="filter_settings">필터 설정</string>
-	<string name="show_hidden">숨겨진 일정 표시</string>
+	<string name="show_hidden">숨겨진 할일 표시</string>
 	<string name="show_completed">완료된 할일 표시</string>
 	<string name="reverse">반전</string>
 	<string name="task_count">%d 할일</string>
