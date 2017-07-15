@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rowBody"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <!-- row 1 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.todoroo.astrid.ui.CheckableImageView
+            android:id="@+id/completeBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingEnd="@dimen/keyline_second"
+            android:paddingLeft="@dimen/keyline_first"
+            android:paddingRight="@dimen/keyline_second"
+            android:paddingStart="@dimen/keyline_first"
+            android:scaleType="center" />
+
+        <ImageView
+            android:id="@+id/taskActionIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:alpha="?attr/alpha_secondary"
+            android:gravity="end|center_vertical"
+            android:paddingEnd="@dimen/keyline_first"
+            android:paddingLeft="0dp"
+            android:paddingRight="@dimen/keyline_first"
+            android:paddingStart="0dp"
+            android:scaleType="center"
+            android:tint="?attr/icon_tint" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/completeBox"
+            android:layout_toLeftOf="@id/taskActionIcon"
+            android:layout_toRightOf="@id/completeBox"
+            android:layout_toStartOf="@id/taskActionIcon"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:maxLines="1"
+            android:paddingEnd="@dimen/keyline_first"
+            android:paddingLeft="0dp"
+            android:paddingRight="@dimen/keyline_first"
+            android:paddingStart="0dp"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <!-- row 2 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingEnd="0dp"
+        android:paddingLeft="@dimen/keyline_content_inset"
+        android:paddingRight="0dp"
+        android:paddingStart="@dimen/keyline_content_inset">
+
+        <TextView
+            android:id="@+id/tag_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:ellipsize="none"
+            android:paddingEnd="@dimen/keyline_first"
+            android:paddingLeft="0dp"
+            android:paddingRight="@dimen/keyline_first"
+            android:paddingStart="0dp"
+            android:singleLine="true"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/due_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tag_block"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignStart="@id/tag_block"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/keyline_first"
+            android:paddingLeft="0dp"
+            android:paddingRight="@dimen/keyline_first"
+            android:paddingStart="0dp"
+            android:singleLine="true"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
