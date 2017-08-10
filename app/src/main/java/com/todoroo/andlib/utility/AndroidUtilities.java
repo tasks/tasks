@@ -213,6 +213,10 @@ public class AndroidUtilities {
         return !atLeastLollipop();
     }
 
+    public static boolean preJellybean() {
+        return !atLeastJellybean();
+    }
+
     public static boolean atLeastJellybeanMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
@@ -231,6 +235,10 @@ public class AndroidUtilities {
 
     public static boolean atLeastMarshmallow() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    public static boolean atLeastO() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
     /**
@@ -272,19 +280,6 @@ public class AndroidUtilities {
         InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
         for (View v : views) {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
-    }
-
-    /**
-     * Wraps a call to Activity.unregisterReceiver in a try/catch block to prevent
-     * exceptions being thrown if receiver was never registered with that activity
-     */
-    public static void tryUnregisterReceiver(Activity activity, BroadcastReceiver receiver) {
-        try {
-            activity.unregisterReceiver(receiver);
-        } catch (IllegalArgumentException e) {
-            // Receiver wasn't registered for some reason
-            Timber.e(e, e.getMessage());
         }
     }
 

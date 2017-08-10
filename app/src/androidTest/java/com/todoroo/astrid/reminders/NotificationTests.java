@@ -16,7 +16,7 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.Notifier;
 import org.tasks.injection.TestComponent;
 import org.tasks.notifications.NotificationManager;
@@ -41,7 +41,7 @@ public class NotificationTests extends DatabaseTestCase {
     @Module
     public static class NotificationTestsModule {
         private final NotificationManager notificationManager = mock(NotificationManager.class);
-        private final Broadcaster broadcaster = mock(Broadcaster.class);
+        private final LocalBroadcastManager localBroadcastManager = mock(LocalBroadcastManager.class);
         private final Context context;
 
         public NotificationTestsModule(Context context) {
@@ -54,8 +54,8 @@ public class NotificationTests extends DatabaseTestCase {
         }
 
         @Provides
-        public Broadcaster getBroadcaster() {
-            return broadcaster;
+        public LocalBroadcastManager getBroadcaster() {
+            return localBroadcastManager;
         }
 
         @Provides
@@ -71,7 +71,7 @@ public class NotificationTests extends DatabaseTestCase {
 
     @Inject TaskDao taskDao;
     @Inject NotificationManager notificationManager;
-    @Inject Broadcaster broadcaster;
+    @Inject LocalBroadcastManager localBroadcastManager;
     @Inject Notifier notifier;
 
     @Override
@@ -79,7 +79,7 @@ public class NotificationTests extends DatabaseTestCase {
         super.tearDown();
 
         verifyNoMoreInteractions(notificationManager);
-        verifyNoMoreInteractions(broadcaster);
+        verifyNoMoreInteractions(localBroadcastManager);
     }
 
     @Test

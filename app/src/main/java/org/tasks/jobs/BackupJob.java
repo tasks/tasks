@@ -1,6 +1,9 @@
 package org.tasks.jobs;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.JobIntentService;
 
 import com.todoroo.astrid.backup.TasksXmlExporter;
 
@@ -18,6 +21,13 @@ import timber.log.Timber;
 
 public class BackupJob extends MidnightJob {
 
+    public static class Broadcast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            JobIntentService.enqueueWork(context, BackupJob.class, JobManager.JOB_ID_BACKUP, intent);
+        }
+    }
+
     public static final String TAG = "job_backup";
 
     public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
@@ -28,13 +38,12 @@ public class BackupJob extends MidnightJob {
     @Inject TasksXmlExporter tasksXmlExporter;
     @Inject Preferences preferences;
 
+    @SuppressWarnings("unused")
     public BackupJob() {
-        super(BackupJob.class.getSimpleName());
+
     }
 
     BackupJob(Context context, JobManager jobManager, TasksXmlExporter tasksXmlExporter, Preferences preferences) {
-        this();
-
         this.context = context;
         this.jobManager = jobManager;
         this.tasksXmlExporter = tasksXmlExporter;

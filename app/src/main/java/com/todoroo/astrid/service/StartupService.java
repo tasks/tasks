@@ -24,8 +24,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
-import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -45,32 +45,30 @@ public class StartupService {
     private static final int V4_8_0 = 380;
     private static final int V4_9_5 = 434;
 
-    private final Context context;
     private final Database database;
     private final Preferences preferences;
     private final TaskDeleter taskDeleter;
-    private final Broadcaster broadcaster;
     private final Tracker tracker;
     private final TagDataDao tagDataDao;
     private final TagService tagService;
     private final MetadataDao metadataDao;
     private final BackgroundScheduler backgroundScheduler;
+    private final LocalBroadcastManager localBroadcastManager;
 
     @Inject
-    public StartupService(@ForApplication Context context, Database database, Preferences preferences,
-                          TaskDeleter taskDeleter, Broadcaster broadcaster, Tracker tracker,
-                          TagDataDao tagDataDao, TagService tagService, MetadataDao metadataDao,
-                          BackgroundScheduler backgroundScheduler) {
-        this.context = context;
+    public StartupService(Database database, Preferences preferences, TaskDeleter taskDeleter,
+                          Tracker tracker, TagDataDao tagDataDao, TagService tagService,
+                          MetadataDao metadataDao, BackgroundScheduler backgroundScheduler,
+                          LocalBroadcastManager localBroadcastManager) {
         this.database = database;
         this.preferences = preferences;
         this.taskDeleter = taskDeleter;
-        this.broadcaster = broadcaster;
         this.tracker = tracker;
         this.tagDataDao = tagDataDao;
         this.tagService = tagService;
         this.metadataDao = metadataDao;
         this.backgroundScheduler = backgroundScheduler;
+        this.localBroadcastManager = localBroadcastManager;
     }
 
     /** Called when this application is started up */
@@ -120,7 +118,7 @@ public class StartupService {
             }
             preferences.setCurrentVersion(to);
         } finally {
-            context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+            localBroadcastManager.broadcastRefresh();
         }
     }
 
@@ -148,7 +146,7 @@ public class StartupService {
             removeDuplicateTagData(tagsByUuid.get(uuid));
             removeDuplicateTagMetadata(uuid);
         }
-        broadcaster.refresh();
+        localBroadcastManager.broadcastRefresh();
     }
 
     private void removeDuplicateTagData(List<TagData> tagData) {

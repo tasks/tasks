@@ -1,20 +1,18 @@
 package org.tasks.injection;
 
-import android.app.IntentService;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 
-public abstract class InjectingIntentService extends IntentService {
-
-    protected InjectingIntentService(String name) {
-        super(name);
-    }
+public abstract class InjectingJobIntentService extends JobIntentService {
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleWork(@NonNull Intent intent) {
         inject(((InjectingApplication) getApplication())
                 .getComponent()
                 .plus(new IntentServiceModule()));
     }
+
 
     protected abstract void inject(IntentServiceComponent component);
 }

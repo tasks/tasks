@@ -12,6 +12,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -28,6 +29,7 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject TaskDao taskDao;
     @Inject Preferences preferences;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     private final BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
         @Override
@@ -44,14 +46,14 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
                 .getComponent()
                 .inject(this);
 
-        registerReceiver(refreshReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        localBroadcastManager.registerRefreshReceiver(refreshReceiver);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        unregisterReceiver(refreshReceiver);
+        localBroadcastManager.unregisterReceiver(refreshReceiver);
     }
 
     @Override

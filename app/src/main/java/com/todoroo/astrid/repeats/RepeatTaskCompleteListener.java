@@ -17,11 +17,13 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.alarms.AlarmTaskRepeatListener;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 
+import org.tasks.LocalBroadcastManager;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.time.DateTime;
@@ -42,8 +44,15 @@ import static org.tasks.date.DateTimeUtils.newDateUtc;
 
 public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
+    public static void broadcast(Context context, long taskId) {
+        Intent intent = new Intent(context, RepeatTaskCompleteListener.class);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+        context.sendBroadcast(intent);
+    }
+
     @Inject GCalHelper gcalHelper;
     @Inject TaskDao taskDao;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -83,12 +92,9 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
 
             rescheduleTask(gcalHelper, taskDao, task, newDueDate);
 
-            // send a broadcast
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
-            context.sendOrderedBroadcast(broadcastIntent, null);
+            AlarmTaskRepeatListener.broadcast(context, taskId, oldDueDate, newDueDate);
+
+            localBroadcastManager.broadcastRepeat(task.getId(), oldDueDate, newDueDate);
         }
     }
 

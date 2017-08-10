@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.todoroo.astrid.api.Filter;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.billing.PurchaseHelper;
@@ -27,7 +27,7 @@ public class DashClockSettings extends InjectingPreferenceActivity implements Pu
 
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
-    @Inject Broadcaster broadcaster;
+    @Inject LocalBroadcastManager localBroadcastManager;
     @Inject PurchaseHelper purchaseHelper;
     @Inject DialogBuilder dialogBuilder;
 
@@ -80,7 +80,7 @@ public class DashClockSettings extends InjectingPreferenceActivity implements Pu
                 String filterPreference = defaultFilterProvider.getFilterPreferenceValue(filter);
                 preferences.setString(R.string.p_dashclock_filter, filterPreference);
                 refreshPreferences();
-                broadcaster.refresh();
+                localBroadcastManager.broadcastRefresh();
             }
         } else if (requestCode == REQUEST_PURCHASE) {
             purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
@@ -99,7 +99,7 @@ public class DashClockSettings extends InjectingPreferenceActivity implements Pu
     @Override
     public void purchaseCompleted(boolean success, String sku) {
         if (success) {
-            broadcaster.refresh();
+            localBroadcastManager.broadcastRefresh();
         } else {
             finish();
         }

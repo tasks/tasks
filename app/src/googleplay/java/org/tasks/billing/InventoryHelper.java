@@ -8,7 +8,7 @@ import com.android.vending.billing.IabHelper;
 import com.android.vending.billing.Inventory;
 import com.android.vending.billing.Purchase;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
@@ -26,17 +26,17 @@ public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListene
 
     private final Context context;
     private final Preferences preferences;
-    private final Broadcaster broadcaster;
+    private final LocalBroadcastManager localBroadcastManager;
     private final Executor executor;
 
     private Inventory inventory;
 
     @Inject
     public InventoryHelper(@ForApplication Context context, Preferences preferences,
-                           Broadcaster broadcaster, @Named("iab-executor") Executor executor) {
+                           LocalBroadcastManager localBroadcastManager, @Named("iab-executor") Executor executor) {
         this.context = context;
         this.preferences = preferences;
-        this.broadcaster = broadcaster;
+        this.localBroadcastManager = localBroadcastManager;
         this.executor = executor;
     }
 
@@ -69,7 +69,7 @@ public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListene
                 checkPurchase(R.string.sku_tesla_unread, R.string.p_purchased_tesla_unread);
                 checkPurchase(R.string.sku_dashclock, R.string.p_purchased_dashclock);
                 checkPurchase(R.string.sku_themes, R.string.p_purchased_themes);
-                broadcaster.refresh();
+                localBroadcastManager.broadcastRefresh();
             } else {
                 Timber.e("query inventory failed: %s", result.getMessage());
             }

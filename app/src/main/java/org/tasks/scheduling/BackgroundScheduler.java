@@ -2,8 +2,10 @@ package org.tasks.scheduling;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.JobIntentService;
 
 import org.tasks.injection.ForApplication;
+import org.tasks.jobs.JobManager;
 
 import javax.inject.Inject;
 
@@ -16,13 +18,13 @@ public class BackgroundScheduler {
     }
 
     public void scheduleEverything() {
-        context.startService(new Intent(context, GeofenceSchedulingIntentService.class));
-        context.startService(new Intent(context, SchedulerIntentService.class));
-        context.startService(new Intent(context, NotificationSchedulerIntentService.class));
+        JobIntentService.enqueueWork(context, GeofenceSchedulingIntentService.class, JobManager.JOB_ID_GEOFENCE_SCHEDULING, new Intent());
+        JobIntentService.enqueueWork(context, SchedulerIntentService.class, JobManager.JOB_ID_SCHEDULER, new Intent());
+        JobIntentService.enqueueWork(context, NotificationSchedulerIntentService.class, JobManager.JOB_ID_NOTIFICATION_SCHEDULER, new Intent());
         scheduleCalendarNotifications();
     }
 
     public void scheduleCalendarNotifications() {
-        context.startService(new Intent(context, CalendarNotificationIntentService.class));
+        JobIntentService.enqueueWork(context, CalendarNotificationIntentService.class, JobManager.JOB_ID_CALENDAR_NOTIFICATION, new Intent());
     }
 }

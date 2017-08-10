@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
@@ -72,6 +70,10 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         this.locale = locale;
         this.inflater = theme.getLayoutInflater(activity);
         this.themeCache = themeCache;
+    }
+
+    public FilterListUpdateReceiver getFilterListUpdateReceiver() {
+        return filterListUpdateReceiver;
     }
 
     @Override
@@ -266,22 +268,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         notifyDataSetChanged();
 
         filterCounter.refreshFilterCounts(this::notifyDataSetChanged);
-    }
-
-    /**
-     * Call this method from your activity's onResume() method
-     */
-    public void registerRecevier() {
-        activity.registerReceiver(filterListUpdateReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-
-        populateList();
-    }
-
-    /**
-     * Call this method from your activity's onResume() method
-     */
-    public void unregisterRecevier() {
-        activity.unregisterReceiver(filterListUpdateReceiver);
     }
 
     /* ======================================================================

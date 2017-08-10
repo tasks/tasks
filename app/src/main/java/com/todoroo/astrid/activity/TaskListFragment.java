@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,9 +31,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
@@ -46,7 +43,7 @@ import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.analytics.Tracker;
@@ -110,11 +107,11 @@ public class TaskListFragment extends InjectingFragment implements
     @Inject CheckBoxes checkBoxes;
     @Inject VoiceInputAssistant voiceInputAssistant;
     @Inject TaskCreator taskCreator;
-    @Inject Broadcaster broadcaster;
     @Inject protected TaskListDataProvider taskListDataProvider;
     @Inject TimerPlugin timerPlugin;
     @Inject ViewHolderFactory viewHolderFactory;
     @Inject protected Tracker tracker;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyRefreshLayout;
@@ -288,13 +285,13 @@ public class TaskListFragment extends InjectingFragment implements
                 item.setChecked(!item.isChecked());
                 preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked());
                 reconstructCursor();
-                broadcaster.refresh();
+                localBroadcastManager.broadcastRefresh();
                 return true;
             case R.id.menu_show_completed:
                 item.setChecked(!item.isChecked());
                 preferences.setBoolean(R.string.p_show_completed_tasks, item.isChecked());
                 reconstructCursor();
-                broadcaster.refresh();
+                localBroadcastManager.broadcastRefresh();
                 return true;
             case R.id.menu_filter_settings:
                 Intent intent = new Intent(getActivity(), FilterSettingsActivity.class);
@@ -356,7 +353,7 @@ public class TaskListFragment extends InjectingFragment implements
     public void onResume() {
         super.onResume();
 
-        getActivity().registerReceiver(refreshReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        localBroadcastManager.registerRefreshReceiver(refreshReceiver);
 
         refresh();
     }
@@ -372,7 +369,7 @@ public class TaskListFragment extends InjectingFragment implements
     public void onPause() {
         super.onPause();
 
-        AndroidUtilities.tryUnregisterReceiver(getActivity(), refreshReceiver);
+        localBroadcastManager.unregisterReceiver(refreshReceiver);
     }
 
     /**
@@ -384,10 +381,6 @@ public class TaskListFragment extends InjectingFragment implements
     protected class RefreshReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction())) {
-                return;
-            }
-
             refresh();
         }
     }

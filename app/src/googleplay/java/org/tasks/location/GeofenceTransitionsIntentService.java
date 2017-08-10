@@ -1,6 +1,9 @@
 package org.tasks.location;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.JobIntentService;
 
 import com.google.android.gms.location.GeofencingEvent;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -8,8 +11,9 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Notifier;
-import org.tasks.injection.InjectingIntentService;
+import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
+import org.tasks.jobs.JobManager;
 
 import java.util.List;
 
@@ -17,17 +21,21 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public class GeofenceTransitionsIntentService extends InjectingIntentService {
+public class GeofenceTransitionsIntentService extends InjectingJobIntentService {
+
+    public static class Broadcast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            JobIntentService.enqueueWork(context, GeofenceTransitionsIntentService.class, JobManager.JOB_ID_GEOFENCE_TRANSITION, intent);
+        }
+    }
 
     @Inject MetadataDao metadataDao;
     @Inject Notifier notifier;
 
-    public GeofenceTransitionsIntentService() {
-        super(GeofenceTransitionsIntentService.class.getSimpleName());
-    }
-
-    protected void onHandleIntent(Intent intent) {
-        super.onHandleIntent(intent);
+    @Override
+    protected void onHandleWork(Intent intent) {
+        super.onHandleWork(intent);
 
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {

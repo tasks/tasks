@@ -1,6 +1,9 @@
 package org.tasks.jobs;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.JobIntentService;
 
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
@@ -13,7 +16,14 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-public class AlarmJob extends WakefulJob {
+public class AlarmJob extends Job {
+
+    public static class Broadcast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            JobIntentService.enqueueWork(context, AlarmJob.class, JobManager.JOB_ID_ALARM, intent);
+        }
+    }
 
     public static final String TAG = "job_alarm";
 
@@ -21,10 +31,6 @@ public class AlarmJob extends WakefulJob {
     @Inject AlarmService alarmService;
     @Inject Notifier notifier;
     @Inject TaskDao taskDao;
-
-    public AlarmJob() {
-        super(AlarmJob.class.getSimpleName());
-    }
 
     @Override
     protected void run() {
@@ -47,10 +53,5 @@ public class AlarmJob extends WakefulJob {
     @Override
     protected void inject(IntentServiceComponent component) {
         component.inject(this);
-    }
-
-    @Override
-    protected void completeWakefulIntent(Intent intent) {
-        AlarmJobBroadcast.completeWakefulIntent(intent);
     }
 }

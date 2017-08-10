@@ -6,6 +6,7 @@
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.todoroo.andlib.data.AbstractModel;
@@ -23,14 +24,19 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
+import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
 import com.todoroo.astrid.reminders.ReminderService;
+import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
+import com.todoroo.astrid.timers.TimerTaskCompleteListener;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
+import org.tasks.injection.ForApplication;
 import org.tasks.location.GeofenceService;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
+import org.tasks.receivers.PushReceiver;
 import org.tasks.scheduling.RefreshScheduler;
 
 import java.util.List;
@@ -52,26 +58,29 @@ public class TaskDao {
 
     private final RemoteModelDao<Task> dao;
     private final RefreshScheduler refreshScheduler;
+    private final LocalBroadcastManager localBroadcastManager;
 
     private final MetadataDao metadataDao;
-    private final Broadcaster broadcaster;
     private final ReminderService reminderService;
     private final NotificationManager notificationManager;
     private final Preferences preferences;
+    private Context context;
     private final GeofenceService geofenceService;
 
     @Inject
-	public TaskDao(Database database, MetadataDao metadataDao, final Broadcaster broadcaster,
+	public TaskDao(@ForApplication Context context, Database database, MetadataDao metadataDao,
                    ReminderService reminderService, NotificationManager notificationManager,
-                   Preferences preferences, GeofenceService geofenceService, RefreshScheduler refreshScheduler) {
+                   Preferences preferences, GeofenceService geofenceService,
+                   RefreshScheduler refreshScheduler, LocalBroadcastManager localBroadcastManager) {
+        this.context = context;
         this.geofenceService = geofenceService;
         this.preferences = preferences;
         this.metadataDao = metadataDao;
-        this.broadcaster = broadcaster;
         this.reminderService = reminderService;
         this.notificationManager = notificationManager;
         dao = new RemoteModelDao<>(database, Task.class);
         this.refreshScheduler = refreshScheduler;
+        this.localBroadcastManager = localBroadcastManager;
     }
 
     public TodorooCursor<Task> query(Query query) {
@@ -206,7 +215,7 @@ public class TaskDao {
         // delete all metadata
         metadataDao.deleteWhere(MetadataCriteria.byTask(id));
 
-        broadcaster.refresh();
+        localBroadcastManager.broadcastRefresh();
 
         return true;
     }
@@ -223,7 +232,7 @@ public class TaskDao {
         if (modifiedValues != null) {
             afterSave(task, modifiedValues);
         } else if (task.checkTransitory(SyncFlags.FORCE_SYNC)) {
-            broadcaster.taskUpdated(task, null);
+            PushReceiver.broadcast(context, task, null);
         }
     }
 
@@ -427,17 +436,19 @@ public class TaskDao {
         }
 
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
-            broadcaster.taskCompleted(task.getId());
+            RepeatTaskCompleteListener.broadcast(context, task.getId());
+            GCalTaskCompleteListener.broadcast(context, task.getId());
+            TimerTaskCompleteListener.broadcast(context, task.getId());
         }
 
-        broadcaster.taskUpdated(task, values);
+        PushReceiver.broadcast(context, task, values);
         refreshScheduler.scheduleRefresh(task);
         broadcastRefresh(task);
     }
 
     private void broadcastRefresh(Task task) {
         if (!task.checkAndClearTransitory(TRANS_SUPPRESS_REFRESH)) {
-            broadcaster.refresh();
+            localBroadcastManager.broadcastRefresh();
         }
     }
 

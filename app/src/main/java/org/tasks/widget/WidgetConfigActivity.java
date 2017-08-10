@@ -8,7 +8,7 @@ import android.preference.Preference;
 
 import com.todoroo.astrid.api.Filter;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
@@ -42,7 +42,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
 
     @Inject Tracker tracker;
     @Inject DialogBuilder dialogBuilder;
-    @Inject Broadcaster broadcaster;
+    @Inject LocalBroadcastManager localBroadcastManager;
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject ThemeCache themeCache;
@@ -154,7 +154,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
     protected void onPause() {
         super.onPause();
 
-        broadcaster.refresh();
+        localBroadcastManager.broadcastRefresh();
         // force update after setting preferences
         Intent intent = new Intent(this, TasksWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);

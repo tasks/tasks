@@ -7,7 +7,7 @@
     android:minHeight="110dp"
     android:minResizeWidth="110dp"
     android:minResizeHeight="110dp"
-    android:updatePeriodMillis="86400000"
+    android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/scrollable_widget"
     android:initialKeyguardLayout="@layout/scrollable_widget"
     android:resizeMode="horizontal|vertical" />

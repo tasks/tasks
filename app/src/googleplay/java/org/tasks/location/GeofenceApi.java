@@ -51,7 +51,7 @@ public class GeofenceApi {
             PendingResult<Status> result = LocationServices.GeofencingApi.addGeofences(
                     client,
                     getRequests(geofences),
-                    PendingIntent.getService(context, 0, new Intent(context, GeofenceTransitionsIntentService.class), PendingIntent.FLAG_UPDATE_CURRENT));
+                    PendingIntent.getBroadcast(context, 0, new Intent(context, GeofenceTransitionsIntentService.Broadcast.class), PendingIntent.FLAG_UPDATE_CURRENT));
             result.setResultCallback(status -> {
                 if (status.isSuccess()) {
                     Timber.i("Registered %s", geofences);

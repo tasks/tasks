@@ -12,6 +12,7 @@ import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.ListNotificationReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
+import org.tasks.receivers.PushReceiver;
 import org.tasks.receivers.TeslaUnreadReceiver;
 import org.tasks.widget.TasksWidget;
 
@@ -44,4 +45,6 @@ public interface BroadcastComponent {
     void inject(TasksWidget tasksWidget);
 
     void inject(TeslaUnreadReceiver teslaUnreadReceiver);
+
+    void inject(PushReceiver pushReceiver);
 }

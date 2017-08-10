@@ -10,8 +10,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 
-import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.BroadcastComponent;
@@ -33,18 +33,18 @@ public class TeslaUnreadReceiver extends InjectingBroadcastReceiver {
     private final DefaultFilterProvider defaultFilterProvider;
     private final TaskDao taskDao;
     private final Tracker tracker;
-    private final Broadcaster broadcaster;
+    private final LocalBroadcastManager localBroadcastManager;
 
     private boolean enabled;
 
     @Inject
     public TeslaUnreadReceiver(@ForApplication Context context, DefaultFilterProvider defaultFilterProvider,
-                               TaskDao taskDao, Tracker tracker, Broadcaster broadcaster) {
+                               TaskDao taskDao, Tracker tracker, LocalBroadcastManager localBroadcastManager) {
         this.context = context;
         this.defaultFilterProvider = defaultFilterProvider;
         this.taskDao = taskDao;
         this.tracker = tracker;
-        this.broadcaster = broadcaster;
+        this.localBroadcastManager = localBroadcastManager;
     }
 
     @Override
@@ -63,10 +63,10 @@ public class TeslaUnreadReceiver extends InjectingBroadcastReceiver {
     public void setEnabled(boolean newValue) {
         try {
             if (newValue) {
-                context.registerReceiver(this, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                broadcaster.refresh();
+                localBroadcastManager.registerRefreshReceiver(this);
+                localBroadcastManager.broadcastRefresh();
             } else if (enabled) {
-                context.unregisterReceiver(this);
+                localBroadcastManager.unregisterReceiver(this);
                 publishCount(0);
             }
             enabled = newValue;

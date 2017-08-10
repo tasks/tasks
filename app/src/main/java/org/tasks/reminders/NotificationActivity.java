@@ -1,14 +1,14 @@
 package org.tasks.reminders;
 
-import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 
-import org.tasks.Broadcaster;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.receivers.CompleteTaskReceiver;
 
 import javax.inject.Inject;
 
@@ -21,8 +21,8 @@ public class NotificationActivity extends InjectingAppCompatActivity implements 
     public static final String EXTRA_TITLE = "extra_title";
     public static final String EXTRA_TASK_ID = "extra_task_id";
 
-    @Inject Broadcaster broadcaster;
     @Inject NotificationManager notificationManager;
+
     private long taskId;
 
     @Override
@@ -82,7 +82,10 @@ public class NotificationActivity extends InjectingAppCompatActivity implements 
 
     @Override
     public void complete() {
-        broadcaster.completeTask(taskId);
+        Intent intent = new Intent(this, CompleteTaskReceiver.class);
+        intent.putExtra(CompleteTaskReceiver.TASK_ID, taskId);
+        intent.putExtra(CompleteTaskReceiver.TOGGLE_STATE, false);
+        sendBroadcast(intent);
         finish();
     }
 }

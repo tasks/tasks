@@ -6,7 +6,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
-import org.tasks.injection.InjectingIntentService;
+import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.jobs.JobManager;
 
@@ -16,19 +16,15 @@ import timber.log.Timber;
 
 import static java.lang.System.currentTimeMillis;
 
-public class SchedulerIntentService extends InjectingIntentService {
+public class SchedulerIntentService extends InjectingJobIntentService {
 
     @Inject TaskDao taskDao;
     @Inject JobManager jobManager;
     @Inject RefreshScheduler refreshScheduler;
 
-    public SchedulerIntentService() {
-        super(SchedulerIntentService.class.getSimpleName());
-    }
-
     @Override
-    protected void onHandleIntent(Intent intent) {
-        super.onHandleIntent(intent);
+    protected void onHandleWork(Intent intent) {
+        super.onHandleWork(intent);
 
         Timber.d("onHandleIntent(%s)", intent);
 

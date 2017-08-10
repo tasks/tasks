@@ -60,13 +60,12 @@ public class Notifier {
     private final AudioManager audioManager;
     private final VoiceOutputAssistant voiceOutputAssistant;
     private final Preferences preferences;
-    private final ThemeCache themeCache;
 
     @Inject
     public Notifier(@ForApplication Context context, TaskDao taskDao,
                     NotificationManager notificationManager, TelephonyManager telephonyManager,
                     AudioManager audioManager, VoiceOutputAssistant voiceOutputAssistant,
-                    Preferences preferences, ThemeCache themeCache) {
+                    Preferences preferences) {
         this.context = context;
         this.taskDao = taskDao;
         this.notificationManager = notificationManager;
@@ -74,7 +73,6 @@ public class Notifier {
         this.audioManager = audioManager;
         this.voiceOutputAssistant = voiceOutputAssistant;
         this.preferences = preferences;
-        this.themeCache = themeCache;
     }
 
     public void triggerMissedCallNotification(final String name, final String number, long contactId) {
@@ -86,7 +84,7 @@ public class Notifier {
         missedCallDialog.putExtra(MissedCallActivity.EXTRA_NAME, name);
         missedCallDialog.putExtra(MissedCallActivity.EXTRA_TITLE, title);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.DEFAULT_NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setTicker(title)
                 .setContentTitle(title)
@@ -155,7 +153,7 @@ public class Notifier {
         intent.putExtra(TaskListActivity.OPEN_FILTER, filter);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(context)
+        Notification notification = new NotificationCompat.Builder(context, NotificationManager.DEFAULT_NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setTicker(title)
@@ -236,7 +234,7 @@ public class Notifier {
             ringTimes = 1;
         }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.DEFAULT_NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setTicker(taskTitle)
@@ -290,13 +288,11 @@ public class Notifier {
         if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
             notification.flags |= Notification.FLAG_NO_CLEAR;
         }
-        if (preferences.getBoolean(R.string.p_led_notification, true)) {
-            int accent = preferences.getInt(R.string.p_led_color, 4);
-            LEDColor ledColor = themeCache.getLEDColor(accent);
+        if (preferences.isLEDNotificationEnabled()) {
             notification.flags |= Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;
             notification.ledOnMS = 700;
-            notification.ledARGB = ledColor.getColor();
+            notification.ledARGB = preferences.getLEDColor();
         } else {
             notification.ledOffMS = 0;
             notification.ledOnMS = 0;
@@ -358,7 +354,7 @@ public class Notifier {
             }
         }
 
-        if (preferences.getBoolean(R.string.p_rmd_vibrate, true) && soundIntervalOk) {
+        if (preferences.isVibrationEnabled() && soundIntervalOk) {
             notification.vibrate = preferences.getVibrationPattern();
         } else {
             notification.vibrate = null;

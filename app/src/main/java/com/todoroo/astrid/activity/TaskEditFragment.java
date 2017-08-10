@@ -33,7 +33,7 @@ import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.utility.Flags;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
@@ -86,7 +86,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @Inject Preferences preferences;
     @Inject Tracker tracker;
     @Inject TimerPlugin timerPlugin;
-    @Inject Broadcaster broadcaster;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.comments) LinearLayout comments;
@@ -212,7 +212,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             taskDao.save(model);
 
             if (Flags.check(Flags.TAGS_CHANGED)) {
-                broadcaster.refreshLists();
+                localBroadcastManager.broadcastRefreshList();
             }
 
             if (isNewTask) {

@@ -3,27 +3,28 @@ package org.tasks.sync;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 
 public class RecordSyncStatusCallback implements SyncResultCallback {
 
     private final GtasksPreferenceService gtasksPreferenceService;
-    private final Broadcaster broadcaster;
+    private final LocalBroadcastManager localBroadcastManager;
 
-    public RecordSyncStatusCallback(GtasksPreferenceService gtasksPreferenceService, Broadcaster broadcaster) {
+    public RecordSyncStatusCallback(GtasksPreferenceService gtasksPreferenceService,
+                                    LocalBroadcastManager localBroadcastManager) {
         this.gtasksPreferenceService = gtasksPreferenceService;
-        this.broadcaster = broadcaster;
+        this.localBroadcastManager = localBroadcastManager;
     }
 
     @Override
     public void started() {
         gtasksPreferenceService.recordSyncStart();
-        broadcaster.refresh();
+        localBroadcastManager.broadcastRefresh();
     }
 
     @Override
     public void finished() {
         gtasksPreferenceService.stopOngoing();
-        broadcaster.refresh();
+        localBroadcastManager.broadcastRefresh();
     }
 }

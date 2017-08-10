@@ -27,6 +27,12 @@ import timber.log.Timber;
 
 public class GCalTaskCompleteListener extends InjectingBroadcastReceiver {
 
+    public static void broadcast(Context context, long taskId) {
+        Intent intent = new Intent(context, GCalTaskCompleteListener.class);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+        context.sendBroadcast(intent);
+    }
+
     @Inject TaskDao taskDao;
 
     @Override

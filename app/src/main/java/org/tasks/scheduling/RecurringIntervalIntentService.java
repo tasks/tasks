@@ -1,9 +1,10 @@
 package org.tasks.scheduling;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 
-import org.tasks.injection.InjectingIntentService;
+import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -14,20 +15,16 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
-public abstract class RecurringIntervalIntentService extends InjectingIntentService {
+public abstract class RecurringIntervalIntentService extends InjectingJobIntentService {
 
     private static final long PADDING = SECONDS.toMillis(1);
 
     @Inject Preferences preferences;
     @Inject AlarmManager alarmManager;
 
-    RecurringIntervalIntentService(String name) {
-        super(name);
-    }
-
     @Override
-    protected void onHandleIntent(Intent intent) {
-        super.onHandleIntent(intent);
+    protected void onHandleWork(Intent intent) {
+        super.onHandleWork(intent);
 
         long interval = intervalMillis();
 
@@ -52,9 +49,11 @@ public abstract class RecurringIntervalIntentService extends InjectingIntentServ
             Timber.d("will run at %s [lastRun=%s]", printTimestamp(nextRun), printTimestamp(lastRun));
         }
 
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, new Intent(this, this.getClass()), PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, getBroadcastClass()), PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.wakeup(nextRun, pendingIntent);
     }
+
+    abstract Class<? extends BroadcastReceiver> getBroadcastClass();
 
     abstract void run();
 

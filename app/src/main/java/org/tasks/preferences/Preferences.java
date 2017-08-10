@@ -15,6 +15,8 @@ import com.todoroo.astrid.data.TaskAttachment;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
+import org.tasks.themes.LEDColor;
+import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
 
 import java.io.File;
@@ -39,15 +41,14 @@ public class Preferences {
     private final PermissionChecker permissionChecker;
     private final SharedPreferences prefs;
     private final SharedPreferences publicPrefs;
-
-    public Preferences(Context context) {
-        this(context, new PermissionChecker(context));
-    }
+    private final ThemeCache themeCache;
 
     @Inject
-    public Preferences(@ForApplication Context context, PermissionChecker permissionChecker) {
+    public Preferences(@ForApplication Context context, PermissionChecker permissionChecker,
+                       ThemeCache themeCache) {
         this.context = context;
         this.permissionChecker = permissionChecker;
+        this.themeCache = themeCache;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE);
     }
@@ -88,6 +89,19 @@ public class Preferences {
             }
         }
         return time;
+    }
+
+    public boolean isVibrationEnabled() {
+        return getBoolean(R.string.p_rmd_vibrate, true);
+    }
+
+    public boolean isLEDNotificationEnabled() {
+        return getBoolean(R.string.p_led_notification, true);
+    }
+
+    public int getLEDColor() {
+        int accent = getInt(R.string.p_led_color, 4);
+        return themeCache.getLEDColor(accent).getColor();
     }
 
     public boolean quietHoursEnabled() {

@@ -10,7 +10,7 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +24,15 @@ public class TaskDuplicator {
     private final GCalHelper gcalHelper;
     private final MetadataDao metadataDao;
     private final TaskDao taskDao;
-    private final Broadcaster broadcaster;
+    private final LocalBroadcastManager localBroadcastManager;
 
     @Inject
     public TaskDuplicator(GCalHelper gcalHelper, MetadataDao metadataDao, TaskDao taskDao,
-                          Broadcaster broadcaster) {
+                          LocalBroadcastManager localBroadcastManager) {
         this.gcalHelper = gcalHelper;
         this.metadataDao = metadataDao;
         this.taskDao = taskDao;
-        this.broadcaster = broadcaster;
+        this.localBroadcastManager = localBroadcastManager;
     }
 
     public List<Task> duplicate(List<Task> tasks) {
@@ -40,7 +40,7 @@ public class TaskDuplicator {
         for (Task task : tasks) {
             result.add(clone(taskDao.fetch(task.getId(), Task.PROPERTIES), true));
         }
-        broadcaster.refresh();
+        localBroadcastManager.broadcastRefresh();
         return result;
     }
 

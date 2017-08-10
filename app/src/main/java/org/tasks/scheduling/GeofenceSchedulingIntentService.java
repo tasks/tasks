@@ -2,7 +2,7 @@ package org.tasks.scheduling;
 
 import android.content.Intent;
 
-import org.tasks.injection.InjectingIntentService;
+import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.location.GeofenceService;
 
@@ -10,17 +10,13 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public class GeofenceSchedulingIntentService extends InjectingIntentService {
+public class GeofenceSchedulingIntentService extends InjectingJobIntentService {
 
     @Inject GeofenceService geofenceService;
 
-    public GeofenceSchedulingIntentService() {
-        super(GeofenceSchedulingIntentService.class.getSimpleName());
-    }
-
     @Override
-    protected void onHandleIntent(Intent intent) {
-        super.onHandleIntent(intent);
+    protected void onHandleWork(Intent intent) {
+        super.onHandleWork(intent);
 
         Timber.d("onHandleIntent(%s)", intent);
 

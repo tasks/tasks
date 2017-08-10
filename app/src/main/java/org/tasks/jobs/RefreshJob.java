@@ -1,6 +1,11 @@
 package org.tasks.jobs;
 
-import org.tasks.Broadcaster;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.JobIntentService;
+
+import org.tasks.LocalBroadcastManager;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.scheduling.RefreshScheduler;
 
@@ -8,14 +13,17 @@ import javax.inject.Inject;
 
 public class RefreshJob extends Job {
 
+    public static class Broadcast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            JobIntentService.enqueueWork(context, RefreshJob.class, JobManager.JOB_ID_REFRESH, intent);
+        }
+    }
+
     public static final String TAG = "job_refresh";
 
     @Inject RefreshScheduler refreshScheduler;
-    @Inject Broadcaster broadcaster;
-
-    public RefreshJob() {
-        super(RefreshJob.class.getSimpleName());
-    }
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     @Override
     protected void inject(IntentServiceComponent component) {
@@ -24,7 +32,7 @@ public class RefreshJob extends Job {
 
     @Override
     protected void run() {
-        broadcaster.refresh();
+        localBroadcastManager.broadcastRefresh();
     }
 
     @Override

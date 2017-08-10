@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,10 +14,10 @@ import android.widget.ListView;
 
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.FilterAdapter;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
@@ -67,6 +66,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Inject Theme theme;
     @Inject ThemeCache themeCache;
     @Inject Locale locale;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -156,10 +156,10 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public void onPause() {
         super.onPause();
         if(adapter != null) {
-            adapter.unregisterRecevier();
+            localBroadcastManager.unregisterReceiver(adapter.getFilterListUpdateReceiver());
         }
         try {
-            getActivity().unregisterReceiver(refreshReceiver);
+            localBroadcastManager.unregisterReceiver(refreshReceiver);
         } catch (IllegalArgumentException e) {
             // Might not have fully initialized
             Timber.e(e, e.getMessage());
@@ -238,13 +238,12 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public void onResume() {
         super.onResume();
         if(adapter != null) {
-            adapter.registerRecevier();
+            localBroadcastManager.registerRefreshReceiver(adapter.getFilterListUpdateReceiver());
+            adapter.populateList();
         }
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-        intentFilter.addAction(AstridApiConstants.BROADCAST_EVENT_REFRESH_LISTS);
-        getActivity().registerReceiver(refreshReceiver, intentFilter);
+        localBroadcastManager.registerRefreshReceiver(refreshReceiver);
+        localBroadcastManager.registerRefreshListReceiver(refreshReceiver);
 
         repopulateList();
     }
@@ -262,9 +261,9 @@ public class NavigationDrawerFragment extends InjectingFragment {
                 return;
             }
             String action = intent.getAction();
-            if (AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(action)) {
+            if (LocalBroadcastManager.REFRESH.equals(action)) {
                 adapter.refreshFilterCount();
-            } else if (AstridApiConstants.BROADCAST_EVENT_REFRESH_LISTS.equals(action)) {
+            } else if (LocalBroadcastManager.REFRESH_LIST.equals(action)) {
                 repopulateList();
             }
         }

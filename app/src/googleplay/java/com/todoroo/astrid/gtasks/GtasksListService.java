@@ -12,7 +12,7 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.data.TaskListDataProvider;
 
 import java.util.HashSet;
@@ -33,16 +33,17 @@ public class GtasksListService {
     private final TaskListDataProvider taskListDataProvider;
     private final TaskDeleter taskDeleter;
     private final MetadataDao metadataDao;
-    private final Broadcaster broadcaster;
+    private LocalBroadcastManager localBroadcastManager;
 
     @Inject
     public GtasksListService(StoreObjectDao storeObjectDao, TaskListDataProvider taskListDataProvider,
-                             TaskDeleter taskDeleter, MetadataDao metadataDao, Broadcaster broadcaster) {
+                             TaskDeleter taskDeleter, MetadataDao metadataDao,
+                             LocalBroadcastManager localBroadcastManager) {
         this.storeObjectDao = storeObjectDao;
         this.taskListDataProvider = taskListDataProvider;
         this.taskDeleter = taskDeleter;
         this.metadataDao = metadataDao;
-        this.broadcaster = broadcaster;
+        this.localBroadcastManager = localBroadcastManager;
     }
 
     public List<GtasksList> getLists() {
@@ -95,7 +96,7 @@ public class GtasksListService {
             deleteList(storeObjectDao.getGtasksList(listId));
         }
 
-        broadcaster.refreshLists();
+        localBroadcastManager.broadcastRefreshList();
     }
 
     public void deleteList(GtasksList gtasksList) {

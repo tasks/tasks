@@ -3,6 +3,7 @@ package org.tasks.receivers;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -16,6 +17,13 @@ import org.tasks.injection.InjectingBroadcastReceiver;
 import javax.inject.Inject;
 
 public class GoogleTaskPushReceiver extends InjectingBroadcastReceiver {
+
+    public static void broadcast(Context context, Task task, ContentValues values) {
+        Intent intent = new Intent(context, GoogleTaskPushReceiver.class);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK, task);
+        intent.putExtra(AstridApiConstants.EXTRAS_VALUES, values);
+        context.sendBroadcast(intent);
+    }
 
     private static final Property<?>[] TASK_PROPERTIES = { Task.ID, Task.TITLE,
             Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE };

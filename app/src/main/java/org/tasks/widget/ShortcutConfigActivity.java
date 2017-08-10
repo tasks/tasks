@@ -3,7 +3,10 @@ package org.tasks.widget;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
@@ -44,11 +47,20 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
                 Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 String filterId = defaultFilterProvider.getFilterPreferenceValue(filter);
                 Intent shortcutIntent = TaskIntents.getTaskListByIdIntent(this, filterId);
-                Bitmap bitmap = ((BitmapDrawable) ContextCompat.getDrawable(this, R.mipmap.ic_launcher)).getBitmap();
+
                 Intent intent = new Intent();
                 intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
                 intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, filter.listingTitle);
-                intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
+                Drawable launcher = ContextCompat.getDrawable(this, R.mipmap.ic_launcher);
+                if (launcher instanceof BitmapDrawable) {
+                    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, ((BitmapDrawable) launcher).getBitmap());
+                } else if (launcher instanceof AdaptiveIconDrawable) {
+                    Bitmap bitmap = Bitmap.createBitmap(launcher.getIntrinsicWidth(), launcher.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                    Canvas canvas = new Canvas(bitmap);
+                    launcher.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                    launcher.draw(canvas);
+                    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
+                }
                 intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
                 setResult(RESULT_OK, intent);
             }

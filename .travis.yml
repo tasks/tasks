@@ -8,9 +8,9 @@ android:
   components:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - tools # https://github.com/travis-ci/travis-ci/issues/6040
-    - android-25
+    - android-26
     - platform-tools
-    - build-tools-25.0.3
+    - build-tools-26.0.1
     - extra-android-m2repository
     - extra-google-m2repository
   licenses:
@@ -23,5 +23,5 @@ before_install:
   - adb shell input keyevent 82 &
 
 script:
-    - ./gradlew :app:lintGoogleplayDebug
-    - ./gradlew :app:connectedGoogleplayDebugAndroidTest
+  - ./gradlew :app:lintGoogleplayDebug
+  - ./gradlew :app:connectedGoogleplayDebugAndroidTest

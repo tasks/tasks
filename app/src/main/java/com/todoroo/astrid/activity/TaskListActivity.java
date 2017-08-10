@@ -8,12 +8,9 @@ package com.todoroo.astrid.activity;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.view.ActionMode;
@@ -22,7 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -42,7 +38,7 @@ import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.timers.TimerControlSet;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
@@ -95,12 +91,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject GtasksListService gtasksListService;
     @Inject TagDataDao tagDataDao;
     @Inject Theme theme;
-    @Inject Broadcaster broadcaster;
     @Inject ThemeCache themeCache;
     @Inject SyncAdapterHelper syncAdapterHelper;
     @Inject Tracker tracker;
     @Inject TaskCreator taskCreator;
     @Inject TaskDao taskDao;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.master) FrameLayout master;
@@ -262,9 +258,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             return;
         }
 
-        registerReceiver(
-                repeatConfirmationReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
+        localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
         syncAdapterHelper.checkPlayServices(getTaskListFragment());
     }
@@ -290,7 +284,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     protected void onPause() {
         super.onPause();
 
-        AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
+        localBroadcastManager.unregisterReceiver(repeatConfirmationReceiver);
     }
 
     @Override
@@ -493,7 +487,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     @Override
     public void sortChanged() {
-        broadcaster.refresh();
+        localBroadcastManager.broadcastRefresh();
         reloadCurrentFilter();
     }
 

@@ -10,8 +10,8 @@ import com.android.vending.billing.IabResult;
 import com.android.vending.billing.Purchase;
 import com.google.common.base.Strings;
 
-import org.tasks.Broadcaster;
 import org.tasks.BuildConfig;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.dialogs.DialogBuilder;
@@ -36,22 +36,23 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
     private final Context context;
     private final Preferences preferences;
     private final Tracker tracker;
-    private final Broadcaster broadcaster;
     private final InventoryHelper inventory;
     private final Executor executor;
+    private LocalBroadcastManager localBroadcastManager;
 
     private PurchaseHelperCallback activityResultCallback;
     private IabHelper iabHelper;
 
     @Inject
     public PurchaseHelper(@ForApplication Context context, Preferences preferences, Tracker tracker,
-                          Broadcaster broadcaster, InventoryHelper inventory, @Named("iab-executor") Executor executor) {
+                          InventoryHelper inventory, @Named("iab-executor") Executor executor,
+                          LocalBroadcastManager localBroadcastManager) {
         this.context = context;
         this.preferences = preferences;
         this.tracker = tracker;
-        this.broadcaster = broadcaster;
         this.inventory = inventory;
         this.executor = executor;
+        this.localBroadcastManager = localBroadcastManager;
     }
 
     @Override
@@ -150,7 +151,7 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
                         if (result1.isSuccess()) {
                             if (!Strings.isNullOrEmpty(pref)) {
                                 preferences.setBoolean(pref, true);
-                                broadcaster.refresh();
+                                localBroadcastManager.broadcastRefresh();
                             }
                             inventory.refreshInventory();
                         } else if (result1.getResponse() != IabHelper.BILLING_RESPONSE_RESULT_USER_CANCELED &&

@@ -19,6 +19,17 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 @ApplicationScope
 public class JobManager {
 
+    static final int JOB_ID_REFRESH = 1;
+    static final int JOB_ID_REMINDER = 2;
+    static final int JOB_ID_ALARM = 3;
+    public static final int JOB_ID_GEOFENCE_TRANSITION = 4;
+    public static final int JOB_ID_GEOFENCE_SCHEDULING = 5;
+    static final int JOB_ID_MIDNIGHT_REFRESH = 6;
+    static final int JOB_ID_BACKUP = 7;
+    public static final int JOB_ID_SCHEDULER = 8;
+    public static final int JOB_ID_NOTIFICATION_SCHEDULER = 9;
+    public static final int JOB_ID_CALENDAR_NOTIFICATION = 10;
+
     private Context context;
     private AlarmManager alarmManager;
 
@@ -35,19 +46,19 @@ public class JobManager {
 
     public void scheduleRefresh(long time) {
         Timber.d("%s: %s", RefreshJob.TAG, printTimestamp(time));
-        alarmManager.noWakeup(adjust(time), getPendingService(RefreshJob.class));
+        alarmManager.noWakeup(adjust(time), getPendingBroadcast(RefreshJob.Broadcast.class));
     }
 
     public void scheduleMidnightRefresh() {
         long time = nextMidnight();
         Timber.d("%s: %s", MidnightRefreshJob.TAG, printTimestamp(time));
-        alarmManager.noWakeup(adjust(time), getPendingService(MidnightRefreshJob.class));
+        alarmManager.noWakeup(adjust(time), getPendingBroadcast(MidnightRefreshJob.class));
     }
 
     public void scheduleMidnightBackup() {
         long time = nextMidnight();
         Timber.d("%s: %s", BackupJob.TAG, printTimestamp(time));
-        alarmManager.noWakeup(adjust(time), getPendingService(BackupJob.class));
+        alarmManager.noWakeup(adjust(time), getPendingBroadcast(BackupJob.class));
     }
 
     public void cancel(String tag) {
@@ -62,11 +73,11 @@ public class JobManager {
     private PendingIntent getPendingIntent(String tag) {
         switch (tag) {
             case ReminderJob.TAG:
-                return getPendingBroadcast(ReminderJobBroadcast.class);
+                return getPendingBroadcast(ReminderJob.Broadcast.class);
             case AlarmJob.TAG:
-                return getPendingBroadcast(AlarmJobBroadcast.class);
+                return getPendingBroadcast(AlarmJob.Broadcast.class);
             case RefreshJob.TAG:
-                return getPendingService(RefreshJob.class);
+                return getPendingBroadcast(RefreshJob.Broadcast.class);
             default:
                 throw new RuntimeException("Unexpected tag: " + tag);
         }
@@ -74,9 +85,5 @@ public class JobManager {
 
     private <T> PendingIntent getPendingBroadcast(Class<T> c) {
         return PendingIntent.getBroadcast(context, 0, new Intent(context, c), 0);
-    }
-
-    private <T> PendingIntent getPendingService(Class<T> c) {
-        return PendingIntent.getService(context, 0, new Intent(context, c), 0);
     }
 }

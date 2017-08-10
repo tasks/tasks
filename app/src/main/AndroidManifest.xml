@@ -212,6 +212,8 @@
 
         <!-- ======================================================= Receivers = -->
 
+        <receiver android:name=".receivers.PushReceiver" />
+
         <receiver
             android:name=".receivers.ListNotificationReceiver"
             android:exported="true" />
@@ -224,7 +226,6 @@
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.todoroo.astrid.widget.TasksWidget.COMPLETE_TASK"/>
                 <action android:name="com.todoroo.astrid.widget.TasksWidget.EDIT_TASK"/>
-                <action android:name="org.tasks.REFRESH"/>
             </intent-filter>
 
             <meta-data
@@ -332,12 +333,7 @@
             android:theme="@style/Tasks"/>
 
         <!-- alarms -->
-        <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
-            <intent-filter>
-                <action android:name="org.tasks.TASK_REPEATED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+        <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener" />
 
         <!-- actfm -->
 
@@ -347,20 +343,10 @@
 
         <!-- repeats -->
 
-        <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">
-            <intent-filter android:priority="1">
-                <action android:name="org.tasks.TASK_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+        <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener" />
 
         <!-- calendar -->
-        <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener">
-            <intent-filter android:priority="2">
-                <action android:name="org.tasks.TASK_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+        <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener" />
 
         <activity
             android:name=".activities.CalendarSelectionActivity"
@@ -399,12 +385,7 @@
             android:name=".files.FileExplore"
             android:theme="@style/TranslucentDialog"/>
 
-        <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
-            <intent-filter>
-                <action android:name="org.tasks.TASK_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+        <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener" />
 
         <!-- reminders -->
         <activity
@@ -440,38 +421,57 @@
 
         <service
             android:name=".scheduling.GeofenceSchedulingIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
         <service
             android:name=".scheduling.SchedulerIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
         <service
             android:name=".scheduling.NotificationSchedulerIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
+
+        <receiver android:name=".scheduling.CalendarNotificationIntentService$Broadcast" />
         <service
             android:name=".scheduling.CalendarNotificationIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
-        <service
-            android:name=".jobs.AlarmJob"
-            android:exported="false" />
+
+        <receiver android:name=".jobs.BackupJob$Broadcast" />
         <service
             android:name=".jobs.BackupJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
+
+        <receiver android:name=".jobs.MidnightRefreshJob$Broadcast" />
         <service
             android:name=".jobs.MidnightRefreshJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
+
+        <receiver android:name=".jobs.RefreshJob$Broadcast" />
         <service
             android:name=".jobs.RefreshJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
+
+        <receiver android:name=".jobs.AlarmJob$Broadcast" />
+        <service
+            android:name=".jobs.AlarmJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false" />
+
+        <receiver android:name=".jobs.ReminderJob$Broadcast" />
         <service
             android:name=".jobs.ReminderJob"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
 
-        <receiver
-            android:name=".jobs.AlarmJobBroadcast"
-            android:exported="false" />
-
-        <receiver
-            android:name=".jobs.ReminderJobBroadcast"
+        <receiver android:name=".location.GeofenceTransitionsIntentService$Broadcast" />
+        <service
+            android:name=".location.GeofenceTransitionsIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
 
         <!-- Uses Library -->

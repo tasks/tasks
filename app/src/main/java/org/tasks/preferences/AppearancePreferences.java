@@ -7,7 +7,7 @@ import android.preference.Preference;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.Filter;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
@@ -37,7 +37,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject Tracker tracker;
-    @Inject Broadcaster broadcaster;
+    @Inject LocalBroadcastManager localBroadcastManager;
     @Inject Locale locale;
 
     private Bundle result;
@@ -113,7 +113,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
                 Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
                 defaultFilterProvider.setDefaultFilter(filter);
                 findPreference(getString(R.string.p_default_list)).setSummary(filter.listingTitle);
-                broadcaster.refresh();
+                localBroadcastManager.broadcastRefresh();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -56,28 +56,4 @@ public class AstridApiConstants {
      * Extras name for new task due date
      */
     public static final String EXTRAS_NEW_DUE_DATE = "newDueDate";
-
-    // --- Events API
-
-    /**
-     * Action name for broadcast intent notifying Astrid task list to refresh
-     */
-    public static final String BROADCAST_EVENT_REFRESH = BuildConfig.APPLICATION_ID + ".REFRESH";
-    public static final String BROADCAST_EVENT_REFRESH_LISTS = BuildConfig.APPLICATION_ID + ".REFRESH_LISTS";
-
-    /**
-     * Action name for broadcast intent notifying that task was completed
-     * <li> EXTRAS_TASK_ID id of the task
-     */
-    public static final String BROADCAST_EVENT_TASK_COMPLETED = BuildConfig.APPLICATION_ID + ".TASK_COMPLETED";
-
-    /**
-     * Action name for broadcast intent notifying that task was created from repeating template
-     * <li> EXTRAS_TASK_ID id of the task
-     * <li> EXTRAS_OLD_DUE_DATE task old due date (could be 0)
-     * <li> EXTRAS_NEW_DUE_DATE task new due date (will not be 0)
-     */
-    public static final String BROADCAST_EVENT_TASK_REPEATED = BuildConfig.APPLICATION_ID + ".TASK_REPEATED";
-
-    public static final String BROADCAST_EVENT_TASK_SAVED = BuildConfig.APPLICATION_ID + ".TASK_SAVED";
 }

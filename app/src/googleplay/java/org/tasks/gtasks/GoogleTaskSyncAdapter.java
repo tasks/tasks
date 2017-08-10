@@ -54,7 +54,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.utility.Constants;
 
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.InjectingAbstractThreadedSyncAdapter;
@@ -90,7 +90,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
-    @Inject Broadcaster broadcaster;
+    @Inject LocalBroadcastManager localBroadcastManager;
     @Inject StoreObjectDao storeObjectDao;
     @Inject GtasksSyncService gtasksSyncService;
     @Inject GtasksListService gtasksListService;
@@ -131,7 +131,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             return;
         }
         Timber.d("%s: start sync", account);
-        RecordSyncStatusCallback callback = new RecordSyncStatusCallback(gtasksPreferenceService, broadcaster);
+        RecordSyncStatusCallback callback = new RecordSyncStatusCallback(gtasksPreferenceService, localBroadcastManager);
         try {
             callback.started();
             synchronize();

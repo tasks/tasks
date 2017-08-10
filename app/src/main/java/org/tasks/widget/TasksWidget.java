@@ -11,9 +11,9 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 
-import org.tasks.Broadcaster;
 import org.tasks.R;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.ForApplication;
@@ -22,6 +22,7 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
+import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 import org.tasks.themes.WidgetTheme;
@@ -34,14 +35,12 @@ import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static com.todoroo.astrid.api.AstridApiConstants.BROADCAST_EVENT_REFRESH;
 import static org.tasks.intents.TaskIntents.getEditTaskIntent;
 
 public class TasksWidget extends InjectingAppWidgetProvider {
 
     private static final int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
 
-    @Inject Broadcaster broadcaster;
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject ThemeCache themeCache;
@@ -58,9 +57,18 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        switch(intent.getAction()) {
+        String action = intent.getAction();
+
+        if (Strings.isNullOrEmpty(action)) {
+            return;
+        }
+
+        switch(action) {
             case COMPLETE_TASK:
-                broadcaster.toggleCompletedState(intent.getLongExtra(EXTRA_ID, 0));
+                Intent completionIntent = new Intent(context, CompleteTaskReceiver.class);
+                completionIntent.putExtra(CompleteTaskReceiver.TASK_ID, intent.getLongExtra(EXTRA_ID, 0));
+                completionIntent.putExtra(CompleteTaskReceiver.TOGGLE_STATE, true);
+                context.sendBroadcast(completionIntent);
                 break;
             case EDIT_TASK:
                 long taskId = intent.getLongExtra(EXTRA_ID, 0);
@@ -68,11 +76,6 @@ public class TasksWidget extends InjectingAppWidgetProvider {
                 Intent editTaskIntent = getEditTaskIntent(context, filterId, taskId);
                 editTaskIntent.setFlags(flags);
                 context.startActivity(editTaskIntent);
-                break;
-            case BROADCAST_EVENT_REFRESH:
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-                int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, TasksWidget.class));
-                appWidgetManager.notifyAppWidgetViewDataChanged(widgetIds, R.id.list_view);
                 break;
         }
     }

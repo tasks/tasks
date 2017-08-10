@@ -1,26 +1,22 @@
 package org.tasks.jobs;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 
 import org.tasks.analytics.Tracker;
-import org.tasks.injection.InjectingIntentService;
+import org.tasks.injection.InjectingJobIntentService;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
-public abstract class Job extends InjectingIntentService {
+public abstract class Job extends InjectingJobIntentService {
 
     @Inject Tracker tracker;
 
-    public Job(String name) {
-        super(name);
-        setIntentRedelivery(true);
-    }
-
     @Override
-    protected void onHandleIntent(Intent intent) {
-        super.onHandleIntent(intent);
+    protected void onHandleWork(@NonNull Intent intent) {
+        super.onHandleWork(intent);
 
         Timber.d("onHandleIntent(%s)", intent);
 

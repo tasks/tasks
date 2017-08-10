@@ -19,6 +19,12 @@ import javax.inject.Inject;
 
 public class TimerTaskCompleteListener extends InjectingBroadcastReceiver {
 
+    public static void broadcast(Context context, long taskId) {
+        Intent intent = new Intent(context, TimerTaskCompleteListener.class);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+        context.sendBroadcast(intent);
+    }
+
     @Inject TaskDao taskDao;
     @Inject TimerPlugin timerPlugin;
 

@@ -1,9 +1,11 @@
 package org.tasks.scheduling;
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.JobIntentService;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
@@ -13,6 +15,7 @@ import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.IntentServiceComponent;
+import org.tasks.jobs.JobManager;
 import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.TimeUnit;
@@ -22,6 +25,13 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 public class CalendarNotificationIntentService extends RecurringIntervalIntentService {
+
+    public static class Broadcast extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            JobIntentService.enqueueWork(context, CalendarNotificationIntentService.class, JobManager.JOB_ID_CALENDAR_NOTIFICATION, new Intent());
+        }
+    }
 
     private static final long FIFTEEN_MINUTES = TimeUnit.MINUTES.toMillis(15);
 
@@ -33,8 +43,9 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
     @Inject @ForApplication Context context;
     @Inject AlarmManager alarmManager;
 
-    public CalendarNotificationIntentService() {
-        super(CalendarNotificationIntentService.class.getSimpleName());
+    @Override
+    Class<Broadcast> getBroadcastClass() {
+        return Broadcast.class;
     }
 
     @Override

@@ -30,6 +30,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
@@ -51,6 +52,7 @@ public class TasksXmlImporter {
     private final UserActivityDao userActivityDao;
     private final DialogBuilder dialogBuilder;
     private final TaskDao taskDao;
+    private LocalBroadcastManager localBroadcastManager;
 
     private Activity activity;
     private Handler handler;
@@ -67,12 +69,13 @@ public class TasksXmlImporter {
 
     @Inject
     public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, UserActivityDao userActivityDao,
-                            DialogBuilder dialogBuilder, TaskDao taskDao) {
+                            DialogBuilder dialogBuilder, TaskDao taskDao, LocalBroadcastManager localBroadcastManager) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.dialogBuilder = dialogBuilder;
         this.taskDao = taskDao;
+        this.localBroadcastManager = localBroadcastManager;
     }
 
     public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
@@ -120,8 +123,7 @@ public class TasksXmlImporter {
                 }
             }
         } finally {
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-            activity.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            localBroadcastManager.broadcastRefresh();
             handler.post(() -> {
                 if(progressDialog.isShowing()) {
                     DialogUtilities.dismissDialog(activity, progressDialog);

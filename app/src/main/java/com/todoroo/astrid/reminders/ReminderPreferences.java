@@ -15,6 +15,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.JobIntentService;
 
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
@@ -22,6 +23,7 @@ import org.tasks.activities.TimePickerActivity;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.jobs.JobManager;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
@@ -103,7 +105,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private void resetGeofencesOnChange(int... resIds) {
         for (int resId : resIds) {
             findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-                startService(new Intent(ReminderPreferences.this, GeofenceSchedulingIntentService.class));
+                JobIntentService.enqueueWork(this, GeofenceSchedulingIntentService.class, JobManager.JOB_ID_GEOFENCE_SCHEDULING, new Intent());
                 return true;
             });
         }

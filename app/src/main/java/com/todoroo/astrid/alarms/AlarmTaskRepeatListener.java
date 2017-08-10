@@ -21,6 +21,14 @@ import javax.inject.Inject;
 
 public class AlarmTaskRepeatListener extends InjectingBroadcastReceiver {
 
+    public static void broadcast(Context context, long taskId, long oldDueDate, long newDueDate) {
+        Intent intent = new Intent(context, AlarmTaskRepeatListener.class);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+        intent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
+        intent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
+        context.sendBroadcast(intent);
+    }
+
     @Inject AlarmService alarmService;
 
     @Override

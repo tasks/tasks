@@ -12,7 +12,7 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.tasks.Broadcaster;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.data.TaskListDataProvider;
 import org.tasks.injection.TestComponent;
 import org.tasks.makers.RemoteGtaskListMaker;
@@ -41,7 +41,7 @@ public class GtasksListServiceTest extends DatabaseTestCase {
     @Inject TaskListDataProvider taskListDataProvider;
     @Inject TaskDeleter taskDeleter;
     @Inject MetadataDao metadataDao;
-    @Inject Broadcaster broadcaster;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     private StoreObjectDao storeObjectDao;
     private GtasksListService gtasksListService;
@@ -50,7 +50,8 @@ public class GtasksListServiceTest extends DatabaseTestCase {
     public void setUp() {
         super.setUp();
         storeObjectDao = spy(new StoreObjectDao(database));
-        gtasksListService = new GtasksListService(storeObjectDao, taskListDataProvider, taskDeleter, metadataDao, broadcaster);
+        gtasksListService = new GtasksListService(storeObjectDao, taskListDataProvider, taskDeleter,
+                metadataDao, localBroadcastManager);
     }
 
     @Override

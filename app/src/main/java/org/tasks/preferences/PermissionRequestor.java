@@ -2,6 +2,8 @@ package org.tasks.preferences;
 
 import android.Manifest;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
+
 public abstract class PermissionRequestor {
     public static final int REQUEST_FILE_WRITE = 50;
     public static final int REQUEST_CALENDAR = 51;
@@ -66,7 +68,10 @@ public abstract class PermissionRequestor {
         if (permissionChecker.canAccessMissedCallPermissions()) {
             return true;
         }
-        requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE}, REQUEST_CONTACTS);
+        String[] permissions = atLeastJellybean()
+                ? new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_CALL_LOG}
+                : new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE};
+        requestPermissions(permissions, REQUEST_CONTACTS);
         return false;
     }
 
