@@ -23,5 +23,5 @@ before_install:
   - adb shell input keyevent 82 &
 
 script:
-    - ./gradlew :app:lintGoogleplayProdDebug
-    - ./gradlew :app:connectedGoogleplayProdDebugAndroidTest
+    - ./gradlew :app:lintGoogleplayDebug
+    - ./gradlew :app:connectedGoogleplayDebugAndroidTest
