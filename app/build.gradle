@@ -92,9 +92,9 @@ configurations {
 }
 
 final DAGGER_VERSION = '2.9'
-final BUTTERKNIFE_VERSION = '8.6.0'
-final GPS_VERSION = '10.2.6'
-final SUPPORT_VERSION = '25.3.1'
+final BUTTERKNIFE_VERSION = '8.8.0'
+final GPS_VERSION = '11.0.4'
+final SUPPORT_VERSION = '25.4.0'
 final SUPPORT_ANNOTATIONS_VERSION = '26.0.0-alpha1'
 final STETHO_VERSION = '1.4.2'
 final TESTING_SUPPORT_VERSION = '0.5'
@@ -112,7 +112,7 @@ dependencies {
     debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     //noinspection GradleCompatible
-    debugCompile 'com.android.support:multidex:1.0.1'
+    debugCompile 'com.android.support:multidex:1.0.2'
 
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.nononsenseapps:filepicker:4.0.0'
