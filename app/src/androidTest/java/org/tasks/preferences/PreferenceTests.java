@@ -24,7 +24,7 @@ public class PreferenceTests {
 
     @Before
     public void setUp() {
-        preferences = new Preferences(getTargetContext(), null);
+        preferences = new Preferences(getTargetContext(), null, null);
         preferences.clear();
         preferences.setBoolean(R.string.p_rmd_enable_quiet, true);
     }

@@ -56,10 +56,4 @@ public class ApplicationModule {
     public WidgetCheckBoxes getWidgetCheckBoxes(CheckBoxes checkBoxes) {
         return newWidgetCheckBoxes(checkBoxes);
     }
-
-    @Provides
-    @ApplicationScope
-    public ThemeCache getThemeCache() {
-        return new ThemeCache(context);
-    }
 }

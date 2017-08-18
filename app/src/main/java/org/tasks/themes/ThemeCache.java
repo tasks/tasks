@@ -7,12 +7,17 @@ import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 
 import org.tasks.R;
+import org.tasks.injection.ApplicationScope;
+import org.tasks.injection.ForApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import static android.support.v4.content.ContextCompat.getColor;
 
+@ApplicationScope
 public class ThemeCache {
 
     private final List<ThemeBase> themes = new ArrayList<>();
@@ -22,7 +27,8 @@ public class ThemeCache {
     private final List<LEDColor> led = new ArrayList<>();
     private final ThemeColor untaggedColor;
 
-    public ThemeCache(Context context) {
+    @Inject
+    public ThemeCache(@ForApplication Context context) {
         Resources resources = context.getResources();
 
         themes.add(new ThemeBase(context.getString(R.string.theme_light), 0, getColor(context, R.color.grey_50), AppCompatDelegate.MODE_NIGHT_NO));

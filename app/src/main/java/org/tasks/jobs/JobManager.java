@@ -52,13 +52,13 @@ public class JobManager {
     public void scheduleMidnightRefresh() {
         long time = nextMidnight();
         Timber.d("%s: %s", MidnightRefreshJob.TAG, printTimestamp(time));
-        alarmManager.noWakeup(adjust(time), getPendingBroadcast(MidnightRefreshJob.class));
+        alarmManager.noWakeup(adjust(time), getPendingBroadcast(MidnightRefreshJob.Broadcast.class));
     }
 
     public void scheduleMidnightBackup() {
         long time = nextMidnight();
         Timber.d("%s: %s", BackupJob.TAG, printTimestamp(time));
-        alarmManager.noWakeup(adjust(time), getPendingBroadcast(BackupJob.class));
+        alarmManager.noWakeup(adjust(time), getPendingBroadcast(BackupJob.Broadcast.class));
     }
 
     public void cancel(String tag) {
