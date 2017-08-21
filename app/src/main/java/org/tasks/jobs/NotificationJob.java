@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.JobIntentService;
 
-import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
@@ -16,38 +15,44 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-public class AlarmJob extends Job {
+public class NotificationJob extends Job {
 
     public static class Broadcast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            JobIntentService.enqueueWork(context, AlarmJob.class, JobManager.JOB_ID_ALARM, intent);
+            JobIntentService.enqueueWork(context, NotificationJob.class, JobManager.JOB_ID_NOTIFICATION, intent);
         }
     }
 
-    public static final String TAG = "job_alarm";
+    public static final String TAG = "job_notification";
 
     @Inject Preferences preferences;
-    @Inject AlarmService alarmService;
     @Inject Notifier notifier;
     @Inject TaskDao taskDao;
+    @Inject JobQueue jobQueue;
 
     @Override
     protected void run() {
         if (!preferences.isCurrentlyQuietHours()) {
-            for (Alarm alarm : alarmService.getOverdueAlarms()) {
-                Task task = taskDao.fetch(alarm.getTaskId(), Task.REMINDER_LAST);
-                if (task != null && task.getReminderLast() < alarm.getTime()) {
-                    notifier.triggerTaskNotification(alarm.getTaskId(), ReminderService.TYPE_ALARM);
+            for (JobQueueEntry entry : jobQueue.getOverdueJobs()) {
+                if (entry instanceof Alarm) {
+                    Alarm alarm = (Alarm) entry;
+                    Task task = taskDao.fetch(alarm.getTaskId(), Task.REMINDER_LAST);
+                    if (task != null && task.getReminderLast() < alarm.getTime()) {
+                        notifier.triggerTaskNotification(alarm.getTaskId(), ReminderService.TYPE_ALARM);
+                    }
+                } else if (entry instanceof Reminder) {
+                    Reminder reminder = (Reminder) entry;
+                    notifier.triggerTaskNotification(reminder.getId(), reminder.getType());
                 }
-                alarmService.remove(alarm);
+                jobQueue.remove(entry);
             }
         }
     }
 
     @Override
     protected void scheduleNext() {
-        alarmService.scheduleNextJob();
+        jobQueue.scheduleNext();
     }
 
     @Override

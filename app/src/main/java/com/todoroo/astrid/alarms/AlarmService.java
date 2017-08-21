@@ -22,9 +22,8 @@ import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.Alarm;
-import org.tasks.jobs.JobManager;
 import org.tasks.jobs.JobQueue;
-import org.tasks.preferences.Preferences;
+import org.tasks.jobs.JobQueueEntry;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,14 +44,14 @@ public class AlarmService {
 
     private static final long NO_ALARM = Long.MAX_VALUE;
 
-    private final JobQueue<Alarm> jobs;
+    private final JobQueue jobs;
 
     private final MetadataDao metadataDao;
 
     @Inject
-    public AlarmService(MetadataDao metadataDao, JobManager jobManager, Preferences preferences) {
+    public AlarmService(MetadataDao metadataDao, JobQueue jobQueue) {
         this.metadataDao = metadataDao;
-        jobs = JobQueue.newAlarmQueue(preferences, jobManager);
+        jobs = jobQueue;
     }
 
     public void getAlarms(long taskId, Callback<Metadata> callback) {
@@ -75,7 +74,7 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        boolean changed = synchronizeMetadata(taskId, metadata, m -> jobs.cancel(m.getId()));
+        boolean changed = synchronizeMetadata(taskId, metadata, m -> jobs.cancelAlarm(m.getId()));
 
         if(changed) {
             scheduleAlarms(taskId);
@@ -97,10 +96,6 @@ public class AlarmService {
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
-    }
-
-    public void clear() {
-        jobs.clear();
     }
 
     /**
@@ -128,7 +123,7 @@ public class AlarmService {
         Alarm alarm = new Alarm(metadata);
         long time = alarm.getTime();
         if(time == 0 || time == NO_ALARM) {
-            jobs.cancel(alarm.getId());
+            jobs.cancelAlarm(alarm.getId());
         } else {
             jobs.add(alarm);
         }
@@ -183,17 +178,5 @@ public class AlarmService {
         }
 
         return dirty[0];
-    }
-
-    public void scheduleNextJob() {
-        jobs.scheduleNext();
-    }
-
-    public List<Alarm> getOverdueAlarms() {
-        return jobs.getOverdueJobs();
-    }
-
-    public boolean remove(Alarm alarm) {
-        return jobs.remove(alarm);
     }
 }

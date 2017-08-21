@@ -8,6 +8,7 @@ import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
+import org.tasks.jobs.JobQueue;
 
 import javax.inject.Inject;
 
@@ -18,6 +19,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
     @Inject AlarmService alarmService;
     @Inject ReminderService reminderService;
     @Inject TaskDao taskDao;
+    @Inject JobQueue jobQueue;
 
     @Override
     protected void onHandleWork(Intent intent) {
@@ -25,8 +27,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
 
         Timber.d("onHandleIntent(%s)", intent);
 
-        reminderService.clear();
-        alarmService.clear();
+        jobQueue.clear();
 
         reminderService.scheduleAllAlarms(taskDao);
         alarmService.scheduleAllAlarms();

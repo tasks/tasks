@@ -54,7 +54,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     private ReminderService service;
     private Random random;
-    private JobQueue<Reminder> jobs;
+    private JobQueue jobs;
 
     @Before
     public void before() {
@@ -78,14 +78,14 @@ public class ReminderServiceTest extends InjectingTestCase {
     public void dontScheduleDueDateReminderWhenFlagNotSet() {
         service.scheduleAlarm(null, newTask(with(ID, 1L), with(DUE_TIME, newDateTime())));
 
-        verify(jobs).cancel(1);
+        verify(jobs).cancelReminder(1);
     }
 
     @Test
     public void dontScheduleDueDateReminderWhenTimeNotSet() {
         service.scheduleAlarm(null, newTask(with(ID, 1L), with(REMINDERS, NOTIFY_AT_DEADLINE)));
 
-        verify(jobs).cancel(1);
+        verify(jobs).cancelReminder(1);
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         service.scheduleAlarm(null, task);
 
         InOrder order = inOrder(jobs);
-        order.verify(jobs).cancel(1);
+        order.verify(jobs).cancelReminder(1);
         order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
     }
 
@@ -110,7 +110,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         service.scheduleAlarm(null, task);
 
         InOrder order = inOrder(jobs);
-        order.verify(jobs).cancel(1);
+        order.verify(jobs).cancelReminder(1);
         order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
     }
 
@@ -124,7 +124,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         service.scheduleAlarm(null, task);
 
         InOrder order = inOrder(jobs);
-        order.verify(jobs).cancel(1);
+        order.verify(jobs).cancelReminder(1);
         order.verify(jobs).add(new Reminder(1, now.startOfDay().withHourOfDay(18).getMillis(), ReminderService.TYPE_DUE));
     }
 
@@ -138,7 +138,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
         service.scheduleAlarm(null, task);
 
-        verify(jobs).cancel(1);
+        verify(jobs).cancelReminder(1);
     }
 
     @Test
@@ -151,7 +151,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
         service.scheduleAlarm(null, task);
 
-        verify(jobs).cancel(1);
+        verify(jobs).cancelReminder(1);
     }
 
     @Test
@@ -165,7 +165,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
         service.scheduleAlarm(null, task);
 
-        verify(jobs).cancel(1);
+        verify(jobs).cancelReminder(1);
     }
 
     @Test
@@ -178,7 +178,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         service.scheduleAlarm(null, task);
 
         InOrder order = inOrder(jobs);
-        order.verify(jobs).cancel(1);
+        order.verify(jobs).cancelReminder(1);
         order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
 
     }
@@ -197,7 +197,7 @@ public class ReminderServiceTest extends InjectingTestCase {
             service.scheduleAlarm(null, task);
 
             InOrder order = inOrder(jobs);
-            order.verify(jobs).cancel(1);
+            order.verify(jobs).cancelReminder(1);
             order.verify(jobs).add(new Reminder(1L, now.minusDays(1).getMillis() + 584206592, ReminderService.TYPE_RANDOM));
         }});
     }
@@ -216,7 +216,7 @@ public class ReminderServiceTest extends InjectingTestCase {
             service.scheduleAlarm(null, task);
 
             InOrder order = inOrder(jobs);
-            order.verify(jobs).cancel(1);
+            order.verify(jobs).cancelReminder(1);
             order.verify(jobs).add(new Reminder(1L, now.minusDays(1).getMillis() + 584206592, ReminderService.TYPE_RANDOM));
         }});
     }
@@ -235,7 +235,7 @@ public class ReminderServiceTest extends InjectingTestCase {
             service.scheduleAlarm(null, task);
 
             InOrder order = inOrder(jobs);
-            order.verify(jobs).cancel(1);
+            order.verify(jobs).cancelReminder(1);
             order.verify(jobs).add(new Reminder(1L, now.getMillis() + 10148400, ReminderService.TYPE_RANDOM));
         }});
     }
@@ -252,7 +252,7 @@ public class ReminderServiceTest extends InjectingTestCase {
             service.scheduleAlarm(null, task);
 
             InOrder order = inOrder(jobs);
-            order.verify(jobs).cancel(1);
+            order.verify(jobs).cancelReminder(1);
             order.verify(jobs).add(new Reminder(1L, task.getDueDate() + 4582800, ReminderService.TYPE_OVERDUE));
         }});
     }
@@ -269,7 +269,7 @@ public class ReminderServiceTest extends InjectingTestCase {
             service.scheduleAlarm(null, task);
 
             InOrder order = inOrder(jobs);
-            order.verify(jobs).cancel(1);
+            order.verify(jobs).cancelReminder(1);
             order.verify(jobs).add(new Reminder(1L, currentTimeMillis(), ReminderService.TYPE_OVERDUE));
         }});
     }
@@ -286,7 +286,7 @@ public class ReminderServiceTest extends InjectingTestCase {
             service.scheduleAlarm(null, task);
 
             InOrder order = inOrder(jobs);
-            order.verify(jobs).cancel(1);
+            order.verify(jobs).cancelReminder(1);
             order.verify(jobs).add(new Reminder(1L, currentTimeMillis(), ReminderService.TYPE_OVERDUE));
         }});
     }
@@ -305,7 +305,7 @@ public class ReminderServiceTest extends InjectingTestCase {
             service.scheduleAlarm(null, task);
 
             InOrder order = inOrder(jobs);
-            order.verify(jobs).cancel(1);
+            order.verify(jobs).cancelReminder(1);
             order.verify(jobs).add(new Reminder(1L, currentTimeMillis() + 22748400, ReminderService.TYPE_OVERDUE));
         }});
     }
@@ -323,7 +323,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         service.scheduleAlarm(null, task);
 
         InOrder order = inOrder(jobs);
-        order.verify(jobs).cancel(1);
+        order.verify(jobs).cancelReminder(1);
         order.verify(jobs).add(new Reminder(1, now.plusMonths(12).getMillis(), ReminderService.TYPE_SNOOZE));
     }
 

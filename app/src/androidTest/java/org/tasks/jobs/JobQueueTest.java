@@ -30,9 +30,9 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 public class JobQueueTest {
 
     private static final long ONE_MINUTE = TimeUnit.MINUTES.toMillis(1);
-    private static final String TAG = "test";
+    private static final String TAG = NotificationJob.TAG;
 
-    private JobQueue<Reminder> queue;
+    private JobQueue queue;
     private JobManager jobManager;
     private Preferences preferences;
 
@@ -41,12 +41,65 @@ public class JobQueueTest {
         preferences = mock(Preferences.class);
         when(preferences.adjustForQuietHours(anyLong())).then(returnsFirstArg());
         jobManager = mock(JobManager.class);
-        queue = new JobQueue<>(preferences, jobManager, TAG);
+        queue = new JobQueue(preferences, jobManager);
     }
 
     @After
     public void after() {
         verifyNoMoreInteractions(jobManager);
+    }
+
+    @Test
+    public void alarmAndReminderSameTimeSameID() {
+        long now = currentTimeMillis();
+
+        queue.add(new Reminder(1, now, TYPE_DUE));
+        queue.add(new Alarm(1, 1, now));
+
+        verify(jobManager).schedule(TAG, now);
+
+        Freeze.freezeAt(now).thawAfter(new Snippet() {{
+            assertEquals(
+                    asList(new Reminder(1, now, TYPE_DUE),
+                            new Alarm(1, 1, now)),
+                    queue.getOverdueJobs());
+        }});
+    }
+
+    @Test
+    public void removeAlarmLeaveReminder() {
+        long now = currentTimeMillis();
+
+        queue.add(new Reminder(1, now, TYPE_DUE));
+        queue.add(new Alarm(1, 1, now));
+
+        verify(jobManager).schedule(TAG, now);
+
+        queue.remove(new Alarm(1, 1, now));
+
+        Freeze.freezeAt(now).thawAfter(new Snippet() {{
+            assertEquals(
+                    singletonList(new Reminder(1, now, TYPE_DUE)),
+                    queue.getOverdueJobs());
+        }});
+    }
+
+    @Test
+    public void removeReminderLeaveAlarm() {
+        long now = currentTimeMillis();
+
+        queue.add(new Reminder(1, now, TYPE_DUE));
+        queue.add(new Alarm(1, 1, now));
+
+        verify(jobManager).schedule(TAG, now);
+
+        queue.remove(new Reminder(1, now, TYPE_DUE));
+
+        Freeze.freezeAt(now).thawAfter(new Snippet() {{
+            assertEquals(
+                    singletonList(new Alarm(1, 1, now)),
+                    queue.getOverdueJobs());
+        }});
     }
 
     @Test
@@ -87,7 +140,7 @@ public class JobQueueTest {
     @Test
     public void rescheduleWhenCancelingOnlyJob() {
         queue.add(new Reminder(1, 2, 0));
-        queue.cancel(1);
+        queue.cancelReminder(1);
 
         InOrder order = inOrder(jobManager);
         order.verify(jobManager).schedule(TAG, 2);
@@ -99,7 +152,7 @@ public class JobQueueTest {
         queue.add(new Reminder(1, 1, 0));
         queue.add(new Reminder(2, 2, 0));
 
-        queue.cancel(1);
+        queue.cancelReminder(1);
 
         InOrder order = inOrder(jobManager);
         order.verify(jobManager).schedule(TAG, 1);
@@ -111,7 +164,7 @@ public class JobQueueTest {
         queue.add(new Reminder(1, 1, 0));
         queue.add(new Reminder(2, 2, 0));
 
-        queue.cancel(2);
+        queue.cancelReminder(2);
 
         verify(jobManager).schedule(TAG, 1);
     }
@@ -234,7 +287,7 @@ public class JobQueueTest {
         long now = currentTimeMillis();
 
         queue.add(new Reminder(1, now, TYPE_DUE));
-        queue.cancel(2);
+        queue.cancelReminder(2);
 
         verify(jobManager).schedule(TAG, now);
     }

@@ -39,12 +39,17 @@ public class Alarm implements JobQueueEntry {
 
         Alarm alarm = (Alarm) o;
 
-        return alarmId == alarm.alarmId;
+        if (alarmId != alarm.alarmId) return false;
+        if (taskId != alarm.taskId) return false;
+        return time == alarm.time;
     }
 
     @Override
     public int hashCode() {
-        return (int) (alarmId ^ (alarmId >>> 32));
+        int result = (int) (alarmId ^ (alarmId >>> 32));
+        result = 31 * result + (int) (taskId ^ (taskId >>> 32));
+        result = 31 * result + (int) (time ^ (time >>> 32));
+        return result;
     }
 
     @Override

@@ -15,14 +15,11 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
-import org.tasks.jobs.JobManager;
 import org.tasks.jobs.JobQueue;
 import org.tasks.jobs.Reminder;
 import org.tasks.preferences.Preferences;
 import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -59,18 +56,18 @@ public final class ReminderService  {
 
     private static final long NO_ALARM = Long.MAX_VALUE;
 
-    private final JobQueue<Reminder> jobs;
+    private final JobQueue jobs;
     private final Random random;
     private final Preferences preferences;
 
     private long now = -1; // For tracking when reminders might be scheduled all at once
 
     @Inject
-    ReminderService(Preferences preferences, JobManager jobManager) {
-        this(preferences, JobQueue.newReminderQueue(preferences, jobManager), new Random());
+    ReminderService(Preferences preferences, JobQueue jobQueue) {
+        this(preferences, jobQueue, new Random());
     }
 
-    ReminderService(Preferences preferences, JobQueue<Reminder> jobs, Random random) {
+    ReminderService(Preferences preferences, JobQueue jobs, Random random) {
         this.preferences = preferences;
         this.jobs = jobs;
         this.random = random;
@@ -87,25 +84,9 @@ public final class ReminderService  {
         now = -1; // Signal done with now variable
     }
 
-    public void clear() {
-        jobs.clear();
-    }
-
     private long getNowValue() {
         // If we're in the midst of mass scheduling, use the prestored now var
         return (now == -1 ? DateUtilities.now() : now);
-    }
-
-    public List<Reminder> getPastReminders() {
-        return jobs.getOverdueJobs();
-    }
-
-    public boolean remove(Reminder reminder) {
-        return jobs.remove(reminder);
-    }
-
-    public void scheduleNextJob() {
-        jobs.scheduleNext();
     }
 
     public void scheduleAlarm(TaskDao taskDao, Task task) {
@@ -129,7 +110,7 @@ public final class ReminderService  {
 
         // Make sure no alarms are scheduled other than the next one. When that one is shown, it
         // will schedule the next one after it, and so on and so forth.
-        jobs.cancel(taskId);
+        jobs.cancelReminder(taskId);
 
         if(task.isCompleted() || task.isDeleted()) {
             return;

@@ -20,8 +20,7 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 public class JobManager {
 
     static final int JOB_ID_REFRESH = 1;
-    static final int JOB_ID_REMINDER = 2;
-    static final int JOB_ID_ALARM = 3;
+    static final int JOB_ID_NOTIFICATION = 3;
     public static final int JOB_ID_GEOFENCE_TRANSITION = 4;
     public static final int JOB_ID_GEOFENCE_SCHEDULING = 5;
     static final int JOB_ID_MIDNIGHT_REFRESH = 6;
@@ -72,10 +71,8 @@ public class JobManager {
 
     private PendingIntent getPendingIntent(String tag) {
         switch (tag) {
-            case ReminderJob.TAG:
-                return getPendingBroadcast(ReminderJob.Broadcast.class);
-            case AlarmJob.TAG:
-                return getPendingBroadcast(AlarmJob.Broadcast.class);
+            case NotificationJob.TAG:
+                return getPendingBroadcast(NotificationJob.Broadcast.class);
             case RefreshJob.TAG:
                 return getPendingBroadcast(RefreshJob.Broadcast.class);
             default:
