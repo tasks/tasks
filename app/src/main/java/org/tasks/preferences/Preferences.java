@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
 import com.google.common.primitives.Longs;
@@ -15,7 +16,6 @@ import com.todoroo.astrid.data.TaskAttachment;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.themes.LEDColor;
 import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
 
@@ -150,7 +150,8 @@ public class Preferences {
     }
 
     public int getNotificationPriority() {
-        return getIntegerFromString(R.string.p_notification_priority, 1);
+        return Math.max(NotificationCompat.PRIORITY_MIN, Math.min(NotificationCompat.PRIORITY_MAX,
+                        getIntegerFromString(R.string.p_notification_priority, NotificationCompat.PRIORITY_HIGH)));
     }
 
     public String getDefaultCalendar() {

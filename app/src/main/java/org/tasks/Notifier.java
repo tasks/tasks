@@ -34,8 +34,6 @@ import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.reminders.SnoozeDialog;
 import org.tasks.reminders.SnoozeOption;
-import org.tasks.themes.LEDColor;
-import org.tasks.themes.ThemeCache;
 
 import java.io.InputStream;
 
@@ -46,7 +44,6 @@ import timber.log.Timber;
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.google.common.base.Strings.isNullOrEmpty;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class Notifier {
@@ -90,6 +87,9 @@ public class Notifier {
                 .setContentTitle(title)
                 .setContentText(context.getString(R.string.app_name))
                 .setWhen(currentTimeMillis())
+                .setVibrate(preferences.isVibrationEnabled() ? preferences.getVibrationPattern() : null)
+                .setLights(preferences.getLEDColor(), preferences.isLEDNotificationEnabled() ? 700 : 0, 5000)
+                .setPriority(preferences.getNotificationPriority())
                 .setContentIntent(PendingIntent.getActivity(context, missedCallDialog.hashCode(), missedCallDialog, PendingIntent.FLAG_UPDATE_CURRENT));
 
         Bitmap contactImage = getContactImage(contactId);
@@ -162,6 +162,9 @@ public class Notifier {
                 .setContentText(subtitle)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
+                .setVibrate(preferences.isVibrationEnabled() ? preferences.getVibrationPattern() : null)
+                .setLights(preferences.getLEDColor(), preferences.isLEDNotificationEnabled() ? 700 : 0, 5000)
+                .setPriority(preferences.getNotificationPriority())
                 .build();
 
         activateNotification(1, (title + query).hashCode(), notification, null);
@@ -241,6 +244,9 @@ public class Notifier {
                 .setWhen(currentTimeMillis())
                 .setContentTitle(taskTitle)
                 .setContentText(text)
+                .setVibrate(preferences.isVibrationEnabled() ? preferences.getVibrationPattern() : null)
+                .setLights(preferences.getLEDColor(), preferences.isLEDNotificationEnabled() ? 700 : 0, 5000)
+                .setPriority(preferences.getNotificationPriority())
                 .setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
         if (!Strings.isNullOrEmpty(taskDescription) && preferences.getBoolean(R.string.p_rmd_show_description, true)) {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
@@ -288,29 +294,6 @@ public class Notifier {
         if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
             notification.flags |= Notification.FLAG_NO_CLEAR;
         }
-        if (preferences.isLEDNotificationEnabled()) {
-            notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-            notification.ledOffMS = 5000;
-            notification.ledOnMS = 700;
-            notification.ledARGB = preferences.getLEDColor();
-        } else {
-            notification.ledOffMS = 0;
-            notification.ledOnMS = 0;
-        }
-
-        if (atLeastJellybean()) {
-            switch (preferences.getNotificationPriority()) {
-                case 0:
-                    notification.priority = NotificationCompat.PRIORITY_DEFAULT;
-                    break;
-                case -1:
-                    notification.priority = NotificationCompat.PRIORITY_LOW;
-                    break;
-                default:
-                    notification.priority = NotificationCompat.PRIORITY_HIGH;
-                    break;
-            }
-        }
 
         boolean voiceReminder = preferences.getBoolean(R.string.p_voiceRemindersEnabled, false) && !isNullOrEmpty(text);
 
@@ -352,12 +335,6 @@ public class Notifier {
             } else if (soundIntervalOk) {
                 notification.defaults |= Notification.DEFAULT_SOUND;
             }
-        }
-
-        if (preferences.isVibrationEnabled() && soundIntervalOk) {
-            notification.vibrate = preferences.getVibrationPattern();
-        } else {
-            notification.vibrate = null;
         }
 
         if (!telephonyManager.callStateIdle()) {
