@@ -241,8 +241,6 @@
 	<string name="rate_tasks">Ohodnotiť Tasks</string>
 	<string name="TLA_menu_donate">Darovať</string>
 	<string name="select_amount">Vybrať sumu</string>
-	<string name="notification_actions">Oznámenia akcií</string>
-	<string name="notification_actions_summary">Zobraziť odložené a dokončené akcie v notifikačnej lište</string>
 	<string name="add_reminder">Pridať pripomienku</string>
 	<string name="remove">Odstrániť</string>
 	<string name="randomly_once">Raz náhodne</string>

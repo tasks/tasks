@@ -252,8 +252,6 @@
 	<string name="rate_tasks">Ohodnotit Tasks</string>
 	<string name="quiet_hours_summary">Žádné připomínky během tichých hodin</string>
 	<string name="TLA_menu_donate">Darovat</string>
-	<string name="notification_actions">Akce upozornění</string>
-	<string name="notification_actions_summary">Zobraz akce odložení a dokončení v oznámeních</string>
 	<string name="remove">Odstranit</string>
 	<string name="randomly">Náhodně</string>
 	<string name="pick_a_date">Vybrat datum</string>

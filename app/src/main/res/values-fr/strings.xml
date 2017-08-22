@@ -268,8 +268,6 @@
 	<string name="quiet_hours_summary">Pas de rappels pendant les heures silencieuses</string>
 	<string name="TLA_menu_donate">Remercier</string>
 	<string name="select_amount">Choisir le montant</string>
-	<string name="notification_actions">Actions dans les notifications</string>
-	<string name="notification_actions_summary">Afficher l\'option de rappel et indiquer qu\'une tâche est effectuée dans la notification</string>
 	<string name="add_reminder">Ajouter un rappel</string>
 	<string name="remove">Supprimer</string>
 	<string name="randomly_once">Une fois aléatoirement</string>
@@ -382,7 +380,6 @@
 	<string name="widget_header_settings">Paramètres de l\'en-tête</string>
 	<string name="widget_row_settings">Paramètres de la ligne</string>
 	<string name="notification_shade">Fréquence de notification</string>
-	<string name="notification_description">Montrer la description de la tâche</string>
 	<string name="sync_error_permissions">Permissions requises de Tasks.</string>
 	<string name="creating_new_list">Création d\'une nouvelle liste</string>
 	<string name="deleting_list">Suppression de la liste</string>

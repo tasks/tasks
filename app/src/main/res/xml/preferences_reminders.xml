@@ -54,17 +54,6 @@
             android:key="@string/p_rmd_persistent"
             android:summary="@string/persistent_notifications_description"
             android:title="@string/persistent_notifications" />
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:defaultValue="true"
-            android:dependency="@string/p_rmd_enabled"
-            android:key="@string/p_rmd_notif_actions_enabled"
-            android:summary="@string/notification_actions_summary"
-            android:title="@string/notification_actions" />
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:defaultValue="true"
-            android:dependency="@string/p_rmd_enabled"
-            android:key="@string/p_rmd_show_description"
-            android:title="@string/notification_description" />
 
     </PreferenceCategory>
 

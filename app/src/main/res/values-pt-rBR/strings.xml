@@ -269,8 +269,6 @@
 	<string name="quiet_hours_summary">Sem lembretes durante as horas calmas</string>
 	<string name="TLA_menu_donate">Doar</string>
 	<string name="select_amount">Selecionar quantia</string>
-	<string name="notification_actions">Ações na notificação</string>
-	<string name="notification_actions_summary">Mostrar as ações \"Adiar\" e \"Concluída\" na notificação</string>
 	<string name="add_reminder">Adicionar lembrete</string>
 	<string name="remove">Remover</string>
 	<string name="randomly_once">Aleatoriamente uma vez</string>
@@ -385,7 +383,6 @@
 	<string name="widget_header_settings">Config. cabeçalho</string>
 	<string name="widget_row_settings">Congif. entrada</string>
 	<string name="notification_shade">Painel de notificações</string>
-	<string name="notification_description">Mostrar descrição</string>
 	<string name="sync_error_permissions">Tasks precisa de permissão</string>
 	<string name="creating_new_list">Criando uma nova lista</string>
 	<string name="deleting_list">Excluindo lista</string>

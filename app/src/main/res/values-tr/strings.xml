@@ -215,7 +215,6 @@
 	<string name="contact_developer">Geliştiriciyle iletişime geç</string>
 	<string name="rate_tasks">Tasks\'i Oyla</string>
 	<string name="quiet_hours_summary">Sessiz saatlerde hatırlatıcı yok</string>
-	<string name="notification_actions_summary">Bildirimde erteleme ve tamamlanma hareketlerini göster</string>
 	<string name="randomly_once">Şunda rastgele bir kez</string>
 	<string name="pick_a_date">Bir tarih seç</string>
 	<string name="when_overdue">Geciktiğinde</string>

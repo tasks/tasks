@@ -87,7 +87,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
             return false;
         });
 
-        requires(R.string.notification_shade, atLeastJellybean(), R.string.p_rmd_notif_actions_enabled, R.string.p_notification_priority, R.string.p_rmd_show_description);
+        requires(R.string.notification_shade, atLeastJellybean(), R.string.p_notification_priority);
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
 
         updateLEDColor();

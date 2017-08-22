@@ -274,8 +274,6 @@
 	<string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
 	<string name="TLA_menu_donate">Поддержать разработку</string>
 	<string name="select_amount">Выберите количество</string>
-	<string name="notification_actions">Команды в уведомлении</string>
-	<string name="notification_actions_summary">Показывать «Повтор» и «Уже готово!» в уведомлении</string>
 	<string name="add_reminder">Добавить напоминание</string>
 	<string name="remove">Удалить</string>
 	<string name="randomly_once">Случайно один раз</string>
@@ -393,7 +391,6 @@
 	<string name="widget_header_settings">Настройки закоголовка</string>
 	<string name="widget_row_settings">Настройки строк</string>
 	<string name="notification_shade">Тень уведомления</string>
-	<string name="notification_description">Показать описание задачи</string>
 	<string name="sync_error_permissions">Запрашиваемые разрешения</string>
 	<string name="creating_new_list">Создание нового списка</string>
 	<string name="deleting_list">Удаление списка</string>

@@ -97,24 +97,22 @@ public class Notifier {
             builder.setLargeIcon(contactImage);
         }
 
-        if (preferences.useNotificationActions()) {
-            Intent callNow = new Intent(context, MissedCallActivity.class);
-            callNow.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            callNow.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
-            callNow.putExtra(MissedCallActivity.EXTRA_NAME, name);
-            callNow.putExtra(MissedCallActivity.EXTRA_TITLE, title);
-            callNow.putExtra(MissedCallActivity.EXTRA_CALL_NOW, true);
+        Intent callNow = new Intent(context, MissedCallActivity.class);
+        callNow.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callNow.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+        callNow.putExtra(MissedCallActivity.EXTRA_NAME, name);
+        callNow.putExtra(MissedCallActivity.EXTRA_TITLE, title);
+        callNow.putExtra(MissedCallActivity.EXTRA_CALL_NOW, true);
 
-            Intent callLater = new Intent(context, MissedCallActivity.class);
-            callLater.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            callLater.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
-            callLater.putExtra(MissedCallActivity.EXTRA_NAME, name);
-            callLater.putExtra(MissedCallActivity.EXTRA_TITLE, title);
-            callLater.putExtra(MissedCallActivity.EXTRA_CALL_LATER, true);
-            builder
-                    .addAction(R.drawable.ic_phone_white_24dp, context.getString(R.string.MCA_return_call), PendingIntent.getActivity(context, callNow.hashCode(), callNow, PendingIntent.FLAG_UPDATE_CURRENT))
-                    .addAction(R.drawable.ic_add_white_24dp, context.getString(R.string.MCA_add_task), PendingIntent.getActivity(context, callLater.hashCode(), callLater, PendingIntent.FLAG_UPDATE_CURRENT));
-        }
+        Intent callLater = new Intent(context, MissedCallActivity.class);
+        callLater.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callLater.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+        callLater.putExtra(MissedCallActivity.EXTRA_NAME, name);
+        callLater.putExtra(MissedCallActivity.EXTRA_TITLE, title);
+        callLater.putExtra(MissedCallActivity.EXTRA_CALL_LATER, true);
+        builder
+                .addAction(R.drawable.ic_phone_white_24dp, context.getString(R.string.MCA_return_call), PendingIntent.getActivity(context, callNow.hashCode(), callNow, PendingIntent.FLAG_UPDATE_CURRENT))
+                .addAction(R.drawable.ic_add_white_24dp, context.getString(R.string.MCA_add_task), PendingIntent.getActivity(context, callLater.hashCode(), callLater, PendingIntent.FLAG_UPDATE_CURRENT));
 
         activateNotification(1, number.hashCode(), builder.build(), null);
     }
@@ -248,41 +246,39 @@ public class Notifier {
                 .setLights(preferences.getLEDColor(), preferences.isLEDNotificationEnabled() ? 700 : 0, 5000)
                 .setPriority(preferences.getNotificationPriority())
                 .setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-        if (!Strings.isNullOrEmpty(taskDescription) && preferences.getBoolean(R.string.p_rmd_show_description, true)) {
+        if (!Strings.isNullOrEmpty(taskDescription)) {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
         }
-        if (preferences.useNotificationActions()) {
-            Intent completeIntent = new Intent(context, CompleteTaskReceiver.class);
-            completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id);
-            PendingIntent completePendingIntent = PendingIntent.getBroadcast(context, (int) id, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent completeIntent = new Intent(context, CompleteTaskReceiver.class);
+        completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id);
+        PendingIntent completePendingIntent = PendingIntent.getBroadcast(context, (int) id, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            NotificationCompat.Action completeAction = new NotificationCompat.Action.Builder(
-                    R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done), completePendingIntent).build();
+        NotificationCompat.Action completeAction = new NotificationCompat.Action.Builder(
+                R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done), completePendingIntent).build();
 
-            Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
-            snoozeIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-            snoozeIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
-            PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, (int) id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
+        snoozeIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+        snoozeIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
+        PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, (int) id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
-            wearableExtender.addAction(completeAction);
-            for (final SnoozeOption snoozeOption : SnoozeDialog.getSnoozeOptions(preferences)) {
-                final long timestamp = snoozeOption.getDateTime().getMillis();
-                Intent wearableIntent = new Intent(context, SnoozeActivity.class);
-                wearableIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                wearableIntent.setAction(String.format("snooze-%s-%s", id, timestamp));
-                wearableIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
-                wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp);
-                PendingIntent wearablePendingIntent = PendingIntent.getActivity(context, (int) id, wearableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                wearableExtender.addAction(new NotificationCompat.Action.Builder(
-                        R.drawable.ic_snooze_white_24dp, context.getString(snoozeOption.getResId()), wearablePendingIntent)
-                        .build());
-            }
-
-            builder.addAction(completeAction)
-                    .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent)
-                    .extend(wearableExtender);
+        NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
+        wearableExtender.addAction(completeAction);
+        for (final SnoozeOption snoozeOption : SnoozeDialog.getSnoozeOptions(preferences)) {
+            final long timestamp = snoozeOption.getDateTime().getMillis();
+            Intent wearableIntent = new Intent(context, SnoozeActivity.class);
+            wearableIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            wearableIntent.setAction(String.format("snooze-%s-%s", id, timestamp));
+            wearableIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
+            wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp);
+            PendingIntent wearablePendingIntent = PendingIntent.getActivity(context, (int) id, wearableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            wearableExtender.addAction(new NotificationCompat.Action.Builder(
+                    R.drawable.ic_snooze_white_24dp, context.getString(snoozeOption.getResId()), wearablePendingIntent)
+                    .build());
         }
+
+        builder.addAction(completeAction)
+                .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent)
+                .extend(wearableExtender);
 
         activateNotification(ringTimes, (int) id, builder.build(), taskTitle);
 

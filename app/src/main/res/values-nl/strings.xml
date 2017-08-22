@@ -272,8 +272,6 @@
 	<string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>
 	<string name="TLA_menu_donate">Doneer</string>
 	<string name="select_amount">Selecteer aantal</string>
-	<string name="notification_actions">Notificatie Acties</string>
-	<string name="notification_actions_summary">Toon snooze en voltooide acties in een melding</string>
 	<string name="add_reminder">Voeg herinnering toe</string>
 	<string name="remove">Verwijder</string>
 	<string name="randomly_once">Willekeurig eenmalig</string>
@@ -384,7 +382,6 @@
 	<string name="widget_header_settings">Titel instellingen</string>
 	<string name="widget_row_settings">Regel instellingen</string>
 	<string name="notification_shade">Notificatie schaduw</string>
-	<string name="notification_description">Toon taak omschrijving</string>
 	<string name="sync_error_permissions">Tasks vereist permissie</string>
 	<string name="creating_new_list">Nieuwe lijst aanmaken</string>
 	<string name="deleting_list">Verwijder lijst</string>

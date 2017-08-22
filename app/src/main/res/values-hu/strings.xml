@@ -277,8 +277,6 @@
 	<string name="quiet_hours_summary">Emlékeztetők mellőzése csendes órák alatt</string>
 	<string name="TLA_menu_donate">Adakozás</string>
 	<string name="select_amount">Mennyiség kiválasztása</string>
-	<string name="notification_actions">Értesítési műveletek</string>
-	<string name="notification_actions_summary">Szundi és az összes művelet mutatása az értesítésben</string>
 	<string name="add_reminder">Emlékeztető hozzáadása</string>
 	<string name="remove">Eltávolítás</string>
 	<string name="randomly_once">Véletlenszerűen egyszer</string>
@@ -396,7 +394,6 @@
 	<string name="widget_header_settings">Fejléc beállításai</string>
 	<string name="widget_row_settings">Sorok beállíátsai</string>
 	<string name="notification_shade">Értesítés árnyéka</string>
-	<string name="notification_description">Feladat leírásának megjelenítése</string>
 	<string name="sync_error_permissions">A Tasks engedélyre vár</string>
 	<string name="creating_new_list">Új lista létrehozása</string>
 	<string name="deleting_list">Lista törlése</string>

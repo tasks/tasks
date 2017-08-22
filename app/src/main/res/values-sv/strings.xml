@@ -273,8 +273,6 @@
 	<string name="quiet_hours_summary">Inga påminnelser kommer att göras under under tyst period</string>
 	<string name="TLA_menu_donate">Donera</string>
 	<string name="select_amount">Välj antal</string>
-	<string name="notification_actions">Påminnelser åtgärd</string>
-	<string name="notification_actions_summary">Visa åtgärden snooza och slutför i påmminelser</string>
 	<string name="add_reminder">Lägg till en påminnelse</string>
 	<string name="remove">Ta bort</string>
 	<string name="randomly_once">En gång slumpmässigt</string>

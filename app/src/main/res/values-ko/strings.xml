@@ -279,8 +279,6 @@
 	<string name="quiet_hours_summary">무음 시간대에는 알림 해제</string>
 	<string name="TLA_menu_donate">기부하기</string>
 	<string name="select_amount">숫자 선택</string>
-	<string name="notification_actions">알림 동작</string>
-	<string name="notification_actions_summary">알림 항목에 알림 잠시 미루기와 일정 완료를 표시하기</string>
 	<string name="add_reminder">알림 추가</string>
 	<string name="remove">지우기</string>
 	<string name="randomly_once">무작위로 한 번</string>
@@ -398,7 +396,6 @@
 	<string name="widget_header_settings">헤더 설정</string>
 	<string name="widget_row_settings">줄 설정</string>
 	<string name="notification_shade">상단바</string>
-	<string name="notification_description">할일 설명 보기</string>
 	<string name="sync_error_permissions">Tasks는 권한이 필요합니다. </string>
 	<string name="creating_new_list">새 목록 만들기</string>
 	<string name="deleting_list">목록 삭제하기</string>

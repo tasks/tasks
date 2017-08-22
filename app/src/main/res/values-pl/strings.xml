@@ -274,8 +274,6 @@
 	<string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
 	<string name="TLA_menu_donate">Wesprzyj</string>
 	<string name="select_amount">Wybierz sumę</string>
-	<string name="notification_actions">Akcja powiadomienia</string>
-	<string name="notification_actions_summary">Pokaż uśpione i ukończone zadania w powiadomieniach</string>
 	<string name="add_reminder">Dodaj przypomnienie</string>
 	<string name="remove">Usuń</string>
 	<string name="randomly_once">Losowo raz</string>
@@ -392,7 +390,6 @@
 	<string name="widget_header_settings">Ustawienia nagłówka</string>
 	<string name="widget_row_settings">Ustawienia rzędu</string>
 	<string name="notification_shade">Panel powiadomień</string>
-	<string name="notification_description">Pokaż opis zadania</string>
 	<string name="sync_error_permissions">Tasks wymaga uprawnienia</string>
 	<string name="creating_new_list">Tworzenie nowej listy</string>
 	<string name="deleting_list">Usuwanie listy</string>

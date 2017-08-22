@@ -275,8 +275,6 @@
 	<string name="quiet_hours_summary">消音時間の間はリマインダーは動作しません</string>
 	<string name="TLA_menu_donate">寄付</string>
 	<string name="select_amount">金額を選択</string>
-	<string name="notification_actions">通知アクション</string>
-	<string name="notification_actions_summary">通知にスヌーズと完了アクションを表示します</string>
 	<string name="add_reminder">リマインダーを追加</string>
 	<string name="remove">削除</string>
 	<string name="randomly_once">1回ランダムに</string>
@@ -394,7 +392,6 @@
 	<string name="widget_header_settings">ヘッダー設定</string>
 	<string name="widget_row_settings">行設定</string>
 	<string name="notification_shade">通知の影</string>
-	<string name="notification_description">タスクの概要を表示する</string>
 	<string name="sync_error_permissions">Tasks はアクセス許可が必要です</string>
 	<string name="creating_new_list">新しいリストを作成中</string>
 	<string name="deleting_list">リストの削除中</string>

@@ -675,8 +675,6 @@ File %1$s contained %2$s.\n\n
     <string name="quiet_hours_summary">No reminders during quiet hours</string>
     <string name="TLA_menu_donate">Donate</string>
     <string name="select_amount">Select amount</string>
-    <string name="notification_actions">Notification actions</string>
-    <string name="notification_actions_summary">Show snooze and complete actions in notification</string>
     <string name="add_reminder">Add reminder</string>
     <string name="remove">Remove</string>
     <string name="randomly_once">Randomly once</string>
@@ -796,7 +794,6 @@ File %1$s contained %2$s.\n\n
   <string name="widget_header_settings">Header settings</string>
   <string name="widget_row_settings">Row settings</string>
   <string name="notification_shade">Notification shade</string>
-  <string name="notification_description">Show task description</string>
   <string name="sync_error_permissions">Tasks requires permission</string>
   <string name="creating_new_list">Creating new list</string>
   <string name="deleting_list">Deleting list</string>

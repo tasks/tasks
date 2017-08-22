@@ -248,8 +248,6 @@
 	<string name="rate_tasks">Avaliar o Tasks</string>
 	<string name="TLA_menu_donate">Donativos</string>
 	<string name="select_amount">Selecione o valor</string>
-	<string name="notification_actions">Ações de notificação</string>
-	<string name="notification_actions_summary">Mostrar snooze e tarefas completas nas notificações</string>
 	<string name="add_reminder">Adicionar lembrete</string>
 	<string name="remove">Remover</string>
 	<string name="randomly_once">Uma vez aleatória</string>

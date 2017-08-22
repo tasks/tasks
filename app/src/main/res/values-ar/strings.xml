@@ -169,7 +169,6 @@
 	<string name="quiet_hours_summary">لا تذكير أثناء أوقات الراحة</string>
 	<string name="TLA_menu_donate">تبرع</string>
 	<string name="select_amount">أختر الكمية</string>
-	<string name="notification_actions_summary">أظهر وظائف التأجيل و الإتمام في التنبيهات</string>
 	<string name="add_reminder">أضف منبه</string>
 	<string name="remove">حذف</string>
 	<string name="randomly">عشوائياً</string>

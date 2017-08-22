@@ -273,8 +273,6 @@
 	<string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
 	<string name="TLA_menu_donate">Donar</string>
 	<string name="select_amount">Elegir cantidad</string>
-	<string name="notification_actions">Acciones de notificación</string>
-	<string name="notification_actions_summary">Mostrar ¡Terminada! y Posponer  en la notificación</string>
 	<string name="add_reminder">Añadir recordatorio</string>
 	<string name="remove">Eliminar</string>
 	<string name="randomly_once">Aleatorio, una sola vez</string>
@@ -390,7 +388,6 @@
 	<string name="widget_header_settings">Configuración de encabezado</string>
 	<string name="widget_row_settings">Configuración de fila</string>
 	<string name="notification_shade">Panel de notificaciones</string>
-	<string name="notification_description">Mostrar descripción de tarea</string>
 	<string name="sync_error_permissions">Tasks requiere permisos</string>
 	<string name="creating_new_list">Creando nueva lista</string>
 	<string name="deleting_list">Borrando lista</string>

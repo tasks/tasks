@@ -276,8 +276,6 @@
 	<string name="quiet_hours_summary">Без нагадувань під час тихих годин</string>
 	<string name="TLA_menu_donate">Пожертвувати</string>
 	<string name="select_amount">Обрати кількість</string>
-	<string name="notification_actions">Дії в сповіщеннях</string>
-	<string name="notification_actions_summary">Показувати дії відкладення та завершення в сповіщеннях</string>
 	<string name="add_reminder">Додати нагадування</string>
 	<string name="remove">Вилучити</string>
 	<string name="randomly_once">Випадково раз</string>
@@ -395,7 +393,6 @@
 	<string name="widget_header_settings">Налаштування заголовку</string>
 	<string name="widget_row_settings">Налаштування рядку</string>
 	<string name="notification_shade">Панель сповіщення</string>
-	<string name="notification_description">Показувати опис завдання</string>
 	<string name="sync_error_permissions">Завдання потребують дозволу</string>
 	<string name="creating_new_list">Створення нового списку</string>
 	<string name="deleting_list">Видалення списку</string>

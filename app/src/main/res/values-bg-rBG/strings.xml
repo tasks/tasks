@@ -277,8 +277,6 @@
 	<string name="quiet_hours_summary">Без напомняния по време на тихи часове</string>
 	<string name="TLA_menu_donate">Дарете</string>
 	<string name="select_amount">Изберете размер</string>
-	<string name="notification_actions">Уведомление - Действия</string>
-	<string name="notification_actions_summary">Покажи опция за отлагане и пълни действия в уведомлението</string>
 	<string name="add_reminder">Добави напомняне</string>
 	<string name="remove">Изтрий</string>
 	<string name="randomly_once">Произволно веднъж</string>
@@ -396,7 +394,6 @@
 	<string name="widget_header_settings">Настройки на заглавието</string>
 	<string name="widget_row_settings">Настройки на реда</string>
 	<string name="notification_shade">Уведомления нюанс</string>
-	<string name="notification_description">Покажи описание на задачата</string>
 	<string name="sync_error_permissions">Tasks изисква разрешения</string>
 	<string name="creating_new_list">Нов списък</string>
 	<string name="deleting_list">Изтриване на списък</string>

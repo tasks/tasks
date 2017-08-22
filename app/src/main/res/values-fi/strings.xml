@@ -276,8 +276,6 @@
 	<string name="quiet_hours_summary">Ei ilmoituksia hiljaisena aikana</string>
 	<string name="TLA_menu_donate">Lahjoita</string>
 	<string name="select_amount">Valitse määrä</string>
-	<string name="notification_actions">Muistutuksien vaikutus</string>
-	<string name="notification_actions_summary">Näytä torkku ja kuittaa toimet ilmoituksissa</string>
 	<string name="add_reminder">Lisää muistutus</string>
 	<string name="remove">Poista</string>
 	<string name="randomly_once">Satunnaisesti kerran</string>
@@ -394,7 +392,6 @@
 	<string name="widget_header_settings">Otsikon asetukset</string>
 	<string name="widget_row_settings">Rivin asetukset</string>
 	<string name="notification_shade">Muistutusvalikko</string>
-	<string name="notification_description">Näytä tehtävän kuvaus</string>
 	<string name="sync_error_permissions">Tasks vaatii  lupaa</string>
 	<string name="creating_new_list">Luo uusi lista</string>
 	<string name="deleting_list">Poista lista</string>

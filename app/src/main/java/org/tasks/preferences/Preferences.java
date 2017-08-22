@@ -29,7 +29,6 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static android.content.SharedPreferences.Editor;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 
 public class Preferences {
 
@@ -345,10 +344,6 @@ public class Preferences {
                 edit.putInt(key, value).commit();
             }
         }
-    }
-
-    public boolean useNotificationActions() {
-        return atLeastJellybean() && getBoolean(R.string.p_rmd_notif_actions_enabled, true);
     }
 
     public File getAttachmentsDirectory() {

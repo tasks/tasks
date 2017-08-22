@@ -195,7 +195,6 @@
     <string name="TEA_ctrl_gcal">TEA_ctrl_gcal</string>
   <string name="TEA_ctrl_google_task_list">TEA_ctrl_gtask</string>
     <string name="sync_gtasks">sync_gtasks</string>
-    <string name="p_rmd_notif_actions_enabled">p_rmd_notif_actions_enabled</string>
   <string name="p_geofence_radius">geolocation_radius</string>
   <string name="p_geofence_responsiveness">geofence_responsiveness</string>
   <string name="p_show_hidden_tasks">show_hidden_tasks</string>
@@ -299,7 +298,6 @@
   <string name="debug_unlock_purchases">Unlock purchases</string>
   <string name="debug_consume_purchases">Consume purchases</string>
   <string name="debug">Debug</string>
-  <string name="p_rmd_show_description">rmd_show_description</string>
   <string name="p_start_of_week">start_of_week</string>
   <string name="p_use_native_datetime_pickers">use_native_datetime_pickers</string>
   <string name="gtask_background_sync">gtask_background_sync</string>

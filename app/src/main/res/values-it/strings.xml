@@ -274,8 +274,6 @@
 	<string name="quiet_hours_summary">Non notificare durante le ore di riposo</string>
 	<string name="TLA_menu_donate">Dona</string>
 	<string name="select_amount">Seleziona quantità</string>
-	<string name="notification_actions">Modalità di notifica</string>
-	<string name="notification_actions_summary">Mostra allarme e completa le azioni in notifica</string>
 	<string name="add_reminder">Aggiungi promemoria</string>
 	<string name="remove">Elimina</string>
 	<string name="randomly_once">In modo casuale</string>
@@ -392,7 +390,6 @@
 	<string name="widget_header_settings">Impostazioni intestazione</string>
 	<string name="widget_row_settings">Impostazioni riga</string>
 	<string name="notification_shade">Sfumatura notifiche</string>
-	<string name="notification_description">Mostra descrizione attività</string>
 	<string name="sync_error_permissions">L\'attività richiede l\'autorizzazione</string>
 	<string name="creating_new_list">Crea nuova lista</string>
 	<string name="deleting_list">Cancella lista</string>

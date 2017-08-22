@@ -270,8 +270,6 @@
 	<string name="quiet_hours_summary">Keine Erinnerungen während Ruhezeit</string>
 	<string name="TLA_menu_donate">Spenden</string>
 	<string name="select_amount">Menge auswählen</string>
-	<string name="notification_actions">Benachrichtigunsaktionen</string>
-	<string name="notification_actions_summary">Zeige Snooze und Fertig Aktionen in Benachrichtigungen an</string>
 	<string name="add_reminder">Erinnerung hinzufügen</string>
 	<string name="remove">Entfernen</string>
 	<string name="randomly_once">Einmal zufällig</string>
@@ -384,7 +382,6 @@
 	<string name="widget_header_settings">Kopf-Einstellungen</string>
 	<string name="widget_row_settings">Reihen-Einstellungen</string>
 	<string name="notification_shade">Benachrichtigungsanzeige</string>
-	<string name="notification_description">Aufgabenbeschreibung anzeigen</string>
 	<string name="sync_error_permissions">Tasks benötigt Zugriff</string>
 	<string name="creating_new_list">Erstelle neue Liste</string>
 	<string name="deleting_list">Lösche Liste</string>
