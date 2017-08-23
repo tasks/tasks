@@ -394,6 +394,6 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
 
     public static void notifyDatabaseModification(Context context) {
         ContentResolver cr = context.getContentResolver();
-        cr.notifyChange(Task.CONTENT_URI, null);
+        cr.notifyChange(Task.CONTENT_URI, null, false);
     }
 }
