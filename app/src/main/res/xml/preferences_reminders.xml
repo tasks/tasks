@@ -12,6 +12,10 @@
         android:defaultValue="true"
         android:key="@string/p_rmd_enabled"
         android:title="@string/enabled" />
+    <Preference
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/notification_channel_settings"
+        android:title="@string/notification_channel_settings" />
     <RingtonePreference
         android:defaultValue="content://settings/system/notification_sound"
         android:dependency="@string/p_rmd_enabled"

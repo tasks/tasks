@@ -16,7 +16,7 @@ public class NotificationManager {
 
     private final android.app.NotificationManager notificationManager;
     private final Preferences preferences;
-    public static final String DEFAULT_NOTIFICATION_CHANNEL = "my_channel_01";
+    public static final String DEFAULT_NOTIFICATION_CHANNEL = "notifications";
 
     @Inject
     public NotificationManager(@ForApplication Context context, Preferences preferences) {
@@ -28,6 +28,9 @@ public class NotificationManager {
             NotificationChannel notificationChannel = new NotificationChannel(DEFAULT_NOTIFICATION_CHANNEL, channelName, android.app.NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.enableLights(true);
             notificationChannel.enableVibration(true);
+            notificationChannel.setBypassDnd(true);
+            notificationChannel.setShowBadge(true);
+            notificationChannel.setImportance(android.app.NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setLightColor(preferences.getLEDColor());
             notificationChannel.setVibrationPattern(preferences.getVibrationPattern());
             notificationManager.createNotificationChannel(notificationChannel);

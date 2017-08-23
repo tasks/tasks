@@ -5,10 +5,12 @@
  */
 package com.todoroo.astrid.reminders;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -22,6 +24,7 @@ import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.jobs.JobManager;
+import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
@@ -77,8 +80,20 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         initializeTimePreference(getQuietStartPreference(), REQUEST_QUIET_START);
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
 
+        findPreference(R.string.notification_channel_settings).setOnPreferenceClickListener(this::openNotificationChannelSettings);
+
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
+        requires(atLeastOreo(), R.string.notification_channel_settings);
         requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private boolean openNotificationChannelSettings(Preference ignored) {
+            Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_CHANNEL_ID, NotificationManager.DEFAULT_NOTIFICATION_CHANNEL);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, ReminderPreferences.this.getPackageName());
+            startActivity(intent);
+        return true;
     }
 
     private void rescheduleNotificationsOnChange(int... resIds) {
