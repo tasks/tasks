@@ -315,9 +315,6 @@
 	<string name="default_priority">デフォルト</string>
 	<string name="low_priority">低</string>
 	<string name="notification_priority">通知優先度</string>
-	<string name="vibration_count">振動の数</string>
-	<string name="vibration_duration">それぞれの振動の長さ (ミリ秒)</string>
-	<string name="vibration_pause">振動の間のポーズ (ミリ秒)</string>
 	<string name="take_a_picture">写真を撮影</string>
 	<string name="pick_from_gallery">ギャラリーから選択</string>
 	<string name="pick_from_storage">ストレージから選択</string>

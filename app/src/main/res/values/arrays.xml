@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="vibration_count">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-
-    <string-array name="vibration_duration">
-        <item>250</item>
-        <item>500</item>
-        <item>750</item>
-        <item>1000</item>
-    </string-array>
-
     <string-array name="geofence_radius_values">
         <item>75</item>
         <item>125</item>

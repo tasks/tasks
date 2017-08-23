@@ -314,9 +314,6 @@
 	<string name="default_priority">По умолчанию</string>
 	<string name="low_priority">Низкий</string>
 	<string name="notification_priority">Приоритет уведомлений</string>
-	<string name="vibration_count">Количество вибраций</string>
-	<string name="vibration_duration">Продолжительность каждой вибрации (миллисекунды)</string>
-	<string name="vibration_pause">Пауза между вибрациями (миллисекунды)</string>
 	<string name="take_a_picture">Выбрать изображение</string>
 	<string name="pick_from_gallery">Выбрать из галереи</string>
 	<string name="pick_from_storage">Выбрать с диска</string>

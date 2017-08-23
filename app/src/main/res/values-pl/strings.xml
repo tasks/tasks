@@ -314,9 +314,6 @@
 	<string name="default_priority">Domyślne</string>
 	<string name="low_priority">Mało ważne</string>
 	<string name="notification_priority">Priorytet powiadomienia</string>
-	<string name="vibration_count">Powtórzenia wibracji</string>
-	<string name="vibration_duration">Długość wibracji (milisekundy)</string>
-	<string name="vibration_pause">Przerwa pomiędzy wibracjami (milisekundy)</string>
 	<string name="take_a_picture">Wybierz obrazek</string>
 	<string name="pick_from_gallery">Wybierz z galerii</string>
 	<string name="pick_from_storage">Wybierz z pamięci</string>

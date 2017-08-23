@@ -311,9 +311,6 @@
 	<string name="default_priority">Standard</string>
 	<string name="low_priority">Låg</string>
 	<string name="notification_priority">Prioritering för påminnelser</string>
-	<string name="vibration_count">Antal vibrationer</string>
-	<string name="vibration_duration">Längd på varje vibration (millisekunder)</string>
-	<string name="vibration_pause">Paus mellan varje vibration (millisekunder)</string>
 	<string name="take_a_picture">Ta en bild</string>
 	<string name="pick_from_gallery">Välj från album</string>
 	<string name="pick_from_storage">Välj från lagring</string>

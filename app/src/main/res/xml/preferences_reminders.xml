@@ -23,6 +23,11 @@
     <CheckBoxPreference
         android:defaultValue="true"
         android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_rmd_vibrate"
+        android:title="@string/vibrations" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_led_notification"
         android:title="@string/led_notification"
         android:summary="@string/hardware_support_required"/>
@@ -60,39 +65,6 @@
             android:key="@string/p_rmd_persistent"
             android:summary="@string/persistent_notifications_description"
             android:title="@string/persistent_notifications" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/vibrations">
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:dependency="@string/p_rmd_enabled"
-            android:key="@string/p_rmd_vibrate"
-            android:title="@string/enabled" />
-
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:defaultValue="3"
-            android:dependency="@string/p_rmd_vibrate"
-            android:entries="@array/vibration_count"
-            android:entryValues="@array/vibration_count"
-            android:key="@string/p_vibrate_count"
-            android:title="@string/vibration_count" />
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:defaultValue="1000"
-            android:dependency="@string/p_rmd_vibrate"
-            android:entries="@array/vibration_duration"
-            android:entryValues="@array/vibration_duration"
-            android:key="@string/p_vibrate_duration"
-            android:title="@string/vibration_duration" />
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:defaultValue="500"
-            android:dependency="@string/p_rmd_vibrate"
-            android:entries="@array/vibration_duration"
-            android:entryValues="@array/vibration_duration"
-            android:key="@string/p_vibrate_pause"
-            android:title="@string/vibration_pause" />
 
     </PreferenceCategory>
 

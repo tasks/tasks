@@ -317,9 +317,6 @@
 	<string name="default_priority">По подразбиране</string>
 	<string name="low_priority">Нисък</string>
 	<string name="notification_priority">Приоритет на уведомления</string>
-	<string name="vibration_count">Брой вибрации</string>
-	<string name="vibration_duration">Продължителност на всяка вибрация (милисекунди)</string>
-	<string name="vibration_pause">Пауза между вибрациите (милисекунди)</string>
 	<string name="take_a_picture">Заснемане</string>
 	<string name="pick_from_gallery">Изберете от галерия</string>
 	<string name="pick_from_storage">Изберете от паметта</string>

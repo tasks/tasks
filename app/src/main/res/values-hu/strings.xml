@@ -317,9 +317,6 @@
 	<string name="default_priority">Alapértelmezett</string>
 	<string name="low_priority">Alacsony</string>
 	<string name="notification_priority">Értesítés prioritása</string>
-	<string name="vibration_count">Rezgések száma</string>
-	<string name="vibration_duration">Rezgések hossza (ezredmásodpercben)</string>
-	<string name="vibration_pause">Szünet a rezgések között (ezredmásodpercben)</string>
 	<string name="take_a_picture">Kép készítése</string>
 	<string name="pick_from_gallery">Kiválasztás a galériából</string>
 	<string name="pick_from_storage">Kiválasztás a tárhelyről</string>

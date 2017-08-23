@@ -180,9 +180,6 @@
 	<string name="high_priority">عال</string>
 	<string name="default_priority">الإفتراضي</string>
 	<string name="low_priority">منخفض</string>
-	<string name="vibration_count">عدد الإهتزازات</string>
-	<string name="vibration_duration">إمتداد الهزة</string>
-	<string name="vibration_pause">التوقف أثناء الهزات</string>
 	<string name="plugin_description">تاسكس هو مشروع مفتوح المصدر مدموع من طرف مطور واحد. بعض الخيارات متوفرة عن الطريق الدفع من داخل التطبيق من أجل دعم التطوير</string>
 	<string name="opacity">التعتيم</string>
 	<string name="master_sync_warning">المزامنة التلقائية معطلة الآن من طرف أندرويد</string>

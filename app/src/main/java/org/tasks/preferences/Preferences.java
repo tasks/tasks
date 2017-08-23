@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
-import com.google.common.primitives.Longs;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
@@ -20,8 +19,6 @@ import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
@@ -92,7 +89,7 @@ public class Preferences {
     }
 
     public boolean isVibrationEnabled() {
-        return getBoolean(R.string.p_rmd_vibrate, true);
+        return atLeastOreo() || getBoolean(R.string.p_rmd_vibrate, true);
     }
 
     public boolean isLEDNotificationEnabled() {
@@ -415,17 +412,7 @@ public class Preferences {
     }
 
     public long[] getVibrationPattern() {
-        int vibrationCount = getIntegerFromString(R.string.p_vibrate_count, 3);
-        long vibrationDuration = getIntegerFromString(R.string.p_vibrate_duration, 1000);
-        long vibrationPause = getIntegerFromString(R.string.p_vibrate_pause, 500);
-        List<Long> pattern = new ArrayList<>(vibrationCount);
-        pattern.add(0L);
-        pattern.add(vibrationDuration);
-        for (int i = 1 ; i < vibrationCount ; i++) {
-            pattern.add(vibrationPause);
-            pattern.add(vibrationDuration);
-        }
-        return Longs.toArray(pattern);
+        return new long[] {0, 333, 333, 333};
     }
 
     public void remove(int resId) {

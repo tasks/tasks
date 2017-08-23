@@ -242,9 +242,6 @@
 	<string name="default_priority">پیش فرض</string>
 	<string name="low_priority">کم</string>
 	<string name="notification_priority">اولویت اعلان</string>
-	<string name="vibration_count">تعداد لرزش ها</string>
-	<string name="vibration_duration">مدت هر لرزش (میلی‌ثانیه)</string>
-	<string name="vibration_pause">مکث بین لرزش‌ها (میلی‌ثانیه)</string>
 	<string name="take_a_picture">گرفتن عکس</string>
 	<string name="send_anonymous_statistics">بهبود وظیفه</string>
 	<string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>

@@ -310,9 +310,6 @@
 	<string name="default_priority">Standaard</string>
 	<string name="low_priority">Laag</string>
 	<string name="notification_priority">Notificatie prioriteit</string>
-	<string name="vibration_count">Aantal trillingen</string>
-	<string name="vibration_duration">Lengte van elke trilling (miliseconden)</string>
-	<string name="vibration_pause">Pauze tussen trillingen (miliseconden)</string>
 	<string name="take_a_picture">Maak een foto</string>
 	<string name="pick_from_gallery">Kies uit de gallerij</string>
 	<string name="pick_from_storage">Kies van opslag</string>

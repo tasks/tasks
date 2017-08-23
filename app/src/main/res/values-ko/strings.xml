@@ -319,9 +319,6 @@
 	<string name="default_priority">기본값</string>
 	<string name="low_priority">낮음</string>
 	<string name="notification_priority">알림 우선순위</string>
-	<string name="vibration_count">진동 횟수</string>
-	<string name="vibration_duration">진동 길이 (밀리초)</string>
-	<string name="vibration_pause">진동 사이의 간격 (밀리초)</string>
 	<string name="take_a_picture">사진 촬영</string>
 	<string name="pick_from_gallery">갤러리에서 선택</string>
 	<string name="pick_from_storage">저장소에서 가져오기</string>

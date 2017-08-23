@@ -233,9 +233,6 @@
 	<string name="high_priority">Yüksek</string>
 	<string name="default_priority">Varsayılan</string>
 	<string name="low_priority">Düşük</string>
-	<string name="vibration_count">Titreşim sayısı</string>
-	<string name="vibration_duration">Her titreşimin uzunluğu (milisaniye)</string>
-	<string name="vibration_pause">Titreşimler arasında duraklama (milisaniye)</string>
 	<string name="privacy">Gizlilik</string>
 	<string name="privacy_policy">Gizlilik politikası</string>
 	<string name="send_anonymous_statistics">Task\'ı İyileştir</string>

@@ -80,7 +80,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
         requires(R.string.notification_shade, atLeastJellybean(), R.string.p_notification_priority);
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
-        requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_led_notification);
+        requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
     }
 
     private void rescheduleNotificationsOnChange(int... resIds) {

@@ -39,7 +39,6 @@
 	<string name="high_priority">Visok</string>
 	<string name="default_priority">Podrazumevano</string>
 	<string name="low_priority">Nisak</string>
-	<string name="vibration_count">Broj vibracija</string>
 	<string name="layout_direction">Raspored komandi</string>
 	<string name="layout_direction_left_to_right">Sleva nadesno</string>
 	<string name="layout_direction_right_to_left">Zdesna nalevo</string>

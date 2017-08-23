@@ -313,9 +313,6 @@
 	<string name="default_priority">Por defecto</string>
 	<string name="low_priority">Baja</string>
 	<string name="notification_priority">Prioridad de la notificación</string>
-	<string name="vibration_count">Número de vibraciones</string>
-	<string name="vibration_duration">Duración de cada vibración (milisegundos)</string>
-	<string name="vibration_pause">Pausa entre vibraciones (milisegundos)</string>
 	<string name="take_a_picture">Tomar fotografía</string>
 	<string name="pick_from_gallery">Elegir desde la galería</string>
 	<string name="pick_from_storage">Elegir desde almacenamiento</string>

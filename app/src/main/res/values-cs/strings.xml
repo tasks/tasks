@@ -280,9 +280,6 @@
 	<string name="default_priority">Výchozí</string>
 	<string name="low_priority">Nízká</string>
 	<string name="notification_priority">Priorita oznámení</string>
-	<string name="vibration_count">Počet vibrací</string>
-	<string name="vibration_duration">Délka každé vibrace (ms)</string>
-	<string name="vibration_pause">Pauza mezi vibracemi (ms)</string>
 	<string name="privacy">Soukromí</string>
 	<string name="privacy_policy">Zásady ochrany osobních údajů</string>
 	<string name="send_anonymous_statistics">Vylepšit Úkoly</string>

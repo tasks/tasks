@@ -315,9 +315,6 @@
 	<string name="default_priority">Oletuskalenteri</string>
 	<string name="low_priority">Matala</string>
 	<string name="notification_priority">Muistutusten tärkeysjärjestys</string>
-	<string name="vibration_count">Värinän määrä</string>
-	<string name="vibration_duration">Värinän pituus (millisekunteina)</string>
-	<string name="vibration_pause">Tauko värinässä (millisekuntia)</string>
 	<string name="take_a_picture">Ota kuva</string>
 	<string name="pick_from_gallery">Valitse galleriasta</string>
 	<string name="pick_from_storage">Valitse muistista</string>

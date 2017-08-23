@@ -315,9 +315,6 @@
 	<string name="default_priority">ברירת מחדל</string>
 	<string name="low_priority">נמוך</string>
 	<string name="notification_priority">חשיבות ההתראה</string>
-	<string name="vibration_count">מספר פעימות הרטט</string>
-	<string name="vibration_duration">אורך כל פעימת רטט (במילישניות)</string>
-	<string name="vibration_pause">אורך הפסקה בין פעימות רטט (במילישניות)</string>
 	<string name="take_a_picture">צלם תמונה</string>
 	<string name="pick_from_gallery">בחירה מהגלריה</string>
 	<string name="pick_from_storage">בחירה מאחסון</string>

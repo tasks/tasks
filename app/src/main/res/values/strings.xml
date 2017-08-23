@@ -709,9 +709,6 @@ File %1$s contained %2$s.\n\n
     <string name="default_priority">Default</string>
     <string name="low_priority">Low</string>
     <string name="notification_priority">Notification priority</string>
-    <string name="vibration_count">Number of vibrations</string>
-    <string name="vibration_duration">Length of each vibration (milliseconds)</string>
-    <string name="vibration_pause">Pause between vibrations (milliseconds)</string>
     <string name="take_a_picture">Take a picture</string>
     <string name="pick_from_gallery">Pick from gallery</string>
     <string name="pick_from_storage">Pick from storage</string>
