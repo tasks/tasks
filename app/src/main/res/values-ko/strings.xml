@@ -370,7 +370,6 @@
 	<string name="theme_blue_grey">회청색</string>
 	<string name="theme_black">검정</string>
 	<string name="theme_dark_grey">어두운 회색</string>
-	<string name="theme_white">흰색</string>
 	<string name="theme_light">밝게</string>
 	<string name="theme_dark">어둡게</string>
 	<string name="theme_wallpaper">바탕화면</string>
@@ -388,7 +387,6 @@
 	<string name="layout_direction_right_to_left">오른쪽 정렬</string>
 	<string name="led_notification">LED 알림</string>
 	<string name="hardware_support_required">하드웨어 지원을 필요로 합니다. </string>
-	<string name="led_color">LED 색상</string>
 	<string name="no_calendars_found">달력 없음</string>
 	<string name="widget_settings">위젯 설정</string>
 	<string name="widget_header_settings">헤더 설정</string>

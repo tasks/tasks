@@ -363,7 +363,6 @@
 	<string name="theme_blue_grey">Gris azulado</string>
 	<string name="theme_black">Negro</string>
 	<string name="theme_dark_grey">Gris oscuro</string>
-	<string name="theme_white">Blanco</string>
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Oscuro</string>
 	<string name="theme_wallpaper">Fondo de pantalla</string>
@@ -380,7 +379,6 @@
 	<string name="layout_direction_right_to_left">De derecha a izquierda</string>
 	<string name="led_notification">Notificación de la LED</string>
 	<string name="hardware_support_required">Apoyo de hardware requerido</string>
-	<string name="led_color">Color de la LED</string>
 	<string name="no_calendars_found">No se han encontrado calendarios</string>
 	<string name="widget_settings">Configuración de widget</string>
 	<string name="widget_header_settings">Configuración de encabezado</string>

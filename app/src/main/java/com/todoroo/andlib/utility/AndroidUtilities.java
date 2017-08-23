@@ -6,7 +6,6 @@
 package com.todoroo.andlib.utility;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Build;
@@ -217,6 +216,10 @@ public class AndroidUtilities {
         return !atLeastJellybean();
     }
 
+    public static boolean preOreo() {
+        return !atLeastOreo();
+    }
+
     public static boolean atLeastJellybeanMR1() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1;
     }
@@ -237,7 +240,7 @@ public class AndroidUtilities {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
-    public static boolean atLeastO() {
+    public static boolean atLeastOreo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 

@@ -364,7 +364,6 @@
 	<string name="theme_blue_grey">Niebiesko Szary</string>
 	<string name="theme_black">Czarny</string>
 	<string name="theme_dark_grey">Ciemnoszary</string>
-	<string name="theme_white">Biały</string>
 	<string name="theme_light">Jasny</string>
 	<string name="theme_dark">Ciemny</string>
 	<string name="theme_wallpaper">Tapeta</string>
@@ -382,7 +381,6 @@
 	<string name="layout_direction_right_to_left">Od prawa do lewa</string>
 	<string name="led_notification">Powiadomienie LED</string>
 	<string name="hardware_support_required">Wymagane wsparcie sprzętowe</string>
-	<string name="led_color">Kolor LED</string>
 	<string name="no_calendars_found">Nie znaleziono kalendzarzy</string>
 	<string name="widget_settings">Ustawienie widgetu</string>
 	<string name="widget_header_settings">Ustawienia nagłówka</string>

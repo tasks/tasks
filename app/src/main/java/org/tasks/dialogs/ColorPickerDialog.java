@@ -34,7 +34,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     private static final String EXTRA_PALETTE = "extra_palette";
     private static final String EXTRA_SHOW_NONE = "extra_show_none";
 
-    public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND, LED}
+    public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND}
 
     public interface ThemePickerCallback {
         void themePicked(ColorPalette palette, int index);
@@ -155,8 +155,6 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 return R.array.accents;
             case WIDGET_BACKGROUND:
                 return R.array.widget_background;
-            case LED:
-                return R.array.led;
             default:
                 return R.array.themes;
         }
@@ -170,14 +168,12 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 return themeCache.getThemeAccent(index).getAccentColor();
             case WIDGET_BACKGROUND:
                 return themeCache.getWidgetTheme(index).getBackgroundColor();
-            case LED:
-                return themeCache.getLEDColor(index).getColor();
             default:
                 return themeCache.getThemeBase(index).getContentBackground();
         }
     }
 
     private int getNumFree() {
-        return palette == ColorPalette.LED ? themeCache.getLEDColorCount() : 2;
+        return 2;
     }
 }

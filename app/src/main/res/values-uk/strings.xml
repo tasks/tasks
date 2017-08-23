@@ -367,7 +367,6 @@
 	<string name="theme_blue_grey">Сіро-синій</string>
 	<string name="theme_black">Чорний</string>
 	<string name="theme_dark_grey">Темно-сірий</string>
-	<string name="theme_white">Біла</string>
 	<string name="theme_light">Світлий</string>
 	<string name="theme_dark">Темний</string>
 	<string name="theme_wallpaper">Шпалери</string>
@@ -385,7 +384,6 @@
 	<string name="layout_direction_right_to_left">Зправа наліво</string>
 	<string name="led_notification">LED-сповіщення</string>
 	<string name="hardware_support_required">Потрібна підтримка апартних засобів</string>
-	<string name="led_color">LED колір</string>
 	<string name="no_calendars_found">Календарів не знайдено</string>
 	<string name="widget_settings">Налаштування віджету</string>
 	<string name="widget_header_settings">Налаштування заголовку</string>

@@ -29,6 +29,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static android.content.SharedPreferences.Editor;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
 public class Preferences {
 
@@ -95,12 +96,11 @@ public class Preferences {
     }
 
     public boolean isLEDNotificationEnabled() {
-        return getBoolean(R.string.p_led_notification, true);
+        return atLeastOreo() || getBoolean(R.string.p_led_notification, true);
     }
 
     public int getLEDColor() {
-        int accent = getInt(R.string.p_led_color, 4);
-        return themeCache.getLEDColor(accent).getColor();
+        return R.color.led_green;
     }
 
     public boolean quietHoursEnabled() {

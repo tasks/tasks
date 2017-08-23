@@ -357,7 +357,6 @@
 	<string name="theme_blue_grey">Blauwgrijs</string>
 	<string name="theme_black">Zwart</string>
 	<string name="theme_dark_grey">Donker Groen</string>
-	<string name="theme_white">Wit</string>
 	<string name="theme_light">Licht</string>
 	<string name="theme_dark">Donker</string>
 	<string name="theme_wallpaper">Achtergrond</string>
@@ -374,7 +373,6 @@
 	<string name="layout_direction_right_to_left">Rechts naar links</string>
 	<string name="led_notification">LED notificatie</string>
 	<string name="hardware_support_required">Hardware ondersteuning vereist</string>
-	<string name="led_color">LED kleur</string>
 	<string name="no_calendars_found">Geen kalenders gevonden</string>
 	<string name="widget_settings">Widget instellingen</string>
 	<string name="widget_header_settings">Titel instellingen</string>

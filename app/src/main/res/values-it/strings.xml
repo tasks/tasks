@@ -364,7 +364,6 @@
 	<string name="theme_blue_grey">Grigio-Blu</string>
 	<string name="theme_black">Nero</string>
 	<string name="theme_dark_grey">Grigio scuro</string>
-	<string name="theme_white">Bianco</string>
 	<string name="theme_light">Chiaro</string>
 	<string name="theme_dark">Scuro</string>
 	<string name="theme_wallpaper">Sfondo</string>
@@ -382,7 +381,6 @@
 	<string name="layout_direction_right_to_left">Da destra a sinistra</string>
 	<string name="led_notification">LED di notifica</string>
 	<string name="hardware_support_required">E\' richiesto il supporto Hardware</string>
-	<string name="led_color">Colore LED</string>
 	<string name="no_calendars_found">Nessun calendario</string>
 	<string name="widget_settings">Impostazioni widget</string>
 	<string name="widget_header_settings">Impostazioni intestazione</string>

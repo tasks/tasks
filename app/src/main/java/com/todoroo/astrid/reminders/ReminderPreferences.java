@@ -18,9 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.JobIntentService;
 
 import org.tasks.R;
-import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.TimePickerActivity;
-import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.jobs.JobManager;
@@ -31,7 +29,6 @@ import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
-import org.tasks.themes.LEDColor;
 import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
 import org.tasks.ui.TimePreference;
@@ -39,6 +36,8 @@ import org.tasks.ui.TimePreference;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
+import static com.todoroo.andlib.utility.AndroidUtilities.preOreo;
 import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class ReminderPreferences extends InjectingPreferenceActivity {
@@ -46,7 +45,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private static final int REQUEST_QUIET_START = 10001;
     private static final int REQUEST_QUIET_END = 10002;
     private static final int REQUEST_DEFAULT_REMIND = 10003;
-    private static final int REQUEST_LED_PICKER = 10004;
 
     @Inject Device device;
     @Inject ActivityPermissionRequestor permissionRequestor;
@@ -80,17 +78,9 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         initializeTimePreference(getQuietStartPreference(), REQUEST_QUIET_START);
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
 
-        findPreference(getString(R.string.p_led_color)).setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(ReminderPreferences.this, ColorPickerActivity.class);
-            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.LED);
-            startActivityForResult(intent, REQUEST_LED_PICKER);
-            return false;
-        });
-
         requires(R.string.notification_shade, atLeastJellybean(), R.string.p_notification_priority);
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
-
-        updateLEDColor();
+        requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_led_notification);
     }
 
     private void rescheduleNotificationsOnChange(int... resIds) {
@@ -153,12 +143,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_LED_PICKER) {
-            if (resultCode == RESULT_OK) {
-                preferences.setInt(R.string.p_led_color, data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 4));
-                updateLEDColor();
-            }
-        } else if (requestCode == REQUEST_QUIET_START) {
+        if (requestCode == REQUEST_QUIET_START) {
             if (resultCode == RESULT_OK) {
                 getQuietStartPreference().handleTimePickerActivityIntent(data);
             }
@@ -194,11 +179,5 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
-    }
-
-    private void updateLEDColor() {
-        int index = preferences.getInt(R.string.p_led_color, 4);
-        LEDColor ledColor = themeCache.getLEDColor(index);
-        findPreference(getString(R.string.p_led_color)).setSummary(ledColor.getName());
     }
 }

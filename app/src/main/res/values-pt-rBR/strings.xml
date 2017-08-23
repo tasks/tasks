@@ -358,7 +358,6 @@
 	<string name="theme_blue_grey">Azul Acinzentado</string>
 	<string name="theme_black">Preto</string>
 	<string name="theme_dark_grey">Cinza escuro</string>
-	<string name="theme_white">Branco</string>
 	<string name="theme_light">Claro</string>
 	<string name="theme_dark">Escuro</string>
 	<string name="theme_wallpaper">Plano de fundo</string>
@@ -375,7 +374,6 @@
 	<string name="layout_direction_left_to_right">Esquerda para direita</string>
 	<string name="layout_direction_right_to_left">Direita para esquerda</string>
 	<string name="led_notification">LED de notificações</string>
-	<string name="led_color">Cor do LED</string>
 	<string name="no_calendars_found">Não foi encontrado nenhum calendário</string>
 	<string name="widget_settings">Configurações de Widget</string>
 	<string name="widget_header_settings">Config. cabeçalho</string>

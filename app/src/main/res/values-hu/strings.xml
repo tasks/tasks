@@ -368,7 +368,6 @@
 	<string name="theme_blue_grey">Szürkéskék</string>
 	<string name="theme_black">Fekete</string>
 	<string name="theme_dark_grey">Sötétszürke</string>
-	<string name="theme_white">Fehér</string>
 	<string name="theme_light">Világos</string>
 	<string name="theme_dark">Sötét</string>
 	<string name="theme_wallpaper">Háttérkép</string>
@@ -386,7 +385,6 @@
 	<string name="layout_direction_right_to_left">Jobbról balra</string>
 	<string name="led_notification">LED értesítés</string>
 	<string name="hardware_support_required">Hardveres támogatás szükséges</string>
-	<string name="led_color">LED színe</string>
 	<string name="no_calendars_found">Naptár nem található</string>
 	<string name="widget_settings">Widget beállításai</string>
 	<string name="widget_header_settings">Fejléc beállításai</string>

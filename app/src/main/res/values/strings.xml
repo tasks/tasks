@@ -761,7 +761,6 @@ File %1$s contained %2$s.\n\n
   <string name="theme_blue_grey">Blue grey</string>
   <string name="theme_black">Black</string>
   <string name="theme_dark_grey">Dark grey</string>
-  <string name="theme_white">White</string>
   <string name="theme_light">Light</string>
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>
@@ -780,7 +779,6 @@ File %1$s contained %2$s.\n\n
   <string name="layout_direction_right_to_left">Right to left</string>
   <string name="led_notification">LED notification</string>
   <string name="hardware_support_required">Hardware support required</string>
-  <string name="led_color">LED color</string>
   <string name="no_calendars_found">No calendars found</string>
   <string name="widget_settings">Widget settings</string>
   <string name="widget_header_settings">Header settings</string>

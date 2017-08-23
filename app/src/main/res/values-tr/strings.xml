@@ -243,7 +243,6 @@
 	<string name="tag_already_exists">Etiket zaten var</string>
 	<string name="plugin_description">Tasks, bir geliştirici tarafından tutulan açık kaynaklı bir projedir. Bazı özellikleri, geliştirmeyi desteklemek için uygulama içi satın alma olarak sunulmaktadır.</string>
 	<string name="opacity">Şeffaflık</string>
-	<string name="theme_white">Beyaz</string>
 	<string name="master_sync_warning">Otomatik eşitleme şu anda Android tarafından devre dışı bırakıldı</string>
 	<string name="settings_general">Genel</string>
 	<string name="language">Dil</string>

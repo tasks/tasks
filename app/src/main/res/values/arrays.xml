@@ -119,16 +119,6 @@
         <item>@string/theme_deep_orange</item>
     </string-array>
 
-    <string-array name="led">
-        <item>@string/theme_white</item>
-        <item>@string/theme_red</item>
-        <item>@string/theme_orange</item>
-        <item>@string/theme_yellow</item>
-        <item>@string/theme_green</item>
-        <item>@string/theme_blue</item>
-        <item>@string/theme_purple</item>
-    </string-array>
-
     <string-array name="widget_background">
         <item>@string/theme_light</item>
         <item>@string/theme_black</item>

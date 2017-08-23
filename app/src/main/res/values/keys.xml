@@ -278,7 +278,6 @@
   <string name="p_gtasks_default_list">default_gtasks_list</string>
   <string name="p_language">language</string>
   <string name="p_layout_direction">layout_direction</string>
-  <string name="p_led_color">led_color</string>
   <string name="p_led_notification">led_notificatiWCAon</string>
 
   <string name="p_widget_filter">widget-id-</string>

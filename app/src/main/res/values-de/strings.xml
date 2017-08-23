@@ -356,7 +356,6 @@
 	<string name="theme_blue_grey">Blaugrau</string>
 	<string name="theme_black">Schwarz</string>
 	<string name="theme_dark_grey">Dunkelgrau</string>
-	<string name="theme_white">Weiß</string>
 	<string name="theme_light">Hell</string>
 	<string name="theme_dark">Dunkel</string>
 	<string name="theme_wallpaper">Hintergrundbild</string>
@@ -374,7 +373,6 @@
 	<string name="layout_direction_right_to_left">Rechts nach links</string>
 	<string name="led_notification">Benachrichtigungs-LED</string>
 	<string name="hardware_support_required">Hardware-Unterstützung benötigt</string>
-	<string name="led_color">LED-Farbe</string>
 	<string name="no_calendars_found">Es wurden keine Kalender gefunden</string>
 	<string name="widget_settings">Widget-Einstellungen</string>
 	<string name="widget_header_settings">Kopf-Einstellungen</string>

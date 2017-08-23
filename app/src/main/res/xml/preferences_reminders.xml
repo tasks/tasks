@@ -21,6 +21,12 @@
         android:showSilent="true"
         android:title="@string/sound" />
     <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_led_notification"
+        android:title="@string/led_notification"
+        android:summary="@string/hardware_support_required"/>
+    <CheckBoxPreference
         android:defaultValue="false"
         android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_field_missed_calls"
@@ -54,26 +60,6 @@
             android:key="@string/p_rmd_persistent"
             android:summary="@string/persistent_notifications_description"
             android:title="@string/persistent_notifications" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/led_notification">
-
-        <Preference
-            android:selectable="false"
-            android:summary="@string/hardware_support_required" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:dependency="@string/p_rmd_enabled"
-            android:key="@string/p_led_notification"
-            android:title="@string/enabled"/>
-
-        <Preference
-            android:key="@string/p_led_color"
-            android:dependency="@string/p_led_notification"
-            android:title="@string/led_color" />
 
     </PreferenceCategory>
 

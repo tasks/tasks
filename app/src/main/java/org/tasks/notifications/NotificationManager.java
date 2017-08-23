@@ -10,7 +10,7 @@ import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastO;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
 public class NotificationManager {
 
@@ -23,11 +23,11 @@ public class NotificationManager {
         this.preferences = preferences;
         notificationManager = (android.app.NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (atLeastO()) {
+        if (atLeastOreo()) {
             String channelName = context.getString(R.string.notifications);
             NotificationChannel notificationChannel = new NotificationChannel(DEFAULT_NOTIFICATION_CHANNEL, channelName, android.app.NotificationManager.IMPORTANCE_HIGH);
-            notificationChannel.enableLights(preferences.isLEDNotificationEnabled());
-            notificationChannel.enableVibration(preferences.isVibrationEnabled());
+            notificationChannel.enableLights(true);
+            notificationChannel.enableVibration(true);
             notificationChannel.setLightColor(preferences.getLEDColor());
             notificationChannel.setVibrationPattern(preferences.getVibrationPattern());
             notificationManager.createNotificationChannel(notificationChannel);

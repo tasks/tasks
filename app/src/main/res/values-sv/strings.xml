@@ -357,7 +357,6 @@
 	<string name="theme_blue_grey">Blågrå</string>
 	<string name="theme_black">Svart</string>
 	<string name="theme_dark_grey">Mörkgrå</string>
-	<string name="theme_white">Vit</string>
 	<string name="theme_light">Ljust</string>
 	<string name="theme_dark">Mörkt</string>
 	<string name="theme_wallpaper">Bakgrundsbild</string>
@@ -372,7 +371,6 @@
 	<string name="layout_direction_right_to_left">Höger till vänster</string>
 	<string name="led_notification">LED Notifiering</string>
 	<string name="hardware_support_required">Hårdvarustöd krävs</string>
-	<string name="led_color">LED färg</string>
 	<string name="no_calendars_found">Inga kalendrar hittades</string>
 	<string name="widget_settings">Inställningar för widget</string>
 	<string name="creating_new_list">Skapar ny lista</string>

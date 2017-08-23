@@ -136,7 +136,6 @@
 	<string name="high_priority">Alta</string>
 	<string name="default_priority">Predeterminat</string>
 	<string name="low_priority">Baix</string>
-	<string name="theme_white">Blanc</string>
 	<string name="language">Idioma</string>
 	<string name="settings_localization">Localització</string>
 	<string name="layout_direction_left_to_right">D\'esquerra a dreta</string>

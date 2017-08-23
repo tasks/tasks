@@ -366,7 +366,6 @@
 	<string name="theme_blue_grey">Siniharmaa</string>
 	<string name="theme_black">Musta</string>
 	<string name="theme_dark_grey">Tumma harmaa</string>
-	<string name="theme_white">Valkoinen</string>
 	<string name="theme_light">Vaalea</string>
 	<string name="theme_dark">Tumma</string>
 	<string name="theme_wallpaper">Taustakuva</string>
@@ -384,7 +383,6 @@
 	<string name="layout_direction_right_to_left">Oikealta vasemmalle</string>
 	<string name="led_notification">LED muistutus</string>
 	<string name="hardware_support_required">Laitetuki vaaditaan</string>
-	<string name="led_color">LED väri</string>
 	<string name="no_calendars_found">Kalenteria ei löydy</string>
 	<string name="widget_settings">Widgetin asetukset</string>
 	<string name="widget_header_settings">Otsikon asetukset</string>

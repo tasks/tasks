@@ -314,7 +314,6 @@
 	<string name="theme_grey">Šedá</string>
 	<string name="theme_blue_grey">Modrošedá</string>
 	<string name="theme_black">Černá</string>
-	<string name="theme_white">Bílý</string>
 	<string name="theme_light">Světlý</string>
 	<string name="theme_dark">Tmavý</string>
 	<string name="theme_wallpaper">Tapeta</string>
@@ -330,7 +329,6 @@
 	<string name="layout_direction">Orientace</string>
 	<string name="layout_direction_left_to_right">Zleva do prava</string>
 	<string name="layout_direction_right_to_left">Zprava do leva</string>
-	<string name="led_color">Barva LED</string>
 	<string name="no_calendars_found">Nenalezeny žádné kalendáře</string>
 	<string name="widget_settings">Nastavení widgetu</string>
 </resources>

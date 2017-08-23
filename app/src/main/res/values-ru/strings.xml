@@ -365,7 +365,6 @@
 	<string name="theme_blue_grey">Серо-голубой</string>
 	<string name="theme_black">Чёрная</string>
 	<string name="theme_dark_grey">Тёмно-серый</string>
-	<string name="theme_white">Белый</string>
 	<string name="theme_light">Светлая</string>
 	<string name="theme_dark">Тёмная</string>
 	<string name="theme_wallpaper">Как обои</string>
@@ -383,7 +382,6 @@
 	<string name="layout_direction_right_to_left">Справа налево</string>
 	<string name="led_notification">LED уведомления</string>
 	<string name="hardware_support_required">Необходима аппаратная поддержка</string>
-	<string name="led_color">LED цвет</string>
 	<string name="no_calendars_found">Календарей не найдено</string>
 	<string name="widget_settings">Настройки виджета</string>
 	<string name="widget_header_settings">Настройки закоголовка</string>
