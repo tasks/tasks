@@ -96,7 +96,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private void rescheduleNotificationsOnChange(int... resIds) {
         for (int resId : resIds) {
             findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-                startService(new Intent(ReminderPreferences.this, NotificationSchedulerIntentService.class));
+                JobIntentService.enqueueWork(this, NotificationSchedulerIntentService.class, JobManager.JOB_ID_NOTIFICATION_SCHEDULER, new Intent());
                 return true;
             });
         }
