@@ -238,10 +238,6 @@
 	<string name="reverse">برعکس</string>
 	<string name="get_plugins">خرید داخل برنامه</string>
 	<string name="add_attachment">الصاق پیوست</string>
-	<string name="high_priority">زیاد</string>
-	<string name="default_priority">پیش فرض</string>
-	<string name="low_priority">کم</string>
-	<string name="notification_priority">اولویت اعلان</string>
 	<string name="take_a_picture">گرفتن عکس</string>
 	<string name="send_anonymous_statistics">بهبود وظیفه</string>
 	<string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>

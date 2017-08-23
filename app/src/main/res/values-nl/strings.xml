@@ -306,10 +306,6 @@
 	<string name="get_plugins">In-app aankopen</string>
 	<string name="no_application_found">Geen applicatie gevonden om de bijlage te openen</string>
 	<string name="add_attachment">Bijlage toevoegen</string>
-	<string name="high_priority">Hoog</string>
-	<string name="default_priority">Standaard</string>
-	<string name="low_priority">Laag</string>
-	<string name="notification_priority">Notificatie prioriteit</string>
 	<string name="take_a_picture">Maak een foto</string>
 	<string name="pick_from_gallery">Kies uit de gallerij</string>
 	<string name="pick_from_storage">Kies van opslag</string>
@@ -374,7 +370,6 @@
 	<string name="widget_settings">Widget instellingen</string>
 	<string name="widget_header_settings">Titel instellingen</string>
 	<string name="widget_row_settings">Regel instellingen</string>
-	<string name="notification_shade">Notificatie schaduw</string>
 	<string name="sync_error_permissions">Tasks vereist permissie</string>
 	<string name="creating_new_list">Nieuwe lijst aanmaken</string>
 	<string name="deleting_list">Verwijder lijst</string>

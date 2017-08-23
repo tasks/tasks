@@ -313,10 +313,6 @@
 	<string name="get_plugins">Покупки в приложението</string>
 	<string name="no_application_found">Не е намерено приложение за отваряне на прикачения файл</string>
 	<string name="add_attachment">Добавяне на прикачен файл</string>
-	<string name="high_priority">Висок</string>
-	<string name="default_priority">По подразбиране</string>
-	<string name="low_priority">Нисък</string>
-	<string name="notification_priority">Приоритет на уведомления</string>
 	<string name="take_a_picture">Заснемане</string>
 	<string name="pick_from_gallery">Изберете от галерия</string>
 	<string name="pick_from_storage">Изберете от паметта</string>
@@ -386,7 +382,6 @@
 	<string name="widget_settings">Настройки на widget </string>
 	<string name="widget_header_settings">Настройки на заглавието</string>
 	<string name="widget_row_settings">Настройки на реда</string>
-	<string name="notification_shade">Уведомления нюанс</string>
 	<string name="sync_error_permissions">Tasks изисква разрешения</string>
 	<string name="creating_new_list">Нов списък</string>
 	<string name="deleting_list">Изтриване на списък</string>

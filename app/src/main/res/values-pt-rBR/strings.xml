@@ -304,10 +304,6 @@
 	<string name="get_plugins">Compras no app</string>
 	<string name="no_application_found">Nenhuma aplicação encontrada para abrir o anexo</string>
 	<string name="add_attachment">Adicionar anexo</string>
-	<string name="high_priority">Alta</string>
-	<string name="default_priority">Padrão</string>
-	<string name="low_priority">Baixa</string>
-	<string name="notification_priority">Prioridade da Notificação</string>
 	<string name="take_a_picture">Tirar uma foto</string>
 	<string name="pick_from_gallery">Selecionar da galeria</string>
 	<string name="privacy">Privacidade</string>
@@ -375,7 +371,6 @@
 	<string name="widget_settings">Configurações de Widget</string>
 	<string name="widget_header_settings">Config. cabeçalho</string>
 	<string name="widget_row_settings">Congif. entrada</string>
-	<string name="notification_shade">Painel de notificações</string>
 	<string name="sync_error_permissions">Tasks precisa de permissão</string>
 	<string name="creating_new_list">Criando uma nova lista</string>
 	<string name="deleting_list">Excluindo lista</string>

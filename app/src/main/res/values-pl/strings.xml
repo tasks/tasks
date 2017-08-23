@@ -310,10 +310,6 @@
 	<string name="get_plugins">Zakupy w aplikacji</string>
 	<string name="no_application_found">Nie znaleziono aplikacji do otwarcia załącznika</string>
 	<string name="add_attachment">Dodaj załącznik</string>
-	<string name="high_priority">Ważne</string>
-	<string name="default_priority">Domyślne</string>
-	<string name="low_priority">Mało ważne</string>
-	<string name="notification_priority">Priorytet powiadomienia</string>
 	<string name="take_a_picture">Wybierz obrazek</string>
 	<string name="pick_from_gallery">Wybierz z galerii</string>
 	<string name="pick_from_storage">Wybierz z pamięci</string>
@@ -382,7 +378,6 @@
 	<string name="widget_settings">Ustawienie widgetu</string>
 	<string name="widget_header_settings">Ustawienia nagłówka</string>
 	<string name="widget_row_settings">Ustawienia rzędu</string>
-	<string name="notification_shade">Panel powiadomień</string>
 	<string name="sync_error_permissions">Tasks wymaga uprawnienia</string>
 	<string name="creating_new_list">Tworzenie nowej listy</string>
 	<string name="deleting_list">Usuwanie listy</string>

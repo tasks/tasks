@@ -705,10 +705,6 @@ File %1$s contained %2$s.\n\n
     <string name="get_plugins">In-app purchases</string>
     <string name="no_application_found">No application found to open attachment</string>
     <string name="add_attachment">Add attachment</string>
-    <string name="high_priority">High</string>
-    <string name="default_priority">Default</string>
-    <string name="low_priority">Low</string>
-    <string name="notification_priority">Notification priority</string>
     <string name="take_a_picture">Take a picture</string>
     <string name="pick_from_gallery">Pick from gallery</string>
     <string name="pick_from_storage">Pick from storage</string>
@@ -780,7 +776,6 @@ File %1$s contained %2$s.\n\n
   <string name="widget_settings">Widget settings</string>
   <string name="widget_header_settings">Header settings</string>
   <string name="widget_row_settings">Row settings</string>
-  <string name="notification_shade">Notification shade</string>
   <string name="sync_error_permissions">Tasks requires permission</string>
   <string name="creating_new_list">Creating new list</string>
   <string name="deleting_list">Deleting list</string>

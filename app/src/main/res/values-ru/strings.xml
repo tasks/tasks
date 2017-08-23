@@ -310,10 +310,6 @@
 	<string name="get_plugins">Покупки в приложении</string>
 	<string name="no_application_found">Не найдено приложение для открытия прикреплённого файла</string>
 	<string name="add_attachment">Прикрепить файл</string>
-	<string name="high_priority">Высокий</string>
-	<string name="default_priority">По умолчанию</string>
-	<string name="low_priority">Низкий</string>
-	<string name="notification_priority">Приоритет уведомлений</string>
 	<string name="take_a_picture">Выбрать изображение</string>
 	<string name="pick_from_gallery">Выбрать из галереи</string>
 	<string name="pick_from_storage">Выбрать с диска</string>
@@ -383,7 +379,6 @@
 	<string name="widget_settings">Настройки виджета</string>
 	<string name="widget_header_settings">Настройки закоголовка</string>
 	<string name="widget_row_settings">Настройки строк</string>
-	<string name="notification_shade">Тень уведомления</string>
 	<string name="sync_error_permissions">Запрашиваемые разрешения</string>
 	<string name="creating_new_list">Создание нового списка</string>
 	<string name="deleting_list">Удаление списка</string>

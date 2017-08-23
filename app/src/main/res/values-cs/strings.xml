@@ -276,10 +276,6 @@
 	<string name="task_count">%d úkolů</string>
 	<string name="no_application_found">K otevření přílohy nebyla nalezena aplikace</string>
 	<string name="add_attachment">Přidat přílohu</string>
-	<string name="high_priority">Vysoká</string>
-	<string name="default_priority">Výchozí</string>
-	<string name="low_priority">Nízká</string>
-	<string name="notification_priority">Priorita oznámení</string>
 	<string name="privacy">Soukromí</string>
 	<string name="privacy_policy">Zásady ochrany osobních údajů</string>
 	<string name="send_anonymous_statistics">Vylepšit Úkoly</string>

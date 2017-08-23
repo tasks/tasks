@@ -311,10 +311,6 @@
 	<string name="get_plugins">רכישות בתוך הישום</string>
 	<string name="no_application_found">לא נמצאה אפליקצה לפתיחת הקובץ</string>
 	<string name="add_attachment">הוספ/י קובץ</string>
-	<string name="high_priority">גבוה</string>
-	<string name="default_priority">ברירת מחדל</string>
-	<string name="low_priority">נמוך</string>
-	<string name="notification_priority">חשיבות ההתראה</string>
 	<string name="take_a_picture">צלם תמונה</string>
 	<string name="pick_from_gallery">בחירה מהגלריה</string>
 	<string name="pick_from_storage">בחירה מאחסון</string>
@@ -384,7 +380,6 @@
 	<string name="widget_settings">הגדרות ווידג\'ט</string>
 	<string name="widget_header_settings">הגדרות כותרת</string>
 	<string name="widget_row_settings">הגדרות שורה</string>
-	<string name="notification_shade">וילון ההתראות</string>
 	<string name="sync_error_permissions">דרושות הרשאות</string>
 	<string name="creating_new_list">יוצר רשימה חדשה</string>
 	<string name="deleting_list">מוחק רשימה</string>

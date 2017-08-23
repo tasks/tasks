@@ -312,10 +312,6 @@
 	<string name="get_plugins">Покупки в застосунку</string>
 	<string name="no_application_found">Не знайдено програми для відкриття вкладення</string>
 	<string name="add_attachment">Додати вкладення</string>
-	<string name="high_priority">Високий</string>
-	<string name="default_priority">За замовчуванням</string>
-	<string name="low_priority">Низький</string>
-	<string name="notification_priority">Пріоритет сповіщення</string>
 	<string name="take_a_picture">Зробити фото</string>
 	<string name="pick_from_gallery">Обрати з галереї</string>
 	<string name="pick_from_storage">Обрати зі сховища</string>
@@ -385,7 +381,6 @@
 	<string name="widget_settings">Налаштування віджету</string>
 	<string name="widget_header_settings">Налаштування заголовку</string>
 	<string name="widget_row_settings">Налаштування рядку</string>
-	<string name="notification_shade">Панель сповіщення</string>
 	<string name="sync_error_permissions">Завдання потребують дозволу</string>
 	<string name="creating_new_list">Створення нового списку</string>
 	<string name="deleting_list">Видалення списку</string>

@@ -315,10 +315,6 @@
 	<string name="get_plugins">인앱 결제</string>
 	<string name="no_application_found">첨부 파일을 열 수 있는 앱이 발견되지 않았습니다</string>
 	<string name="add_attachment">첨부파일 추가</string>
-	<string name="high_priority">높음</string>
-	<string name="default_priority">기본값</string>
-	<string name="low_priority">낮음</string>
-	<string name="notification_priority">알림 우선순위</string>
 	<string name="take_a_picture">사진 촬영</string>
 	<string name="pick_from_gallery">갤러리에서 선택</string>
 	<string name="pick_from_storage">저장소에서 가져오기</string>
@@ -388,7 +384,6 @@
 	<string name="widget_settings">위젯 설정</string>
 	<string name="widget_header_settings">헤더 설정</string>
 	<string name="widget_row_settings">줄 설정</string>
-	<string name="notification_shade">상단바</string>
 	<string name="sync_error_permissions">Tasks는 권한이 필요합니다. </string>
 	<string name="creating_new_list">새 목록 만들기</string>
 	<string name="deleting_list">목록 삭제하기</string>

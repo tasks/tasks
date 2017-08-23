@@ -303,10 +303,6 @@
 	<string name="get_plugins">Achats intégrés à l\'application</string>
 	<string name="no_application_found">Aucune application trouvée pour ouvrir la pièce jointe</string>
 	<string name="add_attachment">Ajouter une pièce jointe</string>
-	<string name="high_priority">Haute</string>
-	<string name="default_priority">Par défaut</string>
-	<string name="low_priority">Basse</string>
-	<string name="notification_priority">Priorité de notification</string>
 	<string name="take_a_picture">Prendre une photo</string>
 	<string name="pick_from_gallery">Choisir depuis la galerie</string>
 	<string name="pick_from_storage">Choisir depuis le stockage</string>

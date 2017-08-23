@@ -221,18 +221,6 @@
         <item>@string/ring_nonstop</item>
     </string-array>
 
-  <string-array name="notification_priority_entries">
-    <item>@string/high_priority</item>
-    <item>@string/default_priority</item>
-    <item>@string/low_priority</item>
-  </string-array>
-
-  <string-array name="notification_priority_values">
-    <item>1</item>
-    <item>0</item>
-    <item>-1</item>
-  </string-array>
-
   <string name="p_collect_statistics">collect_statistics</string>
   <string name="p_back_button_saves_task">back_button_saves_task</string>
 

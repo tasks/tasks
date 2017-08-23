@@ -218,7 +218,6 @@
 	<string name="reverse">反向</string>
 	<string name="task_count">%d 个任务</string>
 	<string name="add_attachment">添加附件</string>
-	<string name="default_priority">默认</string>
 	<string name="tag_already_exists">标签已存在</string>
 	<string name="default_list">默认列表</string>
 	<string name="theme">主题</string>

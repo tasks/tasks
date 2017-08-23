@@ -313,10 +313,6 @@
 	<string name="get_plugins">Alkalmazáson belüli vásárlások</string>
 	<string name="no_application_found">A csatolmány megnyitására alkalmas program nem található</string>
 	<string name="add_attachment">Csatolmány hozzáadása</string>
-	<string name="high_priority">Értesítéskor kilépés Szundikáló módból</string>
-	<string name="default_priority">Alapértelmezett</string>
-	<string name="low_priority">Alacsony</string>
-	<string name="notification_priority">Értesítés prioritása</string>
 	<string name="take_a_picture">Kép készítése</string>
 	<string name="pick_from_gallery">Kiválasztás a galériából</string>
 	<string name="pick_from_storage">Kiválasztás a tárhelyről</string>
@@ -386,7 +382,6 @@
 	<string name="widget_settings">Widget beállításai</string>
 	<string name="widget_header_settings">Fejléc beállításai</string>
 	<string name="widget_row_settings">Sorok beállíátsai</string>
-	<string name="notification_shade">Értesítés árnyéka</string>
 	<string name="sync_error_permissions">A Tasks engedélyre vár</string>
 	<string name="creating_new_list">Új lista létrehozása</string>
 	<string name="deleting_list">Lista törlése</string>

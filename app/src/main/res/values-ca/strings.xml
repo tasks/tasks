@@ -133,9 +133,6 @@
 	<string name="show_hidden">Mostra ocultes</string>
 	<string name="show_completed">Mostra completades</string>
 	<string name="reverse">Ordenació inversa</string>
-	<string name="high_priority">Alta</string>
-	<string name="default_priority">Predeterminat</string>
-	<string name="low_priority">Baix</string>
 	<string name="language">Idioma</string>
 	<string name="settings_localization">Localització</string>
 	<string name="layout_direction_left_to_right">D\'esquerra a dreta</string>

@@ -310,9 +310,6 @@
 	<string name="get_plugins">Acquisti nell\'app.</string>
 	<string name="no_application_found">Nessuna applicazione in grado di aprire l\'allegato </string>
 	<string name="add_attachment">Aggiungi allegato</string>
-	<string name="high_priority">Alta</string>
-	<string name="low_priority">Bassa</string>
-	<string name="notification_priority">Priorità avvisi</string>
 	<string name="take_a_picture">Scatta un foto</string>
 	<string name="pick_from_gallery">Scegli dalla libreria</string>
 	<string name="pick_from_storage">Scegli dalla memoria</string>
@@ -382,7 +379,6 @@
 	<string name="widget_settings">Impostazioni widget</string>
 	<string name="widget_header_settings">Impostazioni intestazione</string>
 	<string name="widget_row_settings">Impostazioni riga</string>
-	<string name="notification_shade">Sfumatura notifiche</string>
 	<string name="sync_error_permissions">L\'attività richiede l\'autorizzazione</string>
 	<string name="creating_new_list">Crea nuova lista</string>
 	<string name="deleting_list">Cancella lista</string>

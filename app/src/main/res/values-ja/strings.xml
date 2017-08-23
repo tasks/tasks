@@ -311,10 +311,6 @@
 	<string name="get_plugins">アプリ内課金</string>
 	<string name="no_application_found">添付ファイルを開くアプリケーションが見つかりません</string>
 	<string name="add_attachment">添付ファイルを追加</string>
-	<string name="high_priority">高</string>
-	<string name="default_priority">デフォルト</string>
-	<string name="low_priority">低</string>
-	<string name="notification_priority">通知優先度</string>
 	<string name="take_a_picture">写真を撮影</string>
 	<string name="pick_from_gallery">ギャラリーから選択</string>
 	<string name="pick_from_storage">ストレージから選択</string>
@@ -384,7 +380,6 @@
 	<string name="widget_settings">ウィジェット設定</string>
 	<string name="widget_header_settings">ヘッダー設定</string>
 	<string name="widget_row_settings">行設定</string>
-	<string name="notification_shade">通知の影</string>
 	<string name="sync_error_permissions">Tasks はアクセス許可が必要です</string>
 	<string name="creating_new_list">新しいリストを作成中</string>
 	<string name="deleting_list">リストの削除中</string>

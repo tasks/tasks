@@ -230,9 +230,6 @@
 	<string name="reverse">Ters</string>
 	<string name="no_application_found">Ek dosyasını açmak için hiçbir uygulama bulunamadı</string>
 	<string name="add_attachment">Ek ekle</string>
-	<string name="high_priority">Yüksek</string>
-	<string name="default_priority">Varsayılan</string>
-	<string name="low_priority">Düşük</string>
 	<string name="privacy">Gizlilik</string>
 	<string name="privacy_policy">Gizlilik politikası</string>
 	<string name="send_anonymous_statistics">Task\'ı İyileştir</string>

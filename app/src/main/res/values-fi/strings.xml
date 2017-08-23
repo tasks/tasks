@@ -311,10 +311,6 @@
 	<string name="get_plugins">Sovelluksen sisäiset ostot</string>
 	<string name="no_application_found">Liitteen avaamiseksi ei löytdy sovellusta</string>
 	<string name="add_attachment">Lisää liite</string>
-	<string name="high_priority">Korkea</string>
-	<string name="default_priority">Oletuskalenteri</string>
-	<string name="low_priority">Matala</string>
-	<string name="notification_priority">Muistutusten tärkeysjärjestys</string>
 	<string name="take_a_picture">Ota kuva</string>
 	<string name="pick_from_gallery">Valitse galleriasta</string>
 	<string name="pick_from_storage">Valitse muistista</string>
@@ -384,7 +380,6 @@
 	<string name="widget_settings">Widgetin asetukset</string>
 	<string name="widget_header_settings">Otsikon asetukset</string>
 	<string name="widget_row_settings">Rivin asetukset</string>
-	<string name="notification_shade">Muistutusvalikko</string>
 	<string name="sync_error_permissions">Tasks vaatii  lupaa</string>
 	<string name="creating_new_list">Luo uusi lista</string>
 	<string name="deleting_list">Poista lista</string>

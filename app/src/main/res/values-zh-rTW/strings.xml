@@ -223,9 +223,6 @@
 	<string name="filter_settings">過濾器設定</string>
 	<string name="show_hidden">顯示隱藏</string>
 	<string name="show_completed">顯示已完成</string>
-	<string name="high_priority">最優先</string>
-	<string name="default_priority">預設</string>
-	<string name="low_priority">最不急迫</string>
 	<string name="default_list">預設清單</string>
 	<string name="themes_purchase_description">解鎖全部主題並為工作增加一些色彩</string>
 	<string name="theme">主題</string>

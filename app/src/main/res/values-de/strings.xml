@@ -306,10 +306,6 @@
 	<string name="get_plugins">In App-Käufe</string>
 	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
 	<string name="add_attachment">Anhang hinzufügen</string>
-	<string name="high_priority">Hoch</string>
-	<string name="default_priority">Standard</string>
-	<string name="low_priority">Niedrig</string>
-	<string name="notification_priority">Benachrichtigungspriorität</string>
 	<string name="take_a_picture">Bild aufnehmen</string>
 	<string name="pick_from_gallery">Aus Galerie wählen</string>
 	<string name="pick_from_storage">Von Speicher auswählen</string>
@@ -374,7 +370,6 @@
 	<string name="widget_settings">Widget-Einstellungen</string>
 	<string name="widget_header_settings">Kopf-Einstellungen</string>
 	<string name="widget_row_settings">Reihen-Einstellungen</string>
-	<string name="notification_shade">Benachrichtigungsanzeige</string>
 	<string name="sync_error_permissions">Tasks benötigt Zugriff</string>
 	<string name="creating_new_list">Erstelle neue Liste</string>
 	<string name="deleting_list">Lösche Liste</string>

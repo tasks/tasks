@@ -307,10 +307,6 @@
 	<string name="get_plugins">Köp i app</string>
 	<string name="no_application_found">Ingen applikation hittades för att öppna bilagan</string>
 	<string name="add_attachment">Bifoga filer</string>
-	<string name="high_priority">Hög</string>
-	<string name="default_priority">Standard</string>
-	<string name="low_priority">Låg</string>
-	<string name="notification_priority">Prioritering för påminnelser</string>
 	<string name="take_a_picture">Ta en bild</string>
 	<string name="pick_from_gallery">Välj från album</string>
 	<string name="pick_from_storage">Välj från lagring</string>

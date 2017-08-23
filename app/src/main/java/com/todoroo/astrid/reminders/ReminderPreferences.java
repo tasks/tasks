@@ -35,7 +35,6 @@ import org.tasks.ui.TimePreference;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.preOreo;
 import static org.tasks.PermissionUtil.verifyPermissions;
@@ -78,7 +77,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         initializeTimePreference(getQuietStartPreference(), REQUEST_QUIET_START);
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
 
-        requires(R.string.notification_shade, atLeastJellybean(), R.string.p_notification_priority);
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
         requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
     }
