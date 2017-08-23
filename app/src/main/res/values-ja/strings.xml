@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">コメントする</string>
 	<string name="name">名前</string>
 	<string name="enter_filter_name">フィルター名を入力</string>
-	<string name="choose_google_account">Google アカウントを選択</string>
 	<string name="backup_BPr_header">バックアップ</string>
 	<string name="backup_BAc_import">タスクのインポート</string>
 	<string name="backup_BAc_export">タスクのエクスポート</string>
@@ -162,7 +161,6 @@
 	<string name="CFC_gtasks_list_text">リストにありますか ?</string>
 	<string name="CFC_gtasks_list_name">GTasks リストに...</string>
 	<string name="gtasks_GTA_clear_completed">クリアが完了しました</string>
-	<string name="gtasks_GLA_noaccounts">同期するために有効な Google アカウントがありません.</string>
 	<string name="gtasks_GLA_authenticating">認証中...</string>
 	<string name="gtasks_GLA_errorIOAuth">すみません、Googleのサーバとの通信で問題が発生しました。しばらくしてから再度やり直してください。</string>
 	<string name="gtasks_GPr_header">Google Tasks (ベータ版!)</string>

@@ -2,7 +2,6 @@ package org.tasks.injection;
 
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.SupportGoogleTaskListPicker;
-import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.RecordAudioDialog;
@@ -28,8 +27,6 @@ public interface DialogFragmentComponent {
     void inject(CalendarSelectionDialog calendarSelectionDialog);
 
     void inject(AddAttachmentDialog addAttachmentDialog);
-
-    void inject(AccountSelectionDialog accountSelectionDialog);
 
     void inject(SnoozeDialog snoozeDialog);
 

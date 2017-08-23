@@ -15,10 +15,6 @@
 
     <string name="enter_filter_name">Enter filter name</string>
 
-    <!-- ========================================= sharing login activity == -->
-
-    <string name="choose_google_account">Choose Google Account</string>
-
     <!-- ================================================= BackupPreferences == -->
 
     <!-- slide 33c/48d: Backup Preferences Title -->
@@ -431,10 +427,6 @@ File %1$s contained %2$s.\n\n
     <string name="gtasks_GTA_clear_completed">Clear Completed</string>
 
     <!-- ============================================ GtasksLoginActivity == -->
-
-    <!-- Activity Title: Gtasks Login -->
-
-    <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
 
     <!--  Authenticating toast -->
     <string name="gtasks_GLA_authenticating">Authenticating…</string>

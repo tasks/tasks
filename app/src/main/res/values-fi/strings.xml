@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">Lisää kommentti...</string>
 	<string name="name">Nimi</string>
 	<string name="enter_filter_name">Syötä suodattimen nimi</string>
-	<string name="choose_google_account">Valitse Google tili</string>
 	<string name="backup_BPr_header">Varmuuskopiot</string>
 	<string name="backup_BAc_import">Tuo tehtävät</string>
 	<string name="backup_BAc_export">Vie tehtävät</string>
@@ -165,7 +164,6 @@
 	<string name="CFC_gtasks_list_text">Listalla: ?</string>
 	<string name="CFC_gtasks_list_name">Gtask lista...</string>
 	<string name="gtasks_GTA_clear_completed">Poista valmiit</string>
-	<string name="gtasks_GLA_noaccounts">Google tiliä ei ole saatavissa synkronointia varten.</string>
 	<string name="gtasks_GLA_authenticating">Todennetaan...</string>
 	<string name="gtasks_GLA_errorIOAuth">Valitettavasti meillä on yhteysongelmia Google palvelimiin.  Ole hyvä ja yritä myöhemmin uudestaa.</string>
 	<string name="gtasks_GPr_header">Google tehtävät</string>

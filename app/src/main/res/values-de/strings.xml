@@ -9,7 +9,6 @@
 	<string name="actfm_picture_clear">Bild entfernen</string>
 	<string name="TVA_add_comment">Kommentar hinzufügen …</string>
 	<string name="enter_filter_name">Filtername eingeben</string>
-	<string name="choose_google_account">Google-Account auswählen</string>
 	<string name="backup_BAc_import">Aufgaben importieren</string>
 	<string name="backup_BAc_export">Aufgaben exportieren</string>
 	<string name="export_toast">%1$s bis %2$s gesichert.</string>
@@ -159,7 +158,6 @@
 	<string name="CFC_gtasks_list_text">In der Liste: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
 	<string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
-	<string name="gtasks_GLA_noaccounts">Keine Google-Accounts zum synchronisieren verfügbar.</string>
 	<string name="gtasks_GLA_authenticating">Authentifizierung ...</string>
 	<string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
 	<string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut über die Einstellungen von Google Tasks einloggen .</string>

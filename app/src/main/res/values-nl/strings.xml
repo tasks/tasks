@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
 	<string name="name">Naam</string>
 	<string name="enter_filter_name">Vul een filter naam in</string>
-	<string name="choose_google_account">Kies Google Account</string>
 	<string name="backup_BPr_header">Back-ups</string>
 	<string name="backup_BAc_import">Taken importeren</string>
 	<string name="backup_BAc_export">Taken exporteren</string>
@@ -161,7 +160,6 @@
 	<string name="CFC_gtasks_list_text">In lijst: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks lijst...</string>
 	<string name="gtasks_GTA_clear_completed">Verwijderen Voltooid</string>
-	<string name="gtasks_GLA_noaccounts">Geen Google account beschikbaar voor synchronisatie</string>
 	<string name="gtasks_GLA_authenticating">Verifiëren...</string>
 	<string name="gtasks_GLA_errorIOAuth">Sorry, we konden geen verbinding maken met de servers van Google. Probeer het later opnieuw.</string>
 	<string name="gtasks_GPr_header">Google Taken (Beta!)</string>

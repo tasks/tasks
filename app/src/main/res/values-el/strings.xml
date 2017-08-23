@@ -132,7 +132,6 @@
 	<string name="CFC_gtasks_list_text">Στην λίστα: ?</string>
 	<string name="CFC_gtasks_list_name">Στην λίστα του GTasks...</string>
 	<string name="gtasks_GTA_clear_completed">Καθαρισμός ολοκληρωμένων</string>
-	<string name="gtasks_GLA_noaccounts">Δεν υπάρχουν λογαριασμοί Google για συγχρονισμο.</string>
 	<string name="gtasks_GLA_authenticating">Αυθεντικοποίηση...</string>
 	<string name="gtasks_GLA_errorIOAuth">Συγγνώμη, υπήρξε σφάλμα επικοινωνίας με τους διακομιστές της Google. Παρακαλουμε δοκιμάστε πάλι μετά</string>
 	<string name="gtasks_GPr_header">Εργασίες Google</string>

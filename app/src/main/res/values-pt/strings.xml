@@ -147,7 +147,6 @@
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">Na lista GTasks</string>
 	<string name="gtasks_GTA_clear_completed">Remoção terminada</string>
-	<string name="gtasks_GLA_noaccounts">Não possui qualquer conta Google para sincronização.</string>
 	<string name="gtasks_GLA_authenticating">Autenticação...</string>
 	<string name="gtasks_GLA_errorIOAuth">Ocorreu um erro ao comunicar com os servidores Google. Tente mais tarde.</string>
 	<string name="gtasks_GPr_header">Tarefas Google</string>

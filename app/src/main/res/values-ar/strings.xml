@@ -89,7 +89,6 @@
 	<string name="gcal_TEA_showCalendar_label">إفتح أحداث التقويم</string>
 	<string name="CFC_gtasks_list_text">في القائمة :?</string>
 	<string name="gtasks_GTA_clear_completed">انتهاء الحذف</string>
-	<string name="gtasks_GLA_noaccounts">لا يوجد حساب قوقل للتزامن مع.</string>
 	<string name="gtasks_GLA_errorIOAuth">عذرا، لم نتمكن من الاتصال مع خادم قوقل. أعد المحاولة مرة أخرى لاحقا.</string>
 	<string name="gtasks_GPr_header">مهام قوقل</string>
 	<string name="premium_record_audio">تسجيل ملاحظة</string>

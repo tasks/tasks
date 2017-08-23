@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">Lägg till en kommentar...</string>
 	<string name="name">Namn</string>
 	<string name="enter_filter_name">Ange ett namn för filtret</string>
-	<string name="choose_google_account">Välj Googlekonto</string>
 	<string name="backup_BPr_header">Säkerhetskopior</string>
 	<string name="backup_BAc_import">Importera uppgifter</string>
 	<string name="backup_BAc_export">Exportera uppgifter</string>
@@ -162,7 +161,6 @@
 	<string name="CFC_gtasks_list_text">I listan: ?</string>
 	<string name="CFC_gtasks_list_name">I lista på Google Uppgifter...</string>
 	<string name="gtasks_GTA_clear_completed">Rensa bort färdiga</string>
-	<string name="gtasks_GLA_noaccounts">Inga tillgängliga Googlekonton att synkronisera med.</string>
 	<string name="gtasks_GLA_authenticating">Autentiserar...</string>
 	<string name="gtasks_GLA_errorIOAuth">Vi hade problem med förbindelsen till Googles servrar. Försök igen senare.</string>
 	<string name="gtasks_GPr_header">Google Uppgifter</string>

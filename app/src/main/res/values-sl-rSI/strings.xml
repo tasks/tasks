@@ -136,7 +136,6 @@
 	<string name="CFC_gtasks_list_text">V seznamu: ?</string>
 	<string name="CFC_gtasks_list_name">Na GNaloge seznamu...</string>
 	<string name="gtasks_GTA_clear_completed">Zbriši dokončano</string>
-	<string name="gtasks_GLA_noaccounts">Ne morem se uskladiti z neobstoječimi Google računi.</string>
 	<string name="gtasks_GLA_authenticating">Avtentikacija v teku ...</string>
 	<string name="gtasks_GLA_errorIOAuth">Žal smo imeli težave pri povezovanju z Google strežniki. Prosimo, poskusite ponovno kasneje.</string>
 	<string name="gtasks_GPr_header">Google Naloge</string>

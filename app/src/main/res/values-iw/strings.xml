@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">הוסף הערה</string>
 	<string name="name">שם</string>
 	<string name="enter_filter_name">הזן שם מסנן</string>
-	<string name="choose_google_account">בחר חשבון גוגל</string>
 	<string name="backup_BPr_header">גיבויים</string>
 	<string name="backup_BAc_import">ייבוא משימות</string>
 	<string name="backup_BAc_export">ייצוא משימות</string>
@@ -162,7 +161,6 @@
 	<string name="CFC_gtasks_list_text">ברשימה: ?</string>
 	<string name="CFC_gtasks_list_name">ברשימה של ״משימות גוגל״</string>
 	<string name="gtasks_GTA_clear_completed">נקה משימות שבוצעו</string>
-	<string name="gtasks_GLA_noaccounts">לא נמצאו חשבונות גוגל לסינכרון</string>
 	<string name="gtasks_GLA_authenticating">מאמת...</string>
 	<string name="gtasks_GLA_errorIOAuth">בעיה בהתחברות לשרתי גוגל. נא נסה שוב מאוחר יותר.</string>
 	<string name="gtasks_GPr_header">״משימות גוגל״</string>

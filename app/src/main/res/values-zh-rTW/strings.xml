@@ -128,7 +128,6 @@
 	<string name="CFC_gtasks_list_text">列表內容: ?</string>
 	<string name="CFC_gtasks_list_name">在Google任務工作列表中...</string>
 	<string name="gtasks_GTA_clear_completed">清除已完成項</string>
-	<string name="gtasks_GLA_noaccounts">沒有可用的Google帳戶同步。</string>
 	<string name="gtasks_GLA_authenticating">正在認證...</string>
 	<string name="gtasks_GLA_errorIOAuth">對不起，我們在與Google 服務器通訊時遇到了問題。請稍後再嘗試。</string>
 	<string name="gtasks_GPr_header">Google Tasks (測試中!)</string>

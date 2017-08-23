@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">댓글 쓰기...</string>
 	<string name="name">이름</string>
 	<string name="enter_filter_name">필터 이름 입력</string>
-	<string name="choose_google_account">구글 계정 선택</string>
 	<string name="backup_BPr_header">백업</string>
 	<string name="backup_BAc_import">할일 가져오기</string>
 	<string name="backup_BAc_export">할일 내보내기</string>
@@ -166,7 +165,6 @@
 	<string name="CFC_gtasks_list_text">목록에: ?</string>
 	<string name="CFC_gtasks_list_name">GTasks 목록에...</string>
 	<string name="gtasks_GTA_clear_completed">삭제 완료</string>
-	<string name="gtasks_GLA_noaccounts">동기화 가능한 구글 계정이 없음</string>
 	<string name="gtasks_GLA_authenticating">인증 중...</string>
 	<string name="gtasks_GLA_errorIOAuth">죄송합니다, 구글 서버와 통신하는 데 문제가 있습니다. 잠시 후 다시 시도하세요.</string>
 	<string name="gtasks_GPr_header">구글 할일 목록 (Google Tasks)</string>

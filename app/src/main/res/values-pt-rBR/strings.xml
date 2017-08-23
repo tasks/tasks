@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">Comentar...</string>
 	<string name="name">Nome</string>
 	<string name="enter_filter_name">Digite o nome do filtro</string>
-	<string name="choose_google_account">Selecione a Conta do Google</string>
 	<string name="backup_BAc_import">Importar tarefas</string>
 	<string name="backup_BAc_export">Exportar tarefas</string>
 	<string name="export_toast">Backups feitos: de %1$s para %2$s.</string>
@@ -158,7 +157,6 @@
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>
 	<string name="CFC_gtasks_list_name">No Google Tasks...</string>
 	<string name="gtasks_GTA_clear_completed">Limpeza concluída</string>
-	<string name="gtasks_GLA_noaccounts">Google não está disponível para sincronização com contas.</string>
 	<string name="gtasks_GLA_authenticating">Autenticando ...</string>
 	<string name="gtasks_GLA_errorIOAuth">Desculpe-nos, tivemos problemas de comunicação com os servidores do Google. Tente mais tarde.</string>
 	<string name="gtasks_GPr_header">Google Tarefas</string>

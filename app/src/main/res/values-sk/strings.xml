@@ -141,7 +141,6 @@
 	<string name="CFC_gtasks_list_text">V zozname: ?</string>
 	<string name="CFC_gtasks_list_name">V GTasks zozname...</string>
 	<string name="gtasks_GTA_clear_completed">Vymazať dokončené</string>
-	<string name="gtasks_GLA_noaccounts">Nieje k dispozícii synchronizácia Google účtu.</string>
 	<string name="gtasks_GLA_authenticating">Overovanie...</string>
 	<string name="gtasks_GLA_errorIOAuth">Prepáč, nastal problém v komunikácii s Google serverom. Prosím, skús to znovu neskôr.</string>
 	<string name="gtasks_GPr_header">Úlohy Google</string>

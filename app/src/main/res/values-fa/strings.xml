@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">اضافه کردن نظر</string>
 	<string name="name">نام</string>
 	<string name="enter_filter_name">نام فیلتر را وارد نمایید</string>
-	<string name="choose_google_account">انتخاب حساب کاربری گوگل</string>
 	<string name="backup_BPr_header">پشتیبان ها</string>
 	<string name="backup_BAc_import">واردکردن وظایف</string>
 	<string name="backup_BAc_export">خرجی از وظایف</string>
@@ -114,7 +113,6 @@
 	<string name="gcal_TEA_showCalendar_label">بازکردن رویداد تقویم</string>
 	<string name="gcal_completed_title">%s (کامل‌شده)</string>
 	<string name="gtasks_GTA_clear_completed">حذف انجام شد</string>
-	<string name="gtasks_GLA_noaccounts">اکانت گوگلی برای همگام سازی موجود نیست</string>
 	<string name="gtasks_GLA_authenticating">اعتبارسنجی...</string>
 	<string name="gtasks_GLA_errorIOAuth">پوزش، ارتباط با سرورهای گوگل میسر نشد. لطفا دوباره تلاش نمایید.</string>
 	<string name="gtasks_GPr_header">وظایف گوگل</string>

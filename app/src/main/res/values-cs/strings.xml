@@ -152,7 +152,6 @@
 	<string name="CFC_gtasks_list_text">V seznamu: ?</string>
 	<string name="CFC_gtasks_list_name">V seznamu Google úkolů</string>
 	<string name="gtasks_GTA_clear_completed">Smazat hotové</string>
-	<string name="gtasks_GLA_noaccounts">Žádný dostupný účet Google pro synchronizaci</string>
 	<string name="gtasks_GLA_authenticating">Ověřuje se...</string>
 	<string name="gtasks_GLA_errorIOAuth">Nastali problémy při komunikaci se servery Google. Zkuste to prosím později.</string>
 	<string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>

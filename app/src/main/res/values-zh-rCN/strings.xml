@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">添加注释...</string>
 	<string name="name">名称</string>
 	<string name="enter_filter_name">输入过滤器名称</string>
-	<string name="choose_google_account">选择Google账户</string>
 	<string name="backup_BPr_header">备份</string>
 	<string name="backup_BAc_import">导入任务</string>
 	<string name="backup_BAc_export">导出任务</string>
@@ -124,7 +123,6 @@
 	<string name="CFC_gtasks_list_text">列表内容: ?</string>
 	<string name="CFC_gtasks_list_name">在Google任务列表中...</string>
 	<string name="gtasks_GTA_clear_completed">清除已完成项</string>
-	<string name="gtasks_GLA_noaccounts">没有可用的Google帐户同步。</string>
 	<string name="gtasks_GLA_authenticating">正在认证...</string>
 	<string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
 	<string name="gtasks_error_accountNotFound">找不到帐户 %s——请退出，然后从 Google Tasks设置中重新登录。</string>

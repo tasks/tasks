@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">Añadir un comentario...</string>
 	<string name="name">Nombre</string>
 	<string name="enter_filter_name">Introduzca el nombre del filtro</string>
-	<string name="choose_google_account">Elegir cuenta de Google</string>
 	<string name="backup_BPr_header">Copias de seguridad</string>
 	<string name="backup_BAc_import">Importar tareas</string>
 	<string name="backup_BAc_export">Exportar tareas</string>
@@ -162,7 +161,6 @@
 	<string name="CFC_gtasks_list_text">En la Lista: ?</string>
 	<string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
 	<string name="gtasks_GTA_clear_completed">Quitar finalizadas</string>
-	<string name="gtasks_GLA_noaccounts">No hay disponible una cuenta de Google con la cual sincronizarse.</string>
 	<string name="gtasks_GLA_authenticating">Autenticando...</string>
 	<string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
 	<string name="gtasks_error_accountNotFound">No se ha encontrado la cuenta %s --por favor, cierra sesión y vuelve a iniciarla desde la configuración de Google Tasks</string>

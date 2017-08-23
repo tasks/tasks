@@ -10,7 +10,6 @@
 	<string name="TVA_add_comment">Добави коментар...</string>
 	<string name="name">Име</string>
 	<string name="enter_filter_name">Въведете име на филтъра</string>
-	<string name="choose_google_account">Изберете Google Account</string>
 	<string name="backup_BPr_header">Резервни копия</string>
 	<string name="backup_BAc_import">Импортиране на задачи</string>
 	<string name="backup_BAc_export">Експортиране на задачи</string>
@@ -165,7 +164,6 @@
 	<string name="CFC_gtasks_list_text">В списък: ?</string>
 	<string name="CFC_gtasks_list_name">В списък GTasks...</string>
 	<string name="gtasks_GTA_clear_completed">Изчисти Завършени</string>
-	<string name="gtasks_GLA_noaccounts">Няма налични Google акаунти за синхронизация.</string>
 	<string name="gtasks_GLA_authenticating">Удостоверява се...</string>
 	<string name="gtasks_GLA_errorIOAuth">Съжаляваме, ние имахме проблем с комуникацията със сървърите на Google. Моля, опитайте отново по-късно.</string>
 	<string name="gtasks_error_accountNotFound">Акаунт %s не е намерен-моля да излезнете и да влязнете отново от настройките на Google Tasks.</string>

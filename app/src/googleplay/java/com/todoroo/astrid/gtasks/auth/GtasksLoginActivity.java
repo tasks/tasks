@@ -5,24 +5,32 @@
  */
 package com.todoroo.astrid.gtasks.auth;
 
-import android.support.v4.app.FragmentManager;
+import android.accounts.Account;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.google.api.services.tasks.TasksScopes;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
 import org.tasks.AccountManager;
 import org.tasks.R;
-import org.tasks.dialogs.AccountSelectionDialog;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
+import java.io.IOException;
+
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks
@@ -31,9 +39,15 @@ import javax.inject.Inject;
  * @author Sam Bosley
  *
  */
-public class GtasksLoginActivity extends InjectingAppCompatActivity implements AccountSelectionDialog.AccountSelectionHandler {
+public class GtasksLoginActivity extends InjectingAppCompatActivity {
 
-    private static final String FRAG_TAG_ACCOUNT_SELECTION_DIALOG = "frag_tag_account_selection_dialog";
+    public interface AuthResultHandler {
+        void authenticationSuccessful(String accountName);
+        void authenticationFailed(String message);
+    }
+
+    private static final int RC_REQUEST_OAUTH = 10987;
+    private static final int RC_CHOOSE_ACCOUNT = 10988;
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
@@ -49,17 +63,10 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
         final String existingUsername = gtasksPreferenceService.getUserName();
         if (existingUsername != null && accountManager.hasAccount(existingUsername)) {
             getAuthToken(existingUsername);
-        } else if (accountManager.isEmpty()) {
-            Toast.makeText(this, R.string.gtasks_GLA_noaccounts, Toast.LENGTH_LONG).show();
-            finish();
         } else {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            AccountSelectionDialog fragmentByTag = (AccountSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_ACCOUNT_SELECTION_DIALOG);
-            if (fragmentByTag == null) {
-                fragmentByTag = new AccountSelectionDialog();
-                fragmentByTag.show(fragmentManager, FRAG_TAG_ACCOUNT_SELECTION_DIALOG);
-            }
-            fragmentByTag.setAccountSelectionHandler(this);
+            Intent chooseAccountIntent = android.accounts.AccountManager.newChooseAccountIntent(
+                    null, null, new String[]{"com.google"}, false, null, null, null, null);
+            startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT);
         }
     }
 
@@ -76,7 +83,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
     }
 
     private void getAuthToken(String a, final ProgressDialog pd) {
-        accountManager.getAuthToken(this, a, new AccountManager.AuthResultHandler() {
+        getAuthToken(this, a, new AuthResultHandler() {
             @Override
             public void authenticationSuccessful(String accountName) {
                 gtasksPreferenceService.setUserName(accountName);
@@ -97,23 +104,36 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity implements A
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == AccountManager.REQUEST_AUTHORIZATION && resultCode == RESULT_OK){
+        if (requestCode == RC_CHOOSE_ACCOUNT && resultCode == RESULT_OK) {
+            String account = data.getStringExtra(android.accounts.AccountManager.KEY_ACCOUNT_NAME);
+            getAuthToken(account);
+        } else if (requestCode == RC_REQUEST_OAUTH && resultCode == RESULT_OK) {
             final ProgressDialog pd = dialogBuilder.newProgressDialog(R.string.gtasks_GLA_authenticating);
             pd.show();
             getAuthToken(accountName, pd);
         } else {
             //User didn't give permission--cancel
-            onCancel();
+            finish();
         }
     }
 
-    @Override
-    public void accountSelected(String account) {
-        getAuthToken(account);
-    }
-
-    @Override
-    public void onCancel() {
-        finish();
+    private void getAuthToken(final Activity activity, final String accountName, final AuthResultHandler handler) {
+        final Account account = accountManager.getAccount(accountName);
+        if (account == null) {
+            handler.authenticationFailed(activity.getString(R.string.gtasks_error_accountNotFound, accountName));
+        } else {
+            new Thread(() -> {
+                try {
+                    GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null);
+                    handler.authenticationSuccessful(accountName);
+                } catch(UserRecoverableAuthException e) {
+                    Timber.e(e, e.getMessage());
+                    activity.startActivityForResult(e.getIntent(), RC_REQUEST_OAUTH);
+                } catch(GoogleAuthException | IOException e) {
+                    Timber.e(e, e.getMessage());
+                    handler.authenticationFailed(getString(R.string.gtasks_GLA_errorIOAuth));
+                }
+            }).start();
+        }
     }
 }
