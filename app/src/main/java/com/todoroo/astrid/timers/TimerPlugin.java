@@ -115,7 +115,7 @@ public class TimerPlugin {
                     .setAutoCancel(false)
                     .setOngoing(true)
                     .build();
-            notificationManager.notify(Constants.NOTIFICATION_TIMER, notification);
+            notificationManager.notify(Constants.NOTIFICATION_TIMER, notification, false, false, false);
         }
     }
 }

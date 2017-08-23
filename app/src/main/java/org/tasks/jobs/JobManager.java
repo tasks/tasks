@@ -20,12 +20,12 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 public class JobManager {
 
     static final int JOB_ID_REFRESH = 1;
+    public static final int JOB_ID_BACKGROUND_SCHEDULER = 2;
     static final int JOB_ID_NOTIFICATION = 3;
     public static final int JOB_ID_GEOFENCE_TRANSITION = 4;
     public static final int JOB_ID_GEOFENCE_SCHEDULING = 5;
     static final int JOB_ID_MIDNIGHT_REFRESH = 6;
     static final int JOB_ID_BACKUP = 7;
-    public static final int JOB_ID_SCHEDULER = 8;
     public static final int JOB_ID_NOTIFICATION_SCHEDULER = 9;
     public static final int JOB_ID_CALENDAR_NOTIFICATION = 10;
 
@@ -38,7 +38,7 @@ public class JobManager {
         this.alarmManager = alarmManager;
     }
 
-    public void schedule(String tag, long time) {
+    void schedule(String tag, long time) {
         Timber.d("%s: %s", tag, printTimestamp(time));
         alarmManager.wakeup(adjust(time), getPendingIntent(tag));
     }

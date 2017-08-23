@@ -72,10 +72,6 @@ public class JobQueue {
         return result;
     }
 
-    public synchronized boolean remove(JobQueueEntry entry) {
-        return jobs.remove(entry.getTime(), entry);
-    }
-
     synchronized void scheduleNext() {
         scheduleNext(false);
     }
@@ -105,5 +101,13 @@ public class JobQueue {
 
     List<JobQueueEntry> getJobs() {
         return ImmutableList.copyOf(jobs.values());
+    }
+
+    public synchronized boolean remove(List<? extends JobQueueEntry> entries) {
+        boolean success = true;
+        for (JobQueueEntry entry : entries) {
+            success &= jobs.remove(entry.getTime(), entry);
+        }
+        return success;
     }
 }

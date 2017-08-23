@@ -366,7 +366,6 @@
 	<string name="widget_settings">Paramètres du Widget</string>
 	<string name="widget_header_settings">Paramètres de l\'en-tête</string>
 	<string name="widget_row_settings">Paramètres de la ligne</string>
-	<string name="notification_shade">Fréquence de notification</string>
 	<string name="sync_error_permissions">Permissions requises de Tasks.</string>
 	<string name="creating_new_list">Création d\'une nouvelle liste</string>
 	<string name="deleting_list">Suppression de la liste</string>

@@ -6,7 +6,6 @@
 package com.todoroo.astrid.service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 
@@ -15,7 +14,6 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
@@ -52,14 +50,14 @@ public class StartupService {
     private final TagDataDao tagDataDao;
     private final TagService tagService;
     private final MetadataDao metadataDao;
-    private final BackgroundScheduler backgroundScheduler;
     private final LocalBroadcastManager localBroadcastManager;
+    private final Context context;
 
     @Inject
     public StartupService(Database database, Preferences preferences, TaskDeleter taskDeleter,
                           Tracker tracker, TagDataDao tagDataDao, TagService tagService,
-                          MetadataDao metadataDao, BackgroundScheduler backgroundScheduler,
-                          LocalBroadcastManager localBroadcastManager) {
+                          MetadataDao metadataDao, LocalBroadcastManager localBroadcastManager,
+                          @ForApplication Context context) {
         this.database = database;
         this.preferences = preferences;
         this.taskDeleter = taskDeleter;
@@ -67,8 +65,8 @@ public class StartupService {
         this.tagDataDao = tagDataDao;
         this.tagService = tagService;
         this.metadataDao = metadataDao;
-        this.backgroundScheduler = backgroundScheduler;
         this.localBroadcastManager = localBroadcastManager;
+        this.context = context;
     }
 
     /** Called when this application is started up */
@@ -97,12 +95,10 @@ public class StartupService {
             preferences.setDefaults();
         }
 
-        // perform startup activities in a background thread
-        new Thread(() -> {
-            taskDeleter.deleteTasksWithEmptyTitles(null);
-        }).start();
+        BackgroundScheduler.enqueueWork(context);
 
-        backgroundScheduler.scheduleEverything();
+        // perform startup activities in a background thread
+        new Thread(() -> taskDeleter.deleteTasksWithEmptyTitles(null)).start();
     }
 
     private void upgrade(int from, int to) {

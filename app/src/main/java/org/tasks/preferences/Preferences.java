@@ -3,10 +3,12 @@ package org.tasks.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
+import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
@@ -15,7 +17,6 @@ import com.todoroo.astrid.data.TaskAttachment;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
-import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
 
 import java.io.File;
@@ -26,7 +27,6 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static android.content.SharedPreferences.Editor;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
 public class Preferences {
 
@@ -38,14 +38,11 @@ public class Preferences {
     private final PermissionChecker permissionChecker;
     private final SharedPreferences prefs;
     private final SharedPreferences publicPrefs;
-    private final ThemeCache themeCache;
 
     @Inject
-    public Preferences(@ForApplication Context context, PermissionChecker permissionChecker,
-                       ThemeCache themeCache) {
+    public Preferences(@ForApplication Context context, PermissionChecker permissionChecker) {
         this.context = context;
         this.permissionChecker = permissionChecker;
-        this.themeCache = themeCache;
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         publicPrefs = context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE);
     }
@@ -88,16 +85,8 @@ public class Preferences {
         return time;
     }
 
-    public boolean isVibrationEnabled() {
-        return atLeastOreo() || getBoolean(R.string.p_rmd_vibrate, true);
-    }
-
     public boolean isLEDNotificationEnabled() {
-        return atLeastOreo() || getBoolean(R.string.p_led_notification, true);
-    }
-
-    public int getLEDColor() {
-        return R.color.led_green;
+        return getBoolean(R.string.p_led_notification, true);
     }
 
     public boolean quietHoursEnabled() {
@@ -141,13 +130,15 @@ public class Preferences {
         return defaultCalendar != null && !defaultCalendar.equals("-1") && !defaultCalendar.equals("0");
     }
 
-    public boolean isTrackingEnabled() {
-        return getBoolean(R.string.p_collect_statistics, true);
+    public Uri getRingtone() {
+        String ringtone = getStringValue(R.string.p_rmd_ringtone);
+        return Strings.isNullOrEmpty(ringtone)
+                ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                : Uri.parse(ringtone);
     }
 
-    public int getNotificationPriority() {
-        return Math.max(NotificationCompat.PRIORITY_MIN, Math.min(NotificationCompat.PRIORITY_MAX,
-                        getIntegerFromString(R.string.p_notification_priority, NotificationCompat.PRIORITY_HIGH)));
+    public boolean isTrackingEnabled() {
+        return getBoolean(R.string.p_collect_statistics, true);
     }
 
     public String getDefaultCalendar() {
@@ -411,8 +402,8 @@ public class Preferences {
         return directory;
     }
 
-    public long[] getVibrationPattern() {
-        return new long[] {0, 333, 333, 333};
+    public boolean isVibrationEnabled() {
+        return getBoolean(R.string.p_rmd_vibrate, true);
     }
 
     public void remove(int resId) {

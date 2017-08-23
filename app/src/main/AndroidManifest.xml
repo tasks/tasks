@@ -424,7 +424,7 @@
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
         <service
-            android:name=".scheduling.SchedulerIntentService"
+            android:name=".scheduling.BackgroundScheduler"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
         <service
@@ -467,6 +467,8 @@
             android:name=".location.GeofenceTransitionsIntentService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
+
+        <receiver android:name=".notifications.NotificationClearedReceiver" />
 
         <!-- Uses Library -->
         <uses-library

@@ -26,10 +26,14 @@ import timber.log.Timber;
 
 public class CalendarNotificationIntentService extends RecurringIntervalIntentService {
 
+    public static void enqueueWork(Context context) {
+        JobIntentService.enqueueWork(context, CalendarNotificationIntentService.class, JobManager.JOB_ID_CALENDAR_NOTIFICATION, new Intent());
+    }
+
     public static class Broadcast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            JobIntentService.enqueueWork(context, CalendarNotificationIntentService.class, JobManager.JOB_ID_CALENDAR_NOTIFICATION, new Intent());
+            enqueueWork(context);
         }
     }
 

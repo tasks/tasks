@@ -93,7 +93,7 @@ public class NotificationTests extends DatabaseTestCase {
 
         notifier.triggerTaskNotification(task.getId(), ReminderService.TYPE_DUE);
 
-        verify(notificationManager).notify(eq((int) task.getId()), any(Notification.class));
+        verify(notificationManager).notify(eq((int) task.getId()), any(Notification.class), true, false, false);
     }
 
     @Test

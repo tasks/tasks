@@ -1,9 +1,11 @@
 package org.tasks.injection;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
+import org.tasks.db.AppDatabase;
 import org.tasks.locale.Locale;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.CheckBoxes;
@@ -55,5 +57,11 @@ public class ApplicationModule {
     @ApplicationScope
     public WidgetCheckBoxes getWidgetCheckBoxes(CheckBoxes checkBoxes) {
         return newWidgetCheckBoxes(checkBoxes);
+    }
+
+    @Provides
+    @ApplicationScope
+    public AppDatabase getAppDatabase() {
+        return Room.databaseBuilder(context, AppDatabase.class, "app-database").build();
     }
 }

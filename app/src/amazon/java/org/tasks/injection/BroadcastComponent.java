@@ -8,6 +8,7 @@ import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.timers.TimerTaskCompleteListener;
 
 import org.tasks.locale.receiver.FireReceiver;
+import org.tasks.notifications.NotificationClearedReceiver;
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.ListNotificationReceiver;
@@ -47,4 +48,6 @@ public interface BroadcastComponent {
     void inject(TeslaUnreadReceiver teslaUnreadReceiver);
 
     void inject(PushReceiver pushReceiver);
+
+    void inject(NotificationClearedReceiver notificationClearedReceiver);
 }

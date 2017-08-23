@@ -240,6 +240,10 @@ public class AndroidUtilities {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
+    public static boolean atLeastNougat() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+    }
+
     public static boolean atLeastOreo() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }

@@ -5,17 +5,15 @@ import org.tasks.jobs.BackupJob;
 import org.tasks.jobs.MidnightRefreshJob;
 import org.tasks.jobs.RefreshJob;
 import org.tasks.location.GeofenceTransitionsIntentService;
+import org.tasks.scheduling.BackgroundScheduler;
 import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
-import org.tasks.scheduling.SchedulerIntentService;
 
 import dagger.Subcomponent;
 
 @Subcomponent(modules = IntentServiceModule.class)
 public interface IntentServiceComponent {
-    void inject(SchedulerIntentService schedulerIntentService);
-
     void inject(GeofenceSchedulingIntentService geofenceSchedulingIntentService);
 
     void inject(CalendarNotificationIntentService calendarNotificationIntentService);
@@ -31,4 +29,6 @@ public interface IntentServiceComponent {
     void inject(MidnightRefreshJob midnightRefreshJob);
 
     void inject(RefreshJob refreshJob);
+
+    void inject(BackgroundScheduler backgroundScheduler);
 }

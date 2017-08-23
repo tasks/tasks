@@ -95,6 +95,10 @@ public class TaskDao {
         dao.query(Query.select(Task.PROPERTIES).where(Criterion.and(TaskCriteria.isActive(), criterion)), callback);
     }
 
+    public Task fetch(long id) {
+        return dao.fetch(id, Task.PROPERTIES);
+    }
+
     public Task fetch(long id, Property<?>... properties) {
         return dao.fetch(id, properties);
     }

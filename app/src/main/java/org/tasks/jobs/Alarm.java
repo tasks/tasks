@@ -2,6 +2,11 @@ package org.tasks.jobs;
 
 import com.todoroo.astrid.alarms.AlarmFields;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.reminders.ReminderService;
+
+import org.tasks.notifications.Notification;
+
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class Alarm implements JobQueueEntry {
     private final long alarmId;
@@ -30,6 +35,15 @@ public class Alarm implements JobQueueEntry {
     @Override
     public long getTime() {
         return time;
+    }
+
+    @Override
+    public Notification toNotification() {
+        Notification notification = new Notification();
+        notification.taskId = taskId;
+        notification.type = ReminderService.TYPE_ALARM;
+        notification.timestamp = currentTimeMillis();
+        return notification;
     }
 
     @Override

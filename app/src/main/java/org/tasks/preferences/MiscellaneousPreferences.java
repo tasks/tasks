@@ -12,7 +12,7 @@ import org.tasks.R;
 import org.tasks.files.FileExplore;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
-import org.tasks.scheduling.BackgroundScheduler;
+import org.tasks.scheduling.CalendarNotificationIntentService;
 
 import java.io.File;
 
@@ -31,7 +31,6 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
     @Inject VoiceOutputAssistant voiceOutputAssistant;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
-    @Inject BackgroundScheduler backgroundScheduler;
 
     private CheckBoxPreference calendarReminderPreference;
 
@@ -113,7 +112,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
                 return true;
             }
             if (permissionRequestor.requestCalendarPermissions()) {
-                backgroundScheduler.scheduleCalendarNotifications();
+                CalendarNotificationIntentService.enqueueWork(this);
                 return true;
             }
             return false;

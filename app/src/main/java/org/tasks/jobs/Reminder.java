@@ -1,5 +1,9 @@
 package org.tasks.jobs;
 
+import org.tasks.notifications.Notification;
+
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
+
 public class Reminder implements JobQueueEntry {
     private final long taskId;
     private final long time;
@@ -19,6 +23,15 @@ public class Reminder implements JobQueueEntry {
     @Override
     public long getTime() {
         return time;
+    }
+
+    @Override
+    public Notification toNotification() {
+        Notification notification = new Notification();
+        notification.taskId = taskId;
+        notification.type = type;
+        notification.timestamp = currentTimeMillis();
+        return notification;
     }
 
     public int getType() {

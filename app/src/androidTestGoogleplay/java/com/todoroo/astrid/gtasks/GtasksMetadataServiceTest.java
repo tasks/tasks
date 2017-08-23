@@ -38,7 +38,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
         private final GtasksTestPreferenceService service;
 
         public GtasksMetadataServiceTestModule(Context context) {
-            service = new GtasksTestPreferenceService(new Preferences(context, null, null));
+            service = new GtasksTestPreferenceService(new Preferences(context, null));
         }
 
         @Provides

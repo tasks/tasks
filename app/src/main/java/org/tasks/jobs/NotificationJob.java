@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.support.v4.app.JobIntentService;
 
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.ReminderService;
 
+import org.tasks.BuildConfig;
 import org.tasks.Notifier;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -34,18 +35,11 @@ public class NotificationJob extends Job {
     @Override
     protected void run() {
         if (!preferences.isCurrentlyQuietHours()) {
-            for (JobQueueEntry entry : jobQueue.getOverdueJobs()) {
-                if (entry instanceof Alarm) {
-                    Alarm alarm = (Alarm) entry;
-                    Task task = taskDao.fetch(alarm.getTaskId(), Task.REMINDER_LAST);
-                    if (task != null && task.getReminderLast() < alarm.getTime()) {
-                        notifier.triggerTaskNotification(alarm.getTaskId(), ReminderService.TYPE_ALARM);
-                    }
-                } else if (entry instanceof Reminder) {
-                    Reminder reminder = (Reminder) entry;
-                    notifier.triggerTaskNotification(reminder.getId(), reminder.getType());
-                }
-                jobQueue.remove(entry);
+            List<? extends JobQueueEntry> overdueJobs = jobQueue.getOverdueJobs();
+            notifier.triggerTaskNotifications(overdueJobs);
+            boolean success = jobQueue.remove(overdueJobs);
+            if (BuildConfig.DEBUG && !success) {
+                throw new RuntimeException("Failed to remove jobs from queue");
             }
         }
     }

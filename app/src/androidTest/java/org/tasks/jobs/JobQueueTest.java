@@ -75,7 +75,7 @@ public class JobQueueTest {
 
         verify(jobManager).schedule(TAG, now);
 
-        queue.remove(new Alarm(1, 1, now));
+        queue.remove(singletonList(new Alarm(1, 1, now)));
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
@@ -93,7 +93,7 @@ public class JobQueueTest {
 
         verify(jobManager).schedule(TAG, now);
 
-        queue.remove(new Reminder(1, now, TYPE_DUE));
+        queue.remove(singletonList(new Reminder(1, now, TYPE_DUE)));
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
@@ -242,7 +242,7 @@ public class JobQueueTest {
         verify(jobManager).schedule(TAG, now);
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
-            queue.remove(new Reminder(1, now, TYPE_DUE));
+            queue.remove(queue.getOverdueJobs());
         }});
 
         assertEquals(
@@ -261,8 +261,7 @@ public class JobQueueTest {
         verify(jobManager).schedule(TAG, now);
 
         Freeze.freezeAt(now + ONE_MINUTE).thawAfter(new Snippet() {{
-            queue.remove(new Reminder(1, now, TYPE_DUE));
-            queue.remove(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
+            queue.remove(queue.getOverdueJobs());
         }});
 
         assertEquals(

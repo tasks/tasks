@@ -195,7 +195,6 @@
   <string name="p_show_completed_tasks">show_completed_tasks</string>
   <string name="p_reverse_sort">reverse_sort</string>
   <string name="p_manual_sort">manual_sort</string>
-  <string name="p_notification_priority">notification_priority</string>
 
   <string-array name="TEA_control_sets_prefs">
         <item>@string/TEA_ctrl_when_pref</item>

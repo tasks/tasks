@@ -17,14 +17,11 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.JobIntentService;
 
 import org.tasks.R;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
-import org.tasks.jobs.JobManager;
-import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
@@ -66,7 +63,8 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
                 R.string.p_rmd_time,
                 R.string.p_rmd_enable_quiet,
                 R.string.p_rmd_quietStart,
-                R.string.p_rmd_quietEnd);
+                R.string.p_rmd_quietEnd,
+                R.string.p_rmd_persistent);
         resetGeofencesOnChange(
                 R.string.p_geofence_radius,
                 R.string.p_geofence_responsiveness);
@@ -89,8 +87,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
     @TargetApi(Build.VERSION_CODES.O)
     private boolean openNotificationChannelSettings(Preference ignored) {
-            Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-            intent.putExtra(Settings.EXTRA_CHANNEL_ID, NotificationManager.DEFAULT_NOTIFICATION_CHANNEL);
+            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
             intent.putExtra(Settings.EXTRA_APP_PACKAGE, ReminderPreferences.this.getPackageName());
             startActivity(intent);
         return true;
@@ -99,7 +96,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private void rescheduleNotificationsOnChange(int... resIds) {
         for (int resId : resIds) {
             findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-                JobIntentService.enqueueWork(this, NotificationSchedulerIntentService.class, JobManager.JOB_ID_NOTIFICATION_SCHEDULER, new Intent());
+                NotificationSchedulerIntentService.enqueueWork(this);
                 return true;
             });
         }
@@ -108,7 +105,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private void resetGeofencesOnChange(int... resIds) {
         for (int resId : resIds) {
             findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-                JobIntentService.enqueueWork(this, GeofenceSchedulingIntentService.class, JobManager.JOB_ID_GEOFENCE_SCHEDULING, new Intent());
+                GeofenceSchedulingIntentService.enqueueWork(this);
                 return true;
             });
         }

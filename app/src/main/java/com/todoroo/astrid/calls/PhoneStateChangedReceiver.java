@@ -5,27 +5,40 @@
  */
 package com.todoroo.astrid.calls;
 
+import android.annotation.SuppressLint;
+import android.app.PendingIntent;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
+import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.tasks.Notifier;
+import org.tasks.R;
 import org.tasks.injection.BroadcastComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingBroadcastReceiver;
+import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
+import org.tasks.reminders.MissedCallActivity;
+
+import java.io.InputStream;
 
 import javax.inject.Inject;
 
 import timber.log.Timber;
+
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
 
@@ -34,8 +47,9 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
     private static final long WAIT_BEFORE_READ_LOG = 3000L;
 
     @Inject Preferences preferences;
-    @Inject Notifier notifier;
+    @Inject NotificationManager notificationManager;
     @Inject PermissionChecker permissionChecker;
+    @Inject @ForApplication Context context;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -73,12 +87,12 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                     AndroidUtilities.sleepDeep(WAIT_BEFORE_READ_LOG);
                     Cursor calls;
                     try {
-                        calls = getMissedCalls(context);
+                        calls = getMissedCalls();
                     } catch (Exception e) { // Sometimes database is locked, retry once
                         Timber.e(e, e.getMessage());
                         AndroidUtilities.sleepDeep(300L);
                         try {
-                            calls = getMissedCalls(context);
+                            calls = getMissedCalls();
                         } catch (Exception e2) {
                             Timber.e(e2, e2.getMessage());
                             calls = null;
@@ -113,7 +127,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
 
                             long contactId = getContactIdFromNumber(context, number);
 
-                            notifier.triggerMissedCallNotification(name, number, contactId);
+                            triggerMissedCallNotification(name, number, contactId);
                         }
                     } catch (Exception e) {
                         Timber.e(e, e.getMessage());
@@ -127,7 +141,8 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
         }
     }
 
-    private Cursor getMissedCalls(Context context) {
+    @SuppressLint("MissingPermission")
+    private Cursor getMissedCalls() {
         if (permissionChecker.canAccessMissedCallPermissions()) {
             //noinspection MissingPermission
             return context.getContentResolver().query(
@@ -174,4 +189,61 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
         return -1;
     }
 
+    public void triggerMissedCallNotification(final String name, final String number, long contactId) {
+        final String title = context.getString(R.string.missed_call, TextUtils.isEmpty(name) ? number : name);
+
+        Intent missedCallDialog = new Intent(context, MissedCallActivity.class);
+        missedCallDialog.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        missedCallDialog.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+        missedCallDialog.putExtra(MissedCallActivity.EXTRA_NAME, name);
+        missedCallDialog.putExtra(MissedCallActivity.EXTRA_TITLE, title);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_CALLS)
+                .setTicker(title)
+                .setContentTitle(title)
+                .setContentText(context.getString(R.string.app_name))
+                .setWhen(currentTimeMillis())
+                .setShowWhen(true)
+                .setSmallIcon(R.drawable.ic_check_white_24dp)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(PendingIntent.getActivity(context, missedCallDialog.hashCode(), missedCallDialog, PendingIntent.FLAG_UPDATE_CURRENT));
+
+        Bitmap contactImage = getContactImage(contactId);
+        if (contactImage != null) {
+            builder.setLargeIcon(contactImage);
+        }
+
+        Intent callNow = new Intent(context, MissedCallActivity.class);
+        callNow.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callNow.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+        callNow.putExtra(MissedCallActivity.EXTRA_NAME, name);
+        callNow.putExtra(MissedCallActivity.EXTRA_TITLE, title);
+        callNow.putExtra(MissedCallActivity.EXTRA_CALL_NOW, true);
+
+        Intent callLater = new Intent(context, MissedCallActivity.class);
+        callLater.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callLater.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+        callLater.putExtra(MissedCallActivity.EXTRA_NAME, name);
+        callLater.putExtra(MissedCallActivity.EXTRA_TITLE, title);
+        callLater.putExtra(MissedCallActivity.EXTRA_CALL_LATER, true);
+        builder
+                .addAction(R.drawable.ic_phone_white_24dp, context.getString(R.string.MCA_return_call), PendingIntent.getActivity(context, callNow.hashCode(), callNow, PendingIntent.FLAG_UPDATE_CURRENT))
+                .addAction(R.drawable.ic_add_white_24dp, context.getString(R.string.MCA_add_task), PendingIntent.getActivity(context, callLater.hashCode(), callLater, PendingIntent.FLAG_UPDATE_CURRENT));
+
+        notificationManager.notify(number.hashCode(), builder.build(), true, false, false);
+    }
+
+    private Bitmap getContactImage(long contactId) {
+        Bitmap b = null;
+        if (contactId >= 0) {
+            Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+            InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(), uri);
+            try {
+                b = BitmapFactory.decodeStream(input);
+            } catch (OutOfMemoryError e) {
+                Timber.e(e, e.getMessage());
+            }
+        }
+        return b;
+    }
 }
