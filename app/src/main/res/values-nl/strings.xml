@@ -187,8 +187,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Waarschuwingen voor taken zonder eindtijd verschijnen om %s</string>
 	<string name="persistent_notifications">Aanhoudende notificaties</string>
 	<string name="persistent_notifications_description">Aanhoudende notificaties kunnen niet worden gewist</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Max. volume voor multiple-ring herinneringen</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks zal het volume voor multi-ring herinneringen maximaliseren</string>
 	<string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
 	<string name="default_random_reminder_disabled">uitgeschakeld</string>
 	<string name="default_random_reminder_hourly">uurlijks</string>

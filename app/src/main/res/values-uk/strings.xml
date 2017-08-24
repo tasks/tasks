@@ -190,8 +190,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Сповіщення для задач без терміну виконання з\'являться о %s</string>
 	<string name="persistent_notifications">Стійкі сповіщення</string>
 	<string name="persistent_notifications_description">Стійкі сповіщення не можуть бути відхилені</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Максимальна гучність для багаторазових нагадувань</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks буде максимізувати гучність для багаторазових нагадувань</string>
 	<string name="rmd_EPr_defaultRemind_title">Випадкові нагадування</string>
 	<string name="default_random_reminder_disabled">вимкнено</string>
 	<string name="default_random_reminder_hourly">щогодинно</string>

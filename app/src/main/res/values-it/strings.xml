@@ -188,8 +188,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Le notifiche per le attività senza scadenza appariranno alle %s</string>
 	<string name="persistent_notifications">Notifiche persistenti</string>
 	<string name="persistent_notifications_description">Le notifiche persistenti non possono essere cancellate</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Volume massimo per promemoria \"ring-multipli\"</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks metterà il volume al massimo per i promemoria \"ring-multipli\"</string>
 	<string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>
 	<string name="default_random_reminder_disabled">disabilitato</string>
 	<string name="default_random_reminder_hourly">ogni ora</string>

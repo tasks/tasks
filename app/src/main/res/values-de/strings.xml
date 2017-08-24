@@ -184,8 +184,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeit werden um %s angezeigt</string>
 	<string name="persistent_notifications">Hartnäckige Benachrichtigungen</string>
 	<string name="persistent_notifications_description">Hartnäckige Benachrichtigungen können nicht einfach gelöscht werden</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks wird die Lautstärke für mehrfachläutende Erinnerungen maximieren</string>
 	<string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
 	<string name="default_random_reminder_disabled">deaktiviert</string>
 	<string name="default_random_reminder_hourly">stündlich</string>

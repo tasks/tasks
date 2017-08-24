@@ -187,8 +187,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Powiadomienia zadań bez odpowiedniego czasu pojawi się na %s</string>
 	<string name="persistent_notifications">Natarczywe powiadomienia</string>
 	<string name="persistent_notifications_description">Natarczywe powiadomienia nie mogą zostać wyczyszczone</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Maksymalna głośność dla wielu dzwonków przypomnień</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ustawi maksymalną głośność dla wielu dzwonków przypomnień</string>
 	<string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>
 	<string name="default_random_reminder_disabled">wyłączone</string>
 	<string name="default_random_reminder_hourly">co godzinę</string>

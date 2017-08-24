@@ -192,8 +192,6 @@
 	<string name="rmd_EPr_rmd_time_desc">마감일이 없는 할일 알림은 %s 에 나타날 것입니다.</string>
 	<string name="persistent_notifications">항구적 알림</string>
 	<string name="persistent_notifications_description">항구적 알림은 지울 수 없습니다</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">다중-링 알림의 최대 볼륨</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks는 다중 소리 알림을 최대 볼륨으로 출력합니다</string>
 	<string name="rmd_EPr_defaultRemind_title">무작위 알림</string>
 	<string name="default_random_reminder_disabled">사용안함</string>
 	<string name="default_random_reminder_hourly">매시간</string>

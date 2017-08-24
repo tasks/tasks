@@ -184,8 +184,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Les notifications pour les tâches sans échéances apparaîtront à %s</string>
 	<string name="persistent_notifications">Notifications persistantes</string>
 	<string name="persistent_notifications_description">Les notifications persistantes ne peuvent pas être supprimées</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Volume maximum pour les rappels multi sonneries</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks va maximiser le volume de multiples sonneries de rappels</string>
 	<string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
 	<string name="default_random_reminder_disabled">désactivé</string>
 	<string name="default_random_reminder_hourly">chaque heure</string>

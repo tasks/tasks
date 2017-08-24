@@ -184,8 +184,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Notificações de tarefas sem tempo de vencimento vão aparecer em %s</string>
 	<string name="persistent_notifications">Notificações persistentes</string>
 	<string name="persistent_notifications_description">Notificações persistentes não podem ser removidas</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com múltiplos sons</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks irá aumentar o volume para alertas com múltiplos sons</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string name="default_random_reminder_disabled">desabilitado</string>
 	<string name="default_random_reminder_hourly">de hora em hora</string>

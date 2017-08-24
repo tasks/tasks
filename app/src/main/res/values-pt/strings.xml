@@ -171,8 +171,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Fim das horas de silêncio</string>
 	<string name="rmd_EPr_rmd_time_title">Lembrete predefinido</string>
 	<string name="rmd_EPr_rmd_time_desc">As notificações para tarefas sem data limite aparecerão em %s</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com vários toques</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">O Tasks irá amplificar o volume para lembretes com vários toques</string>
 	<string name="rmd_EPr_defaultRemind_title">Lembretes aleatórios</string>
 	<string name="default_random_reminder_disabled">desativado</string>
 	<string name="default_random_reminder_hourly">horário</string>

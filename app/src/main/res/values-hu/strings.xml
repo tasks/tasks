@@ -190,8 +190,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Esedékességi idő nélküli feladatok értesítése %s-kor jelenik meg</string>
 	<string name="persistent_notifications">Állandó értesítések</string>
 	<string name="persistent_notifications_description">Az állandó értesítések nem törölhetőek</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Többszörös csengésű emlékeztetők hangerejének maximalizálása</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">A Tasks maximalizálja a többszörös csengésű emlékeztetők hangerejét</string>
 	<string name="rmd_EPr_defaultRemind_title">Véletlenszerű emlékeztetők</string>
 	<string name="default_random_reminder_disabled">Letiltva</string>
 	<string name="default_random_reminder_hourly">Óránként</string>

@@ -288,17 +288,8 @@ public class Notifier {
 
         boolean voiceReminder = preferences.getBoolean(R.string.p_voiceRemindersEnabled, false) && !isNullOrEmpty(text);
 
-        // if multi-ring is activated and the setting p_rmd_maxvolume allows it, set up the flags for insistent
-        // notification, and increase the volume to full volume, so the user
-        // will actually pay attention to the alarm
-        boolean maxOutVolumeForMultipleRingReminders = preferences.getBoolean(R.string.p_rmd_maxvolume, true);
-        // remember it to set it to the old value after the alarm
-        int previousAlarmVolume = audioManager.getAlarmVolume();
         if (ringTimes != 1) {
             notification.audioStreamType = android.media.AudioManager.STREAM_ALARM;
-            if (maxOutVolumeForMultipleRingReminders) {
-                audioManager.setMaxAlarmVolume();
-            }
 
             // insistent rings until notification is disabled
             if (ringTimes < 0) {
@@ -338,26 +329,9 @@ public class Notifier {
             notificationManager.notify(notificationId, notification);
             AndroidUtilities.sleepDeep(500);
         }
-        if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
+        if (voiceReminder) {
             AndroidUtilities.sleepDeep(2000);
-            for (int i = 0; i < 50; i++) {
-                AndroidUtilities.sleepDeep(500);
-                if (!audioManager.isRingtoneMode()) {
-                    break;
-                }
-            }
-            try {
-                // first reset the Alarm-volume to the value before it was eventually maxed out
-                if (maxOutVolumeForMultipleRingReminders) {
-                    audioManager.setAlarmVolume(previousAlarmVolume);
-                }
-                if (voiceReminder) {
-                    voiceOutputAssistant.speak(text);
-                }
-            } catch (VerifyError e) {
-                // unavailable
-                Timber.e(e, e.getMessage());
-            }
+            voiceOutputAssistant.speak(text);
         }
     }
 

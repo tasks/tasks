@@ -158,8 +158,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Tihe ure se končajo ob</string>
 	<string name="rmd_EPr_rmd_time_title">Privzeti opomnik ob</string>
 	<string name="rmd_EPr_rmd_time_desc">Obvestila o opravkih brez dospelosti se prikažejo ob %s</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Največja jakost zvoka opomnikov z večkratnim zvonenjem</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Aplikacija Opravki bo izvajala opomnike z večkratnim zvonenjem pri polni jakosti zvoka.</string>
 	<string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
 	<string name="default_random_reminder_disabled">onemogočen</string>
 	<string name="default_random_reminder_hourly">vsako uro</string>

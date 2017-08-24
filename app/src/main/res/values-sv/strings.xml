@@ -188,8 +188,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Påminnelser för uppgifter utan sluttid visas %s</string>
 	<string name="persistent_notifications">Upprepade påminnelser</string>
 	<string name="persistent_notifications_description">Upprepade påminnelser kan inte döljas</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Maxvolym för flera ringande påminnelser</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks sätter volymen på max för flera ringande påminnelser</string>
 	<string name="rmd_EPr_defaultRemind_title">Tillfälliga påminnelser</string>
 	<string name="default_random_reminder_disabled">inaktiverad</string>
 	<string name="default_random_reminder_hourly">varje timme</string>

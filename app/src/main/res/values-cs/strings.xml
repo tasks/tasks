@@ -174,7 +174,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
 	<string name="rmd_EPr_rmd_time_title">Výchozí upomínka</string>
 	<string name="rmd_EPr_rmd_time_desc">Upozornění na úkoly bez času dokončení se objeví v %s</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Nejvyšší hlasitost pro opakované zvonění upomínky</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
 	<string name="default_random_reminder_disabled">zakázáno</string>
 	<string name="default_random_reminder_hourly">každou hodinu</string>

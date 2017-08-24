@@ -190,8 +190,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Уведомления за задачи без крайни срокове ще се показват на %s</string>
 	<string name="persistent_notifications">Постоянни уведомления</string>
 	<string name="persistent_notifications_description">Постоянни уведомления не могат да бъдат изчиствани</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Максимизирай нивото на звука при няколкократни напомняния</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks ще максимизира нивото на звука при няколкократни напомняния</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайни напомняния</string>
 	<string name="default_random_reminder_disabled">изключено</string>
 	<string name="default_random_reminder_hourly">всеки час</string>

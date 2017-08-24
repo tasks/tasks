@@ -153,8 +153,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">無聲結束時間</string>
 	<string name="rmd_EPr_rmd_time_title">預設提醒</string>
 	<string name="rmd_EPr_rmd_time_desc">未設定截止日期任務工作的通知會於%s 出現</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks將會以最大音量進行多重提醒</string>
 	<string name="rmd_EPr_defaultRemind_title">隨機提醒</string>
 	<string name="default_random_reminder_disabled">停用</string>
 	<string name="default_random_reminder_hourly">每小時</string>

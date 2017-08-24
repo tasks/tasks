@@ -191,8 +191,6 @@
 	<string name="rmd_EPr_rmd_time_desc">Ilman määräaikaa olevien tehtävien ilmoitukset näkyvät %s</string>
 	<string name="persistent_notifications">Jatkuvat ilmoitukset</string>
 	<string name="persistent_notifications_description">Jatkuvia ilmoituksia ei voi tyhjentää</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Täysi voimakkuus usean soittoäänen ilmoituksille</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks asettaa täyden voimakkuuden usean soittoäänen ilmoituksille</string>
 	<string name="rmd_EPr_defaultRemind_title">Satunnainen muistutus</string>
 	<string name="default_random_reminder_disabled">Estetty</string>
 	<string name="default_random_reminder_hourly">Tunneittain</string>

@@ -144,8 +144,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">静音时间结束</string>
 	<string name="rmd_EPr_rmd_time_title">默认提示</string>
 	<string name="rmd_EPr_rmd_time_desc">未设定截止日期任务的通知会于 %s 出现</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">清单小助理将会以最大音量进行多重提醒</string>
 	<string name="rmd_EPr_defaultRemind_title">随机提醒</string>
 	<string name="default_random_reminder_disabled">停用</string>
 	<string name="default_random_reminder_hourly">每小时</string>

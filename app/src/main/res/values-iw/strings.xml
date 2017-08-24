@@ -188,8 +188,6 @@
 	<string name="rmd_EPr_rmd_time_desc">התראות משימות ללא מועד יעד תגענה ב-%s</string>
 	<string name="persistent_notifications">הודעות תמידיות</string>
 	<string name="persistent_notifications_description">הודעות תמידיות לא יכולות להימחק ע\"י החלקה</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">עוצמת קול מירבית לתזכורות מרובות צילצולים</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">אסטריד תשתמש בעוצמת קול מירבית לתזכורות רבות צלצולים</string>
 	<string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
 	<string name="default_random_reminder_disabled">לא זמין</string>
 	<string name="default_random_reminder_hourly">שעתי</string>

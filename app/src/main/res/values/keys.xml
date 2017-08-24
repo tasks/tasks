@@ -36,9 +36,6 @@
   <!-- whether "clear all notifications" clears astrid notifications -->
   <string name="p_rmd_persistent">notif_annoy</string>
   
-  <!-- whether to max out the notification reminder volume if reminder has setting "ring multiple" or "ring continuous" -->
-  <string name="p_rmd_maxvolume">notif_maxvol</string>
-  
   <!-- whether to vibrate phone when reminder fires -->
   <string name="p_rmd_vibrate">notif_vibrate</string>
 

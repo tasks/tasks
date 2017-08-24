@@ -188,8 +188,6 @@
 	<string name="rmd_EPr_rmd_time_desc">期限の時間がないタスクの通知は %s に表示されます</string>
 	<string name="persistent_notifications">永続的な通知</string>
 	<string name="persistent_notifications_description">永続的な通知はクリアできません</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">複数の通知音の最大音量</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks は複数の通知音の最大音量です</string>
 	<string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
 	<string name="default_random_reminder_disabled">無効</string>
 	<string name="default_random_reminder_hourly">1時間毎</string>

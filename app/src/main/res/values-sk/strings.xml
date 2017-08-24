@@ -166,8 +166,6 @@
 	<string name="rmd_EPr_quiet_hours_end_title">Tiché hodiny skončili</string>
 	<string name="rmd_EPr_rmd_time_title">Predvolená pripomienka</string>
 	<string name="rmd_EPr_rmd_time_desc">Oznámenia úloh bez času dokončenia sa objavia %s</string>
-	<string name="rmd_EPr_multiple_maxvolume_title">Max. hlasitosť pre viacnásobné zvonenie pripomienky</string>
-	<string name="rmd_EPr_multiple_maxvolume_desc_true">Tasks bude zvoniť max. hlasitosťou pre viacnásobné pripomienky</string>
 	<string name="rmd_EPr_defaultRemind_title">Náhodné pripomienky</string>
 	<string name="default_random_reminder_disabled">zablokovaný</string>
 	<string name="default_random_reminder_hourly">každú hodinu</string>
