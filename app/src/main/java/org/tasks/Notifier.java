@@ -131,11 +131,6 @@ public class Notifier {
         return b;
     }
 
-    @Deprecated
-    public void triggerFilterNotification(final String title, final String query, final String valuesForNewTasks) {
-        triggerFilterNotification(new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(valuesForNewTasks)));
-    }
-
     public void triggerFilterNotification(final Filter filter) {
         String title = filter.listingTitle;
         String query = filter.getSqlQuery();

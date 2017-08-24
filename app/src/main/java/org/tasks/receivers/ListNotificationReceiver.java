@@ -3,6 +3,9 @@ package org.tasks.receivers;
 import android.content.Context;
 import android.content.Intent;
 
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.api.Filter;
+
 import org.tasks.Notifier;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -35,10 +38,13 @@ public class ListNotificationReceiver extends InjectingBroadcastReceiver {
 
         tracker.reportEvent(Tracking.Events.LEGACY_TASKER_TRIGGER);
 
-        executorService.execute(() -> notifier.triggerFilterNotification(
-                intent.getStringExtra(EXTRA_FILTER_TITLE),
-                intent.getStringExtra(EXTRA_FILTER_QUERY),
-                intent.getStringExtra(EXTRA_FILTER_VALUES)));
+        executorService.execute(() -> {
+            String title = intent.getStringExtra(EXTRA_FILTER_TITLE);
+            String query = intent.getStringExtra(EXTRA_FILTER_QUERY);
+            String extras = intent.getStringExtra(EXTRA_FILTER_VALUES);
+            notifier.triggerFilterNotification(
+                    new Filter(title, query, AndroidUtilities.contentValuesFromSerializedString(extras)));
+        });
     }
 
     @Override
