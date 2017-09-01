@@ -38,7 +38,8 @@ public class JobManager {
         this.alarmManager = alarmManager;
     }
 
-    void schedule(String tag, long time) {
+    @SuppressWarnings("WeakerAccess")
+    public void schedule(String tag, long time) {
         Timber.d("%s: %s", tag, printTimestamp(time));
         alarmManager.wakeup(adjust(time), getPendingIntent(tag));
     }
