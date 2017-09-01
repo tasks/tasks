@@ -35,6 +35,7 @@ import org.tasks.ui.TimePreference;
 
 import javax.inject.Inject;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.preOreo;
 import static org.tasks.PermissionUtil.verifyPermissions;
@@ -79,17 +80,27 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         initializeTimePreference(getQuietEndPreference(), REQUEST_QUIET_END);
 
         findPreference(R.string.notification_channel_settings).setOnPreferenceClickListener(this::openNotificationChannelSettings);
+        findPreference(R.string.battery_optimization_settings).setOnPreferenceClickListener(this::openBatteryOptimizationSettings);
 
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
         requires(atLeastOreo(), R.string.notification_channel_settings);
+        requires(atLeastMarshmallow(), R.string.battery_optimization_settings);
         requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
     }
 
     @TargetApi(Build.VERSION_CODES.O)
     private boolean openNotificationChannelSettings(Preference ignored) {
-            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-            intent.putExtra(Settings.EXTRA_APP_PACKAGE, ReminderPreferences.this.getPackageName());
-            startActivity(intent);
+        Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, ReminderPreferences.this.getPackageName());
+        startActivity(intent);
+        return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private boolean openBatteryOptimizationSettings(Preference ignored) {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+        startActivity(intent);
         return true;
     }
 
