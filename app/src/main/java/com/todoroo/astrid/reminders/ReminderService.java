@@ -153,14 +153,8 @@ public final class ReminderService  {
         }
     }
 
-    /**
-     * Calculate the next alarm time for snooze.
-     * <p>
-     * Pretty simple - if a snooze time is in the future, we use that. If it
-     * has already passed, we do nothing.
-     */
     private long calculateNextSnoozeReminder(Task task) {
-        if(task.getReminderSnooze() > DateUtilities.now()) {
+        if(task.getReminderSnooze() > task.getReminderLast()) {
             return task.getReminderSnooze();
         }
         return NO_ALARM;

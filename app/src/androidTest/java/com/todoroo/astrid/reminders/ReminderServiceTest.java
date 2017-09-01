@@ -169,18 +169,34 @@ public class ReminderServiceTest extends InjectingTestCase {
     }
 
     @Test
-    public void ignoreLapsedSnoozeTime() {
+    public void ignoreStaleSnoozeTime() {
         Task task = newTask(
                 with(ID, 1L),
                 with(DUE_TIME, newDateTime()),
                 with(SNOOZE_TIME, newDateTime().minusMinutes(5)),
+                with(REMINDER_LAST, newDateTime().minusMinutes(4)),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
         service.scheduleAlarm(null, task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
         order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
+    }
 
+    @Test
+    public void dontIgnoreMissedSnoozeTime() {
+        DateTime dueDate = newDateTime();
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, dueDate),
+                with(SNOOZE_TIME, dueDate.minusMinutes(4)),
+                with(REMINDER_LAST, dueDate.minusMinutes(5)),
+                with(REMINDERS, NOTIFY_AT_DEADLINE));
+        service.scheduleAlarm(null, task);
+
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancelReminder(1);
+        order.verify(jobs).add(new Reminder(1, task.getReminderSnooze(), ReminderService.TYPE_SNOOZE));
     }
 
     @Test
