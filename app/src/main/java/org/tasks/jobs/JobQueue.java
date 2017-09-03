@@ -4,10 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.TreeMultimap;
 import com.google.common.primitives.Ints;
-import com.google.common.primitives.Longs;
 
 import org.tasks.injection.ApplicationScope;
 import org.tasks.preferences.Preferences;
+import org.tasks.time.DateTime;
 
 import java.util.List;
 
@@ -15,7 +15,6 @@ import javax.inject.Inject;
 
 import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Lists.newArrayList;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @ApplicationScope
 public class JobQueue {
@@ -66,7 +65,8 @@ public class JobQueue {
 
     synchronized List<? extends JobQueueEntry> getOverdueJobs() {
         List<JobQueueEntry> result = newArrayList();
-        for (Long key : jobs.keySet().headSet(currentTimeMillis() + 1)) {
+        long cutoff = new DateTime().startOfMinute().plusMinutes(1).getMillis();
+        for (Long key : jobs.keySet().headSet(cutoff)) {
             result.addAll(jobs.get(key));
         }
         return result;

@@ -320,4 +320,11 @@ public class DateTimeTest {
             TimeZone.setDefault(def);
         }
     }
+
+    @Test
+    public void testStartOfMinute() {
+        assertEquals(
+                new DateTime(2017, 9, 3, 0, 51, 0, 0),
+                new DateTime(2017, 9, 3, 0, 51, 13, 427).startOfMinute());
+    }
 }

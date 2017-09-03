@@ -10,10 +10,13 @@ import org.mockito.InOrder;
 import org.tasks.Freeze;
 import org.tasks.Snippet;
 import org.tasks.preferences.Preferences;
+import org.tasks.time.DateTime;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_DUE;
+import static com.todoroo.astrid.reminders.ReminderService.TYPE_SNOOZE;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static junit.framework.Assert.assertEquals;
@@ -289,5 +292,29 @@ public class JobQueueTest {
         queue.cancelReminder(2);
 
         verify(jobManager).schedule(TAG, now);
+    }
+
+    @Test
+    public void allDuringSameMinuteAreOverdue() {
+        DateTime now = new DateTime(2017, 9, 3, 0, 14, 6, 455);
+        DateTime due = new DateTime(2017, 9, 3, 0, 14, 0, 0);
+        DateTime snooze = new DateTime(2017, 9, 3, 0, 14, 59, 999);
+
+        queue.add(new Reminder(1, due.getMillis(), TYPE_DUE));
+        queue.add(new Reminder(2, snooze.getMillis(), TYPE_SNOOZE));
+        queue.add(new Reminder(3, due.plusMinutes(1).getMillis(), TYPE_DUE));
+
+        verify(jobManager).schedule(TAG, due.getMillis());
+
+        Freeze.freezeAt(now).thawAfter(new Snippet() {{
+            List<? extends JobQueueEntry> overdueJobs = queue.getOverdueJobs();
+            assertEquals(
+                    asList(new Reminder(1, due.getMillis(), TYPE_DUE), new Reminder(2, snooze.getMillis(), TYPE_SNOOZE)),
+                    overdueJobs);
+            queue.remove(overdueJobs);
+            assertEquals(
+                    singletonList(new Reminder(3, due.plusMinutes(1).getMillis(), TYPE_DUE)),
+                    queue.getJobs());
+        }});
     }
 }

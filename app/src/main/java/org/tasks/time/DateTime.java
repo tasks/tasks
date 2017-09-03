@@ -78,6 +78,13 @@ public class DateTime {
         return new DateTime(calendar);
     }
 
+    public DateTime startOfMinute() {
+        Calendar calendar = getCalendar();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return new DateTime(calendar);
+    }
+
     public DateTime withMillisOfDay(int millisOfDay) {
         if (millisOfDay > MAX_MILLIS_PER_DAY || millisOfDay < 0) {
             throw new RuntimeException("Illegal millis of day: " + millisOfDay);
