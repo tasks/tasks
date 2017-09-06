@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta2'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta4'
     }
 }
 
@@ -120,6 +120,7 @@ dependencies {
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     }
     debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
+    //noinspection GradleDependency
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     debugCompile 'com.android.support:multidex:1.0.2'
 

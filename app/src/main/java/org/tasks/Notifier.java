@@ -19,6 +19,7 @@ import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 import org.tasks.db.AppDatabase;
 import org.tasks.injection.ForApplication;
+import org.tasks.intents.TaskIntents;
 import org.tasks.jobs.JobQueueEntry;
 import org.tasks.notifications.AudioManager;
 import org.tasks.notifications.NotificationManager;
@@ -42,6 +43,7 @@ import timber.log.Timber;
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.google.common.collect.Lists.transform;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static org.tasks.notifications.NotificationManager.GROUP_KEY;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -157,12 +159,6 @@ public class Notifier {
 
         final String appName = context.getString(R.string.app_name);
 
-        final Intent intent = new Intent(context, NotificationActivity.class);
-        intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-        intent.setAction("NOTIFY" + id); //$NON-NLS-1$
-        intent.putExtra(NotificationActivity.EXTRA_TASK_ID, id);
-        intent.putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
-
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setTicker(taskTitle)
@@ -172,8 +168,18 @@ public class Notifier {
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setWhen(when)
                 .setShowWhen(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        if (atLeastJellybean()) {
+            builder.setContentIntent(PendingIntent.getActivity(context, (int) id, TaskIntents.getEditTaskIntent(context, null, id), PendingIntent.FLAG_UPDATE_CURRENT));
+        } else {
+            final Intent intent = new Intent(context, NotificationActivity.class);
+            intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
+            intent.setAction("NOTIFY" + id); //$NON-NLS-1$
+            intent.putExtra(NotificationActivity.EXTRA_TASK_ID, id);
+            intent.putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
+            builder.setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+        }
 
         if (!Strings.isNullOrEmpty(taskDescription)) {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
