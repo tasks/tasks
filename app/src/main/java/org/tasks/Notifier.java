@@ -90,6 +90,7 @@ public class Notifier {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TASKER)
+                .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setTicker(title)
                 .setContentTitle(title)
