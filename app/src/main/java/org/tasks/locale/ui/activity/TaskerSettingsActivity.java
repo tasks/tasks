@@ -11,7 +11,6 @@ import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.PluginBundleValues;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -29,7 +28,6 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     @Inject Preferences preferences;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject PurchaseHelper purchaseHelper;
-    @Inject DialogBuilder dialogBuilder;
 
     private Bundle previousBundle;
     private Filter filter;
@@ -59,7 +57,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         refreshPreferences();
 
         if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInitiated) {
-            purchaseInitiated = purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, this);
+            purchaseInitiated = purchaseHelper.purchase(this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, this);
         }
     }
 

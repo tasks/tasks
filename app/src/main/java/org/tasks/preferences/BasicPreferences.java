@@ -58,9 +58,9 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     private static final int REQUEST_THEME_PICKER = 10002;
     private static final int REQUEST_COLOR_PICKER = 10003;
     private static final int REQUEST_ACCENT_PICKER = 10004;
-    public static final int REQUEST_PURCHASE = 10005;
     private static final int REQUEST_CODE_BACKUP_DIR = 10005;
     private static final int REQUEST_PICKER = 10006;
+    public static final int REQUEST_PURCHASE = 10007;
 
     @Inject Tracker tracker;
     @Inject Preferences preferences;
@@ -147,7 +147,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
 
         findPreference(R.string.p_purchased_themes).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_themes)) {
-                purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, BasicPreferences.this);
+                purchaseHelper.purchase(BasicPreferences.this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, BasicPreferences.this);
             }
             return false;
         });
@@ -155,7 +155,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         findPreference(R.string.p_tesla_unread_enabled).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null) {
                 if ((boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tesla_unread)) {
-                    purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tesla_unread), getString(R.string.p_purchased_tesla_unread), REQUEST_PURCHASE, BasicPreferences.this);
+                    purchaseHelper.purchase(BasicPreferences.this, getString(R.string.sku_tesla_unread), getString(R.string.p_purchased_tesla_unread), REQUEST_PURCHASE, BasicPreferences.this);
                 } else {
                     teslaUnreadReceiver.setEnabled((boolean) newValue);
                     return true;
@@ -166,14 +166,14 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
 
         findPreference(R.string.p_purchased_tasker).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tasker)) {
-                purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, BasicPreferences.this);
+                purchaseHelper.purchase(BasicPreferences.this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker), REQUEST_PURCHASE, BasicPreferences.this);
             }
             return false;
         });
 
         findPreference(R.string.p_purchased_dashclock).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
-                purchaseHelper.purchase(dialogBuilder, BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
+                purchaseHelper.purchase(BasicPreferences.this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, BasicPreferences.this);
             }
             return false;
         });

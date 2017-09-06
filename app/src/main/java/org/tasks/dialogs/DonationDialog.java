@@ -37,7 +37,7 @@ public class DonationDialog extends InjectingNativeDialogFragment {
                     //noinspection ResultOfMethodCallIgnored
                     matcher.matches();
                     String sku = String.format(java.util.Locale.ENGLISH, "%03d", Integer.parseInt(matcher.group(1)));
-                    purchaseHelper.purchase(dialogBuilder, getActivity(), sku, null, BasicPreferences.REQUEST_PURCHASE, (BasicPreferences) getActivity());
+                    purchaseHelper.purchase(getActivity(), sku, null, BasicPreferences.REQUEST_PURCHASE, (BasicPreferences) getActivity());
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();

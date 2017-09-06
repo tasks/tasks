@@ -214,10 +214,6 @@
 
         <receiver android:name=".receivers.PushReceiver" />
 
-        <receiver
-            android:name=".receivers.ListNotificationReceiver"
-            android:exported="true" />
-
         <!-- widgets -->
         <receiver
             android:name=".widget.TasksWidget"

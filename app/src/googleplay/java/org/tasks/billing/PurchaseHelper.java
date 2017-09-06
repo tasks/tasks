@@ -14,7 +14,6 @@ import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -27,8 +26,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import timber.log.Timber;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.isAppInstalled;
 
 @ApplicationScope
 public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
@@ -62,18 +59,9 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
         }
     }
 
-    public boolean purchase(DialogBuilder dialogBuilder, final Activity activity, final String sku, final String pref, final int requestCode, final PurchaseHelperCallback callback) {
-        if (activity.getString(R.string.sku_tasker).equals(sku) && isAppInstalled(activity, "org.tasks.locale")) {
-            dialogBuilder.newMessageDialog(R.string.tasker_message)
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.buy, (dialog, which) -> launchPurchaseFlow(activity, sku, pref, requestCode, callback))
-                    .setNegativeButton(android.R.string.cancel, (dialog, which) -> callback.purchaseCompleted(false, sku))
-                    .show();
-            return false;
-        } else {
-            launchPurchaseFlow(activity, sku, pref, requestCode, callback);
-            return true;
-        }
+    public boolean purchase(final Activity activity, final String sku, final String pref, final int requestCode, final PurchaseHelperCallback callback) {
+        launchPurchaseFlow(activity, sku, pref, requestCode, callback);
+        return true;
     }
 
     public void consumePurchases() {

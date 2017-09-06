@@ -12,7 +12,6 @@ import org.tasks.notifications.NotificationClearedReceiver;
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.GoogleTaskPushReceiver;
-import org.tasks.receivers.ListNotificationReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
 import org.tasks.receivers.PushReceiver;
 import org.tasks.receivers.TeslaUnreadReceiver;
@@ -41,8 +40,6 @@ public interface BroadcastComponent {
     void inject(MyPackageReplacedReceiver myPackageReplacedReceiver);
 
     void inject(CompleteTaskReceiver completeTaskReceiver);
-
-    void inject(ListNotificationReceiver listNotificationReceiver);
 
     void inject(BootCompletedReceiver bootCompletedReceiver);
 

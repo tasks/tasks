@@ -8,7 +8,6 @@ import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.ColorPickerDialog.ColorPalette;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
@@ -26,7 +25,6 @@ public class ColorPickerActivity extends InjectingAppCompatActivity implements C
     public static final String EXTRA_THEME_INDEX = "extra_index";
 
     @Inject PurchaseHelper purchaseHelper;
-    @Inject DialogBuilder dialogBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +57,7 @@ public class ColorPickerActivity extends InjectingAppCompatActivity implements C
 
     @Override
     public void initiateThemePurchase() {
-        purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
+        purchaseHelper.purchase(this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, this);
     }
 
     @Override

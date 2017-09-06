@@ -11,7 +11,6 @@ import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
-import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.DefaultFilterProvider;
@@ -29,7 +28,6 @@ public class DashClockSettings extends InjectingPreferenceActivity implements Pu
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject LocalBroadcastManager localBroadcastManager;
     @Inject PurchaseHelper purchaseHelper;
-    @Inject DialogBuilder dialogBuilder;
 
     private boolean purchaseInitiated;
 
@@ -53,7 +51,7 @@ public class DashClockSettings extends InjectingPreferenceActivity implements Pu
         refreshPreferences();
 
         if (!preferences.hasPurchase(R.string.p_purchased_dashclock) && !purchaseInitiated) {
-            purchaseHelper.purchase(dialogBuilder, this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, this);
+            purchaseHelper.purchase(this, getString(R.string.sku_dashclock), getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, this);
             purchaseInitiated = true;
         }
     }
