@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import org.tasks.R;
 import org.tasks.injection.DialogFragmentComponent;
-import org.tasks.injection.ForApplication;
+import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
@@ -54,7 +54,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     }
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject @ForApplication Context context;
+    @Inject @ForActivity Context context;
     @Inject Preferences preferences;
     @Inject ThemeCache themeCache;
     @Inject Theme theme;
