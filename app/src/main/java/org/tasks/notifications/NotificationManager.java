@@ -9,10 +9,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.data.Task;
+
 import org.tasks.R;
 import org.tasks.db.AppDatabase;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
+import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
@@ -131,12 +137,15 @@ public class NotificationManager {
             if (appDatabase.notificationDao().count() == 0) {
                 notificationManager.cancel(SUMMARY_NOTIFICATION_ID);
             } else {
+                Iterable<Long> notificationIds = transform(appDatabase.notificationDao().getAll(), n -> n.taskId);
+                Filter notifications = new Filter(context.getString(R.string.notifications),
+                        new QueryTemplate().where(Task.ID.in(notificationIds)));
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                         .setGroupSummary(true)
                         .setGroup(GROUP_KEY)
                         .setShowWhen(false)
-                        .setSmallIcon(R.drawable.ic_done_all_white_24dp);
-
+                        .setSmallIcon(R.drawable.ic_done_all_white_24dp)
+                        .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, notifications), PendingIntent.FLAG_UPDATE_CURRENT));
                 if (notify) {
                     builder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
                             .setPriority(NotificationCompat.PRIORITY_HIGH)
