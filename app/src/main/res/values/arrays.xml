@@ -111,6 +111,7 @@
     </string-array>
 
     <string-array name="localization">
+        <item>af-rZA</item>
         <item>ar</item>
         <item>bg-bg</item>
         <item>ca</item>
