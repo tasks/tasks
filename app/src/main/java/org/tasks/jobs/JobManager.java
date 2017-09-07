@@ -26,6 +26,7 @@ public class JobManager {
     public static final int JOB_ID_GEOFENCE_SCHEDULING = 5;
     static final int JOB_ID_MIDNIGHT_REFRESH = 6;
     static final int JOB_ID_BACKUP = 7;
+    public static final int JOB_ID_TASK_STATUS_CHANGE = 8;
     public static final int JOB_ID_NOTIFICATION_SCHEDULER = 9;
     public static final int JOB_ID_CALENDAR_NOTIFICATION = 10;
 

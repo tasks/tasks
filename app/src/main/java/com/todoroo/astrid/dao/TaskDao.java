@@ -24,20 +24,14 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.gcal.GCalTaskCompleteListener;
-import com.todoroo.astrid.reminders.ReminderService;
-import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
-import com.todoroo.astrid.timers.TimerTaskCompleteListener;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
-import org.tasks.location.GeofenceService;
-import org.tasks.notifications.NotificationManager;
+import org.tasks.jobs.AfterSaveIntentService;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.PushReceiver;
-import org.tasks.scheduling.RefreshScheduler;
 
 import java.util.List;
 
@@ -57,30 +51,20 @@ public class TaskDao {
     public static final String TRANS_SUPPRESS_REFRESH = "suppress-refresh";
 
     private final RemoteModelDao<Task> dao;
-    private final RefreshScheduler refreshScheduler;
     private final LocalBroadcastManager localBroadcastManager;
 
     private final MetadataDao metadataDao;
-    private final ReminderService reminderService;
-    private final NotificationManager notificationManager;
     private final Preferences preferences;
-    private Context context;
-    private final GeofenceService geofenceService;
+    private final Context context;
 
     @Inject
 	public TaskDao(@ForApplication Context context, Database database, MetadataDao metadataDao,
-                   ReminderService reminderService, NotificationManager notificationManager,
-                   Preferences preferences, GeofenceService geofenceService,
-                   RefreshScheduler refreshScheduler, LocalBroadcastManager localBroadcastManager) {
+                   Preferences preferences, LocalBroadcastManager localBroadcastManager) {
         this.context = context;
-        this.geofenceService = geofenceService;
         this.preferences = preferences;
         this.metadataDao = metadataDao;
-        this.reminderService = reminderService;
-        this.notificationManager = notificationManager;
-        dao = new RemoteModelDao<>(database, Task.class);
-        this.refreshScheduler = refreshScheduler;
         this.localBroadcastManager = localBroadcastManager;
+        dao = new RemoteModelDao<>(database, Task.class);
     }
 
     public TodorooCursor<Task> query(Query query) {
@@ -234,7 +218,7 @@ public class TaskDao {
     public void save(Task task) {
         ContentValues modifiedValues = createOrUpdate(task);
         if (modifiedValues != null) {
-            afterSave(task, modifiedValues);
+            AfterSaveIntentService.enqueue(context, task.getId(), modifiedValues);
         } else if (task.checkTransitory(SyncFlags.FORCE_SYNC)) {
             PushReceiver.broadcast(context, task, null);
         }
@@ -400,72 +384,6 @@ public class TaskDao {
     }
 
     /**
-     * Called after the task is saved. This differs from the call in
-     * TaskApiDao in that it runs hooks that need to be run from within
-     * Astrid. Order matters here!
-     */
-    private void afterSave(Task task, ContentValues values) {
-        task.markSaved();
-        boolean completionDateModified = values.containsKey(Task.COMPLETION_DATE.name);
-        boolean deletionDateModified = values.containsKey(Task.DELETION_DATE.name);
-        if(completionDateModified && task.isCompleted()) {
-            afterComplete(task);
-        } else if (deletionDateModified && task.isDeleted()) {
-            afterComplete(task);
-        } else {
-            if (completionDateModified || deletionDateModified) {
-                geofenceService.setupGeofences(task.getId());
-            }
-            if(values.containsKey(Task.DUE_DATE.name) ||
-                    values.containsKey(Task.REMINDER_FLAGS.name) ||
-                    values.containsKey(Task.REMINDER_PERIOD.name) ||
-                    values.containsKey(Task.REMINDER_LAST.name) ||
-                    values.containsKey(Task.REMINDER_SNOOZE.name)) {
-                reminderService.scheduleAlarm(this, task);
-            }
-        }
-
-        // run api save hooks
-        broadcastTaskSave(task, values);
-    }
-
-    /**
-     * Send broadcasts on task change (triggers things like task repeats)
-     * @param task task that was saved
-     * @param values values that were updated
-     */
-    private void broadcastTaskSave(Task task, ContentValues values) {
-        if(TaskApiDao.insignificantChange(values)) {
-            return;
-        }
-
-        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
-            RepeatTaskCompleteListener.broadcast(context, task.getId());
-            GCalTaskCompleteListener.broadcast(context, task.getId());
-            TimerTaskCompleteListener.broadcast(context, task.getId());
-        }
-
-        PushReceiver.broadcast(context, task, values);
-        refreshScheduler.scheduleRefresh(task);
-        broadcastRefresh(task);
-    }
-
-    private void broadcastRefresh(Task task) {
-        if (!task.checkAndClearTransitory(TRANS_SUPPRESS_REFRESH)) {
-            localBroadcastManager.broadcastRefresh();
-        }
-    }
-
-    /**
-     * Called after the task was just completed
-     */
-    private void afterComplete(Task task) {
-        long taskId = task.getId();
-        notificationManager.cancel(taskId);
-        geofenceService.cancelGeofences(taskId);
-    }
-
-    /**
      * Mark the given task as completed and save it.
      */
     public void setComplete(Task item, boolean completed) {
@@ -482,7 +400,7 @@ public class TaskDao {
         return query(fetchFilteredQuery(queryTemplate, properties));
     }
 
-    public Query fetchFilteredQuery(String queryTemplate, Property<?>... properties) {
+    private Query fetchFilteredQuery(String queryTemplate, Property<?>... properties) {
         if (queryTemplate == null) {
             return Query.selectDistinct(properties);
         }

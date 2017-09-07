@@ -14,7 +14,7 @@ import org.tasks.time.DateTime;
 
 import java.text.ParseException;
 
-import static com.todoroo.astrid.repeats.RepeatTaskCompleteListener.computeNextDueDate;
+import static com.todoroo.astrid.repeats.RepeatTaskHelper.computeNextDueDate;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 

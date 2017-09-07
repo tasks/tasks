@@ -5,9 +5,6 @@
  */
 package com.todoroo.astrid.repeats;
 
-import android.content.Context;
-import android.content.Intent;
-
 import com.google.ical.iter.RecurrenceIterator;
 import com.google.ical.iter.RecurrenceIteratorFactory;
 import com.google.ical.values.DateTimeValueImpl;
@@ -17,21 +14,21 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.alarms.AlarmTaskRepeatListener;
-import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.alarms.AlarmFields;
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 
 import org.tasks.LocalBroadcastManager;
-import org.tasks.injection.BroadcastComponent;
-import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.time.DateTime;
 
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
@@ -42,32 +39,23 @@ import static org.tasks.date.DateTimeUtils.newDate;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.date.DateTimeUtils.newDateUtc;
 
-public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
+public class RepeatTaskHelper {
 
-    public static void broadcast(Context context, long taskId) {
-        Intent intent = new Intent(context, RepeatTaskCompleteListener.class);
-        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-        context.sendBroadcast(intent);
+    private final GCalHelper gcalHelper;
+    private final TaskDao taskDao;
+    private final LocalBroadcastManager localBroadcastManager;
+    private final AlarmService alarmService;
+
+    @Inject
+    public RepeatTaskHelper(GCalHelper gcalHelper, AlarmService alarmService,
+                            TaskDao taskDao, LocalBroadcastManager localBroadcastManager) {
+        this.gcalHelper = gcalHelper;
+        this.taskDao = taskDao;
+        this.localBroadcastManager = localBroadcastManager;
+        this.alarmService = alarmService;
     }
 
-    @Inject GCalHelper gcalHelper;
-    @Inject TaskDao taskDao;
-    @Inject LocalBroadcastManager localBroadcastManager;
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-
-        long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-        if(taskId == -1) {
-            return;
-        }
-
-        Task task = taskDao.fetch(taskId, Task.PROPERTIES);
-        if(task == null || !task.isCompleted()) {
-            return;
-        }
-
+    public void handleRepeat(Task task) {
         String recurrence = task.sanitizedRecurrence();
         boolean repeatAfterCompletion = task.repeatAfterCompletion();
 
@@ -90,24 +78,18 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
                 return;
             }
 
-            rescheduleTask(gcalHelper, taskDao, task, newDueDate);
-
-            AlarmTaskRepeatListener.broadcast(context, taskId, oldDueDate, newDueDate);
+            rescheduleTask(task, newDueDate);
+            rescheduleAlarms(task.getId(), oldDueDate, newDueDate);
 
             localBroadcastManager.broadcastRepeat(task.getId(), oldDueDate, newDueDate);
         }
-    }
-
-    @Override
-    protected void inject(BroadcastComponent component) {
-        component.inject(this);
     }
 
     private static boolean repeatFinished(long newDueDate, long repeatUntil) {
         return repeatUntil > 0 && newDateTime(newDueDate).startOfDay().isAfter(newDateTime(repeatUntil).startOfDay());
     }
 
-    private static void rescheduleTask(GCalHelper gcalHelper, TaskDao taskDao, Task task, long newDueDate) {
+    private void rescheduleTask(Task task, long newDueDate) {
         task.setReminderSnooze(0L);
         task.setCompletionDate(0L);
         task.setDueDateAdjustingHideUntil(newDueDate);
@@ -116,8 +98,20 @@ public class RepeatTaskCompleteListener extends InjectingBroadcastReceiver {
         taskDao.save(task);
     }
 
+    private void rescheduleAlarms(long taskId, long oldDueDate, long newDueDate) {
+        if(newDueDate <= 0 || newDueDate <= oldDueDate) {
+            return;
+        }
+
+        final Set<Long> alarms = new LinkedHashSet<>();
+        alarmService.getAlarms(taskId, metadata -> alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate)));
+        if (!alarms.isEmpty()) {
+            alarmService.synchronizeAlarms(taskId, alarms);
+        }
+    }
+
     /** Compute next due date */
-    public static long computeNextDueDate(Task task, String recurrence, boolean repeatAfterCompletion) throws ParseException {
+    static long computeNextDueDate(Task task, String recurrence, boolean repeatAfterCompletion) throws ParseException {
         RRule rrule = initRRule(recurrence);
 
         // initialize startDateAsDV

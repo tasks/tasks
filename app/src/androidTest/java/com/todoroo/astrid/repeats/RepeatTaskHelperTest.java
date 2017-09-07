@@ -19,7 +19,7 @@ import static com.google.ical.values.Frequency.MINUTELY;
 import static com.google.ical.values.Frequency.WEEKLY;
 import static com.google.ical.values.Frequency.YEARLY;
 import static com.todoroo.andlib.utility.DateUtilities.addCalendarMonthsToUnixtime;
-import static com.todoroo.astrid.repeats.RepeatTaskCompleteListener.computeNextDueDate;
+import static com.todoroo.astrid.repeats.RepeatTaskHelper.computeNextDueDate;
 import static java.util.concurrent.TimeUnit.DAYS;
 import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MINUTES;
@@ -27,7 +27,7 @@ import static junit.framework.Assert.assertEquals;
 
 @SuppressLint("NewApi")
 @RunWith(AndroidJUnit4.class)
-public class RepeatTaskCompleteListenerTest {
+public class RepeatTaskHelperTest {
 
     private final Task task = new Task();
     private final long dueDate;

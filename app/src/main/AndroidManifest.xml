@@ -328,21 +328,11 @@
             android:name="com.todoroo.astrid.core.CustomFilterActivity"
             android:theme="@style/Tasks"/>
 
-        <!-- alarms -->
-        <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener" />
-
         <!-- actfm -->
 
         <activity android:name=".activities.TagSettingsActivity" />
 
         <activity android:name=".activities.FilterSettingsActivity" />
-
-        <!-- repeats -->
-
-        <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener" />
-
-        <!-- calendar -->
-        <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener" />
 
         <activity
             android:name=".activities.CalendarSelectionActivity"
@@ -381,8 +371,6 @@
             android:name=".files.FileExplore"
             android:theme="@style/TranslucentDialog"/>
 
-        <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener" />
-
         <!-- reminders -->
         <activity
             android:name="com.todoroo.astrid.reminders.ReminderPreferences"
@@ -415,6 +403,10 @@
             </intent-filter>
         </receiver>
 
+        <service
+            android:name=".jobs.AfterSaveIntentService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <service
             android:name=".scheduling.GeofenceSchedulingIntentService"
             android:permission="android.permission.BIND_JOB_SERVICE"

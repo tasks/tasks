@@ -7,6 +7,7 @@ import com.todoroo.astrid.dao.Database;
 
 import org.tasks.analytics.Tracker;
 import org.tasks.db.AppDatabase;
+import org.tasks.notifications.NotificationDao;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissivePermissionChecker;
 
@@ -38,6 +39,11 @@ public class TestModule {
     @ApplicationScope
     public AppDatabase getAppDatabase() {
         return Room.databaseBuilder(context, AppDatabase.class, "test-app-database").build();
+    }
+
+    @Provides
+    public NotificationDao getNotificationDao(AppDatabase appDatabase) {
+        return appDatabase.notificationDao();
     }
 
     @ApplicationScope

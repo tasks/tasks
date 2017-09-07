@@ -56,7 +56,7 @@ public class AdvancedRepeatTest {
         task.setDueDate(dayWithTime);
 
         long nextDayWithTime = dayWithTime + DateUtilities.ONE_DAY;
-        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal(), false);
+        nextDueDate = RepeatTaskHelper.computeNextDueDate(task, rrule.toIcal(), false);
         assertDateTimeEquals(nextDayWithTime, nextDueDate);
     }
 
@@ -76,7 +76,7 @@ public class AdvancedRepeatTest {
         nextDayWithTimeLong += DateUtilities.ONE_DAY;
         nextDayWithTimeLong = nextDayWithTimeLong / 1000L * 1000;
 
-        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal(), true);
+        nextDueDate = RepeatTaskHelper.computeNextDueDate(task, rrule.toIcal(), true);
         assertDateTimeEquals(nextDayWithTimeLong, nextDueDate);
     }
 
@@ -224,7 +224,7 @@ public class AdvancedRepeatTest {
     // --- helpers
 
     private void computeNextDueDate(boolean fromComplete) throws ParseException{
-        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal(), fromComplete);
+        nextDueDate = RepeatTaskHelper.computeNextDueDate(task, rrule.toIcal(), fromComplete);
     }
 
     private void buildRRule(int interval, Frequency freq, Weekday... weekdays) {

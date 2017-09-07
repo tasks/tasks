@@ -10,6 +10,8 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
+import javax.inject.Inject;
+
 public class PushReceiver extends InjectingBroadcastReceiver {
 
     public static void broadcast(Context context, Task task, ContentValues values) {
@@ -19,12 +21,13 @@ public class PushReceiver extends InjectingBroadcastReceiver {
         context.sendBroadcast(intent);
     }
 
+    @Inject GoogleTaskPusher googleTaskPusher;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        GoogleTaskPushReceiver.broadcast(
-                context,
+        googleTaskPusher.push(
                 intent.getParcelableExtra(AstridApiConstants.EXTRAS_TASK),
                 intent.getParcelableExtra(AstridApiConstants.EXTRAS_VALUES));
     }
