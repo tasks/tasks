@@ -88,7 +88,7 @@ public class Notifier {
         intent.putExtra(TaskListActivity.OPEN_FILTER, filter);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder notification = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TASKER)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TASKER)
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setTicker(title)
@@ -102,7 +102,7 @@ public class Notifier {
 
         notificationManager.notify(
                 (title + query).hashCode(),
-                notification.build(),
+                builder,
                 true,
                 false,
                 false);
@@ -225,7 +225,7 @@ public class Notifier {
     }
 
     public void triggerNotifications(List<org.tasks.notifications.Notification> entries, boolean alert) {
-        Map<org.tasks.notifications.Notification, Notification> notifications = new LinkedHashMap<>();
+        Map<org.tasks.notifications.Notification, NotificationCompat.Builder> notifications = new LinkedHashMap<>();
         boolean ringFiveTimes = false;
         boolean ringNonstop = false;
         for (int i = 0 ; i < entries.size() ; i++) {
@@ -243,7 +243,7 @@ public class Notifier {
                 notification.setGroupAlertBehavior(alert && (preferences.bundleNotifications() ? entries.size() == 1 : i == entries.size() - 1)
                         ? NotificationCompat.GROUP_ALERT_CHILDREN
                         : NotificationCompat.GROUP_ALERT_SUMMARY);
-                notifications.put(entry, notification.build());
+                notifications.put(entry, notification);
             }
         }
 
@@ -260,9 +260,9 @@ public class Notifier {
                 !ringNonstop &&
                 !audioManager.notificationsMuted() &&
                 telephonyManager.callStateIdle()) {
-            for (Notification notification : notifications.values()) {
+            for (NotificationCompat.Builder notification : notifications.values()) {
                 AndroidUtilities.sleepDeep(2000);
-                voiceOutputAssistant.speak(notification.tickerText.toString());
+                voiceOutputAssistant.speak(notification.build().tickerText.toString());
             }
         }
     }

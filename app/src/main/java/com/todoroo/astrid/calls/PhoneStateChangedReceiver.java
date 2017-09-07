@@ -230,7 +230,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                 .addAction(R.drawable.ic_phone_white_24dp, context.getString(R.string.MCA_return_call), PendingIntent.getActivity(context, callNow.hashCode(), callNow, PendingIntent.FLAG_UPDATE_CURRENT))
                 .addAction(R.drawable.ic_add_white_24dp, context.getString(R.string.MCA_add_task), PendingIntent.getActivity(context, callLater.hashCode(), callLater, PendingIntent.FLAG_UPDATE_CURRENT));
 
-        notificationManager.notify(number.hashCode(), builder.build(), true, false, false);
+        notificationManager.notify(number.hashCode(), builder, true, false, false);
     }
 
     private Bitmap getContactImage(long contactId) {

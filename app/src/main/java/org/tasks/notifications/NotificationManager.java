@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
-import com.google.common.base.Optional;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
@@ -21,6 +20,7 @@ import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
+import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,16 +53,18 @@ public class NotificationManager {
     private final TaskDao taskDao;
     private final Context context;
     private final Preferences preferences;
+    private final CheckBoxes checkBoxes;
 
     @Inject
     public NotificationManager(@ForApplication Context context, Preferences preferences,
-                               NotificationDao notificationDao, TaskDao taskDao) {
+                               NotificationDao notificationDao, TaskDao taskDao, CheckBoxes checkBoxes) {
         this.context = context;
         this.preferences = preferences;
-        notificationManager = (android.app.NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
         this.notificationDao = notificationDao;
         this.taskDao = taskDao;
+        this.checkBoxes = checkBoxes;
+        notificationManager = (android.app.NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (atLeastOreo()) {
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_CALLS, R.string.missed_calls));
@@ -94,21 +96,28 @@ public class NotificationManager {
                 .subscribe();
     }
 
-    public void notifyTasks(Map<org.tasks.notifications.Notification, Notification> notifications, boolean alert, boolean nonstop, boolean fiveTimes) {
+    public void notifyTasks(Map<org.tasks.notifications.Notification, NotificationCompat.Builder> notifications, boolean alert, boolean nonstop, boolean fiveTimes) {
         notificationDao.insertAll(newArrayList(notifications.keySet()));
         updateSummary(alert && notifications.size() > 1, nonstop, fiveTimes);
-        ArrayList<Map.Entry<org.tasks.notifications.Notification, Notification>> entries = newArrayList(notifications.entrySet());
+        ArrayList<Map.Entry<org.tasks.notifications.Notification, NotificationCompat.Builder>> entries = newArrayList(notifications.entrySet());
 
         int last = entries.size() - 1;
-        for (int i = 0; i < last; i++) {
-            Map.Entry<org.tasks.notifications.Notification, Notification> entry = entries.get(i);
-            notify(entry.getKey().taskId, entry.getValue(), false, false, false);
+        for (int i = 0; i <= last; i++) {
+            Map.Entry<org.tasks.notifications.Notification, NotificationCompat.Builder> entry = entries.get(i);
+            long taskId = entry.getKey().taskId;
+            Task task = taskDao.fetch(taskId);
+            NotificationCompat.Builder builder = entry.getValue();
+            builder.setColor(getPriorityColor(task.getImportance()));
+            if (i < last) {
+                notify(taskId, builder, false, false, false);
+            } else {
+                notify(taskId, builder, alert, nonstop, fiveTimes);
+            }
         }
-        Map.Entry<org.tasks.notifications.Notification, Notification> entry = entries.get(last);
-        notify(entry.getKey().taskId, entry.getValue(), alert, nonstop, fiveTimes);
     }
 
-    public void notify(long notificationId, Notification notification, boolean alert, boolean nonstop, boolean fiveTimes) {
+    public void notify(long notificationId, NotificationCompat.Builder builder, boolean alert, boolean nonstop, boolean fiveTimes) {
+        Notification notification = builder.build();
         if (preferences.getBoolean(R.string.p_rmd_enabled, true)) {
             int ringTimes = 1;
             if (preferences.getBoolean(R.string.p_rmd_persistent, true)) {
@@ -152,14 +161,17 @@ public class NotificationManager {
                 List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES)
                         .withQueryTemplate(query.toString()));
                 long when = notificationDao.latestTimestamp();
+                int maxPriority = 3;
                 String summaryTitle = context.getString(R.string.task_count, taskCount);
                 NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
                         .setBigContentTitle(summaryTitle);
                 for (org.tasks.notifications.Notification notification : notifications) {
-                    Optional<Task> task = tryFind(tasks, t -> t.getId() == notification.taskId);
-                    if (task.isPresent()) {
-                        style.addLine(task.get().getTitle());
+                    Task task = tryFind(tasks, t -> t.getId() == notification.taskId).orNull();
+                    if (task == null) {
+                        continue;
                     }
+                    style.addLine(task.getTitle());
+                    maxPriority = Math.min(maxPriority, task.getImportance());
                 }
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                         .setContentTitle(summaryTitle)
@@ -170,6 +182,7 @@ public class NotificationManager {
                         .setWhen(when)
                         .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                         .setStyle(style)
+                        .setColor(getPriorityColor(maxPriority))
                         .setNumber(taskCount)
                         .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, filter), PendingIntent.FLAG_UPDATE_CURRENT));
                 if (notify) {
@@ -181,10 +194,15 @@ public class NotificationManager {
                             .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
                 }
 
-                notify(NotificationManager.SUMMARY_NOTIFICATION_ID, builder.build(), notify, nonStop, fiveTimes);
+                notify(NotificationManager.SUMMARY_NOTIFICATION_ID, builder, notify, nonStop, fiveTimes);
             }
         } else {
             notificationManager.cancel(NotificationManager.SUMMARY_NOTIFICATION_ID);
         }
+    }
+
+    private int getPriorityColor(int priority) {
+        priority = Math.max(0, Math.min(3, priority));
+        return checkBoxes.getPriorityColors().get(priority);
     }
 }

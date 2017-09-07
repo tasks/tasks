@@ -160,7 +160,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                 .setAutoCancel(true)
                 .setSmallIcon(android.R.drawable.ic_dialog_alert)
                 .setTicker(context.getString(R.string.common_google_play_services_notification_ticker));
-        notificationManager.notify(Constants.NOTIFICATION_SYNC_ERROR, builder.build(), true, false, false);
+        notificationManager.notify(Constants.NOTIFICATION_SYNC_ERROR, builder, true, false, false);
     }
 
     private void synchronize() throws IOException {

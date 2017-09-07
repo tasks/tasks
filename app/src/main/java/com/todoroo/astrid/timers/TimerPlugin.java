@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.timers;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -106,16 +105,15 @@ public class TimerPlugin {
             String appName = r.getString(R.string.app_name);
             String text = r.getString(R.string.TPl_notification,
                     r.getQuantityString(R.plurals.Ntasks, count, count));
-            Notification notification = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
                     .setContentIntent(pendingIntent)
                     .setContentTitle(appName)
                     .setContentText(text)
                     .setWhen(currentTimeMillis())
                     .setSmallIcon(R.drawable.ic_timer_white_24dp)
                     .setAutoCancel(false)
-                    .setOngoing(true)
-                    .build();
-            notificationManager.notify(Constants.NOTIFICATION_TIMER, notification, false, false, false);
+                    .setOngoing(true);
+            notificationManager.notify(Constants.NOTIFICATION_TIMER, builder, false, false, false);
         }
     }
 }
