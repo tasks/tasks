@@ -10,7 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -106,7 +106,7 @@ public class TimerPlugin {
             String appName = r.getString(R.string.app_name);
             String text = r.getString(R.string.TPl_notification,
                     r.getQuantityString(R.plurals.Ntasks, count, count));
-            Notification notification = new NotificationCompat.Builder(context)
+            Notification notification = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
                     .setContentIntent(pendingIntent)
                     .setContentTitle(appName)
                     .setContentText(text)

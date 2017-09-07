@@ -43,6 +43,7 @@ public class NotificationManager {
     public static final String NOTIFICATION_CHANNEL_DEFAULT = "notifications";
     public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
     public static final String NOTIFICATION_CHANNEL_CALLS = "notifications_calls";
+    public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
     public static final String GROUP_KEY = "tasks";
     private static final int SUMMARY_NOTIFICATION_ID = 0;
     static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
@@ -66,6 +67,7 @@ public class NotificationManager {
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_CALLS, R.string.missed_calls));
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale));
+            notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_TIMERS, R.string.TEA_timer_controls));
         }
     }
 
