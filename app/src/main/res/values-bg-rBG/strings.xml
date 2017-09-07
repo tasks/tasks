@@ -184,6 +184,7 @@
 	<string name="random_reminder_two_months">за два месеца</string>
 	<string name="rmd_NoA_done">Завършен</string>
 	<string name="rmd_NoA_snooze">Отложи</string>
+	<string name="snooze_all">Отложи всички</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Тихи часове начало</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Тихи часове край</string>
 	<string name="rmd_EPr_rmd_time_title">Напомняне по подразбиране</string>
@@ -392,4 +393,11 @@
 	<string name="start_of_week">Начало на седмицата</string>
 	<string name="use_locale_default">Локализация по подразбиране</string>
 	<string name="use_native_datetime_pickers">Контроли за избор на дата и време по подразбиране </string>
+	<string name="notification_channel_settings">Управление на уведомления</string>
+	<string name="battery_optimization_settings">Управление на оптимизациите на батерията</string>
+	<string name="notification_disable_battery_optimizations_description">Оптимизациите на батерията могат да забавят уведомленията</string>
+	<string name="bundle_notifications">Обединяване на уведомленията</string>
+	<string name="badges">Значки</string>
+	<string name="launcher_support_required">Изисква се поддръжка от лаунчера</string>
+	<string name="list">Списък</string>
 </resources>

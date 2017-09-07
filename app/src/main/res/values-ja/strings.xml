@@ -182,6 +182,7 @@
 	<string name="random_reminder_two_months">2か月以内</string>
 	<string name="rmd_NoA_done">既に完了しています!</string>
 	<string name="rmd_NoA_snooze">スヌーズ</string>
+	<string name="snooze_all">すべてスヌーズ</string>
 	<string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
 	<string name="rmd_EPr_quiet_hours_end_title">消音時間の終わり</string>
 	<string name="rmd_EPr_rmd_time_title">標準リマインダー</string>
@@ -390,4 +391,11 @@
 	<string name="start_of_week">週の始まり</string>
 	<string name="use_locale_default">ロケールのデフォルトを使用する</string>
 	<string name="use_native_datetime_pickers">ネイティブの日付と時刻選択を使用する</string>
+	<string name="notification_channel_settings">通知を管理</string>
+	<string name="battery_optimization_settings">バッテリー最適化を管理</string>
+	<string name="notification_disable_battery_optimizations_description">バッテリー最適化をすると通知が遅れることがあります</string>
+	<string name="bundle_notifications">バンドル通知</string>
+	<string name="badges">バッジ</string>
+	<string name="launcher_support_required">ランチャーサポートが必要です</string>
+	<string name="list">リスト</string>
 </resources>

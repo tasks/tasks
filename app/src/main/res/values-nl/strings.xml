@@ -181,6 +181,7 @@
 	<string name="random_reminder_two_months">over twee maanden</string>
 	<string name="rmd_NoA_done">Reeds voltooid!</string>
 	<string name="rmd_NoA_snooze">Sluimeren...</string>
+	<string name="snooze_all">Alles sluimeren</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Rustperiode eindigt</string>
 	<string name="rmd_EPr_rmd_time_title">Standaard herinnering</string>
@@ -380,4 +381,11 @@
 	<string name="start_of_week">Begin van de week</string>
 	<string name="use_locale_default">Gebruik lokale instellingen</string>
 	<string name="use_native_datetime_pickers">Gebruik standaard datum- en tijd selectie</string>
+	<string name="notification_channel_settings">Beheer notificaties</string>
+	<string name="battery_optimization_settings">Beheer batterij optimalisatie</string>
+	<string name="notification_disable_battery_optimizations_description">Batterij optimalisatie kan meldingen vertragen</string>
+	<string name="bundle_notifications">Notificaties samenvoegen</string>
+	<string name="badges">Sets</string>
+	<string name="launcher_support_required">Launcher ondersteuning vereist</string>
+	<string name="list">Lijst</string>
 </resources>

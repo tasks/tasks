@@ -182,6 +182,7 @@
 	<string name="random_reminder_two_months">ogni due mesi</string>
 	<string name="rmd_NoA_done">Completata</string>
 	<string name="rmd_NoA_snooze">Rimanda...</string>
+	<string name="snooze_all">Posticipa tutti</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Ora fine silenzio</string>
 	<string name="rmd_EPr_rmd_time_title">Promemoria predefiniti</string>
@@ -389,4 +390,11 @@
 	<string name="start_of_week">Inizio settimana</string>
 	<string name="use_locale_default">Usa default locale</string>
 	<string name="use_native_datetime_pickers">Usa data e ora locali</string>
+	<string name="notification_channel_settings">Gestione notifiche</string>
+	<string name="battery_optimization_settings">Ottimizza consumo batteria</string>
+	<string name="notification_disable_battery_optimizations_description">L\'ottimizzazione consumi può ritardare le notifiche</string>
+	<string name="bundle_notifications">Gruppo di notifiche</string>
+	<string name="badges">Badge</string>
+	<string name="launcher_support_required">Richiesto il supporto al lanciatore</string>
+	<string name="list">Lista</string>
 </resources>

@@ -328,7 +328,7 @@
 	<string name="buy_dashclock_extension">Kup rozszerzenie</string>
 	<string name="billing_service_busy">Serwis zakupów w aplikacji jest zajęty, spróbuj później</string>
 	<string name="filter">Filtr</string>
-	<string name="opacity">Przezroczystość</string>
+	<string name="opacity">Nieprzezroczystość</string>
 	<string name="theme">Motyw</string>
 	<string name="color">Kolor</string>
 	<string name="accent">Akcent</string>
@@ -351,7 +351,7 @@
 	<string name="theme_deep_orange">Ciemno pomarańczowy</string>
 	<string name="theme_brown">Brązowy</string>
 	<string name="theme_grey">Szary</string>
-	<string name="theme_blue_grey">Niebiesko Szary</string>
+	<string name="theme_blue_grey">Niebieskoszary</string>
 	<string name="theme_black">Czarny</string>
 	<string name="theme_dark_grey">Ciemnoszary</string>
 	<string name="theme_light">Jasny</string>
@@ -387,4 +387,8 @@
 	<string name="date_and_time">Data i czas</string>
 	<string name="start_of_week">Początek tygodnia</string>
 	<string name="use_locale_default">Użyj domyślnych</string>
+	<string name="notification_channel_settings">Zarządzaj powiadamieniami</string>
+	<string name="battery_optimization_settings">Zarządzaj zużyciem energii</string>
+	<string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
+	<string name="bundle_notifications">Zarządzaj powiadomieniami</string>
 </resources>

@@ -184,6 +184,7 @@
 	<string name="random_reminder_two_months">két hónapon belül</string>
 	<string name="rmd_NoA_done">Befejezve</string>
 	<string name="rmd_NoA_snooze">Szundi</string>
+	<string name="snooze_all">Szundi mind</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Csendes órák kezdete</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Csendes órák vége</string>
 	<string name="rmd_EPr_rmd_time_title">Alapértelmezett emlékeztető</string>
@@ -392,4 +393,11 @@
 	<string name="start_of_week">Hét kezdőnapja</string>
 	<string name="use_locale_default">Beállított nyelv alapján</string>
 	<string name="use_native_datetime_pickers">Natív dátum és időpont kijelölő használata</string>
+	<string name="notification_channel_settings">Értesítések kezelése</string>
+	<string name="battery_optimization_settings">Akkumulátor optimalizálások kezelése</string>
+	<string name="notification_disable_battery_optimizations_description">Az akkumulátor optimalizálási funkciók késleltethetik az értesítéseket</string>
+	<string name="bundle_notifications">Értesítések összevonása</string>
+	<string name="badges">Szimbólumok</string>
+	<string name="launcher_support_required">Launcher támogatás szükséges</string>
+	<string name="list">Lista</string>
 </resources>

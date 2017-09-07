@@ -180,6 +180,7 @@
 	<string name="random_reminder_two_months">en dos meses</string>
 	<string name="rmd_NoA_done">Terminada</string>
 	<string name="rmd_NoA_snooze">Posponer</string>
+	<string name="snooze_all">Posponer todo</string>
 	<string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
 	<string name="rmd_EPr_quiet_hours_end_title">El horario en silencio termina</string>
 	<string name="rmd_EPr_rmd_time_title">Aviso por defecto</string>
@@ -267,7 +268,7 @@
 	<string name="contact_developer">Contactar con el desarrollador </string>
 	<string name="rate_tasks">Valorar Tasks</string>
 	<string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
-	<string name="TLA_menu_donate">Donar</string>
+	<string name="TLA_menu_donate">Haz una donación</string>
 	<string name="select_amount">Elegir cantidad</string>
 	<string name="add_reminder">Añadir recordatorio</string>
 	<string name="remove">Eliminar</string>
@@ -386,4 +387,11 @@
 	<string name="start_of_week">Inicio de semana</string>
 	<string name="use_locale_default">Usar configuración regional</string>
 	<string name="use_native_datetime_pickers">Usar fecha y hora nativas</string>
+	<string name="notification_channel_settings">Gestionar notificaciones</string>
+	<string name="battery_optimization_settings">Optimizaciones en gestión de batería</string>
+	<string name="notification_disable_battery_optimizations_description">Optimizaciones de batería pueden retrasar notificaciones</string>
+	<string name="bundle_notifications">Agrupar notificaciones</string>
+	<string name="badges">Insignias</string>
+	<string name="launcher_support_required">Se requiere soporte de launcher</string>
+	<string name="list">Lista</string>
 </resources>

@@ -181,6 +181,7 @@
 	<string name="random_reminder_two_months">в два месяца</string>
 	<string name="rmd_NoA_done">Уже готово!</string>
 	<string name="rmd_NoA_snooze">Повтор</string>
+	<string name="snooze_all">Отложить все</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Конец тихих часов</string>
 	<string name="rmd_EPr_rmd_time_title">Напоминание по умолчанию</string>
@@ -389,4 +390,11 @@
 	<string name="start_of_week">Начало недели</string>
 	<string name="use_locale_default">Как в системе</string>
 	<string name="use_native_datetime_pickers">Встроенные элементы даты/времени</string>
+	<string name="notification_channel_settings">Управление уведомлениями</string>
+	<string name="battery_optimization_settings">Управление расходом батареи</string>
+	<string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
+	<string name="bundle_notifications">Перечень уведомлений</string>
+	<string name="badges">Бейджи</string>
+	<string name="launcher_support_required">Требуется поддержка оболочки</string>
+	<string name="list">Список</string>
 </resources>
