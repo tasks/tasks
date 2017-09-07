@@ -31,7 +31,6 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
 @ApplicationScope
@@ -133,7 +132,7 @@ public class NotificationManager {
     }
 
     private void updateSummary(boolean notify, boolean nonStop, boolean fiveTimes) {
-        if (atLeastNougat()) {
+        if (preferences.bundleNotifications()) {
             if (appDatabase.notificationDao().count() == 0) {
                 notificationManager.cancel(SUMMARY_NOTIFICATION_ID);
             } else {
@@ -158,6 +157,8 @@ public class NotificationManager {
 
                 notify(NotificationManager.SUMMARY_NOTIFICATION_ID, builder.build(), notify, nonStop, fiveTimes);
             }
+        } else {
+            notificationManager.cancel(NotificationManager.SUMMARY_NOTIFICATION_ID);
         }
     }
 }

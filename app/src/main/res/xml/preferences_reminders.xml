@@ -38,6 +38,11 @@
     <CheckBoxPreference
         android:defaultValue="true"
         android:dependency="@string/p_rmd_enabled"
+        android:key="@string/p_bundle_notifications"
+        android:title="@string/bundle_notifications" />
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="@string/p_rmd_enabled"
         android:key="@string/p_rmd_vibrate"
         android:title="@string/vibrations" />
     <CheckBoxPreference

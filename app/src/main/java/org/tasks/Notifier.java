@@ -44,7 +44,6 @@ import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static org.tasks.notifications.NotificationManager.GROUP_KEY;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -241,7 +240,7 @@ public class Notifier {
             }
             NotificationCompat.Builder notification = getTaskNotification(entry);
             if (notification != null) {
-                notification.setGroupAlertBehavior(alert && (atLeastNougat() ? entries.size() == 1 : i == entries.size() - 1)
+                notification.setGroupAlertBehavior(alert && (preferences.bundleNotifications() ? entries.size() == 1 : i == entries.size() - 1)
                         ? NotificationCompat.GROUP_ALERT_CHILDREN
                         : NotificationCompat.GROUP_ALERT_SUMMARY);
                 notifications.put(entry, notification.build());

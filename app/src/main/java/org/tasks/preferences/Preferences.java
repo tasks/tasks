@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static android.content.SharedPreferences.Editor;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 
 public class Preferences {
 
@@ -410,5 +411,9 @@ public class Preferences {
         Editor editor = prefs.edit();
         editor.remove(context.getString(resId));
         editor.apply();
+    }
+
+    public boolean bundleNotifications() {
+        return atLeastNougat() && getBoolean(R.string.p_bundle_notifications, true);
     }
 }

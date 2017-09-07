@@ -787,4 +787,5 @@ File %1$s contained %2$s.\n\n
   <string name="notification_channel_settings">Manage notifications</string>
   <string name="battery_optimization_settings">Manage battery optimizations</string>
   <string name="notification_disable_battery_optimizations_description">Battery optimizations may delay notifications</string>
+  <string name="bundle_notifications">Bundle notifications</string>
 </resources>

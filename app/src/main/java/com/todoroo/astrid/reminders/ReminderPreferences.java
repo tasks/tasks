@@ -36,6 +36,7 @@ import org.tasks.ui.TimePreference;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.preOreo;
 import static org.tasks.PermissionUtil.verifyPermissions;
@@ -65,7 +66,8 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
                 R.string.p_rmd_enable_quiet,
                 R.string.p_rmd_quietStart,
                 R.string.p_rmd_quietEnd,
-                R.string.p_rmd_persistent);
+                R.string.p_rmd_persistent,
+                R.string.p_bundle_notifications);
         resetGeofencesOnChange(
                 R.string.p_geofence_radius,
                 R.string.p_geofence_responsiveness);
@@ -86,6 +88,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         requires(atLeastOreo(), R.string.notification_channel_settings);
         requires(atLeastMarshmallow(), R.string.battery_optimization_settings);
         requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
+        requires(atLeastNougat(), R.string.p_bundle_notifications);
     }
 
     @TargetApi(Build.VERSION_CODES.O)
