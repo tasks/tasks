@@ -14,7 +14,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
-import org.tasks.db.AppDatabase;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
@@ -44,18 +43,18 @@ public class NotificationManager {
     static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
 
     private final android.app.NotificationManager notificationManager;
-    private final AppDatabase appDatabase;
+    private final NotificationDao notificationDao;
     private final Context context;
     private final Preferences preferences;
 
     @Inject
     public NotificationManager(@ForApplication Context context, Preferences preferences,
-                               AppDatabase appDatabase) {
+                               NotificationDao notificationDao) {
         this.context = context;
         this.preferences = preferences;
         notificationManager = (android.app.NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
-        this.appDatabase = appDatabase;
+        this.notificationDao = notificationDao;
         if (atLeastOreo()) {
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_CALLS, R.string.missed_calls));
@@ -78,7 +77,7 @@ public class NotificationManager {
     public void cancel(long id) {
         notificationManager.cancel((int) id);
         Completable.fromAction(() -> {
-            appDatabase.notificationDao().delete(id);
+            notificationDao.delete(id);
             updateSummary(false, false, false);
         })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -87,7 +86,7 @@ public class NotificationManager {
     }
 
     public void notifyTasks(Map<org.tasks.notifications.Notification, Notification> notifications, boolean alert, boolean nonstop, boolean fiveTimes) {
-        appDatabase.notificationDao().insertAll(newArrayList(notifications.keySet()));
+        notificationDao.insertAll(newArrayList(notifications.keySet()));
         updateSummary(alert && notifications.size() > 1, nonstop, fiveTimes);
         ArrayList<Map.Entry<org.tasks.notifications.Notification, Notification>> entries = newArrayList(notifications.entrySet());
 
@@ -133,13 +132,13 @@ public class NotificationManager {
 
     private void updateSummary(boolean notify, boolean nonStop, boolean fiveTimes) {
         if (preferences.bundleNotifications()) {
-            if (appDatabase.notificationDao().count() == 0) {
+            if (notificationDao.count() == 0) {
                 notificationManager.cancel(SUMMARY_NOTIFICATION_ID);
             } else {
-                Iterable<Long> notificationIds = transform(appDatabase.notificationDao().getAll(), n -> n.taskId);
+                Iterable<Long> notificationIds = transform(notificationDao.getAll(), n -> n.taskId);
                 Filter notifications = new Filter(context.getString(R.string.notifications),
                         new QueryTemplate().where(Task.ID.in(notificationIds)));
-                long when = appDatabase.notificationDao().latestTimestamp();
+                long when = notificationDao.latestTimestamp();
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                         .setGroupSummary(true)
                         .setGroup(GROUP_KEY)

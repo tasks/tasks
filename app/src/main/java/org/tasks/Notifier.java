@@ -17,11 +17,11 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
-import org.tasks.db.AppDatabase;
 import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
 import org.tasks.jobs.JobQueueEntry;
 import org.tasks.notifications.AudioManager;
+import org.tasks.notifications.NotificationDao;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.notifications.TelephonyManager;
 import org.tasks.preferences.Preferences;
@@ -56,13 +56,13 @@ public class Notifier {
     private final AudioManager audioManager;
     private final VoiceOutputAssistant voiceOutputAssistant;
     private final Preferences preferences;
-    private final AppDatabase appDatabase;
+    private final NotificationDao notificationDao;
 
     @Inject
     public Notifier(@ForApplication Context context, TaskDao taskDao,
                     NotificationManager notificationManager, TelephonyManager telephonyManager,
                     AudioManager audioManager, VoiceOutputAssistant voiceOutputAssistant,
-                    Preferences preferences, AppDatabase appDatabase) {
+                    Preferences preferences, NotificationDao notificationDao) {
         this.context = context;
         this.taskDao = taskDao;
         this.notificationManager = notificationManager;
@@ -70,7 +70,7 @@ public class Notifier {
         this.audioManager = audioManager;
         this.voiceOutputAssistant = voiceOutputAssistant;
         this.preferences = preferences;
-        this.appDatabase = appDatabase;
+        this.notificationDao = notificationDao;
     }
 
     public void triggerFilterNotification(final Filter filter) {
@@ -217,7 +217,7 @@ public class Notifier {
     }
 
     public void restoreNotifications() {
-        triggerNotifications(appDatabase.notificationDao().getAll(), false);
+        triggerNotifications(notificationDao.getAll(), false);
     }
 
     public void triggerTaskNotifications(List<? extends JobQueueEntry> entries) {

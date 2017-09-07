@@ -7,7 +7,7 @@ import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
 import org.tasks.db.AppDatabase;
 import org.tasks.locale.Locale;
-import org.tasks.themes.ThemeCache;
+import org.tasks.notifications.NotificationDao;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.WidgetCheckBoxes;
 
@@ -63,5 +63,10 @@ public class ApplicationModule {
     @ApplicationScope
     public AppDatabase getAppDatabase() {
         return Room.databaseBuilder(context, AppDatabase.class, "app-database").build();
+    }
+
+    @Provides
+    public NotificationDao getNotificationDao(AppDatabase appDatabase) {
+        return appDatabase.notificationDao();
     }
 }
