@@ -3,8 +3,6 @@ package org.tasks.billing;
 import android.app.Activity;
 import android.content.Intent;
 
-import org.tasks.dialogs.DialogBuilder;
-
 import javax.inject.Inject;
 
 public class PurchaseHelper {
@@ -13,7 +11,7 @@ public class PurchaseHelper {
     public PurchaseHelper() {
     }
 
-    public boolean purchase(DialogBuilder dialogBuilder, final Activity activity,
+    public boolean purchase(final Activity activity,
                             final String sku, final String pref,
                             final int requestCode, final PurchaseHelperCallback callback) {
         callback.purchaseCompleted(false, sku);
