@@ -139,17 +139,18 @@ public class NotificationManager {
                 Iterable<Long> notificationIds = transform(appDatabase.notificationDao().getAll(), n -> n.taskId);
                 Filter notifications = new Filter(context.getString(R.string.notifications),
                         new QueryTemplate().where(Task.ID.in(notificationIds)));
+                long when = appDatabase.notificationDao().latestTimestamp();
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                         .setGroupSummary(true)
                         .setGroup(GROUP_KEY)
-                        .setShowWhen(false)
+                        .setShowWhen(true)
+                        .setWhen(when)
                         .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                         .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, notifications), PendingIntent.FLAG_UPDATE_CURRENT));
                 if (notify) {
                     builder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
                             .setPriority(NotificationCompat.PRIORITY_HIGH)
                             .setSound(preferences.getRingtone());
-
                 } else {
                     builder.setOnlyAlertOnce(true)
                             .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
