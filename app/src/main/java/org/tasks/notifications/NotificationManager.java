@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import com.google.common.base.Optional;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
@@ -32,6 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
@@ -141,17 +143,21 @@ public class NotificationManager {
             if (taskCount == 0) {
                 notificationManager.cancel(SUMMARY_NOTIFICATION_ID);
             } else {
-                Iterable<Long> notificationIds = transform(notificationDao.getAll(), n -> n.taskId);
+                List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
+                Iterable<Long> notificationIds = transform(notifications, n -> n.taskId);
                 QueryTemplate query = new QueryTemplate().where(Task.ID.in(notificationIds));
-                Filter notifications = new Filter(context.getString(R.string.notifications),
-                        query);
-                List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES).withQueryTemplate(query.toString()));
+                Filter filter = new Filter(context.getString(R.string.notifications), query);
+                List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES)
+                        .withQueryTemplate(query.toString()));
                 long when = notificationDao.latestTimestamp();
                 String summaryTitle = context.getString(R.string.task_count, taskCount);
                 NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
                         .setBigContentTitle(summaryTitle);
-                for (Task task : tasks) {
-                    style.addLine(task.getTitle());
+                for (org.tasks.notifications.Notification notification : notifications) {
+                    Optional<Task> task = tryFind(tasks, t -> t.getId() == notification.taskId);
+                    if (task.isPresent()) {
+                        style.addLine(task.get().getTitle());
+                    }
                 }
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                         .setContentTitle(summaryTitle)
@@ -163,7 +169,7 @@ public class NotificationManager {
                         .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                         .setStyle(style)
                         .setNumber(taskCount)
-                        .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, notifications), PendingIntent.FLAG_UPDATE_CURRENT));
+                        .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, filter), PendingIntent.FLAG_UPDATE_CURRENT));
                 if (notify) {
                     builder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
                             .setPriority(NotificationCompat.PRIORITY_HIGH)

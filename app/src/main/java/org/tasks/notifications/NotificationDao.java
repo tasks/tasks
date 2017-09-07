@@ -14,6 +14,9 @@ public interface NotificationDao {
     @Query("SELECT * FROM notification")
     List<Notification> getAll();
 
+    @Query("SELECT * FROM notification ORDER BY timestamp DESC")
+    List<Notification> getAllOrdered();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Notification> notifications);
 
