@@ -414,6 +414,6 @@ public class Preferences {
     }
 
     public boolean bundleNotifications() {
-        return atLeastNougat() && getBoolean(R.string.p_bundle_notifications, true);
+        return getBoolean(R.string.p_bundle_notifications, true);
     }
 }

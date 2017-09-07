@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -20,6 +22,7 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -44,17 +47,19 @@ public class NotificationManager {
 
     private final android.app.NotificationManager notificationManager;
     private final NotificationDao notificationDao;
+    private final TaskDao taskDao;
     private final Context context;
     private final Preferences preferences;
 
     @Inject
     public NotificationManager(@ForApplication Context context, Preferences preferences,
-                               NotificationDao notificationDao) {
+                               NotificationDao notificationDao, TaskDao taskDao) {
         this.context = context;
         this.preferences = preferences;
         notificationManager = (android.app.NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
         this.notificationDao = notificationDao;
+        this.taskDao = taskDao;
         if (atLeastOreo()) {
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_CALLS, R.string.missed_calls));
@@ -132,19 +137,32 @@ public class NotificationManager {
 
     private void updateSummary(boolean notify, boolean nonStop, boolean fiveTimes) {
         if (preferences.bundleNotifications()) {
-            if (notificationDao.count() == 0) {
+            int taskCount = notificationDao.count();
+            if (taskCount == 0) {
                 notificationManager.cancel(SUMMARY_NOTIFICATION_ID);
             } else {
                 Iterable<Long> notificationIds = transform(notificationDao.getAll(), n -> n.taskId);
+                QueryTemplate query = new QueryTemplate().where(Task.ID.in(notificationIds));
                 Filter notifications = new Filter(context.getString(R.string.notifications),
-                        new QueryTemplate().where(Task.ID.in(notificationIds)));
+                        query);
+                List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES).withQueryTemplate(query.toString()));
                 long when = notificationDao.latestTimestamp();
+                String summaryTitle = context.getString(R.string.task_count, taskCount);
+                NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
+                        .setBigContentTitle(summaryTitle);
+                for (Task task : tasks) {
+                    style.addLine(task.getTitle());
+                }
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
+                        .setContentTitle(summaryTitle)
+                        .setContentText(context.getString(R.string.app_name))
                         .setGroupSummary(true)
                         .setGroup(GROUP_KEY)
                         .setShowWhen(true)
                         .setWhen(when)
                         .setSmallIcon(R.drawable.ic_done_all_white_24dp)
+                        .setStyle(style)
+                        .setNumber(taskCount)
                         .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, notifications), PendingIntent.FLAG_UPDATE_CURRENT));
                 if (notify) {
                     builder.setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
