@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.JobIntentService;
 
-import com.todoroo.astrid.dao.TaskDao;
-
 import org.tasks.BuildConfig;
 import org.tasks.Notifier;
 import org.tasks.injection.IntentServiceComponent;
@@ -29,7 +27,6 @@ public class NotificationJob extends Job {
 
     @Inject Preferences preferences;
     @Inject Notifier notifier;
-    @Inject TaskDao taskDao;
     @Inject JobQueue jobQueue;
 
     @Override

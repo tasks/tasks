@@ -153,7 +153,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_FROM_BACKGROUND);
 
         PendingIntent resolve = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context).setAutoCancel(true)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT).setAutoCancel(true)
                 .setContentIntent(resolve)
                 .setContentTitle(context.getString(R.string.sync_error_permissions))
                 .setContentText(context.getString(R.string.common_google_play_services_notification_ticker))
