@@ -107,7 +107,7 @@ public class NotificationManager {
             long taskId = entry.getKey().taskId;
             Task task = taskDao.fetch(taskId);
             NotificationCompat.Builder builder = entry.getValue();
-            builder.setColor(getPriorityColor(task.getImportance()));
+            builder.setColor(checkBoxes.getPriorityColor(task.getImportance()));
             if (i < last) {
                 notify(taskId, builder, false, false, false);
             } else {
@@ -182,7 +182,7 @@ public class NotificationManager {
                         .setWhen(when)
                         .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                         .setStyle(style)
-                        .setColor(getPriorityColor(maxPriority))
+                        .setColor(checkBoxes.getPriorityColor(maxPriority))
                         .setNumber(taskCount)
                         .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, filter), PendingIntent.FLAG_UPDATE_CURRENT));
                 if (notify) {
@@ -201,8 +201,4 @@ public class NotificationManager {
         }
     }
 
-    private int getPriorityColor(int priority) {
-        priority = Math.max(0, Math.min(3, priority));
-        return checkBoxes.getPriorityColors().get(priority);
-    }
 }

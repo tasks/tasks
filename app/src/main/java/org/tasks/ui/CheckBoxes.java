@@ -9,16 +9,17 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.primitives.Ints;
 
 import org.tasks.R;
+import org.tasks.injection.ApplicationScope;
+import org.tasks.injection.ForApplication;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import static android.support.v4.content.ContextCompat.getColor;
 
+@ApplicationScope
 public class CheckBoxes {
-
-    public static CheckBoxes newCheckBoxes(Context context) {
-        return new CheckBoxes(context);
-    }
 
     private static final int MAX_IMPORTANCE_INDEX = 3;
 
@@ -28,7 +29,8 @@ public class CheckBoxes {
     private final List<Integer> priorityColors;
     private final int[] priorityColorsArray;
 
-    private CheckBoxes(Context context) {
+    @Inject
+    public CheckBoxes(@ForApplication Context context) {
         checkboxes = wrapDrawable(context, R.drawable.ic_check_box_outline_blank_24dp);
         repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_repeat_24dp);
         completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
@@ -38,6 +40,10 @@ public class CheckBoxes {
                 getColor(context, R.color.importance_3),
                 getColor(context, R.color.importance_4));
         priorityColorsArray = Ints.toArray(priorityColors);
+    }
+
+    public int getPriorityColor(int priority) {
+        return priorityColors.get(Math.max(0, Math.min(3, priority)));
     }
 
     public List<Integer> getPriorityColors() {

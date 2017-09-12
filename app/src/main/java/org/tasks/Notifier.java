@@ -1,6 +1,5 @@
 package org.tasks;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -30,6 +29,7 @@ import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.reminders.SnoozeDialog;
 import org.tasks.reminders.SnoozeOption;
+import org.tasks.ui.CheckBoxes;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -57,12 +57,13 @@ public class Notifier {
     private final VoiceOutputAssistant voiceOutputAssistant;
     private final Preferences preferences;
     private final NotificationDao notificationDao;
+    private final CheckBoxes checkBoxes;
 
     @Inject
     public Notifier(@ForApplication Context context, TaskDao taskDao,
                     NotificationManager notificationManager, TelephonyManager telephonyManager,
                     AudioManager audioManager, VoiceOutputAssistant voiceOutputAssistant,
-                    Preferences preferences, NotificationDao notificationDao) {
+                    Preferences preferences, NotificationDao notificationDao, CheckBoxes checkBoxes) {
         this.context = context;
         this.taskDao = taskDao;
         this.notificationManager = notificationManager;
@@ -71,37 +72,48 @@ public class Notifier {
         this.voiceOutputAssistant = voiceOutputAssistant;
         this.preferences = preferences;
         this.notificationDao = notificationDao;
+        this.checkBoxes = checkBoxes;
     }
 
     public void triggerFilterNotification(final Filter filter) {
-        String title = filter.listingTitle;
-        String query = filter.getSqlQuery();
-        int count = taskDao.count(filter);
+        List<Task> tasks = taskDao.query(filter);
+        int count = tasks.size();
         if (count == 0) {
             return;
         }
 
-        String subtitle = context.getString(R.string.task_count, count);
-
         Intent intent = new Intent(context, TaskListActivity.class);
         intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
         intent.putExtra(TaskListActivity.OPEN_FILTER, filter);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, (title + query).hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, filter.listingTitle.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        String summaryTitle = context.getString(R.string.task_count, count);
+        NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
+                .setBigContentTitle(summaryTitle);
+        int maxPriority = 3;
+        for (Task task : tasks) {
+            style.addLine(task.getTitle());
+            maxPriority = Math.min(maxPriority, task.getImportance());
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TASKER)
-                .setSmallIcon(R.drawable.ic_check_white_24dp)
+                .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
-                .setTicker(title)
-                .setContentTitle(title)
-                .setContentText(subtitle)
+                .setTicker(summaryTitle)
+                .setContentTitle(summaryTitle)
+                .setContentText(filter.listingTitle)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setWhen(currentTimeMillis())
-                .setShowWhen(true);
+                .setShowWhen(true)
+                .setColor(checkBoxes.getPriorityColor(maxPriority))
+                .setGroupSummary(true)
+                .setGroup(filter.listingTitle)
+                .setStyle(style);
 
         notificationManager.notify(
-                (title + query).hashCode(),
+                filter.listingTitle.hashCode(),
                 builder,
                 true,
                 false,

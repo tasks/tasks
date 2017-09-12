@@ -5,24 +5,26 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import org.tasks.injection.ApplicationScope;
+
 import java.util.List;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
+@ApplicationScope
 public class WidgetCheckBoxes {
-
-    public static WidgetCheckBoxes newWidgetCheckBoxes(CheckBoxes checkBoxes) {
-        return new WidgetCheckBoxes(checkBoxes);
-    }
 
     private final List<Bitmap> checkboxes;
     private final List<Bitmap> repeatingCheckboxes;
     private final List<Bitmap> completedCheckboxes;
 
-    private WidgetCheckBoxes(CheckBoxes checkBoxes) {
+    @Inject
+    public WidgetCheckBoxes(CheckBoxes checkBoxes) {
         Timber.d("Initializing widget checkboxes");
         checkboxes = convertToBitmap(checkBoxes.getCheckBoxes());
         repeatingCheckboxes = convertToBitmap(checkBoxes.getRepeatingCheckBoxes());
