@@ -59,7 +59,7 @@ public class JobManager {
     public void scheduleMidnightBackup() {
         long time = nextMidnight();
         Timber.d("%s: %s", BackupJob.TAG, printTimestamp(time));
-        alarmManager.noWakeup(adjust(time), getPendingBroadcast(BackupJob.Broadcast.class));
+        alarmManager.wakeup(adjust(time), getPendingBroadcast(BackupJob.Broadcast.class));
     }
 
     public void cancel(String tag) {
