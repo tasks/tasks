@@ -66,7 +66,6 @@ public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListene
             if (result.isSuccess()) {
                 inventory = inv;
                 checkPurchase(R.string.sku_tasker, R.string.p_purchased_tasker);
-                checkPurchase(R.string.sku_tesla_unread, R.string.p_purchased_tesla_unread);
                 checkPurchase(R.string.sku_dashclock, R.string.p_purchased_dashclock);
                 checkPurchase(R.string.sku_themes, R.string.p_purchased_themes);
                 localBroadcastManager.broadcastRefresh();

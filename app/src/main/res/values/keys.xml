@@ -244,12 +244,11 @@
   <string name="tracking_event_upgrade">Upgrade</string>
   <string name="tracking_event_multiselect_delete">Multiselect delete</string>
   <string name="tracking_event_multiselect_clone">Multiselect clone</string>
-  <string name="p_tesla_unread_enabled">tesla_unread_enabled</string>
-  <string name="p_purchased_tesla_unread">purchased_tesla_unread</string>
+  <string name="p_badges_enabled">badges_enabled</string>
+  <string name="p_badge_list">badge_list</string>
   <string name="p_purchased_tasker">purchased_tasker</string>
   <string name="p_purchased_dashclock">purchased_dashclock</string>
   <string name="p_purchased_themes">purchased_themes</string>
-  <string name="tesla_unread">TeslaUnread</string>
   <string name="tasker_locale">Tasker/Locale</string>
   <string name="dashclock">DashClock extension</string>
   <string name="p_theme">theme_style</string>
@@ -272,7 +271,6 @@
   <string name="p_dashclock_filter">dashclock_filter</string>
 
   <string name="sku_tasker">tasker</string>
-  <string name="sku_tesla_unread">tesla_unread</string>
   <string name="sku_dashclock">dashclock</string>
   <string name="debug_unlock_purchases">Unlock purchases</string>
   <string name="debug_consume_purchases">Consume purchases</string>

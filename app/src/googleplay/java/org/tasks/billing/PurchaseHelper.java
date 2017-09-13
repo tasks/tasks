@@ -69,16 +69,12 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
             final List<Purchase> purchases = new ArrayList<>();
             final Purchase tasker = inventory.getPurchase(context.getString(R.string.sku_tasker));
             final Purchase dashclock = inventory.getPurchase(context.getString(R.string.sku_dashclock));
-            final Purchase teslaUnread = inventory.getPurchase(context.getString(R.string.sku_tesla_unread));
             final Purchase themes = inventory.getPurchase(context.getString(R.string.sku_themes));
             if (tasker != null) {
                 purchases.add(tasker);
             }
             if (dashclock != null) {
                 purchases.add(dashclock);
-            }
-            if (teslaUnread != null) {
-                purchases.add(teslaUnread);
             }
             if (themes != null) {
                 purchases.add(themes);
@@ -96,9 +92,6 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
                                     preferences.setBoolean(R.string.p_purchased_tasker, false);
                                 } else if (purchase.equals(dashclock)) {
                                     preferences.setBoolean(R.string.p_purchased_dashclock, false);
-                                } else if (purchase.equals(teslaUnread)) {
-                                    preferences.setBoolean(R.string.p_purchased_tesla_unread, false);
-                                    preferences.setBoolean(R.string.p_tesla_unread_enabled, false);
                                 } else if (purchase.equals(themes)) {
                                     preferences.setBoolean(R.string.p_purchased_themes, false);
                                 } else {

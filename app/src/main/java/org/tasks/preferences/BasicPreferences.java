@@ -15,8 +15,10 @@ import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.tasks.BuildConfig;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
+import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.billing.PurchaseHelper;
@@ -28,7 +30,7 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
 import org.tasks.locale.LocalePickerDialog;
-import org.tasks.receivers.TeslaUnreadReceiver;
+import org.tasks.receivers.Badger;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
@@ -61,6 +63,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     private static final int REQUEST_CODE_BACKUP_DIR = 10005;
     private static final int REQUEST_PICKER = 10006;
     public static final int REQUEST_PURCHASE = 10007;
+    private static final int REQUEST_BADGE_LIST = 10008;
 
     @Inject Tracker tracker;
     @Inject Preferences preferences;
@@ -70,8 +73,10 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     @Inject DialogBuilder dialogBuilder;
     @Inject Locale locale;
     @Inject ThemeCache themeCache;
-    @Inject TeslaUnreadReceiver teslaUnreadReceiver;
+    @Inject Badger badger;
     @Inject PurchaseHelper purchaseHelper;
+    @Inject DefaultFilterProvider defaultFilterProvider;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     private Bundle result;
 
@@ -152,14 +157,24 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
             return false;
         });
 
-        findPreference(R.string.p_tesla_unread_enabled).setOnPreferenceChangeListener((preference, newValue) -> {
+        Preference defaultList = findPreference(getString(R.string.p_badge_list));
+        Filter filter = defaultFilterProvider.getBadgeFilter();
+        defaultList.setSummary(filter.listingTitle);
+        defaultList.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(BasicPreferences.this, FilterSelectionActivity.class);
+            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            startActivityForResult(intent, REQUEST_BADGE_LIST);
+            return true;
+        });
+
+        findPreference(R.string.p_badges_enabled).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null) {
-                if ((boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_tesla_unread)) {
-                    purchaseHelper.purchase(BasicPreferences.this, getString(R.string.sku_tesla_unread), getString(R.string.p_purchased_tesla_unread), REQUEST_PURCHASE, BasicPreferences.this);
-                } else {
-                    teslaUnreadReceiver.setEnabled((boolean) newValue);
-                    return true;
+                boolean enabled = (boolean) newValue;
+                badger.setEnabled(enabled);
+                if (enabled) {
+                    showRestartDialog();
                 }
+                return true;
             }
             return false;
         });
@@ -184,7 +199,6 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
             findPreference(getString(R.string.debug_unlock_purchases)).setOnPreferenceClickListener(preference -> {
                 preferences.setBoolean(R.string.p_purchased_dashclock, true);
                 preferences.setBoolean(R.string.p_purchased_tasker, true);
-                preferences.setBoolean(R.string.p_purchased_tesla_unread, true);
                 preferences.setBoolean(R.string.p_purchased_themes, true);
                 recreate();
                 return true;
@@ -276,7 +290,14 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
                         .show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
             }
         } else if (requestCode == REQUEST_PURCHASE) {
-                purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
+            purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
+        } else if (requestCode == REQUEST_BADGE_LIST) {
+            if (resultCode == RESULT_OK) {
+                Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
+                defaultFilterProvider.setBadgeFilter(filter);
+                findPreference(getString(R.string.p_badge_list)).setSummary(filter.listingTitle);
+                localBroadcastManager.broadcastRefresh();
+            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -329,8 +350,6 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         runOnUiThread(() -> {
             if (getString(R.string.sku_tasker).equals(sku)) {
                 ((TwoStatePreference) findPreference(R.string.p_purchased_tasker)).setChecked(success);
-            } else if (getString(R.string.sku_tesla_unread).equals(sku)) {
-                ((TwoStatePreference) findPreference(R.string.p_tesla_unread_enabled)).setChecked(success);
             } else if (getString(R.string.sku_dashclock).equals(sku)) {
                 ((TwoStatePreference) findPreference(R.string.p_purchased_dashclock)).setChecked(success);
             } else if (getString(R.string.sku_themes).equals(sku)) {

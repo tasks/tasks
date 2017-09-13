@@ -324,7 +324,6 @@
 	<string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
 	<string name="default_list">Alapértelmezett lista</string>
 	<string name="plugin_description">A Tasks egyetlen fejlesztő által karbantartott nyílt forráskódú projekt. Néhány funkció csak alkalmazáson belüli vásárlással érhető el, ezzel is támogatva a fejlesztést.</string>
-	<string name="tesla_unread_description">Az alkalmazás ikonján megjeleníti az alapértelmezett listában levő feladatok számát. Használatához TeslaUnread for Nova Launcher szükséges.</string>
 	<string name="themes_purchase_description">Az összes Tasks téma és szín elérhetővé tétele</string>
 	<string name="tasker_description">Kontextus-függő lista emlékeztető. Használatához Tasker vagy Locale szükséges.</string>
 	<string name="donate_summary">Támogatását nagyra értékeljük</string>

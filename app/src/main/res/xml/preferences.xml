@@ -61,6 +61,19 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/badges">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/p_badges_enabled"
+            android:title="@string/enabled"
+            android:summary="@string/launcher_support_required" />
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:dependency="@string/p_badges_enabled"
+            android:key="@string/p_badge_list"
+            android:title="@string/list" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/backup_BPr_header">
 

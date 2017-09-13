@@ -321,7 +321,6 @@
 	<string name="back_button_saves_task">Кнопка «Назад» сохраняет задачу</string>
 	<string name="default_list">Список по умолчанию</string>
 	<string name="plugin_description">Tasks развивается как проект с открытым исходным кодом и поддерживается единственным разработчиком. Некоторые функции приложения предлагаются как платные для дальнейшего развития программы</string>
-	<string name="tesla_unread_description">Показывать значок для числа активных задач в вашем основном списке. Требуется TeslaUnread для Nova Launcher</string>
 	<string name="themes_purchase_description">Разблокировать все темы и добавить цвета в оформление Tasks</string>
 	<string name="tasker_description">Уведомления списка контекстного подбора. Требуется Tasker или Locale</string>
 	<string name="donate_summary">Благодарю за поддержку</string>

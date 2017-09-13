@@ -7,7 +7,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.Preferences;
-import org.tasks.receivers.TeslaUnreadReceiver;
+import org.tasks.receivers.Badger;
 import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ public class Tasks extends InjectingApplication {
     @Inject FlavorSetup flavorSetup;
     @Inject BuildSetup buildSetup;
     @Inject ThemeCache themeCache;
-    @Inject TeslaUnreadReceiver teslaUnreadReceiver;
+    @Inject Badger badger;
 
     @Override
     public void onCreate() {
@@ -36,7 +36,7 @@ public class Tasks extends InjectingApplication {
 
         flavorSetup.setup();
 
-        teslaUnreadReceiver.setEnabled(preferences.getBoolean(R.string.p_tesla_unread_enabled, false));
+        badger.setEnabled(preferences.getBoolean(R.string.p_badges_enabled, true));
 
         themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
 

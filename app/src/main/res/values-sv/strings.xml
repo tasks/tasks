@@ -318,7 +318,6 @@
 	<string name="back_button_saves_task">Bakåtknapp sparar uppgift</string>
 	<string name="default_list">Standardlista</string>
 	<string name="plugin_description">Tasks är ett open source projekt som drivs av en ensam utvecklare. Några av funktionerna blir tillgängliga via köp i appar för att stödja fortsatt utveckling.</string>
-	<string name="tesla_unread_description">Visa ett märke för antalet aktiva uppgifter i standardlistan. Kräver TeslaUnread för Nova Launcher</string>
 	<string name="themes_purchase_description">Lås upp alla teman och sätt lite färg på Tasks</string>
 	<string name="tasker_description">Innehållsbaserade listpåminnelser. Kräver Tasker eller Locale</string>
 	<string name="donate_summary">Donationer uppskattas varmt</string>

@@ -322,7 +322,6 @@
 	<string name="back_button_saves_task">כפתור \"חזרה\" שומר שינויים במשימה</string>
 	<string name="default_list">רשימת ברירת מחדל</string>
 	<string name="plugin_description">זו אפליקציית קוד פתוח, מתוחזקת ע\"י מפתח אחד. מספר מאפיינים מוצעים לרכישה בתוך האפליקציה בכדי לתמוך בפיתוח.</string>
-	<string name="tesla_unread_description">הצג סמליל של מספר המשימות הפעילות ברשימת ברירת המחדל. נדרשת אפליקציה TeslaUnread ל-Nova Launcher</string>
 	<string name="themes_purchase_description">בטל נעילת ערכות נושא והוסף צבע למשימות</string>
 	<string name="tasker_description">Context-aware רשימת משימות. נדרש Tasker או Locale</string>
 	<string name="donate_summary">תרומות יתקבלו בברכה</string>

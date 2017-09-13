@@ -322,7 +322,6 @@
 	<string name="back_button_saves_task">戻るボタンでタスクを保存します</string>
 	<string name="default_list">デフォルトリスト</string>
 	<string name="plugin_description">Tasks は、1人の開発者が維持しているオープンソース プロジェクトです。開発をサポートするために、ニッチの機能はアプリ内課金で提供されています。</string>
-	<string name="tesla_unread_description">デフォルトのリストに、アクティブなタスクの数のバッジを表示します。TeslaUnread for Nova Launcher が必要です</string>
 	<string name="themes_purchase_description">すべてのテーマのロックを解除して Tasks に色を追加します</string>
 	<string name="tasker_description">コンテキスト アウェア リストの通知。Tasker または Locale が必要です</string>
 	<string name="donate_summary">寄付は大歓迎です</string>

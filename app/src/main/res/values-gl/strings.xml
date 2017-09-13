@@ -321,7 +321,6 @@
 	<string name="back_button_saves_task">Botón atrás guarda la tarea</string>
 	<string name="default_list">Lista por defecto</string>
 	<string name="plugin_description">Tasks es un proyecto de código abierto mantenido por un único desarrollador. Algunas características especializadas se podrán comprar desde la aplicación para mantener su desarrollo.</string>
-	<string name="tesla_unread_description">Mostrar distintivo con número de tareas activas en la lista predeterminada. Requiere TeslaUnread de Nova Launcher.</string>
 	<string name="themes_purchase_description">Desbloquea todos los temas y añade color a Tasks</string>
 	<string name="tasker_description">Notificaciones dependientes del contexto. Requiere Tasker o Locale.</string>
 	<string name="donate_summary">Se agradecen enormemente las donaciones</string>

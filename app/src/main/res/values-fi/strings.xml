@@ -322,7 +322,6 @@
 	<string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
 	<string name="default_list">Oletuslista</string>
 	<string name="plugin_description">Tasks on avoimen koodin projekti jota ylläpitää yksi kehittäjä. Jotkut ominaisuudet ovat saatavina sovelluksen sisäisinä ostoksina joilla tuetaan kehitystyötä.</string>
-	<string name="tesla_unread_description">Näytä aktiivisten tehtävien tunnus oletuslistalta. Vaatii TeslaUnread lisäosan Nova -käynnistimelle</string>
 	<string name="themes_purchase_description">Avaa kaikki teemat ja lisää väriä Tasks -ohjelmaan</string>
 	<string name="tasker_description">Kontekstiriippuvainen listaus ilmoituksille. Vaatii Tasker tai Locale -sovelluksen</string>
 	<string name="donate_summary">Lahjoitukset ovat erittäin tervetulleita</string>

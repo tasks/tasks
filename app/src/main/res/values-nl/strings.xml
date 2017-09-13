@@ -316,7 +316,6 @@
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string name="default_list">Standaard lijst</string>
 	<string name="plugin_description">Tasks is een open source project onderhouden bij een ontwikkelaar. Sommige functionaliteit worden als in-app aankopen aangeboden om de ontwikkeling te ondersteunen.</string>
-	<string name="tesla_unread_description">Toon een badge voor het aantal actieve taken in je standaard lijst. Vereist TeslaUnread voor Nova Launcher</string>
 	<string name="themes_purchase_description">Ontlock alle thema\'s en voeg kleuren toe aan Tasks</string>
 	<string name="tasker_description"> Contextbewuste notificaties. Vereist Tasker of Locale</string>
 	<string name="donate_summary">Donaties worden erg gewaardeerd</string>

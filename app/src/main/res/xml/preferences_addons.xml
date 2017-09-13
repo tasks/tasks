@@ -35,11 +35,6 @@
             android:summary="@string/tasker_description"
             android:title="@string/tasker_locale" />
 
-        <CheckBoxPreference
-            android:key="@string/p_tesla_unread_enabled"
-            android:summary="@string/tesla_unread_description"
-            android:title="@string/tesla_unread" />
-
     </PreferenceCategory>
 
 </PreferenceScreen>

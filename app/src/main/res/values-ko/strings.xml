@@ -326,7 +326,6 @@
 	<string name="back_button_saves_task">뒤로가기 버튼으로 할일 저장</string>
 	<string name="default_list">기본 목록</string>
 	<string name="plugin_description">Tasks는 한 명의 개발자에 의해 유지되고 있는 오픈 소스 프로젝트입니다. 개발을 지속하기 위해 몇몇 기능들은 인앱 결제를 통해 제공되고 있습니다.</string>
-	<string name="tesla_unread_description">기본 목록에 있는 활성화된 할일의 숫자 뱃지를 표시합니다. Nova Launcher용 TeslaUnread가 필요합니다.</string>
 	<string name="themes_purchase_description">모든 테마 잠금 해제 및 색상 추가</string>
 	<string name="tasker_description">컨텍스트 기반의 리스트 알림. Tasker 또는 Locale이 필요합니다.</string>
 	<string name="donate_summary">기부를 해주시면 감사하겠습니다</string>

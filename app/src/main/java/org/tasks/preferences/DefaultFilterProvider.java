@@ -62,6 +62,10 @@ public class DefaultFilterProvider {
         this.gtasksFilterExposer = gtasksFilterExposer;
     }
 
+    public Filter getBadgeFilter() {
+        return getFilterFromPreference(R.string.p_badge_list);
+    }
+
     public Filter getDefaultFilter() {
         return getFilterFromPreference(R.string.p_default_list);
     }
@@ -105,6 +109,14 @@ public class DefaultFilterProvider {
         String filterPreferenceValue = getFilterPreferenceValue(filter);
         if (!Strings.isNullOrEmpty(filterPreferenceValue)) {
             preferences.setString(R.string.p_default_list, filterPreferenceValue);
+        }
+    }
+
+    public void setBadgeFilter(Filter filter) {
+        tracker.reportEvent(Tracking.Events.SET_BADGE_LIST);
+        String filterPreferenceValue = getFilterPreferenceValue(filter);
+        if (!Strings.isNullOrEmpty(filterPreferenceValue)) {
+            preferences.setString(R.string.p_badge_list, filterPreferenceValue);
         }
     }
 
