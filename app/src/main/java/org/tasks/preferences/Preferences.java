@@ -133,9 +133,13 @@ public class Preferences {
 
     public Uri getRingtone() {
         String ringtone = getStringValue(R.string.p_rmd_ringtone);
-        return Strings.isNullOrEmpty(ringtone)
-                ? RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                : Uri.parse(ringtone);
+        if (ringtone == null) {
+            return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        }
+        if ("".equals(ringtone)) {
+            return null;
+        }
+        return Uri.parse(ringtone);
     }
 
     public boolean isTrackingEnabled() {
