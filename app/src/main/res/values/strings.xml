@@ -478,6 +478,7 @@ File %1$s contained %2$s.\n\n
 
     <!-- Reminder: Snooze button (remind again later) -->
     <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="snooze_all">Snooze all</string>
 
     <!-- ============================================= reminder preferences == -->
 

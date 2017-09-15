@@ -15,6 +15,9 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class SnoozeActivity extends InjectingAppCompatActivity implements SnoozeCallback, DialogInterface.OnCancelListener {
@@ -24,12 +27,13 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     private static final int REQUEST_DATE_TIME = 10101;
 
     public static final String EXTRA_TASK_ID = "id";
+    public static final String EXTRA_TASK_IDS = "ids";
     public static final String EXTRA_SNOOZE_TIME = "snooze_time";
 
     @Inject NotificationManager notificationManager;
     @Inject TaskDao taskDao;
 
-    private long taskId;
+    private List<Long> taskIds = new ArrayList<>();
     private boolean pickingDateTime;
 
     @Override
@@ -52,7 +56,12 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     }
 
     private void setup(Intent intent, Bundle savedInstanceState) {
-        taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L);
+        if (intent.hasExtra(EXTRA_TASK_ID)) {
+            taskIds.add(intent.getLongExtra(EXTRA_TASK_ID, 0L));
+        } else if (intent.hasExtra(EXTRA_TASK_IDS)) {
+            //noinspection unchecked
+            taskIds.addAll((ArrayList<Long>) intent.getSerializableExtra(EXTRA_TASK_IDS));
+        }
 
         if (savedInstanceState != null) {
             pickingDateTime = savedInstanceState.getBoolean(EXTRA_PICKING_DATE_TIME, false);
@@ -77,11 +86,13 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
 
     @Override
     public void snoozeForTime(DateTime time) {
-        Task task = new Task();
-        task.setId(taskId);
-        task.setReminderSnooze(time.getMillis());
-        taskDao.save(task);
-        notificationManager.cancel(taskId);
+        for (Long taskId : taskIds) {
+            Task task = new Task();
+            task.setId(taskId);
+            task.setReminderSnooze(time.getMillis());
+            taskDao.save(task);
+        }
+        notificationManager.cancel(taskIds);
         setResult(RESULT_OK);
         finish();
     }

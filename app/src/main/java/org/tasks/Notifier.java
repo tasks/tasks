@@ -22,10 +22,9 @@ import org.tasks.notifications.TelephonyManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.CheckBoxes;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -93,7 +92,6 @@ public class Notifier {
                 .setContentText(filter.listingTitle)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setWhen(currentTimeMillis())
                 .setShowWhen(true)
                 .setColor(checkBoxes.getPriorityColor(maxPriority))
@@ -117,8 +115,6 @@ public class Notifier {
         triggerNotifications(Collections.singletonList(notification), true);
     }
 
-
-
     public void restoreNotifications() {
         triggerNotifications(notificationDao.getAll(), false);
     }
@@ -128,7 +124,7 @@ public class Notifier {
     }
 
     private void triggerNotifications(List<org.tasks.notifications.Notification> entries, boolean alert) {
-        Map<org.tasks.notifications.Notification, NotificationCompat.Builder> notifications = new LinkedHashMap<>();
+        List<org.tasks.notifications.Notification> notifications = new ArrayList<>();
         boolean ringFiveTimes = false;
         boolean ringNonstop = false;
         for (int i = 0 ; i < entries.size() ; i++) {
@@ -143,17 +139,14 @@ public class Notifier {
             }
             NotificationCompat.Builder notification = notificationManager.getTaskNotification(entry);
             if (notification != null) {
-                notification.setGroupAlertBehavior(alert && (preferences.bundleNotifications() ? entries.size() == 1 : i == entries.size() - 1)
-                        ? NotificationCompat.GROUP_ALERT_CHILDREN
-                        : NotificationCompat.GROUP_ALERT_SUMMARY);
-                notifications.put(entry, notification);
+                notifications.add(entry);
             }
         }
 
         if (notifications.isEmpty()) {
             return;
         } else {
-            Timber.d("Triggering %s", notifications.keySet());
+            Timber.d("Triggering %s", notifications);
         }
 
         notificationManager.notifyTasks(notifications, alert, ringNonstop, ringFiveTimes);
@@ -163,9 +156,9 @@ public class Notifier {
                 !ringNonstop &&
                 !audioManager.notificationsMuted() &&
                 telephonyManager.callStateIdle()) {
-            for (NotificationCompat.Builder notification : notifications.values()) {
+            for (org.tasks.notifications.Notification notification : notifications) {
                 AndroidUtilities.sleepDeep(2000);
-                voiceOutputAssistant.speak(notification.build().tickerText.toString());
+                voiceOutputAssistant.speak(notificationManager.getTaskNotification(notification).build().tickerText.toString());
             }
         }
     }

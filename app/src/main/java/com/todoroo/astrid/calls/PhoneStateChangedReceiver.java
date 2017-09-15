@@ -205,7 +205,6 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
                 .setWhen(currentTimeMillis())
                 .setShowWhen(true)
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(PendingIntent.getActivity(context, missedCallDialog.hashCode(), missedCallDialog, PendingIntent.FLAG_UPDATE_CURRENT));
 
         Bitmap contactImage = getContactImage(contactId);

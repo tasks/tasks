@@ -6,9 +6,9 @@ import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 
-import com.google.common.base.Strings;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
@@ -27,7 +27,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static android.content.SharedPreferences.Editor;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 
 public class Preferences {
 
@@ -84,10 +84,6 @@ public class Preferences {
             }
         }
         return time;
-    }
-
-    public boolean isLEDNotificationEnabled() {
-        return getBoolean(R.string.p_led_notification, true);
     }
 
     public boolean quietHoursEnabled() {
@@ -407,8 +403,15 @@ public class Preferences {
         return directory;
     }
 
-    public boolean isVibrationEnabled() {
-        return getBoolean(R.string.p_rmd_vibrate, true);
+    public int getNotificationDefaults() {
+        int result = 0;
+        if (getBoolean(R.string.p_rmd_vibrate, true)) {
+            result |= NotificationCompat.DEFAULT_VIBRATE;
+        }
+        if (getBoolean(R.string.p_led_notification, true)) {
+            result |= NotificationCompat.DEFAULT_LIGHTS;
+        }
+        return result;
     }
 
     public void remove(int resId) {
@@ -418,6 +421,10 @@ public class Preferences {
     }
 
     public boolean bundleNotifications() {
-        return getBoolean(R.string.p_bundle_notifications, true);
+        return atLeastJellybean() && getBoolean(R.string.p_bundle_notifications, true);
+    }
+
+    public boolean usePersistentReminders() {
+        return getBoolean(R.string.p_rmd_persistent, true);
     }
 }

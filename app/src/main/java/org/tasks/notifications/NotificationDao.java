@@ -25,7 +25,7 @@ public interface NotificationDao {
     int delete(long taskId);
 
     @Query("DELETE FROM notification WHERE task IN(:taskIds)")
-    void deleteAll(List<Long> taskIds);
+    int deleteAll(List<Long> taskIds);
 
     @Query("SELECT MAX(timestamp) FROM notification")
     long latestTimestamp();
