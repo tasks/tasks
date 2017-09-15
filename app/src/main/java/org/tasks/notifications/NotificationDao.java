@@ -7,8 +7,6 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import io.reactivex.Single;
-
 @Dao
 public interface NotificationDao {
     @Query("SELECT * FROM notification")
@@ -24,7 +22,7 @@ public interface NotificationDao {
     int count();
 
     @Query("DELETE FROM notification WHERE task = :taskId")
-    void delete(long taskId);
+    int delete(long taskId);
 
     @Query("SELECT MAX(timestamp) FROM notification")
     long latestTimestamp();

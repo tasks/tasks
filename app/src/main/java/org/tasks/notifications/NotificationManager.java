@@ -8,18 +8,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.text.TextUtils;
 
+import com.google.common.base.Strings;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.Preferences;
+import org.tasks.receivers.CompleteTaskReceiver;
+import org.tasks.reminders.NotificationActivity;
+import org.tasks.reminders.SnoozeActivity;
+import org.tasks.reminders.SnoozeDialog;
+import org.tasks.reminders.SnoozeOption;
 import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
@@ -31,10 +41,14 @@ import javax.inject.Inject;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
+import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
 @ApplicationScope
@@ -48,7 +62,7 @@ public class NotificationManager {
     private static final int SUMMARY_NOTIFICATION_ID = 0;
     static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
 
-    private final android.app.NotificationManager notificationManager;
+    private final NotificationManagerCompat notificationManagerCompat;
     private final NotificationDao notificationDao;
     private final TaskDao taskDao;
     private final Context context;
@@ -63,9 +77,10 @@ public class NotificationManager {
         this.notificationDao = notificationDao;
         this.taskDao = taskDao;
         this.checkBoxes = checkBoxes;
-        notificationManager = (android.app.NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManagerCompat = NotificationManagerCompat.from(context);
         if (atLeastOreo()) {
+            android.app.NotificationManager notificationManager = (android.app.NotificationManager)
+                    context.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_CALLS, R.string.missed_calls));
             notificationManager.createNotificationChannel(createNotificationChannel(NOTIFICATION_CHANNEL_TASKER, R.string.tasker_locale));
@@ -86,10 +101,20 @@ public class NotificationManager {
     }
 
     public void cancel(long id) {
-        notificationManager.cancel((int) id);
+        notificationManagerCompat.cancel((int) id);
         Completable.fromAction(() -> {
-            notificationDao.delete(id);
-            updateSummary(false, false, false);
+            if (notificationDao.delete(id) > 0) {
+                if (notificationDao.count() == 1) {
+                    List<org.tasks.notifications.Notification> notifications = notificationDao.getAll();
+                    org.tasks.notifications.Notification notification = notifications.get(0);
+                    NotificationCompat.Builder builder = getTaskNotification(notification)
+                            .setGroup(null)
+                            .setOnlyAlertOnce(true)
+                            .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
+                    notify(notification.taskId, builder, false, false, false);
+                }
+                updateSummary(false, false, false);
+            }
         })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -97,6 +122,15 @@ public class NotificationManager {
     }
 
     public void notifyTasks(Map<org.tasks.notifications.Notification, NotificationCompat.Builder> notifications, boolean alert, boolean nonstop, boolean fiveTimes) {
+        List<org.tasks.notifications.Notification> existing = notificationDao.getAll();
+        if (existing.size() == 1) {
+            org.tasks.notifications.Notification notification = existing.get(0);
+            NotificationCompat.Builder builder = getTaskNotification(notification)
+                    .setGroup(GROUP_KEY)
+                    .setOnlyAlertOnce(true)
+                    .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
+            notify(notification.taskId, builder, false, false, false);
+        }
         notificationDao.insertAll(newArrayList(notifications.keySet()));
         updateSummary(alert && notifications.size() > 1, nonstop, fiveTimes);
         ArrayList<Map.Entry<org.tasks.notifications.Notification, NotificationCompat.Builder>> entries = newArrayList(notifications.entrySet());
@@ -143,7 +177,7 @@ public class NotificationManager {
             deleteIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
             notification.deleteIntent = PendingIntent.getBroadcast(context, (int) notificationId, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             for (int i = 0 ; i < ringTimes ; i++) {
-                notificationManager.notify((int) notificationId, notification);
+                notificationManagerCompat.notify((int) notificationId, notification);
             }
         }
     }
@@ -151,8 +185,8 @@ public class NotificationManager {
     private void updateSummary(boolean notify, boolean nonStop, boolean fiveTimes) {
         if (preferences.bundleNotifications()) {
             int taskCount = notificationDao.count();
-            if (taskCount == 0) {
-                notificationManager.cancel(SUMMARY_NOTIFICATION_ID);
+            if (taskCount <= 1) {
+                notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
             } else {
                 List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
                 Iterable<Long> notificationIds = transform(notifications, n -> n.taskId);
@@ -197,8 +231,107 @@ public class NotificationManager {
                 notify(NotificationManager.SUMMARY_NOTIFICATION_ID, builder, notify, nonStop, fiveTimes);
             }
         } else {
-            notificationManager.cancel(NotificationManager.SUMMARY_NOTIFICATION_ID);
+            notificationManagerCompat.cancel(NotificationManager.SUMMARY_NOTIFICATION_ID);
         }
     }
 
+    public NotificationCompat.Builder getTaskNotification(org.tasks.notifications.Notification notification) {
+        long id = notification.taskId;
+        int type = notification.type;
+        long when = notification.timestamp;
+        Task task = taskDao.fetch(id);
+        if (task == null) {
+            Timber.e("Could not find %s", id);
+            return null;
+        }
+
+        // you're done, or not yours - don't sound, do delete
+        if (task.isCompleted() || task.isDeleted()) {
+            return null;
+        }
+
+        // new task edit in progress
+        if (TextUtils.isEmpty(task.getTitle())) {
+            return null;
+        }
+
+        // it's hidden - don't sound, don't delete
+        if (task.isHidden() && type == ReminderService.TYPE_RANDOM) {
+            return null;
+        }
+
+        // task due date was changed, but alarm wasn't rescheduled
+        boolean dueInFuture = task.hasDueTime() && task.getDueDate() > DateUtilities.now() ||
+                !task.hasDueTime() && task.getDueDate() - DateUtilities.now() > DateUtilities.ONE_DAY;
+        if ((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) &&
+                (!task.hasDueDate() || dueInFuture)) {
+            return null;
+        }
+
+        // read properties
+        final String taskTitle = task.getTitle();
+        final String taskDescription = task.getNotes();
+
+        // update last reminder time
+        task.setReminderLast(when);
+        taskDao.saveExisting(task);
+
+        final String appName = context.getString(R.string.app_name);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                .setTicker(taskTitle)
+                .setContentTitle(taskTitle)
+                .setContentText(appName)
+                .setGroup(GROUP_KEY)
+                .setSmallIcon(R.drawable.ic_check_white_24dp)
+                .setWhen(when)
+                .setShowWhen(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        if (atLeastJellybean()) {
+            builder.setContentIntent(PendingIntent.getActivity(context, (int) id, TaskIntents.getEditTaskIntent(context, null, id), PendingIntent.FLAG_UPDATE_CURRENT));
+        } else {
+            final Intent intent = new Intent(context, NotificationActivity.class);
+            intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
+            intent.setAction("NOTIFY" + id); //$NON-NLS-1$
+            intent.putExtra(NotificationActivity.EXTRA_TASK_ID, id);
+            intent.putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
+            builder.setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
+        }
+
+        if (!Strings.isNullOrEmpty(taskDescription)) {
+            builder.setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
+        }
+        Intent completeIntent = new Intent(context, CompleteTaskReceiver.class);
+        completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id);
+        PendingIntent completePendingIntent = PendingIntent.getBroadcast(context, (int) id, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Action completeAction = new NotificationCompat.Action.Builder(
+                R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done), completePendingIntent).build();
+
+        Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
+        snoozeIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+        snoozeIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
+        PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, (int) id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
+        wearableExtender.addAction(completeAction);
+        for (final SnoozeOption snoozeOption : SnoozeDialog.getSnoozeOptions(preferences)) {
+            final long timestamp = snoozeOption.getDateTime().getMillis();
+            Intent wearableIntent = new Intent(context, SnoozeActivity.class);
+            wearableIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            wearableIntent.setAction(String.format("snooze-%s-%s", id, timestamp));
+            wearableIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
+            wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp);
+            PendingIntent wearablePendingIntent = PendingIntent.getActivity(context, (int) id, wearableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            wearableExtender.addAction(new NotificationCompat.Action.Builder(
+                    R.drawable.ic_snooze_white_24dp, context.getString(snoozeOption.getResId()), wearablePendingIntent)
+                    .build());
+        }
+
+        return builder.addAction(completeAction)
+                .addAction(R.drawable.ic_snooze_white_24dp, context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent)
+                .extend(wearableExtender);
+    }
 }
