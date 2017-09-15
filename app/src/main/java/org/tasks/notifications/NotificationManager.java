@@ -45,9 +45,9 @@ import timber.log.Timber;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 
@@ -103,7 +103,13 @@ public class NotificationManager {
     public void cancel(long id) {
         notificationManagerCompat.cancel((int) id);
         Completable.fromAction(() -> {
-            if (notificationDao.delete(id) > 0) {
+            if (id == SUMMARY_NOTIFICATION_ID) {
+                List<Long> tasks = transform(notificationDao.getAll(), n -> n.taskId);
+                for (Long task : tasks) {
+                    notificationManagerCompat.cancel(task.intValue());
+                }
+                notificationDao.deleteAll(tasks);
+            } else if (notificationDao.delete(id) > 0) {
                 if (notificationDao.count() == 1) {
                     List<org.tasks.notifications.Notification> notifications = notificationDao.getAll();
                     org.tasks.notifications.Notification notification = notifications.get(0);
@@ -189,7 +195,7 @@ public class NotificationManager {
                 notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
             } else {
                 List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
-                Iterable<Long> notificationIds = transform(notifications, n -> n.taskId);
+                List<Long> notificationIds = transform(notifications, n -> n.taskId);
                 QueryTemplate query = new QueryTemplate().where(Task.ID.in(notificationIds));
                 Filter filter = new Filter(context.getString(R.string.notifications), query);
                 List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES)

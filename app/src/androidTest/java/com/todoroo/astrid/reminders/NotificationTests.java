@@ -5,9 +5,9 @@
  */
 package com.todoroo.astrid.reminders;
 
-import android.app.Notification;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v4.app.NotificationCompat;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -93,7 +93,7 @@ public class NotificationTests extends DatabaseTestCase {
 
         notifier.triggerTaskNotification(task.getId(), ReminderService.TYPE_DUE);
 
-        verify(notificationManager).notify(eq((int) task.getId()), any(Notification.class), true, false, false);
+        verify(notificationManager).notify(eq((int) task.getId()), any(NotificationCompat.Builder.class), true, false, false);
     }
 
     @Test
