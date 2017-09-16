@@ -8,11 +8,11 @@ import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.reminders.ReminderService;
 
-import org.tasks.Notifier;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.jobs.JobManager;
 import org.tasks.jobs.JobQueue;
+import org.tasks.notifications.NotificationManager;
 
 import javax.inject.Inject;
 
@@ -28,7 +28,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
     @Inject ReminderService reminderService;
     @Inject TaskDao taskDao;
     @Inject JobQueue jobQueue;
-    @Inject Notifier notifier;
+    @Inject NotificationManager notificationManager;
 
     @Override
     protected void onHandleWork(Intent intent) {
@@ -38,7 +38,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
 
         jobQueue.clear();
 
-        notifier.restoreNotifications();
+        notificationManager.restoreNotifications();
         reminderService.scheduleAllAlarms(taskDao);
         alarmService.scheduleAllAlarms();
     }

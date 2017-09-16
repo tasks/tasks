@@ -16,7 +16,6 @@ import com.todoroo.astrid.voice.VoiceOutputAssistant;
 import org.tasks.injection.ForApplication;
 import org.tasks.jobs.JobQueueEntry;
 import org.tasks.notifications.AudioManager;
-import org.tasks.notifications.NotificationDao;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.notifications.TelephonyManager;
 import org.tasks.preferences.Preferences;
@@ -44,14 +43,13 @@ public class Notifier {
     private final AudioManager audioManager;
     private final VoiceOutputAssistant voiceOutputAssistant;
     private final Preferences preferences;
-    private final NotificationDao notificationDao;
     private final CheckBoxes checkBoxes;
 
     @Inject
     public Notifier(@ForApplication Context context, TaskDao taskDao,
                     NotificationManager notificationManager, TelephonyManager telephonyManager,
                     AudioManager audioManager, VoiceOutputAssistant voiceOutputAssistant,
-                    Preferences preferences, NotificationDao notificationDao, CheckBoxes checkBoxes) {
+                    Preferences preferences, CheckBoxes checkBoxes) {
         this.context = context;
         this.taskDao = taskDao;
         this.notificationManager = notificationManager;
@@ -59,7 +57,6 @@ public class Notifier {
         this.audioManager = audioManager;
         this.voiceOutputAssistant = voiceOutputAssistant;
         this.preferences = preferences;
-        this.notificationDao = notificationDao;
         this.checkBoxes = checkBoxes;
     }
 
@@ -113,10 +110,6 @@ public class Notifier {
         notification.type = type;
         notification.timestamp = currentTimeMillis();
         triggerNotifications(Collections.singletonList(notification), true);
-    }
-
-    public void restoreNotifications() {
-        triggerNotifications(notificationDao.getAll(), false);
     }
 
     public void triggerTaskNotifications(List<? extends JobQueueEntry> entries) {

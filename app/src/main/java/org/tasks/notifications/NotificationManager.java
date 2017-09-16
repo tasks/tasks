@@ -131,6 +131,15 @@ public class NotificationManager {
                 .subscribe();
     }
 
+    public void restoreNotifications() {
+        List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
+        for (org.tasks.notifications.Notification notification : notifications) {
+            notificationManagerCompat.cancel(notification.taskId.intValue());
+        }
+        notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
+        notifyTasks(notifications, false, false, false);
+    }
+
     public void notifyTasks(List<org.tasks.notifications.Notification> newNotifications, boolean alert, boolean nonstop, boolean fiveTimes) {
         notificationDao.insertAll(newNotifications);
         List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
@@ -173,11 +182,12 @@ public class NotificationManager {
             for (org.tasks.notifications.Notification notification : newNotifications) {
                 NotificationCompat.Builder builder = getTaskNotification(notification);
                 if (builder != null) {
+                    builder.setGroup(GROUP_KEY)
+                            .setGroupAlertBehavior(alert ? NotificationCompat.GROUP_ALERT_CHILDREN : NotificationCompat.GROUP_ALERT_SUMMARY);
                     notify(notification.taskId, builder, alert, nonstop, fiveTimes);
                     alert = false;
                 }
             }
-            notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
         }
     }
 
