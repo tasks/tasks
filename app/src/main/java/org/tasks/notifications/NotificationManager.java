@@ -122,6 +122,9 @@ public class NotificationManager {
 
     public void cancel(List<Long> ids) {
         Completable.fromAction(() -> {
+            for (Long id : ids) {
+                notificationManagerCompat.cancel(id.intValue());
+            }
             if (notificationDao.deleteAll(ids) > 0) {
                 notifyTasks(Collections.emptyList(), false, false, false);
             }
