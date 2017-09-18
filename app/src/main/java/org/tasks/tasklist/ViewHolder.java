@@ -42,6 +42,7 @@ import butterknife.OnLongClick;
 import timber.log.Timber;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 class ViewHolder extends MultiSelectorBindingHolder {
@@ -151,7 +152,12 @@ class ViewHolder extends MultiSelectorBindingHolder {
             nameView.setEllipsize(null);
         }
 
-        rowBody.setPadding(0, rowPadding, 0, rowPadding);
+        if (atLeastKitKat()) {
+            rowBody.setPadding(0, rowPadding, 0, rowPadding);
+        } else {
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) rowBody.getLayoutParams();
+            layoutParams.setMargins(layoutParams.leftMargin, rowPadding, layoutParams.rightMargin, rowPadding);
+        }
 
         nameView.setTextSize(fontSize);
         int fontSizeDetails = Math.max(10, fontSize - 2);
