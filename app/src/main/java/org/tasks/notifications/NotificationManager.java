@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -45,12 +46,12 @@ import timber.log.Timber;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastNougat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
-import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 @ApplicationScope
 public class NotificationManager {
@@ -143,12 +144,14 @@ public class NotificationManager {
     }
 
     public void notifyTasks(List<org.tasks.notifications.Notification> newNotifications, boolean alert, boolean nonstop, boolean fiveTimes) {
+        List<org.tasks.notifications.Notification> existingNotifications = notificationDao.getAllOrdered();
         notificationDao.insertAll(newNotifications);
-        List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
-        int totalCount = notifications.size();
+        int totalCount = existingNotifications.size() + newNotifications.size();
         if (totalCount == 0) {
             notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
         } else if (totalCount == 1) {
+            List<org.tasks.notifications.Notification> notifications =
+                    newArrayList(concat(existingNotifications, newNotifications));
             org.tasks.notifications.Notification notification = notifications.get(0);
             NotificationCompat.Builder builder = getTaskNotification(notification);
             if (builder != null) {
@@ -156,29 +159,35 @@ public class NotificationManager {
             }
             notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
         } else if (preferences.bundleNotifications()) {
-            updateSummary(false, false, false);
+            updateSummary(false, false, false, Collections.emptyList());
 
-            for (org.tasks.notifications.Notification notification : notifications) {
-                NotificationCompat.Builder builder = getTaskNotification(notification);
-                if (builder != null) {
-                    builder.setGroup(GROUP_KEY)
-                            .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY)
-                            .setPriority(NotificationCompat.PRIORITY_MIN);
-                    notify(notification.taskId, builder, false, false, false);
-                }
+            if (existingNotifications.size() == 1) {
+                org.tasks.notifications.Notification notification = existingNotifications.get(0);
+                NotificationCompat.Builder builder = getTaskNotification(notification)
+                        .setGroup(GROUP_KEY)
+                        .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
+                notify(notification.taskId, builder, false, false, false);
             }
 
-            if (newNotifications.size() == 1) {
+            if (atLeastNougat() && newNotifications.size() == 1) {
                 org.tasks.notifications.Notification notification = newNotifications.get(0);
                 NotificationCompat.Builder builder = getTaskNotification(notification);
                 if (builder != null) {
                     builder.setGroup(GROUP_KEY)
-                            .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
-                            .setPriority(NotificationCompat.PRIORITY_HIGH);
+                            .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
                     notify(notification.taskId, builder, alert, nonstop, fiveTimes);
                 }
             } else {
-                updateSummary(alert, nonstop, fiveTimes);
+                for (org.tasks.notifications.Notification notification : newNotifications) {
+                    NotificationCompat.Builder builder = getTaskNotification(notification);
+                    if (builder != null) {
+                        builder.setGroup(GROUP_KEY)
+                                .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
+                        notify(notification.taskId, builder, false, false, false);
+                    }
+                }
+
+                updateSummary(alert, nonstop, fiveTimes, newNotifications);
             }
         } else {
             for (org.tasks.notifications.Notification notification : newNotifications) {
@@ -201,7 +210,6 @@ public class NotificationManager {
         builder.setOngoing(preferences.usePersistentReminders());
         if (alert) {
             builder.setSound(preferences.getRingtone())
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setDefaults(preferences.getNotificationDefaults());
         } else {
             builder.setDefaults(0)
@@ -220,11 +228,7 @@ public class NotificationManager {
         }
     }
 
-    private void updateSummary(boolean notify, boolean nonStop, boolean fiveTimes) {
-        if (!preferences.bundleNotifications()) {
-            return;
-        }
-
+    private void updateSummary(boolean notify, boolean nonStop, boolean fiveTimes, List<org.tasks.notifications.Notification> newNotifications) {
         List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
         int taskCount = notifications.size();
         ArrayList<Long> taskIds = newArrayList(transform(notifications, n -> n.taskId));
@@ -237,32 +241,40 @@ public class NotificationManager {
         String summaryTitle = context.getString(R.string.task_count, taskCount);
         NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
                 .setBigContentTitle(summaryTitle);
+        List<String> titles = newArrayList();
+        List<String> ticker = newArrayList();
         for (org.tasks.notifications.Notification notification : notifications) {
             Task task = tryFind(tasks, t -> t.getId() == notification.taskId).orNull();
             if (task == null) {
                 continue;
             }
-            style.addLine(task.getTitle());
+            String title = task.getTitle();
+            style.addLine(title);
+            titles.add(title);
             maxPriority = Math.min(maxPriority, task.getImportance());
+        }
+        for (org.tasks.notifications.Notification notification : newNotifications) {
+            Task task = tryFind(tasks, t -> t.getId() == notification.taskId).orNull();
+            if (task == null) {
+                continue;
+            }
+            ticker.add(task.getTitle());
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                 .setContentTitle(summaryTitle)
-                .setContentText(context.getString(R.string.app_name))
+                .setContentText(Joiner.on(", ").join(titles))
                 .setShowWhen(true)
                 .setWhen(when)
                 .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                 .setStyle(style)
                 .setColor(checkBoxes.getPriorityColor(maxPriority))
-                .setNumber(taskCount)
                 .setOnlyAlertOnce(false)
                 .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, filter), PendingIntent.FLAG_UPDATE_CURRENT))
                 .setGroupSummary(true)
                 .setGroup(GROUP_KEY)
+                .setTicker(Joiner.on(", ").join(ticker))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setGroupAlertBehavior(notify ? NotificationCompat.GROUP_ALERT_SUMMARY : NotificationCompat.GROUP_ALERT_CHILDREN);
-
-        if (preLollipop()) {
-            builder.setTicker(summaryTitle);
-        }
 
         Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
         snoozeIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -324,11 +336,8 @@ public class NotificationManager {
                 .setSmallIcon(R.drawable.ic_check_white_24dp)
                 .setWhen(when)
                 .setOnlyAlertOnce(false)
-                .setShowWhen(true);
-
-        if (preLollipop()) {
-            builder.setTicker(taskTitle);
-        }
+                .setShowWhen(true)
+                .setTicker(taskTitle);
 
         final Intent intent = new Intent(context, NotificationActivity.class);
         intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
