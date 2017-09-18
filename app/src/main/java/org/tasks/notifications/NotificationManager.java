@@ -45,7 +45,6 @@ import timber.log.Timber;
 
 import static android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static com.google.common.collect.Iterables.isEmpty;
 import static com.google.common.collect.Iterables.tryFind;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
@@ -331,16 +330,12 @@ public class NotificationManager {
             builder.setTicker(taskTitle);
         }
 
-        if (atLeastJellybean()) {
-            builder.setContentIntent(PendingIntent.getActivity(context, (int) id, TaskIntents.getEditTaskIntent(context, null, id), PendingIntent.FLAG_UPDATE_CURRENT));
-        } else {
-            final Intent intent = new Intent(context, NotificationActivity.class);
-            intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-            intent.setAction("NOTIFY" + id); //$NON-NLS-1$
-            intent.putExtra(NotificationActivity.EXTRA_TASK_ID, id);
-            intent.putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
-            builder.setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
-        }
+        final Intent intent = new Intent(context, NotificationActivity.class);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
+        intent.setAction("NOTIFY" + id); //$NON-NLS-1$
+        intent.putExtra(NotificationActivity.EXTRA_TASK_ID, id);
+        intent.putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
+        builder.setContentIntent(PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         if (!Strings.isNullOrEmpty(taskDescription)) {
             builder.setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
