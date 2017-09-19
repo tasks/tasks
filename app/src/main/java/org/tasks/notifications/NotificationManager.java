@@ -163,10 +163,12 @@ public class NotificationManager {
 
             if (existingNotifications.size() == 1) {
                 org.tasks.notifications.Notification notification = existingNotifications.get(0);
-                NotificationCompat.Builder builder = getTaskNotification(notification)
-                        .setGroup(GROUP_KEY)
-                        .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
-                notify(notification.taskId, builder, false, false, false);
+                NotificationCompat.Builder builder = getTaskNotification(notification);
+                if (builder != null) {
+                    builder.setGroup(GROUP_KEY)
+                            .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
+                    notify(notification.taskId, builder, false, false, false);
+                }
             }
 
             if (atLeastNougat() && newNotifications.size() == 1) {
