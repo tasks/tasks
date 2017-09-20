@@ -139,8 +139,14 @@ public class NotificationManager {
         for (org.tasks.notifications.Notification notification : notifications) {
             notificationManagerCompat.cancel(notification.taskId.intValue());
         }
-        notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
-        notifyTasks(notifications, false, false, false);
+
+        if (preferences.bundleNotifications() && notifications.size() > 1) {
+            updateSummary(false, false, false, Collections.emptyList());
+        } else {
+            notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
+        }
+
+        createNotifications(notifications, false, false, false, true);
     }
 
     public void notifyTasks(List<org.tasks.notifications.Notification> newNotifications, boolean alert, boolean nonstop, boolean fiveTimes) {
@@ -152,54 +158,36 @@ public class NotificationManager {
         } else if (totalCount == 1) {
             List<org.tasks.notifications.Notification> notifications =
                     newArrayList(concat(existingNotifications, newNotifications));
-            org.tasks.notifications.Notification notification = notifications.get(0);
-            NotificationCompat.Builder builder = getTaskNotification(notification);
-            if (builder != null) {
-                notify(notification.taskId, builder, alert, nonstop, fiveTimes);
-            }
+            createNotifications(notifications, alert, nonstop, fiveTimes, false);
             notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
         } else if (preferences.bundleNotifications()) {
             updateSummary(false, false, false, Collections.emptyList());
 
             if (existingNotifications.size() == 1) {
-                org.tasks.notifications.Notification notification = existingNotifications.get(0);
-                NotificationCompat.Builder builder = getTaskNotification(notification);
-                if (builder != null) {
-                    builder.setGroup(GROUP_KEY)
-                            .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
-                    notify(notification.taskId, builder, false, false, false);
-                }
+                createNotifications(existingNotifications, false, false, false, true);
             }
 
             if (atLeastNougat() && newNotifications.size() == 1) {
-                org.tasks.notifications.Notification notification = newNotifications.get(0);
-                NotificationCompat.Builder builder = getTaskNotification(notification);
-                if (builder != null) {
-                    builder.setGroup(GROUP_KEY)
-                            .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN);
-                    notify(notification.taskId, builder, alert, nonstop, fiveTimes);
-                }
+                createNotifications(newNotifications, alert, nonstop, fiveTimes, true);
             } else {
-                for (org.tasks.notifications.Notification notification : newNotifications) {
-                    NotificationCompat.Builder builder = getTaskNotification(notification);
-                    if (builder != null) {
-                        builder.setGroup(GROUP_KEY)
-                                .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_SUMMARY);
-                        notify(notification.taskId, builder, false, false, false);
-                    }
-                }
-
+                createNotifications(newNotifications, false, false, false, true);
                 updateSummary(alert, nonstop, fiveTimes, newNotifications);
             }
         } else {
-            for (org.tasks.notifications.Notification notification : newNotifications) {
-                NotificationCompat.Builder builder = getTaskNotification(notification);
-                if (builder != null) {
-                    builder.setGroup(GROUP_KEY)
-                            .setGroupAlertBehavior(alert ? NotificationCompat.GROUP_ALERT_CHILDREN : NotificationCompat.GROUP_ALERT_SUMMARY);
-                    notify(notification.taskId, builder, alert, nonstop, fiveTimes);
-                    alert = false;
-                }
+            createNotifications(newNotifications, alert, nonstop, fiveTimes, false);
+        }
+    }
+
+    private void createNotifications(List<org.tasks.notifications.Notification> notifications, boolean alert, boolean nonstop, boolean fiveTimes, boolean useGroupKey) {
+        for (org.tasks.notifications.Notification notification : notifications) {
+            NotificationCompat.Builder builder = getTaskNotification(notification);
+            if (builder == null) {
+                notificationDao.delete(notification.taskId);
+            } else {
+                builder.setGroup(useGroupKey ? GROUP_KEY : notification.taskId.toString())
+                        .setGroupAlertBehavior(alert ? NotificationCompat.GROUP_ALERT_CHILDREN : NotificationCompat.GROUP_ALERT_SUMMARY);
+                notify(notification.taskId, builder, alert, nonstop, fiveTimes);
+                alert = false;
             }
         }
     }
@@ -209,9 +197,9 @@ public class NotificationManager {
             return;
         }
         int ringTimes = fiveTimes ? 5 : 1;
-        builder.setOngoing(preferences.usePersistentReminders());
         if (alert) {
             builder.setSound(preferences.getRingtone())
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setDefaults(preferences.getNotificationDefaults());
         } else {
             builder.setDefaults(0)
@@ -221,6 +209,9 @@ public class NotificationManager {
         if (alert && nonstop) {
             notification.flags |= Notification.FLAG_INSISTENT;
             ringTimes = 1;
+        }
+        if (preferences.usePersistentReminders()) {
+            notification.flags |= Notification.FLAG_NO_CLEAR;
         }
         Intent deleteIntent = new Intent(context, NotificationClearedReceiver.class);
         deleteIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
