@@ -31,6 +31,7 @@ import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.reminders.SnoozeDialog;
 import org.tasks.reminders.SnoozeOption;
+import org.tasks.time.DateTime;
 import org.tasks.ui.CheckBoxes;
 
 import java.util.ArrayList;
@@ -318,7 +319,7 @@ public class NotificationManager {
         final String taskDescription = task.getNotes();
 
         // update last reminder time
-        task.setReminderLast(when);
+        task.setReminderLast(new DateTime(when).endOfMinute().getMillis());
         taskDao.saveExisting(task);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)

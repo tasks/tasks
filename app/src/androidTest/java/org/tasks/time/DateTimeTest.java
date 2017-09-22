@@ -327,4 +327,11 @@ public class DateTimeTest {
                 new DateTime(2017, 9, 3, 0, 51, 0, 0),
                 new DateTime(2017, 9, 3, 0, 51, 13, 427).startOfMinute());
     }
+
+    @Test
+    public void testEndOfMinute() {
+        assertEquals(
+                new DateTime(2017, 9, 22, 14, 47, 59, 999),
+                new DateTime(2017, 9, 22, 14, 47, 14, 453).endOfMinute());
+    }
 }
