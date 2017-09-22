@@ -20,6 +20,7 @@ import org.tasks.injection.ForApplication;
 import org.tasks.time.DateTime;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
@@ -88,6 +89,10 @@ public class Preferences {
 
     public boolean quietHoursEnabled() {
         return getBoolean(R.string.p_rmd_enable_quiet, false);
+    }
+
+    public int getDefaultDueTime() {
+        return getInt(R.string.p_rmd_time, (int) TimeUnit.HOURS.toMillis(18));
     }
 
     public int getQuietHoursStart() {

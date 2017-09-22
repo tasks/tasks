@@ -13,7 +13,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 
-import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.JobQueue;
 import org.tasks.jobs.Reminder;
@@ -22,8 +21,6 @@ import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
-
-import static org.tasks.date.DateTimeUtils.newDateTime;
 
 @ApplicationScope
 public final class ReminderService  {
@@ -73,20 +70,11 @@ public final class ReminderService  {
         this.random = random;
     }
 
-    private static final int MILLIS_PER_HOUR = 60 * 60 * 1000;
-
     public void scheduleAllAlarms(TaskDao taskDao) {
-        now = DateUtilities.now(); // Before mass scheduling, initialize now variable
         Query query = Query.select(NOTIFICATION_PROPERTIES).where(Criterion.and(
                 TaskCriteria.isActive(),
                 Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0))));
         taskDao.forEach(query, task -> scheduleAlarm(null, task));
-        now = -1; // Signal done with now variable
-    }
-
-    private long getNowValue() {
-        // If we're in the midst of mass scheduling, use the prestored now var
-        return (now == -1 ? DateUtilities.now() : now);
     }
 
     public void scheduleAlarm(TaskDao taskDao, Task task) {
@@ -128,14 +116,6 @@ public final class ReminderService  {
         // notifications after due date
         long whenOverdue = calculateNextOverdueReminder(task);
 
-        if (whenDueDate <= now) {
-            whenDueDate = now;
-        }
-
-        if (whenOverdue <= now) {
-            whenOverdue = now;
-        }
-
         // if random reminders are too close to due date, favor due date
         if(whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY) {
             whenRandom = NO_ALARM;
@@ -160,41 +140,27 @@ public final class ReminderService  {
         return NO_ALARM;
     }
 
-    /**
-     * Calculate the next alarm time for overdue reminders.
-     * <p>
-     * We schedule an alarm for after the due date (which could be in the past),
-     * with the exception that if a reminder was recently issued, we move
-     * the alarm time to the near future.
-     */
     private long calculateNextOverdueReminder(Task task) {
      // Uses getNowValue() instead of DateUtilities.now()
         if(task.hasDueDate() && task.isNotifyAfterDeadline()) {
-            DateTime due = newDateTime(task.getDueDate());
+            DateTime overdueDate = new DateTime(task.getDueDate()).plusDays(1);
             if (!task.hasDueTime()) {
-                due = due
-                        .withHourOfDay(23)
-                        .withMinuteOfHour(59)
-                        .withSecondOfMinute(59);
-            }
-            long dueDateForOverdue = due.getMillis();
-            long lastReminder = task.getReminderLast();
-
-            if(dueDateForOverdue > getNowValue()) {
-                return dueDateForOverdue + (long) ((0.5f + 2f * random.nextFloat()) * DateUtilities.ONE_HOUR);
+                overdueDate = overdueDate
+                        .withMillisOfDay(preferences.getDefaultDueTime());
             }
 
-            if(lastReminder < dueDateForOverdue) {
-                return getNowValue();
+            DateTime lastReminder = new DateTime(task.getReminderLast());
+
+            if (overdueDate.isAfter(lastReminder)) {
+                return overdueDate.getMillis();
             }
 
-            if(getNowValue() - lastReminder < 6 * DateUtilities.ONE_HOUR) {
-                return getNowValue() + (long) ((2.0f +
-                        task.getImportance() +
-                        6f * random.nextFloat()) * DateUtilities.ONE_HOUR);
-            }
+            overdueDate = lastReminder
+                    .withMillisOfDay(overdueDate.getMillisOfDay());
 
-            return getNowValue();
+            return overdueDate.isAfter(lastReminder)
+                    ? overdueDate.getMillis()
+                    : overdueDate.plusDays(1).getMillis();
         }
         return NO_ALARM;
     }
@@ -220,7 +186,7 @@ public final class ReminderService  {
                 dueDateAlarm = dueDate;
             } else {
                 dueDateAlarm = new DateTime(dueDate)
-                        .withMillisOfDay(preferences.getInt(R.string.p_rmd_time, 18 * MILLIS_PER_HOUR))
+                        .withMillisOfDay(preferences.getDefaultDueTime())
                         .getMillis();
             }
 

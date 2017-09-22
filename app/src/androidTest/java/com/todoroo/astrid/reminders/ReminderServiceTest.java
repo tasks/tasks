@@ -6,10 +6,10 @@ import com.todoroo.astrid.data.Task;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.tasks.R;
 import org.tasks.Snippet;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
@@ -18,6 +18,8 @@ import org.tasks.jobs.Reminder;
 import org.tasks.preferences.Preferences;
 import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -39,13 +41,11 @@ import static org.tasks.makers.TaskMaker.DELETION_TIME;
 import static org.tasks.makers.TaskMaker.DUE_DATE;
 import static org.tasks.makers.TaskMaker.DUE_TIME;
 import static org.tasks.makers.TaskMaker.ID;
-import static org.tasks.makers.TaskMaker.PRIORITY;
 import static org.tasks.makers.TaskMaker.RANDOM_REMINDER_PERIOD;
 import static org.tasks.makers.TaskMaker.REMINDERS;
 import static org.tasks.makers.TaskMaker.REMINDER_LAST;
 import static org.tasks.makers.TaskMaker.SNOOZE_TIME;
 import static org.tasks.makers.TaskMaker.newTask;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @RunWith(AndroidJUnit4.class)
 public class ReminderServiceTest extends InjectingTestCase {
@@ -61,6 +61,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         jobs = mock(JobQueue.class);
         random = mock(Random.class);
         when(random.nextFloat()).thenReturn(1.0f);
+        preferences.reset();
         service = new ReminderService(preferences, jobs, random);
     }
 
@@ -121,6 +122,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(ID, 1L),
                 with(DUE_DATE, now),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
+
         service.scheduleAlarm(null, task);
 
         InOrder order = inOrder(jobs);
@@ -257,73 +259,94 @@ public class ReminderServiceTest extends InjectingTestCase {
     }
 
     @Test
-    public void scheduleOverdueForFutureDueDate() {
-        freezeClock().thawAfter(new Snippet() {{
-            when(random.nextFloat()).thenReturn(0.3865f);
-            Task task = newTask(
-                    with(ID, 1L),
-                    with(DUE_TIME, newDateTime().plusMinutes(5)),
-                    with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+    public void scheduleOverdueNoLastReminder() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, new DateTime(2017, 9, 22, 15, 30)),
+                with(REMINDER_LAST, (DateTime) null),
+                with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-            service.scheduleAlarm(null, task);
+        service.scheduleAlarm(null, task);
 
-            InOrder order = inOrder(jobs);
-            order.verify(jobs).cancelReminder(1);
-            order.verify(jobs).add(new Reminder(1L, task.getDueDate() + 4582800, ReminderService.TYPE_OVERDUE));
-        }});
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancelReminder(1);
+        order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 23, 15, 30, 1, 0).getMillis(), ReminderService.TYPE_OVERDUE));
     }
 
     @Test
-    public void scheduleOverdueForPastDueDateWithNoReminderPastDueDate() {
-        freezeClock().thawAfter(new Snippet() {{
-            DateTime now = newDateTime();
-            Task task = newTask(
-                    with(ID, 1L),
-                    with(DUE_TIME, now.minusMinutes(5)),
-                    with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+    public void scheduleOverduePastLastReminder() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, new DateTime(2017, 9, 22, 15, 30)),
+                with(REMINDER_LAST, new DateTime(2017, 9, 24, 12, 0)),
+                with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-            service.scheduleAlarm(null, task);
+        service.scheduleAlarm(null, task);
 
-            InOrder order = inOrder(jobs);
-            order.verify(jobs).cancelReminder(1);
-            order.verify(jobs).add(new Reminder(1L, currentTimeMillis(), ReminderService.TYPE_OVERDUE));
-        }});
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancelReminder(1);
+        order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 24, 15, 30, 1, 0).getMillis(), ReminderService.TYPE_OVERDUE));
     }
 
     @Test
-    public void scheduleOverdueForPastDueDateLastReminderSixHoursAgo() {
-        freezeClock().thawAfter(new Snippet() {{
-            Task task = newTask(
-                    with(ID, 1L),
-                    with(DUE_TIME, newDateTime().minusHours(12)),
-                    with(REMINDER_LAST, newDateTime().minusHours(6)),
-                    with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+    public void scheduleOverdueBeforeLastReminder() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, new DateTime(2017, 9, 22, 12, 30)),
+                with(REMINDER_LAST, new DateTime(2017, 9, 24, 15, 0)),
+                with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-            service.scheduleAlarm(null, task);
+        service.scheduleAlarm(null, task);
 
-            InOrder order = inOrder(jobs);
-            order.verify(jobs).cancelReminder(1);
-            order.verify(jobs).add(new Reminder(1L, currentTimeMillis(), ReminderService.TYPE_OVERDUE));
-        }});
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancelReminder(1);
+        order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 25, 12, 30, 1, 0).getMillis(), ReminderService.TYPE_OVERDUE));
     }
 
     @Test
-    public void scheduleOverdueForPastDueDateLastReminderWithinSixHours() {
-        freezeClock().thawAfter(new Snippet() {{
-            when(random.nextFloat()).thenReturn(0.3865f);
-            Task task = newTask(
-                    with(ID, 1L),
-                    with(DUE_TIME, newDateTime().minusHours(12)),
-                    with(PRIORITY, 2),
-                    with(REMINDER_LAST, newDateTime().minusHours(3)),
-                    with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+    public void scheduleOverdueWithNoDueTime() {
+        preferences.setInt(R.string.p_rmd_time, (int) TimeUnit.HOURS.toMillis(15));
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_DATE, new DateTime(2017, 9, 22)),
+                with(REMINDER_LAST, new DateTime(2017, 9, 23, 12, 17, 59, 999)),
+                with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-            service.scheduleAlarm(null, task);
+        service.scheduleAlarm(null, task);
 
-            InOrder order = inOrder(jobs);
-            order.verify(jobs).cancelReminder(1);
-            order.verify(jobs).add(new Reminder(1L, currentTimeMillis() + 22748400, ReminderService.TYPE_OVERDUE));
-        }});
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancelReminder(1);
+        order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 23, 15, 0, 0, 0).getMillis(), ReminderService.TYPE_OVERDUE));
+    }
+
+    @Test
+    public void scheduleSubsequentOverdueReminder() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, new DateTime(2017, 9, 22, 15, 30)),
+                with(REMINDER_LAST, new DateTime(2017, 9, 23, 15, 30, 59, 999)),
+                with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+
+        service.scheduleAlarm(null, task);
+
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancelReminder(1);
+        order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 24, 15, 30, 1, 0).getMillis(), ReminderService.TYPE_OVERDUE));
+    }
+
+    @Test
+    public void scheduleOverdueAfterLastReminder() {
+        Task task = newTask(
+                with(ID, 1L),
+                with(DUE_TIME, new DateTime(2017, 9, 22, 15, 30)),
+                with(REMINDER_LAST, new DateTime(2017, 9, 23, 12, 17, 59, 999)),
+                with(REMINDERS, NOTIFY_AFTER_DEADLINE));
+
+        service.scheduleAlarm(null, task);
+
+        InOrder order = inOrder(jobs);
+        order.verify(jobs).cancelReminder(1);
+        order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 23, 15, 30, 1, 0).getMillis(), ReminderService.TYPE_OVERDUE));
     }
 
     @Test
@@ -341,29 +364,5 @@ public class ReminderServiceTest extends InjectingTestCase {
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
         order.verify(jobs).add(new Reminder(1, now.plusMonths(12).getMillis(), ReminderService.TYPE_SNOOZE));
-    }
-
-    @Test
-    @Ignore
-    public void randomReminderBeforeDueAndOverdue() {
-
-    }
-
-    @Test
-    @Ignore
-    public void randomReminderAfterDue() {
-
-    }
-
-    @Test
-    @Ignore
-    public void randomReminderAfterOverdue() {
-
-    }
-
-    @Test
-    @Ignore
-    public void dueDateBeforeOverdue() {
-
     }
 }
