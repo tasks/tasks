@@ -24,12 +24,6 @@ import javax.inject.Inject;
 
 import static org.tasks.PermissionUtil.verifyPermissions;
 
-/**
- * Displays the preference screen for users to edit their preferences
- *
- * @author Tim Su <tim@todoroo.com>
- *
- */
 public class DefaultsPreferences extends InjectingPreferenceActivity {
 
     private static final int REQUEST_CALENDAR_SELECTION = 10412;
@@ -52,20 +46,22 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
             }
             return false;
         });
-        setCalendarSummary(preferences.getStringValue(R.string.gcal_p_default));
-    }
-
-    private void setCalendarSummary(String calendarId) {
-        AndroidCalendar calendar = calendarProvider.getCalendar(calendarId);
-        defaultCalendarPref.setSummary(calendar == null
+        String defaultCalendarName = getDefaultCalendarName();
+        defaultCalendarPref.setSummary(defaultCalendarName == null
                 ? getString(R.string.none)
-                : calendar.getName());
+                : defaultCalendarName);
     }
 
     private void startCalendarSelectionActivity() {
         Intent intent = new Intent(DefaultsPreferences.this, CalendarSelectionActivity.class);
         intent.putExtra(CalendarSelectionActivity.EXTRA_SHOW_NONE, true);
+        intent.putExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME, getDefaultCalendarName());
         startActivityForResult(intent, REQUEST_CALENDAR_SELECTION);
+    }
+
+    private String getDefaultCalendarName() {
+        AndroidCalendar calendar = calendarProvider.getCalendar(preferences.getStringValue(R.string.gcal_p_default));
+        return calendar == null ? null : calendar.getName();
     }
 
     @Override
@@ -82,9 +78,10 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CALENDAR_SELECTION && resultCode == RESULT_OK) {
-            String calendarId = data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_ID);
-            preferences.setString(R.string.gcal_p_default, calendarId);
-            setCalendarSummary(calendarId);
+            preferences.setString(R.string.gcal_p_default,
+                    data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_ID));
+            defaultCalendarPref.setSummary(
+                    data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME));
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

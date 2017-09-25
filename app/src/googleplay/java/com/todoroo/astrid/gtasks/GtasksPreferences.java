@@ -8,6 +8,7 @@ package com.todoroo.astrid.gtasks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.support.annotation.NonNull;
 
 import com.todoroo.andlib.utility.DateUtilities;
@@ -16,7 +17,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
 import org.tasks.R;
-import org.tasks.activities.NativeGoogleTaskListPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
@@ -31,6 +31,7 @@ import org.tasks.preferences.PermissionRequestor;
 import javax.inject.Inject;
 
 import static org.tasks.PermissionUtil.verifyPermissions;
+import static org.tasks.activities.NativeGoogleTaskListPicker.newNativeGoogleTaskListPicker;
 
 public class GtasksPreferences extends InjectingPreferenceActivity implements GoogleTaskListSelectionHandler {
 
@@ -93,12 +94,20 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     .show();
             return true;
         });
-        findPreference(R.string.p_gtasks_default_list).setOnPreferenceClickListener(preference -> {
-            new NativeGoogleTaskListPicker()
+        Preference defaultListPreference = findPreference(R.string.p_gtasks_default_list);
+        defaultListPreference.setOnPreferenceClickListener(preference -> {
+            newNativeGoogleTaskListPicker(getDefaultList())
                     .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
             return false;
         });
-        updateDefaultGoogleTaskList();
+        GtasksList defaultList = getDefaultList();
+        if (defaultList != null) {
+            defaultListPreference.setSummary(defaultList.getName());
+        }
+    }
+
+    private GtasksList getDefaultList() {
+        return gtasksListService.getList(gtasksPreferenceService.getDefaultList());
     }
 
     private void requestLogin() {
@@ -153,13 +162,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
         tracker.reportEvent(Tracking.Events.GTASK_DEFAULT_LIST);
         String listId = list.getRemoteId();
         gtasksPreferenceService.setDefaultList(listId);
-        updateDefaultGoogleTaskList();
+        findPreference(R.string.p_gtasks_default_list).setSummary(list.getName());
     }
 
-    private void updateDefaultGoogleTaskList() {
-        GtasksList list = gtasksListService.getList(gtasksPreferenceService.getDefaultList());
-        if (list != null) {
-            findPreference(R.string.p_gtasks_default_list).setSummary(list.getName());
-        }
-    }
 }

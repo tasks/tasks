@@ -13,14 +13,18 @@
      limitations under the License.
 -->
 
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.AppCompatCheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:checkMark="@drawable/ic_check_white_24dp"
+    android:checkMarkTint="?colorAccent"
+    android:checked="false"
+    android:layout_height="?android:attr/listPreferredItemHeightSmall"
+    android:textAppearance="?attr/textAppearanceListItemSmall"
     android:drawablePadding="@dimen/keyline_second"
     android:gravity="center_vertical"
     android:paddingEnd="@dimen/keyline_first"
     android:paddingLeft="@dimen/keyline_first"
     android:paddingRight="@dimen/keyline_first"
     android:paddingStart="@dimen/keyline_first"
-    android:textColor="?attr/asTextColor"  />
+    android:textColor="?attr/asTextColor" />

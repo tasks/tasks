@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
+import static org.tasks.activities.SupportGoogleTaskListPicker.newSupportGoogleTaskListPicker;
 
 public class GoogleTaskListFragment extends TaskEditControlFragment {
 
@@ -110,7 +111,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @OnClick(R.id.google_task_list)
     void clickGoogleTaskList(View view) {
-        new SupportGoogleTaskListPicker()
+        newSupportGoogleTaskListPicker(selectedList)
                 .show(getChildFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
     }
 

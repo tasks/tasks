@@ -24,7 +24,10 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
         FragmentManager fragmentManager = getSupportFragmentManager();
         CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         if (fragmentByTag == null) {
-            fragmentByTag = newCalendarSelectionDialog(getIntent().getBooleanExtra(EXTRA_SHOW_NONE, false));
+            Intent intent = getIntent();
+            fragmentByTag = newCalendarSelectionDialog(
+                    intent.getBooleanExtra(EXTRA_SHOW_NONE, false),
+                    intent.getStringExtra(EXTRA_CALENDAR_NAME));
             fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         }
         fragmentByTag.setCalendarSelectionHandler(this);

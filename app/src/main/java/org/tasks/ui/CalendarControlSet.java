@@ -240,7 +240,9 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @OnClick(R.id.calendar_display_which)
     void clickCalendar(View view) {
         if (Strings.isNullOrEmpty(eventUri)) {
-            startActivityForResult(new Intent(context, CalendarSelectionActivity.class), REQUEST_CODE_PICK_CALENDAR);
+            Intent intent = new Intent(context, CalendarSelectionActivity.class);
+            intent.putExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME, calendarName);
+            startActivityForResult(intent, REQUEST_CODE_PICK_CALENDAR);
         } else {
             if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_OPEN_EVENT)) {
                 openCalendarEvent();
