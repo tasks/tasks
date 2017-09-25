@@ -28,10 +28,6 @@ public class Alarm implements JobQueueEntry {
         return alarmId;
     }
 
-    public long getTaskId() {
-        return taskId;
-    }
-
     @Override
     public long getTime() {
         return time;

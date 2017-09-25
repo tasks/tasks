@@ -37,7 +37,7 @@ public class NumberPickerDialog extends AlertDialog implements OnClickListener {
         setView(view);
 
         setTitle(title);
-        mPicker = (NumberPicker) view.findViewById(R.id.numberPicker);
+        mPicker = view.findViewById(R.id.numberPicker);
         mPicker.setIncrementBy(incrementBy);
         mPicker.setRange(start, end);
         mPicker.setCurrent(initialValue);

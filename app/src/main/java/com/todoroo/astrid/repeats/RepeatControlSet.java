@@ -131,12 +131,12 @@ public class RepeatControlSet extends TaskEditControlFragment {
         }
 
         dialogView = inflater.inflate(R.layout.control_set_repeat, null);
-        value = (Button) dialogView.findViewById(R.id.repeatValue);
-        Spinner interval = (Spinner) dialogView.findViewById(R.id.repeatInterval);
+        value = dialogView.findViewById(R.id.repeatValue);
+        Spinner interval = dialogView.findViewById(R.id.repeatInterval);
         ArrayAdapter<String> intervalAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_interval));
         intervalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         interval.setAdapter(intervalAdapter);
-        Spinner type = (Spinner) dialogView.findViewById(R.id.repeatType);
+        Spinner type = dialogView.findViewById(R.id.repeatType);
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_type));
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type.setAdapter(typeAdapter);
@@ -151,8 +151,8 @@ public class RepeatControlSet extends TaskEditControlFragment {
 
             }
         });
-        daysOfWeekContainer = (LinearLayout) dialogView.findViewById(R.id.repeatDayOfWeekContainer);
-        repeatUntil = (Spinner) dialogView.findViewById(R.id.repeat_until);
+        daysOfWeekContainer = dialogView.findViewById(R.id.repeatDayOfWeekContainer);
+        repeatUntil = dialogView.findViewById(R.id.repeat_until);
         repeatUntilAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, repeatUntilOptions);
         repeatUntilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         repeatUntil.setAdapter(repeatUntilAdapter);

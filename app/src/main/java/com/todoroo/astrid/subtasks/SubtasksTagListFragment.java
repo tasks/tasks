@@ -7,8 +7,6 @@ package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;

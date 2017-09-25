@@ -277,10 +277,6 @@ public class Preferences {
         editor.commit();
     }
 
-    public int getInt(int resourceId) {
-        return getInt(resourceId, 0);
-    }
-
     public int getInt(int resourceId, int defValue) {
         return getInt(context.getString(resourceId), defValue);
     }

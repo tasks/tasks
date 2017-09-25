@@ -43,7 +43,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
         super.onCreate(savedInstanceState);
 
-        ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
+        ViewGroup root = findViewById(android.R.id.content);
         View content = root.getChildAt(0);
         LinearLayout toolbarContainer = (LinearLayout) View.inflate(this, R.layout.activity_prefs, null);
 
@@ -51,7 +51,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
         toolbarContainer.addView(content);
         root.addView(toolbarContainer);
 
-        toolbar = (Toolbar) toolbarContainer.findViewById(R.id.toolbar);
+        toolbar = toolbarContainer.findViewById(R.id.toolbar);
         try {
             ComponentName componentName = new ComponentName(this, getClass());
             ActivityInfo activityInfo = getPackageManager().getActivityInfo(componentName, 0);

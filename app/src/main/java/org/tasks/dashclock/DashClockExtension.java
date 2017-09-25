@@ -3,11 +3,9 @@ package org.tasks.dashclock;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 
 import com.google.android.apps.dashclock.api.ExtensionData;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;

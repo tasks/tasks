@@ -34,10 +34,6 @@ public class Reminder implements JobQueueEntry {
         return notification;
     }
 
-    public int getType() {
-        return type;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

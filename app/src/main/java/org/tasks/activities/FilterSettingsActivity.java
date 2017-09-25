@@ -78,7 +78,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
     }
 
     @OnTextChanged(R.id.name)
-    void onTextChanged(CharSequence text) {
+    void onTextChanged(CharSequence ignored) {
         nameLayout.setError(null);
     }
 

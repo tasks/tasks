@@ -27,7 +27,7 @@ class RandomReminderControlSet {
     private final int[] hours;
 
     public RandomReminderControlSet(Context context, View parentView, long reminderPeriod) {
-        Spinner periodSpinner = (Spinner) parentView.findViewById(R.id.reminder_random_interval);
+        Spinner periodSpinner = parentView.findViewById(R.id.reminder_random_interval);
         periodSpinner.setVisibility(View.VISIBLE);
         // create adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<>(

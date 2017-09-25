@@ -33,13 +33,6 @@ public class TagDataDao {
         dao = new RemoteModelDao<>(database, TagData.class);
     }
 
-    /**
-     * Fetch a model object by UUID
-     */
-    public TagData fetch(String uuid, Property<?>... properties) {
-        return dao.getFirst(Query.select(properties).where(RemoteModel.UUID_PROPERTY.eq(uuid)));
-    }
-
     public TagData getTagByName(String name, Property<?>... properties) {
         return dao.getFirst(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(name)));
     }

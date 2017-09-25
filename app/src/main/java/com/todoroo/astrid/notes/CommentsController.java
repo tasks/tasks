@@ -117,13 +117,13 @@ public class CommentsController {
     /** Helper method to set the contents and visibility of each field */
     private void bindView(View view, NoteOrUpdate item) {
         // name
-        final TextView nameView = (TextView)view.findViewById(R.id.title); {
+        final TextView nameView = view.findViewById(R.id.title); {
             nameView.setText(item.title);
             Linkify.addLinks(nameView, Linkify.ALL);
         }
 
         // date
-        final TextView date = (TextView)view.findViewById(R.id.date); {
+        final TextView date = view.findViewById(R.id.date); {
             CharSequence dateString = DateUtils.getRelativeTimeSpanString(item.createdAt,
                     DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
                     DateUtils.FORMAT_ABBREV_RELATIVE);
@@ -131,7 +131,7 @@ public class CommentsController {
         }
 
         // picture
-        final ImageView commentPictureView = (ImageView)view.findViewById(R.id.comment_picture);
+        final ImageView commentPictureView = view.findViewById(R.id.comment_picture);
         setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, activity);
     }
 

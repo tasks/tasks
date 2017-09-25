@@ -154,7 +154,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         toolbar.setOnMenuItemClickListener(this);
         toolbar.setNavigationOnClickListener(view -> discard());
         MenuColorizer.colorToolbar(this, toolbar);
-        listView = (ListView) findViewById(android.R.id.list);
+        listView = findViewById(android.R.id.list);
 
         database.openForReading();
 

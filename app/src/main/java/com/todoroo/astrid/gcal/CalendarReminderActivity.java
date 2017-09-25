@@ -88,9 +88,9 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
         eventName = intent.getStringExtra(TOKEN_EVENT_NAME);
         endTime = intent.getLongExtra(TOKEN_EVENT_END_TIME, DateUtilities.now() + DateUtilities.ONE_HOUR);
 
-        createListButton = (TextView) findViewById(R.id.create_list);
-        postponeButton = (TextView) findViewById(R.id.postpone);
-        ignoreButton = (TextView) findViewById(R.id.ignore);
+        createListButton = findViewById(R.id.create_list);
+        postponeButton = findViewById(R.id.postpone);
+        ignoreButton = findViewById(R.id.ignore);
         ignoreSettingsButton = findViewById(R.id.ignore_settings);
         dismissButton = findViewById(R.id.dismiss);
 
@@ -108,7 +108,7 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
         ((TextView) findViewById(R.id.reminder_title))
             .setText(getString(R.string.CRA_title));
 
-        TextView dialogView = (TextView) findViewById(R.id.reminder_message);
+        TextView dialogView = findViewById(R.id.reminder_message);
         String speechText;
         if (fromPostpone) {
             speechText = getString(R.string.CRA_speech_bubble_end, eventName);

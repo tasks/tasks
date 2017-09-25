@@ -38,10 +38,6 @@ public class AccountManager {
         return getAccount(name) != null;
     }
 
-    public boolean isEmpty() {
-        return getAccounts().isEmpty();
-    }
-
     private List<Account> getAccountList() {
         return permissionChecker.canAccessAccounts()
                 ? asList(googleAccountManager.getAccounts())

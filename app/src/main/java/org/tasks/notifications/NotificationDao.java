@@ -18,9 +18,6 @@ public interface NotificationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<Notification> notifications);
 
-    @Query("SELECT COUNT(*) FROM notification")
-    int count();
-
     @Query("DELETE FROM notification WHERE task = :taskId")
     int delete(long taskId);
 

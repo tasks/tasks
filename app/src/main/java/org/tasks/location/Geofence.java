@@ -53,10 +53,6 @@ public class Geofence implements Serializable, Parcelable {
         return longitude;
     }
 
-    public int getRadius() {
-        return radius;
-    }
-
     public long getMetadataId() {
         return metadataId;
     }

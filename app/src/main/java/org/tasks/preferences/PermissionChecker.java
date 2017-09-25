@@ -15,7 +15,6 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.preJellybean;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;

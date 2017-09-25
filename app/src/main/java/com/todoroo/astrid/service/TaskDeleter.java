@@ -57,15 +57,6 @@ public class TaskDeleter {
         return markDeleted(tasks);
     }
 
-    public void undelete(List<Task> tasks) {
-        for (Task task : tasks) {
-            Task template = new Task();
-            template.setId(task.getId());
-            template.setDeletionDate(0L);
-            taskDao.save(template);
-        }
-    }
-
     private int markDeleted(List<Task> tasks) {
         for (Task task : tasks) {
             delete(task);

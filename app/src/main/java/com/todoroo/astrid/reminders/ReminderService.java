@@ -57,8 +57,6 @@ public final class ReminderService  {
     private final Random random;
     private final Preferences preferences;
 
-    private long now = -1; // For tracking when reminders might be scheduled all at once
-
     @Inject
     ReminderService(Preferences preferences, JobQueue jobQueue) {
         this(preferences, jobQueue, new Random());

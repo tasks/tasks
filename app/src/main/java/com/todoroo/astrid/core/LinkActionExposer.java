@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.style.URLSpan;
@@ -93,7 +92,6 @@ public class LinkActionExposer {
             return null;
         }
 
-        Resources r = context.getResources();
         int icon;
         if (url.startsWith("mailto")) {
             icon = R.drawable.ic_email_black_24dp;

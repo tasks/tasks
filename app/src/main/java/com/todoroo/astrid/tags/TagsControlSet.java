@@ -151,8 +151,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
         }
         allTags = tagService.getTagList();
         dialogView = inflater.inflate(R.layout.control_set_tag_list, null);
-        newTagLayout = (LinearLayout) dialogView.findViewById(R.id.newTags);
-        tagListView = (ListView) dialogView.findViewById(R.id.existingTags);
+        newTagLayout = dialogView.findViewById(R.id.newTags);
+        tagListView = dialogView.findViewById(R.id.existingTags);
         tagListView.setAdapter(new ArrayAdapter<TagData>(getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTags) {
             @NonNull
             @SuppressLint("NewApi")
@@ -244,7 +244,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
             }
         }
         for (int i = newTagLayout.getChildCount() - 1; i >= 0 ; i--) {
-            TextView tagName = (TextView) newTagLayout.getChildAt(i).findViewById(R.id.text1);
+            TextView tagName = newTagLayout.getChildAt(i).findViewById(R.id.text1);
             final String text = tagName.getText().toString();
             if (Strings.isNullOrEmpty(text)) {
                 continue;
@@ -268,7 +268,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     private ArrayList<String> getNewTags() {
         ArrayList<String> tags = new ArrayList<>();
         for (int i = newTagLayout.getChildCount() - 1 ; i >= 0 ; i--) {
-            TextView textView = (TextView) newTagLayout.getChildAt(i).findViewById(R.id.text1);
+            TextView textView = newTagLayout.getChildAt(i).findViewById(R.id.text1);
             String tagName = textView.getText().toString();
             if (Strings.isNullOrEmpty(tagName)) {
                 continue;
@@ -286,7 +286,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         TextView lastText;
         for(int i = 0; i < newTagLayout.getChildCount(); i++) {
             View view = newTagLayout.getChildAt(i);
-            lastText = (TextView) view.findViewById(R.id.text1);
+            lastText = view.findViewById(R.id.text1);
             if(lastText.getText().equals(tagName)) {
                 return;
             }
@@ -299,7 +299,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
             tagName = ""; //$NON-NLS-1$
         }
 
-        final AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
+        final AutoCompleteTextView textView = tagItem.
             findViewById(R.id.text1);
         textView.setText(tagName);
 

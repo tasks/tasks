@@ -132,7 +132,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     }
 
     @OnTextChanged(R.id.name)
-    void onTextChanged(CharSequence text) {
+    void onTextChanged(CharSequence ignored) {
         nameLayout.setError(null);
     }
 

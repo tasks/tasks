@@ -113,7 +113,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
         if (atLeastLollipop()) {
             ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout)).setOnInsetsCallback(insets -> mDrawerListView.setPadding(0, insets.top, 0, 0));
         }
-        mDrawerListView = (ListView) layout.findViewById(android.R.id.list);
+        mDrawerListView = layout.findViewById(android.R.id.list);
         mDrawerListView.setOnItemClickListener((parent, view, position, id) -> {
             mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
                 @Override

@@ -121,11 +121,6 @@ public class AlertDialogBuilder {
         return this;
     }
 
-    public AlertDialogBuilder setCancelable(boolean b) {
-        builder.setCancelable(b);
-        return this;
-    }
-
     public AlertDialog create() {
         AlertDialog dialog = builder.create();
         theme.applyToContext(dialog.getContext());

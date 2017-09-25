@@ -30,7 +30,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener, View.OnC
         this.context = context;
         this.theme = theme;
 
-        timeButton = (TextView)view.findViewById(timeButtonId);
+        timeButton = view.findViewById(timeButtonId);
         ((View) timeButton.getParent()).setOnClickListener(this);
     }
 

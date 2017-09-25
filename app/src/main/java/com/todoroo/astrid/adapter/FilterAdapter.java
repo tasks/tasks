@@ -108,16 +108,16 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             switch(viewType) {
                 case ITEM:
                     convertView = inflater.inflate(R.layout.filter_adapter_row, parent, false);
-                    viewHolder.name = (TextView)convertView.findViewById(R.id.name);
-                    viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
-                    viewHolder.size = (TextView)convertView.findViewById(R.id.size);
+                    viewHolder.name = convertView.findViewById(R.id.name);
+                    viewHolder.icon = convertView.findViewById(R.id.icon);
+                    viewHolder.size = convertView.findViewById(R.id.size);
                     break;
                 case SEPARATOR:
                     convertView = inflater.inflate(R.layout.filter_adapter_separator, parent, false);
                     break;
                 case SUBHEADER:
                     convertView = inflater.inflate(R.layout.filter_adapter_subheader, parent, false);
-                    viewHolder.name = (TextView) convertView.findViewById(R.id.subheader_text);
+                    viewHolder.name = convertView.findViewById(R.id.subheader_text);
                     break;
             }
             viewHolder.view = convertView;

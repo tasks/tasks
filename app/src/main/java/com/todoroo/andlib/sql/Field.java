@@ -74,10 +74,6 @@ public class Field extends DBObject<Field> {
         return UnaryCriterion.like(this, value);
     }
 
-    public Criterion like(String value, String escape) {
-        return UnaryCriterion.like(this, value, escape);
-    }
-
     public <T> Criterion in(final Iterable<T> value) {
         final Field field = this;
         return new Criterion(Operator.in) {

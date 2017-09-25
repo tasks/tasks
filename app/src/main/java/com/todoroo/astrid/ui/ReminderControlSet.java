@@ -331,7 +331,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     }
 
     private void addAlarmRow(final View alertItem, String text, final View.OnClickListener onRemove) {
-        TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
+        TextView display = alertItem.findViewById(R.id.alarm_string);
         display.setText(text);
         alertItem.findViewById(R.id.clear).setOnClickListener(v -> {
             alertContainer.removeView(alertItem);

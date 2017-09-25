@@ -148,9 +148,9 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.custom_filter_row, parent, false);
             ViewHolder viewHolder = new ViewHolder();
-            viewHolder.type = (ImageView) convertView.findViewById(R.id.type);
-            viewHolder.name= (TextView) convertView.findViewById(R.id.name);
-            viewHolder.filterCount = (TextView) convertView.findViewById(R.id.filter_count);
+            viewHolder.type = convertView.findViewById(R.id.type);
+            viewHolder.name= convertView.findViewById(R.id.name);
+            viewHolder.filterCount = convertView.findViewById(R.id.filter_count);
             convertView.setTag(viewHolder);
         }
 

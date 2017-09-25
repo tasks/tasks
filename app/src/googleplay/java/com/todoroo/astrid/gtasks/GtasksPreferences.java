@@ -8,7 +8,6 @@ package com.todoroo.astrid.gtasks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.Preference;
 import android.support.annotation.NonNull;
 
 import com.todoroo.andlib.utility.DateUtilities;

@@ -35,12 +35,12 @@ public class ActionUtils {
 
         contextView.setBackgroundColor(themeColor.getPrimaryColor());
 
-        TextView title = (TextView) contextView.findViewById(R.id.action_bar_title);
+        TextView title = contextView.findViewById(R.id.action_bar_title);
         if (title != null) {
             title.setTextColor(themeColor.getActionBarTint());
         }
 
-        ImageView closeButton = (ImageView) contextView.findViewById(R.id.action_mode_close_button);
+        ImageView closeButton = contextView.findViewById(R.id.action_mode_close_button);
         if (closeButton != null) {
             closeButton.setColorFilter(themeColor.getActionBarTint());
         }

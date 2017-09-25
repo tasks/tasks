@@ -23,7 +23,6 @@ import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.Alarm;
 import org.tasks.jobs.JobQueue;
-import org.tasks.jobs.JobQueueEntry;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -140,7 +140,7 @@ public class FilesControlSet extends TaskEditControlFragment {
     }
 
     private void addAttachment(final TaskAttachment taskAttachment, final View fileRow) {
-        TextView nameView = (TextView) fileRow.findViewById(R.id.file_text);
+        TextView nameView = fileRow.findViewById(R.id.file_text);
         String name = LEFT_TO_RIGHT_MARK + taskAttachment.getName();
         nameView.setText(name);
         nameView.setOnClickListener(v -> showFile(taskAttachment));
