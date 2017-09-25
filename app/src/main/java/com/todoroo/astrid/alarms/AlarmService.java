@@ -88,6 +88,7 @@ public class AlarmService {
         metadataDao.query(callback, Query.select(Metadata.PROPERTIES).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
+                        Task.REMINDER_LAST.lt(AlarmFields.TIME),
                         MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
     }
 
@@ -95,6 +96,7 @@ public class AlarmService {
         metadataDao.query(callback, Query.select(Metadata.PROPERTIES).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
+                        Task.REMINDER_LAST.lt(AlarmFields.TIME),
                         MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
     }
 

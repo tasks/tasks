@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import com.todoroo.astrid.alarms.AlarmServiceTest;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDaoTests;
 import com.todoroo.astrid.dao.TaskDaoTests;
@@ -64,4 +65,6 @@ public interface TestComponent {
     void inject(BackupServiceTests backupServiceTests);
 
     NotificationTests.NotificationTestsComponent plus(NotificationTests.NotificationTestsModule notificationTestsModule);
+
+    void inject(AlarmServiceTest alarmServiceTest);
 }
