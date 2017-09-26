@@ -200,9 +200,6 @@
 	<string name="default_random_reminder_bi_weekly">격주로</string>
 	<string name="default_random_reminder_monthly">매달</string>
 	<string name="default_random_reminder_bi_monthly">격월로</string>
-	<string name="repeat_every">매 %d</string>
-	<string name="repeat_interval_prompt">반복 주기</string>
-	<string name="repeat_never">반복하지 않기</string>
 	<string name="repeat_interval_day">일마다</string>
 	<string name="repeat_interval_week">주마다</string>
 	<string name="repeat_interval_month">월마다</string>

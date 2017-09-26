@@ -204,12 +204,30 @@
         <item>@string/default_random_reminder_bi_monthly</item>
     </string-array>
 
+    <string-array name="repeat_options">
+        <item>@string/repeat_option_does_not_repeat</item>
+        <item>@string/repeat_option_every_day</item>
+        <item>@string/repeat_option_every_week</item>
+        <item>@string/repeat_option_every_month</item>
+        <item>@string/repeat_option_every_year</item>
+        <item>@string/repeat_option_custom</item>
+    </string-array>
+
+    <string-array name="repeat_frequency">
+        <item>@string/repeat_minutely</item>
+        <item>@string/repeat_hourly</item>
+        <item>@string/repeat_daily</item>
+        <item>@string/repeat_weekly</item>
+        <item>@string/repeat_monthly</item>
+        <item>@string/repeat_yearly</item>
+    </string-array>
+
     <string-array name="repeat_interval">
+        <item>@string/repeat_interval_minute</item>
+        <item>@string/repeat_interval_hour</item>
         <item>@string/repeat_interval_day</item>
         <item>@string/repeat_interval_week</item>
         <item>@string/repeat_interval_month</item>
-        <item>@string/repeat_interval_hour</item>
-        <item>@string/repeat_interval_minute</item>
         <item>@string/repeat_interval_year</item>
     </string-array>
 

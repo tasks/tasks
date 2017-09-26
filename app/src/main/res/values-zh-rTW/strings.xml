@@ -161,8 +161,6 @@
 	<string name="default_random_reminder_bi_weekly">每2週</string>
 	<string name="default_random_reminder_monthly">每月</string>
 	<string name="default_random_reminder_bi_monthly">每2個月</string>
-	<string name="repeat_every">每 %d</string>
-	<string name="repeat_interval_prompt">重複間隔</string>
 	<string name="repeat_interval_day">日</string>
 	<string name="repeat_interval_week">星期</string>
 	<string name="repeat_interval_month">月</string>

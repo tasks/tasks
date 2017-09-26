@@ -3,120 +3,111 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/repeatContainer"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="100"
-        android:orientation="vertical"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp">
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorAccentDialog">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/frequency"
+                style="Widget.AppCompat.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:paddingEnd="@dimen/keyline_first"
+                android:paddingLeft="@dimen/keyline_first"
+                android:paddingRight="@dimen/keyline_first"
+                android:paddingStart="@dimen/keyline_first"
+                app:backgroundTint="?fab_text" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
 
-            <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="0dp"
+                android:paddingLeft="@dimen/keyline_first"
+                android:paddingRight="0dp"
+                android:paddingStart="@dimen/keyline_first"
+                android:text="@string/repeat_every"
+                android:textAppearance="@style/TextAppearance" />
+
+            <EditText
                 android:id="@+id/repeatValue"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="?attr/asTextColor"/>
+                android:ems="3"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:maxLength="3"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:textSize="15sp" />
 
-            <Spinner
-                android:id="@+id/repeatInterval"
-                android:layout_width="fill_parent"
+            <TextView
+                android:id="@+id/intervalText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:prompt="@string/repeat_interval_prompt"
-                android:textColor="?attr/asTextColor" />
+                android:paddingEnd="@dimen/keyline_first"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/keyline_first"
+                android:paddingStart="0dp"
+                android:textAppearance="@style/TextAppearance" />
 
         </LinearLayout>
 
         <Spinner
             android:id="@+id/repeatType"
+            style="Widget.AppCompat.Spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
+            android:layout_marginTop="8dp"
+            android:paddingEnd="@dimen/keyline_first"
+            android:paddingLeft="@dimen/keyline_first"
+            android:paddingRight="@dimen/keyline_first"
+            android:paddingStart="@dimen/keyline_first"
+            android:textColor="?attr/colorPrimary" />
+
+        <include layout="@layout/week_buttons" />
+
+        <Spinner
+            android:id="@+id/repeat_until"
+            style="Widget.AppCompat.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingEnd="@dimen/keyline_first"
+            android:paddingLeft="@dimen/keyline_first"
+            android:paddingRight="@dimen/keyline_first"
+            android:paddingStart="@dimen/keyline_first"
             android:textColor="?attr/asTextColor" />
 
-        <LinearLayout
-            android:id="@+id/repeatDayOfWeekContainer"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp">
-
-            <CheckBox
-                style="@style/TextAppearance"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                style="@style/TextAppearance"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                style="@style/TextAppearance"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                style="@style/TextAppearance"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                style="@style/TextAppearance"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                style="@style/TextAppearance"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <CheckBox
-                style="@style/TextAppearance"
-                android:layout_weight="1"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/repeat_until"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:textColor="?attr/asTextColor" />
-
-</LinearLayout>
+</ScrollView>
 

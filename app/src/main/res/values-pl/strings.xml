@@ -195,9 +195,6 @@
 	<string name="default_random_reminder_bi_weekly">raz na dwa tygodnie</string>
 	<string name="default_random_reminder_monthly">raz w miesiącu</string>
 	<string name="default_random_reminder_bi_monthly">raz na dwa miesiące</string>
-	<string name="repeat_every">Co %d</string>
-	<string name="repeat_interval_prompt">Odstęp powtarzania</string>
-	<string name="repeat_never">Jednorazowo</string>
 	<string name="repeat_interval_day">Dzień/Dni</string>
 	<string name="repeat_interval_week">Tydzień/Tygodni(e)</string>
 	<string name="repeat_interval_month">Miesiąc/Miesiący(e)</string>

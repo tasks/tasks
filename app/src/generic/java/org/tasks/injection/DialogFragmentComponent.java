@@ -8,6 +8,7 @@ import org.tasks.dialogs.SortDialog;
 import org.tasks.reminders.MissedCallDialog;
 import org.tasks.reminders.NotificationDialog;
 import org.tasks.reminders.SnoozeDialog;
+import org.tasks.repeats.CustomRecurrenceDialog;
 
 import dagger.Subcomponent;
 
@@ -28,4 +29,6 @@ public interface DialogFragmentComponent {
     void inject(ColorPickerDialog colorPickerDialog);
 
     void inject(RecordAudioDialog recordAudioDialog);
+
+    void inject(CustomRecurrenceDialog customRecurrenceDialog);
 }

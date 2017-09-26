@@ -25,9 +25,6 @@
 	<string name="CFC_title_contains_text">Titel bevat: ?</string>
 	<string name="gcal_TEA_error">Kon nie taak by kalender voeg nie!</string>
 	<string name="rmd_EPr_defaultRemind_title">Ewekansige herinneringe</string>
-	<string name="repeat_every">Elke %d</string>
-	<string name="repeat_interval_prompt">Herhaal intervalle</string>
-	<string name="repeat_never">Geen herhaal</string>
 	<string name="translations">Dra by tot vertalings</string>
 	<string name="quiet_hours_summary">Geen herinneringe gedurende stil ure nie</string>
 	<string name="show_hidden">Wys onsigbare</string>

@@ -174,9 +174,6 @@
 	<string name="default_random_reminder_bi_weekly">každý druhý týždeň</string>
 	<string name="default_random_reminder_monthly">mesačne</string>
 	<string name="default_random_reminder_bi_monthly">každý druhý mesiac</string>
-	<string name="repeat_every">Každý %d</string>
-	<string name="repeat_interval_prompt">Interval opakovania</string>
-	<string name="repeat_never">Neopakovať</string>
 	<string name="repeat_interval_day">Deň</string>
 	<string name="repeat_interval_week">Týždeň</string>
 	<string name="repeat_interval_month">Mesiac</string>

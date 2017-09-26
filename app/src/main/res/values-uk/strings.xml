@@ -198,9 +198,6 @@
 	<string name="default_random_reminder_bi_weekly">два рази на тиждень</string>
 	<string name="default_random_reminder_monthly">щомісяця</string>
 	<string name="default_random_reminder_bi_monthly">два рази на місяць</string>
-	<string name="repeat_every">Кожні %d</string>
-	<string name="repeat_interval_prompt">Інтервал повторення</string>
-	<string name="repeat_never">Не повторювати</string>
 	<string name="repeat_interval_day">Днів</string>
 	<string name="repeat_interval_week">Тижнів</string>
 	<string name="repeat_interval_month">Місяців</string>

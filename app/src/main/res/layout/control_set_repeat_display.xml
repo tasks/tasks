@@ -26,6 +26,4 @@
 
     </LinearLayout>
 
-    <include layout="@layout/control_set_clear_button" />
-
 </LinearLayout>

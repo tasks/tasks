@@ -192,9 +192,6 @@
 	<string name="default_random_reminder_bi_weekly">vierzehntägig</string>
 	<string name="default_random_reminder_monthly">monatlich</string>
 	<string name="default_random_reminder_bi_monthly">alle zwei Monate</string>
-	<string name="repeat_every">Jeden %d</string>
-	<string name="repeat_interval_prompt">Wiederholungsintervall</string>
-	<string name="repeat_never">Nicht wiederholen</string>
 	<string name="repeat_interval_day">Tag(e)</string>
 	<string name="repeat_interval_week">Woche(n)</string>
 	<string name="repeat_interval_month">Monat(e)</string>

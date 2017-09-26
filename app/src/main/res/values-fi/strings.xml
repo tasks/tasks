@@ -199,9 +199,6 @@
 	<string name="default_random_reminder_bi_weekly">Jokatoinen viikko</string>
 	<string name="default_random_reminder_monthly">Kuukausittain</string>
 	<string name="default_random_reminder_bi_monthly">Jokatoinen kuukausi</string>
-	<string name="repeat_every">Toista %d</string>
-	<string name="repeat_interval_prompt">Toistoväli</string>
-	<string name="repeat_never">Ei toistuva</string>
 	<string name="repeat_interval_day">Päivä(t)</string>
 	<string name="repeat_interval_week">Viikko(t)</string>
 	<string name="repeat_interval_month">Kuukausi</string>

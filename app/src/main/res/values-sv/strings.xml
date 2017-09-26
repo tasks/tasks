@@ -196,9 +196,6 @@
 	<string name="default_random_reminder_bi_weekly">varannan vecka</string>
 	<string name="default_random_reminder_monthly">varje månad</string>
 	<string name="default_random_reminder_bi_monthly">varannan månad</string>
-	<string name="repeat_every">Varje %d</string>
-	<string name="repeat_interval_prompt">Upprepningsintervall</string>
-	<string name="repeat_never">Inte upprepande</string>
 	<string name="repeat_interval_day">Dag(ar)</string>
 	<string name="repeat_interval_week">Vecka (veckor)</string>
 	<string name="repeat_interval_month">Månad(er)</string>

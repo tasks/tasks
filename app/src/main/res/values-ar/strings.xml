@@ -113,8 +113,6 @@
 	<string name="default_random_reminder_bi_weekly">مرتين في الاسبوع</string>
 	<string name="default_random_reminder_monthly">شهري</string>
 	<string name="default_random_reminder_bi_monthly">مرتين في الشهر</string>
-	<string name="repeat_interval_prompt">مجال التكرار</string>
-	<string name="repeat_never">لا تتكرر</string>
 	<string name="repeat_interval_day">أيام</string>
 	<string name="repeat_interval_week">أسابيع</string>
 	<string name="repeat_interval_month">أشهُر</string>

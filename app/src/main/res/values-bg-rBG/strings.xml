@@ -199,9 +199,6 @@
 	<string name="default_random_reminder_bi_weekly">два пъти седмично</string>
 	<string name="default_random_reminder_monthly">месечно</string>
 	<string name="default_random_reminder_bi_monthly">на два месеца</string>
-	<string name="repeat_every">Всеки %d</string>
-	<string name="repeat_interval_prompt">Интервал на повторение</string>
-	<string name="repeat_never">Без повторение</string>
 	<string name="repeat_interval_day">Ден(дни)</string>
 	<string name="repeat_interval_week">Седмица(и)</string>
 	<string name="repeat_interval_month">Месец(и)</string>

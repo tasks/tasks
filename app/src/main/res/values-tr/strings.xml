@@ -201,9 +201,6 @@
 	<string name="default_random_reminder_bi_weekly">haftada 2 kez</string>
 	<string name="default_random_reminder_monthly">ayda bir</string>
 	<string name="default_random_reminder_bi_monthly">ayda 2 kez</string>
-	<string name="repeat_every">Her %d</string>
-	<string name="repeat_interval_prompt">Yineleme Aralığı</string>
-	<string name="repeat_never">Yenilenmeyen</string>
 	<string name="repeat_interval_day">Gün</string>
 	<string name="repeat_interval_week">Hafta</string>
 	<string name="repeat_interval_month">Ay</string>

@@ -193,9 +193,6 @@
 	<string name="default_random_reminder_bi_weekly">bi-hebdomadaire</string>
 	<string name="default_random_reminder_monthly">mensuel</string>
 	<string name="default_random_reminder_bi_monthly">bi-mensuel</string>
-	<string name="repeat_every">Tous les %d</string>
-	<string name="repeat_interval_prompt">Interval de répétition</string>
-	<string name="repeat_never">Pas de répétition</string>
 	<string name="repeat_interval_day">Jour(s)</string>
 	<string name="repeat_interval_week">Semaine(s)</string>
 	<string name="repeat_interval_month">Mois</string>

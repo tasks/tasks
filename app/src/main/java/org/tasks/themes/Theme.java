@@ -40,6 +40,10 @@ public class Theme {
         return themeColor;
     }
 
+    public ThemeAccent getThemeAccent() {
+        return themeAccent;
+    }
+
     public LayoutInflater getLayoutInflater(Context context) {
         return (LayoutInflater) wrap(context).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

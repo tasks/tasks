@@ -7,23 +7,12 @@ package com.todoroo.astrid.repeats;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.common.base.Strings;
@@ -33,19 +22,19 @@ import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.NumberPickerDialog;
 
 import org.tasks.R;
-import org.tasks.activities.DatePickerActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
+import org.tasks.repeats.CustomRecurrenceDialog;
 import org.tasks.themes.Theme;
 import org.tasks.time.DateTime;
+import org.tasks.ui.SingleCheckedArrayAdapter;
 import org.tasks.ui.TaskEditControlFragment;
 
-import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -57,7 +46,9 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.repeats.CustomRecurrenceDialog.newCustomRecurrenceDialog;
 
 /**
  * Control Set for managing repeats
@@ -65,56 +56,60 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RepeatControlSet extends TaskEditControlFragment {
+public class RepeatControlSet extends TaskEditControlFragment
+        implements CustomRecurrenceDialog.CustomRecurrenceCallback {
 
     public static final int TAG = R.string.TEA_ctrl_repeat_pref;
+    private static final String FRAG_TAG_CUSTOM_RECURRENCE = "frag_tag_custom_recurrence";
+
+    @Override
+    public void onSelected(int frequency, int interval, long repeatUntilValue,
+                           boolean repeatAfterCompletion, boolean[] isChecked) {
+        doRepeat = true;
+        this.interval = interval;
+        this.frequency = frequency;
+        this.repeatUntilValue = repeatUntilValue;
+        this.isChecked = isChecked;
+        this.repeatAfterCompletion = repeatAfterCompletion;
+        refreshDisplayView();
+    }
 
     public interface RepeatChangedListener {
         void repeatChanged(boolean repeat);
     }
 
-    private static final int REQUEST_PICK_DATE = 505;
     private static final String EXTRA_RECURRENCE = "extra_recurrence";
     private static final String EXTRA_REPEAT_UNTIL = "extra_repeat_until";
     private static final String EXTRA_REPEAT_AFTER_COMPLETION = "extra_repeat_after_completion";
 
     // --- spinner constants
 
-    private static final int INTERVAL_DAYS = 0;
-    private static final int INTERVAL_WEEKS = 1;
-    private static final int INTERVAL_MONTHS = 2;
-    private static final int INTERVAL_HOURS = 3;
-    private static final int INTERVAL_MINUTES = 4;
-    private static final int INTERVAL_YEARS = 5;
+    public static final int FREQUENCY_MINUTES = 0;
+    public static final int FREQUENCY_HOURS = 1;
+    public static final int FREQUENCY_DAYS = 2;
+    public static final int FREQUENCY_WEEKS = 3;
+    public static final int FREQUENCY_MONTHS = 4;
+    public static final int FREQUENCY_YEARS = 5;
 
-    private static final int TYPE_DUE_DATE = 0;
-    private static final int TYPE_COMPLETION_DATE = 1;
+    public static final int TYPE_DUE_DATE = 0;
+    public static final int TYPE_COMPLETION_DATE = 1;
 
     //private final CheckBox enabled;
     private boolean doRepeat = false;
-    private Button value;
-    private Spinner repeatUntil;
 
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject @ForActivity Context context;
     @Inject Theme theme;
 
-    @BindView(R.id.clear) ImageView clear;
     @BindView(R.id.display_row_edit) TextView displayView;
 
-    private ArrayAdapter<String> repeatUntilAdapter;
-    private final List<String> repeatUntilOptions = new ArrayList<>();
-    private LinearLayout daysOfWeekContainer;
-    private final Weekday[] weekdays = new Weekday[7];
-    private final boolean[] isChecked = new boolean[7];
-
     private String recurrence;
-    private int repeatValue;
-    private int intervalValue;
+    private int interval;
+    private int frequency;
     private long repeatUntilValue;
-    private View dialogView;
-    private AlertDialog dialog;
+    private boolean[] isChecked;
+    private final Weekday[] weekdays = new Weekday[7];
 
     private RepeatChangedListener callback;
 
@@ -130,137 +125,53 @@ public class RepeatControlSet extends TaskEditControlFragment {
             repeatAfterCompletion = savedInstanceState.getBoolean(EXTRA_REPEAT_AFTER_COMPLETION);
         }
 
-        dialogView = inflater.inflate(R.layout.control_set_repeat, null);
-        value = dialogView.findViewById(R.id.repeatValue);
-        Spinner interval = dialogView.findViewById(R.id.repeatInterval);
-        ArrayAdapter<String> intervalAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_interval));
-        intervalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        interval.setAdapter(intervalAdapter);
-        Spinner type = dialogView.findViewById(R.id.repeatType);
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.repeat_type));
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        type.setAdapter(typeAdapter);
-        type.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                repeatAfterCompletion = position == TYPE_COMPLETION_DATE;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        daysOfWeekContainer = dialogView.findViewById(R.id.repeatDayOfWeekContainer);
-        repeatUntil = dialogView.findViewById(R.id.repeat_until);
-        repeatUntilAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, repeatUntilOptions);
-        repeatUntilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        repeatUntil.setAdapter(repeatUntilAdapter);
-        // set up days of week
-        DateFormatSymbols dfs = new DateFormatSymbols();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-        CompoundButton[] daysOfWeek = new CompoundButton[7];
         for(int i = 0; i < 7; i++) {
-            final int index = i;
-            CheckBox checkBox = (CheckBox) daysOfWeekContainer.getChildAt(i);
-            checkBox.setOnCheckedChangeListener((buttonView, isChecked1) -> RepeatControlSet.this.isChecked[index] = isChecked1);
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            checkBox.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));
-            daysOfWeek[i] = checkBox;
             weekdays[i] = Weekday.values()[dayOfWeek - 1];
             calendar.add(Calendar.DATE, 1);
         }
 
-        // set up listeners
-        value.setOnClickListener(v -> repeatValueClick());
-
-        setRepeatValue(1);
-        interval.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) {
-                daysOfWeekContainer.setVisibility(position == INTERVAL_WEEKS ? View.VISIBLE : View.GONE);
-                intervalValue = position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                //
-            }
-        });
-
-        setRepeatUntilValue(repeatUntilValue);
-        repeatUntil.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (repeatUntilOptions.size() == 2) {
-                    if (i == 0) {
-                        setRepeatUntilValue(0);
-                    } else {
-                        repeatUntilClick();
-                    }
-                } else {
-                    if (i == 1) {
-                        setRepeatUntilValue(0);
-                    } else if (i == 2) {
-                        repeatUntilClick();
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                //
-            }
-        });
-
-        daysOfWeekContainer.setVisibility(View.GONE);
-        type.setSelection(repeatAfterCompletion ? TYPE_COMPLETION_DATE : TYPE_DUE_DATE);
         doRepeat = !Strings.isNullOrEmpty(recurrence);
         if (doRepeat) {
-            // read recurrence rule
             try {
                 RRule rrule = new RRule(recurrence);
-
-                setRepeatValue(rrule.getInterval());
-
-                for(WeekdayNum day : rrule.getByDay()) {
-                    for(int i = 0; i < 7; i++) {
+                interval = rrule.getInterval();
+                isChecked = new boolean[7];
+                for (WeekdayNum day : rrule.getByDay()) {
+                    for (int i = 0 ; i < 7 ; i++) {
                         if (weekdays[i].equals(day.wday)) {
-                            daysOfWeek[i].setChecked(true);
+                            isChecked[i] = true;
                         }
                     }
                 }
-
-                switch(rrule.getFreq()) {
+                switch (rrule.getFreq()) {
                     case DAILY:
-                        intervalValue = INTERVAL_DAYS;
+                        frequency = FREQUENCY_DAYS;
                         break;
                     case WEEKLY:
-                        intervalValue = INTERVAL_WEEKS;
+                        frequency = FREQUENCY_WEEKS;
                         break;
                     case MONTHLY:
-                        intervalValue = INTERVAL_MONTHS;
+                        frequency = FREQUENCY_MONTHS;
                         break;
                     case HOURLY:
-                        intervalValue = INTERVAL_HOURS;
+                        frequency = FREQUENCY_HOURS;
                         break;
                     case MINUTELY:
-                        intervalValue = INTERVAL_MINUTES;
+                        frequency = FREQUENCY_MINUTES;
                         break;
                     case YEARLY:
-                        intervalValue = INTERVAL_YEARS;
+                        frequency = FREQUENCY_YEARS;
                         break;
-                    default:
-                        Timber.e(new Exception("Unhandled rrule frequency: " + recurrence), "repeat-unhandled-rule");
-                }
-                interval.setSelection(intervalValue);
 
-            } catch (Exception e) {
-                // invalid RRULE
-                recurrence = ""; //$NON-NLS-1$
+                }
+            } catch (ParseException e) {
+                recurrence = "";
                 Timber.e(e, e.getMessage());
             }
+
         }
         refreshDisplayView();
         return view;
@@ -287,33 +198,96 @@ public class RepeatControlSet extends TaskEditControlFragment {
         component.inject(this);
     }
 
-    @OnClick(R.id.clear)
-    void clearRepeat(View view) {
-        doRepeat = false;
-        refreshDisplayView();
-        callback.repeatChanged(doRepeat);
+    private boolean isCustomValue() {
+        if (!doRepeat) {
+            return false;
+        }
+        if (frequency == FREQUENCY_WEEKS) {
+            for (boolean checked : isChecked) {
+                if (checked) {
+                    return true;
+                }
+            }
+        }
+        return frequency == FREQUENCY_HOURS ||
+                frequency == FREQUENCY_MINUTES ||
+                !(repeatUntilValue == 0 && interval == 1 && !repeatAfterCompletion);
     }
 
     @OnClick(R.id.display_row_edit)
     void openPopup(View view) {
-        if (dialog == null) {
-            dialog = buildDialog();
+        boolean customPicked = isCustomValue();
+        List<String> repeatOptions = newArrayList(context.getResources().getStringArray(R.array.repeat_options));
+        SingleCheckedArrayAdapter<String> adapter = new SingleCheckedArrayAdapter<>(context, repeatOptions);
+        if (customPicked) {
+            adapter.insert(getRepeatString(), 0);
+            adapter.setChecked(0);
+        } else if (!doRepeat) {
+            adapter.setChecked(0);
+        } else {
+            int selected;
+            switch(frequency) {
+                case FREQUENCY_DAYS:
+                    selected = 1;
+                    break;
+                case FREQUENCY_WEEKS:
+                    selected = 2;
+                    break;
+                case FREQUENCY_MONTHS:
+                    selected = 3;
+                    break;
+                case FREQUENCY_YEARS:
+                    selected = 4;
+                    break;
+                default:
+                    selected = 0;
+                    break;
+            }
+            adapter.setChecked(selected);
         }
-        dialog.show();
-    }
+        dialogBuilder.newDialog()
+                .setAdapter(adapter, (dialogInterface, i) -> {
+                    if (customPicked) {
+                        if (i == 0) {
+                            return;
+                        }
+                        i--;
+                    }
+                    if (i == 0) {
+                        doRepeat = false;
+                    } else if (i == 5) {
+                        newCustomRecurrenceDialog(this)
+                                .show(getFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
+                        return;
+                    } else {
+                        doRepeat = true;
+                        repeatAfterCompletion = false;
+                        interval = 1;
+                        repeatUntilValue = 0;
 
-    private AlertDialog buildDialog() {
-        return dialogBuilder.newDialog()
-                .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, (dialog12, which) -> {
-                    doRepeat = true;
+                        switch (i) {
+                            case 1:
+                                frequency = FREQUENCY_DAYS;
+                                break;
+                            case 2:
+                                frequency = FREQUENCY_WEEKS;
+                                isChecked = new boolean[7];
+                                break;
+                            case 3:
+                                frequency = FREQUENCY_MONTHS;
+                                break;
+                            case 4:
+                                frequency = FREQUENCY_YEARS;
+                                break;
+                        }
+                    }
 
                     callback.repeatChanged(doRepeat);
 
                     refreshDisplayView();
                 })
-                .setOnCancelListener(dialog1 -> refreshDisplayView())
-                .create();
+                .setOnCancelListener(d -> refreshDisplayView())
+                .show();
     }
 
     @Override
@@ -365,12 +339,12 @@ public class RepeatControlSet extends TaskEditControlFragment {
             result = ""; //$NON-NLS-1$
         } else {
             RRule rrule = new RRule();
-            rrule.setInterval(repeatValue);
-            switch(intervalValue) {
-                case INTERVAL_DAYS:
+            rrule.setInterval(interval);
+            switch(frequency) {
+                case FREQUENCY_DAYS:
                     rrule.setFreq(Frequency.DAILY);
                     break;
-                case INTERVAL_WEEKS: {
+                case FREQUENCY_WEEKS: {
                     rrule.setFreq(Frequency.WEEKLY);
 
                     ArrayList<WeekdayNum> days = new ArrayList<>();
@@ -382,16 +356,16 @@ public class RepeatControlSet extends TaskEditControlFragment {
                     rrule.setByDay(days);
                     break;
                 }
-                case INTERVAL_MONTHS:
+                case FREQUENCY_MONTHS:
                     rrule.setFreq(Frequency.MONTHLY);
                     break;
-                case INTERVAL_HOURS:
+                case FREQUENCY_HOURS:
                     rrule.setFreq(Frequency.HOURLY);
                     break;
-                case INTERVAL_MINUTES:
+                case FREQUENCY_MINUTES:
                     rrule.setFreq(Frequency.MINUTELY);
                     break;
-                case INTERVAL_YEARS:
+                case FREQUENCY_YEARS:
                     rrule.setFreq(Frequency.YEARLY);
                     break;
             }
@@ -402,65 +376,35 @@ public class RepeatControlSet extends TaskEditControlFragment {
         return result;
     }
 
-    /** Set up the repeat value button */
-    private void setRepeatValue(int newValue) {
-        repeatValue = newValue;
-        value.setText(getString(R.string.repeat_every, newValue));
-    }
-
-    private void setRepeatUntilValue(long newValue) {
-        repeatUntilValue = newValue;
-        updateRepeatUntilOptions();
-    }
-
-    private void repeatValueClick() {
-        int dialogValue = repeatValue;
-        if(dialogValue == 0) {
-            dialogValue = 1;
-        }
-
-        NumberPickerDialog dialog = new NumberPickerDialog(theme.getThemedDialog(getActivity()), this::setRepeatValue, getResources().getString(R.string.repeat_interval_prompt),
-                dialogValue, 1, 1, 365);
-        theme.applyToContext(dialog.getContext());
-        dialog.show();
-    }
-
-    private void repeatUntilClick() {
-        Intent intent = new Intent(context, DatePickerActivity.class);
-        intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, repeatUntilValue > 0 ? repeatUntilValue : 0L);
-        startActivityForResult(intent, REQUEST_PICK_DATE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_PICK_DATE) {
-            if (resultCode == Activity.RESULT_OK) {
-                setRepeatUntilValue(data.getLongExtra(DatePickerActivity.EXTRA_TIMESTAMP, 0L));
-            } else {
-                setRepeatUntilValue(repeatUntilValue);
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     private void refreshDisplayView() {
         if (doRepeat) {
             displayView.setText(getRepeatString());
             displayView.setTextColor(getColor(context, R.color.text_primary));
-            clear.setVisibility(View.VISIBLE);
         } else {
-            displayView.setText(R.string.repeat_never);
+            displayView.setText(R.string.repeat_option_does_not_repeat);
             displayView.setTextColor(getColor(context, R.color.text_tertiary));
-            clear.setVisibility(View.GONE);
         }
     }
 
     private String getRepeatString() {
+        if (!isCustomValue()) {
+            switch (frequency) {
+                case FREQUENCY_DAYS:
+                    return getString(R.string.repeat_option_every_day);
+                case FREQUENCY_WEEKS:
+                    return getString(R.string.repeat_option_every_week);
+                case FREQUENCY_MONTHS:
+                    return getString(R.string.repeat_option_every_month);
+                case FREQUENCY_YEARS:
+                    return getString(R.string.repeat_option_every_year);
+            }
+        }
+
         int arrayResource = R.array.repeat_interval;
 
         String[] dates = getResources().getStringArray(
-                    arrayResource);
-        String date = String.format("%s %s", repeatValue, dates[intervalValue]); //$NON-NLS-1$
+                arrayResource);
+        String date = String.format("%s %s", interval, dates[frequency]); //$NON-NLS-1$
         if (repeatUntilValue > 0) {
             return getString(R.string.repeat_detail_duedate_until, date, getDisplayString());
         } else {
@@ -468,18 +412,11 @@ public class RepeatControlSet extends TaskEditControlFragment {
         }
     }
 
-    private void updateRepeatUntilOptions() {
-        repeatUntilOptions.clear();
-        if (repeatUntilValue > 0) {
-            repeatUntilOptions.add(getString(R.string.repeat_until, getDisplayString()));
-        }
-        repeatUntilOptions.add(getString(R.string.repeat_forever));
-        repeatUntilOptions.add(getString(R.string.repeat_until, "").trim());
-        repeatUntilAdapter.notifyDataSetChanged();
-        repeatUntil.setSelection(0);
+    private String getDisplayString() {
+        return getDisplayString(context, repeatUntilValue);
     }
 
-    private String getDisplayString() {
+    public static String getDisplayString(Context context, long repeatUntilValue) {
         StringBuilder displayString = new StringBuilder();
         DateTime d = newDateTime(repeatUntilValue);
         if (d.getMillis() > 0) {

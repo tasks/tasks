@@ -196,9 +196,6 @@
 	<string name="default_random_reminder_bi_weekly">דו שבועי</string>
 	<string name="default_random_reminder_monthly">חודשי</string>
 	<string name="default_random_reminder_bi_monthly">דו חודשי</string>
-	<string name="repeat_every">כל %d</string>
-	<string name="repeat_interval_prompt">תדירות חזרה</string>
-	<string name="repeat_never">ללא חזרה</string>
 	<string name="repeat_interval_day">יום/ימים</string>
 	<string name="repeat_interval_week">שבוע/(ות)</string>
 	<string name="repeat_interval_month">חודש/ים</string>

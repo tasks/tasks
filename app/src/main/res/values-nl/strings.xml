@@ -196,9 +196,6 @@
 	<string name="default_random_reminder_bi_weekly">tweewekelijks</string>
 	<string name="default_random_reminder_monthly">maandelijks</string>
 	<string name="default_random_reminder_bi_monthly">tweemaandelijks</string>
-	<string name="repeat_every">Elke %d</string>
-	<string name="repeat_interval_prompt">Herhaal interval</string>
-	<string name="repeat_never">Niet herhalend</string>
 	<string name="repeat_interval_day">Dag(en)</string>
 	<string name="repeat_interval_week">week/weken</string>
 	<string name="repeat_interval_month">maand(en)</string>

@@ -179,9 +179,6 @@
 	<string name="default_random_reminder_bi_weekly">bissemanal</string>
 	<string name="default_random_reminder_monthly">mensal</string>
 	<string name="default_random_reminder_bi_monthly">bimensal</string>
-	<string name="repeat_every">Cada %d</string>
-	<string name="repeat_interval_prompt">Intervalo de repetição</string>
-	<string name="repeat_never">Não repete</string>
 	<string name="repeat_interval_day">Dia(s)</string>
 	<string name="repeat_interval_week">Semana(s)</string>
 	<string name="repeat_interval_month">Mês(es)</string>

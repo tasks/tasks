@@ -196,9 +196,6 @@
 	<string name="default_random_reminder_bi_weekly">каждые две недели</string>
 	<string name="default_random_reminder_monthly">ежемесячно</string>
 	<string name="default_random_reminder_bi_monthly">каждые два месяца</string>
-	<string name="repeat_every">С интервалом в %d</string>
-	<string name="repeat_interval_prompt">Интервал повтора</string>
-	<string name="repeat_never">Без повторений</string>
 	<string name="repeat_interval_day">День(дней)</string>
 	<string name="repeat_interval_week">Неделя(ль)</string>
 	<string name="repeat_interval_month">Месяц(ев)</string>

@@ -182,9 +182,6 @@
 	<string name="default_random_reminder_bi_weekly">každých ctrnáct dní</string>
 	<string name="default_random_reminder_monthly">měsíčně</string>
 	<string name="default_random_reminder_bi_monthly">každý druhý měsíc</string>
-	<string name="repeat_every">Každý %d</string>
-	<string name="repeat_interval_prompt">Opakovací interval</string>
-	<string name="repeat_never">Bez opakování</string>
 	<string name="repeat_interval_day">Dnů</string>
 	<string name="repeat_interval_week">Týdnů</string>
 	<string name="repeat_interval_month">Měsíců</string>

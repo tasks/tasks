@@ -18,6 +18,9 @@ import com.google.common.base.Strings;
 import org.tasks.R;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+
+import timber.log.Timber;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
@@ -154,6 +157,16 @@ public class Locale {
 
     public String formatNumber(int number) {
         return NumberFormat.getNumberInstance(appLocale).format(number);
+    }
+
+    public Integer parseInteger(String number) {
+        try {
+            return NumberFormat.getNumberInstance(appLocale)
+                    .parse(number)
+                    .intValue();
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public String formatPercentage(int percentage) {

@@ -197,9 +197,6 @@
 	<string name="default_random_reminder_bi_weekly">一週間おき</string>
 	<string name="default_random_reminder_monthly">毎月</string>
 	<string name="default_random_reminder_bi_monthly">一ヶ月おき</string>
-	<string name="repeat_every">%d 毎</string>
-	<string name="repeat_interval_prompt">繰り返し間隔</string>
-	<string name="repeat_never">Tasks はアクセス許可が必要です</string>
 	<string name="repeat_interval_day">日毎</string>
 	<string name="repeat_interval_week">週毎</string>
 	<string name="repeat_interval_month">か月毎</string>

@@ -166,9 +166,6 @@
 	<string name="default_random_reminder_bi_weekly">vsake dva tedna</string>
 	<string name="default_random_reminder_monthly">mesečno</string>
 	<string name="default_random_reminder_bi_monthly">vsake dva meseca</string>
-	<string name="repeat_every">Vsakih %d</string>
-	<string name="repeat_interval_prompt">Pogostost ponovitev</string>
-	<string name="repeat_never">Brez ponovitev</string>
 	<string name="repeat_interval_day">Dan/dni</string>
 	<string name="repeat_interval_week">V tednih</string>
 	<string name="repeat_interval_month">Mesec/a /e /ev</string>
