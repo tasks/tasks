@@ -20,8 +20,12 @@ import timber.log.Timber;
 
 public class NotificationSchedulerIntentService extends InjectingJobIntentService {
 
-    public static void enqueueWork(Context context) {
-        JobIntentService.enqueueWork(context, NotificationSchedulerIntentService.class, JobManager.JOB_ID_NOTIFICATION_SCHEDULER, new Intent());
+    public static final String EXTRA_CANCEL_EXISTING_NOTIFICATIONS = "extra_cancel_existing_notifications";
+
+    public static void enqueueWork(Context context, boolean cancelNotifications) {
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, cancelNotifications);
+        JobIntentService.enqueueWork(context, NotificationSchedulerIntentService.class, JobManager.JOB_ID_NOTIFICATION_SCHEDULER, intent);
     }
 
     @Inject AlarmService alarmService;
@@ -38,7 +42,9 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
 
         jobQueue.clear();
 
-        notificationManager.restoreNotifications();
+        boolean cancelExistingNotifications = intent.getBooleanExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, false);
+
+        notificationManager.restoreNotifications(cancelExistingNotifications);
         reminderService.scheduleAllAlarms(taskDao);
         alarmService.scheduleAllAlarms();
     }

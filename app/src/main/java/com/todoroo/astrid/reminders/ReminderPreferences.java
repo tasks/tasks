@@ -26,10 +26,8 @@ import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
-import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
-import org.tasks.themes.ThemeCache;
 import org.tasks.time.DateTime;
 import org.tasks.ui.TimePreference;
 
@@ -50,8 +48,6 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Inject Device device;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
-    @Inject Preferences preferences;
-    @Inject ThemeCache themeCache;
 
     private CheckBoxPreference fieldMissedCalls;
 
@@ -66,8 +62,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
                 R.string.p_rmd_enable_quiet,
                 R.string.p_rmd_quietStart,
                 R.string.p_rmd_quietEnd,
-                R.string.p_rmd_persistent,
-                R.string.p_bundle_notifications);
+                R.string.p_rmd_persistent);
         resetGeofencesOnChange(
                 R.string.p_geofence_radius,
                 R.string.p_geofence_responsiveness);
@@ -83,6 +78,11 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
         findPreference(R.string.notification_channel_settings).setOnPreferenceClickListener(this::openNotificationChannelSettings);
         findPreference(R.string.battery_optimization_settings).setOnPreferenceClickListener(this::openBatteryOptimizationSettings);
+
+        findPreference(R.string.p_bundle_notifications).setOnPreferenceChangeListener((preference, o) -> {
+            NotificationSchedulerIntentService.enqueueWork(this, true);
+            return true;
+        });
 
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
         requires(atLeastOreo(), R.string.notification_channel_settings);
@@ -110,7 +110,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private void rescheduleNotificationsOnChange(int... resIds) {
         for (int resId : resIds) {
             findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-                NotificationSchedulerIntentService.enqueueWork(this);
+                NotificationSchedulerIntentService.enqueueWork(this, false);
                 return true;
             });
         }

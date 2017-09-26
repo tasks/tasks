@@ -36,7 +36,7 @@ public class BackgroundScheduler extends InjectingJobIntentService {
 
         Timber.d("onHandleWork(%s)", intent);
 
-        NotificationSchedulerIntentService.enqueueWork(context);
+        NotificationSchedulerIntentService.enqueueWork(context, false);
         CalendarNotificationIntentService.enqueueWork(context);
         GeofenceSchedulingIntentService.enqueueWork(context);
 

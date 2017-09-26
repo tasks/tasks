@@ -135,19 +135,21 @@ public class NotificationManager {
                 .subscribe();
     }
 
-    public void restoreNotifications() {
+    public void restoreNotifications(boolean cancelExisting) {
         List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
-        for (org.tasks.notifications.Notification notification : notifications) {
-            notificationManagerCompat.cancel(notification.taskId.intValue());
+        if (cancelExisting) {
+            for (org.tasks.notifications.Notification notification : notifications) {
+                notificationManagerCompat.cancel(notification.taskId.intValue());
+            }
         }
 
         if (preferences.bundleNotifications() && notifications.size() > 1) {
             updateSummary(false, false, false, Collections.emptyList());
+            createNotifications(notifications, false, false, false, true);
         } else {
+            createNotifications(notifications, false, false, false, false);
             notificationManagerCompat.cancel(SUMMARY_NOTIFICATION_ID);
         }
-
-        createNotifications(notifications, false, false, false, true);
     }
 
     public void notifyTasks(List<org.tasks.notifications.Notification> newNotifications, boolean alert, boolean nonstop, boolean fiveTimes) {
@@ -183,6 +185,7 @@ public class NotificationManager {
         for (org.tasks.notifications.Notification notification : notifications) {
             NotificationCompat.Builder builder = getTaskNotification(notification);
             if (builder == null) {
+                notificationManagerCompat.cancel(notification.taskId.intValue());
                 notificationDao.delete(notification.taskId);
             } else {
                 builder.setGroup(useGroupKey ? GROUP_KEY : notification.taskId.toString())
@@ -267,7 +270,6 @@ public class NotificationManager {
                 .setGroupSummary(true)
                 .setGroup(GROUP_KEY)
                 .setTicker(Joiner.on(", ").join(ticker))
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setGroupAlertBehavior(notify ? NotificationCompat.GROUP_ALERT_SUMMARY : NotificationCompat.GROUP_ALERT_CHILDREN);
 
         Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
