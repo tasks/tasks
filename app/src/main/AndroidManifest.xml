@@ -375,7 +375,14 @@
         <activity
             android:name="com.todoroo.astrid.reminders.ReminderPreferences"
             android:label="@string/notifications"
-            android:theme="@style/Tasks"/>
+            android:theme="@style/Tasks">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".voice.VoiceCommandActivity"
