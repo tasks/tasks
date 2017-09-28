@@ -192,16 +192,6 @@
 	<string name="default_random_reminder_bi_weekly">vierzehntägig</string>
 	<string name="default_random_reminder_monthly">monatlich</string>
 	<string name="default_random_reminder_bi_monthly">alle zwei Monate</string>
-	<string name="repeat_interval_day">Tag(e)</string>
-	<string name="repeat_interval_week">Woche(n)</string>
-	<string name="repeat_interval_month">Monat(e)</string>
-	<string name="repeat_interval_hour">Stunde(n)</string>
-	<string name="repeat_interval_minute">Minute(n)</string>
-	<string name="repeat_interval_year">Jahr(e)</string>
-	<string name="repeat_type_due">bei Fälligkeit</string>
-	<string name="repeat_type_completion">bei Erledigung</string>
-	<string name="repeat_detail_duedate">Jede(n) %s</string>
-	<string name="repeat_detail_duedate_until">Jede(n) %1$s\nbis %2$s</string>
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
 	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>

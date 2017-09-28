@@ -199,16 +199,6 @@
 	<string name="default_random_reminder_bi_weekly">два пъти седмично</string>
 	<string name="default_random_reminder_monthly">месечно</string>
 	<string name="default_random_reminder_bi_monthly">на два месеца</string>
-	<string name="repeat_interval_day">Ден(дни)</string>
-	<string name="repeat_interval_week">Седмица(и)</string>
-	<string name="repeat_interval_month">Месец(и)</string>
-	<string name="repeat_interval_hour">Час(ове)</string>
-	<string name="repeat_interval_minute">Минута(и)</string>
-	<string name="repeat_interval_year">Година(и)</string>
-	<string name="repeat_type_due">от краен срок</string>
-	<string name="repeat_type_completion">от датата на завършване</string>
-	<string name="repeat_detail_duedate">Всеки %s</string>
-	<string name="repeat_detail_duedate_until">Всеки %1$s\nдо %2$s</string>
 	<string name="repeat_forever">Повтаряй завинаги</string>
 	<string name="repeat_until">Повтаряй до %s</string>
 	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>

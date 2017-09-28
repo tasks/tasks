@@ -259,7 +259,7 @@ public class NotificationManager {
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                 .setContentTitle(summaryTitle)
-                .setContentText(Joiner.on(", ").join(titles))
+                .setContentText(Joiner.on(context.getString(R.string.list_separator_with_space)).join(titles))
                 .setShowWhen(true)
                 .setWhen(when)
                 .setSmallIcon(R.drawable.ic_done_all_white_24dp)
@@ -269,7 +269,7 @@ public class NotificationManager {
                 .setContentIntent(PendingIntent.getActivity(context, 0, TaskIntents.getTaskListIntent(context, filter), PendingIntent.FLAG_UPDATE_CURRENT))
                 .setGroupSummary(true)
                 .setGroup(GROUP_KEY)
-                .setTicker(Joiner.on(", ").join(ticker))
+                .setTicker(Joiner.on(context.getString(R.string.list_separator_with_space)).join(ticker))
                 .setGroupAlertBehavior(notify ? NotificationCompat.GROUP_ALERT_SUMMARY : NotificationCompat.GROUP_ALERT_CHILDREN);
 
         Intent snoozeIntent = new Intent(context, SnoozeActivity.class);

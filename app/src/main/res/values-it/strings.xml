@@ -197,16 +197,6 @@
 	<string name="default_random_reminder_bi_weekly">bi-settimanalmente</string>
 	<string name="default_random_reminder_monthly">mensilmente</string>
 	<string name="default_random_reminder_bi_monthly">bi-mensilmente</string>
-	<string name="repeat_interval_day">Giorno(i)</string>
-	<string name="repeat_interval_week">Settimana(e)</string>
-	<string name="repeat_interval_month">Mese(i)</string>
-	<string name="repeat_interval_hour">Ora(e)</string>
-	<string name="repeat_interval_minute">Minuto(i)</string>
-	<string name="repeat_interval_year">Anno(i)</string>
-	<string name="repeat_type_due">dalla data di scadenza</string>
-	<string name="repeat_type_completion">dalla data di completamento</string>
-	<string name="repeat_detail_duedate">Ogni %s</string>
-	<string name="repeat_detail_duedate_until">Ogni %1$s\nfino %2$s</string>
 	<string name="repeat_forever">Ripeti all\'infinito</string>
 	<string name="repeat_until">Ripeti fino %s</string>
 	<string name="repeat_snackbar">%1$s ripianificata per %2$s</string>

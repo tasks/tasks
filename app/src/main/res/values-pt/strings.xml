@@ -179,16 +179,6 @@
 	<string name="default_random_reminder_bi_weekly">bissemanal</string>
 	<string name="default_random_reminder_monthly">mensal</string>
 	<string name="default_random_reminder_bi_monthly">bimensal</string>
-	<string name="repeat_interval_day">Dia(s)</string>
-	<string name="repeat_interval_week">Semana(s)</string>
-	<string name="repeat_interval_month">Mês(es)</string>
-	<string name="repeat_interval_hour">Hora(s)</string>
-	<string name="repeat_interval_minute">Minuto(s)</string>
-	<string name="repeat_interval_year">Ano(s)</string>
-	<string name="repeat_type_due">da data limite</string>
-	<string name="repeat_type_completion">desde a data de conclusão</string>
-	<string name="repeat_detail_duedate">Cada %s</string>
-	<string name="repeat_detail_duedate_until">Cada %1$s\naté %2$s</string>
 	<string name="repeat_forever">Repetir eternamente</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_snackbar">%1$s agendada para %2$s</string>

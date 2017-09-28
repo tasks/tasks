@@ -199,16 +199,6 @@
 	<string name="default_random_reminder_bi_weekly">Kéthetente</string>
 	<string name="default_random_reminder_monthly">Havonta</string>
 	<string name="default_random_reminder_bi_monthly">Kéthavonta</string>
-	<string name="repeat_interval_day">Nap</string>
-	<string name="repeat_interval_week">Hét</string>
-	<string name="repeat_interval_month">Hónap</string>
-	<string name="repeat_interval_hour">Óra</string>
-	<string name="repeat_interval_minute">Perc</string>
-	<string name="repeat_interval_year">Év</string>
-	<string name="repeat_type_due">A határidőtől</string>
-	<string name="repeat_type_completion">A befejezés időpontjától</string>
-	<string name="repeat_detail_duedate">Minden %s</string>
-	<string name="repeat_detail_duedate_until">Minden %1$s\neddig: %2$s</string>
 	<string name="repeat_forever">Ismétlés örökké</string>
 	<string name="repeat_until">Ismétlés eddig: %s</string>
 	<string name="repeat_snackbar">%1$s újraütemezve ekkorra: %2$s</string>

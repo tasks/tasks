@@ -11,4 +11,6 @@
     android:paddingStart="0dp"
     android:paddingTop="12dp"
     android:singleLine="true"
+    android:layout_gravity="start"
+    android:textAlignment="viewStart"
     android:textColor="?fab_text" />

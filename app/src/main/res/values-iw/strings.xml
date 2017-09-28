@@ -196,16 +196,6 @@
 	<string name="default_random_reminder_bi_weekly">דו שבועי</string>
 	<string name="default_random_reminder_monthly">חודשי</string>
 	<string name="default_random_reminder_bi_monthly">דו חודשי</string>
-	<string name="repeat_interval_day">יום/ימים</string>
-	<string name="repeat_interval_week">שבוע/(ות)</string>
-	<string name="repeat_interval_month">חודש/ים</string>
-	<string name="repeat_interval_hour">שעה/ות</string>
-	<string name="repeat_interval_minute">דקה/דקות</string>
-	<string name="repeat_interval_year">שנה/שנים</string>
-	<string name="repeat_type_due">מתאריך היעד</string>
-	<string name="repeat_type_completion">מהיום שהמשימה הושלמה</string>
-	<string name="repeat_detail_duedate">כל %s</string>
-	<string name="repeat_detail_duedate_until">כל %1$s\nעד %2$s</string>
 	<string name="repeat_forever">חזור לנצח</string>
 	<string name="repeat_until">חזרה עד %s</string>
 	<string name="repeat_snackbar">%1$s תזמן מחדש משימה חוזרת זו ל־%2$s</string>

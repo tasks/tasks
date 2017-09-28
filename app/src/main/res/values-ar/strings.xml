@@ -113,14 +113,6 @@
 	<string name="default_random_reminder_bi_weekly">مرتين في الاسبوع</string>
 	<string name="default_random_reminder_monthly">شهري</string>
 	<string name="default_random_reminder_bi_monthly">مرتين في الشهر</string>
-	<string name="repeat_interval_day">أيام</string>
-	<string name="repeat_interval_week">أسابيع</string>
-	<string name="repeat_interval_month">أشهُر</string>
-	<string name="repeat_interval_hour">ساعات</string>
-	<string name="repeat_interval_minute">دقائق</string>
-	<string name="repeat_interval_year">سنين</string>
-	<string name="repeat_type_due">من تاريخ الموعد</string>
-	<string name="repeat_type_completion">من تاريخ الاتمام</string>
 	<string name="repeat_forever">تكرار دائم</string>
 	<string name="tag_FEx_untagged">غير مصنف</string>
 	<string name="TEA_timer_controls">مؤقت</string>

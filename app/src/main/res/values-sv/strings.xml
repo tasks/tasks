@@ -196,16 +196,6 @@
 	<string name="default_random_reminder_bi_weekly">varannan vecka</string>
 	<string name="default_random_reminder_monthly">varje månad</string>
 	<string name="default_random_reminder_bi_monthly">varannan månad</string>
-	<string name="repeat_interval_day">Dag(ar)</string>
-	<string name="repeat_interval_week">Vecka (veckor)</string>
-	<string name="repeat_interval_month">Månad(er)</string>
-	<string name="repeat_interval_hour">Timme (timmar)</string>
-	<string name="repeat_interval_minute">Minut(er)</string>
-	<string name="repeat_interval_year">År</string>
-	<string name="repeat_type_due">från förfallodatumet</string>
-	<string name="repeat_type_completion">från avslutningsdatumet</string>
-	<string name="repeat_detail_duedate">Varje %s</string>
-	<string name="repeat_detail_duedate_until">Varje %1$s\ntill %2$s </string>
 	<string name="repeat_forever">Repetera oändligt</string>
 	<string name="repeat_until">Repetera till %s</string>
 	<string name="repeat_snackbar">%1$s omplanerat till %2$s</string>

@@ -73,7 +73,6 @@
 	<string name="rmd_EPr_quiet_hours_start_title">Stilletimer start</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Stilletimer slutt</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfeldige påminnelser</string>
-	<string name="repeat_detail_duedate">Hver %s</string>
 	<string name="TPl_notification">Tidtaker aktiv for %s!</string>
 	<string name="TFE_workingOn">Oppgaver med tidtaker</string>
 	<string name="voice_create_prompt">Snakk for å skape en oppgave</string>

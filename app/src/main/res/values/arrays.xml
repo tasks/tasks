@@ -222,15 +222,6 @@
         <item>@string/repeat_yearly</item>
     </string-array>
 
-    <string-array name="repeat_interval">
-        <item>@string/repeat_interval_minute</item>
-        <item>@string/repeat_interval_hour</item>
-        <item>@string/repeat_interval_day</item>
-        <item>@string/repeat_interval_week</item>
-        <item>@string/repeat_interval_month</item>
-        <item>@string/repeat_interval_year</item>
-    </string-array>
-
     <string-array name="repeat_type">
         <item>@string/repeat_type_due</item>
         <item>@string/repeat_type_completion</item>

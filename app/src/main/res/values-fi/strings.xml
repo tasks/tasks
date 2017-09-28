@@ -199,16 +199,6 @@
 	<string name="default_random_reminder_bi_weekly">Jokatoinen viikko</string>
 	<string name="default_random_reminder_monthly">Kuukausittain</string>
 	<string name="default_random_reminder_bi_monthly">Jokatoinen kuukausi</string>
-	<string name="repeat_interval_day">Päivä(t)</string>
-	<string name="repeat_interval_week">Viikko(t)</string>
-	<string name="repeat_interval_month">Kuukausi</string>
-	<string name="repeat_interval_hour">Tunnit</string>
-	<string name="repeat_interval_minute">Minuutit</string>
-	<string name="repeat_interval_year">Vuosi</string>
-	<string name="repeat_type_due">Määräpäivästä</string>
-	<string name="repeat_type_completion">valmistumispäivästä</string>
-	<string name="repeat_detail_duedate">Joka %s</string>
-	<string name="repeat_detail_duedate_until">Joka %1$s\nkunnes %2$s</string>
 	<string name="repeat_forever">Toista loputtomiin</string>
 	<string name="repeat_until">Toista kunnes %s</string>
 	<string name="repeat_snackbar">%1$s uudelleenajastettu %2$s</string>

@@ -95,8 +95,6 @@
 	<string name="rmd_EPr_quiet_hours_start_title">Inici de Silenci</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Final de Silenci</string>
 	<string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
-	<string name="repeat_detail_duedate">Cada %s</string>
-	<string name="repeat_detail_duedate_until">Cada %1$s\nfins %2$s</string>
 	<string name="repeat_forever">Repeteix indefinidament</string>
 	<string name="repeat_until">Repeteix fins %s</string>
 	<string name="tag_FEx_untagged">A cap llista</string>

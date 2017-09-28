@@ -10,7 +10,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/repeatContainer"
+        android:id="@+id/repeatTypeContainer"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:orientation="vertical">
@@ -59,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:ems="3"
                 android:focusable="true"
+                android:imeOptions="flagNoExtractUi"
                 android:focusableInTouchMode="true"
                 android:gravity="center_horizontal"
                 android:inputType="number"
@@ -80,18 +81,6 @@
                 android:textAppearance="@style/TextAppearance" />
 
         </LinearLayout>
-
-        <Spinner
-            android:id="@+id/repeatType"
-            style="Widget.AppCompat.Spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:paddingEnd="@dimen/keyline_first"
-            android:paddingLeft="@dimen/keyline_first"
-            android:paddingRight="@dimen/keyline_first"
-            android:paddingStart="@dimen/keyline_first"
-            android:textColor="?attr/colorPrimary" />
 
         <include layout="@layout/week_buttons" />
 

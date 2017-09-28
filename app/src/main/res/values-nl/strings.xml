@@ -196,16 +196,6 @@
 	<string name="default_random_reminder_bi_weekly">tweewekelijks</string>
 	<string name="default_random_reminder_monthly">maandelijks</string>
 	<string name="default_random_reminder_bi_monthly">tweemaandelijks</string>
-	<string name="repeat_interval_day">Dag(en)</string>
-	<string name="repeat_interval_week">week/weken</string>
-	<string name="repeat_interval_month">maand(en)</string>
-	<string name="repeat_interval_hour">uur/uren</string>
-	<string name="repeat_interval_minute">Minu(u)t(en)</string>
-	<string name="repeat_interval_year">Ja(a)r(en)</string>
-	<string name="repeat_type_due">vanaf einddatum</string>
-	<string name="repeat_type_completion">vanaf datum voltooid</string>
-	<string name="repeat_detail_duedate">Elke %s</string>
-	<string name="repeat_detail_duedate_until">Elke %1$s\ntot %2$s</string>
 	<string name="repeat_forever">Altijd herhalen</string>
 	<string name="repeat_until">Herhalen tot %s</string>
 	<string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>

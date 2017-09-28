@@ -195,16 +195,6 @@
 	<string name="default_random_reminder_bi_weekly">raz na dwa tygodnie</string>
 	<string name="default_random_reminder_monthly">raz w miesiącu</string>
 	<string name="default_random_reminder_bi_monthly">raz na dwa miesiące</string>
-	<string name="repeat_interval_day">Dzień/Dni</string>
-	<string name="repeat_interval_week">Tydzień/Tygodni(e)</string>
-	<string name="repeat_interval_month">Miesiąc/Miesiący(e)</string>
-	<string name="repeat_interval_hour">Godzinę(y)/Godzin</string>
-	<string name="repeat_interval_minute">Minut(a/y)</string>
-	<string name="repeat_interval_year">Rok/lata</string>
-	<string name="repeat_type_due">od planowanego terminu</string>
-	<string name="repeat_type_completion">od daty ukończenia</string>
-	<string name="repeat_detail_duedate">Każdy %s</string>
-	<string name="repeat_detail_duedate_until">Co %1$s\ndo %2$s</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
 	<string name="repeat_snackbar">%1$s przełożone na %2$s</string>

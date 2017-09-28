@@ -201,16 +201,6 @@
 	<string name="default_random_reminder_bi_weekly">haftada 2 kez</string>
 	<string name="default_random_reminder_monthly">ayda bir</string>
 	<string name="default_random_reminder_bi_monthly">ayda 2 kez</string>
-	<string name="repeat_interval_day">Gün</string>
-	<string name="repeat_interval_week">Hafta</string>
-	<string name="repeat_interval_month">Ay</string>
-	<string name="repeat_interval_hour">Saat</string>
-	<string name="repeat_interval_minute">Dakika</string>
-	<string name="repeat_interval_year">Yıl</string>
-	<string name="repeat_type_due">son tarihten itibaren</string>
-	<string name="repeat_type_completion">tamamlanma tarihinden itibaren</string>
-	<string name="repeat_detail_duedate">Her %s</string>
-	<string name="repeat_detail_duedate_until">Her %1$s\n%2$s \'e kadar</string>
 	<string name="repeat_forever">Sürekli yinele</string>
 	<string name="repeat_until">%s\'e kadar yinele</string>
 	<string name="repeat_snackbar">%1$s, %2$s için yeniden zamanlandı</string>

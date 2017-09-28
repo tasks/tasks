@@ -152,16 +152,6 @@
 	<string name="default_random_reminder_bi_weekly">每两周</string>
 	<string name="default_random_reminder_monthly">每月</string>
 	<string name="default_random_reminder_bi_monthly">每两个月</string>
-	<string name="repeat_interval_day">日</string>
-	<string name="repeat_interval_week">星期</string>
-	<string name="repeat_interval_month">月</string>
-	<string name="repeat_interval_hour">小时</string>
-	<string name="repeat_interval_minute">分钟</string>
-	<string name="repeat_interval_year">年</string>
-	<string name="repeat_type_due">自到期日</string>
-	<string name="repeat_type_completion">自完成日</string>
-	<string name="repeat_detail_duedate">每隔 %s</string>
-	<string name="repeat_detail_duedate_until">每隔 %1$s\n直到 %2$s</string>
 	<string name="repeat_forever">永远重复</string>
 	<string name="repeat_until">重复到 %s</string>
 	<string name="new_tag">新建标签</string>

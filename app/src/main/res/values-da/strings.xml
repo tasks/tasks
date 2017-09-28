@@ -83,8 +83,6 @@
 	<string name="rmd_EPr_quiet_hours_start_title">Stille timer start</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Stille timer slut</string>
 	<string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>
-	<string name="repeat_detail_duedate">Hver %s</string>
-	<string name="repeat_detail_duedate_until">Hver %1$s\nindtil %2$s</string>
 	<string name="repeat_forever">Gentag uendeligt</string>
 	<string name="repeat_until">Gentag indtil %s</string>
 	<string name="delete_task">Slet opgave</string>

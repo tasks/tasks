@@ -143,16 +143,6 @@
 	<string name="default_random_reminder_bi_weekly">یک هفته در میان</string>
 	<string name="default_random_reminder_monthly">هر ماه</string>
 	<string name="default_random_reminder_bi_monthly">یک ماه درمیان</string>
-	<string name="repeat_interval_day">روز(ها)</string>
-	<string name="repeat_interval_week">هفته(ها)</string>
-	<string name="repeat_interval_month">ماه(ها)</string>
-	<string name="repeat_interval_hour">ساعت(ها)</string>
-	<string name="repeat_interval_minute">دقیقه(ها)</string>
-	<string name="repeat_interval_year">سال(ها)</string>
-	<string name="repeat_type_due">از روز موعود</string>
-	<string name="repeat_type_completion">از تاریخ اتمام</string>
-	<string name="repeat_detail_duedate">هر %s</string>
-	<string name="repeat_detail_duedate_until">هر %1$s\nتا %2$s</string>
 	<string name="repeat_forever">تکرار بینهایت</string>
 	<string name="repeat_until">تکرار تا %s</string>
 	<string name="new_tag">ایجاد تگ جدید</string>

@@ -182,16 +182,6 @@
 	<string name="default_random_reminder_bi_weekly">každých ctrnáct dní</string>
 	<string name="default_random_reminder_monthly">měsíčně</string>
 	<string name="default_random_reminder_bi_monthly">každý druhý měsíc</string>
-	<string name="repeat_interval_day">Dnů</string>
-	<string name="repeat_interval_week">Týdnů</string>
-	<string name="repeat_interval_month">Měsíců</string>
-	<string name="repeat_interval_hour">Hodin</string>
-	<string name="repeat_interval_minute">Minuta(-y)</string>
-	<string name="repeat_interval_year">Rok(y)</string>
-	<string name="repeat_type_due">od data splnění</string>
-	<string name="repeat_type_completion">od data dokončení</string>
-	<string name="repeat_detail_duedate">Každý %s</string>
-	<string name="repeat_detail_duedate_until">Každý %1$s\n až do %2$s</string>
 	<string name="repeat_forever">Opakovat stále</string>
 	<string name="repeat_until">Opakovat až do %s</string>
 	<string name="new_tag">Vytvořit nový štítek</string>

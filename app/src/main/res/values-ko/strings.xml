@@ -200,16 +200,6 @@
 	<string name="default_random_reminder_bi_weekly">격주로</string>
 	<string name="default_random_reminder_monthly">매달</string>
 	<string name="default_random_reminder_bi_monthly">격월로</string>
-	<string name="repeat_interval_day">일마다</string>
-	<string name="repeat_interval_week">주마다</string>
-	<string name="repeat_interval_month">월마다</string>
-	<string name="repeat_interval_hour">시마다</string>
-	<string name="repeat_interval_minute">분마다</string>
-	<string name="repeat_interval_year">년마다</string>
-	<string name="repeat_type_due">마감일로부터</string>
-	<string name="repeat_type_completion">완료일로부터</string>
-	<string name="repeat_detail_duedate">매 %s</string>
-	<string name="repeat_detail_duedate_until">매 %1$s 마다\n%2$s 까지</string>
 	<string name="repeat_forever">영원히 반복하기</string>
 	<string name="repeat_until">%s 까지 반복</string>
 	<string name="repeat_snackbar">%1$s 이 %2$s 로 변경되었습니다</string>

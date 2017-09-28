@@ -166,16 +166,6 @@
 	<string name="default_random_reminder_bi_weekly">vsake dva tedna</string>
 	<string name="default_random_reminder_monthly">mesečno</string>
 	<string name="default_random_reminder_bi_monthly">vsake dva meseca</string>
-	<string name="repeat_interval_day">Dan/dni</string>
-	<string name="repeat_interval_week">V tednih</string>
-	<string name="repeat_interval_month">Mesec/a /e /ev</string>
-	<string name="repeat_interval_hour">V urah</string>
-	<string name="repeat_interval_minute">V minutah</string>
-	<string name="repeat_interval_year">Let/o /i /a</string>
-	<string name="repeat_type_due">od datuma dospelosti</string>
-	<string name="repeat_type_completion">od datuma dokončanja</string>
-	<string name="repeat_detail_duedate">Vsak %s</string>
-	<string name="repeat_detail_duedate_until">Vsak %1$s\n do  %2$s</string>
 	<string name="repeat_forever">Ponavljaj do preklica</string>
 	<string name="repeat_until">Ponavljaj do %s</string>
 	<string name="tag_FEx_untagged">Nerazvrščen</string>

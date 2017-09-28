@@ -192,16 +192,6 @@
 	<string name="default_random_reminder_bi_weekly">a cada duas semanas</string>
 	<string name="default_random_reminder_monthly">mensalmente</string>
 	<string name="default_random_reminder_bi_monthly">a cada dois meses</string>
-	<string name="repeat_interval_day">Dia(s)</string>
-	<string name="repeat_interval_week">Semana(s)</string>
-	<string name="repeat_interval_month">Mês(es)</string>
-	<string name="repeat_interval_hour">Hora(s)</string>
-	<string name="repeat_interval_minute">Minuto(s)</string>
-	<string name="repeat_interval_year">Ano(s)</string>
-	<string name="repeat_type_due">à partir do dia do prazo final</string>
-	<string name="repeat_type_completion">à partir do dia de realização</string>
-	<string name="repeat_detail_duedate">a cada %s</string>
-	<string name="repeat_detail_duedate_until">Todo %1$s\naté %2$s</string>
 	<string name="repeat_forever">Repetir para sempre</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_snackbar">%1$s remarcada para %2$s</string>
