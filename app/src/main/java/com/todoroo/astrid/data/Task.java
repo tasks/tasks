@@ -386,7 +386,11 @@ public class Task extends RemoteModel {
     }
 
     public String sanitizedRecurrence() {
-        return getRecurrence().replaceAll("BYDAY=;", "").replaceAll(";?FROM=[^;]*", "");  //$NON-NLS-1$//$NON-NLS-2$
+        return getRecurrenceWithoutFrom().replaceAll("BYDAY=;", "");  //$NON-NLS-1$//$NON-NLS-2$
+    }
+
+    public String getRecurrenceWithoutFrom() {
+        return getRecurrence().replaceAll(";?FROM=[^;]*", "");
     }
 
     /**

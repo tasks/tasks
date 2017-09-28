@@ -1,5 +1,8 @@
 package org.tasks.time;
 
+import com.google.ical.values.DateValue;
+import com.google.ical.values.DateValueImpl;
+
 import org.tasks.locale.Locale;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +21,12 @@ public class DateTime {
 
     private final TimeZone timeZone;
     private final long timestamp;
+
+    public static DateTime from(DateValue dateValue) {
+        return dateValue == null
+                ? new DateTime(0)
+                : new DateTime(dateValue.year(), dateValue.month(), dateValue.day());
+    }
 
     public DateTime(int year, int month, int day) {
         this(year, month, day, 0, 0, 0, 0);
@@ -266,6 +275,12 @@ public class DateTime {
         Calendar calendar = new GregorianCalendar(timeZone);
         calendar.setTimeInMillis(timestamp);
         return calendar;
+    }
+
+    public DateValue toDateValue() {
+        return timestamp == 0
+                ? null
+                : new DateValueImpl(getYear(), getMonthOfYear(), getDayOfMonth());
     }
 
     @Override

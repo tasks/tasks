@@ -19,9 +19,12 @@ import android.widget.TextView;
 
 import com.appeaser.sublimepickerlibrary.drawables.CheckableDrawable;
 import com.appeaser.sublimepickerlibrary.recurrencepicker.WeekButton;
+import com.google.common.base.Strings;
+import com.google.ical.values.Frequency;
+import com.google.ical.values.RRule;
+import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.repeats.RepeatControlSet;
 
 import org.tasks.R;
 import org.tasks.activities.DatePickerActivity;
@@ -36,8 +39,10 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.time.DateTime;
 
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,29 +51,39 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
+import timber.log.Timber;
 
 import static android.support.v4.content.ContextCompat.getColor;
-import static com.todoroo.astrid.repeats.RepeatControlSet.FREQUENCY_DAYS;
-import static com.todoroo.astrid.repeats.RepeatControlSet.FREQUENCY_HOURS;
-import static com.todoroo.astrid.repeats.RepeatControlSet.FREQUENCY_MINUTES;
-import static com.todoroo.astrid.repeats.RepeatControlSet.FREQUENCY_MONTHS;
-import static com.todoroo.astrid.repeats.RepeatControlSet.FREQUENCY_WEEKS;
-import static com.todoroo.astrid.repeats.RepeatControlSet.FREQUENCY_YEARS;
-import static com.todoroo.astrid.repeats.RepeatControlSet.TYPE_COMPLETION_DATE;
+import static com.google.ical.values.Frequency.DAILY;
+import static com.google.ical.values.Frequency.HOURLY;
+import static com.google.ical.values.Frequency.MINUTELY;
+import static com.google.ical.values.Frequency.MONTHLY;
+import static com.google.ical.values.Frequency.WEEKLY;
+import static com.google.ical.values.Frequency.YEARLY;
+import static com.todoroo.astrid.repeats.RepeatControlSet.WEEKDAYS;
+import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
-    public static CustomRecurrenceDialog newCustomRecurrenceDialog(Fragment target) {
+    public static CustomRecurrenceDialog newCustomRecurrenceDialog(Fragment target, RRule rrule) {
         CustomRecurrenceDialog dialog = new CustomRecurrenceDialog();
         dialog.setTargetFragment(target, 0);
+        Bundle arguments = new Bundle();
+        if (rrule != null) {
+            arguments.putString(EXTRA_RRULE, rrule.toIcal());
+        }
+        dialog.setArguments(arguments);
         return dialog;
     }
 
     public interface CustomRecurrenceCallback {
-        void onSelected(int frequency, int interval, long repeatUntilValue, boolean[] isChecked);
+        void onSelected(RRule rrule);
     }
 
+    private static final List<Frequency> FREQUENCIES = asList(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY);
+
+    private static final String EXTRA_RRULE = "extra_rrule";
     private static final int REQUEST_PICK_DATE = 505;
 
     @Inject @ForActivity Context context;
@@ -93,11 +108,8 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
     private ArrayAdapter<String> repeatUntilAdapter;
     private final List<String> repeatUntilOptions = new ArrayList<>();
-    private final boolean[] isChecked = new boolean[7];
 
-    private int frequency;
-    private int interval;
-    private long repeatUntilValue;
+    private RRule rrule;
 
     @NonNull
     @Override
@@ -105,23 +117,33 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View dialogView = inflater.inflate(R.layout.control_set_repeat, null);
 
+        Bundle arguments = getArguments();
+        String rule = arguments.getString(EXTRA_RRULE);
+        if (!Strings.isNullOrEmpty(rule)) {
+            try {
+                rrule = new RRule(rule);
+            } catch (Exception ignored) {
+            }
+        }
+        if (rrule == null) {
+            rrule = new RRule();
+            rrule.setInterval(1);
+            rrule.setFreq(WEEKLY);
+        }
+
         ButterKnife.bind(this, dialogView);
 
         ArrayAdapter<CharSequence> frequencyAdapter = ArrayAdapter.createFromResource(context, R.array.repeat_frequency, R.layout.frequency_item);
         frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         frequencySpinner.setAdapter(frequencyAdapter);
-        frequencySpinner.setSelection(3);
-        intervalEditText.setText(locale.formatNumber(1));
-        intervalEditText.setSelectAllOnFocus(true);
-        intervalEditText.selectAll();
+        frequencySpinner.setSelection(FREQUENCIES.indexOf(rrule.getFreq()));
+
+        intervalEditText.setText(locale.formatNumber(rrule.getInterval()));
 
         repeatUntilAdapter = new ArrayAdapter<>(context, R.layout.simple_spinner_item, repeatUntilOptions);
         repeatUntilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         repeatUntilSpinner.setAdapter(repeatUntilAdapter);
-
-        setInterval(1, true);
-
-        setRepeatUntilValue(repeatUntilValue);
+        updateRepeatUntilOptions();
 
         WeekButton[] weekButtons = new WeekButton[] { day1, day2, day3, day4, day5, day6, day7 };
         int expandedWidthHeight = getResources()
@@ -137,32 +159,55 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
         String[] shortWeekdays = dfs.getShortWeekdays();
+
         for(int i = 0; i < 7; i++) {
-            final int index = i;
-            WeekButton weekButton = weekButtons[index];
-            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            String text = shortWeekdays[dayOfWeek];
+            String text = shortWeekdays[calendar.get(Calendar.DAY_OF_WEEK)];
+            WeekdayNum weekdayNum = new WeekdayNum(0, WEEKDAYS.get(i));
+            WeekButton weekButton = weekButtons[i];
             weekButton.setBackgroundDrawable(new CheckableDrawable(accent.getAccentColor(), false, expandedWidthHeight));
             weekButton.setTextColor(weekButtonUnselectedTextColor);
             weekButton.setTextOff(text);
             weekButton.setTextOn(text);
             weekButton.setText(text);
-            weekButton.setOnCheckedChangeListener((compoundButton, b) -> CustomRecurrenceDialog.this.isChecked[index] = b);
+            if (rrule.getByDay().contains(weekdayNum)) {
+                weekButton.setChecked(true);
+            }
+            weekButton.setOnCheckedChangeListener((compoundButton, b) -> {
+                List<WeekdayNum> days = rrule.getByDay();
+                if (b) {
+                    days.add(weekdayNum);
+                } else {
+                    days.remove(weekdayNum);
+                }
+            });
             calendar.add(Calendar.DATE, 1);
         }
 
         return dialogBuilder.newDialog()
                 .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, (dialog12, which) ->
-                        ((CustomRecurrenceCallback) getTargetFragment())
-                                .onSelected(frequency, interval, repeatUntilValue, isChecked))
+                .setPositiveButton(android.R.string.ok, (dialog12, which) -> {
+                    if (rrule.getFreq() != WEEKLY) {
+                        rrule.setByDay(Collections.emptyList());
+                    }
+                    ((CustomRecurrenceCallback) getTargetFragment()).onSelected(rrule);
+                })
                 .setNegativeButton(android.R.string.cancel, null)
                 .setOnCancelListener(DialogInterface::dismiss)
                 .show();
     }
 
+    private void setFrequency(Frequency frequency) {
+        rrule.setFreq(frequency);
+        int weekVisibility = frequency == WEEKLY ? View.VISIBLE : View.GONE;
+        weekGroup1.setVisibility(weekVisibility);
+        if (weekGroup2 != null) {
+            weekGroup2.setVisibility(weekVisibility);
+        }
+        updateIntervalTextView();
+    }
+
     private void setInterval(int interval, boolean updateEditText) {
-        this.interval = interval;
+        rrule.setInterval(interval);
         if (updateEditText) {
             intervalEditText.setText(locale.formatNumber(interval));
         }
@@ -171,31 +216,31 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
     private void updateIntervalTextView() {
         int resource = getFrequencyPlural();
-        String quantityString = getResources().getQuantityString(resource, interval);
+        String quantityString = getResources().getQuantityString(resource, rrule.getInterval());
         intervalTextView.setText(quantityString);
     }
 
     private int getFrequencyPlural() {
-        switch (frequency) {
-            case FREQUENCY_MINUTES:
+        switch (rrule.getFreq()) {
+            case MINUTELY:
                 return R.plurals.repeat_minutes;
-            case FREQUENCY_HOURS:
+            case HOURLY:
                 return R.plurals.repeat_hours;
-            case FREQUENCY_DAYS:
+            case DAILY:
                 return R.plurals.repeat_days;
-            case FREQUENCY_WEEKS:
+            case WEEKLY:
                 return R.plurals.repeat_weeks;
-            case FREQUENCY_MONTHS:
+            case MONTHLY:
                 return R.plurals.repeat_months;
-            case FREQUENCY_YEARS:
+            case YEARLY:
                 return R.plurals.repeat_years;
             default:
-                throw new RuntimeException("Invalid frequency: " + frequency);
+                throw new RuntimeException("Invalid frequency: " + rrule.getFreq());
         }
     }
 
     @OnItemSelected(R.id.repeat_until)
-    public void onRepeatUntilChanged(Spinner spinner, int position) {
+    public void onRepeatUntilChanged(int position) {
         if (repeatUntilOptions.size() == 2) {
             if (position == 0) {
                 setRepeatUntilValue(0);
@@ -212,14 +257,8 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     }
 
     @OnItemSelected(R.id.frequency)
-    public void onFrequencyChanged(Spinner spinner, int position) {
-        int weekVisibility = position == RepeatControlSet.FREQUENCY_WEEKS ? View.VISIBLE : View.GONE;
-        weekGroup1.setVisibility(weekVisibility);
-        if (weekGroup2 != null) {
-            weekGroup2.setVisibility(weekVisibility);
-        }
-        frequency = position;
-        updateIntervalTextView();
+    public void onFrequencyChanged(int position) {
+        setFrequency(FREQUENCIES.get(position));
     }
 
     @OnTextChanged(R.id.repeatValue)
@@ -236,20 +275,22 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     }
 
     private void setRepeatUntilValue(long newValue) {
-        repeatUntilValue = newValue;
+        rrule.setUntil(new DateTime(newValue).toDateValue());
         updateRepeatUntilOptions();
     }
 
     private void repeatUntilClick() {
         Intent intent = new Intent(context, DatePickerActivity.class);
-        intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, repeatUntilValue > 0 ? repeatUntilValue : 0L);
+        long repeatUntil = DateTime.from(rrule.getUntil()).getMillis();
+        intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, repeatUntil > 0 ? repeatUntil : 0L);
         startActivityForResult(intent, REQUEST_PICK_DATE);
     }
 
     private void updateRepeatUntilOptions() {
         repeatUntilOptions.clear();
-        if (repeatUntilValue > 0) {
-            repeatUntilOptions.add(getString(R.string.repeat_until, getDisplayString(context, repeatUntilValue)));
+        long repeatUntil = DateTime.from(rrule.getUntil()).getMillis();
+        if (repeatUntil > 0) {
+            repeatUntilOptions.add(getString(R.string.repeat_until, getDisplayString(context, repeatUntil)));
         }
         repeatUntilOptions.add(getString(R.string.repeat_forever));
         repeatUntilOptions.add(getString(R.string.repeat_until, "").trim());
@@ -263,7 +304,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
             if (resultCode == Activity.RESULT_OK) {
                 setRepeatUntilValue(data.getLongExtra(DatePickerActivity.EXTRA_TIMESTAMP, 0L));
             } else {
-                setRepeatUntilValue(repeatUntilValue);
+                setRepeatUntilValue(DateTime.from(rrule.getUntil()).getMillis());
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
-import com.google.common.primitives.Booleans;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
@@ -49,7 +48,6 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -57,11 +55,15 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
-import timber.log.Timber;
 
 import static android.support.v4.content.ContextCompat.getColor;
-import static com.google.common.collect.Iterables.any;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.ical.values.Frequency.DAILY;
+import static com.google.ical.values.Frequency.HOURLY;
+import static com.google.ical.values.Frequency.MINUTELY;
+import static com.google.ical.values.Frequency.MONTHLY;
+import static com.google.ical.values.Frequency.WEEKLY;
+import static com.google.ical.values.Frequency.YEARLY;
 import static org.tasks.repeats.CustomRecurrenceDialog.newCustomRecurrenceDialog;
 
 /**
@@ -74,15 +76,12 @@ public class RepeatControlSet extends TaskEditControlFragment
         implements CustomRecurrenceDialog.CustomRecurrenceCallback {
 
     public static final int TAG = R.string.TEA_ctrl_repeat_pref;
+    public static final List<Weekday> WEEKDAYS = Arrays.asList(Weekday.values());
     private static final String FRAG_TAG_CUSTOM_RECURRENCE = "frag_tag_custom_recurrence";
 
     @Override
-    public void onSelected(int frequency, int interval, long repeatUntilValue, boolean[] isChecked) {
-        doRepeat = true;
-        this.interval = interval;
-        this.frequency = frequency;
-        this.repeatUntilValue = repeatUntilValue;
-        this.isChecked = isChecked;
+    public void onSelected(RRule rrule) {
+        this.rrule = rrule;
         refreshDisplayView();
     }
 
@@ -91,23 +90,10 @@ public class RepeatControlSet extends TaskEditControlFragment
     }
 
     private static final String EXTRA_RECURRENCE = "extra_recurrence";
-    private static final String EXTRA_REPEAT_UNTIL = "extra_repeat_until";
     private static final String EXTRA_REPEAT_AFTER_COMPLETION = "extra_repeat_after_completion";
 
-    // --- spinner constants
-
-    public static final int FREQUENCY_MINUTES = 0;
-    public static final int FREQUENCY_HOURS = 1;
-    public static final int FREQUENCY_DAYS = 2;
-    public static final int FREQUENCY_WEEKS = 3;
-    public static final int FREQUENCY_MONTHS = 4;
-    public static final int FREQUENCY_YEARS = 5;
-
-    public static final int TYPE_DUE_DATE = 0;
-    public static final int TYPE_COMPLETION_DATE = 1;
-
-    //private final CheckBox enabled;
-    private boolean doRepeat = false;
+    public static final int TYPE_DUE_DATE = 1;
+    public static final int TYPE_COMPLETION_DATE = 2;
 
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
@@ -119,12 +105,7 @@ public class RepeatControlSet extends TaskEditControlFragment
     @BindView(R.id.repeatType) Spinner typeSpinner;
     @BindView(R.id.repeatTypeContainer) LinearLayout repeatTypeContainer;
 
-    private String recurrence;
-    private int interval;
-    private int frequency;
-    private long repeatUntilValue;
-    private boolean[] isChecked;
-    private final Weekday[] weekdays = new Weekday[7];
+    private RRule rrule;
     private final List<String> repeatTypes = new ArrayList<>();
     private HiddenTopArrayAdapter<String> typeAdapter;
 
@@ -137,8 +118,16 @@ public class RepeatControlSet extends TaskEditControlFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         if (savedInstanceState != null) {
-            recurrence = savedInstanceState.getString(EXTRA_RECURRENCE);
-            repeatUntilValue = savedInstanceState.getLong(EXTRA_REPEAT_UNTIL);
+            String recurrence = savedInstanceState.getString(EXTRA_RECURRENCE);
+            if (Strings.isNullOrEmpty(recurrence)) {
+                rrule = null;
+            } else {
+                try {
+                    rrule = new RRule(recurrence);
+                } catch (ParseException e) {
+                    rrule = null;
+                }
+            }
             repeatAfterCompletion = savedInstanceState.getBoolean(EXTRA_REPEAT_AFTER_COMPLETION);
         }
 
@@ -165,60 +154,12 @@ public class RepeatControlSet extends TaskEditControlFragment
         typeSpinner.setAdapter(typeAdapter);
         typeSpinner.setSelection(repeatAfterCompletion ? TYPE_COMPLETION_DATE : TYPE_DUE_DATE);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-        for(int i = 0; i < 7; i++) {
-            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            weekdays[i] = Weekday.values()[dayOfWeek - 1];
-            calendar.add(Calendar.DATE, 1);
-        }
-
-        doRepeat = !Strings.isNullOrEmpty(recurrence);
-        if (doRepeat) {
-            try {
-                RRule rrule = new RRule(recurrence);
-                interval = rrule.getInterval();
-                isChecked = new boolean[7];
-                for (WeekdayNum day : rrule.getByDay()) {
-                    for (int i = 0 ; i < 7 ; i++) {
-                        if (weekdays[i].equals(day.wday)) {
-                            isChecked[i] = true;
-                        }
-                    }
-                }
-                switch (rrule.getFreq()) {
-                    case DAILY:
-                        frequency = FREQUENCY_DAYS;
-                        break;
-                    case WEEKLY:
-                        frequency = FREQUENCY_WEEKS;
-                        break;
-                    case MONTHLY:
-                        frequency = FREQUENCY_MONTHS;
-                        break;
-                    case HOURLY:
-                        frequency = FREQUENCY_HOURS;
-                        break;
-                    case MINUTELY:
-                        frequency = FREQUENCY_MINUTES;
-                        break;
-                    case YEARLY:
-                        frequency = FREQUENCY_YEARS;
-                        break;
-
-                }
-            } catch (ParseException e) {
-                recurrence = "";
-                Timber.e(e, e.getMessage());
-            }
-
-        }
         refreshDisplayView();
         return view;
     }
 
     @OnItemSelected(R.id.repeatType)
-    public void onRepeatTypeChanged(Spinner spinner, int position) {
+    public void onRepeatTypeChanged(int position) {
         repeatAfterCompletion = position == TYPE_COMPLETION_DATE;
         repeatTypes.set(0, repeatAfterCompletion ? repeatTypes.get(2) : repeatTypes.get(1));
         typeAdapter.notifyDataSetChanged();
@@ -228,8 +169,7 @@ public class RepeatControlSet extends TaskEditControlFragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(EXTRA_RECURRENCE, getRecurrence());
-        outState.putLong(EXTRA_REPEAT_UNTIL, repeatUntilValue);
+        outState.putString(EXTRA_RECURRENCE, rrule == null ? "" : rrule.toIcal());
         outState.putBoolean(EXTRA_REPEAT_AFTER_COMPLETION, repeatAfterCompletion);
     }
 
@@ -246,14 +186,15 @@ public class RepeatControlSet extends TaskEditControlFragment
     }
 
     private boolean isCustomValue() {
-        if (!doRepeat) {
+        if (rrule == null) {
             return false;
         }
-        return frequency == FREQUENCY_WEEKS && any(Booleans.asList(isChecked), b -> b) ||
-                frequency == FREQUENCY_HOURS ||
-                frequency == FREQUENCY_MINUTES ||
-                repeatUntilValue != 0 ||
-                interval != 1;
+        Frequency frequency = rrule.getFreq();
+        return frequency == WEEKLY && !rrule.getByDay().isEmpty() ||
+                frequency == HOURLY ||
+                frequency == MINUTELY ||
+                rrule.getUntil() != null ||
+                rrule.getInterval() != 1;
     }
 
     @OnClick(R.id.display_row_edit)
@@ -264,21 +205,21 @@ public class RepeatControlSet extends TaskEditControlFragment
         if (customPicked) {
             adapter.insert(getRepeatString(), 0);
             adapter.setChecked(0);
-        } else if (!doRepeat) {
+        } else if (rrule == null) {
             adapter.setChecked(0);
         } else {
             int selected;
-            switch(frequency) {
-                case FREQUENCY_DAYS:
+            switch (rrule.getFreq()) {
+                case DAILY:
                     selected = 1;
                     break;
-                case FREQUENCY_WEEKS:
+                case WEEKLY:
                     selected = 2;
                     break;
-                case FREQUENCY_MONTHS:
+                case MONTHLY:
                     selected = 3;
                     break;
-                case FREQUENCY_YEARS:
+                case YEARLY:
                     selected = 4;
                     break;
                 default:
@@ -296,35 +237,33 @@ public class RepeatControlSet extends TaskEditControlFragment
                         i--;
                     }
                     if (i == 0) {
-                        doRepeat = false;
+                        rrule = null;
                     } else if (i == 5) {
-                        newCustomRecurrenceDialog(this)
+                        newCustomRecurrenceDialog(this, rrule)
                                 .show(getFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
                         return;
                     } else {
-                        doRepeat = true;
+                        rrule = new RRule();
+                        rrule.setInterval(1);
                         repeatAfterCompletion = false;
-                        interval = 1;
-                        repeatUntilValue = 0;
 
                         switch (i) {
                             case 1:
-                                frequency = FREQUENCY_DAYS;
+                                rrule.setFreq(DAILY);
                                 break;
                             case 2:
-                                frequency = FREQUENCY_WEEKS;
-                                isChecked = new boolean[7];
+                                rrule.setFreq(WEEKLY);
                                 break;
                             case 3:
-                                frequency = FREQUENCY_MONTHS;
+                                rrule.setFreq(MONTHLY);
                                 break;
                             case 4:
-                                frequency = FREQUENCY_YEARS;
+                                rrule.setFreq(YEARLY);
                                 break;
                         }
                     }
 
-                    callback.repeatChanged(doRepeat);
+                    callback.repeatChanged(rrule != null);
 
                     refreshDisplayView();
                 })
@@ -350,24 +289,38 @@ public class RepeatControlSet extends TaskEditControlFragment
     @Override
     public void initialize(boolean isNewTask, Task task) {
         repeatAfterCompletion = task.repeatAfterCompletion();
-        recurrence = task.sanitizedRecurrence();
-        repeatUntilValue = task.getRepeatUntil();
+        try {
+            rrule = new RRule(task.getRecurrenceWithoutFrom());
+            rrule.setUntil(new DateTime(task.getRepeatUntil()).toDateValue());
+        } catch (ParseException e) {
+            rrule = null;
+        }
     }
 
     @Override
     public boolean hasChanges(Task original) {
-        return !getRecurrenceValue().equals(original.getRecurrence()) || repeatUntilValue != original.getRepeatUntil();
+        return !getRecurrenceValue().equals(original.getRecurrence()) ||
+                original.getRepeatUntil() != (rrule == null ? 0 : DateTime.from(rrule.getUntil()).getMillis());
     }
 
     @Override
     public void apply(Task task) {
+        task.setRepeatUntil(rrule == null ? 0 : DateTime.from(rrule.getUntil()).getMillis());
         task.setRecurrence(getRecurrenceValue());
-        task.setRepeatUntil(repeatUntilValue);
     }
 
     private String getRecurrenceValue() {
-        String result = getRecurrence();
-
+        if (rrule == null) {
+            return "";
+        }
+        RRule copy;
+        try {
+            copy = new RRule(rrule.toIcal());
+        } catch (ParseException e) {
+            return "";
+        }
+        copy.setUntil(null);
+        String result = copy.toIcal();
         if (repeatAfterCompletion && !TextUtils.isEmpty(result)) {
             result += ";FROM=COMPLETION"; //$NON-NLS-1$
         }
@@ -375,90 +328,50 @@ public class RepeatControlSet extends TaskEditControlFragment
         return result;
     }
 
-    private String getRecurrence() {
-        String result;
-        if(!doRepeat) {
-            result = ""; //$NON-NLS-1$
-        } else {
-            RRule rrule = new RRule();
-            rrule.setInterval(interval);
-            switch(frequency) {
-                case FREQUENCY_DAYS:
-                    rrule.setFreq(Frequency.DAILY);
-                    break;
-                case FREQUENCY_WEEKS: {
-                    rrule.setFreq(Frequency.WEEKLY);
-
-                    ArrayList<WeekdayNum> days = new ArrayList<>();
-                    for (int i = 0 ; i < isChecked.length ; i++) {
-                        if (isChecked[i]) {
-                            days.add(new WeekdayNum(0, weekdays[i]));
-                        }
-                    }
-                    rrule.setByDay(days);
-                    break;
-                }
-                case FREQUENCY_MONTHS:
-                    rrule.setFreq(Frequency.MONTHLY);
-                    break;
-                case FREQUENCY_HOURS:
-                    rrule.setFreq(Frequency.HOURLY);
-                    break;
-                case FREQUENCY_MINUTES:
-                    rrule.setFreq(Frequency.MINUTELY);
-                    break;
-                case FREQUENCY_YEARS:
-                    rrule.setFreq(Frequency.YEARLY);
-                    break;
-            }
-
-            result = rrule.toIcal();
-        }
-
-        return result;
-    }
-
     private void refreshDisplayView() {
-        if (doRepeat) {
-            displayView.setText(getRepeatString());
-            displayView.setTextColor(getColor(context, R.color.text_primary));
-            repeatTypeContainer.setVisibility(View.VISIBLE);
-        } else {
+        if (rrule == null) {
             displayView.setText(R.string.repeat_option_does_not_repeat);
             displayView.setTextColor(getColor(context, R.color.text_tertiary));
             repeatTypeContainer.setVisibility(View.GONE);
+        } else {
+            displayView.setText(getRepeatString());
+            displayView.setTextColor(getColor(context, R.color.text_primary));
+            repeatTypeContainer.setVisibility(View.VISIBLE);
         }
     }
 
     private String getRepeatString() {
+        int interval = rrule.getInterval();
+        Frequency frequency = rrule.getFreq();
+        DateTime repeatUntil = rrule.getUntil() == null ? null : DateTime.from(rrule.getUntil());
         if (interval == 1) {
             String frequencyString = getString(getSingleFrequencyResource(frequency));
-            if (frequency == FREQUENCY_WEEKS && any(Booleans.asList(isChecked), b -> b)) {
+            if (frequency == WEEKLY && !rrule.getByDay().isEmpty()) {
                 String dayString = getDayString();
-                if (repeatUntilValue > 0) {
-                    return getString(R.string.repeats_single_on_until, frequencyString, dayString, DateUtilities.getLongDateString(new DateTime(repeatUntilValue)));
-                } else {
+                if (repeatUntil == null) {
                     return getString(R.string.repeats_single_on, frequencyString, dayString);
+                } else {
+                    return getString(R.string.repeats_single_on_until, frequencyString, dayString, DateUtilities.getLongDateString(repeatUntil));
                 }
-            } else if (repeatUntilValue > 0) {
-                return getString(R.string.repeats_single_until, frequencyString, DateUtilities.getLongDateString(new DateTime(repeatUntilValue)));
-            } else {
+            } else if (repeatUntil == null) {
                 return getString(R.string.repeats_single, frequencyString);
+            } else {
+                return getString(R.string.repeats_single_until, frequencyString, DateUtilities.getLongDateString(repeatUntil));
             }
         } else {
             int plural = getFrequencyPlural(frequency);
             String frequencyPlural = getResources().getQuantityString(plural, interval, interval);
-            if (frequency == FREQUENCY_WEEKS && any(Booleans.asList(isChecked), b -> b)) {
+            if (frequency == WEEKLY && !rrule.getByDay().isEmpty()) {
                 String dayString = getDayString();
-                if (repeatUntilValue > 0) {
-                    return getString(R.string.repeats_plural_on_until, frequencyPlural, dayString, DateUtilities.getLongDateString(new DateTime(repeatUntilValue)));
-                } else {
+                if (repeatUntil == null) {
                     return getString(R.string.repeats_plural_on, frequencyPlural, dayString);
+                } else {
+                    return getString(R.string.repeats_plural_on_until, frequencyPlural, dayString, DateUtilities.getLongDateString(repeatUntil));
                 }
-            } else if (repeatUntilValue > 0) {
-                return getString(R.string.repeats_plural_until, frequencyPlural, DateUtilities.getLongDateString(new DateTime(repeatUntilValue)));
-            } else {
+            } else if (repeatUntil == null) {
                 return getString(R.string.repeats_plural, frequencyPlural);
+            } else {
+                return getString(R.string.repeats_plural_until, frequencyPlural, DateUtilities.getLongDateString(repeatUntil));
             }
         }
     }
@@ -467,46 +380,44 @@ public class RepeatControlSet extends TaskEditControlFragment
         DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
         String[] shortWeekdays = dfs.getShortWeekdays();
         List<String> days = new ArrayList<>();
-        for (int i = 0 ; i < 7 ; i++) {
-            if (isChecked[i]) {
-                days.add(shortWeekdays[i + 1]);
-            }
+        for (WeekdayNum weekday : rrule.getByDay()) {
+            days.add(shortWeekdays[WEEKDAYS.indexOf(weekday.wday) + 1]);
         }
         return Joiner.on(getString(R.string.list_separator_with_space)).join(days);
     }
 
-    private int getSingleFrequencyResource(int frequency) {
+    private int getSingleFrequencyResource(Frequency frequency) {
         switch (frequency) {
-            case FREQUENCY_MINUTES:
+            case MINUTELY:
                 return R.string.repeats_minutely;
-            case FREQUENCY_HOURS:
+            case HOURLY:
                 return R.string.repeats_hourly;
-            case FREQUENCY_DAYS:
+            case DAILY:
                 return R.string.repeats_daily;
-            case FREQUENCY_WEEKS:
+            case WEEKLY:
                 return R.string.repeats_weekly;
-            case FREQUENCY_MONTHS:
+            case MONTHLY:
                 return R.string.repeats_monthly;
-            case FREQUENCY_YEARS:
+            case YEARLY:
                 return R.string.repeats_yearly;
             default:
                 throw new RuntimeException("Invalid frequency: " + frequency);
         }
     }
 
-    private int getFrequencyPlural(int frequency) {
+    private int getFrequencyPlural(Frequency frequency) {
         switch (frequency) {
-            case FREQUENCY_MINUTES:
+            case MINUTELY:
                 return R.plurals.repeat_n_minutes;
-            case FREQUENCY_HOURS:
+            case HOURLY:
                 return R.plurals.repeat_n_hours;
-            case FREQUENCY_DAYS:
+            case DAILY:
                 return R.plurals.repeat_n_days;
-            case FREQUENCY_WEEKS:
+            case WEEKLY:
                 return R.plurals.repeat_n_weeks;
-            case FREQUENCY_MONTHS:
+            case MONTHLY:
                 return R.plurals.repeat_n_months;
-            case FREQUENCY_YEARS:
+            case YEARLY:
                 return R.plurals.repeat_n_years;
             default:
                 throw new RuntimeException("Invalid frequency: " + frequency);
