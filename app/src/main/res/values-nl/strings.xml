@@ -194,6 +194,69 @@
 	<string name="default_random_reminder_bi_weekly">tweewekelijks</string>
 	<string name="default_random_reminder_monthly">maandelijks</string>
 	<string name="default_random_reminder_bi_monthly">tweemaandelijks</string>
+	<string name="repeat_every">Elke</string>
+	<string name="repeat_option_does_not_repeat">Wordt niet herhaald</string>
+	<string name="repeat_option_every_day">Elke dag</string>
+	<string name="repeat_option_every_week">Elke week</string>
+	<string name="repeat_option_every_month">Elke maand</string>
+	<string name="repeat_option_every_year">Elk jaar</string>
+	<string name="repeat_option_custom">Aangepast...</string>
+	<string name="repeat_minutely">HERHAAL ELKE MINUUT</string>
+	<string name="repeat_hourly">HERHAAL ELK UUR</string>
+	<string name="repeat_daily">HERHAAL DAGELIJKS</string>
+	<string name="repeat_weekly">HERHAAL WEKELIJKS</string>
+	<string name="repeat_monthly">HERHAAL MAANDELIJKS</string>
+	<string name="repeat_yearly">HERHAAL JAARLIJKS</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">minuut</item>
+		<item quantity="other">minuten</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d minuut</item>
+		<item quantity="other">%d minuten</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">uur</item>
+		<item quantity="other">uren</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d uur</item>
+		<item quantity="other">%d uren</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">dag</item>
+		<item quantity="other">dagen</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d dag</item>
+		<item quantity="other">%d dagen</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">week</item>
+		<item quantity="other">weken</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d week</item>
+		<item quantity="other">%d weken</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">maand</item>
+		<item quantity="other">maanden</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d maand</item>
+		<item quantity="other">%d maanden</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">jaar</item>
+		<item quantity="other">jaren</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d jaar</item>
+		<item quantity="other">%d jaren</item>
+	</plurals>
+	<string name="repeat_type_due">einddatum</string>
+	<string name="repeat_type_completion">voltooingsdatum</string>
 	<string name="repeat_forever">Altijd herhalen</string>
 	<string name="repeat_until">Herhalen tot %s</string>
 	<string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
@@ -373,4 +436,19 @@
 	<string name="badges">Sets</string>
 	<string name="launcher_support_required">Launcher ondersteuning vereist</string>
 	<string name="list">Lijst</string>
+	<string name="repeats_from">Herhalen van</string>
+	<string name="repeats_single">Herhalen %s</string>
+	<string name="repeats_single_on">Herhalen %s op %s</string>
+	<string name="repeats_single_until">Herhalen %s tot %s</string>
+	<string name="repeats_single_on_until">Herhalen %s op %s tot %s</string>
+	<string name="repeats_minutely">Iedere minuut</string>
+	<string name="repeats_hourly">Ieder uur</string>
+	<string name="repeats_daily">dagelijk</string>
+	<string name="repeats_weekly">wekelijks</string>
+	<string name="repeats_monthly">maandelijks</string>
+	<string name="repeats_yearly">jaarlijks</string>
+	<string name="repeats_plural">Herhaal elke %s</string>
+	<string name="repeats_plural_until">Herhalen elke %s tot %s</string>
+	<string name="repeats_plural_on">Herhalen elke %s op %s</string>
+	<string name="repeats_plural_on_until">Herhalen elke %s op %s tot %s</string>
 </resources>

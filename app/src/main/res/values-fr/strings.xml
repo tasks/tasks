@@ -191,6 +191,61 @@
 	<string name="default_random_reminder_bi_weekly">bi-hebdomadaire</string>
 	<string name="default_random_reminder_monthly">mensuel</string>
 	<string name="default_random_reminder_bi_monthly">bi-mensuel</string>
+	<string name="repeat_every">Chaque fois</string>
+	<string name="repeat_option_does_not_repeat">Ne pas répéter</string>
+	<string name="repeat_option_every_day">Tous les jours</string>
+	<string name="repeat_option_every_week">Toutes les semaines</string>
+	<string name="repeat_option_every_month">Le mois prochain</string>
+	<string name="repeat_option_every_year">Tous les jours</string>
+	<string name="repeat_option_custom">Personnalisé..</string>
+	<string name="repeat_minutely">Répéter toutes les minutes</string>
+	<string name="repeat_hourly">Répéter toutes les heures</string>
+	<string name="repeat_daily">Répéter tous les jours</string>
+	<string name="repeat_weekly">Répéter toutes les semaines</string>
+	<string name="repeat_monthly">Répéter tous les mois</string>
+	<string name="repeat_yearly">Répéter toutes les années</string>
+	<plurals name="repeat_hours">
+		<item quantity="one">heure</item>
+		<item quantity="other">heures</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d heure</item>
+		<item quantity="other">%d heures</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">jour</item>
+		<item quantity="other">jours</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d jour</item>
+		<item quantity="other">%d jours</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">semaine</item>
+		<item quantity="other">semaines</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d semaine</item>
+		<item quantity="other">%d semaines</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">mois</item>
+		<item quantity="other">mois</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d mois</item>
+		<item quantity="other">%d mois</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">an</item>
+		<item quantity="other">ans</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d an</item>
+		<item quantity="other">%d ans</item>
+	</plurals>
+	<string name="repeat_type_due">date d\'échance</string>
+	<string name="repeat_type_completion">date d\'achèvement</string>
 	<string name="repeat_forever">Répéter indéfiniment</string>
 	<string name="repeat_until">Répéter jusqu\'à %s</string>
 	<string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
@@ -371,4 +426,21 @@
 	<string name="bundle_notifications">Paquet de notifications</string>
 	<string name="launcher_support_required">Support d\'un lanceur requis</string>
 	<string name="list">Liste</string>
+	<string name="repeats_from">Répétitions depuis</string>
+	<string name="repeats_single">Répétitions %s</string>
+	<string name="repeats_single_on">Répétitions %s sur %s</string>
+	<string name="repeats_single_until">Répétitions %s jusqu\'à %s</string>
+	<string name="repeats_single_on_until">Répétitions %s sur %s jusqu\'à %s</string>
+	<string name="repeats_minutely">Toutes les minutes</string>
+	<string name="repeats_hourly">Toutes les heures</string>
+	<string name="repeats_daily">quotidien</string>
+	<string name="repeats_weekly">hebdomadaire</string>
+	<string name="repeats_monthly">mensuel</string>
+	<string name="repeats_yearly">Toutes les années</string>
+	<string name="repeats_plural">Répéter tous les %s</string>
+	<string name="repeats_plural_until">Répéter tous les %s jusqu\'à %s</string>
+	<string name="repeats_plural_on">Répéter tous les %s sur %s</string>
+	<string name="repeats_plural_on_until">Répéter tous les %s sur %s jusqu\'à %s</string>
+	<string name="dont_add_to_calendar">Ajouter à votre calendrier</string>
+	<string name="default_calendar">Calendrier par défaut</string>
 </resources>

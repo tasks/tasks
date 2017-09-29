@@ -197,6 +197,69 @@
 	<string name="default_random_reminder_bi_weekly">два пъти седмично</string>
 	<string name="default_random_reminder_monthly">месечно</string>
 	<string name="default_random_reminder_bi_monthly">на два месеца</string>
+	<string name="repeat_every">Всеки</string>
+	<string name="repeat_option_does_not_repeat">Не се повтаря</string>
+	<string name="repeat_option_every_day">Всеки ден</string>
+	<string name="repeat_option_every_week">Всяка седмица</string>
+	<string name="repeat_option_every_month">Всеки месец</string>
+	<string name="repeat_option_every_year">Всяка година</string>
+	<string name="repeat_option_custom">Персонализирано...</string>
+	<string name="repeat_minutely">ПОВТАРЯЙ МИНУТНО</string>
+	<string name="repeat_hourly">ПОВТАРЯЙ ЧАСОВО</string>
+	<string name="repeat_daily">ПОВТАРЯЙ ДНЕВНО</string>
+	<string name="repeat_weekly">ПОВТАРЯЙ СЕДМИЧНО</string>
+	<string name="repeat_monthly">ПОВТАРЯЙ МЕСЕЧНО</string>
+	<string name="repeat_yearly">ПОВТАРЯЙ ГОДИШНО</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">минута</item>
+		<item quantity="other">минути</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d минута</item>
+		<item quantity="other">%d минути</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">час</item>
+		<item quantity="other">часове</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d час</item>
+		<item quantity="other">%d часове</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">ден</item>
+		<item quantity="other">дни</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d ден</item>
+		<item quantity="other">%d дни</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">седмица</item>
+		<item quantity="other">седмици</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d седмица</item>
+		<item quantity="other">%d седмици</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">месец</item>
+		<item quantity="other">месеци</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d месец</item>
+		<item quantity="other">%d месеци</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">година</item>
+		<item quantity="other">години</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d година</item>
+		<item quantity="other">%d години</item>
+	</plurals>
+	<string name="repeat_type_due">до дата</string>
+	<string name="repeat_type_completion">дата на завършване</string>
 	<string name="repeat_forever">Повтаряй завинаги</string>
 	<string name="repeat_until">Повтаряй до %s</string>
 	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
@@ -385,4 +448,19 @@
 	<string name="badges">Значки</string>
 	<string name="launcher_support_required">Изисква се поддръжка от лаунчера</string>
 	<string name="list">Списък</string>
+	<string name="repeats_from">Повтаряй от</string>
+	<string name="repeats_single">Повтаряй %s</string>
+	<string name="repeats_single_on">Повтаряй %s на %s</string>
+	<string name="repeats_single_until">Повтаряй %s до %s</string>
+	<string name="repeats_single_on_until">Повтаряй %s на %s до %s</string>
+	<string name="repeats_minutely">минутно</string>
+	<string name="repeats_hourly">часово</string>
+	<string name="repeats_daily">дневно</string>
+	<string name="repeats_weekly">седмично</string>
+	<string name="repeats_monthly">месечно</string>
+	<string name="repeats_yearly">годишно</string>
+	<string name="repeats_plural">Повтаряй всеки %s</string>
+	<string name="repeats_plural_until">Повтаряй всеки %s до %s</string>
+	<string name="repeats_plural_on">Повтаряй всеки %s на %s</string>
+	<string name="repeats_plural_on_until">Повтаряй всеки %s на %s до %s</string>
 </resources>

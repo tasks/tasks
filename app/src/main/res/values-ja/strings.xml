@@ -195,6 +195,69 @@
 	<string name="default_random_reminder_bi_weekly">一週間おき</string>
 	<string name="default_random_reminder_monthly">毎月</string>
 	<string name="default_random_reminder_bi_monthly">一ヶ月おき</string>
+	<string name="repeat_every">毎</string>
+	<string name="repeat_option_does_not_repeat">繰り返ししない</string>
+	<string name="repeat_option_every_day">毎日</string>
+	<string name="repeat_option_every_week">毎週</string>
+	<string name="repeat_option_every_month">毎月</string>
+	<string name="repeat_option_every_year">毎年</string>
+	<string name="repeat_option_custom">カスタム…</string>
+	<string name="repeat_minutely">毎分繰り返し</string>
+	<string name="repeat_hourly">毎時繰り返し</string>
+	<string name="repeat_daily">毎日繰り返し</string>
+	<string name="repeat_weekly">毎週繰り返し</string>
+	<string name="repeat_monthly">毎月繰り返し</string>
+	<string name="repeat_yearly">毎年繰り返し</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">分</item>
+		<item quantity="other">分</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d 分</item>
+		<item quantity="other">%d 分</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">時間</item>
+		<item quantity="other">時間</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d 時間</item>
+		<item quantity="other">%d 時間</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">日</item>
+		<item quantity="other">日</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d 日</item>
+		<item quantity="other">%d 日</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">週間</item>
+		<item quantity="other">週間</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d 週間</item>
+		<item quantity="other">%d 週間</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">ヶ月</item>
+		<item quantity="other">ヶ月</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d ヶ月</item>
+		<item quantity="other">%d ヶ月</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">年</item>
+		<item quantity="other">年</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d 年</item>
+		<item quantity="other">%d 年</item>
+	</plurals>
+	<string name="repeat_type_due">期限</string>
+	<string name="repeat_type_completion">完了日</string>
 	<string name="repeat_forever">永久に繰り返す</string>
 	<string name="repeat_until">%s まで繰り返す</string>
 	<string name="repeat_snackbar">%1$s を %2$s にスケジュール変更しました</string>
@@ -383,4 +446,21 @@
 	<string name="badges">バッジ</string>
 	<string name="launcher_support_required">ランチャーサポートが必要です</string>
 	<string name="list">リスト</string>
+	<string name="repeats_from">繰り返し開始</string>
+	<string name="repeats_single">%s を繰り返し</string>
+	<string name="repeats_single_on">%s を %s に繰り返し</string>
+	<string name="repeats_single_until">%s を %s まで繰り返し</string>
+	<string name="repeats_single_on_until">%s を %s に %s まで繰り返し</string>
+	<string name="repeats_minutely">毎分</string>
+	<string name="repeats_hourly">毎時</string>
+	<string name="repeats_daily">毎日</string>
+	<string name="repeats_weekly">毎週</string>
+	<string name="repeats_monthly">毎月</string>
+	<string name="repeats_yearly">毎年</string>
+	<string name="repeats_plural">%s ごとに繰り返し</string>
+	<string name="repeats_plural_until">%s ごとに %s まで繰り返し</string>
+	<string name="repeats_plural_on">%s ごとに %s に繰り返し</string>
+	<string name="repeats_plural_on_until">%s ごとに %s に %s まで繰り返し</string>
+	<string name="dont_add_to_calendar">カレンダーに追加しない</string>
+	<string name="default_calendar">デフォルトのカレンダー</string>
 </resources>

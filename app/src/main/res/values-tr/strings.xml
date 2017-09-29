@@ -199,6 +199,31 @@
 	<string name="default_random_reminder_bi_weekly">haftada 2 kez</string>
 	<string name="default_random_reminder_monthly">ayda bir</string>
 	<string name="default_random_reminder_bi_monthly">ayda 2 kez</string>
+	<string name="repeat_option_custom">Özel...</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">dakika</item>
+		<item quantity="other">dakika</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">saat</item>
+		<item quantity="other">saat</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">gün</item>
+		<item quantity="other">gün</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">hafta</item>
+		<item quantity="other">hafta</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">ay</item>
+		<item quantity="other">ay</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">yıl</item>
+		<item quantity="other">yıl</item>
+	</plurals>
 	<string name="repeat_forever">Sürekli yinele</string>
 	<string name="repeat_until">%s\'e kadar yinele</string>
 	<string name="repeat_snackbar">%1$s, %2$s için yeniden zamanlandı</string>

@@ -193,6 +193,69 @@
 	<string name="default_random_reminder_bi_weekly">quincenalmente</string>
 	<string name="default_random_reminder_monthly">mensualmente</string>
 	<string name="default_random_reminder_bi_monthly">bimensualmente</string>
+	<string name="repeat_every">Cada</string>
+	<string name="repeat_option_does_not_repeat">No repetir</string>
+	<string name="repeat_option_every_day">Cada día</string>
+	<string name="repeat_option_every_week">Cada semana</string>
+	<string name="repeat_option_every_month">Cada mes</string>
+	<string name="repeat_option_every_year">Cada año</string>
+	<string name="repeat_option_custom">Personalizado…</string>
+	<string name="repeat_minutely">REPETIR CADA MINUTO</string>
+	<string name="repeat_hourly">REPETIR CADA HORA</string>
+	<string name="repeat_daily">REPETIR DIARIAMENTE</string>
+	<string name="repeat_weekly">REPETIR SEMANALMENTE</string>
+	<string name="repeat_monthly">REPETIR MENSUALMENTE</string>
+	<string name="repeat_yearly">REPETIR ANUALMENTE</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">minuto</item>
+		<item quantity="other">minutos</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d minuto</item>
+		<item quantity="other">%d minutos</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">hora</item>
+		<item quantity="other">horas</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d hora</item>
+		<item quantity="other">%d horas</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">día</item>
+		<item quantity="other">días</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d día</item>
+		<item quantity="other">%d días</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">semana</item>
+		<item quantity="other">semanas</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d semana</item>
+		<item quantity="other">%d semanas</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">mes</item>
+		<item quantity="other">meses</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d mes</item>
+		<item quantity="other">%d meses</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">año</item>
+		<item quantity="other">años</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d año</item>
+		<item quantity="other">%d años</item>
+	</plurals>
+	<string name="repeat_type_due">fecha de vencimiento</string>
+	<string name="repeat_type_completion">fecha de finalización</string>
 	<string name="repeat_forever">Repetir por siempre</string>
 	<string name="repeat_until">Repetir hasta %s</string>
 	<string name="repeat_snackbar">%1$s He reprogramado esta tarea recurrente para %2$s</string>
@@ -379,4 +442,12 @@
 	<string name="badges">Insignias</string>
 	<string name="launcher_support_required">Se requiere soporte de launcher</string>
 	<string name="list">Lista</string>
+	<string name="repeats_minutely">cada minuto</string>
+	<string name="repeats_hourly">cada hora</string>
+	<string name="repeats_daily">diariamente</string>
+	<string name="repeats_weekly">semanalmente</string>
+	<string name="repeats_monthly">mensualmente</string>
+	<string name="repeats_yearly">anualmente</string>
+	<string name="dont_add_to_calendar">No añadir al calendario</string>
+	<string name="default_calendar">Calendario predeterminado</string>
 </resources>

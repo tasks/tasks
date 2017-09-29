@@ -134,7 +134,7 @@
 	<string name="at_deadline">완료일에</string>
 	<string name="at_deadline_or_overdue">마감일이나 그 이후</string>
 	<string name="BFE_Active">나의 할일</string>
-	<string name="BFE_Recent">최근에 수정한 일정</string>
+	<string name="BFE_Recent">최근에 수정한 할일</string>
 	<string name="CFA_universe_all">실행중인 할일</string>
 	<string name="CFA_type_add">또는</string>
 	<string name="CFA_type_subtract">제외</string>
@@ -162,7 +162,7 @@
 	<string name="gcal_completed_title">%s (완료)</string>
 	<string name="CFC_gtasks_list_text">목록에: ?</string>
 	<string name="CFC_gtasks_list_name">GTasks 목록에...</string>
-	<string name="gtasks_GTA_clear_completed">삭제 완료</string>
+	<string name="gtasks_GTA_clear_completed">완료한 할일 지우기</string>
 	<string name="gtasks_GLA_authenticating">인증 중...</string>
 	<string name="gtasks_GLA_errorIOAuth">죄송합니다, 구글 서버와 통신하는 데 문제가 있습니다. 잠시 후 다시 시도하세요.</string>
 	<string name="gtasks_GPr_header">구글 할일 목록 (Google Tasks)</string>
@@ -184,6 +184,7 @@
 	<string name="random_reminder_two_months">두달</string>
 	<string name="rmd_NoA_done">완료</string>
 	<string name="rmd_NoA_snooze">알림 잠시 미루기</string>
+	<string name="snooze_all">모든 알람 잠시 미루기</string>
 	<string name="rmd_EPr_quiet_hours_start_title">알림 꺼짐 시작 시간</string>
 	<string name="rmd_EPr_quiet_hours_end_title">알림 꺼짐 종료 시간</string>
 	<string name="rmd_EPr_rmd_time_title">기본 알림 설정</string>
@@ -196,8 +197,71 @@
 	<string name="default_random_reminder_daily">매일</string>
 	<string name="default_random_reminder_weekly">매주</string>
 	<string name="default_random_reminder_bi_weekly">격주로</string>
-	<string name="default_random_reminder_monthly">매달</string>
+	<string name="default_random_reminder_monthly">매월</string>
 	<string name="default_random_reminder_bi_monthly">격월로</string>
+	<string name="repeat_every">매</string>
+	<string name="repeat_option_does_not_repeat">반복하지 않기</string>
+	<string name="repeat_option_every_day">매일</string>
+	<string name="repeat_option_every_week">매주</string>
+	<string name="repeat_option_every_month">매월</string>
+	<string name="repeat_option_every_year">매년</string>
+	<string name="repeat_option_custom">사용자설정...</string>
+	<string name="repeat_minutely">매분 반복</string>
+	<string name="repeat_hourly">매시 반복</string>
+	<string name="repeat_daily">매일 반복</string>
+	<string name="repeat_weekly">매주 반복</string>
+	<string name="repeat_monthly">매월 반복</string>
+	<string name="repeat_yearly">매년 반복</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">분</item>
+		<item quantity="other">분</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d 분</item>
+		<item quantity="other">%d 분</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">시간</item>
+		<item quantity="other">시간</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d 시간</item>
+		<item quantity="other">%d 시간</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">일</item>
+		<item quantity="other">일</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d 일</item>
+		<item quantity="other">%d 일</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">주</item>
+		<item quantity="other">주</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d 주</item>
+		<item quantity="other">%d 주</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">월</item>
+		<item quantity="other">월</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d 개월</item>
+		<item quantity="other">%d 개월</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">년</item>
+		<item quantity="other">년</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d 년</item>
+		<item quantity="other">%d 년</item>
+	</plurals>
+	<string name="repeat_type_due">마감일</string>
+	<string name="repeat_type_completion">완료일</string>
 	<string name="repeat_forever">영원히 반복하기</string>
 	<string name="repeat_until">%s 까지 반복</string>
 	<string name="repeat_snackbar">%1$s 이 %2$s 로 변경되었습니다</string>
@@ -293,7 +357,7 @@
 	<string name="filter_settings">필터 설정</string>
 	<string name="show_hidden">숨겨진 할일 표시</string>
 	<string name="show_completed">완료된 할일 표시</string>
-	<string name="reverse">반전</string>
+	<string name="reverse">역순</string>
 	<string name="task_count">%d 할일</string>
 	<string name="get_plugins">인앱 결제</string>
 	<string name="no_application_found">첨부 파일을 열 수 있는 앱이 발견되지 않았습니다</string>
@@ -382,4 +446,16 @@
 	<string name="notification_channel_settings">알림 관리</string>
 	<string name="battery_optimization_settings">배터리 최적화 관리</string>
 	<string name="notification_disable_battery_optimizations_description">배터리 최적화 시 알림이 지연될 수 있습니다. </string>
+	<string name="bundle_notifications">여러 알림 하나로 묶어서 보기</string>
+	<string name="badges">배지</string>
+	<string name="launcher_support_required">런처 지원을 필요로 합니다.</string>
+	<string name="list">목록</string>
+	<string name="repeats_from">부터 반복</string>
+	<string name="repeats_single">%s 반복</string>
+	<string name="repeats_minutely">매분</string>
+	<string name="repeats_hourly">매시간</string>
+	<string name="repeats_daily">매일</string>
+	<string name="repeats_weekly">매주</string>
+	<string name="repeats_monthly">매월</string>
+	<string name="repeats_yearly">매년</string>
 </resources>

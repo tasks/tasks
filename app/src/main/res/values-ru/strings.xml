@@ -194,6 +194,26 @@
 	<string name="default_random_reminder_bi_weekly">каждые две недели</string>
 	<string name="default_random_reminder_monthly">ежемесячно</string>
 	<string name="default_random_reminder_bi_monthly">каждые два месяца</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">минуты</item>
+		<item quantity="other">минут</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">часа</item>
+		<item quantity="other">часов</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">дня</item>
+		<item quantity="other">дней</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">недели</item>
+		<item quantity="other">недель</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">месяца</item>
+		<item quantity="other">месяцев</item>
+	</plurals>
 	<string name="repeat_forever">Повторять всегда</string>
 	<string name="repeat_until">Повторять до %s</string>
 	<string name="repeat_snackbar">«%1$s» перенесено на %2$s</string>
