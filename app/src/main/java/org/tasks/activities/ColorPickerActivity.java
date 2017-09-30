@@ -9,13 +9,13 @@ import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.ColorPickerDialog.ColorPalette;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.injection.ThemedInjectingAppCompatActivity;
 
 import javax.inject.Inject;
 
 import static org.tasks.dialogs.ColorPickerDialog.newColorPickerDialog;
 
-public class ColorPickerActivity extends InjectingAppCompatActivity implements ColorPickerDialog.ThemePickerCallback, PurchaseHelperCallback {
+public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implements ColorPickerDialog.ThemePickerCallback, PurchaseHelperCallback {
 
     private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
     private static final int REQUEST_PURCHASE = 1006;

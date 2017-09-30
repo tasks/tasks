@@ -110,7 +110,6 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
                     handler.selectedList(lists.get(which));
                     dialog.dismiss();
                 })
-                .setNegativeButton(android.R.string.cancel, (dialog, which) -> dialog.dismiss())
                 .show();
     }
 

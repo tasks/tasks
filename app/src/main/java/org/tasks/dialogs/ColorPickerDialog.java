@@ -11,11 +11,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.CheckedTextView;
 
 import org.tasks.R;
 import org.tasks.injection.DialogFragmentComponent;
@@ -24,6 +22,10 @@ import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
+import org.tasks.ui.SingleCheckedArrayAdapter;
+
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -61,7 +63,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
 
     private ColorPalette palette;
     private ThemePickerCallback callback;
-    private ArrayAdapter<String> adapter;
+    private SingleCheckedArrayAdapter adapter;
     private Dialog dialog;
 
     @Override
@@ -72,21 +74,14 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         palette = (ColorPalette) arguments.getSerializable(EXTRA_PALETTE);
         boolean showNone = arguments.getBoolean(EXTRA_SHOW_NONE);
 
-        if (palette == ColorPickerDialog.ColorPalette.THEMES || palette == ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND) {
-            theme = theme.withBaseTheme(themeCache.getThemeBase(2));
-        }
+        final List<String> themes = Arrays.asList(context.getResources().getStringArray(getNameRes()));
 
-        final String[] themes = context.getResources().getStringArray(getNameRes());
-
-        final LayoutInflater inflater = theme.getLayoutInflater(context);
-        adapter = new ArrayAdapter<String>(context, R.layout.color_selection_row, themes) {
+        adapter = new SingleCheckedArrayAdapter(context, R.layout.color_selection_row, themes, theme.getThemeAccent()) {
             @NonNull
             @SuppressLint("NewApi")
             @Override
             public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-                TextView textView = (TextView) (convertView == null
-                        ? inflater.inflate(R.layout.color_selection_row, parent, false)
-                        : convertView);
+                CheckedTextView textView = (CheckedTextView) super.getView(position, convertView, parent);
                 Drawable original = ContextCompat.getDrawable(context, preferences.hasPurchase(R.string.p_purchased_themes) || position < getNumFree()
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp);
@@ -97,10 +92,10 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 } else {
                     textView.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
                 }
-                textView.setText(themes[position]);
                 return textView;
             }
         };
+        adapter.setChecked(getCurrentSelection());
 
         AlertDialogBuilder builder = dialogBuilder.newDialog(theme)
                 .setAdapter(adapter, (dialog, which) -> {
@@ -110,7 +105,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                         callback.initiateThemePurchase();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> callback.dismissed());
+                .setOnDismissListener(dialogInterface -> callback.dismissed());
         if (showNone) {
             builder.setNeutralButton(R.string.none, (dialogInterface, i) -> callback.themePicked(palette, -1));
         }
@@ -145,6 +140,17 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     @Override
     protected void inject(DialogFragmentComponent component) {
         component.inject(this);
+    }
+
+    private int getCurrentSelection() {
+        switch (palette) {
+            case COLORS:
+                return theme.getThemeColor().getIndex();
+            case ACCENTS:
+                return theme.getThemeAccent().getIndex();
+            default:
+                return theme.getThemeBase().getIndex();
+        }
     }
 
     private int getNameRes() {

@@ -68,7 +68,7 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
         selected = arguments.getString(EXTRA_SELECTED);
 
         theme.applyToContext(getActivity());
-        adapter = new SingleCheckedArrayAdapter(getActivity(), calendarNames);
+        adapter = new SingleCheckedArrayAdapter(getActivity(), calendarNames, theme.getThemeAccent());
 
         AlertDialogBuilder builder = dialogBuilder.newDialog()
                 .setSingleChoiceItems(adapter, -1, (dialog, which) -> handler.selectedCalendar(calendars.get(which)))

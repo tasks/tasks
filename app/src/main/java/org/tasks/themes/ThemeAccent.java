@@ -27,11 +27,13 @@ public class ThemeAccent {
     };
 
     private final String name;
+    private final int index;
     private final int style;
     private final int accentColor;
 
     public ThemeAccent(String name, int index, int accentColor) {
         this.name = name;
+        this.index = index;
         this.style = ACCENTS[index];
         this.accentColor = accentColor;
     }
@@ -46,5 +48,9 @@ public class ThemeAccent {
 
     public int getAccentColor() {
         return accentColor;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

@@ -201,7 +201,7 @@ public class RepeatControlSet extends TaskEditControlFragment
     void openPopup(View view) {
         boolean customPicked = isCustomValue();
         List<String> repeatOptions = newArrayList(context.getResources().getStringArray(R.array.repeat_options));
-        SingleCheckedArrayAdapter<String> adapter = new SingleCheckedArrayAdapter<>(context, repeatOptions);
+        SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, repeatOptions, theme.getThemeAccent());
         if (customPicked) {
             adapter.insert(getRepeatString(), 0);
             adapter.setChecked(0);

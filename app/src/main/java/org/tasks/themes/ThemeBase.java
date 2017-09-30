@@ -61,4 +61,8 @@ public class ThemeBase {
     public void setDefaultNightMode() {
         AppCompatDelegate.setDefaultNightMode(dayNightMode);
     }
+
+    public int getIndex() {
+        return index;
+    }
 }

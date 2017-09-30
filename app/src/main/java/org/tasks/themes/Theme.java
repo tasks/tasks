@@ -24,10 +24,6 @@ public class Theme {
         this.themeAccent = themeAccent;
     }
 
-    public Theme withBaseTheme(ThemeBase themeBase) {
-        return new Theme(themeBase, themeColor, themeAccent);
-    }
-
     public Theme withThemeColor(ThemeColor themeColor) {
         return new Theme(themeBase, themeColor, themeAccent);
     }

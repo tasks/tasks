@@ -13,10 +13,12 @@
      limitations under the License.
 -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.AppCompatCheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:checkMark="@drawable/ic_check_white_24dp"
+    android:checkMarkTint="?colorAccent"
     android:drawablePadding="@dimen/keyline_second"
     android:gravity="start|center_vertical"
     android:textAlignment="viewStart"
