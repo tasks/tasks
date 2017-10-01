@@ -98,8 +98,8 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
         }
 
         if (justCompleted) {
-            repeatTaskHelper.handleRepeat(task);
             updateCalendarTitle(task);
+            repeatTaskHelper.handleRepeat(task);
             if (task.getTimerStart() > 0) {
                 timerPlugin.stopTimer(task);
             }
