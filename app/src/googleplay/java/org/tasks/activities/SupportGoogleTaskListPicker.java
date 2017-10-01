@@ -1,19 +1,11 @@
 package org.tasks.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
 
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksList;
@@ -24,14 +16,16 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
+import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+import org.tasks.ui.SingleCheckedArrayAdapter;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
+import static com.google.common.collect.Lists.transform;
 
 public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
 
@@ -50,6 +44,7 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject GtasksListService gtasksListService;
     @Inject ThemeCache themeCache;
+    @Inject ThemeAccent themeAccent;
 
     private GoogleTaskListSelectionHandler handler;
 
@@ -63,7 +58,7 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
             selected = new GtasksList(storeObject);
         }
         return createDialog(getActivity(), themeCache, dialogBuilder, gtasksListService,
-                selected, list -> handler.selectedList(list));
+                selected, themeAccent, list -> handler.selectedList(list));
     }
 
     @Override
@@ -75,36 +70,25 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
 
     public static AlertDialog createDialog(Context context, ThemeCache themeCache,
                                            DialogBuilder dialogBuilder, GtasksListService gtasksListService,
-                                           GtasksList selected, final GoogleTaskListSelectionHandler handler) {
+                                           GtasksList selected, ThemeAccent themeAccent,
+                                           final GoogleTaskListSelectionHandler handler) {
         final List<GtasksList> lists = gtasksListService.getLists();
-        ArrayAdapter<GtasksList> adapter = new ArrayAdapter<GtasksList>(context, R.layout.simple_list_item_single_choice_themed, lists) {
-            @SuppressLint("NewApi")
-            @NonNull
+        List<String> listNames = transform(lists, GtasksList::getName);
+        SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, listNames, themeAccent) {
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
+            protected int getDrawable(int position) {
+                return R.drawable.ic_cloud_black_24dp;
+            }
+
+            @Override
+            protected int getDrawableColor(int position) {
                 GtasksList list = lists.get(position);
-                if (selected != null && list.getRemoteId().equals(selected.getRemoteId())) {
-                    view.setCheckMarkDrawable(R.drawable.ic_check_white_24dp);
-                    view.setChecked(true);
-                } else {
-                    view.setCheckMarkDrawable(null);
-                    view.setChecked(false);
-                }
                 int color = list.getColor();
                 ThemeColor themeColor = themeCache.getThemeColor(color >= 0 ? color : 19);
-                view.setText(list.getName());
-                Drawable original = ContextCompat.getDrawable(getContext(), R.drawable.ic_cloud_black_24dp);
-                Drawable wrapped = DrawableCompat.wrap(original.mutate());
-                DrawableCompat.setTint(wrapped, themeColor.getPrimaryColor());
-                if (atLeastJellybeanMR1()) {
-                    view.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
-                } else {
-                    view.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
-                }
-                return view;
+                return themeColor.getPrimaryColor();
             }
         };
+        adapter.setChecked(selected.getName());
         return dialogBuilder.newDialog()
                 .setSingleChoiceItems(adapter, -1, (dialog, which) -> {
                     handler.selectedList(lists.get(which));

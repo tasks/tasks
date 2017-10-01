@@ -16,6 +16,7 @@ import org.tasks.themes.ThemeAccent;
 
 import java.util.List;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
 public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
@@ -26,11 +27,7 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
     private int checkedPosition = -1;
 
     public SingleCheckedArrayAdapter(@NonNull Context context, @NonNull List<String> items, ThemeAccent accent) {
-        this(context, R.layout.simple_list_item_single_choice_themed, items, accent);
-    }
-
-    public SingleCheckedArrayAdapter(@NonNull Context context, int layout, @NonNull List<String> items, ThemeAccent accent) {
-        super(context, layout, items);
+        super(context, R.layout.simple_list_item_single_choice_themed, items);
         this.context = context;
         this.items = items;
         this.accent = accent;
@@ -42,9 +39,9 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
         CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
         if (this.checkedPosition == position) {
             if (atLeastLollipop()) {
-                view.setCheckMarkDrawable(R.drawable.ic_check_white_24dp);
+                view.setCheckMarkDrawable(R.drawable.ic_check_black_24dp);
             } else {
-                Drawable original = ContextCompat.getDrawable(context, R.drawable.ic_check_white_24dp);
+                Drawable original = ContextCompat.getDrawable(context, R.drawable.ic_check_black_24dp);
                 Drawable wrapped = DrawableCompat.wrap(original.mutate());
                 DrawableCompat.setTint(wrapped, accent.getAccentColor());
                 view.setCheckMarkDrawable(wrapped);
@@ -54,7 +51,27 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
             view.setCheckMarkDrawable(null);
             view.setChecked(false);
         }
+        int drawable = getDrawable(position);
+        if (drawable > 0) {
+            int color = getDrawableColor(position);
+            Drawable original = ContextCompat.getDrawable(context, drawable);
+            Drawable wrapped = DrawableCompat.wrap(original.mutate());
+            DrawableCompat.setTint(wrapped, color);
+            if (atLeastJellybeanMR1()) {
+                view.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
+            } else {
+                view.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
+            }
+        }
         return view;
+    }
+
+    protected int getDrawable(int position) {
+        return 0;
+    }
+
+    protected int getDrawableColor(int position) {
+        return 0;
     }
 
     public void setChecked(String item) {

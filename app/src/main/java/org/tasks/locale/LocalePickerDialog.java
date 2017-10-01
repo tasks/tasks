@@ -2,12 +2,16 @@ package org.tasks.locale;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
+import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
+import org.tasks.themes.ThemeAccent;
+import org.tasks.ui.SingleCheckedArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +31,9 @@ public class LocalePickerDialog extends InjectingNativeDialogFragment {
         void onLocaleSelected(Locale locale);
     }
 
+    @Inject @ForActivity Context context;
     @Inject DialogBuilder dialogBuilder;
+    @Inject ThemeAccent themeAccent;
     @Inject Locale locale;
 
     private LocaleSelectionHandler callback;
@@ -40,12 +46,13 @@ public class LocalePickerDialog extends InjectingNativeDialogFragment {
             locales.add(locale.withLanguage(override));
         }
         final List<String> display = transform(locales, Locale::getDisplayName);
+        SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, display, themeAccent);
+        adapter.setChecked(display.indexOf(locale.getDisplayName()));
         return dialogBuilder.newDialog()
-                .setItems(display, (dialogInterface, i) -> {
-                    dialogInterface.dismiss();
+                .setSingleChoiceItems(adapter, -1, (dialogInterface, i) -> {
                     callback.onLocaleSelected(locales.get(i));
+                    dialogInterface.dismiss();
                 })
-                .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
 

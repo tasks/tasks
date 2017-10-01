@@ -1,19 +1,12 @@
 package org.tasks.dialogs;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckedTextView;
 
 import org.tasks.R;
 import org.tasks.injection.DialogFragmentComponent;
@@ -28,8 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class ColorPickerDialog extends InjectingDialogFragment {
 
@@ -76,23 +67,17 @@ public class ColorPickerDialog extends InjectingDialogFragment {
 
         final List<String> themes = Arrays.asList(context.getResources().getStringArray(getNameRes()));
 
-        adapter = new SingleCheckedArrayAdapter(context, R.layout.color_selection_row, themes, theme.getThemeAccent()) {
-            @NonNull
-            @SuppressLint("NewApi")
+        adapter = new SingleCheckedArrayAdapter(context, themes, theme.getThemeAccent()) {
             @Override
-            public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-                CheckedTextView textView = (CheckedTextView) super.getView(position, convertView, parent);
-                Drawable original = ContextCompat.getDrawable(context, preferences.hasPurchase(R.string.p_purchased_themes) || position < getNumFree()
+            protected int getDrawable(int position) {
+                return preferences.hasPurchase(R.string.p_purchased_themes) || position < getNumFree()
                         ? R.drawable.ic_lens_black_24dp
-                        : R.drawable.ic_vpn_key_black_24dp);
-                Drawable wrapped = DrawableCompat.wrap(original.mutate());
-                DrawableCompat.setTint(wrapped, getDisplayColor(position));
-                if (atLeastJellybeanMR1()) {
-                    textView.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);
-                } else {
-                    textView.setCompoundDrawablesWithIntrinsicBounds(wrapped, null, null, null);
-                }
-                return textView;
+                        : R.drawable.ic_vpn_key_black_24dp;
+            }
+
+            @Override
+            protected int getDrawableColor(int position) {
+                return getDisplayColor(position);
             }
         };
         adapter.setChecked(getCurrentSelection());
