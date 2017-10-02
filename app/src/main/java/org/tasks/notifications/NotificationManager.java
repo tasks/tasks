@@ -188,7 +188,7 @@ public class NotificationManager {
                 notificationManagerCompat.cancel(notification.taskId.intValue());
                 notificationDao.delete(notification.taskId);
             } else {
-                builder.setGroup(useGroupKey ? GROUP_KEY : notification.taskId.toString())
+                builder.setGroup(useGroupKey ? GROUP_KEY : (atLeastNougat() ? notification.taskId.toString() : null))
                         .setGroupAlertBehavior(alert ? NotificationCompat.GROUP_ALERT_CHILDREN : NotificationCompat.GROUP_ALERT_SUMMARY);
                 notify(notification.taskId, builder, alert, nonstop, fiveTimes);
                 alert = false;
