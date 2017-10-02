@@ -121,7 +121,6 @@
 	<string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
 	<string name="EPr_default_hideUntil_title">Alapértelmezett elrejtési idő</string>
 	<string name="EPr_default_reminders_title">Alapértelmezett emlékeztetők</string>
-	<string name="EPr_default_addtocalendar_title">Naptárhoz való hozzáadás alapértelmezése</string>
 	<string name="EPr_default_reminders_mode_title">Alapértelmezett csengetés/rezgés típusa</string>
 	<string name="priority_high">Magas</string>
 	<string name="priority_medium">Közepes</string>
@@ -156,7 +155,6 @@
 	<string name="CFC_title_contains_name">A név tartalmazza ezt..</string>
 	<string name="CFC_title_contains_text">A név tartalmazza ezt: ?</string>
 	<string name="gcal_TEA_error">Nem sikerült a feladat hozzáadása a naptárhoz!</string>
-	<string name="gcal_TEA_addToCalendar_label">Hozzáadás a naptárhoz</string>
 	<string name="gcal_TEA_showCalendar_label">Naptáresemény megnyitása</string>
 	<string name="delete_calendar_event_confirmation">Naptárbejegyzés törlése?</string>
 	<string name="calendar_event_not_found">Naptáresemény nem található</string>

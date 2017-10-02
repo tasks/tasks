@@ -118,7 +118,6 @@
 	<string name="EPr_default_importance_title">標準の優先順位</string>
 	<string name="EPr_default_hideUntil_title">表示期間</string>
 	<string name="EPr_default_reminders_title">標準リマインダー</string>
-	<string name="EPr_default_addtocalendar_title">デフォルトでカレンダーに登録</string>
 	<string name="EPr_default_reminders_mode_title">標準の通知音、振動種類</string>
 	<string name="priority_high">高</string>
 	<string name="priority_medium">中</string>
@@ -153,7 +152,6 @@
 	<string name="CFC_title_contains_name">タイトル中の語句</string>
 	<string name="CFC_title_contains_text">タイトルに ? を含む</string>
 	<string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>
-	<string name="gcal_TEA_addToCalendar_label">カレンダーに登録</string>
 	<string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
 	<string name="delete_calendar_event_confirmation">カレンダーイベントを削除しますか?</string>
 	<string name="calendar_event_not_found">カレンダーイベントが見つかりません</string>

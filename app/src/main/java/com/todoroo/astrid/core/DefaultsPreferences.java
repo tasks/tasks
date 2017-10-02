@@ -48,13 +48,12 @@ public class DefaultsPreferences extends InjectingPreferenceActivity {
         });
         String defaultCalendarName = getDefaultCalendarName();
         defaultCalendarPref.setSummary(defaultCalendarName == null
-                ? getString(R.string.none)
+                ? getString(R.string.dont_add_to_calendar)
                 : defaultCalendarName);
     }
 
     private void startCalendarSelectionActivity() {
         Intent intent = new Intent(DefaultsPreferences.this, CalendarSelectionActivity.class);
-        intent.putExtra(CalendarSelectionActivity.EXTRA_SHOW_NONE, true);
         intent.putExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME, getDefaultCalendarName());
         startActivityForResult(intent, REQUEST_CALENDAR_SELECTION);
     }

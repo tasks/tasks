@@ -116,7 +116,6 @@
 	<string name="EPr_default_importance_title">Standard-Priorität</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
 	<string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
-	<string name="EPr_default_addtocalendar_title">Standardmäßig in Kalender eintragen</string>
 	<string name="EPr_default_reminders_mode_title">Standard-Alarm/Vibrationssignal</string>
 	<string name="priority_high">Hoch</string>
 	<string name="priority_medium">Mittel</string>
@@ -150,7 +149,6 @@
 	<string name="CFC_title_contains_name">Titel enthält …</string>
 	<string name="CFC_title_contains_text">Titel enthält: ?</string>
 	<string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender!</string>
-	<string name="gcal_TEA_addToCalendar_label">In Kalender eintragen</string>
 	<string name="gcal_TEA_showCalendar_label">Öffne Kalendereintrag</string>
 	<string name="delete_calendar_event_confirmation">Kalendereintrag löschen?</string>
 	<string name="calendar_event_not_found">Kalendereintrag nicht gefunden</string>

@@ -155,6 +155,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     protected void showThemePicker() {
         Intent intent = new Intent(TagSettingsActivity.this, ColorPickerActivity.class);
         intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+        intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, selectedTheme);
         intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, true);
         startActivityForResult(intent, REQUEST_COLOR_PICKER);
     }

@@ -109,7 +109,6 @@
 	<string name="EPr_default_importance_title">Prioridade predefinida</string>
 	<string name="EPr_default_hideUntil_title">Predefinição de ocultar até</string>
 	<string name="EPr_default_reminders_title">Lembretes predefinidos</string>
-	<string name="EPr_default_addtocalendar_title">Predefinição ao adicionar ao calendário</string>
 	<string name="EPr_default_reminders_mode_title">Tipo de vibração/toque predefinido</string>
 	<string name="no_deadline">Sem data limite</string>
 	<string name="day_after_tomorrow">Depois de amanhã</string>
@@ -141,7 +140,6 @@
 	<string name="CFC_title_contains_name">Título contém...</string>
 	<string name="CFC_title_contains_text">Título contém: ?</string>
 	<string name="gcal_TEA_error">Erro ao adicionar tarefa ao calendário!</string>
-	<string name="gcal_TEA_addToCalendar_label">Adicionar ao calendário</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
 	<string name="gcal_completed_title">%s (terminada)</string>
 	<string name="CFC_gtasks_list_text">Na lista: ?</string>

@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 
+import com.google.common.base.Strings;
+
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
 
@@ -26,7 +28,8 @@ public class CalendarProvider {
     private static final String SORT = CalendarContract.Calendars.CALENDAR_DISPLAY_NAME + " ASC";
     private static final String[] COLUMNS = {
             _ID,
-            CalendarContract.Calendars.CALENDAR_DISPLAY_NAME
+            CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
+            CalendarContract.Calendars.CALENDAR_COLOR
     };
 
     private final PermissionChecker permissionChecker;
@@ -44,6 +47,9 @@ public class CalendarProvider {
 
     @Nullable
     public AndroidCalendar getCalendar(String id) {
+        if (Strings.isNullOrEmpty(id)) {
+            return null;
+        }
         List<AndroidCalendar> calendars = getCalendars(CalendarContract.Calendars.CONTENT_URI, CAN_MODIFY + " AND Calendars._id=" + id);
         return calendars.isEmpty() ? null : calendars.get(0);
     }
@@ -60,8 +66,9 @@ public class CalendarProvider {
             if (cursor != null && cursor.getCount() > 0) {
                 int idColumn = cursor.getColumnIndex(_ID);
                 int nameColumn = cursor.getColumnIndex(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME);
+                int colorColumn = cursor.getColumnIndex(CalendarContract.Calendars.CALENDAR_COLOR);
                 while (cursor.moveToNext()) {
-                    calendars.add(new AndroidCalendar(cursor.getString(idColumn), cursor.getString(nameColumn)));
+                    calendars.add(new AndroidCalendar(cursor.getString(idColumn), cursor.getString(nameColumn), cursor.getInt(colorColumn)));
                 }
             }
         } catch (Exception e) {

@@ -311,9 +311,6 @@ File %1$s contained %2$s.\n\n
     <!-- slide 43e: Preference: Default Reminders Title -->
     <string name="EPr_default_reminders_title">Default reminders</string>
 
-    <!-- slide 19a/46c: Preference: Default Add To Calendar Title -->
-    <string name="EPr_default_addtocalendar_title">Default add to calendar</string>
-
     <!-- slide 45d: Reminder Mode Preference: Default Reminders Duration -->
     <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
 
@@ -399,9 +396,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- Error message for adding to calendar  -->
     <string name="gcal_TEA_error">Error adding task to calendar!</string>
-
-    <!-- slide 21c: Label for adding task to calendar -->
-    <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
 
     <!-- Label when calendar event already exists -->
     <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
@@ -853,4 +847,6 @@ File %1$s contained %2$s.\n\n
   <string name="repeats_plural_on">Repeats every %s on %s</string>
   <string name="repeats_plural_on_until">Repeats every %s on %s until %s</string>
   <string name="list_separator_with_space">,\u0020</string>
+  <string name="dont_add_to_calendar">Don\'t add to calendar</string>
+  <string name="default_calendar">Default calendar</string>
 </resources>

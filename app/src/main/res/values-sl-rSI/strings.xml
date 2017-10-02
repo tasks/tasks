@@ -102,7 +102,6 @@
 	<string name="EPr_default_importance_title">Privzeta dospelost</string>
 	<string name="EPr_default_hideUntil_title">Privzeto skrij do</string>
 	<string name="EPr_default_reminders_title">Privzeti opomniki</string>
-	<string name="EPr_default_addtocalendar_title">Privzeto dodati na koledar</string>
 	<string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
 	<string name="no_deadline">Brez dospelosti</string>
 	<string name="day_after_tomorrow">Pojutrišnjem</string>
@@ -130,7 +129,6 @@
 	<string name="CFC_title_contains_name">Naslov vsebuje ...</string>
 	<string name="CFC_title_contains_text">Naslov vsebuje: ?</string>
 	<string name="gcal_TEA_error">Napaka pri dodajanju opravila!</string>
-	<string name="gcal_TEA_addToCalendar_label">Dodaj v koledar</string>
 	<string name="gcal_TEA_showCalendar_label">Odpri dogodek v koledarju</string>
 	<string name="gcal_completed_title">%s (končani)</string>
 	<string name="CFC_gtasks_list_text">V seznamu: ?</string>

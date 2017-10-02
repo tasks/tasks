@@ -109,7 +109,6 @@
 	<string name="CFC_tag_name">تگ...</string>
 	<string name="CFC_title_contains_name">عنوان شامل</string>
 	<string name="gcal_TEA_error">خطا در اضافه کردن وظیفه به تقویم</string>
-	<string name="gcal_TEA_addToCalendar_label">اضاقه به تقویم</string>
 	<string name="gcal_TEA_showCalendar_label">بازکردن رویداد تقویم</string>
 	<string name="gcal_completed_title">%s (کامل‌شده)</string>
 	<string name="gtasks_GTA_clear_completed">حذف انجام شد</string>

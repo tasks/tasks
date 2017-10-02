@@ -18,12 +18,16 @@ import java.util.List;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
+import static org.tasks.preferences.ResourceResolver.getData;
+import static org.tasks.preferences.ResourceResolver.getDimen;
 
 public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
 
     @NonNull private final Context context;
     private final List<String> items;
     private final ThemeAccent accent;
+    private final int alpha;
+    private final int tint;
     private int checkedPosition = -1;
 
     public SingleCheckedArrayAdapter(@NonNull Context context, @NonNull List<String> items, ThemeAccent accent) {
@@ -31,6 +35,8 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
         this.context = context;
         this.items = items;
         this.accent = accent;
+        this.alpha = (int)(255 * getDimen(context, R.dimen.alpha_secondary));
+        this.tint = getData(context, R.attr.icon_tint);
     }
 
     @NonNull
@@ -53,9 +59,15 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
         }
         int drawable = getDrawable(position);
         if (drawable > 0) {
-            int color = getDrawableColor(position);
             Drawable original = ContextCompat.getDrawable(context, drawable);
             Drawable wrapped = DrawableCompat.wrap(original.mutate());
+            int color = getDrawableColor(position);
+            if (color == 0) {
+                color = tint;
+                wrapped.setAlpha(alpha);
+            } else if (color == -1) {
+                wrapped.setAlpha(0);
+            }
             DrawableCompat.setTint(wrapped, color);
             if (atLeastJellybeanMR1()) {
                 view.setCompoundDrawablesRelativeWithIntrinsicBounds(wrapped, null, null, null);

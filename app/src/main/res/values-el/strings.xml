@@ -101,7 +101,6 @@
 	<string name="EPr_default_importance_title">Προκαθορισμένη προτεραιότητα</string>
 	<string name="EPr_default_hideUntil_title">Προκαθορισμένη απόκρυψη μέχρι</string>
 	<string name="EPr_default_reminders_title">Προκαθορισμένες υπενθυμίσεις</string>
-	<string name="EPr_default_addtocalendar_title">Προκαθορισμένη προσθήκη σε ημερολόγιο</string>
 	<string name="EPr_default_reminders_mode_title">Προκαθορισμένος ήχος/τύπος δόνησης</string>
 	<string name="no_deadline">Χωρίς προθεσμία</string>
 	<string name="day_after_tomorrow">Μεθαύριο</string>
@@ -126,7 +125,6 @@
 	<string name="CFC_title_contains_name">Ο τίτλος περιέχει...</string>
 	<string name="CFC_title_contains_text">Ο τίτλος περιέχει: ?</string>
 	<string name="gcal_TEA_error">Σφάλμα πρόσθεσης καθήκοντος στο ημερολόγιο!</string>
-	<string name="gcal_TEA_addToCalendar_label">Προσθήκη στο ημερολόγιο</string>
 	<string name="gcal_TEA_showCalendar_label">Άνοιγμα event ημερολογίου</string>
 	<string name="gcal_completed_title">%s (έχει ολοκληρωθεί)</string>
 	<string name="CFC_gtasks_list_text">Στην λίστα: ?</string>

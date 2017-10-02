@@ -64,7 +64,6 @@
 	<string name="CFC_title_contains_name">Tittel inneholder...</string>
 	<string name="CFC_title_contains_text">Tittel inneholder: ?</string>
 	<string name="gcal_TEA_error">Klarte ikke å legge oppgave til kalender!</string>
-	<string name="gcal_TEA_addToCalendar_label">Legg til i kalender</string>
 	<string name="gcal_TEA_showCalendar_label">Åpne kalenderhendelse</string>
 	<string name="gcal_completed_title">%s (fullført)</string>
 	<string name="CFC_gtasks_list_text">I liste: ?</string>

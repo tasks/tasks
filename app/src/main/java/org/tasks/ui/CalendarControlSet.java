@@ -55,7 +55,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
     private static final String EXTRA_URI = "extra_uri";
     private static final String EXTRA_ID = "extra_id";
-    private static final String EXTRA_NAME = "extra_name";
 
     @BindView(R.id.clear) View cancelButton;
     @BindView(R.id.calendar_display_which) TextView calendar;
@@ -72,7 +71,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Inject CalendarEventProvider calendarEventProvider;
 
     private String calendarId;
-    private String calendarName;
     private String eventUri;
     private boolean isNewTask;
 
@@ -83,7 +81,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
         boolean canAccessCalendars = permissionChecker.canAccessCalendars();
         if (savedInstanceState != null) {
             eventUri = savedInstanceState.getString(EXTRA_URI);
-            calendarName = savedInstanceState.getString(EXTRA_NAME);
             calendarId = savedInstanceState.getString(EXTRA_ID);
         } else if (isNewTask && canAccessCalendars) {
             calendarId = preferences.getDefaultCalendar();
@@ -92,8 +89,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
                     AndroidCalendar defaultCalendar = calendarProvider.getCalendar(calendarId);
                     if (defaultCalendar == null) {
                         calendarId = null;
-                    } else {
-                        calendarName = defaultCalendar.getName();
                     }
                 } catch (Exception e) {
                     Timber.e(e, e.getMessage());
@@ -210,7 +205,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
         super.onSaveInstanceState(outState);
 
         outState.putString(EXTRA_URI, eventUri);
-        outState.putString(EXTRA_NAME, calendarName);
         outState.putString(EXTRA_ID, calendarId);
     }
 
@@ -231,7 +225,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
     }
 
     private void clear() {
-        calendarName = null;
         calendarId = null;
         eventUri = null;
         refreshDisplayView();
@@ -241,7 +234,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
     void clickCalendar(View view) {
         if (Strings.isNullOrEmpty(eventUri)) {
             Intent intent = new Intent(context, CalendarSelectionActivity.class);
-            intent.putExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME, calendarName);
+            intent.putExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME, getCalendarName());
             startActivityForResult(intent, REQUEST_CODE_PICK_CALENDAR);
         } else {
             if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_OPEN_EVENT)) {
@@ -280,12 +273,19 @@ public class CalendarControlSet extends TaskEditControlFragment {
         if (requestCode == REQUEST_CODE_PICK_CALENDAR) {
             if (resultCode == Activity.RESULT_OK) {
                 calendarId = data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_ID);
-                calendarName = data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME);
                 refreshDisplayView();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private String getCalendarName() {
+        if (calendarId == null) {
+            return null;
+        }
+        AndroidCalendar calendar = calendarProvider.getCalendar(calendarId);
+        return calendar == null ? null : calendar.getName();
     }
 
     @Override
@@ -308,12 +308,12 @@ public class CalendarControlSet extends TaskEditControlFragment {
             calendar.setText(R.string.gcal_TEA_showCalendar_label);
             calendar.setTextColor(getColor(context, R.color.text_primary));
             cancelButton.setVisibility(View.VISIBLE);
-        } else if (calendarName != null) {
-            calendar.setText(calendarName);
+        } else if (calendarId != null) {
+            calendar.setText(getCalendarName());
             calendar.setTextColor(getColor(context, R.color.text_primary));
-            cancelButton.setVisibility(View.VISIBLE);
+            cancelButton.setVisibility(View.GONE);
         } else {
-            calendar.setText(R.string.gcal_TEA_addToCalendar_label);
+            calendar.setText(R.string.dont_add_to_calendar);
             calendar.setTextColor(getColor(context, R.color.text_tertiary));
             cancelButton.setVisibility(View.GONE);
         }

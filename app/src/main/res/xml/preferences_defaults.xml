@@ -44,6 +44,6 @@
     <Preference
         android:defaultValue="-1"
         android:key="@string/gcal_p_default"
-        android:title="@string/EPr_default_addtocalendar_title"
-        android:summary="@string/none"/>
+        android:title="@string/default_calendar"
+        android:summary="@string/dont_add_to_calendar"/>
 </PreferenceScreen>

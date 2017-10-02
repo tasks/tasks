@@ -6,7 +6,7 @@
 <CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="?android:attr/listPreferredItemHeightSmall"
     android:checkMark="?android:attr/listChoiceIndicatorMultiple"
     android:drawableLeft="@drawable/ic_label_24dp"
     android:drawableStart="@drawable/ic_label_24dp"

@@ -115,7 +115,6 @@
 	<string name="EPr_default_importance_title">Prioridade padrão</string>
 	<string name="EPr_default_hideUntil_title">Padrão de Ocultar até</string>
 	<string name="EPr_default_reminders_title">Lembretes padrões</string>
-	<string name="EPr_default_addtocalendar_title">Padrão para Inserir no Calendário</string>
 	<string name="EPr_default_reminders_mode_title">Tipo de toque/vibração padrão</string>
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Média</string>
@@ -149,7 +148,6 @@
 	<string name="CFC_title_contains_name">Título...</string>
 	<string name="CFC_title_contains_text">Título contêm: ?</string>
 	<string name="gcal_TEA_error">Erro ao inserir a tarefa no calendário!</string>
-	<string name="gcal_TEA_addToCalendar_label">Inserir no calendário</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
 	<string name="delete_calendar_event_confirmation">Excluir evento no calendário?</string>
 	<string name="calendar_event_not_found">Evento no calendário não encontrado</string>

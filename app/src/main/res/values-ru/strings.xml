@@ -118,7 +118,6 @@
 	<string name="EPr_default_importance_title">Приоритет по умолчанию</string>
 	<string name="EPr_default_hideUntil_title">Срок скрытия по умолчанию</string>
 	<string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
-	<string name="EPr_default_addtocalendar_title">Добавлять в календарь по умолчанию</string>
 	<string name="EPr_default_reminders_mode_title">Тип звонка/вибрации по умолчанию</string>
 	<string name="priority_high">Высокий</string>
 	<string name="priority_medium">Средний</string>
@@ -153,7 +152,6 @@
 	<string name="CFC_title_contains_name">Название содержит...</string>
 	<string name="CFC_title_contains_text">Название содержит: ?</string>
 	<string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
-	<string name="gcal_TEA_addToCalendar_label">Добавить в календарь</string>
 	<string name="gcal_TEA_showCalendar_label">Открыть событие календаря</string>
 	<string name="delete_calendar_event_confirmation">Удалить событие в календаре?</string>
 	<string name="calendar_event_not_found">Событие в календаре не найдено</string>

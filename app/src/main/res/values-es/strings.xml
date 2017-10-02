@@ -117,7 +117,6 @@
 	<string name="EPr_default_importance_title">Prioridad predeterminada</string>
 	<string name="EPr_default_hideUntil_title">Ocultar por defecto hasta</string>
 	<string name="EPr_default_reminders_title">Recordatorios por defecto</string>
-	<string name="EPr_default_addtocalendar_title">Por defecto, agregar al calendario</string>
 	<string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Media</string>
@@ -152,7 +151,6 @@
 	<string name="CFC_title_contains_name">Título contiene...</string>
 	<string name="CFC_title_contains_text">Título contiene: ?</string>
 	<string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>
-	<string name="gcal_TEA_addToCalendar_label">Agregar al calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
 	<string name="delete_calendar_event_confirmation">¿Borrar evento de calendario?</string>
 	<string name="calendar_event_not_found">Evento de calendario no encontrado</string>

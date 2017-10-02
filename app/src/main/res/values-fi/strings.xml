@@ -121,7 +121,6 @@
 	<string name="EPr_default_importance_title">Oletusprioriteetti</string>
 	<string name="EPr_default_hideUntil_title">Oletus piilota kunnes</string>
 	<string name="EPr_default_reminders_title">Oletusmuistutukset</string>
-	<string name="EPr_default_addtocalendar_title">Oletus lisää kalenteriin</string>
 	<string name="EPr_default_reminders_mode_title">Oletussoittoääni/värinä -tyyppi</string>
 	<string name="priority_high">Korkea</string>
 	<string name="priority_medium">Kohtalainen</string>
@@ -156,7 +155,6 @@
 	<string name="CFC_title_contains_name">Otsikko sisältää..</string>
 	<string name="CFC_title_contains_text">Otsikko sisältää: ?</string>
 	<string name="gcal_TEA_error">Virhe lisättäessä tapahtumaa kalenteriin!</string>
-	<string name="gcal_TEA_addToCalendar_label">Lisää kalenteri</string>
 	<string name="gcal_TEA_showCalendar_label">Avaa tapahtumakalenteri</string>
 	<string name="delete_calendar_event_confirmation">Poista kalenteritapahtuma</string>
 	<string name="calendar_event_not_found">Kalenteritapahtumaa ei löydy</string>

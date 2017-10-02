@@ -118,7 +118,6 @@
 	<string name="EPr_default_importance_title">Standard prioritet</string>
 	<string name="EPr_default_hideUntil_title">Standard Dölj tills</string>
 	<string name="EPr_default_reminders_title">Standardpåminnelser</string>
-	<string name="EPr_default_addtocalendar_title">Standardkalender för att lägga till händelser</string>
 	<string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
 	<string name="priority_high">Hög</string>
 	<string name="priority_medium">Medel</string>
@@ -153,7 +152,6 @@
 	<string name="CFC_title_contains_name">Titeln innehåller...</string>
 	<string name="CFC_title_contains_text">Titeln innehåller: ?</string>
 	<string name="gcal_TEA_error">Misslyckades med att lägga uppgift till kalender!</string>
-	<string name="gcal_TEA_addToCalendar_label">Skapa kalenderhändelse</string>
 	<string name="gcal_TEA_showCalendar_label">Öppna kalenderhändelse</string>
 	<string name="delete_calendar_event_confirmation">Ta bort kalenderhändelse?</string>
 	<string name="calendar_event_not_found">Kalenderhändelsen hittades inte</string>

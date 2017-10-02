@@ -85,6 +85,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
         findPreference(R.string.p_widget_theme).setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
             intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND);
+            intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.getThemeIndex());
             startActivityForResult(intent, REQUEST_THEME_SELECTION);
             return false;
         });
@@ -94,6 +95,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
         colorPreference.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
             intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+            intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.getColorIndex());
             startActivityForResult(intent, REQUEST_COLOR_SELECTION);
             return false;
         });

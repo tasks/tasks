@@ -117,7 +117,6 @@
 	<string name="EPr_default_importance_title">Standaard prioriteit</string>
 	<string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
 	<string name="EPr_default_reminders_title">Standaard herinneringen</string>
-	<string name="EPr_default_addtocalendar_title">Standaard Toevoegen aan Agenda</string>
 	<string name="EPr_default_reminders_mode_title">Standaard toon/tril type</string>
 	<string name="priority_high">Hoog</string>
 	<string name="priority_medium">Middelmatig</string>
@@ -152,7 +151,6 @@
 	<string name="CFC_title_contains_name">Naam bevat...</string>
 	<string name="CFC_title_contains_text">Naam bevat: ?</string>
 	<string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
-	<string name="gcal_TEA_addToCalendar_label">Toevoegen aan Agenda</string>
 	<string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
 	<string name="delete_calendar_event_confirmation">Verwijder kalender item?</string>
 	<string name="calendar_event_not_found">Kalender item niet gevonden</string>

@@ -107,7 +107,6 @@
 	<string name="EPr_default_importance_title">Predvolená priorita</string>
 	<string name="EPr_default_hideUntil_title">Predvoliť Skryť do</string>
 	<string name="EPr_default_reminders_title">Predvolené pripomienky</string>
-	<string name="EPr_default_addtocalendar_title">Predvoliť pridanie do kalendára</string>
 	<string name="EPr_default_reminders_mode_title">Východzie vyzváňanie/vybrovanie</string>
 	<string name="no_deadline">Žiaden termín</string>
 	<string name="day_after_tomorrow">Pozajtra</string>
@@ -135,7 +134,6 @@
 	<string name="CFC_title_contains_name">Názov obsahuje...</string>
 	<string name="CFC_title_contains_text">Zoznam obsahuje: ?</string>
 	<string name="gcal_TEA_error">Chyba pridania úlohy do kalendára!</string>
-	<string name="gcal_TEA_addToCalendar_label">Pridať do kalendára</string>
 	<string name="gcal_TEA_showCalendar_label">Otvoriť udalosť kalendára</string>
 	<string name="gcal_completed_title">%s (dokončené)</string>
 	<string name="CFC_gtasks_list_text">V zozname: ?</string>

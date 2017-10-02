@@ -67,7 +67,6 @@
 	<string name="task_defaults">افتراضيات المهمه</string>
 	<string name="EPr_default_urgency_title">الموعد الأخير الإفتراضي</string>
 	<string name="EPr_default_reminders_title">منبهات افتراضية</string>
-	<string name="EPr_default_addtocalendar_title">أضف إلى التقويم بشكل افتراضي</string>
 	<string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
 	<string name="day_after_tomorrow">بعد غد</string>
 	<string name="next_week">الأسبوع القادم</string>
@@ -85,7 +84,6 @@
 	<string name="next_month">الشهر القادم</string>
 	<string name="CFC_title_contains_name">العنوان يحتوي على..</string>
 	<string name="CFC_title_contains_text">العنوان يحتوي على :?</string>
-	<string name="gcal_TEA_addToCalendar_label">أضف إلى التقويم</string>
 	<string name="gcal_TEA_showCalendar_label">إفتح أحداث التقويم</string>
 	<string name="CFC_gtasks_list_text">في القائمة :?</string>
 	<string name="gtasks_GTA_clear_completed">انتهاء الحذف</string>

@@ -122,7 +122,6 @@
 	<string name="EPr_default_importance_title">Öntanımlı öncelik</string>
 	<string name="EPr_default_hideUntil_title">Öntanımlı Gizlenme</string>
 	<string name="EPr_default_reminders_title">Öntanımlı Hatırlatmalar</string>
-	<string name="EPr_default_addtocalendar_title">Öntanımlı olarak Takvime Ekle</string>
 	<string name="EPr_default_reminders_mode_title">Varsayılan Zil/Titreşim tipi</string>
 	<string name="priority_high">Yüksek</string>
 	<string name="priority_medium">Orta</string>
@@ -157,7 +156,6 @@
 	<string name="CFC_title_contains_name">Başlık şunu içersin...</string>
 	<string name="CFC_title_contains_text">Başlık şunu içersin:?</string>
 	<string name="gcal_TEA_error">Takvime görev eklenmesinde hata!</string>
-	<string name="gcal_TEA_addToCalendar_label">Takvime Ekle</string>
 	<string name="gcal_TEA_showCalendar_label">Takvim Olayı Aç</string>
 	<string name="delete_calendar_event_confirmation">Takvim etkinliğini sil?</string>
 	<string name="calendar_event_not_found">Takvim etkinliği bulunamadı</string>

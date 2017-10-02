@@ -118,7 +118,6 @@
 	<string name="EPr_default_importance_title">Priorità predefinita</string>
 	<string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
 	<string name="EPr_default_reminders_title">Promemoria predefiniti</string>
-	<string name="EPr_default_addtocalendar_title">Aggiungi automaticamente al calendario</string>
 	<string name="EPr_default_reminders_mode_title">Tipo di squillo/vibrazione predefinito</string>
 	<string name="priority_high">Alta</string>
 	<string name="priority_medium">Media</string>
@@ -153,7 +152,6 @@
 	<string name="CFC_title_contains_name">Il titolo contiene...</string>
 	<string name="CFC_title_contains_text">Il titolo contiene: ?</string>
 	<string name="gcal_TEA_error">Errore durante l\'aggiunta dell\'attività al calendario!</string>
-	<string name="gcal_TEA_addToCalendar_label">Aggiungi al Calendario</string>
 	<string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
 	<string name="delete_calendar_event_confirmation">Cancello evento dal calendario?</string>
 	<string name="calendar_event_not_found">Evento non trovato</string>

@@ -113,7 +113,6 @@
 	<string name="EPr_default_importance_title">Výchozí důležitost</string>
 	<string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
 	<string name="EPr_default_reminders_title">Výchozí připomenutí</string>
-	<string name="EPr_default_addtocalendar_title">Výchozí přidání do kalendáře</string>
 	<string name="EPr_default_reminders_mode_title">Výchozí vyzvánění / vybrace</string>
 	<string name="priority_high">Vysoký</string>
 	<string name="priority_medium">Střední</string>
@@ -145,7 +144,6 @@
 	<string name="CFC_title_contains_name">Název obsahuje...</string>
 	<string name="CFC_title_contains_text">Obsahuje název: ?</string>
 	<string name="gcal_TEA_error">Chyba při přidávání úkolu do kalendáře!</string>
-	<string name="gcal_TEA_addToCalendar_label">Vytvořit událost kalendáře</string>
 	<string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
 	<string name="delete_calendar_event_confirmation">Smazat událost v kalendáři?</string>
 	<string name="gcal_completed_title">%s (dokončeno)</string>

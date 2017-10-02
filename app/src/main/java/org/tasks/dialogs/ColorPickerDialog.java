@@ -25,6 +25,7 @@ import javax.inject.Inject;
 public class ColorPickerDialog extends InjectingDialogFragment {
 
     private static final String EXTRA_PALETTE = "extra_palette";
+    private static final String EXTRA_SELECTED = "extra_selected";
     private static final String EXTRA_SHOW_NONE = "extra_show_none";
 
     public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND}
@@ -37,10 +38,11 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         void dismissed();
     }
 
-    public static ColorPickerDialog newColorPickerDialog(ColorPalette palette, boolean showNone) {
+    public static ColorPickerDialog newColorPickerDialog(ColorPalette palette, boolean showNone, int selection) {
         ColorPickerDialog dialog = new ColorPickerDialog();
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_PALETTE, palette);
+        args.putInt(EXTRA_SELECTED, selection);
         args.putBoolean(EXTRA_SHOW_NONE, showNone);
         dialog.setArguments(args);
         return dialog;
@@ -64,6 +66,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         Bundle arguments = getArguments();
         palette = (ColorPalette) arguments.getSerializable(EXTRA_PALETTE);
         boolean showNone = arguments.getBoolean(EXTRA_SHOW_NONE);
+        int selected = arguments.getInt(EXTRA_SELECTED, -1);
 
         final List<String> themes = Arrays.asList(context.getResources().getStringArray(getNameRes()));
 
@@ -80,7 +83,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 return getDisplayColor(position);
             }
         };
-        adapter.setChecked(getCurrentSelection());
+        adapter.setChecked(selected);
 
         AlertDialogBuilder builder = dialogBuilder.newDialog(theme)
                 .setAdapter(adapter, (dialog, which) -> {
@@ -125,17 +128,6 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     @Override
     protected void inject(DialogFragmentComponent component) {
         component.inject(this);
-    }
-
-    private int getCurrentSelection() {
-        switch (palette) {
-            case COLORS:
-                return theme.getThemeColor().getIndex();
-            case ACCENTS:
-                return theme.getThemeAccent().getIndex();
-            default:
-                return theme.getThemeBase().getIndex();
-        }
     }
 
     private int getNameRes() {

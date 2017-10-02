@@ -121,7 +121,6 @@
 	<string name="EPr_default_importance_title">Приоритет по подразбиране</string>
 	<string name="EPr_default_hideUntil_title">Скрий до - по подразбиране </string>
 	<string name="EPr_default_reminders_title">Напомняния по подразбиране</string>
-	<string name="EPr_default_addtocalendar_title">Добави към календара по подразбиране</string>
 	<string name="EPr_default_reminders_mode_title">Тон на звънене/вибрация по подразбиране</string>
 	<string name="priority_high">Висок</string>
 	<string name="priority_medium">Среден</string>
@@ -156,7 +155,6 @@
 	<string name="CFC_title_contains_name">Имена съдържащи...</string>
 	<string name="CFC_title_contains_text">Името съдържа: ?</string>
 	<string name="gcal_TEA_error">Грешка при добавяне на задачата към каледнара!</string>
-	<string name="gcal_TEA_addToCalendar_label">Добави към календара</string>
 	<string name="gcal_TEA_showCalendar_label">Добави събитие към календара</string>
 	<string name="delete_calendar_event_confirmation">Изтриване на събитие в календара?</string>
 	<string name="calendar_event_not_found">Събитието в календара не е намерено</string>

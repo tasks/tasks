@@ -93,7 +93,6 @@
 	<string name="EPr_default_importance_title">預設優先權</string>
 	<string name="EPr_default_hideUntil_title">預設隱藏直到...</string>
 	<string name="EPr_default_reminders_title">預設提醒</string>
-	<string name="EPr_default_addtocalendar_title">默認添加到日曆</string>
 	<string name="EPr_default_reminders_mode_title">預設鈴聲 / 震動類型</string>
 	<string name="priority_high">高</string>
 	<string name="priority_medium">中</string>
@@ -122,7 +121,6 @@
 	<string name="CFC_title_contains_name">主旨含...</string>
 	<string name="CFC_title_contains_text">主旨含: ?</string>
 	<string name="gcal_TEA_error">工作加入行事曆錯誤</string>
-	<string name="gcal_TEA_addToCalendar_label">建立行事曆事項</string>
 	<string name="gcal_TEA_showCalendar_label">打開行事曆事項</string>
 	<string name="gcal_completed_title">%s （已完成）</string>
 	<string name="CFC_gtasks_list_text">列表內容: ?</string>

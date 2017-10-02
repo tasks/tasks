@@ -84,8 +84,9 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
             protected int getDrawableColor(int position) {
                 GtasksList list = lists.get(position);
                 int color = list.getColor();
-                ThemeColor themeColor = themeCache.getThemeColor(color >= 0 ? color : 19);
-                return themeColor.getPrimaryColor();
+                return color >= 0
+                        ? themeCache.getThemeColor(color).getPrimaryColor()
+                        : super.getDrawableColor(position);
             }
         };
         adapter.setChecked(selected.getName());

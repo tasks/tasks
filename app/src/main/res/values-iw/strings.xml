@@ -118,7 +118,6 @@
 	<string name="EPr_default_importance_title">עדיפות מחדל</string>
 	<string name="EPr_default_hideUntil_title">ברירת מחדל לזמן הסתרה</string>
 	<string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
-	<string name="EPr_default_addtocalendar_title">הוספה ליומן כברירת מחדל</string>
 	<string name="EPr_default_reminders_mode_title">ברירת מחדל לסוג צלצול/רטט</string>
 	<string name="priority_high">גבוה</string>
 	<string name="priority_medium">בינוני</string>
@@ -153,7 +152,6 @@
 	<string name="CFC_title_contains_name">כותרת מכילה...</string>
 	<string name="CFC_title_contains_text">כותרת מכילה: ?</string>
 	<string name="gcal_TEA_error">שגיאה בהוספת המשימה ליומן!</string>
-	<string name="gcal_TEA_addToCalendar_label">הוסף ליומן</string>
 	<string name="gcal_TEA_showCalendar_label">פתח אירוע ביומן</string>
 	<string name="delete_calendar_event_confirmation">למחוק אירוע ?</string>
 	<string name="calendar_event_not_found">אירוע לא נמצא</string>

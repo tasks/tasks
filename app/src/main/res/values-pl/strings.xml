@@ -118,7 +118,6 @@
 	<string name="EPr_default_importance_title">Domyślny priorytet</string>
 	<string name="EPr_default_hideUntil_title">Ukrywanie zadania (domyślnie)</string>
 	<string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
-	<string name="EPr_default_addtocalendar_title">Domyślnie dodawaj do kalendarza</string>
 	<string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
 	<string name="priority_high">Ważne</string>
 	<string name="priority_medium">Średnio ważne</string>
@@ -152,7 +151,6 @@
 	<string name="CFC_title_contains_name">Tytuł zawiera...</string>
 	<string name="CFC_title_contains_text">Tytuł zawiera: ?</string>
 	<string name="gcal_TEA_error">Błąd podczas dodawania zadania do kalendarza!</string>
-	<string name="gcal_TEA_addToCalendar_label">Dodaj do kalendarza</string>
 	<string name="gcal_TEA_showCalendar_label">Otwórz zdarzenie kalendarza</string>
 	<string name="delete_calendar_event_confirmation">Usunąć zdarzenie kalendarza?</string>
 	<string name="calendar_event_not_found">Zdarzenie kalendarza nie odnazlezione</string>

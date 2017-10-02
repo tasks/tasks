@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.google.common.base.Strings;
+
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
-import org.tasks.dialogs.AlertDialogBuilder;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
@@ -29,10 +30,9 @@ import static org.tasks.PermissionUtil.verifyPermissions;
 
 public class CalendarSelectionDialog extends InjectingDialogFragment {
 
-    public static CalendarSelectionDialog newCalendarSelectionDialog(boolean enableNone, String selected) {
+    public static CalendarSelectionDialog newCalendarSelectionDialog(String selected) {
         CalendarSelectionDialog dialog = new CalendarSelectionDialog();
         Bundle arguments = new Bundle();
-        arguments.putBoolean(EXTRA_NONE_ENABLED, enableNone);
         arguments.putString(EXTRA_SELECTED, selected);
         dialog.setArguments(arguments);
         return dialog;
@@ -45,7 +45,6 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     }
 
     private static final String EXTRA_SELECTED = "extra_selected";
-    private static final String EXTRA_NONE_ENABLED = "extra_none_enabled";
 
     @Inject DialogBuilder dialogBuilder;
     @Inject CalendarProvider calendarProvider;
@@ -57,7 +56,6 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     private String selected;
     private SingleCheckedArrayAdapter adapter;
     private final List<AndroidCalendar> calendars = new ArrayList<>();
-    private final List<String> calendarNames = new ArrayList<>();
 
     @NonNull
     @Override
@@ -68,16 +66,22 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
         selected = arguments.getString(EXTRA_SELECTED);
 
         theme.applyToContext(getActivity());
-        adapter = new SingleCheckedArrayAdapter(getActivity(), calendarNames, theme.getThemeAccent());
+        adapter = new SingleCheckedArrayAdapter(getActivity(), transform(calendars, AndroidCalendar::getName), theme.getThemeAccent()) {
+            @Override
+            protected int getDrawable(int position) {
+                return R.drawable.ic_event_24dp;
+            }
 
-        AlertDialogBuilder builder = dialogBuilder.newDialog()
+            @Override
+            protected int getDrawableColor(int position) {
+                return calendars.get(position).getColor();
+            }
+        };
+
+        return dialogBuilder.newDialog()
                 .setSingleChoiceItems(adapter, -1, (dialog, which) -> handler.selectedCalendar(calendars.get(which)))
-                .setNegativeButton(android.R.string.cancel, (dialogInterface, i) -> handler.cancel());
-        if (arguments.getBoolean(EXTRA_NONE_ENABLED)) {
-            builder.setNeutralButton(R.string.none, (dialog, which) -> handler.selectedCalendar(new AndroidCalendar("-1", getString(R.string.none))));
-        }
-
-        return builder.show();
+                .setOnDismissListener(dialogInterface -> handler.cancel())
+                .show();
     }
 
     @Override
@@ -87,13 +91,16 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
         if (permissionChecker.canAccessCalendars()) {
             calendars.clear();
             calendars.addAll(calendarProvider.getCalendars());
-            calendarNames.clear();
-            calendarNames.addAll(transform(calendars, AndroidCalendar::getName));
-            if (calendarNames.isEmpty()) {
+            if (calendars.isEmpty()) {
                 Toast.makeText(getActivity(), R.string.no_calendars_found, Toast.LENGTH_LONG).show();
                 handler.cancel();
             } else {
-                adapter.setChecked(selected);
+                calendars.add(0, new AndroidCalendar(null, getString(R.string.dont_add_to_calendar), -1));
+                if (Strings.isNullOrEmpty(selected)) {
+                    adapter.setChecked(0);
+                } else {
+                    adapter.setChecked(selected);
+                }
                 adapter.notifyDataSetChanged();
             }
         }

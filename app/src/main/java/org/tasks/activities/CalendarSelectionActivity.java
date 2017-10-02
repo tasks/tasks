@@ -16,7 +16,6 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
 
     public static final String EXTRA_CALENDAR_ID = "extra_calendar_id";
     public static final String EXTRA_CALENDAR_NAME = "extra_calendar_name";
-    public static final String EXTRA_SHOW_NONE = "extra_show_none";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +24,7 @@ public class CalendarSelectionActivity extends InjectingAppCompatActivity implem
         CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         if (fragmentByTag == null) {
             Intent intent = getIntent();
-            fragmentByTag = newCalendarSelectionDialog(
-                    intent.getBooleanExtra(EXTRA_SHOW_NONE, false),
-                    intent.getStringExtra(EXTRA_CALENDAR_NAME));
+            fragmentByTag = newCalendarSelectionDialog(intent.getStringExtra(EXTRA_CALENDAR_NAME));
             fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
         }
         fragmentByTag.setCalendarSelectionHandler(this);

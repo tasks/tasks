@@ -10,6 +10,7 @@ import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.ColorPickerDialog.ColorPalette;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.themes.Theme;
 
 import javax.inject.Inject;
 
@@ -25,6 +26,7 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
     public static final String EXTRA_THEME_INDEX = "extra_index";
 
     @Inject PurchaseHelper purchaseHelper;
+    @Inject Theme theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,13 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
     protected void onPostResume() {
         super.onPostResume();
 
-        ColorPalette palette = (ColorPalette) getIntent().getSerializableExtra(EXTRA_PALETTE);
-        boolean showNone = getIntent().getBooleanExtra(EXTRA_SHOW_NONE, false);
-        newColorPickerDialog(palette, showNone)
+        Intent intent = getIntent();
+        ColorPalette palette = (ColorPalette) intent.getSerializableExtra(EXTRA_PALETTE);
+        boolean showNone = intent.getBooleanExtra(EXTRA_SHOW_NONE, false);
+        int selected = intent.hasExtra(EXTRA_THEME_INDEX)
+                ? intent.getIntExtra(EXTRA_THEME_INDEX, -1)
+                : getCurrentSelection(palette);
+        newColorPickerDialog(palette, showNone, selected)
                 .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
     }
 
@@ -78,6 +84,17 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
     public void purchaseCompleted(boolean success, String sku) {
         if (!success) {
             finish();
+        }
+    }
+
+    private int getCurrentSelection(ColorPalette palette) {
+        switch (palette) {
+            case COLORS:
+                return theme.getThemeColor().getIndex();
+            case ACCENTS:
+                return theme.getThemeAccent().getIndex();
+            default:
+                return theme.getThemeBase().getIndex();
         }
     }
 }

@@ -85,7 +85,6 @@
 	<string name="CFC_title_contains_name">El títol conté...</string>
 	<string name="CFC_title_contains_text">Títol conté: ?</string>
 	<string name="gcal_TEA_error">Error afegint la tasca al calendari!</string>
-	<string name="gcal_TEA_addToCalendar_label">Afegeix al calendari</string>
 	<string name="gcal_TEA_showCalendar_label">Obrir Event del Calendari</string>
 	<string name="gcal_completed_title">%s (completada)</string>
 	<string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>

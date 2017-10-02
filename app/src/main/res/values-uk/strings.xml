@@ -121,7 +121,6 @@
 	<string name="EPr_default_importance_title">Пріоритет по замовчуванню</string>
 	<string name="EPr_default_hideUntil_title">Термін приховування за замовчуванням</string>
 	<string name="EPr_default_reminders_title">Нагадування по замовчуванню</string>
-	<string name="EPr_default_addtocalendar_title">Додавати в календар по замовчуванню</string>
 	<string name="EPr_default_reminders_mode_title">Тип дзвінка/вібрація по замовчуванню</string>
 	<string name="priority_high">Високий</string>
 	<string name="priority_medium">Середній</string>
@@ -156,7 +155,6 @@
 	<string name="CFC_title_contains_name">Заголовок містить...</string>
 	<string name="CFC_title_contains_text">Заголовок містить: ?</string>
 	<string name="gcal_TEA_error">Помилка при додаванні завдання в календар!</string>
-	<string name="gcal_TEA_addToCalendar_label">Додати до календаря</string>
 	<string name="gcal_TEA_showCalendar_label">Відкрити календарну подію</string>
 	<string name="delete_calendar_event_confirmation">Видалити подію календаря?</string>
 	<string name="calendar_event_not_found">Подію календаря не знайдено</string>

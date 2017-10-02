@@ -122,7 +122,6 @@
 	<string name="EPr_default_importance_title">기본 우선순위</string>
 	<string name="EPr_default_hideUntil_title">기본 숨기기 기간:</string>
 	<string name="EPr_default_reminders_title">기본 알림</string>
-	<string name="EPr_default_addtocalendar_title">달력에 추가하기 (기본값)</string>
 	<string name="EPr_default_reminders_mode_title">기본 벨소리/진동 형식</string>
 	<string name="priority_high">높음</string>
 	<string name="priority_medium">중간</string>
@@ -157,7 +156,6 @@
 	<string name="CFC_title_contains_name">제목이 다음을 포함...</string>
 	<string name="CFC_title_contains_text">제목이 다음을 포함: ?</string>
 	<string name="gcal_TEA_error">달력에 할일 추가 실패!</string>
-	<string name="gcal_TEA_addToCalendar_label">달력에 일정 추가하기</string>
 	<string name="gcal_TEA_showCalendar_label">달력 이벤트 열기</string>
 	<string name="delete_calendar_event_confirmation">달력 일정을 지울까요?</string>
 	<string name="calendar_event_not_found">캘린더 일정이 발견되지 않음</string>
