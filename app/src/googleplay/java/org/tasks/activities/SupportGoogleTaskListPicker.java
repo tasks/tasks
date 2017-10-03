@@ -89,7 +89,9 @@ public class SupportGoogleTaskListPicker extends InjectingDialogFragment {
                         : super.getDrawableColor(position);
             }
         };
-        adapter.setChecked(selected.getName());
+        if (selected != null) {
+            adapter.setChecked(selected.getName());
+        }
         return dialogBuilder.newDialog()
                 .setSingleChoiceItems(adapter, -1, (dialog, which) -> {
                     handler.selectedList(lists.get(which));
