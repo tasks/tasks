@@ -10,7 +10,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/repeatTypeContainer"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:orientation="vertical">
@@ -54,7 +53,7 @@
                 android:textAppearance="@style/TextAppearance" />
 
             <EditText
-                android:id="@+id/repeatValue"
+                android:id="@+id/intervalValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="3"
@@ -84,17 +83,53 @@
 
         <include layout="@layout/week_buttons" />
 
-        <Spinner
-            android:id="@+id/repeat_until"
-            style="Widget.AppCompat.Spinner"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:paddingEnd="@dimen/keyline_first"
-            android:paddingLeft="@dimen/keyline_first"
-            android:paddingRight="@dimen/keyline_first"
-            android:paddingStart="@dimen/keyline_first"
-            android:textColor="?attr/asTextColor" />
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/repeat_until"
+                style="Widget.AppCompat.Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/keyline_first"
+                android:layout_marginStart="@dimen/keyline_first"
+                android:layout_marginRight="0dp"
+                android:layout_marginEnd="0dp"
+                android:textColor="?attr/asTextColor" />
+
+            <EditText
+                android:id="@+id/repeatTimesValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="3"
+                android:focusable="true"
+                android:imeOptions="flagNoExtractUi"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/repeatTimesText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingEnd="@dimen/keyline_first"
+                android:paddingLeft="0dp"
+                android:paddingRight="@dimen/keyline_first"
+                android:paddingStart="0dp"
+                android:textAppearance="@style/TextAppearance" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

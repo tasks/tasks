@@ -520,6 +520,10 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_monthly">REPEAT MONTHLY</string>
   <string name="repeat_yearly">REPEAT YEARLY</string>
 
+  <plurals name="repeat_times">
+    <item quantity="one">time</item>
+    <item quantity="other">times</item>
+  </plurals>
   <plurals name="repeat_minutes">
     <item quantity="one">minute</item>
     <item quantity="other">minutes</item>
@@ -582,6 +586,8 @@ File %1$s contained %2$s.\n\n
 
     <!-- text for button when repeating task until specified date (%s -> date string) -->
     <string name="repeat_until">Repeat until %s</string>
+  <string name="repeat_number_of_times">Occurs a number of times</string>
+  <string name="repeat_occurs">Occurs</string>
 
     <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
 
@@ -835,7 +841,9 @@ File %1$s contained %2$s.\n\n
   <string name="repeats_single">Repeats %s</string>
   <string name="repeats_single_on">Repeats %s on %s</string>
   <string name="repeats_single_until">Repeats %s until %s</string>
+  <string name="repeats_single_number_of_times">Repeats %s, occurs %d %s</string>
   <string name="repeats_single_on_until">Repeats %s on %s until %s</string>
+  <string name="repeats_single_on_number_of_times">Repeats %s on %s, occurs %d %s</string>
   <string name="repeats_minutely">minutely</string>
   <string name="repeats_hourly">hourly</string>
   <string name="repeats_daily">daily</string>
@@ -843,9 +851,11 @@ File %1$s contained %2$s.\n\n
   <string name="repeats_monthly">monthly</string>
   <string name="repeats_yearly">yearly</string>
   <string name="repeats_plural">Repeats every %s</string>
-  <string name="repeats_plural_until">Repeats every %s until %s</string>
   <string name="repeats_plural_on">Repeats every %s on %s</string>
+  <string name="repeats_plural_until">Repeats every %s until %s</string>
+  <string name="repeats_plural_number_of_times">Repeats every %s, occurs %d %s</string>
   <string name="repeats_plural_on_until">Repeats every %s on %s until %s</string>
+  <string name="repeats_plural_on_number_of_times">Repeats every %s on %s, occurs %d %s</string>
   <string name="list_separator_with_space">,\u0020</string>
   <string name="dont_add_to_calendar">Don\'t add to calendar</string>
   <string name="default_calendar">Default calendar</string>

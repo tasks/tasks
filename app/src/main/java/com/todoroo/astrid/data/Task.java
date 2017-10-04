@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -425,6 +426,10 @@ public class Task extends RemoteModel {
 
     public void setRecurrence(String recurrence) {
         setValue(RECURRENCE, recurrence);
+    }
+
+    public void setRecurrence(RRule rrule, boolean afterCompletion) {
+        setRecurrence(rrule.toIcal() + (afterCompletion ? ";FROM=COMPLETION" : ""));
     }
 
     public Long getCreationDate() {

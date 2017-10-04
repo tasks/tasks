@@ -36,7 +36,6 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.locale.Locale;
-import org.tasks.preferences.Preferences;
 import org.tasks.repeats.CustomRecurrenceDialog;
 import org.tasks.themes.Theme;
 import org.tasks.time.DateTime;
@@ -96,7 +95,6 @@ public class RepeatControlSet extends TaskEditControlFragment
     public static final int TYPE_COMPLETION_DATE = 2;
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject Preferences preferences;
     @Inject @ForActivity Context context;
     @Inject Theme theme;
     @Inject Locale locale;
@@ -194,7 +192,8 @@ public class RepeatControlSet extends TaskEditControlFragment
                 frequency == HOURLY ||
                 frequency == MINUTELY ||
                 rrule.getUntil() != null ||
-                rrule.getInterval() != 1;
+                rrule.getInterval() != 1 ||
+                rrule.getCount() != 0;
     }
 
     @OnClick(R.id.display_row_edit)
@@ -344,15 +343,21 @@ public class RepeatControlSet extends TaskEditControlFragment
         int interval = rrule.getInterval();
         Frequency frequency = rrule.getFreq();
         DateTime repeatUntil = rrule.getUntil() == null ? null : DateTime.from(rrule.getUntil());
+        int count = rrule.getCount();
+        String countString = count > 0 ? getContext().getResources().getQuantityString(R.plurals.repeat_times, count) : "";
         if (interval == 1) {
             String frequencyString = getString(getSingleFrequencyResource(frequency));
             if (frequency == WEEKLY && !rrule.getByDay().isEmpty()) {
                 String dayString = getDayString();
-                if (repeatUntil == null) {
+                if (count > 0) {
+                    return getString(R.string.repeats_single_on_number_of_times, frequencyString, dayString, count, countString);
+                } else if (repeatUntil == null) {
                     return getString(R.string.repeats_single_on, frequencyString, dayString);
                 } else {
                     return getString(R.string.repeats_single_on_until, frequencyString, dayString, DateUtilities.getLongDateString(repeatUntil));
                 }
+            } else if (count > 0) {
+                return getString(R.string.repeats_single_number_of_times, frequencyString, count, countString);
             } else if (repeatUntil == null) {
                 return getString(R.string.repeats_single, frequencyString);
             } else {
@@ -363,11 +368,15 @@ public class RepeatControlSet extends TaskEditControlFragment
             String frequencyPlural = getResources().getQuantityString(plural, interval, interval);
             if (frequency == WEEKLY && !rrule.getByDay().isEmpty()) {
                 String dayString = getDayString();
-                if (repeatUntil == null) {
+                if (count > 0) {
+                    return getString(R.string.repeats_plural_on_number_of_times, frequencyPlural, dayString, count, countString);
+                } else if (repeatUntil == null) {
                     return getString(R.string.repeats_plural_on, frequencyPlural, dayString);
                 } else {
                     return getString(R.string.repeats_plural_on_until, frequencyPlural, dayString, DateUtilities.getLongDateString(repeatUntil));
                 }
+            } else if (count > 0) {
+                return getString(R.string.repeats_plural_number_of_times, frequencyPlural, count, countString);
             } else if (repeatUntil == null) {
                 return getString(R.string.repeats_plural, frequencyPlural);
             } else {

@@ -11,6 +11,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -39,7 +41,6 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.time.DateTime;
 
 import java.text.DateFormatSymbols;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -51,7 +52,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemSelected;
 import butterknife.OnTextChanged;
-import timber.log.Timber;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.google.ical.values.Frequency.DAILY;
@@ -103,8 +103,10 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
     @BindView(R.id.repeat_until) Spinner repeatUntilSpinner;
     @BindView(R.id.frequency) Spinner frequencySpinner;
-    @BindView(R.id.repeatValue) EditText intervalEditText;
+    @BindView(R.id.intervalValue) EditText intervalEditText;
     @BindView(R.id.intervalText) TextView intervalTextView;
+    @BindView(R.id.repeatTimesValue) EditText repeatTimes;
+    @BindView(R.id.repeatTimesText) TextView repeatTimesText;
 
     private ArrayAdapter<String> repeatUntilAdapter;
     private final List<String> repeatUntilOptions = new ArrayList<>();
@@ -140,7 +142,27 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
         intervalEditText.setText(locale.formatNumber(rrule.getInterval()));
 
-        repeatUntilAdapter = new ArrayAdapter<>(context, R.layout.simple_spinner_item, repeatUntilOptions);
+        repeatUntilAdapter = new ArrayAdapter<String>(context, R.layout.simple_spinner_item, repeatUntilOptions) {
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                ViewGroup vg = (ViewGroup) inflater.inflate(R.layout.simple_spinner_dropdown_item, parent, false);
+                ((TextView) vg.findViewById(R.id.text1)).setText(getItem(position));
+                return vg;
+            }
+
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                int selectedItemPosition = position;
+                if (parent instanceof AdapterView) {
+                    selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
+                }
+                TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+                tv.setPadding(0, 0, 0, 0);
+                tv.setText(repeatUntilOptions.get(selectedItemPosition));
+                return tv;
+            }
+        };
         repeatUntilAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         repeatUntilSpinner.setAdapter(repeatUntilAdapter);
         updateRepeatUntilOptions();
@@ -220,6 +242,18 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         intervalTextView.setText(quantityString);
     }
 
+    private void setCount(int count, boolean updateEditText) {
+        rrule.setCount(count);
+        if (updateEditText) {
+            intervalEditText.setText(locale.formatNumber(count));
+        }
+        updateCountText();
+    }
+
+    private void updateCountText() {
+        repeatTimesText.setText(getResources().getQuantityString(R.plurals.repeat_times, rrule.getCount()));
+    }
+
     private int getFrequencyPlural() {
         switch (rrule.getFreq()) {
             case MINUTELY:
@@ -241,18 +275,19 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
     @OnItemSelected(R.id.repeat_until)
     public void onRepeatUntilChanged(int position) {
-        if (repeatUntilOptions.size() == 2) {
-            if (position == 0) {
-                setRepeatUntilValue(0);
-            } else {
-                repeatUntilClick();
-            }
-        } else {
-            if (position == 1) {
-                setRepeatUntilValue(0);
-            } else if (position == 2) {
-                repeatUntilClick();
-            }
+        if (repeatUntilOptions.size() == 4) {
+            position--;
+        }
+        if (position == 0) {
+            rrule.setUntil(null);
+            rrule.setCount(0);
+            updateRepeatUntilOptions();
+        } else if (position == 1) {
+            repeatUntilClick();
+        } else if (position == 2) {
+            rrule.setUntil(null);
+            rrule.setCount(Math.max(rrule.getCount(), 1));
+            updateRepeatUntilOptions();
         }
     }
 
@@ -261,7 +296,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         setFrequency(FREQUENCIES.get(position));
     }
 
-    @OnTextChanged(R.id.repeatValue)
+    @OnTextChanged(R.id.intervalValue)
     public void onRepeatValueChanged(CharSequence text) {
         Integer value = locale.parseInteger(text.toString());
         if (value == null) {
@@ -274,9 +309,17 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         }
     }
 
-    private void setRepeatUntilValue(long newValue) {
-        rrule.setUntil(new DateTime(newValue).toDateValue());
-        updateRepeatUntilOptions();
+    @OnTextChanged(R.id.repeatTimesValue)
+    public void onRepeatTimesValueChanged(CharSequence text) {
+        Integer value = locale.parseInteger(text.toString());
+        if (value == null) {
+            return;
+        }
+        if (value < 1) {
+            setCount(1, true);
+        } else {
+            setCount(value, false);
+        }
     }
 
     private void repeatUntilClick() {
@@ -289,11 +332,24 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     private void updateRepeatUntilOptions() {
         repeatUntilOptions.clear();
         long repeatUntil = DateTime.from(rrule.getUntil()).getMillis();
+        int count = rrule.getCount();
         if (repeatUntil > 0) {
             repeatUntilOptions.add(getString(R.string.repeat_until, getDisplayString(context, repeatUntil)));
+            repeatTimes.setVisibility(View.GONE);
+            repeatTimesText.setVisibility(View.GONE);
+        } else if (count > 0) {
+            repeatUntilOptions.add(getString(R.string.repeat_occurs));
+            repeatTimes.setText(locale.formatNumber(count));
+            repeatTimes.setVisibility(View.VISIBLE);
+            updateCountText();
+            repeatTimesText.setVisibility(View.VISIBLE);
+        } else {
+            repeatTimes.setVisibility(View.GONE);
+            repeatTimesText.setVisibility(View.GONE);
         }
         repeatUntilOptions.add(getString(R.string.repeat_forever));
         repeatUntilOptions.add(getString(R.string.repeat_until, "").trim());
+        repeatUntilOptions.add(getString(R.string.repeat_number_of_times));
         repeatUntilAdapter.notifyDataSetChanged();
         repeatUntilSpinner.setSelection(0);
     }
@@ -302,10 +358,10 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_PICK_DATE) {
             if (resultCode == Activity.RESULT_OK) {
-                setRepeatUntilValue(data.getLongExtra(DatePickerActivity.EXTRA_TIMESTAMP, 0L));
-            } else {
-                setRepeatUntilValue(DateTime.from(rrule.getUntil()).getMillis());
+                rrule.setUntil(new DateTime(data.getLongExtra(DatePickerActivity.EXTRA_TIMESTAMP, 0L)).toDateValue());
+                rrule.setCount(0);
             }
+            updateRepeatUntilOptions();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

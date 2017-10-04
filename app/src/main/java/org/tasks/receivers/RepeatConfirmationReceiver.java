@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.data.Property;
+import com.google.ical.values.RRule;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -16,20 +16,13 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 
+import java.text.ParseException;
+
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
 public class RepeatConfirmationReceiver extends BroadcastReceiver {
-
-    private final Property<?>[] REPEAT_RESCHEDULED_PROPERTIES =
-            new Property<?>[]{
-                    Task.ID,
-                    Task.TITLE,
-                    Task.DUE_DATE,
-                    Task.HIDE_UNTIL,
-                    Task.REPEAT_UNTIL
-            };
 
     private final Activity activity;
     private final Tracker tracker;
@@ -57,7 +50,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
         if (taskId > 0) {
             long oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
             long newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
-            Task task = taskDao.fetch(taskId, REPEAT_RESCHEDULED_PROPERTIES);
+            Task task = taskDao.fetch(taskId);
 
             try {
                 showSnackbar(taskListFragment, task, oldDueDate, newDueDate);
@@ -74,6 +67,16 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
                 .setAction(R.string.DLG_undo, v -> {
                     task.setDueDateAdjustingHideUntil(oldDueDate);
                     task.setCompletionDate(0L);
+                    try {
+                        RRule rrule = new RRule(task.getRecurrenceWithoutFrom());
+                        int count = rrule.getCount();
+                        if (count > 0) {
+                            rrule.setCount(count + 1);
+                        }
+                        task.setRecurrence(rrule, task.repeatAfterCompletion());
+                    } catch (ParseException e) {
+                        Timber.e(e, e.getMessage());
+                    }
                     taskDao.save(task);
                 })
                 .show();

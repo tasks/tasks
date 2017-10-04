@@ -61,7 +61,9 @@ public class RepeatTaskHelper {
 
         if(recurrence != null && recurrence.length() > 0) {
             long newDueDate;
+            RRule rrule;
             try {
+                rrule = initRRule(task.getRecurrenceWithoutFrom());
                 newDueDate = computeNextDueDate(task, recurrence, repeatAfterCompletion);
                 if(newDueDate == -1) {
                     return;
@@ -76,6 +78,12 @@ public class RepeatTaskHelper {
 
             if (repeatFinished(newDueDate, repeatUntil)) {
                 return;
+            }
+
+            int count = rrule.getCount();
+            if (count > 1) {
+                rrule.setCount(count - 1);
+                task.setRecurrence(rrule, repeatAfterCompletion);
             }
 
             rescheduleTask(task, newDueDate);
