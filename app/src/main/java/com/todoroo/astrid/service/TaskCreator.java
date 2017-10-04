@@ -51,10 +51,6 @@ public class TaskCreator {
     }
 
     public Task basicQuickAddTask(String title) {
-        if (TextUtils.isEmpty(title)) {
-            return null;
-        }
-
         title = title.trim();
 
         Task task = createWithValues(null, title);
