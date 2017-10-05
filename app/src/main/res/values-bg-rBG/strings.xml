@@ -446,7 +446,6 @@
 	<string name="notification_disable_battery_optimizations_description">Оптимизациите на батерията могат да забавят уведомленията</string>
 	<string name="bundle_notifications">Обединяване на уведомленията</string>
 	<string name="badges">Значки</string>
-	<string name="launcher_support_required">Изисква се поддръжка от лаунчера</string>
 	<string name="list">Списък</string>
 	<string name="repeats_from">Повтаряй от</string>
 	<string name="repeats_single">Повтаряй %s</string>

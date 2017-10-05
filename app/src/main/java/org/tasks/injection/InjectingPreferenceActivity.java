@@ -1,6 +1,7 @@
 package org.tasks.injection;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -12,11 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.jakewharton.processphoenix.ProcessPhoenix;
+import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.api.Filter;
+
 import org.tasks.R;
+import org.tasks.dialogs.DialogBuilder;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.AppCompatPreferenceActivity;
 import org.tasks.themes.Theme;
 import org.tasks.ui.MenuColorizer;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -24,11 +32,11 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     private ActivityComponent activityComponent;
 
-    private Toolbar toolbar;
-
     protected InjectingPreferenceActivity() {
         Locale.getInstance(this).applyOverrideConfiguration(this);
     }
+
+    @Inject DialogBuilder dialogBuilder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +59,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
         toolbarContainer.addView(content);
         root.addView(toolbarContainer);
 
-        toolbar = toolbarContainer.findViewById(R.id.toolbar);
+        Toolbar toolbar = toolbarContainer.findViewById(R.id.toolbar);
         try {
             ComponentName componentName = new ComponentName(this, getClass());
             ActivityInfo activityInfo = getPackageManager().getActivityInfo(componentName, 0);
@@ -106,5 +114,17 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     protected Preference findPreference(String key) {
         //noinspection deprecation
         return super.findPreference(key);
+    }
+
+    protected void showRestartDialog() {
+        dialogBuilder.newDialog()
+                .setMessage(R.string.restart_required)
+                .setPositiveButton(R.string.restart_now, (dialogInterface, i) -> {
+                    Intent nextIntent = new Intent(InjectingPreferenceActivity.this, TaskListActivity.class);
+                    nextIntent.putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
+                    ProcessPhoenix.triggerRebirth(InjectingPreferenceActivity.this, nextIntent);
+                })
+                .setNegativeButton(R.string.restart_later, null)
+                .show();
     }
 }

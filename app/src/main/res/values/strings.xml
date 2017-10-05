@@ -835,7 +835,6 @@ File %1$s contained %2$s.\n\n
   <string name="notification_disable_battery_optimizations_description">Battery optimizations may delay notifications</string>
   <string name="bundle_notifications">Bundle notifications</string>
   <string name="badges">Badges</string>
-  <string name="launcher_support_required">Launcher support required</string>
   <string name="list">List</string>
   <string name="repeats_from">Repeats from</string>
   <string name="repeats_single">Repeats %s</string>
@@ -859,4 +858,6 @@ File %1$s contained %2$s.\n\n
   <string name="list_separator_with_space">,\u0020</string>
   <string name="dont_add_to_calendar">Don\'t add to calendar</string>
   <string name="default_calendar">Default calendar</string>
+  <string name="badges_description">Display a task count on Tasks launcher icon. Not all launchers support badges.</string>
+  <string name="bundle_notifications_summary">Combine multiple notifications into a single notification</string>
 </resources>

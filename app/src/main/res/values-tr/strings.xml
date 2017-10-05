@@ -408,6 +408,5 @@
 	<string name="battery_optimization_settings">Pil optimizasyonlarını yönet</string>
 	<string name="notification_disable_battery_optimizations_description">Pil optimizasyonları bildirimleri geciktirebilir</string>
 	<string name="badges">İşaretler</string>
-	<string name="launcher_support_required">Başlatıcı desteği gerekiyor</string>
 	<string name="list">Liste</string>
 </resources>

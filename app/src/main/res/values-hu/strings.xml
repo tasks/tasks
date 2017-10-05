@@ -446,7 +446,6 @@
 	<string name="notification_disable_battery_optimizations_description">Az akkumulátor optimalizálási funkciók késleltethetik az értesítéseket</string>
 	<string name="bundle_notifications">Értesítések összevonása</string>
 	<string name="badges">Szimbólumok</string>
-	<string name="launcher_support_required">Launcher támogatás szükséges</string>
 	<string name="list">Lista</string>
 	<string name="repeats_minutely">percenként</string>
 	<string name="repeats_hourly">óránként</string>

@@ -400,6 +400,5 @@
 	<string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
 	<string name="bundle_notifications">Перечень уведомлений</string>
 	<string name="badges">Бейджи</string>
-	<string name="launcher_support_required">Требуется поддержка оболочки</string>
 	<string name="list">Список</string>
 </resources>

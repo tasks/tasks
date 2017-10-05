@@ -440,7 +440,6 @@
 	<string name="notification_disable_battery_optimizations_description">Optimizaciones de batería pueden retrasar notificaciones</string>
 	<string name="bundle_notifications">Agrupar notificaciones</string>
 	<string name="badges">Insignias</string>
-	<string name="launcher_support_required">Se requiere soporte de launcher</string>
 	<string name="list">Lista</string>
 	<string name="repeats_minutely">cada minuto</string>
 	<string name="repeats_hourly">cada hora</string>

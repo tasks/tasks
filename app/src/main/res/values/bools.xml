@@ -3,4 +3,5 @@
     <bool name="two_pane_layout">false</bool>
     <bool name="location_enabled">false</bool>
     <bool name="google_play_store_available">false</bool>
+    <bool name="default_bundle_notifications">false</bool>
 </resources>

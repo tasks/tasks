@@ -444,7 +444,6 @@
 	<string name="notification_disable_battery_optimizations_description">バッテリー最適化をすると通知が遅れることがあります</string>
 	<string name="bundle_notifications">バンドル通知</string>
 	<string name="badges">バッジ</string>
-	<string name="launcher_support_required">ランチャーサポートが必要です</string>
 	<string name="list">リスト</string>
 	<string name="repeats_from">繰り返し開始</string>
 	<string name="repeats_single">%s を繰り返し</string>

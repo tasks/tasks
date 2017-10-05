@@ -434,7 +434,6 @@
 	<string name="notification_disable_battery_optimizations_description">Batterij optimalisatie kan meldingen vertragen</string>
 	<string name="bundle_notifications">Notificaties samenvoegen</string>
 	<string name="badges">Sets</string>
-	<string name="launcher_support_required">Launcher ondersteuning vereist</string>
 	<string name="list">Lijst</string>
 	<string name="repeats_from">Herhalen van</string>
 	<string name="repeats_single">Herhalen %s</string>

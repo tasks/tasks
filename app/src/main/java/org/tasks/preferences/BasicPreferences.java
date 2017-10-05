@@ -8,17 +8,12 @@ import android.preference.Preference;
 import android.preference.TwoStatePreference;
 
 import com.google.common.base.Strings;
-import com.jakewharton.processphoenix.ProcessPhoenix;
-import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
 
 import org.tasks.BuildConfig;
-import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
-import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.billing.PurchaseHelper;
@@ -30,7 +25,6 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
 import org.tasks.locale.LocalePickerDialog;
-import org.tasks.receivers.Badger;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
@@ -63,7 +57,6 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     private static final int REQUEST_CODE_BACKUP_DIR = 10005;
     private static final int REQUEST_PICKER = 10006;
     public static final int REQUEST_PURCHASE = 10007;
-    private static final int REQUEST_BADGE_LIST = 10008;
 
     @Inject Tracker tracker;
     @Inject Preferences preferences;
@@ -73,10 +66,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
     @Inject DialogBuilder dialogBuilder;
     @Inject Locale locale;
     @Inject ThemeCache themeCache;
-    @Inject Badger badger;
     @Inject PurchaseHelper purchaseHelper;
-    @Inject DefaultFilterProvider defaultFilterProvider;
-    @Inject LocalBroadcastManager localBroadcastManager;
 
     private Bundle result;
 
@@ -153,28 +143,6 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         findPreference(R.string.p_purchased_themes).setOnPreferenceChangeListener((preference, newValue) -> {
             if (newValue != null && (boolean) newValue && !preferences.hasPurchase(R.string.p_purchased_themes)) {
                 purchaseHelper.purchase(BasicPreferences.this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes), REQUEST_PURCHASE, BasicPreferences.this);
-            }
-            return false;
-        });
-
-        Preference defaultList = findPreference(getString(R.string.p_badge_list));
-        Filter filter = defaultFilterProvider.getBadgeFilter();
-        defaultList.setSummary(filter.listingTitle);
-        defaultList.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(BasicPreferences.this, FilterSelectionActivity.class);
-            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-            startActivityForResult(intent, REQUEST_BADGE_LIST);
-            return true;
-        });
-
-        findPreference(R.string.p_badges_enabled).setOnPreferenceChangeListener((preference, newValue) -> {
-            if (newValue != null) {
-                boolean enabled = (boolean) newValue;
-                badger.setEnabled(enabled);
-                if (enabled) {
-                    showRestartDialog();
-                }
-                return true;
             }
             return false;
         });
@@ -291,13 +259,6 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
             }
         } else if (requestCode == REQUEST_PURCHASE) {
             purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
-        } else if (requestCode == REQUEST_BADGE_LIST) {
-            if (resultCode == RESULT_OK) {
-                Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
-                defaultFilterProvider.setBadgeFilter(filter);
-                findPreference(getString(R.string.p_badge_list)).setSummary(filter.listingTitle);
-                localBroadcastManager.broadcastRefresh();
-            }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -316,18 +277,6 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         if (!locale.equals(newValue)) {
             showRestartDialog();
         }
-    }
-
-    private void showRestartDialog() {
-        dialogBuilder.newDialog()
-                .setMessage(R.string.restart_required)
-                .setPositiveButton(R.string.restart_now, (dialogInterface, i) -> {
-                    Intent nextIntent = new Intent(BasicPreferences.this, TaskListActivity.class);
-                    nextIntent.putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
-                    ProcessPhoenix.triggerRebirth(BasicPreferences.this, nextIntent);
-                })
-                .setNegativeButton(R.string.restart_later, null)
-                .show();
     }
 
     private void updateLocale() {

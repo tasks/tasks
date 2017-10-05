@@ -380,6 +380,5 @@
 	<string name="notification_disable_battery_optimizations_description">L\'ottimizzazione consumi può ritardare le notifiche</string>
 	<string name="bundle_notifications">Gruppo di notifiche</string>
 	<string name="badges">Badge</string>
-	<string name="launcher_support_required">Richiesto il supporto al lanciatore</string>
 	<string name="list">Lista</string>
 </resources>

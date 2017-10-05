@@ -18,14 +18,20 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 
+import com.todoroo.astrid.api.Filter;
+
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
+import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
+import org.tasks.receivers.Badger;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
 import org.tasks.time.DateTime;
@@ -44,10 +50,14 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     private static final int REQUEST_QUIET_START = 10001;
     private static final int REQUEST_QUIET_END = 10002;
     private static final int REQUEST_DEFAULT_REMIND = 10003;
+    private static final int REQUEST_BADGE_LIST = 10004;
 
     @Inject Device device;
     @Inject ActivityPermissionRequestor permissionRequestor;
     @Inject PermissionChecker permissionChecker;
+    @Inject Badger badger;
+    @Inject DefaultFilterProvider defaultFilterProvider;
+    @Inject LocalBroadcastManager localBroadcastManager;
 
     private CheckBoxPreference fieldMissedCalls;
 
@@ -81,6 +91,28 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
         findPreference(R.string.p_bundle_notifications).setOnPreferenceChangeListener((preference, o) -> {
             NotificationSchedulerIntentService.enqueueWork(this, true);
+            return true;
+        });
+
+        findPreference(R.string.p_badges_enabled).setOnPreferenceChangeListener((preference, newValue) -> {
+            if (newValue != null) {
+                boolean enabled = (boolean) newValue;
+                badger.setEnabled(enabled);
+                if (enabled) {
+                    showRestartDialog();
+                }
+                return true;
+            }
+            return false;
+        });
+
+        Preference badgePreference = findPreference(getString(R.string.p_badge_list));
+        Filter filter = defaultFilterProvider.getBadgeFilter();
+        badgePreference.setSummary(filter.listingTitle);
+        badgePreference.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(ReminderPreferences.this, FilterSelectionActivity.class);
+            intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+            startActivityForResult(intent, REQUEST_BADGE_LIST);
             return true;
         });
 
@@ -178,6 +210,13 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         } else if (requestCode == REQUEST_DEFAULT_REMIND) {
             if (resultCode == RESULT_OK) {
                 getDefaultRemindTimePreference().handleTimePickerActivityIntent(data);
+            }
+        } else if (requestCode == REQUEST_BADGE_LIST) {
+            if (resultCode == RESULT_OK) {
+                Filter filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
+                defaultFilterProvider.setBadgeFilter(filter);
+                findPreference(getString(R.string.p_badge_list)).setSummary(filter.listingTitle);
+                localBroadcastManager.broadcastRefresh();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
