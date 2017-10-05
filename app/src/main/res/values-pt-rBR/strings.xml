@@ -365,4 +365,6 @@
 	<string name="start_of_week">Começo da semana</string>
 	<string name="use_locale_default">Usar padrão do aparelho</string>
 	<string name="use_native_datetime_pickers">Usar calendário nativo</string>
+	<string name="dont_add_to_calendar">Não inserir no calendário</string>
+	<string name="default_calendar">Calendário padrão</string>
 </resources>

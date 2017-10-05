@@ -38,7 +38,7 @@
 	<string name="TAd_hiddenFormat">%s (piilotettu)</string>
 	<string name="TAd_completed">Lopetettu\n%s</string>
 	<string name="TAd_actionEditTask">Muokkaa</string>
-	<string name="SSD_sort_drag">Manuaalinen järjestys osatehtäviin</string>
+	<string name="SSD_sort_drag">Manuaalinen järjestys alitehtäviin</string>
 	<string name="SSD_sort_auto">Älykäs sorttaus</string>
 	<string name="SSD_sort_alpha">Otsikoittain</string>
 	<string name="SSD_sort_due">Eräpäivään mennessä</string>
@@ -183,6 +183,7 @@
 	<string name="random_reminder_two_months">kahden kuukauden kuluessa</string>
 	<string name="rmd_NoA_done">Täydennä</string>
 	<string name="rmd_NoA_snooze">Torkku</string>
+	<string name="snooze_all">Torkuta kaikki</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Hiljainen aika alku</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Hiljainen aika loppu</string>
 	<string name="rmd_EPr_rmd_time_title">Oletusmuistutus</string>
@@ -197,8 +198,73 @@
 	<string name="default_random_reminder_bi_weekly">Jokatoinen viikko</string>
 	<string name="default_random_reminder_monthly">Kuukausittain</string>
 	<string name="default_random_reminder_bi_monthly">Jokatoinen kuukausi</string>
+	<string name="repeat_every">Joka</string>
+	<string name="repeat_option_does_not_repeat">Älä toista</string>
+	<string name="repeat_option_every_day">Joka päivä</string>
+	<string name="repeat_option_every_week">Joka viikko</string>
+	<string name="repeat_option_every_month">Joka kuukausi</string>
+	<string name="repeat_option_every_year">Joka vuosi</string>
+	<string name="repeat_option_custom">Valinnainen...</string>
+	<string name="repeat_minutely">TOISTA MINUUTEITTAIN</string>
+	<string name="repeat_hourly">TOISTA TUNNEITTAIN</string>
+	<string name="repeat_daily">TOISTA PÄIVITTÄIN</string>
+	<string name="repeat_weekly">TOISTA VIIKOTTAIN</string>
+	<string name="repeat_monthly">TOISTA KUUKAUSITTAIN</string>
+	<string name="repeat_yearly">TOISTA VUOSITTAIN</string>
+	<plurals name="task_count">
+		<item quantity="one">%d tehtävä</item>
+		<item quantity="other">%d tehtävät</item>
+	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">aika</item>
+		<item quantity="other">ajat</item>
+	</plurals>
+	<plurals name="repeat_minutes">
+		<item quantity="one">Minuutit</item>
+		<item quantity="other">minuuttia</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d minuutti</item>
+		<item quantity="other">%d minuuttia</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d tunti</item>
+		<item quantity="other">%d tuntia</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d päivä</item>
+		<item quantity="other">%d päivää</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">viikko</item>
+		<item quantity="other">viikot</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d viikko</item>
+		<item quantity="other">%d viikkoa</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">kuukausi</item>
+		<item quantity="other">kuukaudet</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d kuukausi</item>
+		<item quantity="other">%d kuukautta</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">vuosi</item>
+		<item quantity="other">vuodet</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d vuosi</item>
+		<item quantity="other">%d vuotta</item>
+	</plurals>
+	<string name="repeat_type_due">Määräpäivä</string>
+	<string name="repeat_type_completion">päättymispäivä</string>
 	<string name="repeat_forever">Toista loputtomiin</string>
 	<string name="repeat_until">Toista kunnes %s</string>
+	<string name="repeat_number_of_times">Toista useita kertoja</string>
+	<string name="repeat_occurs">Tapahtuu</string>
 	<string name="repeat_snackbar">%1$s uudelleenajastettu %2$s</string>
 	<string name="new_tag">Luo uusi tunniste</string>
 	<string name="new_list">Luo uusi lista</string>
@@ -247,6 +313,7 @@
 	<string name="synchronization">Synkronointi</string>
 	<string name="enabled">Sallittu</string>
 	<string name="font_size">Kirjasimen koko</string>
+	<string name="row_spacing">Rivinväli</string>
 	<string name="customize_edit_screen">Saadä muokkaus -näkymää</string>
 	<string name="source_code">Lähdekoodi</string>
 	<string name="translations">Osallistu kääntämiseen</string>
@@ -298,7 +365,7 @@
 	<string name="pick_from_storage">Valitse muistista</string>
 	<string name="privacy">Yksityisyys</string>
 	<string name="privacy_policy">Rekisteriseloste</string>
-	<string name="send_anonymous_statistics">Paranna Tasks</string>
+	<string name="send_anonymous_statistics">Paranna tehtäviä</string>
 	<string name="send_anonymous_statistics_summary">Lähetä nimettömästi käyttäjätilastoja ja virheilmoituksia Tasks -ohjelman parantamiseksi. Mitään henkilökohtaisia tietoja ei kerätä.</string>
 	<string name="tag_already_exists">Tunniste on jo olemassa</string>
 	<string name="name_cannot_be_empty">Nimi ei voi olla tyhjä</string>
@@ -314,7 +381,7 @@
 	<string name="buy_dashclock_extension">Osta laajennusosa</string>
 	<string name="billing_service_busy">Sovelluksen sisäinen laskutuspalvelu on varattu, yritä myöhemmin uudelleen</string>
 	<string name="filter">Suodatin</string>
-	<string name="opacity">Peittävyys</string>
+	<string name="opacity">Läpinäkyvyys</string>
 	<string name="theme">Teema</string>
 	<string name="color">Väri</string>
 	<string name="accent">Sävy</string>
@@ -368,4 +435,32 @@
 	<string name="clear_completed_tasks_confirmation">Siivoa valmiit tehtävät?</string>
 	<string name="copy_multiple_tasks_confirmation">%s kopioitu</string>
 	<string name="delete_multiple_tasks_confirmation">%s poistettu</string>
+	<string name="battery_optimization_settings">Hallinnoi paristojen optimointia</string>
+	<string name="notification_disable_battery_optimizations_description">Pattereiden optimointi voi viivästyttää ilmoituksia</string>
+	<string name="bundle_notifications">Niputa ilmoitukset</string>
+	<string name="badges">Merkit</string>
+	<string name="list">Lista</string>
+	<string name="repeats_from">Toista alkaen</string>
+	<string name="repeats_single">Toista %s</string>
+	<string name="repeats_single_on">Toista %1$s - %2$s</string>
+	<string name="repeats_single_until">Toista %1$s kunnes %2$s</string>
+	<string name="repeats_single_number_of_times">Toista %1$s, tapahtuu %2$d %3$s</string>
+	<string name="repeats_single_on_until">Toista %1$s - %2$s kunnes %3$s</string>
+	<string name="repeats_single_on_number_of_times">Toista %1$s - %2$s, tapahtuu %3$d %4$s</string>
+	<string name="repeats_minutely">minuuteittain</string>
+	<string name="repeats_hourly">tunneittain</string>
+	<string name="repeats_daily">päivittäin</string>
+	<string name="repeats_weekly">Viikoittain</string>
+	<string name="repeats_monthly">Kuukausittain</string>
+	<string name="repeats_yearly">vuosittain</string>
+	<string name="repeats_plural">Toista joko %s</string>
+	<string name="repeats_plural_on">Toista joka %1$s - %2$s</string>
+	<string name="repeats_plural_until">Toista joka %1$s kunnes %2$s</string>
+	<string name="repeats_plural_number_of_times">Toista joka %1$s, tapahtuu %2$d %3$s</string>
+	<string name="repeats_plural_on_until">Toista joka %1$s - %2$s kunnes %3$s</string>
+	<string name="repeats_plural_on_number_of_times">Toista joka %1$s - %2$s, tapahtuu %3$d %4$s</string>
+	<string name="dont_add_to_calendar">Älä lisää kalenteriin</string>
+	<string name="default_calendar">Oletus kalenteri</string>
+	<string name="badges_description">Näytä tehtävien lukumäärä tehtävien käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>
+	<string name="bundle_notifications_summary">Yhdistä useita ilmoituksia yhteen ilmoitukseen</string>
 </resources>

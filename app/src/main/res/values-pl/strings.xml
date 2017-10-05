@@ -407,10 +407,13 @@
 	<string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
 	<string name="bundle_notifications">Zarządzaj powiadomieniami</string>
 	<string name="list">Lista</string>
+	<string name="repeats_single">Powtarza się %s</string>
 	<string name="repeats_minutely">co minutę</string>
 	<string name="repeats_hourly">co godzinę</string>
 	<string name="repeats_daily">raz dziennie</string>
 	<string name="repeats_weekly">raz w tygodniu</string>
 	<string name="repeats_monthly">raz w miesiącu</string>
 	<string name="repeats_yearly">raz w roku</string>
+	<string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
+	<string name="default_calendar">Domyślny kalendarz</string>
 </resources>

@@ -176,6 +176,7 @@
 	<string name="random_reminder_two_months">in 2 Monaten</string>
 	<string name="rmd_NoA_done">Abgeschlossen</string>
 	<string name="rmd_NoA_snooze">Schlummern</string>
+	<string name="snooze_all">Alle schlummern</string>
 	<string name="rmd_EPr_quiet_hours_start_title">Beginn der Ruhezeit</string>
 	<string name="rmd_EPr_quiet_hours_end_title">Ende der Ruhezeit</string>
 	<string name="rmd_EPr_rmd_time_title">Standard-Erinnerung</string>
@@ -190,6 +191,69 @@
 	<string name="default_random_reminder_bi_weekly">vierzehntägig</string>
 	<string name="default_random_reminder_monthly">monatlich</string>
 	<string name="default_random_reminder_bi_monthly">alle zwei Monate</string>
+	<string name="repeat_every">Jede(n)</string>
+	<string name="repeat_option_does_not_repeat">Nicht wiederholen</string>
+	<string name="repeat_option_every_day">Jeden Tag</string>
+	<string name="repeat_option_every_week">Jede Woche</string>
+	<string name="repeat_option_every_month">Jeden Monat</string>
+	<string name="repeat_option_every_year">Jedes Jahr</string>
+	<string name="repeat_option_custom">Eigene...</string>
+	<string name="repeat_minutely">Wiederhole minütlich</string>
+	<string name="repeat_hourly">Wiederhole stündlich</string>
+	<string name="repeat_daily">Wiederhole täglich</string>
+	<string name="repeat_weekly">Wiederhole wöchentlich</string>
+	<string name="repeat_monthly">Wiederhole monatlich</string>
+	<string name="repeat_yearly">Wiederhole jährlich</string>
+	<plurals name="task_count">
+		<item quantity="one">%d Aufgabe</item>
+		<item quantity="other">%d Aufgaben</item>
+	</plurals>
+	<plurals name="repeat_minutes">
+		<item quantity="one">Minute</item>
+		<item quantity="other">Minute</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d Minute</item>
+		<item quantity="other">%d Minuten</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">Stunde</item>
+		<item quantity="other">Stunde</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d Stunde</item>
+		<item quantity="other">%d Stunden</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">Tag</item>
+		<item quantity="other">Tag</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d Tag</item>
+		<item quantity="other">%d Tage</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">Woche</item>
+		<item quantity="other">Woche</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d Woche</item>
+		<item quantity="other">%d Wochen</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">Monat</item>
+		<item quantity="other">Monat</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d Monat</item>
+		<item quantity="other">%d Monate</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">Jahr</item>
+		<item quantity="other">Jahr</item>
+	</plurals>
+	<string name="repeat_type_due">Fälligkeitsdatum</string>
+	<string name="repeat_type_completion">Erledigung</string>
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
 	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>
@@ -364,4 +428,22 @@
 	<string name="start_of_week">Beginn der Woche</string>
 	<string name="use_locale_default">Aus Systemeinstellungen</string>
 	<string name="use_native_datetime_pickers">Datum- und Zeitauswahl des Systems benutzen</string>
+	<string name="notification_channel_settings">Verwalte Benachrichtigungen</string>
+	<string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
+	<string name="badges">Button</string>
+	<string name="list">Liste</string>
+	<string name="repeats_from">Wiederholung bis</string>
+	<string name="repeats_single">Wiederholung %s</string>
+	<string name="repeats_single_on">Wiederhole %1$s am %2$s</string>
+	<string name="repeats_minutely">minütlich</string>
+	<string name="repeats_hourly">stündlich</string>
+	<string name="repeats_daily">täglich</string>
+	<string name="repeats_weekly">wöchentlich</string>
+	<string name="repeats_monthly">monatlich</string>
+	<string name="repeats_yearly">jährlich</string>
+	<string name="repeats_plural">Wiederhole jede(n) %s</string>
+	<string name="repeats_plural_until">Wiederhole jede(n) %1$s bis %2$s</string>
+	<string name="dont_add_to_calendar">Nicht in Kalender eintragen</string>
+	<string name="default_calendar">Standardkalender</string>
+	<string name="bundle_notifications_summary">Mehrer Benachrichtigungen in eine Benachrichtigung zusammenfassen</string>
 </resources>

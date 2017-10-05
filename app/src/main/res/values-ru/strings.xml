@@ -214,6 +214,10 @@
 		<item quantity="one">месяца</item>
 		<item quantity="other">месяцев</item>
 	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">год</item>
+		<item quantity="other">год(-а)/лет</item>
+	</plurals>
 	<string name="repeat_forever">Повторять всегда</string>
 	<string name="repeat_until">Повторять до %s</string>
 	<string name="repeat_snackbar">«%1$s» перенесено на %2$s</string>

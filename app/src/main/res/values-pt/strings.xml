@@ -177,6 +177,58 @@
 	<string name="default_random_reminder_bi_weekly">bissemanal</string>
 	<string name="default_random_reminder_monthly">mensal</string>
 	<string name="default_random_reminder_bi_monthly">bimensal</string>
+	<string name="repeat_option_every_day">Todos os dias</string>
+	<string name="repeat_option_every_week">Todas as semanas</string>
+	<string name="repeat_option_every_month">Todos os meses</string>
+	<string name="repeat_option_every_year">Todos os anos</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">minuto</item>
+		<item quantity="other">minutos</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d minuto</item>
+		<item quantity="other">%d minutos</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">hora</item>
+		<item quantity="other">horas</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d hora</item>
+		<item quantity="other">%d horas</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">dia</item>
+		<item quantity="other">dias</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d dia</item>
+		<item quantity="other">%d dias</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">semana</item>
+		<item quantity="other">semanas</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d semana</item>
+		<item quantity="other">%d semanas</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">mês</item>
+		<item quantity="other">meses</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d mês</item>
+		<item quantity="other">%d meses</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">ano</item>
+		<item quantity="other">anos</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d ano</item>
+		<item quantity="other">%d anos</item>
+	</plurals>
 	<string name="repeat_forever">Repetir eternamente</string>
 	<string name="repeat_until">Repetir até %s</string>
 	<string name="repeat_snackbar">%1$s agendada para %2$s</string>
@@ -224,6 +276,7 @@
 	<string name="font_size">Tamanho da letra</string>
 	<string name="customize_edit_screen">Personalizar ecrã de edição</string>
 	<string name="source_code">Código fonte</string>
+	<string name="translations">Contribuir nas traduções</string>
 	<string name="report_an_issue">Reportar um erro</string>
 	<string name="help_and_feedback">Ajuda e comentários</string>
 	<string name="contact_developer">Contacte o programador</string>
@@ -258,15 +311,22 @@
 	<string name="discard">Descartar</string>
 	<string name="tag_settings">Definições de etiquetas</string>
 	<string name="delete">Apagar</string>
+	<string name="copy">Copiar</string>
 	<string name="filter_settings">Definições de filtro</string>
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar terminadas</string>
 	<string name="reverse">Reverter</string>
 	<string name="get_plugins">Compras na aplicação</string>
+	<string name="no_application_found">Nenhuma aplicação encontrada para abrir o anexo</string>
 	<string name="add_attachment">Adicionar anexo</string>
 	<string name="privacy">Privacidade</string>
 	<string name="privacy_policy">Política de privacidade</string>
 	<string name="default_list">Lista padrão</string>
+	<string name="buy">Comprar</string>
+	<string name="buy_dashclock_extension">Comprar extensão</string>
+	<string name="opacity">Opacidade</string>
+	<string name="theme">Tema</string>
+	<string name="color">Cor</string>
 	<string name="themes">Temas adicionais</string>
 	<string name="theme_red">Vermelho</string>
 	<string name="theme_pink">Rosa</string>
@@ -282,9 +342,19 @@
 	<string name="theme_black">Preto</string>
 	<string name="theme_dark">Escuro</string>
 	<string name="theme_day_night">Dia/Noite</string>
+	<string name="settings_general">Geral</string>
+	<string name="language">Linguagem</string>
 	<string name="restart_now">Reiniciar agora</string>
+	<string name="restart_later">Mais tarde</string>
 	<string name="layout_direction_left_to_right">Da esquerda para a direita</string>
 	<string name="layout_direction_right_to_left">Da direita para a esquerda</string>
+	<string name="led_notification">Notificação LED</string>
 	<string name="no_calendars_found">Calendário não encontrado</string>
 	<string name="widget_settings">Definições do widget</string>
+	<string name="copy_multiple_tasks_confirmation">%s copiado</string>
+	<string name="delete_multiple_tasks_confirmation">%s apagado</string>
+	<string name="notification_channel_settings">Gerir notificações</string>
+	<string name="battery_optimization_settings">Gerir optimizações de bateria</string>
+	<string name="notification_disable_battery_optimizations_description">Optimizações da bateria podem atrasar as notificações</string>
+	<string name="dont_add_to_calendar">Não adicionar ao calendário</string>
 </resources>

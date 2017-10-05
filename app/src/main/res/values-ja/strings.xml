@@ -446,9 +446,9 @@
 	<string name="list">リスト</string>
 	<string name="repeats_from">繰り返し開始</string>
 	<string name="repeats_single">%s を繰り返し</string>
-	<string name="repeats_single_on">%s を %s に繰り返し</string>
-	<string name="repeats_single_until">%s を %s まで繰り返し</string>
-	<string name="repeats_single_on_until">%s を %s に %s まで繰り返し</string>
+	<string name="repeats_single_on">%1$s を %2$s に繰り返し</string>
+	<string name="repeats_single_until">%1$s を %2$s まで繰り返し</string>
+	<string name="repeats_single_on_until">%1$s を %2$s に %3$s まで繰り返し</string>
 	<string name="repeats_minutely">毎分</string>
 	<string name="repeats_hourly">毎時</string>
 	<string name="repeats_daily">毎日</string>
@@ -456,9 +456,9 @@
 	<string name="repeats_monthly">毎月</string>
 	<string name="repeats_yearly">毎年</string>
 	<string name="repeats_plural">%s ごとに繰り返し</string>
-	<string name="repeats_plural_until">%s ごとに %s まで繰り返し</string>
-	<string name="repeats_plural_on">%s ごとに %s に繰り返し</string>
-	<string name="repeats_plural_on_until">%s ごとに %s に %s まで繰り返し</string>
+	<string name="repeats_plural_on">%1$s ごとに %2$s に繰り返し</string>
+	<string name="repeats_plural_until">%1$s ごとに %2$s まで繰り返し</string>
+	<string name="repeats_plural_on_until">%1$s ごとに %2$s に %3$s まで繰り返し</string>
 	<string name="dont_add_to_calendar">カレンダーに追加しない</string>
 	<string name="default_calendar">デフォルトのカレンダー</string>
 </resources>

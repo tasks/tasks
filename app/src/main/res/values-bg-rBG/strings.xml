@@ -210,6 +210,14 @@
 	<string name="repeat_weekly">ПОВТАРЯЙ СЕДМИЧНО</string>
 	<string name="repeat_monthly">ПОВТАРЯЙ МЕСЕЧНО</string>
 	<string name="repeat_yearly">ПОВТАРЯЙ ГОДИШНО</string>
+	<plurals name="task_count">
+		<item quantity="one">%d задача</item>
+		<item quantity="other">%d задачи</item>
+	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">път</item>
+		<item quantity="other">пъти</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">минута</item>
 		<item quantity="other">минути</item>
@@ -262,6 +270,8 @@
 	<string name="repeat_type_completion">дата на завършване</string>
 	<string name="repeat_forever">Повтаряй завинаги</string>
 	<string name="repeat_until">Повтаряй до %s</string>
+	<string name="repeat_number_of_times">Повтаряй брой пъти</string>
+	<string name="repeat_occurs">Възниква</string>
 	<string name="repeat_snackbar">%1$s е насрочено за %2$s</string>
 	<string name="new_tag">Нов таг</string>
 	<string name="new_list">Създаване на нов списък</string>
@@ -448,9 +458,11 @@
 	<string name="list">Списък</string>
 	<string name="repeats_from">Повтаряй от</string>
 	<string name="repeats_single">Повтаряй %s</string>
-	<string name="repeats_single_on">Повтаряй %s на %s</string>
-	<string name="repeats_single_until">Повтаряй %s до %s</string>
-	<string name="repeats_single_on_until">Повтаряй %s на %s до %s</string>
+	<string name="repeats_single_on">Повтаряй %1$s на %2$s</string>
+	<string name="repeats_single_until">Повтаряй %1$s до %2$s</string>
+	<string name="repeats_single_number_of_times">Повтаря се %1$s, възниква %2$d %3$s</string>
+	<string name="repeats_single_on_until">Повтаряй %1$s на %2$s до %3$s</string>
+	<string name="repeats_single_on_number_of_times">Повтаря се %1$s на %2$s, възниква %3$d %4$s</string>
 	<string name="repeats_minutely">минутно</string>
 	<string name="repeats_hourly">часово</string>
 	<string name="repeats_daily">дневно</string>
@@ -458,7 +470,13 @@
 	<string name="repeats_monthly">месечно</string>
 	<string name="repeats_yearly">годишно</string>
 	<string name="repeats_plural">Повтаряй всеки %s</string>
-	<string name="repeats_plural_until">Повтаряй всеки %s до %s</string>
-	<string name="repeats_plural_on">Повтаряй всеки %s на %s</string>
-	<string name="repeats_plural_on_until">Повтаряй всеки %s на %s до %s</string>
+	<string name="repeats_plural_on">Повтаряй всеки %1$s на %2$s</string>
+	<string name="repeats_plural_until">Повтаряй всеки %1$s до %2$s</string>
+	<string name="repeats_plural_number_of_times">Повтаря се всеки %1$s, възниква %2$d %3$s</string>
+	<string name="repeats_plural_on_until">Повтаряй всеки %1$s на %2$s до %3$s</string>
+	<string name="repeats_plural_on_number_of_times">Повтаря се всеки %1$s на %2$s, възниква %3$d %4$s</string>
+	<string name="dont_add_to_calendar">Не добавяй към календара</string>
+	<string name="default_calendar">Календар по подразбиране</string>
+	<string name="badges_description">Показвай броя задачи върху икона на Tasks в лаунчера. Не всички лаунчери поддържат значки.</string>
+	<string name="bundle_notifications_summary">Комбинирай множество нотификации в една</string>
 </resources>
