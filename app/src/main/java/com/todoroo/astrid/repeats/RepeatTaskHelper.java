@@ -14,7 +14,6 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.alarms.AlarmFields;
 import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -26,9 +25,7 @@ import org.tasks.time.DateTime;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.inject.Inject;
@@ -81,13 +78,22 @@ public class RepeatTaskHelper {
             }
 
             int count = rrule.getCount();
+            if (count == 1) {
+                return;
+            }
             if (count > 1) {
                 rrule.setCount(count - 1);
                 task.setRecurrence(rrule, repeatAfterCompletion);
             }
 
-            rescheduleTask(task, newDueDate);
-            rescheduleAlarms(task.getId(), oldDueDate, newDueDate);
+            task.setReminderSnooze(0L);
+            task.setCompletionDate(0L);
+            task.setDueDateAdjustingHideUntil(newDueDate);
+
+            gcalHelper.rescheduleRepeatingTask(task);
+            taskDao.save(task);
+
+            alarmService.rescheduleAlarms(task.getId(), oldDueDate, newDueDate);
 
             localBroadcastManager.broadcastRepeat(task.getId(), oldDueDate, newDueDate);
         }
@@ -95,27 +101,6 @@ public class RepeatTaskHelper {
 
     private static boolean repeatFinished(long newDueDate, long repeatUntil) {
         return repeatUntil > 0 && newDateTime(newDueDate).startOfDay().isAfter(newDateTime(repeatUntil).startOfDay());
-    }
-
-    private void rescheduleTask(Task task, long newDueDate) {
-        task.setReminderSnooze(0L);
-        task.setCompletionDate(0L);
-        task.setDueDateAdjustingHideUntil(newDueDate);
-
-        gcalHelper.rescheduleRepeatingTask(task);
-        taskDao.save(task);
-    }
-
-    private void rescheduleAlarms(long taskId, long oldDueDate, long newDueDate) {
-        if(newDueDate <= 0 || newDueDate <= oldDueDate) {
-            return;
-        }
-
-        final Set<Long> alarms = new LinkedHashSet<>();
-        alarmService.getAlarms(taskId, metadata -> alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate)));
-        if (!alarms.isEmpty()) {
-            alarmService.synchronizeAlarms(taskId, alarms);
-        }
     }
 
     /** Compute next due date */
@@ -243,7 +228,7 @@ public class RepeatTaskHelper {
         // handle the iCalendar "byDay" field differently depending on if
         // we are weekly or otherwise
         if(rrule.getFreq() != Frequency.WEEKLY) {
-            rrule.setByDay(Collections.EMPTY_LIST);
+            rrule.setByDay(Collections.emptyList());
         }
 
         return rrule;

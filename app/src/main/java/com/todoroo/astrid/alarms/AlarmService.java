@@ -26,6 +26,7 @@ import org.tasks.jobs.JobQueue;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,6 +52,18 @@ public class AlarmService {
     public AlarmService(MetadataDao metadataDao, JobQueue jobQueue) {
         this.metadataDao = metadataDao;
         jobs = jobQueue;
+    }
+
+    public void rescheduleAlarms(long taskId, long oldDueDate, long newDueDate) {
+        if(newDueDate <= 0 || newDueDate <= oldDueDate) {
+            return;
+        }
+
+        final Set<Long> alarms = new LinkedHashSet<>();
+        getAlarms(taskId, metadata -> alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate)));
+        if (!alarms.isEmpty()) {
+            synchronizeAlarms(taskId, alarms);
+        }
     }
 
     public void getAlarms(long taskId, Callback<Metadata> callback) {

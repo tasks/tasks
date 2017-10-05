@@ -1,5 +1,6 @@
 package org.tasks.time;
 
+import com.google.ical.values.DateTimeValue;
 import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
 
@@ -23,9 +24,14 @@ public class DateTime {
     private final long timestamp;
 
     public static DateTime from(DateValue dateValue) {
-        return dateValue == null
-                ? new DateTime(0)
-                : new DateTime(dateValue.year(), dateValue.month(), dateValue.day());
+        if (dateValue == null) {
+            return new DateTime(0);
+        }
+        if (dateValue instanceof DateTimeValue) {
+            DateTimeValue dt = (DateTimeValue) dateValue;
+            return new DateTime(dt.year(), dt.month(), dt.day(), dt.hour(), dt.minute(), dt.second());
+        }
+        return new DateTime(dateValue.year(), dateValue.month(), dateValue.day());
     }
 
     public DateTime(int year, int month, int day) {

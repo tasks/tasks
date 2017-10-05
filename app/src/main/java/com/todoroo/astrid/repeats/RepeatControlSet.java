@@ -32,6 +32,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
@@ -81,6 +83,7 @@ public class RepeatControlSet extends TaskEditControlFragment
     @Override
     public void onSelected(RRule rrule) {
         this.rrule = rrule;
+        tracker.reportEvent(Tracking.Events.RECURRENCE_CUSTOM, rrule.toIcal());
         refreshDisplayView();
     }
 
@@ -98,6 +101,7 @@ public class RepeatControlSet extends TaskEditControlFragment
     @Inject @ForActivity Context context;
     @Inject Theme theme;
     @Inject Locale locale;
+    @Inject Tracker tracker;
 
     @BindView(R.id.display_row_edit) TextView displayView;
     @BindView(R.id.repeatType) Spinner typeSpinner;
@@ -260,6 +264,8 @@ public class RepeatControlSet extends TaskEditControlFragment
                                 rrule.setFreq(YEARLY);
                                 break;
                         }
+
+                        tracker.reportEvent(Tracking.Events.RECURRENCE_PRESET, rrule.toIcal());
                     }
 
                     callback.repeatChanged(rrule != null);

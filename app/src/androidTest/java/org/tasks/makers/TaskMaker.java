@@ -1,6 +1,7 @@
 package org.tasks.makers;
 
 import com.google.common.base.Strings;
+import com.google.ical.values.RRule;
 import com.natpryce.makeiteasy.Instantiator;
 import com.natpryce.makeiteasy.Property;
 import com.natpryce.makeiteasy.PropertyValue;
@@ -27,6 +28,8 @@ public class TaskMaker {
     public static Property<Task, DateTime> COMPLETION_TIME = newProperty();
     public static Property<Task, DateTime> DELETION_TIME = newProperty();
     public static Property<Task, DateTime> SNOOZE_TIME = newProperty();
+    public static Property<Task, RRule> RRULE = newProperty();
+    public static Property<Task, Boolean> AFTER_COMPLETE = newProperty();
 
     @SafeVarargs
     public static Task newTask(PropertyValue<? super Task, ?>... properties) {
@@ -94,6 +97,11 @@ public class TaskMaker {
         long randomReminderPeriod = lookup.valueOf(RANDOM_REMINDER_PERIOD, 0L);
         if (randomReminderPeriod > 0) {
             task.setReminderPeriod(randomReminderPeriod);
+        }
+
+        RRule rrule = lookup.valueOf(RRULE, (RRule) null);
+        if (rrule != null) {
+            task.setRecurrence(rrule, lookup.valueOf(AFTER_COMPLETE, false));
         }
 
         DateTime creationTime = lookup.valueOf(CREATION_TIME, newDateTime());

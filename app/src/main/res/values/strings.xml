@@ -586,7 +586,7 @@ File %1$s contained %2$s.\n\n
 
     <!-- text for button when repeating task until specified date (%s -> date string) -->
     <string name="repeat_until">Repeat until %s</string>
-  <string name="repeat_number_of_times">Occurs a number of times</string>
+  <string name="repeat_number_of_times">Repeat a number of times</string>
   <string name="repeat_occurs">Occurs</string>
 
     <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>

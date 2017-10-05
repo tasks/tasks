@@ -14,6 +14,7 @@ import com.todoroo.astrid.provider.Astrid3ProviderTests;
 import com.todoroo.astrid.reminders.NotificationTests;
 import com.todoroo.astrid.reminders.ReminderServiceTest;
 import com.todoroo.astrid.repeats.NewRepeatTests;
+import com.todoroo.astrid.repeats.RepeatTaskHelperTest;
 import com.todoroo.astrid.service.QuickAddMarkupTest;
 import com.todoroo.astrid.service.TitleParserTest;
 import com.todoroo.astrid.subtasks.SubtasksHelperTest;
@@ -67,4 +68,6 @@ public interface TestComponent {
     NotificationTests.NotificationTestsComponent plus(NotificationTests.NotificationTestsModule notificationTestsModule);
 
     void inject(AlarmServiceTest alarmServiceTest);
+
+    void inject(RepeatTaskHelperTest repeatTaskHelperTest);
 }
