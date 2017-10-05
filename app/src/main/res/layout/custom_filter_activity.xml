@@ -51,7 +51,7 @@
         android:cacheColorHint="#00000000"/>
     
     <!-- help text -->
-    <TextView android:id="@+id/help"
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

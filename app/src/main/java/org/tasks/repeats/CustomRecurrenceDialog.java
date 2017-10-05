@@ -142,7 +142,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
         intervalEditText.setText(locale.formatNumber(rrule.getInterval()));
 
-        repeatUntilAdapter = new ArrayAdapter<String>(context, R.layout.simple_spinner_item, repeatUntilOptions) {
+        repeatUntilAdapter = new ArrayAdapter<String>(context, 0, repeatUntilOptions) {
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 ViewGroup vg = (ViewGroup) inflater.inflate(R.layout.simple_spinner_dropdown_item, parent, false);

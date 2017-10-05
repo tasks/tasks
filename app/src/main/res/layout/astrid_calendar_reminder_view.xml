@@ -5,7 +5,6 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/reminder_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dip"
@@ -44,11 +43,9 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/calendar_reminder_speech_bubble"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-	    android:id="@+id/speech_bubble_container"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="horizontal"
@@ -59,7 +56,6 @@
 	    android:layout_marginBottom="10dip"
 	    android:gravity="bottom">
 	    <ImageView
-	        android:id="@+id/astridIcon"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginBottom="5dip"
@@ -68,7 +64,6 @@
 
 
 	    <LinearLayout
-	        android:id="@+id/speech_bubble_content"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_marginRight="5dip"
