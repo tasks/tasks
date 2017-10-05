@@ -290,7 +290,6 @@
 	<string name="show_hidden">Mostra nascoste</string>
 	<string name="show_completed">Mostra completate</string>
 	<string name="reverse">Contrario</string>
-	<string name="task_count">%d attività</string>
 	<string name="get_plugins">Acquisti nell\'app.</string>
 	<string name="no_application_found">Nessuna applicazione in grado di aprire l\'allegato </string>
 	<string name="add_attachment">Aggiungi allegato</string>

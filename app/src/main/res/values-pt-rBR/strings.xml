@@ -283,7 +283,6 @@
 	<string name="filter_settings">Configurações de filtro</string>
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar completas</string>
-	<string name="task_count">%d tarefas</string>
 	<string name="get_plugins">Compras no app</string>
 	<string name="no_application_found">Nenhuma aplicação encontrada para abrir o anexo</string>
 	<string name="add_attachment">Adicionar anexo</string>

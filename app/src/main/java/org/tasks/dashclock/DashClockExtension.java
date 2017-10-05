@@ -75,7 +75,7 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
                         .visible(true)
                         .icon(R.drawable.ic_check_white_24dp)
                         .status(Integer.toString(count))
-                        .expandedTitle(getString(R.string.task_count, count))
+                        .expandedTitle(getResources().getQuantityString(R.plurals.task_count, count, count))
                         .expandedBody(filter.listingTitle)
                         .clickIntent(clickIntent);
                 if (count == 1) {

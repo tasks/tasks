@@ -72,7 +72,7 @@ public class Notifier {
         intent.putExtra(TaskListActivity.OPEN_FILTER, filter);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, filter.listingTitle.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        String summaryTitle = context.getString(R.string.task_count, count);
+        String summaryTitle = context.getResources().getQuantityString(R.plurals.task_count, count, count);
         NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
                 .setBigContentTitle(summaryTitle);
         int maxPriority = 3;

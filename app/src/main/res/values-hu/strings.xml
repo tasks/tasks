@@ -356,7 +356,6 @@
 	<string name="show_hidden">Rejtettek megjelenítése</string>
 	<string name="show_completed">Elvégzettek megjelenítése</string>
 	<string name="reverse">Visszafelé</string>
-	<string name="task_count">%d feladat</string>
 	<string name="get_plugins">Alkalmazáson belüli vásárlások</string>
 	<string name="no_application_found">A csatolmány megnyitására alkalmas program nem található</string>
 	<string name="add_attachment">Csatolmány hozzáadása</string>

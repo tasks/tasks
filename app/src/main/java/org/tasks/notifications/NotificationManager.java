@@ -235,7 +235,7 @@ public class NotificationManager {
                 .withQueryTemplate(query.toString()));
         long when = notificationDao.latestTimestamp();
         int maxPriority = 3;
-        String summaryTitle = context.getString(R.string.task_count, taskCount);
+        String summaryTitle = context.getResources().getQuantityString(R.plurals.task_count, taskCount, taskCount);
         NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
                 .setBigContentTitle(summaryTitle);
         List<String> titles = newArrayList();

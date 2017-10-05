@@ -310,7 +310,6 @@
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse"> Реверс</string>
-	<string name="task_count">%d задач</string>
 	<string name="get_plugins">Покупки в приложении</string>
 	<string name="no_application_found">Не найдено приложение для открытия прикреплённого файла</string>
 	<string name="add_attachment">Прикрепить файл</string>

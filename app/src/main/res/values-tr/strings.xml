@@ -319,7 +319,6 @@
 	<string name="show_hidden">Gizlenenleri göster</string>
 	<string name="show_completed">Tamamlananları göster</string>
 	<string name="reverse">Ters</string>
-	<string name="task_count">%d görev</string>
 	<string name="get_plugins">Uygulama içi satın almalar</string>
 	<string name="no_application_found">Ek dosyasını açmak için hiçbir uygulama bulunamadı</string>
 	<string name="add_attachment">Ek ekle</string>

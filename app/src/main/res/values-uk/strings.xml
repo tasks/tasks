@@ -291,7 +291,6 @@
 	<string name="show_hidden">Показати приховані</string>
 	<string name="show_completed">Показати завершені</string>
 	<string name="reverse">Реверс</string>
-	<string name="task_count">%d завдань</string>
 	<string name="get_plugins">Покупки в застосунку</string>
 	<string name="no_application_found">Не знайдено програми для відкриття вкладення</string>
 	<string name="add_attachment">Додати вкладення</string>

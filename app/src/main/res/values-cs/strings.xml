@@ -257,7 +257,6 @@
 	<string name="show_hidden">Zobrazit skryté</string>
 	<string name="show_completed">Zobrazit dokončené</string>
 	<string name="reverse">Obrácené třídění</string>
-	<string name="task_count">%d úkolů</string>
 	<string name="no_application_found">K otevření přílohy nebyla nalezena aplikace</string>
 	<string name="add_attachment">Přidat přílohu</string>
 	<string name="privacy">Soukromí</string>

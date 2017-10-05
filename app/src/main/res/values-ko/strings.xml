@@ -358,7 +358,6 @@
 	<string name="show_hidden">숨겨진 할일 표시</string>
 	<string name="show_completed">완료된 할일 표시</string>
 	<string name="reverse">역순</string>
-	<string name="task_count">%d 할일</string>
 	<string name="get_plugins">인앱 결제</string>
 	<string name="no_application_found">첨부 파일을 열 수 있는 앱이 발견되지 않았습니다</string>
 	<string name="add_attachment">첨부파일 추가</string>

@@ -520,6 +520,10 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_monthly">REPEAT MONTHLY</string>
   <string name="repeat_yearly">REPEAT YEARLY</string>
 
+  <plurals name="task_count">
+    <item quantity="one">%d task</item>
+    <item quantity="other">%d tasks</item>
+  </plurals>
   <plurals name="repeat_times">
     <item quantity="one">time</item>
     <item quantity="other">times</item>
@@ -743,7 +747,6 @@ File %1$s contained %2$s.\n\n
     <string name="show_hidden">Show hidden</string>
     <string name="show_completed">Show completed</string>
     <string name="reverse">Reverse</string>
-    <string name="task_count">%d tasks</string>
     <string name="get_plugins">In-app purchases</string>
     <string name="no_application_found">No application found to open attachment</string>
     <string name="add_attachment">Add attachment</string>

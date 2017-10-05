@@ -290,7 +290,6 @@
 	<string name="show_hidden">Näytä piilotetut</string>
 	<string name="show_completed">Näytä valmiit</string>
 	<string name="reverse">Käänteinen</string>
-	<string name="task_count">%d tehtävät</string>
 	<string name="get_plugins">Sovelluksen sisäiset ostot</string>
 	<string name="no_application_found">Liitteen avaamiseksi ei löytdy sovellusta</string>
 	<string name="add_attachment">Lisää liite</string>
