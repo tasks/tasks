@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -26,7 +27,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -41,7 +41,6 @@ import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.timers.TimerPlugin;
-import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -55,6 +54,7 @@ import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
+import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
@@ -71,7 +71,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.support.v4.content.ContextCompat.getColor;
-import static com.todoroo.astrid.voice.VoiceInputAssistant.voiceInputAvailable;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks
@@ -105,13 +104,13 @@ public class TaskListFragment extends InjectingFragment implements
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject DialogBuilder dialogBuilder;
     @Inject CheckBoxes checkBoxes;
-    @Inject VoiceInputAssistant voiceInputAssistant;
     @Inject TaskCreator taskCreator;
     @Inject protected TaskListDataProvider taskListDataProvider;
     @Inject TimerPlugin timerPlugin;
     @Inject ViewHolderFactory viewHolderFactory;
     @Inject protected Tracker tracker;
     @Inject LocalBroadcastManager localBroadcastManager;
+    @Inject Device device;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyRefreshLayout;
@@ -246,7 +245,7 @@ public class TaskListFragment extends InjectingFragment implements
             hidden.setEnabled(false);
         }
 
-        menu.findItem(R.id.menu_voice_add).setVisible(voiceInputAvailable(getActivity()));
+        menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
         final MenuItem item = menu.findItem(R.id.menu_search);
         final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
         actionView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -276,7 +275,11 @@ public class TaskListFragment extends InjectingFragment implements
     public boolean onMenuItemClick(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_voice_add:
-                voiceInputAssistant.startVoiceRecognitionActivity(R.string.voice_create_prompt);
+                Intent recognition = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                recognition.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                recognition.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
+                recognition.putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.voice_create_prompt));
+                startActivityForResult(recognition, TaskListFragment.VOICE_RECOGNITION_REQUEST_CODE);
                 return true;
             case R.id.menu_sort:
                 SortDialog.newSortDialog(hasDraggableOption()).show(getChildFragmentManager(), FRAG_TAG_SORT_DIALOG);
@@ -502,14 +505,18 @@ public class TaskListFragment extends InjectingFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                Callback<String> quickAddTask = title -> {
-                    Task task = addTask(title);
+                List<String> match = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                if (match != null && match.size() > 0 && match.get(0).length() > 0) {
+                    String recognizedSpeech = match.get(0);
+                    recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
+                            recognizedSpeech.substring(1).toLowerCase();
+
+                    Task task = addTask(recognizedSpeech);
                     taskCreator.addToCalendar(task);
                     onTaskListItemClicked(task.getId());
                     loadTaskListContent();
                     onTaskCreated(task.getUUID());
-                };
-                voiceInputAssistant.handleActivityResult(data, quickAddTask);
+                }
             }
         } else if (requestCode == REQUEST_EDIT_FILTER) {
             if (resultCode == Activity.RESULT_OK) {

@@ -2,8 +2,11 @@ package org.tasks.preferences;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
 
 import com.google.common.base.Joiner;
 
@@ -11,6 +14,8 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.injection.ForApplication;
 import org.tasks.locale.Locale;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -41,6 +46,13 @@ public class Device {
 
     public boolean supportsLocationServices() {
         return context.getResources().getBoolean(R.bool.location_enabled);
+    }
+
+    public boolean voiceInputAvailable() {
+        PackageManager pm = context.getPackageManager();
+        List<ResolveInfo> activities = pm.queryIntentActivities(
+                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        return (activities.size() != 0);
     }
 
     public String getDebugInfo() {

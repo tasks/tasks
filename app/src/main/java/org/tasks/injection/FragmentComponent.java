@@ -23,11 +23,8 @@ import org.tasks.ui.GoogleTaskListFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
 
-import javax.inject.Singleton;
-
 import dagger.Subcomponent;
 
-@Singleton
 @Subcomponent(modules = FragmentModule.class)
 public interface FragmentComponent {
 
