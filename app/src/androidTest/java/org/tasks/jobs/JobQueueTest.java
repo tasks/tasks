@@ -63,8 +63,8 @@ public class JobQueueTest {
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
-                    asList(new Reminder(1, now, TYPE_DUE),
-                            new Alarm(1, 1, now)),
+                    asList(new Alarm(1, 1, now),
+                            new Reminder(1, now, TYPE_DUE)),
                     queue.getOverdueJobs());
         }});
     }
