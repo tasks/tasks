@@ -57,7 +57,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
 
     private void setup(Intent intent, Bundle savedInstanceState) {
         if (intent.hasExtra(EXTRA_TASK_ID)) {
-            taskIds.add(intent.getLongExtra(EXTRA_TASK_ID, 0L));
+            taskIds.add(intent.getLongExtra(EXTRA_TASK_ID, -1L));
         } else if (intent.hasExtra(EXTRA_TASK_IDS)) {
             //noinspection unchecked
             taskIds.addAll((ArrayList<Long>) intent.getSerializableExtra(EXTRA_TASK_IDS));
