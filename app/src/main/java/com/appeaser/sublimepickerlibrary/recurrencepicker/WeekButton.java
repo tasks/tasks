@@ -82,7 +82,7 @@ public class WeekButton extends ToggleButton {
                 // Reset text color for animation
                 // The correct state color will be
                 // set when animation is done or cancelled
-                setTextColor(isChecked() ? mCheckedTextColor : mDefaultTextColor);
+                setTextColor(mCheckedTextColor);
                 mDrawable.setCheckedOnClick(isChecked(), mCallback);
             }
         }

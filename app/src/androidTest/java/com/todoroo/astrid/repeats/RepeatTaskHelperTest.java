@@ -39,13 +39,6 @@ import static org.tasks.makers.TaskMaker.newTask;
 @RunWith(AndroidJUnit4.class)
 public class RepeatTaskHelperTest extends DatabaseTestCase {
 
-    private final Task task = new Task();
-
-    {
-        task.setDueDate(new DateTime(2013, 12, 31, 17, 17, 32, 900).getMillis());
-        task.setCompletionDate(new DateTime(2014, 1, 7, 17, 17, 32, 900).getMillis());
-    }
-
     @Inject TaskDao taskDao;
 
     private LocalBroadcastManager localBroadcastManager;

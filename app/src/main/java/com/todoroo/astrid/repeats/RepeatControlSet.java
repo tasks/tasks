@@ -22,13 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.google.ical.values.Weekday;
-import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -39,13 +35,13 @@ import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.locale.Locale;
 import org.tasks.repeats.CustomRecurrenceDialog;
+import org.tasks.repeats.RepeatRuleToString;
 import org.tasks.themes.Theme;
 import org.tasks.time.DateTime;
 import org.tasks.ui.HiddenTopArrayAdapter;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 import org.tasks.ui.TaskEditControlFragment;
 
-import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,7 +73,6 @@ public class RepeatControlSet extends TaskEditControlFragment
         implements CustomRecurrenceDialog.CustomRecurrenceCallback {
 
     public static final int TAG = R.string.TEA_ctrl_repeat_pref;
-    public static final List<Weekday> WEEKDAYS = Arrays.asList(Weekday.values());
     private static final String FRAG_TAG_CUSTOM_RECURRENCE = "frag_tag_custom_recurrence";
 
     @Override
@@ -100,15 +95,15 @@ public class RepeatControlSet extends TaskEditControlFragment
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForActivity Context context;
     @Inject Theme theme;
-    @Inject Locale locale;
     @Inject Tracker tracker;
+    @Inject RepeatRuleToString repeatRuleToString;
 
     @BindView(R.id.display_row_edit) TextView displayView;
     @BindView(R.id.repeatType) Spinner typeSpinner;
     @BindView(R.id.repeatTypeContainer) LinearLayout repeatTypeContainer;
 
-    private RRule rrule;
     private final List<String> repeatTypes = new ArrayList<>();
+    private RRule rrule;
     private HiddenTopArrayAdapter<String> typeAdapter;
 
     private RepeatChangedListener callback;
@@ -206,7 +201,7 @@ public class RepeatControlSet extends TaskEditControlFragment
         List<String> repeatOptions = newArrayList(context.getResources().getStringArray(R.array.repeat_options));
         SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, repeatOptions, theme.getThemeAccent());
         if (customPicked) {
-            adapter.insert(getRepeatString(), 0);
+            adapter.insert(repeatRuleToString.toString(rrule), 0);
             adapter.setChecked(0);
         } else if (rrule == null) {
             adapter.setChecked(0);
@@ -339,103 +334,9 @@ public class RepeatControlSet extends TaskEditControlFragment
             displayView.setTextColor(getColor(context, R.color.text_tertiary));
             repeatTypeContainer.setVisibility(View.GONE);
         } else {
-            displayView.setText(getRepeatString());
+            displayView.setText(repeatRuleToString.toString(rrule));
             displayView.setTextColor(getColor(context, R.color.text_primary));
             repeatTypeContainer.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private String getRepeatString() {
-        int interval = rrule.getInterval();
-        Frequency frequency = rrule.getFreq();
-        DateTime repeatUntil = rrule.getUntil() == null ? null : DateTime.from(rrule.getUntil());
-        int count = rrule.getCount();
-        String countString = count > 0 ? getContext().getResources().getQuantityString(R.plurals.repeat_times, count) : "";
-        if (interval == 1) {
-            String frequencyString = getString(getSingleFrequencyResource(frequency));
-            if (frequency == WEEKLY && !rrule.getByDay().isEmpty()) {
-                String dayString = getDayString();
-                if (count > 0) {
-                    return getString(R.string.repeats_single_on_number_of_times, frequencyString, dayString, count, countString);
-                } else if (repeatUntil == null) {
-                    return getString(R.string.repeats_single_on, frequencyString, dayString);
-                } else {
-                    return getString(R.string.repeats_single_on_until, frequencyString, dayString, DateUtilities.getLongDateString(repeatUntil));
-                }
-            } else if (count > 0) {
-                return getString(R.string.repeats_single_number_of_times, frequencyString, count, countString);
-            } else if (repeatUntil == null) {
-                return getString(R.string.repeats_single, frequencyString);
-            } else {
-                return getString(R.string.repeats_single_until, frequencyString, DateUtilities.getLongDateString(repeatUntil));
-            }
-        } else {
-            int plural = getFrequencyPlural(frequency);
-            String frequencyPlural = getResources().getQuantityString(plural, interval, interval);
-            if (frequency == WEEKLY && !rrule.getByDay().isEmpty()) {
-                String dayString = getDayString();
-                if (count > 0) {
-                    return getString(R.string.repeats_plural_on_number_of_times, frequencyPlural, dayString, count, countString);
-                } else if (repeatUntil == null) {
-                    return getString(R.string.repeats_plural_on, frequencyPlural, dayString);
-                } else {
-                    return getString(R.string.repeats_plural_on_until, frequencyPlural, dayString, DateUtilities.getLongDateString(repeatUntil));
-                }
-            } else if (count > 0) {
-                return getString(R.string.repeats_plural_number_of_times, frequencyPlural, count, countString);
-            } else if (repeatUntil == null) {
-                return getString(R.string.repeats_plural, frequencyPlural);
-            } else {
-                return getString(R.string.repeats_plural_until, frequencyPlural, DateUtilities.getLongDateString(repeatUntil));
-            }
-        }
-    }
-
-    private String getDayString() {
-        DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
-        String[] shortWeekdays = dfs.getShortWeekdays();
-        List<String> days = new ArrayList<>();
-        for (WeekdayNum weekday : rrule.getByDay()) {
-            days.add(shortWeekdays[WEEKDAYS.indexOf(weekday.wday) + 1]);
-        }
-        return Joiner.on(getString(R.string.list_separator_with_space)).join(days);
-    }
-
-    private int getSingleFrequencyResource(Frequency frequency) {
-        switch (frequency) {
-            case MINUTELY:
-                return R.string.repeats_minutely;
-            case HOURLY:
-                return R.string.repeats_hourly;
-            case DAILY:
-                return R.string.repeats_daily;
-            case WEEKLY:
-                return R.string.repeats_weekly;
-            case MONTHLY:
-                return R.string.repeats_monthly;
-            case YEARLY:
-                return R.string.repeats_yearly;
-            default:
-                throw new RuntimeException("Invalid frequency: " + frequency);
-        }
-    }
-
-    private int getFrequencyPlural(Frequency frequency) {
-        switch (frequency) {
-            case MINUTELY:
-                return R.plurals.repeat_n_minutes;
-            case HOURLY:
-                return R.plurals.repeat_n_hours;
-            case DAILY:
-                return R.plurals.repeat_n_days;
-            case WEEKLY:
-                return R.plurals.repeat_n_weeks;
-            case MONTHLY:
-                return R.plurals.repeat_n_months;
-            case YEARLY:
-                return R.plurals.repeat_n_years;
-            default:
-                throw new RuntimeException("Invalid frequency: " + frequency);
         }
     }
 }

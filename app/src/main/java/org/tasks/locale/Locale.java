@@ -76,7 +76,7 @@ public class Locale {
     private final int directionOverride;
     private final boolean hasUserOverrides;
 
-    private Locale(java.util.Locale deviceLocale, String languageOverride, int directionOverride) {
+    public Locale(java.util.Locale deviceLocale, String languageOverride, int directionOverride) {
         this.deviceLocale = deviceLocale;
         this.languageOverride = languageOverride;
         this.directionOverride = directionOverride;
