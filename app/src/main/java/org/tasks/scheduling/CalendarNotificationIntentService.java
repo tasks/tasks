@@ -63,7 +63,7 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
             eventAlarm.setData(Uri.parse(URI_PREFIX + "://" + event.getId()));
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-                    CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, PendingIntent.FLAG_CANCEL_CURRENT);
+                    CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
 
             long reminderTime = event.getStart() - FIFTEEN_MINUTES;
             alarmManager.wakeup(reminderTime, pendingIntent);
