@@ -2,23 +2,27 @@ language: android
 sudo: required
 jdk: oraclejdk8
 env:
+  global:
+    - TARGET_API=26
+    - BUILD_TOOLS=26.0.2
   matrix:
-    - ANDROID_TARGET=android-21 ANDROID_ABI=armeabi-v7a
+    - EMULATOR_API=21 ANDROID_ABI=armeabi-v7a
 android:
   components:
     - tools # https://github.com/travis-ci/travis-ci/issues/5049
     - tools # https://github.com/travis-ci/travis-ci/issues/6040
-    - android-26
-    - sys-img-armeabi-v7a-android-21
+    - android-$TARGET_API
+    - android-$EMULATOR_API
+    - sys-img-$ANDROID_ABI-android-$EMULATOR_API
     - platform-tools
-    - build-tools-26.0.1
+    - build-tools-$BUILD_TOOLS
     - extra-android-m2repository
     - extra-google-m2repository
   licenses:
     - 'android-sdk-license-.+'
 
 before_install:
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - ./.wait_for_emulator.sh
   - adb shell input keyevent 82 &

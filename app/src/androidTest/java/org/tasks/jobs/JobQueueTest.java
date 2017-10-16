@@ -15,6 +15,7 @@ import org.tasks.time.DateTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_DUE;
 import static com.todoroo.astrid.reminders.ReminderService.TYPE_SNOOZE;
 import static java.util.Arrays.asList;
@@ -63,9 +64,9 @@ public class JobQueueTest {
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
-                    asList(new Alarm(1, 1, now),
+                    newHashSet(new Alarm(1, 1, now),
                             new Reminder(1, now, TYPE_DUE)),
-                    queue.getOverdueJobs());
+                    newHashSet(queue.getOverdueJobs()));
         }});
     }
 
