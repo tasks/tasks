@@ -82,9 +82,17 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     private long date = 0;
     private int time = -1;
 
+    public interface DueDateChangeListener {
+        void dueDateChanged(long dateTime);
+    }
+
+    DueDateChangeListener callback;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        callback = (DueDateChangeListener) activity;
 
         dateShortcutMorning = preferences.getDateShortcutMorning();
         dateShortcutAfternoon = preferences.getDateShortcutAfternoon();
@@ -193,9 +201,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
     @OnClick(R.id.clear)
     void clearTime(View view) {
-        date = 0;
-        time = -1;
-        refreshDisplayView();
+        setDate(0);
     }
 
     @OnTouch({R.id.due_date, R.id.due_time})
@@ -404,6 +410,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
         if (date == 0) {
             time = -1;
         }
+        callback.dueDateChanged(getDueDateTime());
         refreshDisplayView();
     }
 
@@ -417,7 +424,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
             }
             date = dateTime.startOfDay().getMillis();
         }
-
+        callback.dueDateChanged(getDueDateTime());
         refreshDisplayView();
     }
 }

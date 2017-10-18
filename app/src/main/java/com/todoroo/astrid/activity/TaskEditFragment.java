@@ -28,6 +28,7 @@ import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.notes.CommentsController;
+import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.EditTitleControlSet;
@@ -234,6 +235,10 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         return getFragment(GoogleTaskListFragment.TAG);
     }
 
+    private RepeatControlSet getRepeatControlSet() {
+        return getFragment(RepeatControlSet.TAG);
+    }
+
     private FilesControlSet getFilesControlSet() {
         return getFragment(FilesControlSet.TAG);
     }
@@ -318,6 +323,10 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
 
     public void onGoogleTaskListChanged(GtasksList list) {
         getGoogleTaskListFragment().setList(list);
+    }
+
+    public void onDueDateChanged(long dueDate) {
+        getRepeatControlSet().onDueDateChanged(dueDate);
     }
 
     public void addComment(String message, String actionCode, String picture) {

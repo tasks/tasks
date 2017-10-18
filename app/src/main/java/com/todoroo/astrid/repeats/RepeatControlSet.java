@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.google.common.base.Strings;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
+import com.google.ical.values.WeekdayNum;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -33,7 +34,6 @@ import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.locale.Locale;
 import org.tasks.repeats.CustomRecurrenceDialog;
 import org.tasks.repeats.RepeatRuleToString;
 import org.tasks.themes.Theme;
@@ -82,11 +82,29 @@ public class RepeatControlSet extends TaskEditControlFragment
         refreshDisplayView();
     }
 
+    public void onDueDateChanged(long dueDate) {
+        this.dueDate = dueDate;
+        if (rrule != null && rrule.getFreq() == MONTHLY && !rrule.getByDay().isEmpty()) {
+            WeekdayNum weekdayNum = rrule.getByDay().get(0);
+            DateTime dateTime = new DateTime(dueDate);
+            int num;
+            int dayOfWeekInMonth = dateTime.getDayOfWeekInMonth();
+            if (weekdayNum.num == -1 || dayOfWeekInMonth == 5) {
+                num = dayOfWeekInMonth == dateTime.getMaxDayOfWeekInMonth() ? -1 : dayOfWeekInMonth;
+            } else {
+                num = dayOfWeekInMonth;
+            }
+            rrule.setByDay(newArrayList(new WeekdayNum(num, dateTime.getWeekday())));
+            refreshDisplayView();
+        }
+    }
+
     public interface RepeatChangedListener {
         void repeatChanged(boolean repeat);
     }
 
     private static final String EXTRA_RECURRENCE = "extra_recurrence";
+    private static final String EXTRA_DUE_DATE = "extra_due_date";
     private static final String EXTRA_REPEAT_AFTER_COMPLETION = "extra_repeat_after_completion";
 
     public static final int TYPE_DUE_DATE = 1;
@@ -105,6 +123,7 @@ public class RepeatControlSet extends TaskEditControlFragment
     private final List<String> repeatTypes = new ArrayList<>();
     private RRule rrule;
     private HiddenTopArrayAdapter<String> typeAdapter;
+    private long dueDate;
 
     private RepeatChangedListener callback;
 
@@ -116,6 +135,7 @@ public class RepeatControlSet extends TaskEditControlFragment
         View view = super.onCreateView(inflater, container, savedInstanceState);
         if (savedInstanceState != null) {
             String recurrence = savedInstanceState.getString(EXTRA_RECURRENCE);
+            dueDate = savedInstanceState.getLong(EXTRA_DUE_DATE);
             if (Strings.isNullOrEmpty(recurrence)) {
                 rrule = null;
             } else {
@@ -168,6 +188,7 @@ public class RepeatControlSet extends TaskEditControlFragment
 
         outState.putString(EXTRA_RECURRENCE, rrule == null ? "" : rrule.toIcal());
         outState.putBoolean(EXTRA_REPEAT_AFTER_COMPLETION, repeatAfterCompletion);
+        outState.putLong(EXTRA_DUE_DATE, dueDate);
     }
 
     @Override
@@ -187,7 +208,7 @@ public class RepeatControlSet extends TaskEditControlFragment
             return false;
         }
         Frequency frequency = rrule.getFreq();
-        return frequency == WEEKLY && !rrule.getByDay().isEmpty() ||
+        return (frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty() ||
                 frequency == HOURLY ||
                 frequency == MINUTELY ||
                 rrule.getUntil() != null ||
@@ -237,7 +258,7 @@ public class RepeatControlSet extends TaskEditControlFragment
                     if (i == 0) {
                         rrule = null;
                     } else if (i == 5) {
-                        newCustomRecurrenceDialog(this, rrule)
+                        newCustomRecurrenceDialog(this, rrule, dueDate)
                                 .show(getFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
                         return;
                     } else {
@@ -289,6 +310,7 @@ public class RepeatControlSet extends TaskEditControlFragment
     @Override
     public void initialize(boolean isNewTask, Task task) {
         repeatAfterCompletion = task.repeatAfterCompletion();
+        dueDate = task.getDueDate();
         try {
             rrule = new RRule(task.getRecurrenceWithoutFrom());
             rrule.setUntil(new DateTime(task.getRepeatUntil()).toDateValue());

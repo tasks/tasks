@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -56,6 +58,7 @@ import butterknife.OnTextChanged;
 import timber.log.Timber;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.ical.values.Frequency.DAILY;
 import static com.google.ical.values.Frequency.HOURLY;
 import static com.google.ical.values.Frequency.MINUTELY;
@@ -64,16 +67,18 @@ import static com.google.ical.values.Frequency.WEEKLY;
 import static com.google.ical.values.Frequency.YEARLY;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
-    public static CustomRecurrenceDialog newCustomRecurrenceDialog(Fragment target, RRule rrule) {
+    public static CustomRecurrenceDialog newCustomRecurrenceDialog(Fragment target, RRule rrule, long dueDate) {
         CustomRecurrenceDialog dialog = new CustomRecurrenceDialog();
         dialog.setTargetFragment(target, 0);
         Bundle arguments = new Bundle();
         if (rrule != null) {
             arguments.putString(EXTRA_RRULE, rrule.toIcal());
         }
+        arguments.putLong(EXTRA_DATE, dueDate);
         dialog.setArguments(arguments);
         return dialog;
     }
@@ -85,6 +90,8 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     private static final List<Frequency> FREQUENCIES = asList(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY);
 
     private static final String EXTRA_RRULE = "extra_rrule";
+    private static final String EXTRA_WEEKDAYS = "extra_weekdays";
+    private static final String EXTRA_DATE = "extra_date";
     private static final int REQUEST_PICK_DATE = 505;
 
     @Inject @ForActivity Context context;
@@ -102,6 +109,11 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     @BindView(R.id.week_day_6) WeekButton day6;
     @BindView(R.id.week_day_7) WeekButton day7;
 
+    @BindView(R.id.month_group) RadioGroup monthGroup;
+    @BindView(R.id.repeat_monthly_same_day) RadioButton repeatMonthlySameDay;
+    @BindView(R.id.repeat_monthly_day_of_nth_week) RadioButton repeatMonthlyDayOfNthWeek;
+    @BindView(R.id.repeat_monthly_day_of_last_week) RadioButton repeatMonthlyDayOfLastWeek;
+
     @BindView(R.id.repeat_until) Spinner repeatUntilSpinner;
     @BindView(R.id.frequency) Spinner frequencySpinner;
     @BindView(R.id.intervalValue) EditText intervalEditText;
@@ -114,6 +126,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     private WeekButton[] weekButtons;
 
     private RRule rrule;
+    private boolean[] weekdaySelected;
 
     @NonNull
     @Override
@@ -121,9 +134,13 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View dialogView = inflater.inflate(R.layout.control_set_repeat, null);
 
+        Bundle arguments = getArguments();
         String rule = savedInstanceState == null
-                ? getArguments().getString(EXTRA_RRULE)
+                ? arguments.getString(EXTRA_RRULE)
                 : savedInstanceState.getString(EXTRA_RRULE);
+        weekdaySelected = savedInstanceState == null
+                ? new boolean[7]
+                : savedInstanceState.getBooleanArray(EXTRA_WEEKDAYS);
         try {
             if (!Strings.isNullOrEmpty(rule)) {
                 rrule = new RRule(rule);
@@ -135,9 +152,61 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
             rrule = new RRule();
             rrule.setInterval(1);
             rrule.setFreq(WEEKLY);
+            weekdaySelected = new boolean[7];
         }
 
+        DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
+        String[] shortWeekdays = dfs.getShortWeekdays();
+
         ButterKnife.bind(this, dialogView);
+
+        Calendar dayOfMonthCalendar = Calendar.getInstance(locale.getLocale());
+        dayOfMonthCalendar.setTimeInMillis(arguments.getLong(EXTRA_DATE, currentTimeMillis()));
+        int dayOfWeekInMonth = dayOfMonthCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+        int maxDayOfWeekInMonth = dayOfMonthCalendar.getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH);
+
+        int dueDayOfWeek = dayOfMonthCalendar.get(Calendar.DAY_OF_WEEK);
+        String today = dfs.getWeekdays()[dueDayOfWeek];
+        if (dayOfWeekInMonth == maxDayOfWeekInMonth) {
+            repeatMonthlyDayOfLastWeek.setVisibility(View.VISIBLE);
+            String last = getString(R.string.repeat_monthly_last_week);
+            String text = getString(R.string.repeat_monthly_on_every_day_of_nth_week, last, today);
+            repeatMonthlyDayOfLastWeek.setTag(new WeekdayNum(-1, calendarDayToWeekday(dueDayOfWeek)));
+            repeatMonthlyDayOfLastWeek.setText(text);
+        } else {
+            repeatMonthlyDayOfLastWeek.setVisibility(View.GONE);
+        }
+
+        if (dayOfWeekInMonth < 5) {
+            int[] resources = new int[] {
+                    R.string.repeat_monthly_first_week,
+                    R.string.repeat_monthly_second_week,
+                    R.string.repeat_monthly_third_week,
+                    R.string.repeat_monthly_fourth_week
+            };
+            repeatMonthlyDayOfNthWeek.setVisibility(View.VISIBLE);
+            String nth = getString(resources[dayOfWeekInMonth - 1]);
+            String text = getString(R.string.repeat_monthly_on_every_day_of_nth_week, nth, today);
+            repeatMonthlyDayOfNthWeek.setTag(new WeekdayNum(dayOfWeekInMonth, calendarDayToWeekday(dueDayOfWeek)));
+            repeatMonthlyDayOfNthWeek.setText(text);
+        } else {
+            repeatMonthlyDayOfNthWeek.setVisibility(View.GONE);
+        }
+
+        if (rrule.getFreq() == MONTHLY) {
+            if (rrule.getByDay().size() == 1) {
+                WeekdayNum weekdayNum = rrule.getByDay().get(0);
+                if (weekdayNum.num == -1) {
+                    repeatMonthlyDayOfLastWeek.setChecked(true);
+                } else if (weekdayNum.num == dayOfWeekInMonth) {
+                    repeatMonthlyDayOfNthWeek.setChecked(true);
+                }
+            }
+        }
+        if (monthGroup.getCheckedRadioButtonId() != R.id.repeat_monthly_day_of_last_week &&
+                monthGroup.getCheckedRadioButtonId() != R.id.repeat_monthly_day_of_nth_week) {
+            repeatMonthlySameDay.setChecked(true);
+        }
 
         ArrayAdapter<CharSequence> frequencyAdapter = ArrayAdapter.createFromResource(context, R.array.repeat_frequency, R.layout.frequency_item);
         frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -181,13 +250,12 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
         // set up days of week
         ThemeAccent accent = theme.getThemeAccent();
-        DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
-        Calendar calendar = Calendar.getInstance(locale.getLocale());
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-        String[] shortWeekdays = dfs.getShortWeekdays();
+        Calendar dayOfWeekCalendar = Calendar.getInstance(locale.getLocale());
+        dayOfWeekCalendar.set(Calendar.DAY_OF_WEEK, dayOfWeekCalendar.getFirstDayOfWeek());
 
         for(int i = 0; i < 7; i++) {
-            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            int index = i;
+            int dayOfWeek = dayOfWeekCalendar.get(Calendar.DAY_OF_WEEK);
             String text = shortWeekdays[dayOfWeek];
             WeekdayNum weekdayNum = new WeekdayNum(0, calendarDayToWeekday(dayOfWeek));
             WeekButton weekButton = weekButtons[i];
@@ -197,33 +265,46 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
             weekButton.setTextOff(text);
             weekButton.setTextOn(text);
             weekButton.setText(text);
-            weekButton.setCheckedNoAnimate(rrule.getByDay().contains(weekdayNum));
-            calendar.add(Calendar.DATE, 1);
+            if (savedInstanceState == null) {
+                weekdaySelected[index] = rrule.getByDay().contains(weekdayNum);
+            }
+            weekButton.setOnCheckedChangeListener((compoundButton, checked) -> weekdaySelected[index] = checked);
+            dayOfWeekCalendar.add(Calendar.DATE, 1);
         }
 
         return dialogBuilder.newDialog()
                 .setView(dialogView)
-                .setPositiveButton(android.R.string.ok, (dialog12, which) -> {
-                    if (rrule.getFreq() == WEEKLY) {
-                        setByDays();
-                    } else {
-                        rrule.setByDay(Collections.emptyList());
-                    }
-                    ((CustomRecurrenceCallback) getTargetFragment()).onSelected(rrule);
-                })
+                .setPositiveButton(android.R.string.ok, this::onRuleSelected)
                 .setNegativeButton(android.R.string.cancel, null)
                 .setOnCancelListener(DialogInterface::dismiss)
                 .show();
     }
 
-    private void setByDays() {
-        List<WeekdayNum> checked = new ArrayList<>();
-        for (WeekButton button : weekButtons) {
-            if (button.isChecked()) {
-                checked.add((WeekdayNum) button.getTag());
+    private void onRuleSelected(DialogInterface dialogInterface, int which) {
+        if (rrule.getFreq() == WEEKLY) {
+            List<WeekdayNum> checked = new ArrayList<>();
+            for (int i = 0 ; i < 7 ; i++) {
+                if (weekdaySelected[i]) {
+                    checked.add((WeekdayNum) weekButtons[i].getTag());
+                }
             }
+            rrule.setByDay(checked);
+        } else if (rrule.getFreq() == MONTHLY) {
+            switch (monthGroup.getCheckedRadioButtonId()) {
+                case R.id.repeat_monthly_same_day:
+                    rrule.setByDay(Collections.emptyList());
+                    break;
+                case R.id.repeat_monthly_day_of_nth_week:
+                    rrule.setByDay(newArrayList((WeekdayNum) repeatMonthlyDayOfNthWeek.getTag()));
+                    break;
+                case R.id.repeat_monthly_day_of_last_week:
+                    rrule.setByDay(newArrayList((WeekdayNum) repeatMonthlyDayOfLastWeek.getTag()));
+                    break;
+            }
+        } else {
+            rrule.setByDay(Collections.emptyList());
         }
-        rrule.setByDay(checked);
+        ((CustomRecurrenceCallback) getTargetFragment()).onSelected(rrule);
     }
 
     private Weekday calendarDayToWeekday(int calendarDay) {
@@ -250,8 +331,8 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     public void onResume() {
         super.onResume();
 
-        for (WeekButton button : weekButtons) {
-            button.setCheckedNoAnimate(button.isChecked());
+        for (int i = 0 ; i < 7 ; i++) {
+            weekButtons[i].setCheckedNoAnimate(weekdaySelected[i]);
         }
     }
 
@@ -259,18 +340,8 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        setByDays();
+        outState.putBooleanArray(EXTRA_WEEKDAYS, weekdaySelected);
         outState.putString(EXTRA_RRULE, rrule.toIcal());
-    }
-
-    private void setFrequency(Frequency frequency) {
-        rrule.setFreq(frequency);
-        int weekVisibility = frequency == WEEKLY ? View.VISIBLE : View.GONE;
-        weekGroup1.setVisibility(weekVisibility);
-        if (weekGroup2 != null) {
-            weekGroup2.setVisibility(weekVisibility);
-        }
-        updateIntervalTextView();
     }
 
     private void setInterval(int interval, boolean updateEditText) {
@@ -338,7 +409,15 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
     @OnItemSelected(R.id.frequency)
     public void onFrequencyChanged(int position) {
-        setFrequency(FREQUENCIES.get(position));
+        Frequency frequency = FREQUENCIES.get(position);
+        rrule.setFreq(frequency);
+        int weekVisibility = frequency == WEEKLY ? View.VISIBLE : View.GONE;
+        weekGroup1.setVisibility(weekVisibility);
+        if (weekGroup2 != null) {
+            weekGroup2.setVisibility(weekVisibility);
+        }
+        monthGroup.setVisibility(frequency == MONTHLY ? View.VISIBLE : View.GONE);
+        updateIntervalTextView();
     }
 
     @OnTextChanged(R.id.intervalValue)

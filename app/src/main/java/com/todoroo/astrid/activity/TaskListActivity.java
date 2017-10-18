@@ -58,6 +58,7 @@ import org.tasks.tasklist.TagListFragment;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
@@ -79,6 +80,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         PriorityControlSet.OnPriorityChanged,
         TimerControlSet.TimerControlSetCallback,
         RepeatControlSet.RepeatChangedListener,
+        DeadlineControlSet.DueDateChangeListener,
         TaskEditFragment.TaskEditFragmentCallbackHandler,
         CommentBarFragment.CommentBarFragmentCallback,
         SortDialog.SortDialogCallback,
@@ -532,5 +534,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             actionMode.finish();
             actionMode = null;
         }
+    }
+
+    @Override
+    public void dueDateChanged(long dateTime) {
+        getTaskEditFragment().onDueDateChanged(dateTime);
     }
 }

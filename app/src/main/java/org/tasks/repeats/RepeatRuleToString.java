@@ -17,10 +17,12 @@ import org.tasks.time.DateTime;
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.google.ical.values.Frequency.MONTHLY;
 import static com.google.ical.values.Frequency.WEEKLY;
 
 public class RepeatRuleToString {
@@ -43,7 +45,7 @@ public class RepeatRuleToString {
         String countString = count > 0 ? context.getResources().getQuantityString(R.plurals.repeat_times, count) : "";
         if (interval == 1) {
             String frequencyString = context.getString(getSingleFrequencyResource(frequency));
-            if (frequency == WEEKLY && !rrule.getByDay().isEmpty()) {
+            if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()) {
                 String dayString = getDayString(rrule);
                 if (count > 0) {
                     return context.getString(R.string.repeats_single_on_number_of_times, frequencyString, dayString, count, countString);
@@ -62,7 +64,7 @@ public class RepeatRuleToString {
         } else {
             int plural = getFrequencyPlural(frequency);
             String frequencyPlural = context.getResources().getQuantityString(plural, interval, interval);
-            if (frequency == WEEKLY && !rrule.getByDay().isEmpty()) {
+            if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()) {
                 String dayString = getDayString(rrule);
                 if (count > 0) {
                     return context.getString(R.string.repeats_plural_on_number_of_times, frequencyPlural, dayString, count, countString);
@@ -83,12 +85,59 @@ public class RepeatRuleToString {
 
     private String getDayString(RRule rrule) {
         DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
-        String[] shortWeekdays = dfs.getShortWeekdays();
-        List<String> days = new ArrayList<>();
-        for (WeekdayNum weekday : rrule.getByDay()) {
-            days.add(shortWeekdays[weekdays.indexOf(weekday.wday) + 1]);
+        if (rrule.getFreq() == WEEKLY) {
+            String[] shortWeekdays = dfs.getShortWeekdays();
+            List<String> days = new ArrayList<>();
+            for (WeekdayNum weekday : rrule.getByDay()) {
+                days.add(shortWeekdays[weekdays.indexOf(weekday.wday) + 1]);
+            }
+            return Joiner.on(context.getString(R.string.list_separator_with_space)).join(days);
+        } else if (rrule.getFreq() == MONTHLY) {
+            String[] longWeekdays = dfs.getWeekdays();
+            WeekdayNum weekdayNum = rrule.getByDay().get(0);
+            String weekday;
+            Calendar dayOfWeekCalendar = Calendar.getInstance(locale.getLocale());
+            dayOfWeekCalendar.set(Calendar.DAY_OF_WEEK, weekdayToCalendarDay(weekdayNum.wday));
+            weekday = longWeekdays[dayOfWeekCalendar.get(Calendar.DAY_OF_WEEK)];
+            if (weekdayNum.num == -1) {
+                return context.getString(R.string.repeat_monthly_every_day_of_nth_week,
+                        context.getString(R.string.repeat_monthly_last_week),
+                        weekday);
+            } else {
+                int[] resources = new int[] {
+                        R.string.repeat_monthly_first_week,
+                        R.string.repeat_monthly_second_week,
+                        R.string.repeat_monthly_third_week,
+                        R.string.repeat_monthly_fourth_week
+                };
+                return context.getString(R.string.repeat_monthly_every_day_of_nth_week,
+                        context.getString(resources[weekdayNum.num - 1]),
+                        weekday);
+            }
+        } else {
+            throw new RuntimeException();
         }
-        return Joiner.on(context.getString(R.string.list_separator_with_space)).join(days);
+    }
+
+    private int weekdayToCalendarDay(Weekday weekday) {
+        switch (weekday) {
+            case SU:
+                return Calendar.SUNDAY;
+            case MO:
+                return Calendar.MONDAY;
+            case TU:
+                return Calendar.TUESDAY;
+            case WE:
+                return Calendar.WEDNESDAY;
+            case TH:
+                return Calendar.THURSDAY;
+            case FR:
+                return Calendar.FRIDAY;
+            case SA:
+                return Calendar.SATURDAY;
+            default:
+                throw new RuntimeException("Invalid weekday: " + weekday);
+        }
     }
 
     private int getSingleFrequencyResource(Frequency frequency) {

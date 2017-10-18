@@ -3,6 +3,7 @@ package org.tasks.time;
 import com.google.ical.values.DateTimeValue;
 import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
+import com.google.ical.values.Weekday;
 
 import org.tasks.locale.Locale;
 
@@ -11,6 +12,14 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+
+import static java.util.Calendar.FRIDAY;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.SATURDAY;
+import static java.util.Calendar.SUNDAY;
+import static java.util.Calendar.THURSDAY;
+import static java.util.Calendar.TUESDAY;
+import static java.util.Calendar.WEDNESDAY;
 
 public class DateTime {
 
@@ -287,6 +296,34 @@ public class DateTime {
         return timestamp == 0
                 ? null
                 : new DateValueImpl(getYear(), getMonthOfYear(), getDayOfMonth());
+    }
+
+    public int getDayOfWeekInMonth() {
+        return getCalendar().get(Calendar.DAY_OF_WEEK_IN_MONTH);
+    }
+
+    public int getMaxDayOfWeekInMonth() {
+        return getCalendar().getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH);
+    }
+
+    public Weekday getWeekday() {
+        switch (getCalendar().get(Calendar.DAY_OF_WEEK)) {
+            case SUNDAY:
+                return Weekday.SU;
+            case MONDAY:
+                return Weekday.MO;
+            case TUESDAY:
+                return Weekday.TU;
+            case WEDNESDAY:
+                return Weekday.WE;
+            case THURSDAY:
+                return Weekday.TH;
+            case FRIDAY:
+                return Weekday.FR;
+            case SATURDAY:
+                return Weekday.SA;
+        }
+        throw new RuntimeException();
     }
 
     @Override

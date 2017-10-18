@@ -115,7 +115,7 @@ public class RepeatTaskHelper {
             return handleSubdayRepeat(original, rrule);
         } else if(rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0 && repeatAfterCompletion) {
             return handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime());
-        } else if (rrule.getFreq() == Frequency.MONTHLY) {
+        } else if (rrule.getFreq() == Frequency.MONTHLY && rrule.getByDay().isEmpty()) {
             return handleMonthlyRepeat(original, startDateAsDV, task.hasDueTime(), rrule);
         } else {
             return invokeRecurrence(rrule, original, startDateAsDV);
@@ -227,7 +227,7 @@ public class RepeatTaskHelper {
 
         // handle the iCalendar "byDay" field differently depending on if
         // we are weekly or otherwise
-        if(rrule.getFreq() != Frequency.WEEKLY) {
+        if(rrule.getFreq() != Frequency.WEEKLY && rrule.getFreq() != Frequency.MONTHLY) {
             rrule.setByDay(Collections.emptyList());
         }
 

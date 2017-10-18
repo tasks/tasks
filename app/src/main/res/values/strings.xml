@@ -863,4 +863,13 @@ File %1$s contained %2$s.\n\n
   <string name="default_calendar">Default calendar</string>
   <string name="badges_description">Display a task count on Tasks launcher icon. Not all launchers support badges.</string>
   <string name="bundle_notifications_summary">Combine multiple notifications into a single notification</string>
+    <string name="repeat_monthly_same_day_each_month">on the same day each month</string>
+
+  <string name="repeat_monthly_every_day_of_nth_week">every %1$s %2$s</string>
+  <string name="repeat_monthly_on_every_day_of_nth_week">on every %1$s %2$s</string>
+  <string name="repeat_monthly_first_week">first</string>
+  <string name="repeat_monthly_second_week">second</string>
+  <string name="repeat_monthly_third_week">third</string>
+  <string name="repeat_monthly_fourth_week">fourth</string>
+  <string name="repeat_monthly_last_week">last</string>
 </resources>
