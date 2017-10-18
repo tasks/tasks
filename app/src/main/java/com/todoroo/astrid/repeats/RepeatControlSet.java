@@ -62,6 +62,7 @@ import static com.google.ical.values.Frequency.MONTHLY;
 import static com.google.ical.values.Frequency.WEEKLY;
 import static com.google.ical.values.Frequency.YEARLY;
 import static org.tasks.repeats.CustomRecurrenceDialog.newCustomRecurrenceDialog;
+import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 /**
  * Control Set for managing repeats
@@ -83,10 +84,10 @@ public class RepeatControlSet extends TaskEditControlFragment
     }
 
     public void onDueDateChanged(long dueDate) {
-        this.dueDate = dueDate;
+        this.dueDate = dueDate > 0 ? dueDate : currentTimeMillis();
         if (rrule != null && rrule.getFreq() == MONTHLY && !rrule.getByDay().isEmpty()) {
             WeekdayNum weekdayNum = rrule.getByDay().get(0);
-            DateTime dateTime = new DateTime(dueDate);
+            DateTime dateTime = new DateTime(this.dueDate);
             int num;
             int dayOfWeekInMonth = dateTime.getDayOfWeekInMonth();
             if (weekdayNum.num == -1 || dayOfWeekInMonth == 5) {
@@ -311,6 +312,9 @@ public class RepeatControlSet extends TaskEditControlFragment
     public void initialize(boolean isNewTask, Task task) {
         repeatAfterCompletion = task.repeatAfterCompletion();
         dueDate = task.getDueDate();
+        if (dueDate <= 0) {
+            dueDate = currentTimeMillis();
+        }
         try {
             rrule = new RRule(task.getRecurrenceWithoutFrom());
             rrule.setUntil(new DateTime(task.getRepeatUntil()).toDateValue());
