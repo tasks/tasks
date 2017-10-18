@@ -26,7 +26,7 @@
 	<string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
 	<string name="DLG_undo">Rückgängig</string>
 	<string name="WID_dateButtonUnset">Klicken zur Bestätigung</string>
-	<string name="TLA_no_items">Keine Aufgaben vorhanden.</string>
+	<string name="TLA_no_items">Keine Aufgaben vorhanden</string>
 	<string name="TLA_menu_sort">Sortieren</string>
 	<string name="TLA_menu_search">Suchen</string>
 	<string name="TLA_menu_settings">Einstellungen</string>
@@ -40,7 +40,7 @@
 	<string name="SSD_sort_importance">Nach Priorität</string>
 	<string name="SSD_sort_modified">Nach letzter Änderung</string>
 	<string name="FLA_search_filter">Übereinstimmung mit %s</string>
-	<string name="FLA_new_filter">Neuen Filter anlegen</string>
+	<string name="FLA_new_filter">Neuen Filter erstellen</string>
 	<string name="TEA_title_hint">Aufgabenname</string>
 	<string name="TEA_importance_label">Priorität</string>
 	<string name="TEA_no_date">Kein Datum</string>
@@ -63,7 +63,7 @@
 	<string name="TEA_control_importance">Priorität</string>
 	<string name="TEA_control_notes">Beschreibung</string>
 	<string name="TEA_control_files">Dateien</string>
-	<string name="TEA_control_google_task_list">Google Tasks-Liste</string>
+	<string name="TEA_control_google_task_list">Google Aufgabenliste</string>
 	<string name="TEA_control_reminders">Erinnerungen</string>
 	<string name="TEA_control_timer">Timer-Einstellungen</string>
 	<string name="TEA_control_hidden_section">----Immer Verbergen----</string>
@@ -125,7 +125,7 @@
 	<string name="next_week">Nächste Woche</string>
 	<string name="dont_hide">Nicht verstecken</string>
 	<string name="no_deadline_reminder">Keine Fälligkeits-Erinnerungen</string>
-	<string name="at_deadline">Zur Fälligkeit</string>
+	<string name="at_deadline">Am Stichtag</string>
 	<string name="at_deadline_or_overdue">Zur Fälligkeit oder überfällig</string>
 	<string name="BFE_Active">Meine Aufgaben</string>
 	<string name="BFE_Recent">Kürzlich bearbeitet</string>
@@ -208,9 +208,13 @@
 		<item quantity="one">%d Aufgabe</item>
 		<item quantity="other">%d Aufgaben</item>
 	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">Fälligkeitsuhrzeit</item>
+		<item quantity="other">Fünfmal</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">Minute</item>
-		<item quantity="other">Minute</item>
+		<item quantity="other">Minuten</item>
 	</plurals>
 	<plurals name="repeat_n_minutes">
 		<item quantity="one">%d Minute</item>
@@ -218,7 +222,7 @@
 	</plurals>
 	<plurals name="repeat_hours">
 		<item quantity="one">Stunde</item>
-		<item quantity="other">Stunde</item>
+		<item quantity="other">Stunden</item>
 	</plurals>
 	<plurals name="repeat_n_hours">
 		<item quantity="one">%d Stunde</item>
@@ -226,7 +230,7 @@
 	</plurals>
 	<plurals name="repeat_days">
 		<item quantity="one">Tag</item>
-		<item quantity="other">Tag</item>
+		<item quantity="other">Tage</item>
 	</plurals>
 	<plurals name="repeat_n_days">
 		<item quantity="one">%d Tag</item>
@@ -234,7 +238,7 @@
 	</plurals>
 	<plurals name="repeat_weeks">
 		<item quantity="one">Woche</item>
-		<item quantity="other">Woche</item>
+		<item quantity="other">Wochen</item>
 	</plurals>
 	<plurals name="repeat_n_weeks">
 		<item quantity="one">%d Woche</item>
@@ -242,7 +246,7 @@
 	</plurals>
 	<plurals name="repeat_months">
 		<item quantity="one">Monat</item>
-		<item quantity="other">Monat</item>
+		<item quantity="other">Monate</item>
 	</plurals>
 	<plurals name="repeat_n_months">
 		<item quantity="one">%d Monat</item>
@@ -250,14 +254,20 @@
 	</plurals>
 	<plurals name="repeat_years">
 		<item quantity="one">Jahr</item>
-		<item quantity="other">Jahr</item>
+		<item quantity="other">Jahre</item>
+	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d Jahr(e)</item>
+		<item quantity="other">%d Jahr(e)</item>
 	</plurals>
 	<string name="repeat_type_due">Fälligkeitsdatum</string>
 	<string name="repeat_type_completion">Erledigung</string>
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
+	<string name="repeat_number_of_times">Anzahl Vibrationen</string>
+	<string name="repeat_occurs">Tritt ein</string>
 	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>
-	<string name="new_tag">Neues Stichwort anlegen</string>
+	<string name="new_tag">Neues Stichwort erstellen</string>
 	<string name="new_list">Neue Liste erstellen</string>
 	<string name="tag_FEx_untagged">Nicht kategorisiert</string>
 	<string name="delete_tag_confirmation">%s löschen?</string>
@@ -304,7 +314,7 @@
 	<string name="synchronization">Synchronisierung</string>
 	<string name="enabled">Aktiviert</string>
 	<string name="font_size">Schriftgröße</string>
-	<string name="row_spacing">Reihen-Abstand</string>
+	<string name="row_spacing">Zeilenabstand</string>
 	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
 	<string name="source_code">Quelltext</string>
 	<string name="translations">Zur Übersetzung beitragen</string>
@@ -312,7 +322,7 @@
 	<string name="help_and_feedback">Hilfe &amp; Feedback</string>
 	<string name="contact_developer">Entwickler kontaktieren</string>
 	<string name="rate_tasks">Bewerte Tasks</string>
-	<string name="quiet_hours_summary">Keine Erinnerungen während Ruhezeit</string>
+	<string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>
 	<string name="TLA_menu_donate">Spenden</string>
 	<string name="select_amount">Menge auswählen</string>
 	<string name="add_reminder">Erinnerung hinzufügen</string>
@@ -346,8 +356,8 @@
 	<string name="delete">Löschen</string>
 	<string name="copy">Kopieren</string>
 	<string name="filter_settings">Filter-Einstellungen</string>
-	<string name="show_hidden">Ausgeblendet anzeigen</string>
-	<string name="show_completed">Erledigt anzeigen</string>
+	<string name="show_hidden">Ausgeblendete anzeigen</string>
+	<string name="show_completed">Erledigte anzeigen</string>
 	<string name="reverse">Rückgangig</string>
 	<string name="get_plugins">In App-Käufe</string>
 	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
@@ -378,7 +388,7 @@
 	<string name="themes">Zusätzliche Themes</string>
 	<string name="theme_red">Rot</string>
 	<string name="theme_purple">Lila</string>
-	<string name="theme_deep_purple">Lila dunkel</string>
+	<string name="theme_deep_purple">Dunkel-Lila</string>
 	<string name="theme_indigo">Indigoblau</string>
 	<string name="theme_blue">Blau</string>
 	<string name="theme_light_blue">Hellblau</string>
@@ -429,21 +439,31 @@
 	<string name="use_locale_default">Aus Systemeinstellungen</string>
 	<string name="use_native_datetime_pickers">Datum- und Zeitauswahl des Systems benutzen</string>
 	<string name="notification_channel_settings">Verwalte Benachrichtigungen</string>
+	<string name="battery_optimization_settings">Energiespar-Optionen verwalten</string>
+	<string name="notification_disable_battery_optimizations_description">Energiesparfunktionen verwalten</string>
 	<string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
 	<string name="badges">Button</string>
 	<string name="list">Liste</string>
 	<string name="repeats_from">Wiederholung bis</string>
-	<string name="repeats_single">Wiederholung %s</string>
+	<string name="repeats_single">Wiederhole %s</string>
 	<string name="repeats_single_on">Wiederhole %1$s am %2$s</string>
+	<string name="repeats_single_until">Wiederhole %1$s bis %2$s</string>
 	<string name="repeats_minutely">minütlich</string>
 	<string name="repeats_hourly">stündlich</string>
 	<string name="repeats_daily">täglich</string>
 	<string name="repeats_weekly">wöchentlich</string>
-	<string name="repeats_monthly">monatlich</string>
+	<string name="repeats_monthly">Wiederhole monatlich</string>
 	<string name="repeats_yearly">jährlich</string>
 	<string name="repeats_plural">Wiederhole jede(n) %s</string>
 	<string name="repeats_plural_until">Wiederhole jede(n) %1$s bis %2$s</string>
-	<string name="dont_add_to_calendar">Nicht in Kalender eintragen</string>
+	<string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
 	<string name="default_calendar">Standardkalender</string>
+	<string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>
 	<string name="bundle_notifications_summary">Mehrer Benachrichtigungen in eine Benachrichtigung zusammenfassen</string>
+	<string name="repeat_monthly_same_day_each_month">Am selben Tag jeden Monats</string>
+	<string name="repeat_monthly_first_week">Vorname</string>
+	<string name="repeat_monthly_second_week">1 Sekunde</string>
+	<string name="repeat_monthly_third_week">dritte</string>
+	<string name="repeat_monthly_fourth_week">vierte</string>
+	<string name="repeat_monthly_last_week">Nachname</string>
 </resources>

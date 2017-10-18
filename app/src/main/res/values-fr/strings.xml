@@ -196,7 +196,7 @@
 	<string name="repeat_option_every_day">Tous les jours</string>
 	<string name="repeat_option_every_week">Toutes les semaines</string>
 	<string name="repeat_option_every_month">Le mois prochain</string>
-	<string name="repeat_option_every_year">Tous les jours</string>
+	<string name="repeat_option_every_year">Tous les ans</string>
 	<string name="repeat_option_custom">Personnalisé..</string>
 	<string name="repeat_minutely">Répéter toutes les minutes</string>
 	<string name="repeat_hourly">Répéter toutes les heures</string>
@@ -457,4 +457,11 @@
 	<string name="default_calendar">Calendrier par défaut</string>
 	<string name="badges_description">Afficher un compteur de tâche sur l\'icône du lanceur de Tasks. Certains lanceurs ne supportent pas les badges.</string>
 	<string name="bundle_notifications_summary">Combiner plusieurs notifications dans une seule notification</string>
+	<string name="repeat_monthly_same_day_each_month">le même jour a chaque mois</string>
+	<string name="repeat_monthly_every_day_of_nth_week">tous les %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">a chaque tous les %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">premier</string>
+	<string name="repeat_monthly_third_week">troisième</string>
+	<string name="repeat_monthly_fourth_week">quatrième</string>
+	<string name="repeat_monthly_last_week">dernier</string>
 </resources>

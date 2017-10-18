@@ -104,7 +104,6 @@
 	<string name="CFC_dueBefore_name">موعود بر اساس</string>
 	<string name="no_due_date">بدون موعود</string>
 	<string name="next_month">ماه بعد</string>
-	<string name="CFC_importance_text">اولویت در آخر؟</string>
 	<string name="CFC_importance_name">اولویت</string>
 	<string name="CFC_tag_name">تگ...</string>
 	<string name="CFC_title_contains_name">عنوان شامل</string>
@@ -142,9 +141,36 @@
 	<string name="default_random_reminder_bi_weekly">یک هفته در میان</string>
 	<string name="default_random_reminder_monthly">هر ماه</string>
 	<string name="default_random_reminder_bi_monthly">یک ماه درمیان</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">دقیقه(ها)</item>
+		<item quantity="other">دقیقه ها</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">ساعت</item>
+		<item quantity="other">ساعت ها</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">روز</item>
+		<item quantity="other">روز ها</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">هفته</item>
+		<item quantity="other">هفته ها</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">ماه</item>
+		<item quantity="other">ماه ها</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">سال</item>
+		<item quantity="other">سال ها</item>
+	</plurals>
+	<string name="repeat_type_due">تاریخ موعود</string>
+	<string name="repeat_type_completion">تاریخ اتمام</string>
 	<string name="repeat_forever">تکرار بینهایت</string>
 	<string name="repeat_until">تکرار تا %s</string>
 	<string name="new_tag">ایجاد تگ جدید</string>
+	<string name="new_list">ایجاد لیست جدید</string>
 	<string name="tag_FEx_untagged">دسته بندی نشده</string>
 	<string name="TFE_workingOn">وظایف زمانبندی شده</string>
 	<string name="TEA_timer_controls">تایمر</string>
@@ -183,6 +209,7 @@
 	<string name="miscellaneous">سایر</string>
 	<string name="enabled">فعال شده</string>
 	<string name="font_size">اندازه فونت</string>
+	<string name="row_spacing">فاصله سطرها</string>
 	<string name="source_code">کد مبدا</string>
 	<string name="translations">مشارکت در ترجمه</string>
 	<string name="report_an_issue">گزارش یک مطلب</string>
@@ -231,11 +258,38 @@
 	<string name="default_list">لیست پیش فرض</string>
 	<string name="plugin_description">Tasks پروژه‌ای متن‌باز است که عمدتاً توسط یک‌نفر توسعه داده می‌شود. برای حمایت از این تلاش، برخی ویژگی‌ها به‌صورت خریدهای داخل برنامه ارائه شده‌اند.</string>
 	<string name="opacity">شفافیت</string>
+	<string name="theme">تم</string>
+	<string name="color">رنگ</string>
+	<string name="theme_red">قرمز</string>
+	<string name="theme_pink">صورتی</string>
+	<string name="theme_purple">بنفش</string>
+	<string name="theme_blue">آبی</string>
+	<string name="theme_green">سبز</string>
+	<string name="theme_yellow">زرد</string>
+	<string name="theme_orange">نارنجی</string>
+	<string name="theme_brown">قهوه ای</string>
+	<string name="theme_grey">خاکستری</string>
+	<string name="theme_light">روشن</string>
+	<string name="theme_dark">تیره</string>
+	<string name="default_value">پیش فرض</string>
 	<string name="master_sync_warning">درحال‌حاضر هماهنگ‌سازی خودکار توسط اندروید غیرفعال است</string>
 	<string name="settings_general">عمومی</string>
 	<string name="language">زبان</string>
+	<string name="restart_now">اکنون ریست کن</string>
+	<string name="restart_later">بعدا</string>
 	<string name="settings_localization">محلی‌سازی</string>
 	<string name="layout_direction">چینش صفحه</string>
 	<string name="layout_direction_left_to_right">چپ به راست</string>
 	<string name="layout_direction_right_to_left">راست به چپ</string>
+	<string name="notification_channel_settings">مدیریت اعلانات</string>
+	<string name="battery_optimization_settings">مدیریت بهینه سازی باتری</string>
+	<string name="notification_disable_battery_optimizations_description">مدیریت بهینه سازی باتری ممکن است اعلانات را به تاخیر بیاندازد</string>
+	<string name="repeats_single">تکرارها %s</string>
+	<string name="repeats_minutely">هر دقیقه</string>
+	<string name="repeats_hourly">هر ساعت</string>
+	<string name="repeats_daily">روزانه</string>
+	<string name="repeats_weekly">هفتگی</string>
+	<string name="repeats_monthly">ماهانه</string>
+	<string name="repeats_yearly">سالانه</string>
+	<string name="default_calendar">تقویم پیش فرض</string>
 </resources>

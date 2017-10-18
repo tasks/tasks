@@ -479,4 +479,12 @@
 	<string name="default_calendar">Календар по подразбиране</string>
 	<string name="badges_description">Показвай броя задачи върху икона на Tasks в лаунчера. Не всички лаунчери поддържат значки.</string>
 	<string name="bundle_notifications_summary">Комбинирай множество нотификации в една</string>
+	<string name="repeat_monthly_same_day_each_month">на един и същ ден всеки месец</string>
+	<string name="repeat_monthly_every_day_of_nth_week">всеки %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">на всеки %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">първи</string>
+	<string name="repeat_monthly_second_week">втори</string>
+	<string name="repeat_monthly_third_week">трети</string>
+	<string name="repeat_monthly_fourth_week">четвърти</string>
+	<string name="repeat_monthly_last_week">последен</string>
 </resources>

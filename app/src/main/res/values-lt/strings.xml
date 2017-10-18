@@ -475,4 +475,12 @@
 	<string name="default_calendar">Numatytasis kalendorius</string>
 	<string name="badges_description">Rodyti užduočių kiekį Tasks paleidimo piktogramoje. Ne visos sistemos palaiko šią funkciją.</string>
 	<string name="bundle_notifications_summary">Sujungti kelis pranešimus į vieną pranešimą</string>
+	<string name="repeat_monthly_same_day_each_month">Tą pačią mėnesio dieną</string>
+	<string name="repeat_monthly_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">pirmą</string>
+	<string name="repeat_monthly_second_week">antrą</string>
+	<string name="repeat_monthly_third_week">trečią</string>
+	<string name="repeat_monthly_fourth_week">ketvirtą</string>
+	<string name="repeat_monthly_last_week">paskutinę(-į)</string>
 </resources>

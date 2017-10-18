@@ -132,9 +132,9 @@
 	<string name="BFE_Active">Moje zadania</string>
 	<string name="BFE_Recent">Niedawno zmodyfikowane</string>
 	<string name="CFA_universe_all">Aktywne zadania</string>
-	<string name="CFA_type_add">albo</string>
-	<string name="CFA_type_subtract">brak</string>
-	<string name="CFA_type_intersect">również</string>
+	<string name="CFA_type_add">lub</string>
+	<string name="CFA_type_subtract">nie</string>
+	<string name="CFA_type_intersect">także</string>
 	<string name="CFA_context_chain">%s zawiera kryteria</string>
 	<string name="CFA_context_delete">Usuń kryterium</string>
 	<string name="CFA_help">Przytrzymaj dłużej na obiekcie dla dodatkowych opcji</string>
@@ -204,25 +204,46 @@
 		<item quantity="other">minut</item>
 	</plurals>
 	<plurals name="repeat_hours">
-		<item quantity="one">godzina</item>
+		<item quantity="one">godzin</item>
 		<item quantity="other">godzin</item>
+	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d hour</item>
+		<item quantity="other">%d godzin</item>
 	</plurals>
 	<plurals name="repeat_days">
 		<item quantity="one">dzień</item>
 		<item quantity="other">dni</item>
 	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d dzień</item>
+		<item quantity="other">%d dni</item>
+	</plurals>
 	<plurals name="repeat_weeks">
 		<item quantity="one">tydzień</item>
 		<item quantity="other">tygodnie</item>
+	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d tydzień</item>
+		<item quantity="other">%d tygodni</item>
 	</plurals>
 	<plurals name="repeat_months">
 		<item quantity="one">miesiąc</item>
 		<item quantity="other">miesiący</item>
 	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d miesiąc</item>
+		<item quantity="other">%d miesiące</item>
+	</plurals>
 	<plurals name="repeat_years">
 		<item quantity="one">rok</item>
 		<item quantity="other">lat</item>
 	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d rok</item>
+		<item quantity="other">%d lat</item>
+	</plurals>
+	<string name="repeat_type_due">w terminie</string>
 	<string name="repeat_type_completion">data zakoµczenia</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
@@ -382,8 +403,8 @@
 	<string name="restart_later">Póżniej</string>
 	<string name="settings_localization">Ustawienia regionalne</string>
 	<string name="layout_direction">Kierunek tekstów</string>
-	<string name="layout_direction_left_to_right">Od lewa do prawa</string>
-	<string name="layout_direction_right_to_left">Od prawa do lewa</string>
+	<string name="layout_direction_left_to_right">Lewy do prawego</string>
+	<string name="layout_direction_right_to_left">Prawy do lewego</string>
 	<string name="led_notification">Powiadomienie LED</string>
 	<string name="hardware_support_required">Wymagane wsparcie sprzętowe</string>
 	<string name="no_calendars_found">Nie znaleziono kalendzarzy</string>
@@ -407,6 +428,7 @@
 	<string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
 	<string name="bundle_notifications">Zarządzaj powiadomieniami</string>
 	<string name="list">Lista</string>
+	<string name="repeats_from">Powtarzaj od</string>
 	<string name="repeats_single">Powtarza się %s</string>
 	<string name="repeats_minutely">co minutę</string>
 	<string name="repeats_hourly">co godzinę</string>
@@ -416,4 +438,9 @@
 	<string name="repeats_yearly">raz w roku</string>
 	<string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
 	<string name="default_calendar">Domyślny kalendarz</string>
+	<string name="repeat_monthly_first_week">pierwszy</string>
+	<string name="repeat_monthly_second_week">drugi</string>
+	<string name="repeat_monthly_third_week">trzeci</string>
+	<string name="repeat_monthly_fourth_week">czwarty</string>
+	<string name="repeat_monthly_last_week">ostatni</string>
 </resources>

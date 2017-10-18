@@ -195,6 +195,30 @@
 	<string name="default_random_reminder_bi_weekly">bi-settimanalmente</string>
 	<string name="default_random_reminder_monthly">mensilmente</string>
 	<string name="default_random_reminder_bi_monthly">bi-mensilmente</string>
+	<plurals name="repeat_minutes">
+		<item quantity="one">minuto</item>
+		<item quantity="other">minuti</item>
+	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">ora</item>
+		<item quantity="other">ore</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">giorno</item>
+		<item quantity="other">giorni</item>
+	</plurals>
+	<plurals name="repeat_weeks">
+		<item quantity="one">settimana</item>
+		<item quantity="other">settimane</item>
+	</plurals>
+	<plurals name="repeat_months">
+		<item quantity="one">mese</item>
+		<item quantity="other">mesi</item>
+	</plurals>
+	<plurals name="repeat_years">
+		<item quantity="one">anno</item>
+		<item quantity="other">anni</item>
+	</plurals>
 	<string name="repeat_forever">Ripeti all\'infinito</string>
 	<string name="repeat_until">Ripeti fino %s</string>
 	<string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
@@ -380,4 +404,14 @@
 	<string name="bundle_notifications">Gruppo di notifiche</string>
 	<string name="badges">Badge</string>
 	<string name="list">Lista</string>
+	<string name="repeats_single">Ripetizioni %s</string>
+	<string name="repeats_single_on">Ripetizione(i) %1$s il %2$s</string>
+	<string name="repeats_single_until">Ripetizione(i) %1$s fino al %2$s</string>
+	<string name="repeats_minutely">ogni minuto</string>
+	<string name="repeats_hourly">ogni ora</string>
+	<string name="repeats_daily">ogni giorno</string>
+	<string name="repeats_weekly">ogni settimana</string>
+	<string name="repeats_monthly">ogni mese</string>
+	<string name="repeats_yearly">ogni anno</string>
+	<string name="repeats_plural">Ripeti ogni %s</string>
 </resources>

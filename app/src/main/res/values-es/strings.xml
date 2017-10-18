@@ -473,4 +473,12 @@
 	<string name="default_calendar">Calendario predeterminado</string>
 	<string name="badges_description">Mostrar número de tareas en icono de Task. No todos los launchers lo soportan.</string>
 	<string name="bundle_notifications_summary">Combinar múltiples notificaciones en una sola</string>
+	<string name="repeat_monthly_same_day_each_month">el mismo día cada mes</string>
+	<string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">cada %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">primer</string>
+	<string name="repeat_monthly_second_week">segundo</string>
+	<string name="repeat_monthly_third_week">tercer</string>
+	<string name="repeat_monthly_fourth_week">cuarto</string>
+	<string name="repeat_monthly_last_week">último</string>
 </resources>
