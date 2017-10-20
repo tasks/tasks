@@ -90,7 +90,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     private static final List<Frequency> FREQUENCIES = asList(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY);
 
     private static final String EXTRA_RRULE = "extra_rrule";
-    private static final String EXTRA_WEEKDAYS = "extra_weekdays";
     private static final String EXTRA_DATE = "extra_date";
     private static final int REQUEST_PICK_DATE = 505;
 
@@ -126,7 +125,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     private WeekButton[] weekButtons;
 
     private RRule rrule;
-    private boolean[] weekdaySelected;
 
     @NonNull
     @Override
@@ -138,9 +136,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         String rule = savedInstanceState == null
                 ? arguments.getString(EXTRA_RRULE)
                 : savedInstanceState.getString(EXTRA_RRULE);
-        weekdaySelected = savedInstanceState == null
-                ? new boolean[7]
-                : savedInstanceState.getBooleanArray(EXTRA_WEEKDAYS);
         try {
             if (!Strings.isNullOrEmpty(rule)) {
                 rrule = new RRule(rule);
@@ -152,7 +147,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
             rrule = new RRule();
             rrule.setInterval(1);
             rrule.setFreq(WEEKLY);
-            weekdaySelected = new boolean[7];
         }
 
         DateFormatSymbols dfs = new DateFormatSymbols(locale.getLocale());
@@ -266,9 +260,8 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
             weekButton.setTextOn(text);
             weekButton.setText(text);
             if (savedInstanceState == null) {
-                weekdaySelected[index] = rrule.getByDay().contains(weekdayNum);
+                weekButton.setCheckedNoAnimate(rrule.getByDay().contains(weekdayNum));
             }
-            weekButton.setOnCheckedChangeListener((compoundButton, checked) -> weekdaySelected[index] = checked);
             dayOfWeekCalendar.add(Calendar.DATE, 1);
         }
 
@@ -283,9 +276,9 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     private void onRuleSelected(DialogInterface dialogInterface, int which) {
         if (rrule.getFreq() == WEEKLY) {
             List<WeekdayNum> checked = new ArrayList<>();
-            for (int i = 0 ; i < 7 ; i++) {
-                if (weekdaySelected[i]) {
-                    checked.add((WeekdayNum) weekButtons[i].getTag());
+            for (WeekButton weekButton : weekButtons) {
+                if (weekButton.isChecked()) {
+                    checked.add((WeekdayNum) weekButton.getTag());
                 }
             }
             rrule.setByDay(checked);
@@ -331,8 +324,8 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     public void onResume() {
         super.onResume();
 
-        for (int i = 0 ; i < 7 ; i++) {
-            weekButtons[i].setCheckedNoAnimate(weekdaySelected[i]);
+        for (WeekButton weekButton : weekButtons) {
+            weekButton.setCheckedNoAnimate(weekButton.isChecked());
         }
     }
 
@@ -340,7 +333,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putBooleanArray(EXTRA_WEEKDAYS, weekdaySelected);
         outState.putString(EXTRA_RRULE, rrule.toIcal());
     }
 
