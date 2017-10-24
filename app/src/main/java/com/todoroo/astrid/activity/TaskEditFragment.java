@@ -326,7 +326,10 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     }
 
     public void onDueDateChanged(long dueDate) {
-        getRepeatControlSet().onDueDateChanged(dueDate);
+        RepeatControlSet repeatControlSet = getRepeatControlSet();
+        if (repeatControlSet != null) {
+            repeatControlSet.onDueDateChanged(dueDate);
+        }
     }
 
     public void addComment(String message, String actionCode, String picture) {
