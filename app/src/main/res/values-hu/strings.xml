@@ -63,7 +63,7 @@
 	<string name="day_before_due">Egy nappal a határidő előtt</string>
 	<string name="week_before_due">Egy héttel a határidő előtt</string>
 	<string name="TEA_control_when">Mikor</string>
-	<string name="TEA_control_repeat">Ismétlődés</string>
+	<string name="TEA_control_repeat">Ismétlés</string>
 	<string name="TEA_control_gcal">Naptár</string>
 	<string name="TEA_control_importance">Prioritás</string>
 	<string name="TEA_control_notes">Leírás</string>
@@ -198,7 +198,7 @@
 	<string name="default_random_reminder_monthly">Havonta</string>
 	<string name="default_random_reminder_bi_monthly">Kéthavonta</string>
 	<string name="repeat_every">Minden</string>
-	<string name="repeat_option_does_not_repeat">Nem ismétlődik</string>
+	<string name="repeat_option_does_not_repeat">Nincs ismétlés</string>
 	<string name="repeat_option_every_day">Minden nap</string>
 	<string name="repeat_option_every_week">Minden héten</string>
 	<string name="repeat_option_every_month">Minden hónapban</string>
@@ -210,6 +210,14 @@
 	<string name="repeat_weekly">ISMÉTLÉS HETENTE</string>
 	<string name="repeat_monthly">ISMÉTLÉS HAVONTA</string>
 	<string name="repeat_yearly">ISMÉTLÉS ÉVENTE</string>
+	<plurals name="task_count">
+		<item quantity="one">%d feladat</item>
+		<item quantity="other">%d feladat</item>
+	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">alkalommal</item>
+		<item quantity="other">alkalommal</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">perc</item>
 		<item quantity="other">perc</item>
@@ -262,6 +270,8 @@
 	<string name="repeat_type_completion">befejezés időpontja</string>
 	<string name="repeat_forever">Ismétlés örökké</string>
 	<string name="repeat_until">Ismétlés eddig: %s</string>
+	<string name="repeat_number_of_times">Ismétlés meghatározott alkalommal</string>
+	<string name="repeat_occurs">Előfordul</string>
 	<string name="repeat_snackbar">%1$s újraütemezve ekkorra: %2$s</string>
 	<string name="new_tag">Új címke létrehozása</string>
 	<string name="new_list">Új lista létrehozása</string>
@@ -446,12 +456,35 @@
 	<string name="bundle_notifications">Értesítések összevonása</string>
 	<string name="badges">Szimbólumok</string>
 	<string name="list">Lista</string>
+	<string name="repeats_from">Ismétlés ettől:</string>
+	<string name="repeats_single">Ismétlés: %s</string>
+	<string name="repeats_single_on">Ismétlés %1$s ekkor: %2$s</string>
+	<string name="repeats_single_until">Ismétlés %1$s eddig: %2$s</string>
+	<string name="repeats_single_number_of_times">Ismétlés %1$s, előfordul %2$d %3$s</string>
+	<string name="repeats_single_on_until">Ismétlés %1$s ekkor: %2$s, eddig: %3$s</string>
+	<string name="repeats_single_on_number_of_times">Ismétlés %1$s ekkor: %2$s, előfordul %3$d %4$s</string>
 	<string name="repeats_minutely">percenként</string>
 	<string name="repeats_hourly">óránként</string>
 	<string name="repeats_daily">naponta</string>
 	<string name="repeats_weekly">hetente</string>
 	<string name="repeats_monthly">havonta</string>
 	<string name="repeats_yearly">évente</string>
+	<string name="repeats_plural">Ismétlés minden: %s</string>
+	<string name="repeats_plural_on">Ismétlés minden %1$s ekkor: %2$s</string>
+	<string name="repeats_plural_until">Ismétlés minden %1$s eddig: %2$s</string>
+	<string name="repeats_plural_number_of_times">Ismétlés minden %1$s, előfordul %2$d %3$s</string>
+	<string name="repeats_plural_on_until">Ismétlés minden %1$s ekkor: %2$s, eddig: %3$s</string>
+	<string name="repeats_plural_on_number_of_times">Ismétlés minden %1$s ekkor: %2$s, előfordul %3$d %4$s</string>
 	<string name="dont_add_to_calendar">Ne adja hozzá a naptárhoz</string>
 	<string name="default_calendar">Alapértelmezett naptár</string>
+	<string name="badges_description">Feladatok számának megjelenítése a Tasks ikonon. Nem minden launcher által támogatott funkció.</string>
+	<string name="bundle_notifications_summary">Több értesítés összevonása egy értesítéssé</string>
+	<string name="repeat_monthly_same_day_each_month">minden hónap egyazon napján</string>
+	<string name="repeat_monthly_every_day_of_nth_week">minden %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">minden %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">első</string>
+	<string name="repeat_monthly_second_week">második</string>
+	<string name="repeat_monthly_third_week">harmadik</string>
+	<string name="repeat_monthly_fourth_week">negyedik</string>
+	<string name="repeat_monthly_last_week">utolsó</string>
 </resources>

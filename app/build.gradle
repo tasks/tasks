@@ -32,8 +32,8 @@ android {
 
     defaultConfig {
         applicationId "org.tasks"
-        versionCode 480
-        versionName "5.1.3"
+        versionCode 481
+        versionName "5.1.4"
         targetSdkVersion 26
         minSdkVersion 15
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
