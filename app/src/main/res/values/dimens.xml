@@ -23,5 +23,6 @@
     <dimen name="elevation_padding">0dp</dimen>
 
     <dimen name="widget_padding">10dp</dimen>
+    <dimen name="week_button_inset">6dp</dimen>
     <dimen name="week_button_state_on_circle_size">48dp</dimen>
 </resources>

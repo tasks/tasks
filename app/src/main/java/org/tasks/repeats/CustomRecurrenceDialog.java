@@ -5,6 +5,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,9 +25,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
-import com.appeaser.sublimepickerlibrary.drawables.CheckableDrawable;
-import com.appeaser.sublimepickerlibrary.recurrencepicker.WeekButton;
 import com.google.common.base.Strings;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
@@ -39,8 +43,6 @@ import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.ResourceResolver;
-import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeAccent;
 import org.tasks.time.DateTime;
 
 import java.text.DateFormatSymbols;
@@ -95,18 +97,17 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
     @Inject @ForActivity Context context;
     @Inject DialogBuilder dialogBuilder;
-    @Inject Theme theme;
     @Inject Locale locale;
 
     @BindView(R.id.weekGroup) LinearLayout weekGroup1;
     @BindView(R.id.weekGroup2) @Nullable LinearLayout weekGroup2;
-    @BindView(R.id.week_day_1) WeekButton day1;
-    @BindView(R.id.week_day_2) WeekButton day2;
-    @BindView(R.id.week_day_3) WeekButton day3;
-    @BindView(R.id.week_day_4) WeekButton day4;
-    @BindView(R.id.week_day_5) WeekButton day5;
-    @BindView(R.id.week_day_6) WeekButton day6;
-    @BindView(R.id.week_day_7) WeekButton day7;
+    @BindView(R.id.week_day_1) ToggleButton day1;
+    @BindView(R.id.week_day_2) ToggleButton day2;
+    @BindView(R.id.week_day_3) ToggleButton day3;
+    @BindView(R.id.week_day_4) ToggleButton day4;
+    @BindView(R.id.week_day_5) ToggleButton day5;
+    @BindView(R.id.week_day_6) ToggleButton day6;
+    @BindView(R.id.week_day_7) ToggleButton day7;
 
     @BindView(R.id.month_group) RadioGroup monthGroup;
     @BindView(R.id.repeat_monthly_same_day) RadioButton repeatMonthlySameDay;
@@ -122,17 +123,18 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
 
     private final List<String> repeatUntilOptions = new ArrayList<>();
     private ArrayAdapter<String> repeatUntilAdapter;
-    private WeekButton[] weekButtons;
+    private ToggleButton[] weekButtons;
 
     private RRule rrule;
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        LayoutInflater inflater = LayoutInflater.from(context);
         View dialogView = inflater.inflate(R.layout.control_set_repeat, null);
 
         Bundle arguments = getArguments();
+        long dueDate = arguments.getLong(EXTRA_DATE, currentTimeMillis());
         String rule = savedInstanceState == null
                 ? arguments.getString(EXTRA_RRULE)
                 : savedInstanceState.getString(EXTRA_RRULE);
@@ -155,7 +157,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         ButterKnife.bind(this, dialogView);
 
         Calendar dayOfMonthCalendar = Calendar.getInstance(locale.getLocale());
-        dayOfMonthCalendar.setTimeInMillis(arguments.getLong(EXTRA_DATE, currentTimeMillis()));
+        dayOfMonthCalendar.setTimeInMillis(dueDate);
         int dayOfWeekInMonth = dayOfMonthCalendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
         int maxDayOfWeekInMonth = dayOfMonthCalendar.getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH);
 
@@ -234,49 +236,60 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         repeatUntilSpinner.setAdapter(repeatUntilAdapter);
         updateRepeatUntilOptions();
 
-        weekButtons = new WeekButton[] { day1, day2, day3, day4, day5, day6, day7 };
-        int expandedWidthHeight = getResources()
-                .getDimensionPixelSize(R.dimen.week_button_state_on_circle_size);
-
-        int weekButtonUnselectedTextColor = getColor(context, R.color.text_primary);
-        int weekButtonSelectedTextColor = ResourceResolver.getData(context, R.attr.fab_text);
-        WeekButton.setStateColors(weekButtonUnselectedTextColor, weekButtonSelectedTextColor);
+        weekButtons = new ToggleButton[] { day1, day2, day3, day4, day5, day6, day7 };
 
         // set up days of week
-        ThemeAccent accent = theme.getThemeAccent();
         Calendar dayOfWeekCalendar = Calendar.getInstance(locale.getLocale());
         dayOfWeekCalendar.set(Calendar.DAY_OF_WEEK, dayOfWeekCalendar.getFirstDayOfWeek());
 
+        WeekdayNum todayWeekday = new WeekdayNum(0, new DateTime(dueDate).getWeekday());
+
+        ColorStateList colorStateList = new ColorStateList(new int[][]{
+                new int[]{android.R.attr.state_checked},
+                new int[]{-android.R.attr.state_checked}
+        }, new int[]{
+                ResourceResolver.getData(context, R.attr.fab_text),
+                getColor(context, R.color.text_primary)
+        });
+        int inset = (int) context.getResources().getDimension(R.dimen.week_button_inset);
+        int accentColor = ResourceResolver.getData(context, R.attr.colorAccent);
+
         for(int i = 0; i < 7; i++) {
-            int index = i;
+            GradientDrawable ovalDrawable = (GradientDrawable) context.getResources().getDrawable(R.drawable.week_day_button_oval).mutate();
+            ovalDrawable.setColor(accentColor);
+            LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{ovalDrawable});
+            layerDrawable.setLayerInset(0, inset, inset, inset, inset);
+
             int dayOfWeek = dayOfWeekCalendar.get(Calendar.DAY_OF_WEEK);
+            ToggleButton weekButton = weekButtons[i];
+            ((StateListDrawable) weekButton.getBackground())
+                    .addState(new int[] {android.R.attr.state_checked}, layerDrawable);
             String text = shortWeekdays[dayOfWeek];
-            WeekdayNum weekdayNum = new WeekdayNum(0, calendarDayToWeekday(dayOfWeek));
-            WeekButton weekButton = weekButtons[i];
-            weekButton.setTag(weekdayNum);
-            weekButton.setBackgroundDrawable(new CheckableDrawable(accent.getAccentColor(), false, expandedWidthHeight));
-            weekButton.setTextColor(weekButtonUnselectedTextColor);
-            weekButton.setTextOff(text);
+            weekButton.setTextColor(colorStateList);
             weekButton.setTextOn(text);
-            weekButton.setText(text);
+            weekButton.setTextOff(text);
+            weekButton.setTag(new WeekdayNum(0, calendarDayToWeekday(dayOfWeek)));
             if (savedInstanceState == null) {
-                weekButton.setCheckedNoAnimate(rrule.getByDay().contains(weekdayNum));
+                weekButton.setChecked(rrule.getFreq() != WEEKLY || rrule.getByDay().isEmpty()
+                        ? todayWeekday.equals(weekButton.getTag())
+                        : rrule.getByDay().contains(weekButton.getTag()));
             }
             dayOfWeekCalendar.add(Calendar.DATE, 1);
         }
+
+        setCancelable(false);
 
         return dialogBuilder.newDialog()
                 .setView(dialogView)
                 .setPositiveButton(android.R.string.ok, this::onRuleSelected)
                 .setNegativeButton(android.R.string.cancel, null)
-                .setOnCancelListener(DialogInterface::dismiss)
                 .show();
     }
 
     private void onRuleSelected(DialogInterface dialogInterface, int which) {
         if (rrule.getFreq() == WEEKLY) {
             List<WeekdayNum> checked = new ArrayList<>();
-            for (WeekButton weekButton : weekButtons) {
+            for (ToggleButton weekButton : weekButtons) {
                 if (weekButton.isChecked()) {
                     checked.add((WeekdayNum) weekButton.getTag());
                 }
@@ -298,6 +311,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
             rrule.setByDay(Collections.emptyList());
         }
         ((CustomRecurrenceCallback) getTargetFragment()).onSelected(rrule);
+        dismiss();
     }
 
     private Weekday calendarDayToWeekday(int calendarDay) {
@@ -318,15 +332,6 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
                 return Weekday.SA;
         }
         throw new RuntimeException("Invalid calendar day: " + calendarDay);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        for (WeekButton weekButton : weekButtons) {
-            weekButton.setCheckedNoAnimate(weekButton.isChecked());
-        }
     }
 
     @Override

@@ -6,6 +6,8 @@
 -->
 <resources>
 
+    <drawable name="transparent_drawable">@android:color/transparent</drawable>
+
     <color name="red_500">#f44336</color>
     <color name="red_700">#d32f2f</color>
     <color name="red_a400">#ff1744</color>
