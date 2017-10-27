@@ -455,6 +455,7 @@
 	<string name="repeats_monthly">Wiederhole monatlich</string>
 	<string name="repeats_yearly">jährlich</string>
 	<string name="repeats_plural">Wiederhole jede(n) %s</string>
+	<string name="repeats_plural_on">Wiederhole aller %1$s am %2$s</string>
 	<string name="repeats_plural_until">Wiederhole jede(n) %1$s bis %2$s</string>
 	<string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
 	<string name="default_calendar">Standardkalender</string>

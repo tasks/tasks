@@ -32,7 +32,7 @@ android {
 
     defaultConfig {
         applicationId "org.tasks"
-        versionCode 481
+        versionCode 485
         versionName "5.1.5"
         targetSdkVersion 27
         minSdkVersion 15

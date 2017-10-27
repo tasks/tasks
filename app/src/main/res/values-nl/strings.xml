@@ -467,4 +467,12 @@
 	<string name="default_calendar">Standaard kalender</string>
 	<string name="badges_description">Toon een taken teller bij de Task app icon. Niet alle lauchners ondersteunen dit.</string>
 	<string name="bundle_notifications_summary">Combineer meerdere notificaties samen in een</string>
+	<string name="repeat_monthly_same_day_each_month">Op dezelfde dag elke maand</string>
+	<string name="repeat_monthly_every_day_of_nth_week">elke %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">op elke %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">eerste</string>
+	<string name="repeat_monthly_second_week">tweede</string>
+	<string name="repeat_monthly_third_week">derde</string>
+	<string name="repeat_monthly_fourth_week">vierde</string>
+	<string name="repeat_monthly_last_week">laatste</string>
 </resources>
