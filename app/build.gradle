@@ -27,14 +27,14 @@ android {
         textReport true
     }
 
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
 
     defaultConfig {
         applicationId "org.tasks"
         versionCode 481
-        versionName "5.1.4"
-        targetSdkVersion 26
+        versionName "5.1.5"
+        targetSdkVersion 27
         minSdkVersion 15
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -100,7 +100,7 @@ configurations {
 final DAGGER_VERSION = '2.9'
 final BUTTERKNIFE_VERSION = '8.8.1'
 final GPS_VERSION = '11.4.2'
-final SUPPORT_VERSION = '26.1.0'
+final SUPPORT_VERSION = '27.0.0'
 final STETHO_VERSION = '1.5.0'
 final ROOM_VERSION = '1.0.0-alpha9-1'
 final TESTING_SUPPORT_VERSION = '1.0.0'

@@ -3,8 +3,8 @@ sudo: required
 jdk: oraclejdk8
 env:
   global:
-    - TARGET_API=26
-    - BUILD_TOOLS=26.0.2
+    - TARGET_API=27
+    - BUILD_TOOLS=27.0.0
   matrix:
     - EMULATOR_API=21 ANDROID_ABI=armeabi-v7a
 android:
