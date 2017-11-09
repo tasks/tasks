@@ -5,11 +5,12 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.TaskAttachment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,9 +27,8 @@ public class TaskAttachmentDao {
         return dao.count(byUuid(taskUuid, TaskAttachment.TASK_UUID).limit(1)) > 0;
     }
 
-    public void getAttachments(String taskUuid, Callback<TaskAttachment> callback) {
-        Query query = byUuid(taskUuid, TaskAttachment.PROPERTIES);
-        dao.query(query, callback);
+    public List<TaskAttachment> getAttachments(String taskUuid) {
+        return dao.toList(byUuid(taskUuid, TaskAttachment.PROPERTIES));
     }
 
     private static Query byUuid(String taskUuid, Property<?>... properties) {

@@ -162,7 +162,7 @@ public class TasksXmlExporter {
     }
 
     private void serializeTagDatas() {
-        tagDataDao.allTags(tag -> {
+        for (TagData tag : tagDataDao.allTags()) {
             try {
                 xml.startTag(null, BackupConstants.TAGDATA_TAG);
                 serializeModel(tag, TagData.PROPERTIES, TagData.ID);
@@ -170,7 +170,7 @@ public class TasksXmlExporter {
             } catch(IOException e) {
                 throw new RuntimeException(e);
             }
-        });
+        }
     }
 
     private void serializeTasks() throws IOException {
@@ -214,7 +214,7 @@ public class TasksXmlExporter {
     }
 
     private synchronized void serializeMetadata(Task task) {
-        metadataDao.byTask(task.getId(), metadata -> {
+        for (Metadata metadata : metadataDao.byTask(task.getId())) {
             try {
                 xml.startTag(null, BackupConstants.METADATA_TAG);
                 serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);
@@ -222,7 +222,7 @@ public class TasksXmlExporter {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        });
+        }
     }
 
     /**

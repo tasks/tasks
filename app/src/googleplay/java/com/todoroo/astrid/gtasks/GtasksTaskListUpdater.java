@@ -88,7 +88,7 @@ public class GtasksTaskListUpdater {
                 GtasksMetadata.LIST_ID.eq(listId),
                 GtasksMetadata.PARENT_TASK.eq(parent)))
                 .orderBy(Order.asc(Functions.cast(GtasksMetadata.GTASKS_ORDER, "INTEGER")));
-        metadataDao.query(query, curr -> {
+        for (Metadata curr : metadataDao.toList(query)) {
             if (!alreadyChecked.contains(curr.getTask())) {
                 curr.setValue(GtasksMetadata.INDENT, indentLevel);
                 curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
@@ -98,7 +98,6 @@ public class GtasksTaskListUpdater {
                 orderAndIndentHelper(listId, order, curr.getTask(), indentLevel + 1, alreadyChecked);
             }
         }
-        );
     }
 
     void updateParentSiblingMapsFor(GtasksList list) {

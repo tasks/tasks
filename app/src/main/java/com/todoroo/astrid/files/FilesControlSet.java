@@ -73,10 +73,10 @@ public class FilesControlSet extends TaskEditControlFragment {
         }
 
         final List<TaskAttachment> files = new ArrayList<>();
-        taskAttachmentDao.getAttachments(taskUuid, attachment -> {
+        for (TaskAttachment attachment : taskAttachmentDao.getAttachments(taskUuid)) {
             files.add(attachment);
             addAttachment(attachment);
-        });
+        }
         validateFiles(files);
         return view;
     }

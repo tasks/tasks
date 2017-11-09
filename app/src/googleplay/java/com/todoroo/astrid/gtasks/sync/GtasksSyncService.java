@@ -179,13 +179,13 @@ public class GtasksSyncService {
                 startAtCriterion)).
                 orderBy(order);
 
-        metadataDao.query(query, entry -> {
+        for (Metadata entry : metadataDao.toList(query)) {
             long taskId = entry.getValue(Metadata.TASK);
             Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
             if(metadata != null) {
                 iterator.processTask(taskId, metadata);
             }
-        });
+        }
     }
 
     /**

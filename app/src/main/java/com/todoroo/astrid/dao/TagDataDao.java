@@ -16,6 +16,8 @@ import com.todoroo.astrid.data.TagData;
 
 import org.tasks.injection.ApplicationScope;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -37,12 +39,11 @@ public class TagDataDao {
         return dao.getFirst(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(name)));
     }
 
-    public void allTags(Callback<TagData> callback) {
+    public List<TagData> allTags() {
         // TODO: does this need to be ordered?
-        Query query = Query.select(TagData.PROPERTIES)
+        return dao.toList(Query.select(TagData.PROPERTIES)
                 .where(TagData.DELETION_DATE.eq(0))
-                .orderBy(Order.asc(TagData.ID));
-        dao.query(query, callback);
+                .orderBy(Order.asc(TagData.ID)));
     }
 
     public TagData getByUuid(String uuid) {
@@ -53,12 +54,11 @@ public class TagDataDao {
         return dao.getFirst(Query.select(properties).where(TagData.UUID.eq(uuid)));
     }
 
-    public void tagDataOrderedByName(Callback<TagData> callback) {
-        Query query = Query.select(TagData.PROPERTIES).where(Criterion.and(
+    public List<TagData> tagDataOrderedByName() {
+        return dao.toList(Query.select(TagData.PROPERTIES).where(Criterion.and(
                 TagData.DELETION_DATE.eq(0),
                 TagData.NAME.isNotNull()))
-                .orderBy(Order.asc(Functions.upper(TagData.NAME)));
-        dao.query(query, callback);
+                .orderBy(Order.asc(Functions.upper(TagData.NAME))));
     }
 
     public void persist(TagData tagData) {

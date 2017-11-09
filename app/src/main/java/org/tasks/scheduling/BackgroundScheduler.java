@@ -45,9 +45,9 @@ public class BackgroundScheduler extends InjectingJobIntentService {
 
         refreshScheduler.clear();
         long now = currentTimeMillis();
-        taskDao.selectActive(
-                Criterion.or(Task.HIDE_UNTIL.gt(now), Task.DUE_DATE.gt(now)),
-                refreshScheduler::scheduleRefresh);
+        for (Task task : taskDao.selectActive(Criterion.or(Task.HIDE_UNTIL.gt(now), Task.DUE_DATE.gt(now)))) {
+            refreshScheduler.scheduleRefresh(task);
+        }
     }
 
     @Override

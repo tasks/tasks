@@ -105,7 +105,7 @@ public class GeofenceService {
             newMetadataValues.add(values);
         }
 
-        metadataDao.byTaskAndKey(taskId, GeofenceFields.METADATA_KEY, item -> {
+        for (Metadata item : metadataDao.byTaskAndKey(taskId, GeofenceFields.METADATA_KEY)) {
             long id = item.getId();
 
             // clear item id when matching with incoming values
@@ -124,7 +124,7 @@ public class GeofenceService {
                 metadataDao.delete(id);
                 dirty[0] = true;
             }
-        });
+        }
 
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {

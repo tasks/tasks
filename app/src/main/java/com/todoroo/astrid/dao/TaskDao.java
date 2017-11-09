@@ -75,8 +75,8 @@ public class TaskDao {
         query(query).forEach(callback);
     }
 
-    public void selectActive(Criterion criterion, Callback<Task> callback) {
-        dao.query(Query.select(Task.PROPERTIES).where(Criterion.and(TaskCriteria.isActive(), criterion)), callback);
+    public List<Task> selectActive(Criterion criterion) {
+        return dao.toList(Query.select(Task.PROPERTIES).where(Criterion.and(TaskCriteria.isActive(), criterion)));
     }
 
     public Task fetch(long id) {

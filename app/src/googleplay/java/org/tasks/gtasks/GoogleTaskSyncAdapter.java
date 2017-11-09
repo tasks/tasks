@@ -428,7 +428,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             newMetadataValues.add(metadatum.getMergedValues());
         }
 
-        metadataDao.byTaskAndKey(taskId, metadataKey, item -> {
+        for (Metadata item : metadataDao.byTaskAndKey(taskId, metadataKey)) {
             long id = item.getId();
 
             // clear item id when matching with incoming values
@@ -440,7 +440,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                 // not matched. cut it
                 metadataDao.delete(id);
             }
-        });
+        }
 
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {

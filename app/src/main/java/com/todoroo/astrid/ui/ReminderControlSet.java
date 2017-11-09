@@ -25,6 +25,7 @@ import com.google.common.primitives.Longs;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.alarms.AlarmFields;
 import com.todoroo.astrid.alarms.AlarmService;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
@@ -140,7 +141,9 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
     private List<Long> currentAlarms() {
         final List<Long> alarms = new ArrayList<>();
-        alarmService.getAlarms(taskId, entry -> alarms.add(entry.getValue(AlarmFields.TIME)));
+        for (Metadata entry : alarmService.getAlarms(taskId)) {
+            alarms.add(entry.getValue(AlarmFields.TIME));
+        }
         return alarms;
     }
 

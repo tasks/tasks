@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
@@ -37,12 +36,8 @@ public class MetadataDao {
         dao = new DatabaseDao<>(database, Metadata.class);
     }
 
-    public void query(Callback<Metadata> callback, Query query) {
-        query(query, callback);
-    }
-
-    public void query(Query query, Callback<Metadata> callback) {
-        dao.query(query, callback);
+    public List<Metadata> query(Query query) {
+        return dao.toList(query);
     }
 
     public Metadata getFirst(Query query) {
@@ -141,20 +136,9 @@ public class MetadataDao {
         return toList(MetadataCriteria.byTask(taskId));
     }
 
-    public void byTask(long taskId, Callback<Metadata> callback) {
-        Query query = Query.select(Metadata.PROPERTIES).where(Metadata.TASK.eq(taskId));
-        dao.query(query, callback);
-    }
-
     public List<Metadata> byTaskAndKey(long taskId, String key) {
         return dao.toList(Query.select(Metadata.PROPERTIES).where(
                 Criterion.and(Metadata.TASK.eq(taskId), Metadata.KEY.eq(key))));
-    }
-
-    public void byTaskAndKey(long taskId, String key, Callback<Metadata> callback) {
-        Query query = Query.select(Metadata.PROPERTIES)
-                .where(Criterion.and(Metadata.TASK.eq(taskId), Metadata.KEY.eq(key)));
-        dao.query(query, callback);
     }
 }
 

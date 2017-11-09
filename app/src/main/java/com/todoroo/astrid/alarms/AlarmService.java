@@ -7,7 +7,6 @@ package com.todoroo.astrid.alarms;
 
 import android.content.ContentValues;
 
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
@@ -60,14 +59,16 @@ public class AlarmService {
         }
 
         final Set<Long> alarms = new LinkedHashSet<>();
-        getAlarms(taskId, metadata -> alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate)));
+        for (Metadata metadata : getAlarms(taskId)) {
+            alarms.add(metadata.getValue(AlarmFields.TIME) + (newDueDate - oldDueDate));
+        }
         if (!alarms.isEmpty()) {
             synchronizeAlarms(taskId, alarms);
         }
     }
 
-    public void getAlarms(long taskId, Callback<Metadata> callback) {
-        metadataDao.query(callback, Query.select(
+    public List<Metadata> getAlarms(long taskId) {
+        return metadataDao.toList(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(
                 taskId, AlarmFields.METADATA_KEY)).orderBy(Order.asc(AlarmFields.TIME)));
     }
@@ -96,16 +97,16 @@ public class AlarmService {
 
     // --- alarm scheduling
 
-    private void getActiveAlarms(Callback<Metadata> callback) {
-        metadataDao.query(callback, Query.select(Metadata.PROPERTIES).
+    private List<Metadata> getActiveAlarms() {
+        return metadataDao.toList(Query.select(Metadata.PROPERTIES).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         Task.REMINDER_LAST.lt(AlarmFields.TIME),
                         MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
     }
 
-    private void getActiveAlarmsForTask(long taskId, Callback<Metadata> callback) {
-        metadataDao.query(callback, Query.select(Metadata.PROPERTIES).
+    private List<Metadata> getActiveAlarmsForTask(long taskId) {
+        return metadataDao.toList(Query.select(Metadata.PROPERTIES).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         Task.REMINDER_LAST.lt(AlarmFields.TIME),
@@ -116,14 +117,18 @@ public class AlarmService {
      * Schedules all alarms
      */
     public void scheduleAllAlarms() {
-        getActiveAlarms(this::scheduleAlarm);
+        for (Metadata metadata : getActiveAlarms()) {
+            scheduleAlarm(metadata);
+        }
     }
 
     /**
      * Schedules alarms for a single task
      */
     private void scheduleAlarms(long taskId) {
-        getActiveAlarmsForTask(taskId, this::scheduleAlarm);
+        for (Metadata metadata : getActiveAlarmsForTask(taskId)) {
+            scheduleAlarm(metadata);
+        }
     }
 
     /**
@@ -161,7 +166,7 @@ public class AlarmService {
             newMetadataValues.add(values);
         }
 
-        metadataDao.byTaskAndKey(taskId, AlarmFields.METADATA_KEY, item -> {
+        for (Metadata item : metadataDao.byTaskAndKey(taskId, AlarmFields.METADATA_KEY)) {
             long id = item.getId();
 
             // clear item id when matching with incoming values
@@ -180,7 +185,7 @@ public class AlarmService {
                 metadataDao.delete(id);
                 dirty[0] = true;
             }
-        });
+        }
 
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {
