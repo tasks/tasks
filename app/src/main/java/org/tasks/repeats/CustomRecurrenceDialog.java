@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -253,17 +256,28 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         });
         int inset = (int) context.getResources().getDimension(R.dimen.week_button_inset);
         int accentColor = ResourceResolver.getData(context, R.attr.colorAccent);
+        int animationDuration = context.getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         for(int i = 0; i < 7; i++) {
+            ToggleButton weekButton = weekButtons[i];
+
             GradientDrawable ovalDrawable = (GradientDrawable) context.getResources().getDrawable(R.drawable.week_day_button_oval).mutate();
             ovalDrawable.setColor(accentColor);
             LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{ovalDrawable});
             layerDrawable.setLayerInset(0, inset, inset, inset, inset);
+            StateListDrawable stateListDrawable = new StateListDrawable();
+            stateListDrawable.setEnterFadeDuration(animationDuration);
+            stateListDrawable.setExitFadeDuration(animationDuration);
+            stateListDrawable.addState(new int[] {-android.R.attr.state_checked}, new ColorDrawable(Color.TRANSPARENT));
+            stateListDrawable.addState(new int[] {android.R.attr.state_checked}, layerDrawable);
+            int paddingBottom = weekButton.getPaddingBottom();
+            int paddingTop = weekButton.getPaddingTop();
+            int paddingLeft = weekButton.getPaddingLeft();
+            int paddingRight = weekButton.getPaddingRight();
+            ViewCompat.setBackground(weekButton, stateListDrawable);
+            weekButton.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
 
             int dayOfWeek = dayOfWeekCalendar.get(Calendar.DAY_OF_WEEK);
-            ToggleButton weekButton = weekButtons[i];
-            ((StateListDrawable) weekButton.getBackground())
-                    .addState(new int[] {android.R.attr.state_checked}, layerDrawable);
             String text = shortWeekdays[dayOfWeek];
             weekButton.setTextColor(colorStateList);
             weekButton.setTextOn(text);

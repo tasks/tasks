@@ -6,5 +6,5 @@
     android:textAllCaps="true"
     android:textSize="12sp"
     android:singleLine="true"
-    android:background="@drawable/week_button_bg"
+    android:background="@null"
     android:gravity="center" />
