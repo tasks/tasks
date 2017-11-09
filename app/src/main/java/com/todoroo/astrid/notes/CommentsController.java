@@ -11,8 +11,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.text.Html;
-import android.text.Spanned;
-import android.text.format.DateUtils;
 import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.utility.Constants;
@@ -34,7 +30,6 @@ import org.tasks.preferences.Preferences;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -44,9 +39,8 @@ import static org.tasks.files.ImageHelper.sampleBitmap;
 
 public class CommentsController {
 
-    private final MetadataDao metadataDao;
     private final UserActivityDao userActivityDao;
-    private final ArrayList<NoteOrUpdate> items = new ArrayList<>();
+    private final ArrayList<UserActivity> items = new ArrayList<>();
     private final Activity activity;
     private final Preferences preferences;
 
@@ -55,9 +49,7 @@ public class CommentsController {
     private ViewGroup commentsContainer;
 
     @Inject
-    public CommentsController(MetadataDao metadataDao, UserActivityDao userActivityDao,
-                              Activity activity, Preferences preferences) {
-        this.metadataDao = metadataDao;
+    public CommentsController(UserActivityDao userActivityDao, Activity activity, Preferences preferences) {
         this.userActivityDao = userActivityDao;
         this.activity = activity;
         this.preferences = preferences;
@@ -75,19 +67,8 @@ public class CommentsController {
 
         items.clear();
         commentsContainer.removeAllViews();
-        metadataDao.byTaskAndKey(task.getId(), NoteMetadata.METADATA_KEY, metadata -> items.add(NoteOrUpdate.fromMetadata(metadata)));
 
-        userActivityDao.getCommentsForTask(task.getUuid(), update -> items.add(NoteOrUpdate.fromUpdate(update)));
-
-        Collections.sort(items, (a, b) -> {
-            if (a.createdAt < b.createdAt) {
-                return 1;
-            } else if (a.createdAt == b.createdAt) {
-                return 0;
-            } else {
-                return -1;
-            }
-        });
+        items.addAll(userActivityDao.getCommentsForTask(task.getUuid()));
 
         for (int i = 0; i < Math.min(items.size(), commentItems); i++) {
             View notesView = this.getUpdateNotes(items.get(i), commentsContainer);
@@ -108,31 +89,26 @@ public class CommentsController {
         }
     }
 
-    private View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
+    private View getUpdateNotes(UserActivity userActivity, ViewGroup parent) {
         View convertView = activity.getLayoutInflater().inflate(R.layout.comment_adapter_row, parent, false);
-        bindView(convertView, note);
+        bindView(convertView, userActivity);
         return convertView;
     }
 
     /** Helper method to set the contents and visibility of each field */
-    private void bindView(View view, NoteOrUpdate item) {
+    private void bindView(View view, UserActivity item) {
         // name
-        final TextView nameView = view.findViewById(R.id.title); {
-            nameView.setText(item.title);
-            Linkify.addLinks(nameView, Linkify.ALL);
-        }
+        final TextView nameView = view.findViewById(R.id.title);
+        nameView.setText(Html.fromHtml(item.getMessage()));
+        Linkify.addLinks(nameView, Linkify.ALL);
 
         // date
-        final TextView date = view.findViewById(R.id.date); {
-            CharSequence dateString = DateUtils.getRelativeTimeSpanString(item.createdAt,
-                    DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
-                    DateUtils.FORMAT_ABBREV_RELATIVE);
-            date.setText(dateString);
-        }
+        final TextView date = view.findViewById(R.id.date);
+        date.setText(DateUtilities.getLongDateStringWithTime(activity, item.getCreatedAt()));
 
         // picture
         final ImageView commentPictureView = view.findViewById(R.id.comment_picture);
-        setupImagePopupForCommentView(view, commentPictureView, item.commentBitmap, activity);
+        setupImagePopupForCommentView(view, commentPictureView, item.getPictureUri(), activity);
     }
 
     private static void setupImagePopupForCommentView(View view, ImageView commentPictureView, final Uri updateBitmap,
@@ -152,52 +128,6 @@ public class CommentsController {
             });
         } else {
             commentPictureView.setVisibility(View.GONE);
-        }
-    }
-
-    private static class NoteOrUpdate {
-        private final Spanned title;
-        private final Uri commentBitmap;
-        private final long createdAt;
-
-        public NoteOrUpdate(Spanned title, Uri commentBitmap, long createdAt) {
-            super();
-            this.title = title;
-            this.commentBitmap = commentBitmap;
-            this.createdAt = createdAt;
-        }
-
-        public static NoteOrUpdate fromMetadata(Metadata m) {
-            if(!m.containsNonNullValue(NoteMetadata.THUMBNAIL)) {
-                m.setValue(NoteMetadata.THUMBNAIL, ""); //$NON-NLS-1$
-            }
-            if(!m.containsNonNullValue(NoteMetadata.COMMENT_PICTURE)) {
-                m.setValue(NoteMetadata.COMMENT_PICTURE, ""); //$NON-NLS-1$
-            }
-            Spanned title = Html.fromHtml(String.format("%s\n%s", m.getValue(NoteMetadata.TITLE), m.getValue(NoteMetadata.BODY))); //$NON-NLS-1$
-            return new NoteOrUpdate(title,
-                    null,
-                    m.getCreationDate());
-        }
-
-        public static NoteOrUpdate fromUpdate(UserActivity u) {
-            if(u == null) {
-                throw new RuntimeException("UserActivity should never be null");
-            }
-
-            Uri commentBitmap = u.getPictureUri();
-            Spanned title = getUpdateComment(u);
-            long createdAt = u.getCreatedAt();
-
-            return new NoteOrUpdate(
-                    title,
-                    commentBitmap,
-                    createdAt);
-        }
-
-        private static Spanned getUpdateComment(UserActivity activity) {
-            String message = activity.getMessage();
-            return Html.fromHtml(message);
         }
     }
 }

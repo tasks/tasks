@@ -197,9 +197,10 @@ public class TasksXmlExporter {
         }
     }
 
-    /** export the comments made to a particular task. See 'Tasks' issue #373. */
     private synchronized void serializeComments(Task task) {
-        userActivityDao.getCommentsForTask(task.getUuid(), this::writeComment);
+        for (UserActivity comment : userActivityDao.getCommentsForTask(task.getUuid())) {
+            writeComment(comment);
+        }
     }
 
     private void writeComment(UserActivity userActivity) {
