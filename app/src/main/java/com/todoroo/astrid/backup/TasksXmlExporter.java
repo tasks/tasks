@@ -13,13 +13,9 @@ import android.support.annotation.Nullable;
 import android.util.Xml;
 import android.widget.Toast;
 
-import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.UserActivity;
-
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -27,9 +23,11 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
@@ -38,6 +36,7 @@ import org.xmlpull.v1.XmlSerializer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -174,26 +173,19 @@ public class TasksXmlExporter {
     }
 
     private void serializeTasks() throws IOException {
-        TodorooCursor<Task> cursor;
-        cursor = taskDao.query(Query.select(
-                Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
-        try {
-            int length = cursor.getCount();
-            for(int i = 0; i < length; i++) {
-                cursor.moveToNext();
-                Task task = new Task(cursor);
+        List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
+        int length = tasks.size();
+        for(int i = 0; i < length; i++) {
+            Task task = tasks.get(i);
 
-                setProgress(i, length);
+            setProgress(i, length);
 
-                xml.startTag(null, BackupConstants.TASK_TAG);
-                serializeModel(task, Task.PROPERTIES, Task.ID);
-                serializeMetadata(task);
-                serializeComments(task);
-                xml.endTag(null, BackupConstants.TASK_TAG);
-                this.exportCount++;
-            }
-        } finally {
-            cursor.close();
+            xml.startTag(null, BackupConstants.TASK_TAG);
+            serializeModel(task, Task.PROPERTIES, Task.ID);
+            serializeMetadata(task);
+            serializeComments(task);
+            xml.endTag(null, BackupConstants.TASK_TAG);
+            this.exportCount++;
         }
     }
 

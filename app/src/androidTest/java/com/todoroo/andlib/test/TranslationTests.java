@@ -10,8 +10,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.todoroo.andlib.data.Callback;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;
@@ -36,6 +34,10 @@ import static junit.framework.Assert.assertTrue;
  */
 @RunWith(AndroidJUnit4.class)
 public class TranslationTests {
+
+    public interface Callback<T> {
+        void apply(T entry);
+    }
 
     /**
      * Loop through each locale and call runnable

@@ -10,7 +10,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Callback;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -69,10 +68,6 @@ public class TaskDao {
 
     public TodorooCursor<Task> query(Query query) {
         return dao.query(query);
-    }
-
-    public void forEach(Query query, Callback<Task> callback) {
-        query(query).forEach(callback);
     }
 
     public List<Task> selectActive(Criterion criterion) {

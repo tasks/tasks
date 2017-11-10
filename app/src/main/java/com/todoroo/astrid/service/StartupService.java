@@ -98,7 +98,7 @@ public class StartupService {
         BackgroundScheduler.enqueueWork(context);
 
         // perform startup activities in a background thread
-        new Thread(() -> taskDeleter.deleteTasksWithEmptyTitles(null)).start();
+        new Thread(() -> taskDeleter.deleteTasksWithEmptyTitles()).start();
     }
 
     private void upgrade(int from, int to) {

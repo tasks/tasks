@@ -72,7 +72,9 @@ public final class ReminderService  {
         Query query = Query.select(NOTIFICATION_PROPERTIES).where(Criterion.and(
                 TaskCriteria.isActive(),
                 Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0))));
-        taskDao.forEach(query, task -> scheduleAlarm(null, task));
+        for (Task task : taskDao.toList(query)) {
+            scheduleAlarm(null, task);
+        }
     }
 
     public void scheduleAlarm(TaskDao taskDao, Task task) {

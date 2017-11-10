@@ -173,7 +173,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 		Query query = Query.select(Task.ID, Task.TITLE, Task.IMPORTANCE, Task.DUE_DATE)
 				.where(Criterion.and(TaskCriteria.isActive(), TaskCriteria.isVisible()))
 				.orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS);
-		taskDao.get().forEach(query, task -> {
+		for (Task task : taskDao.get().toList(query)) {
 			String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
 
 			Object[] values = new Object[7];
@@ -186,7 +186,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 			values[6] = taskTags;
 
 			ret.addRow(values);
-		});
+		}
 		return ret;
 	}
 

@@ -27,14 +27,12 @@ public class TaskDeleter {
     /**
      * Clean up tasks. Typically called on startup
      */
-    void deleteTasksWithEmptyTitles(Long suppress) {
+    void deleteTasksWithEmptyTitles() {
         Query query = Query.select(Task.ID).where(TaskDao.TaskCriteria.hasNoTitle());
-        taskDao.forEach(query, task -> {
+        for (Task task : taskDao.toList(query)) {
             long id = task.getId();
-            if (suppress == null || suppress != id) {
-                taskDao.delete(id);
-            }
-        });
+            taskDao.delete(id);
+        }
     }
 
     public void delete(Task item) {
@@ -69,11 +67,11 @@ public class TaskDeleter {
         String query = filter.getSqlQuery()
                 .replace(isVisible().toString(), all.toString())
                 .replace(notCompleted().toString(), all.toString());
-        taskDao.fetchFiltered(query, Task.ID, Task.COMPLETION_DATE).forEach(task -> {
+        for (Task task : taskDao.fetchFiltered(query, Task.PROPERTIES).toList()) {
             if (task.isCompleted()) {
                 completed.add(task);
             }
-        });
+        }
         return markDeleted(completed);
     }
 }

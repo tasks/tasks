@@ -51,23 +51,15 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
     }
 
     public List<TYPE> toList() {
-        try {
-            List<TYPE> result = new ArrayList<>();
-            forEach(result::add);
-            return result;
-        } finally {
-            close();
-        }
-    }
-
-    public void forEach(Callback<TYPE> function) {
+        List<TYPE> result = new ArrayList<>();
         try {
             for (moveToFirst() ; !isAfterLast() ; moveToNext()) {
-                function.apply(toModel());
+                result.add(toModel());
             }
         } finally {
             close();
         }
+        return result;
     }
 
     public TYPE toModel() {

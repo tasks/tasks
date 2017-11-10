@@ -100,13 +100,14 @@ public class GtasksListService {
     }
 
     public void deleteList(GtasksList gtasksList) {
-        taskListDataProvider
+        List<Task> tasks = taskListDataProvider
                 .constructCursor(new GtasksFilter(gtasksList), Task.PROPERTIES)
-                .forEach(task -> {
-                    metadataDao.deleteWhere(MetadataDao.MetadataCriteria
-                            .byTaskAndwithKey(task.getId(), GtasksMetadata.METADATA_KEY));
-                    taskDeleter.delete(task);
-                });
+                .toList();
+        for (Task task : tasks) {
+            metadataDao.deleteWhere(MetadataDao.MetadataCriteria
+                    .byTaskAndwithKey(task.getId(), GtasksMetadata.METADATA_KEY));
+            taskDeleter.delete(task);
+        }
         storeObjectDao.delete(gtasksList.getId());
     }
 

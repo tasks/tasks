@@ -74,7 +74,9 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                     protected Integer doInBackground(Void... params) {
                         Query query = Query.select(Task.ID, Task.CALENDAR_URI)
                                 .where(Criterion.and(Task.DELETION_DATE.gt(0)));
-                        taskDao.forEach(query, calendarEventProvider::deleteEvent);
+                        for (Task task : taskDao.toList(query)) {
+                            calendarEventProvider.deleteEvent(task);
+                        }
                         int result = taskDao.deleteWhere(Task.DELETION_DATE.gt(0));
                         metadataDao.removeDanglingMetadata();
                         return result;
