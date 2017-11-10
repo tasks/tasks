@@ -417,7 +417,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         Task model = null;
 
         if (taskId> -1L) {
-            model = taskDao.fetch(taskId, Task.PROPERTIES);
+            model = taskDao.fetch(taskId);
         }
 
         // not found by id or was never passed an id

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.TaskAttachment;
@@ -24,15 +23,15 @@ public class TaskAttachmentDao {
     }
 
     public boolean taskHasAttachments(String taskUuid) {
-        return dao.count(byUuid(taskUuid, TaskAttachment.TASK_UUID).limit(1)) > 0;
+        return dao.count(byUuid(taskUuid).limit(1)) > 0;
     }
 
     public List<TaskAttachment> getAttachments(String taskUuid) {
-        return dao.toList(byUuid(taskUuid, TaskAttachment.PROPERTIES));
+        return dao.toList(byUuid(taskUuid));
     }
 
-    private static Query byUuid(String taskUuid, Property<?>... properties) {
-        return Query.select(properties).where(
+    private static Query byUuid(String taskUuid) {
+        return Query.select(TaskAttachment.PROPERTIES).where(
                 Criterion.and(TaskAttachment.TASK_UUID.eq(taskUuid),
                         TaskAttachment.DELETED_AT.eq(0))
         );

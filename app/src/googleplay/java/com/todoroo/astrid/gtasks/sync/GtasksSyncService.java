@@ -214,7 +214,7 @@ public class GtasksSyncService {
         final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK));
         final AtomicReference<String> sibling = new AtomicReference<>();
         GtasksTaskListUpdater.OrderedListIterator iterator = (taskId, metadata) -> {
-            Task t = taskDao.fetch(taskId, Task.TITLE, Task.DELETION_DATE);
+            Task t = taskDao.fetch(taskId);
             if (t == null || t.isDeleted()) {
                 return;
             }

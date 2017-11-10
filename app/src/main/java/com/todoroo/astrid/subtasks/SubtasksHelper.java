@@ -63,14 +63,14 @@ public class SubtasksHelper {
             if (filter instanceof GtasksFilter) {
                 query = GtasksFilter.toManualOrder(query);
             } else {
-                TagData tagData = tagDataDao.getTagByName(filter.listingTitle, TagData.UUID, TagData.TAG_ORDERING);
+                TagData tagData = tagDataDao.getTagByName(filter.listingTitle);
                 TaskListMetadata tlm = null;
                 if (tagData != null) {
-                    tlm = taskListMetadataDao.fetchByTagId(tagData.getUuid(), TaskListMetadata.TASK_IDS);
+                    tlm = taskListMetadataDao.fetchByTagId(tagData.getUuid());
                 } else if (BuiltInFilterExposer.isInbox(context, filter)) {
-                    tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL, TaskListMetadata.TASK_IDS);
+                    tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL);
                 } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
-                    tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY, TaskListMetadata.TASK_IDS);
+                    tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY);
                 }
 
                 query = query.replaceAll("ORDER BY .*", "");

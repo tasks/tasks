@@ -38,7 +38,7 @@ public class TaskDuplicator {
     public List<Task> duplicate(List<Task> tasks) {
         List<Task> result = new ArrayList<>();
         for (Task task : tasks) {
-            result.add(clone(taskDao.fetch(task.getId(), Task.PROPERTIES), true));
+            result.add(clone(taskDao.fetch(task.getId()), true));
         }
         localBroadcastManager.broadcastRefresh();
         return result;

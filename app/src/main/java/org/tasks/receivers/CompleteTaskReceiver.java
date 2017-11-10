@@ -27,7 +27,7 @@ public class CompleteTaskReceiver extends InjectingBroadcastReceiver {
         long taskId = intent.getLongExtra(TASK_ID, 0);
         boolean flipState = intent.getBooleanExtra(TOGGLE_STATE, false);
         Timber.i("Completing %s", taskId);
-        Task task = taskDao.fetch(taskId, Task.ID, Task.COMPLETION_DATE);
+        Task task = taskDao.fetch(taskId);
         if (task != null) {
             taskDao.setComplete(task, !flipState || !task.isCompleted());
         } else {

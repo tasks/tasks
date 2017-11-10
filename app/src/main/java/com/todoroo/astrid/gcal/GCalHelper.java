@@ -56,7 +56,7 @@ public class GCalHelper {
         if (!TextUtils.isEmpty(task.getCalendarURI())) {
             uri = task.getCalendarURI();
         } else {
-            task = taskDao.fetch(task.getId(), Task.CALENDAR_URI);
+            task = taskDao.fetch(task.getId());
             if(task == null) {
                 return null;
             }

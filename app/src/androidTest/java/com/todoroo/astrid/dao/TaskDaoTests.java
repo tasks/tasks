@@ -52,7 +52,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         assertEquals(1, taskDao.toList(Query.select(IDS)).size());
         long happyId = task.getId();
         assertNotSame(Task.NO_ID, happyId);
-        task = taskDao.fetch(happyId, TITLES);
+        task = taskDao.fetch(happyId);
         assertEquals("happy", task.getTitle());
 
         // create task "sad"
@@ -69,9 +69,9 @@ public class TaskDaoTests extends DatabaseTestCase {
         assertEquals(2, taskDao.toList(Query.select(IDS)).size());
 
         // check state
-        task = taskDao.fetch(happyId, TITLES);
+        task = taskDao.fetch(happyId);
         assertEquals("happy", task.getTitle());
-        task = taskDao.fetch(sadId,TITLES);
+        task = taskDao.fetch(sadId);
         assertEquals("melancholy", task.getTitle());
     }
 
@@ -166,7 +166,7 @@ public class TaskDaoTests extends DatabaseTestCase {
     public void testInvalidIndex() {
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());
 
-        assertNull(taskDao.fetch(1, IDS));
+        assertNull(taskDao.fetch(1));
 
         assertFalse(taskDao.delete(1));
 

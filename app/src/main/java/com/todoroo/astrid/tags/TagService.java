@@ -70,7 +70,7 @@ public final class TagService {
                         MetadataCriteria.withKey(TaskToTagMetadata.KEY))).
                 orderBy(order).groupBy(TaskToTagMetadata.TAG_NAME);
         final List<TagData> array = new ArrayList<>();
-        for (Metadata metadata : metadataDao.query(query)) {
+        for (Metadata metadata : metadataDao.toList(query)) {
             TagData tag = tagFromUUID(metadata.getValue(TaskToTagMetadata.TAG_UUID));
             if (tag != null) {
                 array.add(tag);
@@ -80,7 +80,7 @@ public final class TagService {
     }
 
     public TagData tagFromUUID(String uuid) {
-        return tagDataDao.getByUuid(uuid, TagData.PROPERTIES);
+        return tagDataDao.getByUuid(uuid);
     }
 
     public List<TagData> getTagDataForTask(String uuid) {
@@ -109,7 +109,7 @@ public final class TagService {
                     MetadataCriteria.byTask(taskId)))
                 .orderBy(Order.asc(Functions.upper(TaskToTagMetadata.TAG_NAME)));
         final ArrayList<String> tagNames = new ArrayList<>();
-        for (Metadata entry : metadataDao.query(query)) {
+        for (Metadata entry : metadataDao.toList(query)) {
             tagNames.add(entry.getValue(TaskToTagMetadata.TAG_NAME));
         }
         return tagNames;
@@ -142,7 +142,7 @@ public final class TagService {
             return tagMetadata.getValue(TaskToTagMetadata.TAG_NAME);
         }
 
-        TagData tagData = tagDataDao.getTagByName(tag, TagData.NAME);
+        TagData tagData = tagDataDao.getTagByName(tag);
         if (tagData != null) {
             return tagData.getName();
         }

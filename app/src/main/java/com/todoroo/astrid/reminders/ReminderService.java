@@ -85,7 +85,7 @@ public final class ReminderService  {
         if(taskDao != null) {
             for(Property<?> property : NOTIFICATION_PROPERTIES) {
                 if(!task.containsValue(property)) {
-                    task = taskDao.fetch(taskId, NOTIFICATION_PROPERTIES);
+                    task = taskDao.fetch(taskId);
                     if(task == null) {
                         return;
                     }

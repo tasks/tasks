@@ -265,7 +265,7 @@ public class TasksXmlImporter {
                 String uuid = metadata.getValue(Metadata.VALUE2);
                 long deletionDate = metadata.getDeletionDate();
                 // UUID is uniquely for every TagData, so we don't need to test the name
-                TagData tagData = tagDataDao.getByUuid(uuid, TagData.ID);
+                TagData tagData = tagDataDao.getByUuid(uuid);
                 //If you sync with Google tasks it adds some Google task metadata.
                 //For this metadata we don't create a list!
                 if(key.equals(TaskToTagMetadata.KEY) && tagData == null && deletionDate == 0) {

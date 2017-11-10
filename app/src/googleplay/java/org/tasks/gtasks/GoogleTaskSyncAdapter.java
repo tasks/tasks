@@ -383,7 +383,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         //  merge astrid dates with google dates
 
         if(task.task.isSaved()) {
-            Task local = taskDao.fetch(task.task.getId(), Task.PROPERTIES);
+            Task local = taskDao.fetch(task.task.getId());
             if (local == null) {
                 task.task.clearValue(Task.ID);
                 task.task.clearValue(Task.UUID);

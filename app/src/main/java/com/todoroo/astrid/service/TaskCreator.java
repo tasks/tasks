@@ -142,7 +142,7 @@ public class TaskCreator {
     }
 
     private void createLink(Task task, String tagName) {
-        TagData tagData = tagDataDao.getTagByName(tagName, TagData.NAME, TagData.UUID);
+        TagData tagData = tagDataDao.getTagByName(tagName);
         if (tagData == null) {
             tagData = new TagData();
             tagData.setName(tagName);

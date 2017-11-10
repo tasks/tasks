@@ -65,7 +65,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertEquals(1, metadataDao.toList(Query.select(Metadata.ID)).size());
         long happyId = metadata.getId();
         assertNotSame(Metadata.NO_ID, happyId);
-        metadata = metadataDao.fetch(happyId, KEYS);
+        metadata = metadataDao.fetch(happyId);
         assertEquals("happy", metadata.getKey());
 
         // create "sad"
@@ -83,9 +83,9 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertEquals(2, metadataDao.toList(Query.select(Metadata.ID)).size());
 
         // check state
-        metadata = metadataDao.fetch(happyId, KEYS);
+        metadata = metadataDao.fetch(happyId);
         assertEquals("happy", metadata.getKey());
-        metadata = metadataDao.fetch(sadId, KEYS);
+        metadata = metadataDao.fetch(sadId);
         assertEquals("melancholy", metadata.getKey());
 
         // delete sad

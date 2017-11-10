@@ -146,7 +146,7 @@ class OrderedMetadataListFragmentHelper {
         final ArrayList<Long> chained = new ArrayList<>();
         final int parentIndent = item.getValue(GtasksMetadata.INDENT);
         updater.applyToChildren(list, itemId, node -> {
-            Task childTask = taskDao.fetch(node.taskId, Task.RECURRENCE);
+            Task childTask = taskDao.fetch(node.taskId);
             if(!TextUtils.isEmpty(childTask.getRecurrence())) {
                 Metadata metadata = updater.getTaskMetadata(node.taskId);
                 metadata.setValue(GtasksMetadata.INDENT, parentIndent);

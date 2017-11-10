@@ -353,7 +353,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
     }
 
     private void showEditNotesDialog(final Task task) {
-        Task t = taskDao.fetch(task.getId(), Task.NOTES);
+        Task t = taskDao.fetch(task.getId());
         if (t == null || !t.hasNotes()) {
             return;
         }

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.TagData;
@@ -27,8 +26,8 @@ public class TaskListMetadataDao {
         dao = new RemoteModelDao<>(database, TaskListMetadata.class);
     }
 
-    public TaskListMetadata fetchByTagId(String tagUuid, Property<?>... properties) {
-        return dao.getFirst(Query.select(properties).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
+    public TaskListMetadata fetchByTagId(String tagUuid) {
+        return dao.getFirst(Query.select(TaskListMetadata.PROPERTIES).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
                 TaskListMetadata.FILTER.eq(tagUuid))));
     }
 

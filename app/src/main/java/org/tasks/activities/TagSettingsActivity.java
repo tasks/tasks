@@ -170,7 +170,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     }
 
     private boolean clashes(String newName) {
-        TagData existing = tagDataDao.getTagByName(newName, TagData.PROPERTIES);
+        TagData existing = tagDataDao.getTagByName(newName);
         return existing != null && tagData.getId() != existing.getId();
     }
 

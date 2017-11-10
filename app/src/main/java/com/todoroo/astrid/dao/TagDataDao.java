@@ -5,13 +5,10 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.Callback;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 
 import org.tasks.injection.ApplicationScope;
@@ -35,8 +32,8 @@ public class TagDataDao {
         dao = new RemoteModelDao<>(database, TagData.class);
     }
 
-    public TagData getTagByName(String name, Property<?>... properties) {
-        return dao.getFirst(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(name)));
+    public TagData getTagByName(String name) {
+        return dao.getFirst(Query.select(TagData.PROPERTIES).where(TagData.NAME.eqCaseInsensitive(name)));
     }
 
     public List<TagData> allTags() {
@@ -47,11 +44,7 @@ public class TagDataDao {
     }
 
     public TagData getByUuid(String uuid) {
-        return getByUuid(uuid, TagData.PROPERTIES);
-    }
-
-    public TagData getByUuid(String uuid, Property<?>... properties) {
-        return dao.getFirst(Query.select(properties).where(TagData.UUID.eq(uuid)));
+        return dao.getFirst(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
     }
 
     public List<TagData> tagDataOrderedByName() {

@@ -48,8 +48,7 @@ public class TaskTest extends InjectingTestCase {
     public void testReadTaskFromDb() {
         Task task = new Task();
         taskDao.save(task);
-        Property[] properties = asQueryProperties(Task.TABLE, task.getDatabaseValues());
-        final Task fromDb = taskDao.fetch(task.getId(), properties);
+        final Task fromDb = taskDao.fetch(task.getId());
         compareRemoteModel(task, fromDb);
     }
 

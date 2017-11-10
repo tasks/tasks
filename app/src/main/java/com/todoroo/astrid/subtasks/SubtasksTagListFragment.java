@@ -49,7 +49,7 @@ public class SubtasksTagListFragment extends TagListFragment {
     @Override
     public void setTaskAdapter() {
         String tdId = tagData.getUuid();
-        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(tagData.getUuid(), TaskListMetadata.PROPERTIES);
+        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(tagData.getUuid());
         if (taskListMetadata == null && !RemoteModel.isUuidEmpty(tdId)) {
             taskListMetadata = new TaskListMetadata();
             taskListMetadata.setTagUUID(tdId);

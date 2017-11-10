@@ -249,7 +249,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
             if (Strings.isNullOrEmpty(text)) {
                 continue;
             }
-            TagData tagByName = tagDataDao.getTagByName(text, TagData.PROPERTIES);
+            TagData tagByName = tagDataDao.getTagByName(text);
             if (tagByName != null) {
                 if (!isSelected(tags, text)) {
                     setTagSelected(tagByName);

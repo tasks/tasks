@@ -36,10 +36,6 @@ public class MetadataDao {
         dao = new DatabaseDao<>(database, Metadata.class);
     }
 
-    public List<Metadata> query(Query query) {
-        return dao.toList(query);
-    }
-
     public Metadata getFirst(Query query) {
         return dao.getFirst(query);
     }
@@ -78,8 +74,8 @@ public class MetadataDao {
         dao.saveExisting(metadata);
     }
 
-    public Metadata fetch(long id, Property<?>... properties) {
-        return dao.fetch(id, properties);
+    public Metadata fetch(long id) {
+        return dao.fetch(id, Metadata.PROPERTIES);
     }
 
     // --- SQL clause generators

@@ -75,7 +75,7 @@ public class SubtasksListFragment extends TaskListFragment {
         if (TextUtils.isEmpty(filterId)) {
             return null;
         }
-        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(filterId, TaskListMetadata.PROPERTIES);
+        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(filterId);
         if (taskListMetadata == null) {
             String defaultOrder = preferences.getStringValue(prefId);
             if (TextUtils.isEmpty(defaultOrder)) {

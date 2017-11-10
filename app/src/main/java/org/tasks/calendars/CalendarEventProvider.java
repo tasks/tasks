@@ -64,7 +64,7 @@ public class CalendarEventProvider {
 
     public boolean deleteEvent(Task task) {
         if (!task.containsNonNullValue(Task.CALENDAR_URI)) {
-            task = taskDao.fetch(task.getId(), Task.CALENDAR_URI);
+            task = taskDao.fetch(task.getId());
             if(task == null) {
                 return false;
             }

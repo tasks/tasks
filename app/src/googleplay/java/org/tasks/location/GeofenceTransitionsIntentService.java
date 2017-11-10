@@ -64,7 +64,7 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
     private void triggerNotification(com.google.android.gms.location.Geofence triggeringGeofence) {
         String requestId = triggeringGeofence.getRequestId();
         try {
-            Metadata fetch = metadataDao.fetch(Long.parseLong(requestId), Metadata.TASK, GeofenceFields.PLACE, GeofenceFields.LATITUDE, GeofenceFields.LONGITUDE, GeofenceFields.RADIUS);
+            Metadata fetch = metadataDao.fetch(Long.parseLong(requestId));
             Geofence geofence = new Geofence(fetch);
             notifier.triggerTaskNotification(geofence.getTaskId(), ReminderService.TYPE_ALARM);
         } catch(Exception e) {
