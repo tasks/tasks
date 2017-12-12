@@ -28,4 +28,12 @@ public class Freeze {
     public void thawAfter(Snippet snippet) {
         thaw();
     }
+
+    public void thawAfter(Runnable run) {
+        try {
+            run.run();
+        } finally {
+            thaw();
+        }
+    }
 }

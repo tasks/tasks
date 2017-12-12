@@ -39,17 +39,17 @@ public class DateUtilitiesTest {
     @Before
     public void setUp() {
         defaultLocale = Locale.getDefault();
-        Locale.setDefault(Locale.US);
+        setLocale(Locale.US);
     }
 
     @After
     public void tearDown() {
         DateUtilities.is24HourOverride = null;
-        Locale.setDefault(defaultLocale);
+        setLocale(defaultLocale);
     }
 
     private void setLocale(Locale locale) {
-        Locale.setDefault(locale);
+        org.tasks.locale.Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
         DisplayMetrics metrics = getTargetContext().getResources().getDisplayMetrics();
@@ -229,5 +229,75 @@ public class DateUtilitiesTest {
     @Test
     public void testAddMonthsWithMoreDays() {
         assertEquals(newDate(2014, 1, 30).getMillis(), addCalendarMonthsToUnixtime(newDate(2013, 11, 30).getMillis(), 2));
+    }
+
+    @Test
+    public void usDateNoYear() {
+        setLocale(Locale.US);
+        freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
+                assertEquals("Jan 14", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void usDateWithYear() {
+        setLocale(Locale.US);
+        freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
+            assertEquals("Jan 14 '18", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void germanDateNoYear() {
+        setLocale(Locale.GERMAN);
+        freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
+                assertEquals("14 Jan.", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void germanDateWithYear() {
+        setLocale(Locale.GERMAN);
+        freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
+                assertEquals("14 Jan. '18", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void koreanDateNoYear() {
+        setLocale(Locale.KOREAN);
+        freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
+            assertEquals("1월 14일", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void koreanDateWithYear() {
+        setLocale(Locale.KOREAN);
+        freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
+            assertEquals("18년 1월 14일", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void japaneseDateNoYear() {
+        setLocale(Locale.JAPANESE);
+        freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
+            assertEquals("1月 14日", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void japaneseDateWithYear() {
+        setLocale(Locale.JAPANESE);
+        freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
+                assertEquals("18年 1月 14日", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void chineseDateNoYear() {
+        setLocale(Locale.CHINESE);
+        freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
+                assertEquals("1月 14日", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
+    }
+
+    @Test
+    public void chineseDateWithYear() {
+        setLocale(Locale.CHINESE);
+        freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
+                assertEquals("18年 1月 14日", DateUtilities.getRelativeDateStringWithTime(getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
     }
 }

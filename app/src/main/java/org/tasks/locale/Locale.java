@@ -37,13 +37,21 @@ public class Locale {
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
                     String language = prefs.getString(applicationContext.getString(R.string.p_language), null);
                     int directionOverride = Integer.parseInt(prefs.getString(applicationContext.getString(R.string.p_layout_direction), "-1"));
-                    INSTANCE = new Locale(DEFAULT.getLocale(), language, directionOverride);
-                    java.util.Locale.setDefault(INSTANCE.getLocale());
+                    setDefault(DEFAULT.getLocale(), language, directionOverride);
                 }
             }
         }
 
         return getInstance();
+    }
+
+    public static void setDefault(java.util.Locale locale) {
+        setDefault(locale, null, -1);
+    }
+
+    private static void setDefault(java.util.Locale locale, String languageOverride, int directionOverride) {
+        INSTANCE = new Locale(locale, languageOverride, directionOverride);
+        java.util.Locale.setDefault(locale);
     }
 
     public static Locale getInstance() {

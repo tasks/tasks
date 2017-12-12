@@ -13,7 +13,6 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.R;
 import org.tasks.time.DateTime;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -65,6 +64,13 @@ public class DateUtilities {
     /** Represents a single minute */
     public static final long ONE_MINUTE = 60000L;
 
+    private static final String JA = "MMM d\u65E5";
+    private static final String JA_YEAR = "yy\u5E74 " + JA;
+    private static final String KO = "MMM d\uC77C";
+    private static final String KO_YEAR = "yy\uB144 " + KO;
+    private static final String ZH = "MMM d\u65E5";
+    private static final String ZH_YEAR = "yy\u5E74 " + ZH;
+
     /* ======================================================================
      * =========================================================== formatters
      * ====================================================================== */
@@ -95,12 +101,6 @@ public class DateUtilities {
         return date.toString(value);
     }
 
-    /* Returns true if search string is in sortedValues */
-
-    private static boolean arrayBinaryContains(String search, String... sortedValues) {
-        return Arrays.binarySearch(sortedValues, search) >= 0;
-    }
-
     public static String getLongDateString(DateTime date) {
         return getDateString("MMMM", date);
     }
@@ -114,26 +114,33 @@ public class DateUtilities {
     }
 
     private static String getDateString(String simpleDateFormat, DateTime date) {
-        String month = date.toString(simpleDateFormat);
-        String value;
-        Locale locale = Locale.getDefault();
-        if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
-                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US")) {
-            value = "'#' d";
-        } else {
-            value = "d '#'";
-        }
+        boolean includeYear = date.getYear() != newDateTime().getYear();
+        String format = getFormat(Locale.getDefault(), simpleDateFormat, includeYear);
+        return date.toString(format);
+    }
 
-        if (date.getYear() != newDateTime().getYear()) {
-            value = value + " ''yy";
+    private static String getFormat(Locale locale, String monthFormat, boolean includeYear) {
+        switch(locale.getLanguage()) {
+            case "ja":
+                return includeYear ? JA_YEAR : JA;
+            case "ko":
+                return includeYear ? KO_YEAR : KO;
+            case "zh":
+                return includeYear ? ZH_YEAR : ZH;
         }
-
-        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) {
-            return date.toString(value).replace("#", month) + "\u65E5";
-        } else if ("ko".equals(Locale.getDefault().getLanguage())) {
-            return date.toString(value).replace("#", month) + "\uC77C";
-        } else {
-            return date.toString(value).replace("#", month);
+        switch (locale.getCountry()) {
+            case "BZ":
+            case "CA":
+            case "KE":
+            case "MN":
+            case "US":
+                return includeYear
+                        ? monthFormat + " d ''yy"
+                        : monthFormat + " d";
+            default:
+                return includeYear
+                        ? "d " + monthFormat + " ''yy"
+                        : "d " + monthFormat;
         }
     }
 
