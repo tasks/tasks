@@ -24,6 +24,7 @@ import org.tasks.activities.TimePickerActivity;
 import org.tasks.dashclock.DashClockSettings;
 import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
+import org.tasks.locale.ui.activity.TaskerCreateTaskActivity;
 import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
@@ -120,4 +121,6 @@ public interface ActivityComponent {
     void inject(BasicPreferences basicPreferences);
 
     void inject(GoogleTaskListSettingsActivity googleTaskListSettingsActivity);
+
+    void inject(TaskerCreateTaskActivity taskerCreateTaskActivity);
 }

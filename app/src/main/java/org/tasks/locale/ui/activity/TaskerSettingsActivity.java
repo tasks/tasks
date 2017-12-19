@@ -12,13 +12,13 @@ import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.injection.ActivityComponent;
-import org.tasks.locale.bundle.PluginBundleValues;
+import org.tasks.locale.bundle.ListNotificationBundle;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
-public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompatActivity implements PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
+public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferenceActivity implements PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
 
     private static final int REQUEST_SELECT_FILTER = 10124;
     private static final int REQUEST_PURCHASE = 10125;
@@ -40,7 +40,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
         addPreferencesFromResource(R.xml.preferences_tasker);
 
         if (savedInstanceState != null) {
-            previousBundle = savedInstanceState.getParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
+            previousBundle = savedInstanceState.getParcelable(ListNotificationBundle.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
             filter = savedInstanceState.getParcelable(EXTRA_FILTER);
             purchaseInitiated = savedInstanceState.getBoolean(EXTRA_PURCHASE_INITIATED);
         } else {
@@ -64,18 +64,18 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     @Override
     public void onPostCreateWithPreviousResult(final Bundle previousBundle, final String previousBlurb) {
         this.previousBundle = previousBundle;
-        this.filter = defaultFilterProvider.getFilterFromPreference(PluginBundleValues.getFilter(previousBundle));
+        this.filter = defaultFilterProvider.getFilterFromPreference(ListNotificationBundle.getFilter(previousBundle));
         refreshPreferences();
     }
 
     @Override
     public boolean isBundleValid(final Bundle bundle) {
-        return PluginBundleValues.isBundleValid(bundle);
+        return ListNotificationBundle.isBundleValid(bundle);
     }
 
     @Override
     protected Bundle getResultBundle() {
-        return PluginBundleValues.generateBundle(defaultFilterProvider.getFilterPreferenceValue(filter));
+        return ListNotificationBundle.generateBundle(defaultFilterProvider.getFilterPreferenceValue(filter));
     }
 
     @Override
@@ -114,7 +114,7 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginAppCompa
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(PluginBundleValues.BUNDLE_EXTRA_PREVIOUS_BUNDLE, previousBundle);
+        outState.putParcelable(ListNotificationBundle.BUNDLE_EXTRA_PREVIOUS_BUNDLE, previousBundle);
         outState.putParcelable(EXTRA_FILTER, filter);
         outState.putBoolean(EXTRA_PURCHASE_INITIATED, purchaseInitiated);
     }

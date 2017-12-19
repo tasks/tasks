@@ -29,6 +29,7 @@ public class JobManager {
     public static final int JOB_ID_TASK_STATUS_CHANGE = 8;
     public static final int JOB_ID_NOTIFICATION_SCHEDULER = 9;
     public static final int JOB_ID_CALENDAR_NOTIFICATION = 10;
+    public static final int JOB_ID_TASKER = 11;
 
     private Context context;
     private AlarmManager alarmManager;

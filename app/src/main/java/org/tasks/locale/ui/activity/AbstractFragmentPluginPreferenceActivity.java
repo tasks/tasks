@@ -3,15 +3,11 @@ package org.tasks.locale.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
-
-import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.injection.InjectingPreferenceActivity;
-import org.tasks.injection.ThemedInjectingAppCompatActivity;
 
 import timber.log.Timber;
 
-public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInjectingAppCompatActivity {
+public abstract class AbstractFragmentPluginPreferenceActivity extends InjectingPreferenceActivity {
 
     boolean mIsCancelled = false;
 
@@ -51,7 +47,6 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends ThemedInje
 
     @Override
     public void finish() {
-        AndroidUtilities.hideKeyboard(this);
         if (isLocalePluginIntent(getIntent())) {
             if (!mIsCancelled) {
                 final Bundle resultBundle = getResultBundle();

@@ -466,6 +466,11 @@
 
         <receiver android:name=".notifications.NotificationClearedReceiver" />
 
+        <service
+            android:name=".locale.receiver.TaskerIntentService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false" />
+
         <!-- Uses Library -->
         <uses-library
             android:name="com.google.android.maps"
@@ -496,9 +501,24 @@
         <!-- Tasker/Locale -->
 
         <activity
+            android:name=".locale.ui.activity.TaskerCreateTaskActivity"
+            android:exported="true"
+            android:enabled="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/tasker_create_task"
+            android:theme="@style/Tasks"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="ExportedActivity">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".locale.ui.activity.TaskerSettingsActivity"
             android:exported="false"
-            android:label="@string/app_name"
+            android:label="@string/tasker_list_notification"
             android:theme="@style/Tasks"
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="adjustResize"/>
@@ -508,7 +528,7 @@
             android:exported="true"
             android:enabled="true"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
+            android:label="@string/tasker_list_notification"
             android:targetActivity=".locale.ui.activity.TaskerSettingsActivity"
             tools:ignore="ExportedActivity">
             <intent-filter>
@@ -520,7 +540,6 @@
             android:name=".locale.receiver.FireReceiver"
             android:exported="true"
             android:enabled="true"
-            android:process=":background"
             tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>

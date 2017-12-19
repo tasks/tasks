@@ -6,7 +6,9 @@ import org.tasks.BuildConfig;
 
 import timber.log.Timber;
 
-public final class PluginBundleValues {
+import static com.google.common.base.Strings.isNullOrEmpty;
+
+public final class ListNotificationBundle {
 
     public static final String BUNDLE_EXTRA_STRING_FILTER = "org.tasks.locale.STRING_FILTER";
     public static final String BUNDLE_EXTRA_PREVIOUS_BUNDLE = "org.tasks.locale.PREVIOUS_BUNDLE";
@@ -18,26 +20,16 @@ public final class PluginBundleValues {
             return false;
         }
 
-        if (isNullOrEmpty(bundle, BUNDLE_EXTRA_STRING_FILTER)) {
+        if (bundle.getInt(BUNDLE_EXTRA_INT_VERSION_CODE, -1) == -1) {
             return false;
         }
 
-        Integer version = bundle.getInt(BUNDLE_EXTRA_INT_VERSION_CODE, -1);
-        if (version == -1) {
-            Timber.e("invalid version code: %s", version);
+        if (isNullOrEmpty(bundle.getString(BUNDLE_EXTRA_STRING_FILTER))) {
+            Timber.e("Invalid %s", BUNDLE_EXTRA_STRING_FILTER);
             return false;
         }
 
         return true;
-    }
-
-    private static boolean isNullOrEmpty(Bundle bundle, String key) {
-        String value = bundle.getString(key);
-        boolean isNullOrEmpty = value == null || value.trim().length() == 0;
-        if (isNullOrEmpty) {
-            Timber.e("Invalid %s", key);
-        }
-        return isNullOrEmpty;
     }
 
     public static Bundle generateBundle(String filter) {
@@ -51,6 +43,6 @@ public final class PluginBundleValues {
         return bundle.getString(BUNDLE_EXTRA_STRING_FILTER);
     }
 
-    private PluginBundleValues() {
+    private ListNotificationBundle() {
     }
 }

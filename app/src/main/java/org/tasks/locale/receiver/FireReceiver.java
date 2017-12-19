@@ -1,31 +1,19 @@
 package org.tasks.locale.receiver;
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v4.app.JobIntentService;
 
-import com.todoroo.astrid.api.Filter;
-
-import org.tasks.Notifier;
-import org.tasks.injection.BroadcastComponent;
-import org.tasks.injection.InjectingBroadcastReceiver;
-import org.tasks.locale.bundle.PluginBundleValues;
-import org.tasks.preferences.DefaultFilterProvider;
-
-import javax.inject.Inject;
+import org.tasks.jobs.JobManager;
 
 import timber.log.Timber;
 
-public final class FireReceiver extends InjectingBroadcastReceiver {
-
-    @Inject Notifier notifier;
-    @Inject DefaultFilterProvider defaultFilterProvider;
+public final class FireReceiver extends BroadcastReceiver {
 
     @Override
     public final void onReceive(final Context context, final Intent intent) {
-        super.onReceive(context, intent);
-
         Timber.d("Received %s", intent); //$NON-NLS-1$
 
         /*
@@ -54,28 +42,6 @@ public final class FireReceiver extends InjectingBroadcastReceiver {
             return;
         }
 
-        final Bundle bundle = intent
-                .getBundleExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
-
-        if (null == bundle) {
-            Timber.e("%s is missing",
-                    com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE); //$NON-NLS-1$
-            return;
-        }
-
-        if (!PluginBundleValues.isBundleValid(bundle)) {
-            Timber.e("%s is invalid",
-                    com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE); //$NON-NLS-1$
-            return;
-        }
-
-        Filter filter = defaultFilterProvider.getFilterFromPreference(
-                bundle.getString(PluginBundleValues.BUNDLE_EXTRA_STRING_FILTER));
-        notifier.triggerFilterNotification(filter);
-    }
-
-    @Override
-    protected void inject(BroadcastComponent component) {
-        component.inject(this);
+        JobIntentService.enqueueWork(context, TaskerIntentService.class, JobManager.JOB_ID_TASKER, intent);
     }
 }

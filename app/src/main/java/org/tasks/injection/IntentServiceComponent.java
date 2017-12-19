@@ -1,10 +1,11 @@
 package org.tasks.injection;
 
-import org.tasks.jobs.NotificationJob;
+import org.tasks.jobs.AfterSaveIntentService;
 import org.tasks.jobs.BackupJob;
 import org.tasks.jobs.MidnightRefreshJob;
+import org.tasks.jobs.NotificationJob;
 import org.tasks.jobs.RefreshJob;
-import org.tasks.jobs.AfterSaveIntentService;
+import org.tasks.locale.receiver.TaskerIntentService;
 import org.tasks.location.GeofenceTransitionsIntentService;
 import org.tasks.scheduling.BackgroundScheduler;
 import org.tasks.scheduling.CalendarNotificationIntentService;
@@ -34,4 +35,6 @@ public interface IntentServiceComponent {
     void inject(BackgroundScheduler backgroundScheduler);
 
     void inject(AfterSaveIntentService afterSaveIntentService);
+
+    void inject(TaskerIntentService taskerIntentService);
 }
