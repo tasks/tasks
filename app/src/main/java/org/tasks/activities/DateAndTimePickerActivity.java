@@ -7,10 +7,12 @@ import android.os.Bundle;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.tasks.R;
 import org.tasks.dialogs.MyDatePickerDialog;
 import org.tasks.dialogs.NativeDatePickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
@@ -30,6 +32,7 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
 
     @Inject ThemeBase themeBase;
     @Inject ThemeAccent themeAccent;
+    @Inject Preferences preferences;
 
     private DateTime initial;
     private boolean dateSelected;
@@ -48,7 +51,7 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
         }
 
         FragmentManager fragmentManager = getFragmentManager();
-        if (atLeastLollipop()) {
+        if (preferences.getBoolean(R.string.p_use_native_datetime_pickers, false)) {
             if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
                 newNativeDatePickerDialog(initial)
                         .show(fragmentManager, FRAG_TAG_DATE_PICKER);
@@ -60,6 +63,10 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
                 datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
                 datePickerDialog.setThemeDark(themeBase.isDarkTheme(this));
                 datePickerDialog.setAccentColor(themeAccent.getAccentColor());
+                int firstDayOfWeek = preferences.getFirstDayOfWeek();
+                if (firstDayOfWeek >= 1 && firstDayOfWeek <= 7) {
+                    datePickerDialog.setFirstDayOfWeek(firstDayOfWeek);
+                }
                 datePickerDialog.show(fragmentManager, FRAG_TAG_DATE_PICKER);
             }
             datePickerDialog.setOnCancelListener(this);
