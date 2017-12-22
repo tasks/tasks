@@ -8,7 +8,7 @@
 <resources>
 	<string name="actfm_picture_clear">Убрать изображение</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
-	<string name="name">Тег:</string>
+	<string name="name">Название</string>
 	<string name="enter_filter_name">Введите имя фильтра</string>
 	<string name="backup_BPr_header">Резервные копии</string>
 	<string name="backup_BAc_import">Импортировать задачи</string>
@@ -28,7 +28,7 @@
 	<string name="DLG_hour_minutes">Время (час : мин)</string>
 	<string name="DLG_undo">Отмена</string>
 	<string name="WID_dateButtonUnset">Установить</string>
-	<string name="TLA_no_items">Задач нет.</string>
+	<string name="TLA_no_items">Задач нет</string>
 	<string name="TLA_menu_sort">Сортировка</string>
 	<string name="TLA_menu_search">Поиск</string>
 	<string name="TLA_menu_settings">Настройки</string>
@@ -65,7 +65,7 @@
 	<string name="TEA_control_importance">Приоритет</string>
 	<string name="TEA_control_notes">Описание</string>
 	<string name="TEA_control_files">Файлы</string>
-	<string name="TEA_control_google_task_list">Список Google Task</string>
+	<string name="TEA_control_google_task_list">Список Google Tasks</string>
 	<string name="TEA_control_reminders">Напоминания</string>
 	<string name="TEA_control_timer">Учет времени</string>
 	<string name="TEA_control_hidden_section">Всегда скрывать</string>
@@ -88,7 +88,7 @@
 	<string name="CRA_calendar_reminders_pref_title">Ассистент календаря</string>
 	<string name="CRA_calendar_reminders_pref_desc_enabled">Tasks будет напоминать вам о предстоящих событиях в календаре и напомнит вам подготовиться к ним</string>
 	<string name="CRA_default_list_name">Пункты события: %s</string>
-	<string name="none">Пусто</string>
+	<string name="none">Нет</string>
 	<string name="EPr_appearance_header">Интерфейс</string>
 	<string name="EPr_filters_to_show_title">Показать фильтры</string>
 	<string name="EPr_edit_screen_options">Редактировать настройки экрана</string>
@@ -101,7 +101,8 @@
 	<string name="EPr_cal_start_at_due_time">Создавать события в календаре при наступлении срока</string>
 	<string name="EPr_manage_header">Управление старыми задачами</string>
 	<string name="EPr_manage_purge_deleted">Очистить удаленные задачи?</string>
-	<string name="EPr_manage_purge_deleted_message">Действительно хотите убрать все удалённые задачи?\n\nЭта операция необратима!</string>
+	<string name="EPr_manage_purge_deleted_message">Действительно хотите навсегда удалить эти задачи?
+Эта операция необратима!</string>
 	<string name="EPr_manage_purge_deleted_status">Убрано %d задач!</string>
 	<string name="EPr_reset_preferences">Сбросить настройки</string>
 	<string name="EPr_reset_preferences_warning">Настройки будут сброшены в первоначальное состояние</string>
@@ -142,7 +143,7 @@
 	<string name="CFC_dueBefore_text">Конечный срок: ?</string>
 	<string name="CFC_dueBefore_name">Конечный срок…</string>
 	<string name="no_due_date">Нет даты выполнения задания</string>
-	<string name="next_month">Через месяц</string>
+	<string name="next_month">Ближайшие 30 дней</string>
 	<string name="CFC_importance_text">Приоритет меньшего?</string>
 	<string name="CFC_importance_name">Приоритет...</string>
 	<string name="CFC_tag_text">Тег: ? </string>
@@ -185,7 +186,7 @@
 	<string name="rmd_EPr_rmd_time_title">Напоминание по умолчанию</string>
 	<string name="rmd_EPr_rmd_time_desc">Уведомления для задач без срока выполнения появятся в %s</string>
 	<string name="persistent_notifications">Постоянные напоминания</string>
-	<string name="persistent_notifications_description">Постоянные напоминания не могут быть удалены</string>
+	<string name="persistent_notifications_description">Назойливые уведомления</string>
 	<string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
 	<string name="default_random_reminder_disabled">отключено</string>
 	<string name="default_random_reminder_hourly">ежечасно</string>
@@ -194,6 +195,10 @@
 	<string name="default_random_reminder_bi_weekly">каждые две недели</string>
 	<string name="default_random_reminder_monthly">ежемесячно</string>
 	<string name="default_random_reminder_bi_monthly">каждые два месяца</string>
+	<plurals name="task_count">
+		<item quantity="one">%d task</item>
+		<item quantity="other">%d задач(а/и)</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">минуты</item>
 		<item quantity="other">минут</item>
@@ -253,7 +258,7 @@
 	<string name="sync_SPr_interval_title">Фоновая синхронизация</string>
 	<string name="sync_SPr_forget">Выйти</string>
 	<string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
-	<string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>
+	<string name="sync_forget_confirm">Выйти и очистить данные синхронизации?</string>
 	<string name="widget_show_due_date">Показать даты</string>
 	<string name="widget_show_checkboxes">Показать флажки</string>
 	<string name="widget_show_header">Показать заголовок</string>
@@ -261,13 +266,13 @@
 	<string name="notifications">Уведомления</string>
 	<string name="silent">Без звука</string>
 	<string name="sound">Звук</string>
-	<string name="vibrations">Вибро</string>
+	<string name="vibrations">Вибрация</string>
 	<string name="quiet_hours">Тихие часы:</string>
 	<string name="attachment_directory">Путь к вложениям</string>
 	<string name="backup_directory">Папка резервных копий</string>
 	<string name="miscellaneous">Прочие настройки</string>
 	<string name="synchronization">Синхронизация</string>
-	<string name="enabled">Показывать уведомления</string>
+	<string name="enabled">Включить режим</string>
 	<string name="font_size">Размер шрифта</string>
 	<string name="row_spacing">Межстрочный интервал</string>
 	<string name="customize_edit_screen">Порядок полей в задаче...</string>
@@ -295,7 +300,7 @@
 	<string name="geolocation_reminders">Напоминания по местонахождению</string>
 	<string name="tags">Теги</string>
 	<string name="filters">Фильтры</string>
-	<string name="date_shortcut_hour">Через час</string>
+	<string name="date_shortcut_hour">На час</string>
 	<string name="date_shortcut_morning">Утро</string>
 	<string name="date_shortcut_afternoon">Обед</string>
 	<string name="date_shortcut_evening">Вечер</string>
@@ -313,13 +318,13 @@
 	<string name="filter_settings">Настройки фильтра</string>
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
-	<string name="reverse"> Реверс</string>
+	<string name="reverse">Наоборот</string>
 	<string name="get_plugins">Покупки в приложении</string>
 	<string name="no_application_found">Не найдено приложение для открытия прикреплённого файла</string>
 	<string name="add_attachment">Прикрепить файл</string>
-	<string name="take_a_picture">Выбрать изображение</string>
-	<string name="pick_from_gallery">Выбрать из галереи</string>
-	<string name="pick_from_storage">Выбрать с диска</string>
+	<string name="take_a_picture">Сделать снимок</string>
+	<string name="pick_from_gallery">Выбрать изображение из галереи</string>
+	<string name="pick_from_storage">Выбрать файл с диска</string>
 	<string name="privacy">Конфиденциальность</string>
 	<string name="privacy_policy">Политика конфиденциальности</string>
 	<string name="send_anonymous_statistics">Содействовать улучшению</string>
@@ -389,10 +394,10 @@
 	<string name="creating_new_list">Создание нового списка</string>
 	<string name="deleting_list">Удаление списка</string>
 	<string name="renaming_list">Переименование списка</string>
-	<string name="clear_completed_tasks_confirmation">Очистить завершённую задачу?</string>
-	<string name="copy_multiple_tasks_confirmation">%s скопировано</string>
+	<string name="clear_completed_tasks_confirmation">Очистить завершенные задачи?</string>
+	<string name="copy_multiple_tasks_confirmation">Клонировано %s задач(и)</string>
 	<string name="delete_multiple_tasks_confirmation">%s удалено</string>
-	<string name="delete_selected_tasks">Удалить выделенные задачи?</string>
+	<string name="delete_selected_tasks">Удалить выделенную(-ые) задачу(-и)?</string>
 	<string name="copy_selected_tasks">Скопировать выделенные задачи?</string>
 	<string name="date_and_time">Дата и время</string>
 	<string name="start_of_week">Начало недели</string>
@@ -401,7 +406,11 @@
 	<string name="notification_channel_settings">Управление уведомлениями</string>
 	<string name="battery_optimization_settings">Управление расходом батареи</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
-	<string name="bundle_notifications">Перечень уведомлений</string>
-	<string name="badges">Бейджи</string>
+	<string name="bundle_notifications">Цепочка уведомлений</string>
+	<string name="badges">Ярлыки</string>
 	<string name="list">Список</string>
+	<string name="dont_add_to_calendar">Не добавлять в календарь</string>
+	<string name="default_calendar">Календарь по умолчанию</string>
+	<string name="badges_description">Отображать количество задач на иконке приложения (не все лаунчеры это поддерживают)</string>
+	<string name="bundle_notifications_summary">Группировать несколько уведомлений в одно общее</string>
 </resources>

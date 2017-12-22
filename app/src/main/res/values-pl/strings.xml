@@ -199,6 +199,7 @@
 	<string name="repeat_option_every_week">Każdego tygodnia</string>
 	<string name="repeat_option_every_month">Każdego miesiąca</string>
 	<string name="repeat_option_every_year">Każdego roku</string>
+	<string name="repeat_yearly">Powtarzaj co roku</string>
 	<plurals name="repeat_minutes">
 		<item quantity="one">minuta</item>
 		<item quantity="other">minut</item>

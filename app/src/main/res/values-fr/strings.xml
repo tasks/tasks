@@ -464,4 +464,7 @@
 	<string name="repeat_monthly_third_week">troisième</string>
 	<string name="repeat_monthly_fourth_week">quatrième</string>
 	<string name="repeat_monthly_last_week">dernier</string>
+	<string name="tasker_create_task">Créer tâche</string>
+	<string name="tasker_list_notification">Liste des notifications</string>
+	<string name="help">Aide</string>
 </resources>

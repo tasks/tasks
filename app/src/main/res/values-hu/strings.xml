@@ -487,4 +487,7 @@
 	<string name="repeat_monthly_third_week">harmadik</string>
 	<string name="repeat_monthly_fourth_week">negyedik</string>
 	<string name="repeat_monthly_last_week">utolsó</string>
+	<string name="tasker_create_task">Feladat létrehozása</string>
+	<string name="tasker_list_notification">Lista értesítés</string>
+	<string name="help">Súgó</string>
 </resources>

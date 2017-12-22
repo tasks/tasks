@@ -483,4 +483,7 @@
 	<string name="repeat_monthly_third_week">trečią</string>
 	<string name="repeat_monthly_fourth_week">ketvirtą</string>
 	<string name="repeat_monthly_last_week">paskutinę(-į)</string>
+	<string name="tasker_create_task">Sukurti užduotį</string>
+	<string name="tasker_list_notification">Rodyti pranešimus</string>
+	<string name="help">Pagalba</string>
 </resources>

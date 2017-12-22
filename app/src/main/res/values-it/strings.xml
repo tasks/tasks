@@ -37,10 +37,10 @@
 	<string name="TAd_actionEditTask">Modifica</string>
 	<string name="SSD_sort_drag">Ordinamento manuale con attività correlate</string>
 	<string name="SSD_sort_auto">Ordinamento Intelligente</string>
-	<string name="SSD_sort_alpha">Per Titotlo</string>
+	<string name="SSD_sort_alpha">Per titolo</string>
 	<string name="SSD_sort_due">Per scadenza</string>
 	<string name="SSD_sort_importance">Per priorità</string>
-	<string name="SSD_sort_modified">Per Ultima Modifica</string>
+	<string name="SSD_sort_modified">Per ultima modifica</string>
 	<string name="FLA_search_filter">Uguale a  \'%s\'</string>
 	<string name="FLA_new_filter">Crea nuovo filtro</string>
 	<string name="TEA_title_hint">Memo attività</string>
@@ -99,7 +99,7 @@
 	<string name="EPr_cal_end_or_start_at_due_time">Ora calendario eventi</string>
 	<string name="EPr_cal_end_at_due_time">Calendario eventi fino alla scadenza</string>
 	<string name="EPr_cal_start_at_due_time">Calendario eventi dalla scadenza</string>
-	<string name="EPr_manage_header">Gestisci compiti vecchi</string>
+	<string name="EPr_manage_header">Gestisci attività passate</string>
 	<string name="EPr_manage_purge_deleted">Rimuovi le attività eliminate</string>
 	<string name="EPr_manage_purge_deleted_message">Sicuro di voler rimuovere le attività eliminate?\n\nQueste attività saranno perse per sempre!</string>
 	<string name="EPr_manage_purge_deleted_status">Rimosse %d attività!</string>
@@ -113,7 +113,7 @@
 	<string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in programma</string>
 	<string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programmi?</string>
 	<string name="EPr_manage_delete_all_gcal_status">Eliminato il %d degli eventi del calendario!</string>
-	<string name="task_defaults">Imp. predefinite attività</string>
+	<string name="task_defaults">Impostazioni predef. attività</string>
 	<string name="EPr_default_urgency_title">Urgenza Predefinita</string>
 	<string name="EPr_default_importance_title">Priorità predefinita</string>
 	<string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
@@ -195,36 +195,85 @@
 	<string name="default_random_reminder_bi_weekly">bi-settimanalmente</string>
 	<string name="default_random_reminder_monthly">mensilmente</string>
 	<string name="default_random_reminder_bi_monthly">bi-mensilmente</string>
+	<string name="repeat_every">Ogni</string>
+	<string name="repeat_option_does_not_repeat">Non si ripete</string>
+	<string name="repeat_option_every_day">Ogni giorno</string>
+	<string name="repeat_option_every_week">Ogni settimana</string>
+	<string name="repeat_option_every_month">Ogni mese</string>
+	<string name="repeat_option_every_year">Ogni anno</string>
+	<string name="repeat_option_custom">Personalizzato...</string>
+	<string name="repeat_minutely">RIPETI OGNI MINUTO</string>
+	<string name="repeat_hourly">RIPETI OGNI ORA</string>
+	<string name="repeat_daily">RIPETI OGNI GIORNO</string>
+	<string name="repeat_weekly">RIPETI OGNI SETTIMANA</string>
+	<string name="repeat_monthly">RIPETI OGNI MESE</string>
+	<string name="repeat_yearly">RIPETI OGNI ANNO</string>
+	<plurals name="task_count">
+		<item quantity="one">%d attività</item>
+		<item quantity="other">%d attività</item>
+	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">volta</item>
+		<item quantity="other">volte</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">minuto</item>
 		<item quantity="other">minuti</item>
+	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d minuto</item>
+		<item quantity="other">%d minuti</item>
 	</plurals>
 	<plurals name="repeat_hours">
 		<item quantity="one">ora</item>
 		<item quantity="other">ore</item>
 	</plurals>
+	<plurals name="repeat_n_hours">
+		<item quantity="one">%d ore</item>
+		<item quantity="other">%d ore</item>
+	</plurals>
 	<plurals name="repeat_days">
 		<item quantity="one">giorno</item>
 		<item quantity="other">giorni</item>
+	</plurals>
+	<plurals name="repeat_n_days">
+		<item quantity="one">%d giorno</item>
+		<item quantity="other">%d giorni</item>
 	</plurals>
 	<plurals name="repeat_weeks">
 		<item quantity="one">settimana</item>
 		<item quantity="other">settimane</item>
 	</plurals>
+	<plurals name="repeat_n_weeks">
+		<item quantity="one">%d settimana</item>
+		<item quantity="other">%d settimane</item>
+	</plurals>
 	<plurals name="repeat_months">
 		<item quantity="one">mese</item>
 		<item quantity="other">mesi</item>
+	</plurals>
+	<plurals name="repeat_n_months">
+		<item quantity="one">%d mese</item>
+		<item quantity="other">%d mesi</item>
 	</plurals>
 	<plurals name="repeat_years">
 		<item quantity="one">anno</item>
 		<item quantity="other">anni</item>
 	</plurals>
+	<plurals name="repeat_n_years">
+		<item quantity="one">%d anno</item>
+		<item quantity="other">%d anni</item>
+	</plurals>
+	<string name="repeat_type_due">Data scadenza</string>
+	<string name="repeat_type_completion">data completamento</string>
 	<string name="repeat_forever">Ripeti all\'infinito</string>
 	<string name="repeat_until">Ripeti fino %s</string>
+	<string name="repeat_number_of_times">Ripeti un dato numero di volte</string>
+	<string name="repeat_occurs">Si verifica</string>
 	<string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
 	<string name="new_tag">Crea nuova etichetta</string>
 	<string name="new_list">Crea nuova lista</string>
-	<string name="tag_FEx_untagged">Non classificato</string>
+	<string name="tag_FEx_untagged">Non classificate</string>
 	<string name="delete_tag_confirmation">Elimino %s?</string>
 	<string name="TPl_notification">Timer attivi per %s!</string>
 	<string name="TFE_workingOn">Attività cronometrate</string>
@@ -310,7 +359,7 @@
 	<string name="list_settings">Impostazioni lista</string>
 	<string name="delete">Elimina</string>
 	<string name="copy">Copia</string>
-	<string name="filter_settings">Preferenze di filtro</string>
+	<string name="filter_settings">Preferenze filtro</string>
 	<string name="show_hidden">Mostra nascoste</string>
 	<string name="show_completed">Mostra completate</string>
 	<string name="reverse">Contrario</string>
@@ -341,7 +390,7 @@
 	<string name="opacity">Opacità</string>
 	<string name="theme">Tema</string>
 	<string name="color">Colore</string>
-	<string name="accent">Accento</string>
+	<string name="accent">Evidenzia</string>
 	<string name="themes">Ulteriori temi</string>
 	<string name="theme_red">Rosso</string>
 	<string name="theme_pink">Rosa</string>
@@ -404,9 +453,13 @@
 	<string name="bundle_notifications">Gruppo di notifiche</string>
 	<string name="badges">Badge</string>
 	<string name="list">Lista</string>
+	<string name="repeats_from">Ripetuta da</string>
 	<string name="repeats_single">Ripetizioni %s</string>
 	<string name="repeats_single_on">Ripetizione(i) %1$s il %2$s</string>
 	<string name="repeats_single_until">Ripetizione(i) %1$s fino al %2$s</string>
+	<string name="repeats_single_number_of_times">Ripetizione(i) %1$s, ripetuta %2$d %3$s</string>
+	<string name="repeats_single_on_until">Ripetizione(i) %1$s il %2$s fino al %3$s</string>
+	<string name="repeats_single_on_number_of_times">Ripetizione(i) %1$s il %2$s, ripetuta %3$d %4$s </string>
 	<string name="repeats_minutely">ogni minuto</string>
 	<string name="repeats_hourly">ogni ora</string>
 	<string name="repeats_daily">ogni giorno</string>
@@ -414,4 +467,24 @@
 	<string name="repeats_monthly">ogni mese</string>
 	<string name="repeats_yearly">ogni anno</string>
 	<string name="repeats_plural">Ripeti ogni %s</string>
+	<string name="repeats_plural_on">Ripetuta ogni %1$s il %2$s</string>
+	<string name="repeats_plural_until">Ripetuta ogni %1$s fino al %2$s</string>
+	<string name="repeats_plural_number_of_times">Ripetuta ogni %1$s, cade il %2$d %3$s</string>
+	<string name="repeats_plural_on_until">Ripetuta ogni %1$s il %2$s fino al %3$s</string>
+	<string name="repeats_plural_on_number_of_times">Ripetuta ogni %1$s il %2$s, si verifica %3$d %4$s</string>
+	<string name="dont_add_to_calendar">Non  aggiungere al calendario</string>
+	<string name="default_calendar">Calendario predefinito</string>
+	<string name="badges_description">Mostra contatore attività sull\'icona del programma. Non tutti i lanciatori lo supportano.</string>
+	<string name="bundle_notifications_summary">Associa molte notifiche in una sola</string>
+	<string name="repeat_monthly_same_day_each_month">lo stesso giorno di ogni mese</string>
+	<string name="repeat_monthly_every_day_of_nth_week">ogni %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">ogni %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">primo</string>
+	<string name="repeat_monthly_second_week">secondo</string>
+	<string name="repeat_monthly_third_week">terzo</string>
+	<string name="repeat_monthly_fourth_week">quarto</string>
+	<string name="repeat_monthly_last_week">ultimo</string>
+	<string name="tasker_create_task">Crea attività</string>
+	<string name="tasker_list_notification">Elenca notifiche</string>
+	<string name="help">Aiuto</string>
 </resources>

@@ -487,4 +487,7 @@
 	<string name="repeat_monthly_third_week">трети</string>
 	<string name="repeat_monthly_fourth_week">четвърти</string>
 	<string name="repeat_monthly_last_week">последен</string>
+	<string name="tasker_create_task">Създай задача</string>
+	<string name="tasker_list_notification">Списък с нотификации</string>
+	<string name="help">Помощ</string>
 </resources>

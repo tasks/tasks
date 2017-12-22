@@ -208,6 +208,14 @@
 	<string name="repeat_weekly">毎週繰り返し</string>
 	<string name="repeat_monthly">毎月繰り返し</string>
 	<string name="repeat_yearly">毎年繰り返し</string>
+	<plurals name="task_count">
+		<item quantity="one">%d タスク</item>
+		<item quantity="other">%d タスク</item>
+	</plurals>
+	<plurals name="repeat_times">
+		<item quantity="one">回</item>
+		<item quantity="other">回</item>
+	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">分</item>
 		<item quantity="other">分</item>
@@ -260,6 +268,8 @@
 	<string name="repeat_type_completion">完了日</string>
 	<string name="repeat_forever">永久に繰り返す</string>
 	<string name="repeat_until">%s まで繰り返す</string>
+	<string name="repeat_number_of_times">繰り返し回数</string>
+	<string name="repeat_occurs">発生</string>
 	<string name="repeat_snackbar">%1$s を %2$s にスケジュール変更しました</string>
 	<string name="new_tag">新しいタグを作成</string>
 	<string name="new_list">新しいリストを作成</string>
@@ -448,7 +458,9 @@
 	<string name="repeats_single">%s を繰り返し</string>
 	<string name="repeats_single_on">%1$s を %2$s に繰り返し</string>
 	<string name="repeats_single_until">%1$s を %2$s まで繰り返し</string>
+	<string name="repeats_single_number_of_times">%1$s を %2$d %3$s に繰り返し</string>
 	<string name="repeats_single_on_until">%1$s を %2$s に %3$s まで繰り返し</string>
+	<string name="repeats_single_on_number_of_times">%1$s を %2$s に %3$d %4$s 繰り返し</string>
 	<string name="repeats_minutely">毎分</string>
 	<string name="repeats_hourly">毎時</string>
 	<string name="repeats_daily">毎日</string>
@@ -458,7 +470,22 @@
 	<string name="repeats_plural">%s ごとに繰り返し</string>
 	<string name="repeats_plural_on">%1$s ごとに %2$s に繰り返し</string>
 	<string name="repeats_plural_until">%1$s ごとに %2$s まで繰り返し</string>
+	<string name="repeats_plural_number_of_times">%1$s ごとに %2$d %3$s 繰り返し</string>
 	<string name="repeats_plural_on_until">%1$s ごとに %2$s に %3$s まで繰り返し</string>
+	<string name="repeats_plural_on_number_of_times">%1$s を %2$s に %3$d %4$s 繰り返し</string>
 	<string name="dont_add_to_calendar">カレンダーに追加しない</string>
 	<string name="default_calendar">デフォルトのカレンダー</string>
+	<string name="badges_description">Tasks ランチャーアイコンにタスク数を表示します。 すべてのランチャーがバッジをサポートしているわけではありません。</string>
+	<string name="bundle_notifications_summary">複数の通知を1つの通知にまとめる</string>
+	<string name="repeat_monthly_same_day_each_month">毎月同じ日に</string>
+	<string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s ごと</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">%1$s %2$s ごとに</string>
+	<string name="repeat_monthly_first_week">第一週</string>
+	<string name="repeat_monthly_second_week">第二週</string>
+	<string name="repeat_monthly_third_week">第三週</string>
+	<string name="repeat_monthly_fourth_week">第四週</string>
+	<string name="repeat_monthly_last_week">最終週</string>
+	<string name="tasker_create_task">タスクを作成</string>
+	<string name="tasker_list_notification">通知のリスト</string>
+	<string name="help">ヘルプ</string>
 </resources>
