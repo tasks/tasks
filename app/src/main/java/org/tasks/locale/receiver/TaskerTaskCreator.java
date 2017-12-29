@@ -19,8 +19,8 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class TaskerTaskCreator {
 
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM-dd-yy");
-    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH.mm");
+    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
 
     private final TaskCreator taskCreator;
     private final TaskDao taskDao;

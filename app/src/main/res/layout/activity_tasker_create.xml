@@ -18,7 +18,7 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout"
-                android:layout_width="368dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
@@ -32,12 +32,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/TEA_title_hint"
-                    android:inputType="textCapSentences|textAutoCorrect" />
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textCapSentences|textAutoCorrect"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout2"
-                android:layout_width="368dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
@@ -50,12 +52,14 @@
                     android:id="@+id/due_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/due_date" />
+                    android:hint="@string/due_date"
+                    android:imeOptions="flagNoExtractUi"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout3"
-                android:layout_width="368dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
@@ -68,12 +72,14 @@
                     android:id="@+id/due_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/due_time" />
+                    android:hint="@string/due_time"
+                    android:imeOptions="flagNoExtractUi"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout4"
-                android:layout_width="368dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
@@ -86,11 +92,13 @@
                     android:id="@+id/priority"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/TEA_importance_label" />
+                    android:hint="@string/TEA_importance_label"
+                    android:imeOptions="flagNoExtractUi"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="368dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
@@ -103,7 +111,8 @@
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/TEA_note_label" />
+                    android:hint="@string/TEA_note_label"
+                    android:imeOptions="flagNoExtractUi" />
             </android.support.design.widget.TextInputLayout>
 
         </android.support.constraint.ConstraintLayout>
