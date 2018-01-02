@@ -181,7 +181,7 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
                 save();
                 return true;
             case R.id.menu_help:
-                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/help")));
+                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/help/tasker")));
                 return true;
         }
         return super.onOptionsItemSelected(item);
