@@ -191,7 +191,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     private void pushLocalChanges() throws UserRecoverableAuthIOException {
         List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES)
                 .join(Join.left(Metadata.TABLE, Criterion.and(MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK))))
-                .where(Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC), GtasksMetadata.ID.eq(""))));
+                .where(Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC), GtasksMetadata.ID.eq(""), Metadata.ID.isNull())));
         for (Task task : tasks) {
             try {
                 pushTask(task, task.getMergedValues(), gtasksInvoker);
