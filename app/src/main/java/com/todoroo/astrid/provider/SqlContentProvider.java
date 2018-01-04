@@ -114,7 +114,7 @@ public class SqlContentProvider extends InjectingContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        tracker.get().reportEvent(Tracking.Events.ASTRID_3_CP);
+        tracker.get().reportEvent(Tracking.Events.ASTRID_SQL_CP);
         return getDatabase().rawQuery(selection);
     }
 
