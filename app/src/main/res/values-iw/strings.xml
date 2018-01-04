@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">לא ניתן לגשת לתיקיה: %s</string>
 	<string name="DLG_error_sdcard_general">לא ניתן לגשת לכרטיס ה־SD שלך!</string>
 	<string name="read_permission_label">הרשאות אסטריד</string>
-	<string name="write_permission_label">הרשאות אסטריד</string>
 	<string name="discard_confirmation">להתעלם מהשינויים ?</string>
 	<string name="keep_editing">המשך לערוך</string>
 	<string name="DLG_delete_this_task_question">למחוק משימה זו?</string>

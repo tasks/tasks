@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">Toegang geweigerd tot map: %s</string>
 	<string name="DLG_error_sdcard_general">Toegang tot SD-kaart geweigerd!</string>
 	<string name="read_permission_label">Taak toestemmingen</string>
-	<string name="write_permission_label">Taak toestemmingen</string>
 	<string name="discard_confirmation">Weet u zeker dat u de wijzigingen niet wilt opslaan?</string>
 	<string name="keep_editing">Blijf editen</string>
 	<string name="DLG_delete_this_task_question">Taak verwijderen?</string>

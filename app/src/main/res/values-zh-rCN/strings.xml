@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">无法开启文件夹：%s</string>
 	<string name="DLG_error_sdcard_general">无法访问您的 SD 卡！</string>
 	<string name="read_permission_label">清单小助理权限</string>
-	<string name="write_permission_label">清单小助理权限</string>
 	<string name="keep_editing">继续编辑</string>
 	<string name="DLG_delete_this_task_question">确认删除？</string>
 	<string name="DLG_hour_minutes">时间（小时:分钟）</string>

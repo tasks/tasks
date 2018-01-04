@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">Нет доступа к папке:%s</string>
 	<string name="DLG_error_sdcard_general">Нет доступа к карте памяти!</string>
 	<string name="read_permission_label">Разрешения Tasks</string>
-	<string name="write_permission_label">Разрешения Tasks</string>
 	<string name="discard_confirmation">Вы действительно хотите отказаться от сделанных изменений?</string>
 	<string name="keep_editing">Продолжить редактировать</string>
 	<string name="DLG_delete_this_task_question">Удалить эту задачу?</string>

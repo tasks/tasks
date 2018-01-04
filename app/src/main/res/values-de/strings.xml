@@ -19,7 +19,6 @@
 	<string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
 	<string name="DLG_error_sdcard_general">Auf die SD-Karte konnte nicht zugegriffen werden!</string>
 	<string name="read_permission_label">Tasks Zugriffsrechte</string>
-	<string name="write_permission_label">Tasks Zugriffsrechte</string>
 	<string name="discard_confirmation">Änderungen wirklich verwerfen?</string>
 	<string name="keep_editing">Weiter bearbeiten</string>
 	<string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>

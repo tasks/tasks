@@ -65,24 +65,6 @@
 
     <uses-permission android:name="org.tasks.permission.READ_TASKS" />
 
-    <!-- for reading data from add-ons or astrid via v3 content provider -->
-    <permission
-        android:name="org.tasks.READ"
-        android:description="@string/read_permission_desc"
-        android:protectionLevel="normal"
-        android:label="@string/read_permission_label" />
-
-    <uses-permission android:name="org.tasks.READ" />
-
-    <!-- for writing data to add-ons or astrid via v3 content provider -->
-    <permission
-        android:name="org.tasks.WRITE"
-        android:description="@string/write_permission_desc"
-        android:protectionLevel="normal"
-        android:label="@string/write_permission_label" />
-
-    <uses-permission android:name="org.tasks.WRITE" />
-
     <!-- ========================================================== Metadata = -->
 
     <supports-screens
@@ -251,24 +233,6 @@
             android:multiprocess="true"
             android:grantUriPermissions="true"
             android:readPermission="org.tasks.permission.READ_TASKS" />
-
-        <provider
-            android:name="com.todoroo.astrid.provider.Astrid3ContentProvider"
-            android:authorities="org.tasks"
-            android:exported="true"
-            android:multiprocess="true"
-            android:grantUriPermissions="true"
-            android:readPermission="org.tasks.READ"
-            android:writePermission="org.tasks.WRITE" />
-
-        <provider
-            android:name="com.todoroo.astrid.provider.SqlContentProvider"
-            android:authorities="org.tasks.private"
-            android:exported="true"
-            android:multiprocess="true"
-            android:grantUriPermissions="true"
-            android:readPermission="org.tasks.READ"
-            android:writePermission="org.tasks.WRITE" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

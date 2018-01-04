@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">No se puede acceder a la carpeta: %s</string>
 	<string name="DLG_error_sdcard_general">¡No se pudo acceder a su tarjeta de memoria SD!</string>
 	<string name="read_permission_label">Permisos de Tasks</string>
-	<string name="write_permission_label">Permisos de Tasks</string>
 	<string name="discard_confirmation">¿Quieres descartar los cambios?</string>
 	<string name="keep_editing">Seguir editando</string>
 	<string name="DLG_delete_this_task_question">¿Borrar esta tarea?</string>

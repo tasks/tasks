@@ -57,9 +57,6 @@ File %1$s contained %2$s.\n\n
     <!-- permission title for READ_TASKS -->
     <string name="read_permission_label">Tasks Permission</string>
 
-    <!-- permission title for READ_TASKS -->
-    <string name="write_permission_label">Tasks Permission</string>
-
     <!-- ================================================== Generic Dialogs == -->
 
     <string name="discard_confirmation">Are you sure you want to discard your changes?</string>

@@ -24,7 +24,6 @@
 	<string name="DLG_error_sdcard">Könyvtár nem elérhető: %s</string>
 	<string name="DLG_error_sdcard_general">SD kártya nem elérhető</string>
 	<string name="read_permission_label">Tasks Engedélyek</string>
-	<string name="write_permission_label">Tasks Engedélyek</string>
 	<string name="discard_confirmation">Biztosan el akarja vetni a változtatásokat?</string>
 	<string name="keep_editing">Vissza a szerkesztéshez</string>
 	<string name="DLG_delete_this_task_question">Feladat törlése?</string>

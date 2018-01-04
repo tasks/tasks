@@ -7,15 +7,12 @@ package com.todoroo.astrid.data;
 
 
 import android.content.ContentValues;
-import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
-
-import org.tasks.BuildConfig;
 
 /**
  * Data Model which represents a piece of data unrelated to a task
@@ -29,10 +26,6 @@ public class StoreObject extends AbstractModel {
 
     /** table for this model */
     public static final Table TABLE = new Table("store", StoreObject.class);
-
-    /** content uri for this model */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + BuildConfig.APPLICATION_ID + "/" +
-            TABLE.name);
 
     // --- properties
 

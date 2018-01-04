@@ -49,9 +49,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     /** sentinel for objects without an id */
     public static final long NO_ID = 0;
 
-    /** prefix for transitories retained in content values */
-    public static final String RETAIN_TRANSITORY_PREFIX = "retain-trans-"; //$NON-NLS-1$
-
     // --- abstract methods
 
     /** Get the default values for this object */

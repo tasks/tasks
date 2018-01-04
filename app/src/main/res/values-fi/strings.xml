@@ -24,7 +24,6 @@
 	<string name="DLG_error_sdcard">Ei pääsyä kansioon: %s</string>
 	<string name="DLG_error_sdcard_general">Ei pääsyä SD kortillesi!</string>
 	<string name="read_permission_label">Tasks käyttöoikeus</string>
-	<string name="write_permission_label">Tasks käyttöoikeus</string>
 	<string name="discard_confirmation">Oletko varma että haluat hylätä muutokset?</string>
 	<string name="keep_editing">Jatka muokkausta</string>
 	<string name="DLG_delete_this_task_question">Poista tämä tehtävä?</string>

@@ -13,7 +13,6 @@
   <string name="p_date_shortcut_evening">date_shortcut_evening</string>
   <string name="p_date_shortcut_night">date_shortcut_night</string>
 
-  <string name="write_permission_desc">create new tasks, edit existing tasks</string>
   <string name="read_permission_desc">read tasks, display task filters</string>
 
   <!-- ======================================================== REMINDERS == -->
@@ -231,7 +230,6 @@
   <string name="tracking_category_google_tasks">Gtask</string>
   <string name="tracking_category_event">Event</string>
   <string name="tracking_category_tasker">Tasker</string>
-  <string name="tracking_category_api">API</string>
   <string name="tracking_action_add">Add</string>
   <string name="tracking_action_start">Start</string>
   <string name="tracking_action_move">Move</string>
@@ -246,9 +244,6 @@
   <string name="tracking_action_preset">Preset</string>
   <string name="tracking_action_task_created">Task created</string>
   <string name="tracking_action_list_notification">List Notification</string>
-  <string name="tracking_action_api_astrid2_update">2 Update</string>
-  <string name="tracking_action_api_astrid3">3</string>
-  <string name="tracking_action_api_astrid_sql">SQL</string>
 
   <string name="tracking_event_night_mode_mismatch">Night Mismatch</string>
   <string name="tracking_event_play_services_error">Play Services Error</string>

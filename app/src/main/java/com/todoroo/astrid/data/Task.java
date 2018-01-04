@@ -7,7 +7,6 @@ package com.todoroo.astrid.data;
 
 
 import android.content.ContentValues;
-import android.net.Uri;
 import android.text.TextUtils;
 
 import com.google.ical.values.RRule;
@@ -19,7 +18,6 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.tasks.BuildConfig;
 import org.tasks.time.DateTime;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -36,9 +34,6 @@ public class Task extends RemoteModel {
 
     /** table for this model */
     public static final Table TABLE = new Table("tasks", Task.class);
-
-    public static final Uri CONTENT_URI = Uri.parse("content://" + BuildConfig.APPLICATION_ID + "/" +
-            TABLE.name);
 
     // --- properties
 
@@ -570,10 +565,6 @@ public class Task extends RemoteModel {
 
     public void setCalendarUri(String calendarUri) {
         setValue(CALENDAR_URI, calendarUri);
-    }
-
-    public void setID(Long id) {
-        setValue(ID, id);
     }
 
     public boolean isNotifyModeNonstop() {

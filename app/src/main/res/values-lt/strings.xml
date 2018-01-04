@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">Nėra prieigos prie aplanko: %s</string>
 	<string name="DLG_error_sdcard_general">Nėra prieigos prie SD kortelės!</string>
 	<string name="read_permission_label">Tasks leidimas</string>
-	<string name="write_permission_label">Tasks leidimas</string>
 	<string name="discard_confirmation">Ar tikrai norite atmesti pakeitimus?</string>
 	<string name="keep_editing">Tęsti redagavimą</string>
 	<string name="DLG_delete_this_task_question">Ištrinti šią užduotį?</string>

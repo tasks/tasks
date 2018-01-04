@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">Mappåtkomst nekad: %s</string>
 	<string name="DLG_error_sdcard_general">SD-kort ej tillgängligt!</string>
 	<string name="read_permission_label">Tasks Tillstånd</string>
-	<string name="write_permission_label">Tasks Tillstånd</string>
 	<string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
 	<string name="keep_editing">Fortsätt redigera</string>
 	<string name="DLG_delete_this_task_question">Radera denna uppgift?</string>

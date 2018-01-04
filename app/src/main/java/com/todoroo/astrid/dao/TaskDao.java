@@ -92,10 +92,6 @@ public class TaskDao {
         return dao.toList(Query.select(Task.PROPERTIES).withQueryTemplate(query));
     }
 
-    public List<Task> rawQuery(String selection, String[] selectionArgs, Property.LongProperty id) {
-        return dao.rawQuery(selection, selectionArgs, id).toList();
-    }
-
     /**
      * Update all matching a clause to have the values set on template object.
      * <p>

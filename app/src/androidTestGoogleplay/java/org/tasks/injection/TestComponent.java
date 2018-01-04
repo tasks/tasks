@@ -10,7 +10,6 @@ import com.todoroo.astrid.gtasks.GtasksMetadataServiceTest;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdaterTest;
 import com.todoroo.astrid.gtasks.GtasksTaskMovingTest;
 import com.todoroo.astrid.model.TaskTest;
-import com.todoroo.astrid.provider.Astrid3ProviderTests;
 import com.todoroo.astrid.reminders.ReminderServiceTest;
 import com.todoroo.astrid.repeats.NewRepeatTests;
 import com.todoroo.astrid.repeats.RepeatTaskHelperTest;

@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">Impossibile accedere alla cartella: %s</string>
 	<string name="DLG_error_sdcard_general">Impossibile accedere alla scheda SD!</string>
 	<string name="read_permission_label">Permessi attività</string>
-	<string name="write_permission_label">Permessi attività</string>
 	<string name="discard_confirmation">Sicuro di voler annullare tutte le modifiche?</string>
 	<string name="keep_editing">Continua modifica</string>
 	<string name="DLG_delete_this_task_question">Elimino l\'attività?</string>

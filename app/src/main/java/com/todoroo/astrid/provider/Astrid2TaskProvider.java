@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import com.google.common.base.Joiner;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -24,8 +23,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 
-import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 import org.tasks.ui.CheckBoxes;
@@ -68,9 +65,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	private final static String IMPORTANCE = "importance";
 	private final static String ID = "id";
 
-	// fake property for updating that completes a task
-	private final static String COMPLETED = "completed";
-
 	private final static String TAGS_ID = "tags_id";
 
 	private static final String[] TASK_FIELD_LIST = new String[] { NAME, IMPORTANCE_COLOR, PREFERRED_DUE_DATE, DEFINITE_DUE_DATE,
@@ -86,7 +80,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
     @Inject Lazy<TagService> tagService;
 	@Inject Lazy<CheckBoxes> checkBoxes;
 	@Inject Lazy<TaskDao> taskDao;
-	@Inject Lazy<Tracker> tracker;
 
 	static {
 		URI_MATCHER.addURI(AUTHORITY, "tasks", URI_TASKS);
@@ -195,77 +188,19 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	@Override
 	public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-		Cursor cursor;
-		switch (URI_MATCHER.match(uri)) {
-
-		case URI_TASKS:
-			cursor = getTasks();
-			break;
-
-		case URI_TAGS:
-			cursor = getTags();
-			break;
-
-		default:
-			throw new IllegalStateException("Unrecognized URI:" + uri);
-		}
-
-		return cursor;
-	}
+        switch (URI_MATCHER.match(uri)) {
+            case URI_TASKS:
+                return getTasks();
+            case URI_TAGS:
+                return getTags();
+            default:
+                throw new IllegalStateException("Unrecognized URI:" + uri);
+        }
+    }
 
 	@Override
 	public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-      switch (URI_MATCHER.match(uri)) {
-
-        case URI_TASKS:
-            tracker.get().reportEvent(Tracking.Events.ASTRID_2_CP);
-            Task task = new Task();
-
-            // map values
-            if(values.containsKey(NAME)) {
-                task.setTitle(values.getAsString(NAME));
-            }
-            if(values.containsKey(PREFERRED_DUE_DATE)) {
-                task.setDueDate(values.getAsLong(PREFERRED_DUE_DATE));
-            }
-            if(values.containsKey(DEFINITE_DUE_DATE)) {
-                task.setDueDate(values.getAsLong(DEFINITE_DUE_DATE));
-            }
-            if(values.containsKey(IMPORTANCE)) {
-                task.setImportance(values.getAsInteger(IMPORTANCE));
-            }
-            if(values.containsKey(COMPLETED)) {
-                task.setCompletionDate(values.getAsBoolean(COMPLETED) ? DateUtilities.now() : 0);
-            }
-
-            // map selection criteria
-            String criteria = selection.replace(NAME, Task.TITLE.name).
-                replace(PREFERRED_DUE_DATE, Task.DUE_DATE.name).
-                replace(DEFINITE_DUE_DATE, Task.DUE_DATE.name).
-                replace(IDENTIFIER, Task.ID.name).
-                replace(ID, Task.ID.name).
-                replace(IMPORTANCE, Task.IMPORTANCE.name);
-
-            return updateBySelection(criteria, selectionArgs, task);
-
-        case URI_TAGS:
-            throw new UnsupportedOperationException("tags updating: not yet");
-
-        default:
-            throw new IllegalStateException("Unrecognized URI:" + uri);
-        }
-	}
-
-	/**
-	 * Update database based on selection and values
-	 */
-	private int updateBySelection(String selection, String[] selectionArgs, Task taskValues) {
-		List<Task> tasks = taskDao.get().rawQuery(selection, selectionArgs, Task.ID);
-		for (Task task : tasks) {
-			taskValues.setID(task.getId());
-			taskDao.get().save(taskValues);
-		}
-		return tasks.size();
+		throw new UnsupportedOperationException("not supported");
 	}
 
 	public static void notifyDatabaseModification(Context context) {

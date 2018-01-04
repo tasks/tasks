@@ -25,7 +25,6 @@
 	<string name="DLG_error_sdcard">%s dizinine erişilemedi.</string>
 	<string name="DLG_error_sdcard_general">Hafıza kartına erişemiyorum!</string>
 	<string name="read_permission_label">Tasks İzni</string>
-	<string name="write_permission_label">Tasks İzni</string>
 	<string name="discard_confirmation">Değişikliklerinizi gözden çıkarmak istediğinize emin misiniz?</string>
 	<string name="keep_editing">Düzenlemeyi sürdür</string>
 	<string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>

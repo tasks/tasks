@@ -21,7 +21,6 @@
 	<string name="DLG_error_sdcard">Brak dostępu do folderu: %s</string>
 	<string name="DLG_error_sdcard_general">Brak dostępu do Twojej karty SD!</string>
 	<string name="read_permission_label">Uprawnienia Tasks</string>
-	<string name="write_permission_label">Zezwolenia Tasks</string>
 	<string name="discard_confirmation">Czy jesteś pewien, że chcesz porzucić zmiany?</string>
 	<string name="keep_editing">Kontynuuj edycję</string>
 	<string name="DLG_delete_this_task_question">Usunąć to zadanie?</string>

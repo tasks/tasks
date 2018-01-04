@@ -24,7 +24,6 @@
 	<string name="DLG_error_sdcard">Немає доступу до папки: %s</string>
 	<string name="DLG_error_sdcard_general">Немає доступу до карти SD!</string>
 	<string name="read_permission_label">Дозволи Tasks</string>
-	<string name="write_permission_label">Дозволи Tasks</string>
 	<string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
 	<string name="keep_editing">Продовжити редагування</string>
 	<string name="DLG_delete_this_task_question">Видалити цю задачу?</string>

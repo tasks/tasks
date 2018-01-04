@@ -152,7 +152,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         // try to save task "happy"
         Task task = new Task();
         task.setTitle("happy");
-        task.setID(1L);
+        task.setId(1L);
 
         taskDao.save(task);
 

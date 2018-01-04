@@ -33,10 +33,7 @@ public class Tracking {
         RECURRENCE_CUSTOM(R.string.tracking_category_recurrence, R.string.tracking_action_custom),
         RECURRENCE_PRESET(R.string.tracking_category_recurrence, R.string.tracking_action_preset),
         TASKER_CREATE(R.string.tracking_category_tasker, R.string.tracking_action_task_created),
-        TASKER_LIST_NOTIFICATION(R.string.tracking_category_tasker, R.string.tracking_action_list_notification),
-        ASTRID_2_CP(R.string.tracking_category_api, R.string.tracking_action_api_astrid2_update),
-        ASTRID_3_CP(R.string.tracking_category_api, R.string.tracking_action_api_astrid3),
-        ASTRID_SQL_CP(R.string.tracking_category_api, R.string.tracking_action_api_astrid_sql);
+        TASKER_LIST_NOTIFICATION(R.string.tracking_category_tasker, R.string.tracking_action_list_notification);
 
         public final int category;
         public final int action;

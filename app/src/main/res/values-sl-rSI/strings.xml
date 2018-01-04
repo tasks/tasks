@@ -22,7 +22,6 @@
 	<string name="DLG_error_sdcard">Datoteka:%s ni dostopna</string>
 	<string name="DLG_error_sdcard_general">Tvoja SD kartica ni dostopna.</string>
 	<string name="read_permission_label">Dovoljenje Opravkom</string>
-	<string name="write_permission_label">Dovoljenje Opravkom</string>
 	<string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
 	<string name="DLG_hour_minutes">Čas (ure : minute)</string>
 	<string name="DLG_undo">Razveljavi</string>

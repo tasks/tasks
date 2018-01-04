@@ -27,7 +27,6 @@ import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
-import com.todoroo.astrid.provider.Astrid3ContentProvider;
 
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.ApplicationScope;
@@ -181,7 +180,6 @@ public class Database {
 
     private void onDatabaseUpdated() {
         Astrid2TaskProvider.notifyDatabaseModification(context);
-        Astrid3ContentProvider.notifyDatabaseModification(context);
     }
 
     /**
