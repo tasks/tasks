@@ -29,6 +29,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.BuildConfig;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 
@@ -87,6 +89,7 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
 
     private boolean open;
     @Inject Lazy<Database> database;
+    @Inject Lazy<Tracker> tracker;
 
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -152,6 +155,7 @@ public class Astrid3ContentProvider extends InjectingContentProvider {
     }
 
     private UriHelper<?> generateHelper(Uri uri, boolean populateModel) {
+        tracker.get().reportEvent(Tracking.Events.ASTRID_3_CP);
         final Database db = getDatabase();
         if(uri.toString().startsWith(Task.CONTENT_URI.toString())) {
             UriHelper<Task> helper = new UriHelper<>();

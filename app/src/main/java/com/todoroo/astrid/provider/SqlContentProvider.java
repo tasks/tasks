@@ -15,6 +15,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 
 import org.tasks.BuildConfig;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 
@@ -47,6 +49,7 @@ public class SqlContentProvider extends InjectingContentProvider {
 
     private boolean open;
     @Inject Lazy<Database> database;
+    @Inject Lazy<Tracker> tracker;
 
     public SqlContentProvider() {
         setReadPermission(AstridApiConstants.PERMISSION_READ);
@@ -111,7 +114,7 @@ public class SqlContentProvider extends InjectingContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-
+        tracker.get().reportEvent(Tracking.Events.ASTRID_3_CP);
         return getDatabase().rawQuery(selection);
     }
 

@@ -24,6 +24,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 import org.tasks.ui.CheckBoxes;
@@ -84,6 +86,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
     @Inject Lazy<TagService> tagService;
 	@Inject Lazy<CheckBoxes> checkBoxes;
 	@Inject Lazy<TaskDao> taskDao;
+	@Inject Lazy<Tracker> tracker;
 
 	static {
 		URI_MATCHER.addURI(AUTHORITY, "tasks", URI_TASKS);
@@ -215,6 +218,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
       switch (URI_MATCHER.match(uri)) {
 
         case URI_TASKS:
+            tracker.get().reportEvent(Tracking.Events.ASTRID_2_CP);
             Task task = new Task();
 
             // map values
