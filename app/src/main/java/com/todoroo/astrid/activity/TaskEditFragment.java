@@ -337,7 +337,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         userActivity.setMessage(message);
         userActivity.setAction(actionCode);
         userActivity.setTargetId(model.getUuid());
-        userActivity.setCreatedAt(DateUtilities.now());
+        userActivity.setCreated(DateUtilities.now());
         if (picture != null) {
             userActivity.setPicture(picture);
         }

@@ -156,7 +156,6 @@ public class TasksXmlImporter {
 
         XmlPullParser xpp;
         final Task currentTask = new Task();
-        final UserActivity userActivity = new UserActivity();
         final Metadata metadata = new Metadata();
 
         public Format2TaskImporter() { }
@@ -225,18 +224,8 @@ public class TasksXmlImporter {
             if (!currentTask.isSaved()) {
                 return;
             }
-            userActivity.clear();
 
-            // We only want to import these fields.
-            // These are the fields that are sent in EditNoteActivity.addComment() when a user creates a comment.
-            final Property<?>[] NEW_PROPERTIES = new Property<?>[4];
-            NEW_PROPERTIES[0] = UserActivity.MESSAGE;
-            NEW_PROPERTIES[1] = UserActivity.ACTION;
-            NEW_PROPERTIES[2] = UserActivity.TARGET_ID;
-            NEW_PROPERTIES[3] = UserActivity.CREATED_AT;
-            deserializeModel(userActivity, NEW_PROPERTIES);
-
-            userActivity.setId(UserActivity.NO_ID);
+            UserActivity userActivity = new UserActivity(new XmlReader(xpp));
 
             userActivityDao.createNew(userActivity);
         }

@@ -1,124 +1,176 @@
 package com.todoroo.astrid.data;
 
-import android.content.ContentValues;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.Table;
+import org.tasks.backup.XmlReader;
+import org.tasks.backup.XmlWriter;
 
-public class UserActivity extends RemoteModel {
+@Entity(tableName = "userActivity")
+public class UserActivity implements Parcelable {
 
- // --- table
-
-    /** table for this model */
-    public static final Table TABLE = new Table("userActivity", UserActivity.class);
-
-    // --- properties
-
-    /** ID */
-    @SuppressWarnings("WeakerAccess")
-    public static final LongProperty ID = new LongProperty(
-            TABLE, ID_PROPERTY_NAME);
-
-    /** Remote ID */
-    @SuppressWarnings("WeakerAccess")
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
-
-    /** Action */
-    public static final StringProperty ACTION = new StringProperty(
-            TABLE, "action");
-
-    /** Message */
-    @SuppressWarnings("WeakerAccess")
-    public static final StringProperty MESSAGE = new StringProperty(
-            TABLE, "message");
-
-    /** Picture */
-    @SuppressWarnings("WeakerAccess")
-    public static final StringProperty PICTURE = new StringProperty(
-            TABLE, "picture", Property.PROP_FLAG_JSON | Property.PROP_FLAG_PICTURE);
-
-    /** Target id */
-    public static final StringProperty TARGET_ID = new StringProperty(
-            TABLE, "target_id");
-
-    /** Created at */
-    public static final LongProperty CREATED_AT = new LongProperty(
-            TABLE, "created_at", Property.PROP_FLAG_DATE);
-
-    /** Deleted at */
-    public static final LongProperty DELETED_AT = new LongProperty(
-            TABLE, "deleted_at", Property.PROP_FLAG_DATE);
-
-    public UserActivity() {
-        super();
-    }
-
-    // --- Action codes
     public static final String ACTION_TASK_COMMENT = "task_comment";
 
-    // --- helpers
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    private Long id;
 
-    /** Default values container */
-    private static final ContentValues defaultValues = new ContentValues();
+    @ColumnInfo(name = "remoteId")
+    private String remoteId = RemoteModel.NO_UUID;
 
-    @Override
-    public ContentValues getDefaultValues() {
-        return defaultValues;
+    @ColumnInfo(name = "action")
+    private String action = "";
+
+    @ColumnInfo(name = "message")
+    private String message = "";
+
+    @ColumnInfo(name = "picture")
+    private String picture = "";
+
+    @ColumnInfo(name = "target_id")
+    private String targetId = RemoteModel.NO_UUID;
+
+    @ColumnInfo(name = "created_at")
+    private Long created = 0L;
+
+    @ColumnInfo(name = "deleted_at")
+    private Long deleted = 0L;
+
+    public UserActivity() {
     }
 
-    static {
-        defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(ACTION.name, "");
-        defaultValues.put(MESSAGE.name, "");
-        defaultValues.put(PICTURE.name, "");
-        defaultValues.put(TARGET_ID.name, NO_UUID);
-        defaultValues.put(CREATED_AT.name, 0L);
-        defaultValues.put(DELETED_AT.name, 0L);
+    @Ignore
+    public UserActivity(XmlReader reader) {
+        reader.readString("remoteId", this::setRemoteId);
+        reader.readString("action", this::setAction);
+        reader.readString("message", this::setMessage);
+        reader.readString("picture", this::setPicture);
+        reader.readString("target_id", this::setTargetId);
+        reader.readLong("created_at", this::setCreated);
+        reader.readLong("deleted_at", this::setDeleted);
     }
 
-    /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = generateProperties(UserActivity.class);
-
-    @Override
-    public long getId() {
-        return getIdHelper(ID);
+    @Ignore
+    private UserActivity(Parcel parcel) {
+        id = parcel.readLong();
+        remoteId = parcel.readString();
+        action = parcel.readString();
+        message = parcel.readString();
+        picture = parcel.readString();
+        targetId = parcel.readString();
+        created = parcel.readLong();
+        deleted = parcel.readLong();
     }
 
-    private static final Creator<UserActivity> CREATOR = new ModelCreator<>(UserActivity.class);
-
-    public Long getCreatedAt() {
-        return getValue(CREATED_AT);
+    public void writeToXml(XmlWriter writer) {
+        writer.writeString("remoteId", remoteId);
+        writer.writeString("action", action);
+        writer.writeString("message", message);
+        writer.writeString("picture", picture);
+        writer.writeString("target_id", targetId);
+        writer.writeLong("created_at", created);
+        writer.writeLong("deleted_at", deleted);
     }
 
-    public void setCreatedAt(Long createdAt) {
-        setValue(CREATED_AT, createdAt);
+    public Long getId() {
+        return id;
     }
 
-    public String getMessage() {
-        return getValue(MESSAGE);
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setMessage(String message) {
-        setValue(MESSAGE, message);
+    public String getRemoteId() {
+        return remoteId;
     }
 
-    public void setTargetId(String targetId) {
-        setValue(TARGET_ID, targetId);
+    public void setRemoteId(String remoteId) {
+        this.remoteId = remoteId;
+    }
+
+    public String getAction() {
+        return action;
     }
 
     public void setAction(String action) {
-        setValue(ACTION, action);
+        this.action = action;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 
     public void setPicture(String picture) {
-        setValue(PICTURE, picture);
+        this.picture = picture;
+    }
+
+    public String getTargetId() {
+        return targetId;
+    }
+
+    public void setTargetId(String targetId) {
+        this.targetId = targetId;
+    }
+
+    public Long getCreated() {
+        return created;
+    }
+
+    public void setCreated(Long created) {
+        this.created = created;
+    }
+
+    public Long getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Long deleted) {
+        this.deleted = deleted;
     }
 
     public Uri getPictureUri() {
-        return PictureHelper.getPictureUri(getValue(PICTURE));
+        return RemoteModel.PictureHelper.getPictureUri(picture);
+    }
+
+    public static final Creator<UserActivity> CREATOR = new Creator<UserActivity>() {
+        @Override
+        public UserActivity createFromParcel(Parcel source) {
+            return new UserActivity(source);
+        }
+
+        @Override
+        public UserActivity[] newArray(int size) {
+            return new UserActivity[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(remoteId);
+        dest.writeString(action);
+        dest.writeString(message);
+        dest.writeString(picture);
+        dest.writeString(targetId);
+        dest.writeLong(created);
+        dest.writeLong(deleted);
     }
 }

@@ -104,7 +104,7 @@ public class CommentsController {
 
         // date
         final TextView date = view.findViewById(R.id.date);
-        date.setText(DateUtilities.getLongDateStringWithTime(activity, item.getCreatedAt()));
+        date.setText(DateUtilities.getLongDateStringWithTime(activity, item.getCreated()));
 
         // picture
         final ImageView commentPictureView = view.findViewById(R.id.comment_picture);

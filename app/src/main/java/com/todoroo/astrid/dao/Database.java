@@ -39,13 +39,15 @@ import timber.log.Timber;
 @android.arch.persistence.room.Database(
         entities = {
                 Notification.class,
-                TagData.class
+                TagData.class,
+                UserActivity.class
         },
-        version = 40)
+        version = 41)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
     public abstract TagDataDao getTagDataDao();
+    public abstract UserActivityDao getUserActivityDao();
 
     public static final String NAME = "database";
 
@@ -53,7 +55,6 @@ public abstract class Database extends RoomDatabase {
             Task.TABLE,
             Metadata.TABLE,
             StoreObject.TABLE,
-            UserActivity.TABLE,
             TaskAttachment.TABLE,
             TaskListMetadata.TABLE,
     };
@@ -66,8 +67,6 @@ public abstract class Database extends RoomDatabase {
     public String getName() {
         return NAME;
     }
-
-
 
     public Database setOnDatabaseUpdated(Runnable onDatabaseUpdated) {
         this.onDatabaseUpdated = onDatabaseUpdated;

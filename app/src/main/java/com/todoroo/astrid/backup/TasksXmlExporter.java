@@ -199,7 +199,7 @@ public class TasksXmlExporter {
     private void writeComment(UserActivity userActivity) {
         try {
             xml.startTag(null, BackupConstants.COMMENT_TAG);
-            serializeModel(userActivity, UserActivity.PROPERTIES, Metadata.ID, Metadata.TASK);
+            userActivity.writeToXml(new XmlWriter(xml));
             xml.endTag(null, BackupConstants.COMMENT_TAG);
         } catch (IOException e) {
             // ignore

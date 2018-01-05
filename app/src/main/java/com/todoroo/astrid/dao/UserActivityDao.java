@@ -1,36 +1,32 @@
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
+
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.UserActivity;
+import com.todoroo.astrid.helper.UUIDHelper;
 
 import java.util.List;
 
-import javax.inject.Inject;
+@Dao
+public abstract class UserActivityDao {
 
-public class UserActivityDao {
+    @Insert
+    public abstract void insert(UserActivity userActivity);
 
-    private final RemoteModelDao<UserActivity> dao;
-
-    @Inject
-    public UserActivityDao(Database database) {
-        dao = new RemoteModelDao<>(database, UserActivity.class);
-    }
+    @Query("SELECT * FROM userActivity WHERE `action` = 'task_comment' AND target_id = :taskUuid AND deleted_at = 0 ORDER BY created_at DESC ")
+    public abstract List<UserActivity> getCommentsForTask(String taskUuid);
 
     public void createNew(UserActivity item) {
-        if (!item.containsValue(UserActivity.CREATED_AT)) {
-            item.setCreatedAt(DateUtilities.now());
+        if (item.getCreated() == null || item.getCreated() == 0L) {
+            item.setCreated(DateUtilities.now());
         }
-        dao.createNew(item);
-    }
-
-    public List<UserActivity> getCommentsForTask(String taskUuid) {
-        return dao.toList(Query.select(UserActivity.PROPERTIES).where(
-                Criterion.and(UserActivity.ACTION.eq(UserActivity.ACTION_TASK_COMMENT),
-                        UserActivity.TARGET_ID.eq(taskUuid),
-                        UserActivity.DELETED_AT.eq(0)))
-                .orderBy(Order.desc(UserActivity.CREATED_AT)));
+        if (RemoteModel.isUuidEmpty(item.getRemoteId())) {
+            item.setRemoteId(UUIDHelper.newUUID());
+        }
+        insert(item);
     }
 }

@@ -45,8 +45,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     public static final int PROP_FLAG_DATE = 1 << 1;
     /** Is this field a serialized JSON object? */
     public static final int PROP_FLAG_JSON = 1 << 4;
-    /** Is this field for pictures? (usually as a json object containing "path" key or urls) */
-    public static final int PROP_FLAG_PICTURE = 1 << 5;
 
     private int flags = 0;
 
