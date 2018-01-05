@@ -14,7 +14,7 @@ public class Notification {
     public int uid;
 
     @ColumnInfo(name = "task")
-    public Long taskId;
+    public long taskId;
 
     @ColumnInfo(name = "timestamp")
     public long timestamp;

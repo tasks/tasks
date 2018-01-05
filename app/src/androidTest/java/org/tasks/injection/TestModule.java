@@ -6,7 +6,6 @@ import android.content.Context;
 import com.todoroo.astrid.dao.Database;
 
 import org.tasks.analytics.Tracker;
-import org.tasks.db.AppDatabase;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissivePermissionChecker;

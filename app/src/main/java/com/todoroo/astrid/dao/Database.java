@@ -5,18 +5,14 @@
  */
 package com.todoroo.astrid.dao;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.SqlConstructorVisitor;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Metadata;
@@ -26,13 +22,11 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
-import org.tasks.analytics.Tracker;
-import org.tasks.injection.ApplicationScope;
-import org.tasks.injection.ForApplication;
+import org.tasks.notifications.Notification;
+import org.tasks.notifications.NotificationDao;
 
-import javax.inject.Inject;
+import java.io.IOException;
 
 import timber.log.Timber;
 
@@ -42,12 +36,14 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@ApplicationScope
-public class Database {
+@android.arch.persistence.room.Database(entities = {Notification.class}, version = 39)
+public abstract class Database extends RoomDatabase {
 
-    private static final int VERSION = 38;
-    private static final String NAME = "database";
-    private static final Table[] TABLES =  new Table[] {
+    public abstract NotificationDao notificationDao();
+
+    public static final String NAME = "database";
+
+    public static final Table[] TABLES =  new Table[] {
             Task.TABLE,
             Metadata.TABLE,
             StoreObject.TABLE,
@@ -57,19 +53,8 @@ public class Database {
             TaskListMetadata.TABLE,
     };
 
-    private final SQLiteOpenHelper helper;
-    private final Context context;
-    private final Tracker tracker;
-    private SQLiteDatabase database;
-
-    // --- listeners
-
-    @Inject
-    public Database(@ForApplication Context context, Tracker tracker) {
-        this.context = context;
-        this.tracker = tracker;
-        helper = new DatabaseHelper(context, getName(), VERSION);
-    }
+    private SupportSQLiteDatabase database;
+    private Runnable onDatabaseUpdated;
 
     // --- implementation
 
@@ -77,109 +62,17 @@ public class Database {
         return NAME;
     }
 
-    /**
-     * Create indices
-     */
-    private void onCreateTables() {
-        StringBuilder sql = new StringBuilder();
-        sql.append("CREATE INDEX IF NOT EXISTS md_tid ON ").
-        append(Metadata.TABLE).append('(').
-        append(Metadata.TASK.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
 
-        sql.append("CREATE INDEX IF NOT EXISTS md_tkid ON ").
-        append(Metadata.TABLE).append('(').
-        append(Metadata.TASK.name).append(',').
-        append(Metadata.KEY.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
 
-        sql.append("CREATE INDEX IF NOT EXISTS so_id ON ").
-        append(StoreObject.TABLE).append('(').
-        append(StoreObject.TYPE.name).append(',').
-        append(StoreObject.ITEM.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
-
-        sql.append("CREATE UNIQUE INDEX IF NOT EXISTS t_rid ON ").
-        append(Task.TABLE).append('(').
-        append(Task.UUID.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
-    }
-
-    private boolean onUpgrade(int oldVersion, int newVersion) {
-        SqlConstructorVisitor visitor = new SqlConstructorVisitor();
-        switch(oldVersion) {
-            case 35:
-                tryExecSQL(addColumnSql(TagData.TABLE, TagData.COLOR, visitor, "-1"));
-            case 36:
-                tryExecSQL(addColumnSql(StoreObject.TABLE, StoreObject.DELETION_DATE, visitor, "0"));
-            case 37:
-                tryExecSQL(addColumnSql(StoreObject.TABLE, StoreObject.VALUE4, visitor, "-1"));
-                return true;
-        }
-
-        return false;
-    }
-
-    private void tryExecSQL(String sql) {
-        try {
-            database.execSQL(sql);
-        } catch (SQLiteException e) {
-            tracker.reportException(e);
-        }
-    }
-
-    private static String addColumnSql(Table table, Property<?> property, SqlConstructorVisitor visitor, String defaultValue) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("ALTER TABLE ")
-               .append(table.name)
-               .append(" ADD ")
-               .append(property.accept(visitor, null));
-        if (!TextUtils.isEmpty(defaultValue)) {
-            builder.append(" DEFAULT ").append(defaultValue);
-        }
-        return builder.toString();
-    }
-
-    private void tryAddColumn(Table table, Property<?> column, String defaultValue) {
-        try {
-            SqlConstructorVisitor visitor = new SqlConstructorVisitor();
-            String sql = "ALTER TABLE " + table.name + " ADD " +  //$NON-NLS-1$//$NON-NLS-2$
-                    column.accept(visitor, null);
-            if (!TextUtils.isEmpty(defaultValue)) {
-                sql += " DEFAULT " + defaultValue;
-            }
-            database.execSQL(sql);
-        } catch (SQLiteException e) {
-            // ignored, column already exists
-            Timber.e(e, e.getMessage());
-        }
-    }
-
-    private String createTableSql(SqlConstructorVisitor visitor,
-            String tableName, Property<?>[] properties) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("CREATE TABLE IF NOT EXISTS ").append(tableName).append('(').
-        append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
-        for(Property<?> property : properties) {
-            if(AbstractModel.ID_PROPERTY.name.equals(property.name)) {
-                continue;
-            }
-            sql.append(',').append(property.accept(visitor, null));
-        }
-        sql.append(')');
-        return sql.toString();
+    public Database setOnDatabaseUpdated(Runnable onDatabaseUpdated) {
+        this.onDatabaseUpdated = onDatabaseUpdated;
+        return this;
     }
 
     private void onDatabaseUpdated() {
-        Astrid2TaskProvider.notifyDatabaseModification(context);
+        if (onDatabaseUpdated != null) {
+            onDatabaseUpdated.run();
+        }
     }
 
     /**
@@ -204,7 +97,7 @@ public class Database {
         }
 
         try {
-            database = helper.getWritableDatabase();
+            database = getOpenHelper().getWritableDatabase();
         } catch (NullPointerException e) {
             Timber.e(e, e.getMessage());
             throw new IllegalStateException(e);
@@ -228,7 +121,7 @@ public class Database {
         if(database != null && database.isOpen()) {
             return;
         }
-        database = helper.getReadableDatabase();
+        database = getOpenHelper().getReadableDatabase();
     }
 
     /**
@@ -236,7 +129,11 @@ public class Database {
      */
     public synchronized final void close() {
         if(database != null) {
-            database.close();
+            try {
+                database.close();
+            } catch (IOException e) {
+                Timber.e(e, e.getMessage());
+            }
         }
         database = null;
     }
@@ -244,7 +141,7 @@ public class Database {
     /**
      * @return sql database. opens database if not yet open
      */
-    public synchronized final SQLiteDatabase getDatabase() {
+    public synchronized final SupportSQLiteDatabase getDatabase() {
         if(database == null) {
             AndroidUtilities.sleepDeep(300L);
             openForWriting();
@@ -263,13 +160,13 @@ public class Database {
     // --- database wrapper
 
     public Cursor rawQuery(String sql) {
-        return getDatabase().rawQuery(sql, null);
+        return getDatabase().query(sql, null);
     }
 
-    public long insert(String table, String nullColumnHack, ContentValues values) {
+    public long insert(String table, ContentValues values) {
         long result;
         try {
-            result = getDatabase().insertOrThrow(table, nullColumnHack, values);
+            result = getDatabase().insert(table, SQLiteDatabase.CONFLICT_REPLACE, values);
         } catch (SQLiteConstraintException e) { // Throw these exceptions
             throw e;
         } catch (Exception e) { // Suppress others
@@ -287,71 +184,9 @@ public class Database {
     }
 
     public int update(String  table, ContentValues  values, String whereClause) {
-        int result = getDatabase().update(table, values, whereClause, null);
+        int result = getDatabase().update(table, SQLiteDatabase.CONFLICT_REPLACE, values, whereClause, null);
         onDatabaseUpdated();
         return result;
-    }
-
-    // --- helper classes
-
-    /**
-     * Default implementation of Astrid database helper
-     */
-    private class DatabaseHelper extends SQLiteOpenHelper {
-
-        public DatabaseHelper(Context context, String name, int version) {
-            super(context, name, null, version);
-        }
-
-        /**
-         * Called to create the database tables
-         */
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            StringBuilder sql = new StringBuilder();
-            SqlConstructorVisitor sqlVisitor = new SqlConstructorVisitor();
-
-            // create tables
-            for(Table table : TABLES) {
-                sql.append("CREATE TABLE IF NOT EXISTS ").append(table.name).append('(').
-                        append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
-                for(Property<?> property : table.getProperties()) {
-                    if(AbstractModel.ID_PROPERTY.name.equals(property.name)) {
-                        continue;
-                    }
-                    sql.append(',').append(property.accept(sqlVisitor, null));
-                }
-                sql.append(')');
-                db.execSQL(sql.toString());
-                sql.setLength(0);
-            }
-
-            // post-table-creation
-            database = db;
-            onCreateTables();
-        }
-
-        /**
-         * Called to upgrade the database to a new version
-         */
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Timber.i("Upgrading database from version %s to %s", oldVersion, newVersion);
-
-            database = db;
-            try {
-                if(!Database.this.onUpgrade(oldVersion, newVersion)) {
-                    // We don't know how to handle this case because someone forgot to
-                    // implement the upgrade. We can't drop tables, we can only
-                    // throw a nasty exception at this time
-
-                    throw new IllegalStateException("Missing database migration " +
-                            "from " + oldVersion + " to " + newVersion);
-                }
-            } catch (Exception e) {
-                Timber.e(e, "database-upgrade-%s-%s-%s", getName(), oldVersion, newVersion);
-            }
-        }
     }
 }
 

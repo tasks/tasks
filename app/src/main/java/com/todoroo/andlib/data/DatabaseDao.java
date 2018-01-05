@@ -173,8 +173,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         DatabaseChangeOp insert = new DatabaseChangeOp() {
             @Override
             public boolean makeChange() {
-                long newRow = database.insert(table.name,
-                        AbstractModel.ID_PROPERTY.name, item.getMergedValues());
+                long newRow = database.insert(table.name, item.getMergedValues());
                 boolean result = newRow >= 0;
                 if (result) {
                     item.setId(newRow);

@@ -139,7 +139,7 @@ public class NotificationManager {
         List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
         if (cancelExisting) {
             for (org.tasks.notifications.Notification notification : notifications) {
-                notificationManagerCompat.cancel(notification.taskId.intValue());
+                notificationManagerCompat.cancel((int) notification.taskId);
             }
         }
 
@@ -185,10 +185,10 @@ public class NotificationManager {
         for (org.tasks.notifications.Notification notification : notifications) {
             NotificationCompat.Builder builder = getTaskNotification(notification);
             if (builder == null) {
-                notificationManagerCompat.cancel(notification.taskId.intValue());
+                notificationManagerCompat.cancel((int) notification.taskId);
                 notificationDao.delete(notification.taskId);
             } else {
-                builder.setGroup(useGroupKey ? GROUP_KEY : (atLeastNougat() ? notification.taskId.toString() : null))
+                builder.setGroup(useGroupKey ? GROUP_KEY : (atLeastNougat() ? Long.toString(notification.taskId) : null))
                         .setGroupAlertBehavior(alert ? NotificationCompat.GROUP_ALERT_CHILDREN : NotificationCompat.GROUP_ALERT_SUMMARY);
                 notify(notification.taskId, builder, alert, nonstop, fiveTimes);
                 alert = false;

@@ -3,9 +3,12 @@ package org.tasks.injection;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
+import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.provider.Astrid2TaskProvider;
+
 import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
-import org.tasks.db.AppDatabase;
+import org.tasks.db.Migrations;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
 
@@ -44,12 +47,17 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    public AppDatabase getAppDatabase() {
-        return Room.databaseBuilder(context, AppDatabase.class, "app-database").build();
+    public Database getAppDatabase() {
+        return Room
+                .databaseBuilder(context, Database.class, Database.NAME)
+                .addMigrations(Migrations.MIGRATIONS)
+                .addCallback(Migrations.ON_CREATE)
+                .build()
+                .setOnDatabaseUpdated(() -> Astrid2TaskProvider.notifyDatabaseModification(context));
     }
 
     @Provides
-    public NotificationDao getNotificationDao(AppDatabase appDatabase) {
-        return appDatabase.notificationDao();
+    public NotificationDao getNotificationDao(Database database) {
+        return database.notificationDao();
     }
 }
