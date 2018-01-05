@@ -11,9 +11,8 @@ import android.text.format.DateFormat;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
-
-import java.util.Locale;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -115,7 +114,7 @@ public class DateUtilities {
 
     private static String getDateString(String simpleDateFormat, DateTime date) {
         boolean includeYear = date.getYear() != newDateTime().getYear();
-        String format = getFormat(Locale.getDefault(), simpleDateFormat, includeYear);
+        String format = getFormat(Locale.getInstance(), simpleDateFormat, includeYear);
         return date.toString(format);
     }
 

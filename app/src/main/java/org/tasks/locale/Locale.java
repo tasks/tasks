@@ -218,4 +218,12 @@ public class Locale {
             }
         }
     }
+
+    public String getLanguage() {
+        return appLocale.getLanguage();
+    }
+
+    public String getCountry() {
+        return appLocale.getCountry();
+    }
 }
