@@ -23,7 +23,7 @@ public class SyncModelTest extends NewSyncTestCase {
 	@Test
 	public void testCreateTagMakesUuid() {
 		TagData tag = createTagData();
-		assertFalse(RemoteModel.NO_UUID.equals(tag.getUUID()));	
+		assertFalse(RemoteModel.NO_UUID.equals(tag.getRemoteId()));
 	}
 
 }

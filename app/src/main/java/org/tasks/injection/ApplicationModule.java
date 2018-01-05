@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
@@ -50,6 +51,7 @@ public class ApplicationModule {
     public Database getAppDatabase() {
         return Room
                 .databaseBuilder(context, Database.class, Database.NAME)
+                .allowMainThreadQueries() // TODO: remove me
                 .addMigrations(Migrations.MIGRATIONS)
                 .addCallback(Migrations.ON_CREATE)
                 .build()
@@ -59,5 +61,10 @@ public class ApplicationModule {
     @Provides
     public NotificationDao getNotificationDao(Database database) {
         return database.notificationDao();
+    }
+
+    @Provides
+    public TagDataDao getTagDataDao(Database database) {
+        return database.getTagDataDao();
     }
 }

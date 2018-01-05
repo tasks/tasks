@@ -23,6 +23,7 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
@@ -30,6 +31,7 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.backup.XmlReader;
 import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -156,7 +158,6 @@ public class TasksXmlImporter {
         final Task currentTask = new Task();
         final UserActivity userActivity = new UserActivity();
         final Metadata metadata = new Metadata();
-        final TagData tagdata = new TagData();
 
         public Format2TaskImporter() { }
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
@@ -269,11 +270,11 @@ public class TasksXmlImporter {
                 //If you sync with Google tasks it adds some Google task metadata.
                 //For this metadata we don't create a list!
                 if(key.equals(TaskToTagMetadata.KEY) && tagData == null && deletionDate == 0) {
-                    tagdata.clear();
-                    tagdata.setId(TagData.NO_ID);
-                    tagdata.setUuid(uuid);
-                    tagdata.setName(name);
-                    tagDataDao.persist(tagdata);
+                    tagData = new TagData();
+                    tagData.setId(RemoteModel.NO_ID);
+                    tagData.setRemoteId(uuid);
+                    tagData.setName(name);
+                    tagDataDao.insert(tagData);
                 }
             }
         }
@@ -375,10 +376,9 @@ public class TasksXmlImporter {
         }
 
         private void parseTagdata() {
-            tagdata.clear();
-            deserializeModel(tagdata, TagData.PROPERTIES);
-            if (tagDataDao.getByUuid(tagdata.getUuid()) == null) {
-                tagDataDao.persist(tagdata);
+            TagData tagData = new TagData(new XmlReader(xpp));
+            if (tagDataDao.getByUuid(tagData.getRemoteId()) == null) {
+                tagDataDao.insert(tagData);
             }
         }
     }

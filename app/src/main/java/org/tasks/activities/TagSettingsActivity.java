@@ -90,7 +90,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         if (tagData == null) {
             isNewTag = true;
             tagData = new TagData();
-            tagData.setUUID(UUIDHelper.newUUID());
+            tagData.setRemoteId(UUIDHelper.newUUID());
         }
         if (savedInstanceState == null) {
             selectedTheme = tagData.getColor();
@@ -195,13 +195,13 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         } else if (hasChanges()) {
             tagData.setName(newName);
             tagData.setColor(selectedTheme);
-            tagService.rename(tagData.getUuid(), newName);
+            tagService.rename(tagData.getRemoteId(), newName);
             tagDataDao.persist(tagData);
             Metadata m = new Metadata();
             m.setValue(TaskToTagMetadata.TAG_NAME, newName);
             metadataDao.update(Criterion.and(
                     MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                    TaskToTagMetadata.TAG_UUID.eq(tagData.getUUID())), m);
+                    TaskToTagMetadata.TAG_UUID.eq(tagData.getRemoteId())), m);
             setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
         }
 
@@ -249,7 +249,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
         dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, tagData.getName())
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                     if (tagData != null) {
-                        String uuid = tagData.getUuid();
+                        String uuid = tagData.getRemoteId();
                         metadataDao.deleteWhere(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
                         tagDataDao.delete(tagData.getId());
                         setResult(RESULT_OK, new Intent(ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));

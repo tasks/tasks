@@ -5,69 +5,50 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.data.TagData;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
 
-import org.tasks.injection.ApplicationScope;
+import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.helper.UUIDHelper;
 
 import java.util.List;
 
-import javax.inject.Inject;
+@Dao
+public abstract class TagDataDao {
 
-/**
- * Data Access layer for {@link TagData}-related operations.
- *
- * @author Tim Su <tim@todoroo.com>
- */
-@ApplicationScope
-public class TagDataDao {
+    @Query("SELECT * FROM tagdata WHERE name = :name COLLATE NOCASE LIMIT 1")
+    public abstract TagData getTagByName(String name);
 
-    private final RemoteModelDao<TagData> dao;
+    // TODO: does this need to be ordered?
+    @Query("SELECT * FROM tagdata WHERE deleted = 0 ORDER BY _id ASC")
+    public abstract List<TagData> allTags();
 
-    @Inject
-    public TagDataDao(Database database) {
-        dao = new RemoteModelDao<>(database, TagData.class);
-    }
+    @Query("SELECT * FROM tagdata WHERE remoteId = :uuid LIMIT 1")
+    public abstract TagData getByUuid(String uuid);
 
-    public TagData getTagByName(String name) {
-        return dao.getFirst(Query.select(TagData.PROPERTIES).where(TagData.NAME.eqCaseInsensitive(name)));
-    }
+    @Query("SELECT * FROM tagdata WHERE deleted = 0 AND name IS NOT NULL ORDER BY UPPER(name) ASC")
+    public abstract List<TagData> tagDataOrderedByName();
 
-    public List<TagData> allTags() {
-        // TODO: does this need to be ordered?
-        return dao.toList(Query.select(TagData.PROPERTIES)
-                .where(TagData.DELETION_DATE.eq(0))
-                .orderBy(Order.asc(TagData.ID)));
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void persist(TagData tagData);
 
-    public TagData getByUuid(String uuid) {
-        return dao.getFirst(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
-    }
+    @Query("UPDATE tagdata SET name = :name WHERE remoteId = :remoteId")
+    public abstract void rename(String remoteId, String name);
 
-    public List<TagData> tagDataOrderedByName() {
-        return dao.toList(Query.select(TagData.PROPERTIES).where(Criterion.and(
-                TagData.DELETION_DATE.eq(0),
-                TagData.NAME.isNotNull()))
-                .orderBy(Order.asc(Functions.upper(TagData.NAME))));
-    }
+    @Query("DELETE FROM tagdata WHERE _id = :id")
+    public abstract void delete(Long id);
 
-    public void persist(TagData tagData) {
-        dao.persist(tagData);
-    }
-
-    public void update(Criterion where, TagData template) {
-        dao.update(where, template);
-    }
-
-    public void delete(long id) {
-        dao.delete(id);
-    }
+    @Insert
+    public abstract void insert(TagData tag);
 
     public void createNew(TagData tag) {
-        dao.createNew(tag);
+        if (RemoteModel.isUuidEmpty(tag.getRemoteId())) {
+            tag.setRemoteId(UUIDHelper.newUUID());
+        }
+        insert(tag);
     }
 }
 

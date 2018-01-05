@@ -48,7 +48,7 @@ public class TagFormatter {
         tagCharacters = typedValue.getFloat();
 
         for (TagData tagData : tagService.getTagList()) {
-            tagMap.put(tagData.getUuid(), tagData);
+            tagMap.put(tagData.getRemoteId(), tagData);
         }
     }
 

@@ -36,10 +36,16 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@android.arch.persistence.room.Database(entities = {Notification.class}, version = 39)
+@android.arch.persistence.room.Database(
+        entities = {
+                Notification.class,
+                TagData.class
+        },
+        version = 40)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
+    public abstract TagDataDao getTagDataDao();
 
     public static final String NAME = "database";
 
@@ -47,7 +53,6 @@ public abstract class Database extends RoomDatabase {
             Task.TABLE,
             Metadata.TABLE,
             StoreObject.TABLE,
-            TagData.TABLE,
             UserActivity.TABLE,
             TaskAttachment.TABLE,
             TaskListMetadata.TABLE,

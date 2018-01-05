@@ -44,11 +44,19 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_39_40 = new Migration(39, 40) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+        }
+    };
+
     public static Migration[] MIGRATIONS = new Migration[] {
             MIGRATION_35_36,
             MIGRATION_36_37,
             MIGRATION_37_38,
-            MIGRATION_38_39
+            MIGRATION_38_39,
+            MIGRATION_39_40
     };
 
     public static RoomDatabase.Callback ON_CREATE = new RoomDatabase.Callback() {

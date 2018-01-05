@@ -66,7 +66,7 @@ public class SubtasksHelper {
                 TagData tagData = tagDataDao.getTagByName(filter.listingTitle);
                 TaskListMetadata tlm = null;
                 if (tagData != null) {
-                    tlm = taskListMetadataDao.fetchByTagId(tagData.getUuid());
+                    tlm = taskListMetadataDao.fetchByTagId(tagData.getRemoteId());
                 } else if (BuiltInFilterExposer.isInbox(context, filter)) {
                     tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL);
                 } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {

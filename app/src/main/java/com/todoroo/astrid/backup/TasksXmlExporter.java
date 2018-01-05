@@ -30,6 +30,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.R;
+import org.tasks.backup.XmlWriter;
 import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -164,7 +165,7 @@ public class TasksXmlExporter {
         for (TagData tag : tagDataDao.allTags()) {
             try {
                 xml.startTag(null, BackupConstants.TAGDATA_TAG);
-                serializeModel(tag, TagData.PROPERTIES, TagData.ID);
+                tag.writeToXml(new XmlWriter(xml));
                 xml.endTag(null, BackupConstants.TAGDATA_TAG);
             } catch(IOException e) {
                 throw new RuntimeException(e);

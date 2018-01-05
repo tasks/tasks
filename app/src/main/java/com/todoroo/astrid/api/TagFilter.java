@@ -27,8 +27,8 @@ public class TagFilter extends Filter {
     }
 
     public TagFilter(TagData tagData) {
-        super(tagData.getName(), queryTemplate(tagData.getUuid()), getValuesForNewTask(tagData));
-        uuid = tagData.getUuid();
+        super(tagData.getName(), queryTemplate(tagData.getRemoteId()), getValuesForNewTask(tagData));
+        uuid = tagData.getRemoteId();
         tint = tagData.getColor();
         icon = TAG;
     }
@@ -51,7 +51,7 @@ public class TagFilter extends Filter {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
         contentValues.put(TaskToTagMetadata.TAG_NAME.name, tagData.getName());
-        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tagData.getUuid());
+        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tagData.getRemoteId());
         return contentValues;
     }
 

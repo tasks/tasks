@@ -1,121 +1,180 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
 package com.todoroo.astrid.data;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import android.content.ContentValues;
+import org.tasks.backup.XmlReader;
+import org.tasks.backup.XmlWriter;
 
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.Table;
+@Entity(tableName = "tagdata")
+public final class TagData implements Parcelable {
 
-/**
- * Data Model which represents a collaboration space for users / tasks.
- *
- * @author Tim Su <tim@todoroo.com>
- *
- */
-public final class TagData extends RemoteModel {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    private Long id;
 
-    // --- table and uri
+    @ColumnInfo(name = "remoteId")
+    private String remoteId = RemoteModel.NO_UUID;
 
-    /** table for this model */
-    public static final Table TABLE = new Table("tagdata", TagData.class);
+    @ColumnInfo(name = "name")
+    private String name = "";
 
-    // --- properties
+    @ColumnInfo(name = "color")
+    private Integer color = -1;
 
-    /** ID */
-    public static final LongProperty ID = new LongProperty(
-            TABLE, ID_PROPERTY_NAME);
+    @ColumnInfo(name = "tagOrdering")
+    private String tagOrdering = "[]";
 
-    /** Remote goal id */
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
-
-    /** Name of Tag */
-    public static final StringProperty NAME = new StringProperty(
-            TABLE, "name");
-
-    public static final IntegerProperty COLOR = new IntegerProperty(
-            TABLE, "color");
-
-    /** Unixtime Project was deleted. 0 means not deleted */
     @Deprecated
-    public static final LongProperty DELETION_DATE = new LongProperty(
-            TABLE, "deleted", Property.PROP_FLAG_DATE);
+    @ColumnInfo(name = "deleted")
+    private Long deleted = 0L;
 
-    /** Tag ordering */
-    @Deprecated
-    public static final StringProperty TAG_ORDERING = new StringProperty(
-            TABLE, "tagOrdering");
-
-    /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
-
-    // --- defaults
-
-    /** Default values container */
-    private static final ContentValues defaultValues = new ContentValues();
-
-    static {
-        defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(NAME.name, "");
-        defaultValues.put(DELETION_DATE.name, 0);
-        defaultValues.put(TAG_ORDERING.name, "[]");
-        defaultValues.put(COLOR.name, -1);
+    public TagData() {
     }
 
-    @Override
-    public ContentValues getDefaultValues() {
-        return defaultValues;
+    @Ignore
+    public TagData(XmlReader reader) {
+        reader.readString("remoteId", this::setRemoteId);
+        reader.readString("name", this::setName);
+        reader.readInteger("color", this::setColor);
+        reader.readString("tagOrdering", this::setTagOrdering);
+        reader.readLong("deleted", this::setDeleted);
     }
 
-    @Override
-    public long getId() {
-        return getIdHelper(ID);
+    @Ignore
+    private TagData(Parcel parcel) {
+        id = parcel.readLong();
+        remoteId = parcel.readString();
+        name = parcel.readString();
+        color = parcel.readInt();
+        tagOrdering = parcel.readString();
+        deleted = parcel.readLong();
     }
 
-    public String getUuid() {
-        return getUuidHelper(UUID);
+    public void writeToXml(XmlWriter writer) {
+        writer.writeString("remoteId", remoteId);
+        writer.writeString("name", name);
+        writer.writeInteger("color", color);
+        writer.writeString("tagOrdering", tagOrdering);
+        writer.writeLong("deleted", deleted);
     }
 
-    // --- parcelable helpers
+    public Long getId() {
+        return id;
+    }
 
-    public static final Creator<TagData> CREATOR = new ModelCreator<>(TagData.class);
+    public void setId(long id) {
+        this.id = id;
+    }
 
-    // --- data access methods
+    public String getRemoteId() {
+        return remoteId;
+    }
+
+    public void setRemoteId(String remoteId) {
+        this.remoteId = remoteId;
+    }
 
     public String getName() {
-        return getValue(NAME);
+        return name;
     }
 
     public void setName(String name) {
-        setValue(NAME, name);
+        this.name = name;
     }
 
     public String getTagOrdering() {
-        return getValue(TAG_ORDERING);
+        return tagOrdering;
+    }
+
+    public void setTagOrdering(String tagOrdering) {
+        this.tagOrdering = tagOrdering;
+    }
+
+    public Integer getColor() {
+        return color;
     }
 
     public void setColor(int color) {
-        setValue(COLOR, color);
+        this.color = color;
     }
 
-    public int getColor() {
-        return getValue(COLOR);
+    public Long getDeleted() {
+        return deleted;
     }
 
-    // TODO: remove?
-    public String getUUID() {
-        return getValue(UUID);
+    public void setDeleted(long deleted) {
+        this.deleted = deleted;
     }
 
-    public void setUUID(String uuid) {
-        setValue(UUID, uuid);
+    public static final Creator<TagData> CREATOR = new Creator<TagData>() {
+        @Override
+        public TagData createFromParcel(Parcel source) {
+            return new TagData(source);
+        }
+
+        @Override
+        public TagData[] newArray(int size) {
+            return new TagData[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(remoteId);
+        dest.writeString(name);
+        dest.writeInt(color);
+        dest.writeString(tagOrdering);
+        dest.writeLong(deleted);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TagData tagData = (TagData) o;
+
+        if (id != null ? !id.equals(tagData.id) : tagData.id != null) return false;
+        if (remoteId != null ? !remoteId.equals(tagData.remoteId) : tagData.remoteId != null)
+            return false;
+        if (name != null ? !name.equals(tagData.name) : tagData.name != null) return false;
+        if (color != null ? !color.equals(tagData.color) : tagData.color != null) return false;
+        if (tagOrdering != null ? !tagOrdering.equals(tagData.tagOrdering) : tagData.tagOrdering != null)
+            return false;
+        return deleted != null ? deleted.equals(tagData.deleted) : tagData.deleted == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + (tagOrdering != null ? tagOrdering.hashCode() : 0);
+        result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "TagData{" +
+                "id=" + id +
+                ", remoteId='" + remoteId + '\'' +
+                ", name='" + name + '\'' +
+                ", color=" + color +
+                ", tagOrdering='" + tagOrdering + '\'' +
+                ", deleted=" + deleted +
+                '}';
     }
 }

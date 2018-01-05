@@ -148,7 +148,7 @@ public class TaskCreator {
             tagData.setName(tagName);
             tagDataDao.persist(tagData);
         }
-        createLink(task, tagData.getName(), tagData.getUUID());
+        createLink(task, tagData.getName(), tagData.getRemoteId());
     }
 
     private void createLink(Task task, String tagName, String tagUuid) {

@@ -390,7 +390,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
      */
     private boolean synchronizeTags(long taskId, String taskUuid) {
         for (TagData tagData : selectedTags) {
-            if (RemoteModel.NO_UUID.equals(tagData.getUuid())) {
+            if (RemoteModel.NO_UUID.equals(tagData.getRemoteId())) {
                 tagDataDao.persist(tagData);
             }
         }
@@ -400,7 +400,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
         Sets.SetView<TagData> removed = difference(existingHash, selectedHash);
         deleteLinks(taskId, taskUuid, filter(removed, notNull()));
         for (TagData tagData : added) {
-            Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tagData.getName(), tagData.getUuid());
+            Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tagData.getName(), tagData.getRemoteId());
             metadataDao.createNew(newLink);
         }
         return !removed.isEmpty() || !added.isEmpty();
@@ -416,9 +416,9 @@ public final class TagsControlSet extends TaskEditControlFragment {
         for (TagData tag : tags) {
             // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
             // the outstanding entry correctly. If possible, this should be improved to a single query
-            deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, tag.getUuid()); // Need this for recording changes in outstanding table
+            deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, tag.getRemoteId()); // Need this for recording changes in outstanding table
             metadataDao.update(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
-                    TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tag.getUuid())), deleteTemplate);
+                    TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tag.getRemoteId())), deleteTemplate);
         }
     }
 

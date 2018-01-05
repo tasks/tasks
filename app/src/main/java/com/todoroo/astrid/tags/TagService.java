@@ -156,9 +156,7 @@ public final class TagService {
     }
 
     public int rename(String uuid, String newName) {
-        TagData template = new TagData();
-        template.setName(newName);
-        tagDataDao.update(TagData.UUID.eq(uuid), template);
+        tagDataDao.rename(uuid, newName);
 
         Metadata metadataTemplate = new Metadata();
         metadataTemplate.setValue(TaskToTagMetadata.TAG_NAME, newName);

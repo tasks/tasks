@@ -137,7 +137,7 @@ public class StartupService {
     }
 
     private void removeDuplicateTags() {
-        ListMultimap<String, TagData> tagsByUuid = Multimaps.index(tagService.getTagList(), TagData::getUuid);
+        ListMultimap<String, TagData> tagsByUuid = Multimaps.index(tagService.getTagList(), TagData::getRemoteId);
         for (String uuid : tagsByUuid.keySet()) {
             removeDuplicateTagData(tagsByUuid.get(uuid));
             removeDuplicateTagMetadata(uuid);
