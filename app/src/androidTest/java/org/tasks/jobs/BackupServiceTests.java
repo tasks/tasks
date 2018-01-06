@@ -11,12 +11,13 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.backup.TasksXmlExporter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.AlarmManager;
@@ -35,7 +36,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @RunWith(AndroidJUnit4.class)
-public class BackupServiceTests extends DatabaseTestCase {
+public class BackupServiceTests extends InjectingTestCase {
 
     private static final long BACKUP_WAIT_TIME = 500L;
 
@@ -73,10 +74,8 @@ public class BackupServiceTests extends DatabaseTestCase {
         component.inject(this);
     }
 
-    @Override
+    @After
     public void tearDown() {
-        super.tearDown();
-
         if (temporaryDirectory != null) {
             for (File file : temporaryDirectory.listFiles())
                 file.delete();

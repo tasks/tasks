@@ -6,8 +6,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
@@ -22,7 +22,7 @@ import static junit.framework.Assert.assertNotNull;
  * @author Sam
  *
  */
-public class SubtasksTestCase extends DatabaseTestCase {
+public class SubtasksTestCase extends InjectingTestCase {
 
     @Inject TaskListMetadataDao taskListMetadataDao;
     @Inject TaskDao taskDao;

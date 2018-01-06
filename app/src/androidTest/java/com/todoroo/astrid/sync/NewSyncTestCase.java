@@ -4,13 +4,13 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
 import javax.inject.Inject;
 
-public class NewSyncTestCase extends DatabaseTestCase {
+public class NewSyncTestCase extends InjectingTestCase {
 
     @Inject TaskDao taskDao;
 	@Inject TagDataDao tagDataDao;

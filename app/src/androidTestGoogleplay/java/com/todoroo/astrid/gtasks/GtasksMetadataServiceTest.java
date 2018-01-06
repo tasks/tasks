@@ -12,10 +12,10 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
@@ -31,7 +31,7 @@ import static junit.framework.Assert.assertNull;
 
 @SuppressWarnings("nls")
 @RunWith(AndroidJUnit4.class)
-public class GtasksMetadataServiceTest extends DatabaseTestCase {
+public class GtasksMetadataServiceTest extends InjectingTestCase {
 
     @Module
     public class GtasksMetadataServiceTestModule {

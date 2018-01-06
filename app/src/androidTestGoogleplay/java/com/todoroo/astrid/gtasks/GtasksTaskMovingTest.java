@@ -12,10 +12,10 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import static junit.framework.Assert.assertNotNull;
 
 @SuppressWarnings("nls")
 @RunWith(AndroidJUnit4.class)
-public class GtasksTaskMovingTest extends DatabaseTestCase {
+public class GtasksTaskMovingTest extends InjectingTestCase {
 
     private static final int VALUE_UNSET = -1;
 

@@ -8,7 +8,6 @@ import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.tasks.LocalBroadcastManager;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.time.DateTime;
 
@@ -37,7 +37,7 @@ import static org.tasks.makers.TaskMaker.newTask;
 
 @SuppressLint("NewApi")
 @RunWith(AndroidJUnit4.class)
-public class RepeatTaskHelperTest extends DatabaseTestCase {
+public class RepeatTaskHelperTest extends InjectingTestCase {
 
     @Inject TaskDao taskDao;
 

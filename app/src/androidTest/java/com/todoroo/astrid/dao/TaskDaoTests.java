@@ -12,10 +12,10 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
-public class TaskDaoTests extends DatabaseTestCase {
+public class TaskDaoTests extends InjectingTestCase {
 
     public static Property<?>[] IDS = new Property<?>[] { Task.ID };
 

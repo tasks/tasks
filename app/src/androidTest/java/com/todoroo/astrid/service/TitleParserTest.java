@@ -12,12 +12,12 @@ import com.google.ical.values.RRule;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.TitleParser;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.R;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
@@ -34,7 +34,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 @RunWith(AndroidJUnit4.class)
-public class TitleParserTest extends DatabaseTestCase {
+public class TitleParserTest extends InjectingTestCase {
 
     @Inject TaskDao taskDao;
     @Inject TagService tagService;

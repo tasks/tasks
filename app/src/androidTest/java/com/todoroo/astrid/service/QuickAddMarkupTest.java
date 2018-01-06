@@ -8,10 +8,10 @@ package com.todoroo.astrid.service;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import static junit.framework.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
-public class QuickAddMarkupTest extends DatabaseTestCase {
+public class QuickAddMarkupTest extends InjectingTestCase {
 
     @Inject TaskCreator taskCreator;
 

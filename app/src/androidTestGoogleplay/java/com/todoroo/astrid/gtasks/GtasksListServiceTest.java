@@ -8,12 +8,12 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.service.TaskDeleter;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.TaskListDataProvider;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.makers.RemoteGtaskListMaker;
 
@@ -35,7 +35,7 @@ import static org.tasks.makers.RemoteGtaskListMaker.newRemoteList;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @RunWith(AndroidJUnit4.class)
-public class GtasksListServiceTest extends DatabaseTestCase {
+public class GtasksListServiceTest extends InjectingTestCase {
 
     @Inject Database database;
     @Inject TaskListDataProvider taskListDataProvider;

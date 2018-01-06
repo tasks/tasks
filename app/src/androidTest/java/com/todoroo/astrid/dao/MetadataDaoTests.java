@@ -12,10 +12,10 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.test.DatabaseTestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
 import java.util.List;
@@ -30,7 +30,7 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
-public class MetadataDaoTests extends DatabaseTestCase {
+public class MetadataDaoTests extends InjectingTestCase {
 
     @Inject MetadataDao metadataDao;
     @Inject TaskDao taskDao;
