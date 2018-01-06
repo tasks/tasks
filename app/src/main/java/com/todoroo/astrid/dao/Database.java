@@ -40,14 +40,16 @@ import timber.log.Timber;
         entities = {
                 Notification.class,
                 TagData.class,
-                UserActivity.class
+                UserActivity.class,
+                TaskAttachment.class
         },
-        version = 41)
+        version = 42)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
     public abstract TagDataDao getTagDataDao();
     public abstract UserActivityDao getUserActivityDao();
+    public abstract TaskAttachmentDao getTaskAttachmentDao();
 
     public static final String NAME = "database";
 
@@ -55,7 +57,6 @@ public abstract class Database extends RoomDatabase {
             Task.TABLE,
             Metadata.TABLE,
             StoreObject.TABLE,
-            TaskAttachment.TABLE,
             TaskListMetadata.TABLE,
     };
 

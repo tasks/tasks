@@ -22,9 +22,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
 
@@ -147,9 +147,9 @@ public class FilesControlSet extends TaskEditControlFragment {
         View clearFile = fileRow.findViewById(R.id.clear);
         clearFile.setOnClickListener(v -> dialogBuilder.newMessageDialog(R.string.premium_remove_file_confirm)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                    taskAttachmentDao.delete(taskAttachment.getId());
-                    if (taskAttachment.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                        File f = new File(taskAttachment.getFilePath());
+                    taskAttachmentDao.delete(taskAttachment);
+                    if (!Strings.isNullOrEmpty(taskAttachment.getPath())) {
+                        File f = new File(taskAttachment.getPath());
                         f.delete();
                     }
                     attachmentContainer.removeView(fileRow);
@@ -161,12 +161,12 @@ public class FilesControlSet extends TaskEditControlFragment {
     private void validateFiles(List<TaskAttachment> files) {
         for (int i = 0; i < files.size(); i++) {
             TaskAttachment m = files.get(i);
-            if (m.containsNonNullValue(TaskAttachment.FILE_PATH)) {
-                File f = new File(m.getFilePath());
+            if (!Strings.isNullOrEmpty(m.getPath())) {
+                File f = new File(m.getPath());
                 if (!f.exists()) {
-                    m.setFilePath(""); //$NON-NLS-1$
+                    m.setPath(""); //$NON-NLS-1$
                     // No local file and no url -- delete the metadata
-                    taskAttachmentDao.delete(m.getId());
+                    taskAttachmentDao.delete(m);
                     files.remove(i);
                     i--;
                 }
@@ -202,11 +202,11 @@ public class FilesControlSet extends TaskEditControlFragment {
 
     @SuppressLint("NewApi")
     private void showFile(final TaskAttachment m) {
-        final String fileType = m.containsNonNullValue(TaskAttachment.CONTENT_TYPE) ? m.getContentType() : TaskAttachment.FILE_TYPE_OTHER;
-        final String filePath = m.getFilePath();
+        final String fileType = !Strings.isNullOrEmpty(m.getContentType()) ? m.getContentType() : TaskAttachment.FILE_TYPE_OTHER;
+        final String filePath = m.getPath();
 
         if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
-            play(m.getFilePath(), () -> showFromIntent(filePath, fileType));
+            play(m.getPath(), () -> showFromIntent(filePath, fileType));
         } else if (fileType.startsWith(TaskAttachment.FILE_TYPE_IMAGE)) {
             try {
                 Intent intent = FileHelper.getReadableActionView(context, filePath, TaskAttachment.FILE_TYPE_IMAGE + "*");
@@ -227,8 +227,7 @@ public class FilesControlSet extends TaskEditControlFragment {
                 }
                 if (!useType.equals(guessedType)) {
                     m.setContentType(useType);
-                    m.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-                    taskAttachmentDao.saveExisting(m);
+                    taskAttachmentDao.update(m);
                 }
             }
             showFromIntent(filePath, useType);

@@ -55,7 +55,7 @@ public class TaskListDataProvider {
         String joinedQuery =
                 Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
                         tagsJoinCriterion).toString() //$NON-NLS-1$
-                        + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN + "." + TaskAttachment.TASK_UUID.name)))
+                        + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN + ".task_id")))
                         + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(

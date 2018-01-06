@@ -5,48 +5,39 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TaskAttachment;
+import com.todoroo.astrid.helper.UUIDHelper;
 
 import java.util.List;
 
-import javax.inject.Inject;
+@Dao
+public abstract class TaskAttachmentDao {
 
-public class TaskAttachmentDao {
+    @Query("SELECT * FROM task_attachments WHERE task_id = :taskUuid AND deleted_at = 0")
+    public abstract List<TaskAttachment> getAttachments(String taskUuid);
 
-    private final RemoteModelDao<TaskAttachment> dao;
+    @Delete
+    public abstract void delete(TaskAttachment taskAttachment);
 
-    @Inject
-    public TaskAttachmentDao(Database database) {
-        dao = new RemoteModelDao<>(database, TaskAttachment.class);
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void insert(TaskAttachment attachment);
 
-    public boolean taskHasAttachments(String taskUuid) {
-        return dao.count(byUuid(taskUuid).limit(1)) > 0;
-    }
-
-    public List<TaskAttachment> getAttachments(String taskUuid) {
-        return dao.toList(byUuid(taskUuid));
-    }
-
-    private static Query byUuid(String taskUuid) {
-        return Query.select(TaskAttachment.PROPERTIES).where(
-                Criterion.and(TaskAttachment.TASK_UUID.eq(taskUuid),
-                        TaskAttachment.DELETED_AT.eq(0))
-        );
-    }
+    @Update
+    public abstract void update(TaskAttachment attachment);
 
     public void createNew(TaskAttachment attachment) {
-        dao.createNew(attachment);
-    }
-
-    public void delete(long id) {
-        dao.delete(id);
-    }
-
-    public void saveExisting(TaskAttachment m) {
-        dao.saveExisting(m);
+        if (RemoteModel.isUuidEmpty(attachment.getRemoteId())) {
+            attachment.setRemoteId(UUIDHelper.newUUID());
+        }
+        insert(attachment);
     }
 }
 

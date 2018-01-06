@@ -44,27 +44,23 @@ public class Migrations {
         }
     };
 
-    private static final Migration MIGRATION_39_40 = new Migration(39, 40) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
+    private static Migration NOOP(int from, int to) {
+        return new Migration(from, to) {
+            @Override
+            public void migrate(@NonNull SupportSQLiteDatabase database) {
 
-        }
-    };
-
-    private static final Migration MIGRATION_40_41 = new Migration(40, 41) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-
-        }
-    };
+            }
+        };
+    }
 
     public static Migration[] MIGRATIONS = new Migration[] {
             MIGRATION_35_36,
             MIGRATION_36_37,
             MIGRATION_37_38,
             MIGRATION_38_39,
-            MIGRATION_39_40,
-            MIGRATION_40_41
+            NOOP(39, 40),
+            NOOP(40, 41),
+            NOOP(41, 42)
     };
 
     public static RoomDatabase.Callback ON_CREATE = new RoomDatabase.Callback() {

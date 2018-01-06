@@ -6,79 +6,46 @@
 package com.todoroo.astrid.data;
 
 
-import android.content.ContentValues;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 
-/**
- * Data Model which represents a user.
- *
- * @author Tim Su <tim@todoroo.com>
- *
- */
-public final class TaskAttachment extends RemoteModel {
+@Entity(tableName = "task_attachments")
+public final class TaskAttachment {
 
-    // --- table and uri
+    @Deprecated
+    public static final Table TABLE = new Table("task_attachments", null);
 
-    /** table for this model */
-    public static final Table TABLE = new Table("task_attachments", TaskAttachment.class);
+    @Deprecated
+    public static final Property.LongProperty ID = new Property.LongProperty(
+            TABLE, "_id");
 
-    // --- properties
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    private Long id;
 
-    /** ID */
-    public static final LongProperty ID = new LongProperty(
-            TABLE, ID_PROPERTY_NAME);
+    @ColumnInfo(name = "remoteId")
+    private String remoteId = RemoteModel.NO_UUID;
 
-    /** Remote id */
-    @SuppressWarnings("WeakerAccess")
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
+    @ColumnInfo(name = "task_id")
+    private String taskId = RemoteModel.NO_UUID;
 
-    /** Task uuid */
-    public static final StringProperty TASK_UUID = new StringProperty(
-            TABLE, "task_id");
+    @ColumnInfo(name = "name")
+    private String name = "";
 
-    /** File name */
-    @SuppressWarnings("WeakerAccess")
-    public static final StringProperty NAME = new StringProperty(
-            TABLE, "name");
+    @ColumnInfo(name = "path")
+    private String path = "";
 
-    /** File path (on local storage) */
-    public static final StringProperty FILE_PATH = new StringProperty(
-            TABLE, "path");
+    @ColumnInfo(name = "content_type")
+    private String contentType = "";
 
-    /** File mimetype */
-    public static final StringProperty CONTENT_TYPE = new StringProperty(
-            TABLE, "content_type");
-
-    /** Attachment deletion date */
-    public static final LongProperty DELETED_AT = new LongProperty(
-            TABLE, "deleted_at", Property.PROP_FLAG_DATE);
-
-    /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = generateProperties(TaskAttachment.class);
-
-    // --- defaults
-
-    /** Default values container */
-    private static final ContentValues defaultValues = new ContentValues();
-
-    static {
-        defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(TASK_UUID.name, NO_UUID);
-        defaultValues.put(NAME.name, "");
-        defaultValues.put(FILE_PATH.name, "");
-        defaultValues.put(CONTENT_TYPE.name, "");
-        defaultValues.put(DELETED_AT.name, 0);
-    }
-
-    @Override
-    public ContentValues getDefaultValues() {
-        return defaultValues;
-    }
+    @ColumnInfo(name = "deleted_at")
+    private Long deleted = 0L;
 
     // -- Constants
     /** default directory for files on external storage */
@@ -92,52 +59,67 @@ public final class TaskAttachment extends RemoteModel {
 
     public static TaskAttachment createNewAttachment(String taskUuid, String filePath, String fileName, String fileType) {
         TaskAttachment attachment = new TaskAttachment();
-        attachment.setTaskUUID(taskUuid);
+        attachment.setTaskId(taskUuid);
         attachment.setName(fileName);
-        attachment.setFilePath(filePath);
+        attachment.setPath(filePath);
         attachment.setContentType(fileType);
-        attachment.setDeletedAt(0L);
+        attachment.setDeleted(0L);
         return attachment;
     }
 
-    @Override
-    public long getId() {
-        return getIdHelper(ID);
+    public Long getId() {
+        return id;
     }
 
-    // --- parcelable helpers
-
-    public static final Creator<TaskAttachment> CREATOR = new ModelCreator<>(TaskAttachment.class);
-
-    private void setDeletedAt(Long deletedAt) {
-        setValue(DELETED_AT, deletedAt);
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    private void setTaskUUID(String taskUuid) {
-        setValue(TASK_UUID, taskUuid);
+    public String getRemoteId() {
+        return remoteId;
+    }
+
+    public void setRemoteId(String remoteId) {
+        this.remoteId = remoteId;
+    }
+
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
     public String getName() {
-        return getValue(NAME);
+        return name;
     }
 
-    private void setName(String name) {
-        setValue(NAME, name);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getContentType() {
-        return getValue(CONTENT_TYPE);
+        return contentType;
     }
 
     public void setContentType(String contentType) {
-        setValue(CONTENT_TYPE, contentType);
+        this.contentType = contentType;
     }
 
-    public String getFilePath() {
-        return getValue(FILE_PATH);
+    public Long getDeleted() {
+        return deleted;
     }
 
-    public void setFilePath(String filePath) {
-        setValue(FILE_PATH, filePath);
+    public void setDeleted(Long deleted) {
+        this.deleted = deleted;
     }
 }

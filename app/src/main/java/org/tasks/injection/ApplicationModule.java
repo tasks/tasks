@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TagDataDao;
+import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
@@ -72,5 +73,10 @@ public class ApplicationModule {
     @Provides
     public UserActivityDao getUserActivityDao(Database database) {
         return database.getUserActivityDao();
+    }
+
+    @Provides
+    public TaskAttachmentDao getTaskAttachmentDao(Database database) {
+        return database.getTaskAttachmentDao();
     }
 }
