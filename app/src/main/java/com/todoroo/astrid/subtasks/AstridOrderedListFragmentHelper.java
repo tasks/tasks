@@ -166,7 +166,7 @@ class AstridOrderedListFragmentHelper {
                 }
 
                 if (madeChanges) {
-                    updater.writeSerialization(list, updater.serializeTree(), true);
+                    updater.writeSerialization(list, updater.serializeTree());
                 }
             } finally {
                 recurring.close();

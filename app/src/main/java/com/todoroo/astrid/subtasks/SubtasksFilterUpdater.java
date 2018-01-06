@@ -7,7 +7,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskListMetadata;
 
@@ -44,7 +43,7 @@ public class SubtasksFilterUpdater {
         if (list == null) {
             return "[]"; //$NON-NLS-1$
         }
-        String order = list.getTaskIDs();
+        String order = list.getTaskIds();
         if (TextUtils.isEmpty(order) || "null".equals(order)) //$NON-NLS-1$
         {
             order = "[]"; //$NON-NLS-1$
@@ -53,13 +52,10 @@ public class SubtasksFilterUpdater {
         return order;
     }
 
-    void writeSerialization(TaskListMetadata list, String serialized, boolean shouldQueueSync) {
+    void writeSerialization(TaskListMetadata list, String serialized) {
         if (list != null) {
-            list.setTaskIDs(serialized);
-            if (!shouldQueueSync) {
-                list.putTransitory(SyncFlags.ACTFM_SUPPRESS_OUTSTANDING_ENTRIES, true);
-            }
-            taskListMetadataDao.saveExisting(list);
+            list.setTaskIds(serialized);
+            taskListMetadataDao.update(list);
         }
     }
 
@@ -148,7 +144,7 @@ public class SubtasksFilterUpdater {
             tasks.close();
         }
         if (changedThings) {
-            writeSerialization(list, serializeTree(), false);
+            writeSerialization(list, serializeTree());
         }
     }
 
@@ -275,7 +271,7 @@ public class SubtasksFilterUpdater {
             newSiblings.add(insertAfter + 1, node);
         }
 
-        writeSerialization(list, serializeTree(), true);
+        writeSerialization(list, serializeTree());
         applyToFilter(filter);
     }
 
@@ -360,7 +356,7 @@ public class SubtasksFilterUpdater {
             beforeIndex--;
         }
         newSiblings.add(beforeIndex, moveThis);
-        writeSerialization(list, serializeTree(), true);
+        writeSerialization(list, serializeTree());
         applyToFilter(filter);
     }
 
@@ -382,7 +378,7 @@ public class SubtasksFilterUpdater {
         treeRoot.children.add(moveThis);
         moveThis.parent = treeRoot;
         setNodeIndent(moveThis, 0);
-        writeSerialization(list, serializeTree(), true);
+        writeSerialization(list, serializeTree());
         applyToFilter(filter);
     }
 
@@ -394,7 +390,7 @@ public class SubtasksFilterUpdater {
         Node newNode = new Node(uuid, treeRoot, 0);
         treeRoot.children.add(0, newNode);
         idToNode.put(uuid, newNode);
-        writeSerialization(list, serializeTree(), true);
+        writeSerialization(list, serializeTree());
         applyToFilter(filter);
     }
 
@@ -419,7 +415,7 @@ public class SubtasksFilterUpdater {
         }
         idToNode.remove(taskId);
 
-        writeSerialization(list, serializeTree(), true);
+        writeSerialization(list, serializeTree());
         applyToFilter(filter);
     }
 

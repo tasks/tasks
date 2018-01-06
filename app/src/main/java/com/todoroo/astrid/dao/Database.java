@@ -41,15 +41,17 @@ import timber.log.Timber;
                 Notification.class,
                 TagData.class,
                 UserActivity.class,
-                TaskAttachment.class
+                TaskAttachment.class,
+                TaskListMetadata.class
         },
-        version = 42)
+        version = 43)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
     public abstract TagDataDao getTagDataDao();
     public abstract UserActivityDao getUserActivityDao();
     public abstract TaskAttachmentDao getTaskAttachmentDao();
+    public abstract TaskListMetadataDao getTaskListMetadataDao();
 
     public static final String NAME = "database";
 
@@ -57,7 +59,6 @@ public abstract class Database extends RoomDatabase {
             Task.TABLE,
             Metadata.TABLE,
             StoreObject.TABLE,
-            TaskListMetadata.TABLE,
     };
 
     private SupportSQLiteDatabase database;
@@ -188,7 +189,7 @@ public abstract class Database extends RoomDatabase {
         return result;
     }
 
-    public int update(String  table, ContentValues  values, String whereClause) {
+    public int update(String table, ContentValues  values, String whereClause) {
         int result = getDatabase().update(table, SQLiteDatabase.CONFLICT_REPLACE, values, whereClause, null);
         onDatabaseUpdated();
         return result;

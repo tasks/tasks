@@ -84,7 +84,7 @@ public class SubtasksListFragment extends TaskListFragment {
             defaultOrder = SubtasksHelper.convertTreeToRemoteIds(taskDao, defaultOrder);
             taskListMetadata = new TaskListMetadata();
             taskListMetadata.setFilter(filterId);
-            taskListMetadata.setTaskIDs(defaultOrder);
+            taskListMetadata.setTaskIds(defaultOrder);
             taskListMetadataDao.createNew(taskListMetadata);
         }
         return taskListMetadata;

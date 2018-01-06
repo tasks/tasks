@@ -5,38 +5,33 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.data.TagData;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TaskListMetadata;
+import com.todoroo.astrid.helper.UUIDHelper;
 
-import javax.inject.Inject;
+@Dao
+public abstract class TaskListMetadataDao {
 
-/**
- * Data Access layer for {@link TagData}-related operations.
- *
- * @author Tim Su <tim@todoroo.com>
- */
-public class TaskListMetadataDao {
+    @Query("SELECT * from task_list_metadata where tag_uuid = :tagUuid OR filter = :tagUuid LIMIT 1")
+    public abstract TaskListMetadata fetchByTagId(String tagUuid);
 
-    private final RemoteModelDao<TaskListMetadata> dao;
+    @Update
+    public abstract void update(TaskListMetadata taskListMetadata);
 
-    @Inject
-    public TaskListMetadataDao(Database database) {
-        dao = new RemoteModelDao<>(database, TaskListMetadata.class);
-    }
-
-    public TaskListMetadata fetchByTagId(String tagUuid) {
-        return dao.getFirst(Query.select(TaskListMetadata.PROPERTIES).where(Criterion.or(TaskListMetadata.TAG_UUID.eq(tagUuid),
-                TaskListMetadata.FILTER.eq(tagUuid))));
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void insert(TaskListMetadata taskListMetadata);
 
     public void createNew(TaskListMetadata taskListMetadata) {
-        dao.createNew(taskListMetadata);
-    }
-
-    public void saveExisting(TaskListMetadata list) {
-        dao.saveExisting(list);
+        if (RemoteModel.isUuidEmpty(taskListMetadata.getRemoteId())) {
+            taskListMetadata.setRemoteId(UUIDHelper.newUUID());
+        }
+        insert(taskListMetadata);
     }
 }
 

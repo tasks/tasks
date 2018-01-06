@@ -52,7 +52,7 @@ public class SubtasksTagListFragment extends TagListFragment {
         TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(tagData.getRemoteId());
         if (taskListMetadata == null && !RemoteModel.isUuidEmpty(tdId)) {
             taskListMetadata = new TaskListMetadata();
-            taskListMetadata.setTagUUID(tdId);
+            taskListMetadata.setTagUuid(tdId);
             taskListMetadataDao.createNew(taskListMetadata);
         }
         helper.setList(taskListMetadata);

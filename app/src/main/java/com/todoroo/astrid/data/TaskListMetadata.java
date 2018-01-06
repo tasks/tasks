@@ -6,6 +6,9 @@
 package com.todoroo.astrid.data;
 
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
@@ -19,82 +22,65 @@ import com.todoroo.andlib.data.Table;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class TaskListMetadata extends RemoteModel {
-
-    // --- table and uri
-
-    /** table for this model */
-    public static final Table TABLE = new Table("task_list_metadata", TaskListMetadata.class);
-
-    // --- properties
-
-    /** ID */
-    @SuppressWarnings("WeakerAccess")
-    public static final LongProperty ID = new LongProperty(
-            TABLE, ID_PROPERTY_NAME);
-
-    /** Remote id */
-    @SuppressWarnings("WeakerAccess")
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
-
-    /** Tag UUID */
-    public static final StringProperty TAG_UUID = new StringProperty(
-            TABLE, "tag_uuid");
-
-    /** Filter id (one of below) */
-    public static final StringProperty FILTER = new StringProperty(
-            TABLE, "filter");
-
-    /** Tree of task ids (serialized to json array) */
-    public static final StringProperty TASK_IDS = new StringProperty(
-            TABLE, "task_ids", Property.PROP_FLAG_JSON);
-
-    /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = generateProperties(TaskListMetadata.class);
+@Entity(tableName = "task_list_metadata")
+public class TaskListMetadata {
 
     public static final String FILTER_ID_ALL = "all";
     public static final String FILTER_ID_TODAY = "today";
 
-    // --- defaults
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    private Long id;
 
-    /** Default values container */
-    private static final ContentValues defaultValues = new ContentValues();
+    @ColumnInfo(name = "remoteId")
+    private String remoteId = RemoteModel.NO_UUID;
 
-    static {
-        defaultValues.put(UUID.name, NO_UUID);
-        defaultValues.put(TAG_UUID.name, NO_UUID);
-        defaultValues.put(FILTER.name, "");
-        defaultValues.put(TASK_IDS.name, "[]");
+    @ColumnInfo(name = "tag_uuid")
+    private String tagUuid = RemoteModel.NO_UUID;
+
+    @ColumnInfo(name = "filter")
+    private String filter = "";
+
+    @ColumnInfo(name = "task_ids")
+    private String taskIds = "[]";
+
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public ContentValues getDefaultValues() {
-        return defaultValues;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Override
-    public long getId() {
-        return getIdHelper(ID);
+    public String getRemoteId() {
+        return remoteId;
     }
 
-    // --- parcelable helpers
-
-    public static final Creator<TaskListMetadata> CREATOR = new ModelCreator<>(TaskListMetadata.class);
-
-    public String getTaskIDs() {
-        return getValue(TASK_IDS);
+    public void setRemoteId(String remoteId) {
+        this.remoteId = remoteId;
     }
 
-    public void setTaskIDs(String taskIds) {
-        setValue(TASK_IDS, taskIds);
+    public String getTagUuid() {
+        return tagUuid;
     }
 
-    public void setTagUUID(String tagUuid) {
-        setValue(TAG_UUID, tagUuid);
+    public void setTagUuid(String tagUuid) {
+        this.tagUuid = tagUuid;
+    }
+
+    public String getFilter() {
+        return filter;
     }
 
     public void setFilter(String filter) {
-        setValue(FILTER, filter);
+        this.filter = filter;
+    }
+
+    public String getTaskIds() {
+        return taskIds;
+    }
+
+    public void setTaskIds(String taskIds) {
+        this.taskIds = taskIds;
     }
 }

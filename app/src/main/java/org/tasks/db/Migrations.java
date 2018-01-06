@@ -60,7 +60,8 @@ public class Migrations {
             MIGRATION_38_39,
             NOOP(39, 40),
             NOOP(40, 41),
-            NOOP(41, 42)
+            NOOP(41, 42),
+            NOOP(42, 43)
     };
 
     public static RoomDatabase.Callback ON_CREATE = new RoomDatabase.Callback() {
