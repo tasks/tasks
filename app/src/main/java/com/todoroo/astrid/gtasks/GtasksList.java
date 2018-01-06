@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import com.google.common.base.Strings;
 import com.todoroo.astrid.data.StoreObject;
 
 /**
@@ -45,43 +46,41 @@ public class GtasksList {
     }
 
     public String getRemoteId() {
-        return storeObject.getValue(StoreObject.ITEM);
+        return storeObject.getItem();
     }
 
     private void setRemoteId(String remoteId) {
-        storeObject.setValue(StoreObject.ITEM, remoteId);
+        storeObject.setItem(remoteId);
     }
 
     public String getName() {
-        return storeObject.getValue(StoreObject.VALUE1);
+        return storeObject.getValue();
     }
 
     public void setName(String name) {
-        storeObject.setValue(StoreObject.VALUE1, name);
+        storeObject.setValue(name);
     }
 
     public void setOrder(int order) {
-        storeObject.setValue(StoreObject.VALUE2, Integer.toString(order));
+        storeObject.setValue2(Integer.toString(order));
     }
 
     public int getColor() {
-        return storeObject.containsNonNullValue(StoreObject.VALUE4)
-                ? Integer.parseInt(storeObject.getValue(StoreObject.VALUE4))
-                : -1;
+        String color = storeObject.getValue4();
+        return Strings.isNullOrEmpty(color) ? -1 : Integer.parseInt(storeObject.getValue4());
     }
 
     public void setColor(int color) {
-        storeObject.setValue(StoreObject.VALUE4, Integer.toString(color));
+        storeObject.setValue4(Integer.toString(color));
     }
 
     public long getLastSync() {
-        return storeObject.containsNonNullValue(StoreObject.VALUE3)
-                ? Long.parseLong(storeObject.getValue(StoreObject.VALUE3))
-                : 0;
+        String lastSync = storeObject.getValue3();
+        return Strings.isNullOrEmpty(lastSync) ? 0 : Long.parseLong(lastSync);
     }
 
     public void setLastSync(long timestamp) {
-        storeObject.setValue(StoreObject.VALUE3, Long.toString(timestamp));
+        storeObject.setValue3(Long.toString(timestamp));
     }
 
     public StoreObject getStoreObject() {
@@ -91,14 +90,11 @@ public class GtasksList {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GtasksList)) return false;
+        if (o == null || !(o instanceof GtasksList)) return false;
 
         GtasksList that = (GtasksList) o;
 
-        if (storeObject != null ? !storeObject.equals(that.storeObject) : that.storeObject != null)
-            return false;
-
-        return true;
+        return storeObject != null ? storeObject.equals(that.storeObject) : that.storeObject == null;
     }
 
     @Override

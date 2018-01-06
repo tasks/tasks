@@ -7,7 +7,6 @@ package com.todoroo.astrid.core;
 
 import android.content.ContentValues;
 
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -21,26 +20,7 @@ import com.todoroo.astrid.data.StoreObject;
  */
 public class SavedFilter {
 
-    /** type */
-    public static final String TYPE = "filter"; //$NON-NLS-1$
-
-    /** saved filter name */
-    public static final StringProperty NAME = new StringProperty(StoreObject.TABLE,
-            StoreObject.ITEM.name);
-
-    /** perma-sql */
-    public static final StringProperty SQL = new StringProperty(StoreObject.TABLE,
-            StoreObject.VALUE1.name);
-
-    /** serialized new task content values */
-    public static final StringProperty VALUES = new StringProperty(StoreObject.TABLE,
-            StoreObject.VALUE2.name);
-
-    /** serialized list of filters applied */
-    private static final StringProperty FILTERS = new StringProperty(StoreObject.TABLE,
-            StoreObject.VALUE3.name);
-
-    // --- data storage and retrieval methods
+    private static final String TYPE = "filter"; //$NON-NLS-1$
 
     /**
      * Save a filter
@@ -60,17 +40,17 @@ public class SavedFilter {
 
         // populate saved filter properties
         storeObject.setType(TYPE);
-        storeObject.setValue(NAME, title);
-        storeObject.setValue(SQL, sql);
+        storeObject.setItem(title);
+        storeObject.setValue(sql);
 
         if(values == null) {
-            storeObject.setValue(VALUES, ""); //$NON-NLS-1$
+            storeObject.setValue2(""); //$NON-NLS-1$
         } else {
-            storeObject.setValue(VALUES, AndroidUtilities.contentValuesToSerializedString(values));
+            storeObject.setValue2(AndroidUtilities.contentValuesToSerializedString(values));
         }
 
         String filters = serializeFilters(adapter);
-        storeObject.setValue(FILTERS, filters);
+        storeObject.setValue3(filters);
 
         if (dao.persist(storeObject)) {
             return storeObject;

@@ -42,9 +42,10 @@ import timber.log.Timber;
                 TagData.class,
                 UserActivity.class,
                 TaskAttachment.class,
-                TaskListMetadata.class
+                TaskListMetadata.class,
+                StoreObject.class
         },
-        version = 43)
+        version = 44)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
@@ -52,13 +53,13 @@ public abstract class Database extends RoomDatabase {
     public abstract UserActivityDao getUserActivityDao();
     public abstract TaskAttachmentDao getTaskAttachmentDao();
     public abstract TaskListMetadataDao getTaskListMetadataDao();
+    public abstract StoreObjectDao getStoreObjectDao();
 
     public static final String NAME = "database";
 
     public static final Table[] TABLES =  new Table[] {
             Task.TABLE,
-            Metadata.TABLE,
-            StoreObject.TABLE,
+            Metadata.TABLE
     };
 
     private SupportSQLiteDatabase database;

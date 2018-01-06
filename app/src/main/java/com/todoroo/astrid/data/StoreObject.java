@@ -6,102 +6,193 @@
 package com.todoroo.astrid.data;
 
 
-import android.content.ContentValues;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.Table;
+@Entity(tableName = "store",
+        indices = @Index(name = "so_id", value = {"type", "item"}))
+public class StoreObject implements Parcelable{
 
-/**
- * Data Model which represents a piece of data unrelated to a task
- *
- * @author Tim Su <tim@todoroo.com>
- *
- */
-public class StoreObject extends AbstractModel {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    private Long id;
 
-    // --- table
+    @ColumnInfo(name = "type")
+    private String type;
 
-    /** table for this model */
-    public static final Table TABLE = new Table("store", StoreObject.class);
+    @ColumnInfo(name = "item")
+    private String item;
 
-    // --- properties
+    @ColumnInfo(name = "value")
+    private String value;
 
-    /** ID */
-    public static final LongProperty ID = new LongProperty(
-            TABLE, ID_PROPERTY_NAME);
+    @ColumnInfo(name = "value2")
+    private String value2;
 
-    /** Store Type Key */
-    public static final StringProperty TYPE = new StringProperty(
-            TABLE, "type");
+    @ColumnInfo(name = "value3")
+    private String value3;
 
-    /** Store Item Key */
-    public static final StringProperty ITEM= new StringProperty(
-            TABLE, "item");
+    @ColumnInfo(name = "value4")
+    private String value4;
 
-    /** Store Value Column 1 */
-    public static final StringProperty VALUE1 = new StringProperty(
-            TABLE, "value");
+    @ColumnInfo(name = "deleted")
+    private Long deleted = 0L;
 
-    /** Store Value Column 2 */
-    public static final StringProperty VALUE2 = new StringProperty(
-            TABLE, "value2");
+    public StoreObject() {
 
-    /** Store Value Column 3 */
-    public static final StringProperty VALUE3 = new StringProperty(
-            TABLE, "value3");
-
-    /** Store Value Column 3 */
-    public static final StringProperty VALUE4 = new StringProperty(
-            TABLE, "value4");
-
-    /** Unixtime Task was deleted. 0 means not deleted */
-    public static final LongProperty DELETION_DATE = new LongProperty(
-            TABLE, "deleted", Property.PROP_FLAG_DATE);
-
-    /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = generateProperties(StoreObject.class);
-
-    // --- defaults
-
-    /** Default values container */
-    private static final ContentValues defaultValues = new ContentValues();
-
-    static {
-        defaultValues.put(DELETION_DATE.name, 0);
     }
 
-    @Override
-    public ContentValues getDefaultValues() {
-        return defaultValues;
+    @Ignore
+    public StoreObject(Parcel source) {
+        id = source.readLong();
+        type = source.readString();
+        item = source.readString();
+        value = source.readString();
+        value2 = source.readString();
+        value3 = source.readString();
+        value4 = source.readString();
+        deleted = source.readLong();
     }
 
-    @Override
-    public long getId() {
-        return getIdHelper(ID);
+    public Long getId() {
+        return id;
     }
 
-    // --- parcelable helpers
-
-    public static final Creator<StoreObject> CREATOR = new ModelCreator<>(StoreObject.class);
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getType() {
-        return getValue(TYPE);
+        return type;
     }
 
     public void setType(String type) {
-        setValue(TYPE, type);
+        this.type = type;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getValue2() {
+        return value2;
+    }
+
+    public void setValue2(String value2) {
+        this.value2 = value2;
+    }
+
+    public String getValue3() {
+        return value3;
+    }
+
+    public void setValue3(String value3) {
+        this.value3 = value3;
+    }
+
+    public String getValue4() {
+        return value4;
+    }
+
+    public void setValue4(String value4) {
+        this.value4 = value4;
+    }
+
+    public Long getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Long deleted) {
+        this.deleted = deleted;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof StoreObject)) return false;
+        if (o == null || !(o instanceof StoreObject)) return false;
 
         StoreObject that = (StoreObject) o;
 
-        return getMergedValues().equals(that.getMergedValues());
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (item != null ? !item.equals(that.item) : that.item != null) return false;
+        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+        if (value2 != null ? !value2.equals(that.value2) : that.value2 != null) return false;
+        if (value3 != null ? !value3.equals(that.value3) : that.value3 != null) return false;
+        if (value4 != null ? !value4.equals(that.value4) : that.value4 != null) return false;
+        return deleted != null ? deleted.equals(that.deleted) : that.deleted == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (item != null ? item.hashCode() : 0);
+        result = 31 * result + (value != null ? value.hashCode() : 0);
+        result = 31 * result + (value2 != null ? value2.hashCode() : 0);
+        result = 31 * result + (value3 != null ? value3.hashCode() : 0);
+        result = 31 * result + (value4 != null ? value4.hashCode() : 0);
+        result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
+        return result;
+    }
+
+    public static Creator<StoreObject> CREATOR = new Creator<StoreObject>() {
+        @Override
+        public StoreObject createFromParcel(Parcel source) {
+            return new StoreObject(source);
+        }
+
+        @Override
+        public StoreObject[] newArray(int size) {
+            return new StoreObject[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeString(type);
+        dest.writeString(item);
+        dest.writeString(value);
+        dest.writeString(value2);
+        dest.writeString(value3);
+        dest.writeString(value4);
+        dest.writeLong(deleted);
+    }
+
+    @Override
+    public String toString() {
+        return "StoreObject{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", item='" + item + '\'' +
+                ", value='" + value + '\'' +
+                ", value2='" + value2 + '\'' +
+                ", value3='" + value3 + '\'' +
+                ", value4='" + value4 + '\'' +
+                ", deleted=" + deleted +
+                '}';
     }
 }

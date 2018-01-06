@@ -5,44 +5,31 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.DatabaseDao;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.astrid.core.SavedFilter;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksList;
 
 import java.util.List;
 
-import javax.inject.Inject;
+@Dao
+public abstract class StoreObjectDao {
 
-import static com.todoroo.andlib.sql.Criterion.and;
-import static com.todoroo.andlib.sql.Query.select;
+    @Query("SELECT * FROM store WHERE type = 'filter' ORDER BY item ASC")
+    public abstract List<StoreObject> getSavedFilters();
 
-public class StoreObjectDao {
+    @Query("SELECT * FROM store WHERE type = 'filter' AND _id = :id LIMIT 1")
+    public abstract StoreObject getSavedFilterById(long id);
 
-    private final DatabaseDao<StoreObject> dao;
-
-    private static final Criterion isSavedFilter = StoreObject.TYPE.eq(SavedFilter.TYPE);
-
-    @Inject
-    public StoreObjectDao(Database database) {
-        dao = new DatabaseDao<>(database, StoreObject.class);
-    }
-
-    public List<StoreObject> getSavedFilters() {
-        return dao.toList(select(StoreObject.PROPERTIES)
-                .where(isSavedFilter)
-                .orderBy(Order.asc(SavedFilter.NAME)));
-    }
-
-    public StoreObject getSavedFilterById(long id) {
-        return dao.getFirst(select(StoreObject.PROPERTIES)
-                .where(and(isSavedFilter, StoreObject.ID.eq(id))));
-    }
+    @Query("SELECT * FROM store WHERE _id = :id LIMIT 1")
+    abstract StoreObject getById(long id);
 
     public GtasksList getGtasksList(long id) {
-        StoreObject result = dao.fetch(id, StoreObject.PROPERTIES);
+        StoreObject result = getById(id);
         if (result == null) {
             throw new RuntimeException(String.format("No store object found [id=%s]", id));
         } else if (!result.getType().equals(GtasksList.TYPE)) {
@@ -51,31 +38,27 @@ public class StoreObjectDao {
         return new GtasksList(result);
     }
 
-    public List<StoreObject> getGtasksLists() {
-        return dao.toList(select(StoreObject.PROPERTIES)
-                .where(and(StoreObject.DELETION_DATE.eq(0), StoreObject.TYPE.eq(GtasksList.TYPE)))
-                .orderBy(Order.asc(StoreObject.VALUE1)));
-    }
+    @Query("SELECT * FROM store WHERE deleted = 0 AND type = 'gtasks-list' ORDER BY value ASC")
+    public abstract List<StoreObject> getGtasksLists();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract long insert(StoreObject storeObject);
 
     public boolean persist(StoreObject storeObject) {
-        return dao.persist(storeObject);
+        return insert(storeObject) > 0;
     }
 
     public void persist(GtasksList list) {
         persist(list.getStoreObject());
     }
 
-    public void update(StoreObject storeObject) {
-        dao.saveExisting(storeObject);
-    }
+    @Update
+    public abstract void update(StoreObject storeObject);
 
-    public StoreObject getSavedFilterByName(String title) {
-        return dao.getFirst(select(StoreObject.ID)
-                .where(and(isSavedFilter, SavedFilter.NAME.eq(title))));
-    }
+    @Query("SELECT * FROM store WHERE type = 'filter' AND item = :title LIMIT 1")
+    public abstract StoreObject getSavedFilterByName(String title);
 
-    public void delete(long id) {
-        dao.delete(id);
-    }
+    @Query("DELETE FROM store WHERE _id = :id")
+    public abstract void delete(long id);
 }
 

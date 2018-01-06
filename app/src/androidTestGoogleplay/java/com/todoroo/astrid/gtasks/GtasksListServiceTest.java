@@ -21,15 +21,13 @@ import javax.inject.Inject;
 
 import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNull;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
 import static org.tasks.makers.GtaskListMaker.ID;
 import static org.tasks.makers.GtaskListMaker.LAST_SYNC;
 import static org.tasks.makers.GtaskListMaker.NAME;
 import static org.tasks.makers.GtaskListMaker.REMOTE_ID;
-import static org.tasks.makers.GtaskListMaker.SAVED;
 import static org.tasks.makers.GtaskListMaker.newGtaskList;
 import static org.tasks.makers.RemoteGtaskListMaker.newRemoteList;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -43,13 +41,12 @@ public class GtasksListServiceTest extends InjectingTestCase {
     @Inject MetadataDao metadataDao;
     @Inject LocalBroadcastManager localBroadcastManager;
 
-    private StoreObjectDao storeObjectDao;
+    @Inject StoreObjectDao storeObjectDao;
     private GtasksListService gtasksListService;
 
     @Override
     public void setUp() {
         super.setUp();
-        storeObjectDao = spy(new StoreObjectDao(database));
         gtasksListService = new GtasksListService(storeObjectDao, taskListDataProvider, taskDeleter,
                 metadataDao, localBroadcastManager);
     }
@@ -69,8 +66,7 @@ public class GtasksListServiceTest extends InjectingTestCase {
                 newGtaskList(
                         with(ID, 1L),
                         with(REMOTE_ID, "1"),
-                        with(NAME, "Default"),
-                        with(SAVED, true)),
+                        with(NAME, "Default")),
                 storeObjectDao.getGtasksList(1L));
     }
 
@@ -89,16 +85,20 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
     @Test
     public void testDeleteMissingList() {
-        storeObjectDao.persist(newGtaskList(with(REMOTE_ID, "1")));
+        storeObjectDao.persist(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1")));
 
-        setLists(newRemoteList(with(RemoteGtaskListMaker.REMOTE_ID, "2")));
+        TaskList taskList = newRemoteList(with(RemoteGtaskListMaker.REMOTE_ID, "2"));
 
-        verify(storeObjectDao).delete(1L);
+        setLists(taskList);
+
+        assertEquals(singletonList(newGtaskList(with(ID, 2L), with(REMOTE_ID, "2")).getStoreObject()),
+                storeObjectDao.getGtasksLists());
     }
 
     @Test
     public void testUpdateListName() {
         storeObjectDao.persist(newGtaskList(
+                with(ID, 1L),
                 with(REMOTE_ID, "1"),
                 with(NAME, "oldName")));
 
@@ -123,7 +123,7 @@ public class GtasksListServiceTest extends InjectingTestCase {
         setLists(taskList);
 
         assertEquals(
-                asList(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(LAST_SYNC, 0L), with(SAVED, true))),
+                asList(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(LAST_SYNC, 0L))),
                 gtasksListService.getListsToUpdate(asList(taskList)));
     }
 

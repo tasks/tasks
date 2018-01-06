@@ -61,7 +61,8 @@ public class Migrations {
             NOOP(39, 40),
             NOOP(40, 41),
             NOOP(41, 42),
-            NOOP(42, 43)
+            NOOP(42, 43),
+            NOOP(43, 44)
     };
 
     public static RoomDatabase.Callback ON_CREATE = new RoomDatabase.Callback() {
@@ -97,14 +98,6 @@ public class Migrations {
                     append(Metadata.TABLE).append('(').
                     append(Metadata.TASK.name).append(',').
                     append(Metadata.KEY.name).
-                    append(')');
-            db.execSQL(sql.toString());
-            sql.setLength(0);
-
-            sql.append("CREATE INDEX IF NOT EXISTS so_id ON ").
-                    append(StoreObject.TABLE).append('(').
-                    append(StoreObject.TYPE.name).append(',').
-                    append(StoreObject.ITEM.name).
                     append(')');
             db.execSQL(sql.toString());
             sql.setLength(0);

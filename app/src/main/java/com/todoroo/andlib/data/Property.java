@@ -43,8 +43,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     public static final int PROP_FLAG_NULLABLE = 1;
     /** Is this field a date? */
     public static final int PROP_FLAG_DATE = 1 << 1;
-    /** Is this field a serialized JSON object? */
-    public static final int PROP_FLAG_JSON = 1 << 4;
 
     private int flags = 0;
 
@@ -225,15 +223,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         public DoubleProperty(Table table, String name) {
             super(table, name);
         }
-
-        public DoubleProperty(Table table, String name, int flags) {
-            super(table, name, flags);
-        }
-
-        protected DoubleProperty(Table table, String name, String expression) {
-            super(table, name, expression);
-        }
-
 
         @Override
         public <RETURN, PARAMETER> RETURN accept(

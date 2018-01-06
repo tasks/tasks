@@ -47,9 +47,9 @@ public final class CustomFilterExposer {
             return null;
         }
 
-        String title = savedFilter.getValue(SavedFilter.NAME);
-        String sql = savedFilter.getValue(SavedFilter.SQL);
-        String values = savedFilter.getValue(SavedFilter.VALUES);
+        String title = savedFilter.getItem();
+        String sql = savedFilter.getValue();
+        String values = savedFilter.getValue2();
 
         ContentValues contentValues = null;
         if(!TextUtils.isEmpty(values)) {

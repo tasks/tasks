@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.core.SavedFilter;
 import com.todoroo.astrid.data.StoreObject;
 
 public class CustomFilter extends Filter {
@@ -23,10 +22,10 @@ public class CustomFilter extends Filter {
     public StoreObject toStoreObject() {
         StoreObject storeObject = new StoreObject();
         storeObject.setId(id);
-        storeObject.setValue(SavedFilter.NAME, listingTitle);
-        storeObject.setValue(SavedFilter.SQL, sqlQuery);
+        storeObject.setItem(listingTitle);
+        storeObject.setValue(sqlQuery);
         if (valuesForNewTasks != null && valuesForNewTasks.size() > 0) {
-            storeObject.setValue(SavedFilter.VALUES, AndroidUtilities.contentValuesToSerializedString(valuesForNewTasks));
+            storeObject.setValue2(AndroidUtilities.contentValuesToSerializedString(valuesForNewTasks));
         }
         return storeObject;
     }
