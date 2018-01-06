@@ -27,6 +27,7 @@ import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.tasks.R;
 import org.tasks.activities.CameraActivity;
@@ -46,6 +47,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
+import timber.log.Timber;
 
 import static org.tasks.files.FileHelper.getPathFromUri;
 import static org.tasks.files.ImageHelper.sampleBitmap;
@@ -221,7 +223,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
         }
         String picture = null;
         if (pendingCommentPicture != null) {
-            JSONObject pictureJson = RemoteModel.PictureHelper.savePictureJson(pendingCommentPicture);
+            JSONObject pictureJson = savePictureJson(pendingCommentPicture);
             if (pictureJson != null) {
                 picture = pictureJson.toString();
             }
@@ -234,6 +236,17 @@ public class CommentBarFragment extends TaskEditControlFragment {
         pendingCommentPicture = null;
         resetPictureButton();
         callback.addComment(message, actionCode, picture);
+    }
+
+    private static JSONObject savePictureJson(final Uri uri) {
+        try {
+            JSONObject json = new JSONObject();
+            json.put("uri", uri.toString());
+            return json;
+        } catch (JSONException e) {
+            Timber.e(e, e.getMessage());
+        }
+        return null;
     }
 
     private void resetPictureButton() {

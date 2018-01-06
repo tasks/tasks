@@ -8,8 +8,14 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.tasks.backup.XmlReader;
 import org.tasks.backup.XmlWriter;
+
+import java.io.File;
+
+import timber.log.Timber;
 
 @Entity(tableName = "userActivity")
 public class UserActivity implements Parcelable {
@@ -142,7 +148,7 @@ public class UserActivity implements Parcelable {
     }
 
     public Uri getPictureUri() {
-        return RemoteModel.PictureHelper.getPictureUri(picture);
+        return getPictureUri(picture);
     }
 
     public static final Creator<UserActivity> CREATOR = new Creator<UserActivity>() {
@@ -172,5 +178,27 @@ public class UserActivity implements Parcelable {
         dest.writeString(targetId);
         dest.writeLong(created);
         dest.writeLong(deleted);
+    }
+
+    private static Uri getPictureUri(String value) {
+        try {
+            if (value == null) {
+                return null;
+            }
+            if (value.contains("uri") || value.contains("path")) {
+                JSONObject json = new JSONObject(value);
+                if (json.has("uri")) {
+                    return Uri.parse(json.getString("uri"));
+                }
+                if (json.has("path")) {
+                    String path = json.getString("path");
+                    return Uri.fromFile(new File(path));
+                }
+            }
+            return null;
+        } catch (JSONException e) {
+            Timber.e(e, e.getMessage());
+            return null;
+        }
     }
 }

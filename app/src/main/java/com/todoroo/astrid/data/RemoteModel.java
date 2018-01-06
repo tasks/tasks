@@ -85,42 +85,6 @@ abstract public class RemoteModel extends AbstractModel {
         return NO_UUID.equals(uuid) || TextUtils.isEmpty(uuid);
     }
 
-    public static class PictureHelper {
-
-        public static JSONObject savePictureJson(final Uri uri) {
-            try {
-                JSONObject json = new JSONObject();
-                json.put("uri", uri.toString());
-                return json;
-            } catch (JSONException e) {
-                Timber.e(e, e.getMessage());
-            }
-            return null;
-        }
-
-        public static Uri getPictureUri(String value) {
-            try {
-                if (value == null) {
-                    return null;
-                }
-                if (value.contains("uri") || value.contains("path")) {
-                    JSONObject json = new JSONObject(value);
-                    if (json.has("uri")) {
-                        return Uri.parse(json.getString("uri"));
-                    }
-                    if (json.has("path")) {
-                        String path = json.getString("path");
-                        return Uri.fromFile(new File(path));
-                    }
-                }
-                return null;
-            } catch (JSONException e) {
-                Timber.e(e, e.getMessage());
-                return null;
-            }
-        }
-    }
-
     public String getUuidProperty() {
         return getValue(UUID_PROPERTY);
     }
