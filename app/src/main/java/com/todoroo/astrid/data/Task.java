@@ -6,6 +6,11 @@
 package com.todoroo.astrid.data;
 
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 import android.content.ContentValues;
 import android.text.TextUtils;
 
@@ -28,6 +33,8 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  * @author Tim Su <tim@todoroo.com>
  *
  */
+@Entity(tableName = "tasks",
+        indices = @Index(name = "t_rid", value = "remoteId", unique = true))
 public class Task extends RemoteModel {
 
     // --- table and uri
@@ -38,83 +45,126 @@ public class Task extends RemoteModel {
     // --- properties
 
     /** ID */
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "_id")
+    public Long id;
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
     /** Name of Task */
+    @ColumnInfo(name = "title")
+    public String title = "";
     public static final StringProperty TITLE = new StringProperty(
             TABLE, "title");
 
     /** Importance of Task (see importance flags) */
+    @ColumnInfo(name = "importance")
+    public Integer importance = IMPORTANCE_NONE;
     public static final IntegerProperty IMPORTANCE = new IntegerProperty(
             TABLE, "importance");
 
     /** Unixtime Task is due, 0 if not set */
+    @ColumnInfo(name = "dueDate")
+    public Long dueDate = 0L;
     public static final LongProperty DUE_DATE = new LongProperty(
             TABLE, "dueDate", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task should be hidden until, 0 if not set */
+    @ColumnInfo(name = "hideUntil")
+    public Long hideUntil = 0L;
     public static final LongProperty HIDE_UNTIL = new LongProperty(
             TABLE, "hideUntil", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task was created */
+    @ColumnInfo(name = "created")
+    public Long created;
     public static final LongProperty CREATION_DATE = new LongProperty(
             TABLE, "created", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task was last touched */
+    @ColumnInfo(name = "modified")
+    public Long modified;
     public static final LongProperty MODIFICATION_DATE = new LongProperty(
             TABLE, "modified", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task was completed. 0 means active */
+    @ColumnInfo(name = "completed")
+    public Long completed = 0L;
     public static final LongProperty COMPLETION_DATE = new LongProperty(
             TABLE, "completed", Property.PROP_FLAG_DATE);
 
     /** Unixtime Task was deleted. 0 means not deleted */
+    @ColumnInfo(name = "deleted")
+    public Long deleted = 0L;
     public static final LongProperty DELETION_DATE = new LongProperty(
             TABLE, "deleted", Property.PROP_FLAG_DATE);
 
     // --- non-core task metadata
 
+    @ColumnInfo(name = "notes")
+    public String notes = "";
     public static final StringProperty NOTES = new StringProperty(
             TABLE, "notes");
 
+    @ColumnInfo(name = "estimatedSeconds")
+    public Integer estimatedSeconds = 0;
     public static final IntegerProperty ESTIMATED_SECONDS = new IntegerProperty(
             TABLE, "estimatedSeconds");
 
+    @ColumnInfo(name = "elapsedSeconds")
+    public Integer elapsedSeconds = 0;
     public static final IntegerProperty ELAPSED_SECONDS = new IntegerProperty(
             TABLE, "elapsedSeconds");
 
+    @ColumnInfo(name = "timerStart")
+    public Long timerStart = 0L;
     public static final LongProperty TIMER_START = new LongProperty(
             TABLE, "timerStart", Property.PROP_FLAG_DATE);
 
     /** Flags for when to send reminders */
+    @ColumnInfo(name = "notificationFlags")
+    public Integer notificationFlags = 0;
     public static final IntegerProperty REMINDER_FLAGS = new IntegerProperty(
             TABLE, "notificationFlags");
 
     /** Reminder period, in milliseconds. 0 means disabled */
+    @ColumnInfo(name = "notifications")
+    public Long notifications = 0L;
     public static final LongProperty REMINDER_PERIOD = new LongProperty(
             TABLE, "notifications", Property.PROP_FLAG_DATE);
 
     /** Unixtime the last reminder was triggered */
+    @ColumnInfo(name = "lastNotified")
+    public Long lastNotified = 0L;
     public static final LongProperty REMINDER_LAST = new LongProperty(
             TABLE, "lastNotified", Property.PROP_FLAG_DATE);
 
     /** Unixtime snooze is set (0 -> no snooze) */
+    @ColumnInfo(name = "snoozeTime")
+    public Long snoozeTime = 0L;
     public static final LongProperty REMINDER_SNOOZE = new LongProperty(
             TABLE, "snoozeTime", Property.PROP_FLAG_DATE);
 
+    @ColumnInfo(name = "recurrence")
+    public String recurrence = "";
     public static final StringProperty RECURRENCE = new StringProperty(
             TABLE, "recurrence");
 
+    @ColumnInfo(name = "repeatUntil")
+    public Long repeatUntil = 0L;
     public static final LongProperty REPEAT_UNTIL = new LongProperty(
             TABLE, "repeatUntil", Property.PROP_FLAG_DATE);
 
+    @ColumnInfo(name = "calendarUri")
+    public String calendarUri = "";
     public static final StringProperty CALENDAR_URI = new StringProperty(
             TABLE, "calendarUri");
 
     // --- for astrid.com
 
     /** Remote id */
+    @ColumnInfo(name = "remoteId")
+    public String remoteId = RemoteModel.NO_UUID;
     public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
 
@@ -183,10 +233,12 @@ public class Task extends RemoteModel {
         super();
     }
 
+    @Ignore
     public Task(TodorooCursor<Task> cursor) {
         super(cursor);
     }
 
+    @Ignore
     public Task(Task task) {
         super(task);
     }

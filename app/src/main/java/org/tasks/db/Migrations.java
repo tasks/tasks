@@ -1,18 +1,8 @@
 package org.tasks.db;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.migration.Migration;
 import android.support.annotation.NonNull;
-
-import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.SqlConstructorVisitor;
-import com.todoroo.andlib.data.Table;
-import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.StoreObject;
-import com.todoroo.astrid.data.Task;
 
 public class Migrations {
     private static final Migration MIGRATION_35_36 = new Migration(35, 36) {
@@ -62,52 +52,8 @@ public class Migrations {
             NOOP(40, 41),
             NOOP(41, 42),
             NOOP(42, 43),
-            NOOP(43, 44)
-    };
-
-    public static RoomDatabase.Callback ON_CREATE = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            StringBuilder sql = new StringBuilder();
-            SqlConstructorVisitor sqlVisitor = new SqlConstructorVisitor();
-
-            // create tables
-            for(Table table : Database.TABLES) {
-                sql.append("CREATE TABLE IF NOT EXISTS ").append(table.name).append('(').
-                        append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
-                for(Property<?> property : table.getProperties()) {
-                    if(AbstractModel.ID_PROPERTY.name.equals(property.name)) {
-                        continue;
-                    }
-                    sql.append(',').append(property.accept(sqlVisitor, null));
-                }
-                sql.append(')');
-                db.execSQL(sql.toString());
-                sql.setLength(0);
-            }
-
-            sql.setLength(0);
-            sql.append("CREATE INDEX IF NOT EXISTS md_tid ON ").
-                    append(Metadata.TABLE).append('(').
-                    append(Metadata.TASK.name).
-                    append(')');
-            db.execSQL(sql.toString());
-            sql.setLength(0);
-
-            sql.append("CREATE INDEX IF NOT EXISTS md_tkid ON ").
-                    append(Metadata.TABLE).append('(').
-                    append(Metadata.TASK.name).append(',').
-                    append(Metadata.KEY.name).
-                    append(')');
-            db.execSQL(sql.toString());
-            sql.setLength(0);
-
-            sql.append("CREATE UNIQUE INDEX IF NOT EXISTS t_rid ON ").
-                    append(Task.TABLE).append('(').
-                    append(Task.UUID.name).
-                    append(')');
-            db.execSQL(sql.toString());
-            sql.setLength(0);
-        }
+            NOOP(43, 44),
+            NOOP(44, 45),
+            NOOP(45, 46)
     };
 }

@@ -5,6 +5,7 @@
  */
 package com.todoroo.andlib.data;
 
+import android.arch.persistence.room.Ignore;
 import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -64,13 +65,16 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
 
     /** User set values */
+    @Ignore
     protected ContentValues setValues = null;
 
     /** Values from database */
+    @Ignore
     protected ContentValues values = null;
 
     /** Transitory Metadata (not saved in database) */
     @SuppressWarnings("WeakerAccess")
+    @Ignore
     HashMap<String, Object> transitoryData = null;
 
     protected AbstractModel() {

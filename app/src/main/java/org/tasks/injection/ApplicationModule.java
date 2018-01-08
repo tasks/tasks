@@ -57,7 +57,6 @@ public class ApplicationModule {
                 .databaseBuilder(context, Database.class, Database.NAME)
                 .allowMainThreadQueries() // TODO: remove me
                 .addMigrations(Migrations.MIGRATIONS)
-                .addCallback(Migrations.ON_CREATE)
                 .build()
                 .setOnDatabaseUpdated(() -> Astrid2TaskProvider.notifyDatabaseModification(context));
     }

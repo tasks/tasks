@@ -43,9 +43,11 @@ import timber.log.Timber;
                 UserActivity.class,
                 TaskAttachment.class,
                 TaskListMetadata.class,
-                StoreObject.class
+                StoreObject.class,
+                Task.class,
+                Metadata.class
         },
-        version = 44)
+        version = 46)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
