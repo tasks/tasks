@@ -8,16 +8,16 @@ import org.tasks.notifications.Notification;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-public class Alarm implements JobQueueEntry {
+public class AlarmJob implements JobQueueEntry {
     private final long alarmId;
     private final long taskId;
     private final long time;
 
-    public Alarm(Metadata metadata) {
+    public AlarmJob(Metadata metadata) {
         this(metadata.getId(), metadata.getTask(), metadata.getValue(AlarmFields.TIME));
     }
 
-    public Alarm(long alarmId, long taskId, Long time) {
+    public AlarmJob(long alarmId, long taskId, Long time) {
         this.alarmId = alarmId;
         this.taskId = taskId;
         this.time = time;
@@ -47,11 +47,11 @@ public class Alarm implements JobQueueEntry {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Alarm alarm = (Alarm) o;
+        AlarmJob alarmJob = (AlarmJob) o;
 
-        if (alarmId != alarm.alarmId) return false;
-        if (taskId != alarm.taskId) return false;
-        return time == alarm.time;
+        if (alarmId != alarmJob.alarmId) return false;
+        if (taskId != alarmJob.taskId) return false;
+        return time == alarmJob.time;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Alarm implements JobQueueEntry {
 
     @Override
     public String toString() {
-        return "Alarm{" +
+        return "AlarmJob{" +
                 "alarmId=" + alarmId +
                 ", taskId=" + taskId +
                 ", time=" + time +

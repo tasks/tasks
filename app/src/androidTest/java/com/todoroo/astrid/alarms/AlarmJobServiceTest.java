@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InOrder;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
-import org.tasks.jobs.Alarm;
+import org.tasks.jobs.AlarmJob;
 import org.tasks.jobs.JobQueue;
 import org.tasks.time.DateTime;
 
@@ -28,7 +28,7 @@ import static org.tasks.makers.TaskMaker.REMINDER_LAST;
 import static org.tasks.makers.TaskMaker.newTask;
 
 @RunWith(AndroidJUnit4.class)
-public class AlarmServiceTest extends InjectingTestCase {
+public class AlarmJobServiceTest extends InjectingTestCase {
 
     @Inject MetadataDao metadataDao;
     @Inject TaskDao taskDao;
@@ -64,7 +64,7 @@ public class AlarmServiceTest extends InjectingTestCase {
         alarmService.scheduleAllAlarms();
 
         InOrder order = inOrder(jobs);
-        order.verify(jobs).add(new Alarm(alarm));
+        order.verify(jobs).add(new AlarmJob(alarm));
     }
 
     @Test

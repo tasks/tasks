@@ -58,13 +58,13 @@ public class JobQueueTest {
         long now = currentTimeMillis();
 
         queue.add(new Reminder(1, now, TYPE_DUE));
-        queue.add(new Alarm(1, 1, now));
+        queue.add(new AlarmJob(1, 1, now));
 
         verify(jobManager).schedule(TAG, now);
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
-                    newHashSet(new Alarm(1, 1, now),
+                    newHashSet(new AlarmJob(1, 1, now),
                             new Reminder(1, now, TYPE_DUE)),
                     newHashSet(queue.getOverdueJobs()));
         }});
@@ -75,11 +75,11 @@ public class JobQueueTest {
         long now = currentTimeMillis();
 
         queue.add(new Reminder(1, now, TYPE_DUE));
-        queue.add(new Alarm(1, 1, now));
+        queue.add(new AlarmJob(1, 1, now));
 
         verify(jobManager).schedule(TAG, now);
 
-        queue.remove(singletonList(new Alarm(1, 1, now)));
+        queue.remove(singletonList(new AlarmJob(1, 1, now)));
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
@@ -93,7 +93,7 @@ public class JobQueueTest {
         long now = currentTimeMillis();
 
         queue.add(new Reminder(1, now, TYPE_DUE));
-        queue.add(new Alarm(1, 1, now));
+        queue.add(new AlarmJob(1, 1, now));
 
         verify(jobManager).schedule(TAG, now);
 
@@ -101,7 +101,7 @@ public class JobQueueTest {
 
         Freeze.freezeAt(now).thawAfter(new Snippet() {{
             assertEquals(
-                    singletonList(new Alarm(1, 1, now)),
+                    singletonList(new AlarmJob(1, 1, now)),
                     queue.getOverdueJobs());
         }});
     }

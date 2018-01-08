@@ -42,7 +42,7 @@ public class JobQueue {
     }
 
     public synchronized void cancelAlarm(long alarmId) {
-        cancel(Alarm.class, alarmId);
+        cancel(AlarmJob.class, alarmId);
     }
 
     public synchronized void cancelReminder(long taskId) {

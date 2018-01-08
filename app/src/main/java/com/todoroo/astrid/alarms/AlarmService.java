@@ -20,7 +20,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.SynchronizeMetadataCallback;
 
 import org.tasks.injection.ApplicationScope;
-import org.tasks.jobs.Alarm;
+import org.tasks.jobs.AlarmJob;
 import org.tasks.jobs.JobQueue;
 
 import java.util.ArrayList;
@@ -139,12 +139,12 @@ public class AlarmService {
             return;
         }
 
-        Alarm alarm = new Alarm(metadata);
-        long time = alarm.getTime();
+        AlarmJob alarmJob = new AlarmJob(metadata);
+        long time = alarmJob.getTime();
         if(time == 0 || time == NO_ALARM) {
-            jobs.cancelAlarm(alarm.getId());
+            jobs.cancelAlarm(alarmJob.getId());
         } else {
-            jobs.add(alarm);
+            jobs.add(alarmJob);
         }
     }
 
