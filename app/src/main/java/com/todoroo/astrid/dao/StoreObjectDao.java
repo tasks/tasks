@@ -45,7 +45,12 @@ public abstract class StoreObjectDao {
     public abstract long insert(StoreObject storeObject);
 
     public boolean persist(StoreObject storeObject) {
-        return insert(storeObject) > 0;
+        long id = insert(storeObject);
+        if (id >= 0) {
+            storeObject.setId(id);
+            return true;
+        }
+        return false;
     }
 
     public void persist(GtasksList list) {
