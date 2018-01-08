@@ -6,7 +6,6 @@
 package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.DatabaseDao;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;

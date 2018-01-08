@@ -34,6 +34,15 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_46_47 = new Migration(46, 47) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `alarms` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `task` INTEGER, `time` INTEGER)");
+            database.execSQL("INSERT INTO `alarms` (`task`, `time`) SELECT `task`, `value` FROM `metadata` WHERE `key` = 'alarm'");
+            database.execSQL("DELETE FROM `metadata` WHERE `key` = 'alarm'");
+        }
+    };
+
     private static Migration NOOP(int from, int to) {
         return new Migration(from, to) {
             @Override
@@ -54,6 +63,7 @@ public class Migrations {
             NOOP(42, 43),
             NOOP(43, 44),
             NOOP(44, 45),
-            NOOP(45, 46)
+            NOOP(45, 46),
+            MIGRATION_46_47
     };
 }

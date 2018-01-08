@@ -31,6 +31,8 @@ import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.R;
 import org.tasks.backup.XmlWriter;
+import org.tasks.data.Alarm;
+import org.tasks.data.AlarmDao;
 import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -61,6 +63,7 @@ public class TasksXmlExporter {
 
     private final TagDataDao tagDataDao;
     private final MetadataDao metadataDao;
+    private final AlarmDao alarmDao;
     private final TaskDao taskDao;
     private UserActivityDao userActivityDao;
     private final Preferences preferences;
@@ -91,12 +94,13 @@ public class TasksXmlExporter {
 
     @Inject
     public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskDao taskDao, UserActivityDao userActivityDao,
-                            Preferences preferences) {
+                            Preferences preferences, AlarmDao alarmDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.taskDao = taskDao;
         this.userActivityDao = userActivityDao;
         this.preferences = preferences;
+        this.alarmDao = alarmDao;
     }
 
     public void exportTasks(final Context context, final ExportType exportType, @Nullable final ProgressDialog progressDialog) {
@@ -184,6 +188,7 @@ public class TasksXmlExporter {
             xml.startTag(null, BackupConstants.TASK_TAG);
             serializeModel(task, Task.PROPERTIES, Task.ID);
             serializeMetadata(task);
+            serializeAlarms(task);
             serializeComments(task);
             xml.endTag(null, BackupConstants.TASK_TAG);
             this.exportCount++;
@@ -212,6 +217,18 @@ public class TasksXmlExporter {
                 xml.startTag(null, BackupConstants.METADATA_TAG);
                 serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);
                 xml.endTag(null, BackupConstants.METADATA_TAG);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private synchronized void serializeAlarms(Task task) {
+        for (Alarm alarm : alarmDao.getAlarms(task.getId())) {
+            try {
+                xml.startTag(null, BackupConstants.ALARM_TAG);
+                alarm.writeToXml(new XmlWriter(xml));
+                xml.endTag(null, BackupConstants.ALARM_TAG);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -1,9 +1,8 @@
 package org.tasks.jobs;
 
-import com.todoroo.astrid.alarms.AlarmFields;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.reminders.ReminderService;
 
+import org.tasks.data.Alarm;
 import org.tasks.notifications.Notification;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -13,8 +12,8 @@ public class AlarmJob implements JobQueueEntry {
     private final long taskId;
     private final long time;
 
-    public AlarmJob(Metadata metadata) {
-        this(metadata.getId(), metadata.getTask(), metadata.getValue(AlarmFields.TIME));
+    public AlarmJob(Alarm alarm) {
+        this(alarm.getId(), alarm.getTask(), alarm.getTime());
     }
 
     public AlarmJob(long alarmId, long taskId, Long time) {

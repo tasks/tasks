@@ -32,6 +32,8 @@ import com.todoroo.astrid.tags.TaskToTagMetadata;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.backup.XmlReader;
+import org.tasks.data.Alarm;
+import org.tasks.data.AlarmDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -53,6 +55,7 @@ public class TasksXmlImporter {
     private final DialogBuilder dialogBuilder;
     private final TaskDao taskDao;
     private LocalBroadcastManager localBroadcastManager;
+    private final AlarmDao alarmDao;
 
     private Activity activity;
     private Handler handler;
@@ -69,13 +72,15 @@ public class TasksXmlImporter {
 
     @Inject
     public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, UserActivityDao userActivityDao,
-                            DialogBuilder dialogBuilder, TaskDao taskDao, LocalBroadcastManager localBroadcastManager) {
+                            DialogBuilder dialogBuilder, TaskDao taskDao,
+                            LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.dialogBuilder = dialogBuilder;
         this.taskDao = taskDao;
         this.localBroadcastManager = localBroadcastManager;
+        this.alarmDao = alarmDao;
     }
 
     public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
@@ -230,12 +235,29 @@ public class TasksXmlImporter {
             userActivityDao.createNew(userActivity);
         }
 
+        void parseAlarm() {
+            if (!currentTask.isSaved()) {
+                return;
+            }
+
+            Alarm alarm = new Alarm(new XmlReader(xpp));
+
+            alarmDao.insert(alarm);
+        }
+
         void parseMetadata(int format) {
             if(!currentTask.isSaved()) {
                 return;
             }
             metadata.clear();
             deserializeModel(metadata, Metadata.PROPERTIES);
+            if (metadata.getKey().equals("alarm")) {
+                Alarm alarm = new Alarm();
+                alarm.setTask(currentTask.getId());
+                alarm.setTime(Long.valueOf(metadata.getValue(Metadata.VALUE1)));
+                alarmDao.insert(new Alarm());
+                return;
+            }
             if (metadata.getKey().equals(TaskToTagMetadata.KEY)) {
                 String uuid = metadata.getValue(TaskToTagMetadata.TAG_UUID);
                 List<Metadata> metadatas = metadataDao.byTaskAndKey(currentTask.getId(), TaskToTagMetadata.KEY);
@@ -355,6 +377,9 @@ public class TasksXmlImporter {
                             break;
                         case BackupConstants.TAGDATA_TAG:
                             parseTagdata();
+                            break;
+                        case BackupConstants.ALARM_TAG:
+                            parseAlarm();
                             break;
                     }
                 } catch (Exception e) {

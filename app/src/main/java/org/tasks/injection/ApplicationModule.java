@@ -13,6 +13,7 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
+import org.tasks.data.AlarmDao;
 import org.tasks.db.Migrations;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
@@ -89,5 +90,10 @@ public class ApplicationModule {
     @Provides
     public StoreObjectDao getStoreObjectDao(Database database) {
         return database.getStoreObjectDao();
+    }
+
+    @Provides
+    public AlarmDao getAlarmDao(Database database) {
+        return database.getAlarmDao();
     }
 }

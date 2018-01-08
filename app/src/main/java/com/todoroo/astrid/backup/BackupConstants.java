@@ -37,6 +37,8 @@ class BackupConstants {
     /** Tag containing a metadata item */
     public static final String METADATA_TAG = "metadata";
 
+    public static final String ALARM_TAG = "alarm";
+
     /** Tag containing a tagdata item */
     public static final String TAGDATA_TAG = "tagdata";
 
