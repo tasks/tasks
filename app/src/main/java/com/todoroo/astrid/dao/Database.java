@@ -25,6 +25,8 @@ import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.Location;
+import org.tasks.data.LocationDao;
 import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationDao;
 
@@ -48,9 +50,10 @@ import timber.log.Timber;
                 StoreObject.class,
                 Task.class,
                 Metadata.class,
-                Alarm.class
+                Alarm.class,
+                Location.class
         },
-        version = 47)
+        version = 48)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
@@ -60,6 +63,7 @@ public abstract class Database extends RoomDatabase {
     public abstract TaskListMetadataDao getTaskListMetadataDao();
     public abstract StoreObjectDao getStoreObjectDao();
     public abstract AlarmDao getAlarmDao();
+    public abstract LocationDao getGeofenceDao();
 
     public static final String NAME = "database";
 

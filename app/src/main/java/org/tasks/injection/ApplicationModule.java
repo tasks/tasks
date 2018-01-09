@@ -14,6 +14,7 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.LocationDao;
 import org.tasks.db.Migrations;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
@@ -95,5 +96,10 @@ public class ApplicationModule {
     @Provides
     public AlarmDao getAlarmDao(Database database) {
         return database.getAlarmDao();
+    }
+
+    @Provides
+    public LocationDao getGeofenceDao(Database database) {
+        return database.getGeofenceDao();
     }
 }

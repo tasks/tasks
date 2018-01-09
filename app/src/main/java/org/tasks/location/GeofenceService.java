@@ -1,44 +1,28 @@
 package org.tasks.location;
 
-import android.content.ContentValues;
+import org.tasks.data.Location;
+import org.tasks.data.LocationDao;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.SynchronizeMetadataCallback;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
 
-import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 
 public class GeofenceService {
 
-    private final MetadataDao metadataDao;
     private final GeofenceApi geofenceApi;
+    private final LocationDao locationDao;
 
     @Inject
-    public GeofenceService(MetadataDao metadataDao, GeofenceApi geofenceApi) {
-        this.metadataDao = metadataDao;
+    public GeofenceService(GeofenceApi geofenceApi, LocationDao locationDao) {
         this.geofenceApi = geofenceApi;
+        this.locationDao = locationDao;
     }
 
-    public List<Geofence> getGeofences(long taskId) {
-        return toGeofences(metadataDao.toList(Query.select(
-                Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(
-                taskId, GeofenceFields.METADATA_KEY)).orderBy(Order.asc(GeofenceFields.PLACE))));
+    public List<Location> getGeofences(long taskId) {
+        return locationDao.getGeofences(taskId);
     }
 
     public void setupGeofences() {
@@ -54,87 +38,65 @@ public class GeofenceService {
     }
 
     public void cancelGeofences(long taskId) {
-        for (Geofence geofence : getGeofences(taskId)) {
-            geofenceApi.cancel(geofence);
+        for (Location location : getGeofences(taskId)) {
+            geofenceApi.cancel(location);
         }
     }
 
-    public boolean synchronizeGeofences(final long taskId, Set<Geofence> geofences) {
-        List<Metadata> metadatas = newArrayList(transform(geofences, Geofence::toMetadata));
-
-        boolean changed = synchronizeMetadata(taskId, metadatas, m -> geofenceApi.cancel(new Geofence(m)));
+    public boolean synchronizeGeofences(final long taskId, Set<Location> locations) {
+        boolean changed = synchronizeMetadata(taskId, newArrayList(locations), geofenceApi::cancel);
 
         if(changed) {
             setupGeofences(taskId);
         }
+
         return changed;
     }
 
-    private List<Geofence> toGeofences(List<Metadata> geofences) {
-        return newArrayList(transform(geofences, Geofence::new));
+    private List<Location> getActiveGeofences() {
+        return locationDao.getActiveGeofences();
     }
 
-    private List<Geofence> getActiveGeofences() {
-        return toGeofences(metadataDao.toList(Query.select(Metadata.ID, Metadata.TASK, GeofenceFields.PLACE, GeofenceFields.LATITUDE, GeofenceFields.LONGITUDE, GeofenceFields.RADIUS).
-                join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-                where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(GeofenceFields.METADATA_KEY)))));
+    private List<Location> getGeofencesForTask(long taskId) {
+        return locationDao.getActiveGeofences(taskId);
     }
 
-    private List<Geofence> getGeofencesForTask(long taskId) {
-        return toGeofences(metadataDao.toList(Query.select(Metadata.ID, Metadata.TASK, GeofenceFields.PLACE, GeofenceFields.LATITUDE, GeofenceFields.LONGITUDE, GeofenceFields.RADIUS).
-                join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-                where(Criterion.and(TaskCriteria.isActive(),
-                        MetadataCriteria.byTaskAndwithKey(taskId, GeofenceFields.METADATA_KEY)))));
+    public interface SynchronizeGeofenceCallback {
+        void beforeDelete(Location location);
     }
 
-    private boolean synchronizeMetadata(long taskId, List<Metadata> metadata, final SynchronizeMetadataCallback callback) {
-        final boolean[] dirty = new boolean[1];
-        final Set<ContentValues> newMetadataValues = new HashSet<>();
-        for(Metadata metadatum : metadata) {
+    private boolean synchronizeMetadata(long taskId, List<Location> locations, final SynchronizeGeofenceCallback callback) {
+        boolean dirty = false;
+        for(Location metadatum : locations) {
             metadatum.setTask(taskId);
-            metadatum.clearValue(Metadata.CREATION_DATE);
-            metadatum.clearValue(Metadata.ID);
-
-            ContentValues values = metadatum.getMergedValues();
-            for(Map.Entry<String, Object> entry : values.valueSet()) {
-                if(entry.getKey().startsWith("value")) //$NON-NLS-1$
-                {
-                    values.put(entry.getKey(), entry.getValue().toString());
-                }
-            }
-            newMetadataValues.add(values);
+            metadatum.setId(0L);
         }
 
-        for (Metadata item : metadataDao.byTaskAndKey(taskId, GeofenceFields.METADATA_KEY)) {
+        for (Location item : locationDao.getGeofences(taskId)) {
             long id = item.getId();
 
             // clear item id when matching with incoming values
-            item.clearValue(Metadata.ID);
-            item.clearValue(Metadata.CREATION_DATE);
-            ContentValues itemMergedValues = item.getMergedValues();
+            item.setId(0L);
 
-            if(newMetadataValues.contains(itemMergedValues)) {
-                newMetadataValues.remove(itemMergedValues);
+            if(locations.contains(item)) {
+                locations.remove(item);
             } else {
                 // not matched. cut it
                 item.setId(id);
                 if (callback != null) {
-                    callback.beforeDeleteMetadata(item);
+                    callback.beforeDelete(item);
                 }
-                metadataDao.delete(id);
-                dirty[0] = true;
+                locationDao.delete(item);
+                dirty = true;
             }
         }
 
         // everything that remains shall be written
-        for(ContentValues values : newMetadataValues) {
-            Metadata item = new Metadata();
-            item.setCreationDate(DateUtilities.now());
-            item.mergeWith(values);
-            metadataDao.persist(item);
-            dirty[0] = true;
+        for(Location location : locations) {
+            locationDao.insert(location);
+            dirty = true;
         }
 
-        return dirty[0];
+        return dirty;
     }
 }

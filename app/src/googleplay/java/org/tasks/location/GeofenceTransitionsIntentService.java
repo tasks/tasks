@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.support.v4.app.JobIntentService;
 
 import com.google.android.gms.location.GeofencingEvent;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.Notifier;
+import org.tasks.data.Location;
+import org.tasks.data.LocationDao;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.jobs.JobManager;
@@ -30,7 +30,7 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
         }
     }
 
-    @Inject MetadataDao metadataDao;
+    @Inject LocationDao locationDao;
     @Inject Notifier notifier;
 
     @Override
@@ -64,9 +64,8 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
     private void triggerNotification(com.google.android.gms.location.Geofence triggeringGeofence) {
         String requestId = triggeringGeofence.getRequestId();
         try {
-            Metadata fetch = metadataDao.fetch(Long.parseLong(requestId));
-            Geofence geofence = new Geofence(fetch);
-            notifier.triggerTaskNotification(geofence.getTaskId(), ReminderService.TYPE_ALARM);
+            Location location = locationDao.getGeofence(Long.parseLong(requestId));
+            notifier.triggerTaskNotification(location.getTask(), ReminderService.TYPE_ALARM);
         } catch(Exception e) {
             Timber.e(e, "Error triggering geofence %s: %s", requestId, e.getMessage());
         }

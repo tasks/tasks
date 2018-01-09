@@ -11,6 +11,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.tasks.R;
+import org.tasks.data.Location;
 import org.tasks.preferences.Preferences;
 
 import timber.log.Timber;
@@ -31,11 +32,15 @@ public class PlacePicker {
         return null;
     }
 
-    public static Geofence getPlace(Context context, Intent data, Preferences preferences) {
+    public static Location getPlace(Context context, Intent data, Preferences preferences) {
         Place place = com.google.android.gms.location.places.ui.PlacePicker.getPlace(context, data);
         LatLng latLng = place.getLatLng();
-        Geofence geofence = new Geofence(place.getName().toString(), latLng.latitude, latLng.longitude, preferences.getIntegerFromString(R.string.p_geofence_radius, 250));
-        Timber.i("Picked %s", geofence);
-        return geofence;
+        Location location = new Location();
+        location.setName(place.getName().toString());
+        location.setLatitude(latLng.latitude);
+        location.setLongitude(latLng.longitude);
+        location.setRadius(preferences.getIntegerFromString(R.string.p_geofence_radius, 250));
+        Timber.i("Picked %s", location);
+        return location;
     }
 }

@@ -24,16 +24,15 @@ import android.widget.TextView;
 import com.google.common.primitives.Longs;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.alarms.AlarmService;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.data.Alarm;
+import org.tasks.data.Location;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
-import org.tasks.location.Geofence;
 import org.tasks.location.GeofenceService;
 import org.tasks.location.PlacePicker;
 import org.tasks.preferences.Device;
@@ -102,7 +101,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
     private final List<String> spinnerOptions = new ArrayList<>();
     private ArrayAdapter<String> remindAdapter;
     private final Set<Long> alarms = new LinkedHashSet<>();
-    private final Set<Geofence> geofences = new LinkedHashSet<>();
+    private final Set<Location> locations = new LinkedHashSet<>();
 
     @OnItemSelected(R.id.reminder_alarm)
     void ringModeSelected(int position) {
@@ -124,12 +123,12 @@ public class ReminderControlSet extends TaskEditControlFragment {
             taskId = savedInstanceState.getLong(EXTRA_TASK_ID);
             flags = savedInstanceState.getInt(EXTRA_FLAGS);
             randomReminder = savedInstanceState.getLong(EXTRA_RANDOM_REMINDER);
-            List<Geofence> geofences = new ArrayList<>();
+            List<Location> locations = new ArrayList<>();
             List<Parcelable> geofenceArray = savedInstanceState.getParcelableArrayList(EXTRA_GEOFENCES);
             for (Parcelable geofence : geofenceArray) {
-                geofences.add((Geofence) geofence);
+                locations.add((Location) geofence);
             }
-            setup(Longs.asList(savedInstanceState.getLongArray(EXTRA_ALARMS)), geofences);
+            setup(Longs.asList(savedInstanceState.getLongArray(EXTRA_ALARMS)), locations);
         } else {
             setup(currentAlarms(), geofenceService.getGeofences(taskId));
         }
@@ -199,7 +198,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
         randomReminder = task.getReminderPeriod();
     }
 
-    private void setup(List<Long> alarms, List<Geofence> geofences) {
+    private void setup(List<Long> alarms, List<Location> locations) {
         setValue(flags);
 
         alertContainer.removeAllViews();
@@ -215,8 +214,8 @@ public class ReminderControlSet extends TaskEditControlFragment {
         for (long timestamp : alarms) {
             addAlarmRow(timestamp);
         }
-        for (Geofence geofence : geofences) {
-            addGeolocationReminder(geofence);
+        for (Location location : locations) {
+            addGeolocationReminder(location);
         }
         updateSpinner();
     }
@@ -226,7 +225,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
         return getFlags() != original.getReminderFlags() ||
                 getRandomReminderPeriod() != original.getReminderPeriod() ||
                 !newHashSet(currentAlarms()).equals(alarms) ||
-                !newHashSet(geofenceService.getGeofences(taskId)).equals(geofences);
+                !newHashSet(geofenceService.getGeofences(taskId)).equals(locations);
     }
 
     @Override
@@ -238,7 +237,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
         if(alarmService.synchronizeAlarms(task.getId(), alarms)) {
             task.setModificationDate(DateUtilities.now());
         }
-        if (geofenceService.synchronizeGeofences(task.getId(), geofences)) {
+        if (geofenceService.synchronizeGeofences(task.getId(), locations)) {
             task.setModificationDate(DateUtilities.now());
         }
     }
@@ -251,7 +250,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
         outState.putInt(EXTRA_FLAGS, getFlags());
         outState.putLong(EXTRA_RANDOM_REMINDER, getRandomReminderPeriod());
         outState.putLongArray(EXTRA_ALARMS, Longs.toArray(alarms));
-        outState.putParcelableArrayList(EXTRA_GEOFENCES, newArrayList(geofences));
+        outState.putParcelableArrayList(EXTRA_GEOFENCES, newArrayList(locations));
     }
 
     @Override
@@ -292,9 +291,9 @@ public class ReminderControlSet extends TaskEditControlFragment {
         }
     }
 
-    private void addGeolocationReminder(final Geofence geofence) {
-        addAlarmRow(geofence.getName(), v -> geofences.remove(geofence));
-        geofences.add(geofence);
+    private void addGeolocationReminder(final Location location) {
+        addAlarmRow(location.getName(), v -> locations.remove(location));
+        locations.add(location);
     }
 
     private int getFlags() {

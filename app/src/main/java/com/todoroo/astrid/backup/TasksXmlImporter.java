@@ -34,6 +34,8 @@ import org.tasks.R;
 import org.tasks.backup.XmlReader;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.LocationDao;
+import org.tasks.data.Location;
 import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -56,6 +58,7 @@ public class TasksXmlImporter {
     private final TaskDao taskDao;
     private LocalBroadcastManager localBroadcastManager;
     private final AlarmDao alarmDao;
+    private final LocationDao locationDao;
 
     private Activity activity;
     private Handler handler;
@@ -72,13 +75,14 @@ public class TasksXmlImporter {
 
     @Inject
     public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, UserActivityDao userActivityDao,
-                            DialogBuilder dialogBuilder, TaskDao taskDao,
+                            DialogBuilder dialogBuilder, TaskDao taskDao, LocationDao locationDao,
                             LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.dialogBuilder = dialogBuilder;
         this.taskDao = taskDao;
+        this.locationDao = locationDao;
         this.localBroadcastManager = localBroadcastManager;
         this.alarmDao = alarmDao;
     }
@@ -245,6 +249,16 @@ public class TasksXmlImporter {
             alarmDao.insert(alarm);
         }
 
+        void parseLocation() {
+            if (!currentTask.isSaved()) {
+                return;
+            }
+
+            Location location = new Location(new XmlReader(xpp));
+
+            locationDao.insert(location);
+        }
+
         void parseMetadata(int format) {
             if(!currentTask.isSaved()) {
                 return;
@@ -380,6 +394,9 @@ public class TasksXmlImporter {
                             break;
                         case BackupConstants.ALARM_TAG:
                             parseAlarm();
+                            break;
+                        case BackupConstants.LOCATION_TAG:
+                            parseLocation();
                             break;
                     }
                 } catch (Exception e) {

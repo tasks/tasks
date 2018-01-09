@@ -38,4 +38,12 @@ public class XmlReader {
             writer.write(value);
         }
     }
+
+    public void readDouble(String name, ValueWriter<Double> writer) {
+        String value = xpp.getAttributeValue(null, name);
+        if (value != null) {
+            writer.write(TasksXmlExporter.XML_NULL.equals(value) ?
+                    null : Double.parseDouble(value));
+        }
+    }
 }

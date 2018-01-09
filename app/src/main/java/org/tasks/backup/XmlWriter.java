@@ -51,4 +51,16 @@ public class XmlWriter {
             throw new RuntimeException(e);
         }
     }
+
+    public void writeDouble(String name, Double value) {
+        try {
+            String valueString = (value == null) ? XML_NULL : value.toString();
+            xml.attribute(null, name, valueString);
+        } catch (UnsupportedOperationException e) {
+            // didn't read this value, do nothing
+            Timber.e(e, e.getMessage());
+        } catch (IllegalArgumentException | IllegalStateException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

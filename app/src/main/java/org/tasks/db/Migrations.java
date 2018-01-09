@@ -43,6 +43,16 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_47_48 = new Migration(47, 48) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `locations` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `radius` INTEGER NOT NULL)");
+            database.execSQL("INSERT INTO `locations` (`task`, `name`, `latitude`, `longitude`, `radius`) " +
+                    "SELECT `task`, `value`, `value2`, `value3`, `value4` FROM `metadata` WHERE `key` = 'geofence'");
+            database.execSQL("DELETE FROM `metadata` WHERE `key` = 'geofence'");
+        }
+    };
+
     private static Migration NOOP(int from, int to) {
         return new Migration(from, to) {
             @Override
@@ -64,6 +74,7 @@ public class Migrations {
             NOOP(43, 44),
             NOOP(44, 45),
             NOOP(45, 46),
-            MIGRATION_46_47
+            MIGRATION_46_47,
+            MIGRATION_47_48
     };
 }
