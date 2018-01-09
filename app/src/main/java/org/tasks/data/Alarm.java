@@ -13,13 +13,13 @@ public class Alarm {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private Long id;
+    private long id;
 
     @ColumnInfo(name = "task")
-    private Long task;
+    private long task;
 
     @ColumnInfo(name = "time")
-    private Long time;
+    private long time;
 
     public Alarm() {
 
@@ -36,27 +36,27 @@ public class Alarm {
         writer.writeLong("time", time);
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getTask() {
+    public long getTask() {
         return task;
     }
 
-    public void setTask(Long task) {
+    public void setTask(long task) {
         this.task = task;
     }
 
-    public Long getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(Long time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
@@ -67,16 +67,16 @@ public class Alarm {
 
         Alarm alarm = (Alarm) o;
 
-        if (id != null ? !id.equals(alarm.id) : alarm.id != null) return false;
-        if (task != null ? !task.equals(alarm.task) : alarm.task != null) return false;
-        return time != null ? time.equals(alarm.time) : alarm.time == null;
+        if (id != alarm.id) return false;
+        if (task != alarm.task) return false;
+        return time == alarm.time;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (task != null ? task.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (task ^ (task >>> 32));
+        result = 31 * result + (int) (time ^ (time >>> 32));
         return result;
     }
 
