@@ -228,7 +228,7 @@
 
         <provider
             android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
-            android:authorities="org.tasks.tasksprovider"
+            android:authorities="org.tasks;org.tasks.tasksprovider"
             android:exported="true"
             android:multiprocess="true"
             android:grantUriPermissions="true"
