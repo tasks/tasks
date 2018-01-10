@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service;
 
+import com.google.common.collect.Lists;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -8,9 +9,10 @@ import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.LocalBroadcastManager;
+import org.tasks.data.Tag;
+import org.tasks.data.TagDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +26,17 @@ public class TaskDuplicator {
     private final GCalHelper gcalHelper;
     private final MetadataDao metadataDao;
     private final TaskDao taskDao;
+    private final TagDao tagDao;
     private final LocalBroadcastManager localBroadcastManager;
 
     @Inject
     public TaskDuplicator(GCalHelper gcalHelper, MetadataDao metadataDao, TaskDao taskDao,
-                          LocalBroadcastManager localBroadcastManager) {
+                          LocalBroadcastManager localBroadcastManager, TagDao tagDao) {
         this.gcalHelper = gcalHelper;
         this.metadataDao = metadataDao;
         this.taskDao = taskDao;
         this.localBroadcastManager = localBroadcastManager;
+        this.tagDao = tagDao;
     }
 
     public List<Task> duplicate(List<Task> tasks) {
@@ -63,6 +67,10 @@ public class TaskDuplicator {
 
         taskDao.save(clone);
 
+        tagDao.insert(Lists.transform(
+                tagDao.getTagsForTask(original.getId()),
+                tag -> new Tag(clone.getId(), clone.getUuid(), tag.getName(), tag.getTagUid())));
+
         for (Metadata oldMetadata : metadataList) {
             if(!oldMetadata.containsNonNullValue(Metadata.KEY)) {
                 continue;
@@ -72,12 +80,6 @@ public class TaskDuplicator {
                 Metadata gtaskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(clone.getId());
                 gtaskMetadata.setValue(GtasksMetadata.LIST_ID, oldMetadata.getValue(GtasksMetadata.LIST_ID));
                 metadataDao.createNew(gtaskMetadata);
-            } else if (TaskToTagMetadata.KEY.equals(oldMetadata.getKey())) {
-                Metadata metadata = new Metadata(oldMetadata);
-                metadata.setValue(TaskToTagMetadata.TASK_UUID, clone.getUuid());
-                metadata.setTask(clone.getId());
-                metadata.clearValue(Metadata.ID);
-                metadataDao.createNew(metadata);
             }
         }
 

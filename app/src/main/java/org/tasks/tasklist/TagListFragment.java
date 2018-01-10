@@ -3,6 +3,7 @@ package org.tasks.tasklist;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -51,7 +52,7 @@ public class TagListFragment extends TaskListFragment {
         switch (item.getItemId()) {
             case R.id.menu_tag_settings:
                 Intent intent = new Intent(getActivity(), TagSettingsActivity.class);
-                intent.putExtra(TagSettingsActivity.EXTRA_TAG_DATA, tagData);
+                intent.putExtra(TagSettingsActivity.EXTRA_TAG_DATA, (Parcelable) tagData);
                 startActivityForResult(intent, REQUEST_EDIT_TAG);
                 return true;
             default:

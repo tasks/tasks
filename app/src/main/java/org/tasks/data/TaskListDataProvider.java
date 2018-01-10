@@ -3,6 +3,7 @@ package org.tasks.data;
 import android.database.sqlite.SQLiteException;
 
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -11,10 +12,8 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.preferences.Preferences;
 
@@ -41,19 +40,17 @@ public class TaskListDataProvider {
 
     public TodorooCursor<Task> constructCursor(Filter filter, Property<?>[] properties) {
         Criterion tagsJoinCriterion = Criterion.and(
-                Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY), //$NON-NLS-1$
-                Field.field(TAGS_METADATA_JOIN + "." + Metadata.DELETION_DATE.name).eq(0),
-                Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)));
+                Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
 
         if (filter instanceof TagFilter) {
             String uuid = ((TagFilter) filter).getUuid();
-            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name).neq(uuid));
+            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + ".tag_uid").neq(uuid));
         }
 
         // TODO: For now, we'll modify the query to join and include the things like tag data here.
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
         String joinedQuery =
-                Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
+                Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN),
                         tagsJoinCriterion).toString() //$NON-NLS-1$
                         + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN + ".task_id")))
                         + filter.getSqlQuery();

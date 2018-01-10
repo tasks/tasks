@@ -23,6 +23,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 
+import org.tasks.data.TagDao;
 import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 import org.tasks.ui.CheckBoxes;
@@ -80,6 +81,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
     @Inject Lazy<TagService> tagService;
 	@Inject Lazy<CheckBoxes> checkBoxes;
 	@Inject Lazy<TaskDao> taskDao;
+	@Inject Lazy<TagDao> tagDao;
 
 	static {
 		URI_MATCHER.addURI(AUTHORITY, "tasks", URI_TASKS);
@@ -120,8 +122,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	 */
 	private Cursor getTags() {
 
-		TagData[] tags = tagService.get().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
-                Criterion.all);
+		TagData[] tags = tagService.get().getGroupedTags();
 
 		MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
 
@@ -216,6 +217,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
      * @return empty string if no tags, otherwise string
      */
     private String getTagsAsString(long taskId, String separator) {
-        return Joiner.on(separator).join(tagService.get().getTagNames(taskId));
+        return Joiner.on(separator).join(tagDao.get().getTagNames(taskId));
     }
 }

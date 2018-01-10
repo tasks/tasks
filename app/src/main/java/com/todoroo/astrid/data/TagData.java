@@ -10,8 +10,10 @@ import android.os.Parcelable;
 import org.tasks.backup.XmlReader;
 import org.tasks.backup.XmlWriter;
 
+import java.io.Serializable;
+
 @Entity(tableName = "tagdata")
-public final class TagData implements Parcelable {
+public final class TagData implements Parcelable, Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

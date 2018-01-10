@@ -22,9 +22,9 @@ import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.data.Tag;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ForApplication;
 
@@ -88,16 +88,14 @@ public class FilterCriteriaProvider {
         List<String> tags = newArrayList(newLinkedHashSet(transform(tagService.getTagList(), TagData::getName)));
         String[] tagNames = tags.toArray(new String[tags.size()]);
         Map<String, Object> values = new HashMap<>();
-        values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
-        values.put(TaskToTagMetadata.TAG_NAME.name, "?");
+        values.put(Tag.KEY, "?");
         return new MultipleSelectCriterion(
                 IDENTIFIER_TAG_IS,
                 context.getString(R.string.CFC_tag_text),
-                Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                        Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
+                Query.select(Field.field("task")).from(Tag.TABLE).join(Join.inner(
+                        Task.TABLE, Field.field("task").eq(Task.ID))).where(Criterion.and(
                         TaskDao.TaskCriteria.activeAndVisible(),
-                        MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                        TaskToTagMetadata.TAG_NAME.eq("?"), Metadata.DELETION_DATE.eq(0))).toString(),
+                        Field.field("name").eq("?"))).toString(),
                 values, tagNames, tagNames,
                 null,
                 context.getString(R.string.CFC_tag_name));
@@ -107,11 +105,10 @@ public class FilterCriteriaProvider {
         return new TextInputCriterion(
                 IDENTIFIER_TAG_CONTAINS,
                 context.getString(R.string.CFC_tag_contains_text),
-                Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                        Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
+                Query.select(Field.field("task")).from(Tag.TABLE).join(Join.inner(
+                        Task.TABLE, Field.field("task").eq(Task.ID))).where(Criterion.and(
                         TaskDao.TaskCriteria.activeAndVisible(),
-                        MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                        TaskToTagMetadata.TAG_NAME.like("%?%"), Metadata.DELETION_DATE.eq(0))).toString(),
+                        Field.field("name").like("%?%"))).toString(),
                 context.getString(R.string.CFC_tag_contains_name), "",
                 null,
                 context.getString(R.string.CFC_tag_contains_name));

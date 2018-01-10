@@ -38,9 +38,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
@@ -49,6 +47,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
+import org.tasks.data.Tag;
+import org.tasks.data.TagDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.themes.ThemeCache;
@@ -86,7 +86,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     private static final String EXTRA_NEW_TAGS = "extra_new_tags";
     private static final String EXTRA_SELECTED_TAGS = "extra_selected_tags";
 
-    @Inject MetadataDao metadataDao;
+    @Inject TagDao tagDao;
     @Inject TagDataDao tagDataDao;
     @Inject TagService tagService;
     @Inject DialogBuilder dialogBuilder;
@@ -398,10 +398,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
         Set<TagData> selectedHash = newHashSet(selectedTags);
         Sets.SetView<TagData> added = difference(selectedHash, existingHash);
         Sets.SetView<TagData> removed = difference(existingHash, selectedHash);
-        deleteLinks(taskId, taskUuid, filter(removed, notNull()));
+        deleteLinks(taskId, filter(removed, notNull()));
         for (TagData tagData : added) {
-            Metadata newLink = TaskToTagMetadata.newTagMetadata(taskId, taskUuid, tagData.getName(), tagData.getRemoteId());
-            metadataDao.createNew(newLink);
+            Tag newLink = new Tag(taskId, taskUuid, tagData.getName(), tagData.getRemoteId());
+            tagDao.insert(newLink);
         }
         return !removed.isEmpty() || !added.isEmpty();
     }
@@ -409,16 +409,14 @@ public final class TagsControlSet extends TaskEditControlFragment {
     /**
      * Delete all links between the specified task and the list of tags
      */
-    private void deleteLinks(long taskId, String taskUuid, Iterable<TagData> tags) {
+    private void deleteLinks(long taskId, Iterable<TagData> tags) {
         Metadata deleteTemplate = new Metadata();
         deleteTemplate.setTask(taskId); // Need this for recording changes in outstanding table
         deleteTemplate.setDeletionDate(DateUtilities.now());
         for (TagData tag : tags) {
             // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
             // the outstanding entry correctly. If possible, this should be improved to a single query
-            deleteTemplate.setValue(TaskToTagMetadata.TAG_UUID, tag.getRemoteId()); // Need this for recording changes in outstanding table
-            metadataDao.update(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0),
-                    TaskToTagMetadata.TASK_UUID.eq(taskUuid), TaskToTagMetadata.TAG_UUID.eq(tag.getRemoteId())), deleteTemplate);
+            tagDao.deleteTag(taskId, tag.getRemoteId());
         }
     }
 

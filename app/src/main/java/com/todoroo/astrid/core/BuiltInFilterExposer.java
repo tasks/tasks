@@ -9,19 +9,18 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.data.Tag;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
@@ -109,8 +108,7 @@ public final class BuiltInFilterExposer {
     public static Filter getUncategorizedFilter(Resources r) {
         return new Filter(r.getString(R.string.tag_FEx_untagged),
                 new QueryTemplate().where(Criterion.and(
-                        Criterion.not(Task.UUID.in(Query.select(TaskToTagMetadata.TASK_UUID).from(Metadata.TABLE)
-                                .where(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), Metadata.DELETION_DATE.eq(0))))),
+                        Criterion.not(Task.UUID.in(Query.select(Field.field("task_uid")).from(Tag.TABLE))),
                         TaskCriteria.isActive(),
                         TaskCriteria.isVisible())));
     }

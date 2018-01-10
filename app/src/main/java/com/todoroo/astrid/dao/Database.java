@@ -27,6 +27,8 @@ import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
+import org.tasks.data.Tag;
+import org.tasks.data.TagDao;
 import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationDao;
 
@@ -51,9 +53,10 @@ import timber.log.Timber;
                 Task.class,
                 Metadata.class,
                 Alarm.class,
-                Location.class
+                Location.class,
+                Tag.class
         },
-        version = 48)
+        version = 49)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
@@ -64,6 +67,7 @@ public abstract class Database extends RoomDatabase {
     public abstract StoreObjectDao getStoreObjectDao();
     public abstract AlarmDao getAlarmDao();
     public abstract LocationDao getGeofenceDao();
+    public abstract TagDao getTagDao();
 
     public static final String NAME = "database";
 

@@ -35,6 +35,8 @@ import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
+import org.tasks.data.Tag;
+import org.tasks.data.TagDao;
 import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -67,6 +69,7 @@ public class TasksXmlExporter {
     private final MetadataDao metadataDao;
     private final AlarmDao alarmDao;
     private final LocationDao locationDao;
+    private final TagDao tagDao;
     private final TaskDao taskDao;
     private UserActivityDao userActivityDao;
     private final Preferences preferences;
@@ -97,7 +100,7 @@ public class TasksXmlExporter {
 
     @Inject
     public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskDao taskDao, UserActivityDao userActivityDao,
-                            Preferences preferences, AlarmDao alarmDao, LocationDao locationDao) {
+                            Preferences preferences, AlarmDao alarmDao, LocationDao locationDao, TagDao tagDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.taskDao = taskDao;
@@ -105,6 +108,7 @@ public class TasksXmlExporter {
         this.preferences = preferences;
         this.alarmDao = alarmDao;
         this.locationDao = locationDao;
+        this.tagDao = tagDao;
     }
 
     public void exportTasks(final Context context, final ExportType exportType, @Nullable final ProgressDialog progressDialog) {
@@ -224,11 +228,21 @@ public class TasksXmlExporter {
                 throw new RuntimeException(e);
             }
         }
+        XmlWriter writer = new XmlWriter(xml);
         for (Alarm alarm : alarmDao.getAlarms(task.getId())) {
             try {
                 xml.startTag(null, BackupConstants.ALARM_TAG);
-                alarm.writeToXml(new XmlWriter(xml));
+                alarm.writeToXml(writer);
                 xml.endTag(null, BackupConstants.ALARM_TAG);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        for (Tag tag : tagDao.getTagsForTask(task.getId())) {
+            try {
+                xml.startTag(null, BackupConstants.TAG_TAG);
+                tag.writeToXml(writer);
+                xml.endTag(null, BackupConstants.TAG_TAG);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -236,7 +250,7 @@ public class TasksXmlExporter {
         for (Location location : locationDao.getGeofences(task.getId())) {
             try {
                 xml.startTag(null, BackupConstants.LOCATION_TAG);
-                location.writeToXml(new XmlWriter(xml));
+                location.writeToXml(writer);
                 xml.endTag(null, BackupConstants.LOCATION_TAG);
             } catch (IOException e) {
                 throw new RuntimeException(e);

@@ -13,20 +13,19 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.Tag;
+import org.tasks.data.TagDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.BackgroundScheduler;
@@ -52,12 +51,13 @@ public class StartupService {
     private final MetadataDao metadataDao;
     private final LocalBroadcastManager localBroadcastManager;
     private final Context context;
+    private final TagDao tagDao;
 
     @Inject
     public StartupService(Database database, Preferences preferences, TaskDeleter taskDeleter,
                           Tracker tracker, TagDataDao tagDataDao, TagService tagService,
                           MetadataDao metadataDao, LocalBroadcastManager localBroadcastManager,
-                          @ForApplication Context context) {
+                          @ForApplication Context context, TagDao tagDao) {
         this.database = database;
         this.preferences = preferences;
         this.taskDeleter = taskDeleter;
@@ -67,6 +67,7 @@ public class StartupService {
         this.metadataDao = metadataDao;
         this.localBroadcastManager = localBroadcastManager;
         this.context = context;
+        this.tagDao = tagDao;
     }
 
     /** Called when this application is started up */
@@ -152,14 +153,10 @@ public class StartupService {
     }
 
     private void removeDuplicateTagMetadata(String uuid) {
-        Criterion fullCriterion = Criterion.and(
-                Metadata.KEY.eq(TaskToTagMetadata.KEY),
-                TaskToTagMetadata.TAG_UUID.eq(uuid),
-                Metadata.DELETION_DATE.eq(0));
-        List<Metadata> metadatas = metadataDao.toList(fullCriterion);
-        ImmutableListMultimap<Long, Metadata> metadataByTask = Multimaps.index(metadatas, Metadata::getTask);
+        List<Tag> metadatas = tagDao.getByTagUid(uuid);
+        ImmutableListMultimap<Long, Tag> metadataByTask = Multimaps.index(metadatas, Tag::getTask);
         for (Long key : metadataByTask.keySet()) {
-            ImmutableList<Metadata> tagData = metadataByTask.get(key);
+            ImmutableList<Tag> tagData = metadataByTask.get(key);
             for (int i = 1 ; i < tagData.size() ; i++) {
                 metadataDao.delete(tagData.get(i).getId());
             }

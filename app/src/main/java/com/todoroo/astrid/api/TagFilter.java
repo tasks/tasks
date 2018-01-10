@@ -8,12 +8,11 @@ import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+import org.tasks.data.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,20 +39,16 @@ public class TagFilter extends Filter {
     }
 
     private static QueryTemplate queryTemplate(String uuid) {
-        Criterion fullCriterion = Criterion.and(
-                Field.field("mtags." + Metadata.KEY.name).eq(TaskToTagMetadata.KEY),
-                Field.field("mtags." + TaskToTagMetadata.TAG_UUID.name).eq(uuid),
-                Field.field("mtags." + Metadata.DELETION_DATE.name).eq(0),
-                TaskDao.TaskCriteria.activeAndVisible());
-        return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags." + TaskToTagMetadata.TASK_UUID.name))))
-                .where(fullCriterion);
+        return new QueryTemplate()
+                .join(Join.inner(Tag.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags.task_uid"))))
+                .where(Criterion.and(
+                        Field.field("mtags.tag_uid").eq(uuid),
+                        TaskDao.TaskCriteria.activeAndVisible()));
     }
 
     private static Map<String, Object> getValuesForNewTask(TagData tagData) {
         Map<String, Object> values = new HashMap<>();
-        values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
-        values.put(TaskToTagMetadata.TAG_NAME.name, tagData.getName());
-        values.put(TaskToTagMetadata.TAG_UUID.name, tagData.getRemoteId());
+        values.put(Tag.KEY, tagData.getName());
         return values;
     }
 

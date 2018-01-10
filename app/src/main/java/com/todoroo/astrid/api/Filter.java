@@ -85,7 +85,9 @@ public class Filter extends FilterListItem {
         this.listingTitle = listingTitle;
         this.sqlQuery = sqlQuery;
         this.filterOverride = null;
-        this.valuesForNewTasks.putAll(valuesForNewTasks);
+        if (valuesForNewTasks != null) {
+            this.valuesForNewTasks.putAll(valuesForNewTasks);
+        }
     }
 
     public String getSqlQuery() {

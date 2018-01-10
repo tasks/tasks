@@ -11,7 +11,6 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.google.common.collect.Iterables;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -23,19 +22,19 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.backup.XmlReader;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
-import org.tasks.data.LocationDao;
 import org.tasks.data.Location;
+import org.tasks.data.LocationDao;
+import org.tasks.data.Tag;
+import org.tasks.data.TagDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -43,7 +42,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -58,6 +56,7 @@ public class TasksXmlImporter {
     private final TaskDao taskDao;
     private LocalBroadcastManager localBroadcastManager;
     private final AlarmDao alarmDao;
+    private final TagDao tagDao;
     private final LocationDao locationDao;
 
     private Activity activity;
@@ -76,7 +75,7 @@ public class TasksXmlImporter {
     @Inject
     public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, UserActivityDao userActivityDao,
                             DialogBuilder dialogBuilder, TaskDao taskDao, LocationDao locationDao,
-                            LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao) {
+                            LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao, TagDao tagDao) {
         this.tagDataDao = tagDataDao;
         this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
@@ -85,6 +84,7 @@ public class TasksXmlImporter {
         this.locationDao = locationDao;
         this.localBroadcastManager = localBroadcastManager;
         this.alarmDao = alarmDao;
+        this.tagDao = tagDao;
     }
 
     public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
@@ -259,6 +259,16 @@ public class TasksXmlImporter {
             locationDao.insert(location);
         }
 
+        void parseTag() {
+            if (!currentTask.isSaved()) {
+                return;
+            }
+
+            Tag tag = new Tag(new XmlReader(xpp));
+
+            tagDao.insert(tag);
+        }
+
         void parseMetadata(int format) {
             if(!currentTask.isSaved()) {
                 return;
@@ -269,38 +279,36 @@ public class TasksXmlImporter {
                 Alarm alarm = new Alarm();
                 alarm.setTask(currentTask.getId());
                 alarm.setTime(Long.valueOf(metadata.getValue(Metadata.VALUE1)));
-                alarmDao.insert(new Alarm());
-                return;
-            }
-            if (metadata.getKey().equals(TaskToTagMetadata.KEY)) {
-                String uuid = metadata.getValue(TaskToTagMetadata.TAG_UUID);
-                List<Metadata> metadatas = metadataDao.byTaskAndKey(currentTask.getId(), TaskToTagMetadata.KEY);
-                if (Iterables.any(metadatas, existing -> uuid.equals(existing.getValue(TaskToTagMetadata.TAG_UUID)))) {
-                    return;
-                }
-            }
-            metadata.setId(Metadata.NO_ID);
-            metadata.setTask(currentTask.getId());
-            metadataDao.persist(metadata);
-
-            // Construct the TagData from Metadata
-            // Fix for failed backup, Version before 4.6.10
-            if (format == 2) {
-                String key = metadata.getKey();
+                alarmDao.insert(alarm);
+            } else if (metadata.getKey().equals("geofence")) {
+                Location location = new Location();
+                location.setTask(currentTask.getId());
+                location.setName(metadata.getValue(Metadata.VALUE1));
+                location.setLatitude(Double.valueOf(metadata.getValue(Metadata.VALUE2)));
+                location.setLongitude(Double.valueOf(metadata.getValue(Metadata.VALUE3)));
+                location.setRadius(Integer.valueOf(metadata.getValue(Metadata.VALUE4)));
+                locationDao.insert(location);
+            } else if (metadata.getKey().equals("tags-tag")) {
+                String tagUid = metadata.getValue(Metadata.VALUE2);
                 String name = metadata.getValue(Metadata.VALUE1);
-                String uuid = metadata.getValue(Metadata.VALUE2);
-                long deletionDate = metadata.getDeletionDate();
-                // UUID is uniquely for every TagData, so we don't need to test the name
-                TagData tagData = tagDataDao.getByUuid(uuid);
-                //If you sync with Google tasks it adds some Google task metadata.
-                //For this metadata we don't create a list!
-                if(key.equals(TaskToTagMetadata.KEY) && tagData == null && deletionDate == 0) {
-                    tagData = new TagData();
-                    tagData.setId(RemoteModel.NO_ID);
-                    tagData.setRemoteId(uuid);
-                    tagData.setName(name);
-                    tagDataDao.insert(tagData);
+                if (tagDao.getTagByTaskAndTagUid(currentTask.getId(), tagUid) == null) {
+                    tagDao.insert(new Tag(currentTask.getId(), currentTask.getUuid(), name, tagUid));
                 }
+                // Construct the TagData from Metadata
+                // Fix for failed backup, Version before 4.6.10
+                if (format == 2) {
+                    TagData tagData = tagDataDao.getByUuid(tagUid);
+                    if (tagData == null) {
+                        tagData = new TagData();
+                        tagData.setRemoteId(tagUid);
+                        tagData.setName(name);
+                        tagDataDao.insert(tagData);
+                    }
+                }
+            } else {
+                metadata.setId(Metadata.NO_ID);
+                metadata.setTask(currentTask.getId());
+                metadataDao.persist(metadata);
             }
         }
 
@@ -397,6 +405,9 @@ public class TasksXmlImporter {
                             break;
                         case BackupConstants.LOCATION_TAG:
                             parseLocation();
+                            break;
+                        case BackupConstants.TAG_TAG:
+                            parseTag();
                             break;
                     }
                 } catch (Exception e) {

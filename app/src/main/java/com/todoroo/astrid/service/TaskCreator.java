@@ -5,22 +5,21 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 import com.todoroo.astrid.utility.TitleParser;
 
+import org.tasks.data.Tag;
+import org.tasks.data.TagDao;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -35,19 +34,21 @@ public class TaskCreator {
     private final GCalHelper gcalHelper;
     private final Preferences preferences;
     private final MetadataDao metadataDao;
+    private final TagDao tagDao;
     private final TagDataDao tagDataDao;
     private final TaskDao taskDao;
     private final TagService tagService;
 
     @Inject
     public TaskCreator(GCalHelper gcalHelper, Preferences preferences, MetadataDao metadataDao,
-                       TagDataDao tagDataDao, TaskDao taskDao, TagService tagService) {
+                       TagDataDao tagDataDao, TaskDao taskDao, TagService tagService, TagDao tagDao) {
         this.gcalHelper = gcalHelper;
         this.preferences = preferences;
         this.metadataDao = metadataDao;
         this.tagDataDao = tagDataDao;
         this.taskDao = taskDao;
         this.tagService = tagService;
+        this.tagDao = tagDao;
     }
 
     public Task basicQuickAddTask(String title) {
@@ -96,6 +97,10 @@ public class TaskCreator {
             outer: for (Map.Entry<String, Object> item : values.entrySet()) {
                 String key = item.getKey();
                 Object value = item.getValue();
+                if (key.equals(Tag.KEY)) {
+                    continue;
+                }
+
                 if (value instanceof String) {
                     value = PermaSql.replacePlaceholders((String) value);
                 }
@@ -113,6 +118,11 @@ public class TaskCreator {
         }
 
         saveWithoutPublishingFilterUpdate(task);
+
+        if (values != null && values.containsKey(Tag.KEY)) {
+            createLink(task, (String) values.get(Tag.KEY));
+        }
+
         for(String tag : tags) {
             createLink(task, tag);
         }
@@ -121,17 +131,7 @@ public class TaskCreator {
             Metadata metadata = new Metadata();
             metadata.setTask(task.getId());
             metadata.mergeWith(forMetadata);
-            if (TaskToTagMetadata.KEY.equals(metadata.getKey())) {
-                if (metadata.containsNonNullValue(TaskToTagMetadata.TAG_UUID) && !RemoteModel.NO_UUID.equals(metadata.getValue(TaskToTagMetadata.TAG_UUID))) {
-                    // This is more efficient
-                    createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME), metadata.getValue(TaskToTagMetadata.TAG_UUID));
-                } else {
-                    // This is necessary for backwards compatibility
-                    createLink(task, metadata.getValue(TaskToTagMetadata.TAG_NAME));
-                }
-            } else {
-                metadataDao.persist(metadata);
-            }
+            metadataDao.persist(metadata);
         }
 
         return task;
@@ -152,11 +152,8 @@ public class TaskCreator {
     }
 
     private void createLink(Task task, String tagName, String tagUuid) {
-        Metadata link = TaskToTagMetadata.newTagMetadata(task.getId(), task.getUuid(), tagName, tagUuid);
-        if (metadataDao.update(Criterion.and(MetadataDao.MetadataCriteria.byTaskAndwithKey(task.getId(), TaskToTagMetadata.KEY),
-                TaskToTagMetadata.TASK_UUID.eq(task.getUUID()), TaskToTagMetadata.TAG_UUID.eq(tagUuid)), link) <= 0) {
-            metadataDao.createNew(link);
-        }
+        Tag link = new Tag(task.getId(), task.getUuid(), tagName, tagUuid);
+        tagDao.insert(link);
     }
 
     /**

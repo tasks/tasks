@@ -9,12 +9,14 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.LocationDao;
+import org.tasks.data.TagDao;
 import org.tasks.db.Migrations;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
@@ -101,5 +103,10 @@ public class ApplicationModule {
     @Provides
     public LocationDao getGeofenceDao(Database database) {
         return database.getGeofenceDao();
+    }
+
+    @Provides
+    public TagDao getTagDao(Database database) {
+        return database.getTagDao();
     }
 }

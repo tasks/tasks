@@ -16,20 +16,17 @@ import android.text.InputType;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.TagFilter;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.TagDao;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
@@ -67,7 +64,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     @Inject TagService tagService;
     @Inject TagDataDao tagDataDao;
-    @Inject MetadataDao metadataDao;
+    @Inject TagDao tagDao;
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject ThemeCache themeCache;
@@ -197,11 +194,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
             tagData.setColor(selectedTheme);
             tagService.rename(tagData.getRemoteId(), newName);
             tagDataDao.persist(tagData);
-            Metadata m = new Metadata();
-            m.setValue(TaskToTagMetadata.TAG_NAME, newName);
-            metadataDao.update(Criterion.and(
-                    MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                    TaskToTagMetadata.TAG_UUID.eq(tagData.getRemoteId())), m);
+            tagDao.rename(tagData.getRemoteId(), newName);
             setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
         }
 
@@ -250,7 +243,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
                     if (tagData != null) {
                         String uuid = tagData.getRemoteId();
-                        metadataDao.deleteWhere(Criterion.and(MetadataDao.MetadataCriteria.withKey(TaskToTagMetadata.KEY), TaskToTagMetadata.TAG_UUID.eq(uuid)));
+                        tagDao.deleteTag(uuid);
                         tagDataDao.delete(tagData.getId());
                         setResult(RESULT_OK, new Intent(ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
                     }

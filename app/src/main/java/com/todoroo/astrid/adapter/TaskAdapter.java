@@ -21,7 +21,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
         void onCompletedTask(Task item, boolean newState);
     }
 
-    public static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TaskToTagMetadata.TAG_UUID.name + ", '')"+ ", ',')").as("tags");
+    public static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + ".tag_uid, '')"+ ", ',')").as("tags");
     public static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
     public static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 

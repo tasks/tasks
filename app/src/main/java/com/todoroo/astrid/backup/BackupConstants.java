@@ -41,6 +41,8 @@ class BackupConstants {
 
     public static final String LOCATION_TAG = "location";
 
+    public static final String TAG_TAG = "tag";
+
     /** Tag containing a tagdata item */
     public static final String TAGDATA_TAG = "tagdata";
 

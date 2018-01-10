@@ -38,7 +38,7 @@ public class Migrations {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS `alarms` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `task` INTEGER, `time` INTEGER)");
-            database.execSQL("INSERT INTO `alarms` (`task`, `time`) SELECT `task`, `value` FROM `metadata` WHERE `key` = 'alarm'");
+            database.execSQL("INSERT INTO `alarms` (`task`, `time`) SELECT `task`, `value` FROM `metadata` WHERE `key` = 'alarm' AND `deleted` = 0");
             database.execSQL("DELETE FROM `metadata` WHERE `key` = 'alarm'");
         }
     };
@@ -48,8 +48,18 @@ public class Migrations {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS `locations` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `radius` INTEGER NOT NULL)");
             database.execSQL("INSERT INTO `locations` (`task`, `name`, `latitude`, `longitude`, `radius`) " +
-                    "SELECT `task`, `value`, `value2`, `value3`, `value4` FROM `metadata` WHERE `key` = 'geofence'");
+                    "SELECT `task`, `value`, `value2`, `value3`, `value4` FROM `metadata` WHERE `key` = 'geofence' AND `deleted` = 0");
             database.execSQL("DELETE FROM `metadata` WHERE `key` = 'geofence'");
+        }
+    };
+
+    private static final Migration MIGRATION_48_49 = new Migration(48, 49) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `tags` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `name` TEXT, `tag_uid` TEXT, `task_uid` TEXT)");
+            database.execSQL("INSERT INTO `tags` (`task`, `name`, `tag_uid`, `task_uid`) " +
+                    "SELECT `task`, `value`, `value2`, `value3` FROM `metadata` WHERE `key` = 'tags-tag' AND `deleted` = 0");
+            database.execSQL("DELETE FROM `metadata` WHERE `key` = 'tags-tag'");
         }
     };
 
@@ -75,6 +85,7 @@ public class Migrations {
             NOOP(44, 45),
             NOOP(45, 46),
             MIGRATION_46_47,
-            MIGRATION_47_48
+            MIGRATION_47_48,
+            MIGRATION_48_49
     };
 }
