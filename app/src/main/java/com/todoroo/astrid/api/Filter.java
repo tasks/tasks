@@ -5,11 +5,14 @@
  */
 package com.todoroo.astrid.api;
 
-import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.todoroo.andlib.sql.QueryTemplate;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A <code>FilterListFilter</code> allows users to display tasks that have
@@ -23,14 +26,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
  *
  */
 public class Filter extends FilterListItem {
-
-    // --- constants
-
-    /** Constant for valuesForNewTasks to indicate the value should be replaced
-     * with the current time as long */
-    public static final long VALUE_NOW = Long.MIN_VALUE + 1;
-
-    // --- instance variables
 
     /**
      * {@link PermaSql} query for this filter. The query will be appended to the select
@@ -61,10 +56,10 @@ public class Filter extends FilterListItem {
      * tasks they create should also be tagged 'ABC'. If set to null, no
      * additional values will be stored for a task. Can use {@link PermaSql}
      */
-    public ContentValues valuesForNewTasks = null;
+    final public Map<String, Object> valuesForNewTasks = new HashMap<>();
 
     public Filter(String listingTitle, QueryTemplate sqlQuery) {
-        this(listingTitle, sqlQuery, null);
+        this(listingTitle, sqlQuery, Collections.emptyMap());
     }
 
     /**
@@ -74,7 +69,7 @@ public class Filter extends FilterListItem {
      * @param sqlQuery
      *            SQL query for this list (see {@link #sqlQuery} for examples).
      */
-    public Filter(String listingTitle, QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
+    public Filter(String listingTitle, QueryTemplate sqlQuery, Map<String, Object> valuesForNewTasks) {
         this(listingTitle, sqlQuery == null ? null : sqlQuery.toString(),
                 valuesForNewTasks);
     }
@@ -86,11 +81,11 @@ public class Filter extends FilterListItem {
      * @param sqlQuery
      *            SQL query for this list (see {@link #sqlQuery} for examples).
      */
-    public Filter(String listingTitle, String sqlQuery, ContentValues valuesForNewTasks) {
+    protected Filter(String listingTitle, String sqlQuery, Map<String, Object> valuesForNewTasks) {
         this.listingTitle = listingTitle;
         this.sqlQuery = sqlQuery;
         this.filterOverride = null;
-        this.valuesForNewTasks = valuesForNewTasks;
+        this.valuesForNewTasks.putAll(valuesForNewTasks);
     }
 
     public String getSqlQuery() {
@@ -165,7 +160,7 @@ public class Filter extends FilterListItem {
         super.writeToParcel(dest, flags);
         dest.writeString(""); // old title
         dest.writeString(sqlQuery);
-        dest.writeParcelable(valuesForNewTasks, 0);
+        dest.writeMap(valuesForNewTasks);
     }
 
     @Override
@@ -173,7 +168,7 @@ public class Filter extends FilterListItem {
         super.readFromParcel(source);
         source.readString(); // old title
         sqlQuery = source.readString();
-        valuesForNewTasks = source.readParcelable(ContentValues.class.getClassLoader());
+        source.readMap(valuesForNewTasks, getClass().getClassLoader());
     }
 
     /**

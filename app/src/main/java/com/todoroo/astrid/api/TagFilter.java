@@ -1,6 +1,5 @@
 package com.todoroo.astrid.api;
 
-import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,6 +14,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TaskToTagMetadata;
 
 import org.tasks.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TagFilter extends Filter {
 
@@ -47,12 +49,12 @@ public class TagFilter extends Filter {
                 .where(fullCriterion);
     }
 
-    private static ContentValues getValuesForNewTask(TagData tagData) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
-        contentValues.put(TaskToTagMetadata.TAG_NAME.name, tagData.getName());
-        contentValues.put(TaskToTagMetadata.TAG_UUID.name, tagData.getRemoteId());
-        return contentValues;
+    private static Map<String, Object> getValuesForNewTask(TagData tagData) {
+        Map<String, Object> values = new HashMap<>();
+        values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
+        values.put(TaskToTagMetadata.TAG_NAME.name, tagData.getName());
+        values.put(TaskToTagMetadata.TAG_UUID.name, tagData.getRemoteId());
+        return values;
     }
 
     /**

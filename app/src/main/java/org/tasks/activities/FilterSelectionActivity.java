@@ -53,7 +53,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
                     data.putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
                     data.putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
                     if (selectedFilter.valuesForNewTasks != null) {
-                        data.putExtra(EXTRA_FILTER_VALUES, AndroidUtilities.contentValuesToSerializedString(selectedFilter.valuesForNewTasks));
+                        data.putExtra(EXTRA_FILTER_VALUES, AndroidUtilities.mapToSerializedString(selectedFilter.valuesForNewTasks));
                     }
                     setResult(RESULT_OK, data);
                     dialog.dismiss();

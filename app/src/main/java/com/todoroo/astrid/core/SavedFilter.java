@@ -5,12 +5,12 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.ContentValues;
-
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
+
+import java.util.Map;
 
 /**
  * {@link StoreObject} entries for a saved custom filter
@@ -26,7 +26,7 @@ public class SavedFilter {
      * Save a filter
      */
     public static StoreObject persist(StoreObjectDao dao, CustomFilterAdapter adapter, String title,
-            String sql, ContentValues values) {
+            String sql, Map<String, Object> values) {
 
         if(title == null || title.length() == 0) {
             return null;
@@ -46,7 +46,7 @@ public class SavedFilter {
         if(values == null) {
             storeObject.setValue2(""); //$NON-NLS-1$
         } else {
-            storeObject.setValue2(AndroidUtilities.contentValuesToSerializedString(values));
+            storeObject.setValue2(AndroidUtilities.mapToSerializedString(values));
         }
 
         String filters = serializeFilters(adapter);

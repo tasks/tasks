@@ -21,6 +21,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import timber.log.Timber;
@@ -80,9 +82,9 @@ public class AndroidUtilities {
     /**
      * Serializes a content value into a string
      */
-    public static String contentValuesToSerializedString(ContentValues source) {
+    public static String mapToSerializedString(Map<String, Object> source) {
         StringBuilder result = new StringBuilder();
-        for(Entry<String, Object> entry : source.valueSet()) {
+        for(Entry<String, Object> entry : source.entrySet()) {
             addSerialized(result, entry.getKey(), entry.getValue());
         }
         return result.toString();
@@ -109,35 +111,40 @@ public class AndroidUtilities {
         result.append(SERIALIZATION_SEPARATOR);
     }
 
-    /**
-     * Turn ContentValues into a string
-     */
-    public static ContentValues contentValuesFromSerializedString(String string) {
-        if(string == null) {
-            return new ContentValues();
+    public static Map<String, Object> mapFromSerializedString(String string) {
+        if (string == null) {
+            return new HashMap<>();
         }
 
-        ContentValues result = new ContentValues();
+        Map<String, Object> result = new HashMap<>();
         fromSerialized(string, result, (object, key, type, value) -> {
-            switch(type) {
-            case 'i':
-                object.put(key, Integer.parseInt(value));
-                break;
-            case 'd':
-                object.put(key, Double.parseDouble(value));
-                break;
-            case 'l':
-                object.put(key, Long.parseLong(value));
-                break;
-            case 's':
-                object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
-                break;
-            case 'b':
-                object.put(key, Boolean.parseBoolean(value));
-                break;
+            switch (type) {
+                case 'i':
+                    object.put(key, Integer.parseInt(value));
+                    break;
+                case 'd':
+                    object.put(key, Double.parseDouble(value));
+                    break;
+                case 'l':
+                    object.put(key, Long.parseLong(value));
+                    break;
+                case 's':
+                    object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                    break;
+                case 'b':
+                    object.put(key, Boolean.parseBoolean(value));
+                    break;
             }
         });
         return result;
+    }
+
+    public static Map<String, Object> mapFromContentValues(ContentValues contentValues) {
+        Map<String, Object> map = new HashMap<>();
+        for (Map.Entry<String, Object> entry : contentValues.valueSet()) {
+            map.put(entry.getKey(), entry.getValue());
+        }
+        return map;
     }
 
     public interface SerializedPut<T> {

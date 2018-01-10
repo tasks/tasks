@@ -5,10 +5,12 @@
  */
 package com.todoroo.astrid.api;
 
-import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * CustomFilterCriteria allow users to build a custom filter by chaining
@@ -53,7 +55,7 @@ abstract public class CustomFilterCriterion implements Parcelable {
      * tasks they create should also be tagged 'ABC'. If set to null, no
      * additional values will be stored for a task.
      */
-    public ContentValues valuesForNewTasks = null;
+    public final Map<String, Object> valuesForNewTasks = new HashMap<>();
 
     /**
      * Icon for this criteria. Can be null for no bitmap
@@ -74,7 +76,7 @@ abstract public class CustomFilterCriterion implements Parcelable {
         dest.writeString(identifier);
         dest.writeString(text);
         dest.writeString(sql);
-        dest.writeParcelable(valuesForNewTasks, 0);
+        dest.writeMap(valuesForNewTasks);
         dest.writeParcelable(icon, 0);
         dest.writeString(name);
     }
@@ -86,7 +88,7 @@ abstract public class CustomFilterCriterion implements Parcelable {
         identifier = source.readString();
         text = source.readString();
         sql = source.readString();
-        valuesForNewTasks = source.readParcelable(ContentValues.class.getClassLoader());
+        source.readMap(valuesForNewTasks, getClass().getClassLoader());
         icon = source.readParcelable(Bitmap.class.getClassLoader());
         name = source.readString();
     }

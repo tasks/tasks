@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -45,7 +44,9 @@ import org.tasks.locale.Locale;
 import org.tasks.ui.MenuColorizer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
@@ -231,7 +232,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         }
 
         StringBuilder sql = new StringBuilder(" WHERE ");
-        ContentValues values = new ContentValues();
+        Map<String, Object> values = new HashMap<>();
         for(int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
@@ -263,7 +264,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
 
             if(instance.criterion.valuesForNewTasks != null &&
                     instance.type == CriterionInstance.TYPE_INTERSECT) {
-                for(Entry<String, Object> entry : instance.criterion.valuesForNewTasks.valueSet()) {
+                for(Entry<String, Object> entry : instance.criterion.valuesForNewTasks.entrySet()) {
                     values.put(entry.getKey().replace("?", value),
                             entry.getValue().toString().replace("?", value));
                 }

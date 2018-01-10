@@ -6,7 +6,6 @@
 package com.todoroo.astrid.activity;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -62,6 +61,8 @@ import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -424,11 +425,11 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         if (model == null) {
             Intent intent = getIntent();
             String valuesAsString = intent.getStringExtra(TaskEditFragment.TOKEN_VALUES);
-            ContentValues values = null;
+            Map<String, Object> values = null;
             try {
                 if (valuesAsString != null) {
                     valuesAsString = PermaSql.replacePlaceholders(valuesAsString);
-                    values = AndroidUtilities.contentValuesFromSerializedString(valuesAsString);
+                    values = AndroidUtilities.mapFromSerializedString(valuesAsString);
                 }
             } catch (Exception e) {
                 // oops, can't serialize

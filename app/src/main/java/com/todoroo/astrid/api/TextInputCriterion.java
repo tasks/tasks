@@ -37,7 +37,6 @@ public class TextInputCriterion extends CustomFilterCriterion implements Parcela
         this.identifier = identifier;
         this.text = title;
         this.sql = sql;
-        this.valuesForNewTasks = null;
         this.prompt = prompt;
         this.hint = hint;
         this.icon = icon;

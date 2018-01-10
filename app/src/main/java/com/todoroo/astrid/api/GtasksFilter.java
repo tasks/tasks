@@ -19,6 +19,10 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 
 import org.tasks.R;
 
+import java.util.Map;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.mapFromContentValues;
+
 public class GtasksFilter extends Filter {
 
     private static final int CLOUD = R.drawable.ic_cloud_black_24dp;
@@ -57,9 +61,9 @@ public class GtasksFilter extends Filter {
                 .where(fullCriterion);
     }
 
-    private static ContentValues getValuesForNewTasks(GtasksList list) {
-        ContentValues values = new ContentValues();
-        values.putAll(GtasksMetadata.createEmptyMetadataWithoutList(AbstractModel.NO_ID).getMergedValues());
+    private static Map<String, Object> getValuesForNewTasks(GtasksList list) {
+        ContentValues contentValues = GtasksMetadata.createEmptyMetadataWithoutList(AbstractModel.NO_ID).getMergedValues();
+        Map<String, Object> values = mapFromContentValues(contentValues);
         values.remove(Metadata.TASK.name);
         values.put(GtasksMetadata.LIST_ID.name, list.getRemoteId());
         values.put(GtasksMetadata.ORDER.name, PermaSql.VALUE_NOW);

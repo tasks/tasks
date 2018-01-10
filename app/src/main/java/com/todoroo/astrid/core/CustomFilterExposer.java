@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -17,6 +16,7 @@ import com.todoroo.astrid.data.StoreObject;
 import org.tasks.R;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -49,16 +49,16 @@ public final class CustomFilterExposer {
 
         String title = savedFilter.getItem();
         String sql = savedFilter.getValue();
-        String values = savedFilter.getValue2();
+        String valuesString = savedFilter.getValue2();
 
-        ContentValues contentValues = null;
-        if(!TextUtils.isEmpty(values)) {
-            contentValues = AndroidUtilities.contentValuesFromSerializedString(values);
+        Map<String, Object> values = null;
+        if(!TextUtils.isEmpty(valuesString)) {
+            values = AndroidUtilities.mapFromSerializedString(valuesString);
         }
 
         sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
 
-        CustomFilter customFilter = new CustomFilter(title, sql, contentValues, savedFilter.getId());
+        CustomFilter customFilter = new CustomFilter(title, sql, values, savedFilter.getId());
         customFilter.icon = filter;
         return customFilter;
     }

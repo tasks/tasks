@@ -73,11 +73,11 @@ public class TaskCreator {
      * Create task from the given content values, saving it. This version
      * doesn't need to start with a base task model.
      */
-    public Task createWithValues(ContentValues values, String title) {
+    public Task createWithValues(Map<String, Object> values, String title) {
         return createWithValues(new Task(), values, title);
     }
 
-    Task createWithValues(Task task, ContentValues values, String title) {
+    Task createWithValues(Task task, Map<String, Object> values, String title) {
         if (title != null) {
             task.setTitle(title.trim());
         }
@@ -93,7 +93,7 @@ public class TaskCreator {
         if (values != null && values.size() > 0) {
             ContentValues forTask = new ContentValues();
             forMetadata = new ContentValues();
-            outer: for (Map.Entry<String, Object> item : values.valueSet()) {
+            outer: for (Map.Entry<String, Object> item : values.entrySet()) {
                 String key = item.getKey();
                 Object value = item.getValue();
                 if (value instanceof String) {

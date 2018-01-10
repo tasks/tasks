@@ -28,13 +28,16 @@ import org.tasks.R;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ForApplication;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newLinkedHashSet;
+import static com.todoroo.andlib.utility.AndroidUtilities.mapFromContentValues;
 
 public class FilterCriteriaProvider {
 
@@ -84,7 +87,7 @@ public class FilterCriteriaProvider {
         // TODO: adding to hash set because duplicate tag name bug hasn't been fixed yet
         List<String> tags = newArrayList(newLinkedHashSet(transform(tagService.getTagList(), TagData::getName)));
         String[] tagNames = tags.toArray(new String[tags.size()]);
-        ContentValues values = new ContentValues();
+        Map<String, Object> values = new HashMap<>();
         values.put(Metadata.KEY.name, TaskToTagMetadata.KEY);
         values.put(TaskToTagMetadata.TAG_NAME.name, "?");
         return new MultipleSelectCriterion(
@@ -124,7 +127,7 @@ public class FilterCriteriaProvider {
                 PermaSql.VALUE_EOD_NEXT_WEEK,
                 PermaSql.VALUE_EOD_NEXT_MONTH,
         };
-        ContentValues values = new ContentValues();
+        Map<String, Object> values = new HashMap<>();
         values.put(Task.DUE_DATE.name, "?");
         return new MultipleSelectCriterion(
                 IDENTIFIER_DUEDATE,
@@ -151,7 +154,7 @@ public class FilterCriteriaProvider {
         String[] entries = new String[] {
                 "!!!", "!!", "!", "o"
         };
-        ContentValues values = new ContentValues();
+        Map<String, Object> values = new HashMap<>();
         values.put(Task.IMPORTANCE.name, "?");
         return new MultipleSelectCriterion(
                 IDENTIFIER_IMPORTANCE,
@@ -165,8 +168,6 @@ public class FilterCriteriaProvider {
     }
 
     private CustomFilterCriterion getTaskTitleContainsFilter() {
-        ContentValues values = new ContentValues();
-        values.put(Task.TITLE.name, "?");
         return new TextInputCriterion(
                 IDENTIFIER_TITLE,
                 r.getString(R.string.CFC_title_contains_text),
@@ -188,8 +189,8 @@ public class FilterCriteriaProvider {
             listIds[i] = lists.get(i).getRemoteId();
         }
 
-        ContentValues values = new ContentValues();
-        values.putAll(gtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
+        ContentValues contentValues = gtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues();
+        Map<String, Object> values = mapFromContentValues(contentValues);
         values.remove(Metadata.TASK.name);
         values.put(GtasksMetadata.LIST_ID.name, "?");
 

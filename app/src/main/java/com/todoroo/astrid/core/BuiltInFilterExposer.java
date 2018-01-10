@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 
@@ -27,7 +26,9 @@ import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -88,7 +89,7 @@ public final class BuiltInFilterExposer {
 
     public static Filter getTodayFilter(Resources r) {
         String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
-        ContentValues todayValues = new ContentValues();
+        Map<String, Object> todayValues = new HashMap<>();
         todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
         return new Filter(todayTitle,
                 new QueryTemplate().where(

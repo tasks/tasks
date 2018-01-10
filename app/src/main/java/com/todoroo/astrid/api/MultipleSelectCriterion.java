@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Map;
+
 /**
  * CustomFilterCriteria allow users to build a custom filter by chaining
  * together criteria
@@ -34,12 +36,14 @@ public class MultipleSelectCriterion extends CustomFilterCriterion implements Pa
      * Create a new CustomFilterCriteria object
      */
     public MultipleSelectCriterion(String identifier, String title, String sql,
-            ContentValues valuesForNewTasks, String[] entryTitles,
-            String[] entryValues, Bitmap icon, String name) {
+                                   Map<String, Object> valuesForNewTasks, String[] entryTitles,
+                                   String[] entryValues, Bitmap icon, String name) {
         this.identifier = identifier;
         this.text = title;
         this.sql = sql;
-        this.valuesForNewTasks = valuesForNewTasks;
+        if (valuesForNewTasks != null) {
+            this.valuesForNewTasks.putAll(valuesForNewTasks);
+        }
         this.entryTitles = entryTitles;
         this.entryValues = entryValues;
         this.icon = icon;
