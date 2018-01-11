@@ -121,7 +121,7 @@ public class TasksXmlImporter {
                         String format = xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_FORMAT);
                         if(TextUtils.equals(format, FORMAT2)) {
                             new Format2TaskImporter(xpp);
-                        } else if(TextUtils.equals(format, FORMAT3)) {
+                        } else if(TextUtils.equals(format, FORMAT3) || TextUtils.equals(format, FORMAT4)) {
                             new Format3TaskImporter(xpp);
                         } else {
                             throw new UnsupportedOperationException(
@@ -376,6 +376,7 @@ public class TasksXmlImporter {
     // =============================================================== FORMAT3
 
     private static final String FORMAT3 = "3"; //$NON-NLS-1$
+    private static final String FORMAT4 = "4"; //$NON-NLS-1$
     private class Format3TaskImporter extends Format2TaskImporter {
 
         public Format3TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {

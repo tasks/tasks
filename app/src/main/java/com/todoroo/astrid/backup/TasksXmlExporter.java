@@ -74,8 +74,7 @@ public class TasksXmlExporter {
     private UserActivityDao userActivityDao;
     private final Preferences preferences;
 
-    // 3 is started on Version 4.6.10
-    private static final int FORMAT = 3;
+    private static final int FORMAT = 4;
     private Context context;
     private int exportCount = 0;
     private XmlSerializer xml;
