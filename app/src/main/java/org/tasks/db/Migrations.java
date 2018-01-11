@@ -63,6 +63,16 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_49_50 = new Migration(49, 50) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `google_tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `remote_id` TEXT, `list_id` TEXT, `parent` INTEGER NOT NULL, `indent` INTEGER NOT NULL, `order` INTEGER NOT NULL, `remote_order` INTEGER NOT NULL, `last_sync` INTEGER NOT NULL, `deleted` INTEGER NOT NULL)");
+            database.execSQL("INSERT INTO `google_tasks` (`task`, `remote_id`, `list_id`, `parent`, `indent`, `order`, `remote_order`, `last_sync`, `deleted`) " +
+                    "SELECT `task`, `value`, `value2`, `value3`, `value4`, `value5`, `value6`, `value7`, `deleted` FROM `metadata` WHERE `key` = 'gtasks'");
+            database.execSQL("DROP TABLE IF EXISTS `metadata`");
+        }
+    };
+
     private static Migration NOOP(int from, int to) {
         return new Migration(from, to) {
             @Override
@@ -86,6 +96,7 @@ public class Migrations {
             NOOP(45, 46),
             MIGRATION_46_47,
             MIGRATION_47_48,
-            MIGRATION_48_49
+            MIGRATION_48_49,
+            MIGRATION_49_50
     };
 }

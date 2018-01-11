@@ -40,4 +40,10 @@ public interface TagDao {
 
     @Query("SELECT * FROM tags WHERE task = :taskId AND tag_uid = :tagUid")
     Tag getTagByTaskAndTagUid(long taskId, String tagUid);
+
+    @Query("DELETE FROM tags WHERE task = :taskId")
+    void deleteByTaskId(long taskId);
+
+    @Query("DELETE FROM tags WHERE _id = :id")
+    void deleteById(long id);
 }

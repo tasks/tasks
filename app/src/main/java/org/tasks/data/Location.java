@@ -49,7 +49,6 @@ public class Location implements Serializable, Parcelable {
 
     @Ignore
     public Location(XmlReader xml) {
-        xml.readLong("task", this::setTask);
         xml.readString("name", this::setName);
         xml.readDouble("latitude", this::setLatitude);
         xml.readDouble("longitude", this::setLongitude);
@@ -57,7 +56,6 @@ public class Location implements Serializable, Parcelable {
     }
 
     public void writeToXml(XmlWriter xmlWriter) {
-        xmlWriter.writeLong("task", task);
         xmlWriter.writeString("name", name);
         xmlWriter.writeDouble("latitude", latitude);
         xmlWriter.writeDouble("longitude", longitude);

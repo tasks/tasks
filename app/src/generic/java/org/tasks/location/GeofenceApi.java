@@ -1,5 +1,7 @@
 package org.tasks.location;
 
+import org.tasks.data.Location;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,15 +14,15 @@ public class GeofenceApi {
 
     }
 
-    public void register(List<Geofence> activeGeofences) {
+    public void register(List<Location> activeGeofences) {
 
     }
 
-    public void cancel(Geofence geofence) {
+    public void cancel(Location geofence) {
 
     }
 
-    public void cancel(List<Geofence> geofences) {
+    public void cancel(List<Location> geofences) {
 
     }
 }

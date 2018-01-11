@@ -7,22 +7,22 @@ package com.todoroo.astrid.gtasks.sync;
 
 import com.google.api.client.util.DateTime;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
+
+import org.tasks.data.GoogleTask;
 
 import java.util.ArrayList;
 
 public class GtasksTaskContainer {
 
     public final Task task;
-    public final ArrayList<Metadata> metadata;
+    public final ArrayList<GoogleTask> metadata;
 
-    public Metadata gtaskMetadata;
+    public GoogleTask gtaskMetadata;
     private final long updateTime;
 
-    public GtasksTaskContainer(com.google.api.services.tasks.model.Task remoteTask, String listId, Metadata metadata) {
+    public GtasksTaskContainer(com.google.api.services.tasks.model.Task remoteTask, String listId, GoogleTask metadata) {
         this.task = new Task();
         this.metadata = new ArrayList<>();
         this.gtaskMetadata = metadata;
@@ -44,8 +44,8 @@ public class GtasksTaskContainer {
         task.setDueDate(createdDate);
         task.setNotes(remoteTask.getNotes());
 
-        gtaskMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
-        gtaskMetadata.setValue(GtasksMetadata.LIST_ID, listId);
+        gtaskMetadata.setRemoteId(remoteTask.getId());
+        gtaskMetadata.setListId(listId);
 
         DateTime updated = remoteTask.getUpdated();
         updateTime = updated == null ? 0 : updated.getValue();

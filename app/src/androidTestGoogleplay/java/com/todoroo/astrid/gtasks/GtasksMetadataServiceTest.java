@@ -8,13 +8,13 @@ package com.todoroo.astrid.gtasks;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
@@ -58,12 +58,11 @@ public class GtasksMetadataServiceTest extends InjectingTestCase {
     }
 
     @Inject GtasksTestPreferenceService preferences;
-    @Inject MetadataDao metadataDao;
-    @Inject GtasksMetadata gtasksMetadata;
     @Inject TaskDao taskDao;
+    @Inject GoogleTaskDao googleTaskDao;
 
     private Task task;
-    private Metadata metadata;
+    private GoogleTask metadata;
 
     @Override
     public void setUp() {
@@ -110,18 +109,19 @@ public class GtasksMetadataServiceTest extends InjectingTestCase {
     }
 
     private void whenSearchForMetadata() {
-        metadata = metadataDao.getFirstActiveByTaskAndKey(task.getId(), GtasksMetadata.METADATA_KEY);
+        metadata = googleTaskDao.getByTaskId(task.getId());
     }
 
     private Task taskWithMetadata(String id) {
         Task task = new Task();
         task.setTitle("cats");
         taskDao.save(task);
-        Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
-        if (id != null)
-            metadata.setValue(GtasksMetadata.ID, id);
+        GoogleTask metadata = new GoogleTask(task.getId(), "");
+        if (id != null) {
+            metadata.setRemoteId(id);
+        }
         metadata.setTask(task.getId());
-        metadataDao.persist(metadata);
+        googleTaskDao.insert(metadata);
         return task;
     }
 

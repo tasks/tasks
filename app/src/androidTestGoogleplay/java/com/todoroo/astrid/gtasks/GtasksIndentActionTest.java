@@ -8,13 +8,13 @@ package com.todoroo.astrid.gtasks;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -32,9 +32,8 @@ public class GtasksIndentActionTest extends InjectingTestCase {
 
     @Inject GtasksListService gtasksListService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Inject MetadataDao metadataDao;
-    @Inject GtasksMetadata gtasksMetadata;
     @Inject TaskDao taskDao;
+    @Inject GoogleTaskDao googleTaskDao;
 
     private Task task;
     private GtasksList storeList;
@@ -176,12 +175,10 @@ public class GtasksIndentActionTest extends InjectingTestCase {
     private Task taskWithMetadata(long order, int indentation) {
         Task newTask = new Task();
         taskDao.save(newTask);
-        Metadata metadata = gtasksMetadata.createEmptyMetadata(newTask.getId());
-        metadata.setValue(GtasksMetadata.INDENT, indentation);
-        metadata.setValue(GtasksMetadata.ORDER, order);
-        metadata.setValue(GtasksMetadata.LIST_ID, "list");
-        metadata.setTask(newTask.getId());
-        metadataDao.persist(metadata);
+        GoogleTask metadata = new GoogleTask(newTask.getId(), "list");
+        metadata.setIndent(indentation);
+        metadata.setOrder(order);
+        googleTaskDao.insert(metadata);
         return newTask;
     }
 
@@ -190,9 +187,9 @@ public class GtasksIndentActionTest extends InjectingTestCase {
     }
 
     private void thenExpectIndentationLevel(Task targetTask, int expected) {
-        Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(targetTask.getId(), GtasksMetadata.METADATA_KEY);
+        GoogleTask metadata = googleTaskDao.getByTaskId(targetTask.getId());
         assertNotNull("task has metadata", metadata);
-        int indentation = metadata.getValue(GtasksMetadata.INDENT);
+        int indentation = metadata.getIndent();
         assertTrue("indentation: " + indentation,
                 indentation == expected);
     }

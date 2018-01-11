@@ -9,12 +9,12 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskAttachmentDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.LocationDao;
 import org.tasks.data.TagDao;
 import org.tasks.db.Migrations;
@@ -96,13 +96,18 @@ public class ApplicationModule {
     }
 
     @Provides
+    public GoogleTaskDao getGoogleTaskDao(Database database) {
+        return database.getGoogleTaskDao();
+    }
+
+    @Provides
     public AlarmDao getAlarmDao(Database database) {
         return database.getAlarmDao();
     }
 
     @Provides
     public LocationDao getGeofenceDao(Database database) {
-        return database.getGeofenceDao();
+        return database.getLocationDao();
     }
 
     @Provides

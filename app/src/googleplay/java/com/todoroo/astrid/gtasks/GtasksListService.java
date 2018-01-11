@@ -7,12 +7,12 @@ package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
 
 import org.tasks.LocalBroadcastManager;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.TaskListDataProvider;
 
 import java.util.HashSet;
@@ -32,18 +32,18 @@ public class GtasksListService {
     private final StoreObjectDao storeObjectDao;
     private final TaskListDataProvider taskListDataProvider;
     private final TaskDeleter taskDeleter;
-    private final MetadataDao metadataDao;
     private LocalBroadcastManager localBroadcastManager;
+    private final GoogleTaskDao googleTaskDao;
 
     @Inject
     public GtasksListService(StoreObjectDao storeObjectDao, TaskListDataProvider taskListDataProvider,
-                             TaskDeleter taskDeleter, MetadataDao metadataDao,
-                             LocalBroadcastManager localBroadcastManager) {
+                             TaskDeleter taskDeleter, LocalBroadcastManager localBroadcastManager,
+                             GoogleTaskDao googleTaskDao) {
         this.storeObjectDao = storeObjectDao;
         this.taskListDataProvider = taskListDataProvider;
         this.taskDeleter = taskDeleter;
-        this.metadataDao = metadataDao;
         this.localBroadcastManager = localBroadcastManager;
+        this.googleTaskDao = googleTaskDao;
     }
 
     public List<GtasksList> getLists() {
@@ -104,10 +104,9 @@ public class GtasksListService {
                 .constructCursor(new GtasksFilter(gtasksList), Task.PROPERTIES)
                 .toList();
         for (Task task : tasks) {
-            metadataDao.deleteWhere(MetadataDao.MetadataCriteria
-                    .byTaskAndwithKey(task.getId(), GtasksMetadata.METADATA_KEY));
             taskDeleter.delete(task);
         }
+        googleTaskDao.deleteList(gtasksList.getRemoteId());
         storeObjectDao.delete(gtasksList.getId());
     }
 

@@ -13,7 +13,7 @@ import org.tasks.backup.XmlWriter;
 import java.io.Serializable;
 
 @Entity(tableName = "tagdata")
-public final class TagData implements Parcelable, Serializable {
+public final class TagData implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

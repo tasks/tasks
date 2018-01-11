@@ -1,10 +1,8 @@
 package org.tasks.filters;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -13,17 +11,15 @@ import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TextInputCriterion;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
+import org.tasks.data.GoogleTask;
 import org.tasks.data.Tag;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ForApplication;
@@ -37,7 +33,6 @@ import javax.inject.Inject;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.newLinkedHashSet;
-import static com.todoroo.andlib.utility.AndroidUtilities.mapFromContentValues;
 
 public class FilterCriteriaProvider {
 
@@ -51,18 +46,15 @@ public class FilterCriteriaProvider {
     private final Context context;
     private final TagService tagService;
     private final GtasksListService gtasksListService;
-    private final GtasksMetadata gtasksMetadata;
     private final Resources r;
     private final SyncAdapterHelper syncAdapterHelper;
 
     @Inject
     public FilterCriteriaProvider(@ForApplication Context context, TagService tagService,
-                                  GtasksListService gtasksListService,
-                                  GtasksMetadata gtasksMetadata, SyncAdapterHelper syncAdapterHelper) {
+                                  GtasksListService gtasksListService, SyncAdapterHelper syncAdapterHelper) {
         this.context = context;
         this.tagService = tagService;
         this.gtasksListService = gtasksListService;
-        this.gtasksMetadata = gtasksMetadata;
         this.syncAdapterHelper = syncAdapterHelper;
 
         r = context.getResources();
@@ -186,21 +178,17 @@ public class FilterCriteriaProvider {
             listIds[i] = lists.get(i).getRemoteId();
         }
 
-        ContentValues contentValues = gtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues();
-        Map<String, Object> values = mapFromContentValues(contentValues);
-        values.remove(Metadata.TASK.name);
-        values.put(GtasksMetadata.LIST_ID.name, "?");
+        Map<String, Object> values = new HashMap<>();
+        values.put(GoogleTask.KEY, "?");
 
         return new MultipleSelectCriterion(
                 IDENTIFIER_GTASKS,
                 context.getString(R.string.CFC_gtasks_list_text),
-
-                Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                        Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
-                        TaskDao.TaskCriteria.activeAndVisible(),
-                        MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                        GtasksMetadata.LIST_ID.eq("?"))).toString(),
-
+                Query.select(Field.field("task")).from(GoogleTask.TABLE)
+                        .join(Join.inner(Task.TABLE, Field.field("task").eq(Task.ID)))
+                        .where(Criterion.and(
+                                TaskDao.TaskCriteria.activeAndVisible(),
+                                Field.field("list_id").eq("?"))).toString(),
                 values,
                 listNames,
                 listIds,

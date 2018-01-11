@@ -8,13 +8,13 @@ package com.todoroo.astrid.gtasks;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -34,9 +34,8 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     @Inject GtasksListService gtasksListService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
-    @Inject MetadataDao metadataDao;
     @Inject TaskDao taskDao;
-    @Inject GtasksMetadata gtasksMetadata;
+    @Inject GoogleTaskDao googleTaskDao;
 
     private Task A, B, C, D, E, F;
     private GtasksList list;
@@ -255,10 +254,10 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
     }
 
     private void thenExpectMetadataOrderAndIndent(Task task, long order, int indent) {
-        Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(task.getId(), GtasksMetadata.METADATA_KEY);
+        GoogleTask metadata = googleTaskDao.getByTaskId(task.getId());
         assertNotNull("metadata was found", metadata);
-        assertEquals("order", order, metadata.getValue(GtasksMetadata.ORDER).longValue());
-        assertEquals("indentation", indent, (int)metadata.getValue(GtasksMetadata.INDENT));
+        assertEquals("order", order, metadata.getOrder());
+        assertEquals("indentation", indent, metadata.getIndent());
     }
 
     @Override
@@ -301,13 +300,14 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
         Task task = new Task();
         task.setTitle(title);
         taskDao.save(task);
-        Metadata metadata = gtasksMetadata.createEmptyMetadata(task.getId());
-        metadata.setValue(GtasksMetadata.LIST_ID, "1");
-        if(order != VALUE_UNSET)
-            metadata.setValue(GtasksMetadata.ORDER, order);
-        if(indent != VALUE_UNSET)
-            metadata.setValue(GtasksMetadata.INDENT, indent);
-        metadataDao.persist(metadata);
+        GoogleTask metadata = new GoogleTask(task.getId(), "1");
+        if(order != VALUE_UNSET) {
+            metadata.setOrder(order);
+        }
+        if(indent != VALUE_UNSET) {
+            metadata.setIndent(indent);
+        }
+        googleTaskDao.insert(metadata);
         return task;
     }
 }

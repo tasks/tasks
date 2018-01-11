@@ -27,4 +27,7 @@ public interface LocationDao {
 
     @Insert
     void insert(Location location);
+
+    @Query("DELETE FROM locations WHERE task = :taskId")
+    void deleteByTaskId(long taskId);
 }

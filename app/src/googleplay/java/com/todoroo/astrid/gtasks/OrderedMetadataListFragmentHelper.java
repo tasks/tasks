@@ -14,10 +14,11 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,19 +32,19 @@ import timber.log.Timber;
 class OrderedMetadataListFragmentHelper {
 
     private final GtasksTaskListUpdater updater;
+    private final GoogleTaskDao googleTaskDao;
 
     private final TaskDao taskDao;
-    private final MetadataDao metadataDao;
 
     private DraggableTaskAdapter taskAdapter;
     private TaskListFragment fragment;
     private GtasksList list;
 
     @Inject
-    OrderedMetadataListFragmentHelper(TaskDao taskDao, MetadataDao metadataDao, GtasksTaskListUpdater updater) {
+    OrderedMetadataListFragmentHelper(TaskDao taskDao, GtasksTaskListUpdater updater, GoogleTaskDao googleTaskDao) {
         this.taskDao = taskDao;
-        this.metadataDao = metadataDao;
         this.updater = updater;
+        this.googleTaskDao = googleTaskDao;
     }
 
     void setTaskListFragment(TaskListFragment fragment) {
@@ -70,13 +71,13 @@ class OrderedMetadataListFragmentHelper {
 
         @Override
         public int getIndent(Task task) {
-            return task.getValue(GtasksMetadata.INDENT);
+            return task.getValue(GoogleTask.INDENT);
         }
 
         @Override
         public boolean canIndent(int position, Task task) {
             Task parent = taskAdapter.getTask(position - 1);
-            return parent != null && getIndent(task) <= parent.getValue(GtasksMetadata.INDENT);
+            return parent != null && getIndent(task) <= parent.getValue(GoogleTask.INDENT);
         }
 
         @Override
@@ -144,13 +145,13 @@ class OrderedMetadataListFragmentHelper {
         }
 
         final ArrayList<Long> chained = new ArrayList<>();
-        final int parentIndent = item.getValue(GtasksMetadata.INDENT);
+        final int parentIndent = item.getValue(GoogleTask.INDENT);
         updater.applyToChildren(list, itemId, node -> {
             Task childTask = taskDao.fetch(node.taskId);
             if(!TextUtils.isEmpty(childTask.getRecurrence())) {
-                Metadata metadata = updater.getTaskMetadata(node.taskId);
-                metadata.setValue(GtasksMetadata.INDENT, parentIndent);
-                metadataDao.persist(metadata);
+                GoogleTask googleTask = updater.getTaskMetadata(node.taskId);
+                googleTask.setIndent(parentIndent);
+                googleTaskDao.update(googleTask);
             }
 
             model.setId(node.taskId);

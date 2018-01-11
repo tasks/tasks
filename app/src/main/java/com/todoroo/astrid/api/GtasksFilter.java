@@ -1,27 +1,21 @@
 package com.todoroo.astrid.api;
 
-import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 
 import org.tasks.R;
+import org.tasks.data.GoogleTask;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import static com.todoroo.andlib.utility.AndroidUtilities.mapFromContentValues;
 
 public class GtasksFilter extends Filter {
 
@@ -42,7 +36,7 @@ public class GtasksFilter extends Filter {
 
     public static String toManualOrder(String query) {
         query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY %s", Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG")));
+        query = query + " ORDER BY `order` ASC";
         return query.replace(
                 TaskDao.TaskCriteria.activeAndVisible().toString(),
                 TaskDao.TaskCriteria.notDeleted().toString());
@@ -53,20 +47,16 @@ public class GtasksFilter extends Filter {
     }
 
     private static QueryTemplate getQueryTemplate(GtasksList list) {
-        Criterion fullCriterion = Criterion.and(
-                MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                TaskDao.TaskCriteria.activeAndVisible(),
-                GtasksMetadata.LIST_ID.eq(list.getRemoteId()));
-        return new QueryTemplate().join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
-                .where(fullCriterion);
+        return new QueryTemplate()
+                .join(Join.left(GoogleTask.TABLE, Task.ID.eq(Field.field("google_tasks.task"))))
+                .where(Criterion.and(
+                        TaskDao.TaskCriteria.activeAndVisible(),
+                        Field.field("list_id").eq(list.getRemoteId())));
     }
 
     private static Map<String, Object> getValuesForNewTasks(GtasksList list) {
-        ContentValues contentValues = GtasksMetadata.createEmptyMetadataWithoutList(AbstractModel.NO_ID).getMergedValues();
-        Map<String, Object> values = mapFromContentValues(contentValues);
-        values.remove(Metadata.TASK.name);
-        values.put(GtasksMetadata.LIST_ID.name, list.getRemoteId());
-        values.put(GtasksMetadata.ORDER.name, PermaSql.VALUE_NOW);
+        Map<String, Object> values = new HashMap<>();
+        values.put(GoogleTask.KEY, list.getRemoteId());
         return values;
     }
 

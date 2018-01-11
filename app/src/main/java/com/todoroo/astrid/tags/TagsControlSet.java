@@ -40,7 +40,6 @@ import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -410,9 +409,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
      * Delete all links between the specified task and the list of tags
      */
     private void deleteLinks(long taskId, Iterable<TagData> tags) {
-        Metadata deleteTemplate = new Metadata();
-        deleteTemplate.setTask(taskId); // Need this for recording changes in outstanding table
-        deleteTemplate.setDeletionDate(DateUtilities.now());
         for (TagData tag : tags) {
             // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
             // the outstanding entry correctly. If possible, this should be improved to a single query

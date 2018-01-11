@@ -213,32 +213,32 @@ public class NewRepeatTests {
         return new DateTime(computeNextDueDate(task, task.sanitizedRecurrence(), task.repeatAfterCompletion()));
     }
 
-    private Task newFromDue(Frequency frequency, int interval, DateTime dueDate) {
+    private Task newFromDue(Frequency frequency, int interval, DateTime dueDateTime) {
         return new Task() {{
             setRecurrence(getRecurrenceRule(frequency, interval, false));
-            setDueDate(dueDate.getMillis());
+            setDueDate(dueDateTime.getMillis());
         }};
     }
 
-    private Task newWeeklyFromDue(int interval, DateTime dueDate, WeekdayNum... weekdays) {
+    private Task newWeeklyFromDue(int interval, DateTime dueDateTime, WeekdayNum... weekdays) {
         return new Task() {{
             setRecurrence(getRecurrenceRule(Frequency.WEEKLY, interval, false, weekdays));
-            setDueDate(dueDate.getMillis());
+            setDueDate(dueDateTime.getMillis());
         }};
     }
 
-    private Task newFromCompleted(Frequency frequency, int interval, DateTime dueDate, DateTime completionDate) {
+    private Task newFromCompleted(Frequency frequency, int interval, DateTime dueDateTime, DateTime completionDate) {
         return new Task() {{
             setRecurrence(getRecurrenceRule(frequency, interval, true));
-            setDueDate(dueDate.getMillis());
+            setDueDate(dueDateTime.getMillis());
             setCompletionDate(completionDate.getMillis());
         }};
     }
 
-    private Task newWeeklyFromCompleted(int interval, DateTime dueDate, DateTime completionDate, WeekdayNum... weekdays) {
+    private Task newWeeklyFromCompleted(int interval, DateTime dueDateTime, DateTime completionDate, WeekdayNum... weekdays) {
         return new Task() {{
             setRecurrence(getRecurrenceRule(Frequency.WEEKLY, interval, true, weekdays));
-            setDueDate(dueDate.getMillis());
+            setDueDate(dueDateTime.getMillis());
             setCompletionDate(completionDate.getMillis());
         }};
     }

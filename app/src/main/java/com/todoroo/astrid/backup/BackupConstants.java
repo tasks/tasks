@@ -43,6 +43,8 @@ class BackupConstants {
 
     public static final String TAG_TAG = "tag";
 
+    public static final String GOOGLE_TASKS_TAG = "googletasks";
+
     /** Tag containing a tagdata item */
     public static final String TAGDATA_TAG = "tagdata";
 

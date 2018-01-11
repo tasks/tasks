@@ -1,7 +1,6 @@
 package org.tasks.injection;
 
 import com.todoroo.astrid.alarms.AlarmJobServiceTest;
-import com.todoroo.astrid.dao.MetadataDaoTests;
 import com.todoroo.astrid.dao.TaskDaoTests;
 import com.todoroo.astrid.gtasks.GtasksIndentActionTest;
 import com.todoroo.astrid.gtasks.GtasksListServiceTest;
@@ -41,8 +40,6 @@ public interface TestComponent {
     void inject(TaskTest taskTest);
 
     void inject(TaskDaoTests taskDaoTests);
-
-    void inject(MetadataDaoTests metadataDaoTests);
 
     void inject(NewSyncTestCase newSyncTestCase);
 

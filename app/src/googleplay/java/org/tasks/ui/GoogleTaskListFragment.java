@@ -7,20 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.R;
-import org.tasks.activities.SupportGoogleTaskListPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
@@ -44,7 +42,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject GtasksListService gtasksListService;
-    @Inject MetadataDao metadataDao;
+    @Inject GoogleTaskDao googleTaskDao;
     @Inject Tracker tracker;
 
     private long taskId;
@@ -67,9 +65,9 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
                 selectedList = new GtasksList(selectedStoreObject);
             }
         } else {
-            Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
-            if (metadata != null) {
-                originalList = gtasksListService.getList(metadata.getValue(GtasksMetadata.LIST_ID));
+            GoogleTask googleTask = googleTaskDao.getByTaskId(taskId);
+            if (googleTask != null) {
+                originalList = gtasksListService.getList(googleTask.getListId());
             }
             if (originalList == null) {
                 originalList = gtasksListService.getList(gtasksPreferenceService.getDefaultList());
@@ -126,18 +124,16 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
             return;
         }
 
-        Metadata taskMetadata = metadataDao.getFirstActiveByTaskAndKey(task.getId(), GtasksMetadata.METADATA_KEY);
-        if (taskMetadata == null) {
-            taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());
-        } else if (!taskMetadata.getValue(GtasksMetadata.LIST_ID).equals(selectedList.getRemoteId())) {
+        GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
+        if (googleTask == null) {
+            googleTaskDao.insert(new GoogleTask(task.getId(), selectedList.getRemoteId()));
+        } else if (!googleTask.getListId().equals(selectedList.getRemoteId())) {
             tracker.reportEvent(Tracking.Events.GTASK_MOVE);
             task.putTransitory(SyncFlags.FORCE_SYNC, true);
-            taskMetadata.setDeletionDate(now());
-            metadataDao.persist(taskMetadata);
-            taskMetadata = GtasksMetadata.createEmptyMetadataWithoutList(task.getId());
+            googleTask.setDeleted(now());
+            googleTaskDao.update(googleTask);
+            googleTaskDao.insert(new GoogleTask(task.getId(), selectedList.getRemoteId()));
         }
-        taskMetadata.setValue(GtasksMetadata.LIST_ID, selectedList.getRemoteId());
-        metadataDao.persist(taskMetadata);
     }
 
     @Override

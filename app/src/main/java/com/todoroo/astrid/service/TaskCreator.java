@@ -4,13 +4,10 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -18,6 +15,8 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.preferences.Preferences;
@@ -33,22 +32,22 @@ public class TaskCreator {
 
     private final GCalHelper gcalHelper;
     private final Preferences preferences;
-    private final MetadataDao metadataDao;
     private final TagDao tagDao;
+    private final GoogleTaskDao googleTaskDao;
     private final TagDataDao tagDataDao;
     private final TaskDao taskDao;
     private final TagService tagService;
 
     @Inject
-    public TaskCreator(GCalHelper gcalHelper, Preferences preferences, MetadataDao metadataDao,
-                       TagDataDao tagDataDao, TaskDao taskDao, TagService tagService, TagDao tagDao) {
+    public TaskCreator(GCalHelper gcalHelper, Preferences preferences, TagDataDao tagDataDao,
+                       TaskDao taskDao, TagService tagService, TagDao tagDao, GoogleTaskDao googleTaskDao) {
         this.gcalHelper = gcalHelper;
         this.preferences = preferences;
-        this.metadataDao = metadataDao;
         this.tagDataDao = tagDataDao;
         this.taskDao = taskDao;
         this.tagService = tagService;
         this.tagDao = tagDao;
+        this.googleTaskDao = googleTaskDao;
     }
 
     public Task basicQuickAddTask(String title) {
@@ -90,26 +89,17 @@ public class TaskCreator {
             Timber.e(e, e.getMessage());
         }
 
-        ContentValues forMetadata = null;
         if (values != null && values.size() > 0) {
             ContentValues forTask = new ContentValues();
-            forMetadata = new ContentValues();
-            outer: for (Map.Entry<String, Object> item : values.entrySet()) {
+            for (Map.Entry<String, Object> item : values.entrySet()) {
                 String key = item.getKey();
                 Object value = item.getValue();
-                if (key.equals(Tag.KEY)) {
+                if (key.equals(Tag.KEY) || key.equals(GoogleTask.KEY)) {
                     continue;
                 }
 
                 if (value instanceof String) {
                     value = PermaSql.replacePlaceholders((String) value);
-                }
-
-                for (Property<?> property : Metadata.PROPERTIES) {
-                    if (property.name.equals(key)) {
-                        AndroidUtilities.putInto(forMetadata, key, value);
-                        continue outer;
-                    }
                 }
 
                 AndroidUtilities.putInto(forTask, key, value);
@@ -119,19 +109,18 @@ public class TaskCreator {
 
         saveWithoutPublishingFilterUpdate(task);
 
-        if (values != null && values.containsKey(Tag.KEY)) {
-            createLink(task, (String) values.get(Tag.KEY));
+        if (values != null) {
+            if (values.containsKey(Tag.KEY)) {
+                createLink(task, (String) values.get(Tag.KEY));
+            }
+            if (values.containsKey(GoogleTask.KEY)) {
+                GoogleTask googleTask = new GoogleTask(task.getId(), (String) values.get(GoogleTask.KEY));
+                googleTaskDao.insert(googleTask);
+            }
         }
 
         for(String tag : tags) {
             createLink(task, tag);
-        }
-
-        if (forMetadata != null && forMetadata.size() > 0) {
-            Metadata metadata = new Metadata();
-            metadata.setTask(task.getId());
-            metadata.mergeWith(forMetadata);
-            metadataDao.persist(metadata);
         }
 
         return task;

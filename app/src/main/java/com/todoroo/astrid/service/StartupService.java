@@ -14,7 +14,6 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.tags.TagService;
@@ -48,7 +47,6 @@ public class StartupService {
     private final Tracker tracker;
     private final TagDataDao tagDataDao;
     private final TagService tagService;
-    private final MetadataDao metadataDao;
     private final LocalBroadcastManager localBroadcastManager;
     private final Context context;
     private final TagDao tagDao;
@@ -56,7 +54,7 @@ public class StartupService {
     @Inject
     public StartupService(Database database, Preferences preferences, TaskDeleter taskDeleter,
                           Tracker tracker, TagDataDao tagDataDao, TagService tagService,
-                          MetadataDao metadataDao, LocalBroadcastManager localBroadcastManager,
+                          LocalBroadcastManager localBroadcastManager,
                           @ForApplication Context context, TagDao tagDao) {
         this.database = database;
         this.preferences = preferences;
@@ -64,7 +62,6 @@ public class StartupService {
         this.tracker = tracker;
         this.tagDataDao = tagDataDao;
         this.tagService = tagService;
-        this.metadataDao = metadataDao;
         this.localBroadcastManager = localBroadcastManager;
         this.context = context;
         this.tagDao = tagDao;
@@ -158,7 +155,7 @@ public class StartupService {
         for (Long key : metadataByTask.keySet()) {
             ImmutableList<Tag> tagData = metadataByTask.get(key);
             for (int i = 1 ; i < tagData.size() ; i++) {
-                metadataDao.delete(tagData.get(i).getId());
+                tagDao.deleteById(tagData.get(i).getId());
             }
         }
     }

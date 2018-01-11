@@ -9,7 +9,10 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskListMetadataDao;
 import com.todoroo.astrid.dao.UserActivityDao;
 
-import org.tasks.db.Migrations;
+import org.tasks.data.AlarmDao;
+import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.LocationDao;
+import org.tasks.data.TagDao;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissivePermissionChecker;
@@ -30,7 +33,6 @@ public class TestModule {
     public Database getDatabase() {
         return Room.inMemoryDatabaseBuilder(context, Database.class)
                 .fallbackToDestructiveMigration()
-                .addCallback(Migrations.ON_CREATE)
                 .build();
     }
 
@@ -57,6 +59,26 @@ public class TestModule {
     @Provides
     public StoreObjectDao getStoreObjectDao(Database database) {
         return database.getStoreObjectDao();
+    }
+
+    @Provides
+    public AlarmDao getAlarmDao(Database database) {
+        return database.getAlarmDao();
+    }
+
+    @Provides
+    public GoogleTaskDao getGoogleTaskDao(Database database) {
+        return database.getGoogleTaskDao();
+    }
+
+    @Provides
+    public TagDao getTagDao(Database database) {
+        return database.getTagDao();
+    }
+
+    @Provides
+    public LocationDao getLocationDao(Database database) {
+        return database.getLocationDao();
     }
 
     @ApplicationScope

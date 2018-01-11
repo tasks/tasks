@@ -15,7 +15,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -25,6 +24,8 @@ import com.todoroo.astrid.data.UserActivity;
 
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Tag;
@@ -51,12 +52,12 @@ import timber.log.Timber;
                 TaskListMetadata.class,
                 StoreObject.class,
                 Task.class,
-                Metadata.class,
                 Alarm.class,
                 Location.class,
-                Tag.class
+                Tag.class,
+                GoogleTask.class
         },
-        version = 49)
+        version = 50)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
@@ -66,14 +67,14 @@ public abstract class Database extends RoomDatabase {
     public abstract TaskListMetadataDao getTaskListMetadataDao();
     public abstract StoreObjectDao getStoreObjectDao();
     public abstract AlarmDao getAlarmDao();
-    public abstract LocationDao getGeofenceDao();
+    public abstract LocationDao getLocationDao();
     public abstract TagDao getTagDao();
+    public abstract GoogleTaskDao getGoogleTaskDao();
 
     public static final String NAME = "database";
 
     public static final Table[] TABLES =  new Table[] {
-            Task.TABLE,
-            Metadata.TABLE
+            Task.TABLE
     };
 
     private SupportSQLiteDatabase database;

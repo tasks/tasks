@@ -17,11 +17,9 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
@@ -31,6 +29,8 @@ import org.tasks.R;
 import org.tasks.backup.XmlReader;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Tag;
@@ -50,13 +50,13 @@ import timber.log.Timber;
 public class TasksXmlImporter {
 
     private final TagDataDao tagDataDao;
-    private final MetadataDao metadataDao;
     private final UserActivityDao userActivityDao;
     private final DialogBuilder dialogBuilder;
     private final TaskDao taskDao;
-    private LocalBroadcastManager localBroadcastManager;
+    private final LocalBroadcastManager localBroadcastManager;
     private final AlarmDao alarmDao;
     private final TagDao tagDao;
+    private GoogleTaskDao googleTaskDao;
     private final LocationDao locationDao;
 
     private Activity activity;
@@ -73,11 +73,11 @@ public class TasksXmlImporter {
     }
 
     @Inject
-    public TasksXmlImporter(TagDataDao tagDataDao, MetadataDao metadataDao, UserActivityDao userActivityDao,
+    public TasksXmlImporter(TagDataDao tagDataDao, UserActivityDao userActivityDao,
                             DialogBuilder dialogBuilder, TaskDao taskDao, LocationDao locationDao,
-                            LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao, TagDao tagDao) {
+                            LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao,
+                            TagDao tagDao, GoogleTaskDao googleTaskDao) {
         this.tagDataDao = tagDataDao;
-        this.metadataDao = metadataDao;
         this.userActivityDao = userActivityDao;
         this.dialogBuilder = dialogBuilder;
         this.taskDao = taskDao;
@@ -85,6 +85,7 @@ public class TasksXmlImporter {
         this.localBroadcastManager = localBroadcastManager;
         this.alarmDao = alarmDao;
         this.tagDao = tagDao;
+        this.googleTaskDao = googleTaskDao;
     }
 
     public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
@@ -165,7 +166,6 @@ public class TasksXmlImporter {
 
         XmlPullParser xpp;
         final Task currentTask = new Task();
-        final Metadata metadata = new Metadata();
 
         public Format2TaskImporter() { }
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
@@ -235,7 +235,6 @@ public class TasksXmlImporter {
             }
 
             UserActivity userActivity = new UserActivity(new XmlReader(xpp));
-
             userActivityDao.createNew(userActivity);
         }
 
@@ -245,7 +244,7 @@ public class TasksXmlImporter {
             }
 
             Alarm alarm = new Alarm(new XmlReader(xpp));
-
+            alarm.setTask(currentTask.getId());
             alarmDao.insert(alarm);
         }
 
@@ -255,7 +254,7 @@ public class TasksXmlImporter {
             }
 
             Location location = new Location(new XmlReader(xpp));
-
+            location.setTask(currentTask.getId());
             locationDao.insert(location);
         }
 
@@ -265,32 +264,42 @@ public class TasksXmlImporter {
             }
 
             Tag tag = new Tag(new XmlReader(xpp));
-
+            tag.setTask(currentTask.getId());
             tagDao.insert(tag);
+        }
+
+        void parseGoogleTask() {
+            if (!currentTask.isSaved()) {
+                return;
+            }
+
+            GoogleTask googleTask = new GoogleTask(new XmlReader(xpp));
+            googleTask.setTask(currentTask.getId());
+            googleTaskDao.insert(googleTask);
         }
 
         void parseMetadata(int format) {
             if(!currentTask.isSaved()) {
                 return;
             }
-            metadata.clear();
-            deserializeModel(metadata, Metadata.PROPERTIES);
-            if (metadata.getKey().equals("alarm")) {
+            XmlReader xml = new XmlReader(xpp);
+            String key = xml.readString("key");
+            if ("alarm".equals(key)) {
                 Alarm alarm = new Alarm();
                 alarm.setTask(currentTask.getId());
-                alarm.setTime(Long.valueOf(metadata.getValue(Metadata.VALUE1)));
+                alarm.setTime(xml.readLong("value"));
                 alarmDao.insert(alarm);
-            } else if (metadata.getKey().equals("geofence")) {
+            } else if ("geofence".equals(key)) {
                 Location location = new Location();
                 location.setTask(currentTask.getId());
-                location.setName(metadata.getValue(Metadata.VALUE1));
-                location.setLatitude(Double.valueOf(metadata.getValue(Metadata.VALUE2)));
-                location.setLongitude(Double.valueOf(metadata.getValue(Metadata.VALUE3)));
-                location.setRadius(Integer.valueOf(metadata.getValue(Metadata.VALUE4)));
+                location.setName(xml.readString("value"));
+                location.setLatitude(xml.readDouble("value2"));
+                location.setLongitude(xml.readDouble("value3"));
+                location.setRadius(xml.readInteger("value4"));
                 locationDao.insert(location);
-            } else if (metadata.getKey().equals("tags-tag")) {
-                String tagUid = metadata.getValue(Metadata.VALUE2);
-                String name = metadata.getValue(Metadata.VALUE1);
+            } else if ("tags-tag".equals(key)) {
+                String name = xml.readString("value");
+                String tagUid = xml.readString("value2");
                 if (tagDao.getTagByTaskAndTagUid(currentTask.getId(), tagUid) == null) {
                     tagDao.insert(new Tag(currentTask.getId(), currentTask.getUuid(), name, tagUid));
                 }
@@ -305,10 +314,18 @@ public class TasksXmlImporter {
                         tagDataDao.insert(tagData);
                     }
                 }
-            } else {
-                metadata.setId(Metadata.NO_ID);
-                metadata.setTask(currentTask.getId());
-                metadataDao.persist(metadata);
+            } else if ("gtasks".equals(key)) {
+                GoogleTask googleTask = new GoogleTask();
+                googleTask.setTask(currentTask.getId());
+                googleTask.setRemoteId(xml.readString("value"));
+                googleTask.setListId(xml.readString("value2"));
+                googleTask.setParent(xml.readLong("value3"));
+                googleTask.setIndent(xml.readInteger("value4"));
+                googleTask.setOrder(xml.readLong("value5"));
+                googleTask.setRemoteOrder(xml.readLong("value6"));
+                googleTask.setLastSync(xml.readLong("value7"));
+                googleTask.setDeleted(xml.readLong("deleted"));
+                googleTaskDao.insert(googleTask);
             }
         }
 
@@ -409,6 +426,9 @@ public class TasksXmlImporter {
                             break;
                         case BackupConstants.TAG_TAG:
                             parseTag();
+                            break;
+                        case BackupConstants.GOOGLE_TASKS_TAG:
+                            parseGoogleTask();
                             break;
                     }
                 } catch (Exception e) {

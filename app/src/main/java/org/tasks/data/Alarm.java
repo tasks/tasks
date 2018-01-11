@@ -26,13 +26,17 @@ public class Alarm {
     }
 
     @Ignore
+    public Alarm(long task, long time) {
+        this.task = task;
+        this.time = time;
+    }
+
+    @Ignore
     public Alarm(XmlReader xml) {
-        xml.readLong("task", this::setTask);
         xml.readLong("time", this::setTime);
     }
 
     public void writeToXml(XmlWriter writer) {
-        writer.writeLong("task", task);
         writer.writeLong("time", time);
     }
 

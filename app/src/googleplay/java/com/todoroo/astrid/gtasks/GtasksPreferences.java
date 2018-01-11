@@ -12,13 +12,12 @@ import android.preference.Preference;
 import android.support.annotation.NonNull;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.gtasks.PlayServicesAvailability;
@@ -46,7 +45,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     @Inject SyncAdapterHelper syncAdapterHelper;
     @Inject PlayServicesAvailability playServicesAvailability;
     @Inject DialogBuilder dialogBuilder;
-    @Inject MetadataDao metadataDao;
+    @Inject GoogleTaskDao googleTaskDao;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +84,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                         gtasksPreferenceService.clearLastSyncDate();
                         gtasksPreferenceService.setUserName(null);
-                        metadataDao.deleteWhere(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY));
+                        googleTaskDao.deleteAll();
                         syncAdapterHelper.enableSynchronization(false);
                         tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
                         gtaskPreference.setChecked(false);

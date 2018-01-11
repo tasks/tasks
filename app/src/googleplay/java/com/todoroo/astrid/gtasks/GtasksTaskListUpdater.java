@@ -5,17 +5,13 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.injection.ApplicationScope;
 
 import java.util.ArrayList;
@@ -41,12 +37,12 @@ public class GtasksTaskListUpdater {
     final HashMap<Long, Long> siblings = new HashMap<>();
 
     private final GtasksSyncService gtasksSyncService;
-    private final MetadataDao metadataDao;
+    private final GoogleTaskDao googleTaskDao;
 
     @Inject
-    public GtasksTaskListUpdater(GtasksSyncService gtasksSyncService, MetadataDao metadataDao) {
+    public GtasksTaskListUpdater(GtasksSyncService gtasksSyncService, GoogleTaskDao googleTaskDao) {
         this.gtasksSyncService = gtasksSyncService;
-        this.metadataDao = metadataDao;
+        this.googleTaskDao = googleTaskDao;
     }
 
     public void initialize(Filter filter) {
@@ -56,14 +52,8 @@ public class GtasksTaskListUpdater {
 
     // --- overrides
 
-    Metadata getTaskMetadata(long taskId) {
-        return metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
-    }
-
-    private Metadata createEmptyMetadata(GtasksList list, long taskId) {
-        Metadata metadata = GtasksMetadata.createEmptyMetadataWithoutList(taskId);
-        metadata.setValue(GtasksMetadata.LIST_ID, list.getRemoteId());
-        return metadata;
+    GoogleTask getTaskMetadata(long taskId) {
+        return  googleTaskDao.getByTaskId(taskId);
     }
 
     private void iterateThroughList(GtasksList list, OrderedListIterator iterator) {
@@ -71,8 +61,8 @@ public class GtasksTaskListUpdater {
         gtasksSyncService.iterateThroughList(listId, iterator, 0, false);
     }
 
-    private void onMovedOrIndented(Metadata metadata) {
-        gtasksSyncService.triggerMoveForMetadata(metadata);
+    private void onMovedOrIndented(GoogleTask googleTask) {
+        gtasksSyncService.triggerMoveForMetadata(googleTask);
     }
 
     // --- used during synchronization
@@ -83,16 +73,11 @@ public class GtasksTaskListUpdater {
     }
 
     private void orderAndIndentHelper(final String listId, final AtomicLong order, final long parent, final int indentLevel, final Set<Long> alreadyChecked) {
-        Query query = Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
-                GtasksMetadata.LIST_ID.eq(listId),
-                GtasksMetadata.PARENT_TASK.eq(parent)))
-                .orderBy(Order.asc(Functions.cast(GtasksMetadata.GTASKS_ORDER, "INTEGER")));
-        for (Metadata curr : metadataDao.toList(query)) {
+        for (GoogleTask curr : googleTaskDao.byRemoteOrder(listId, parent)) {
             if (!alreadyChecked.contains(curr.getTask())) {
-                curr.setValue(GtasksMetadata.INDENT, indentLevel);
-                curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
-                metadataDao.saveExisting(curr);
+                curr.setIndent(indentLevel);
+                curr.setOrder(order.getAndIncrement());
+                googleTaskDao.update(curr);
                 alreadyChecked.add(curr.getTask());
 
                 orderAndIndentHelper(listId, order, curr.getTask(), indentLevel + 1, alreadyChecked);
@@ -105,7 +90,7 @@ public class GtasksTaskListUpdater {
         final AtomicInteger previousIndent = new AtomicInteger(-1);
 
         iterateThroughList(list, (taskId, metadata) -> {
-            int indent = metadata.getValue(GtasksMetadata.INDENT);
+            int indent = metadata.getIndent();
 
             try {
                 long parent, sibling;
@@ -139,7 +124,7 @@ public class GtasksTaskListUpdater {
     }
 
     public interface OrderedListIterator {
-        void processTask(long taskId, Metadata metadata);
+        void processTask(long taskId, GoogleTask googleTask);
     }
 
     /**
@@ -157,49 +142,40 @@ public class GtasksTaskListUpdater {
         final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
         final AtomicLong globalOrder = new AtomicLong(-1);
 
-        iterateThroughList(list, (taskId, metadata) -> {
-            if(!metadata.isSaved()) {
-                metadata = createEmptyMetadata(list, taskId);
-            }
-            int indent = metadata.containsNonNullValue(GtasksMetadata.INDENT) ?
-                    metadata.getValue(GtasksMetadata.INDENT) : 0;
+        iterateThroughList(list, (taskId, googleTask) -> {
+            int indent = googleTask.getIndent();
 
             long order = globalOrder.incrementAndGet();
-            metadata.setValue(GtasksMetadata.ORDER, order);
+            googleTask.setOrder(order);
 
             if(targetTaskId == taskId) {
                 // if indenting is warranted, indent me and my children
                 if(indent + delta <= previousIndent.get() + 1 && indent + delta >= 0) {
                     targetTaskIndent.set(indent);
-                    metadata.setValue(GtasksMetadata.INDENT, indent + delta);
+                    googleTask.setIndent(indent + delta);
 
-                    if(GtasksMetadata.PARENT_TASK != null) {
-                        long newParent = computeNewParent(list,
-                                taskId, indent + delta - 1);
-                        if (newParent == taskId) {
-                            metadata.setValue(GtasksMetadata.PARENT_TASK, Task.NO_ID);
-                        } else {
-                            metadata.setValue(GtasksMetadata.PARENT_TASK, newParent);
-                        }
+                    long newParent = computeNewParent(list, taskId, indent + delta - 1);
+                    if (newParent == taskId) {
+                        googleTask.setParent(Task.NO_ID);
+                    } else {
+                        googleTask.setParent(newParent);
                     }
-                    saveAndUpdateModifiedDate(metadata);
+                    saveAndUpdateModifiedDate(googleTask);
                 }
             } else if(targetTaskIndent.get() > -1) {
                 // found first task that is not beneath target
                 if(indent <= targetTaskIndent.get()) {
                     targetTaskIndent.set(-1);
                 } else {
-                    metadata.setValue(GtasksMetadata.INDENT, indent + delta);
-                    saveAndUpdateModifiedDate(metadata);
+                    googleTask.setIndent(indent + delta);
+                    saveAndUpdateModifiedDate(googleTask);
                 }
             } else {
                 previousIndent.set(indent);
                 previousTask.set(taskId);
             }
 
-            if(!metadata.isSaved()) {
-                saveAndUpdateModifiedDate(metadata);
-            }
+            saveAndUpdateModifiedDate(googleTask);
         });
         onMovedOrIndented(getTaskMetadata(targetTaskId));
     }
@@ -214,12 +190,12 @@ public class GtasksTaskListUpdater {
         final AtomicLong lastPotentialParent = new AtomicLong(Task.NO_ID);
         final AtomicBoolean computedParent = new AtomicBoolean(false);
 
-        iterateThroughList(list, (taskId, metadata) -> {
+        iterateThroughList(list, (taskId, googleTask) -> {
             if (targetTask.get() == taskId) {
                 computedParent.set(true);
             }
 
-            int indent = metadata.getValue(GtasksMetadata.INDENT);
+            int indent = googleTask.getIndent();
             if (!computedParent.get() && indent == desiredParentIndent.get()) {
                 lastPotentialParent.set(taskId);
             }
@@ -295,21 +271,20 @@ public class GtasksTaskListUpdater {
 
     private void traverseTreeAndWriteValues(GtasksList list, Node node, AtomicLong order, int indent) {
         if(node.taskId != Task.NO_ID) {
-            Metadata metadata = getTaskMetadata(node.taskId);
-            if(metadata == null) {
-                metadata = createEmptyMetadata(list, node.taskId);
+            GoogleTask googleTask = getTaskMetadata(node.taskId);
+            if(googleTask == null) {
+                googleTask = new GoogleTask(node.taskId, list.getRemoteId());
             }
-            metadata.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
-            metadata.setValue(GtasksMetadata.INDENT, indent);
+            googleTask.setOrder(order.getAndIncrement());
+            googleTask.setIndent(indent);
             boolean parentChanged = false;
-            if(GtasksMetadata.PARENT_TASK != null && metadata.getValue(GtasksMetadata.PARENT_TASK) !=
-                    node.parent.taskId) {
+            if(googleTask.getParent() != node.parent.taskId) {
                 parentChanged = true;
-                metadata.setValue(GtasksMetadata.PARENT_TASK, node.parent.taskId);
+                googleTask.setParent(node.parent.taskId);
             }
-            saveAndUpdateModifiedDate(metadata);
+            saveAndUpdateModifiedDate(googleTask);
             if(parentChanged) {
-                onMovedOrIndented(metadata);
+                onMovedOrIndented(googleTask);
             }
         }
 
@@ -336,8 +311,8 @@ public class GtasksTaskListUpdater {
         final AtomicInteger previoustIndent = new AtomicInteger(-1);
         final AtomicReference<Node> currentNode = new AtomicReference<>(root);
 
-        iterateThroughList(list, (taskId, metadata) -> {
-            int indent = metadata.getValue(GtasksMetadata.INDENT);
+        iterateThroughList(list, (taskId, googleTask) -> {
+            int indent = googleTask.getIndent();
 
             int previousIndentValue = previoustIndent.get();
             if(indent == previousIndentValue) { // sibling
@@ -366,11 +341,8 @@ public class GtasksTaskListUpdater {
         return root;
     }
 
-    private void saveAndUpdateModifiedDate(Metadata metadata) {
-        if(metadata.getSetValues().size() == 0) {
-            return;
-        }
-        metadataDao.persist(metadata);
+    private void saveAndUpdateModifiedDate(GoogleTask googleTask) {
+        googleTaskDao.update(googleTask);
     }
 
     // --- task cascading operations

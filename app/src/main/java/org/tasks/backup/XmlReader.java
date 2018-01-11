@@ -4,6 +4,8 @@ import com.todoroo.astrid.backup.TasksXmlExporter;
 
 import org.xmlpull.v1.XmlPullParser;
 
+import static com.todoroo.astrid.backup.TasksXmlExporter.XML_NULL;
+
 public class XmlReader {
 
     public interface ValueWriter<T> {
@@ -16,34 +18,50 @@ public class XmlReader {
         this.xpp = xpp;
     }
 
-    public void readLong(String name, ValueWriter<Long> writer) {
+    public Long readLong(String name) {
         String value = xpp.getAttributeValue(null, name);
+        return value == null || XML_NULL.equals(value) ? null : Long.parseLong(value);
+    }
+
+    public void readLong(String name, ValueWriter<Long> writer) {
+        Long value = readLong(name);
         if(value != null) {
-            writer.write(TasksXmlExporter.XML_NULL.equals(value) ?
-                    null : Long.parseLong(value));
+            writer.write(value);
         }
+    }
+
+    public Integer readInteger(String name) {
+        String value = xpp.getAttributeValue(null, name);
+        return value == null || XML_NULL.equals(value) ? null : Integer.parseInt(value);
     }
 
     public void readInteger(String name, ValueWriter<Integer> writer) {
-        String value = xpp.getAttributeValue(null, name);
+        Integer value = readInteger(name);
         if(value != null) {
-            writer.write(TasksXmlExporter.XML_NULL.equals(value) ?
-                    null : Integer.parseInt(value));
+            writer.write(value);
         }
     }
 
+    public String readString(String name) {
+        return xpp.getAttributeValue(null, name);
+    }
+
     public void readString(String name, ValueWriter<String> writer) {
-        String value = xpp.getAttributeValue(null, name);
+        String value = readString(name);
         if (value != null) {
             writer.write(value);
         }
     }
 
-    public void readDouble(String name, ValueWriter<Double> writer) {
+    public Double readDouble(String name) {
         String value = xpp.getAttributeValue(null, name);
+        return value == null || XML_NULL.equals(value) ? null : Double.parseDouble(value);
+    }
+
+    public void readDouble(String name, ValueWriter<Double> writer) {
+        Double value = readDouble(name);
         if (value != null) {
-            writer.write(TasksXmlExporter.XML_NULL.equals(value) ?
-                    null : Double.parseDouble(value));
+            writer.write(value);
         }
     }
 }

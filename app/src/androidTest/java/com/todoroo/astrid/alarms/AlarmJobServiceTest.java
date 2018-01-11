@@ -2,9 +2,7 @@ package com.todoroo.astrid.alarms;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 import org.junit.After;
@@ -12,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
+import org.tasks.data.Alarm;
+import org.tasks.data.AlarmDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.jobs.AlarmJob;
@@ -30,7 +30,7 @@ import static org.tasks.makers.TaskMaker.newTask;
 @RunWith(AndroidJUnit4.class)
 public class AlarmJobServiceTest extends InjectingTestCase {
 
-    @Inject MetadataDao metadataDao;
+    @Inject AlarmDao alarmDao;
     @Inject TaskDao taskDao;
 
     private AlarmService alarmService;
@@ -39,7 +39,7 @@ public class AlarmJobServiceTest extends InjectingTestCase {
     @Before
     public void before() {
         jobs = mock(JobQueue.class);
-        alarmService = new AlarmService(metadataDao, jobs);
+        alarmService = new AlarmService(alarmDao, jobs);
     }
 
     @After
@@ -54,12 +54,8 @@ public class AlarmJobServiceTest extends InjectingTestCase {
         taskDao.persist(task);
         DateTime alarmTime = new DateTime(2017, 9, 24, 19, 57);
 
-        Metadata alarm = new Metadata();
-        alarm.setTask(task.getId());
-        alarm.setKey(AlarmFields.METADATA_KEY);
-        alarm.setValue(AlarmFields.TYPE, AlarmFields.TYPE_SINGLE);
-        alarm.setValue(AlarmFields.TIME, alarmTime.getMillis());
-        metadataDao.persist(alarm);
+        Alarm alarm = new Alarm(task.getId(), alarmTime.getMillis());
+        alarm.setId(alarmDao.insert(alarm));
 
         alarmService.scheduleAllAlarms();
 
@@ -75,12 +71,7 @@ public class AlarmJobServiceTest extends InjectingTestCase {
 
         taskDao.persist(task);
 
-        Metadata alarm = new Metadata();
-        alarm.setTask(task.getId());
-        alarm.setKey(AlarmFields.METADATA_KEY);
-        alarm.setValue(AlarmFields.TYPE, AlarmFields.TYPE_SINGLE);
-        alarm.setValue(AlarmFields.TIME, alarmTime.getMillis());
-        metadataDao.persist(alarm);
+        alarmDao.insert(new Alarm(task.getId(), alarmTime.getMillis()));
 
         alarmService.scheduleAllAlarms();
 

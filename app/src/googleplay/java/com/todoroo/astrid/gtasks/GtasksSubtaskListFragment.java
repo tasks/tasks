@@ -16,6 +16,7 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.data.GoogleTask;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.tasklist.GtasksListFragment;
@@ -56,8 +57,8 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
     public Property<?>[] taskProperties() {
         Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
         ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(baseProperties));
-        properties.add(GtasksMetadata.INDENT);
-        properties.add(GtasksMetadata.ORDER);
+        properties.add(GoogleTask.INDENT);
+        properties.add(GoogleTask.ORDER);
         return properties.toArray(new Property<?>[properties.size()]);
     }
 

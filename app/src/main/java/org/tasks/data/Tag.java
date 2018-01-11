@@ -49,14 +49,12 @@ public class Tag {
 
     @Ignore
     public Tag(XmlReader xmlReader) {
-        xmlReader.readLong("task", this::setTask);
         xmlReader.readString("name", this::setName);
         xmlReader.readString("tag_uid", this::setTagUid);
         xmlReader.readString("task_uid", this::setTaskUid);
     }
 
     public void writeToXml(XmlWriter xmlWriter) {
-        xmlWriter.writeLong("task", task);
         xmlWriter.writeString("name", name);
         xmlWriter.writeString("tag_uid", tagUid);
         xmlWriter.writeString("task_uid", taskUid);

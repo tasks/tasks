@@ -8,28 +8,22 @@ package com.todoroo.astrid.gtasks.sync;
 import android.text.TextUtils;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 
 import org.tasks.analytics.Tracker;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ApplicationScope;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -42,25 +36,26 @@ import timber.log.Timber;
 @ApplicationScope
 public class GtasksSyncService {
 
-    private final MetadataDao metadataDao;
     private final TaskDao taskDao;
     private final GtasksPreferenceService gtasksPreferenceService;
     private final GtasksInvoker gtasksInvoker;
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
     private final SyncAdapterHelper syncAdapterHelper;
     private final Tracker tracker;
+    private final GoogleTaskDao googleTaskDao;
 
     @Inject
-    public GtasksSyncService(MetadataDao metadataDao, TaskDao taskDao,
+    public GtasksSyncService(TaskDao taskDao,
                              GtasksPreferenceService gtasksPreferenceService,
                              GtasksInvoker gtasksInvoker,
-                             SyncAdapterHelper syncAdapterHelper, Tracker tracker) {
-        this.metadataDao = metadataDao;
+                             SyncAdapterHelper syncAdapterHelper, Tracker tracker,
+                             GoogleTaskDao googleTaskDao) {
         this.taskDao = taskDao;
         this.gtasksPreferenceService = gtasksPreferenceService;
         this.gtasksInvoker = gtasksInvoker;
         this.syncAdapterHelper = syncAdapterHelper;
         this.tracker = tracker;
+        this.googleTaskDao = googleTaskDao;
         new OperationPushThread(operationQueue).start();
     }
 
@@ -69,15 +64,15 @@ public class GtasksSyncService {
     }
 
     private class MoveOp implements SyncOnSaveOperation {
-        final Metadata metadata;
+        final GoogleTask googleTask;
 
-        public MoveOp(Metadata metadata) {
-            this.metadata = metadata;
+        public MoveOp(GoogleTask googleTask) {
+            this.googleTask = googleTask;
         }
 
         @Override
         public void op(GtasksInvoker invoker) throws IOException {
-            pushMetadataOnSave(metadata, invoker);
+            pushMetadataOnSave(googleTask, invoker);
         }
     }
 
@@ -127,15 +122,12 @@ public class GtasksSyncService {
         operationQueue.offer(new ClearOp(listId));
     }
 
-    public void triggerMoveForMetadata(final Metadata metadata) {
-        if (metadata == null) {
+    public void triggerMoveForMetadata(final GoogleTask googleTask) {
+        if (googleTask == null) {
             return;
         }
-        if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC)) {
-            return;
-        }
-        if (!metadata.getKey().equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
-        {
+        if (googleTask.isSuppressSync()) {
+            googleTask.setSuppressSync(false);
             return;
         }
         if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
@@ -146,61 +138,47 @@ public class GtasksSyncService {
             return;
         }
 
-        operationQueue.offer(new MoveOp(metadata));
+        operationQueue.offer(new MoveOp(googleTask));
     }
 
-    private void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {
+    private void pushMetadataOnSave(GoogleTask model, GtasksInvoker invoker) throws IOException {
         AndroidUtilities.sleepDeep(1000L);
 
-        String taskId = model.getValue(GtasksMetadata.ID);
-        String listId = model.getValue(GtasksMetadata.LIST_ID);
+        String taskId = model.getRemoteId();
+        String listId = model.getListId();
         String parent = getRemoteParentId(model);
         String priorSibling = getRemoteSiblingId(listId, model);
 
         MoveRequest move = new MoveRequest(invoker, taskId, listId, parent, priorSibling);
         com.google.api.services.tasks.model.Task result = move.push();
-        // Update order metadata from result
+        // Update order googleTask from result
         if (result != null) {
-            model.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(result.getPosition()));
-            model.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-            metadataDao.saveExisting(model);
+            model.setRemoteOrder(Long.parseLong(result.getPosition()));
+            model.setSuppressSync(true);
+            googleTaskDao.update(model);
         }
     }
 
     public void iterateThroughList(String listId, final GtasksTaskListUpdater.OrderedListIterator iterator, long startAtOrder, boolean reverse) {
-        Field orderField = Functions.cast(GtasksMetadata.ORDER, "LONG");
-        Order order = reverse ? Order.desc(orderField) : Order.asc(orderField);
-        Criterion startAtCriterion = reverse ?  Functions.cast(GtasksMetadata.ORDER, "LONG").lt(startAtOrder) :
-                Functions.cast(GtasksMetadata.ORDER, "LONG").gt(startAtOrder - 1);
-
-        Query query = Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                MetadataDao.MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                GtasksMetadata.LIST_ID.eq(listId),
-                startAtCriterion)).
-                orderBy(order);
-
-        for (Metadata entry : metadataDao.toList(query)) {
-            long taskId = entry.getValue(Metadata.TASK);
-            Metadata metadata = metadataDao.getFirstActiveByTaskAndKey(taskId, GtasksMetadata.METADATA_KEY);
-            if(metadata != null) {
-                iterator.processTask(taskId, metadata);
-            }
+        List<GoogleTask> tasks = reverse
+                ? googleTaskDao.getTasksFromReverse(listId, startAtOrder)
+                : googleTaskDao.getTasksFrom(listId, startAtOrder);
+        for (GoogleTask entry : tasks) {
+            iterator.processTask(entry.getTask(), entry);
         }
     }
 
     /**
      * Gets the remote id string of the parent task
      */
-    public String getRemoteParentId(Metadata gtasksMetadata) {
+    public String getRemoteParentId(GoogleTask googleTask) {
         String parent = null;
-        if (gtasksMetadata.containsNonNullValue(GtasksMetadata.PARENT_TASK)) {
-            long parentId = gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK);
-            Metadata parentMetadata = metadataDao.getFirstActiveByTaskAndKey(parentId, GtasksMetadata.METADATA_KEY);
-            if (parentMetadata != null && parentMetadata.containsNonNullValue(GtasksMetadata.ID)) {
-                parent = parentMetadata.getValue(GtasksMetadata.ID);
-                if (TextUtils.isEmpty(parent)) {
-                    parent = null;
-                }
+        long parentId = googleTask.getParent();
+        GoogleTask parentTask = googleTaskDao.getByTaskId(parentId);
+        if (parentTask != null) {
+            parent = parentTask.getRemoteId();
+            if (TextUtils.isEmpty(parent)) {
+                parent = null;
             }
         }
         return parent;
@@ -209,26 +187,26 @@ public class GtasksSyncService {
     /**
      * Gets the remote id string of the previous sibling task
      */
-    public String getRemoteSiblingId(String listId, Metadata gtasksMetadata) {
-        final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getValue(GtasksMetadata.INDENT));
-        final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK));
+    public String getRemoteSiblingId(String listId, GoogleTask gtasksMetadata) {
+        final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getIndent());
+        final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getParent());
         final AtomicReference<String> sibling = new AtomicReference<>();
-        GtasksTaskListUpdater.OrderedListIterator iterator = (taskId, metadata) -> {
+        GtasksTaskListUpdater.OrderedListIterator iterator = (taskId, googleTask) -> {
             Task t = taskDao.fetch(taskId);
             if (t == null || t.isDeleted()) {
                 return;
             }
-            int currIndent = metadata.getValue(GtasksMetadata.INDENT);
-            long currParent = metadata.getValue(GtasksMetadata.PARENT_TASK);
+            int currIndent = googleTask.getIndent();
+            long currParent = googleTask.getParent();
 
             if (currIndent == indentToMatch.get() && currParent == parentToMatch.get()) {
                 if (sibling.get() == null) {
-                    sibling.set(metadata.getValue(GtasksMetadata.ID));
+                    sibling.set(googleTask.getRemoteId());
                 }
             }
         };
 
-        iterateThroughList(listId, iterator, gtasksMetadata.getValue(GtasksMetadata.ORDER), true);
+        iterateThroughList(listId, iterator, gtasksMetadata.getOrder(), true);
         return sibling.get();
     }
 }

@@ -18,7 +18,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
@@ -26,6 +25,10 @@ import com.todoroo.astrid.data.TaskApiDao;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.data.AlarmDao;
+import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.LocationDao;
+import org.tasks.data.TagDao;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.jobs.AfterSaveIntentService;
@@ -52,16 +55,25 @@ public class TaskDao {
     private final RemoteModelDao<Task> dao;
     private final LocalBroadcastManager localBroadcastManager;
 
-    private final MetadataDao metadataDao;
+    private final Database database;
     private final Preferences preferences;
+    private final AlarmDao alarmDao;
+    private final TagDao tagDao;
+    private final LocationDao locationDao;
+    private final GoogleTaskDao googleTaskDao;
     private final Context context;
 
     @Inject
-	public TaskDao(@ForApplication Context context, Database database, MetadataDao metadataDao,
-                   Preferences preferences, LocalBroadcastManager localBroadcastManager) {
+	public TaskDao(@ForApplication Context context, Database database,
+                   Preferences preferences, LocalBroadcastManager localBroadcastManager,
+                   AlarmDao alarmDao, TagDao tagDao, LocationDao locationDao, GoogleTaskDao googleTaskDao) {
         this.context = context;
+        this.database = database;
         this.preferences = preferences;
-        this.metadataDao = metadataDao;
+        this.alarmDao = alarmDao;
+        this.tagDao = tagDao;
+        this.locationDao = locationDao;
+        this.googleTaskDao = googleTaskDao;
         this.localBroadcastManager = localBroadcastManager;
         dao = new RemoteModelDao<>(database, Task.class);
     }
@@ -188,7 +200,10 @@ public class TaskDao {
         }
 
         // delete all metadata
-        metadataDao.deleteWhere(MetadataCriteria.byTask(id));
+        alarmDao.deleteByTaskId(id);
+        locationDao.deleteByTaskId(id);
+        tagDao.deleteByTaskId(id);
+        googleTaskDao.deleteByTaskId(id);
 
         localBroadcastManager.broadcastRefresh();
 

@@ -20,11 +20,9 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.UserActivity;
@@ -33,6 +31,8 @@ import org.tasks.R;
 import org.tasks.backup.XmlWriter;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Tag;
@@ -66,10 +66,10 @@ public class TasksXmlExporter {
     // --- implementation
 
     private final TagDataDao tagDataDao;
-    private final MetadataDao metadataDao;
     private final AlarmDao alarmDao;
     private final LocationDao locationDao;
     private final TagDao tagDao;
+    private final GoogleTaskDao googleTaskDao;
     private final TaskDao taskDao;
     private UserActivityDao userActivityDao;
     private final Preferences preferences;
@@ -98,16 +98,17 @@ public class TasksXmlExporter {
     }
 
     @Inject
-    public TasksXmlExporter(TagDataDao tagDataDao, MetadataDao metadataDao, TaskDao taskDao, UserActivityDao userActivityDao,
-                            Preferences preferences, AlarmDao alarmDao, LocationDao locationDao, TagDao tagDao) {
+    public TasksXmlExporter(TagDataDao tagDataDao, TaskDao taskDao, UserActivityDao userActivityDao,
+                            Preferences preferences, AlarmDao alarmDao, LocationDao locationDao,
+                            TagDao tagDao, GoogleTaskDao googleTaskDao) {
         this.tagDataDao = tagDataDao;
-        this.metadataDao = metadataDao;
         this.taskDao = taskDao;
         this.userActivityDao = userActivityDao;
         this.preferences = preferences;
         this.alarmDao = alarmDao;
         this.locationDao = locationDao;
         this.tagDao = tagDao;
+        this.googleTaskDao = googleTaskDao;
     }
 
     public void exportTasks(final Context context, final ExportType exportType, @Nullable final ProgressDialog progressDialog) {
@@ -218,15 +219,6 @@ public class TasksXmlExporter {
     }
 
     private synchronized void serializeMetadata(Task task) {
-        for (Metadata metadata : metadataDao.byTask(task.getId())) {
-            try {
-                xml.startTag(null, BackupConstants.METADATA_TAG);
-                serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);
-                xml.endTag(null, BackupConstants.METADATA_TAG);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
         XmlWriter writer = new XmlWriter(xml);
         for (Alarm alarm : alarmDao.getAlarms(task.getId())) {
             try {
@@ -251,6 +243,15 @@ public class TasksXmlExporter {
                 xml.startTag(null, BackupConstants.LOCATION_TAG);
                 location.writeToXml(writer);
                 xml.endTag(null, BackupConstants.LOCATION_TAG);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        for (GoogleTask googleTask : googleTaskDao.getAllByTaskId(task.getId())) {
+            try {
+                xml.startTag(null, BackupConstants.GOOGLE_TASKS_TAG);
+                googleTask.writeToXml(writer);
+                xml.endTag(null, BackupConstants.GOOGLE_TASKS_TAG);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
