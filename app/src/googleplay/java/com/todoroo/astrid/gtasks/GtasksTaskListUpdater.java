@@ -12,6 +12,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.ApplicationScope;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class GtasksTaskListUpdater {
         return  googleTaskDao.getByTaskId(taskId);
     }
 
-    private void iterateThroughList(GtasksList list, OrderedListIterator iterator) {
+    private void iterateThroughList(GoogleTaskList list, OrderedListIterator iterator) {
         String listId = list.getRemoteId();
         gtasksSyncService.iterateThroughList(listId, iterator, 0, false);
     }
@@ -85,7 +86,7 @@ public class GtasksTaskListUpdater {
         }
     }
 
-    void updateParentSiblingMapsFor(GtasksList list) {
+    void updateParentSiblingMapsFor(GoogleTaskList list) {
         final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
 
@@ -130,7 +131,7 @@ public class GtasksTaskListUpdater {
     /**
      * Indent a task and all its children
      */
-    public void indent(final GtasksList list, final long targetTaskId, final int delta) {
+    public void indent(final GoogleTaskList list, final long targetTaskId, final int delta) {
         if(list == null) {
             return;
         }
@@ -184,7 +185,7 @@ public class GtasksTaskListUpdater {
      * Helper function to iterate through a list and compute a new parent for the target task
      * based on the target parent's indent
      */
-    private long computeNewParent(GtasksList list, long targetTaskId, int targetParentIndent) {
+    private long computeNewParent(GoogleTaskList list, long targetTaskId, int targetParentIndent) {
         final AtomicInteger desiredParentIndent = new AtomicInteger(targetParentIndent);
         final AtomicLong targetTask = new AtomicLong(targetTaskId);
         final AtomicLong lastPotentialParent = new AtomicLong(Task.NO_ID);
@@ -213,7 +214,7 @@ public class GtasksTaskListUpdater {
      * Move a task and all its children to the position right above
      * taskIdToMoveto. Will change the indent level to match taskIdToMoveTo.
      */
-    void moveTo(GtasksList list, final long targetTaskId,
+    void moveTo(GoogleTaskList list, final long targetTaskId,
                        final long moveBeforeTaskId) {
         if(list == null) {
             return;
@@ -269,7 +270,7 @@ public class GtasksTaskListUpdater {
         }
     }
 
-    private void traverseTreeAndWriteValues(GtasksList list, Node node, AtomicLong order, int indent) {
+    private void traverseTreeAndWriteValues(GoogleTaskList list, Node node, AtomicLong order, int indent) {
         if(node.taskId != Task.NO_ID) {
             GoogleTask googleTask = getTaskMetadata(node.taskId);
             if(googleTask == null) {
@@ -306,7 +307,7 @@ public class GtasksTaskListUpdater {
         return null;
     }
 
-    private Node buildTreeModel(GtasksList list) {
+    private Node buildTreeModel(GoogleTaskList list) {
         final Node root = new Node(Task.NO_ID, null);
         final AtomicInteger previoustIndent = new AtomicInteger(-1);
         final AtomicReference<Node> currentNode = new AtomicReference<>(root);
@@ -354,7 +355,7 @@ public class GtasksTaskListUpdater {
     /**
      * Apply an operation only to the children of the task
      */
-    void applyToChildren(GtasksList list, long targetTaskId,
+    void applyToChildren(GoogleTaskList list, long targetTaskId,
                                 OrderedListNodeVisitor visitor) {
 
         Node root = buildTreeModel(list);
@@ -377,7 +378,7 @@ public class GtasksTaskListUpdater {
     /**
      * Removes a task from the order hierarchy and un-indent children
      */
-    void onDeleteTask(GtasksList list, final long targetTaskId) {
+    void onDeleteTask(GoogleTaskList list, final long targetTaskId) {
         if(list == null) {
             return;
         }

@@ -1,7 +1,7 @@
 package org.tasks.gtasks;
 
-import com.todoroo.astrid.gtasks.GtasksList;
+import org.tasks.data.GoogleTaskList;
 
 public interface GoogleTaskListSelectionHandler {
-    void selectedList(GtasksList list);
+    void selectedList(GoogleTaskList list);
 }

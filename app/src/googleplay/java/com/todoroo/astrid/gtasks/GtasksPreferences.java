@@ -18,6 +18,7 @@ import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.gtasks.PlayServicesAvailability;
@@ -99,13 +100,13 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
                     .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
             return false;
         });
-        GtasksList defaultList = getDefaultList();
+        GoogleTaskList defaultList = getDefaultList();
         if (defaultList != null) {
-            defaultListPreference.setSummary(defaultList.getName());
+            defaultListPreference.setSummary(defaultList.getTitle());
         }
     }
 
-    private GtasksList getDefaultList() {
+    private GoogleTaskList getDefaultList() {
         return gtasksListService.getList(gtasksPreferenceService.getDefaultList());
     }
 
@@ -157,11 +158,10 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Go
     }
 
     @Override
-    public void selectedList(GtasksList list) {
+    public void selectedList(GoogleTaskList list) {
         tracker.reportEvent(Tracking.Events.GTASK_DEFAULT_LIST);
         String listId = list.getRemoteId();
         gtasksPreferenceService.setDefaultList(listId);
-        findPreference(R.string.p_gtasks_default_list).setSummary(list.getName());
+        findPreference(R.string.p_gtasks_default_list).setSummary(list.getTitle());
     }
-
 }

@@ -4,7 +4,8 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.todoroo.astrid.dao.Database;
-import org.tasks.data.StoreObjectDao;
+
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskListMetadataDao;
 import org.tasks.data.UserActivityDao;
@@ -57,8 +58,8 @@ public class TestModule {
     }
 
     @Provides
-    public StoreObjectDao getStoreObjectDao(Database database) {
-        return database.getStoreObjectDao();
+    public GoogleTaskListDao getGoogleTaskListDao(Database database) {
+        return database.getGoogleTaskListDao();
     }
 
     @Provides

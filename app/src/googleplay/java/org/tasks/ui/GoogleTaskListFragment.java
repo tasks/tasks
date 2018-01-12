@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.tasks.data.StoreObject;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
@@ -19,6 +17,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
@@ -46,8 +45,8 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     @Inject Tracker tracker;
 
     private long taskId;
-    @Nullable private GtasksList originalList;
-    @Nullable private GtasksList selectedList;
+    @Nullable private GoogleTaskList originalList;
+    @Nullable private GoogleTaskList selectedList;
 
     @Nullable
     @Override
@@ -56,14 +55,8 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
         if (savedInstanceState != null) {
             taskId = savedInstanceState.getLong(EXTRA_TASK_ID);
 
-            StoreObject originalStoreObject = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST);
-            if (originalStoreObject != null) {
-                originalList = new GtasksList(originalStoreObject);
-            }
-            StoreObject selectedStoreObject = savedInstanceState.getParcelable(EXTRA_SELECTED_LIST);
-            if (selectedStoreObject != null) {
-                selectedList = new GtasksList(selectedStoreObject);
-            }
+            originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST);
+            selectedList = savedInstanceState.getParcelable(EXTRA_SELECTED_LIST);
         } else {
             GoogleTask googleTask = googleTaskDao.getByTaskId(taskId);
             if (googleTask != null) {
@@ -85,10 +78,10 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
         outState.putLong(EXTRA_TASK_ID, taskId);
         if (originalList != null) {
-            outState.putParcelable(EXTRA_ORIGINAL_LIST, originalList.getStoreObject());
+            outState.putParcelable(EXTRA_ORIGINAL_LIST, originalList);
         }
         if (selectedList != null) {
-            outState.putParcelable(EXTRA_SELECTED_LIST, selectedList.getStoreObject());
+            outState.putParcelable(EXTRA_SELECTED_LIST, selectedList);
         }
     }
 
@@ -146,14 +139,14 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
         component.inject(this);
     }
 
-    public void setList(GtasksList list) {
+    public void setList(GoogleTaskList list) {
         this.selectedList = list;
         refreshView();
     }
 
     private void refreshView() {
         if (selectedList != null) {
-            textView.setText(selectedList.getName());
+            textView.setText(selectedList.getTitle());
         }
     }
 }

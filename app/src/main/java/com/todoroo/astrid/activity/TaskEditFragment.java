@@ -22,11 +22,12 @@ import android.widget.LinearLayout;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
+
+import org.tasks.data.GoogleTaskList;
 import org.tasks.data.UserActivityDao;
 import com.todoroo.astrid.data.Task;
 import org.tasks.data.UserActivity;
 import com.todoroo.astrid.files.FilesControlSet;
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -321,7 +322,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         getEditTitleControlSet().repeatChanged(repeat);
     }
 
-    public void onGoogleTaskListChanged(GtasksList list) {
+    public void onGoogleTaskListChanged(GoogleTaskList list) {
         getGoogleTaskListFragment().setList(list);
     }
 

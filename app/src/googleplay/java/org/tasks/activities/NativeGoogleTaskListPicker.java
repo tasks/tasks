@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
-import org.tasks.data.StoreObject;
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 
+import org.tasks.data.GoogleTaskList;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.injection.InjectingNativeDialogFragment;
@@ -21,11 +20,11 @@ import static org.tasks.activities.SupportGoogleTaskListPicker.createDialog;
 
 public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
 
-    public static NativeGoogleTaskListPicker newNativeGoogleTaskListPicker(GtasksList defaultList) {
+    public static NativeGoogleTaskListPicker newNativeGoogleTaskListPicker(GoogleTaskList defaultList) {
         NativeGoogleTaskListPicker dialog = new NativeGoogleTaskListPicker();
         Bundle arguments = new Bundle();
         if (defaultList != null) {
-            arguments.putParcelable(EXTRA_SELECTED, defaultList.getStoreObject());
+            arguments.putParcelable(EXTRA_SELECTED, defaultList);
         }
         dialog.setArguments(arguments);
         return dialog;
@@ -43,11 +42,7 @@ public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle arguments = getArguments();
-        StoreObject storeObject = arguments.getParcelable(EXTRA_SELECTED);
-        GtasksList selected = null;
-        if (storeObject != null) {
-            selected = new GtasksList(storeObject);
-        }
+        GoogleTaskList selected = arguments.getParcelable(EXTRA_SELECTED);
         return createDialog(getActivity(), themeCache, dialogBuilder, gtasksListService,
                 selected, themeAccent, list -> handler.selectedList(list));
     }

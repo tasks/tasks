@@ -23,11 +23,12 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TagFilter;
+
+import org.tasks.data.GoogleTaskList;
 import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -317,7 +318,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             }
         } else if (filter instanceof GtasksFilter) {
             GtasksFilter gtasksFilter = (GtasksFilter) filter;
-            GtasksList list = gtasksListService.getList(gtasksFilter.getStoreId());
+            GoogleTaskList list = gtasksListService.getList(gtasksFilter.getStoreId());
             if (list != null) {
                 return preferences.getBoolean(R.string.p_manual_sort, false)
                         ? GtasksSubtaskListFragment.newGtasksSubtaskListFragment(gtasksFilter, list)
@@ -503,7 +504,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     @Override
-    public void selectedList(GtasksList list) {
+    public void selectedList(GoogleTaskList list) {
         getTaskEditFragment().onGoogleTaskListChanged(list);
     }
 

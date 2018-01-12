@@ -9,10 +9,10 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksList;
 
 import org.tasks.R;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskList;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +27,12 @@ public class GtasksFilter extends Filter {
         super();
     }
 
-    public GtasksFilter(GtasksList list) {
-        super(list.getName(), getQueryTemplate(list), getValuesForNewTasks(list));
+    public GtasksFilter(GoogleTaskList list) {
+        super(list.getTitle(), getQueryTemplate(list), getValuesForNewTasks(list));
         storeId = list.getId();
-        tint = list.getColor();
+        if (list.hasColor()) {
+            tint = list.getColor();
+        }
         icon = CLOUD;
     }
 
@@ -46,7 +48,7 @@ public class GtasksFilter extends Filter {
         return storeId;
     }
 
-    private static QueryTemplate getQueryTemplate(GtasksList list) {
+    private static QueryTemplate getQueryTemplate(GoogleTaskList list) {
         return new QueryTemplate()
                 .join(Join.left(GoogleTask.TABLE, Task.ID.eq(Field.field("google_tasks.task"))))
                 .where(Criterion.and(
@@ -54,7 +56,7 @@ public class GtasksFilter extends Filter {
                         Field.field("list_id").eq(list.getRemoteId())));
     }
 
-    private static Map<String, Object> getValuesForNewTasks(GtasksList list) {
+    private static Map<String, Object> getValuesForNewTasks(GoogleTaskList list) {
         Map<String, Object> values = new HashMap<>();
         values.put(GoogleTask.KEY, list.getRemoteId());
         return values;

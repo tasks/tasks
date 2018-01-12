@@ -8,6 +8,7 @@ package com.todoroo.astrid.gtasks;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 
+import org.tasks.data.GoogleTaskList;
 import org.tasks.gtasks.SyncAdapterHelper;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class GtasksFilterExposer {
         }
 
         List<Filter> listFilters = newArrayList();
-        for (GtasksList list : gtasksListService.getLists()) {
+        for (GoogleTaskList list : gtasksListService.getLists()) {
             listFilters.add(filterFromList(list));
         }
         return listFilters;
@@ -49,7 +50,7 @@ public class GtasksFilterExposer {
 
     public Filter getFilter(long id) {
         if (syncAdapterHelper.isEnabled()) {
-            GtasksList list = gtasksListService.getList(id);
+            GoogleTaskList list = gtasksListService.getList(id);
             if (list != null) {
                 return filterFromList(list);
             }
@@ -57,7 +58,7 @@ public class GtasksFilterExposer {
         return null;
     }
 
-    private Filter filterFromList(GtasksList list) {
+    private Filter filterFromList(GoogleTaskList list) {
         return new GtasksFilter(list);
     }
 }

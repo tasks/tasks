@@ -18,9 +18,9 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
-import org.tasks.data.StoreObject;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 
-import org.tasks.data.StoreObjectDao;
 import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import org.tasks.data.TaskAttachment;
@@ -59,15 +59,15 @@ import timber.log.Timber;
                 UserActivity.class,
                 TaskAttachment.class,
                 TaskListMetadata.class,
-                StoreObject.class,
                 Task.class,
                 Alarm.class,
                 Location.class,
                 Tag.class,
                 GoogleTask.class,
-                Filter.class
+                Filter.class,
+                GoogleTaskList.class
         },
-        version = 51)
+        version = 52)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
@@ -75,12 +75,12 @@ public abstract class Database extends RoomDatabase {
     public abstract UserActivityDao getUserActivityDao();
     public abstract TaskAttachmentDao getTaskAttachmentDao();
     public abstract TaskListMetadataDao getTaskListMetadataDao();
-    public abstract StoreObjectDao getStoreObjectDao();
     public abstract AlarmDao getAlarmDao();
     public abstract LocationDao getLocationDao();
     public abstract TagDao getTagDao();
     public abstract GoogleTaskDao getGoogleTaskDao();
     public abstract FilterDao getFilterDao();
+    public abstract GoogleTaskListDao getGoogleTaskListDao();
 
     public static final String NAME = "database";
 

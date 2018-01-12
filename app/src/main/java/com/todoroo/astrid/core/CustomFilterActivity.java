@@ -36,7 +36,6 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
 import org.tasks.data.FilterDao;
-import org.tasks.data.StoreObjectDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
@@ -137,7 +136,6 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
 
     @Inject Database database;
     @Inject FilterDao filterDao;
-    @Inject StoreObjectDao storeObjectDao;
     @Inject DialogBuilder dialogBuilder;
     @Inject FilterCriteriaProvider filterCriteriaProvider;
     @Inject Locale locale;

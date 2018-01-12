@@ -1,7 +1,6 @@
 package org.tasks.ui;
 
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksList;
 
 import org.tasks.R;
 import org.tasks.injection.FragmentComponent;

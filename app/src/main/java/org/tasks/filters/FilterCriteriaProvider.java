@@ -12,15 +12,15 @@ import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.TaskDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.data.Tag;
+import org.tasks.data.TagData;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ForApplication;
 
@@ -169,12 +169,12 @@ public class FilterCriteriaProvider {
     }
 
     private CustomFilterCriterion getGtasksFilterCriteria() {
-        List<GtasksList> lists = gtasksListService.getLists();
+        List<GoogleTaskList> lists = gtasksListService.getLists();
 
         String[] listNames = new String[lists.size()];
         String[] listIds = new String[lists.size()];
         for (int i = 0; i < lists.size(); i++) {
-            listNames[i] = lists.get(i).getName();
+            listNames[i] = lists.get(i).getTitle();
             listIds[i] = lists.get(i).getRemoteId();
         }
 

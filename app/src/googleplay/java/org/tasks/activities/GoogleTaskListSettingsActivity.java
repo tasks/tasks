@@ -14,9 +14,10 @@ import android.widget.Toast;
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.GtasksFilter;
-import org.tasks.data.StoreObjectDao;
-import org.tasks.data.StoreObject;
-import com.todoroo.astrid.gtasks.GtasksList;
+
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
+
 import com.todoroo.astrid.gtasks.GtasksListService;
 
 import org.tasks.R;
@@ -61,10 +62,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     public static final String ACTION_RELOAD = "action_reload";
 
     private boolean isNewList;
-    private GtasksList gtasksList;
+    private GoogleTaskList gtasksList;
     private int selectedTheme;
 
-    @Inject StoreObjectDao storeObjectDao;
+    @Inject GoogleTaskListDao googleTaskListDao;
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
     @Inject GtasksListService gtasksListService;
@@ -83,21 +84,21 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         setContentView(R.layout.activity_google_task_list_settings);
         ButterKnife.bind(this);
 
-        StoreObject storeObject = getIntent().getParcelableExtra(EXTRA_STORE_DATA);
-        if (storeObject == null) {
+        gtasksList = getIntent().getParcelableExtra(EXTRA_STORE_DATA);
+        if (gtasksList == null) {
             isNewList = true;
-            storeObject = new StoreObject();
-            storeObject.setType(GtasksList.TYPE);
+            gtasksList = new GoogleTaskList();
         }
-        gtasksList = new GtasksList(storeObject);
+
         if (savedInstanceState == null) {
-            selectedTheme = gtasksList.getColor();
+            Integer color = gtasksList.getColor();
+            selectedTheme = color == null ? -1 : color;
         } else {
             selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
         }
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-        toolbar.setTitle(isNewList ? getString(R.string.new_list) : gtasksList.getName());
+        toolbar.setTitle(isNewList ? getString(R.string.new_list) : gtasksList.getTitle());
         toolbar.setNavigationIcon(ContextCompat.getDrawable(this,
                 backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
         toolbar.setNavigationOnClickListener(v -> {
@@ -121,7 +122,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
         } else {
-            name.setText(gtasksList.getName());
+            name.setText(gtasksList.getTitle());
         }
 
         updateTheme();
@@ -173,7 +174,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         } else {
             if (colorChanged()) {
                 gtasksList.setColor(selectedTheme);
-                storeObjectDao.persist(gtasksList);
+                googleTaskListDao.insertOrReplace(gtasksList);
                 setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
             }
             finish();
@@ -197,7 +198,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     }
 
     private void deleteTag() {
-        dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, gtasksList.getName())
+        dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, gtasksList.getTitle())
                 .setPositiveButton(R.string.delete, (dialog, which) -> newDeleteListDialog(gtasksList.getRemoteId())
                         .show(getSupportFragmentManager(), FRAG_TAG_DELETE_LIST_DIALOG))
                 .setNegativeButton(android.R.string.cancel, null)
@@ -241,16 +242,17 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     }
 
     private boolean nameChanged() {
-        return !getNewName().equals(gtasksList.getName());
+        return !getNewName().equals(gtasksList.getTitle());
     }
 
     @Override
     public void onListCreated(TaskList taskList) {
         tracker.reportEvent(Tracking.Events.GTASK_NEW_LIST);
-        gtasksList = new GtasksList(taskList.getId());
-        gtasksList.setName(taskList.getTitle());
+        gtasksList = new GoogleTaskList();
+        gtasksList.setRemoteId(taskList.getId());
+        gtasksList.setTitle(taskList.getTitle());
         gtasksList.setColor(selectedTheme);
-        storeObjectDao.persist(gtasksList);
+        gtasksList.setId(googleTaskListDao.insertOrReplace(gtasksList));
         setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
         finish();
     }
@@ -266,9 +268,9 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     @Override
     public void onListRenamed(TaskList taskList) {
         tracker.reportEvent(Tracking.Events.GTASK_RENAME_LIST);
-        gtasksList.setName(taskList.getTitle());
+        gtasksList.setTitle(taskList.getTitle());
         gtasksList.setColor(selectedTheme);
-        storeObjectDao.persist(gtasksList);
+        googleTaskListDao.insertOrReplace(gtasksList);
         setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
         finish();
     }

@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -157,7 +158,7 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
     }
 
     void createParentSiblingMaps() {
-        for(GtasksList list : gtasksListService.getLists()) {
+        for(GoogleTaskList list : gtasksListService.getLists()) {
             gtasksTaskListUpdater.updateParentSiblingMapsFor(list);
         }
     }

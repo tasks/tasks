@@ -5,10 +5,10 @@
  */
 package com.todoroo.astrid.service;
 
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
+import org.tasks.data.GoogleTaskList;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.sync.SyncExecutor;
 
@@ -38,7 +38,7 @@ public class SyncV2Service {
         this.gtasksSyncService = gtasksSyncService;
     }
 
-    public void clearCompleted(final GtasksList list, final SyncResultCallback callback) {
+    public void clearCompleted(final GoogleTaskList list, final SyncResultCallback callback) {
         if (syncAdapterHelper.isEnabled()) {
             syncExecutor.execute(callback, () -> {
                 callback.started();

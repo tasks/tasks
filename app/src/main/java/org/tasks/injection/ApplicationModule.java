@@ -6,7 +6,7 @@ import android.content.Context;
 import com.todoroo.astrid.dao.Database;
 
 import org.tasks.data.FilterDao;
-import org.tasks.data.StoreObjectDao;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.TaskListMetadataDao;
@@ -93,11 +93,6 @@ public class ApplicationModule {
     }
 
     @Provides
-    public StoreObjectDao getStoreObjectDao(Database database) {
-        return database.getStoreObjectDao();
-    }
-
-    @Provides
     public GoogleTaskDao getGoogleTaskDao(Database database) {
         return database.getGoogleTaskDao();
     }
@@ -120,5 +115,10 @@ public class ApplicationModule {
     @Provides
     public FilterDao getFilterDao(Database database) {
         return database.getFilterDao();
+    }
+
+    @Provides
+    public GoogleTaskListDao getGoogleTaskListDao(Database database) {
+        return database.getGoogleTaskListDao();
     }
 }

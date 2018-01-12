@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -36,7 +37,7 @@ public class GtasksIndentActionTest extends InjectingTestCase {
     @Inject GoogleTaskDao googleTaskDao;
 
     private Task task;
-    private GtasksList storeList;
+    private GoogleTaskList storeList;
 
     @Test
     public void testIndentWithoutMetadata() {

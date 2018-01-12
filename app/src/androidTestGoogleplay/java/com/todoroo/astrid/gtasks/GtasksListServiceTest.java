@@ -4,13 +4,14 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.TaskList;
-import org.tasks.data.StoreObjectDao;
 import com.todoroo.astrid.service.TaskDeleter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TaskListDataProvider;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
@@ -39,13 +40,13 @@ public class GtasksListServiceTest extends InjectingTestCase {
     @Inject LocalBroadcastManager localBroadcastManager;
     @Inject GoogleTaskDao googleTaskDao;
 
-    @Inject StoreObjectDao storeObjectDao;
+    @Inject GoogleTaskListDao googleTaskListDao;
     private GtasksListService gtasksListService;
 
     @Override
     public void setUp() {
         super.setUp();
-        gtasksListService = new GtasksListService(storeObjectDao, taskListDataProvider, taskDeleter,
+        gtasksListService = new GtasksListService(googleTaskListDao, taskListDataProvider, taskDeleter,
                 localBroadcastManager, googleTaskDao);
     }
 
@@ -65,13 +66,13 @@ public class GtasksListServiceTest extends InjectingTestCase {
                         with(ID, 1L),
                         with(REMOTE_ID, "1"),
                         with(NAME, "Default")),
-                storeObjectDao.getGtasksList(1L));
+                googleTaskListDao.getById(1L));
     }
 
     @Test
     public void testGetListByRemoteId() {
-        GtasksList list = newGtaskList(with(REMOTE_ID, "1"));
-        storeObjectDao.persist(list);
+        GoogleTaskList list = newGtaskList(with(REMOTE_ID, "1"));
+        list.setId(googleTaskListDao.insertOrReplace(list));
 
         assertEquals(list, gtasksListService.getList("1"));
     }
@@ -83,19 +84,19 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
     @Test
     public void testDeleteMissingList() {
-        storeObjectDao.persist(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1")));
+        googleTaskListDao.insertOrReplace(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1")));
 
         TaskList taskList = newRemoteList(with(RemoteGtaskListMaker.REMOTE_ID, "2"));
 
         setLists(taskList);
 
-        assertEquals(singletonList(newGtaskList(with(ID, 2L), with(REMOTE_ID, "2")).getStoreObject()),
-                storeObjectDao.getGtasksLists());
+        assertEquals(singletonList(newGtaskList(with(ID, 2L), with(REMOTE_ID, "2"))),
+                googleTaskListDao.getActiveLists());
     }
 
     @Test
     public void testUpdateListName() {
-        storeObjectDao.persist(newGtaskList(
+        googleTaskListDao.insertOrReplace(newGtaskList(
                 with(ID, 1L),
                 with(REMOTE_ID, "1"),
                 with(NAME, "oldName")));
@@ -104,7 +105,7 @@ public class GtasksListServiceTest extends InjectingTestCase {
                 with(RemoteGtaskListMaker.REMOTE_ID, "1"),
                 with(RemoteGtaskListMaker.NAME, "newName")));
 
-        assertEquals("newName", storeObjectDao.getGtasksList(1).getName());
+        assertEquals("newName", googleTaskListDao.getById(1).getTitle());
     }
 
     @Test

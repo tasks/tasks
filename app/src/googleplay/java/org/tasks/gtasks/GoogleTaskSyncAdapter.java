@@ -38,11 +38,9 @@ import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import org.tasks.data.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
@@ -58,6 +56,8 @@ import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.InjectingAbstractThreadedSyncAdapter;
 import org.tasks.injection.SyncAdapterComponent;
 import org.tasks.notifications.NotificationManager;
@@ -90,7 +90,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject LocalBroadcastManager localBroadcastManager;
-    @Inject StoreObjectDao storeObjectDao;
+    @Inject GoogleTaskListDao googleTaskListDao;
     @Inject GtasksSyncService gtasksSyncService;
     @Inject GtasksListService gtasksListService;
     @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
@@ -181,7 +181,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         if (gtasksListService.getList(gtasksPreferenceService.getDefaultList()) == null) {
             gtasksPreferenceService.setDefaultList(null);
         }
-        for (final GtasksList list : gtasksListService.getListsToUpdate(gtaskLists)) {
+        for (final GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
             fetchAndApplyRemoteChanges(list);
         }
     }
@@ -305,7 +305,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         taskDao.saveExistingWithSqlConstraintCheck(task);
     }
 
-    private synchronized void fetchAndApplyRemoteChanges(GtasksList list) throws UserRecoverableAuthIOException {
+    private synchronized void fetchAndApplyRemoteChanges(GoogleTaskList list) throws UserRecoverableAuthIOException {
         String listId = list.getRemoteId();
         long lastSyncDate = list.getLastSync();
 
@@ -337,7 +337,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                     lastSyncDate = Math.max(lastSyncDate, container.getUpdateTime());
                 }
                 list.setLastSync(lastSyncDate);
-                storeObjectDao.persist(list);
+                googleTaskListDao.insertOrReplace(list);
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
         } catch (UserRecoverableAuthIOException e) {

@@ -19,6 +19,7 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,7 +39,7 @@ class OrderedMetadataListFragmentHelper {
 
     private DraggableTaskAdapter taskAdapter;
     private TaskListFragment fragment;
-    private GtasksList list;
+    private GoogleTaskList list;
 
     @Inject
     OrderedMetadataListFragmentHelper(TaskDao taskDao, GtasksTaskListUpdater updater, GoogleTaskDao googleTaskDao) {
@@ -168,7 +169,7 @@ class OrderedMetadataListFragmentHelper {
         }
     }
 
-    public void setList(GtasksList list) {
+    public void setList(GoogleTaskList list) {
         this.list = list;
     }
 

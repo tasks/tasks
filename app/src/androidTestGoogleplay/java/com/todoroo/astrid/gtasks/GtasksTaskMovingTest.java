@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -38,7 +39,7 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
     @Inject GoogleTaskDao googleTaskDao;
 
     private Task A, B, C, D, E, F;
-    private GtasksList list;
+    private GoogleTaskList list;
 
     /* Starting State:
      *

@@ -9,14 +9,13 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
-import org.tasks.data.StoreObject;
-import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
@@ -25,7 +24,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class GtasksListFragment extends TaskListFragment {
 
-    public static TaskListFragment newGtasksListFragment(GtasksFilter filter, GtasksList list) {
+    public static TaskListFragment newGtasksListFragment(GtasksFilter filter, GoogleTaskList list) {
         GtasksListFragment fragment = new GtasksListFragment();
         fragment.filter = filter;
         fragment.list = list;
@@ -37,15 +36,14 @@ public class GtasksListFragment extends TaskListFragment {
 
     @Inject SyncV2Service syncService;
 
-    protected GtasksList list;
+    protected GoogleTaskList list;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            StoreObject storeObject = savedInstanceState.getParcelable(EXTRA_STORE_OBJECT);
-            list = new GtasksList(storeObject);
+            list = savedInstanceState.getParcelable(EXTRA_STORE_OBJECT);
         }
     }
 
@@ -60,7 +58,7 @@ public class GtasksListFragment extends TaskListFragment {
         switch(item.getItemId()) {
             case R.id.menu_gtasks_list_settings:
                 Intent intent = new Intent(getActivity(), GoogleTaskListSettingsActivity.class);
-                intent.putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, list.getStoreObject());
+                intent.putExtra(GoogleTaskListSettingsActivity.EXTRA_STORE_DATA, list);
                 startActivityForResult(intent, REQUEST_LIST_SETTINGS);
                 return true;
             default:
@@ -108,7 +106,7 @@ public class GtasksListFragment extends TaskListFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(EXTRA_STORE_OBJECT, list.getStoreObject());
+        outState.putParcelable(EXTRA_STORE_OBJECT, list);
     }
 
     @Override

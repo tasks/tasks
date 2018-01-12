@@ -17,6 +17,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.tasklist.GtasksListFragment;
@@ -29,7 +30,7 @@ import javax.inject.Inject;
 
 public class GtasksSubtaskListFragment extends GtasksListFragment {
 
-    public static TaskListFragment newGtasksSubtaskListFragment(GtasksFilter filter, GtasksList list) {
+    public static TaskListFragment newGtasksSubtaskListFragment(GtasksFilter filter, GoogleTaskList list) {
         GtasksSubtaskListFragment fragment = new GtasksSubtaskListFragment();
         fragment.filter = filter;
         fragment.list = list;

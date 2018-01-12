@@ -7,12 +7,13 @@ package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.api.GtasksFilter;
-import org.tasks.data.StoreObjectDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TaskListDataProvider;
 
 import java.util.HashSet;
@@ -24,34 +25,33 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 public class GtasksListService {
 
-    private final StoreObjectDao storeObjectDao;
+    private final GoogleTaskListDao googleTaskListDao;
     private final TaskListDataProvider taskListDataProvider;
     private final TaskDeleter taskDeleter;
-    private LocalBroadcastManager localBroadcastManager;
+    private final LocalBroadcastManager localBroadcastManager;
     private final GoogleTaskDao googleTaskDao;
 
     @Inject
-    public GtasksListService(StoreObjectDao storeObjectDao, TaskListDataProvider taskListDataProvider,
+    public GtasksListService(GoogleTaskListDao googleTaskListDao, TaskListDataProvider taskListDataProvider,
                              TaskDeleter taskDeleter, LocalBroadcastManager localBroadcastManager,
                              GoogleTaskDao googleTaskDao) {
-        this.storeObjectDao = storeObjectDao;
+        this.googleTaskListDao = googleTaskListDao;
         this.taskListDataProvider = taskListDataProvider;
         this.taskDeleter = taskDeleter;
         this.localBroadcastManager = localBroadcastManager;
         this.googleTaskDao = googleTaskDao;
     }
 
-    public List<GtasksList> getLists() {
-        return transform(storeObjectDao.getGtasksLists(), GtasksList::new);
+    public List<GoogleTaskList> getLists() {
+        return googleTaskListDao.getActiveLists();
     }
 
-    public GtasksList getList(long id) {
-        return storeObjectDao.getGtasksList(id);
+    public GoogleTaskList getList(long id) {
+        return googleTaskListDao.getById(id);
     }
 
     /**
@@ -60,10 +60,10 @@ public class GtasksListService {
      * @param remoteLists remote information about your lists
      */
     public synchronized void updateLists(List<TaskList> remoteLists) {
-        List<GtasksList> lists = getLists();
+        List<GoogleTaskList> lists = getLists();
 
         Set<Long> previousLists = new HashSet<>();
-        for(GtasksList list : lists) {
+        for(GoogleTaskList list : lists) {
             previousLists.add(list.getId());
         }
 
@@ -71,8 +71,8 @@ public class GtasksListService {
             com.google.api.services.tasks.model.TaskList remote = remoteLists.get(i);
 
             String id = remote.getId();
-            GtasksList local = null;
-            for(GtasksList list : lists) {
+            GoogleTaskList local = null;
+            for(GoogleTaskList list : lists) {
                 if(list.getRemoteId().equals(id)) {
                     local = list;
                     break;
@@ -82,24 +82,25 @@ public class GtasksListService {
             String title = remote.getTitle();
             if(local == null) {
                 Timber.d("Adding new gtask list %s", title);
-                local = new GtasksList(id);
+                local = new GoogleTaskList();
+                local.setRemoteId(id);
             }
 
-            local.setName(title);
-            local.setOrder(i);
-            storeObjectDao.persist(local);
+            local.setTitle(title);
+            local.setRemoteOrder(i);
+            googleTaskListDao.insertOrReplace(local);
             previousLists.remove(local.getId());
         }
 
         // check for lists that aren't on remote server
         for(Long listId : previousLists) {
-            deleteList(storeObjectDao.getGtasksList(listId));
+            deleteList(googleTaskListDao.getById(listId));
         }
 
         localBroadcastManager.broadcastRefreshList();
     }
 
-    public void deleteList(GtasksList gtasksList) {
+    public void deleteList(GoogleTaskList gtasksList) {
         List<Task> tasks = taskListDataProvider
                 .constructCursor(new GtasksFilter(gtasksList), Task.PROPERTIES)
                 .toList();
@@ -107,14 +108,14 @@ public class GtasksListService {
             taskDeleter.delete(task);
         }
         googleTaskDao.deleteList(gtasksList.getRemoteId());
-        storeObjectDao.delete(gtasksList.getId());
+        googleTaskListDao.deleteById(gtasksList.getId());
     }
 
-    public List<GtasksList> getListsToUpdate(List<TaskList> remoteLists) {
-        List<GtasksList> listsToUpdate = newArrayList();
+    public List<GoogleTaskList> getListsToUpdate(List<TaskList> remoteLists) {
+        List<GoogleTaskList> listsToUpdate = newArrayList();
         for (TaskList remoteList : remoteLists) {
-            GtasksList localList = getList(remoteList.getId());
-            String listName = localList.getName();
+            GoogleTaskList localList = getList(remoteList.getId());
+            String listName = localList.getTitle();
             Long lastSync = localList.getLastSync();
             long lastUpdate = remoteList.getUpdated().getValue();
             if (lastSync < lastUpdate) {
@@ -127,8 +128,8 @@ public class GtasksListService {
         return listsToUpdate;
     }
 
-    public GtasksList getList(String listId) {
-        for(GtasksList list : getLists()) {
+    public GoogleTaskList getList(String listId) {
+        for(GoogleTaskList list : getLists()) {
             if (list != null && list.getRemoteId().equals(listId)) {
                 return list;
             }
