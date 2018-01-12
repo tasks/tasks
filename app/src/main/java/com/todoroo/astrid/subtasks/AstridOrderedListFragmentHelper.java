@@ -15,7 +15,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadata;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -11,7 +11,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.data.TaskAttachment;
+import org.tasks.data.TaskAttachment;
 import com.todoroo.astrid.files.AACRecordingActivity;
 
 import org.tasks.R;

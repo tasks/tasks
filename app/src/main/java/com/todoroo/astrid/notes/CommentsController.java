@@ -19,9 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.UserActivityDao;
+import org.tasks.data.UserActivityDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.UserActivity;
+import org.tasks.data.UserActivity;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.R;

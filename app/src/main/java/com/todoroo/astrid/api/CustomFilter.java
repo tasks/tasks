@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.data.StoreObject;
+import org.tasks.data.StoreObject;
 
 import java.util.Map;
 

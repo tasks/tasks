@@ -7,7 +7,7 @@ package com.todoroo.astrid.gtasks;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.dao.StoreObjectDao;
+import org.tasks.data.StoreObjectDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
 

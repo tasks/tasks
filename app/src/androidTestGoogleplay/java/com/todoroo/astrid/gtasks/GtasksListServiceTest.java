@@ -4,7 +4,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.astrid.dao.StoreObjectDao;
+import org.tasks.data.StoreObjectDao;
 import com.todoroo.astrid.service.TaskDeleter;
 
 import org.junit.Test;

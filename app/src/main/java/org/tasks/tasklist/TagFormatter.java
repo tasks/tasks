@@ -11,7 +11,7 @@ import android.util.TypedValue;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Ordering;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.R;

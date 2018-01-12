@@ -17,12 +17,12 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.dao.TagDataDao;
+import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.UserActivityDao;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.UserActivityDao;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.UserActivity;
+import org.tasks.data.UserActivity;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;

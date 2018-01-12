@@ -19,7 +19,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 

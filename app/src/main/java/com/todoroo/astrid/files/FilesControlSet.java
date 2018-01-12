@@ -24,9 +24,9 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
+import org.tasks.data.TaskAttachmentDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
+import org.tasks.data.TaskAttachment;
 
 import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;

@@ -30,9 +30,9 @@ import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.StoreObjectDao;
+import org.tasks.data.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.StoreObject;
+import org.tasks.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;

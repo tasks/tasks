@@ -4,11 +4,11 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.dao.TaskAttachmentDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
-import com.todoroo.astrid.dao.UserActivityDao;
+import org.tasks.data.StoreObjectDao;
+import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachmentDao;
+import org.tasks.data.TaskListMetadataDao;
+import org.tasks.data.UserActivityDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;

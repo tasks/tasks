@@ -12,11 +12,11 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TagFilter;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
+import org.tasks.data.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadata;
 
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;

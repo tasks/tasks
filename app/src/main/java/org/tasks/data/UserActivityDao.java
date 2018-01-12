@@ -1,4 +1,4 @@
-package com.todoroo.astrid.dao;
+package org.tasks.data;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
@@ -6,7 +6,6 @@ import android.arch.persistence.room.Query;
 
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.UserActivity;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 import java.util.List;

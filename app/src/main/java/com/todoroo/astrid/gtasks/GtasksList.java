@@ -6,7 +6,7 @@
 package com.todoroo.astrid.gtasks;
 
 import com.google.common.base.Strings;
-import com.todoroo.astrid.data.StoreObject;
+import org.tasks.data.StoreObject;
 
 /**
  * {@link StoreObject} entries for a GTasks List

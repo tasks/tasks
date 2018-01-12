@@ -10,7 +10,7 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;

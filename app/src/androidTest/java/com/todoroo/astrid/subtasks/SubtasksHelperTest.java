@@ -4,7 +4,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadata;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

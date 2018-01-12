@@ -1,9 +1,4 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
-package com.todoroo.astrid.dao;
+package org.tasks.data;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
@@ -12,7 +7,6 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.TaskListMetadata;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 @Dao

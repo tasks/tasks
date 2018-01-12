@@ -9,7 +9,7 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.data.StoreObject;
+import org.tasks.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;

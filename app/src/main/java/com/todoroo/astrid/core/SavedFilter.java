@@ -7,8 +7,8 @@ package com.todoroo.astrid.core;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
-import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.data.StoreObject;
+import org.tasks.data.StoreObjectDao;
+import org.tasks.data.StoreObject;
 
 import java.util.Map;
 

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
-import com.todoroo.astrid.data.StoreObject;
+import org.tasks.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 

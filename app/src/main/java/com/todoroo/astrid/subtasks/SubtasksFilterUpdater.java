@@ -5,10 +5,10 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
+import org.tasks.data.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadata;
 
 import org.json.JSONArray;
 import org.json.JSONException;

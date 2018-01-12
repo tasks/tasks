@@ -3,7 +3,7 @@ package com.todoroo.astrid.subtasks;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
+import org.tasks.data.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 

@@ -20,7 +20,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
+import org.tasks.data.TaskAttachment;
 
 import java.util.ArrayList;
 import java.util.List;

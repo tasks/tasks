@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
-import com.todoroo.astrid.data.StoreObject;
+import org.tasks.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 
@@ -18,7 +18,6 @@ import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeCache;
-import org.tasks.themes.ThemeColor;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 
 import java.util.List;

@@ -1,9 +1,4 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
-package com.todoroo.astrid.data;
+package org.tasks.data;
 
 
 import android.arch.persistence.room.ColumnInfo;
@@ -15,6 +10,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
+import com.todoroo.astrid.data.RemoteModel;
 
 /**
  * Data Model which represents a user.

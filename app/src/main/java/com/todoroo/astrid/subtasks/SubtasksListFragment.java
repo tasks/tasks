@@ -15,9 +15,9 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
+import org.tasks.data.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadata;
 
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;

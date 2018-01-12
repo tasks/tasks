@@ -18,8 +18,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.TagFilter;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagDataDao;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
 

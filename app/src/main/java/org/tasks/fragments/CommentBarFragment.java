@@ -23,9 +23,8 @@ import android.widget.LinearLayout;
 
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.UserActivity;
+import org.tasks.data.UserActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

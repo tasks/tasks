@@ -10,13 +10,13 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import com.todoroo.astrid.dao.TagDataDao;
+import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskListMetadataDao;
+import org.tasks.data.TaskListMetadataDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadata;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 
 import org.tasks.R;

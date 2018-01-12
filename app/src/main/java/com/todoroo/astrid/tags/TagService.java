@@ -7,8 +7,8 @@ package com.todoroo.astrid.tags;
 
 import android.text.TextUtils;
 
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagDataDao;
+import org.tasks.data.TagData;
 
 import org.tasks.data.TagDao;
 import org.tasks.injection.ApplicationScope;

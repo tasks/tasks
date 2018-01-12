@@ -39,9 +39,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.TagDataDao;
+import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 

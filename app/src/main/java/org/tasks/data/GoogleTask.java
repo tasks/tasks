@@ -183,6 +183,43 @@ public class GoogleTask {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GoogleTask that = (GoogleTask) o;
+
+        if (id != that.id) return false;
+        if (task != that.task) return false;
+        if (parent != that.parent) return false;
+        if (indent != that.indent) return false;
+        if (order != that.order) return false;
+        if (remoteOrder != that.remoteOrder) return false;
+        if (lastSync != that.lastSync) return false;
+        if (deleted != that.deleted) return false;
+        if (suppressSync != that.suppressSync) return false;
+        if (remoteId != null ? !remoteId.equals(that.remoteId) : that.remoteId != null)
+            return false;
+        return listId != null ? listId.equals(that.listId) : that.listId == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) (task ^ (task >>> 32));
+        result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
+        result = 31 * result + (listId != null ? listId.hashCode() : 0);
+        result = 31 * result + (int) (parent ^ (parent >>> 32));
+        result = 31 * result + indent;
+        result = 31 * result + (int) (order ^ (order >>> 32));
+        result = 31 * result + (int) (remoteOrder ^ (remoteOrder >>> 32));
+        result = 31 * result + (int) (lastSync ^ (lastSync >>> 32));
+        result = 31 * result + (int) (deleted ^ (deleted >>> 32));
+        result = 31 * result + (suppressSync ? 1 : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "GoogleTask{" +
                 "id=" + id +

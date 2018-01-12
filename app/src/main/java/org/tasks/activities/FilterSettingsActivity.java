@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.astrid.api.CustomFilter;
-import com.todoroo.astrid.dao.StoreObjectDao;
+import org.tasks.data.StoreObjectDao;
 
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;

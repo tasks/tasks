@@ -3,7 +3,7 @@ package com.todoroo.astrid.sync;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 
 import org.junit.Test;

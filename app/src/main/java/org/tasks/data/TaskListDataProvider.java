@@ -3,7 +3,6 @@ package org.tasks.data;
 import android.database.sqlite.SQLiteException;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -13,7 +12,6 @@ import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
 
 import org.tasks.preferences.Preferences;
 

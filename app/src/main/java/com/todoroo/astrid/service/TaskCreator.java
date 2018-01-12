@@ -6,10 +6,10 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.dao.TagDataDao;
+import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.tags.TagService;

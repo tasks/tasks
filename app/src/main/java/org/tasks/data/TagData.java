@@ -1,4 +1,4 @@
-package com.todoroo.astrid.data;
+package org.tasks.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -7,10 +7,10 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.todoroo.astrid.data.RemoteModel;
+
 import org.tasks.backup.XmlReader;
 import org.tasks.backup.XmlWriter;
-
-import java.io.Serializable;
 
 @Entity(tableName = "tagdata")
 public final class TagData implements Parcelable {

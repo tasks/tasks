@@ -14,8 +14,8 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.TagDataDao;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagDataDao;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.BuildConfig;

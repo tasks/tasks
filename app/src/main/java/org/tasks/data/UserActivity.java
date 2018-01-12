@@ -1,4 +1,4 @@
-package com.todoroo.astrid.data;
+package org.tasks.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -7,6 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.todoroo.astrid.data.RemoteModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;

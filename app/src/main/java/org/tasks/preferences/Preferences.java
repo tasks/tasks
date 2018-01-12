@@ -13,7 +13,7 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
+import org.tasks.data.TaskAttachment;
 
 import org.tasks.R;
 import org.tasks.injection.ForApplication;

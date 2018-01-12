@@ -8,7 +8,7 @@ package com.todoroo.astrid.tags;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.TagData;
 
 import java.util.ArrayList;
 import java.util.List;

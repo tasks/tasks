@@ -15,12 +15,14 @@ import android.database.sqlite.SQLiteDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.data.StoreObject;
-import com.todoroo.astrid.data.TagData;
+import org.tasks.data.StoreObject;
+
+import org.tasks.data.StoreObjectDao;
+import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskAttachment;
-import com.todoroo.astrid.data.TaskListMetadata;
-import com.todoroo.astrid.data.UserActivity;
+import org.tasks.data.TaskAttachment;
+import org.tasks.data.TaskListMetadata;
+import org.tasks.data.UserActivity;
 
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
@@ -30,6 +32,10 @@ import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
+import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachmentDao;
+import org.tasks.data.TaskListMetadataDao;
+import org.tasks.data.UserActivityDao;
 import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationDao;
 

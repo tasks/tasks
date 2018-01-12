@@ -3,7 +3,7 @@ package org.tasks.makers;
 import com.natpryce.makeiteasy.Instantiator;
 import com.natpryce.makeiteasy.Property;
 import com.natpryce.makeiteasy.PropertyValue;
-import com.todoroo.astrid.data.StoreObject;
+import org.tasks.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksList;
 
 import static com.natpryce.makeiteasy.Property.newProperty;
