@@ -23,9 +23,6 @@ public abstract class TagDataDao {
     @Query("SELECT * FROM tagdata WHERE remoteId = :uuid LIMIT 1")
     public abstract TagData getByUuid(String uuid);
 
-    @Query("SELECT * FROM tagdata WHERE remoteId = :uuid")
-    public abstract List<TagData> getAllByUuid(String uuid);
-
     @Query("SELECT * FROM tagdata WHERE deleted = 0 AND name IS NOT NULL ORDER BY UPPER(name) ASC")
     public abstract List<TagData> tagDataOrderedByName();
 

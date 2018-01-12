@@ -4,6 +4,8 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.todoroo.astrid.dao.Database;
+
+import org.tasks.data.FilterDao;
 import org.tasks.data.StoreObjectDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskAttachmentDao;
@@ -113,5 +115,10 @@ public class ApplicationModule {
     @Provides
     public TagDao getTagDao(Database database) {
         return database.getTagDao();
+    }
+
+    @Provides
+    public FilterDao getFilterDao(Database database) {
+        return database.getFilterDao();
     }
 }

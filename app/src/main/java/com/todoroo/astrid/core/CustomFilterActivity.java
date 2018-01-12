@@ -22,6 +22,7 @@ import android.widget.ListView;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
@@ -30,12 +31,12 @@ import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.Database;
-import org.tasks.data.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import org.tasks.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.data.FilterDao;
+import org.tasks.data.StoreObjectDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.filters.FilterCriteriaProvider;
 import org.tasks.injection.ActivityComponent;
@@ -55,6 +56,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.text.TextUtils.isEmpty;
+import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 
 /**
  * Activity that allows users to build custom filters
@@ -134,6 +136,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
     // --- activity
 
     @Inject Database database;
+    @Inject FilterDao filterDao;
     @Inject StoreObjectDao storeObjectDao;
     @Inject DialogBuilder dialogBuilder;
     @Inject FilterCriteriaProvider filterCriteriaProvider;
@@ -271,7 +274,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
             }
         }
 
-        StoreObject storeObject = SavedFilter.persist(storeObjectDao, adapter, title, sql.toString(), values);
+        org.tasks.data.Filter storeObject = persist(title, sql.toString(), values);
         Filter filter = new CustomFilter(title, sql.toString(), values, storeObject.getId());
         setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, filter));
         finish();
@@ -390,5 +393,53 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    private org.tasks.data.Filter persist(String title, String sql, Map<String, Object> values) {
+        if(title == null || title.length() == 0) {
+            return null;
+        }
+
+        // if filter of this name exists, edit it
+        org.tasks.data.Filter storeObject = filterDao.getByName(title);
+        if (storeObject == null) {
+            storeObject = new org.tasks.data.Filter();
+        }
+
+        // populate saved filter properties
+        storeObject.setTitle(title);
+        storeObject.setSql(sql);
+        storeObject.setValues(values == null ? "" : mapToSerializedString(values));
+        storeObject.setCriterion(serializeFilters(adapter));
+
+        storeObject.setId(filterDao.insertOrUpdate(storeObject));
+        return storeObject.getId() >= 0 ? storeObject : null;
+    }
+
+    private static String serializeFilters(CustomFilterAdapter adapter) {
+        StringBuilder values = new StringBuilder();
+        for(int i = 0; i < adapter.getCount(); i++) {
+            CriterionInstance item = adapter.getItem(i);
+
+            // criterion|entry|text|type|sql
+            values.append(escape(item.criterion.identifier)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
+            values.append(escape(item.getValueFromCriterion())).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
+            values.append(escape(item.criterion.text)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
+            values.append(item.type).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
+            if(item.criterion.sql != null) {
+                values.append(item.criterion.sql);
+            }
+            values.append('\n');
+        }
+
+        return values.toString();
+    }
+
+    private static String escape(String item) {
+        if(item == null) {
+            return ""; //$NON-NLS-1$
+        }
+        return item.replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
+                AndroidUtilities.SEPARATOR_ESCAPE);
     }
 }

@@ -15,6 +15,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.AndroidUtilities;
+
+import org.tasks.data.Filter;
+import org.tasks.data.FilterDao;
 import org.tasks.data.StoreObject;
 
 import org.tasks.data.StoreObjectDao;
@@ -61,9 +64,10 @@ import timber.log.Timber;
                 Alarm.class,
                 Location.class,
                 Tag.class,
-                GoogleTask.class
+                GoogleTask.class,
+                Filter.class
         },
-        version = 50)
+        version = 51)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
@@ -76,10 +80,11 @@ public abstract class Database extends RoomDatabase {
     public abstract LocationDao getLocationDao();
     public abstract TagDao getTagDao();
     public abstract GoogleTaskDao getGoogleTaskDao();
+    public abstract FilterDao getFilterDao();
 
     public static final String NAME = "database";
 
-    public static final Table[] TABLES =  new Table[] {
+    private static final Table[] TABLES =  new Table[] {
             Task.TABLE
     };
 

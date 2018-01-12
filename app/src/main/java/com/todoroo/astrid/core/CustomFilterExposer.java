@@ -10,10 +10,9 @@ import android.text.TextUtils;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
-import org.tasks.data.StoreObjectDao;
-import org.tasks.data.StoreObject;
 
 import org.tasks.R;
+import org.tasks.data.FilterDao;
 
 import java.util.List;
 import java.util.Map;
@@ -26,30 +25,29 @@ import static com.google.common.collect.Lists.transform;
 public final class CustomFilterExposer {
 
     private static final int filter = R.drawable.ic_filter_list_24dp;
-
-    private final StoreObjectDao storeObjectDao;
+    private FilterDao filterDao;
 
     @Inject
-    public CustomFilterExposer(StoreObjectDao storeObjectDao) {
-        this.storeObjectDao = storeObjectDao;
+    public CustomFilterExposer(FilterDao filterDao) {
+        this.filterDao = filterDao;
     }
 
     public List<Filter> getFilters() {
-        return newArrayList(transform(storeObjectDao.getSavedFilters(), this::load));
+        return newArrayList(transform(filterDao.getFilters(), this::load));
     }
 
     public Filter getFilter(long id) {
-        return load(storeObjectDao.getSavedFilterById(id));
+        return load(filterDao.getById(id));
     }
 
-    private Filter load(StoreObject savedFilter) {
+    private Filter load(org.tasks.data.Filter savedFilter) {
         if (savedFilter == null) {
             return null;
         }
 
-        String title = savedFilter.getItem();
-        String sql = savedFilter.getValue();
-        String valuesString = savedFilter.getValue2();
+        String title = savedFilter.getTitle();
+        String sql = savedFilter.getSql();
+        String valuesString = savedFilter.getValues();
 
         Map<String, Object> values = null;
         if(!TextUtils.isEmpty(valuesString)) {

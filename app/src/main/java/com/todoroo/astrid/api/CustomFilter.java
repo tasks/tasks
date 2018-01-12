@@ -3,10 +3,9 @@ package com.todoroo.astrid.api;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
-import org.tasks.data.StoreObject;
-
 import java.util.Map;
+
+import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 
 public class CustomFilter extends Filter {
     private long id;
@@ -20,15 +19,15 @@ public class CustomFilter extends Filter {
         this.id = id;
     }
 
-    public StoreObject toStoreObject() {
-        StoreObject storeObject = new StoreObject();
-        storeObject.setId(id);
-        storeObject.setItem(listingTitle);
-        storeObject.setValue(sqlQuery);
+    public org.tasks.data.Filter toStoreObject() {
+        org.tasks.data.Filter filter = new org.tasks.data.Filter();
+        filter.setId(id);
+        filter.setTitle(listingTitle);
+        filter.setSql(sqlQuery);
         if (valuesForNewTasks != null && valuesForNewTasks.size() > 0) {
-            storeObject.setValue2(AndroidUtilities.mapToSerializedString(valuesForNewTasks));
+            filter.setCriterion(mapToSerializedString(valuesForNewTasks));
         }
-        return storeObject;
+        return filter;
     }
 
     public long getId() {

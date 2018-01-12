@@ -16,9 +16,9 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.astrid.api.CustomFilter;
-import org.tasks.data.StoreObjectDao;
 
 import org.tasks.R;
+import org.tasks.data.FilterDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -42,7 +42,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
 
     private CustomFilter filter;
 
-    @Inject StoreObjectDao storeObjectDao;
+    @Inject FilterDao filterDao;
     @Inject DialogBuilder dialogBuilder;
     @Inject Preferences preferences;
 
@@ -99,7 +99,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
         boolean nameChanged = !oldName.equals(newName);
         if (nameChanged) {
             filter.listingTitle = newName;
-            storeObjectDao.update(filter.toStoreObject());
+            filterDao.update(filter.toStoreObject());
             setResult(RESULT_OK, new Intent(ACTION_FILTER_RENAMED).putExtra(TOKEN_FILTER, filter));
         }
 
@@ -125,7 +125,7 @@ public class FilterSettingsActivity extends ThemedInjectingAppCompatActivity imp
     private void deleteTag() {
         dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, filter.listingTitle)
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
-                    storeObjectDao.delete(filter.getId());
+                    filterDao.delete(filter.getId());
                     setResult(RESULT_OK, new Intent(ACTION_FILTER_DELETED).putExtra(TOKEN_FILTER, filter));
                     finish();
                 })

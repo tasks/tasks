@@ -55,7 +55,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         return query(query).toList();
     }
 
-    public TYPE getFirst(Query query) {
+    private TYPE getFirst(Query query) {
         return query(query).first();
     }
 

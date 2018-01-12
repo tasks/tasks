@@ -13,12 +13,6 @@ import java.util.List;
 @Dao
 public abstract class StoreObjectDao {
 
-    @Query("SELECT * FROM store WHERE type = 'filter' ORDER BY item ASC")
-    public abstract List<StoreObject> getSavedFilters();
-
-    @Query("SELECT * FROM store WHERE type = 'filter' AND _id = :id LIMIT 1")
-    public abstract StoreObject getSavedFilterById(long id);
-
     @Query("SELECT * FROM store WHERE _id = :id LIMIT 1")
     abstract StoreObject getById(long id);
 
@@ -53,9 +47,6 @@ public abstract class StoreObjectDao {
 
     @Update
     public abstract void update(StoreObject storeObject);
-
-    @Query("SELECT * FROM store WHERE type = 'filter' AND item = :title LIMIT 1")
-    public abstract StoreObject getSavedFilterByName(String title);
 
     @Query("DELETE FROM store WHERE _id = :id")
     public abstract void delete(long id);

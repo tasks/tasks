@@ -73,6 +73,16 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_50_51 = new Migration(50, 51) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `filters` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `sql` TEXT, `values` TEXT, `criterion` TEXT)");
+            database.execSQL("INSERT INTO `filters` (`title`, `sql`, `values`, `criterion`) " +
+                    "SELECT `item`, `value`, `value2`, `value3` FROM `store` WHERE `type` = 'filter' AND `deleted` = 0");
+            database.execSQL("DELETE FROM `store` WHERE `type` = 'filter'");
+        }
+    };
+
     private static Migration NOOP(int from, int to) {
         return new Migration(from, to) {
             @Override
@@ -97,6 +107,7 @@ public class Migrations {
             MIGRATION_46_47,
             MIGRATION_47_48,
             MIGRATION_48_49,
-            MIGRATION_49_50
+            MIGRATION_49_50,
+            MIGRATION_50_51
     };
 }

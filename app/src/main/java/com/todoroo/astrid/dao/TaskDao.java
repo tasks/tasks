@@ -55,7 +55,6 @@ public class TaskDao {
     private final RemoteModelDao<Task> dao;
     private final LocalBroadcastManager localBroadcastManager;
 
-    private final Database database;
     private final Preferences preferences;
     private final AlarmDao alarmDao;
     private final TagDao tagDao;
@@ -68,7 +67,6 @@ public class TaskDao {
                    Preferences preferences, LocalBroadcastManager localBroadcastManager,
                    AlarmDao alarmDao, TagDao tagDao, LocationDao locationDao, GoogleTaskDao googleTaskDao) {
         this.context = context;
-        this.database = database;
         this.preferences = preferences;
         this.alarmDao = alarmDao;
         this.tagDao = tagDao;
