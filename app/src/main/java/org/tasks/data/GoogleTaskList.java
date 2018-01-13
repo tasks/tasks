@@ -94,12 +94,8 @@ public class GoogleTaskList implements Parcelable {
         this.deleted = deleted;
     }
 
-    public boolean hasColor() {
-        return color != null;
-    }
-
     public Integer getColor() {
-        return color;
+        return color == null ? -1 : color;
     }
 
     public void setColor(Integer color) {
@@ -173,6 +169,6 @@ public class GoogleTaskList implements Parcelable {
         parcel.writeInt(remoteOrder);
         parcel.writeLong(lastSync);
         parcel.writeLong(deleted);
-        parcel.writeInt(color);
+        parcel.writeInt(getColor());
     }
 }

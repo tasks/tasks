@@ -30,9 +30,7 @@ public class GtasksFilter extends Filter {
     public GtasksFilter(GoogleTaskList list) {
         super(list.getTitle(), getQueryTemplate(list), getValuesForNewTasks(list));
         storeId = list.getId();
-        if (list.hasColor()) {
-            tint = list.getColor();
-        }
+        tint = list.getColor();
         icon = CLOUD;
     }
 

@@ -91,8 +91,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         }
 
         if (savedInstanceState == null) {
-            Integer color = gtasksList.getColor();
-            selectedTheme = color == null ? -1 : color;
+            selectedTheme = gtasksList.getColor();
         } else {
             selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
         }
