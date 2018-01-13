@@ -56,7 +56,7 @@ public final class CustomFilterExposer {
 
         sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
 
-        CustomFilter customFilter = new CustomFilter(title, sql, values, savedFilter.getId());
+        CustomFilter customFilter = new CustomFilter(title, sql, values, savedFilter.getId(), savedFilter.getCriterion());
         customFilter.icon = filter;
         return customFilter;
     }

@@ -139,14 +139,6 @@ public class AndroidUtilities {
         return result;
     }
 
-    public static Map<String, Object> mapFromContentValues(ContentValues contentValues) {
-        Map<String, Object> map = new HashMap<>();
-        for (Map.Entry<String, Object> entry : contentValues.valueSet()) {
-            map.put(entry.getKey(), entry.getValue());
-        }
-        return map;
-    }
-
     public interface SerializedPut<T> {
         void put(T object, String key, char type, String value) throws NumberFormatException;
     }

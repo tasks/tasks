@@ -5,18 +5,21 @@ import android.os.Parcelable;
 
 import java.util.Map;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.mapFromSerializedString;
 import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 
 public class CustomFilter extends Filter {
     private long id;
+    private String criterion;
 
-    private CustomFilter() {
-
-    }
-
-    public CustomFilter(String listingTitle, String sql, Map<String, Object> values, long id) {
+    public CustomFilter(String listingTitle, String sql, Map<String, Object> values, long id, String criterion) {
         super(listingTitle, sql, values);
         this.id = id;
+        this.criterion = criterion;
+    }
+
+    private CustomFilter(Parcel parcel) {
+        readFromParcel(parcel);
     }
 
     public org.tasks.data.Filter toStoreObject() {
@@ -25,8 +28,9 @@ public class CustomFilter extends Filter {
         filter.setTitle(listingTitle);
         filter.setSql(sqlQuery);
         if (valuesForNewTasks != null && valuesForNewTasks.size() > 0) {
-            filter.setCriterion(mapToSerializedString(valuesForNewTasks));
+            filter.setValues(mapToSerializedString(valuesForNewTasks));
         }
+        filter.setCriterion(criterion);
         return filter;
     }
 
@@ -41,12 +45,14 @@ public class CustomFilter extends Filter {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeLong(id);
+        dest.writeString(criterion);
     }
 
     @Override
     protected void readFromParcel(Parcel source) {
         super.readFromParcel(source);
         id = source.readLong();
+        criterion = source.readString();
     }
 
     /**
@@ -59,9 +65,7 @@ public class CustomFilter extends Filter {
          */
         @Override
         public CustomFilter createFromParcel(Parcel source) {
-            CustomFilter item = new CustomFilter();
-            item.readFromParcel(source);
-            return item;
+            return new CustomFilter(source);
         }
 
         /**
