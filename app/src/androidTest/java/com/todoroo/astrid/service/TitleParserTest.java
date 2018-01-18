@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
- *
+ * <p>
  * See the file "LICENSE" for the full license governing this code.
  */
 package com.todoroo.astrid.service;
@@ -54,156 +54,142 @@ public class TitleParserTest extends InjectingTestCase {
 
     /** test that completing a task w/ no regular expressions creates a simple task with no date, no repeat, no lists*/
     @Test
-  public void testNoRegexes() throws Exception{
-      Task task = new Task();
-      Task nothing = new Task();
-      task.setTitle("Jog");
-      taskDao.save(task);
-      assertFalse(task.hasDueTime());
-      assertFalse(task.hasDueDate());
-      assertEquals(task.getRecurrence(), nothing.getRecurrence());
-  }
+    public void testNoRegexes() throws Exception {
+        Task task = new Task();
+        Task nothing = new Task();
+        task.setTitle("Jog");
+        taskDao.save(task);
+        assertFalse(task.hasDueTime());
+        assertFalse(task.hasDueDate());
+        assertEquals(task.getRecurrence(), nothing.getRecurrence());
+    }
 
-  /** Tests correct date is parsed **/
-  @Test
-  public void testMonthDate() {
-      Task task = new Task();
-      String[] titleMonthStrings = {
-              "Jan.", "January",
-              "Feb.", "February",
-              "Mar.", "March",
-              "Apr.", "April",
-              "May", "May",
-              "Jun.", "June",
-              "Jul.", "July",
-              "Aug.", "August",
-              "Sep.", "September",
-              "Oct.", "October",
-              "Nov.", "November",
-              "Dec.", "December"
-      };
-      for (int i = 0; i < 23; i++) {
-          String testTitle = "Jog on " + titleMonthStrings[i] + " 12.";
-          insertTitleAddTask(testTitle, task);
-          DateTime date = newDateTime(task.getDueDate());
-          assertEquals(date.getMonthOfYear(), i/2 + 1);
-          assertEquals(date.getDayOfMonth(), 12);
-      }
-  }
+    /** Tests correct date is parsed **/
+    @Test
+    public void testMonthDate() {
+        String[] titleMonthStrings = {
+                "Jan.", "January",
+                "Feb.", "February",
+                "Mar.", "March",
+                "Apr.", "April",
+                "May", "May",
+                "Jun.", "June",
+                "Jul.", "July",
+                "Aug.", "August",
+                "Sep.", "September",
+                "Oct.", "October",
+                "Nov.", "November",
+                "Dec.", "December"
+        };
+        for (int i = 0; i < 23; i++) {
+            String testTitle = "Jog on " + titleMonthStrings[i] + " 12.";
+            Task task = insertTitleAddTask(testTitle);
+            DateTime date = newDateTime(task.getDueDate());
+            assertEquals(date.getMonthOfYear(), i / 2 + 1);
+            assertEquals(date.getDayOfMonth(), 12);
+        }
+    }
 
     @Test
-  public void testMonthSlashDay() {
-      Task task = new Task();
-      for (int i = 1; i < 13; i++) {
-          String testTitle = "Jog on " + i + "/12/13";
-          insertTitleAddTask(testTitle, task);
-          DateTime date = newDateTime(task.getDueDate());
-          assertEquals(date.getMonthOfYear(), i);
-          assertEquals(date.getDayOfMonth(), 12);
-          assertEquals(date.getYear(), 2013);
-      }
-  }
+    public void testMonthSlashDay() {
+        for (int i = 1; i < 13; i++) {
+            String testTitle = "Jog on " + i + "/12/13";
+            Task task = insertTitleAddTask(testTitle);
+            DateTime date = newDateTime(task.getDueDate());
+            assertEquals(date.getMonthOfYear(), i);
+            assertEquals(date.getDayOfMonth(), 12);
+            assertEquals(date.getYear(), 2013);
+        }
+    }
 
     @Test
-  public void testArmyTime() {
-      Task task = new Task();
-      String testTitle = "Jog on 23:21.";
-      insertTitleAddTask(testTitle, task);
-      DateTime date = newDateTime(task.getDueDate());
-      assertEquals(date.getHourOfDay(), 23);
-      assertEquals(date.getMinuteOfHour(), 21);
-  }
+    public void testArmyTime() {
+        String testTitle = "Jog on 23:21.";
+        Task task = insertTitleAddTask(testTitle);
+        DateTime date = newDateTime(task.getDueDate());
+        assertEquals(date.getHourOfDay(), 23);
+        assertEquals(date.getMinuteOfHour(), 21);
+    }
 
     @Test
-  public void test_AM_PM() {
-      Task task = new Task();
-      String testTitle = "Jog at 8:33 PM.";
-      insertTitleAddTask(testTitle, task);
-      DateTime date = newDateTime(task.getDueDate());
-      assertEquals(date.getHourOfDay(), 20);
-      assertEquals(date.getMinuteOfHour(), 33);
-  }
+    public void test_AM_PM() {
+        String testTitle = "Jog at 8:33 PM.";
+        Task task = insertTitleAddTask(testTitle);
+        DateTime date = newDateTime(task.getDueDate());
+        assertEquals(date.getHourOfDay(), 20);
+        assertEquals(date.getMinuteOfHour(), 33);
+    }
 
     @Test
-  public void test_at_hour() {
-      Task task = new Task();
-      String testTitle = "Jog at 8 PM.";
-      insertTitleAddTask(testTitle, task);
-      DateTime date = newDateTime(task.getDueDate());
-      assertEquals(date.getHourOfDay(), 20);
-      assertEquals(date.getMinuteOfHour(), 0);
-  }
+    public void test_at_hour() {
+        String testTitle = "Jog at 8 PM.";
+        Task task = insertTitleAddTask(testTitle);
+        DateTime date = newDateTime(task.getDueDate());
+        assertEquals(date.getHourOfDay(), 20);
+        assertEquals(date.getMinuteOfHour(), 0);
+    }
 
     @Test
-  public void test_oclock_AM() {
-      Task task = new Task();
-      String testTitle = "Jog at 8 o'clock AM.";
-      insertTitleAddTask(testTitle, task);
-      DateTime date = newDateTime(task.getDueDate());
-      assertEquals(date.getHourOfDay(), 8);
-      assertEquals(date.getMinuteOfHour(), 0);
-  }
+    public void test_oclock_AM() {
+        String testTitle = "Jog at 8 o'clock AM.";
+        Task task = insertTitleAddTask(testTitle);
+        DateTime date = newDateTime(task.getDueDate());
+        assertEquals(date.getHourOfDay(), 8);
+        assertEquals(date.getMinuteOfHour(), 0);
+    }
 
     @Test
-  public void test_several_forms_of_eight() {
-      Task task = new Task();
-      String[] testTitles = {
-              "Jog 8 AM",
-              "Jog 8 o'clock AM",
-              "at 8:00 AM"
-      };
-      for (String testTitle: testTitles) {
-          insertTitleAddTask(testTitle, task);
-          DateTime date = newDateTime(task.getDueDate());
-          assertEquals(date.getHourOfDay(), 8);
-          assertEquals(date.getMinuteOfHour(), 0);
-      }
-  }
+    public void test_several_forms_of_eight() {
+        String[] testTitles = {
+                "Jog 8 AM",
+                "Jog 8 o'clock AM",
+                "at 8:00 AM"
+        };
+        for (String testTitle : testTitles) {
+            Task task = insertTitleAddTask(testTitle);
+            DateTime date = newDateTime(task.getDueDate());
+            assertEquals(date.getHourOfDay(), 8);
+            assertEquals(date.getMinuteOfHour(), 0);
+        }
+    }
 
     @Test
-  public void test_several_forms_of_1230PM() {
-      Task task = new Task();
-      String[] testTitles = {
-              "Jog 12:30 PM",
-              "at 12:30 PM",
-              "Do something on 12:30 PM",
-              "Jog at 12:30 PM Friday"
+    public void test_several_forms_of_1230PM() {
+        String[] testTitles = {
+                "Jog 12:30 PM",
+                "at 12:30 PM",
+                "Do something on 12:30 PM",
+                "Jog at 12:30 PM Friday"
 
-      };
-      for (String testTitle: testTitles) {
-          insertTitleAddTask(testTitle, task);
-          DateTime date = newDateTime(task.getDueDate());
-          assertEquals(date.getHourOfDay(), 12);
-          assertEquals(date.getMinuteOfHour(), 30);
-      }
-  }
+        };
+        for (String testTitle : testTitles) {
+            Task task = insertTitleAddTask(testTitle);
+            DateTime date = newDateTime(task.getDueDate());
+            assertEquals(date.getHourOfDay(), 12);
+            assertEquals(date.getMinuteOfHour(), 30);
+        }
+    }
 
-  private void insertTitleAddTask(String title, Task task) {
-      task.clear();
-      task.setTitle(title);
-      taskCreator.createWithValues(task, null, title);
-  }
+    private Task insertTitleAddTask(String title) {
+        return taskCreator.createWithValues(null, title);
+    }
 
 
-   // ----------------Days begin----------------//
-   @Test
+    // ----------------Days begin----------------//
+    @Test
     public void testDays() {
         Calendar today = Calendar.getInstance();
-        Task task = new Task();
 
         String title = "Jog today";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        Task task = taskCreator.createWithValues(null, title);
         DateTime date = newDateTime(task.getDueDate());
         assertEquals(date.getDayOfWeek(), today.get(Calendar.DAY_OF_WEEK));
         //Calendar starts 1-6, date.getDay() starts at 0
 
-        task = new Task();
         title = "Jog tomorrow";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        task = taskCreator.createWithValues(null, title);
         date = newDateTime(task.getDueDate());
-        assertEquals((date.getDayOfWeek()) % 7, (today.get(Calendar.DAY_OF_WEEK)+1) % 7);
+        assertEquals((date.getDayOfWeek()) % 7, (today.get(Calendar.DAY_OF_WEEK) + 1) % 7);
 
         String[] days = {
                 "sunday",
@@ -224,28 +210,25 @@ public class TitleParserTest extends InjectingTestCase {
                 "sat."
         };
 
-        for (int i = 1; i <= 6; i++){
-            task = new Task();
-            title = "Jog "+ days[i];
-            task.setTitle(title);
-            taskCreator.createWithValues(task, null, title);
+        for (int i = 1; i <= 6; i++) {
+            title = "Jog " + days[i];
+            task = taskCreator.createWithValues(null, title);
             date = newDateTime(task.getDueDate());
             assertEquals(date.getDayOfWeek(), i + 1);
 
-            task = new Task();
-            title = "Jog "+ abrevDays[i];
-            task.setTitle(title);
-            taskCreator.createWithValues(task, null, title);
+            title = "Jog " + abrevDays[i];
+            task = taskCreator.createWithValues(null, title);
             date = newDateTime(task.getDueDate());
             assertEquals(date.getDayOfWeek(), i + 1);
         }
 
-        }
+    }
 
     //----------------Days end----------------//
 
 
     //----------------Priority begin----------------//
+
     /** tests all words using priority 0 */
     @Test
     public void testPriority0() throws Exception {
@@ -255,20 +238,15 @@ public class TitleParserTest extends InjectingTestCase {
                 "lowest priority",
                 "bang 0"
         };
-        Task task;
-        for (String acceptedString:acceptedStrings){
-            task = new Task();
+        for (String acceptedString : acceptedStrings) {
             String title = "Jog " + acceptedString;
-            task.setTitle(title); //test at end of task. should set importance.
-            taskCreator.createWithValues(task, null, title);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_NONE);
+            Task task = taskCreator.createWithValues(null, title);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_NONE);
         }
-        for (String acceptedString:acceptedStrings){
-            task = new Task();
+        for (String acceptedString : acceptedStrings) {
             String title = acceptedString + " jog";
-            task.setTitle(title); //test at beginning of task. should not set importance.
-            taskCreator.createWithValues(task, null, title);
-            assertNotSame(task.getImportance(),Task.IMPORTANCE_NONE);
+            Task task = taskCreator.createWithValues(null, title);
+            assertNotSame(task.getImportance(), Task.IMPORTANCE_NONE);
         }
     }
 
@@ -285,27 +263,27 @@ public class TitleParserTest extends InjectingTestCase {
                 "!"
         };
         Task task;
-        for (String acceptedStringAtEnd:acceptedStringsAtEnd){
+        for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
             task = new Task();
             task.setTitle("Jog " + acceptedStringAtEnd); //test at end of task. should set importance.
             taskDao.save(task);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
-        for (String acceptedStringAtEnd:acceptedStringsAtEnd){
+        for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
             task = new Task();
             task.setTitle(acceptedStringAtEnd + " jog"); //test at beginning of task. should not set importance.
             taskDao.save(task);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
-        for (String acceptedStringAnywhere:acceptedStringsAnywhere){
+        for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
             task = new Task();
             task.setTitle("Jog " + acceptedStringAnywhere); //test at end of task. should set importance.
             taskDao.save(task);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
 
             task.setTitle(acceptedStringAnywhere + " jog"); //test at beginning of task. should set importance.
             taskDao.save(task);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
     }
 
@@ -321,31 +299,23 @@ public class TitleParserTest extends InjectingTestCase {
                 "!2",
                 "!!"
         };
-        Task task;
-        for (String acceptedStringAtEnd:acceptedStringsAtEnd){
-            task = new Task();
+        for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
             String title = "Jog " + acceptedStringAtEnd;
-            task.setTitle(title); //test at end of task. should set importance.
-            taskCreator.createWithValues(task, null, title);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_MUST_DO);
+            Task task = taskCreator.createWithValues(null, title);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_MUST_DO);
 
-            task = new Task();
             title = acceptedStringAtEnd + " jog";
-            task.setTitle(title); //test at beginning of task. should not set importance.
-            taskCreator.createWithValues(task, null, title);
+            task = taskCreator.createWithValues(null, title);
             assertNotSame(task.getImportance(), Task.IMPORTANCE_MUST_DO);
         }
-        for (String acceptedStringAnywhere:acceptedStringsAnywhere){
-            task = new Task();
+        for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
             String title = "Jog " + acceptedStringAnywhere;
-            task.setTitle(title); //test at end of task. should set importance.
-            taskCreator.createWithValues(task, null, title);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_MUST_DO);
+            Task task = taskCreator.createWithValues(null, title);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_MUST_DO);
 
             title = acceptedStringAnywhere + " jog";
-            task.setTitle(title); //test at beginning of task. should set importance.
-            taskCreator.createWithValues(task, null, title);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_MUST_DO);
+            task = taskCreator.createWithValues(null, title);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_MUST_DO);
         }
     }
 
@@ -364,31 +334,23 @@ public class TitleParserTest extends InjectingTestCase {
                 "!6",
                 "!!!!!!!!!!!!!"
         };
-        Task task;
-        for (String acceptedStringAtEnd:acceptedStringsAtEnd){
-            task = new Task();
+        for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
             String title = "Jog " + acceptedStringAtEnd;
-            task.setTitle(title); //test at end of task. should set importance.
-            taskCreator.createWithValues(task, null, title);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
+            Task task = taskCreator.createWithValues(null, title);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
 
-            task = new Task();
             title = acceptedStringAtEnd + " jog";
-            task.setTitle(title); //test at beginning of task. should not set importance.
-            taskCreator.createWithValues(task, null, title);
+            task = taskCreator.createWithValues(null, title);
             assertNotSame(task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
         }
-        for (String acceptedStringAnywhere:acceptedStringsAnywhere){
-            task = new Task();
+        for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
             String title = "Jog " + acceptedStringAnywhere;
-            task.setTitle(title); //test at end of task. should set importance.
-            taskCreator.createWithValues(task, null, title);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
+            Task task = taskCreator.createWithValues(null, title);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
 
             title = acceptedStringAnywhere + " jog";
-            task.setTitle(title); //test at beginning of task. should set importance.
-            taskCreator.createWithValues(task, null, title);
-            assertEquals((int)task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
+            task = taskCreator.createWithValues(null, title);
+            assertEquals((int) task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
         }
     }
 
@@ -396,13 +358,12 @@ public class TitleParserTest extends InjectingTestCase {
 
 
     //----------------Repeats begin----------------//
+
     /** test daily repeat from due date, but with no due date set */
     @Test
     public void testDailyWithNoDueDate() throws Exception {
-        Task task = new Task();
         String title = "Jog daily";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        Task task = taskCreator.createWithValues(null, title);
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.DAILY);
         rrule.setInterval(1);
@@ -411,21 +372,18 @@ public class TitleParserTest extends InjectingTestCase {
         assertFalse(task.hasDueDate());
 
         title = "Jog every day";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        task = taskCreator.createWithValues(null, title);
         assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
-        for (int i = 1; i <= 12; i++){
+        for (int i = 1; i <= 12; i++) {
             title = "Jog every " + i + " days.";
-            task.setTitle(title);
             rrule.setInterval(i);
-            taskCreator.createWithValues(task, null, title);
+            task = taskCreator.createWithValues(null, title);
             assertEquals(task.getRecurrence(), rrule.toIcal());
             assertFalse(task.hasDueTime());
             assertFalse(task.hasDueDate());
-            task = new Task();
         }
 
     }
@@ -433,10 +391,8 @@ public class TitleParserTest extends InjectingTestCase {
     /** test weekly repeat from due date, with no due date & time set */
     @Test
     public void testWeeklyWithNoDueDate() throws Exception {
-        Task task = new Task();
         String title = "Jog weekly";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        Task task = taskCreator.createWithValues(null, title);
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.WEEKLY);
         rrule.setInterval(1);
@@ -445,31 +401,26 @@ public class TitleParserTest extends InjectingTestCase {
         assertFalse(task.hasDueDate());
 
         title = "Jog every week";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        task = taskCreator.createWithValues(null, title);
         assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
-        for (int i = 1; i <= 12; i++){
+        for (int i = 1; i <= 12; i++) {
             title = "Jog every " + i + " weeks";
-            task.setTitle(title);
             rrule.setInterval(i);
-            taskCreator.createWithValues(task, null, title);
+            task = taskCreator.createWithValues(null, title);
             assertEquals(task.getRecurrence(), rrule.toIcal());
             assertFalse(task.hasDueTime());
             assertFalse(task.hasDueDate());
-            task = new Task();
         }
     }
 
     /** test hourly repeat from due date, with no due date but no time */
     @Test
     public void testMonthlyFromNoDueDate() throws Exception {
-        Task task = new Task();
         String title = "Jog monthly";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        Task task = taskCreator.createWithValues(null, title);
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.MONTHLY);
         rrule.setInterval(1);
@@ -478,30 +429,25 @@ public class TitleParserTest extends InjectingTestCase {
         assertFalse(task.hasDueDate());
 
         title = "Jog every month";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        task = taskCreator.createWithValues(null, title);
         assertEquals(task.getRecurrence(), rrule.toIcal());
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
 
-        for (int i = 1; i <= 12; i++){
+        for (int i = 1; i <= 12; i++) {
             title = "Jog every " + i + " months";
-            task.setTitle(title);
             rrule.setInterval(i);
-            taskCreator.createWithValues(task, null, title);
+            task = taskCreator.createWithValues(null, title);
             assertEquals(task.getRecurrence(), rrule.toIcal());
             assertFalse(task.hasDueTime());
             assertFalse(task.hasDueDate());
-            task = new Task();
         }
     }
 
     @Test
     public void testDailyFromDueDate() throws Exception {
-        Task task = new Task();
         String title = "Jog daily starting from today";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        Task task = taskCreator.createWithValues(null, title);
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.DAILY);
         rrule.setInterval(1);
@@ -511,28 +457,23 @@ public class TitleParserTest extends InjectingTestCase {
         task.clearValue(Task.ID);
         task.clearValue(Task.UUID);
         title = "Jog every day starting from today";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        task = taskCreator.createWithValues(null, title);
         assertEquals(task.getRecurrence(), rrule.toIcal());
         assertTrue(task.hasDueDate());
 
-        for (int i = 1; i <= 12; i++){
+        for (int i = 1; i <= 12; i++) {
             title = "Jog every " + i + " days starting from today";
-            task.setTitle(title);
             rrule.setInterval(i);
-            taskCreator.createWithValues(task, null, title);
+            task = taskCreator.createWithValues(null, title);
             assertEquals(task.getRecurrence(), rrule.toIcal());
             assertTrue(task.hasDueDate());
-            task = new Task();
         }
     }
 
     @Test
     public void testWeeklyFromDueDate() throws Exception {
-        Task task = new Task();
         String title = "Jog weekly starting from today";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        Task task = taskCreator.createWithValues(null, title);
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.WEEKLY);
         rrule.setInterval(1);
@@ -542,19 +483,16 @@ public class TitleParserTest extends InjectingTestCase {
         task.clearValue(Task.ID);
         task.clearValue(Task.UUID);
         title = "Jog every week starting from today";
-        task.setTitle(title);
-        taskCreator.createWithValues(task, null, title);
+        task = taskCreator.createWithValues(null, title);
         assertEquals(task.getRecurrence(), rrule.toIcal());
         assertTrue(task.hasDueDate());
 
-        for (int i = 1; i <= 12; i++){
+        for (int i = 1; i <= 12; i++) {
             title = "Jog every " + i + " weeks starting from today";
-            task.setTitle(title);
             rrule.setInterval(i);
-            taskCreator.createWithValues(task, null, title);
+            task = taskCreator.createWithValues(null, title);
             assertEquals(task.getRecurrence(), rrule.toIcal());
             assertTrue(task.hasDueDate());
-            task = new Task();
         }
     }
 
@@ -562,6 +500,7 @@ public class TitleParserTest extends InjectingTestCase {
 
 
     //----------------Tags begin----------------//
+
     /** tests all words using priority 0 */
     @Test
     public void testTagsPound() throws Exception {
@@ -598,7 +537,7 @@ public class TitleParserTest extends InjectingTestCase {
             ArrayList<String> tags = new ArrayList<>();
             TitleParser.listHelper(tagService, task, tags);
             String tag = TitleParser.trimParenthesis(acceptedString);
-            assertTrue("testTagsAt failed for string: " + acceptedString+ " for tags: " + tags.toString(), tags.contains(tag));
+            assertTrue("testTagsAt failed for string: " + acceptedString + " for tags: " + tags.toString(), tags.contains(tag));
         }
     }
 }

@@ -74,10 +74,7 @@ public class TaskCreator {
      * doesn't need to start with a base task model.
      */
     public Task createWithValues(Map<String, Object> values, String title) {
-        return createWithValues(new Task(), values, title);
-    }
-
-    Task createWithValues(Task task, Map<String, Object> values, String title) {
+        Task task = new Task();
         if (title != null) {
             task.setTitle(title.trim());
         }
