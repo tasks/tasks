@@ -12,7 +12,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.Alarm;
@@ -156,7 +155,6 @@ public abstract class Database extends RoomDatabase {
      */
     public synchronized final SupportSQLiteDatabase getDatabase() {
         if(database == null) {
-            AndroidUtilities.sleepDeep(300L);
             openForWriting();
         }
         return database;
