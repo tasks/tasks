@@ -2,6 +2,7 @@ package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 /**
@@ -11,16 +12,15 @@ import com.todoroo.astrid.helper.UUIDHelper;
  * created model if one doesn't already exist.
  * @author Sam
  *
- * @param <RTYPE>
  */
-public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE> {
+public class RemoteModelDao extends DatabaseDao {
 
-    public RemoteModelDao(Database database, Class<RTYPE> modelClass) {
-        super(database, modelClass);
+    public RemoteModelDao(Database database) {
+        super(database);
     }
 
     @Override
-    public boolean createNew(RTYPE item) {
+    public boolean createNew(Task item) {
         if (!item.containsValue(RemoteModel.UUID_PROPERTY) || RemoteModel.isUuidEmpty(item.getUuidProperty())) {
             item.setUuidProperty(UUIDHelper.newUUID());
         }

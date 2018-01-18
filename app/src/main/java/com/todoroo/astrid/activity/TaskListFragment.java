@@ -425,7 +425,7 @@ public class TaskListFragment extends InjectingFragment implements
         }
     }
 
-    protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
+    protected TaskAdapter createTaskAdapter(TodorooCursor cursor) {
         return new TaskAdapter(context, cursor);
     }
 
@@ -441,7 +441,7 @@ public class TaskListFragment extends InjectingFragment implements
             return;
         }
 
-        TodorooCursor<Task> currentCursor = taskListDataProvider.constructCursor(filter, taskProperties());
+        TodorooCursor currentCursor = taskListDataProvider.constructCursor(filter, taskProperties());
         if (currentCursor == null) {
             return;
         }
@@ -461,7 +461,7 @@ public class TaskListFragment extends InjectingFragment implements
     }
 
     public void reconstructCursor() {
-        TodorooCursor<Task> cursor = taskListDataProvider.constructCursor(filter, taskProperties());
+        TodorooCursor cursor = taskListDataProvider.constructCursor(filter, taskProperties());
         if (cursor == null || taskAdapter == null) {
             return;
         }

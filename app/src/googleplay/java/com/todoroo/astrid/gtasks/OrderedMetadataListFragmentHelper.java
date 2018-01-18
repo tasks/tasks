@@ -56,7 +56,7 @@ class OrderedMetadataListFragmentHelper {
         updater.initialize(filter);
     }
 
-    TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor) {
+    TaskAdapter createTaskAdapter(Context context, TodorooCursor cursor) {
         taskAdapter = new DraggableTaskAdapter(context, cursor);
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);

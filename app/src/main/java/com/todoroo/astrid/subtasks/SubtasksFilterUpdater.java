@@ -120,7 +120,7 @@ public class SubtasksFilterUpdater {
         sql = sql.replace(
                 TaskDao.TaskCriteria.activeAndVisible().toString(),
                 TaskDao.TaskCriteria.notDeleted().toString());
-        TodorooCursor<Task> tasks = taskDao.fetchFiltered(sql, Task.UUID);
+        TodorooCursor tasks = taskDao.fetchFiltered(sql, Task.UUID);
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 String id = tasks.getString(0);

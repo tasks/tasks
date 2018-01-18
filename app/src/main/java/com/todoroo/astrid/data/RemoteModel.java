@@ -32,7 +32,7 @@ abstract public class RemoteModel extends AbstractModel {
         super();
     }
 
-    RemoteModel(TodorooCursor<? extends AbstractModel> cursor) {
+    RemoteModel(TodorooCursor cursor) {
         super(cursor);
     }
 

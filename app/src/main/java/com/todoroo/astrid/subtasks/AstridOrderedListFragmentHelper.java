@@ -49,7 +49,7 @@ class AstridOrderedListFragmentHelper {
         updater.initialize(list, filter);
     }
 
-    TaskAdapter createTaskAdapter(Context context, TodorooCursor<Task> cursor) {
+    TaskAdapter createTaskAdapter(Context context, TodorooCursor cursor) {
         taskAdapter = new DraggableTaskAdapter(context, cursor);
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
@@ -152,7 +152,7 @@ class AstridOrderedListFragmentHelper {
 
         if(chained.size() > 0) {
             // move recurring items to item parent
-            TodorooCursor<Task> recurring = taskDao.query(Query.select(Task.UUID, Task.RECURRENCE).where(
+            TodorooCursor recurring = taskDao.query(Query.select(Task.UUID, Task.RECURRENCE).where(
                     Criterion.and(Task.UUID.in(chained.toArray(new String[chained.size()])),
                                    Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
             try {

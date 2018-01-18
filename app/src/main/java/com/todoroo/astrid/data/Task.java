@@ -234,7 +234,7 @@ public class Task extends RemoteModel {
     }
 
     @Ignore
-    public Task(TodorooCursor<Task> cursor) {
+    public Task(TodorooCursor cursor) {
         super(cursor);
     }
 

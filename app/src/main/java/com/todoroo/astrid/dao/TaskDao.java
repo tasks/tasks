@@ -52,7 +52,7 @@ public class TaskDao {
 
     public static final String TRANS_SUPPRESS_REFRESH = "suppress-refresh";
 
-    private final RemoteModelDao<Task> dao;
+    private final RemoteModelDao dao;
     private final LocalBroadcastManager localBroadcastManager;
 
     private final Preferences preferences;
@@ -73,10 +73,10 @@ public class TaskDao {
         this.locationDao = locationDao;
         this.googleTaskDao = googleTaskDao;
         this.localBroadcastManager = localBroadcastManager;
-        dao = new RemoteModelDao<>(database, Task.class);
+        dao = new RemoteModelDao(database);
     }
 
-    public TodorooCursor<Task> query(Query query) {
+    public TodorooCursor query(Query query) {
         return dao.query(query);
     }
 
@@ -172,7 +172,7 @@ public class TaskDao {
     }
 
     public String uuidFromLocalId(long localId) {
-        TodorooCursor<Task> cursor = dao.query(Query.select(RemoteModel.UUID_PROPERTY).where(AbstractModel.ID_PROPERTY.eq(localId)));
+        TodorooCursor cursor = dao.query(Query.select(RemoteModel.UUID_PROPERTY).where(AbstractModel.ID_PROPERTY.eq(localId)));
         try {
             if (cursor.getCount() == 0) {
                 return RemoteModel.NO_UUID;
@@ -238,7 +238,7 @@ public class TaskDao {
     }
 
     private ContentValues handleSQLiteConstraintException(Task task) {
-        TodorooCursor<Task> cursor = dao.query(Query.select(Task.ID).where(
+        TodorooCursor cursor = dao.query(Query.select(Task.ID).where(
                 Task.UUID.eq(task.getUUID())));
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -332,7 +332,7 @@ public class TaskDao {
         } catch (SQLiteConstraintException e) {
             Timber.e(e, e.getMessage());
             String uuid = item.getUUID();
-            TodorooCursor<Task> tasksWithUUID = dao.query(Query.select(
+            TodorooCursor tasksWithUUID = dao.query(Query.select(
                     SQL_CONSTRAINT_MERGE_PROPERTIES).where(
                     Task.UUID.eq(uuid)));
             try {
@@ -396,7 +396,7 @@ public class TaskDao {
         save(item);
     }
 
-    public TodorooCursor<Task> fetchFiltered(String queryTemplate, Property<?>... properties) {
+    public TodorooCursor fetchFiltered(String queryTemplate, Property<?>... properties) {
         return query(queryTemplate == null
                 ? Query.selectDistinct(properties)
                 : Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate)));

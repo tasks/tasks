@@ -37,7 +37,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     public List<Integer> getTaskPositions(List<Long> longs) {
         List<Integer> result = new ArrayList<>();
-        TodorooCursor<Task> taskCursor = getTaskCursor();
+        TodorooCursor taskCursor = getTaskCursor();
         for (taskCursor.moveToFirst() ; !taskCursor.isAfterLast() ; taskCursor.moveToNext()) {
             if (longs.contains(taskCursor.get(Task.ID))) {
                 result.add(taskCursor.getPosition());
@@ -114,12 +114,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     }
 
-    private TodorooCursor<Task> getTaskCursor() {
-        return (TodorooCursor<Task>) getCursor();
+    private TodorooCursor getTaskCursor() {
+        return (TodorooCursor) getCursor();
     }
 
     public long getTaskId(int position) {
-        TodorooCursor<Task> c = getTaskCursor();
+        TodorooCursor c = getTaskCursor();
         if (c != null) {
             if (c.moveToPosition(position)) {
                 return c.get(Task.ID);
@@ -129,7 +129,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
     }
 
     public Task getTask(int position) {
-        TodorooCursor<Task> c = getTaskCursor();
+        TodorooCursor c = getTaskCursor();
         if (c != null) {
             if (c.moveToPosition(position)) {
                 return c.toModel();
@@ -139,7 +139,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
     }
 
     protected String getItemUuid(int position) {
-        TodorooCursor<Task> c = getTaskCursor();
+        TodorooCursor c = getTaskCursor();
         if (c != null) {
             if (c.moveToPosition(position)) {
                 return c.get(Task.UUID);

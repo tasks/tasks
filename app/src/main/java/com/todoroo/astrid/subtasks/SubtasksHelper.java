@@ -171,7 +171,7 @@ public class SubtasksHelper {
 
     private static <A, B> HashMap<A, B> getIdMap(TaskDao taskDao, Iterable<A> keys, Property<A> keyProperty, Property<B> valueProperty) {
         HashMap<A, B> map = new HashMap<>();
-        TodorooCursor<Task> tasks = taskDao.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
+        TodorooCursor tasks = taskDao.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 A key = tasks.get(keyProperty);

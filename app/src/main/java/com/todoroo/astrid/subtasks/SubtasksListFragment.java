@@ -102,7 +102,7 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
+    protected TaskAdapter createTaskAdapter(TodorooCursor cursor) {
         return helper.createTaskAdapter(theme.wrap(context), cursor);
     }
 

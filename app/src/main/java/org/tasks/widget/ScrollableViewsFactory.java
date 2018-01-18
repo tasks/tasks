@@ -55,7 +55,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private int textColorPrimary;
     private int textColorSecondary;
 
-    private TodorooCursor<Task> cursor;
+    private TodorooCursor cursor;
 
     ScrollableViewsFactory(
             SubtasksHelper subtasksHelper,
@@ -199,7 +199,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         return null;
     }
 
-    private TodorooCursor<Task> getCursor() {
+    private TodorooCursor getCursor() {
         String query = getQuery();
         return taskDao.fetchFiltered(query, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE, Task.IMPORTANCE, Task.RECURRENCE);
     }

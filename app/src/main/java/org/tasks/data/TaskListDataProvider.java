@@ -36,7 +36,7 @@ public class TaskListDataProvider {
         this.preferences = preferences;
     }
 
-    public TodorooCursor<Task> constructCursor(Filter filter, Property<?>[] properties) {
+    public TodorooCursor constructCursor(Filter filter, Property<?>[] properties) {
         Criterion tagsJoinCriterion = Criterion.and(
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
 

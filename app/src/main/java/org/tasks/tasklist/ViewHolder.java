@@ -194,7 +194,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
         return indent > 0;
     }
 
-    void bindView(TodorooCursor<Task> cursor) {
+    void bindView(TodorooCursor cursor) {
         tagsString = cursor.get(TaskAdapter.TAGS);
         hasFiles = cursor.get(TaskAdapter.FILE_ID_PROPERTY) > 0;
         hasNotes = cursor.get(TaskAdapter.HAS_NOTES_PROPERTY) > 0;

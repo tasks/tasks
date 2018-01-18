@@ -108,7 +108,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     public void onBindViewHolder(ViewHolder holder, int position) {
         Cursor cursor = adapter.getCursor();
         cursor.moveToPosition(position);
-        holder.bindView((TodorooCursor<Task>) cursor);
+        holder.bindView((TodorooCursor) cursor);
         holder.setMoving(false);
         holder.setIndent(adapter.getIndent(holder.task));
     }

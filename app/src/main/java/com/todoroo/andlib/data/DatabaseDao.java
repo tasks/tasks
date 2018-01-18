@@ -11,6 +11,7 @@ import android.database.Cursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.data.Task;
 
 import org.tasks.BuildConfig;
 
@@ -27,49 +28,34 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class DatabaseDao<TYPE extends AbstractModel> {
+public class DatabaseDao {
 
-    private final Class<TYPE> modelClass;
-    private final Table table;
+    private final Table table = Task.TABLE;
     private final Database database;
 
-    public DatabaseDao(Database database, Class<TYPE> modelClass) {
-        this.modelClass = modelClass;
+    public DatabaseDao(Database database) {
         this.database = database;
-        table = database.getTable(this.modelClass);
-        try {
-            modelClass.getConstructor(); // check for default constructor
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    /** Gets table associated with this DAO */
-    public Table getTable() {
-        return table;
-    }
-
-    // --- dao methods
-
-    public List<TYPE> toList(Query query) {
+    public List<Task> toList(Query query) {
         return query(query).toList();
     }
 
-    private TYPE getFirst(Query query) {
+    private Task getFirst(Query query) {
         return query(query).first();
     }
 
     /**
      * Construct a query with SQL DSL objects
      */
-    public TodorooCursor<TYPE> query(Query query) {
+    public TodorooCursor query(Query query) {
         query.from(table);
         String queryString = query.toString();
         if (BuildConfig.DEBUG) {
             Timber.v(queryString);
         }
         Cursor cursor = database.rawQuery(queryString);
-        return new TodorooCursor<>(modelClass, cursor, query.getFields());
+        return new TodorooCursor(cursor, query.getFields());
     }
 
     /**
@@ -80,7 +66,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      *            id of item
      * @return null if no item found
      */
-    public TYPE fetch(long id, Property<?>... properties) {
+    public Task fetch(long id, Property<?>... properties) {
         return getFirst(Query.select(properties).where(AbstractModel.ID_PROPERTY.eq(id)));
     }
 
@@ -117,7 +103,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @param template set fields on this object in order to set them in the db.
      * @return # of updated items
      */
-    public int update(Criterion where, TYPE template) {
+    public int update(Criterion where, Task template) {
         return database.update(table.name, template.getSetValues(),
                 where.toString());
     }
@@ -128,7 +114,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      *
      * @return true on success.
      */
-    public boolean persist(TYPE item) {
+    public boolean persist(Task item) {
         if (item.getId() == AbstractModel.NO_ID) {
             return createNew(item);
         } else {
@@ -147,7 +133,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         boolean makeChange();
     }
 
-    private boolean insertOrUpdateAndRecordChanges(TYPE item, DatabaseChangeOp op) {
+    private boolean insertOrUpdateAndRecordChanges(Task item, DatabaseChangeOp op) {
         final AtomicBoolean result = new AtomicBoolean(false);
         synchronized(database) {
             result.set(op.makeChange());
@@ -167,7 +153,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      *            item model
      * @return returns true on success.
      */
-    public boolean createNew(final TYPE item) {
+    public boolean createNew(final Task item) {
         item.clearValue(AbstractModel.ID_PROPERTY);
 
         DatabaseChangeOp insert = new DatabaseChangeOp() {
@@ -195,7 +181,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      *            item model
      * @return returns true on success.
      */
-    public boolean saveExisting(final TYPE item) {
+    public boolean saveExisting(final Task item) {
         final ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0) // nothing changed
         {

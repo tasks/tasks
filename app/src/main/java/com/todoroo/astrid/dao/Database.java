@@ -12,32 +12,28 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.AndroidUtilities;
-
-import org.tasks.data.Filter;
-import org.tasks.data.FilterDao;
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.GoogleTaskListDao;
-
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.TaskAttachment;
-import org.tasks.data.TaskListMetadata;
-import org.tasks.data.UserActivity;
 
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.Filter;
+import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachment;
 import org.tasks.data.TaskAttachmentDao;
+import org.tasks.data.TaskListMetadata;
 import org.tasks.data.TaskListMetadataDao;
+import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationDao;
@@ -84,10 +80,6 @@ public abstract class Database extends RoomDatabase {
 
     public static final String NAME = "database";
 
-    private static final Table[] TABLES =  new Table[] {
-            Task.TABLE
-    };
-
     private SupportSQLiteDatabase database;
     private Runnable onDatabaseUpdated;
 
@@ -106,18 +98,6 @@ public abstract class Database extends RoomDatabase {
         if (onDatabaseUpdated != null) {
             onDatabaseUpdated.run();
         }
-    }
-
-    /**
-     * Return the name of the table containing these models
-     */
-    public final Table getTable(Class<? extends AbstractModel> modelType) {
-        for(Table table : TABLES) {
-            if(table.modelClass.equals(modelType)) {
-                return table;
-            }
-        }
-        throw new UnsupportedOperationException("Unknown model class " + modelType); //$NON-NLS-1$
     }
 
     /**

@@ -16,6 +16,7 @@ public class GtaskListMaker {
     public static final Property<GoogleTaskList, String> REMOTE_ID = newProperty();
     public static final Property<GoogleTaskList, Long> LAST_SYNC = newProperty();
     public static final Property<GoogleTaskList, String> NAME = newProperty();
+    public static final Property<GoogleTaskList, Integer> COLOR = newProperty();
 
     public static GoogleTaskList newGtaskList(PropertyValue<? super GoogleTaskList, ?>... properties) {
         return make(instantiator, properties);
@@ -28,5 +29,6 @@ public class GtaskListMaker {
         setTitle(lookup.valueOf(NAME, "Default"));
         setRemoteOrder(lookup.valueOf(ORDER, 0));
         setLastSync(lookup.valueOf(LAST_SYNC, 0L));
+        setColor(lookup.valueOf(COLOR, -1));
     }};
 }

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
+import com.todoroo.astrid.data.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,9 @@ import java.util.WeakHashMap;
  *
  * @author Tim Su <tim@todoroo.com>
  *
- * @param <TYPE> a model type that is returned by this cursor
  */
-public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
+public class TodorooCursor extends CursorWrapper {
 
-    private final Class<TYPE> modelClass;
     /** Properties read by this cursor */
     private final Property<?>[] properties;
 
@@ -42,16 +41,15 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      *
      * @param properties properties read from this cursor
      */
-    public TodorooCursor(Class<TYPE> modelClass, Cursor cursor, Property<?>[] properties) {
+    public TodorooCursor(Cursor cursor, Property<?>[] properties) {
         super(cursor);
-        this.modelClass = modelClass;
 
         this.properties = properties;
         columnIndexCache = new WeakHashMap<>();
     }
 
-    public List<TYPE> toList() {
-        List<TYPE> result = new ArrayList<>();
+    public List<Task> toList() {
+        List<Task> result = new ArrayList<>();
         try {
             for (moveToFirst() ; !isAfterLast() ; moveToNext()) {
                 result.add(toModel());
@@ -62,17 +60,8 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         return result;
     }
 
-    public TYPE toModel() {
-        TYPE instance;
-        try {
-            instance = modelClass.newInstance();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-        instance.readPropertiesFromCursor(this);
-        return instance;
+    public Task toModel() {
+        return new Task(this);
     }
 
     public int count() {
@@ -83,7 +72,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         }
     }
 
-    public TYPE first() {
+    public Task first() {
         try {
             return moveToFirst() ? toModel() : null;
         } finally {
@@ -127,11 +116,10 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public static class CursorReadingVisitor implements PropertyVisitor<Object, TodorooCursor<?>> {
+    public static class CursorReadingVisitor implements PropertyVisitor<Object, TodorooCursor> {
 
         @Override
-        public Object visitInteger(Property<Integer> property,
-                TodorooCursor<?> cursor) {
+        public Object visitInteger(Property<Integer> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
             if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
                 return null;
@@ -140,7 +128,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         }
 
         @Override
-        public Object visitLong(Property<Long> property, TodorooCursor<?> cursor) {
+        public Object visitLong(Property<Long> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
             if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
                 return null;
@@ -149,7 +137,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         }
 
         @Override
-        public Object visitDouble(Property<Double> property, TodorooCursor<?> cursor) {
+        public Object visitDouble(Property<Double> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
             if (property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
                 return null;
@@ -158,8 +146,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         }
 
         @Override
-        public Object visitString(Property<String> property,
-                TodorooCursor<?> cursor) {
+        public Object visitString(Property<String> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
             if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
                 return null;
@@ -167,10 +154,8 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
             return cursor.getString(column);
         }
 
-        private int columnIndex(Property<?> property, TodorooCursor<?> cursor) {
+        private int columnIndex(Property<?> property, TodorooCursor cursor) {
             return cursor.getColumnIndexFromCache(property.getColumnName());
         }
-
     }
-
 }
