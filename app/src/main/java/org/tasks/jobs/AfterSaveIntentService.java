@@ -77,7 +77,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
                 modifiedValues.containsKey(Task.REMINDER_PERIOD.name) ||
                 modifiedValues.containsKey(Task.REMINDER_LAST.name) ||
                 modifiedValues.containsKey(Task.REMINDER_SNOOZE.name)) {
-            reminderService.scheduleAlarm(taskDao, task);
+            reminderService.scheduleAlarm(task);
         }
 
         if(TaskApiDao.insignificantChange(modifiedValues)) {

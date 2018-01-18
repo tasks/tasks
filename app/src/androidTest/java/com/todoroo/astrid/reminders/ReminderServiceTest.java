@@ -77,14 +77,14 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     @Test
     public void dontScheduleDueDateReminderWhenFlagNotSet() {
-        service.scheduleAlarm(null, newTask(with(ID, 1L), with(DUE_TIME, newDateTime())));
+        service.scheduleAlarm(newTask(with(ID, 1L), with(DUE_TIME, newDateTime())));
 
         verify(jobs).cancelReminder(1);
     }
 
     @Test
     public void dontScheduleDueDateReminderWhenTimeNotSet() {
-        service.scheduleAlarm(null, newTask(with(ID, 1L), with(REMINDERS, NOTIFY_AT_DEADLINE)));
+        service.scheduleAlarm(newTask(with(ID, 1L), with(REMINDERS, NOTIFY_AT_DEADLINE)));
 
         verify(jobs).cancelReminder(1);
     }
@@ -95,7 +95,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(ID, 1L),
                 with(DUE_TIME, newDateTime().minusDays(1)),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -108,7 +108,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(ID, 1L),
                 with(DUE_TIME, newDateTime().plusDays(1)),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -123,7 +123,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(DUE_DATE, now),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -138,7 +138,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(COMPLETION_TIME, newDateTime()),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         verify(jobs).cancelReminder(1);
     }
@@ -151,7 +151,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(DELETION_TIME, newDateTime()),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         verify(jobs).cancelReminder(1);
     }
@@ -165,7 +165,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(REMINDER_LAST, now.plusSeconds(1)),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         verify(jobs).cancelReminder(1);
     }
@@ -178,7 +178,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(SNOOZE_TIME, newDateTime().minusMinutes(5)),
                 with(REMINDER_LAST, newDateTime().minusMinutes(4)),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -194,7 +194,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(SNOOZE_TIME, dueDate.minusMinutes(4)),
                 with(REMINDER_LAST, dueDate.minusMinutes(5)),
                 with(REMINDERS, NOTIFY_AT_DEADLINE));
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -212,7 +212,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                     with(CREATION_TIME, now.minusDays(1)),
                     with(RANDOM_REMINDER_PERIOD, ONE_WEEK));
 
-            service.scheduleAlarm(null, task);
+            service.scheduleAlarm(task);
 
             InOrder order = inOrder(jobs);
             order.verify(jobs).cancelReminder(1);
@@ -231,7 +231,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                     with(CREATION_TIME, now.minusDays(30)),
                     with(RANDOM_REMINDER_PERIOD, ONE_WEEK));
 
-            service.scheduleAlarm(null, task);
+            service.scheduleAlarm(task);
 
             InOrder order = inOrder(jobs);
             order.verify(jobs).cancelReminder(1);
@@ -250,7 +250,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                     with(CREATION_TIME, now.minusDays(30)),
                     with(RANDOM_REMINDER_PERIOD, ONE_WEEK));
 
-            service.scheduleAlarm(null, task);
+            service.scheduleAlarm(task);
 
             InOrder order = inOrder(jobs);
             order.verify(jobs).cancelReminder(1);
@@ -266,7 +266,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(REMINDER_LAST, (DateTime) null),
                 with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -281,7 +281,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(REMINDER_LAST, new DateTime(2017, 9, 24, 12, 0)),
                 with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -296,7 +296,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(REMINDER_LAST, new DateTime(2017, 9, 24, 15, 0)),
                 with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -312,7 +312,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(REMINDER_LAST, new DateTime(2017, 9, 23, 12, 17, 59, 999)),
                 with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -327,7 +327,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(REMINDER_LAST, new DateTime(2017, 9, 23, 15, 30, 59, 999)),
                 with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -342,7 +342,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(REMINDER_LAST, new DateTime(2017, 9, 23, 12, 17, 59, 999)),
                 with(REMINDERS, NOTIFY_AFTER_DEADLINE));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);
@@ -359,7 +359,7 @@ public class ReminderServiceTest extends InjectingTestCase {
                 with(REMINDERS, NOTIFY_AT_DEADLINE | NOTIFY_AFTER_DEADLINE),
                 with(RANDOM_REMINDER_PERIOD, ONE_HOUR));
 
-        service.scheduleAlarm(null, task);
+        service.scheduleAlarm(task);
 
         InOrder order = inOrder(jobs);
         order.verify(jobs).cancelReminder(1);

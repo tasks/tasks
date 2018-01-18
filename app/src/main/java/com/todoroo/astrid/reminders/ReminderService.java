@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.reminders;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -24,21 +23,6 @@ import javax.inject.Inject;
 
 @ApplicationScope
 public final class ReminderService  {
-
-    // --- constants
-
-    private static final Property<?>[] NOTIFICATION_PROPERTIES = new Property<?>[] {
-        Task.ID,
-        Task.CREATION_DATE,
-        Task.COMPLETION_DATE,
-        Task.DELETION_DATE,
-        Task.DUE_DATE,
-        Task.REMINDER_FLAGS,
-        Task.REMINDER_PERIOD,
-        Task.REMINDER_LAST,
-        Task.REMINDER_SNOOZE,
-        Task.IMPORTANCE
-    };
 
     /** flag for due date reminder */
     public static final int TYPE_DUE = 0;
@@ -69,32 +53,20 @@ public final class ReminderService  {
     }
 
     public void scheduleAllAlarms(TaskDao taskDao) {
-        Query query = Query.select(NOTIFICATION_PROPERTIES).where(Criterion.and(
+        Query query = Query.select(Task.PROPERTIES).where(Criterion.and(
                 TaskCriteria.isActive(),
                 Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0))));
         for (Task task : taskDao.toList(query)) {
-            scheduleAlarm(null, task);
+            scheduleAlarm(task);
         }
     }
 
-    public void scheduleAlarm(TaskDao taskDao, Task task) {
+    public void scheduleAlarm(Task task) {
         if(task == null || !task.isSaved()) {
             return;
         }
 
-        // read data if necessary
         long taskId = task.getId();
-        if(taskDao != null) {
-            for(Property<?> property : NOTIFICATION_PROPERTIES) {
-                if(!task.containsValue(property)) {
-                    task = taskDao.fetch(taskId);
-                    if(task == null) {
-                        return;
-                    }
-                    break;
-                }
-            }
-        }
 
         // Make sure no alarms are scheduled other than the next one. When that one is shown, it
         // will schedule the next one after it, and so on and so forth.
