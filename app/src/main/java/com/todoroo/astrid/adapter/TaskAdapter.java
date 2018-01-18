@@ -12,14 +12,15 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 
+import com.google.common.collect.ObjectArrays;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
+
 import org.tasks.data.TaskAttachment;
 
 import java.util.ArrayList;
@@ -52,31 +53,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     public static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + ".tag_uid, '')"+ ", ',')").as("tags");
     public static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
-    public static final IntegerProperty HAS_NOTES_PROPERTY = new IntegerProperty(null, "length(" + Task.NOTES + ") > 0").as("hasNotes");
 
-    // --- other constants
-
-    /** Properties that need to be read from the action item */
-    public static final Property<?>[] PROPERTIES = new Property<?>[] {
-        Task.ID,
-        Task.UUID,
-        Task.TITLE,
-        Task.IMPORTANCE,
-        Task.DUE_DATE,
-        Task.COMPLETION_DATE,
-        Task.MODIFICATION_DATE,
-        Task.HIDE_UNTIL,
-        Task.DELETION_DATE,
-        Task.ELAPSED_SECONDS,
-        Task.TIMER_START,
-        Task.RECURRENCE,
-        Task.REMINDER_LAST,
-        HAS_NOTES_PROPERTY, // Whether or not the task has notes
-        TAGS, // Concatenated list of tags
-        FILE_ID_PROPERTY // File id
-    };
-
-    // --- instance variables
+    public static final Property<?>[] PROPERTIES = ObjectArrays.concat(
+            Task.PROPERTIES,
+            new Property<?>[]{
+                    TAGS, // Concatenated list of tags
+                    FILE_ID_PROPERTY // File id
+            }, Property.class);
 
     private OnCompletedTaskListener onCompletedTaskListener = null;
 

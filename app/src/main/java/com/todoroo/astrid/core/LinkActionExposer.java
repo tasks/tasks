@@ -32,10 +32,12 @@ import java.util.List;
  */
 public class LinkActionExposer {
 
-    public static TaskAction getActionsForTask(Context context, Task task, boolean hasAttachments, boolean hasNotes) {
+    public static TaskAction getActionsForTask(Context context, Task task, boolean hasAttachments) {
         if (task == null) {
             return null;
         }
+
+        boolean hasNotes = task.hasNotes();
 
         Spannable titleSpan = Spannable.Factory.getInstance().newSpannable(task.getTitle());
         Linkify.addLinks(titleSpan, Linkify.ALL);

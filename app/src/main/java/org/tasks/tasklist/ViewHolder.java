@@ -105,7 +105,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
 
     private String tagsString; // From join query, not part of the task model
     private boolean hasFiles; // From join query, not part of the task model
-    private boolean hasNotes;
     private final Context context;
     private final CheckBoxes checkBoxes;
     private final TagFormatter tagFormatter;
@@ -197,7 +196,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
     void bindView(TodorooCursor cursor) {
         tagsString = cursor.get(TaskAdapter.TAGS);
         hasFiles = cursor.get(TaskAdapter.FILE_ID_PROPERTY) > 0;
-        hasNotes = cursor.get(TaskAdapter.HAS_NOTES_PROPERTY) > 0;
 
         // TODO: see if this is a performance issue
         task = new Task(cursor);
@@ -219,7 +217,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
         setupDueDateAndTags();
 
         // Task action
-        TaskAction action = getTaskAction(task, hasFiles, hasNotes);
+        TaskAction action = getTaskAction(task, hasFiles);
         if (action != null) {
             taskActionIcon.setVisibility(View.VISIBLE);
             taskActionIcon.setImageResource(action.icon);
@@ -230,11 +228,11 @@ class ViewHolder extends MultiSelectorBindingHolder {
         }
     }
 
-    private TaskAction getTaskAction(Task task, boolean hasFiles, boolean hasNotes) {
+    private TaskAction getTaskAction(Task task, boolean hasFiles) {
         if (task.isCompleted()) {
             return null;
         }
-        return LinkActionExposer.getActionsForTask(context, task, hasFiles, hasNotes);
+        return LinkActionExposer.getActionsForTask(context, task, hasFiles);
     }
 
     private void setTaskAppearance() {
