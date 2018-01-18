@@ -162,7 +162,7 @@ public class TaskListFragment extends InjectingFragment implements
      * does during the onAttach() callback
      */
     public interface TaskListFragmentCallbackHandler {
-        void onTaskListItemClicked(long taskId);
+        void onTaskListItemClicked(Task task);
 
         void onNavigationIconClicked();
     }
@@ -329,8 +329,7 @@ public class TaskListFragment extends InjectingFragment implements
 
     @OnClick(R.id.fab)
     void createNewTask() {
-        Task task = addTask("");
-        onTaskListItemClicked(task.getId());
+        onTaskListItemClicked(addTask(""));
     }
 
     public Task addTask(String title) {
@@ -513,7 +512,7 @@ public class TaskListFragment extends InjectingFragment implements
 
                     Task task = addTask(recognizedSpeech);
                     taskCreator.addToCalendar(task);
-                    onTaskListItemClicked(task.getId());
+                    onTaskListItemClicked(task);
                     loadTaskListContent();
                     onTaskCreated(task.getUUID());
                 }
@@ -539,8 +538,8 @@ public class TaskListFragment extends InjectingFragment implements
     public boolean onContextItemSelected(android.view.MenuItem item) {
         return onOptionsItemSelected(item);
     }
-    public void onTaskListItemClicked(long taskId) {
-        callbacks.onTaskListItemClicked(taskId);
+    public void onTaskListItemClicked(Task task) {
+        callbacks.onTaskListItemClicked(task);
     }
 
     protected boolean hasDraggableOption() {

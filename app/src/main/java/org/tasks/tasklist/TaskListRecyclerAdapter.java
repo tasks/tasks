@@ -126,8 +126,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     @Override
     public void onClick(ViewHolder viewHolder) {
         if (mode == null) {
-            Task task = viewHolder.task;
-            taskList.onTaskListItemClicked(task.getId());
+            taskList.onTaskListItemClicked(viewHolder.task);
         } else {
             toggle(viewHolder);
         }

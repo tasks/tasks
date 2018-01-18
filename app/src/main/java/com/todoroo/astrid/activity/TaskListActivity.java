@@ -17,17 +17,11 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TagFilter;
-
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
@@ -43,6 +37,9 @@ import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
@@ -62,8 +59,6 @@ import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
-
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -344,10 +339,15 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             intent.removeExtra(OPEN_TASK);
             navigationDrawer.closeDrawer();
             if (taskId > 0) {
-                onTaskListItemClicked(taskId);
+                Task task = taskDao.fetch(taskId);
+                if (task != null) {
+                    onTaskListItemClicked(task);
+                } else {
+                    Timber.e("Failed to find task %s", taskId);
+                }
             } else {
                 Task task = getTaskListFragment().addTask("");
-                onTaskListItemClicked(task.getId());
+                onTaskListItemClicked(task);
             }
         }
 
@@ -361,18 +361,17 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     @Override
-    public void onTaskListItemClicked(long taskId) {
+    public void onTaskListItemClicked(Task task) {
+        if (task == null) {
+            return;
+        }
+
         TaskEditFragment taskEditFragment = getTaskEditFragment();
 
         if (taskEditFragment != null) {
             taskEditFragment.save();
         }
 
-        Task task = loadItem(taskId);
-        if (task == null) {
-            Timber.e(new NullPointerException(), "Failed to load task id %s", taskId);
-            return;
-        }
         boolean isNewTask = task.getTitle().length() == 0;
         loadTaskEditFragment(newTaskEditFragment(isNewTask, task));
     }
@@ -410,36 +409,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     public TaskEditFragment getTaskEditFragment() {
         return (TaskEditFragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
-    }
-
-    /**
-     * Loads action item from the given intent
-     */
-    private Task loadItem(long taskId) {
-        Task model = null;
-
-        if (taskId> -1L) {
-            model = taskDao.fetch(taskId);
-        }
-
-        // not found by id or was never passed an id
-        if (model == null) {
-            Intent intent = getIntent();
-            String valuesAsString = intent.getStringExtra(TaskEditFragment.TOKEN_VALUES);
-            Map<String, Object> values = null;
-            try {
-                if (valuesAsString != null) {
-                    valuesAsString = PermaSql.replacePlaceholders(valuesAsString);
-                    values = AndroidUtilities.mapFromSerializedString(valuesAsString);
-                }
-            } catch (Exception e) {
-                // oops, can't serialize
-                Timber.e(e, e.getMessage());
-            }
-            model = taskCreator.createWithValues(values, null);
-        }
-
-        return model;
     }
 
     @Override
