@@ -134,7 +134,19 @@ public class RepeatControlSet extends TaskEditControlFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            repeatAfterCompletion = task.repeatAfterCompletion();
+            dueDate = task.getDueDate();
+            if (dueDate <= 0) {
+                dueDate = currentTimeMillis();
+            }
+            try {
+                rrule = new RRule(task.getRecurrenceWithoutFrom());
+                rrule.setUntil(new DateTime(task.getRepeatUntil()).toDateValue());
+            } catch (ParseException e) {
+                rrule = null;
+            }
+        } else {
             String recurrence = savedInstanceState.getString(EXTRA_RECURRENCE);
             dueDate = savedInstanceState.getLong(EXTRA_DUE_DATE);
             if (Strings.isNullOrEmpty(recurrence)) {
@@ -306,21 +318,6 @@ public class RepeatControlSet extends TaskEditControlFragment
     @Override
     public int controlId() {
         return TAG;
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        repeatAfterCompletion = task.repeatAfterCompletion();
-        dueDate = task.getDueDate();
-        if (dueDate <= 0) {
-            dueDate = currentTimeMillis();
-        }
-        try {
-            rrule = new RRule(task.getRecurrenceWithoutFrom());
-            rrule.setUntil(new DateTime(task.getRepeatUntil()).toDateValue());
-        } catch (ParseException e) {
-            rrule = null;
-        }
     }
 
     @Override

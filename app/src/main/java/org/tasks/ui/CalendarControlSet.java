@@ -72,7 +72,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
     private String calendarId;
     private String eventUri;
-    private boolean isNewTask;
 
     @Nullable
     @Override
@@ -82,7 +81,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
         if (savedInstanceState != null) {
             eventUri = savedInstanceState.getString(EXTRA_URI);
             calendarId = savedInstanceState.getString(EXTRA_ID);
-        } else if (isNewTask && canAccessCalendars) {
+        } else if (task.isNew() && canAccessCalendars) {
             calendarId = preferences.getDefaultCalendar();
             if (!Strings.isNullOrEmpty(calendarId)) {
                 try {
@@ -96,6 +95,8 @@ public class CalendarControlSet extends TaskEditControlFragment {
                     calendarId = null;
                 }
             }
+        } else {
+            eventUri = task.getCalendarURI();
         }
 
         if (canAccessCalendars && !calendarEntryExists(eventUri)) {
@@ -118,12 +119,6 @@ public class CalendarControlSet extends TaskEditControlFragment {
     @Override
     public int controlId() {
         return TAG;
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        this.isNewTask = isNewTask;
-        eventUri = task.getCalendarURI();
     }
 
     @SuppressWarnings("SimplifiableIfStatement")

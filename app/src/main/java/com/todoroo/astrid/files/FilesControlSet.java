@@ -24,12 +24,12 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import org.tasks.data.TaskAttachmentDao;
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.TaskAttachment;
 
 import org.tasks.R;
 import org.tasks.activities.AddAttachmentActivity;
+import org.tasks.data.TaskAttachment;
+import org.tasks.data.TaskAttachmentDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.files.FileHelper;
 import org.tasks.injection.ForActivity;
@@ -52,7 +52,6 @@ public class FilesControlSet extends TaskEditControlFragment {
 
     private static final char LEFT_TO_RIGHT_MARK = '\u200e';
     private static final int REQUEST_ADD_ATTACHMENT = 50;
-    private static final String EXTRA_UUID = "extra_uuid";
 
     @Inject TaskAttachmentDao taskAttachmentDao;
     @Inject DialogBuilder dialogBuilder;
@@ -68,9 +67,7 @@ public class FilesControlSet extends TaskEditControlFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        if (savedInstanceState != null) {
-            taskUuid = savedInstanceState.getString(EXTRA_UUID);
-        }
+        taskUuid = task.getUuid();
 
         final List<TaskAttachment> files = new ArrayList<>();
         for (TaskAttachment attachment : taskAttachmentDao.getAttachments(taskUuid)) {
@@ -79,13 +76,6 @@ public class FilesControlSet extends TaskEditControlFragment {
         }
         validateFiles(files);
         return view;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString(EXTRA_UUID, taskUuid);
     }
 
     @OnClick(R.id.add_attachment)
@@ -106,11 +96,6 @@ public class FilesControlSet extends TaskEditControlFragment {
     @Override
     public int controlId() {
         return TAG;
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        taskUuid = task.getUuid();
     }
 
     @Override

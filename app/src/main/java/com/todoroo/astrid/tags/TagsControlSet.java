@@ -93,7 +93,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     @BindView(R.id.display_row_edit) TextView tagsDisplay;
 
-    private long taskId;
     private LinearLayout newTagLayout;
     private ListView tagListView;
     private View dialogView;
@@ -145,7 +144,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
             selectedTags = savedInstanceState.getParcelableArrayList(EXTRA_SELECTED_TAGS);
             newTags = savedInstanceState.getStringArrayList(EXTRA_NEW_TAGS);
         } else {
-            selectedTags = tagService.getTagDataForTask(taskId);
+            selectedTags = tagService.getTagDataForTask(task.getId());
             newTags = newArrayList();
         }
         allTags = tagService.getTagList();
@@ -194,11 +193,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
     @Override
     protected int getLayout() {
         return R.layout.control_set_tags;
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        taskId = task.getId();
     }
 
     @Override

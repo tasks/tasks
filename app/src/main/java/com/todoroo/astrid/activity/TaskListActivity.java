@@ -372,8 +372,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
             taskEditFragment.save();
         }
 
-        boolean isNewTask = task.getTitle().length() == 0;
-        loadTaskEditFragment(newTaskEditFragment(isNewTask, task));
+        loadTaskEditFragment(newTaskEditFragment(task));
     }
 
     @Override

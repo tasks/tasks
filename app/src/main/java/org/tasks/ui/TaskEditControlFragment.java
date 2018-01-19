@@ -1,5 +1,6 @@
 package org.tasks.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,6 +18,10 @@ import butterknife.ButterKnife;
 
 public abstract class TaskEditControlFragment extends InjectingFragment {
 
+    public static final String EXTRA_TASK = "extra_task";
+
+    protected Task task;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,13 +34,21 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
         return view;
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            task = arguments.getParcelable(EXTRA_TASK);
+        }
+    }
+
     protected abstract int getLayout();
 
     protected abstract int getIcon();
 
     public abstract int controlId();
-
-    public abstract void initialize(boolean isNewTask, Task task);
 
     public abstract void apply(Task task);
 

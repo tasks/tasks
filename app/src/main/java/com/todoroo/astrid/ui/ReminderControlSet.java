@@ -73,7 +73,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
     private static final int REQUEST_NEW_ALARM = 12152;
     private static final int REQUEST_LOCATION_REMINDER = 12153;
 
-    private static final String EXTRA_TASK_ID = "extra_task_id";
     private static final String EXTRA_FLAGS = "extra_flags";
     private static final String EXTRA_RANDOM_REMINDER = "extra_random_reminder";
     private static final String EXTRA_ALARMS = "extra_alarms";
@@ -119,8 +118,12 @@ public class ReminderControlSet extends TaskEditControlFragment {
         modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mode.setAdapter(modeAdapter);
 
-        if (savedInstanceState != null) {
-            taskId = savedInstanceState.getLong(EXTRA_TASK_ID);
+        taskId = task.getId();
+        if (savedInstanceState == null) {
+            flags = task.getReminderFlags();
+            randomReminder = task.getReminderPeriod();
+            setup(currentAlarms(), geofenceService.getGeofences(taskId));
+        } else {
             flags = savedInstanceState.getInt(EXTRA_FLAGS);
             randomReminder = savedInstanceState.getLong(EXTRA_RANDOM_REMINDER);
             List<Location> locations = new ArrayList<>();
@@ -129,8 +132,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
                 locations.add((Location) geofence);
             }
             setup(Longs.asList(savedInstanceState.getLongArray(EXTRA_ALARMS)), locations);
-        } else {
-            setup(currentAlarms(), geofenceService.getGeofences(taskId));
         }
 
         addSpinner.setAdapter(remindAdapter);
@@ -191,13 +192,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
         return TAG;
     }
 
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        taskId = task.getId();
-        flags = task.getReminderFlags();
-        randomReminder = task.getReminderPeriod();
-    }
-
     private void setup(List<Long> alarms, List<Location> locations) {
         setValue(flags);
 
@@ -246,7 +240,6 @@ public class ReminderControlSet extends TaskEditControlFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putLong(EXTRA_TASK_ID, taskId);
         outState.putInt(EXTRA_FLAGS, getFlags());
         outState.putLong(EXTRA_RANDOM_REMINDER, getRandomReminderPeriod());
         outState.putLongArray(EXTRA_ALARMS, Longs.toArray(alarms));

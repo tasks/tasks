@@ -65,7 +65,9 @@ public class PriorityControlSet extends TaskEditControlFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = super.onCreateView(inflater, container, savedInstanceState);
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            priority = task.getImportance();
+        } else {
             priority = savedInstanceState.getInt(EXTRA_PRIORITY);
         }
         if (priority == 0) {
@@ -106,11 +108,6 @@ public class PriorityControlSet extends TaskEditControlFragment {
     @Override
     public int controlId() {
         return TAG;
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        priority = task.getImportance();
     }
 
     @Override

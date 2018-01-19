@@ -22,11 +22,7 @@ import android.widget.LinearLayout;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
-
-import org.tasks.data.GoogleTaskList;
-import org.tasks.data.UserActivityDao;
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.UserActivity;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.notes.CommentsController;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -38,6 +34,9 @@ import com.todoroo.astrid.utility.Flags;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.UserActivity;
+import org.tasks.data.UserActivityDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
 import org.tasks.injection.ForActivity;
@@ -64,18 +63,17 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         void taskEditFinished();
     }
 
-    public static TaskEditFragment newTaskEditFragment(boolean isNewTask, Task task) {
+    public static TaskEditFragment newTaskEditFragment(Task task) {
         TaskEditFragment taskEditFragment = new TaskEditFragment();
-        taskEditFragment.isNewTask = isNewTask;
-        taskEditFragment.model = task;
+        Bundle arguments = new Bundle();
+        arguments.putParcelable(EXTRA_TASK, task);
+        taskEditFragment.setArguments(arguments);
         return taskEditFragment;
     }
 
     public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
-    public static final String TOKEN_VALUES = "v";
 
     private static final String EXTRA_TASK = "extra_task";
-    private static final String EXTRA_IS_NEW_TASK = "extra_is_new_task";
 
     @Inject TaskDao taskDao;
     @Inject UserActivityDao userActivityDao;
@@ -94,11 +92,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     @BindView(R.id.comments) LinearLayout comments;
     @BindView(R.id.control_sets) LinearLayout controlSets;
 
-    // --- other instance variables
-
-    /** true if editing started with a new task */
-    private boolean isNewTask = false;
-    /** task model */
     Task model = null;
 
     private TaskEditFragmentCallbackHandler callback;
@@ -120,10 +113,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         View view = inflater.inflate(R.layout.fragment_task_edit, container, false);
         ButterKnife.bind(this, view);
 
-        if (savedInstanceState != null) {
-            model = savedInstanceState.getParcelable(EXTRA_TASK);
-            isNewTask = savedInstanceState.getBoolean(EXTRA_IS_NEW_TASK);
-        }
+        Bundle arguments = getArguments();
+        model = arguments.getParcelable(EXTRA_TASK);
 
         final boolean backButtonSavesTask = preferences.backButtonSavesTask();
         toolbar.setNavigationIcon(ContextCompat.getDrawable(context,
@@ -145,7 +136,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         commentsController.reloadView();
 
         FragmentManager fragmentManager = getChildFragmentManager();
-        List<TaskEditControlFragment> taskEditControlFragments = taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager, isNewTask, model);
+        List<TaskEditControlFragment> taskEditControlFragments = taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager, model);
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         for (int i = 0 ; i < taskEditControlFragments.size() ; i++) {
@@ -208,6 +199,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     public void save() {
         List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager());
         if (hasChanges(fragments)) {
+            boolean isNewTask = model.isNew();
+
             for (TaskEditControlFragment fragment : fragments) {
                 fragment.apply(model);
             }
@@ -280,7 +273,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     }
 
     public void discard() {
-        if (isNewTask) {
+        if (model.isNew()) {
             timerPlugin.stopTimer(model);
             taskDeleter.delete(model);
         }
@@ -299,14 +292,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
                 .show();
     }
 
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putParcelable(EXTRA_TASK, model);
-        outState.putBoolean(EXTRA_IS_NEW_TASK, isNewTask);
-    }
 
     /*
      * ======================================================================

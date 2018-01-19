@@ -1,9 +1,11 @@
 package org.tasks.fragments;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -102,7 +104,10 @@ public class TaskEditControlSetFragmentManager {
         return fragments;
     }
 
-    public List<TaskEditControlFragment> getOrCreateFragments(FragmentManager fragmentManager, boolean isNewTask, Task task) {
+    public List<TaskEditControlFragment> getOrCreateFragments(FragmentManager fragmentManager, Task task) {
+        Bundle arguments = new Bundle();
+        arguments.putParcelable(TaskEditControlFragment.EXTRA_TASK, task);
+
         List<TaskEditControlFragment> fragments = new ArrayList<>();
         for (int i = 0 ; i < numRows ; i++) {
             String tag = displayOrder.get(i);
@@ -113,7 +118,7 @@ public class TaskEditControlSetFragmentManager {
                 if (fragment == null) {
                     continue;
                 }
-                fragment.initialize(isNewTask, task);
+                fragment.setArguments(arguments);
             }
             fragments.add(fragment);
         }

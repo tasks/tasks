@@ -71,15 +71,19 @@ public class TimerControlSet extends TaskEditControlFragment {
     private long timerStarted;
     private AlertDialog dialog;
     private View dialogView;
-    private int elapsedSeconds;
-    private int estimatedSeconds;
     private TimerControlSetCallback callback;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        if (savedInstanceState != null) {
+        int elapsedSeconds;
+        int estimatedSeconds;
+        if (savedInstanceState == null) {
+            timerStarted = task.getTimerStart();
+            elapsedSeconds = task.getElapsedSeconds();
+            estimatedSeconds = task.getEstimatedSeconds();
+        } else {
             timerStarted = savedInstanceState.getLong(EXTRA_STARTED);
             elapsedSeconds = savedInstanceState.getInt(EXTRA_ELAPSED);
             estimatedSeconds = savedInstanceState.getInt(EXTRA_ESTIMATED);
@@ -160,13 +164,6 @@ public class TimerControlSet extends TaskEditControlFragment {
     @Override
     public int controlId() {
         return TAG;
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        timerStarted = task.getTimerStart();
-        elapsedSeconds = task.getElapsedSeconds();
-        estimatedSeconds = task.getEstimatedSeconds();
     }
 
     @Override

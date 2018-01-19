@@ -31,7 +31,6 @@ import static org.tasks.activities.SupportGoogleTaskListPicker.newSupportGoogleT
 public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     private static final String FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection";
-    private static final String EXTRA_TASK_ID = "extra_task_id";
     private static final String EXTRA_ORIGINAL_LIST = "extra_original_list";
     private static final String EXTRA_SELECTED_LIST = "extra_selected_list";
 
@@ -44,7 +43,6 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     @Inject GoogleTaskDao googleTaskDao;
     @Inject Tracker tracker;
 
-    private long taskId;
     @Nullable private GoogleTaskList originalList;
     @Nullable private GoogleTaskList selectedList;
 
@@ -53,12 +51,10 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         if (savedInstanceState != null) {
-            taskId = savedInstanceState.getLong(EXTRA_TASK_ID);
-
             originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST);
             selectedList = savedInstanceState.getParcelable(EXTRA_SELECTED_LIST);
         } else {
-            GoogleTask googleTask = googleTaskDao.getByTaskId(taskId);
+            GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
             if (googleTask != null) {
                 originalList = gtasksListService.getList(googleTask.getListId());
             }
@@ -76,7 +72,6 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putLong(EXTRA_TASK_ID, taskId);
         if (originalList != null) {
             outState.putParcelable(EXTRA_ORIGINAL_LIST, originalList);
         }
@@ -104,11 +99,6 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     void clickGoogleTaskList(View view) {
         newSupportGoogleTaskListPicker(selectedList)
                 .show(getChildFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        taskId = task.getId();
     }
 
     @Override

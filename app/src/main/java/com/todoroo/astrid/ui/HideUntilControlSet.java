@@ -71,7 +71,6 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     @BindView(R.id.clear) ImageView clearButton;
 
     private ArrayAdapter<HideUntilValue> adapter;
-    private long initialHideUntil;
 
     private int previousSetting = Task.HIDE_UNTIL_NONE;
     private int selection;
@@ -118,7 +117,36 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
             }
         };
         if (savedInstanceState == null) {
-            updateSpinnerOptions(initialHideUntil);
+            long dueDate = task.getDueDate();
+            long hideUntil = task.getHideUntil();
+
+            DateTime dueDay = newDateTime(dueDate)
+                    .withHourOfDay(0)
+                    .withMinuteOfHour(0)
+                    .withSecondOfMinute(0)
+                    .withMillisOfSecond(0);
+
+            // For the hide until due case, we need the time component
+            long dueTime = dueDate/1000L*1000L;
+
+            if(hideUntil == 0) {
+                selection = 0;
+                hideUntil = 0;
+            } else if(hideUntil == dueDay.getMillis()) {
+                selection = 1;
+                hideUntil = 0;
+            } else if (hideUntil == dueTime){
+                selection = 2;
+                hideUntil = 0;
+            } else if(hideUntil + DateUtilities.ONE_DAY == dueDay.getMillis()) {
+                selection = 3;
+                hideUntil = 0;
+            } else if(hideUntil + DateUtilities.ONE_WEEK == dueDay.getMillis()) {
+                selection = 4;
+                hideUntil = 0;
+            }
+
+            updateSpinnerOptions(hideUntil);
         } else {
             updateSpinnerOptions(savedInstanceState.getLong(EXTRA_CUSTOM));
             selection = savedInstanceState.getInt(EXTRA_SELECTION);
@@ -143,40 +171,6 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     @Override
     public int controlId() {
         return TAG;
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        long dueDate = task.getDueDate();
-        long hideUntil = task.getHideUntil();
-
-        DateTime dueDay = newDateTime(dueDate)
-                .withHourOfDay(0)
-                .withMinuteOfHour(0)
-                .withSecondOfMinute(0)
-                .withMillisOfSecond(0);
-
-        // For the hide until due case, we need the time component
-        long dueTime = dueDate/1000L*1000L;
-
-        if(hideUntil == 0) {
-            selection = 0;
-            hideUntil = 0;
-        } else if(hideUntil == dueDay.getMillis()) {
-            selection = 1;
-            hideUntil = 0;
-        } else if (hideUntil == dueTime){
-            selection = 2;
-            hideUntil = 0;
-        } else if(hideUntil + DateUtilities.ONE_DAY == dueDay.getMillis()) {
-            selection = 3;
-            hideUntil = 0;
-        } else if(hideUntil + DateUtilities.ONE_WEEK == dueDay.getMillis()) {
-            selection = 4;
-            hideUntil = 0;
-        }
-
-        initialHideUntil = hideUntil;
     }
 
     @Override

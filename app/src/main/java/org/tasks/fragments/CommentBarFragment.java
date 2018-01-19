@@ -135,11 +135,6 @@ public class CommentBarFragment extends TaskEditControlFragment {
     }
 
     @Override
-    public void initialize(boolean isNewTask, Task task) {
-
-    }
-
-    @Override
     public void apply(Task task) {
 
     }

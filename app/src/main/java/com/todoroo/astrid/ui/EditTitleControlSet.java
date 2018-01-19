@@ -52,10 +52,10 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     @BindView(R.id.title) EditText editText;
     @BindView(R.id.completeBox) CheckableImageView completeBox;
 
+    private boolean showKeyboard;
     private boolean isComplete;
     private boolean isRepeating;
     private int importanceValue;
-    private boolean isNewTask;
     private String title;
 
     @Override
@@ -68,7 +68,13 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayout(), null);
         ButterKnife.bind(this, view);
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            isComplete = task.isCompleted();
+            title = task.getTitle();
+            isRepeating = !TextUtils.isEmpty(task.getRecurrence());
+            importanceValue = task.getImportance();
+            showKeyboard = task.isNew() && Strings.isNullOrEmpty(title);
+        } else {
             isComplete = savedInstanceState.getBoolean(EXTRA_COMPLETE);
             title = savedInstanceState.getString(EXTRA_TITLE);
             isRepeating = savedInstanceState.getBoolean(EXTRA_REPEATING);
@@ -102,7 +108,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     public void onResume() {
         super.onResume();
 
-        if (isNewTask) {
+        if (showKeyboard) {
             editText.requestFocus();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
@@ -161,16 +167,6 @@ public class EditTitleControlSet extends TaskEditControlFragment {
     public boolean hasChanges(Task original) {
         return !title.equals(original.getTitle()) ||
                 isComplete != original.isCompleted();
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        this.isNewTask = isNewTask;
-
-        isComplete = task.isCompleted();
-        title = task.getTitle();
-        isRepeating = !TextUtils.isEmpty(task.getRecurrence());
-        importanceValue = task.getImportance();
     }
 
     @Override

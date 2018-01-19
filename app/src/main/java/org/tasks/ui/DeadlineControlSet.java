@@ -137,7 +137,16 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            if (task.hasDueDate()) {
+                DateTime dateTime = newDateTime(task.getDueDate());
+                date = dateTime.startOfDay().getMillis();
+                time = task.hasDueTime() ? dateTime.getMillisOfDay() : -1;
+            } else {
+                date = 0;
+                time = -1;
+            }
+        } else {
             date = savedInstanceState.getLong(EXTRA_DATE);
             time = savedInstanceState.getInt(EXTRA_TIME);
         }
@@ -281,18 +290,6 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     @Override
     public boolean hasChanges(Task original) {
         return original.getDueDate() != getDueDateTime();
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        if (task.hasDueDate()) {
-            DateTime dateTime = newDateTime(task.getDueDate());
-            date = dateTime.startOfDay().getMillis();
-            time = task.hasDueTime() ? dateTime.getMillisOfDay() : -1;
-        } else {
-            date = 0;
-            time = -1;
-        }
     }
 
     @Override

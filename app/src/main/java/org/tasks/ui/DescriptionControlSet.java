@@ -29,7 +29,9 @@ public class DescriptionControlSet extends TaskEditControlFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            description = task.getNotes();
+        } else {
             description = savedInstanceState.getString(EXTRA_DESCRIPTION);
         }
         if (!Strings.isNullOrEmpty(description)) {
@@ -63,11 +65,6 @@ public class DescriptionControlSet extends TaskEditControlFragment {
     @OnTextChanged(R.id.notes)
     void textChanged(CharSequence text) {
         description = text.toString().trim();
-    }
-
-    @Override
-    public void initialize(boolean isNewTask, Task task) {
-        description = task.getNotes();
     }
 
     @Override
