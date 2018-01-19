@@ -76,6 +76,7 @@ public abstract class Database extends RoomDatabase {
     public abstract GoogleTaskDao getGoogleTaskDao();
     public abstract FilterDao getFilterDao();
     public abstract GoogleTaskListDao getGoogleTaskListDao();
+    public abstract TaskDao getTaskDao();
 
     public static final String NAME = "database";
 

@@ -4,7 +4,9 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TaskDao;
 
+import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskListMetadataDao;
@@ -17,6 +19,7 @@ import org.tasks.data.TagDao;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissivePermissionChecker;
+import org.tasks.preferences.Preferences;
 
 import dagger.Module;
 import dagger.Provides;
@@ -80,6 +83,15 @@ public class TestModule {
     @Provides
     public LocationDao getLocationDao(Database database) {
         return database.getLocationDao();
+    }
+
+    @Provides
+    public TaskDao getTaskDao(Database database, Preferences preferences, LocalBroadcastManager localBroadcastManager,
+                              AlarmDao alarmDao, TagDao tagDao, LocationDao locationDao, GoogleTaskDao googleTaskDao) {
+        TaskDao taskDao = database.getTaskDao();
+        taskDao.initialize(context, preferences, localBroadcastManager, alarmDao, tagDao,
+                locationDao, googleTaskDao);
+        return taskDao;
     }
 
     @ApplicationScope

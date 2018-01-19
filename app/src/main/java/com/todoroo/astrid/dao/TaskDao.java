@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.dao;
 
+import android.arch.persistence.room.Dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
@@ -29,15 +30,11 @@ import org.tasks.data.AlarmDao;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.LocationDao;
 import org.tasks.data.TagDao;
-import org.tasks.injection.ApplicationScope;
-import org.tasks.injection.ForApplication;
 import org.tasks.jobs.AfterSaveIntentService;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.PushReceiver;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -47,33 +44,34 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@ApplicationScope
-public class TaskDao {
+@Dao
+public abstract class TaskDao {
 
     public static final String TRANS_SUPPRESS_REFRESH = "suppress-refresh";
 
     private final RemoteModelDao dao;
-    private final LocalBroadcastManager localBroadcastManager;
 
-    private final Preferences preferences;
-    private final AlarmDao alarmDao;
-    private final TagDao tagDao;
-    private final LocationDao locationDao;
-    private final GoogleTaskDao googleTaskDao;
-    private final Context context;
+    private LocalBroadcastManager localBroadcastManager;
+    private Preferences preferences;
+    private AlarmDao alarmDao;
+    private TagDao tagDao;
+    private LocationDao locationDao;
+    private GoogleTaskDao googleTaskDao;
+    private Context context;
 
-    @Inject
-	public TaskDao(@ForApplication Context context, Database database,
-                   Preferences preferences, LocalBroadcastManager localBroadcastManager,
-                   AlarmDao alarmDao, TagDao tagDao, LocationDao locationDao, GoogleTaskDao googleTaskDao) {
+    public TaskDao(Database database) {
+        dao = new RemoteModelDao(database);
+    }
+
+    public void initialize(Context context, Preferences preferences, LocalBroadcastManager localBroadcastManager,
+                           AlarmDao alarmDao, TagDao tagDao, LocationDao locationDao, GoogleTaskDao googleTaskDao) {
         this.context = context;
         this.preferences = preferences;
+        this.localBroadcastManager = localBroadcastManager;
         this.alarmDao = alarmDao;
         this.tagDao = tagDao;
         this.locationDao = locationDao;
         this.googleTaskDao = googleTaskDao;
-        this.localBroadcastManager = localBroadcastManager;
-        dao = new RemoteModelDao(database);
     }
 
     public TodorooCursor query(Query query) {

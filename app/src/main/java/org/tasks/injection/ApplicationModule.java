@@ -5,12 +5,15 @@ import android.content.Context;
 
 import com.todoroo.astrid.dao.Database;
 
+import org.tasks.LocalBroadcastManager;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.TaskListMetadataDao;
 import org.tasks.data.UserActivityDao;
+
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 import org.tasks.ErrorReportingSingleThreadExecutor;
@@ -22,10 +25,12 @@ import org.tasks.data.TagDao;
 import org.tasks.db.Migrations;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
+import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.Executor;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -68,57 +73,78 @@ public class ApplicationModule {
     }
 
     @Provides
+    @ApplicationScope
     public NotificationDao getNotificationDao(Database database) {
         return database.notificationDao();
     }
 
     @Provides
+    @ApplicationScope
     public TagDataDao getTagDataDao(Database database) {
         return database.getTagDataDao();
     }
 
     @Provides
+    @ApplicationScope
     public UserActivityDao getUserActivityDao(Database database) {
         return database.getUserActivityDao();
     }
 
     @Provides
+    @ApplicationScope
     public TaskAttachmentDao getTaskAttachmentDao(Database database) {
         return database.getTaskAttachmentDao();
     }
 
     @Provides
+    @ApplicationScope
     public TaskListMetadataDao getTaskListMetadataDao(Database database) {
         return database.getTaskListMetadataDao();
     }
 
     @Provides
+    @ApplicationScope
     public GoogleTaskDao getGoogleTaskDao(Database database) {
         return database.getGoogleTaskDao();
     }
 
     @Provides
+    @ApplicationScope
     public AlarmDao getAlarmDao(Database database) {
         return database.getAlarmDao();
     }
 
     @Provides
+    @ApplicationScope
     public LocationDao getGeofenceDao(Database database) {
         return database.getLocationDao();
     }
 
     @Provides
+    @ApplicationScope
     public TagDao getTagDao(Database database) {
         return database.getTagDao();
     }
 
     @Provides
+    @ApplicationScope
     public FilterDao getFilterDao(Database database) {
         return database.getFilterDao();
     }
 
     @Provides
+    @ApplicationScope
     public GoogleTaskListDao getGoogleTaskListDao(Database database) {
         return database.getGoogleTaskListDao();
+    }
+
+    @Provides
+    @ApplicationScope
+    public TaskDao getTaskDao(Database database, Preferences preferences, LocalBroadcastManager localBroadcastManager,
+                              AlarmDao alarmDao, TagDao tagDao, LocationDao locationDao, GoogleTaskDao googleTaskDao) {
+        TaskDao taskDao = database.getTaskDao();
+        taskDao.initialize(context, preferences, localBroadcastManager, alarmDao, tagDao,
+                locationDao, googleTaskDao);
+        return taskDao;
     }
 }
