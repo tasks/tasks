@@ -125,10 +125,6 @@ public abstract class TaskDao {
         return dao.toList(query);
     }
 
-    public void persist(Task task) {
-        dao.persist(task);
-    }
-
     // --- SQL clause generators
 
     /**

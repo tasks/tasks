@@ -109,27 +109,6 @@ public class DatabaseDao {
                 where.toString());
     }
 
-    /**
-     * Save the given object to the database. Creates a new object if
-     * model id property has not been set
-     *
-     * @return true on success.
-     */
-    public boolean persist(Task item) {
-        if (item.getId() == AbstractModel.NO_ID) {
-            return createNew(item);
-        } else {
-            ContentValues values = item.getSetValues();
-
-            if (values.size() == 0) // nothing changed
-            {
-                return true;
-            }
-
-            return saveExisting(item);
-        }
-    }
-
     private interface DatabaseChangeOp {
         boolean makeChange();
     }

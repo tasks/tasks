@@ -51,7 +51,7 @@ public class AlarmJobServiceTest extends InjectingTestCase {
     public void scheduleAlarm() {
         Task task = newTask();
 
-        taskDao.persist(task);
+        taskDao.save(task);
         DateTime alarmTime = new DateTime(2017, 9, 24, 19, 57);
 
         Alarm alarm = new Alarm(task.getId(), alarmTime.getMillis());
@@ -69,7 +69,7 @@ public class AlarmJobServiceTest extends InjectingTestCase {
 
         Task task = newTask(with(REMINDER_LAST, alarmTime.endOfMinute()));
 
-        taskDao.persist(task);
+        taskDao.save(task);
 
         alarmDao.insert(new Alarm(task.getId(), alarmTime.getMillis()));
 
