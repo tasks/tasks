@@ -165,7 +165,7 @@ public class TasksXmlImporter {
     private class Format2TaskImporter {
 
         XmlPullParser xpp;
-        final Task currentTask = new Task();
+        Task currentTask;
 
         public Format2TaskImporter() { }
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
@@ -198,7 +198,7 @@ public class TasksXmlImporter {
         void parseTask() {
             taskCount++;
             setProgressMessage(activity.getString(R.string.import_progress_read, taskCount));
-            currentTask.clear();
+            currentTask = new Task();
 
             String title = xpp.getAttributeValue(null, Task.TITLE.name);
             String created = xpp.getAttributeValue(null, Task.CREATION_DATE.name);

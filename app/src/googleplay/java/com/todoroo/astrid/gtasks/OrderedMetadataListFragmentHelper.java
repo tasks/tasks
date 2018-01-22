@@ -128,17 +128,16 @@ class OrderedMetadataListFragmentHelper {
     private void setCompletedForItemAndSubtasks(final Task item, final boolean completedState) {
         final long itemId = item.getId();
 
-        final Task model = new Task();
         final long completionDate = completedState ? DateUtilities.now() : 0;
 
         if(!completedState) {
             ArrayList<Long> chained = chainedCompletions.get(itemId);
             if(chained != null) {
                 for(Long taskId : chained) {
+                    Task model = new Task();
                     model.setId(taskId);
                     model.setCompletionDate(completionDate);
                     taskDao.save(model);
-                    model.clear();
                 }
                 taskAdapter.notifyDataSetInvalidated();
             }
@@ -155,10 +154,10 @@ class OrderedMetadataListFragmentHelper {
                 googleTaskDao.update(googleTask);
             }
 
+            Task model = new Task();
             model.setId(node.taskId);
             model.setCompletionDate(completionDate);
             taskDao.save(model);
-            model.clear();
 
             chained.add(node.taskId);
         });

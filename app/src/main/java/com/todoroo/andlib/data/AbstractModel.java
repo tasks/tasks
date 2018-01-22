@@ -113,14 +113,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     }
 
     /**
-     * Clear all data on this model
-     */
-    public void clear() {
-        values = null;
-        setValues = null;
-    }
-
-    /**
      * Transfers all set values into values. This occurs when a task is
      * saved - future saves will not need to write all the data as before.
      */
