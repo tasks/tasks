@@ -223,7 +223,7 @@ public abstract class TaskDao {
 
     private ContentValues handleSQLiteConstraintException(Task task) {
         TodorooCursor cursor = dao.query(Query.select(Task.ID).where(
-                Task.UUID.eq(task.getUUID())));
+                Task.UUID.eq(task.getUuid())));
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             task.setId(cursor.get(Task.ID));
@@ -315,7 +315,7 @@ public abstract class TaskDao {
             saveExisting(item);
         } catch (SQLiteConstraintException e) {
             Timber.e(e, e.getMessage());
-            String uuid = item.getUUID();
+            String uuid = item.getUuid();
             TodorooCursor tasksWithUUID = dao.query(Query.select(
                     SQL_CONSTRAINT_MERGE_PROPERTIES).where(
                     Task.UUID.eq(uuid)));

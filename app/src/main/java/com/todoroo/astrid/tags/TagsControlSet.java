@@ -196,7 +196,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     @Override
     public void apply(Task task) {
-        if (synchronizeTags(task.getId(), task.getUUID())) {
+        if (synchronizeTags(task.getId(), task.getUuid())) {
             Flags.set(Flags.TAGS_CHANGED);
             task.setModificationDate(DateUtilities.now());
         }
@@ -362,7 +362,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     @Override
     public boolean hasChanges(Task original) {
-        Set<TagData> existingSet = newHashSet(tagService.getTagDataForTask(original.getUUID()));
+        Set<TagData> existingSet = newHashSet(tagService.getTagDataForTask(original.getUuid()));
         Set<TagData> selectedSet = newHashSet(selectedTags);
         return !existingSet.equals(selectedSet);
     }

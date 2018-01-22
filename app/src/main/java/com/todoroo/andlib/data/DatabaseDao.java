@@ -134,8 +134,8 @@ public class DatabaseDao {
      * @return returns true on success.
      */
     public boolean createNew(final Task item) {
-        if (!item.containsValue(Task.UUID) || Task.isUuidEmpty(item.getUuidProperty())) {
-            item.setUuidProperty(UUIDHelper.newUUID());
+        if (!item.containsValue(Task.UUID) || Task.isUuidEmpty(item.getUuid())) {
+            item.setUuid(UUIDHelper.newUUID());
         }
 
         item.clearValue(AbstractModel.ID_PROPERTY);

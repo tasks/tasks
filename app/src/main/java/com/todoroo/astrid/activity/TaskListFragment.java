@@ -514,7 +514,7 @@ public class TaskListFragment extends InjectingFragment implements
                     taskCreator.addToCalendar(task);
                     onTaskListItemClicked(task);
                     loadTaskListContent();
-                    onTaskCreated(task.getUUID());
+                    onTaskCreated(task.getUuid());
                 }
             }
         } else if (requestCode == REQUEST_EDIT_FILTER) {

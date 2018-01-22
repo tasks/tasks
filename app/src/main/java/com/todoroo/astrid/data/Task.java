@@ -255,7 +255,13 @@ public class Task extends AbstractModel {
     }
 
     public String getUuid() {
-        return getUuidHelper(UUID);
+        if(setValues != null && setValues.containsKey(UUID.name)) {
+            return setValues.getAsString(UUID.name);
+        } else if(values != null && values.containsKey(UUID.name)) {
+            return values.getAsString(UUID.name);
+        } else {
+            return NO_UUID;
+        }
     }
 
     // --- parcelable helpers
@@ -659,16 +665,6 @@ public class Task extends AbstractModel {
         }
     }
 
-    private String getUuidHelper(StringProperty uuid) {
-        if(setValues != null && setValues.containsKey(uuid.name)) {
-            return setValues.getAsString(uuid.name);
-        } else if(values != null && values.containsKey(uuid.name)) {
-            return values.getAsString(uuid.name);
-        } else {
-            return NO_UUID;
-        }
-    }
-
     public void setUuid(String uuid) {
         if (setValues == null) {
             setValues = new ContentValues();
@@ -683,13 +679,5 @@ public class Task extends AbstractModel {
 
     public static boolean isUuidEmpty(String uuid) {
         return NO_UUID.equals(uuid) || TextUtils.isEmpty(uuid);
-    }
-
-    public String getUuidProperty() {
-        return getValue(UUID);
-    }
-
-    public void setUuidProperty(String uuidProperty) {
-        setValue(UUID, uuidProperty);
     }
 }
