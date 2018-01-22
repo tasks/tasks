@@ -73,6 +73,7 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static com.todoroo.astrid.data.Task.NO_UUID;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -359,7 +360,8 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         GoogleTask googleTask = getMetadataByGtaskId(remoteTask.gtaskMetadata.getRemoteId());
         if (googleTask != null) {
             remoteTask.task.setId(googleTask.getTask());
-            remoteTask.task.setUuid(taskDao.uuidFromLocalId(remoteTask.task.getId()));
+            String uuid = taskDao.uuidFromLocalId(remoteTask.task.getId());
+            remoteTask.task.setUuid(Strings.isNullOrEmpty(uuid) ? NO_UUID : uuid);
             remoteTask.gtaskMetadata = googleTask;
         }
     }

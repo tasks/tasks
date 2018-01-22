@@ -165,18 +165,8 @@ public abstract class TaskDao {
     	}
     }
 
-    public String uuidFromLocalId(long localId) {
-        TodorooCursor cursor = dao.query(Query.select(Task.UUID).where(AbstractModel.ID_PROPERTY.eq(localId)));
-        try {
-            if (cursor.getCount() == 0) {
-                return Task.NO_UUID;
-            }
-            cursor.moveToFirst();
-            return cursor.get(Task.UUID);
-        } finally {
-            cursor.close();
-        }
-    }
+    @android.arch.persistence.room.Query("SELECT remoteId FROM tasks WHERE _id = :localId")
+    public abstract String uuidFromLocalId(long localId);
 
     // --- delete
 
