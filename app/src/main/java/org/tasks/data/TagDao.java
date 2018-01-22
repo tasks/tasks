@@ -20,8 +20,8 @@ public interface TagDao {
     @Insert
     void insert(List<Tag> tags);
 
-    @Query("DELETE FROM tags WHERE task = :taskId AND tag_uid = :tagUid")
-    void deleteTag(long taskId, String tagUid);
+    @Query("DELETE FROM tags WHERE task = :taskId AND tag_uid in (:tagUids)")
+    void deleteTags(long taskId, List<String> tagUids);
 
     @Query("SELECT name FROM tags WHERE task = :taskId ORDER BY UPPER(name) ASC")
     List<String> getTagNames(long taskId);

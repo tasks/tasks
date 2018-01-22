@@ -35,18 +35,17 @@ import android.widget.TextView;
 import com.google.common.base.Function;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.todoroo.andlib.utility.DateUtilities;
-import org.tasks.data.TagDataDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 
 import org.tasks.R;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.themes.ThemeCache;
@@ -64,6 +63,7 @@ import butterknife.OnClick;
 
 import static com.google.common.base.Predicates.notNull;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.filter;
 import static com.google.common.collect.Sets.newHashSet;
@@ -123,7 +123,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     private CharSequence buildTagString() {
         List<TagData> sortedTagData = orderByName.sortedCopy(selectedTags);
-        List<SpannableString> tagStrings = Lists.transform(sortedTagData, tagToString(Float.MAX_VALUE));
+        List<SpannableString> tagStrings = transform(sortedTagData, tagToString(Float.MAX_VALUE));
         SpannableStringBuilder builder = new SpannableStringBuilder();
         for (SpannableString tagString : tagStrings) {
             if (builder.length() > 0) {
@@ -377,9 +377,6 @@ public final class TagsControlSet extends TaskEditControlFragment {
         }
     }
 
-    /**
-     * Save the given array of tags into the database
-     */
     private boolean synchronizeTags(long taskId, String taskUuid) {
         for (TagData tagData : selectedTags) {
             if (Task.NO_UUID.equals(tagData.getRemoteId())) {
@@ -390,23 +387,13 @@ public final class TagsControlSet extends TaskEditControlFragment {
         Set<TagData> selectedHash = newHashSet(selectedTags);
         Sets.SetView<TagData> added = difference(selectedHash, existingHash);
         Sets.SetView<TagData> removed = difference(existingHash, selectedHash);
-        deleteLinks(taskId, filter(removed, notNull()));
+        ArrayList<TagData> toRemove = newArrayList(filter(removed, notNull()));
+        tagDao.deleteTags(taskId, transform(toRemove, TagData::getRemoteId));
         for (TagData tagData : added) {
             Tag newLink = new Tag(taskId, taskUuid, tagData.getName(), tagData.getRemoteId());
             tagDao.insert(newLink);
         }
         return !removed.isEmpty() || !added.isEmpty();
-    }
-
-    /**
-     * Delete all links between the specified task and the list of tags
-     */
-    private void deleteLinks(long taskId, Iterable<TagData> tags) {
-        for (TagData tag : tags) {
-            // TODO: Right now this is in a loop because each deleteTemplate needs the individual tagUuid in order to record
-            // the outstanding entry correctly. If possible, this should be improved to a single query
-            tagDao.deleteTag(taskId, tag.getRemoteId());
-        }
     }
 
     @Override
