@@ -73,6 +73,7 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static com.todoroo.andlib.data.AbstractModel.NO_ID;
 import static com.todoroo.astrid.data.Task.NO_UUID;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -301,7 +302,11 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
 
         task.setModificationDate(DateUtilities.now());
         gtasksMetadata.setLastSync(DateUtilities.now() + 1000L);
-        googleTaskDao.update(gtasksMetadata);
+        if (gtasksMetadata.getId() == NO_ID) {
+            googleTaskDao.insert(gtasksMetadata);
+        } else {
+            googleTaskDao.update(gtasksMetadata);
+        }
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
         taskDao.saveExistingWithSqlConstraintCheck(task);
     }
