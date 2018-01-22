@@ -6,7 +6,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import org.tasks.data.TaskListMetadataDao;
-import com.todoroo.astrid.data.RemoteModel;
+
 import com.todoroo.astrid.data.Task;
 import org.tasks.data.TaskListMetadata;
 
@@ -383,7 +383,7 @@ public class SubtasksFilterUpdater {
     }
 
     void onCreateTask(TaskListMetadata list, Filter filter, String uuid) {
-        if (idToNode.containsKey(uuid) || !RemoteModel.isValidUuid(uuid)) {
+        if (idToNode.containsKey(uuid) || !Task.isValidUuid(uuid)) {
             return;
         }
 

@@ -11,6 +11,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -19,7 +20,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
@@ -49,7 +49,7 @@ public abstract class TaskDao {
 
     public static final String TRANS_SUPPRESS_REFRESH = "suppress-refresh";
 
-    private final RemoteModelDao dao;
+    private final DatabaseDao dao;
 
     private LocalBroadcastManager localBroadcastManager;
     private Preferences preferences;
@@ -60,7 +60,7 @@ public abstract class TaskDao {
     private Context context;
 
     public TaskDao(Database database) {
-        dao = new RemoteModelDao(database);
+        dao = new DatabaseDao(database);
     }
 
     public void initialize(Context context, Preferences preferences, LocalBroadcastManager localBroadcastManager,
@@ -170,13 +170,13 @@ public abstract class TaskDao {
     }
 
     public String uuidFromLocalId(long localId) {
-        TodorooCursor cursor = dao.query(Query.select(RemoteModel.UUID_PROPERTY).where(AbstractModel.ID_PROPERTY.eq(localId)));
+        TodorooCursor cursor = dao.query(Query.select(Task.UUID).where(AbstractModel.ID_PROPERTY.eq(localId)));
         try {
             if (cursor.getCount() == 0) {
-                return RemoteModel.NO_UUID;
+                return Task.NO_UUID;
             }
             cursor.moveToFirst();
-            return cursor.get(RemoteModel.UUID_PROPERTY);
+            return cursor.get(Task.UUID);
         } finally {
             cursor.close();
         }

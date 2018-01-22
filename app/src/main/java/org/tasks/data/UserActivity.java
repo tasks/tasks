@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +29,7 @@ public class UserActivity implements Parcelable {
     private Long id;
 
     @ColumnInfo(name = "remoteId")
-    private String remoteId = RemoteModel.NO_UUID;
+    private String remoteId = Task.NO_UUID;
 
     @ColumnInfo(name = "action")
     private String action = "";
@@ -41,7 +41,7 @@ public class UserActivity implements Parcelable {
     private String picture = "";
 
     @ColumnInfo(name = "target_id")
-    private String targetId = RemoteModel.NO_UUID;
+    private String targetId = Task.NO_UUID;
 
     @ColumnInfo(name = "created_at")
     private Long created = 0L;

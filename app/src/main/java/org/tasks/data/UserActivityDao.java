@@ -5,7 +5,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public abstract class UserActivityDao {
         if (item.getCreated() == null || item.getCreated() == 0L) {
             item.setCreated(DateUtilities.now());
         }
-        if (RemoteModel.isUuidEmpty(item.getRemoteId())) {
+        if (Task.isUuidEmpty(item.getRemoteId())) {
             item.setRemoteId(UUIDHelper.newUUID());
         }
         insert(item);

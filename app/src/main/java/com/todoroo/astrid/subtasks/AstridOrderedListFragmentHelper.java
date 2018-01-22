@@ -13,7 +13,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import org.tasks.data.TaskListMetadata;
 
@@ -83,7 +82,7 @@ class AstridOrderedListFragmentHelper {
         @Override
         public void moved(int from, int to) {
             String targetTaskId = taskAdapter.getItemUuid(from);
-            if (!RemoteModel.isValidUuid(targetTaskId)) {
+            if (!Task.isValidUuid(targetTaskId)) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             }
             String destinationTaskId = taskAdapter.getItemUuid(to);
@@ -105,7 +104,7 @@ class AstridOrderedListFragmentHelper {
         @Override
         public void indented(int which, int delta) {
             String targetTaskId = taskAdapter.getItemUuid(which);
-            if (!RemoteModel.isValidUuid(targetTaskId)) {
+            if (!Task.isValidUuid(targetTaskId)) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             }
             try {

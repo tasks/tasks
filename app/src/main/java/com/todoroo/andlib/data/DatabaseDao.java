@@ -12,6 +12,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.UUIDHelper;
 
 import org.tasks.BuildConfig;
 
@@ -154,6 +155,10 @@ public class DatabaseDao {
      * @return returns true on success.
      */
     public boolean createNew(final Task item) {
+        if (!item.containsValue(Task.UUID) || Task.isUuidEmpty(item.getUuidProperty())) {
+            item.setUuidProperty(UUIDHelper.newUUID());
+        }
+
         item.clearValue(AbstractModel.ID_PROPERTY);
 
         DatabaseChangeOp insert = new DatabaseChangeOp() {

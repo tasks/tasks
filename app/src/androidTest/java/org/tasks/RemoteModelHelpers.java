@@ -5,7 +5,7 @@ import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public class RemoteModelHelpers {
         return result;
     }
 
-    public static void compareRemoteModel(RemoteModel expected, RemoteModel actual) {
+    public static void compareRemoteModel(Task expected, Task actual) {
         compareContentValues(expected.getSetValues(), actual.getSetValues());
         compareContentValues(expected.getDatabaseValues(), actual.getDatabaseValues());
     }

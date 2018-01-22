@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 
 @Entity(tableName = "task_attachments")
 public final class TaskAttachment {
@@ -24,10 +24,10 @@ public final class TaskAttachment {
     private Long id;
 
     @ColumnInfo(name = "remoteId")
-    private String remoteId = RemoteModel.NO_UUID;
+    private String remoteId = Task.NO_UUID;
 
     @ColumnInfo(name = "task_id")
-    private String taskId = RemoteModel.NO_UUID;
+    private String taskId = Task.NO_UUID;
 
     @ColumnInfo(name = "name")
     private String name = "";

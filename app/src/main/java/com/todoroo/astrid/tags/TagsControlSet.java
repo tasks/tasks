@@ -40,7 +40,6 @@ import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.todoroo.andlib.utility.DateUtilities;
 import org.tasks.data.TagDataDao;
-import com.todoroo.astrid.data.RemoteModel;
 import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
@@ -383,7 +382,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
      */
     private boolean synchronizeTags(long taskId, String taskUuid) {
         for (TagData tagData : selectedTags) {
-            if (RemoteModel.NO_UUID.equals(tagData.getRemoteId())) {
+            if (Task.NO_UUID.equals(tagData.getRemoteId())) {
                 tagDataDao.persist(tagData);
             }
         }

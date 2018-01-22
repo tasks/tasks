@@ -18,7 +18,6 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.TaskAttachment;
@@ -127,10 +126,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
             if (c.moveToPosition(position)) {
                 return c.get(Task.UUID);
             } else {
-                return RemoteModel.NO_UUID;
+                return Task.NO_UUID;
             }
         } else {
-            return RemoteModel.NO_UUID;
+            return Task.NO_UUID;
         }
     }
 

@@ -5,7 +5,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public abstract class TagDataDao {
     public abstract void insert(TagData tag);
 
     public void createNew(TagData tag) {
-        if (RemoteModel.isUuidEmpty(tag.getRemoteId())) {
+        if (Task.isUuidEmpty(tag.getRemoteId())) {
             tag.setRemoteId(UUIDHelper.newUUID());
         }
         insert(tag);

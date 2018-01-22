@@ -4,13 +4,8 @@ package org.tasks.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.content.ContentValues;
 
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.Table;
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 
 /**
  * Data Model which represents a user.
@@ -29,10 +24,10 @@ public class TaskListMetadata {
     private Long id;
 
     @ColumnInfo(name = "remoteId")
-    private String remoteId = RemoteModel.NO_UUID;
+    private String remoteId = Task.NO_UUID;
 
     @ColumnInfo(name = "tag_uuid")
-    private String tagUuid = RemoteModel.NO_UUID;
+    private String tagUuid = Task.NO_UUID;
 
     @ColumnInfo(name = "filter")
     private String filter = "";

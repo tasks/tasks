@@ -6,7 +6,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 @Dao
@@ -22,7 +22,7 @@ public abstract class TaskListMetadataDao {
     public abstract void insert(TaskListMetadata taskListMetadata);
 
     public void createNew(TaskListMetadata taskListMetadata) {
-        if (RemoteModel.isUuidEmpty(taskListMetadata.getRemoteId())) {
+        if (Task.isUuidEmpty(taskListMetadata.getRemoteId())) {
             taskListMetadata.setRemoteId(UUIDHelper.newUUID());
         }
         insert(taskListMetadata);

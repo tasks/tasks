@@ -13,7 +13,6 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TagFilter;
 import org.tasks.data.TaskListMetadataDao;
-import com.todoroo.astrid.data.RemoteModel;
 import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import org.tasks.data.TaskListMetadata;
@@ -50,7 +49,7 @@ public class SubtasksTagListFragment extends TagListFragment {
     public void setTaskAdapter() {
         String tdId = tagData.getRemoteId();
         TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(tagData.getRemoteId());
-        if (taskListMetadata == null && !RemoteModel.isUuidEmpty(tdId)) {
+        if (taskListMetadata == null && !Task.isUuidEmpty(tdId)) {
             taskListMetadata = new TaskListMetadata();
             taskListMetadata.setTagUuid(tdId);
             taskListMetadataDao.createNew(taskListMetadata);

@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 
 import org.tasks.backup.XmlReader;
 import org.tasks.backup.XmlWriter;
@@ -20,7 +20,7 @@ public final class TagData implements Parcelable {
     private Long id;
 
     @ColumnInfo(name = "remoteId")
-    private String remoteId = RemoteModel.NO_UUID;
+    private String remoteId = Task.NO_UUID;
 
     @ColumnInfo(name = "name")
     private String name = "";

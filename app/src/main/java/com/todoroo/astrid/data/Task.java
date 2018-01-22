@@ -15,6 +15,7 @@ import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.google.ical.values.RRule;
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -24,6 +25,8 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.time.DateTime;
+
+import timber.log.Timber;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -35,7 +38,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  */
 @Entity(tableName = "tasks",
         indices = @Index(name = "t_rid", value = "remoteId", unique = true))
-public class Task extends RemoteModel {
+public class Task extends AbstractModel {
 
     // --- table and uri
 
@@ -162,11 +165,14 @@ public class Task extends RemoteModel {
 
     // --- for astrid.com
 
+    /** constant value for no uuid */
+    public static final String NO_UUID = "0"; //$NON-NLS-1$
+
     /** Remote id */
     @ColumnInfo(name = "remoteId")
-    public String remoteId = RemoteModel.NO_UUID;
+    public String remoteId = NO_UUID;
     public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME, Property.PROP_FLAG_NULLABLE);
+            TABLE, "remoteId", Property.PROP_FLAG_NULLABLE);
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
@@ -641,5 +647,49 @@ public class Task extends RemoteModel {
 
     public boolean isNew() {
         return getId() == NO_ID;
+    }
+
+    public static boolean isValidUuid(String uuid) {
+        try {
+            long value = Long.parseLong(uuid);
+            return value > 0;
+        } catch (NumberFormatException e) {
+            Timber.e(e, e.getMessage());
+            return isUuidEmpty(uuid);
+        }
+    }
+
+    private String getUuidHelper(StringProperty uuid) {
+        if(setValues != null && setValues.containsKey(uuid.name)) {
+            return setValues.getAsString(uuid.name);
+        } else if(values != null && values.containsKey(uuid.name)) {
+            return values.getAsString(uuid.name);
+        } else {
+            return NO_UUID;
+        }
+    }
+
+    public void setUuid(String uuid) {
+        if (setValues == null) {
+            setValues = new ContentValues();
+        }
+
+        if(NO_UUID.equals(uuid)) {
+            clearValue(UUID);
+        } else {
+            setValues.put(UUID.name, uuid);
+        }
+    }
+
+    public static boolean isUuidEmpty(String uuid) {
+        return NO_UUID.equals(uuid) || TextUtils.isEmpty(uuid);
+    }
+
+    public String getUuidProperty() {
+        return getValue(UUID);
+    }
+
+    public void setUuidProperty(String uuidProperty) {
+        setValue(UUID, uuidProperty);
     }
 }

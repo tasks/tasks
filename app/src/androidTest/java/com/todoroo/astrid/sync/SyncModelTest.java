@@ -2,7 +2,6 @@ package com.todoroo.astrid.sync;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.todoroo.astrid.data.RemoteModel;
 import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 
@@ -17,13 +16,13 @@ public class SyncModelTest extends NewSyncTestCase {
 	@Test
 	public void testCreateTaskMakesUuid() {
 		Task task = createTask();
-		assertFalse(RemoteModel.NO_UUID.equals(task.getUUID()));
+		assertFalse(Task.NO_UUID.equals(task.getUUID()));
 	}
 
 	@Test
 	public void testCreateTagMakesUuid() {
 		TagData tag = createTagData();
-		assertFalse(RemoteModel.NO_UUID.equals(tag.getRemoteId()));
+		assertFalse(Task.NO_UUID.equals(tag.getRemoteId()));
 	}
 
 }

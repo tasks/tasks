@@ -13,7 +13,6 @@ import com.todoroo.astrid.core.BuiltInFilterExposer;
 import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import org.tasks.data.TaskListMetadataDao;
-import com.todoroo.astrid.data.RemoteModel;
 import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import org.tasks.data.TaskListMetadata;
@@ -146,7 +145,7 @@ public class SubtasksHelper {
             Node child = children.get(i);
             T key = helper.getKeyFromOldUuid(child.uuid);
             String uuid = idMap.get(key);
-            if (!RemoteModel.isValidUuid(uuid)) {
+            if (!Task.isValidUuid(uuid)) {
                 children.remove(i);
                 children.addAll(i, child.children);
                 i--;

@@ -7,7 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public abstract class TaskAttachmentDao {
     public abstract void update(TaskAttachment attachment);
 
     public void createNew(TaskAttachment attachment) {
-        if (RemoteModel.isUuidEmpty(attachment.getRemoteId())) {
+        if (Task.isUuidEmpty(attachment.getRemoteId())) {
             attachment.setRemoteId(UUIDHelper.newUUID());
         }
         insert(attachment);
