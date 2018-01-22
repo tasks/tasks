@@ -244,11 +244,6 @@ public class Task extends AbstractModel {
         super(cursor);
     }
 
-    @Ignore
-    public Task(Task task) {
-        super(task);
-    }
-
     @Override
     public long getId() {
         return getIdHelper(ID);

@@ -46,7 +46,8 @@ public class TaskDuplicator {
     }
 
     private Task clone(Task original) {
-        Task clone = new Task(original);
+        Task clone = new Task();
+        clone.mergeWith(original.getMergedValues());
         clone.setCreationDate(DateUtilities.now());
         clone.setCompletionDate(0L);
         clone.setDeletionDate(0L);
