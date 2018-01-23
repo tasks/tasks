@@ -17,6 +17,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 
 import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import timber.log.Timber;
@@ -49,7 +50,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     // --- abstract methods
 
     /** Get the default values for this object */
-    abstract public ContentValues getDefaultValues();
+    abstract public Map<String, Object> getDefaultValues();
 
     // --- data store variables and management
 
@@ -94,9 +95,8 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     public ContentValues getMergedValues() {
         ContentValues mergedValues = new ContentValues();
 
-        ContentValues defaultValues = getDefaultValues();
-        if(defaultValues != null) {
-            mergedValues.putAll(defaultValues);
+        for (Map.Entry<String, Object> entry : getDefaultValues().entrySet()) {
+            AndroidUtilities.putInto(mergedValues, entry.getKey(), entry.getValue());
         }
         if(values != null) {
             mergedValues.putAll(values);

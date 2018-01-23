@@ -26,6 +26,9 @@ import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.time.DateTime;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import timber.log.Timber;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -223,7 +226,7 @@ public class Task extends AbstractModel {
     // --- defaults
 
     /** Default values container */
-    private static final ContentValues defaultValues = new ContentValues();
+    private static final Map<String, Object> defaultValues = new HashMap<>();
 
     static {
         defaultValues.put(TITLE.name, "");
@@ -247,7 +250,7 @@ public class Task extends AbstractModel {
     }
 
     @Override
-    public ContentValues getDefaultValues() {
+    public Map<String, Object> getDefaultValues() {
         return defaultValues;
     }
 
