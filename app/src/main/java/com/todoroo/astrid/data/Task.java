@@ -70,37 +70,37 @@ public class Task extends AbstractModel {
     @ColumnInfo(name = "dueDate")
     public Long dueDate = 0L;
     public static final LongProperty DUE_DATE = new LongProperty(
-            TABLE, "dueDate", Property.PROP_FLAG_DATE);
+            TABLE, "dueDate");
 
     /** Unixtime Task should be hidden until, 0 if not set */
     @ColumnInfo(name = "hideUntil")
     public Long hideUntil = 0L;
     public static final LongProperty HIDE_UNTIL = new LongProperty(
-            TABLE, "hideUntil", Property.PROP_FLAG_DATE);
+            TABLE, "hideUntil");
 
     /** Unixtime Task was created */
     @ColumnInfo(name = "created")
     public Long created;
     public static final LongProperty CREATION_DATE = new LongProperty(
-            TABLE, "created", Property.PROP_FLAG_DATE);
+            TABLE, "created");
 
     /** Unixtime Task was last touched */
     @ColumnInfo(name = "modified")
     public Long modified;
     public static final LongProperty MODIFICATION_DATE = new LongProperty(
-            TABLE, "modified", Property.PROP_FLAG_DATE);
+            TABLE, "modified");
 
     /** Unixtime Task was completed. 0 means active */
     @ColumnInfo(name = "completed")
     public Long completed = 0L;
     public static final LongProperty COMPLETION_DATE = new LongProperty(
-            TABLE, "completed", Property.PROP_FLAG_DATE);
+            TABLE, "completed");
 
     /** Unixtime Task was deleted. 0 means not deleted */
     @ColumnInfo(name = "deleted")
     public Long deleted = 0L;
     public static final LongProperty DELETION_DATE = new LongProperty(
-            TABLE, "deleted", Property.PROP_FLAG_DATE);
+            TABLE, "deleted");
 
     // --- non-core task metadata
 
@@ -122,7 +122,7 @@ public class Task extends AbstractModel {
     @ColumnInfo(name = "timerStart")
     public Long timerStart = 0L;
     public static final LongProperty TIMER_START = new LongProperty(
-            TABLE, "timerStart", Property.PROP_FLAG_DATE);
+            TABLE, "timerStart");
 
     /** Flags for when to send reminders */
     @ColumnInfo(name = "notificationFlags")
@@ -134,19 +134,19 @@ public class Task extends AbstractModel {
     @ColumnInfo(name = "notifications")
     public Long notifications = 0L;
     public static final LongProperty REMINDER_PERIOD = new LongProperty(
-            TABLE, "notifications", Property.PROP_FLAG_DATE);
+            TABLE, "notifications");
 
     /** Unixtime the last reminder was triggered */
     @ColumnInfo(name = "lastNotified")
     public Long lastNotified = 0L;
     public static final LongProperty REMINDER_LAST = new LongProperty(
-            TABLE, "lastNotified", Property.PROP_FLAG_DATE);
+            TABLE, "lastNotified");
 
     /** Unixtime snooze is set (0 -> no snooze) */
     @ColumnInfo(name = "snoozeTime")
     public Long snoozeTime = 0L;
     public static final LongProperty REMINDER_SNOOZE = new LongProperty(
-            TABLE, "snoozeTime", Property.PROP_FLAG_DATE);
+            TABLE, "snoozeTime");
 
     @ColumnInfo(name = "recurrence")
     public String recurrence = "";
@@ -156,7 +156,7 @@ public class Task extends AbstractModel {
     @ColumnInfo(name = "repeatUntil")
     public Long repeatUntil = 0L;
     public static final LongProperty REPEAT_UNTIL = new LongProperty(
-            TABLE, "repeatUntil", Property.PROP_FLAG_DATE);
+            TABLE, "repeatUntil");
 
     @ColumnInfo(name = "calendarUri")
     public String calendarUri = "";
@@ -172,7 +172,7 @@ public class Task extends AbstractModel {
     @ColumnInfo(name = "remoteId")
     public String remoteId = NO_UUID;
     public static final StringProperty UUID = new StringProperty(
-            TABLE, "remoteId", Property.PROP_FLAG_NULLABLE);
+            TABLE, "remoteId");
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);

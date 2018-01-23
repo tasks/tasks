@@ -121,36 +121,24 @@ public class TodorooCursor extends CursorWrapper {
         @Override
         public Object visitInteger(Property<Integer> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
-            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
-                return null;
-            }
             return cursor.getInt(column);
         }
 
         @Override
         public Object visitLong(Property<Long> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
-            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
-                return null;
-            }
             return cursor.getLong(column);
         }
 
         @Override
         public Object visitDouble(Property<Double> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
-            if (property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
-                return null;
-            }
             return cursor.getDouble(column);
         }
 
         @Override
         public Object visitString(Property<String> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
-            if(property.checkFlag(Property.PROP_FLAG_NULLABLE) && cursor.isNull(column)) {
-                return null;
-            }
             return cursor.getString(column);
         }
 
