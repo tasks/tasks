@@ -175,7 +175,29 @@ public class Task extends AbstractModel {
             TABLE, "remoteId");
 
     /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
+    public static final Property<?>[] PROPERTIES = new Property<?>[] {
+            CALENDAR_URI,
+            COMPLETION_DATE,
+            CREATION_DATE,
+            DELETION_DATE,
+            DUE_DATE,
+            ELAPSED_SECONDS,
+            ESTIMATED_SECONDS,
+            HIDE_UNTIL,
+            ID,
+            IMPORTANCE,
+            MODIFICATION_DATE,
+            NOTES,
+            RECURRENCE,
+            REMINDER_FLAGS,
+            REMINDER_LAST,
+            REMINDER_PERIOD,
+            REMINDER_SNOOZE,
+            REPEAT_UNTIL,
+            TIMER_START,
+            TITLE,
+            UUID
+    };
 
     // --- notification flags
 
@@ -197,10 +219,6 @@ public class Task extends AbstractModel {
     public static final int IMPORTANCE_MUST_DO = 1;
     public static final int IMPORTANCE_SHOULD_DO = 2;
     public static final int IMPORTANCE_NONE = 3;
-
-    /**
-     * @return colors that correspond to importance values
-     */
 
     // --- defaults
 

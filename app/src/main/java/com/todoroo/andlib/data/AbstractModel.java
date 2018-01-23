@@ -16,10 +16,6 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -400,39 +396,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     public boolean checkAndClearTransitory(String flag) {
         Object trans = clearTransitory(flag);
         return trans != null;
-    }
-
-    // --- property management
-
-    /**
-     * Looks inside the given class and finds all declared properties
-     */
-    protected static Property<?>[] generateProperties(Class<? extends AbstractModel> cls) {
-        ArrayList<Property<?>> properties = new ArrayList<>();
-        if(cls.getSuperclass() != AbstractModel.class) {
-            properties.addAll(Arrays.asList(generateProperties(
-                    (Class<? extends AbstractModel>) cls.getSuperclass())));
-        }
-
-        // a property is public, static & extends Property
-        for(Field field : cls.getFields()) {
-            if((field.getModifiers() & Modifier.STATIC) == 0) {
-                continue;
-            }
-            if(!Property.class.isAssignableFrom(field.getType())) {
-                continue;
-            }
-            try {
-                if(((Property<?>) field.get(null)).table == null) {
-                    continue;
-                }
-                properties.add((Property<?>) field.get(null));
-            } catch (IllegalArgumentException | IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return properties.toArray(new Property<?>[properties.size()]);
     }
 
     /**
