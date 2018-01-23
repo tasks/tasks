@@ -45,9 +45,9 @@ public class TaskDuplicator {
         return result;
     }
 
-    private Task clone(Task original) {
-        Task clone = new Task();
-        clone.mergeWith(original.getMergedValues());
+    private Task clone(Task clone) {
+        long originalId = clone.getId();
+
         clone.setCreationDate(DateUtilities.now());
         clone.setCompletionDate(0L);
         clone.setDeletionDate(0L);
@@ -55,7 +55,7 @@ public class TaskDuplicator {
         clone.clearValue(Task.ID);
         clone.clearValue(Task.UUID);
 
-        GoogleTask googleTask = googleTaskDao.getByTaskId(original.getId());
+        GoogleTask googleTask = googleTaskDao.getByTaskId(originalId);
         if (googleTask != null) {
             clone.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
         }
@@ -64,7 +64,7 @@ public class TaskDuplicator {
         taskDao.save(clone);
 
         tagDao.insert(Lists.transform(
-                tagDao.getTagsForTask(original.getId()),
+                tagDao.getTagsForTask(originalId),
                 tag -> new Tag(clone.getId(), clone.getUuid(), tag.getName(), tag.getTagUid())));
 
         if (googleTask != null) {

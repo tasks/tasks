@@ -19,7 +19,6 @@ package org.tasks.gtasks;
 import android.accounts.Account;
 import android.app.PendingIntent;
 import android.content.ContentProviderClient;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SyncResult;
@@ -197,7 +196,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                         Field.field("gt.remote_id").isNull())));
         for (Task task : tasks) {
             try {
-                pushTask(task, task.getMergedValues(), gtasksInvoker);
+                pushTask(task, gtasksInvoker);
             } catch (UserRecoverableAuthIOException e) {
                 throw e;
             } catch (IOException e) {
@@ -209,7 +208,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     /**
      * Synchronize with server when data changes
      */
-    private void pushTask(Task task, ContentValues values, GtasksInvoker invoker) throws IOException {
+    private void pushTask(Task task, GtasksInvoker invoker) throws IOException {
         for (GoogleTask deleted : googleTaskDao.getDeletedByTaskId(task.getId())) {
             gtasksInvoker.deleteGtask(deleted.getListId(), deleted.getRemoteId());
             googleTaskDao.delete(deleted);
@@ -249,25 +248,25 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         //creating a task which may end up being cancelled. Also don't sync new but already
         //deleted tasks
         if (newlyCreated &&
-                (!values.containsKey(Task.TITLE.name) || TextUtils.isEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
+                (!task.containsValue(Task.TITLE) || TextUtils.isEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
             return;
         }
 
         //Update the remote model's changed properties
-        if (values.containsKey(Task.DELETION_DATE.name) && task.isDeleted()) {
+        if (task.containsValue(Task.DELETION_DATE) && task.isDeleted()) {
             remoteModel.setDeleted(true);
         }
 
-        if (values.containsKey(Task.TITLE.name)) {
+        if (task.containsValue(Task.TITLE)) {
             remoteModel.setTitle(task.getTitle());
         }
-        if (values.containsKey(Task.NOTES.name)) {
+        if (task.containsValue(Task.NOTES)) {
             remoteModel.setNotes(task.getNotes());
         }
-        if (values.containsKey(Task.DUE_DATE.name) && task.hasDueDate()) {
+        if (task.containsValue(Task.DUE_DATE) && task.hasDueDate()) {
             remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getDueDate()));
         }
-        if (values.containsKey(Task.COMPLETION_DATE.name)) {
+        if (task.containsValue(Task.COMPLETION_DATE)) {
             if (task.isCompleted()) {
                 remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getCompletionDate()));
                 remoteModel.setStatus("completed"); //$NON-NLS-1$
