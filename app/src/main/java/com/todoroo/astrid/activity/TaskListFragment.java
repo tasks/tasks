@@ -368,6 +368,16 @@ public class TaskListFragment extends InjectingFragment implements
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Cursor cursor = taskAdapter.getCursor();
+        if (cursor != null) {
+            cursor.close();
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
 

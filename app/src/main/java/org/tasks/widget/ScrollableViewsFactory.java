@@ -90,6 +90,9 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDataSetChanged() {
+        if (cursor != null) {
+            cursor.close();
+        }
         cursor = getCursor();
     }
 
