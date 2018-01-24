@@ -322,7 +322,7 @@ public class NotificationManager {
 
         // update last reminder time
         task.setReminderLast(new DateTime(when).endOfMinute().getMillis());
-        taskDao.saveExisting(task);
+        taskDao.save(task);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)

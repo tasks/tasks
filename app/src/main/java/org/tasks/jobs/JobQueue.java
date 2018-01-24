@@ -106,7 +106,8 @@ public class JobQueue {
     public synchronized boolean remove(List<? extends JobQueueEntry> entries) {
         boolean success = true;
         for (JobQueueEntry entry : entries) {
-            success &= jobs.remove(entry.getTime(), entry);
+            success &= !jobs.containsEntry(entry.getTime(), entry) ||
+                    jobs.remove(entry.getTime(), entry);
         }
         return success;
     }
