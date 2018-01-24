@@ -1,9 +1,7 @@
 package com.todoroo.astrid.model;
 
-import android.content.ContentValues;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
@@ -14,14 +12,14 @@ import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.tasks.Freeze.freezeClock;
-import static org.tasks.RemoteModelHelpers.asQueryProperties;
-import static org.tasks.RemoteModelHelpers.compareRemoteModel;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 @RunWith(AndroidJUnit4.class)
@@ -49,13 +47,14 @@ public class TaskTest extends InjectingTestCase {
         Task task = new Task();
         taskDao.save(task);
         final Task fromDb = taskDao.fetch(task.getId());
+        assertEquals(task, fromDb);
         compareRemoteModel(task, fromDb);
     }
 
     @Test
     public void testDefaults() {
         preferences.setDefaults();
-        ContentValues defaults = new Task().getDefaultValues();
+        Map<String, Object> defaults = new Task().getDefaultValues();
         assertTrue(defaults.containsKey(Task.TITLE.name));
         assertTrue(defaults.containsKey(Task.DUE_DATE.name));
         assertTrue(defaults.containsKey(Task.HIDE_UNTIL.name));

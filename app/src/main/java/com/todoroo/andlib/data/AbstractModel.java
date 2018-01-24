@@ -81,11 +81,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         readPropertiesFromCursor(cursor);
     }
 
-    /** Get database-read values for this object */
-    public ContentValues getDatabaseValues() {
-        return values;
-    }
-
     /** Get the user-set values for this object */
     public ContentValues getSetValues() {
         return setValues;
@@ -324,16 +319,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         }
 
         saver.save(property, setValues, value);
-    }
-
-    /**
-     * Merges content values with those coming from another source
-     */
-    public synchronized void mergeWith(ContentValues other) {
-        if (setValues == null) {
-            setValues = new ContentValues();
-        }
-        setValues.putAll(other);
     }
 
     /**

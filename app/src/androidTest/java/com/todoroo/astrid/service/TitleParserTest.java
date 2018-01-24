@@ -454,8 +454,6 @@ public class TitleParserTest extends InjectingTestCase {
         assertEquals(task.getRecurrence(), rrule.toIcal());
         assertTrue(task.hasDueDate());
 
-        task.clearValue(Task.ID);
-        task.clearValue(Task.UUID);
         title = "Jog every day starting from today";
         task = taskCreator.createWithValues(null, title);
         assertEquals(task.getRecurrence(), rrule.toIcal());
@@ -480,8 +478,6 @@ public class TitleParserTest extends InjectingTestCase {
         assertEquals(task.getRecurrence(), rrule.toIcal());
         assertTrue(task.hasDueDate());
 
-        task.clearValue(Task.ID);
-        task.clearValue(Task.UUID);
         title = "Jog every week starting from today";
         task = taskCreator.createWithValues(null, title);
         assertEquals(task.getRecurrence(), rrule.toIcal());

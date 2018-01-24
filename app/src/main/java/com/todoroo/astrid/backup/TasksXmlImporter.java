@@ -217,8 +217,6 @@ public class TasksXmlImporter {
             } else {
                 deserializeModel(currentTask, Task.PROPERTIES);
 
-                currentTask.setId(Task.NO_ID);
-
                 // Save the task to the database.
                 taskDao.save(currentTask);
                 importCount++;
