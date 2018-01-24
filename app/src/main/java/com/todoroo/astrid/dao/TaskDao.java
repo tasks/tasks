@@ -8,9 +8,7 @@ package com.todoroo.astrid.dao;
 import android.arch.persistence.room.Dao;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteConstraintException;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -35,8 +33,6 @@ import org.tasks.preferences.Preferences;
 import org.tasks.receivers.PushReceiver;
 
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -209,27 +205,9 @@ public abstract class TaskDao {
     }
 
     private ContentValues createOrUpdate(Task task) {
-        if (task.getId() == Task.NO_ID) {
-            try {
-                return createNew(task);
-            } catch (SQLiteConstraintException e) {
-                Timber.e(e, e.getMessage());
-                return handleSQLiteConstraintException(task); // Tried to create task with remote id that already exists
-            }
-        } else {
-            return saveExisting(task);
-        }
-    }
-
-    private ContentValues handleSQLiteConstraintException(Task task) {
-        TodorooCursor cursor = dao.query(Query.select(Task.ID).where(
-                Task.UUID.eq(task.getUuid())));
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            task.setId(cursor.get(Task.ID));
-            return saveExisting(task);
-        }
-        return null;
+        return task.getId() == Task.NO_ID
+                ? createNew(task)
+                : saveExisting(task);
     }
 
     public ContentValues createNew(Task item) {
@@ -281,7 +259,7 @@ public abstract class TaskDao {
         }
     }
 
-    public ContentValues saveExisting(Task item) {
+    private ContentValues saveExisting(Task item) {
         ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0) {
             return null;
@@ -295,76 +273,6 @@ public abstract class TaskDao {
             return values;
         }
         return null;
-    }
-
-    private static final Property<?>[] SQL_CONSTRAINT_MERGE_PROPERTIES = new Property<?>[] {
-        Task.ID,
-        Task.UUID,
-        Task.TITLE,
-        Task.IMPORTANCE,
-        Task.DUE_DATE,
-        Task.CREATION_DATE,
-        Task.DELETION_DATE,
-        Task.NOTES,
-        Task.HIDE_UNTIL,
-        Task.RECURRENCE
-    };
-
-    public void saveExistingWithSqlConstraintCheck(Task item) {
-        try {
-            saveExisting(item);
-        } catch (SQLiteConstraintException e) {
-            Timber.e(e, e.getMessage());
-            String uuid = item.getUuid();
-            TodorooCursor tasksWithUUID = dao.query(Query.select(
-                    SQL_CONSTRAINT_MERGE_PROPERTIES).where(
-                    Task.UUID.eq(uuid)));
-            try {
-                if (tasksWithUUID.getCount() > 0) {
-                    for (tasksWithUUID.moveToFirst(); !tasksWithUUID.isAfterLast(); tasksWithUUID.moveToNext()) {
-                        Task curr = new Task(tasksWithUUID);
-                        if (curr.getId() == item.getId()) {
-                            continue;
-                        }
-
-                        compareAndMergeAfterConflict(curr, dao.fetch(item.getId(),
-                                tasksWithUUID.getProperties()));
-                        return;
-                    }
-                } else {
-                    // We probably want to know about this case, because
-                    // it means that the constraint error isn't caused by
-                    // UUID
-                    throw e;
-                }
-            } finally {
-                tasksWithUUID.close();
-            }
-        }
-    }
-
-    private void compareAndMergeAfterConflict(Task existing, Task newConflict) {
-        boolean match = true;
-        for (Property<?> p : SQL_CONSTRAINT_MERGE_PROPERTIES) {
-            if (p.equals(Task.ID)) {
-                continue;
-            }
-            if(existing.containsNonNullValue(p) != newConflict.containsNonNullValue(p)) {
-                match = false;
-            } else if (existing.containsNonNullValue(p) &&
-                    !existing.getValue(p).equals(newConflict.getValue(p))) {
-                match = false;
-            }
-        }
-        if (!match) {
-            if (existing.getCreationDate().equals(newConflict.getCreationDate())) {
-                newConflict.setCreationDate(newConflict.getCreationDate() + 1000L);
-            }
-            newConflict.clearValue(Task.UUID);
-            saveExisting(newConflict);
-        } else {
-            delete(newConflict.getId());
-        }
     }
 
     /**

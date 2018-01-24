@@ -307,7 +307,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             googleTaskDao.update(gtasksMetadata);
         }
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-        taskDao.saveExistingWithSqlConstraintCheck(task);
+        taskDao.save(task);
     }
 
     private synchronized void fetchAndApplyRemoteChanges(GoogleTaskList list) throws UserRecoverableAuthIOException {
