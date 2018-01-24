@@ -64,14 +64,6 @@ public class TodorooCursor extends CursorWrapper {
         return new Task(this);
     }
 
-    public int count() {
-        try {
-            return getCount();
-        } finally {
-            close();
-        }
-    }
-
     public Task first() {
         try {
             return moveToFirst() ? toModel() : null;

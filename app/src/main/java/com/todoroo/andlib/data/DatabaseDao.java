@@ -185,10 +185,4 @@ public class DatabaseDao {
         };
         return insertOrUpdateAndRecordChanges(item, update);
     }
-
-    // --- helper methods
-
-    public int count(Query query) {
-        return query(query).count();
-    }
 }

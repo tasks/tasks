@@ -8,6 +8,7 @@ package com.todoroo.astrid.dao;
 import android.arch.persistence.room.Dao;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
@@ -88,7 +89,12 @@ public abstract class TaskDao {
     }
 
     public int count(Query query) {
-        return dao.count(query);
+        Cursor cursor = dao.query(query);
+        try {
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
     }
 
     public List<Task> query(Filter filter) {
