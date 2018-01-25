@@ -6,16 +6,14 @@ import android.content.Context;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 
-import org.tasks.LocalBroadcastManager;
+import org.tasks.data.AlarmDao;
+import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.data.LocationDao;
+import org.tasks.data.TagDao;
 import org.tasks.data.TagDataDao;
 import org.tasks.data.TaskListMetadataDao;
 import org.tasks.data.UserActivityDao;
-
-import org.tasks.data.AlarmDao;
-import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.LocationDao;
-import org.tasks.data.TagDao;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissivePermissionChecker;
@@ -86,11 +84,9 @@ public class TestModule {
     }
 
     @Provides
-    public TaskDao getTaskDao(Database database, Preferences preferences, LocalBroadcastManager localBroadcastManager,
-                              AlarmDao alarmDao, TagDao tagDao, LocationDao locationDao, GoogleTaskDao googleTaskDao) {
+    public TaskDao getTaskDao(Database database, Preferences preferences) {
         TaskDao taskDao = database.getTaskDao();
-        taskDao.initialize(context, preferences, localBroadcastManager, alarmDao, tagDao,
-                locationDao, googleTaskDao);
+        taskDao.initialize(context, preferences);
         return taskDao;
     }
 

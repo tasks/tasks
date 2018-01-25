@@ -133,7 +133,7 @@ public class TaskDaoTests extends InjectingTestCase {
 
         // delete
         long happyId = task.getId();
-        assertTrue(taskDao.delete(happyId));
+        assertEquals(1, taskDao.deleteById(happyId));
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());
     }
 
@@ -161,7 +161,7 @@ public class TaskDaoTests extends InjectingTestCase {
 
         assertNull(taskDao.fetch(1));
 
-        assertFalse(taskDao.delete(1));
+        assertEquals(0, taskDao.deleteById(1));
 
         // make sure db still works
         assertEquals(0, taskDao.toList(Query.select(IDS)).size());

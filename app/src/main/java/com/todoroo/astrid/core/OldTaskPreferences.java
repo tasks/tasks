@@ -12,6 +12,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskDeleter;
 
 import org.tasks.R;
 import org.tasks.calendars.CalendarEventProvider;
@@ -32,6 +33,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
     @Inject Database database;
     @Inject TaskDao taskDao;
     @Inject CalendarEventProvider calendarEventProvider;
+    @Inject TaskDeleter taskDeleter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,12 +72,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        List<Task> deleted = taskDao.getDeleted();
-                        for (Task task : deleted) {
-                            calendarEventProvider.deleteEvent(task);
-                            taskDao.delete(task.getId());
-                        }
-                        return deleted.size();
+                        return taskDeleter.purgeDeleted();
                     }
 
                     @Override

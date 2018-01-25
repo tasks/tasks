@@ -5,6 +5,12 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.calendars.CalendarEventProvider;
+import org.tasks.data.AlarmDao;
+import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.LocationDao;
+import org.tasks.data.TagDao;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,35 +23,52 @@ import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
 public class TaskDeleter {
 
     private final TaskDao taskDao;
+    private final CalendarEventProvider calendarEventProvider;
+    private final AlarmDao alarmDao;
+    private final LocationDao locationDao;
+    private final TagDao tagDao;
+    private final GoogleTaskDao googleTaskDao;
 
     @Inject
-    public TaskDeleter(TaskDao taskDao) {
+    public TaskDeleter(TaskDao taskDao, CalendarEventProvider calendarEventProvider,
+                       AlarmDao alarmDao, LocationDao locationDao, TagDao tagDao,
+                       GoogleTaskDao googleTaskDao) {
         this.taskDao = taskDao;
+        this.calendarEventProvider = calendarEventProvider;
+        this.alarmDao = alarmDao;
+        this.locationDao = locationDao;
+        this.tagDao = tagDao;
+        this.googleTaskDao = googleTaskDao;
     }
 
-    public void delete(Task item) {
+    public int purgeDeleted() {
+        List<Task> deleted = taskDao.getDeleted();
+        for (Task task : deleted) {
+            calendarEventProvider.deleteEvent(task);
+            long id = task.getId();
+            taskDao.deleteById(id);
+            alarmDao.deleteByTaskId(id);
+            locationDao.deleteByTaskId(id);
+            tagDao.deleteByTaskId(id);
+            googleTaskDao.deleteByTaskId(id);
+        }
+        return deleted.size();
+    }
+
+    public void markDeleted(Task item) {
         if(!item.isSaved()) {
             return;
         }
 
-        if(item.containsValue(Task.TITLE) && item.getTitle().length() == 0) {
-            taskDao.delete(item.getId());
-            item.setId(Task.NO_ID);
-        } else {
-            Task template = new Task();
-            template.setId(item.getId());
-            template.setDeletionDate(DateUtilities.now());
-            taskDao.save(template);
-        }
+        Task template = new Task();
+        template.setId(item.getId());
+        template.setDeletionDate(DateUtilities.now());
+        taskDao.save(template);
     }
 
-    public int delete(List<Task> tasks) {
-        return markDeleted(tasks);
-    }
-
-    private int markDeleted(List<Task> tasks) {
+    public int markDeleted(List<Task> tasks) {
         for (Task task : tasks) {
-            delete(task);
+            markDeleted(task);
         }
         return tasks.size();
     }

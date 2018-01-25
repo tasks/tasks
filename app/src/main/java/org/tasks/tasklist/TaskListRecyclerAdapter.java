@@ -170,7 +170,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         tracker.reportEvent(Tracking.Events.MULTISELECT_DELETE);
         List<Task> tasks = getTasks();
         mode.finish();
-        int result = taskDeleter.delete(tasks);
+        int result = taskDeleter.markDeleted(tasks);
         taskList.onTaskDelete(tasks);
         taskList.makeSnackbar(activity.getString(R.string.delete_multiple_tasks_confirmation, Integer.toString(result))).show();
     }

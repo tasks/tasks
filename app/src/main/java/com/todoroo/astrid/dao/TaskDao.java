@@ -25,12 +25,7 @@ import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 import org.tasks.BuildConfig;
-import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.data.AlarmDao;
-import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.LocationDao;
-import org.tasks.data.TagDao;
 import org.tasks.jobs.AfterSaveIntentService;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.PushReceiver;
@@ -53,27 +48,16 @@ public abstract class TaskDao {
 
     private final Database database;
 
-    private LocalBroadcastManager localBroadcastManager;
     private Preferences preferences;
-    private AlarmDao alarmDao;
-    private TagDao tagDao;
-    private LocationDao locationDao;
-    private GoogleTaskDao googleTaskDao;
     private Context context;
 
     public TaskDao(Database database) {
         this.database = database;
     }
 
-    public void initialize(Context context, Preferences preferences, LocalBroadcastManager localBroadcastManager,
-                           AlarmDao alarmDao, TagDao tagDao, LocationDao locationDao, GoogleTaskDao googleTaskDao) {
+    public void initialize(Context context, Preferences preferences) {
         this.context = context;
         this.preferences = preferences;
-        this.localBroadcastManager = localBroadcastManager;
-        this.alarmDao = alarmDao;
-        this.tagDao = tagDao;
-        this.locationDao = locationDao;
-        this.googleTaskDao = googleTaskDao;
     }
 
     public List<Task> selectActive(Criterion criterion) {
@@ -160,31 +144,7 @@ public abstract class TaskDao {
     public abstract List<Task> getDeleted();
 
     @android.arch.persistence.room.Query("DELETE FROM tasks WHERE _id = :id")
-    abstract int deleteById(long id);
-
-    // --- delete
-
-    /**
-     * Delete the given item
-     *
-     * @return true if delete was successful
-     */
-    public boolean delete(long id) {
-        boolean result = deleteById(id) > 0;
-        if(!result) {
-            return false;
-        }
-
-        // delete all metadata
-        alarmDao.deleteByTaskId(id);
-        locationDao.deleteByTaskId(id);
-        tagDao.deleteByTaskId(id);
-        googleTaskDao.deleteByTaskId(id);
-
-        localBroadcastManager.broadcastRefresh();
-
-        return true;
-    }
+    public abstract int deleteById(long id);
 
     // --- save
 

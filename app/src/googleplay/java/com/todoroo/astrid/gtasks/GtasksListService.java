@@ -105,7 +105,7 @@ public class GtasksListService {
                 .constructCursor(new GtasksFilter(gtasksList), Task.PROPERTIES)
                 .toList();
         for (Task task : tasks) {
-            taskDeleter.delete(task);
+            taskDeleter.markDeleted(task);
         }
         googleTaskDao.deleteList(gtasksList.getRemoteId());
         googleTaskListDao.deleteById(gtasksList.getId());

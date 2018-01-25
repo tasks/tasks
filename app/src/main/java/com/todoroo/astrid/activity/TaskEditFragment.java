@@ -275,7 +275,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     public void discard() {
         if (model != null && model.isNew()) {
             timerPlugin.stopTimer(model);
-            taskDeleter.delete(model);
         }
 
         callback.taskEditFinished();
@@ -285,7 +284,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         dialogBuilder.newMessageDialog(R.string.DLG_delete_this_task_question)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> {
                     timerPlugin.stopTimer(model);
-                    taskDeleter.delete(model);
+                    taskDeleter.markDeleted(model);
                     callback.taskEditFinished();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
