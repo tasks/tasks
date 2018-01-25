@@ -7,6 +7,7 @@ package com.todoroo.astrid.utility;
 
 import android.text.TextUtils;
 
+import com.google.common.base.Strings;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.mdimension.jchronic.AstridChronic;
@@ -165,7 +166,7 @@ public class TitleParser {
     //Day of week (e.g. Monday, Tuesday,..) is overridden by a set date (e.g. October 23 2013).
     //Vague times (e.g. breakfast, night) are overridden by a set time (9 am, at 10, 17:00)
     private static boolean dayHelper(Task task ) {
-        if (task.containsNonNullValue(Task.DUE_DATE)) {
+        if (task.getDueDate() > 0) {
             return false;
         }
         String inputText = task.getTitle();
@@ -372,7 +373,7 @@ public class TitleParser {
 
     //Parses through the text and sets the frequency of the task.
     private static boolean repeatHelper(Task task) {
-        if (task.containsNonNullValue(Task.RECURRENCE)) {
+        if (!Strings.isNullOrEmpty(task.getRecurrence())) {
             return false;
         }
         String inputText = task.getTitle();

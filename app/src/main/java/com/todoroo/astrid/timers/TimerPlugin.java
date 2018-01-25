@@ -68,15 +68,6 @@ public class TimerPlugin {
                 task.setTimerStart(DateUtilities.now());
             }
         } else {
-            // if this call comes from tasklist, then we need to fill in the gaps to handle this correctly
-            // this is needed just for stopping a task
-            if (!task.containsNonNullValue(Task.TIMER_START)) {
-                task = taskDao.fetch(task.getId());
-            }
-            if (task == null) {
-                return;
-            }
-
             if(task.getTimerStart() > 0) {
                 int newElapsed = (int)((DateUtilities.now() - task.getTimerStart()) / 1000L);
                 task.setTimerStart(0L);

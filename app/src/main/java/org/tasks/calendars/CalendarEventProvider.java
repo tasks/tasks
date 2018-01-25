@@ -8,7 +8,6 @@ import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.injection.ForApplication;
@@ -35,17 +34,14 @@ public class CalendarEventProvider {
     };
 
     private final ContentResolver contentResolver;
-    private final TaskDao taskDao;
     private final PermissionChecker permissionChecker;
     private final CalendarEventAttendeeProvider calendarEventAttendeeProvider;
 
     @Inject
     public CalendarEventProvider(@ForApplication Context context, PermissionChecker permissionChecker,
-                                 CalendarEventAttendeeProvider calendarEventAttendeeProvider,
-                                 TaskDao taskDao) {
+                                 CalendarEventAttendeeProvider calendarEventAttendeeProvider) {
         this.permissionChecker = permissionChecker;
         this.calendarEventAttendeeProvider = calendarEventAttendeeProvider;
-        this.taskDao = taskDao;
         contentResolver = context.getContentResolver();
     }
 
@@ -63,12 +59,6 @@ public class CalendarEventProvider {
     }
 
     public boolean deleteEvent(Task task) {
-        if (!task.containsNonNullValue(Task.CALENDAR_URI)) {
-            task = taskDao.fetch(task.getId());
-            if(task == null) {
-                return false;
-            }
-        }
         String uri = task.getCalendarURI();
         task.setCalendarUri("");
         return deleteEvent(uri);

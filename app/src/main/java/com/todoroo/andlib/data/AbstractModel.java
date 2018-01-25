@@ -262,20 +262,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         return false;
     }
 
-    /**
-     * @return true if setValues or values contains this property, and the value
-     *         stored is not null
-     */
-    public boolean containsNonNullValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.getColumnName())) {
-            return setValues.get(property.getColumnName()) != null;
-        }
-        if(values != null && values.containsKey(property.getColumnName())) {
-            return values.get(property.getColumnName()) != null;
-        }
-        return false;
-    }
-
     // --- data storage
 
     /**
