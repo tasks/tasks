@@ -273,7 +273,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
     }
 
     public void discard() {
-        if (model.isNew()) {
+        if (model != null && model.isNew()) {
             timerPlugin.stopTimer(model);
             taskDeleter.delete(model);
         }
