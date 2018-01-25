@@ -10,7 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.todoroo.andlib.data.DatabaseDao;
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -22,7 +22,9 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
+import com.todoroo.astrid.helper.UUIDHelper;
 
+import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.data.AlarmDao;
@@ -34,6 +36,9 @@ import org.tasks.preferences.Preferences;
 import org.tasks.receivers.PushReceiver;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import timber.log.Timber;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -46,7 +51,7 @@ public abstract class TaskDao {
 
     public static final String TRANS_SUPPRESS_REFRESH = "suppress-refresh";
 
-    private final DatabaseDao dao;
+    private final Database database;
 
     private LocalBroadcastManager localBroadcastManager;
     private Preferences preferences;
@@ -57,7 +62,7 @@ public abstract class TaskDao {
     private Context context;
 
     public TaskDao(Database database) {
-        dao = new DatabaseDao(database);
+        this.database = database;
     }
 
     public void initialize(Context context, Preferences preferences, LocalBroadcastManager localBroadcastManager,
@@ -71,12 +76,8 @@ public abstract class TaskDao {
         this.googleTaskDao = googleTaskDao;
     }
 
-    public TodorooCursor query(Query query) {
-        return dao.query(query);
-    }
-
     public List<Task> selectActive(Criterion criterion) {
-        return dao.toList(Query.select(Task.PROPERTIES).where(Criterion.and(TaskCriteria.isActive(), criterion)));
+        return query(Query.select(Task.PROPERTIES).where(Criterion.and(TaskCriteria.isActive(), criterion))).toList();
     }
 
     @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
@@ -88,7 +89,7 @@ public abstract class TaskDao {
     }
 
     public int count(Query query) {
-        Cursor cursor = dao.query(query);
+        Cursor cursor = query(query);
         try {
             return cursor.getCount();
         } finally {
@@ -98,33 +99,16 @@ public abstract class TaskDao {
 
     public List<Task> query(Filter filter) {
         String query = PermaSql.replacePlaceholders(filter.getSqlQuery());
-        return dao.toList(Query.select(Task.PROPERTIES).withQueryTemplate(query));
-    }
-
-    /**
-     * Update all matching a clause to have the values set on template object.
-     * <p>
-     * Example (updates "joe" => "bob" in metadata value1):
-     * {code}
-     * Metadata item = new Metadata();
-     * item.setVALUE1("bob");
-     * update(item, Metadata.VALUE1.eq("joe"));
-     * {code}
-     * @param where sql criteria
-     * @param template set fields on this object in order to set them in the db.
-     * @return # of updated items
-     */
-    public int update(Criterion where, Task template) {
-        return dao.update(where, template);
-    }
-
-    public int deleteWhere(Criterion criterion) {
-        return dao.deleteWhere(criterion);
+        return query(Query.select(Task.PROPERTIES).withQueryTemplate(query)).toList();
     }
 
     public List<Task> toList(Query query) {
-        return dao.toList(query);
+        return query(query).toList();
     }
+
+    @android.arch.persistence.room.Query("UPDATE tasks SET completed = :completionDate " +
+            "WHERE remoteId = :remoteId")
+    public abstract void setCompletionDate(String remoteId, long completionDate);
 
     // --- SQL clause generators
 
@@ -169,6 +153,20 @@ public abstract class TaskDao {
     @android.arch.persistence.room.Query("SELECT remoteId FROM tasks WHERE _id = :localId")
     public abstract String uuidFromLocalId(long localId);
 
+    @android.arch.persistence.room.Query("UPDATE tasks SET calendarUri = '' " +
+            "WHERE calendarUri NOT NULL AND calendarUri != ''")
+    public abstract void clearAllCalendarEvents();
+
+    @android.arch.persistence.room.Query("UPDATE tasks SET calendarUri = '' " +
+            "WHERE completed > 0 AND calendarUri NOT NULL AND calendarUri != ''")
+    public abstract void clearCompletedCalendarEvents();
+
+    @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE deleted > 0")
+    public abstract List<Task> getDeleted();
+
+    @android.arch.persistence.room.Query("DELETE FROM tasks WHERE _id = :id")
+    abstract int deleteById(long id);
+
     // --- delete
 
     /**
@@ -177,7 +175,7 @@ public abstract class TaskDao {
      * @return true if delete was successful
      */
     public boolean delete(long id) {
-        boolean result = dao.delete(id);
+        boolean result = deleteById(id) > 0;
         if(!result) {
             return false;
         }
@@ -236,7 +234,30 @@ public abstract class TaskDao {
         setDefaultReminders(preferences, item);
 
         ContentValues values = item.getSetValues();
-        if(dao.createNew(item)) {
+
+        if (!item.containsValue(Task.UUID) || Task.isUuidEmpty(item.getUuid())) {
+            item.setUuid(UUIDHelper.newUUID());
+        }
+
+        DatabaseChangeOp insert = new DatabaseChangeOp() {
+            @Override
+            public boolean makeChange() {
+                ContentValues mergedValues = item.getMergedValues();
+                mergedValues.remove(AbstractModel.ID_PROPERTY.name);
+                long newRow = database.insert(mergedValues);
+                boolean result = newRow >= 0;
+                if (result) {
+                    item.setId(newRow);
+                }
+                return result;
+            }
+
+            @Override
+            public String toString() {
+                return "INSERT";
+            }
+        };
+        if (insertOrUpdateAndRecordChanges(item, insert)) {
             return values;
         }
         return null;
@@ -274,7 +295,19 @@ public abstract class TaskDao {
                 item.setModificationDate(DateUtilities.now());
             }
         }
-        if(dao.saveExisting(item)) {
+        DatabaseChangeOp update = new DatabaseChangeOp() {
+            @Override
+            public boolean makeChange() {
+                return database.update(values,
+                        AbstractModel.ID_PROPERTY.eq(item.getId()).toString()) > 0;
+            }
+
+            @Override
+            public String toString() {
+                return "UPDATE";
+            }
+        };
+        if (insertOrUpdateAndRecordChanges(item, update)) {
             return values;
         }
         return null;
@@ -297,6 +330,37 @@ public abstract class TaskDao {
         return query(queryTemplate == null
                 ? Query.selectDistinct(properties)
                 : Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate)));
+    }
+
+    /**
+     * Construct a query with SQL DSL objects
+     */
+    public TodorooCursor query(Query query) {
+        query.from(Task.TABLE);
+        String queryString = query.toString();
+        if (BuildConfig.DEBUG) {
+            Timber.v(queryString);
+        }
+        Cursor cursor = database.rawQuery(queryString);
+        return new TodorooCursor(cursor, query.getFields());
+    }
+
+    private interface DatabaseChangeOp {
+        boolean makeChange();
+    }
+
+    private boolean insertOrUpdateAndRecordChanges(Task item, DatabaseChangeOp op) {
+        final AtomicBoolean result = new AtomicBoolean(false);
+        synchronized(database) {
+            result.set(op.makeChange());
+            if (result.get()) {
+                item.markSaved();
+                if (BuildConfig.DEBUG) {
+                    Timber.v("%s %s", op, item.toString());
+                }
+            }
+        }
+        return result.get();
     }
 }
 

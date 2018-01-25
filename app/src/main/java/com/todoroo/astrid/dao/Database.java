@@ -80,6 +80,8 @@ public abstract class Database extends RoomDatabase {
 
     public static final String NAME = "database";
 
+    private static final String TABLE_NAME = Task.TABLE.name;
+
     private SupportSQLiteDatabase database;
     private Runnable onDatabaseUpdated;
 
@@ -175,10 +177,10 @@ public abstract class Database extends RoomDatabase {
         return getDatabase().query(sql, null);
     }
 
-    public long insert(String table, ContentValues values) {
+    public long insert(ContentValues values) {
         long result;
         try {
-            result = getDatabase().insert(table, SQLiteDatabase.CONFLICT_REPLACE, values);
+            result = getDatabase().insert(TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
         } catch (SQLiteConstraintException e) { // Throw these exceptions
             throw e;
         } catch (Exception e) { // Suppress others
@@ -189,14 +191,8 @@ public abstract class Database extends RoomDatabase {
         return result;
     }
 
-    public int delete(String table, String whereClause, String[] whereArgs) {
-        int result = getDatabase().delete(table, whereClause, whereArgs);
-        onDatabaseUpdated();
-        return result;
-    }
-
-    public int update(String table, ContentValues  values, String whereClause) {
-        int result = getDatabase().update(table, SQLiteDatabase.CONFLICT_REPLACE, values, whereClause, null);
+    public int update(ContentValues  values, String whereClause) {
+        int result = getDatabase().update(TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, whereClause, null);
         onDatabaseUpdated();
         return result;
     }

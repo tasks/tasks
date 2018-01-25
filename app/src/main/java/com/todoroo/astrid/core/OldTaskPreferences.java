@@ -70,13 +70,12 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        Query query = Query.select(Task.ID, Task.CALENDAR_URI)
-                                .where(Criterion.and(Task.DELETION_DATE.gt(0)));
-                        for (Task task : taskDao.toList(query)) {
+                        List<Task> deleted = taskDao.getDeleted();
+                        for (Task task : deleted) {
                             calendarEventProvider.deleteEvent(task);
                             taskDao.delete(task.getId());
                         }
-                        return taskDao.deleteWhere(Task.DELETION_DATE.gt(0));
+                        return deleted.size();
                     }
 
                     @Override
@@ -94,7 +93,9 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        return deleteCalendarEvents(Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()));
+                        int result = deleteCalendarEvents(Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()));
+                        taskDao.clearCompletedCalendarEvents();
+                        return result;
                     }
 
                     @Override
@@ -111,7 +112,9 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        return deleteCalendarEvents(Task.CALENDAR_URI.isNotNull());
+                        int result = deleteCalendarEvents(Task.CALENDAR_URI.isNotNull());
+                        taskDao.clearAllCalendarEvents();
+                        return result;
                     }
 
                     @Override
@@ -131,11 +134,6 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                 deletedEventCount++;
             }
         }
-        // mass update the CALENDAR_URI here,
-        // since the GCalHelper doesnt save it due to performance-reasons
-        Task template = new Task();
-        template.setCalendarUri(""); //$NON-NLS-1$
-        taskDao.update(criterion, template);
         return deletedEventCount;
     }
 

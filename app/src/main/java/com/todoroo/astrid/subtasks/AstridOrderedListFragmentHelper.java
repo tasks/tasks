@@ -130,9 +130,7 @@ class AstridOrderedListFragmentHelper {
             ArrayList<String> chained = chainedCompletions.get(itemId);
             if(chained != null) {
                 for(String taskId : chained) {
-                    Task model = new Task();
-                    model.setCompletionDate(completionDate);
-                    taskDao.update(Task.UUID.eq(taskId), model);
+                    taskDao.setCompletionDate(taskId, completionDate);
                 }
                 taskAdapter.notifyDataSetInvalidated();
             }
@@ -142,9 +140,7 @@ class AstridOrderedListFragmentHelper {
         final ArrayList<String> chained = new ArrayList<>();
         updater.applyToDescendants(itemId, node -> {
             String uuid = node.uuid;
-            Task model = new Task();
-            model.setCompletionDate(completionDate);
-            taskDao.update(Task.UUID.eq(uuid), model);
+            taskDao.setCompletionDate(uuid, completionDate);
             chained.add(node.uuid);
         });
 
