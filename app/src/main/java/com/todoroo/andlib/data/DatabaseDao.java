@@ -42,10 +42,6 @@ public class DatabaseDao {
         return query(query).toList();
     }
 
-    private Task getFirst(Query query) {
-        return query(query).first();
-    }
-
     /**
      * Construct a query with SQL DSL objects
      */
@@ -57,18 +53,6 @@ public class DatabaseDao {
         }
         Cursor cursor = database.rawQuery(queryString);
         return new TodorooCursor(cursor, query.getFields());
-    }
-
-    /**
-     * Returns object corresponding to the given identifier
-     * @param properties
-     *            properties to read
-     * @param id
-     *            id of item
-     * @return null if no item found
-     */
-    public Task fetch(long id, Property<?>... properties) {
-        return getFirst(Query.select(properties).where(AbstractModel.ID_PROPERTY.eq(id)));
     }
 
     /**
@@ -138,12 +122,12 @@ public class DatabaseDao {
             item.setUuid(UUIDHelper.newUUID());
         }
 
-        item.clearValue(AbstractModel.ID_PROPERTY);
-
         DatabaseChangeOp insert = new DatabaseChangeOp() {
             @Override
             public boolean makeChange() {
-                long newRow = database.insert(table.name, item.getMergedValues());
+                ContentValues mergedValues = item.getMergedValues();
+                mergedValues.remove(AbstractModel.ID_PROPERTY.name);
+                long newRow = database.insert(table.name, mergedValues);
                 boolean result = newRow >= 0;
                 if (result) {
                     item.setId(newRow);

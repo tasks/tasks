@@ -7,15 +7,13 @@ package com.todoroo.andlib.data;
 
 import android.arch.persistence.room.Ignore;
 import android.content.ContentValues;
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.data.Task;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -34,7 +32,7 @@ import static com.todoroo.andlib.data.Property.DoubleProperty;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public abstract class AbstractModel implements Parcelable, Cloneable {
+public abstract class AbstractModel {
 
     private static final ContentValuesSavingVisitor saver = new ContentValuesSavingVisitor();
 
@@ -49,8 +47,12 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
     // --- abstract methods
 
+    public interface ValueReader<TYPE> {
+        TYPE getValue(Task instance);
+    }
+
     /** Get the default values for this object */
-    abstract public Map<String, Object> getDefaultValues();
+    abstract public Map<String, ValueReader<?>> getRoomGetters();
 
     // --- data store variables and management
 
@@ -58,7 +60,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      *
      * In order to return the best data, we want to check first what the user
      * has explicitly set (setValues), then the values we have read out of
-     * the database (values), then defaults (getDefaultValues)
+     * the database (values), then defaults (getRoomGetters)
      */
 
     /** User set values */
@@ -70,9 +72,8 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     protected ContentValues values = null;
 
     /** Transitory Metadata (not saved in database) */
-    @SuppressWarnings("WeakerAccess")
     @Ignore
-    HashMap<String, Object> transitoryData = null;
+    protected HashMap<String, Object> transitoryData = null;
 
     protected AbstractModel() {
     }
@@ -90,10 +91,13 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     public ContentValues getMergedValues() {
         ContentValues mergedValues = new ContentValues();
 
-        for (Map.Entry<String, Object> entry : getDefaultValues().entrySet()) {
-            AndroidUtilities.putInto(mergedValues, entry.getKey(), entry.getValue());
+        for (Map.Entry<String, ValueReader<?>> entry : getRoomGetters().entrySet()) {
+            Object value = entry.getValue().getValue((Task) this);
+            if (value != null) {
+                AndroidUtilities.putInto(mergedValues, entry.getKey(), value);
+            }
         }
-        if(values != null) {
+        if (values != null) {
             mergedValues.putAll(values);
         }
         if(setValues != null) {
@@ -139,23 +143,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         return getClass().getSimpleName() + "\n" + "set values:\n" + setValues + "\n" + "values:\n" + values + "\n";
     }
 
-    @Override
-    public AbstractModel clone() {
-        AbstractModel clone;
-        try {
-            clone = (AbstractModel) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-        if(setValues != null) {
-            clone.setValues = new ContentValues(setValues);
-        }
-        if(values != null) {
-            clone.values = new ContentValues(values);
-        }
-        return clone;
-    }
-
     /**
      * Reads all properties from the supplied cursor and store
      */
@@ -188,8 +175,8 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             value = setValues.get(columnName);
         } else if(values != null && values.containsKey(columnName)) {
             value = values.get(columnName);
-        } else if(getDefaultValues().containsKey(columnName)) {
-            value = getDefaultValues().get(columnName);
+        } else if(getRoomGetters().containsKey(columnName)) {
+            value = getRoomGetters().get(columnName).getValue((Task) this);
         } else {
             throw new UnsupportedOperationException(
                     "Model Error: Did not read property " + property.name); //$NON-NLS-1$
@@ -209,7 +196,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             return (TYPE) value;
         } catch (NumberFormatException e) {
             Timber.e(e, e.getMessage());
-            return (TYPE) getDefaultValues().get(property.name);
+            return (TYPE) getRoomGetters().get(property.name).getValue((Task) this);
         }
     }
 
@@ -219,16 +206,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * @return {@value #NO_ID} if this model was not added to the database
      */
     abstract public long getId();
-
-    protected long getIdHelper(LongProperty id) {
-        if(setValues != null && setValues.containsKey(id.name)) {
-            return setValues.getAsLong(id.name);
-        } else if(values != null && values.containsKey(id.name)) {
-            return values.getAsLong(id.name);
-        } else {
-            return NO_ID;
-        }
-    }
 
     public void setId(long id) {
         if (setValues == null) {
@@ -268,24 +245,19 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * Check whether the user has changed this property value and it should be
      * stored for saving in the database
      */
-    private synchronized <TYPE> boolean shouldSaveValue(
-            Property<TYPE> property, TYPE newValue) {
-
+    private synchronized <TYPE> boolean shouldSaveValue(Property<TYPE> property, TYPE newValue) {
     	// we've already decided to save it, so overwrite old value
         if (setValues.containsKey(property.getColumnName())) {
             return true;
         }
 
-        // values contains this key, we should check it out
-        if(values != null && values.containsKey(property.getColumnName())) {
-            TYPE value = getValue(property);
-            if (value == null) {
-                if (newValue == null) {
-                    return false;
-                }
-            } else if (value.equals(newValue)) {
+        TYPE value = getValue(property);
+        if (value == null) {
+            if (newValue == null) {
                 return false;
             }
+        } else if (value.equals(newValue)) {
+            return false;
         }
 
         // otherwise, good to save
@@ -414,66 +386,4 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             return null;
         }
     }
-
-    // --- parcelable helpers
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(setValues, 0);
-        dest.writeParcelable(values, 0);
-        dest.writeMap(transitoryData);
-    }
-
-   /**
-    * Parcelable creator helper
-    */
-    protected static final class ModelCreator<TYPE extends AbstractModel>
-            implements Parcelable.Creator<TYPE> {
-
-        private final Class<TYPE> cls;
-
-        public ModelCreator(Class<TYPE> cls) {
-            super();
-            this.cls = cls;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public TYPE createFromParcel(Parcel source) {
-            TYPE model;
-            try {
-                model = cls.newInstance();
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InstantiationException e) {
-                throw new RuntimeException(e);
-            }
-            model.setValues = source.readParcelable(ContentValues.class.getClassLoader());
-            model.values = source.readParcelable(ContentValues.class.getClassLoader());
-            model.transitoryData = source.readHashMap(ContentValues.class.getClassLoader());
-            return model;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public TYPE[] newArray(int size) {
-            return (TYPE[]) Array.newInstance(cls, size);
-        }
-   }
-
 }

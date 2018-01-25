@@ -16,7 +16,7 @@ public class SyncModelTest extends NewSyncTestCase {
 	@Test
 	public void testCreateTaskMakesUuid() {
 		Task task = createTask();
-		assertFalse(Task.NO_UUID.equals(task.getUUID()));
+		assertFalse(Task.NO_UUID.equals(task.getUuid()));
 	}
 
 	@Test

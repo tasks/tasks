@@ -79,9 +79,8 @@ public abstract class TaskDao {
         return dao.toList(Query.select(Task.PROPERTIES).where(Criterion.and(TaskCriteria.isActive(), criterion)));
     }
 
-    public Task fetch(long id) {
-        return dao.fetch(id, Task.PROPERTIES);
-    }
+    @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
+    public abstract Task fetch(long id);
 
     public int count(Filter filter) {
         String query = PermaSql.replacePlaceholders(filter.getSqlQuery());

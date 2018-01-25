@@ -12,8 +12,11 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.content.ContentValues;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -41,7 +44,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  */
 @Entity(tableName = "tasks",
         indices = @Index(name = "t_rid", value = "remoteId", unique = true))
-public class Task extends AbstractModel {
+public class Task extends AbstractModel implements Parcelable {
 
     // --- table and uri
 
@@ -53,7 +56,7 @@ public class Task extends AbstractModel {
     /** ID */
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    public Long id;
+    public Long id = NO_ID;
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
@@ -83,13 +86,13 @@ public class Task extends AbstractModel {
 
     /** Unixtime Task was created */
     @ColumnInfo(name = "created")
-    public Long created;
+    public Long created = 0L;
     public static final LongProperty CREATION_DATE = new LongProperty(
             TABLE, "created");
 
     /** Unixtime Task was last touched */
     @ColumnInfo(name = "modified")
-    public Long modified;
+    public Long modified = 0L;
     public static final LongProperty MODIFICATION_DATE = new LongProperty(
             TABLE, "modified");
 
@@ -226,32 +229,35 @@ public class Task extends AbstractModel {
     // --- defaults
 
     /** Default values container */
-    private static final Map<String, Object> defaultValues = new HashMap<>();
+    private static final Map<String, ValueReader<?>> roomGetters = new HashMap<>();
 
     static {
-        defaultValues.put(TITLE.name, "");
-        defaultValues.put(DUE_DATE.name, 0L);
-        defaultValues.put(HIDE_UNTIL.name, 0);
-        defaultValues.put(COMPLETION_DATE.name, 0);
-        defaultValues.put(DELETION_DATE.name, 0);
-        defaultValues.put(IMPORTANCE.name, IMPORTANCE_NONE);
-        defaultValues.put(CALENDAR_URI.name, "");
-        defaultValues.put(RECURRENCE.name, "");
-        defaultValues.put(REPEAT_UNTIL.name, 0L);
-        defaultValues.put(REMINDER_PERIOD.name, 0);
-        defaultValues.put(REMINDER_FLAGS.name, 0);
-        defaultValues.put(REMINDER_LAST.name, 0);
-        defaultValues.put(REMINDER_SNOOZE.name, 0);
-        defaultValues.put(ESTIMATED_SECONDS.name, 0);
-        defaultValues.put(ELAPSED_SECONDS.name, 0);
-        defaultValues.put(NOTES.name, "");
-        defaultValues.put(TIMER_START.name, 0);
-        defaultValues.put(UUID.name, NO_UUID);
+        roomGetters.put(CALENDAR_URI.name, t -> t.calendarUri);
+        roomGetters.put(COMPLETION_DATE.name, t -> t.completed);
+        roomGetters.put(CREATION_DATE.name, t -> t.created);
+        roomGetters.put(DELETION_DATE.name, t -> t.deleted);
+        roomGetters.put(DUE_DATE.name, t -> t.dueDate);
+        roomGetters.put(ELAPSED_SECONDS.name, t -> t.elapsedSeconds);
+        roomGetters.put(ESTIMATED_SECONDS.name, t -> t.estimatedSeconds);
+        roomGetters.put(HIDE_UNTIL.name, t -> t.hideUntil);
+        roomGetters.put(ID.name, t -> t.id);
+        roomGetters.put(IMPORTANCE.name, t -> t.importance);
+        roomGetters.put(MODIFICATION_DATE.name, t -> t.modified);
+        roomGetters.put(NOTES.name, t -> t.notes);
+        roomGetters.put(RECURRENCE.name, t -> t.recurrence);
+        roomGetters.put(REMINDER_FLAGS.name, t -> t.notificationFlags);
+        roomGetters.put(REMINDER_LAST.name, t -> t.lastNotified);
+        roomGetters.put(REMINDER_PERIOD.name, t -> t.notifications);
+        roomGetters.put(REMINDER_SNOOZE.name, t -> t.snoozeTime);
+        roomGetters.put(REPEAT_UNTIL.name, t -> t.repeatUntil);
+        roomGetters.put(TIMER_START.name, t -> t.timerStart);
+        roomGetters.put(TITLE.name, t -> t.title);
+        roomGetters.put(UUID.name, t -> t.remoteId);
     }
 
     @Override
-    public Map<String, Object> getDefaultValues() {
-        return defaultValues;
+    public Map<String, ValueReader<?>> getRoomGetters() {
+        return roomGetters;
     }
 
     // --- data access boilerplate
@@ -265,9 +271,45 @@ public class Task extends AbstractModel {
         super(cursor);
     }
 
+    @Ignore
+    public Task(Parcel parcel) {
+        calendarUri = parcel.readString();
+        completed = parcel.readLong();
+        created = parcel.readLong();
+        deleted = parcel.readLong();
+        dueDate = parcel.readLong();
+        elapsedSeconds = parcel.readInt();
+        estimatedSeconds = parcel.readInt();
+        hideUntil = parcel.readLong();
+        id = parcel.readLong();
+        importance = parcel.readInt();
+        modified = parcel.readLong();
+        notes = parcel.readString();
+        recurrence = parcel.readString();
+        notificationFlags = parcel.readInt();
+        lastNotified = parcel.readLong();
+        notifications = parcel.readLong();
+        snoozeTime = parcel.readLong();
+        repeatUntil = parcel.readLong();
+        timerStart = parcel.readLong();
+        title = parcel.readString();
+        remoteId = parcel.readString();
+        setValues = parcel.readParcelable(ContentValues.class.getClassLoader());
+        values = parcel.readParcelable(ContentValues.class.getClassLoader());
+        transitoryData = parcel.readHashMap(ContentValues.class.getClassLoader());
+    }
+
     @Override
     public long getId() {
-        return getIdHelper(ID);
+        if(setValues != null && setValues.containsKey(ID.name)) {
+            return setValues.getAsLong(ID.name);
+        } else if(values != null && values.containsKey(ID.name)) {
+            return values.getAsLong(ID.name);
+        } else if (id != null) {
+            return id;
+        } else {
+            return NO_ID;
+        }
     }
 
     public String getUuid() {
@@ -275,6 +317,8 @@ public class Task extends AbstractModel {
             return setValues.getAsString(UUID.name);
         } else if(values != null && values.containsKey(UUID.name)) {
             return values.getAsString(UUID.name);
+        } else if (!Strings.isNullOrEmpty(remoteId)) {
+            return remoteId;
         } else {
             return NO_UUID;
         }
@@ -282,7 +326,17 @@ public class Task extends AbstractModel {
 
     // --- parcelable helpers
 
-    public static final Creator<Task> CREATOR = new ModelCreator<>(Task.class);
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel source) {
+            return new Task(source);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 
     // --- data access methods
 
@@ -515,10 +569,6 @@ public class Task extends AbstractModel {
         setValue(CREATION_DATE, creationDate);
     }
 
-    public String getUUID() {
-        return getValue(UUID);
-    }
-
     public String getTitle() {
         return getValue(TITLE);
     }
@@ -695,5 +745,44 @@ public class Task extends AbstractModel {
 
     public static boolean isUuidEmpty(String uuid) {
         return NO_UUID.equals(uuid) || TextUtils.isEmpty(uuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(calendarUri);
+        dest.writeLong(completed);
+        dest.writeLong(created);
+        dest.writeLong(deleted);
+        dest.writeLong(dueDate);
+        dest.writeInt(elapsedSeconds);
+        dest.writeInt(estimatedSeconds);
+        dest.writeLong(hideUntil);
+        dest.writeLong(id);
+        dest.writeInt(importance);
+        dest.writeLong(modified);
+        dest.writeString(notes);
+        dest.writeString(recurrence);
+        dest.writeInt(notificationFlags);
+        dest.writeLong(lastNotified);
+        dest.writeLong(notifications);
+        dest.writeLong(snoozeTime);
+        dest.writeLong(repeatUntil);
+        dest.writeLong(timerStart);
+        dest.writeString(title);
+        dest.writeString(remoteId);
+        dest.writeParcelable(setValues, 0);
+        dest.writeParcelable(values, 0);
+        dest.writeMap(transitoryData);
     }
 }

@@ -2,6 +2,7 @@ package com.todoroo.astrid.model;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
@@ -48,13 +49,12 @@ public class TaskTest extends InjectingTestCase {
         taskDao.save(task);
         final Task fromDb = taskDao.fetch(task.getId());
         assertEquals(task, fromDb);
-        compareRemoteModel(task, fromDb);
     }
 
     @Test
     public void testDefaults() {
         preferences.setDefaults();
-        Map<String, Object> defaults = new Task().getDefaultValues();
+        Map<String, AbstractModel.ValueReader<?>> defaults = new Task().getRoomGetters();
         assertTrue(defaults.containsKey(Task.TITLE.name));
         assertTrue(defaults.containsKey(Task.DUE_DATE.name));
         assertTrue(defaults.containsKey(Task.HIDE_UNTIL.name));

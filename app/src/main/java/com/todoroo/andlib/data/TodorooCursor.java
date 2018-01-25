@@ -64,14 +64,6 @@ public class TodorooCursor extends CursorWrapper {
         return new Task(this);
     }
 
-    public Task first() {
-        try {
-            return moveToFirst() ? toModel() : null;
-        } finally {
-            close();
-        }
-    }
-
     /**
      * Get the value for the given property on the underlying {@link Cursor}
      *
