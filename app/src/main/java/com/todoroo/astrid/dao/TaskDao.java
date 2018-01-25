@@ -296,8 +296,7 @@ public abstract class TaskDao {
      * Construct a query with SQL DSL objects
      */
     public TodorooCursor query(Query query) {
-        query.from(Task.TABLE);
-        String queryString = query.toString();
+        String queryString = query.from(Task.TABLE).toString();
         if (BuildConfig.DEBUG) {
             Timber.v(queryString);
         }

@@ -19,6 +19,7 @@ import org.tasks.data.TaskListMetadata;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -146,24 +147,20 @@ class AstridOrderedListFragmentHelper {
 
         if(chained.size() > 0) {
             // move recurring items to item parent
-            TodorooCursor recurring = taskDao.query(Query.select(Task.UUID, Task.RECURRENCE).where(
+            List<Task> tasks = taskDao.toList(Query.select(Task.UUID, Task.RECURRENCE).where(
                     Criterion.and(Task.UUID.in(chained.toArray(new String[chained.size()])),
-                                   Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
-            try {
-                boolean madeChanges = false;
-                for (recurring.moveToFirst(); !recurring.isAfterLast(); recurring.moveToNext()) {
-                    Task t = new Task(recurring);
-                    if (!TextUtils.isEmpty(t.getRecurrence())) {
-                        updater.moveToParentOf(t.getUuid(), itemId);
-                        madeChanges = true;
-                    }
-                }
+                            Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
 
-                if (madeChanges) {
-                    updater.writeSerialization(list, updater.serializeTree());
+            boolean madeChanges = false;
+            for (Task t : tasks) {
+                if (!TextUtils.isEmpty(t.getRecurrence())) {
+                    updater.moveToParentOf(t.getUuid(), itemId);
+                    madeChanges = true;
                 }
-            } finally {
-                recurring.close();
+            }
+
+            if (madeChanges) {
+                updater.writeSerialization(list, updater.serializeTree());
             }
 
             chainedCompletions.put(itemId, chained);
