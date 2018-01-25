@@ -35,6 +35,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import timber.log.Timber;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
+
 /**
  * Data Access layer for {@link Task}-related operations.
  *
@@ -60,9 +62,12 @@ public abstract class TaskDao {
         this.preferences = preferences;
     }
 
-    public List<Task> selectActive(Criterion criterion) {
-        return query(Query.select(Task.PROPERTIES).where(Criterion.and(TaskCriteria.isActive(), criterion))).toList();
+    public List<Task> needsRefresh() {
+        return needsRefresh(now());
     }
+
+    @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0 AND (hideUntil > :now OR dueDate > :now)")
+    abstract List<Task> needsRefresh(long now);
 
     @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     public abstract Task fetch(long id);
@@ -170,9 +175,9 @@ public abstract class TaskDao {
 
     public ContentValues createNew(Task item) {
         if(!item.containsValue(Task.CREATION_DATE)) {
-            item.setCreationDate(DateUtilities.now());
+            item.setCreationDate(now());
         }
-        item.setModificationDate(DateUtilities.now());
+        item.setModificationDate(now());
 
         // set up task defaults
         if(!item.containsValue(Task.IMPORTANCE)) {
@@ -247,7 +252,7 @@ public abstract class TaskDao {
         }
         if(!TaskApiDao.insignificantChange(values)) {
             if(!values.containsKey(Task.MODIFICATION_DATE.name)) {
-                item.setModificationDate(DateUtilities.now());
+                item.setModificationDate(now());
             }
         }
         DatabaseChangeOp update = new DatabaseChangeOp() {
@@ -273,7 +278,7 @@ public abstract class TaskDao {
      */
     public void setComplete(Task item, boolean completed) {
         if(completed) {
-            item.setCompletionDate(DateUtilities.now());
+            item.setCompletionDate(now());
         } else {
             item.setCompletionDate(0L);
         }

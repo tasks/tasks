@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
@@ -16,8 +15,6 @@ import org.tasks.jobs.JobManager;
 import javax.inject.Inject;
 
 import timber.log.Timber;
-
-import static java.lang.System.currentTimeMillis;
 
 public class BackgroundScheduler extends InjectingJobIntentService {
 
@@ -44,8 +41,7 @@ public class BackgroundScheduler extends InjectingJobIntentService {
         jobManager.scheduleMidnightRefresh();
 
         refreshScheduler.clear();
-        long now = currentTimeMillis();
-        for (Task task : taskDao.selectActive(Criterion.or(Task.HIDE_UNTIL.gt(now), Task.DUE_DATE.gt(now)))) {
+        for (Task task : taskDao.needsRefresh()) {
             refreshScheduler.scheduleRefresh(task);
         }
     }
