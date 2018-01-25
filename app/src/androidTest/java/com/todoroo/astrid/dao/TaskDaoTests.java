@@ -18,8 +18,6 @@ import org.junit.runner.RunWith;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import static junit.framework.Assert.assertEquals;
@@ -112,11 +110,6 @@ public class TaskDaoTests extends InjectingTestCase {
         task.setTitle("completed");
         task.setCompletionDate(DateUtilities.now() - 10000);
         taskDao.save(task);
-
-        // check has no name
-        List<Task> tasks = taskDao.toList(Query.select(TITLES).where(TaskCriteria.hasNoTitle()));
-        assertEquals(1, tasks.size());
-        assertEquals("", tasks.get(0).getTitle());
 
         // check is active
         assertEquals(5, taskDao.toList(Query.select(TITLES).where(TaskCriteria.isActive())).size());

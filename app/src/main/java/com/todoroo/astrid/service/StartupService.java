@@ -14,8 +14,6 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 import com.todoroo.astrid.dao.Database;
-import org.tasks.data.TagDataDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.BuildConfig;
@@ -25,6 +23,8 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.BackgroundScheduler;
@@ -43,7 +43,6 @@ public class StartupService {
 
     private final Database database;
     private final Preferences preferences;
-    private final TaskDeleter taskDeleter;
     private final Tracker tracker;
     private final TagDataDao tagDataDao;
     private final TagService tagService;
@@ -52,13 +51,12 @@ public class StartupService {
     private final TagDao tagDao;
 
     @Inject
-    public StartupService(Database database, Preferences preferences, TaskDeleter taskDeleter,
-                          Tracker tracker, TagDataDao tagDataDao, TagService tagService,
+    public StartupService(Database database, Preferences preferences, Tracker tracker,
+                          TagDataDao tagDataDao, TagService tagService,
                           LocalBroadcastManager localBroadcastManager,
                           @ForApplication Context context, TagDao tagDao) {
         this.database = database;
         this.preferences = preferences;
-        this.taskDeleter = taskDeleter;
         this.tracker = tracker;
         this.tagDataDao = tagDataDao;
         this.tagService = tagService;
@@ -94,9 +92,6 @@ public class StartupService {
         }
 
         BackgroundScheduler.enqueueWork(context);
-
-        // perform startup activities in a background thread
-        new Thread(() -> taskDeleter.deleteTasksWithEmptyTitles()).start();
     }
 
     private void upgrade(int from, int to) {

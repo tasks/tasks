@@ -143,11 +143,6 @@ public abstract class TaskDao {
     	public static Criterion isVisible() {
     	    return Task.HIDE_UNTIL.lt(Functions.now());
         }
-
-    	/** @return tasks that have a blank or null title */
-        public static Criterion hasNoTitle() {
-    	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
-    	}
     }
 
     @android.arch.persistence.room.Query("SELECT remoteId FROM tasks WHERE _id = :localId")

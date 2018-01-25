@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service;
 
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -22,17 +21,6 @@ public class TaskDeleter {
     @Inject
     public TaskDeleter(TaskDao taskDao) {
         this.taskDao = taskDao;
-    }
-
-    /**
-     * Clean up tasks. Typically called on startup
-     */
-    void deleteTasksWithEmptyTitles() {
-        Query query = Query.select(Task.ID).where(TaskDao.TaskCriteria.hasNoTitle());
-        for (Task task : taskDao.toList(query)) {
-            long id = task.getId();
-            taskDao.delete(id);
-        }
     }
 
     public void delete(Task item) {
