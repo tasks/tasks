@@ -121,7 +121,7 @@ dependencies {
     }
     debugCompile "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
     //noinspection GradleDependency
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     debugCompile 'com.android.support:multidex:1.0.2'
 
     compile 'com.github.rey5137:material:1.2.4'
