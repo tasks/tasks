@@ -143,8 +143,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
         this.selectedColor = selectedColor;
         ButterKnife.bind(this, view);
 
-        task = new Task();
-
         if (showFullTaskTitle) {
             nameView.setMaxLines(Integer.MAX_VALUE);
             nameView.setSingleLine(false);

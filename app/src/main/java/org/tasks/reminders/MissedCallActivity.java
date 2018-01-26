@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskCreator;
 
 import org.tasks.R;
 import org.tasks.injection.ActivityComponent;
@@ -28,7 +28,7 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements Mi
     public static final String EXTRA_CALL_LATER = "extra_call_later";
 
     @Inject NotificationManager notificationManager;
-    @Inject TaskDao taskDao;
+    @Inject TaskCreator taskCreator;
 
     private String name;
     private String number;
@@ -86,11 +86,10 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements Mi
 
     @Override
     public void callLater() {
-        Task task = new Task();
-        task.setTitle(TextUtils.isEmpty(name)
+        String title = TextUtils.isEmpty(name)
                 ? getString(R.string.MCA_task_title_no_name, number)
-                : getString(R.string.MCA_task_title_name, name, number));
-        taskDao.save(task);
+                : getString(R.string.MCA_task_title_name, name, number);
+        Task task = taskCreator.basicQuickAddTask(title);
         TaskIntents
                 .getEditTaskStack(this, null, task.getId())
                 .startActivities();

@@ -53,7 +53,7 @@ public class TaskCreator {
         this.googleTaskDao = googleTaskDao;
     }
 
-    public void basicQuickAddTask(String title) {
+    public Task basicQuickAddTask(String title) {
         title = title.trim();
 
         Task task = createWithValues(null, title);
@@ -73,6 +73,7 @@ public class TaskCreator {
         }
 
         taskDao.save(task);
+        return task;
     }
 
     /**

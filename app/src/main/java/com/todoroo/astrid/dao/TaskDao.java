@@ -93,6 +93,9 @@ public abstract class TaskDao {
             "WHERE remoteId = :remoteId")
     public abstract void setCompletionDate(String remoteId, long completionDate);
 
+    @android.arch.persistence.room.Query("UPDATE tasks SET snoozeTime = :millis WHERE _id in (:taskIds)")
+    public abstract void snooze(List<Long> taskIds, long millis);
+
     // --- SQL clause generators
 
     /**

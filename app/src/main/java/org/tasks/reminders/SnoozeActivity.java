@@ -86,12 +86,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
 
     @Override
     public void snoozeForTime(DateTime time) {
-        for (Long taskId : taskIds) {
-            Task task = new Task();
-            task.setId(taskId);
-            task.setReminderSnooze(time.getMillis());
-            taskDao.save(task);
-        }
+        taskDao.snooze(taskIds, time.getMillis());
         notificationManager.cancel(taskIds);
         setResult(RESULT_OK);
         finish();

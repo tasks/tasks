@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static com.todoroo.andlib.sql.Criterion.all;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
 
@@ -60,10 +61,8 @@ public class TaskDeleter {
             return;
         }
 
-        Task template = new Task();
-        template.setId(item.getId());
-        template.setDeletionDate(DateUtilities.now());
-        taskDao.save(template);
+        item.setDeletionDate(now());
+        taskDao.save(item);
     }
 
     public int markDeleted(List<Task> tasks) {
