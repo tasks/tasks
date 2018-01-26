@@ -95,7 +95,7 @@ public abstract class Database extends RoomDatabase {
         return this;
     }
 
-    private void onDatabaseUpdated() {
+    public void onDatabaseUpdated() {
         if (onDatabaseUpdated != null) {
             onDatabaseUpdated.run();
         }

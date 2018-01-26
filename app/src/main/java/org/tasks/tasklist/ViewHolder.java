@@ -195,7 +195,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
 
     void bindView(TodorooCursor cursor) {
         tagsString = cursor.get(TaskAdapter.TAGS);
-        hasFiles = cursor.get(TaskAdapter.FILE_ID_PROPERTY) > 0;
+        hasFiles = (Long) cursor.get(TaskAdapter.FILE_ID_PROPERTY) > 0;
 
         // TODO: see if this is a performance issue
         task = new Task(cursor);

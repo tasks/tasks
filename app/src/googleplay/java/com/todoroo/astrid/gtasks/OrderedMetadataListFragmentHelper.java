@@ -72,13 +72,13 @@ class OrderedMetadataListFragmentHelper {
 
         @Override
         public int getIndent(Task task) {
-            return task.getValue(GoogleTask.INDENT);
+            return task.getGoogleTaskIndent();
         }
 
         @Override
         public boolean canIndent(int position, Task task) {
             Task parent = taskAdapter.getTask(position - 1);
-            return parent != null && getIndent(task) <= parent.getValue(GoogleTask.INDENT);
+            return parent != null && getIndent(task) <= parent.getGoogleTaskIndent();
         }
 
         @Override
@@ -134,10 +134,9 @@ class OrderedMetadataListFragmentHelper {
             ArrayList<Long> chained = chainedCompletions.get(itemId);
             if(chained != null) {
                 for(Long taskId : chained) {
-                    Task model = new Task();
-                    model.setId(taskId);
-                    model.setCompletionDate(completionDate);
-                    taskDao.save(model);
+                    Task task = taskDao.fetch(taskId);
+                    task.setCompletionDate(completionDate);
+                    taskDao.save(task);
                 }
                 taskAdapter.notifyDataSetInvalidated();
             }
@@ -145,7 +144,7 @@ class OrderedMetadataListFragmentHelper {
         }
 
         final ArrayList<Long> chained = new ArrayList<>();
-        final int parentIndent = item.getValue(GoogleTask.INDENT);
+        final int parentIndent = item.getGoogleTaskIndent();
         updater.applyToChildren(list, itemId, node -> {
             Task childTask = taskDao.fetch(node.taskId);
             if(!TextUtils.isEmpty(childTask.getRecurrence())) {
@@ -153,11 +152,8 @@ class OrderedMetadataListFragmentHelper {
                 googleTask.setIndent(parentIndent);
                 googleTaskDao.update(googleTask);
             }
-
-            Task model = new Task();
-            model.setId(node.taskId);
-            model.setCompletionDate(completionDate);
-            taskDao.save(model);
+            childTask.setCompletionDate(completionDate);
+            taskDao.save(childTask);
 
             chained.add(node.taskId);
         });

@@ -193,30 +193,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     }
 
     /**
-     * Double property type. See {@link Property}
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public static class DoubleProperty extends Property<Double> {
-
-        public DoubleProperty(Table table, String name) {
-            super(table, name);
-        }
-
-        @Override
-        public <RETURN, PARAMETER> RETURN accept(
-                PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
-            return visitor.visitDouble(this, data);
-        }
-
-        @Override
-        public DoubleProperty cloneAs(String tableAlias, String columnAlias) {
-            return (DoubleProperty) super.cloneAs(tableAlias, columnAlias);
-        }
-    }
-
-    /**
      * Long property type. See {@link Property}
      *
      * @author Tim Su <tim@todoroo.com>

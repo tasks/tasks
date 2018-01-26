@@ -7,11 +7,10 @@ package com.todoroo.astrid.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
-import android.content.ContentValues;
+import android.arch.persistence.room.Update;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
@@ -28,7 +27,7 @@ import org.tasks.jobs.AfterSaveIntentService;
 import org.tasks.receivers.PushReceiver;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -154,7 +153,7 @@ public abstract class TaskDao {
      *
      */
     public void save(Task task) {
-        ContentValues modifiedValues = saveExisting(task);
+        Set<String> modifiedValues = saveExisting(task);
         if (modifiedValues != null) {
             AfterSaveIntentService.enqueue(context, task.getId(), modifiedValues);
         } else if (task.checkTransitory(SyncFlags.FORCE_SYNC)) {
@@ -165,35 +164,30 @@ public abstract class TaskDao {
     @Insert
     abstract long insert(Task task);
 
+    @Update
+    abstract int update(Task task);
+
     public void createNew(Task task) {
         task.id = null;
         task.remoteId = task.getUuid();
-        task.setId(insert(task));
+        long insert = insert(task);
+        task.setId(insert);
     }
 
-    private ContentValues saveExisting(Task item) {
-        ContentValues values = item.getSetValues();
+    private Set<String> saveExisting(Task item) {
+        Set<String> values = item.getSetValues();
         if (values == null || values.size() == 0) {
             return null;
         }
         if (!TaskApiDao.insignificantChange(values)) {
-            if (!values.containsKey(Task.MODIFICATION_DATE.name)) {
+            if (!values.contains(Task.MODIFICATION_DATE.name)) {
                 item.setModificationDate(now());
             }
         }
-        DatabaseChangeOp update = new DatabaseChangeOp() {
-            @Override
-            public boolean makeChange() {
-                return database.update(values,
-                        AbstractModel.ID_PROPERTY.eq(item.getId()).toString()) > 0;
-            }
-
-            @Override
-            public String toString() {
-                return "UPDATE";
-            }
-        };
-        if (updateAndRecordChanges(item, update)) {
+        int updated = update(item);
+        if (updated == 1) {
+            item.markSaved();
+            database.onDatabaseUpdated();
             return values;
         }
         return null;
@@ -228,24 +222,6 @@ public abstract class TaskDao {
         }
         Cursor cursor = database.rawQuery(queryString);
         return new TodorooCursor(cursor, query.getFields());
-    }
-
-    private interface DatabaseChangeOp {
-        boolean makeChange();
-    }
-
-    private boolean updateAndRecordChanges(Task item, DatabaseChangeOp op) {
-        final AtomicBoolean result = new AtomicBoolean(false);
-        synchronized(database) {
-            result.set(op.makeChange());
-            if (result.get()) {
-                item.markSaved();
-                if (BuildConfig.DEBUG) {
-                    Timber.v("%s %s", op, item.toString());
-                }
-            }
-        }
-        return result.get();
     }
 }
 

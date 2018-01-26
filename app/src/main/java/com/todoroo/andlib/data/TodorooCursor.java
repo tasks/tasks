@@ -70,7 +70,7 @@ public class TodorooCursor extends CursorWrapper {
      * @param <PROPERTY_TYPE> type to return
      * @param property to retrieve
      */
-    public <PROPERTY_TYPE> PROPERTY_TYPE get(Property<PROPERTY_TYPE> property) {
+    public <PROPERTY_TYPE> PROPERTY_TYPE get(Property<?> property) {
         return (PROPERTY_TYPE)property.accept(reader, this);
     }
 

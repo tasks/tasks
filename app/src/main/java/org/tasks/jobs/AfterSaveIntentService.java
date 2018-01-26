@@ -26,10 +26,15 @@ import org.tasks.notifications.NotificationManager;
 import org.tasks.receivers.PushReceiver;
 import org.tasks.scheduling.RefreshScheduler;
 
+import java.util.ArrayList;
+import java.util.Set;
+
 import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
 
 public class AfterSaveIntentService extends InjectingJobIntentService {
@@ -37,10 +42,10 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
     private static final String EXTRA_TASK_ID = "extra_task_id";
     private static final String EXTRA_MODIFIED_VALUES = "extra_modified_values";
 
-    public static void enqueue(Context context, long taskId, ContentValues modifiedValues) {
+    public static void enqueue(Context context, long taskId, Set<String> modifiedValues) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_TASK_ID, taskId);
-        intent.putExtra(EXTRA_MODIFIED_VALUES, modifiedValues);
+        intent.putStringArrayListExtra(EXTRA_MODIFIED_VALUES, newArrayList(modifiedValues));
         AfterSaveIntentService.enqueueWork(context, AfterSaveIntentService.class, JobManager.JOB_ID_TASK_STATUS_CHANGE, intent);
     }
 
@@ -59,7 +64,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
         super.onHandleWork(intent);
 
         long taskId = intent.getLongExtra(EXTRA_TASK_ID, -1);
-        ContentValues modifiedValues = intent.getParcelableExtra(EXTRA_MODIFIED_VALUES);
+        ArrayList<String> modifiedValues = intent.getStringArrayListExtra(EXTRA_MODIFIED_VALUES);
 
         if (taskId == -1 || modifiedValues == null) {
             Timber.e("Invalid extras, taskId=%s modifiedValues=%s", taskId, modifiedValues);
@@ -72,11 +77,11 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
             return;
         }
 
-        if(modifiedValues.containsKey(Task.DUE_DATE.name) ||
-                modifiedValues.containsKey(Task.REMINDER_FLAGS.name) ||
-                modifiedValues.containsKey(Task.REMINDER_PERIOD.name) ||
-                modifiedValues.containsKey(Task.REMINDER_LAST.name) ||
-                modifiedValues.containsKey(Task.REMINDER_SNOOZE.name)) {
+        if(modifiedValues.contains(Task.DUE_DATE.name) ||
+                modifiedValues.contains(Task.REMINDER_FLAGS.name) ||
+                modifiedValues.contains(Task.REMINDER_PERIOD.name) ||
+                modifiedValues.contains(Task.REMINDER_LAST.name) ||
+                modifiedValues.contains(Task.REMINDER_SNOOZE.name)) {
             reminderService.scheduleAlarm(task);
         }
 
@@ -84,8 +89,8 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
             return;
         }
 
-        boolean completionDateModified = modifiedValues.containsKey(Task.COMPLETION_DATE.name);
-        boolean deletionDateModified = modifiedValues.containsKey(Task.DELETION_DATE.name);
+        boolean completionDateModified = modifiedValues.contains(Task.COMPLETION_DATE.name);
+        boolean deletionDateModified = modifiedValues.contains(Task.DELETION_DATE.name);
 
         boolean justCompleted = completionDateModified && task.isCompleted();
         boolean justDeleted = deletionDateModified && task.isDeleted();

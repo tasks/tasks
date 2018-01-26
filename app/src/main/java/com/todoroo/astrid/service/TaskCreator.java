@@ -114,16 +114,16 @@ public class TaskCreator {
             task.mergeWithoutReplacement(forTask);
         }
 
-        if (!task.containsValue(Task.IMPORTANCE)) {
+        if (!task.isModified(Task.IMPORTANCE)) {
             task.setImportance(preferences.getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
         }
 
-        if(!task.containsValue(Task.DUE_DATE)) {
+        if(!task.isModified(Task.DUE_DATE)) {
             task.setDueDate(Task.createDueDate(
                     preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE), 0));
         }
 
-        if(!task.containsValue(Task.HIDE_UNTIL)) {
+        if(!task.isModified(Task.HIDE_UNTIL)) {
             int setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                     Task.HIDE_UNTIL_NONE);
             task.setHideUntil(task.createHideUntil(setting, 0));
@@ -137,13 +137,13 @@ public class TaskCreator {
     }
 
     public static void setDefaultReminders(Preferences preferences, Task task) {
-        if(!task.containsValue(Task.REMINDER_PERIOD)) {
+        if(!task.isModified(Task.REMINDER_PERIOD)) {
             task.setReminderPeriod(DateUtilities.ONE_HOUR *
                     preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
                             0));
         }
 
-        if(!task.containsValue(Task.REMINDER_FLAGS)) {
+        if(!task.isModified(Task.REMINDER_FLAGS)) {
             task.setReminderFlags(preferences.getDefaultReminders() | preferences.getDefaultRingMode());
         }
     }

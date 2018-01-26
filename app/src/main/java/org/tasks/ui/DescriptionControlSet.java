@@ -16,6 +16,8 @@ import org.tasks.injection.FragmentComponent;
 import butterknife.BindView;
 import butterknife.OnTextChanged;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 public class DescriptionControlSet extends TaskEditControlFragment {
 
     public static final int TAG = R.string.TEA_ctrl_notes_pref;
@@ -34,7 +36,7 @@ public class DescriptionControlSet extends TaskEditControlFragment {
         } else {
             description = savedInstanceState.getString(EXTRA_DESCRIPTION);
         }
-        if (!Strings.isNullOrEmpty(description)) {
+        if (!isNullOrEmpty(description)) {
             editText.setTextKeepState(description);
         }
         return view;
@@ -74,7 +76,9 @@ public class DescriptionControlSet extends TaskEditControlFragment {
 
     @Override
     public boolean hasChanges(Task original) {
-        return !description.equals(original.getNotes());
+        return isNullOrEmpty(description)
+                ? isNullOrEmpty(original.getNotes())
+                : description.equals(original.getNotes());
     }
 
     @Override

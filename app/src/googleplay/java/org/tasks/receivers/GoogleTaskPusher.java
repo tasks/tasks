@@ -1,12 +1,12 @@
 package org.tasks.receivers;
 
-import android.content.ContentValues;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.gtasks.SyncAdapterHelper;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -22,7 +22,7 @@ public class GoogleTaskPusher {
         this.syncAdapterHelper = syncAdapterHelper;
     }
 
-    void push(Task task, ContentValues modifiedValues) {
+    void push(Task task, ArrayList<String> modifiedValues) {
         if(!syncAdapterHelper.isEnabled()) {
             return;
         }
@@ -36,12 +36,12 @@ public class GoogleTaskPusher {
         }
     }
 
-    private boolean checkValuesForProperties(ContentValues values, Property<?>[] properties) {
+    private boolean checkValuesForProperties(ArrayList<String> values, Property<?>[] properties) {
         if (values == null) {
             return false;
         }
         for (Property<?> property : properties) {
-            if (property != Task.ID && values.containsKey(property.name)) {
+            if (property != Task.ID && values.contains(property.name)) {
                 return true;
             }
         }

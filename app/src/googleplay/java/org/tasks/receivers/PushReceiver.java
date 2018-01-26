@@ -1,6 +1,5 @@
 package org.tasks.receivers;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
@@ -10,14 +9,16 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 public class PushReceiver extends InjectingBroadcastReceiver {
 
-    public static void broadcast(Context context, Task task, ContentValues values) {
+    public static void broadcast(Context context, Task task, ArrayList<String> values) {
         Intent intent = new Intent(context, PushReceiver.class);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK, task);
-        intent.putExtra(AstridApiConstants.EXTRAS_VALUES, values);
+        intent.putStringArrayListExtra(AstridApiConstants.EXTRAS_VALUES, values);
         context.sendBroadcast(intent);
     }
 
@@ -29,7 +30,7 @@ public class PushReceiver extends InjectingBroadcastReceiver {
 
         googleTaskPusher.push(
                 intent.getParcelableExtra(AstridApiConstants.EXTRAS_TASK),
-                intent.getParcelableExtra(AstridApiConstants.EXTRAS_VALUES));
+                intent.getStringArrayListExtra(AstridApiConstants.EXTRAS_VALUES));
     }
 
     @Override

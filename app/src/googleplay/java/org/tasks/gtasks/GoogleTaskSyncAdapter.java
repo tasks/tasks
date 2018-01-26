@@ -249,33 +249,26 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         //If task was newly created but without a title, don't sync--we're in the middle of
         //creating a task which may end up being cancelled. Also don't sync new but already
         //deleted tasks
-        if (newlyCreated &&
-                (!task.containsValue(Task.TITLE) || TextUtils.isEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
+        if (newlyCreated && (TextUtils.isEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
             return;
         }
 
         //Update the remote model's changed properties
-        if (task.containsValue(Task.DELETION_DATE) && task.isDeleted()) {
+        if (task.isDeleted()) {
             remoteModel.setDeleted(true);
         }
 
-        if (task.containsValue(Task.TITLE)) {
-            remoteModel.setTitle(task.getTitle());
-        }
-        if (task.containsValue(Task.NOTES)) {
-            remoteModel.setNotes(task.getNotes());
-        }
-        if (task.containsValue(Task.DUE_DATE) && task.hasDueDate()) {
+        remoteModel.setTitle(task.getTitle());
+        remoteModel.setNotes(task.getNotes());
+        if (task.hasDueDate()) {
             remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getDueDate()));
         }
-        if (task.containsValue(Task.COMPLETION_DATE)) {
-            if (task.isCompleted()) {
-                remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getCompletionDate()));
-                remoteModel.setStatus("completed"); //$NON-NLS-1$
-            } else {
-                remoteModel.setCompleted(null);
-                remoteModel.setStatus("needsAction"); //$NON-NLS-1$
-            }
+        if (task.isCompleted()) {
+            remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getCompletionDate()));
+            remoteModel.setStatus("completed"); //$NON-NLS-1$
+        } else {
+            remoteModel.setCompleted(null);
+            remoteModel.setStatus("needsAction"); //$NON-NLS-1$
         }
 
         if (!newlyCreated) {
@@ -382,8 +375,8 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         if(task.task.isSaved()) {
             Task local = taskDao.fetch(task.task.getId());
             if (local == null) {
-                task.task.clearValue(Task.ID);
-                task.task.clearValue(Task.UUID);
+                task.task.setId(NO_ID);
+                task.task.setUuid(NO_UUID);
             } else {
                 mergeDates(task.task, local);
             }

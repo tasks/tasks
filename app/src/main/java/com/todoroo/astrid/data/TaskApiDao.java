@@ -5,7 +5,8 @@
  */
 package com.todoroo.astrid.data;
 
-import android.content.ContentValues;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Data access object for accessing Astrid's {@link Task} table. If you
@@ -18,22 +19,22 @@ import android.content.ContentValues;
 public class TaskApiDao {
 
     /** @return true if task change shouldn't be broadcast */
-    public static boolean insignificantChange(ContentValues values) {
+    public static boolean insignificantChange(Collection<String> values) {
         if(values == null || values.size() == 0) {
             return true;
         }
 
-        if(values.containsKey(Task.REMINDER_LAST.name) &&
+        if(values.contains(Task.REMINDER_LAST.name) &&
                 values.size() <= 2) {
             return true;
         }
 
-        if(values.containsKey(Task.REMINDER_SNOOZE.name) &&
+        if(values.contains(Task.REMINDER_SNOOZE.name) &&
                 values.size() <= 2) {
             return true;
         }
 
-        if(values.containsKey(Task.TIMER_START.name) &&
+        if(values.contains(Task.TIMER_START.name) &&
                 values.size() <= 2) {
             return true;
         }

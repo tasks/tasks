@@ -8,22 +8,18 @@ package com.todoroo.andlib.data;
 import android.arch.persistence.room.Ignore;
 import android.content.ContentValues;
 
-import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.PropertyVisitor;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.Tag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.Set;
 
-import timber.log.Timber;
-
-import static com.todoroo.andlib.data.Property.DoubleProperty;
+import static com.google.common.collect.Sets.newHashSet;
 
 /**
  * <code>AbstractModel</code> represents a row in a database.
@@ -37,8 +33,6 @@ import static com.todoroo.andlib.data.Property.DoubleProperty;
  */
 public abstract class AbstractModel {
 
-    private static final ContentValuesSavingVisitor saver = new ContentValuesSavingVisitor();
-
     /** id property common to all models */
     protected static final String ID_PROPERTY_NAME = "_id"; //$NON-NLS-1$
 
@@ -50,12 +44,9 @@ public abstract class AbstractModel {
 
     // --- abstract methods
 
-    public interface ValueReader<TYPE> {
-        TYPE getValue(Task instance);
+    public interface ValueWriter<TYPE> {
+        void setValue(Task instance, TYPE value);
     }
-
-    /** Get the default values for this object */
-    abstract public Map<String, ValueReader<?>> getRoomGetters();
 
     // --- data store variables and management
 
@@ -68,46 +59,15 @@ public abstract class AbstractModel {
 
     /** User set values */
     @Ignore
-    protected ContentValues setValues = null;
-
-    /** Values from database */
-    @Ignore
-    protected ContentValues values = null;
+    protected final Set<String> setValues = new HashSet<>();
 
     /** Transitory Metadata (not saved in database) */
     @Ignore
     protected HashMap<String, Object> transitoryData = null;
 
-    protected AbstractModel() {
-    }
-
-    protected AbstractModel(TodorooCursor cursor) {
-        readPropertiesFromCursor(cursor);
-    }
-
     /** Get the user-set values for this object */
-    public ContentValues getSetValues() {
-        return setValues;
-    }
-
-    /** Get a list of all field/value pairs merged across data sources */
-    public ContentValues getMergedValues() {
-        ContentValues mergedValues = new ContentValues();
-
-        for (Map.Entry<String, ValueReader<?>> entry : getRoomGetters().entrySet()) {
-            Object value = entry.getValue().getValue((Task) this);
-            if (value != null) {
-                AndroidUtilities.putInto(mergedValues, entry.getKey(), value);
-            }
-        }
-        if (values != null) {
-            mergedValues.putAll(values);
-        }
-        if(setValues != null) {
-            mergedValues.putAll(setValues);
-        }
-
-        return mergedValues;
+    public Set<String> getSetValues() {
+        return newHashSet(setValues);
     }
 
     /**
@@ -115,93 +75,18 @@ public abstract class AbstractModel {
      * saved - future saves will not need to write all the data as before.
      */
     public void markSaved() {
-        if(values == null) {
-            values = setValues;
-        } else if(setValues != null) {
-            values.putAll(setValues);
-        }
-        setValues = null;
+        setValues.clear();
     }
 
-    /**
-     * Use merged values to compare two models to each other. Must be of
-     * exactly the same class.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if(other == null || other.getClass() != getClass()) {
-            return false;
+    private void setValue(String columnName, Object value) {
+        ValueWriter<Object> writer = Task.roomSetters.get(columnName);
+        if (writer == null) {
+            throw new RuntimeException();
         }
-
-        return getMergedValues().equals(((AbstractModel) other).getMergedValues());
+        writer.setValue((Task) this, value);
+        setValues.add(columnName);
     }
 
-    @Override
-    public int hashCode() {
-        return getMergedValues().hashCode() ^ getClass().hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "\n" + "set values:\n" + setValues + "\n" + "values:\n" + values + "\n";
-    }
-
-    /**
-     * Reads all properties from the supplied cursor and store
-     */
-    void readPropertiesFromCursor(TodorooCursor cursor) {
-        if (values == null) {
-            values = new ContentValues();
-        }
-
-        // clears user-set values
-        setValues = null;
-        transitoryData = null;
-
-        for (Property<?> property : cursor.getProperties()) {
-            try {
-                saver.save(property, values, cursor.get(property));
-            } catch (IllegalArgumentException e) {
-                // underlying cursor may have changed, suppress
-                Timber.e(e, e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Reads the given property. Make sure this model has this property!
-     */
-    public synchronized <TYPE> TYPE getValue(Property<TYPE> property) {
-        Object value;
-        String columnName = property.getColumnName();
-        if(setValues != null && setValues.containsKey(columnName)) {
-            value = setValues.get(columnName);
-        } else if(values != null && values.containsKey(columnName)) {
-            value = values.get(columnName);
-        } else if(getRoomGetters().containsKey(columnName)) {
-            value = getRoomGetters().get(columnName).getValue((Task) this);
-        } else {
-            throw new UnsupportedOperationException(
-                    "Model Error: Did not read property " + property.name); //$NON-NLS-1$
-        }
-
-        // resolve properties that were retrieved with a different type than accessed
-        try {
-            if(value instanceof String && property instanceof LongProperty) {
-                return (TYPE) Long.valueOf((String) value);
-            } else if(value instanceof String && property instanceof IntegerProperty) {
-                return (TYPE) Integer.valueOf((String) value);
-            } else if(value instanceof Integer && property instanceof LongProperty) {
-                return (TYPE) Long.valueOf(((Number) value).longValue());
-            } else if(value instanceof String && property instanceof DoubleProperty) {
-                return (TYPE) Double.valueOf((String) value);
-            }
-            return (TYPE) value;
-        } catch (NumberFormatException e) {
-            Timber.e(e, e.getMessage());
-            return (TYPE) getRoomGetters().get(property.name).getValue((Task) this);
-        }
-    }
 
     /**
      * Utility method to get the identifier of the model, if it exists.
@@ -211,15 +96,7 @@ public abstract class AbstractModel {
     abstract public long getId();
 
     public void setId(long id) {
-        if (setValues == null) {
-            setValues = new ContentValues();
-        }
-
-        if(id == NO_ID) {
-            clearValue(ID_PROPERTY);
-        } else {
-            setValues.put(ID_PROPERTY_NAME, id);
-        }
+        setValue(ID_PROPERTY, id);
     }
 
     /**
@@ -232,54 +109,17 @@ public abstract class AbstractModel {
     /**
      * @return true if setValues or values contains this property
      */
-    public boolean containsValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.getColumnName())) {
-            return true;
-        }
-        if(values != null && values.containsKey(property.getColumnName())) {
-            return true;
-        }
-        return false;
+    public boolean isModified(Property<?> property) {
+        return setValues.contains(property.getColumnName());
     }
 
     // --- data storage
 
     /**
-     * Check whether the user has changed this property value and it should be
-     * stored for saving in the database
-     */
-    private synchronized <TYPE> boolean shouldSaveValue(Property<TYPE> property, TYPE newValue) {
-    	// we've already decided to save it, so overwrite old value
-        if (setValues.containsKey(property.getColumnName())) {
-            return true;
-        }
-
-        TYPE value = getValue(property);
-        if (value == null) {
-            if (newValue == null) {
-                return false;
-            }
-        } else if (value.equals(newValue)) {
-            return false;
-        }
-
-        // otherwise, good to save
-        return true;
-    }
-
-    /**
      * Sets the given property. Make sure this model has this property!
      */
-    public synchronized <TYPE> void setValue(Property<TYPE> property,
-            TYPE value) {
-        if (setValues == null) {
-            setValues = new ContentValues();
-        }
-        if (!shouldSaveValue(property, value)) {
-            return;
-        }
-
-        saver.save(property, setValues, value);
+    public synchronized <TYPE> void setValue(Property<TYPE> property, TYPE value) {
+        setValue(property.getColumnName(), value);
     }
 
     /**
@@ -287,26 +127,11 @@ public abstract class AbstractModel {
      * keeping the existing value if one already exists
      */
     public synchronized void mergeWithoutReplacement(ContentValues other) {
-        if (setValues == null) {
-            setValues = new ContentValues();
-        }
         for (Entry<String, Object> item : other.valueSet()) {
-            if (setValues.containsKey(item.getKey())) {
-                continue;
+            String columnName = item.getKey();
+            if (setValues.add(columnName)) {
+                setValue(columnName, item.getValue());
             }
-            AndroidUtilities.putInto(setValues, item.getKey(), item.getValue());
-        }
-    }
-
-    /**
-     * Clear the key for the given property
-     */
-    public synchronized void clearValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.getColumnName())) {
-            setValues.remove(property.getColumnName());
-        }
-        if(values != null && values.containsKey(property.getColumnName())) {
-            values.remove(property.getColumnName());
         }
     }
 
@@ -354,51 +179,5 @@ public abstract class AbstractModel {
     public boolean checkAndClearTransitory(String flag) {
         Object trans = clearTransitory(flag);
         return trans != null;
-    }
-
-    /**
-     * Visitor that saves a value into a content values store
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public static class ContentValuesSavingVisitor implements PropertyVisitor<Void, Object> {
-
-        private ContentValues store;
-
-        public synchronized void save(Property<?> property, ContentValues newStore, Object value) {
-            this.store = newStore;
-
-            // we don't allow null values, as they indicate unset properties
-            // when the database was written
-
-            if(value != null) {
-                property.accept(this, value);
-            }
-        }
-
-        @Override
-        public Void visitInteger(Property<Integer> property, Object value) {
-            store.put(property.getColumnName(), (Integer) value);
-            return null;
-        }
-
-        @Override
-        public Void visitLong(Property<Long> property, Object value) {
-            store.put(property.getColumnName(), (Long) value);
-            return null;
-        }
-
-        @Override
-        public Void visitDouble(Property<Double> property, Object value) {
-            store.put(property.getColumnName(), (Double) value);
-            return null;
-        }
-
-        @Override
-        public Void visitString(Property<String> property, Object value) {
-            store.put(property.getColumnName(), (String) value);
-            return null;
-        }
     }
 }
