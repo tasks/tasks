@@ -147,7 +147,6 @@ public class TasksXmlExporter {
         }).start();
     }
 
-
     private void doTasksExport(String output) throws IOException {
         File xmlFile = new File(output);
         xmlFile.createNewFile();
@@ -194,32 +193,15 @@ public class TasksXmlExporter {
             setProgress(i, length);
 
             xml.startTag(null, BackupConstants.TASK_TAG);
-            serializeModel(task, Task.PROPERTIES, Task.ID);
-            serializeMetadata(task);
-            serializeComments(task);
+            serializeTask(task);
             xml.endTag(null, BackupConstants.TASK_TAG);
             this.exportCount++;
         }
     }
 
-    private synchronized void serializeComments(Task task) {
-        for (UserActivity comment : userActivityDao.getCommentsForTask(task.getUuid())) {
-            writeComment(comment);
-        }
-    }
-
-    private void writeComment(UserActivity userActivity) {
-        try {
-            xml.startTag(null, BackupConstants.COMMENT_TAG);
-            userActivity.writeToXml(new XmlWriter(xml));
-            xml.endTag(null, BackupConstants.COMMENT_TAG);
-        } catch (IOException e) {
-            // ignore
-        }
-    }
-
-    private synchronized void serializeMetadata(Task task) {
+    private synchronized void serializeTask(Task task) {
         XmlWriter writer = new XmlWriter(xml);
+        task.writeToXml(writer);
         for (Alarm alarm : alarmDao.getAlarms(task.getId())) {
             try {
                 xml.startTag(null, BackupConstants.ALARM_TAG);
@@ -256,93 +238,18 @@ public class TasksXmlExporter {
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    /**
-     * Turn a model into xml attributes
-     */
-    private void serializeModel(AbstractModel model, Property<?>[] properties, Property<?>... excludes) {
-        outer: for(Property<?> property : properties) {
-            for(Property<?> exclude : excludes) {
-                if (property.name.equals(exclude.name)) {
-                    continue outer;
-                }
-            }
-
+        for (UserActivity comment : userActivityDao.getCommentsForTask(task.getUuid())) {
             try {
-                property.accept(xmlWritingVisitor, model);
-            } catch (Exception e) {
-                Timber.e(e, e.getMessage());
+                xml.startTag(null, BackupConstants.COMMENT_TAG);
+                comment.writeToXml(new XmlWriter(xml));
+                xml.endTag(null, BackupConstants.COMMENT_TAG);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
-    private final XmlWritingPropertyVisitor xmlWritingVisitor = new XmlWritingPropertyVisitor();
     public static final String XML_NULL = "null"; //$NON-NLS-1$
-
-    public class XmlWritingPropertyVisitor implements PropertyVisitor<Void, AbstractModel> {
-
-        @Override
-        public Void visitInteger(Property<Integer> property, AbstractModel data) {
-            try {
-                Integer value = data.getValue(property);
-                String valueString = (value == null) ? XML_NULL : value.toString();
-                xml.attribute(null, property.name, valueString);
-            } catch (UnsupportedOperationException e) {
-                // didn't read this value, do nothing
-                Timber.e(e, e.getMessage());
-            } catch (IllegalArgumentException | IOException | IllegalStateException e) {
-                throw new RuntimeException(e);
-            }
-            return null;
-        }
-
-        @Override
-        public Void visitLong(Property<Long> property, AbstractModel data) {
-            try {
-                Long value = data.getValue(property);
-                String valueString = (value == null) ? XML_NULL : value.toString();
-                xml.attribute(null, property.name, valueString);
-            } catch (UnsupportedOperationException e) {
-                // didn't read this value, do nothing
-                Timber.e(e, e.getMessage());
-            } catch (IllegalArgumentException | IOException | IllegalStateException e) {
-                throw new RuntimeException(e);
-            }
-            return null;
-        }
-
-        @Override
-        public Void visitDouble(Property<Double> property, AbstractModel data) {
-            try {
-                Double value = data.getValue(property);
-                String valueString = (value == null) ? XML_NULL : value.toString();
-                xml.attribute(null, property.name, valueString);
-            } catch (UnsupportedOperationException e) {
-                // didn't read this value, do nothing
-            } catch (IllegalArgumentException | IllegalStateException | IOException e) {
-                throw new RuntimeException(e);
-            }
-            return null;
-        }
-
-        @Override
-        public Void visitString(Property<String> property, AbstractModel data) {
-            try {
-                String value = data.getValue(property);
-                if(value == null) {
-                    return null;
-                }
-                xml.attribute(null, property.name, value);
-            } catch (UnsupportedOperationException e) {
-                // didn't read this value, do nothing
-                Timber.v(e, e.getMessage());
-            } catch (IllegalArgumentException | IOException | IllegalStateException e) {
-                throw new RuntimeException(e);
-            }
-            return null;
-        }
-    }
 
     private void onFinishExport(final String outputFile) {
         post(() -> {

@@ -27,6 +27,8 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
+import org.tasks.backup.XmlReader;
+import org.tasks.backup.XmlWriter;
 import org.tasks.time.DateTime;
 
 import java.util.HashMap;
@@ -269,6 +271,53 @@ public class Task extends AbstractModel implements Parcelable {
     @Ignore
     public Task(TodorooCursor cursor) {
         super(cursor);
+    }
+
+    @Ignore
+    public Task(XmlReader reader) {
+        calendarUri = reader.readString("calendarUri");
+        completed = reader.readLong("completed");
+        created = reader.readLong("created");
+        deleted = reader.readLong("deleted");
+        dueDate = reader.readLong("dueDate");
+        elapsedSeconds = reader.readInteger("elapsedSeconds");
+        estimatedSeconds = reader.readInteger("estimatedSeconds");
+        hideUntil = reader.readLong("hideUntil");
+        importance = reader.readInteger("importance");
+        modified = reader.readLong("modified");
+        notes = reader.readString("notes");
+        recurrence = reader.readString("recurrence");
+        notificationFlags = reader.readInteger("notificationFlags");
+        lastNotified = reader.readLong("lastNotified");
+        notifications = reader.readLong("notifications");
+        snoozeTime = reader.readLong("snoozeTime");
+        repeatUntil = reader.readLong("repeatUntil");
+        timerStart = reader.readLong("timerStart");
+        title = reader.readString("title");
+        remoteId = reader.readString("remoteId");
+    }
+
+    public void writeToXml(XmlWriter writer) {
+        writer.writeString("calendarUri", calendarUri);
+        writer.writeLong("completed", completed);
+        writer.writeLong("created", created);
+        writer.writeLong("deleted", deleted);
+        writer.writeLong("dueDate", dueDate);
+        writer.writeInteger("elapsedSeconds", elapsedSeconds);
+        writer.writeInteger("estimatedSeconds", estimatedSeconds);
+        writer.writeLong("hideUntil", hideUntil);
+        writer.writeInteger("importance", importance);
+        writer.writeLong("modified", modified);
+        writer.writeString("notes", notes);
+        writer.writeString("recurrence", recurrence);
+        writer.writeInteger("notificationFlags", notificationFlags);
+        writer.writeLong("lastNotified", lastNotified);
+        writer.writeLong("notifications", notifications);
+        writer.writeLong("snoozeTime", snoozeTime);
+        writer.writeLong("repeatUntil", repeatUntil);
+        writer.writeLong("timerStart", timerStart);
+        writer.writeString("title", title);
+        writer.writeString("remoteId", remoteId);
     }
 
     @Ignore

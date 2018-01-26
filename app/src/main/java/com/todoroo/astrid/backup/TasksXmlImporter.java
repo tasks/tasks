@@ -11,18 +11,11 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
-import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import org.tasks.data.UserActivityDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.UserActivity;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -35,6 +28,10 @@ import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
+import org.tasks.data.UserActivity;
+import org.tasks.data.UserActivityDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -198,7 +195,6 @@ public class TasksXmlImporter {
         void parseTask() {
             taskCount++;
             setProgressMessage(activity.getString(R.string.import_progress_read, taskCount));
-            currentTask = new Task();
 
             String title = xpp.getAttributeValue(null, Task.TITLE.name);
             String created = xpp.getAttributeValue(null, Task.CREATION_DATE.name);
@@ -215,8 +211,7 @@ public class TasksXmlImporter {
             if (taskDao.count(query) > 0) {
                 skipCount++;
             } else {
-                deserializeModel(currentTask, Task.PROPERTIES);
-
+                currentTask = new Task(new XmlReader(xpp));
                 // Save the task to the database.
                 taskDao.save(currentTask);
                 importCount++;
@@ -325,66 +320,6 @@ public class TasksXmlImporter {
                 googleTask.setDeleted(xml.readLong("deleted"));
                 googleTaskDao.insert(googleTask);
             }
-        }
-
-        /**
-         * Turn a model into xml attributes
-         */
-        void deserializeModel(AbstractModel model, Property<?>[] properties) {
-            for(Property<?> property : properties) {
-                try {
-                    property.accept(xmlReadingVisitor, model);
-                } catch (Exception e) {
-                    Timber.e(e, e.getMessage());
-                }
-            }
-        }
-
-        private final XmlReadingPropertyVisitor xmlReadingVisitor = new XmlReadingPropertyVisitor();
-
-        private class XmlReadingPropertyVisitor implements PropertyVisitor<Void, AbstractModel> {
-
-            @Override
-            public Void visitInteger(Property<Integer> property,
-                    AbstractModel data) {
-                String value = xpp.getAttributeValue(null, property.name);
-                if(value != null) {
-                    data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
-                            null : Integer.parseInt(value));
-                }
-                return null;
-            }
-
-            @Override
-            public Void visitLong(Property<Long> property, AbstractModel data) {
-                String value = xpp.getAttributeValue(null, property.name);
-                if(value != null) {
-                    data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
-                            null : Long.parseLong(value));
-                }
-                return null;
-            }
-
-            @Override
-            public Void visitDouble(Property<Double> property, AbstractModel data) {
-                String value = xpp.getAttributeValue(null, property.name);
-                if (value != null) {
-                    data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
-                            null : Double.parseDouble(value));
-                }
-                return null;
-            }
-
-            @Override
-            public Void visitString(Property<String> property,
-                    AbstractModel data) {
-                String value = xpp.getAttributeValue(null, property.name);
-                if(value != null) {
-                    data.setValue(property, value);
-                }
-                return null;
-            }
-
         }
     }
 
