@@ -147,7 +147,7 @@ class AstridOrderedListFragmentHelper {
 
         if(chained.size() > 0) {
             // move recurring items to item parent
-            List<Task> tasks = taskDao.toList(Query.select(Task.UUID, Task.RECURRENCE).where(
+            List<Task> tasks = taskDao.toList(Query.select().where(
                     Criterion.and(Task.UUID.in(chained.toArray(new String[chained.size()])),
                             Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
 

@@ -108,8 +108,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
         RETURN visitLong(Property<Long> property, PARAMETER data);
 
-        RETURN visitDouble(Property<Double> property, PARAMETER data);
-
         RETURN visitString(Property<String> property, PARAMETER data);
     }
 
@@ -231,18 +229,10 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     // --- pseudo-properties
 
     /** Runs a SQL function and returns the result as a string */
-    public static class IntegerFunctionProperty extends IntegerProperty {
-        public IntegerFunctionProperty(String function, String columnName) {
-            super(columnName, function);
-            alias = columnName;
-        }
-    }
-
-    /** Counting in aggregated tables. Returns the result of COUNT(1) */
-    public static final class CountProperty extends IntegerFunctionProperty {
+    public static class CountProperty extends IntegerProperty {
         public CountProperty() {
             super("COUNT(1)", "count");
+            alias = "count";
         }
     }
-
 }

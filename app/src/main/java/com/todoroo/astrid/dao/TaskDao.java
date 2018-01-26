@@ -82,7 +82,7 @@ public abstract class TaskDao {
 
     public List<Task> query(Filter filter) {
         String query = PermaSql.replacePlaceholders(filter.getSqlQuery());
-        return query(Query.select(Task.PROPERTIES).withQueryTemplate(query)).toList();
+        return query(Query.select().withQueryTemplate(query)).toList();
     }
 
     public List<Task> toList(Query query) {
@@ -207,9 +207,8 @@ public abstract class TaskDao {
     }
 
     public TodorooCursor fetchFiltered(String queryTemplate, Property<?>... properties) {
-        return query(queryTemplate == null
-                ? Query.selectDistinct(properties)
-                : Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate)));
+        return query(Query.select(properties)
+                .withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate)));
     }
 
     /**

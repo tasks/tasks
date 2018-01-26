@@ -231,7 +231,7 @@ public class NotificationManager {
         ArrayList<Long> taskIds = newArrayList(transform(notifications, n -> n.taskId));
         QueryTemplate query = new QueryTemplate().where(Task.ID.in(taskIds));
         Filter filter = new Filter(context.getString(R.string.notifications), query);
-        List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES)
+        List<Task> tasks = taskDao.toList(Query.select()
                 .withQueryTemplate(query.toString()));
         long when = notificationDao.latestTimestamp();
         int maxPriority = 3;

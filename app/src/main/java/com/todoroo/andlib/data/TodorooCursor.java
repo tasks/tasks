@@ -115,12 +115,6 @@ public class TodorooCursor extends CursorWrapper {
         }
 
         @Override
-        public Object visitDouble(Property<Double> property, TodorooCursor cursor) {
-            int column = columnIndex(property, cursor);
-            return cursor.getDouble(column);
-        }
-
-        @Override
         public Object visitString(Property<String> property, TodorooCursor cursor) {
             int column = columnIndex(property, cursor);
             return cursor.getString(column);

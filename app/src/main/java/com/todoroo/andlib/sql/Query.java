@@ -6,14 +6,13 @@
 package com.todoroo.andlib.sql;
 
 import com.todoroo.andlib.data.Property;
+import com.todoroo.astrid.data.Task;
 
 import java.util.ArrayList;
 
 import static com.todoroo.andlib.sql.SqlConstants.ALL;
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
-import static com.todoroo.andlib.sql.SqlConstants.DISTINCT;
 import static com.todoroo.andlib.sql.SqlConstants.FROM;
-import static com.todoroo.andlib.sql.SqlConstants.GROUP_BY;
 import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
 import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
 import static com.todoroo.andlib.sql.SqlConstants.SELECT;
@@ -28,23 +27,19 @@ public final class Query {
     private final ArrayList<Criterion> criterions = new ArrayList<>();
     private final ArrayList<Field> fields = new ArrayList<>();
     private final ArrayList<Join> joins = new ArrayList<>();
-    private final ArrayList<Field> groupBies = new ArrayList<>();
     private final ArrayList<Order> orders = new ArrayList<>();
     private int limits = -1;
-    private boolean distinct = false;
 
     private Query(Field... fields) {
         this.fields.addAll(asList(fields));
     }
 
-    public static Query select(Field... fields) {
-        return new Query(fields);
+    public static Query select() {
+        return new Query(Task.PROPERTIES);
     }
 
-    public static Query selectDistinct(Field... fields) {
-        Query query = new Query(fields);
-        query.distinct = true;
-        return query;
+    public static Query select(Field... fields) {
+        return new Query(fields);
     }
 
     public Query from(SqlTable fromTable) {
@@ -59,11 +54,6 @@ public final class Query {
 
     public Query where(Criterion criterion) {
         criterions.add(criterion);
-        return this;
-    }
-
-    public Query groupBy(Field... groupBy) {
-        groupBies.addAll(asList(groupBy));
         return this;
     }
 
@@ -96,11 +86,10 @@ public final class Query {
         visitJoinClause(sql);
         if(queryTemplate == null) {
             visitWhereClause(sql);
-            visitGroupByClause(sql);
             visitOrderByClause(sql);
             visitLimitClause(sql);
         } else {
-            if(groupBies.size() > 0 || orders.size() > 0) {
+            if(orders.size() > 0) {
                 throw new IllegalStateException("Can't have extras AND query template"); //$NON-NLS-1$
             }
             sql.append(queryTemplate);
@@ -116,17 +105,6 @@ public final class Query {
         sql.append(ORDER_BY);
         for (Order order : orders) {
             sql.append(SPACE).append(order).append(COMMA);
-        }
-        sql.deleteCharAt(sql.length() - 1).append(SPACE);
-    }
-
-    private void visitGroupByClause(StringBuilder sql) {
-        if (groupBies.isEmpty()) {
-            return;
-        }
-        sql.append(GROUP_BY);
-        for (Field groupBy : groupBies) {
-            sql.append(SPACE).append(groupBy).append(COMMA);
         }
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
     }
@@ -156,9 +134,6 @@ public final class Query {
 
     private void visitSelectClause(StringBuilder sql) {
         sql.append(SELECT).append(SPACE);
-        if(distinct) {
-            sql.append(DISTINCT).append(SPACE);
-        }
         if (fields.isEmpty()) {
             sql.append(ALL).append(SPACE);
             return;

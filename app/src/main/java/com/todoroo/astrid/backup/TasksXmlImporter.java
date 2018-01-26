@@ -206,7 +206,7 @@ public class TasksXmlImporter {
             }
 
             // if the task's name and creation date match an existing task, skip
-            Query query = Query.select(Task.ID, Task.COMPLETION_DATE, Task.DELETION_DATE)
+            Query query = Query.select()
                     .where(Criterion.and(Task.TITLE.eq(title), Task.CREATION_DATE.eq(created)));
             if (taskDao.count(query) > 0) {
                 skipCount++;

@@ -124,7 +124,7 @@ public class TasksXmlExporter {
             try {
                 String output = setupFile(backupDirectory,
                         exportType);
-                int tasks = taskDao.count(Query.select(Task.ID));
+                int tasks = taskDao.count(Query.select());
 
                 if(tasks > 0) {
                     doTasksExport(output);
@@ -185,7 +185,7 @@ public class TasksXmlExporter {
     }
 
     private void serializeTasks() throws IOException {
-        List<Task> tasks = taskDao.toList(Query.select(Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
+        List<Task> tasks = taskDao.toList(Query.select().orderBy(Order.asc(Task.ID)));
         int length = tasks.size();
         for(int i = 0; i < length; i++) {
             Task task = tasks.get(i);

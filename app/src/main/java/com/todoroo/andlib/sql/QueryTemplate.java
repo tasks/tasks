@@ -8,7 +8,6 @@ package com.todoroo.andlib.sql;
 import java.util.ArrayList;
 
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
-import static com.todoroo.andlib.sql.SqlConstants.GROUP_BY;
 import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
 import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
@@ -26,7 +25,6 @@ public final class QueryTemplate {
 
     private final ArrayList<Criterion> criterions = new ArrayList<>();
     private final ArrayList<Join> joins = new ArrayList<>();
-    private final ArrayList<Field> groupBies = new ArrayList<>();
     private final ArrayList<Order> orders = new ArrayList<>();
     private Integer limit = null;
 
@@ -50,7 +48,6 @@ public final class QueryTemplate {
         StringBuilder sql = new StringBuilder();
         visitJoinClause(sql);
         visitWhereClause(sql);
-        visitGroupByClause(sql);
         visitOrderByClause(sql);
         if(limit != null) {
             sql.append(LIMIT).append(SPACE).append(limit);
@@ -65,17 +62,6 @@ public final class QueryTemplate {
         sql.append(ORDER_BY);
         for (Order order : orders) {
             sql.append(SPACE).append(order).append(COMMA);
-        }
-        sql.deleteCharAt(sql.length() - 1).append(SPACE);
-    }
-
-    private void visitGroupByClause(StringBuilder sql) {
-        if (groupBies.isEmpty()) {
-            return;
-        }
-        sql.append(GROUP_BY);
-        for (Field groupBy : groupBies) {
-            sql.append(SPACE).append(groupBy).append(COMMA);
         }
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
     }

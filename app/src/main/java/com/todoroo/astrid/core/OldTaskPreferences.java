@@ -125,7 +125,7 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
     private int deleteCalendarEvents(Criterion criterion) {
         int deletedEventCount = 0;
-        List<Task> tasks = taskDao.toList(Query.select(Task.ID, Task.CALENDAR_URI).where(criterion));
+        List<Task> tasks = taskDao.toList(Query.select().where(criterion));
         for (Task task : tasks) {
             if (calendarEventProvider.deleteEvent(task)) {
                 deletedEventCount++;

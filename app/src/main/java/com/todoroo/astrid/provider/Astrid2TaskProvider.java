@@ -167,7 +167,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	private Cursor getTasks() {
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
 		List<Integer> importanceColors = checkBoxes.get().getPriorityColors();
-		Query query = Query.select(Task.ID, Task.TITLE, Task.IMPORTANCE, Task.DUE_DATE)
+		Query query = Query.select()
 				.where(Criterion.and(TaskCriteria.isActive(), TaskCriteria.isVisible()))
 				.orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS);
 		for (Task task : taskDao.get().toList(query)) {
