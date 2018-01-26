@@ -54,9 +54,13 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
             originalList = savedInstanceState.getParcelable(EXTRA_ORIGINAL_LIST);
             selectedList = savedInstanceState.getParcelable(EXTRA_SELECTED_LIST);
         } else {
-            GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
-            if (googleTask != null) {
-                originalList = gtasksListService.getList(googleTask.getListId());
+            if (task.isNew()) {
+                originalList = gtasksListService.getList(task.getTransitory(GoogleTask.KEY));
+            } else {
+                GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
+                if (googleTask != null) {
+                    originalList = gtasksListService.getList(googleTask.getListId());
+                }
             }
             if (originalList == null) {
                 originalList = gtasksListService.getList(gtasksPreferenceService.getDefaultList());

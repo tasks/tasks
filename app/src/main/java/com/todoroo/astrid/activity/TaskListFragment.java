@@ -520,11 +520,7 @@ public class TaskListFragment extends InjectingFragment implements
                     recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
                             recognizedSpeech.substring(1).toLowerCase();
 
-                    Task task = addTask(recognizedSpeech);
-                    taskCreator.addToCalendar(task);
-                    onTaskListItemClicked(task);
-                    loadTaskListContent();
-                    onTaskCreated(task.getUuid());
+                    onTaskListItemClicked(addTask(recognizedSpeech));
                 }
             }
         } else if (requestCode == REQUEST_EDIT_FILTER) {

@@ -1,11 +1,10 @@
 package com.todoroo.astrid.service;
 
-import com.google.common.collect.Lists;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
+import com.todoroo.astrid.helper.UUIDHelper;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.GoogleTask;
@@ -17,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+
+import static com.google.common.collect.Lists.transform;
+import static com.todoroo.andlib.utility.DateUtilities.now;
 
 public class TaskDuplicator {
 
@@ -39,32 +41,30 @@ public class TaskDuplicator {
     public List<Task> duplicate(List<Task> tasks) {
         List<Task> result = new ArrayList<>();
         for (Task task : tasks) {
-            result.add(clone(taskDao.fetch(task.getId())));
+            result.add(clone(task));
         }
         localBroadcastManager.broadcastRefresh();
         return result;
     }
 
     private Task clone(Task clone) {
-        long originalId = clone.getId();
-
-        clone.setCreationDate(DateUtilities.now());
+        clone.setCreationDate(now());
+        clone.setModificationDate(now());
         clone.setCompletionDate(0L);
         clone.setDeletionDate(0L);
         clone.setCalendarUri("");
-        clone.clearValue(Task.ID);
-        clone.clearValue(Task.UUID);
+        clone.setUuid(UUIDHelper.newUUID());
 
-        GoogleTask googleTask = googleTaskDao.getByTaskId(originalId);
+        List<Tag> tags = tagDao.getTagsForTask(clone.getId());
+        GoogleTask googleTask = googleTaskDao.getByTaskId(clone.getId());
         if (googleTask != null) {
             clone.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
         }
         clone.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
 
-        taskDao.save(clone);
+        taskDao.createNew(clone);
 
-        tagDao.insert(Lists.transform(
-                tagDao.getTagsForTask(originalId),
+        tagDao.insert(transform(tags,
                 tag -> new Tag(clone.getId(), clone.getUuid(), tag.getName(), tag.getTagUid())));
 
         if (googleTask != null) {
@@ -72,6 +72,8 @@ public class TaskDuplicator {
         }
 
         gcalHelper.createTaskEventIfEnabled(clone);
+
+        taskDao.save(clone); // TODO: delete me
 
         return clone;
     }

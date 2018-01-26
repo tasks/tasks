@@ -9,7 +9,6 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.todoroo.astrid.data.Task;
@@ -175,20 +174,6 @@ public abstract class Database extends RoomDatabase {
 
     public Cursor rawQuery(String sql) {
         return getDatabase().query(sql, null);
-    }
-
-    public long insert(ContentValues values) {
-        long result;
-        try {
-            result = getDatabase().insert(TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values);
-        } catch (SQLiteConstraintException e) { // Throw these exceptions
-            throw e;
-        } catch (Exception e) { // Suppress others
-            Timber.e(e, e.getMessage());
-            result = -1;
-        }
-        onDatabaseUpdated();
-        return result;
     }
 
     public int update(ContentValues  values, String whereClause) {

@@ -4,21 +4,24 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.PermaSql;
-import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.SyncFlags;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
+import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 
+import org.tasks.R;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -50,23 +53,26 @@ public class TaskCreator {
         this.googleTaskDao = googleTaskDao;
     }
 
-    public Task basicQuickAddTask(String title) {
+    public void basicQuickAddTask(String title) {
         title = title.trim();
 
         Task task = createWithValues(null, title);
-        addToCalendar(task);
+        taskDao.createNew(task);
 
-        return task;
-    }
-
-    public void addToCalendar(Task task) {
         boolean gcalCreateEventEnabled = preferences.isDefaultCalendarSet() && task.hasDueDate(); //$NON-NLS-1$
         if (!TextUtils.isEmpty(task.getTitle()) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getCalendarURI())) {
             Uri calendarUri = gcalHelper.createTaskEvent(task, new ContentValues());
             task.setCalendarUri(calendarUri.toString());
-            task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-            taskDao.save(task);
         }
+
+        createTags(task);
+
+        String googleTaskList = task.getTransitory(GoogleTask.KEY);
+        if (!Strings.isNullOrEmpty(googleTaskList)) {
+            googleTaskDao.insert(new GoogleTask(task.getId(), googleTaskList));
+        }
+
+        taskDao.save(task);
     }
 
     /**
@@ -78,6 +84,8 @@ public class TaskCreator {
         if (title != null) {
             task.setTitle(title.trim());
         }
+
+        task.setUuid(UUIDHelper.newUUID());
 
         ArrayList<String> tags = new ArrayList<>();
         try {
@@ -91,55 +99,66 @@ public class TaskCreator {
             for (Map.Entry<String, Object> item : values.entrySet()) {
                 String key = item.getKey();
                 Object value = item.getValue();
-                if (key.equals(Tag.KEY) || key.equals(GoogleTask.KEY)) {
-                    continue;
-                }
+                if (key.equals(Tag.KEY)) {
+                    tags.add((String) value);
+                } else if (key.equals(GoogleTask.KEY)) {
+                    task.putTransitory(key, value);
+                } else {
+                    if (value instanceof String) {
+                        value = PermaSql.replacePlaceholders((String) value);
+                    }
 
-                if (value instanceof String) {
-                    value = PermaSql.replacePlaceholders((String) value);
+                    AndroidUtilities.putInto(forTask, key, value);
                 }
-
-                AndroidUtilities.putInto(forTask, key, value);
             }
             task.mergeWithoutReplacement(forTask);
         }
 
-        saveWithoutPublishingFilterUpdate(task);
-
-        if (values != null) {
-            if (values.containsKey(Tag.KEY)) {
-                createLink(task, (String) values.get(Tag.KEY));
-            }
-            if (values.containsKey(GoogleTask.KEY)) {
-                GoogleTask googleTask = new GoogleTask(task.getId(), (String) values.get(GoogleTask.KEY));
-                googleTaskDao.insert(googleTask);
-            }
+        if (!task.containsValue(Task.IMPORTANCE)) {
+            task.setImportance(preferences.getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
         }
 
-        for(String tag : tags) {
-            createLink(task, tag);
+        if(!task.containsValue(Task.DUE_DATE)) {
+            task.setDueDate(Task.createDueDate(
+                    preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE), 0));
         }
+
+        if(!task.containsValue(Task.HIDE_UNTIL)) {
+            int setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
+                    Task.HIDE_UNTIL_NONE);
+            task.setHideUntil(task.createHideUntil(setting, 0));
+        }
+
+        setDefaultReminders(preferences, task);
+
+        task.setTags(tags);
 
         return task;
     }
 
-    private void saveWithoutPublishingFilterUpdate(Task item) {
-        taskDao.save(item);
-    }
-
-    private void createLink(Task task, String tagName) {
-        TagData tagData = tagDataDao.getTagByName(tagName);
-        if (tagData == null) {
-            tagData = new TagData();
-            tagData.setName(tagName);
-            tagDataDao.persist(tagData);
+    public static void setDefaultReminders(Preferences preferences, Task task) {
+        if(!task.containsValue(Task.REMINDER_PERIOD)) {
+            task.setReminderPeriod(DateUtilities.ONE_HOUR *
+                    preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
+                            0));
         }
-        createLink(task, tagData.getName(), tagData.getRemoteId());
+
+        if(!task.containsValue(Task.REMINDER_FLAGS)) {
+            task.setReminderFlags(preferences.getDefaultReminders() | preferences.getDefaultRingMode());
+        }
     }
 
-    private void createLink(Task task, String tagName, String tagUuid) {
-        Tag link = new Tag(task.getId(), task.getUuid(), tagName, tagUuid);
-        tagDao.insert(link);
+    public void createTags(Task task) {
+        for (String tag : task.getTags()) {
+            TagData tagData = tagDataDao.getTagByName(tag);
+            if (tagData == null) {
+                tagData = new TagData();
+                tagData.setName(tag);
+                tagDataDao.persist(tagData);
+            }
+            Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
+            tagDao.insert(link);
+        }
     }
 
     /**

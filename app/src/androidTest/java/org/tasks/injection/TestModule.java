@@ -84,9 +84,9 @@ public class TestModule {
     }
 
     @Provides
-    public TaskDao getTaskDao(Database database, Preferences preferences) {
+    public TaskDao getTaskDao(Database database) {
         TaskDao taskDao = database.getTaskDao();
-        taskDao.initialize(context, preferences);
+        taskDao.initialize(context);
         return taskDao;
     }
 

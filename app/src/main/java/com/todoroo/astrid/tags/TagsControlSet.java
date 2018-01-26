@@ -143,7 +143,10 @@ public final class TagsControlSet extends TaskEditControlFragment {
             selectedTags = savedInstanceState.getParcelableArrayList(EXTRA_SELECTED_TAGS);
             newTags = savedInstanceState.getStringArrayList(EXTRA_NEW_TAGS);
         } else {
-            selectedTags = tagService.getTagDataForTask(task.getId());
+            selectedTags = new ArrayList<>();
+            selectedTags.addAll(task.isNew()
+                    ? transform(task.getTags(), tagDataDao::getTagByName)
+                    : tagService.getTagDataForTask(task.getId()));
             newTags = newArrayList();
         }
         allTags = tagService.getTagList();

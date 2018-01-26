@@ -14,6 +14,9 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.data.Tag;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -316,11 +319,23 @@ public abstract class AbstractModel {
         transitoryData.put(key, value);
     }
 
-    private Object getTransitory(String key) {
+    public void setTags(ArrayList<String> tags) {
+        if (transitoryData == null) {
+            transitoryData = new HashMap<>();
+        }
+        transitoryData.put(Tag.KEY, tags);
+    }
+
+    public ArrayList<String> getTags() {
+        Object tags = getTransitory(Tag.KEY);
+        return tags == null ? new ArrayList<>() : (ArrayList<String>) tags;
+    }
+
+    public <T> T getTransitory(String key) {
         if(transitoryData == null) {
             return null;
         }
-        return transitoryData.get(key);
+        return (T) transitoryData.get(key);
     }
 
     private Object clearTransitory(String key) {

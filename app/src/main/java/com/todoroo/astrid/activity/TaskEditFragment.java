@@ -200,13 +200,15 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager());
         if (hasChanges(fragments)) {
             boolean isNewTask = model.isNew();
-
+            if (isNewTask) {
+                taskDao.createNew(model);
+            }
             for (TaskEditControlFragment fragment : fragments) {
                 fragment.apply(model);
             }
             taskDao.save(model);
 
-            if (Flags.check(Flags.TAGS_CHANGED)) {
+            if (Flags.checkAndClear(Flags.TAGS_CHANGED)) {
                 localBroadcastManager.broadcastRefreshList();
             }
 
@@ -290,7 +292,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
     }
-
 
     /*
      * ======================================================================

@@ -6,6 +6,7 @@
 package com.todoroo.astrid.dao;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,18 +17,14 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.helper.UUIDHelper;
 
 import org.tasks.BuildConfig;
-import org.tasks.R;
 import org.tasks.jobs.AfterSaveIntentService;
-import org.tasks.preferences.Preferences;
 import org.tasks.receivers.PushReceiver;
 
 import java.util.List;
@@ -50,16 +47,14 @@ public abstract class TaskDao {
 
     private final Database database;
 
-    private Preferences preferences;
     private Context context;
 
     public TaskDao(Database database) {
         this.database = database;
     }
 
-    public void initialize(Context context, Preferences preferences) {
+    public void initialize(Context context) {
         this.context = context;
-        this.preferences = preferences;
     }
 
     public List<Task> needsRefresh() {
@@ -159,7 +154,7 @@ public abstract class TaskDao {
      *
      */
     public void save(Task task) {
-        ContentValues modifiedValues = createOrUpdate(task);
+        ContentValues modifiedValues = saveExisting(task);
         if (modifiedValues != null) {
             AfterSaveIntentService.enqueue(context, task.getId(), modifiedValues);
         } else if (task.checkTransitory(SyncFlags.FORCE_SYNC)) {
@@ -167,91 +162,22 @@ public abstract class TaskDao {
         }
     }
 
-    private ContentValues createOrUpdate(Task task) {
-        return task.getId() == Task.NO_ID
-                ? createNew(task)
-                : saveExisting(task);
-    }
+    @Insert
+    abstract long insert(Task task);
 
-    public ContentValues createNew(Task item) {
-        if(!item.containsValue(Task.CREATION_DATE)) {
-            item.setCreationDate(now());
-        }
-        item.setModificationDate(now());
-
-        // set up task defaults
-        if(!item.containsValue(Task.IMPORTANCE)) {
-            item.setImportance(preferences.getIntegerFromString(
-                    R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
-        }
-        if(!item.containsValue(Task.DUE_DATE)) {
-            int setting = preferences.getIntegerFromString(R.string.p_default_urgency_key,
-                    Task.URGENCY_NONE);
-            item.setDueDate(Task.createDueDate(setting, 0));
-        }
-        createDefaultHideUntil(preferences, item);
-
-        setDefaultReminders(preferences, item);
-
-        ContentValues values = item.getSetValues();
-
-        if (!item.containsValue(Task.UUID) || Task.isUuidEmpty(item.getUuid())) {
-            item.setUuid(UUIDHelper.newUUID());
-        }
-
-        DatabaseChangeOp insert = new DatabaseChangeOp() {
-            @Override
-            public boolean makeChange() {
-                ContentValues mergedValues = item.getMergedValues();
-                mergedValues.remove(AbstractModel.ID_PROPERTY.name);
-                long newRow = database.insert(mergedValues);
-                boolean result = newRow >= 0;
-                if (result) {
-                    item.setId(newRow);
-                }
-                return result;
-            }
-
-            @Override
-            public String toString() {
-                return "INSERT";
-            }
-        };
-        if (insertOrUpdateAndRecordChanges(item, insert)) {
-            return values;
-        }
-        return null;
-    }
-
-    private static void createDefaultHideUntil(Preferences preferences, Task item) {
-        if(!item.containsValue(Task.HIDE_UNTIL)) {
-            int setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
-                    Task.HIDE_UNTIL_NONE);
-            item.setHideUntil(item.createHideUntil(setting, 0));
-        }
-    }
-
-    /**
-     * Sets default reminders for the given task if reminders are not set
-     */
-    public static void setDefaultReminders(Preferences preferences, Task item) {
-        if(!item.containsValue(Task.REMINDER_PERIOD)) {
-            item.setReminderPeriod(DateUtilities.ONE_HOUR *
-                    preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
-                            0));
-        }
-        if(!item.containsValue(Task.REMINDER_FLAGS)) {
-            item.setReminderFlags(preferences.getDefaultReminders() | preferences.getDefaultRingMode());
-        }
+    public void createNew(Task task) {
+        task.id = null;
+        task.remoteId = task.getUuid();
+        task.setId(insert(task));
     }
 
     private ContentValues saveExisting(Task item) {
         ContentValues values = item.getSetValues();
-        if(values == null || values.size() == 0) {
+        if (values == null || values.size() == 0) {
             return null;
         }
-        if(!TaskApiDao.insignificantChange(values)) {
-            if(!values.containsKey(Task.MODIFICATION_DATE.name)) {
+        if (!TaskApiDao.insignificantChange(values)) {
+            if (!values.containsKey(Task.MODIFICATION_DATE.name)) {
                 item.setModificationDate(now());
             }
         }
@@ -267,7 +193,7 @@ public abstract class TaskDao {
                 return "UPDATE";
             }
         };
-        if (insertOrUpdateAndRecordChanges(item, update)) {
+        if (updateAndRecordChanges(item, update)) {
             return values;
         }
         return null;
@@ -308,7 +234,7 @@ public abstract class TaskDao {
         boolean makeChange();
     }
 
-    private boolean insertOrUpdateAndRecordChanges(Task item, DatabaseChangeOp op) {
+    private boolean updateAndRecordChanges(Task item, DatabaseChangeOp op) {
         final AtomicBoolean result = new AtomicBoolean(false);
         synchronized(database) {
             result.set(op.makeChange());

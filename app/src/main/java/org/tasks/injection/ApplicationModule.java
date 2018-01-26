@@ -22,7 +22,6 @@ import org.tasks.data.UserActivityDao;
 import org.tasks.db.Migrations;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
-import org.tasks.preferences.Preferences;
 
 import java.util.concurrent.Executor;
 
@@ -136,9 +135,9 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    public TaskDao getTaskDao(Database database, Preferences preferences) {
+    public TaskDao getTaskDao(Database database) {
         TaskDao taskDao = database.getTaskDao();
-        taskDao.initialize(context, preferences);
+        taskDao.initialize(context);
         return taskDao;
     }
 }

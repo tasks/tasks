@@ -55,11 +55,10 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
             subject = "";
         }
 
-        Task task = taskCreator.basicQuickAddTask(subject);
+        Task task = taskCreator.createWithValues(null, subject);
         if (task != null) {
             task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
-            taskDao.save(task);
-            getEditTaskStack(this, null, task.getId()).startActivities();
+            getEditTaskStack(this, null, task).startActivities();
         }
         finish();
     }

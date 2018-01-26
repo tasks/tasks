@@ -110,6 +110,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     public static final String OPEN_FILTER = "open_filter"; //$NON-NLS-1$
     public static final String LOAD_FILTER = "load_filter";
     public static final String OPEN_TASK = "open_task"; //$NON-NLS-1$
+    public static final String OPEN_NEW_TASK = "open_new_task"; //$NON-NLS-1$
     private int currentNightMode;
 
     private Filter filter;
@@ -156,7 +157,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         TaskEditFragment taskEditFragment = getTaskEditFragment();
         if (taskEditFragment == null) {
             hideDetailFragment();
-        } else if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(LOAD_FILTER) || intent.hasExtra(OPEN_TASK)) {
+        } else if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(LOAD_FILTER) || intent.hasExtra(OPEN_TASK) || intent.hasExtra(OPEN_NEW_TASK)) {
             taskEditFragment.save();
             taskEditFinished();
         } else {
@@ -349,6 +350,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 Task task = getTaskListFragment().addTask("");
                 onTaskListItemClicked(task);
             }
+        } else if (intent.hasExtra(OPEN_NEW_TASK)) {
+            Task task = intent.getParcelableExtra(OPEN_NEW_TASK);
+            intent.removeExtra(OPEN_NEW_TASK);
+            onTaskListItemClicked(task);
         }
 
         if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {

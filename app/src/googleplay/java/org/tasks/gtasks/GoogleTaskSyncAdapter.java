@@ -48,6 +48,8 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
+import com.todoroo.astrid.helper.UUIDHelper;
+import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.utility.Constants;
 
 import org.tasks.LocalBroadcastManager;
@@ -388,22 +390,17 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         } else { // Set default importance and reminders for remotely created tasks
             task.task.setImportance(preferences.getIntegerFromString(
                     R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
-            TaskDao.setDefaultReminders(preferences, task.task);
+            TaskCreator.setDefaultReminders(preferences, task.task);
+            task.task.setUuid(UUIDHelper.newUUID());
+            taskDao.createNew(task.task);
         }
         if (!TextUtils.isEmpty(task.task.getTitle())) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             task.task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
-            saveTaskAndMetadata(task);
+            task.prepareForSaving();
+            taskDao.save(task.task);
+            synchronizeMetadata(task.task.getId(), task.metadata);
         }
-    }
-
-    /**
-     * Saves a task and its metadata
-     */
-    private void saveTaskAndMetadata(GtasksTaskContainer task) {
-        task.prepareForSaving();
-        taskDao.save(task.task);
-        synchronizeMetadata(task.task.getId(), task.metadata);
     }
 
     /**
