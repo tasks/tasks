@@ -231,7 +231,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     /** Runs a SQL function and returns the result as a string */
     public static class CountProperty extends IntegerProperty {
         public CountProperty() {
-            super("COUNT(1)", "count");
+            super("count", "COUNT(1)");
             alias = "count";
         }
     }
