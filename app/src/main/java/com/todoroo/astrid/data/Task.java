@@ -12,32 +12,30 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.backup.XmlReader;
 import org.tasks.backup.XmlWriter;
-import org.tasks.data.GoogleTask;
+import org.tasks.data.Tag;
 import org.tasks.time.DateTime;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import timber.log.Timber;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -48,12 +46,14 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
  */
 @Entity(tableName = "tasks",
         indices = @Index(name = "t_rid", value = "remoteId", unique = true))
-public class Task extends AbstractModel implements Parcelable {
+public class Task implements Parcelable {
 
     // --- table and uri
 
     /** table for this model */
-    public static final Table TABLE = new Table("tasks", Task.class);
+    public static final Table TABLE = new Table("tasks");
+
+    public static final long NO_ID = 0;
 
     // --- properties
 
@@ -62,7 +62,7 @@ public class Task extends AbstractModel implements Parcelable {
     @ColumnInfo(name = "_id")
     public Long id = NO_ID;
     public static final LongProperty ID = new LongProperty(
-            TABLE, ID_PROPERTY_NAME);
+            TABLE, "_id");
 
     /** Name of Task */
     @ColumnInfo(name = "title")
@@ -121,13 +121,9 @@ public class Task extends AbstractModel implements Parcelable {
 
     @ColumnInfo(name = "estimatedSeconds")
     public Integer estimatedSeconds = 0;
-    public static final IntegerProperty ESTIMATED_SECONDS = new IntegerProperty(
-            TABLE, "estimatedSeconds");
 
     @ColumnInfo(name = "elapsedSeconds")
     public Integer elapsedSeconds = 0;
-    public static final IntegerProperty ELAPSED_SECONDS = new IntegerProperty(
-            TABLE, "elapsedSeconds");
 
     @ColumnInfo(name = "timerStart")
     public Long timerStart = 0L;
@@ -149,14 +145,10 @@ public class Task extends AbstractModel implements Parcelable {
     /** Unixtime the last reminder was triggered */
     @ColumnInfo(name = "lastNotified")
     public Long lastNotified = 0L;
-    public static final LongProperty REMINDER_LAST = new LongProperty(
-            TABLE, "lastNotified");
 
     /** Unixtime snooze is set (0 -> no snooze) */
     @ColumnInfo(name = "snoozeTime")
     public Long snoozeTime = 0L;
-    public static final LongProperty REMINDER_SNOOZE = new LongProperty(
-            TABLE, "snoozeTime");
 
     @ColumnInfo(name = "recurrence")
     public String recurrence = "";
@@ -165,8 +157,6 @@ public class Task extends AbstractModel implements Parcelable {
 
     @ColumnInfo(name = "repeatUntil")
     public Long repeatUntil = 0L;
-    public static final LongProperty REPEAT_UNTIL = new LongProperty(
-            TABLE, "repeatUntil");
 
     @ColumnInfo(name = "calendarUri")
     public String calendarUri = "";
@@ -191,8 +181,8 @@ public class Task extends AbstractModel implements Parcelable {
             CREATION_DATE,
             DELETION_DATE,
             DUE_DATE,
-            ELAPSED_SECONDS,
-            ESTIMATED_SECONDS,
+            new IntegerProperty(TABLE, "elapsedSeconds"),
+            new IntegerProperty(TABLE, "estimatedSeconds"),
             HIDE_UNTIL,
             ID,
             IMPORTANCE,
@@ -200,10 +190,10 @@ public class Task extends AbstractModel implements Parcelable {
             NOTES,
             RECURRENCE,
             REMINDER_FLAGS,
-            REMINDER_LAST,
+            new LongProperty(TABLE, "lastNotified"),
             REMINDER_PERIOD,
-            REMINDER_SNOOZE,
-            REPEAT_UNTIL,
+            new LongProperty(TABLE, "snoozeTime"),
+            new LongProperty(TABLE, "repeatUntil"),
             TIMER_START,
             TITLE,
             UUID
@@ -230,54 +220,128 @@ public class Task extends AbstractModel implements Parcelable {
     public static final int IMPORTANCE_SHOULD_DO = 2;
     public static final int IMPORTANCE_NONE = 3;
 
-    public static final Map<String, ValueWriter<Object>> roomSetters = new HashMap<>();
-
-    static {
-        roomSetters.put(CALENDAR_URI.name, (t, v) -> t.calendarUri = (String) v);
-        roomSetters.put(COMPLETION_DATE.name, (t, v) -> t.completed = (Long) v);
-        roomSetters.put(CREATION_DATE.name, (t, v) -> t.created = (Long) v);
-        roomSetters.put(DELETION_DATE.name, (t, v) -> t.deleted = (Long) v);
-        roomSetters.put(DUE_DATE.name, (t, v) -> t.dueDate = v instanceof String ? Long.valueOf((String) v) : (Long) v);
-        roomSetters.put(ELAPSED_SECONDS.name, (t, v) -> t.elapsedSeconds = (Integer) v);
-        roomSetters.put(ESTIMATED_SECONDS.name, (t, v) -> t.estimatedSeconds = (Integer) v);
-        roomSetters.put(HIDE_UNTIL.name, (t, v) -> t.hideUntil = (Long) v);
-        roomSetters.put(ID.name, (t, v) -> t.id = (Long) v);
-        roomSetters.put(IMPORTANCE.name, (t, v) -> t.importance = v instanceof String ? Integer.valueOf((String) v) : (Integer) v);
-        roomSetters.put(MODIFICATION_DATE.name, (t, v) -> t.modified = (Long) v);
-        roomSetters.put(NOTES.name, (t, v) -> t.notes = (String) v);
-        roomSetters.put(RECURRENCE.name, (t, v) -> t.recurrence = (String) v);
-        roomSetters.put(REMINDER_FLAGS.name, (t, v) -> t.notificationFlags = (Integer) v);
-        roomSetters.put(REMINDER_LAST.name, (t, v) -> t.lastNotified = (Long) v);
-        roomSetters.put(REMINDER_PERIOD.name, (t, v) -> t.notifications = (Long) v);
-        roomSetters.put(REMINDER_SNOOZE.name, (t, v) -> t.snoozeTime = (Long) v);
-        roomSetters.put(REPEAT_UNTIL.name, (t, v) -> t.repeatUntil = (Long) v);
-        roomSetters.put(TIMER_START.name, (t, v) -> t.timerStart = (Long) v);
-        roomSetters.put(TITLE.name, (t, v) -> t.title = (String) v);
-        roomSetters.put(UUID.name, (t, v) -> t.remoteId = (String) v);
-        roomSetters.put(GoogleTask.INDENT.name, (t, v) -> t.googleTaskIndent = (Integer) v);
-    }
-
     @Ignore
     private int googleTaskIndent;
+
+    @Ignore
+    private HashMap<String, Object> transitoryData = null;
 
     // --- data access boilerplate
 
     public Task() {
-        super();
     }
 
     @Ignore
-    public Task(TodorooCursor cursor) {
-        for (Property<?> property : cursor.getProperties()) {
-            try {
-                ValueWriter<?> writer = roomSetters.get(property.getColumnName());
-                if (writer != null) {
-                    writer.setValue(this, cursor.get(property));
-                }
-            } catch (IllegalArgumentException e) {
-                // underlying cursor may have changed, suppress
-                Timber.e(e, e.getMessage());
-            }
+    public Task(Cursor _cursor) {
+        final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("_id");
+        final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+        final int _cursorIndexOfImportance = _cursor.getColumnIndexOrThrow("importance");
+        final int _cursorIndexOfDueDate = _cursor.getColumnIndexOrThrow("dueDate");
+        final int _cursorIndexOfHideUntil = _cursor.getColumnIndexOrThrow("hideUntil");
+        final int _cursorIndexOfCreated = _cursor.getColumnIndexOrThrow("created");
+        final int _cursorIndexOfModified = _cursor.getColumnIndexOrThrow("modified");
+        final int _cursorIndexOfCompleted = _cursor.getColumnIndexOrThrow("completed");
+        final int _cursorIndexOfDeleted = _cursor.getColumnIndexOrThrow("deleted");
+        final int _cursorIndexOfNotes = _cursor.getColumnIndexOrThrow("notes");
+        final int _cursorIndexOfEstimatedSeconds = _cursor.getColumnIndexOrThrow("estimatedSeconds");
+        final int _cursorIndexOfElapsedSeconds = _cursor.getColumnIndexOrThrow("elapsedSeconds");
+        final int _cursorIndexOfTimerStart = _cursor.getColumnIndexOrThrow("timerStart");
+        final int _cursorIndexOfNotificationFlags = _cursor.getColumnIndexOrThrow("notificationFlags");
+        final int _cursorIndexOfNotifications = _cursor.getColumnIndexOrThrow("notifications");
+        final int _cursorIndexOfLastNotified = _cursor.getColumnIndexOrThrow("lastNotified");
+        final int _cursorIndexOfSnoozeTime = _cursor.getColumnIndexOrThrow("snoozeTime");
+        final int _cursorIndexOfRecurrence = _cursor.getColumnIndexOrThrow("recurrence");
+        final int _cursorIndexOfRepeatUntil = _cursor.getColumnIndexOrThrow("repeatUntil");
+        final int _cursorIndexOfCalendarUri = _cursor.getColumnIndexOrThrow("calendarUri");
+        final int _cursorIndexOfRemoteId = _cursor.getColumnIndexOrThrow("remoteId");
+        final int _cursorIndexOfIndent = _cursor.getColumnIndex("index");
+        if (_cursor.isNull(_cursorIndexOfId)) {
+            id = null;
+        } else {
+            id = _cursor.getLong(_cursorIndexOfId);
+        }
+        title = _cursor.getString(_cursorIndexOfTitle);
+        if (_cursor.isNull(_cursorIndexOfImportance)) {
+            importance = null;
+        } else {
+            importance = _cursor.getInt(_cursorIndexOfImportance);
+        }
+        if (_cursor.isNull(_cursorIndexOfDueDate)) {
+            dueDate = null;
+        } else {
+            dueDate = _cursor.getLong(_cursorIndexOfDueDate);
+        }
+        if (_cursor.isNull(_cursorIndexOfHideUntil)) {
+            hideUntil = null;
+        } else {
+            hideUntil = _cursor.getLong(_cursorIndexOfHideUntil);
+        }
+        if (_cursor.isNull(_cursorIndexOfCreated)) {
+            created = null;
+        } else {
+            created = _cursor.getLong(_cursorIndexOfCreated);
+        }
+        if (_cursor.isNull(_cursorIndexOfModified)) {
+            modified = null;
+        } else {
+            modified = _cursor.getLong(_cursorIndexOfModified);
+        }
+        if (_cursor.isNull(_cursorIndexOfCompleted)) {
+            completed = null;
+        } else {
+            completed = _cursor.getLong(_cursorIndexOfCompleted);
+        }
+        if (_cursor.isNull(_cursorIndexOfDeleted)) {
+            deleted = null;
+        } else {
+            deleted = _cursor.getLong(_cursorIndexOfDeleted);
+        }
+        notes = _cursor.getString(_cursorIndexOfNotes);
+        if (_cursor.isNull(_cursorIndexOfEstimatedSeconds)) {
+            estimatedSeconds = null;
+        } else {
+            estimatedSeconds = _cursor.getInt(_cursorIndexOfEstimatedSeconds);
+        }
+        if (_cursor.isNull(_cursorIndexOfElapsedSeconds)) {
+            elapsedSeconds = null;
+        } else {
+            elapsedSeconds = _cursor.getInt(_cursorIndexOfElapsedSeconds);
+        }
+        if (_cursor.isNull(_cursorIndexOfTimerStart)) {
+            timerStart = null;
+        } else {
+            timerStart = _cursor.getLong(_cursorIndexOfTimerStart);
+        }
+        if (_cursor.isNull(_cursorIndexOfNotificationFlags)) {
+            notificationFlags = null;
+        } else {
+            notificationFlags = _cursor.getInt(_cursorIndexOfNotificationFlags);
+        }
+        if (_cursor.isNull(_cursorIndexOfNotifications)) {
+            notifications = null;
+        } else {
+            notifications = _cursor.getLong(_cursorIndexOfNotifications);
+        }
+        if (_cursor.isNull(_cursorIndexOfLastNotified)) {
+            lastNotified = null;
+        } else {
+            lastNotified = _cursor.getLong(_cursorIndexOfLastNotified);
+        }
+        if (_cursor.isNull(_cursorIndexOfSnoozeTime)) {
+            snoozeTime = null;
+        } else {
+            snoozeTime = _cursor.getLong(_cursorIndexOfSnoozeTime);
+        }
+        recurrence = _cursor.getString(_cursorIndexOfRecurrence);
+        if (_cursor.isNull(_cursorIndexOfRepeatUntil)) {
+            repeatUntil = null;
+        } else {
+            repeatUntil = _cursor.getLong(_cursorIndexOfRepeatUntil);
+        }
+        calendarUri = _cursor.getString(_cursorIndexOfCalendarUri);
+        remoteId = _cursor.getString(_cursorIndexOfRemoteId);
+        if (_cursorIndexOfIndent >= 0) {
+            googleTaskIndent = _cursor.getInt(_cursorIndexOfIndent);
         }
     }
 
@@ -351,11 +415,9 @@ public class Task extends AbstractModel implements Parcelable {
         timerStart = parcel.readLong();
         title = parcel.readString();
         remoteId = parcel.readString();
-        setValues.addAll(parcel.readArrayList(getClass().getClassLoader()));
         transitoryData = parcel.readHashMap(ContentValues.class.getClassLoader());
     }
 
-    @Override
     public long getId() {
         return id == null ? NO_ID : id;
     }
@@ -570,18 +632,16 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setDueDate(Long dueDate) {
-        setValue(DUE_DATE, dueDate);
+        this.dueDate = dueDate;
     }
 
-    public void setDueDateAdjustingHideUntil(Long dueDate) {
-        long oldDueDate = dueDate;
-        if (oldDueDate > 0) {
-            long hideUntil = this.hideUntil;
+    public void setDueDateAdjustingHideUntil(Long newDueDate) {
+        if (dueDate > 0) {
             if (hideUntil > 0) {
-                setHideUntil(dueDate > 0 ? hideUntil + dueDate - oldDueDate : 0);
+                setHideUntil(newDueDate > 0 ? hideUntil + newDueDate - dueDate : 0);
             }
         }
-        setDueDate(dueDate);
+        setDueDate(newDueDate);
     }
 
     public String getRecurrence() {
@@ -589,7 +649,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setRecurrence(String recurrence) {
-        setValue(RECURRENCE, recurrence);
+        this.recurrence = recurrence;
     }
 
     public void setRecurrence(RRule rrule, boolean afterCompletion) {
@@ -601,7 +661,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setCreationDate(Long creationDate) {
-        setValue(CREATION_DATE, creationDate);
+        created = creationDate;
     }
 
     public String getTitle() {
@@ -609,7 +669,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setTitle(String title) {
-        setValue(TITLE, title);
+        this.title = title;
     }
 
     public Long getDeletionDate() {
@@ -617,7 +677,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setDeletionDate(Long deletionDate) {
-        setValue(DELETION_DATE, deletionDate);
+        deleted = deletionDate;
     }
 
     public Long getHideUntil() {
@@ -625,7 +685,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setHideUntil(Long hideUntil) {
-        setValue(HIDE_UNTIL, hideUntil);
+        this.hideUntil = hideUntil;
     }
 
     public Long getReminderLast() {
@@ -633,7 +693,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setReminderLast(Long reminderLast) {
-        setValue(REMINDER_LAST, reminderLast);
+        lastNotified = reminderLast;
     }
 
     public Long getReminderSnooze() {
@@ -641,7 +701,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setReminderSnooze(Long reminderSnooze) {
-        setValue(REMINDER_SNOOZE, reminderSnooze);
+        snoozeTime = reminderSnooze;
     }
 
     public Integer getElapsedSeconds() {
@@ -653,7 +713,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setTimerStart(Long timerStart) {
-        setValue(TIMER_START, timerStart);
+        this.timerStart = timerStart;
     }
 
     public Long getRepeatUntil() {
@@ -661,7 +721,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setRepeatUntil(Long repeatUntil) {
-        setValue(REPEAT_UNTIL, repeatUntil);
+        this.repeatUntil = repeatUntil;
     }
 
     public String getCalendarURI() {
@@ -673,7 +733,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setImportance(Integer importance) {
-        setValue(IMPORTANCE, importance);
+        this.importance = importance;
     }
 
     public Long getCompletionDate() {
@@ -681,7 +741,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setCompletionDate(Long completionDate) {
-        setValue(COMPLETION_DATE, completionDate);
+        completed = completionDate;
     }
 
     public String getNotes() {
@@ -693,11 +753,11 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setNotes(String notes) {
-        setValue(NOTES, notes);
+        this.notes = notes;
     }
 
     public void setModificationDate(Long modificationDate) {
-        setValue(MODIFICATION_DATE, modificationDate);
+        modified = modificationDate;
     }
 
     public Integer getReminderFlags() {
@@ -705,7 +765,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setReminderFlags(Integer reminderFlags) {
-        setValue(REMINDER_FLAGS, reminderFlags);
+        notificationFlags = reminderFlags;
     }
 
     public Long getReminderPeriod() {
@@ -713,7 +773,7 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setReminderPeriod(Long reminderPeriod) {
-        setValue(REMINDER_PERIOD, reminderPeriod);
+        notifications = reminderPeriod;
     }
 
     public Integer getEstimatedSeconds() {
@@ -721,15 +781,15 @@ public class Task extends AbstractModel implements Parcelable {
     }
 
     public void setElapsedSeconds(Integer elapsedSeconds) {
-        setValue(ELAPSED_SECONDS, elapsedSeconds);
+        this.elapsedSeconds = elapsedSeconds;
     }
 
     public void setEstimatedSeconds(Integer estimatedSeconds) {
-        setValue(ESTIMATED_SECONDS, estimatedSeconds);
+        this.estimatedSeconds = estimatedSeconds;
     }
 
     public void setCalendarUri(String calendarUri) {
-        setValue(CALENDAR_URI, calendarUri);
+        this.calendarUri = calendarUri;
     }
 
     public boolean isNotifyModeNonstop() {
@@ -766,8 +826,12 @@ public class Task extends AbstractModel implements Parcelable {
         }
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public void setUuid(String uuid) {
-        setValue(UUID, uuid);
+        remoteId = uuid;
     }
 
     public static boolean isUuidEmpty(String uuid) {
@@ -808,7 +872,6 @@ public class Task extends AbstractModel implements Parcelable {
         dest.writeLong(timerStart);
         dest.writeString(title);
         dest.writeString(remoteId);
-        dest.writeList(newArrayList(setValues));
         dest.writeMap(transitoryData);
     }
 
@@ -818,7 +881,6 @@ public class Task extends AbstractModel implements Parcelable {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", importance=" + importance +
-                ", setValues=" + setValues +
                 ", dueDate=" + dueDate +
                 ", transitoryData=" + transitoryData +
                 ", hideUntil=" + hideUntil +
@@ -843,5 +905,88 @@ public class Task extends AbstractModel implements Parcelable {
 
     public int getGoogleTaskIndent() {
         return googleTaskIndent;
+    }
+
+    public boolean insignificantChange(Task task) {
+        if (this == task) return true;
+        if (task == null) return false;
+
+        if (id != null ? !id.equals(task.id) : task.id != null) return false;
+        if (title != null ? !title.equals(task.title) : task.title != null) return false;
+        if (importance != null ? !importance.equals(task.importance) : task.importance != null)
+            return false;
+        if (dueDate != null ? !dueDate.equals(task.dueDate) : task.dueDate != null) return false;
+        if (hideUntil != null ? !hideUntil.equals(task.hideUntil) : task.hideUntil != null)
+            return false;
+        if (created != null ? !created.equals(task.created) : task.created != null) return false;
+        if (modified != null ? !modified.equals(task.modified) : task.modified != null)
+            return false;
+        if (completed != null ? !completed.equals(task.completed) : task.completed != null)
+            return false;
+        if (deleted != null ? !deleted.equals(task.deleted) : task.deleted != null) return false;
+        if (notes != null ? !notes.equals(task.notes) : task.notes != null) return false;
+        if (estimatedSeconds != null ? !estimatedSeconds.equals(task.estimatedSeconds) : task.estimatedSeconds != null)
+            return false;
+        if (elapsedSeconds != null ? !elapsedSeconds.equals(task.elapsedSeconds) : task.elapsedSeconds != null)
+            return false;
+        if (notificationFlags != null ? !notificationFlags.equals(task.notificationFlags) : task.notificationFlags != null)
+            return false;
+        if (notifications != null ? !notifications.equals(task.notifications) : task.notifications != null)
+            return false;
+        if (recurrence != null ? !recurrence.equals(task.recurrence) : task.recurrence != null)
+            return false;
+        if (repeatUntil != null ? !repeatUntil.equals(task.repeatUntil) : task.repeatUntil != null)
+            return false;
+        if (calendarUri != null ? !calendarUri.equals(task.calendarUri) : task.calendarUri != null)
+            return false;
+        return remoteId != null ? remoteId.equals(task.remoteId) : task.remoteId == null;
+    }
+
+    public boolean isSaved() {
+        return getId() != NO_ID;
+    }
+
+    public synchronized void putTransitory(String key, Object value) {
+        if(transitoryData == null) {
+            transitoryData = new HashMap<>();
+        }
+        transitoryData.put(key, value);
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        if (transitoryData == null) {
+            transitoryData = new HashMap<>();
+        }
+        transitoryData.put(Tag.KEY, tags);
+    }
+
+    public ArrayList<String> getTags() {
+        Object tags = getTransitory(Tag.KEY);
+        return tags == null ? new ArrayList<>() : (ArrayList<String>) tags;
+    }
+
+    public <T> T getTransitory(String key) {
+        if(transitoryData == null) {
+            return null;
+        }
+        return (T) transitoryData.get(key);
+    }
+
+    private Object clearTransitory(String key) {
+        if (transitoryData == null) {
+            return null;
+        }
+        return transitoryData.remove(key);
+    }
+
+    // --- Convenience wrappers for using transitories as flags
+    public boolean checkTransitory(String flag) {
+        Object trans = getTransitory(flag);
+        return trans != null;
+    }
+
+    public boolean checkAndClearTransitory(String flag) {
+        Object trans = clearTransitory(flag);
+        return trans != null;
     }
 }

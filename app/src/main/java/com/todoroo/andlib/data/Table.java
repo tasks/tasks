@@ -16,17 +16,15 @@ import com.todoroo.andlib.sql.SqlTable;
  */
 public final class Table extends SqlTable {
     public final String name;
-    private final Class<? extends AbstractModel> modelClass;
 
-    public Table(String name, Class<? extends AbstractModel> modelClass) {
-        this(name, modelClass, null);
+    public Table(String name) {
+        this(name, null);
     }
 
-    private Table(String name, Class<? extends AbstractModel> modelClass, String alias) {
+    private Table(String name, String alias) {
         super(name);
         this.name = name;
         this.alias = alias;
-        this.modelClass = modelClass;
     }
 
     /**
@@ -34,7 +32,7 @@ public final class Table extends SqlTable {
      */
     @Override
     public Table as(String newAlias) {
-        return new Table(name, modelClass, newAlias);
+        return new Table(name, newAlias);
     }
 
     @Override

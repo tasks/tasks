@@ -23,7 +23,7 @@ public class AstridApiConstants {
     public static final String EXTRAS_TASK_ID = "task_id";
 
     public static final String EXTRAS_TASK = "task";
-    public static final String EXTRAS_VALUES = "values";
+    public static final String EXTRAS_ORIGINAL = "original";
     /**
      * Extras name for old task due date
      */

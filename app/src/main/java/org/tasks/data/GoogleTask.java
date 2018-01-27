@@ -18,7 +18,7 @@ public class GoogleTask {
     public static final String KEY = "gtasks"; //$NON-NLS-1$
 
     @Deprecated
-    public static final Table TABLE = new Table("google_tasks", null);
+    public static final Table TABLE = new Table("google_tasks");
 
     @Deprecated
     public static final Property.IntegerProperty INDENT = new Property.IntegerProperty(GoogleTask.TABLE, "indent");

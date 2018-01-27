@@ -161,15 +161,9 @@ public class CalendarControlSet extends TaskEditControlFragment {
                 ContentValues updateValues = new ContentValues();
 
                 // check if we need to update the item
-                if(task.isModified(Task.TITLE)) {
-                    updateValues.put(CalendarContract.Events.TITLE, task.getTitle());
-                }
-                if(task.isModified(Task.NOTES)) {
-                    updateValues.put(CalendarContract.Events.DESCRIPTION, task.getNotes());
-                }
-                if(task.isModified(Task.DUE_DATE) || task.isModified(Task.ESTIMATED_SECONDS)) {
-                    gcalHelper.createStartAndEndDate(task, updateValues);
-                }
+                updateValues.put(CalendarContract.Events.TITLE, task.getTitle());
+                updateValues.put(CalendarContract.Events.DESCRIPTION, task.getNotes());
+                gcalHelper.createStartAndEndDate(task, updateValues);
 
                 cr.update(Uri.parse(task.getCalendarURI()), updateValues, null, null);
             } catch (Exception e) {

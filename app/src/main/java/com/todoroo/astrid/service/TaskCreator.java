@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.google.common.base.Strings;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
@@ -72,7 +71,7 @@ public class TaskCreator {
             googleTaskDao.insert(new GoogleTask(task.getId(), googleTaskList));
         }
 
-        taskDao.save(task);
+        taskDao.save(task, null);
         return task;
     }
 
@@ -88,15 +87,17 @@ public class TaskCreator {
 
         task.setUuid(UUIDHelper.newUUID());
 
+        task.setImportance(preferences.getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
+        task.setDueDate(Task.createDueDate(
+                preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE), 0));
+        int setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
+                Task.HIDE_UNTIL_NONE);
+        task.setHideUntil(task.createHideUntil(setting, 0));
+        setDefaultReminders(preferences, task);
+
         ArrayList<String> tags = new ArrayList<>();
-        try {
-            parseQuickAddMarkup(task, tags);
-        } catch (Throwable e) {
-            Timber.e(e, e.getMessage());
-        }
 
         if (values != null && values.size() > 0) {
-            ContentValues forTask = new ContentValues();
             for (Map.Entry<String, Object> item : values.entrySet()) {
                 String key = item.getKey();
                 Object value = item.getValue();
@@ -104,33 +105,26 @@ public class TaskCreator {
                     tags.add((String) value);
                 } else if (key.equals(GoogleTask.KEY)) {
                     task.putTransitory(key, value);
-                } else {
-                    if (value instanceof String) {
-                        value = PermaSql.replacePlaceholders((String) value);
+                } else if (value instanceof String) {
+                    value = PermaSql.replacePlaceholders((String) value);
+                    if (key.equals("dueDate")) {
+                        task.setDueDate(Long.valueOf((String) value));
+                    } else if (key.equals("importance")) {
+                        task.setImportance(Integer.valueOf((String) value));
+                    } else {
+                        throw new RuntimeException("Unhandled key: " + key);
                     }
-
-                    AndroidUtilities.putInto(forTask, key, value);
+                } else {
+                    throw new RuntimeException("Unhandled key: " + key);
                 }
             }
-            task.mergeWithoutReplacement(forTask);
         }
 
-        if (!task.isModified(Task.IMPORTANCE)) {
-            task.setImportance(preferences.getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
+        try {
+            TitleParser.parse(tagService, task, tags);
+        } catch (Throwable e) {
+            Timber.e(e, e.getMessage());
         }
-
-        if(!task.isModified(Task.DUE_DATE)) {
-            task.setDueDate(Task.createDueDate(
-                    preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE), 0));
-        }
-
-        if(!task.isModified(Task.HIDE_UNTIL)) {
-            int setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
-                    Task.HIDE_UNTIL_NONE);
-            task.setHideUntil(task.createHideUntil(setting, 0));
-        }
-
-        setDefaultReminders(preferences, task);
 
         task.setTags(tags);
 
@@ -138,15 +132,10 @@ public class TaskCreator {
     }
 
     public static void setDefaultReminders(Preferences preferences, Task task) {
-        if(!task.isModified(Task.REMINDER_PERIOD)) {
-            task.setReminderPeriod(DateUtilities.ONE_HOUR *
-                    preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
-                            0));
-        }
-
-        if(!task.isModified(Task.REMINDER_FLAGS)) {
-            task.setReminderFlags(preferences.getDefaultReminders() | preferences.getDefaultRingMode());
-        }
+        task.setReminderPeriod(DateUtilities.ONE_HOUR *
+                preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
+                        0));
+        task.setReminderFlags(preferences.getDefaultReminders() | preferences.getDefaultRingMode());
     }
 
     public void createTags(Task task) {
@@ -160,13 +149,5 @@ public class TaskCreator {
             Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
             tagDao.insert(link);
         }
-    }
-
-    /**
-     * Parse quick add markup for the given task
-     * @param tags an empty array to apply tags to
-     */
-    void parseQuickAddMarkup(Task task, ArrayList<String> tags) {
-        TitleParser.parse(tagService, task, tags);
     }
 }

@@ -206,7 +206,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
             for (TaskEditControlFragment fragment : fragments) {
                 fragment.apply(model);
             }
-            taskDao.save(model);
+            taskDao.save(model, null);
 
             if (Flags.checkAndClear(Flags.TAGS_CHANGED)) {
                 localBroadcastManager.broadcastRefreshList();

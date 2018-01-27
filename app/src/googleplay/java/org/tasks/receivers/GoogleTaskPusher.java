@@ -1,19 +1,14 @@
 package org.tasks.receivers;
 
-import com.todoroo.andlib.data.Property;
+import com.google.common.base.Strings;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.gtasks.SyncAdapterHelper;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 
 public class GoogleTaskPusher {
-
-    private static final Property<?>[] GOOGLE_TASK_PROPERTIES = { Task.ID, Task.TITLE,
-            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE };
 
     private final SyncAdapterHelper syncAdapterHelper;
 
@@ -22,7 +17,7 @@ public class GoogleTaskPusher {
         this.syncAdapterHelper = syncAdapterHelper;
     }
 
-    void push(Task task, ArrayList<String> modifiedValues) {
+    void push(Task task, Task original) {
         if(!syncAdapterHelper.isEnabled()) {
             return;
         }
@@ -31,20 +26,16 @@ public class GoogleTaskPusher {
             return;
         }
 
-        if (checkValuesForProperties(modifiedValues, GOOGLE_TASK_PROPERTIES) || task.checkTransitory(SyncFlags.FORCE_SYNC)) {
+        if (original == null ||
+                !task.getTitle().equals(original.getTitle()) ||
+                (Strings.isNullOrEmpty(task.getNotes())
+                        ? !Strings.isNullOrEmpty(original.getNotes())
+                        : !task.getNotes().equals(original.getNotes())) ||
+                !task.getDueDate().equals(original.getDueDate()) ||
+                !task.getCompletionDate().equals(original.getCompletionDate()) ||
+                !task.getDeletionDate().equals(original.getDeletionDate()) ||
+                task.checkAndClearTransitory(SyncFlags.FORCE_SYNC)) {
             syncAdapterHelper.requestSynchronization();
         }
-    }
-
-    private boolean checkValuesForProperties(ArrayList<String> values, Property<?>[] properties) {
-        if (values == null) {
-            return false;
-        }
-        for (Property<?> property : properties) {
-            if (property != Task.ID && values.contains(property.name)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -6,7 +6,6 @@
 package com.todoroo.andlib.utility;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.Build;
 import android.text.InputType;
@@ -49,32 +48,6 @@ public class AndroidUtilities {
             editor.setOnTouchListener(null);
             return false;
         });
-    }
-
-    /**
-     * Put an arbitrary object into a {@link ContentValues}
-     */
-    public static void putInto(ContentValues target, String key, Object value) {
-        if (value instanceof Boolean) {
-            target.put(key, (Boolean) value);
-        } else if (value instanceof Byte) {
-            target.put(key, (Byte) value);
-        } else if (value instanceof Double) {
-            target.put(key, (Double) value);
-        } else if (value instanceof Float) {
-            target.put(key, (Float) value);
-        } else if (value instanceof Integer) {
-            target.put(key, (Integer) value);
-        } else if (value instanceof Long) {
-            target.put(key, (Long) value);
-        } else if (value instanceof Short) {
-            target.put(key, (Short) value);
-        } else if (value instanceof String) {
-            target.put(key, (String) value);
-        } else {
-            throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
-                    value.getClass());
-        }
     }
 
     // --- serialization

@@ -8,6 +8,8 @@ package com.todoroo.astrid.service;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.TitleParser;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +27,7 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class QuickAddMarkupTest extends InjectingTestCase {
 
-    @Inject TaskCreator taskCreator;
+    @Inject TagService tagService;
 
     @Override
     protected void inject(TestComponent component) {
@@ -102,7 +104,7 @@ public class QuickAddMarkupTest extends InjectingTestCase {
         task = new Task();
         task.setTitle(title);
         tags.clear();
-        taskCreator.parseQuickAddMarkup(task, tags);
+        TitleParser.parse(tagService, task, tags);
     }
 
     private void assertImportanceIs(int importance) {

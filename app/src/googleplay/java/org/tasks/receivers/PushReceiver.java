@@ -15,10 +15,10 @@ import javax.inject.Inject;
 
 public class PushReceiver extends InjectingBroadcastReceiver {
 
-    public static void broadcast(Context context, Task task, ArrayList<String> values) {
+    public static void broadcast(Context context, Task task, Task original) {
         Intent intent = new Intent(context, PushReceiver.class);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK, task);
-        intent.putStringArrayListExtra(AstridApiConstants.EXTRAS_VALUES, values);
+        intent.putExtra(AstridApiConstants.EXTRAS_ORIGINAL, original);
         context.sendBroadcast(intent);
     }
 
@@ -30,7 +30,7 @@ public class PushReceiver extends InjectingBroadcastReceiver {
 
         googleTaskPusher.push(
                 intent.getParcelableExtra(AstridApiConstants.EXTRAS_TASK),
-                intent.getStringArrayListExtra(AstridApiConstants.EXTRAS_VALUES));
+                intent.getParcelableExtra(AstridApiConstants.EXTRAS_ORIGINAL));
     }
 
     @Override

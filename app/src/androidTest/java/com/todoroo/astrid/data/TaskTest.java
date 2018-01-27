@@ -12,10 +12,6 @@ import org.tasks.time.DateTime;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import static com.todoroo.astrid.data.Task.COMPLETION_DATE;
-import static com.todoroo.astrid.data.Task.DELETION_DATE;
-import static com.todoroo.astrid.data.Task.DUE_DATE;
-import static com.todoroo.astrid.data.Task.HIDE_UNTIL;
 import static com.todoroo.astrid.data.Task.URGENCY_DAY_AFTER;
 import static com.todoroo.astrid.data.Task.URGENCY_IN_TWO_WEEKS;
 import static com.todoroo.astrid.data.Task.URGENCY_NEXT_MONTH;
@@ -115,7 +111,7 @@ public class TaskTest {
     @Test
     public void testTaskHasDueTime() {
         Task task = new Task();
-        task.setValue(DUE_DATE, 1388516076000L);
+        task.setDueDate(1388516076000L);
         assertTrue(task.hasDueTime());
         assertTrue(task.hasDueDate());
     }
@@ -123,7 +119,7 @@ public class TaskTest {
     @Test
     public void testTaskHasDueDate() {
         Task task = new Task();
-        task.setValue(DUE_DATE, 1388469600000L);
+        task.setDueDate(1388469600000L);
         assertFalse(task.hasDueTime());
         assertTrue(task.hasDueDate());
     }
@@ -175,7 +171,7 @@ public class TaskTest {
     @Test
     public void testTaskIsCompleted() {
         Task task = new Task();
-        task.setValue(COMPLETION_DATE, 1L);
+        task.setCompletionDate(1L);
         assertTrue(task.isCompleted());
     }
 
@@ -184,7 +180,7 @@ public class TaskTest {
         final long now = currentTimeMillis();
         freezeAt(now).thawAfter(new Snippet() {{
             Task task = new Task();
-            task.setValue(HIDE_UNTIL, now);
+            task.setHideUntil(now);
             assertFalse(task.isHidden());
         }});
     }
@@ -194,7 +190,7 @@ public class TaskTest {
         final long now = currentTimeMillis();
         freezeAt(now).thawAfter(new Snippet() {{
             Task task = new Task();
-            task.setValue(HIDE_UNTIL, now + 1);
+            task.setHideUntil(now + 1);
             assertTrue(task.isHidden());
         }});
     }
@@ -202,7 +198,7 @@ public class TaskTest {
     @Test
     public void testTaskIsDeleted() {
         Task task = new Task();
-        task.setValue(DELETION_DATE, 1L);
+        task.setDeletionDate(1L);
         assertTrue(task.isDeleted());
     }
 
@@ -216,7 +212,7 @@ public class TaskTest {
         final long now = currentTimeMillis();
         freezeAt(now).thawAfter(new Snippet() {{
             Task task = new Task();
-            task.setValue(DUE_DATE, now);
+            task.setDueDate(now);
             assertFalse(task.isOverdue());
         }});
     }
@@ -226,7 +222,7 @@ public class TaskTest {
         final long dueDate = currentTimeMillis();
         freezeAt(dueDate + 1).thawAfter(new Snippet() {{
             Task task = new Task();
-            task.setValue(DUE_DATE, dueDate);
+            task.setDueDate(dueDate);
             assertTrue(task.isOverdue());
         }});
     }
@@ -236,7 +232,7 @@ public class TaskTest {
         final DateTime dueDate = new DateTime().startOfDay();
         freezeAt(dueDate.plusHours(12).minusMillis(1)).thawAfter(new Snippet() {{
             Task task = new Task();
-            task.setValue(DUE_DATE, dueDate.getMillis());
+            task.setDueDate(dueDate.getMillis());
             assertFalse(task.hasDueTime());
             assertFalse(task.isOverdue());
         }});
@@ -247,7 +243,7 @@ public class TaskTest {
         final DateTime dueDate = new DateTime().startOfDay();
         freezeAt(dueDate.plusHours(12)).thawAfter(new Snippet() {{
             Task task = new Task();
-            task.setValue(DUE_DATE, dueDate.getMillis());
+            task.setDueDate(dueDate.getMillis());
             assertFalse(task.hasDueTime());
             assertFalse(task.isOverdue());
         }});
@@ -258,7 +254,7 @@ public class TaskTest {
         final DateTime dueDate = new DateTime().startOfDay();
         freezeAt(dueDate.plusDays(1)).thawAfter(new Snippet() {{
             Task task = new Task();
-            task.setValue(DUE_DATE, dueDate.getMillis());
+            task.setDueDate(dueDate.getMillis());
             assertFalse(task.hasDueTime());
             assertTrue(task.isOverdue());
         }});

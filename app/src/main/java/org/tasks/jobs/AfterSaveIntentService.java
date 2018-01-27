@@ -11,7 +11,6 @@ import android.text.TextUtils;
 
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.repeats.RepeatTaskHelper;
 import com.todoroo.astrid.timers.TimerPlugin;
@@ -26,9 +25,6 @@ import org.tasks.notifications.NotificationManager;
 import org.tasks.receivers.PushReceiver;
 import org.tasks.scheduling.RefreshScheduler;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 import javax.inject.Inject;
 
 import timber.log.Timber;
@@ -40,12 +36,12 @@ import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
 public class AfterSaveIntentService extends InjectingJobIntentService {
 
     private static final String EXTRA_TASK_ID = "extra_task_id";
-    private static final String EXTRA_MODIFIED_VALUES = "extra_modified_values";
+    private static final String EXTRA_ORIGINAL = "extra_original";
 
-    public static void enqueue(Context context, long taskId, Set<String> modifiedValues) {
+    public static void enqueue(Context context, long taskId, Task original) {
         Intent intent = new Intent();
         intent.putExtra(EXTRA_TASK_ID, taskId);
-        intent.putStringArrayListExtra(EXTRA_MODIFIED_VALUES, newArrayList(modifiedValues));
+        intent.putExtra(EXTRA_ORIGINAL, original);
         AfterSaveIntentService.enqueueWork(context, AfterSaveIntentService.class, JobManager.JOB_ID_TASK_STATUS_CHANGE, intent);
     }
 
@@ -64,10 +60,10 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
         super.onHandleWork(intent);
 
         long taskId = intent.getLongExtra(EXTRA_TASK_ID, -1);
-        ArrayList<String> modifiedValues = intent.getStringArrayListExtra(EXTRA_MODIFIED_VALUES);
+        Task original = intent.getParcelableExtra(EXTRA_ORIGINAL);
 
-        if (taskId == -1 || modifiedValues == null) {
-            Timber.e("Invalid extras, taskId=%s modifiedValues=%s", taskId, modifiedValues);
+        if (taskId == -1) {
+            Timber.e("Invalid taskId=%s", taskId);
             return;
         }
 
@@ -77,20 +73,17 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
             return;
         }
 
-        if(modifiedValues.contains(Task.DUE_DATE.name) ||
-                modifiedValues.contains(Task.REMINDER_FLAGS.name) ||
-                modifiedValues.contains(Task.REMINDER_PERIOD.name) ||
-                modifiedValues.contains(Task.REMINDER_LAST.name) ||
-                modifiedValues.contains(Task.REMINDER_SNOOZE.name)) {
+        if(original == null ||
+                !task.getDueDate().equals(original.getDueDate()) ||
+                !task.getReminderFlags().equals(original.getReminderFlags()) ||
+                !task.getReminderPeriod().equals(original.getReminderPeriod()) ||
+                !task.getReminderLast().equals(original.getReminderLast()) ||
+                !task.getReminderSnooze().equals(original.getReminderSnooze())) {
             reminderService.scheduleAlarm(task);
         }
 
-        if(TaskApiDao.insignificantChange(modifiedValues)) {
-            return;
-        }
-
-        boolean completionDateModified = modifiedValues.contains(Task.COMPLETION_DATE.name);
-        boolean deletionDateModified = modifiedValues.contains(Task.DELETION_DATE.name);
+        boolean completionDateModified = original == null || !task.getCompletionDate().equals(original.getCompletionDate());
+        boolean deletionDateModified = original != null && !task.getDeletionDate().equals(original.getDeletionDate());
 
         boolean justCompleted = completionDateModified && task.isCompleted();
         boolean justDeleted = deletionDateModified && task.isDeleted();
@@ -110,7 +103,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
             }
         }
 
-        PushReceiver.broadcast(context, task, modifiedValues);
+        PushReceiver.broadcast(context, task, original);
         refreshScheduler.scheduleRefresh(task);
         if (!task.checkAndClearTransitory(TRANS_SUPPRESS_REFRESH)) {
             localBroadcastManager.broadcastRefresh();

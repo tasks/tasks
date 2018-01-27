@@ -13,7 +13,7 @@ import com.todoroo.astrid.data.Task;
 public final class TaskAttachment {
 
     @Deprecated
-    public static final Table TABLE = new Table("task_attachments", null);
+    public static final Table TABLE = new Table("task_attachments");
 
     @Deprecated
     public static final Property.LongProperty ID = new Property.LongProperty(

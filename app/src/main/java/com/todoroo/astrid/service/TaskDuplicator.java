@@ -73,7 +73,7 @@ public class TaskDuplicator {
 
         gcalHelper.createTaskEventIfEnabled(clone);
 
-        taskDao.save(clone); // TODO: delete me
+        taskDao.save(clone, null); // TODO: delete me
 
         return clone;
     }

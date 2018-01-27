@@ -72,7 +72,7 @@ public class TaskerTaskCreator {
         task.setNotes(bundle.getDescription());
 
         taskDao.createNew(task);
-        taskDao.save(task); // TODO: delete me
+        taskDao.save(task, null); // TODO: delete me
 
         taskCreator.createTags(task);
     }

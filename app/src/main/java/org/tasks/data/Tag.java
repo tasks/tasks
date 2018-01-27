@@ -17,7 +17,7 @@ public class Tag {
     public static final String KEY = "tags-tag"; //$NON-NLS-1$
 
     @Deprecated
-    public static final Table TABLE = new Table("tags", null);
+    public static final Table TABLE = new Table("tags");
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")

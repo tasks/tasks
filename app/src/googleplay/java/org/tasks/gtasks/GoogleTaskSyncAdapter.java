@@ -31,7 +31,6 @@ import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.google.common.base.Strings;
-import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -74,7 +73,6 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.todoroo.andlib.data.AbstractModel.NO_ID;
 import static com.todoroo.astrid.data.Task.NO_UUID;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -297,7 +295,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
 
         task.setModificationDate(DateUtilities.now());
         gtasksMetadata.setLastSync(DateUtilities.now() + 1000L);
-        if (gtasksMetadata.getId() == NO_ID) {
+        if (gtasksMetadata.getId() == Task.NO_ID) {
             googleTaskDao.insert(gtasksMetadata);
         } else {
             googleTaskDao.update(gtasksMetadata);
@@ -357,7 +355,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
 
     private long localIdForGtasksId(String gtasksId) {
         GoogleTask metadata = getMetadataByGtaskId(gtasksId);
-        return metadata == null ? AbstractModel.NO_ID : metadata.getTask();
+        return metadata == null ? Task.NO_ID : metadata.getTask();
     }
 
     private GoogleTask getMetadataByGtaskId(String gtaskId) {
@@ -370,15 +368,15 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         if(task.task.isSaved()) {
             Task local = taskDao.fetch(task.task.getId());
             if (local == null) {
-                task.task.setId(NO_ID);
+                task.task.setId(Task.NO_ID);
                 task.task.setUuid(NO_UUID);
             } else {
                 mergeDates(task.task, local);
             }
         } else { // Set default importance and reminders for remotely created tasks
             task.task.setImportance(preferences.getIntegerFromString(
-                    R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
-            TaskCreator.setDefaultReminders(preferences, task.task);
+                    R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO)); // TODO: can probably remove this
+            TaskCreator.setDefaultReminders(preferences, task.task); // TODO: can probably remove this too
             task.task.setUuid(UUIDHelper.newUUID());
             taskDao.createNew(task.task);
         }

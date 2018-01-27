@@ -25,8 +25,6 @@ import org.tasks.data.TaskAttachment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.todoroo.andlib.data.AbstractModel.NO_ID;
-
 /**
  * Adapter for displaying a user's tasks as a list
  *
@@ -107,7 +105,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
                 return c.get(Task.ID);
             }
         }
-        return NO_ID;
+        return Task.NO_ID;
     }
 
     public Task getTask(int position) {

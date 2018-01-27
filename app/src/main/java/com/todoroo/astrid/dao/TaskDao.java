@@ -18,16 +18,12 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao;
 
 import org.tasks.BuildConfig;
 import org.tasks.jobs.AfterSaveIntentService;
-import org.tasks.receivers.PushReceiver;
 
 import java.util.List;
-import java.util.Set;
 
 import timber.log.Timber;
 
@@ -131,9 +127,6 @@ public abstract class TaskDao {
         }
     }
 
-    @android.arch.persistence.room.Query("SELECT remoteId FROM tasks WHERE _id = :localId")
-    public abstract String uuidFromLocalId(long localId);
-
     @android.arch.persistence.room.Query("UPDATE tasks SET calendarUri = '' " +
             "WHERE calendarUri NOT NULL AND calendarUri != ''")
     public abstract void clearAllCalendarEvents();
@@ -156,11 +149,13 @@ public abstract class TaskDao {
      *
      */
     public void save(Task task) {
-        Set<String> modifiedValues = saveExisting(task);
-        if (modifiedValues != null) {
-            AfterSaveIntentService.enqueue(context, task.getId(), modifiedValues);
-        } else if (task.checkTransitory(SyncFlags.FORCE_SYNC)) {
-            PushReceiver.broadcast(context, task, null);
+        save(task, fetch(task.getId()));
+    }
+
+    // TODO: get rid of this super-hack
+    public void save(Task task, Task original) {
+        if (saveExisting(task, original)) {
+            AfterSaveIntentService.enqueue(context, task.getId(), original);
         }
     }
 
@@ -177,23 +172,16 @@ public abstract class TaskDao {
         task.setId(insert);
     }
 
-    private Set<String> saveExisting(Task item) {
-        Set<String> values = item.getSetValues();
-        if (values == null || values.size() == 0) {
-            return null;
-        }
-        if (!TaskApiDao.insignificantChange(values)) {
-            if (!values.contains(Task.MODIFICATION_DATE.name)) {
-                item.setModificationDate(now());
-            }
+    private boolean saveExisting(Task item, Task original) {
+        if (!item.insignificantChange(original)) {
+            item.setModificationDate(now());
         }
         int updated = update(item);
         if (updated == 1) {
-            item.markSaved();
             database.onDatabaseUpdated();
-            return values;
+            return true;
         }
-        return null;
+        return false;
     }
 
     /**
