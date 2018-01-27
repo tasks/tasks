@@ -103,6 +103,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     @Inject Tracker tracker;
     @Inject NotificationManager notificationManager;
     @Inject GoogleTaskDao googleTaskDao;
+    @Inject TaskCreator taskCreator;
 
     public GoogleTaskSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -327,11 +328,18 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             } while (nextPageToken != null);
 
             if (!tasks.isEmpty()) {
-                for (com.google.api.services.tasks.model.Task t : tasks) {
-                    GtasksTaskContainer container = new GtasksTaskContainer(t, listId, new GoogleTask(0, ""));
-                    findLocalMatch(container);
-                    container.gtaskMetadata.setRemoteOrder(Long.parseLong(t.getPosition()));
-                    container.gtaskMetadata.setParent(localIdForGtasksId(t.getParent()));
+                for (com.google.api.services.tasks.model.Task gtask : tasks) {
+                    String remoteId = gtask.getId();
+                    GoogleTask googleTask = getMetadataByGtaskId(remoteId);
+                    if (googleTask == null) {
+                        googleTask = new GoogleTask(0, "");
+                    }
+                    Task task = googleTask.getTask() > 0
+                            ? taskDao.fetch(googleTask.getTask())
+                            : taskCreator.createWithValues(null, null);
+                    GtasksTaskContainer container = new GtasksTaskContainer(gtask, task, listId, googleTask);
+                    container.gtaskMetadata.setRemoteOrder(Long.parseLong(gtask.getPosition()));
+                    container.gtaskMetadata.setParent(localIdForGtasksId(gtask.getParent()));
                     container.gtaskMetadata.setLastSync(DateUtilities.now() + 1000L);
                     write(container);
                     lastSyncDate = Math.max(lastSyncDate, container.getUpdateTime());
@@ -350,19 +358,6 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     private long localIdForGtasksId(String gtasksId) {
         GoogleTask metadata = getMetadataByGtaskId(gtasksId);
         return metadata == null ? AbstractModel.NO_ID : metadata.getTask();
-    }
-
-    private void findLocalMatch(GtasksTaskContainer remoteTask) {
-        if(remoteTask.task.getId() != Task.NO_ID) {
-            return;
-        }
-        GoogleTask googleTask = getMetadataByGtaskId(remoteTask.gtaskMetadata.getRemoteId());
-        if (googleTask != null) {
-            remoteTask.task.setId(googleTask.getTask());
-            String uuid = taskDao.uuidFromLocalId(remoteTask.task.getId());
-            remoteTask.task.setUuid(Strings.isNullOrEmpty(uuid) ? NO_UUID : uuid);
-            remoteTask.gtaskMetadata = googleTask;
-        }
     }
 
     private GoogleTask getMetadataByGtaskId(String gtaskId) {
@@ -391,6 +386,9 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             task.task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
             task.prepareForSaving();
+            if (task.task.isNew()) {
+                taskDao.createNew(task.task);
+            }
             taskDao.save(task.task);
             synchronizeMetadata(task.task.getId(), task.metadata);
         }

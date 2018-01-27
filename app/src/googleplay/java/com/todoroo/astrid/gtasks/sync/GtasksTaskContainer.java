@@ -22,8 +22,11 @@ public class GtasksTaskContainer {
     public GoogleTask gtaskMetadata;
     private final long updateTime;
 
-    public GtasksTaskContainer(com.google.api.services.tasks.model.Task remoteTask, String listId, GoogleTask metadata) {
-        this.task = new Task();
+    public GtasksTaskContainer(
+            com.google.api.services.tasks.model.Task remoteTask,
+            Task localTask, String listId,
+            GoogleTask metadata) {
+        task = localTask;
         this.metadata = new ArrayList<>();
         this.gtaskMetadata = metadata;
 
