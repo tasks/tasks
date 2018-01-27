@@ -76,9 +76,9 @@ public class DescriptionControlSet extends TaskEditControlFragment {
 
     @Override
     public boolean hasChanges(Task original) {
-        return isNullOrEmpty(description)
+        return !(isNullOrEmpty(description)
                 ? isNullOrEmpty(original.getNotes())
-                : description.equals(original.getNotes());
+                : description.equals(original.getNotes()));
     }
 
     @Override
