@@ -7,8 +7,8 @@ package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TagFilter;
@@ -72,7 +72,7 @@ public class SubtasksTagListFragment extends TagListFragment {
     }
 
     @Override
-    protected TaskAdapter createTaskAdapter(TodorooCursor cursor) {
+    protected TaskAdapter createTaskAdapter(Cursor cursor) {
         return helper.createTaskAdapter(theme.wrap(context), cursor);
     }
 

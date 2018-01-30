@@ -3,6 +3,7 @@ package org.tasks.tasklist;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.MultiSelectorBindingHolder;
 import com.google.common.collect.Lists;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TaskAction;
@@ -191,9 +191,9 @@ class ViewHolder extends MultiSelectorBindingHolder {
         return indent > 0;
     }
 
-    void bindView(TodorooCursor cursor) {
-        tagsString = cursor.get(TaskAdapter.TAGS);
-        hasFiles = (Long) cursor.get(TaskAdapter.FILE_ID_PROPERTY) > 0;
+    void bindView(Cursor cursor) {
+        tagsString = TaskAdapter.TAGS.getValue(cursor);
+        hasFiles = TaskAdapter.FILE_ID_PROPERTY.getValue(cursor) > 0;
 
         // TODO: see if this is a performance issue
         task = new Task(cursor);

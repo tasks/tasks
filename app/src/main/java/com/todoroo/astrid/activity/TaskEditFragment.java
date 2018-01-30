@@ -130,7 +130,9 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         toolbar.setOnMenuItemClickListener(this);
         MenuColorizer.colorToolbar(context, toolbar);
 
-        notificationManager.cancel(model.getId());
+        if (!model.isNew()) {
+            notificationManager.cancel(model.getId());
+        }
 
         commentsController.initialize(model, comments);
         commentsController.reloadView();

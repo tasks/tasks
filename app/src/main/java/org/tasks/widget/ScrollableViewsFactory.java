@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.text.TextUtils;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
@@ -55,7 +55,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private int textColorPrimary;
     private int textColorSecondary;
 
-    private TodorooCursor cursor;
+    private Cursor cursor;
 
     ScrollableViewsFactory(
             SubtasksHelper subtasksHelper,
@@ -202,7 +202,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         return null;
     }
 
-    private TodorooCursor getCursor() {
+    private Cursor getCursor() {
         String query = getQuery();
         return taskDao.fetchFiltered(query, Task.PROPERTIES);
     }

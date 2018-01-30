@@ -12,7 +12,6 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
@@ -23,6 +22,7 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.BuildConfig;
 import org.tasks.jobs.AfterSaveIntentService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
@@ -76,13 +76,25 @@ public abstract class TaskDao {
         }
     }
 
+    private List<Task> toList(Cursor cursor) {
+        List<Task> result = new ArrayList<>();
+        try {
+            for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
+                result.add(new Task(cursor));
+            }
+        } finally {
+            cursor.close();
+        }
+        return result;
+    }
+
     public List<Task> query(Filter filter) {
         String query = PermaSql.replacePlaceholders(filter.getSqlQuery());
-        return query(Query.select().withQueryTemplate(query)).toList();
+        return toList(query(Query.select().withQueryTemplate(query)));
     }
 
     public List<Task> toList(Query query) {
-        return query(query).toList();
+        return toList(query(query));
     }
 
     @android.arch.persistence.room.Query("UPDATE tasks SET completed = :completionDate " +
@@ -197,21 +209,24 @@ public abstract class TaskDao {
         save(item);
     }
 
-    public TodorooCursor fetchFiltered(String queryTemplate, Property<?>... properties) {
+    public Cursor fetchFiltered(String queryTemplate, Property<?>... properties) {
         return query(Query.select(properties)
                 .withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate)));
+    }
+
+    public List<Task> fetchFiltered(String query) {
+        return toList(fetchFiltered(query, Task.PROPERTIES));
     }
 
     /**
      * Construct a query with SQL DSL objects
      */
-    public TodorooCursor query(Query query) {
+    public Cursor query(Query query) {
         String queryString = query.from(Task.TABLE).toString();
         if (BuildConfig.DEBUG) {
             Timber.v(queryString);
         }
-        Cursor cursor = database.rawQuery(queryString);
-        return new TodorooCursor(cursor, query.getFields());
+        return database.rawQuery(queryString);
     }
 }
 

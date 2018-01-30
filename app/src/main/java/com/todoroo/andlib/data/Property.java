@@ -5,6 +5,7 @@
  */
 package com.todoroo.andlib.data;
 
+import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.sql.Criterion;
@@ -60,8 +61,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     /**
      * Accept a visitor
      */
-    abstract public <RETURN, PARAMETER> RETURN accept(
-            PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data);
+    abstract public TYPE getValue(Cursor data);
 
     /**
      * Return a clone of this property
@@ -95,22 +95,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         }
     }
 
-    // --- helper classes and interfaces
-
-    /**
-     * Visitor interface for property classes
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public interface PropertyVisitor<RETURN, PARAMETER> {
-        RETURN visitInteger(Property<Integer> property, PARAMETER data);
-
-        RETURN visitLong(Property<Long> property, PARAMETER data);
-
-        RETURN visitString(Property<String> property, PARAMETER data);
-    }
-
     // --- children
 
     /**
@@ -130,9 +114,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         }
 
         @Override
-        public <RETURN, PARAMETER> RETURN accept(
-                PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
-            return visitor.visitInteger(this, data);
+        public Integer getValue(Cursor data) {
+            return data.getInt(data.getColumnIndexOrThrow(getColumnName()));
         }
 
         @Override
@@ -159,9 +142,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         }
 
         @Override
-        public <RETURN, PARAMETER> RETURN accept(
-                PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
-            return visitor.visitString(this, data);
+        public String getValue(Cursor data) {
+            return data.getString(data.getColumnIndexOrThrow(getColumnName()));
         }
 
         @Override
@@ -203,9 +185,8 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         }
 
         @Override
-        public <RETURN, PARAMETER> RETURN accept(
-                PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
-            return visitor.visitLong(this, data);
+        public Long getValue(Cursor data) {
+            return data.getLong(data.getColumnIndexOrThrow(getColumnName()));
         }
 
         @Override

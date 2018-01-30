@@ -28,7 +28,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -434,7 +433,7 @@ public class TaskListFragment extends InjectingFragment implements
         }
     }
 
-    protected TaskAdapter createTaskAdapter(TodorooCursor cursor) {
+    protected TaskAdapter createTaskAdapter(Cursor cursor) {
         return new TaskAdapter(context, cursor);
     }
 
@@ -450,7 +449,7 @@ public class TaskListFragment extends InjectingFragment implements
             return;
         }
 
-        TodorooCursor currentCursor = taskListDataProvider.constructCursor(filter, taskProperties());
+        Cursor currentCursor = taskListDataProvider.constructCursor(filter, taskProperties());
         if (currentCursor == null) {
             return;
         }
@@ -470,7 +469,7 @@ public class TaskListFragment extends InjectingFragment implements
     }
 
     public void reconstructCursor() {
-        TodorooCursor cursor = taskListDataProvider.constructCursor(filter, taskProperties());
+        Cursor cursor = taskListDataProvider.constructCursor(filter, taskProperties());
         if (cursor == null || taskAdapter == null) {
             return;
         }

@@ -102,8 +102,7 @@ public class GtasksListService {
 
     public void deleteList(GoogleTaskList gtasksList) {
         List<Task> tasks = taskListDataProvider
-                .constructCursor(new GtasksFilter(gtasksList), Task.PROPERTIES)
-                .toList();
+                .toList(new GtasksFilter(gtasksList));
         for (Task task : tasks) {
             taskDeleter.markDeleted(task);
         }

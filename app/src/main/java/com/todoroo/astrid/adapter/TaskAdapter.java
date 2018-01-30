@@ -16,7 +16,6 @@ import com.google.common.collect.ObjectArrays;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.data.Task;
 
@@ -35,9 +34,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     public List<Integer> getTaskPositions(List<Long> longs) {
         List<Integer> result = new ArrayList<>();
-        TodorooCursor taskCursor = getTaskCursor();
+        Cursor taskCursor = getTaskCursor();
         for (taskCursor.moveToFirst() ; !taskCursor.isAfterLast() ; taskCursor.moveToNext()) {
-            if (longs.contains(taskCursor.get(Task.ID))) {
+            if (longs.contains(Task.ID.getValue(taskCursor))) {
                 result.add(taskCursor.getPosition());
             }
         }
@@ -94,35 +93,35 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     }
 
-    private TodorooCursor getTaskCursor() {
-        return (TodorooCursor) getCursor();
+    private Cursor getTaskCursor() {
+        return getCursor();
     }
 
     public long getTaskId(int position) {
-        TodorooCursor c = getTaskCursor();
+        Cursor c = getTaskCursor();
         if (c != null) {
             if (c.moveToPosition(position)) {
-                return c.get(Task.ID);
+                return Task.ID.getValue(c);
             }
         }
         return Task.NO_ID;
     }
 
     public Task getTask(int position) {
-        TodorooCursor c = getTaskCursor();
+        Cursor c = getTaskCursor();
         if (c != null) {
             if (c.moveToPosition(position)) {
-                return c.toModel();
+                return new Task(c);
             }
         }
         return null;
     }
 
     protected String getItemUuid(int position) {
-        TodorooCursor c = getTaskCursor();
+        Cursor c = getTaskCursor();
         if (c != null) {
             if (c.moveToPosition(position)) {
-                return c.get(Task.UUID);
+                return Task.UUID.getValue(c);
             } else {
                 return Task.NO_UUID;
             }

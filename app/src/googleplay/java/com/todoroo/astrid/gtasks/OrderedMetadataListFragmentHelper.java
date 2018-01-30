@@ -9,7 +9,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -56,7 +55,7 @@ class OrderedMetadataListFragmentHelper {
         updater.initialize(filter);
     }
 
-    TaskAdapter createTaskAdapter(Context context, TodorooCursor cursor) {
+    TaskAdapter createTaskAdapter(Context context, Cursor cursor) {
         taskAdapter = new DraggableTaskAdapter(context, cursor);
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);

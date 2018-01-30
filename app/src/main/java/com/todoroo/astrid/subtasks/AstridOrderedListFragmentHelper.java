@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
@@ -49,7 +48,7 @@ class AstridOrderedListFragmentHelper {
         updater.initialize(list, filter);
     }
 
-    TaskAdapter createTaskAdapter(Context context, TodorooCursor cursor) {
+    TaskAdapter createTaskAdapter(Context context, Cursor cursor) {
         taskAdapter = new DraggableTaskAdapter(context, cursor);
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);

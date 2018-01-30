@@ -1,8 +1,8 @@
 package com.todoroo.astrid.subtasks;
 
+import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import org.tasks.data.TaskListMetadataDao;
@@ -120,7 +120,7 @@ public class SubtasksFilterUpdater {
         sql = sql.replace(
                 TaskDao.TaskCriteria.activeAndVisible().toString(),
                 TaskDao.TaskCriteria.notDeleted().toString());
-        TodorooCursor tasks = taskDao.fetchFiltered(sql, Task.UUID);
+        Cursor tasks = taskDao.fetchFiltered(sql, Task.UUID);
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 String id = tasks.getString(0);

@@ -1,9 +1,9 @@
 package org.tasks.data;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
@@ -15,6 +15,8 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.preferences.Preferences;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
@@ -36,7 +38,20 @@ public class TaskListDataProvider {
         this.preferences = preferences;
     }
 
-    public TodorooCursor constructCursor(Filter filter, Property<?>[] properties) {
+    public List<Task> toList(Filter filter) {
+        Cursor cursor = constructCursor(filter, Task.PROPERTIES);
+        List<Task> result = new ArrayList<>();
+        try {
+            for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
+                result.add(new Task(cursor));
+            }
+        } finally {
+            cursor.close();
+        }
+        return result;
+    }
+
+    public Cursor constructCursor(Filter filter, Property<?>[] properties) {
         Criterion tagsJoinCriterion = Criterion.and(
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
 

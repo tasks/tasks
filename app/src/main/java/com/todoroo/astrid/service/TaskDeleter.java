@@ -77,7 +77,7 @@ public class TaskDeleter {
         String query = filter.getSqlQuery()
                 .replace(isVisible().toString(), all.toString())
                 .replace(notCompleted().toString(), all.toString());
-        for (Task task : taskDao.fetchFiltered(query, Task.PROPERTIES).toList()) {
+        for (Task task : taskDao.fetchFiltered(query)) {
             if (task.isCompleted()) {
                 completed.add(task);
             }

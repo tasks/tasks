@@ -1,10 +1,10 @@
 package com.todoroo.astrid.subtasks;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
@@ -170,11 +170,11 @@ public class SubtasksHelper {
 
     private static <A, B> HashMap<A, B> getIdMap(TaskDao taskDao, Iterable<A> keys, Property<A> keyProperty, Property<B> valueProperty) {
         HashMap<A, B> map = new HashMap<>();
-        TodorooCursor tasks = taskDao.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
+        Cursor tasks = taskDao.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                A key = tasks.get(keyProperty);
-                B value = tasks.get(valueProperty);
+                A key = keyProperty.getValue(tasks);
+                B value = valueProperty.getValue(tasks);
                 map.put(key, value);
             }
         } finally {

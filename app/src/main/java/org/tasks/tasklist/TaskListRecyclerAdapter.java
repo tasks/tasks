@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
 import com.bignerdranch.android.multiselector.MultiSelector;
 import com.google.common.primitives.Longs;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -108,7 +107,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     public void onBindViewHolder(ViewHolder holder, int position) {
         Cursor cursor = adapter.getCursor();
         cursor.moveToPosition(position);
-        holder.bindView((TodorooCursor) cursor);
+        holder.bindView(cursor);
         holder.setMoving(false);
         holder.setIndent(adapter.getIndent(holder.task));
     }
