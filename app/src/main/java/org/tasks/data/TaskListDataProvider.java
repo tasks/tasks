@@ -1,8 +1,5 @@
 package org.tasks.data;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -15,13 +12,10 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.preferences.Preferences;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
-
-import timber.log.Timber;
 
 import static com.todoroo.astrid.activity.TaskListFragment.FILE_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
@@ -39,19 +33,10 @@ public class TaskListDataProvider {
     }
 
     public List<Task> toList(Filter filter) {
-        Cursor cursor = constructCursor(filter, Task.PROPERTIES);
-        List<Task> result = new ArrayList<>();
-        try {
-            for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
-                result.add(new Task(cursor));
-            }
-        } finally {
-            cursor.close();
-        }
-        return result;
+        return toList(filter, Task.PROPERTIES);
     }
 
-    public Cursor constructCursor(Filter filter, Property<?>[] properties) {
+    public List<Task> toList(Filter filter, Property<?>[] properties) {
         Criterion tagsJoinCriterion = Criterion.and(
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
 
@@ -81,16 +66,6 @@ public class TaskListDataProvider {
         }
         sqlQueryTemplate.set(groupedQuery);
 
-        // Peform query
-        try {
-            return taskDao.fetchFiltered(sqlQueryTemplate.get(), properties);
-        } catch (SQLiteException e) {
-            // We don't show this error anymore--seems like this can get triggered
-            // by a strange bug, but there seems to not be any negative side effect.
-            // For now, we'll suppress the error
-            // See http://astrid.com/home#tags-7tsoi/task-1119pk
-            Timber.e(e, e.getMessage());
-            return null;
-        }
+        return taskDao.fetchFiltered(sqlQueryTemplate.get(), properties);
     }
 }

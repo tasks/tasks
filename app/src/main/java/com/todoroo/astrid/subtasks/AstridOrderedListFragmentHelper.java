@@ -1,7 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.DateUtilities;
@@ -46,8 +44,8 @@ class AstridOrderedListFragmentHelper {
         updater.initialize(list, filter);
     }
 
-    TaskAdapter createTaskAdapter(Context context, Cursor cursor) {
-        taskAdapter = new DraggableTaskAdapter(context, cursor);
+    TaskAdapter createTaskAdapter(List<Task> tasks) {
+        taskAdapter = new DraggableTaskAdapter(tasks);
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -56,8 +54,8 @@ class AstridOrderedListFragmentHelper {
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(Context context, Cursor c) {
-            super(context, c);
+        private DraggableTaskAdapter(List<Task> tasks) {
+            super(tasks);
         }
 
         @Override
@@ -95,7 +93,6 @@ class AstridOrderedListFragmentHelper {
                 Timber.e(e, e.getMessage());
             }
 
-            fragment.reconstructCursor();
             fragment.loadTaskListContent();
         }
 
@@ -111,7 +108,6 @@ class AstridOrderedListFragmentHelper {
                 Timber.e(e, e.getMessage());
             }
 
-            fragment.reconstructCursor();
             fragment.loadTaskListContent();
         }
     }
@@ -130,7 +126,7 @@ class AstridOrderedListFragmentHelper {
                 for(String taskId : chained) {
                     taskDao.setCompletionDate(taskId, completionDate);
                 }
-                taskAdapter.notifyDataSetInvalidated();
+                fragment.loadTaskListContent();
             }
             return;
         }
@@ -159,7 +155,7 @@ class AstridOrderedListFragmentHelper {
             }
 
             chainedCompletions.put(itemId, chained);
-            taskAdapter.notifyDataSetInvalidated();
+            fragment.loadTaskListContent();
         }
     }
 
@@ -169,12 +165,11 @@ class AstridOrderedListFragmentHelper {
 
     void onCreateTask(String uuid) {
         updater.onCreateTask(list, fragment.getFilter(), uuid);
-        fragment.reconstructCursor();
         fragment.loadTaskListContent();
     }
 
     void onDeleteTask(Task task) {
         updater.onDeleteTask(list, fragment.getFilter(), task.getUuid());
-        taskAdapter.notifyDataSetInvalidated();
+        fragment.loadTaskListContent();
     }
 }

@@ -1,17 +1,15 @@
 package com.todoroo.astrid.subtasks;
 
-import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
-import org.tasks.data.TaskListMetadataDao;
-
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.TaskListMetadata;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.tasks.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadataDao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -120,28 +118,24 @@ public class SubtasksFilterUpdater {
         sql = sql.replace(
                 TaskDao.TaskCriteria.activeAndVisible().toString(),
                 TaskDao.TaskCriteria.notDeleted().toString());
-        Cursor tasks = taskDao.fetchFiltered(sql, Task.UUID);
-        try {
-            for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                String id = tasks.getString(0);
-                idsInQuery.add(id);
-                if (idToNode.containsKey(id)) {
-                    continue;
-                }
-
-                changedThings = true;
-                Node newNode = new Node(id, treeRoot, 0);
-                treeRoot.children.add(0, newNode);
-                idToNode.put(id, newNode);
+        List<Task> tasks = taskDao.fetchFiltered(sql);
+        for (Task task : tasks) {
+            String id = task.getUuid();
+            idsInQuery.add(id);
+            if (idToNode.containsKey(id)) {
+                continue;
             }
 
-            currentIds.removeAll(idsInQuery);
-            if (currentIds.size() > 0) {
-                removeNodes(currentIds);
-                changedThings = true;
-            }
-        } finally {
-            tasks.close();
+            changedThings = true;
+            Node newNode = new Node(id, treeRoot, 0);
+            treeRoot.children.add(0, newNode);
+            idToNode.put(id, newNode);
+        }
+
+        currentIds.removeAll(idsInQuery);
+        if (currentIds.size() > 0) {
+            removeNodes(currentIds);
+            changedThings = true;
         }
         if (changedThings) {
             writeSerialization(list, serializeTree());

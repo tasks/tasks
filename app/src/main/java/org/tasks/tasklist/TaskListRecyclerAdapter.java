@@ -1,7 +1,6 @@
 package org.tasks.tasklist;
 
 import android.app.Activity;
-import android.database.Cursor;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v7.view.ActionMode;
@@ -105,9 +104,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Cursor cursor = adapter.getCursor();
-        cursor.moveToPosition(position);
-        holder.bindView(cursor);
+        holder.bindView(adapter.getTask(position));
         holder.setMoving(false);
         holder.setIndent(adapter.getIndent(holder.task));
     }

@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.utility.DateUtilities;
@@ -23,6 +21,7 @@ import org.tasks.data.GoogleTaskList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -55,8 +54,8 @@ class OrderedMetadataListFragmentHelper {
         updater.initialize(filter);
     }
 
-    TaskAdapter createTaskAdapter(Context context, Cursor cursor) {
-        taskAdapter = new DraggableTaskAdapter(context, cursor);
+    TaskAdapter createTaskAdapter(List<Task> cursor) {
+        taskAdapter = new DraggableTaskAdapter(cursor);
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -65,8 +64,8 @@ class OrderedMetadataListFragmentHelper {
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(Context context, Cursor c) {
-            super(context, c);
+        private DraggableTaskAdapter(List<Task> tasks) {
+            super(tasks);
         }
 
         @Override
@@ -87,11 +86,11 @@ class OrderedMetadataListFragmentHelper {
 
         @Override
         public void moved(int from, int to) {
-            long targetTaskId = taskAdapter.getItemId(from);
+            long targetTaskId = taskAdapter.getTaskId(from);
             if (targetTaskId <= 0) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             }
-            long destinationTaskId = taskAdapter.getItemId(to);
+            long destinationTaskId = taskAdapter.getTaskId(to);
 
             try {
                 if(to >= taskAdapter.getCount()) {
@@ -108,7 +107,7 @@ class OrderedMetadataListFragmentHelper {
 
         @Override
         public void indented(int which, int delta) {
-            long targetTaskId = taskAdapter.getItemId(which);
+            long targetTaskId = taskAdapter.getTaskId(which);
             if (targetTaskId <= 0) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             }
@@ -137,7 +136,7 @@ class OrderedMetadataListFragmentHelper {
                     task.setCompletionDate(completionDate);
                     taskDao.save(task);
                 }
-                taskAdapter.notifyDataSetInvalidated();
+                fragment.loadTaskListContent();
             }
             return;
         }
@@ -159,7 +158,7 @@ class OrderedMetadataListFragmentHelper {
 
         if(chained.size() > 0) {
             chainedCompletions.put(itemId, chained);
-            taskAdapter.notifyDataSetInvalidated();
+            fragment.loadTaskListContent();
         }
     }
 
@@ -169,6 +168,6 @@ class OrderedMetadataListFragmentHelper {
 
     void onDeleteTask(Task task) {
         updater.onDeleteTask(list, task.getId());
-        taskAdapter.notifyDataSetInvalidated();
+        fragment.loadTaskListContent();
     }
 }

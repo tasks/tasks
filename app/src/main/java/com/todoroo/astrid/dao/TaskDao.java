@@ -225,12 +225,7 @@ public abstract class TaskDao {
     }
 
     public int count(Filter filter) {
-        Cursor cursor = fetchFiltered(filter.getSqlQuery(), Task.ID);
-        try {
-            return cursor.getCount();
-        } finally {
-            cursor.close();
-        }
+        return fetchFiltered(filter.getSqlQuery()).size();
     }
 
     public List<Task> fetchFiltered(Filter filter) {
@@ -238,25 +233,25 @@ public abstract class TaskDao {
     }
 
     public List<Task> fetchFiltered(String query) {
-        Cursor cursor = fetchFiltered(query, Task.PROPERTIES);
-        List<Task> result = new ArrayList<>();
-        try {
-            for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
-                result.add(new Task(cursor));
-            }
-        } finally {
-            cursor.close();
-        }
-        return result;
+        return fetchFiltered(query, Task.PROPERTIES);
     }
 
-    public Cursor fetchFiltered(String queryTemplate, Property<?>... properties) {
+    public List<Task> fetchFiltered(String queryTemplate, Property<?>... properties) {
         Query query = Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
         String queryString = query.from(Task.TABLE).toString();
         if (BuildConfig.DEBUG) {
             Timber.v(queryString);
         }
-        return database.rawQuery(queryString);
+        Cursor cursor = database.rawQuery(queryString);
+        List<Task> result = new ArrayList<>();
+        try {
+            for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
+                result.add(new Task(cursor));
+            }
+            return result;
+        } finally {
+            cursor.close();
+        }
     }
 }
 

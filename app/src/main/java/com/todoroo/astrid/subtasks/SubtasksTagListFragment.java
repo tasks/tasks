@@ -6,21 +6,19 @@
 package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
-import android.content.Context;
-import android.database.Cursor;
 
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TagFilter;
-import org.tasks.data.TaskListMetadataDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.TaskListMetadata;
 
-import org.tasks.injection.ForApplication;
+import org.tasks.data.TagData;
+import org.tasks.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadataDao;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.tasklist.TagListFragment;
-import org.tasks.themes.Theme;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -33,9 +31,7 @@ public class SubtasksTagListFragment extends TagListFragment {
         return fragment;
     }
 
-    @Inject @ForApplication Context context;
     @Inject TaskListMetadataDao taskListMetadataDao;
-    @Inject Theme theme;
     @Inject AstridOrderedListFragmentHelper helper;
 
     @Override
@@ -72,8 +68,8 @@ public class SubtasksTagListFragment extends TagListFragment {
     }
 
     @Override
-    protected TaskAdapter createTaskAdapter(Cursor cursor) {
-        return helper.createTaskAdapter(theme.wrap(context), cursor);
+    protected TaskAdapter createTaskAdapter(List<Task> tasks) {
+        return helper.createTaskAdapter(tasks);
     }
 
     @Override

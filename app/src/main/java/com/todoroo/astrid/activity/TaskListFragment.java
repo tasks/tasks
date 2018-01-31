@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
@@ -286,13 +285,13 @@ public class TaskListFragment extends InjectingFragment implements
             case R.id.menu_show_hidden:
                 item.setChecked(!item.isChecked());
                 preferences.setBoolean(R.string.p_show_hidden_tasks, item.isChecked());
-                reconstructCursor();
+                loadTaskListContent();
                 localBroadcastManager.broadcastRefresh();
                 return true;
             case R.id.menu_show_completed:
                 item.setChecked(!item.isChecked());
                 preferences.setBoolean(R.string.p_show_completed_tasks, item.isChecked());
-                reconstructCursor();
+                loadTaskListContent();
                 localBroadcastManager.broadcastRefresh();
                 return true;
             case R.id.menu_filter_settings:
@@ -367,16 +366,6 @@ public class TaskListFragment extends InjectingFragment implements
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        Cursor cursor = taskAdapter.getCursor();
-        if (cursor != null) {
-            cursor.close();
-        }
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
 
@@ -416,12 +405,15 @@ public class TaskListFragment extends InjectingFragment implements
      * Load or re-load action items and update views
      */
     public void loadTaskListContent() {
-        Cursor taskCursor = taskAdapter.getCursor();
-
+        if (taskAdapter == null) {
+            return;
+        }
         // stash selected items
         Bundle saveState = recyclerAdapter.getSaveState();
 
-        taskCursor.requery();
+        List<Task> tasks = taskListDataProvider.toList(filter, taskProperties());
+        taskAdapter.setTasks(tasks);
+
         if (taskAdapter.getCount() == 0) {
             swipeRefreshLayout.setVisibility(View.GONE);
             emptyRefreshLayout.setVisibility(View.VISIBLE);
@@ -433,8 +425,8 @@ public class TaskListFragment extends InjectingFragment implements
         }
     }
 
-    protected TaskAdapter createTaskAdapter(Cursor cursor) {
-        return new TaskAdapter(context, cursor);
+    protected TaskAdapter createTaskAdapter(List<Task> tasks) {
+        return new TaskAdapter(tasks);
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
@@ -449,13 +441,10 @@ public class TaskListFragment extends InjectingFragment implements
             return;
         }
 
-        Cursor currentCursor = taskListDataProvider.constructCursor(filter, taskProperties());
-        if (currentCursor == null) {
-            return;
-        }
+        List<Task> tasks = taskListDataProvider.toList(filter, taskProperties());
 
         // set up list adapters
-        taskAdapter = createTaskAdapter(currentCursor);
+        taskAdapter = createTaskAdapter(tasks);
         recyclerAdapter = new TaskListRecyclerAdapter(getActivity(), taskAdapter, viewHolderFactory,
                 this, taskDeleter, taskDuplicator, tracker, dialogBuilder);
     }
@@ -466,14 +455,6 @@ public class TaskListFragment extends InjectingFragment implements
 
     public Filter getFilter() {
         return filter;
-    }
-
-    public void reconstructCursor() {
-        Cursor cursor = taskListDataProvider.constructCursor(filter, taskProperties());
-        if (cursor == null || taskAdapter == null) {
-            return;
-        }
-        taskAdapter.changeCursor(cursor);
     }
 
     /*

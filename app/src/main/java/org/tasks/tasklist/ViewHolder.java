@@ -3,7 +3,6 @@ package org.tasks.tasklist;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
@@ -20,7 +19,6 @@ import com.bignerdranch.android.multiselector.MultiSelector;
 import com.bignerdranch.android.multiselector.MultiSelectorBindingHolder;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.dao.TaskDao;
@@ -103,8 +101,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
 
     public Task task;
 
-    private String tagsString; // From join query, not part of the task model
-    private boolean hasFiles; // From join query, not part of the task model
     private final Context context;
     private final CheckBoxes checkBoxes;
     private final TagFormatter tagFormatter;
@@ -191,12 +187,9 @@ class ViewHolder extends MultiSelectorBindingHolder {
         return indent > 0;
     }
 
-    void bindView(Cursor cursor) {
-        tagsString = TaskAdapter.TAGS.getValue(cursor);
-        hasFiles = TaskAdapter.FILE_ID_PROPERTY.getValue(cursor) > 0;
-
+    void bindView(Task task) {
         // TODO: see if this is a performance issue
-        task = new Task(cursor);
+        this.task = task;
 
         setFieldContentsAndVisibility();
         setTaskAppearance();
@@ -215,7 +208,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
         setupDueDateAndTags();
 
         // Task action
-        TaskAction action = getTaskAction(task, hasFiles);
+        TaskAction action = getTaskAction(task, task.hasFiles());
         if (action != null) {
             taskActionIcon.setVisibility(View.VISIBLE);
             taskActionIcon.setImageResource(action.icon);
@@ -291,7 +284,7 @@ class ViewHolder extends MultiSelectorBindingHolder {
         if (task.isCompleted()) {
             tagBlock.setVisibility(View.GONE);
         } else {
-            String tags = tagsString;
+            String tags = task.getTagsString();
 
             List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
             CharSequence tagString = tagFormatter.getTagString(tagUuids);

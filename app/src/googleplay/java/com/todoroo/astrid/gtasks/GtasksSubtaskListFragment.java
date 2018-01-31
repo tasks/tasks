@@ -6,8 +6,6 @@
 package com.todoroo.astrid.gtasks;
 
 import android.app.Activity;
-import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 
 import com.todoroo.andlib.data.Property;
@@ -18,13 +16,12 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskList;
-import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.tasklist.GtasksListFragment;
-import org.tasks.themes.Theme;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -37,8 +34,6 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
         return fragment;
     }
 
-    @Inject @ForApplication Context context;
-    @Inject Theme theme;
     @Inject OrderedMetadataListFragmentHelper helper;
 
     @Override
@@ -78,8 +73,8 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
     }
 
     @Override
-    protected TaskAdapter createTaskAdapter(Cursor cursor) {
-        return helper.createTaskAdapter(theme.wrap(context), cursor);
+    protected TaskAdapter createTaskAdapter(List<Task> tasks) {
+        return helper.createTaskAdapter(tasks);
     }
 
     @Override

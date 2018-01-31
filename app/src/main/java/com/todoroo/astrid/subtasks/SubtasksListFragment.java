@@ -7,7 +7,6 @@ package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -15,14 +14,15 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.dao.TaskDao;
-import org.tasks.data.TaskListMetadataDao;
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.TaskListMetadata;
 
+import org.tasks.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadataDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.Preferences;
-import org.tasks.themes.Theme;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -43,7 +43,6 @@ public class SubtasksListFragment extends TaskListFragment {
     @Inject Preferences preferences;
     @Inject @ForApplication Context context;
     @Inject TaskListMetadataDao taskListMetadataDao;
-    @Inject Theme theme;
     @Inject TaskDao taskDao;
     @Inject AstridOrderedListFragmentHelper helper;
 
@@ -102,8 +101,8 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    protected TaskAdapter createTaskAdapter(Cursor cursor) {
-        return helper.createTaskAdapter(theme.wrap(context), cursor);
+    protected TaskAdapter createTaskAdapter(List<Task> tasks) {
+        return helper.createTaskAdapter(tasks);
     }
 
     @Override

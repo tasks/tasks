@@ -5,13 +5,6 @@
  */
 package com.todoroo.astrid.adapter;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CursorAdapter;
-import android.widget.Filterable;
-
 import com.google.common.collect.ObjectArrays;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -24,23 +17,35 @@ import org.tasks.data.TaskAttachment;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.todoroo.astrid.data.Task.NO_ID;
+import static com.todoroo.astrid.data.Task.NO_UUID;
+
 /**
  * Adapter for displaying a user's tasks as a list
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskAdapter extends CursorAdapter implements Filterable  {
+public class TaskAdapter {
+
+    private List<Task> tasks;
 
     public List<Integer> getTaskPositions(List<Long> longs) {
         List<Integer> result = new ArrayList<>();
-        Cursor taskCursor = getTaskCursor();
-        for (taskCursor.moveToFirst() ; !taskCursor.isAfterLast() ; taskCursor.moveToNext()) {
-            if (longs.contains(Task.ID.getValue(taskCursor))) {
-                result.add(taskCursor.getPosition());
+        for (int i = 0 ; i < tasks.size() ; i++) {
+            if (longs.contains(tasks.get(i).getId())) {
+                result.add(i);
             }
         }
         return result;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public int getCount() {
+        return tasks.size();
     }
 
     public interface OnCompletedTaskListener {
@@ -59,18 +64,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     private OnCompletedTaskListener onCompletedTaskListener = null;
 
-    public TaskAdapter(Context context, Cursor c) {
-        super(context, c, false);
-    }
-
-    @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        throw new RuntimeException();
-    }
-
-    @Override
-    public void bindView(View view, Context context, Cursor c) {
-        throw new RuntimeException();
+    public TaskAdapter(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public int getIndent(Task task) {
@@ -93,41 +88,20 @@ public class TaskAdapter extends CursorAdapter implements Filterable  {
 
     }
 
-    private Cursor getTaskCursor() {
-        return getCursor();
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public long getTaskId(int position) {
-        Cursor c = getTaskCursor();
-        if (c != null) {
-            if (c.moveToPosition(position)) {
-                return Task.ID.getValue(c);
-            }
-        }
-        return Task.NO_ID;
+        return position < tasks.size() ? tasks.get(position).getId() : NO_ID;
     }
 
     public Task getTask(int position) {
-        Cursor c = getTaskCursor();
-        if (c != null) {
-            if (c.moveToPosition(position)) {
-                return new Task(c);
-            }
-        }
-        return null;
+        return position < tasks.size() ? tasks.get(position) : null;
     }
 
     protected String getItemUuid(int position) {
-        Cursor c = getTaskCursor();
-        if (c != null) {
-            if (c.moveToPosition(position)) {
-                return Task.UUID.getValue(c);
-            } else {
-                return Task.NO_UUID;
-            }
-        } else {
-            return Task.NO_UUID;
-        }
+        return position < tasks.size() ? tasks.get(position).getUuid() : NO_UUID;
     }
 
     public void onCompletedTask(Task task, boolean newState) {

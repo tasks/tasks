@@ -214,6 +214,12 @@ public class Task implements Parcelable {
     private int googleTaskIndent;
 
     @Ignore
+    private String tags;
+
+    @Ignore
+    private boolean hasFiles;
+
+    @Ignore
     private HashMap<String, Object> transitoryData = null;
 
     // --- data access boilerplate
@@ -245,6 +251,8 @@ public class Task implements Parcelable {
         final int _cursorIndexOfCalendarUri = _cursor.getColumnIndexOrThrow("calendarUri");
         final int _cursorIndexOfRemoteId = _cursor.getColumnIndexOrThrow("remoteId");
         final int _cursorIndexOfIndent = _cursor.getColumnIndex("index");
+        final int _cursorIndexOfTags = _cursor.getColumnIndex("tags");
+        final int _cursorIndexOfFileId = _cursor.getColumnIndex("fileId");
         if (_cursor.isNull(_cursorIndexOfId)) {
             id = null;
         } else {
@@ -332,6 +340,12 @@ public class Task implements Parcelable {
         remoteId = _cursor.getString(_cursorIndexOfRemoteId);
         if (_cursorIndexOfIndent >= 0) {
             googleTaskIndent = _cursor.getInt(_cursorIndexOfIndent);
+        }
+        if (_cursorIndexOfTags >= 0) {
+            tags = _cursor.getString(_cursorIndexOfTags);
+        }
+        if (_cursorIndexOfFileId >= 0) {
+            hasFiles = _cursor.getInt(_cursorIndexOfFileId) > 0;
         }
     }
 
@@ -978,5 +992,13 @@ public class Task implements Parcelable {
     public boolean checkAndClearTransitory(String flag) {
         Object trans = clearTransitory(flag);
         return trans != null;
+    }
+
+    public String getTagsString() {
+        return tags;
+    }
+
+    public boolean hasFiles() {
+        return hasFiles;
     }
 }

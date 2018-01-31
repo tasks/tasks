@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.text.TextUtils;
@@ -28,6 +27,8 @@ import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.WidgetTheme;
 import org.tasks.ui.WidgetCheckBoxes;
+
+import java.util.List;
 
 import timber.log.Timber;
 
@@ -55,7 +56,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private int textColorPrimary;
     private int textColorSecondary;
 
-    private Cursor cursor;
+    private List<Task> tasks;
 
     ScrollableViewsFactory(
             SubtasksHelper subtasksHelper,
@@ -85,25 +86,21 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     @Override
     public void onCreate() {
         database.openForReading();
-        cursor = getCursor();
+        tasks = getTasks();
     }
 
     @Override
     public void onDataSetChanged() {
-        if (cursor != null) {
-            cursor.close();
-        }
-        cursor = getCursor();
+        tasks = getTasks();
     }
 
     @Override
     public void onDestroy() {
-        cursor.close();
     }
 
     @Override
     public int getCount() {
-        return cursor.getCount();
+        return tasks.size();
     }
 
     @Override
@@ -202,18 +199,13 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         return null;
     }
 
-    private Cursor getCursor() {
+    private List<Task> getTasks() {
         String query = getQuery();
-        return taskDao.fetchFiltered(query, Task.PROPERTIES);
+        return taskDao.fetchFiltered(query);
     }
 
     private Task getTask(int position) {
-        if (position < cursor.getCount()) {
-            cursor.moveToPosition(position);
-            return new Task(cursor);
-        }
-        Timber.w("requested task at position %s, cursor count is %s", position, cursor.getCount());
-        return null;
+        return position < tasks.size() ? tasks.get(position) : null;
     }
 
     private String getQuery() {

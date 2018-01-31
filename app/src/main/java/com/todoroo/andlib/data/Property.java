@@ -5,7 +5,6 @@
  */
 package com.todoroo.andlib.data;
 
-import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.todoroo.andlib.sql.Field;
@@ -49,11 +48,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         this.table = table;
         this.name = columnName;
     }
-
-    /**
-     * Accept a visitor
-     */
-    abstract public TYPE getValue(Cursor data);
 
     /**
      * Return a clone of this property
@@ -104,11 +98,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         IntegerProperty(String name, String expression) {
             super(null, name, expression);
         }
-
-        @Override
-        public Integer getValue(Cursor data) {
-            return data.getInt(data.getColumnIndexOrThrow(getColumnName()));
-        }
     }
 
     /**
@@ -121,11 +110,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
         public StringProperty(Table table, String name) {
             super(table, name);
-        }
-
-        @Override
-        public String getValue(Cursor data) {
-            return data.getString(data.getColumnIndexOrThrow(getColumnName()));
         }
 
         @Override
@@ -144,11 +128,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
         public LongProperty(Table table, String name) {
             super(table, name);
-        }
-
-        @Override
-        public Long getValue(Cursor data) {
-            return data.getLong(data.getColumnIndexOrThrow(getColumnName()));
         }
 
         @Override
