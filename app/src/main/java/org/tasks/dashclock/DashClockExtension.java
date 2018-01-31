@@ -79,7 +79,7 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
                         .expandedBody(filter.listingTitle)
                         .clickIntent(clickIntent);
                 if (count == 1) {
-                    List<Task> tasks = taskDao.query(filter);
+                    List<Task> tasks = taskDao.fetchFiltered(filter);
                     if (!tasks.isEmpty()) {
                         extensionData.expandedTitle(tasks.get(0).getTitle());
                     }

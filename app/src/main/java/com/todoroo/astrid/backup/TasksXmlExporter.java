@@ -13,16 +13,10 @@ import android.support.annotation.Nullable;
 import android.util.Xml;
 import android.widget.Toast;
 
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import org.tasks.data.UserActivityDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.UserActivity;
 
 import org.tasks.R;
 import org.tasks.backup.XmlWriter;
@@ -34,6 +28,10 @@ import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
+import org.tasks.data.UserActivity;
+import org.tasks.data.UserActivityDao;
 import org.tasks.preferences.Preferences;
 import org.xmlpull.v1.XmlSerializer;
 
@@ -121,10 +119,11 @@ public class TasksXmlExporter {
             try {
                 String output = setupFile(backupDirectory,
                         exportType);
-                int tasks = taskDao.count(Query.select());
 
-                if(tasks > 0) {
-                    doTasksExport(output);
+                List<Task> tasks = taskDao.getAll();
+
+                if(tasks.size() > 0) {
+                    doTasksExport(output, tasks);
                 }
 
                 preferences.setLong(PREF_BACKUP_LAST_DATE, DateUtilities.now());
@@ -144,7 +143,7 @@ public class TasksXmlExporter {
         }).start();
     }
 
-    private void doTasksExport(String output) throws IOException {
+    private void doTasksExport(String output, List<Task> tasks) throws IOException {
         File xmlFile = new File(output);
         xmlFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(xmlFile);
@@ -160,7 +159,7 @@ public class TasksXmlExporter {
         xml.attribute(null, BackupConstants.ASTRID_ATTR_FORMAT,
                 Integer.toString(FORMAT));
 
-        serializeTasks();
+        serializeTasks(tasks);
         serializeTagDatas();
 
         xml.endTag(null, BackupConstants.ASTRID_TAG);
@@ -181,8 +180,7 @@ public class TasksXmlExporter {
         }
     }
 
-    private void serializeTasks() throws IOException {
-        List<Task> tasks = taskDao.toList(Query.select().orderBy(Order.asc(Task.ID)));
+    private void serializeTasks(List<Task> tasks) throws IOException {
         int length = tasks.size();
         for(int i = 0; i < length; i++) {
             Task task = tasks.get(i);

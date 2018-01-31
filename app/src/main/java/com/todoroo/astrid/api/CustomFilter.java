@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import java.util.Map;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.mapFromSerializedString;
 import static com.todoroo.andlib.utility.AndroidUtilities.mapToSerializedString;
 
 public class CustomFilter extends Filter {

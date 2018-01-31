@@ -9,8 +9,6 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 
 public class PushReceiver extends InjectingBroadcastReceiver {

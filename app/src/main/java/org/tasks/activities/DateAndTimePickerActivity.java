@@ -19,7 +19,6 @@ import org.tasks.time.DateTime;
 
 import javax.inject.Inject;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static org.tasks.dialogs.NativeDatePickerDialog.newNativeDatePickerDialog;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 

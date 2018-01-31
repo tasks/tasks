@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.api;
 
-import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;

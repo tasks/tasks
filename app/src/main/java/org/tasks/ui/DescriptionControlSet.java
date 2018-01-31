@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;

@@ -43,7 +43,7 @@ public class FilterCounter {
     public void refreshFilterCounts(final Runnable onComplete) {
         executorService.submit(() -> {
             for (Filter filter : filterCounts.keySet()) {
-                int size = countTasks(filter);
+                int size = taskDao.count(filter);
                 filterCounts.put(filter, size);
             }
             if (onComplete != null) {
@@ -66,9 +66,4 @@ public class FilterCounter {
         return filterCounts.get(filter);
     }
 
-    private int countTasks(Filter filter) {
-        Query query = Query.select(Task.ID)
-                .withQueryTemplate(PermaSql.replacePlaceholders(filter.getSqlQuery()));
-        return taskDao.count(query);
-    }
 }

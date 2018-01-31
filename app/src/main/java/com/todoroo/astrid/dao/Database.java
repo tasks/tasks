@@ -7,9 +7,7 @@ package com.todoroo.astrid.dao;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.RoomDatabase;
-import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.todoroo.astrid.data.Task;
 
@@ -79,8 +77,6 @@ public abstract class Database extends RoomDatabase {
 
     public static final String NAME = "database";
 
-    private static final String TABLE_NAME = Task.TABLE.name;
-
     private SupportSQLiteDatabase database;
     private Runnable onDatabaseUpdated;
 
@@ -95,7 +91,7 @@ public abstract class Database extends RoomDatabase {
         return this;
     }
 
-    public void onDatabaseUpdated() {
+    void onDatabaseUpdated() {
         if (onDatabaseUpdated != null) {
             onDatabaseUpdated.run();
         }
@@ -174,12 +170,6 @@ public abstract class Database extends RoomDatabase {
 
     public Cursor rawQuery(String sql) {
         return getDatabase().query(sql, null);
-    }
-
-    public int update(ContentValues  values, String whereClause) {
-        int result = getDatabase().update(TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, whereClause, null);
-        onDatabaseUpdated();
-        return result;
     }
 }
 

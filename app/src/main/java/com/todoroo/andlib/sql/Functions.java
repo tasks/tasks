@@ -5,11 +5,6 @@
  */
 package com.todoroo.andlib.sql;
 
-import com.todoroo.andlib.data.Property.StringProperty;
-
-
-
-
 public final class Functions {
 
     public static String caseStatement(Criterion when, Object ifTrue, Object ifFalse) {
@@ -29,14 +24,5 @@ public final class Functions {
      */
     public static Field now() {
         return new Field("(strftime('%s','now')*1000)");
-    }
-
-    public static Field cast(Field field, String newType) {
-        return new Field("CAST(" + field.toString() + " AS " +
-                newType + ")");
-    }
-
-    public static Field length(StringProperty field) {
-        return new Field("LENGTH(" + field.toString() + ")");
     }
 }

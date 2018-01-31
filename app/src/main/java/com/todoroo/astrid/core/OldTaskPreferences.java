@@ -7,11 +7,8 @@ package com.todoroo.astrid.core;
 
 import android.os.Bundle;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
 
 import org.tasks.R;
@@ -21,8 +18,6 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.ProgressDialogAsyncTask;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -90,9 +85,8 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
 
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        int result = deleteCalendarEvents(Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()));
-                        taskDao.clearCompletedCalendarEvents();
-                        return result;
+                        calendarEventProvider.deleteEvents(taskDao.getCompletedCalendarEvents());
+                        return taskDao.clearCompletedCalendarEvents();
                     }
 
                     @Override
@@ -109,9 +103,8 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> new ProgressDialogAsyncTask(OldTaskPreferences.this, dialogBuilder) {
                     @Override
                     protected Integer doInBackground(Void... params) {
-                        int result = deleteCalendarEvents(Task.CALENDAR_URI.isNotNull());
-                        taskDao.clearAllCalendarEvents();
-                        return result;
+                        calendarEventProvider.deleteEvents(taskDao.getAllCalendarEvents());
+                        return taskDao.clearAllCalendarEvents();
                     }
 
                     @Override
@@ -121,17 +114,6 @@ public class OldTaskPreferences extends InjectingPreferenceActivity {
                 }.execute())
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
-    }
-
-    private int deleteCalendarEvents(Criterion criterion) {
-        int deletedEventCount = 0;
-        List<Task> tasks = taskDao.toList(Query.select().where(criterion));
-        for (Task task : tasks) {
-            if (calendarEventProvider.deleteEvent(task)) {
-                deletedEventCount++;
-            }
-        }
-        return deletedEventCount;
     }
 
     private void resetPreferences() {

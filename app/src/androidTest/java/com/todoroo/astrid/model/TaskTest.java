@@ -14,7 +14,6 @@ import org.tasks.injection.TestComponent;
 import javax.inject.Inject;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
 import static org.tasks.Freeze.freezeClock;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
@@ -22,11 +21,6 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 public class TaskTest extends InjectingTestCase {
 
     @Inject TaskDao taskDao;
-
-    @Test
-    public void testNewTaskHasNoCreationDate() {
-        assertFalse(new Task().isModified(Task.CREATION_DATE));
-    }
 
     @Test
     public void testSavedTaskHasCreationDate() {

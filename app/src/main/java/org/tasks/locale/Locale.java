@@ -20,8 +20,6 @@ import org.tasks.R;
 import java.text.NumberFormat;
 import java.text.ParseException;
 
-import timber.log.Timber;
-
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 
 public class Locale {

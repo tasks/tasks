@@ -17,7 +17,6 @@ import org.tasks.data.UserActivityDao;
 import org.tasks.notifications.NotificationDao;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissivePermissionChecker;
-import org.tasks.preferences.Preferences;
 
 import dagger.Module;
 import dagger.Provides;

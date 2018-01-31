@@ -11,8 +11,6 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -196,25 +194,15 @@ public class TasksXmlImporter {
             taskCount++;
             setProgressMessage(activity.getString(R.string.import_progress_read, taskCount));
 
-            String title = xpp.getAttributeValue(null, Task.TITLE.name);
-            String created = xpp.getAttributeValue(null, Task.CREATION_DATE.name);
+            currentTask = new Task(new XmlReader(xpp));
 
-            // if we don't have task name or creation date, skip
-            if (created == null || title == null) {
-                skipCount++;
-                return;
-            }
+            Task existingTask = taskDao.fetch(currentTask.getUuid());
 
-            // if the task's name and creation date match an existing task, skip
-            Query query = Query.select()
-                    .where(Criterion.and(Task.TITLE.eq(title), Task.CREATION_DATE.eq(created)));
-            if (taskDao.count(query) > 0) {
-                skipCount++;
-            } else {
-                currentTask = new Task(new XmlReader(xpp));
-                // Save the task to the database.
+            if (existingTask == null) {
                 taskDao.save(currentTask);
                 importCount++;
+            } else {
+                skipCount++;
             }
         }
 

@@ -8,15 +8,7 @@ package com.todoroo.andlib.data;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Operator;
-import com.todoroo.andlib.sql.UnaryCriterion;
-
-import static com.todoroo.andlib.sql.SqlConstants.COMMA;
-import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
-import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
-import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 /**
  * Property represents a typed column in a database.
@@ -117,16 +109,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         public Integer getValue(Cursor data) {
             return data.getInt(data.getColumnIndexOrThrow(getColumnName()));
         }
-
-        @Override
-        public IntegerProperty as(String newAlias) {
-            return (IntegerProperty) super.as(newAlias);
-        }
-
-        @Override
-        public IntegerProperty cloneAs(String tableAlias, String columnAlias) {
-            return this.cloneAs(tableAlias, columnAlias);
-        }
     }
 
     /**
@@ -150,26 +132,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         public StringProperty as(String newAlias) {
             return (StringProperty) super.as(newAlias);
         }
-
-        @Override
-        public StringProperty cloneAs(String tableAlias, String columnAlias) {
-            return (StringProperty) super.cloneAs(tableAlias, columnAlias);
-        }
-
-        public Criterion in(final String[] value) {
-            final Field field = this;
-            return new Criterion(Operator.in) {
-
-                @Override
-                protected void populate(StringBuilder sb) {
-                    sb.append(field).append(SPACE).append(Operator.in).append(SPACE).append(LEFT_PARENTHESIS).append(SPACE);
-                    for (String s : value) {
-                        sb.append("'").append(UnaryCriterion.sanitize(s)).append("'").append(COMMA);
-                    }
-                    sb.deleteCharAt(sb.length() - 1).append(RIGHT_PARENTHESIS);
-                }
-            };
-        }
     }
 
     /**
@@ -187,11 +149,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         @Override
         public Long getValue(Cursor data) {
             return data.getLong(data.getColumnIndexOrThrow(getColumnName()));
-        }
-
-        @Override
-        public LongProperty as(String newAlias) {
-            return (LongProperty) super.as(newAlias);
         }
 
         @Override

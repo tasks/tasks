@@ -58,6 +58,12 @@ public class CalendarEventProvider {
         return events.isEmpty() ? null : events.get(0);
     }
 
+    public void deleteEvents(List<String> calendarUris) {
+        for (String uri : calendarUris) {
+            deleteEvent(uri);
+        }
+    }
+
     public boolean deleteEvent(Task task) {
         String uri = task.getCalendarURI();
         task.setCalendarUri("");

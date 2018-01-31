@@ -1,7 +1,5 @@
 package org.tasks.backup;
 
-import com.todoroo.astrid.backup.TasksXmlExporter;
-
 import org.xmlpull.v1.XmlPullParser;
 
 import static com.todoroo.astrid.backup.TasksXmlExporter.XML_NULL;

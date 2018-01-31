@@ -5,7 +5,6 @@
  */
 package com.todoroo.andlib.sql;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.astrid.data.Task;
 
 import java.util.ArrayList;
@@ -148,13 +147,6 @@ public final class Query {
         if(limits > -1) {
             sql.append(LIMIT).append(SPACE).append(limits).append(SPACE);
         }
-    }
-
-    /**
-     * Gets a list of fields returned by this query
-     */
-    public Property<?>[] getFields() {
-        return fields.toArray(new Property<?>[fields.size()]);
     }
 
     /**

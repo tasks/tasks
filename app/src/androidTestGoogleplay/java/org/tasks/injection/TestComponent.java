@@ -9,7 +9,6 @@ import com.todoroo.astrid.gtasks.GtasksTaskListUpdaterTest;
 import com.todoroo.astrid.gtasks.GtasksTaskMovingTest;
 import com.todoroo.astrid.model.TaskTest;
 import com.todoroo.astrid.reminders.ReminderServiceTest;
-import com.todoroo.astrid.repeats.NewRepeatTests;
 import com.todoroo.astrid.repeats.RepeatTaskHelperTest;
 import com.todoroo.astrid.service.QuickAddMarkupTest;
 import com.todoroo.astrid.service.TitleParserTest;
@@ -50,8 +49,6 @@ public interface TestComponent {
     void inject(QuickAddMarkupTest quickAddMarkupTest);
 
     void inject(TitleParserTest titleParserTest);
-
-    void inject(NewRepeatTests newRepeatTests);
 
     void inject(BackupServiceTests backupServiceTests);
 

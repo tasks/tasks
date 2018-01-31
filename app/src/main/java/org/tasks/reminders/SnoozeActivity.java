@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
 
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;

@@ -58,19 +58,19 @@ public class UnaryCriterion extends Criterion {
         return input.replace("'", "''");
     }
 
-    public static Criterion neq(Field field, Object value) {
+    static Criterion neq(Field field, Object value) {
         return new UnaryCriterion(field, Operator.neq, value);
     }
 
-    public static Criterion gt(Field field, Object value) {
+    static Criterion gt(Field field, Object value) {
         return new UnaryCriterion(field, Operator.gt, value);
     }
 
-    public static Criterion lt(Field field, Object value) {
+    static Criterion lt(Field field, Object value) {
         return new UnaryCriterion(field, Operator.lt, value);
     }
 
-    public static Criterion lte(Field field, Object value) {
+    static Criterion lte(Field field, Object value) {
         return new UnaryCriterion(field, Operator.lte, value);
     }
 
@@ -83,7 +83,7 @@ public class UnaryCriterion extends Criterion {
         };
     }
 
-    public static Criterion isNotNull(Field field) {
+    static Criterion isNotNull(Field field) {
         return new UnaryCriterion(field, Operator.isNotNull, null) {
             @Override
             protected void populateOperator(StringBuilder sb) {
@@ -97,20 +97,6 @@ public class UnaryCriterion extends Criterion {
             @Override
             protected void populateOperator(StringBuilder sb) {
                 sb.append(SPACE).append(operator).append(SPACE);
-            }
-        };
-    }
-
-    public static Criterion like(Field field, String value, final String escape) {
-        return new UnaryCriterion(field, Operator.like, value) {
-            @Override
-            protected void populateOperator(StringBuilder sb) {
-                sb.append(SPACE).append(operator).append(SPACE);
-            }
-            @Override
-            protected void afterPopulateOperator(StringBuilder sb) {
-                super.afterPopulateOperator(sb);
-                sb.append(SPACE).append("ESCAPE").append(" '").append(sanitize(escape)).append("'");
             }
         };
     }

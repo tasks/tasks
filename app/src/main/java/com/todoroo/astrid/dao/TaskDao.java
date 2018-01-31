@@ -17,6 +17,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.BuildConfig;
@@ -62,40 +63,27 @@ public abstract class TaskDao {
     @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     public abstract Task fetch(long id);
 
-    public int count(Filter filter) {
-        String query = PermaSql.replacePlaceholders(filter.getSqlQuery());
-        return count(Query.select(Task.ID).withQueryTemplate(query));
-    }
+    @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE _id IN (:taskIds)")
+    public abstract List<Task> fetch(List<Long> taskIds);
 
-    public int count(Query query) {
-        Cursor cursor = query(query);
-        try {
-            return cursor.getCount();
-        } finally {
-            cursor.close();
-        }
-    }
+    @android.arch.persistence.room.Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0")
+    public abstract int activeTimers();
 
-    private List<Task> toList(Cursor cursor) {
-        List<Task> result = new ArrayList<>();
-        try {
-            for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
-                result.add(new Task(cursor));
-            }
-        } finally {
-            cursor.close();
-        }
-        return result;
-    }
+    @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks INNER JOIN notification ON tasks._id = notification.task")
+    public abstract List<Task> activeNotifications();
 
-    public List<Task> query(Filter filter) {
-        String query = PermaSql.replacePlaceholders(filter.getSqlQuery());
-        return toList(query(Query.select().withQueryTemplate(query)));
-    }
+    @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE remoteId = :remoteId")
+    public abstract Task fetch(String remoteId);
 
-    public List<Task> toList(Query query) {
-        return toList(query(query));
-    }
+    @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE completed = 0 AND deleted = 0")
+    abstract List<Task> getActiveTasks();
+
+    @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE hideUntil < (strftime('%s','now')*1000)")
+    abstract List<Task> getVisibleTasks();
+
+    @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE remoteId IN (:remoteIds) " +
+            "AND recurrence NOT NULL AND LENGTH(recurrence) > 0")
+    public abstract List<Task> getRecurringTasks(List<String> remoteIds);
 
     @android.arch.persistence.room.Query("UPDATE tasks SET completed = :completionDate " +
             "WHERE remoteId = :remoteId")
@@ -103,6 +91,17 @@ public abstract class TaskDao {
 
     @android.arch.persistence.room.Query("UPDATE tasks SET snoozeTime = :millis WHERE _id in (:taskIds)")
     public abstract void snooze(List<Long> taskIds, long millis);
+
+    @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks " +
+            "LEFT JOIN google_tasks ON tasks._id = google_tasks.task " +
+            "WHERE tasks.modified > google_tasks.last_sync " +
+            "OR google_tasks.remote_id = '' " +
+            "OR google_tasks.remote_id IS NULL")
+    public abstract List<Task> getTasksToPush();
+
+    @android.arch.persistence.room.Query("SELECT * FROM TASKS " +
+            "WHERE completed = 0 AND deleted = 0 AND (notificationFlags > 0 OR notifications > 0)")
+    public abstract List<Task> getTasksWithReminders();
 
     // --- SQL clause generators
 
@@ -139,13 +138,24 @@ public abstract class TaskDao {
         }
     }
 
+    @android.arch.persistence.room.Query("SELECT * FROM tasks")
+    public abstract List<Task> getAll();
+
+    @android.arch.persistence.room.Query("SELECT calendarUri FROM tasks " +
+            "WHERE calendarUri NOT NULL AND calendarUri != ''")
+    public abstract List<String> getAllCalendarEvents();
+
     @android.arch.persistence.room.Query("UPDATE tasks SET calendarUri = '' " +
             "WHERE calendarUri NOT NULL AND calendarUri != ''")
-    public abstract void clearAllCalendarEvents();
+    public abstract int clearAllCalendarEvents();
+
+    @android.arch.persistence.room.Query("SELECT calendarUri FROM tasks " +
+            "WHERE completed > 0 AND calendarUri NOT NULL AND calendarUri != ''")
+    public abstract List<String> getCompletedCalendarEvents();
 
     @android.arch.persistence.room.Query("UPDATE tasks SET calendarUri = '' " +
             "WHERE completed > 0 AND calendarUri NOT NULL AND calendarUri != ''")
-    public abstract void clearCompletedCalendarEvents();
+    public abstract int clearCompletedCalendarEvents();
 
     @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE deleted > 0")
     public abstract List<Task> getDeleted();
@@ -196,6 +206,12 @@ public abstract class TaskDao {
         return false;
     }
 
+    public List<Task> getAstrid2TaskProviderTasks() {
+        return toList(query(Query.select()
+                .where(Criterion.and(TaskCriteria.isActive(), TaskCriteria.isVisible()))
+                .orderBy(SortHelper.defaultTaskOrder()).limit(100)));
+    }
+
     /**
      * Mark the given task as completed and save it.
      */
@@ -209,19 +225,43 @@ public abstract class TaskDao {
         save(item);
     }
 
-    public Cursor fetchFiltered(String queryTemplate, Property<?>... properties) {
-        return query(Query.select(properties)
-                .withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate)));
+    public int count(Filter filter) {
+        Cursor cursor = fetchFiltered(filter.getSqlQuery(), Task.ID);
+        try {
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public List<Task> fetchFiltered(Filter filter) {
+        return fetchFiltered(filter.getSqlQuery());
     }
 
     public List<Task> fetchFiltered(String query) {
         return toList(fetchFiltered(query, Task.PROPERTIES));
     }
 
+    public Cursor fetchFiltered(String queryTemplate, Property<?>... properties) {
+        return query(Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate)));
+    }
+
+    private List<Task> toList(Cursor cursor) {
+        List<Task> result = new ArrayList<>();
+        try {
+            for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
+                result.add(new Task(cursor));
+            }
+        } finally {
+            cursor.close();
+        }
+        return result;
+    }
+
     /**
      * Construct a query with SQL DSL objects
      */
-    public Cursor query(Query query) {
+    private Cursor query(Query query) {
         String queryString = query.from(Task.TABLE).toString();
         if (BuildConfig.DEBUG) {
             Timber.v(queryString);

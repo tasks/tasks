@@ -91,8 +91,6 @@ public class Task implements Parcelable {
     /** Unixtime Task was created */
     @ColumnInfo(name = "created")
     public Long created = 0L;
-    public static final LongProperty CREATION_DATE = new LongProperty(
-            TABLE, "created");
 
     /** Unixtime Task was last touched */
     @ColumnInfo(name = "modified")
@@ -133,14 +131,10 @@ public class Task implements Parcelable {
     /** Flags for when to send reminders */
     @ColumnInfo(name = "notificationFlags")
     public Integer notificationFlags = 0;
-    public static final IntegerProperty REMINDER_FLAGS = new IntegerProperty(
-            TABLE, "notificationFlags");
 
     /** Reminder period, in milliseconds. 0 means disabled */
     @ColumnInfo(name = "notifications")
     public Long notifications = 0L;
-    public static final LongProperty REMINDER_PERIOD = new LongProperty(
-            TABLE, "notifications");
 
     /** Unixtime the last reminder was triggered */
     @ColumnInfo(name = "lastNotified")
@@ -152,16 +146,12 @@ public class Task implements Parcelable {
 
     @ColumnInfo(name = "recurrence")
     public String recurrence = "";
-    public static final StringProperty RECURRENCE = new StringProperty(
-            TABLE, "recurrence");
 
     @ColumnInfo(name = "repeatUntil")
     public Long repeatUntil = 0L;
 
     @ColumnInfo(name = "calendarUri")
     public String calendarUri = "";
-    public static final StringProperty CALENDAR_URI = new StringProperty(
-            TABLE, "calendarUri");
 
     // --- for astrid.com
 
@@ -176,9 +166,9 @@ public class Task implements Parcelable {
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = new Property<?>[] {
-            CALENDAR_URI,
+            new StringProperty(TABLE, "calendarUri"),
             COMPLETION_DATE,
-            CREATION_DATE,
+            new LongProperty(TABLE, "created"),
             DELETION_DATE,
             DUE_DATE,
             new IntegerProperty(TABLE, "elapsedSeconds"),
@@ -188,10 +178,10 @@ public class Task implements Parcelable {
             IMPORTANCE,
             MODIFICATION_DATE,
             NOTES,
-            RECURRENCE,
-            REMINDER_FLAGS,
+            new StringProperty(TABLE, "recurrence"),
+            new IntegerProperty(TABLE, "notificationFlags"),
             new LongProperty(TABLE, "lastNotified"),
-            REMINDER_PERIOD,
+            new LongProperty(TABLE, "notifications"),
             new LongProperty(TABLE, "snoozeTime"),
             new LongProperty(TABLE, "repeatUntil"),
             TIMER_START,

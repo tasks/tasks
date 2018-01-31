@@ -5,11 +5,8 @@
  */
 package com.todoroo.astrid.reminders;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.injection.ApplicationScope;
@@ -53,10 +50,7 @@ public final class ReminderService  {
     }
 
     public void scheduleAllAlarms(TaskDao taskDao) {
-        Query query = Query.select().where(Criterion.and(
-                TaskCriteria.isActive(),
-                Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0))));
-        for (Task task : taskDao.toList(query)) {
+        for (Task task : taskDao.getTasksWithReminders()) {
             scheduleAlarm(task);
         }
     }

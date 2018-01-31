@@ -31,10 +31,6 @@ import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.google.common.base.Strings;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
@@ -189,12 +185,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     }
 
     private void pushLocalChanges() throws UserRecoverableAuthIOException {
-        List<Task> tasks = taskDao.toList(Query.select()
-                .join(Join.left(GoogleTask.TABLE.as("gt"), Task.ID.eq(Field.field("gt.task"))))
-                .where(Criterion.or(
-                        Task.MODIFICATION_DATE.gt(Field.field("gt.last_sync")),
-                        Field.field("gt.remote_id").eq(""),
-                        Field.field("gt.remote_id").isNull())));
+        List<Task> tasks = taskDao.getTasksToPush();
         for (Task task : tasks) {
             try {
                 pushTask(task, gtasksInvoker);

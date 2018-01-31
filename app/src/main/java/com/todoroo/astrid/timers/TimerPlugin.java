@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
 
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -81,8 +80,7 @@ public class TimerPlugin {
     }
 
     private void updateNotifications() {
-        int count = taskDao.count(Query.select(Task.ID).
-                where(Task.TIMER_START.gt(0)));
+        int count = taskDao.activeTimers();
         if(count == 0) {
             notificationManager.cancel(Constants.NOTIFICATION_TIMER);
         } else {

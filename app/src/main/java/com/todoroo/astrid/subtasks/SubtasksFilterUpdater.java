@@ -116,7 +116,7 @@ public class SubtasksFilterUpdater {
         }
         Set<String> idsInQuery = new HashSet<>();
         String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", "");  //$NON-NLS-1$//$NON-NLS-2$
-        sql = sql + String.format(" ORDER BY %s", Task.CREATION_DATE); //$NON-NLS-1$
+        sql = sql + " ORDER BY created"; //$NON-NLS-1$
         sql = sql.replace(
                 TaskDao.TaskCriteria.activeAndVisible().toString(),
                 TaskDao.TaskCriteria.notDeleted().toString());

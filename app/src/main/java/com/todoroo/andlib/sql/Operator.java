@@ -9,12 +9,12 @@ public final class Operator {
 
     private final String operator;
     public static final Operator eq = new Operator("=");
-    public static final Operator neq = new Operator("<>");
+    static final Operator neq = new Operator("<>");
     public static final Operator isNull = new Operator("IS NULL");
-    public static final Operator isNotNull = new Operator("IS NOT NULL");
-    public static final Operator gt = new Operator(">");
-    public static final Operator lt = new Operator("<");
-    public static final Operator lte = new Operator("<=");
+    static final Operator isNotNull = new Operator("IS NOT NULL");
+    static final Operator gt = new Operator(">");
+    static final Operator lt = new Operator("<");
+    static final Operator lte = new Operator("<=");
     public static final Operator and = new Operator("AND");
     public static final Operator or = new Operator("OR");
     public static final Operator not = new Operator("NOT");

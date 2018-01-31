@@ -61,7 +61,7 @@ public class Notifier {
     }
 
     public void triggerFilterNotification(final Filter filter) {
-        List<Task> tasks = taskDao.query(filter);
+        List<Task> tasks = taskDao.fetchFiltered(filter);
         int count = tasks.size();
         if (count == 0) {
             return;

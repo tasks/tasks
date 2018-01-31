@@ -4,15 +4,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+
 import org.tasks.data.TaskListMetadata;
 
 import java.util.ArrayList;
@@ -146,9 +144,7 @@ class AstridOrderedListFragmentHelper {
 
         if(chained.size() > 0) {
             // move recurring items to item parent
-            List<Task> tasks = taskDao.toList(Query.select().where(
-                    Criterion.and(Task.UUID.in(chained.toArray(new String[chained.size()])),
-                            Task.RECURRENCE.isNotNull(), Functions.length(Task.RECURRENCE).gt(0))));
+            List<Task> tasks = taskDao.getRecurringTasks(chained);
 
             boolean madeChanges = false;
             for (Task t : tasks) {

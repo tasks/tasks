@@ -7,7 +7,6 @@ package com.todoroo.astrid.utility;
 
 import android.text.TextUtils;
 
-import com.google.common.base.Strings;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.mdimension.jchronic.AstridChronic;

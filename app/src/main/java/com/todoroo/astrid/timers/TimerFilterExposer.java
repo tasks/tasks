@@ -8,7 +8,6 @@ package com.todoroo.astrid.timers;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
@@ -42,7 +41,7 @@ public final class TimerFilterExposer {
     }
 
     public List<Filter> getFilters() {
-        if(taskDao.count(Query.select(Task.ID).where(Task.TIMER_START.gt(0))) == 0) {
+        if(taskDao.activeTimers() == 0) {
             return emptyList();
         }
 

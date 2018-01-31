@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 
-import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 
 import timber.log.Timber;

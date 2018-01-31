@@ -226,13 +226,10 @@ public class NotificationManager {
     }
 
     private void updateSummary(boolean notify, boolean nonStop, boolean fiveTimes, List<org.tasks.notifications.Notification> newNotifications) {
-        List<org.tasks.notifications.Notification> notifications = notificationDao.getAllOrdered();
-        int taskCount = notifications.size();
-        ArrayList<Long> taskIds = newArrayList(transform(notifications, n -> n.taskId));
-        QueryTemplate query = new QueryTemplate().where(Task.ID.in(taskIds));
-        Filter filter = new Filter(context.getString(R.string.notifications), query);
-        List<Task> tasks = taskDao.toList(Query.select()
-                .withQueryTemplate(query.toString()));
+        List<Task> tasks = taskDao.activeNotifications();
+        int taskCount = tasks.size();
+        ArrayList<Long> taskIds = newArrayList(transform(tasks, Task::getId));
+        Filter filter = new Filter(context.getString(R.string.notifications), new QueryTemplate().where(Task.ID.in(taskIds)));
         long when = notificationDao.latestTimestamp();
         int maxPriority = 3;
         String summaryTitle = context.getResources().getQuantityString(R.plurals.task_count, taskCount, taskCount);
@@ -240,11 +237,7 @@ public class NotificationManager {
                 .setBigContentTitle(summaryTitle);
         List<String> titles = newArrayList();
         List<String> ticker = newArrayList();
-        for (org.tasks.notifications.Notification notification : notifications) {
-            Task task = tryFind(tasks, t -> t.getId() == notification.taskId).orNull();
-            if (task == null) {
-                continue;
-            }
+        for (Task task : tasks) {
             String title = task.getTitle();
             style.addLine(title);
             titles.add(title);

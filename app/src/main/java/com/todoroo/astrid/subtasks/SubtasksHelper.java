@@ -1,30 +1,28 @@
 package com.todoroo.astrid.subtasks;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
-import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import org.tasks.data.TaskListMetadataDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-import org.tasks.data.TaskListMetadata;
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater.Node;
 
 import org.tasks.R;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskListMetadata;
+import org.tasks.data.TaskListMetadataDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -127,7 +125,7 @@ public class SubtasksHelper {
      */
     static String convertTreeToRemoteIds(TaskDao taskDao, String localTree) {
         List<Long> localIds = getIdList(localTree);
-        HashMap<Long, String> idMap = getIdMap(taskDao, localIds, Task.ID, Task.UUID);
+        Map<Long, String> idMap = getIdMap(taskDao, localIds);
         idMap.put(-1L, "-1"); //$NON-NLS-1$
 
         Node tree = SubtasksFilterUpdater.buildTreeModel(localTree, null);
@@ -139,7 +137,7 @@ public class SubtasksHelper {
         T getKeyFromOldUuid(String uuid);
     }
 
-    private static <T> void remapTree(Node root, HashMap<T, String> idMap, TreeRemapHelper<T> helper) {
+    private static <T> void remapTree(Node root, Map<T, String> idMap, TreeRemapHelper<T> helper) {
         ArrayList<Node> children = root.children;
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);
@@ -156,7 +154,7 @@ public class SubtasksHelper {
         }
     }
 
-    private static void remapLocalTreeToRemote(Node root, HashMap<Long, String> idMap) {
+    private static void remapLocalTreeToRemote(Node root, Map<Long, String> idMap) {
         remapTree(root, idMap, uuid -> {
             Long localId = -1L;
             try {
@@ -168,17 +166,11 @@ public class SubtasksHelper {
         });
     }
 
-    private static <A, B> HashMap<A, B> getIdMap(TaskDao taskDao, Iterable<A> keys, Property<A> keyProperty, Property<B> valueProperty) {
-        HashMap<A, B> map = new HashMap<>();
-        Cursor tasks = taskDao.query(Query.select(keyProperty, valueProperty).where(keyProperty.in(keys)));
-        try {
-            for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                A key = keyProperty.getValue(tasks);
-                B value = valueProperty.getValue(tasks);
-                map.put(key, value);
-            }
-        } finally {
-            tasks.close();
+    private static Map<Long, String> getIdMap(TaskDao taskDao, List<Long> keys) {
+        List<Task> tasks = taskDao.fetch(keys);
+        Map<Long, String> map = new HashMap<>();
+        for (Task task : tasks) {
+            map.put(task.getId(), task.getUuid());
         }
         return map;
     }

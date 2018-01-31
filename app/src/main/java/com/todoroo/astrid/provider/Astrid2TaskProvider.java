@@ -14,16 +14,12 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.google.common.base.Joiner;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 
 import org.tasks.data.TagDao;
+import org.tasks.data.TagData;
 import org.tasks.injection.ContentProviderComponent;
 import org.tasks.injection.InjectingContentProvider;
 import org.tasks.ui.CheckBoxes;
@@ -167,10 +163,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	private Cursor getTasks() {
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
 		List<Integer> importanceColors = checkBoxes.get().getPriorityColors();
-		Query query = Query.select()
-				.where(Criterion.and(TaskCriteria.isActive(), TaskCriteria.isVisible()))
-				.orderBy(SortHelper.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS);
-		for (Task task : taskDao.get().toList(query)) {
+		for (Task task : taskDao.get().getAstrid2TaskProviderTasks()) {
 			String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
 
 			Object[] values = new Object[7];

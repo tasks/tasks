@@ -29,8 +29,6 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
 
 public class AfterSaveIntentService extends InjectingJobIntentService {
