@@ -30,6 +30,8 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
+import static com.todoroo.andlib.utility.DateUtilities.now;
+
 public class TaskCreator {
 
     private final GCalHelper gcalHelper;
@@ -81,6 +83,8 @@ public class TaskCreator {
      */
     public Task createWithValues(Map<String, Object> values, String title) {
         Task task = new Task();
+        task.setCreationDate(now());
+        task.setModificationDate(now());
         if (title != null) {
             task.setTitle(title.trim());
         }

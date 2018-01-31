@@ -17,7 +17,6 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.BuildConfig;
@@ -206,11 +205,11 @@ public abstract class TaskDao {
         return false;
     }
 
-    public List<Task> getAstrid2TaskProviderTasks() {
-        return toList(query(Query.select()
-                .where(Criterion.and(TaskCriteria.isActive(), TaskCriteria.isVisible()))
-                .orderBy(SortHelper.defaultTaskOrder()).limit(100)));
-    }
+    @android.arch.persistence.room.Query("SELECT * FROM tasks " +
+            "WHERE completed = 0 AND deleted = 0 AND hideUntil < (strftime('%s','now')*1000) " +
+            "ORDER BY (CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE ((CASE WHEN (dueDate / 60000) > 0 THEN dueDate ELSE (dueDate + 43140000) END)) END) + 172800000 * importance ASC " +
+            "LIMIT 100")
+    public abstract List<Task> getAstrid2TaskProviderTasks();
 
     /**
      * Mark the given task as completed and save it.
@@ -239,14 +238,7 @@ public abstract class TaskDao {
     }
 
     public List<Task> fetchFiltered(String query) {
-        return toList(fetchFiltered(query, Task.PROPERTIES));
-    }
-
-    public Cursor fetchFiltered(String queryTemplate, Property<?>... properties) {
-        return query(Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate)));
-    }
-
-    private List<Task> toList(Cursor cursor) {
+        Cursor cursor = fetchFiltered(query, Task.PROPERTIES);
         List<Task> result = new ArrayList<>();
         try {
             for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
@@ -258,10 +250,8 @@ public abstract class TaskDao {
         return result;
     }
 
-    /**
-     * Construct a query with SQL DSL objects
-     */
-    private Cursor query(Query query) {
+    public Cursor fetchFiltered(String queryTemplate, Property<?>... properties) {
+        Query query = Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
         String queryString = query.from(Task.TABLE).toString();
         if (BuildConfig.DEBUG) {
             Timber.v(queryString);

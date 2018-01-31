@@ -52,8 +52,6 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
 	private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
-	private static final int MAX_NUMBER_OF_TASKS = 100;
-
 	private final static String NAME = "name";
 	private final static String IMPORTANCE_COLOR = "importance_color";
 	private final static String IDENTIFIER = "identifier";
@@ -163,7 +161,8 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 	private Cursor getTasks() {
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
 		List<Integer> importanceColors = checkBoxes.get().getPriorityColors();
-		for (Task task : taskDao.get().getAstrid2TaskProviderTasks()) {
+		List<Task> tasks = taskDao.get().getAstrid2TaskProviderTasks();
+		for (Task task : tasks) {
 			String taskTags = getTagsAsString(task.getId(), TAG_SEPARATOR);
 
 			Object[] values = new Object[7];

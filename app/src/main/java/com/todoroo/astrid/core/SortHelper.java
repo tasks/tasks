@@ -73,19 +73,20 @@ public class SortHelper {
             order = ORDER_TITLE;
             break;
         case SORT_DUE:
-            order = Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                    Functions.now()  + "*2", adjustedDueDateFunction()) + "+" + Task.IMPORTANCE);
+            order = Order.asc("(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE (CASE WHEN (dueDate / 60000) > 0 THEN dueDate ELSE (dueDate + 43140000) END) END)+importance");
             break;
         case SORT_IMPORTANCE:
-            order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) +
-                    "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), 2 * DateUtilities.now(), Task.DUE_DATE));
+            order = Order.asc("importance*(strftime('%s','now')*1000)+(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000) ELSE dueDate END)");
             break;
         case SORT_MODIFIED:
             order = Order.desc(Task.MODIFICATION_DATE);
             break;
         case SORT_WIDGET:
         default:
-            order = defaultTaskOrder();
+            order = Order.asc("(CASE WHEN (dueDate=0) " + // if no due date
+                    "THEN (strftime('%s','now')*1000)*2 " + // then now * 2
+                    "ELSE (" + adjustedDueDateFunction() + ") END) " + // else due time
+                    "+ 172800000 * importance"); // add 2 days * importance
         }
         if (sortType != SORT_ALPHA) {
             order.addSecondaryExpression(ORDER_TITLE);
@@ -94,18 +95,8 @@ public class SortHelper {
         return order;
     }
 
-    /**
-     * Returns SQL task ordering that is astrid's default algorithm
-     */
-    public static Order defaultTaskOrder() {
-        return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                Functions.now() + "*2",
-                adjustedDueDateFunction()) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
-                Task.IMPORTANCE);
-    }
-
     private static String adjustedDueDateFunction() {
-        return "(CASE WHEN (" + Task.DUE_DATE.name + " / 60000) > 0" + " THEN " + Task.DUE_DATE.name + " ELSE " + "(" + Task.DUE_DATE.name + " + " + (DateUtilities.ONE_HOUR * 11 + DateUtilities.ONE_MINUTE * 59) + ") END)";
+        // if no due time use 11:59AM
+        return "(CASE WHEN (dueDate / 60000) > 0 THEN dueDate ELSE (dueDate + 43140000) END)";
     }
-
 }
