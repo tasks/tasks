@@ -10,10 +10,10 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
-import org.tasks.data.TagData;
 
 import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
+import org.tasks.data.TagData;
 import org.tasks.injection.FragmentComponent;
 
 public class TagListFragment extends TaskListFragment {

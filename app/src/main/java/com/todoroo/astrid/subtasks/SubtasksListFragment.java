@@ -74,7 +74,7 @@ public class SubtasksListFragment extends TaskListFragment {
         if (TextUtils.isEmpty(filterId)) {
             return null;
         }
-        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagId(filterId);
+        TaskListMetadata taskListMetadata = taskListMetadataDao.fetchByTagOrFilter(filterId);
         if (taskListMetadata == null) {
             String defaultOrder = preferences.getStringValue(prefId);
             if (TextUtils.isEmpty(defaultOrder)) {
@@ -101,8 +101,8 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
-    protected TaskAdapter createTaskAdapter(List<Task> tasks) {
-        return helper.createTaskAdapter(tasks);
+    protected TaskAdapter createTaskAdapter() {
+        return helper.createTaskAdapter();
     }
 
     @Override

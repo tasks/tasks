@@ -21,7 +21,6 @@ import org.tasks.data.GoogleTaskList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -54,8 +53,8 @@ class OrderedMetadataListFragmentHelper {
         updater.initialize(filter);
     }
 
-    TaskAdapter createTaskAdapter(List<Task> cursor) {
-        taskAdapter = new DraggableTaskAdapter(cursor);
+    TaskAdapter createTaskAdapter() {
+        taskAdapter = new DraggableTaskAdapter();
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -63,10 +62,6 @@ class OrderedMetadataListFragmentHelper {
     }
 
     private final class DraggableTaskAdapter extends TaskAdapter {
-
-        private DraggableTaskAdapter(List<Task> tasks) {
-            super(tasks);
-        }
 
         @Override
         public int getIndent(Task task) {
@@ -101,8 +96,6 @@ class OrderedMetadataListFragmentHelper {
             } catch (Exception e) {
                 Timber.e(e, e.getMessage());
             }
-
-            fragment.loadTaskListContent();
         }
 
         @Override
@@ -116,7 +109,6 @@ class OrderedMetadataListFragmentHelper {
             } catch (Exception e) {
                 Timber.e(e, e.getMessage());
             }
-            fragment.loadTaskListContent();
         }
     }
 

@@ -15,8 +15,10 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.data.TaskAttachment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.astrid.data.Task.NO_ID;
 import static com.todoroo.astrid.data.Task.NO_UUID;
 
@@ -28,7 +30,7 @@ import static com.todoroo.astrid.data.Task.NO_UUID;
  */
 public class TaskAdapter {
 
-    private List<Task> tasks;
+    private final List<Task> tasks = new ArrayList<>();
 
     public List<Integer> getTaskPositions(List<Long> longs) {
         List<Integer> result = new ArrayList<>();
@@ -41,7 +43,8 @@ public class TaskAdapter {
     }
 
     public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+        this.tasks.clear();
+        this.tasks.addAll(tasks);
     }
 
     public int getCount() {
@@ -52,8 +55,8 @@ public class TaskAdapter {
         void onCompletedTask(Task item, boolean newState);
     }
 
-    public static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + ".tag_uid, '')"+ ", ',')").as("tags");
-    public static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
+    private static final StringProperty TAGS = new StringProperty(null, "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + ".tag_uid, '')"+ ", ',')").as("tags");
+    private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
 
     public static final Property<?>[] PROPERTIES = ObjectArrays.concat(
             Task.PROPERTIES,
@@ -63,10 +66,6 @@ public class TaskAdapter {
             }, Property.class);
 
     private OnCompletedTaskListener onCompletedTaskListener = null;
-
-    public TaskAdapter(List<Task> tasks) {
-        this.tasks = tasks;
-    }
 
     public int getIndent(Task task) {
         return 0;
@@ -89,7 +88,7 @@ public class TaskAdapter {
     }
 
     public List<Task> getTasks() {
-        return tasks;
+        return newArrayList(tasks);
     }
 
     public long getTaskId(int position) {

@@ -73,8 +73,8 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
     }
 
     @Override
-    protected TaskAdapter createTaskAdapter(List<Task> tasks) {
-        return helper.createTaskAdapter(tasks);
+    protected TaskAdapter createTaskAdapter() {
+        return helper.createTaskAdapter();
     }
 
     @Override

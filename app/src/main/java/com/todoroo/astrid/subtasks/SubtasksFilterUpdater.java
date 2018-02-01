@@ -66,7 +66,7 @@ public class SubtasksFilterUpdater {
         String query = filter.getSqlQuery();
 
         query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY %s", getOrderString());
+        query = query + String.format("ORDER BY %s", getOrderString());
         query = query.replace(
                 TaskDao.TaskCriteria.activeAndVisible().toString(),
                 TaskDao.TaskCriteria.notDeleted().toString());

@@ -1001,4 +1001,81 @@ public class Task implements Parcelable {
     public boolean hasFiles() {
         return hasFiles;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+
+        Task task = (Task) o;
+
+        if (googleTaskIndent != task.googleTaskIndent) return false;
+        if (hasFiles != task.hasFiles) return false;
+        if (id != null ? !id.equals(task.id) : task.id != null) return false;
+        if (title != null ? !title.equals(task.title) : task.title != null) return false;
+        if (importance != null ? !importance.equals(task.importance) : task.importance != null)
+            return false;
+        if (dueDate != null ? !dueDate.equals(task.dueDate) : task.dueDate != null) return false;
+        if (hideUntil != null ? !hideUntil.equals(task.hideUntil) : task.hideUntil != null)
+            return false;
+        if (created != null ? !created.equals(task.created) : task.created != null) return false;
+        if (modified != null ? !modified.equals(task.modified) : task.modified != null)
+            return false;
+        if (completed != null ? !completed.equals(task.completed) : task.completed != null)
+            return false;
+        if (deleted != null ? !deleted.equals(task.deleted) : task.deleted != null) return false;
+        if (notes != null ? !notes.equals(task.notes) : task.notes != null) return false;
+        if (estimatedSeconds != null ? !estimatedSeconds.equals(task.estimatedSeconds) : task.estimatedSeconds != null)
+            return false;
+        if (elapsedSeconds != null ? !elapsedSeconds.equals(task.elapsedSeconds) : task.elapsedSeconds != null)
+            return false;
+        if (timerStart != null ? !timerStart.equals(task.timerStart) : task.timerStart != null)
+            return false;
+        if (notificationFlags != null ? !notificationFlags.equals(task.notificationFlags) : task.notificationFlags != null)
+            return false;
+        if (notifications != null ? !notifications.equals(task.notifications) : task.notifications != null)
+            return false;
+        if (lastNotified != null ? !lastNotified.equals(task.lastNotified) : task.lastNotified != null)
+            return false;
+        if (snoozeTime != null ? !snoozeTime.equals(task.snoozeTime) : task.snoozeTime != null)
+            return false;
+        if (recurrence != null ? !recurrence.equals(task.recurrence) : task.recurrence != null)
+            return false;
+        if (repeatUntil != null ? !repeatUntil.equals(task.repeatUntil) : task.repeatUntil != null)
+            return false;
+        if (calendarUri != null ? !calendarUri.equals(task.calendarUri) : task.calendarUri != null)
+            return false;
+        if (remoteId != null ? !remoteId.equals(task.remoteId) : task.remoteId != null)
+            return false;
+        return tags != null ? tags.equals(task.tags) : task.tags == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (importance != null ? importance.hashCode() : 0);
+        result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
+        result = 31 * result + (hideUntil != null ? hideUntil.hashCode() : 0);
+        result = 31 * result + (created != null ? created.hashCode() : 0);
+        result = 31 * result + (modified != null ? modified.hashCode() : 0);
+        result = 31 * result + (completed != null ? completed.hashCode() : 0);
+        result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
+        result = 31 * result + (notes != null ? notes.hashCode() : 0);
+        result = 31 * result + (estimatedSeconds != null ? estimatedSeconds.hashCode() : 0);
+        result = 31 * result + (elapsedSeconds != null ? elapsedSeconds.hashCode() : 0);
+        result = 31 * result + (timerStart != null ? timerStart.hashCode() : 0);
+        result = 31 * result + (notificationFlags != null ? notificationFlags.hashCode() : 0);
+        result = 31 * result + (notifications != null ? notifications.hashCode() : 0);
+        result = 31 * result + (lastNotified != null ? lastNotified.hashCode() : 0);
+        result = 31 * result + (snoozeTime != null ? snoozeTime.hashCode() : 0);
+        result = 31 * result + (recurrence != null ? recurrence.hashCode() : 0);
+        result = 31 * result + (repeatUntil != null ? repeatUntil.hashCode() : 0);
+        result = 31 * result + (calendarUri != null ? calendarUri.hashCode() : 0);
+        result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
+        result = 31 * result + googleTaskIndent;
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
+        result = 31 * result + (hasFiles ? 1 : 0);
+        return result;
+    }
 }

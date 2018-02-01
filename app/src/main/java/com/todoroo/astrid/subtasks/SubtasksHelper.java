@@ -63,11 +63,11 @@ public class SubtasksHelper {
                 TagData tagData = tagDataDao.getTagByName(filter.listingTitle);
                 TaskListMetadata tlm = null;
                 if (tagData != null) {
-                    tlm = taskListMetadataDao.fetchByTagId(tagData.getRemoteId());
+                    tlm = taskListMetadataDao.fetchByTagOrFilter(tagData.getRemoteId());
                 } else if (BuiltInFilterExposer.isInbox(context, filter)) {
-                    tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_ALL);
+                    tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_ALL);
                 } else if (BuiltInFilterExposer.isTodayFilter(context, filter)) {
-                    tlm = taskListMetadataDao.fetchByTagId(TaskListMetadata.FILTER_ID_TODAY);
+                    tlm = taskListMetadataDao.fetchByTagOrFilter(TaskListMetadata.FILTER_ID_TODAY);
                 }
 
                 query = query.replaceAll("ORDER BY .*", "");
@@ -133,15 +133,15 @@ public class SubtasksHelper {
         return SubtasksFilterUpdater.serializeTree(tree);
     }
 
-    interface TreeRemapHelper<T> {
-        T getKeyFromOldUuid(String uuid);
+    interface TreeRemapHelper {
+        Long getKeyFromOldUuid(String uuid);
     }
 
-    private static <T> void remapTree(Node root, Map<T, String> idMap, TreeRemapHelper<T> helper) {
+    private static void remapTree(Node root, Map<Long, String> idMap, TreeRemapHelper helper) {
         ArrayList<Node> children = root.children;
         for (int i = 0; i < children.size(); i++) {
             Node child = children.get(i);
-            T key = helper.getKeyFromOldUuid(child.uuid);
+            Long key = helper.getKeyFromOldUuid(child.uuid);
             String uuid = idMap.get(key);
             if (!Task.isValidUuid(uuid)) {
                 children.remove(i);

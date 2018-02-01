@@ -301,6 +301,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
                             to++;
                         }
                         adapter.moved(from, to);
+                        taskList.loadTaskListContent(false);
                     }
                 }
             }
@@ -314,6 +315,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
             adapter.indented(
                     viewHolder.getAdapterPosition(),
                     direction == ItemTouchHelper.RIGHT ? 1 : -1);
+            taskList.loadTaskListContent(false);
         }
     }
 }

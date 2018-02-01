@@ -16,6 +16,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.util.DiffUtil;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -190,6 +192,8 @@ public class TaskListFragment extends InjectingFragment implements
             filter = BuiltInFilterExposer.getMyTasksFilter(getResources());
         }
 
+        filter.setFilterQueryOverride(null);
+
         setTaskAdapter();
     }
 
@@ -343,8 +347,7 @@ public class TaskListFragment extends InjectingFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        filter.setFilterQueryOverride(null);
-
+        ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerAdapter.applyToRecyclerView(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
@@ -401,32 +404,72 @@ public class TaskListFragment extends InjectingFragment implements
      * ======================================================================
      */
 
-    /**
-     * Load or re-load action items and update views
-     */
+    private static class DiffUtilCallback extends DiffUtil.Callback {
+
+        private final List<Task> oldTasks;
+        private final List<Task> newTasks;
+
+        public DiffUtilCallback(List<Task> oldTasks, List<Task> newTasks) {
+            this.oldTasks = oldTasks;
+            this.newTasks = newTasks;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldTasks.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newTasks.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldTasks.get(oldItemPosition).getId() == newTasks.get(newItemPosition).getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldTasks.get(oldItemPosition).equals(newTasks.get(newItemPosition));
+        }
+    }
+
     public void loadTaskListContent() {
+        loadTaskListContent(true);
+    }
+
+    public void loadTaskListContent(boolean animate) {
         if (taskAdapter == null) {
             return;
         }
         // stash selected items
         Bundle saveState = recyclerAdapter.getSaveState();
 
-        List<Task> tasks = taskListDataProvider.toList(filter, taskProperties());
-        taskAdapter.setTasks(tasks);
+        List<Task> oldTasks = taskAdapter.getTasks();
+        List<Task> newTasks = taskListDataProvider.toList(filter, taskProperties());
+        taskAdapter.setTasks(newTasks);
 
-        if (taskAdapter.getCount() == 0) {
+        if (animate) {
+            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffUtilCallback(oldTasks, newTasks), true);
+            diffResult.dispatchUpdatesTo(recyclerAdapter);
+        } else {
+            recyclerAdapter.notifyDataSetChanged();
+        }
+
+        recyclerAdapter.restoreSaveState(saveState);
+
+        if (newTasks.isEmpty()) {
             swipeRefreshLayout.setVisibility(View.GONE);
             emptyRefreshLayout.setVisibility(View.VISIBLE);
         } else {
-            recyclerAdapter.notifyDataSetChanged();
-            recyclerAdapter.restoreSaveState(saveState);
             swipeRefreshLayout.setVisibility(View.VISIBLE);
             emptyRefreshLayout.setVisibility(View.GONE);
         }
     }
 
-    protected TaskAdapter createTaskAdapter(List<Task> tasks) {
-        return new TaskAdapter(tasks);
+    protected TaskAdapter createTaskAdapter() {
+        return new TaskAdapter();
     }
 
     public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
@@ -441,10 +484,8 @@ public class TaskListFragment extends InjectingFragment implements
             return;
         }
 
-        List<Task> tasks = taskListDataProvider.toList(filter, taskProperties());
-
         // set up list adapters
-        taskAdapter = createTaskAdapter(tasks);
+        taskAdapter = createTaskAdapter();
         recyclerAdapter = new TaskListRecyclerAdapter(getActivity(), taskAdapter, viewHolderFactory,
                 this, taskDeleter, taskDuplicator, tracker, dialogBuilder);
     }

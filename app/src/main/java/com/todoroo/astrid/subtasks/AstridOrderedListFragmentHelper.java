@@ -44,8 +44,8 @@ class AstridOrderedListFragmentHelper {
         updater.initialize(list, filter);
     }
 
-    TaskAdapter createTaskAdapter(List<Task> tasks) {
-        taskAdapter = new DraggableTaskAdapter(tasks);
+    TaskAdapter createTaskAdapter() {
+        taskAdapter = new DraggableTaskAdapter();
 
         taskAdapter.setOnCompletedTaskListener(this::setCompletedForItemAndSubtasks);
 
@@ -53,10 +53,6 @@ class AstridOrderedListFragmentHelper {
     }
 
     private final class DraggableTaskAdapter extends TaskAdapter {
-
-        private DraggableTaskAdapter(List<Task> tasks) {
-            super(tasks);
-        }
 
         @Override
         public int getIndent(Task task) {
@@ -92,8 +88,6 @@ class AstridOrderedListFragmentHelper {
             } catch (Exception e) {
                 Timber.e(e, e.getMessage());
             }
-
-            fragment.loadTaskListContent();
         }
 
         @Override
@@ -107,8 +101,6 @@ class AstridOrderedListFragmentHelper {
             } catch (Exception e) {
                 Timber.e(e, e.getMessage());
             }
-
-            fragment.loadTaskListContent();
         }
     }
 

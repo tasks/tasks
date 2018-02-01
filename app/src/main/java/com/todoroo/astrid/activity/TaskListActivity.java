@@ -465,10 +465,6 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void sortChanged() {
         localBroadcastManager.broadcastRefresh();
-        reloadCurrentFilter();
-    }
-
-    private void reloadCurrentFilter() {
         onFilterItemClicked(getCurrentFilter());
     }
 

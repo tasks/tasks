@@ -22,7 +22,6 @@ import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
 
 public class TaskListDataProvider {
 
-    private final AtomicReference<String> sqlQueryTemplate = new AtomicReference<>();
     private final TaskDao taskDao;
     private final Preferences preferences;
 
@@ -53,19 +52,18 @@ public class TaskListDataProvider {
                         + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN), Task.UUID.eq(Field.field(FILE_METADATA_JOIN + ".task_id")))
                         + filter.getSqlQuery();
 
-        sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                preferences, joinedQuery, preferences.getSortMode()));
+        String query = SortHelper.adjustQueryForFlagsAndSort(
+                preferences, joinedQuery, preferences.getSortMode());
 
         String groupedQuery;
-        if (sqlQueryTemplate.get().contains("GROUP BY")) {
-            groupedQuery = sqlQueryTemplate.get();
-        } else if (sqlQueryTemplate.get().contains("ORDER BY")) {
-            groupedQuery = sqlQueryTemplate.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
+        if (query.contains("GROUP BY")) {
+            groupedQuery = query;
+        } else if (query.contains("ORDER BY")) {
+            groupedQuery = query.replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
         } else {
-            groupedQuery = sqlQueryTemplate.get() + " GROUP BY " + Task.ID;
+            groupedQuery = query + " GROUP BY " + Task.ID;
         }
-        sqlQueryTemplate.set(groupedQuery);
 
-        return taskDao.fetchFiltered(sqlQueryTemplate.get(), properties);
+        return taskDao.fetchFiltered(groupedQuery, properties);
     }
 }
