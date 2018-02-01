@@ -444,6 +444,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         getSupportFragmentManager().popBackStackImmediate(TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         hideDetailFragment();
         hideKeyboard();
+        getTaskListFragment().loadTaskListContent();
     }
 
     private void hideKeyboard() {

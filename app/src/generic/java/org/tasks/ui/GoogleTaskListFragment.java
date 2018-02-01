@@ -3,6 +3,7 @@ package org.tasks.ui;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 
 public class GoogleTaskListFragment extends TaskEditControlFragment {
@@ -24,11 +25,6 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     }
 
     @Override
-    public void initialize(boolean isNewTask, Task task) {
-
-    }
-
-    @Override
     public void apply(Task task) {
 
     }
@@ -38,7 +34,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     }
 
-    public void setList(GtasksList list) {
+    public void setList(GoogleTaskList list) {
 
     }
 }

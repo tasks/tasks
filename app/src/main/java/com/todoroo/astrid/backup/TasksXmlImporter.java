@@ -199,7 +199,7 @@ public class TasksXmlImporter {
             Task existingTask = taskDao.fetch(currentTask.getUuid());
 
             if (existingTask == null) {
-                taskDao.save(currentTask);
+                taskDao.createNew(currentTask);
                 importCount++;
             } else {
                 skipCount++;

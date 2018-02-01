@@ -195,8 +195,6 @@
 
         <!-- ======================================================= Receivers = -->
 
-        <receiver android:name=".receivers.PushReceiver" />
-
         <!-- widgets -->
         <receiver
             android:name=".widget.TasksWidget"

@@ -52,6 +52,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
     @Inject ReminderService reminderService;
     @Inject RefreshScheduler refreshScheduler;
     @Inject LocalBroadcastManager localBroadcastManager;
+    @Inject PushReceiver pushReceiver;
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
@@ -101,7 +102,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
             }
         }
 
-        PushReceiver.broadcast(context, task, original);
+        pushReceiver.push(task, original);
         refreshScheduler.scheduleRefresh(task);
         if (!task.checkAndClearTransitory(TRANS_SUPPRESS_REFRESH)) {
             localBroadcastManager.broadcastRefresh();

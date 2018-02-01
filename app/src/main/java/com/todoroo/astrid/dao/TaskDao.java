@@ -18,6 +18,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.UUIDHelper;
 
 import org.tasks.BuildConfig;
 import org.tasks.jobs.AfterSaveIntentService;
@@ -188,7 +189,12 @@ public abstract class TaskDao {
 
     public void createNew(Task task) {
         task.id = null;
-        task.remoteId = task.getUuid();
+        if (task.created == 0) {
+            task.created = now();
+        }
+        if (Task.isUuidEmpty(task.remoteId)) {
+            task.remoteId = UUIDHelper.newUUID();
+        }
         long insert = insert(task);
         task.setId(insert);
     }

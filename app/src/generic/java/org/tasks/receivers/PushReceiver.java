@@ -1,27 +1,17 @@
 package org.tasks.receivers;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 
-import org.tasks.injection.BroadcastComponent;
-import org.tasks.injection.InjectingBroadcastReceiver;
+import javax.inject.Inject;
 
-public class PushReceiver extends InjectingBroadcastReceiver {
+public class PushReceiver {
 
-    public static void broadcast(Context context, Task task, ContentValues values) {
+    @Inject
+    public PushReceiver() {
+
     }
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-    }
+    public void push(Task task, Task original) {
 
-    @Override
-    protected void inject(BroadcastComponent component) {
-        component.inject(this);
     }
 }

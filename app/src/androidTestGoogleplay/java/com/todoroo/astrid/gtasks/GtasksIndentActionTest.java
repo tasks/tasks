@@ -175,7 +175,7 @@ public class GtasksIndentActionTest extends InjectingTestCase {
 
     private Task taskWithMetadata(long order, int indentation) {
         Task newTask = new Task();
-        taskDao.save(newTask);
+        taskDao.createNew(newTask);
         GoogleTask metadata = new GoogleTask(newTask.getId(), "list");
         metadata.setIndent(indentation);
         metadata.setOrder(order);
@@ -201,7 +201,7 @@ public class GtasksIndentActionTest extends InjectingTestCase {
 
     private Task taskWithoutMetadata() {
         Task task = new Task();
-        taskDao.save(task);
+        taskDao.createNew(task);
         return task;
     }
 }

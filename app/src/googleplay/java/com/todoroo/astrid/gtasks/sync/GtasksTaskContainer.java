@@ -14,6 +14,8 @@ import org.tasks.data.GoogleTask;
 
 import java.util.ArrayList;
 
+import static org.tasks.gtasks.GoogleTaskSyncAdapter.mergeDates;
+
 public class GtasksTaskContainer {
 
     public final Task task;
@@ -43,8 +45,7 @@ public class GtasksTaskContainer {
         }
 
         long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
-        long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
-        task.setDueDate(createdDate);
+        mergeDates(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate), task);
         task.setNotes(remoteTask.getNotes());
 
         gtaskMetadata.setRemoteId(remoteTask.getId());

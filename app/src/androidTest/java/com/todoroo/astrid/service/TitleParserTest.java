@@ -9,7 +9,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
@@ -36,7 +35,6 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 @RunWith(AndroidJUnit4.class)
 public class TitleParserTest extends InjectingTestCase {
 
-    @Inject TaskDao taskDao;
     @Inject TagService tagService;
     @Inject Preferences preferences;
     @Inject TaskCreator taskCreator;
@@ -55,10 +53,8 @@ public class TitleParserTest extends InjectingTestCase {
     /** test that completing a task w/ no regular expressions creates a simple task with no date, no repeat, no lists*/
     @Test
     public void testNoRegexes() throws Exception {
-        Task task = new Task();
+        Task task = taskCreator.basicQuickAddTask("Jog");
         Task nothing = new Task();
-        task.setTitle("Jog");
-        taskDao.save(task);
         assertFalse(task.hasDueTime());
         assertFalse(task.hasDueDate());
         assertEquals(task.getRecurrence(), nothing.getRecurrence());
@@ -264,25 +260,18 @@ public class TitleParserTest extends InjectingTestCase {
         };
         Task task;
         for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
-            task = new Task();
-            task.setTitle("Jog " + acceptedStringAtEnd); //test at end of task. should set importance.
-            taskDao.save(task);
+            task = taskCreator.basicQuickAddTask("Jog " + acceptedStringAtEnd); //test at end of task. should set importance.
             assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
         for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
-            task = new Task();
-            task.setTitle(acceptedStringAtEnd + " jog"); //test at beginning of task. should not set importance.
-            taskDao.save(task);
+            task = taskCreator.basicQuickAddTask(acceptedStringAtEnd + " jog"); //test at beginning of task. should not set importance.
             assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
         for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
-            task = new Task();
-            task.setTitle("Jog " + acceptedStringAnywhere); //test at end of task. should set importance.
-            taskDao.save(task);
+            task = taskCreator.basicQuickAddTask("Jog " + acceptedStringAnywhere); //test at end of task. should set importance.
             assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
 
-            task.setTitle(acceptedStringAnywhere + " jog"); //test at beginning of task. should set importance.
-            taskDao.save(task);
+            task = taskCreator.basicQuickAddTask(acceptedStringAnywhere + " jog"); //test at beginning of task. should set importance.
             assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
         }
     }

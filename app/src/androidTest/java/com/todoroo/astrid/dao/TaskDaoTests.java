@@ -38,7 +38,7 @@ public class TaskDaoTests extends InjectingTestCase {
         // create task "happy"
         Task task = new Task();
         task.setTitle("happy");
-        taskDao.save(task);
+        taskDao.createNew(task);
         assertEquals(1, taskDao.getAll().size());
         long happyId = task.getId();
         assertNotSame(Task.NO_ID, happyId);
@@ -48,7 +48,7 @@ public class TaskDaoTests extends InjectingTestCase {
         // create task "sad"
         task = new Task();
         task.setTitle("sad");
-        taskDao.save(task);
+        taskDao.createNew(task);
         assertEquals(2, taskDao.getAll().size());
 
         // rename sad to melancholy
@@ -73,35 +73,35 @@ public class TaskDaoTests extends InjectingTestCase {
         // create normal task
         Task task = new Task();
         task.setTitle("normal");
-        taskDao.save(task);
+        taskDao.createNew(task);
 
         // create blank task
         task = new Task();
         task.setTitle("");
-        taskDao.save(task);
+        taskDao.createNew(task);
 
         // create hidden task
         task = new Task();
         task.setTitle("hidden");
         task.setHideUntil(DateUtilities.now() + 10000);
-        taskDao.save(task);
+        taskDao.createNew(task);
 
         // create task with deadlines
         task = new Task();
         task.setTitle("deadlineInFuture");
         task.setDueDate(DateUtilities.now() + 10000);
-        taskDao.save(task);
+        taskDao.createNew(task);
 
         task = new Task();
         task.setTitle("deadlineInPast");
         task.setDueDate(DateUtilities.now() - 10000);
-        taskDao.save(task);
+        taskDao.createNew(task);
 
         // create completed task
         task = new Task();
         task.setTitle("completed");
         task.setCompletionDate(DateUtilities.now() - 10000);
-        taskDao.save(task);
+        taskDao.createNew(task);
 
         // check is active
         assertEquals(5, taskDao.getActiveTasks().size());
@@ -120,7 +120,7 @@ public class TaskDaoTests extends InjectingTestCase {
         // create task "happy"
         Task task = new Task();
         task.setTitle("happy");
-        taskDao.save(task);
+        taskDao.createNew(task);
         assertEquals(1, taskDao.getAll().size());
 
         // delete

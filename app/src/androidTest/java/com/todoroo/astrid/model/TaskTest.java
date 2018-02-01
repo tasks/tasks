@@ -26,7 +26,7 @@ public class TaskTest extends InjectingTestCase {
     public void testSavedTaskHasCreationDate() {
         freezeClock().thawAfter(new Snippet() {{
             Task task = new Task();
-            taskDao.save(task);
+            taskDao.createNew(task);
             assertEquals(currentTimeMillis(), (long) task.getCreationDate());
         }});
     }
@@ -34,7 +34,7 @@ public class TaskTest extends InjectingTestCase {
     @Test
     public void testReadTaskFromDb() {
         Task task = new Task();
-        taskDao.save(task);
+        taskDao.createNew(task);
         final Task fromDb = taskDao.fetch(task.getId());
         assertEquals(task, fromDb);
     }

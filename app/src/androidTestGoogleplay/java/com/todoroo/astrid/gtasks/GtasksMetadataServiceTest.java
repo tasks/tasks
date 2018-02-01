@@ -115,7 +115,7 @@ public class GtasksMetadataServiceTest extends InjectingTestCase {
     private Task taskWithMetadata(String id) {
         Task task = new Task();
         task.setTitle("cats");
-        taskDao.save(task);
+        taskDao.createNew(task);
         GoogleTask metadata = new GoogleTask(task.getId(), "");
         if (id != null) {
             metadata.setRemoteId(id);
@@ -132,7 +132,7 @@ public class GtasksMetadataServiceTest extends InjectingTestCase {
     private Task taskWithoutMetadata() {
         Task task = new Task();
         task.setTitle("dogs");
-        taskDao.save(task);
+        taskDao.createNew(task);
         return task;
     }
 }

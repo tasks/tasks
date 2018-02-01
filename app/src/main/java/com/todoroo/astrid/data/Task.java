@@ -250,7 +250,7 @@ public class Task implements Parcelable {
         final int _cursorIndexOfRepeatUntil = _cursor.getColumnIndexOrThrow("repeatUntil");
         final int _cursorIndexOfCalendarUri = _cursor.getColumnIndexOrThrow("calendarUri");
         final int _cursorIndexOfRemoteId = _cursor.getColumnIndexOrThrow("remoteId");
-        final int _cursorIndexOfIndent = _cursor.getColumnIndex("index");
+        final int _cursorIndexOfIndent = _cursor.getColumnIndex("indent");
         final int _cursorIndexOfTags = _cursor.getColumnIndex("tags");
         final int _cursorIndexOfFileId = _cursor.getColumnIndex("fileId");
         if (_cursor.isNull(_cursorIndexOfId)) {
@@ -420,6 +420,7 @@ public class Task implements Parcelable {
         title = parcel.readString();
         remoteId = parcel.readString();
         transitoryData = parcel.readHashMap(ContentValues.class.getClassLoader());
+        googleTaskIndent = parcel.readInt();
     }
 
     public long getId() {
@@ -877,6 +878,7 @@ public class Task implements Parcelable {
         dest.writeString(title);
         dest.writeString(remoteId);
         dest.writeMap(transitoryData);
+        dest.writeInt(googleTaskIndent);
     }
 
     @Override

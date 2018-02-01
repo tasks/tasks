@@ -300,7 +300,7 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
     private Task createTask(String title, long order, int indent) {
         Task task = new Task();
         task.setTitle(title);
-        taskDao.save(task);
+        taskDao.createNew(task);
         GoogleTask metadata = new GoogleTask(task.getId(), "1");
         if(order != VALUE_UNSET) {
             metadata.setOrder(order);

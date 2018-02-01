@@ -1,5 +1,7 @@
 package com.todoroo.astrid.gtasks;
 
+import org.tasks.data.GoogleTaskList;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -12,15 +14,11 @@ public class GtasksListService {
 
     }
 
-    public List<GtasksList> getLists() {
+    public List<GoogleTaskList> getLists() {
         return Collections.emptyList();
     }
 
-    public GtasksList getList(long storeId) {
+    public GoogleTaskList getList(long storeId) {
         return null;
-    }
-
-    public List<GtasksList> getSortedGtasksList() {
-        return Collections.emptyList();
     }
 }

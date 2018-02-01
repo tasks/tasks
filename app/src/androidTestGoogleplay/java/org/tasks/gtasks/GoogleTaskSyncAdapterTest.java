@@ -23,86 +23,88 @@ public class GoogleTaskSyncAdapterTest {
 
     @Test
     public void testMergeDate() {
-        Task remote = newTask(with(DUE_DATE, new DateTime(2016, 3, 11)));
         Task local = newTask(with(DUE_DATE, new DateTime(2016, 3, 12)));
 
-        mergeDates(remote, local);
+        mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 11))).getDueDate(), local);
 
-        assertEquals(new DateTime(2016, 3, 11, 12, 0).getMillis(), remote.getDueDate().longValue());
+        assertEquals(
+                new DateTime(2016, 3, 11, 12, 0).getMillis(),
+                local.getDueDate().longValue());
     }
 
     @Test
     public void testMergeTime() {
-        Task remote = newTask(with(DUE_DATE, new DateTime(2016, 3, 11)));
         Task local = newTask(with(DUE_TIME, new DateTime(2016, 3, 11, 13, 30)));
 
-        mergeDates(remote, local);
+        mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 11))).getDueDate(), local);
 
         assertEquals(
                 new DateTime(2016, 3, 11, 13, 30, 1).getMillis(),
-                remote.getDueDate().longValue());
+                local.getDueDate().longValue());
     }
 
     @Test
     public void testDueDateAdjustHideBackwards() {
-        Task remote = newTask(with(DUE_DATE, new DateTime(2016, 3, 11)));
         Task local = newTask(with(DUE_DATE, new DateTime(2016, 3, 12)), with(HIDE_TYPE, HIDE_UNTIL_DUE));
 
-        mergeDates(remote, local);
+        mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 11))).getDueDate(), local);
 
-        assertEquals(new DateTime(2016, 3, 11).getMillis(), remote.getHideUntil().longValue());
+        assertEquals(
+                new DateTime(2016, 3, 11).getMillis(),
+                local.getHideUntil().longValue());
     }
 
     @Test
     public void testDueDateAdjustHideForwards() {
-        Task remote = newTask(with(DUE_DATE, new DateTime(2016, 3, 14)));
         Task local = newTask(with(DUE_DATE, new DateTime(2016, 3, 12)), with(HIDE_TYPE, HIDE_UNTIL_DUE));
 
-        mergeDates(remote, local);
+        mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 14))).getDueDate(), local);
 
-        assertEquals(new DateTime(2016, 3, 14).getMillis(), remote.getHideUntil().longValue());
+        assertEquals(
+                new DateTime(2016, 3, 14).getMillis(),
+                local.getHideUntil().longValue());
     }
 
     @Test
     public void testDueTimeAdjustHideBackwards() {
-        Task remote = newTask(with(DUE_DATE, new DateTime(2016, 3, 11)));
         Task local = newTask(with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
                 with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
 
-        mergeDates(remote, local);
+        mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 11))).getDueDate(), local);
 
-        assertEquals(new DateTime(2016, 3, 11, 13, 30, 1).getMillis(), remote.getHideUntil().longValue());
+        assertEquals(
+                new DateTime(2016, 3, 11, 13, 30, 1).getMillis(),
+                local.getHideUntil().longValue());
     }
 
     @Test
     public void testDueTimeAdjustTimeForwards() {
-        Task remote = newTask(with(DUE_DATE, new DateTime(2016, 3, 14)));
         Task local = newTask(with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
                 with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
 
-        mergeDates(remote, local);
+        mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 14))).getDueDate(), local);
 
-        assertEquals(new DateTime(2016, 3, 14, 13, 30, 1).getMillis(), remote.getHideUntil().longValue());
+        assertEquals(
+                new DateTime(2016, 3, 14, 13, 30, 1).getMillis(),
+                local.getHideUntil().longValue());
     }
 
     @Test
     public void testDueDateClearHide() {
-        Task remote = newTask();
         Task local = newTask(with(DUE_DATE, new DateTime(2016, 3, 12)), with(HIDE_TYPE, HIDE_UNTIL_DUE));
 
-        mergeDates(remote, local);
+        mergeDates(newTask().getDueDate(), local);
 
-        assertEquals(0, remote.getHideUntil().longValue());
+        assertEquals(0, local.getHideUntil().longValue());
     }
 
     @Test
     public void testDueTimeClearHide() {
-        Task remote = newTask();
         Task local = newTask(with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
                 with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
 
-        mergeDates(remote, local);
+        mergeDates(newTask().getDueDate(), local);
 
-        assertEquals(0, remote.getHideUntil().longValue());
+        assertEquals(0, local.getHideUntil().longValue());
     }
 }

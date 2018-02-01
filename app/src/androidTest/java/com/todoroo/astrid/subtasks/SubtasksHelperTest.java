@@ -32,7 +32,7 @@ public class SubtasksHelperTest extends SubtasksTestCase {
         Task t = new Task();
         t.setTitle(title);
         t.setUuid(uuid);
-        taskDao.save(t);
+        taskDao.createNew(t);
     }
 
     private void createTasks() {

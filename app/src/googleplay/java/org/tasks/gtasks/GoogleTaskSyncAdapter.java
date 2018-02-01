@@ -43,7 +43,6 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
-import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.utility.Constants;
 
@@ -69,7 +68,6 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-import static com.todoroo.astrid.data.Task.NO_UUID;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 /**
@@ -320,12 +318,15 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
                 for (com.google.api.services.tasks.model.Task gtask : tasks) {
                     String remoteId = gtask.getId();
                     GoogleTask googleTask = getMetadataByGtaskId(remoteId);
+                    Task task = null;
                     if (googleTask == null) {
                         googleTask = new GoogleTask(0, "");
+                    } else if (googleTask.getTask() > 0){
+                        task = taskDao.fetch(googleTask.getTask());
                     }
-                    Task task = googleTask.getTask() > 0
-                            ? taskDao.fetch(googleTask.getTask())
-                            : taskCreator.createWithValues(null, null);
+                    if (task == null) {
+                        task = taskCreator.createWithValues(null, "");
+                    }
                     GtasksTaskContainer container = new GtasksTaskContainer(gtask, task, listId, googleTask);
                     container.gtaskMetadata.setRemoteOrder(Long.parseLong(gtask.getPosition()));
                     container.gtaskMetadata.setParent(localIdForGtasksId(gtask.getParent()));
@@ -354,23 +355,6 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     }
 
     private void write(GtasksTaskContainer task) {
-        //  merge astrid dates with google dates
-
-        if(task.task.isSaved()) {
-            Task local = taskDao.fetch(task.task.getId());
-            if (local == null) {
-                task.task.setId(Task.NO_ID);
-                task.task.setUuid(NO_UUID);
-            } else {
-                mergeDates(task.task, local);
-            }
-        } else { // Set default importance and reminders for remotely created tasks
-            task.task.setImportance(preferences.getIntegerFromString(
-                    R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO)); // TODO: can probably remove this
-            TaskCreator.setDefaultReminders(preferences, task.task); // TODO: can probably remove this too
-            task.task.setUuid(UUIDHelper.newUUID());
-            taskDao.createNew(task.task);
-        }
         if (!TextUtils.isEmpty(task.task.getTitle())) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             task.task.putTransitory(TaskDao.TRANS_SUPPRESS_REFRESH, true);
@@ -418,21 +402,18 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     }
 
 
-    static void mergeDates(Task remote, Task local) {
-        if (remote.hasDueDate() && local.hasDueTime()) {
+    public static void mergeDates(long remoteDueDate, Task local) {
+        if (remoteDueDate > 0 && local.hasDueTime()) {
             DateTime oldDate = newDateTime(local.getDueDate());
-            DateTime newDate = newDateTime(remote.getDueDate())
+            DateTime newDate = newDateTime(remoteDueDate)
                     .withHourOfDay(oldDate.getHourOfDay())
                     .withMinuteOfHour(oldDate.getMinuteOfHour())
                     .withSecondOfMinute(oldDate.getSecondOfMinute());
             local.setDueDateAdjustingHideUntil(
                     Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate.getMillis()));
         } else {
-            local.setDueDateAdjustingHideUntil(remote.getDueDate());
+            local.setDueDateAdjustingHideUntil(remoteDueDate);
         }
-
-        remote.setHideUntil(local.getHideUntil());
-        remote.setDueDate(local.getDueDate());
     }
 
     @Override

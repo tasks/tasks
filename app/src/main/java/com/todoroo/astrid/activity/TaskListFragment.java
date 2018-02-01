@@ -37,6 +37,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
@@ -393,7 +394,7 @@ public class TaskListFragment extends InjectingFragment implements
      * broadcast. Subclasses should override this.
      */
     private void refresh() {
-        loadTaskListContent();
+        loadTaskListContent(!(this instanceof GtasksSubtaskListFragment));
 
         setSyncOngoing(gtasksPreferenceService.isOngoing());
     }

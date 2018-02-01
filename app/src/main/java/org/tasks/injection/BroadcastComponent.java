@@ -8,7 +8,6 @@ import org.tasks.notifications.NotificationClearedReceiver;
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
-import org.tasks.receivers.PushReceiver;
 import org.tasks.widget.TasksWidget;
 
 import dagger.Subcomponent;
@@ -28,8 +27,6 @@ public interface BroadcastComponent {
     void inject(BootCompletedReceiver bootCompletedReceiver);
 
     void inject(TasksWidget tasksWidget);
-
-    void inject(PushReceiver pushReceiver);
 
     void inject(NotificationClearedReceiver notificationClearedReceiver);
 }

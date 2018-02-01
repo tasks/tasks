@@ -1,38 +1,19 @@
 package org.tasks.receivers;
 
-import android.content.Context;
-import android.content.Intent;
-
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
-
-import org.tasks.injection.BroadcastComponent;
-import org.tasks.injection.InjectingBroadcastReceiver;
 
 import javax.inject.Inject;
 
-public class PushReceiver extends InjectingBroadcastReceiver {
+public class PushReceiver {
 
-    public static void broadcast(Context context, Task task, Task original) {
-        Intent intent = new Intent(context, PushReceiver.class);
-        intent.putExtra(AstridApiConstants.EXTRAS_TASK, task);
-        intent.putExtra(AstridApiConstants.EXTRAS_ORIGINAL, original);
-        context.sendBroadcast(intent);
+    private final GoogleTaskPusher googleTaskPusher;
+
+    @Inject
+    public PushReceiver(GoogleTaskPusher googleTaskPusher) {
+        this.googleTaskPusher = googleTaskPusher;
     }
 
-    @Inject GoogleTaskPusher googleTaskPusher;
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-
-        googleTaskPusher.push(
-                intent.getParcelableExtra(AstridApiConstants.EXTRAS_TASK),
-                intent.getParcelableExtra(AstridApiConstants.EXTRAS_ORIGINAL));
-    }
-
-    @Override
-    protected void inject(BroadcastComponent component) {
-        component.inject(this);
+    public void push(Task task, Task original) {
+        googleTaskPusher.push(task, original);
     }
 }
