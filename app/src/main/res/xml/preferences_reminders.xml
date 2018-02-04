@@ -114,5 +114,11 @@
             android:title="@string/rmd_EPr_quiet_hours_end_title" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="Reset">
+        <Preference
+            android:key="@string/rmd_EPr_reset_past_notifications"
+            android:title="@string/rmd_EPr_reset_past_notifications"
+            android:summary="@string/rmd_EPr_reset_past_notifications_description"/>
+    </PreferenceCategory>
 
 </PreferenceScreen>

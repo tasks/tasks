@@ -92,6 +92,9 @@ public abstract class TaskDao {
     @android.arch.persistence.room.Query("UPDATE tasks SET snoozeTime = :millis WHERE _id in (:taskIds)")
     public abstract void snooze(List<Long> taskIds, long millis);
 
+    @android.arch.persistence.room.Query("UPDATE tasks SET lastNotified = 0, snoozeTime = 0 WHERE completed = 0 and deleted = 0 and lastNotified > 0")
+    public abstract void resetPastNotifications();
+
     @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks " +
             "LEFT JOIN google_tasks ON tasks._id = google_tasks.task " +
             "WHERE tasks.modified > google_tasks.last_sync " +

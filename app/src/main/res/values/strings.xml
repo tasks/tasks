@@ -492,6 +492,11 @@ File %1$s contained %2$s.\n\n
     <!-- slide 44g: Reminder Preference: Default Reminders Title -->
     <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
 
+    <string name="rmd_EPr_reset_past_notifications">Reset past notifications</string>
+    <string name="rmd_EPr_reset_past_notifications_description">Reset last notification time for all tasks.  This will immediately re-notify for all past due/overdue/scheduled/snoozed alarms for all tasks not completed and not deleted.</string>
+    <string name="rmd_EPr_reset_past_notifications_status">Past notifications reset</string>
+
+
     <!-- slide 39a: Defaults Title -->
 
   <string name="default_random_reminder_disabled">Disabled</string>

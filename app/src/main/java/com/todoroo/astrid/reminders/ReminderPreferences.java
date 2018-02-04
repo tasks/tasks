@@ -17,8 +17,11 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
@@ -58,6 +61,10 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
     @Inject Badger badger;
     @Inject DefaultFilterProvider defaultFilterProvider;
     @Inject LocalBroadcastManager localBroadcastManager;
+    @Inject TaskDao taskDao;
+    @Inject ReminderService reminderService;
+    @Inject AlarmService alarmService;
+
 
     private CheckBoxPreference fieldMissedCalls;
 
@@ -116,11 +123,25 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
             return true;
         });
 
+        findPreference(getString(R.string.rmd_EPr_reset_past_notifications)).setOnPreferenceClickListener(preference -> {
+            resetPastNotifications();
+            return false;
+        });
+
+
         requires(device.supportsLocationServices(), R.string.geolocation_reminders);
         requires(atLeastOreo(), R.string.notification_channel_settings);
         requires(atLeastMarshmallow(), R.string.battery_optimization_settings);
         requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
         requires(atLeastJellybean(), R.string.p_bundle_notifications);
+    }
+
+    private void resetPastNotifications() {
+        taskDao.resetPastNotifications();
+        reminderService.scheduleAllAlarms(taskDao);
+        alarmService.scheduleAllAlarms();
+
+        Toast.makeText(this, getString(R.string.rmd_EPr_reset_past_notifications_status), Toast.LENGTH_LONG).show();
     }
 
     @TargetApi(Build.VERSION_CODES.O)
