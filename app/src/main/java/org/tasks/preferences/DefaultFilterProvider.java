@@ -85,7 +85,7 @@ public class DefaultFilterProvider {
                 Timber.e(e, e.getMessage());
             }
         }
-        return BuiltInFilterExposer.getMyTasksFilter(context.getResources());
+        return BuiltInFilterExposer.getMyTasksFilter(context.getResources(), preferences);
     }
 
     private Filter loadFilter(String preferenceValue) {
@@ -160,7 +160,7 @@ public class DefaultFilterProvider {
             case FILTER_RECENTLY_MODIFIED:
                 return getRecentlyModifiedFilter(resources);
         }
-        return getMyTasksFilter(resources);
+        return getMyTasksFilter(resources, preferences);
     }
 
     private int getBuiltInFilterId(Filter filter) {

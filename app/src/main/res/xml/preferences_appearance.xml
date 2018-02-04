@@ -57,4 +57,12 @@
             android:title="@string/tag_FEx_untagged" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/BFE_Active">
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:defaultValue="false"
+            android:key="@string/p_enable_hidden_tags"
+            android:title="@string/EPr_enable_hidden_tags"
+            android:summary="@string/EPr_enable_hidden_tags_summary"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>

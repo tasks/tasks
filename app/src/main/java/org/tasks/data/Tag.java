@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 
 import org.tasks.backup.XmlReader;
@@ -28,9 +29,12 @@ public class Tag {
 
     @ColumnInfo(name = "name")
     private String name;
+    public static final Property.StringProperty NAME = new Property.StringProperty(
+            TABLE, "name");
 
     @ColumnInfo(name = "tag_uid")
     private String tagUid;
+
 
     @ColumnInfo(name = "task_uid")
     private String taskUid;

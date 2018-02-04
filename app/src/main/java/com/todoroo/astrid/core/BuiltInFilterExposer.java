@@ -49,7 +49,7 @@ public final class BuiltInFilterExposer {
     }
 
     public Filter getMyTasksFilter() {
-        Filter myTasksFilter = getMyTasksFilter(context.getResources());
+        Filter myTasksFilter = getMyTasksFilter(context.getResources(), preferences);
         myTasksFilter.icon = R.drawable.ic_inbox_24dp;
         return myTasksFilter;
     }
@@ -81,14 +81,18 @@ public final class BuiltInFilterExposer {
     /**
      * Build inbox filter
      */
-    public static Filter getMyTasksFilter(Resources r) {
+    public static Filter getMyTasksFilter(Resources r, Preferences preferences) {
+        if (preferences.getBoolean(R.string.p_enable_hidden_tags, false)) {
+            return new Filter(r.getString(R.string.BFE_Active),
+                    new QueryTemplate().where(
+                            Criterion.and(TaskCriteria.activeAndVisible(),
+                                    Criterion.not(Task.ID.in(Query.select(Field.field("task")).from(Tag.TABLE).where(
+                                            Tag.NAME.like(".%")))))),
+                    null);
+        }
+
         return new Filter(r.getString(R.string.BFE_Active),
-                new QueryTemplate().where(
-                        Criterion.and(TaskCriteria.activeAndVisible(),
-                                Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
-                                        Criterion.and(MetadataCriteria.withKey(TaskToTagMetadata.KEY),
-                                                TaskToTagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
-                null);
+                new QueryTemplate().where(TaskCriteria.activeAndVisible()));
     }
 
     public static Filter getTodayFilter(Resources r) {
@@ -118,8 +122,8 @@ public final class BuiltInFilterExposer {
                         TaskCriteria.isVisible())));
     }
 
-    public static boolean isInbox(Context context, Filter filter) {
-        return filter != null && filter.equals(getMyTasksFilter(context.getResources()));
+    public static boolean isInbox(Context context, Filter filter, Preferences preferences) {
+        return filter != null && filter.equals(getMyTasksFilter(context.getResources(), preferences));
     }
 
     public static boolean isTodayFilter(Context context, Filter filter) {

@@ -873,4 +873,7 @@ File %1$s contained %2$s.\n\n
   <string name="tasker_create_task">Create task</string>
   <string name="tasker_list_notification">List notification</string>
   <string name="help">Help</string>
+  <string name="p_enable_hidden_tags">p_enable_hidden_tags</string>
+  <string name="EPr_enable_hidden_tags">Enable hidden tags</string>
+  <string name="EPr_enable_hidden_tags_summary">Tags that start with . will be hidden from the My Tasks view</string>
 </resources>
