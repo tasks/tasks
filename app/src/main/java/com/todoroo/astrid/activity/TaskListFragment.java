@@ -441,7 +441,7 @@ public class TaskListFragment extends InjectingFragment implements
     }
 
     public void loadTaskListContent(boolean animate) {
-        if (taskAdapter == null) {
+        if (taskAdapter == null || swipeRefreshLayout == null) {
             return;
         }
         // stash selected items
