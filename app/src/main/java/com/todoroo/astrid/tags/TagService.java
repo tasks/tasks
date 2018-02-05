@@ -68,11 +68,17 @@ public final class TagService {
      */
     public List<TagData> getTagList() {
         final List<TagData> tagList = new ArrayList<>();
+        final List<TagData> hiddenTagList = new ArrayList<>();
         for (TagData tagData : tagDataDao.tagDataOrderedByName()) {
             if (!TextUtils.isEmpty(tagData.getName())) {
-                tagList.add(tagData);
+                if (tagData.getName().startsWith(".")) {
+                    hiddenTagList.add(tagData);
+                } else {
+                    tagList.add(tagData);
+                }
             }
         }
+        tagList.addAll(hiddenTagList);
         return tagList;
     }
 
