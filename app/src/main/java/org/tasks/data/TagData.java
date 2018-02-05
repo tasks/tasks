@@ -31,10 +31,6 @@ public final class TagData implements Parcelable {
     @ColumnInfo(name = "tagOrdering")
     private String tagOrdering = "[]";
 
-    @Deprecated
-    @ColumnInfo(name = "deleted")
-    private Long deleted = 0L;
-
     public TagData() {
     }
 
@@ -44,7 +40,6 @@ public final class TagData implements Parcelable {
         reader.readString("name", this::setName);
         reader.readInteger("color", this::setColor);
         reader.readString("tagOrdering", this::setTagOrdering);
-        reader.readLong("deleted", this::setDeleted);
     }
 
     @Ignore
@@ -54,7 +49,6 @@ public final class TagData implements Parcelable {
         name = parcel.readString();
         color = parcel.readInt();
         tagOrdering = parcel.readString();
-        deleted = parcel.readLong();
     }
 
     public void writeToXml(XmlWriter writer) {
@@ -62,7 +56,6 @@ public final class TagData implements Parcelable {
         writer.writeString("name", name);
         writer.writeInteger("color", color);
         writer.writeString("tagOrdering", tagOrdering);
-        writer.writeLong("deleted", deleted);
     }
 
     public Long getId() {
@@ -105,14 +98,6 @@ public final class TagData implements Parcelable {
         this.color = color;
     }
 
-    public Long getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(long deleted) {
-        this.deleted = deleted;
-    }
-
     public static final Creator<TagData> CREATOR = new Creator<TagData>() {
         @Override
         public TagData createFromParcel(Parcel source) {
@@ -137,7 +122,6 @@ public final class TagData implements Parcelable {
         dest.writeString(name);
         dest.writeInt(color);
         dest.writeString(tagOrdering);
-        dest.writeLong(deleted);
     }
 
     @Override
@@ -152,9 +136,7 @@ public final class TagData implements Parcelable {
             return false;
         if (name != null ? !name.equals(tagData.name) : tagData.name != null) return false;
         if (color != null ? !color.equals(tagData.color) : tagData.color != null) return false;
-        if (tagOrdering != null ? !tagOrdering.equals(tagData.tagOrdering) : tagData.tagOrdering != null)
-            return false;
-        return deleted != null ? deleted.equals(tagData.deleted) : tagData.deleted == null;
+        return tagOrdering != null ? tagOrdering.equals(tagData.tagOrdering) : tagData.tagOrdering == null;
     }
 
     @Override
@@ -164,7 +146,6 @@ public final class TagData implements Parcelable {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (color != null ? color.hashCode() : 0);
         result = 31 * result + (tagOrdering != null ? tagOrdering.hashCode() : 0);
-        result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         return result;
     }
 
@@ -176,7 +157,6 @@ public final class TagData implements Parcelable {
                 ", name='" + name + '\'' +
                 ", color=" + color +
                 ", tagOrdering='" + tagOrdering + '\'' +
-                ", deleted=" + deleted +
                 '}';
     }
 }

@@ -456,10 +456,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     @Override
-    public void addComment(String message, String actionCode, String picture) {
+    public void addComment(String message, String picture) {
         TaskEditFragment taskEditFragment = getTaskEditFragment();
         if (taskEditFragment != null) {
-            taskEditFragment.addComment(message, actionCode, picture);
+            taskEditFragment.addComment(message, picture);
         }
     }
 

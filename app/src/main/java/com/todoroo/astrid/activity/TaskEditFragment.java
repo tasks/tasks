@@ -176,8 +176,7 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
                         getString(R.string.TEA_timer_comment_stopped),
                         DateUtilities.getTimeString(getActivity(), newDateTime()),
                         getString(R.string.TEA_timer_comment_spent),
-                        elapsedTime), UserActivity.ACTION_TASK_COMMENT,
-                null);
+                        elapsedTime), null);
         return model;
     }
 
@@ -186,7 +185,6 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         addComment(String.format("%s %s",
                         getString(R.string.TEA_timer_comment_started),
                         DateUtilities.getTimeString(getActivity(), newDateTime())),
-                UserActivity.ACTION_TASK_COMMENT,
                 null);
         return model;
     }
@@ -320,10 +318,9 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         }
     }
 
-    public void addComment(String message, String actionCode, String picture) {
+    public void addComment(String message, String picture) {
         UserActivity userActivity = new UserActivity();
         userActivity.setMessage(message);
-        userActivity.setAction(actionCode);
         userActivity.setTargetId(model.getUuid());
         userActivity.setCreated(DateUtilities.now());
         if (picture != null) {

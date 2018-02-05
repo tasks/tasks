@@ -17,13 +17,13 @@ public abstract class TagDataDao {
     public abstract TagData getTagByName(String name);
 
     // TODO: does this need to be ordered?
-    @Query("SELECT * FROM tagdata WHERE deleted = 0 ORDER BY _id ASC")
+    @Query("SELECT * FROM tagdata ORDER BY _id ASC")
     public abstract List<TagData> allTags();
 
     @Query("SELECT * FROM tagdata WHERE remoteId = :uuid LIMIT 1")
     public abstract TagData getByUuid(String uuid);
 
-    @Query("SELECT * FROM tagdata WHERE deleted = 0 AND name IS NOT NULL ORDER BY UPPER(name) ASC")
+    @Query("SELECT * FROM tagdata WHERE name IS NOT NULL ORDER BY UPPER(name) ASC")
     public abstract List<TagData> tagDataOrderedByName();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
