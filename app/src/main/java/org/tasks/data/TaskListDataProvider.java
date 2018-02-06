@@ -31,10 +31,6 @@ public class TaskListDataProvider {
         this.preferences = preferences;
     }
 
-    public List<Task> toList(Filter filter) {
-        return toList(filter, Task.PROPERTIES);
-    }
-
     public List<Task> toList(Filter filter, Property<?>[] properties) {
         Criterion tagsJoinCriterion = Criterion.and(
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));

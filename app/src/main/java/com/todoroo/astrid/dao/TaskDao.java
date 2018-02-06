@@ -163,6 +163,9 @@ public abstract class TaskDao {
     @android.arch.persistence.room.Query("DELETE FROM tasks WHERE _id = :id")
     public abstract int deleteById(long id);
 
+    @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks INNER JOIN google_tasks ON google_tasks.task = tasks._id WHERE google_tasks.list_id = :googleTaskList")
+    public abstract List<Task> getGoogleTasks(String googleTaskList);
+
     // --- save
 
     /**
