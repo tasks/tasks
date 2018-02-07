@@ -1,8 +1,14 @@
 package org.tasks.tasklist;
 
 import android.app.Activity;
+import android.arch.paging.PagedList;
+import android.arch.paging.PagedListAdapterHelper;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.recyclerview.extensions.DiffCallback;
+import android.support.v7.recyclerview.extensions.ListAdapterConfig;
+import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -29,14 +35,28 @@ import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.ui.MenuColorizer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 
-public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> implements ViewHolder.ViewHolderCallbacks {
+public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
+        implements ViewHolder.ViewHolderCallbacks, ListUpdateCallback {
 
     private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
+
+    private static final DiffCallback<Task> DIFF_CALLBACK = new DiffCallback<Task>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
     private final MultiSelector multiSelector = new MultiSelector();
 
@@ -52,6 +72,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
 
     private ActionMode mode = null;
     private boolean dragging;
+    private boolean animate;
 
     public TaskListRecyclerAdapter(Activity activity, TaskAdapter adapter,
                                    ViewHolderFactory viewHolderFactory,
@@ -69,6 +90,8 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback());
     }
 
+    private PagedListAdapterHelper<Task> adapterHelper = new PagedListAdapterHelper<>(this, new ListAdapterConfig.Builder<Task>().setDiffCallback(DIFF_CALLBACK).build());
+
     public void applyToRecyclerView(RecyclerView recyclerView) {
         recyclerView.setAdapter(this);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -76,7 +99,8 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
 
     public Bundle getSaveState() {
         Bundle information = new Bundle();
-        List<Long> selectedTaskIds = transform(multiSelector.getSelectedPositions(), adapter::getTaskId);
+        List<Task> selectedTasks = transform(multiSelector.getSelectedPositions(), adapterHelper::getItem);
+        List<Long> selectedTaskIds = transform(selectedTasks, Task::getId);
         information.putLongArray(EXTRA_SELECTED_TASK_IDS, Longs.toArray(selectedTaskIds));
         return information;
     }
@@ -87,12 +111,23 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
             mode = ((TaskListActivity) activity).startSupportActionMode(actionModeCallback);
             multiSelector.setSelectable(true);
 
-            for (int position : adapter.getTaskPositions(Longs.asList(longArray))) {
+            for (int position : getTaskPositions(Longs.asList(longArray))) {
                 multiSelector.setSelected(position, 0L, true);
             }
 
             updateModeTitle();
         }
+    }
+
+    private List<Integer> getTaskPositions(List<Long> longs) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0 ; i < adapterHelper.getItemCount() ; i++) {
+            Task item = adapterHelper.getItem(i);
+            if (longs.contains(item.getId())) {
+                result.add(i);
+            }
+        }
+        return result;
     }
 
     @Override
@@ -104,14 +139,17 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bindView(adapter.getTask(position));
-        holder.setMoving(false);
-        holder.setIndent(adapter.getIndent(holder.task));
+        Task task = adapterHelper.getItem(position);
+        if (task != null) {
+            holder.bindView(task);
+            holder.setMoving(false);
+            holder.setIndent(adapter.getIndent(task));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return adapter.getCount();
+        return adapterHelper.getItemCount();
     }
 
     @Override
@@ -158,13 +196,13 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         }
     }
 
-    private List<Task> getTasks() {
-        return newArrayList(transform(multiSelector.getSelectedPositions(), adapter::getTask));
+    private List<Task> getSelectedTasks() {
+        return newArrayList(transform(multiSelector.getSelectedPositions(), adapterHelper::getItem));
     }
 
     private void deleteSelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_DELETE);
-        List<Task> tasks = getTasks();
+        List<Task> tasks = getSelectedTasks();
         mode.finish();
         int result = taskDeleter.markDeleted(tasks);
         taskList.onTaskDelete(tasks);
@@ -173,7 +211,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
 
     private void copySelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_CLONE);
-        List<Task> tasks = getTasks();
+        List<Task> tasks = getSelectedTasks();
         mode.finish();
         List<Task> duplicates = taskDuplicator.duplicate(tasks);
         taskList.onTaskCreated(duplicates);
@@ -222,6 +260,46 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
             TaskListRecyclerAdapter.this.mode = null;
         }
     };
+
+    @Override
+    public void onInserted(int position, int count) {
+        notifyItemRangeInserted(position, count);
+    }
+
+    @Override
+    public void onRemoved(int position, int count) {
+        notifyItemRangeRemoved(position, count);
+    }
+
+    @Override
+    public void onMoved(int fromPosition, int toPosition) {
+        if (animate) {
+            notifyItemMoved(fromPosition, toPosition);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onChanged(int position, int count, Object payload) {
+        if (animate) {
+            notifyItemRangeChanged(position, count, payload);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    public void setList(PagedList<Task> list) {
+        adapterHelper.setList(list);
+    }
+
+    public void setAnimate(boolean animate) {
+        this.animate = animate;
+    }
+
+    public PagedListAdapterHelper<Task> getHelper() {
+        return adapterHelper;
+    }
 
     private class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 

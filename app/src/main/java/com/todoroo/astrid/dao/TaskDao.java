@@ -21,6 +21,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 
 import org.tasks.BuildConfig;
+import org.tasks.data.LimitOffsetDataSource;
 import org.tasks.jobs.AfterSaveIntentService;
 
 import java.util.ArrayList;
@@ -241,12 +242,8 @@ public abstract class TaskDao {
         return fetchFiltered(filter.getSqlQuery());
     }
 
-    public List<Task> fetchFiltered(String query) {
-        return fetchFiltered(query, Task.PROPERTIES);
-    }
-
-    public List<Task> fetchFiltered(String queryTemplate, Property<?>... properties) {
-        Query query = Query.select(properties).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
+    public List<Task> fetchFiltered(String queryTemplate) {
+        Query query = Query.select(Task.PROPERTIES).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
         String queryString = query.from(Task.TABLE).toString();
         if (BuildConfig.DEBUG) {
             Timber.v(queryString);
@@ -261,6 +258,23 @@ public abstract class TaskDao {
         } finally {
             cursor.close();
         }
+    }
+
+    public LimitOffsetDataSource getLimitOffsetDataSource(String queryTemplate, Property<?>... properties) {
+        String query = Query
+                .select(properties)
+                .withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate))
+                .from(Task.TABLE).toString();
+        return new LimitOffsetDataSource(database, query) {
+            @Override
+            protected List<Task> convertRows(Cursor cursor) {
+                List<Task> result = new ArrayList<>();
+                while (cursor.moveToNext()) {
+                    result.add(new Task(cursor));
+                }
+                return result;
+            }
+        };
     }
 }
 

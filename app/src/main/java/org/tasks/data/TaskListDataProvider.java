@@ -1,5 +1,10 @@
 package org.tasks.data;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.LivePagedListProvider;
+import android.arch.paging.PagedList;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -12,9 +17,6 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.preferences.Preferences;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-
 import javax.inject.Inject;
 
 import static com.todoroo.astrid.activity.TaskListFragment.FILE_METADATA_JOIN;
@@ -24,6 +26,7 @@ public class TaskListDataProvider {
 
     private final TaskDao taskDao;
     private final Preferences preferences;
+    private LimitOffsetDataSource latest;
 
     @Inject
     public TaskListDataProvider(TaskDao taskDao, Preferences preferences) {
@@ -31,7 +34,19 @@ public class TaskListDataProvider {
         this.preferences = preferences;
     }
 
-    public List<Task> toList(Filter filter, Property<?>[] properties) {
+    public LiveData<PagedList<Task>> getLiveData(Filter filter, Property<?>[] properties) {
+        return new LivePagedListBuilder<>(
+                new LivePagedListProvider<Integer, Task>() {
+                    @Override
+                    protected LimitOffsetDataSource createDataSource() {
+                        latest = toDataSource(filter, properties);
+                        return latest;
+                    }
+                }, 20)
+                .build();
+    }
+
+    private LimitOffsetDataSource toDataSource(Filter filter, Property<?>[] properties) {
         Criterion tagsJoinCriterion = Criterion.and(
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
 
@@ -60,6 +75,10 @@ public class TaskListDataProvider {
             groupedQuery = query + " GROUP BY " + Task.ID;
         }
 
-        return taskDao.fetchFiltered(groupedQuery, properties);
+        return taskDao.getLimitOffsetDataSource(groupedQuery, properties);
+    }
+
+    public void invalidate() {
+        latest.invalidate();
     }
 }
