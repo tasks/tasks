@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class LimitOffsetDataSource extends PositionalDataSource<Task> {
+public class LimitOffsetDataSource extends PositionalDataSource<Task> {
 
     private final String mCountQuery;
     private final String mLimitOffsetQuery;
     private final RoomDatabase mDb;
 
-    protected LimitOffsetDataSource(RoomDatabase db, String query) {
+    public LimitOffsetDataSource(RoomDatabase db, String query) {
         mDb = db;
         mCountQuery = "SELECT COUNT(*) FROM ( " + query + " )";
         mLimitOffsetQuery = "SELECT * FROM ( " + query + " ) LIMIT ? OFFSET ?";

@@ -265,16 +265,7 @@ public abstract class TaskDao {
                 .select(properties)
                 .withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate))
                 .from(Task.TABLE).toString();
-        return new LimitOffsetDataSource(database, query) {
-            @Override
-            protected List<Task> convertRows(Cursor cursor) {
-                List<Task> result = new ArrayList<>();
-                while (cursor.moveToNext()) {
-                    result.add(new Task(cursor));
-                }
-                return result;
-            }
-        };
+        return new LimitOffsetDataSource(database, query);
     }
 }
 
