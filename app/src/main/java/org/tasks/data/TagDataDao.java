@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
@@ -26,23 +27,23 @@ public abstract class TagDataDao {
     @Query("SELECT * FROM tagdata WHERE name IS NOT NULL ORDER BY UPPER(name) ASC")
     public abstract List<TagData> tagDataOrderedByName();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public abstract void persist(TagData tagData);
-
     @Query("UPDATE tagdata SET name = :name WHERE remoteId = :remoteId")
     public abstract void rename(String remoteId, String name);
 
     @Query("DELETE FROM tagdata WHERE _id = :id")
     public abstract void delete(Long id);
 
+    @Update
+    public abstract void update(TagData tagData);
+
     @Insert
-    public abstract void insert(TagData tag);
+    abstract long insert(TagData tag);
 
     public void createNew(TagData tag) {
         if (Task.isUuidEmpty(tag.getRemoteId())) {
             tag.setRemoteId(UUIDHelper.newUUID());
         }
-        insert(tag);
+        tag.setId(insert(tag));
     }
 }
 

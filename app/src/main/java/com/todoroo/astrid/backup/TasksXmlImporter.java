@@ -292,7 +292,7 @@ public class TasksXmlImporter {
                         tagData = new TagData();
                         tagData.setRemoteId(tagUid);
                         tagData.setName(name);
-                        tagDataDao.insert(tagData);
+                        tagDataDao.createNew(tagData);
                     }
                 }
             } else if ("gtasks".equals(key)) {
@@ -362,7 +362,7 @@ public class TasksXmlImporter {
         private void parseTagdata() {
             TagData tagData = new TagData(new XmlReader(xpp));
             if (tagDataDao.getByUuid(tagData.getRemoteId()) == null) {
-                tagDataDao.insert(tagData);
+                tagDataDao.createNew(tagData);
             }
         }
     }

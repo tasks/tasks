@@ -135,7 +135,7 @@ public class TaskCreator {
         return task;
     }
 
-    public static void setDefaultReminders(Preferences preferences, Task task) {
+    private static void setDefaultReminders(Preferences preferences, Task task) {
         task.setReminderPeriod(DateUtilities.ONE_HOUR *
                 preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
                         0));
@@ -148,7 +148,7 @@ public class TaskCreator {
             if (tagData == null) {
                 tagData = new TagData();
                 tagData.setName(tag);
-                tagDataDao.persist(tagData);
+                tagDataDao.createNew(tagData);
             }
             Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
             tagDao.insert(link);
