@@ -235,7 +235,20 @@ public abstract class TaskDao {
     }
 
     public int count(Filter filter) {
-        return fetchFiltered(filter.getSqlQuery()).size();
+        String query = Query
+                .select(new Property.CountProperty())
+                .withQueryTemplate(PermaSql.replacePlaceholders(filter.getSqlQuery()))
+                .from(Task.TABLE)
+                .toString();
+        Cursor cursor = database.rawQuery(query);
+        try {
+            if (cursor.moveToFirst()) {
+                return cursor.getInt(0);
+            }
+            return 0;
+        } finally {
+            cursor.close();
+        }
     }
 
     public List<Task> fetchFiltered(Filter filter) {
