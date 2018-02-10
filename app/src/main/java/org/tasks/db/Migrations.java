@@ -87,7 +87,7 @@ public class Migrations {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS `google_tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `remote_id` TEXT, `list_id` TEXT, `parent` INTEGER NOT NULL, `indent` INTEGER NOT NULL, `order` INTEGER NOT NULL, `remote_order` INTEGER NOT NULL, `last_sync` INTEGER NOT NULL, `deleted` INTEGER NOT NULL)");
             database.execSQL("INSERT INTO `google_tasks` (`task`, `remote_id`, `list_id`, `parent`, `indent`, `order`, `remote_order`, `last_sync`, `deleted`) " +
-                    "SELECT `task`, `value`, `value2`, `value3`, `value4`, `value5`, `value6`, `value7`, `deleted` FROM `metadata` WHERE `key` = 'gtasks'");
+                    "SELECT `task`, `value`, `value2`, IFNULL(`value3`, 0), IFNULL(`value4`, 0), IFNULL(`value5`, 0), IFNULL(`value6`, 0), IFNULL(`value7`, 0), IFNULL(`deleted`, 0) FROM `metadata` WHERE `key` = 'gtasks'");
             database.execSQL("DROP TABLE IF EXISTS `metadata`");
         }
     };
