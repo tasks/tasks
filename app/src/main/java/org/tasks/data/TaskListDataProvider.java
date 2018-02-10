@@ -79,6 +79,8 @@ public class TaskListDataProvider {
     }
 
     public void invalidate() {
-        latest.invalidate();
+        if (latest != null) {
+            latest.invalidate();
+        }
     }
 }
