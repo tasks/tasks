@@ -30,18 +30,6 @@ public class Migrations {
             } catch (SQLiteException e) {
                 Timber.w(e, e.getMessage());
             }
-
-            database.execSQL("ALTER TABLE `task_list_metadata` RENAME TO `task_list_metadata-temp`");
-            database.execSQL("CREATE TABLE `task_list_metadata` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `tag_uuid` TEXT, `filter` TEXT, `task_ids` TEXT)");
-            database.execSQL("INSERT INTO `task_list_metadata` (`remoteId`, `tag_uuid`, `filter`, `task_ids`) " +
-                    "SELECT `remoteId`, `tag_uuid`, `filter`, `task_ids` FROM `task_list_metadata-temp`");
-            database.execSQL("DROP TABLE `task_list_metadata-temp`");
-
-            database.execSQL("ALTER TABLE `tasks` RENAME TO `tasks-temp`");
-            database.execSQL("CREATE TABLE `tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT, `importance` INTEGER, `dueDate` INTEGER, `hideUntil` INTEGER, `created` INTEGER, `modified` INTEGER, `completed` INTEGER, `deleted` INTEGER, `notes` TEXT, `estimatedSeconds` INTEGER, `elapsedSeconds` INTEGER, `timerStart` INTEGER, `notificationFlags` INTEGER, `notifications` INTEGER, `lastNotified` INTEGER, `snoozeTime` INTEGER, `recurrence` TEXT, `repeatUntil` INTEGER, `calendarUri` TEXT, `remoteId` TEXT)");
-            database.execSQL("INSERT INTO `tasks` (`title`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `notes`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `notifications`, `lastNotified`, `snoozeTime`, `recurrence`, `repeatUntil`, `calendarUri`, `remoteId`) " +
-                    "SELECT `title`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `notes`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `notifications`, `lastNotified`, `snoozeTime`, `recurrence`, `repeatUntil`, `calendarUri`, `remoteId` FROM `tasks-temp`");
-            database.execSQL("DROP TABLE `tasks-temp`");
         }
     };
 
