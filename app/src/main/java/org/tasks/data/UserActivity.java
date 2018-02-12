@@ -13,7 +13,6 @@ import com.todoroo.astrid.data.Task;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.tasks.backup.XmlReader;
-import org.tasks.backup.XmlWriter;
 
 import java.io.File;
 
@@ -24,7 +23,7 @@ public class UserActivity implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private Long id;
+    private transient Long id;
 
     @ColumnInfo(name = "remoteId")
     private String remoteId = Task.NO_UUID;
@@ -36,7 +35,7 @@ public class UserActivity implements Parcelable {
     private String picture = "";
 
     @ColumnInfo(name = "target_id")
-    private String targetId = Task.NO_UUID;
+    private transient String targetId = Task.NO_UUID;
 
     @ColumnInfo(name = "created_at")
     private Long created = 0L;
@@ -61,14 +60,6 @@ public class UserActivity implements Parcelable {
         picture = parcel.readString();
         targetId = parcel.readString();
         created = parcel.readLong();
-    }
-
-    public void writeToXml(XmlWriter writer) {
-        writer.writeString("remoteId", remoteId);
-        writer.writeString("message", message);
-        writer.writeString("picture", picture);
-        writer.writeString("target_id", targetId);
-        writer.writeLong("created_at", created);
     }
 
     public Long getId() {

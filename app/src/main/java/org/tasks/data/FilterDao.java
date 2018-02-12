@@ -23,9 +23,15 @@ public interface FilterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertOrUpdate(Filter storeObject);
 
+    @Insert
+    void insert(Filter filter);
+
     @Query("SELECT * FROM filters ORDER BY title ASC")
     List<Filter> getFilters();
 
     @Query("SELECT * FROM filters WHERE _id = :id LIMIT 1")
     Filter getById(long id);
+
+    @Query("SELECT * FROM filters")
+    List<Filter> getAll();
 }

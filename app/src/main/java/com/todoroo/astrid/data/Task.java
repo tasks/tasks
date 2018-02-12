@@ -27,7 +27,6 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.DateUtilities;
 
 import org.tasks.backup.XmlReader;
-import org.tasks.backup.XmlWriter;
 import org.tasks.data.Tag;
 import org.tasks.time.DateTime;
 
@@ -60,7 +59,7 @@ public class Task implements Parcelable {
     /** ID */
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    public Long id = NO_ID;
+    public transient Long id = NO_ID;
     public static final LongProperty ID = new LongProperty(
             TABLE, "_id");
 
@@ -109,8 +108,6 @@ public class Task implements Parcelable {
     public Long deleted = 0L;
     public static final LongProperty DELETION_DATE = new LongProperty(
             TABLE, "deleted");
-
-    // --- non-core task metadata
 
     @ColumnInfo(name = "notes")
     public String notes = "";
@@ -211,16 +208,16 @@ public class Task implements Parcelable {
     public static final int IMPORTANCE_NONE = 3;
 
     @Ignore
-    private int googleTaskIndent;
+    private transient int googleTaskIndent;
 
     @Ignore
-    private String tags;
+    private transient String tags;
 
     @Ignore
-    private boolean hasFiles;
+    private transient boolean hasFiles;
 
     @Ignore
-    private HashMap<String, Object> transitoryData = null;
+    private transient HashMap<String, Object> transitoryData = null;
 
     // --- data access boilerplate
 
@@ -371,29 +368,6 @@ public class Task implements Parcelable {
         timerStart = reader.readLong("timerStart");
         title = reader.readString("title");
         remoteId = reader.readString("remoteId");
-    }
-
-    public void writeToXml(XmlWriter writer) {
-        writer.writeString("calendarUri", calendarUri);
-        writer.writeLong("completed", completed);
-        writer.writeLong("created", created);
-        writer.writeLong("deleted", deleted);
-        writer.writeLong("dueDate", dueDate);
-        writer.writeInteger("elapsedSeconds", elapsedSeconds);
-        writer.writeInteger("estimatedSeconds", estimatedSeconds);
-        writer.writeLong("hideUntil", hideUntil);
-        writer.writeInteger("importance", importance);
-        writer.writeLong("modified", modified);
-        writer.writeString("notes", notes);
-        writer.writeString("recurrence", recurrence);
-        writer.writeInteger("notificationFlags", notificationFlags);
-        writer.writeLong("lastNotified", lastNotified);
-        writer.writeLong("notifications", notifications);
-        writer.writeLong("snoozeTime", snoozeTime);
-        writer.writeLong("repeatUntil", repeatUntil);
-        writer.writeLong("timerStart", timerStart);
-        writer.writeString("title", title);
-        writer.writeString("remoteId", remoteId);
     }
 
     @Ignore

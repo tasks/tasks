@@ -10,14 +10,13 @@ import android.os.Parcelable;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.backup.XmlReader;
-import org.tasks.backup.XmlWriter;
 
 @Entity(tableName = "tagdata")
 public final class TagData implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private Long id;
+    private transient Long id;
 
     @ColumnInfo(name = "remoteId")
     private String remoteId = Task.NO_UUID;
@@ -49,13 +48,6 @@ public final class TagData implements Parcelable {
         name = parcel.readString();
         color = parcel.readInt();
         tagOrdering = parcel.readString();
-    }
-
-    public void writeToXml(XmlWriter writer) {
-        writer.writeString("remoteId", remoteId);
-        writer.writeString("name", name);
-        writer.writeInteger("color", color);
-        writer.writeString("tagOrdering", tagOrdering);
     }
 
     public Long getId() {

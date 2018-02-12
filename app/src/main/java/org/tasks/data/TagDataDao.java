@@ -17,9 +17,8 @@ public abstract class TagDataDao {
     @Query("SELECT * FROM tagdata WHERE name = :name COLLATE NOCASE LIMIT 1")
     public abstract TagData getTagByName(String name);
 
-    // TODO: does this need to be ordered?
-    @Query("SELECT * FROM tagdata ORDER BY _id ASC")
-    public abstract List<TagData> allTags();
+    @Query("SELECT * FROM tagdata")
+    public abstract List<TagData> getAll();
 
     @Query("SELECT * FROM tagdata WHERE remoteId = :uuid LIMIT 1")
     public abstract TagData getByUuid(String uuid);

@@ -126,6 +126,7 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     debugCompile 'com.android.support:multidex:1.0.2'
 
+    compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.nononsenseapps:filepicker:4.1.0'
     compile "com.android.support:design:${SUPPORT_VERSION}"

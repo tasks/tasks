@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.todoroo.astrid.backup.TasksXmlExporter;
+import org.tasks.backup.TasksJsonExporter;
 
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
@@ -19,7 +19,7 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
     }
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject TasksXmlExporter tasksXmlExporter;
+    @Inject TasksJsonExporter tasksJsonExporter;
 
     private ProgressDialog progressDialog;
 
@@ -34,7 +34,7 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
         progressDialog.show();
 
         setCancelable(false);
-        tasksXmlExporter.exportTasks(getActivity(), TasksXmlExporter.ExportType.EXPORT_TYPE_MANUAL, progressDialog);
+        tasksJsonExporter.exportTasks(getActivity(), TasksJsonExporter.ExportType.EXPORT_TYPE_MANUAL, progressDialog);
         return progressDialog;
     }
 

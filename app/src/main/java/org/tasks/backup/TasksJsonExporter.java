@@ -1,44 +1,40 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
-package com.todoroo.astrid.backup;
+package org.tasks.backup;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.util.Xml;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.backup.XmlWriter;
-import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
-import org.tasks.data.GoogleTask;
+import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.Location;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.LocationDao;
-import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
-import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
-import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.preferences.Preferences;
-import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -46,7 +42,7 @@ import timber.log.Timber;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
-public class TasksXmlExporter {
+public class TasksJsonExporter {
 
     public static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
 
@@ -65,14 +61,14 @@ public class TasksXmlExporter {
     private final LocationDao locationDao;
     private final TagDao tagDao;
     private final GoogleTaskDao googleTaskDao;
+    private final FilterDao filterDao;
+    private final GoogleTaskListDao googleTaskListDao;
     private final TaskDao taskDao;
-    private UserActivityDao userActivityDao;
+    private final UserActivityDao userActivityDao;
     private final Preferences preferences;
 
-    private static final int FORMAT = 4;
     private Context context;
     private int exportCount = 0;
-    private XmlSerializer xml;
 
     private ProgressDialog progressDialog;
     private Handler handler;
@@ -93,9 +89,10 @@ public class TasksXmlExporter {
     }
 
     @Inject
-    public TasksXmlExporter(TagDataDao tagDataDao, TaskDao taskDao, UserActivityDao userActivityDao,
-                            Preferences preferences, AlarmDao alarmDao, LocationDao locationDao,
-                            TagDao tagDao, GoogleTaskDao googleTaskDao) {
+    public TasksJsonExporter(TagDataDao tagDataDao, TaskDao taskDao, UserActivityDao userActivityDao,
+                             Preferences preferences, AlarmDao alarmDao, LocationDao locationDao,
+                             TagDao tagDao, GoogleTaskDao googleTaskDao, FilterDao filterDao,
+                             GoogleTaskListDao googleTaskListDao) {
         this.tagDataDao = tagDataDao;
         this.taskDao = taskDao;
         this.userActivityDao = userActivityDao;
@@ -104,6 +101,8 @@ public class TasksXmlExporter {
         this.locationDao = locationDao;
         this.tagDao = tagDao;
         this.googleTaskDao = googleTaskDao;
+        this.filterDao = filterDao;
+        this.googleTaskListDao = googleTaskListDao;
     }
 
     public void exportTasks(final Context context, final ExportType exportType, @Nullable final ProgressDialog progressDialog) {
@@ -144,107 +143,42 @@ public class TasksXmlExporter {
     }
 
     private void doTasksExport(String output, List<Task> tasks) throws IOException {
-        File xmlFile = new File(output);
-        xmlFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(xmlFile);
-        xml = Xml.newSerializer();
-        xml.setOutput(fos, BackupConstants.XML_ENCODING);
 
-        xml.startDocument(null, null);
-        xml.setFeature("http://xmlpull.org/v1/doc/features.html#indent-output", true);
+        List<BackupContainer.TaskBackup> taskBackups = new ArrayList<>();
 
-        xml.startTag(null, BackupConstants.ASTRID_TAG);
-        xml.attribute(null, BackupConstants.ASTRID_ATTR_VERSION,
-                Integer.toString(preferences.getLastSetVersion()));
-        xml.attribute(null, BackupConstants.ASTRID_ATTR_FORMAT,
-                Integer.toString(FORMAT));
+        for (Task task : tasks) {
+            setProgress(taskBackups.size(), tasks.size());
+            long taskId = task.getId();
+            taskBackups.add(new BackupContainer.TaskBackup(
+                    task,
+                    alarmDao.getAlarms(taskId),
+                    locationDao.getGeofences(taskId),
+                    tagDao.getTagsForTask(taskId),
+                    googleTaskDao.getAllByTaskId(taskId),
+                    userActivityDao.getCommentsForTask(task.getUuid())));
+        }
 
-        serializeTasks(tasks);
-        serializeTagDatas();
+        Map<String, Object> data = new HashMap<>();
+        data.put("version", BuildConfig.VERSION_CODE);
+        data.put("timestamp", System.currentTimeMillis());
+        data.put("data", new BackupContainer(
+                taskBackups,
+                tagDataDao.getAll(),
+                filterDao.getAll(),
+                googleTaskListDao.getAll()));
 
-        xml.endTag(null, BackupConstants.ASTRID_TAG);
-        xml.endDocument();
-        xml.flush();
+        File file = new File(output);
+        file.createNewFile();
+        FileOutputStream fos = new FileOutputStream(file);
+        OutputStreamWriter out = new OutputStreamWriter(fos);
+        Gson gson = BuildConfig.DEBUG
+                ? new GsonBuilder().setPrettyPrinting().create()
+                : new Gson();
+        out.write(gson.toJson(data));
+        out.close();
         fos.close();
+        exportCount = taskBackups.size();
     }
-
-    private void serializeTagDatas() {
-        for (TagData tag : tagDataDao.allTags()) {
-            try {
-                xml.startTag(null, BackupConstants.TAGDATA_TAG);
-                tag.writeToXml(new XmlWriter(xml));
-                xml.endTag(null, BackupConstants.TAGDATA_TAG);
-            } catch(IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    private void serializeTasks(List<Task> tasks) throws IOException {
-        int length = tasks.size();
-        for(int i = 0; i < length; i++) {
-            Task task = tasks.get(i);
-
-            setProgress(i, length);
-
-            xml.startTag(null, BackupConstants.TASK_TAG);
-            serializeTask(task);
-            xml.endTag(null, BackupConstants.TASK_TAG);
-            this.exportCount++;
-        }
-    }
-
-    private synchronized void serializeTask(Task task) {
-        XmlWriter writer = new XmlWriter(xml);
-        task.writeToXml(writer);
-        for (Alarm alarm : alarmDao.getAlarms(task.getId())) {
-            try {
-                xml.startTag(null, BackupConstants.ALARM_TAG);
-                alarm.writeToXml(writer);
-                xml.endTag(null, BackupConstants.ALARM_TAG);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        for (Tag tag : tagDao.getTagsForTask(task.getId())) {
-            try {
-                xml.startTag(null, BackupConstants.TAG_TAG);
-                tag.writeToXml(writer);
-                xml.endTag(null, BackupConstants.TAG_TAG);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        for (Location location : locationDao.getGeofences(task.getId())) {
-            try {
-                xml.startTag(null, BackupConstants.LOCATION_TAG);
-                location.writeToXml(writer);
-                xml.endTag(null, BackupConstants.LOCATION_TAG);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        for (GoogleTask googleTask : googleTaskDao.getAllByTaskId(task.getId())) {
-            try {
-                xml.startTag(null, BackupConstants.GOOGLE_TASKS_TAG);
-                googleTask.writeToXml(writer);
-                xml.endTag(null, BackupConstants.GOOGLE_TASKS_TAG);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        for (UserActivity comment : userActivityDao.getCommentsForTask(task.getUuid())) {
-            try {
-                xml.startTag(null, BackupConstants.COMMENT_TAG);
-                comment.writeToXml(new XmlWriter(xml));
-                xml.endTag(null, BackupConstants.COMMENT_TAG);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    public static final String XML_NULL = "null"; //$NON-NLS-1$
 
     private void onFinishExport(final String outputFile) {
         post(() -> {
