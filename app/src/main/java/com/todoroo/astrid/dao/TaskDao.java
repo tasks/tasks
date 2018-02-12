@@ -256,12 +256,7 @@ public abstract class TaskDao {
     }
 
     public List<Task> fetchFiltered(String queryTemplate) {
-        Query query = Query.select(Task.PROPERTIES).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
-        String queryString = query.from(Task.TABLE).toString();
-        if (BuildConfig.DEBUG) {
-            Timber.v(queryString);
-        }
-        Cursor cursor = database.rawQuery(queryString);
+        Cursor cursor = getCursor(queryTemplate);
         List<Task> result = new ArrayList<>();
         try {
             for (cursor.moveToFirst() ; !cursor.isAfterLast() ; cursor.moveToNext()) {
@@ -271,6 +266,15 @@ public abstract class TaskDao {
         } finally {
             cursor.close();
         }
+    }
+
+    public Cursor getCursor(String queryTemplate) {
+        Query query = Query.select(Task.PROPERTIES).withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
+        String queryString = query.from(Task.TABLE).toString();
+        if (BuildConfig.DEBUG) {
+            Timber.v(queryString);
+        }
+        return database.rawQuery(queryString);
     }
 
     public LimitOffsetDataSource getLimitOffsetDataSource(String queryTemplate, Property<?>... properties) {
