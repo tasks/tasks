@@ -61,7 +61,7 @@ import timber.log.Timber;
                 Filter.class,
                 GoogleTaskList.class
         },
-        version = 53)
+        version = 54)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();

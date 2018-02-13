@@ -123,6 +123,26 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_53_54 = new Migration(53, 54) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            // need to drop columns that were removed in the past
+            database.execSQL("ALTER TABLE `task_list_metadata` RENAME TO `task_list_metadata-temp`");
+            database.execSQL("CREATE TABLE `task_list_metadata` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `tag_uuid` TEXT, `filter` TEXT, `task_ids` TEXT)");
+            database.execSQL("INSERT INTO `task_list_metadata` (`remoteId`, `tag_uuid`, `filter`, `task_ids`) " +
+                    "SELECT `remoteId`, `tag_uuid`, `filter`, `task_ids` FROM `task_list_metadata-temp`");
+            database.execSQL("DROP TABLE `task_list_metadata-temp`");
+
+            database.execSQL("ALTER TABLE `tasks` RENAME TO `tasks-temp`");
+            database.execSQL("CREATE TABLE `tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT, `importance` INTEGER, `dueDate` INTEGER, `hideUntil` INTEGER, `created` INTEGER, `modified` INTEGER, `completed` INTEGER, `deleted` INTEGER, `notes` TEXT, `estimatedSeconds` INTEGER, `elapsedSeconds` INTEGER, `timerStart` INTEGER, `notificationFlags` INTEGER, `notifications` INTEGER, `lastNotified` INTEGER, `snoozeTime` INTEGER, `recurrence` TEXT, `repeatUntil` INTEGER, `calendarUri` TEXT, `remoteId` TEXT)");
+            database.execSQL("DROP INDEX `t_rid`");
+            database.execSQL("CREATE UNIQUE INDEX `t_rid` ON `tasks` (`remoteId`)");
+            database.execSQL("INSERT INTO `tasks` (`_id`, `title`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `notes`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `notifications`, `lastNotified`, `snoozeTime`, `recurrence`, `repeatUntil`, `calendarUri`, `remoteId`) " +
+                    "SELECT `_id`, `title`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `notes`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `notifications`, `lastNotified`, `snoozeTime`, `recurrence`, `repeatUntil`, `calendarUri`, `remoteId` FROM `tasks-temp`");
+            database.execSQL("DROP TABLE `tasks-temp`");
+        }
+    };
+
     private static Migration NOOP(int from, int to) {
         return new Migration(from, to) {
             @Override
@@ -144,6 +164,7 @@ public class Migrations {
             MIGRATION_49_50,
             MIGRATION_50_51,
             MIGRATION_51_52,
-            MIGRATION_52_53
+            MIGRATION_52_53,
+            MIGRATION_53_54,
     };
 }
