@@ -235,17 +235,9 @@ public abstract class TaskDao {
     }
 
     public int count(Filter filter) {
-        String query = Query
-                .select(new Property.CountProperty())
-                .withQueryTemplate(PermaSql.replacePlaceholders(filter.getSqlQuery()))
-                .from(Task.TABLE)
-                .toString();
-        Cursor cursor = database.rawQuery(query);
+        Cursor cursor = getCursor(filter.getSqlQuery());
         try {
-            if (cursor.moveToFirst()) {
-                return cursor.getInt(0);
-            }
-            return 0;
+            return cursor.getCount();
         } finally {
             cursor.close();
         }
