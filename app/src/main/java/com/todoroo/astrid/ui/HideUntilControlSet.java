@@ -29,6 +29,7 @@ import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 import org.tasks.ui.HiddenTopArrayAdapter;
@@ -43,6 +44,10 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DAY_BEFORE;
+import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE;
+import static com.todoroo.astrid.data.Task.HIDE_UNTIL_NONE;
+import static com.todoroo.astrid.data.Task.HIDE_UNTIL_WEEK_BEFORE;
 import static java.util.Arrays.asList;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -65,6 +70,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
 
     @Inject @ForActivity Context context;
     @Inject ThemeBase themeBase;
+    @Inject Preferences preferences;
 
     //private final CheckBox enabled;
     @BindView(R.id.hideUntil) Spinner spinner;
@@ -129,9 +135,24 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
             // For the hide until due case, we need the time component
             long dueTime = dueDate/1000L*1000L;
 
-            if(hideUntil == 0) {
+            if(hideUntil <= 0) {
                 selection = 0;
                 hideUntil = 0;
+                if (task.isNew()) {
+                    int defaultHideUntil = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
+                            HIDE_UNTIL_NONE);
+                    switch (defaultHideUntil) {
+                        case HIDE_UNTIL_DUE:
+                            selection = 1;
+                            break;
+                        case HIDE_UNTIL_DAY_BEFORE:
+                            selection = 3;
+                            break;
+                        case HIDE_UNTIL_WEEK_BEFORE:
+                            selection = 4;
+                            break;
+                    }
+                }
             } else if(hideUntil == dueDay.getMillis()) {
                 selection = 1;
                 hideUntil = 0;
