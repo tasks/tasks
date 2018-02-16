@@ -143,6 +143,14 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_54_55 = new Migration(54, 55) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `caldav_account` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `name` TEXT, `color` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `ctag` TEXT)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `caldav_tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `account` TEXT, `remote_id` TEXT, `etag` TEXT, `last_sync` INTEGER NOT NULL, `deleted` INTEGER NOT NULL)");
+        }
+    };
+
     private static Migration NOOP(int from, int to) {
         return new Migration(from, to) {
             @Override
@@ -166,5 +174,6 @@ public class Migrations {
             MIGRATION_51_52,
             MIGRATION_52_53,
             MIGRATION_53_54,
+            MIGRATION_54_55
     };
 }

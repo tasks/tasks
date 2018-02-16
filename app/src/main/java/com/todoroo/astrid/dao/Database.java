@@ -15,6 +15,8 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.CaldavTask;
+import org.tasks.data.CaldavAccount;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTask;
@@ -59,9 +61,11 @@ import timber.log.Timber;
                 Tag.class,
                 GoogleTask.class,
                 Filter.class,
-                GoogleTaskList.class
+                GoogleTaskList.class,
+                CaldavAccount.class,
+                CaldavTask.class
         },
-        version = 54)
+        version = 55)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();
