@@ -85,12 +85,12 @@ class OrderedMetadataListFragmentHelper {
             if (targetTaskId <= 0) {
                 return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             }
-            long destinationTaskId = taskAdapter.getTaskId(to);
 
             try {
                 if(to >= taskAdapter.getCount()) {
                     updater.moveTo(list, targetTaskId, -1);
                 } else {
+                    long destinationTaskId = taskAdapter.getTaskId(to);
                     updater.moveTo(list, targetTaskId, destinationTaskId);
                 }
             } catch (Exception e) {
