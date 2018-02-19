@@ -1,5 +1,7 @@
 package org.tasks.injection;
 
+import android.arch.lifecycle.ViewModel;
+
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -37,6 +39,7 @@ import org.tasks.reminders.MissedCallActivity;
 import org.tasks.reminders.NotificationActivity;
 import org.tasks.reminders.SnoozeActivity;
 import org.tasks.themes.Theme;
+import org.tasks.ui.TaskListViewModel;
 import org.tasks.voice.VoiceCommandActivity;
 import org.tasks.widget.ShortcutConfigActivity;
 import org.tasks.widget.WidgetConfigActivity;
@@ -130,4 +133,6 @@ public interface ActivityComponent {
     void inject(GoogleTaskListSettingsActivity googleTaskListSettingsActivity);
 
     void inject(TaskerCreateTaskActivity taskerCreateTaskActivity);
+
+    void inject(TaskListViewModel taskListViewModel);
 }

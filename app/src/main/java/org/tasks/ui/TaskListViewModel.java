@@ -1,6 +1,7 @@
-package org.tasks.data;
+package org.tasks.ui;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
 import android.arch.paging.LivePagedListBuilder;
 import android.arch.paging.LivePagedListProvider;
 import android.arch.paging.PagedList;
@@ -15,6 +16,9 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.data.LimitOffsetDataSource;
+import org.tasks.data.Tag;
+import org.tasks.data.TaskAttachment;
 import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
@@ -22,19 +26,30 @@ import javax.inject.Inject;
 import static com.todoroo.astrid.activity.TaskListFragment.FILE_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
 
-public class TaskListDataProvider {
+public class TaskListViewModel extends ViewModel {
 
-    private final TaskDao taskDao;
-    private final Preferences preferences;
+    @Inject TaskDao taskDao;
+    @Inject Preferences preferences;
+
     private LimitOffsetDataSource latest;
+    private LiveData<PagedList<Task>> tasks;
+    private Filter filter;
 
-    @Inject
-    public TaskListDataProvider(TaskDao taskDao, Preferences preferences) {
-        this.taskDao = taskDao;
-        this.preferences = preferences;
+    public void clear() {
+        tasks = null;
+        latest = null;
+        filter = null;
     }
 
-    public LiveData<PagedList<Task>> getLiveData(Filter filter, Property<?>[] properties) {
+    public LiveData<PagedList<Task>> getTasks(Filter filter, Property<?>[] properties) {
+        if (tasks == null || !filter.equals(this.filter)) {
+            this.filter = filter;
+            tasks = getLiveData(filter, properties);
+        }
+        return tasks;
+    }
+
+    private LiveData<PagedList<Task>> getLiveData(Filter filter, Property<?>[] properties) {
         return new LivePagedListBuilder<>(
                 new LivePagedListProvider<Integer, Task>() {
                     @Override

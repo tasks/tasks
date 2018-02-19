@@ -6,6 +6,7 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -47,7 +48,6 @@ import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.data.TaskListDataProvider;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.gtasks.SyncAdapterHelper;
@@ -61,6 +61,7 @@ import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.ProgressDialogAsyncTask;
+import org.tasks.ui.TaskListViewModel;
 
 import java.util.List;
 
@@ -105,7 +106,6 @@ public class TaskListFragment extends InjectingFragment implements
     @Inject DialogBuilder dialogBuilder;
     @Inject CheckBoxes checkBoxes;
     @Inject TaskCreator taskCreator;
-    @Inject protected TaskListDataProvider taskListDataProvider;
     @Inject TimerPlugin timerPlugin;
     @Inject ViewHolderFactory viewHolderFactory;
     @Inject protected Tracker tracker;
@@ -117,6 +117,8 @@ public class TaskListFragment extends InjectingFragment implements
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.task_list_coordinator) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
+
+    private TaskListViewModel taskListViewModel;
 
     private TaskAdapter taskAdapter = null;
     private TaskListRecyclerAdapter recyclerAdapter;
@@ -169,6 +171,8 @@ public class TaskListFragment extends InjectingFragment implements
 
     @Override
     public void onAttach(Activity activity) {
+        taskListViewModel = ViewModelProviders.of(getActivity()).get(TaskListViewModel.class);
+
         super.onAttach(activity);
 
         callbacks = (TaskListFragmentCallbackHandler) activity;
@@ -347,24 +351,22 @@ public class TaskListFragment extends InjectingFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        taskListDataProvider.getLiveData(filter, taskProperties())
-                .observe(getActivity(), list -> {
-                            if (list.isEmpty()) {
-                                swipeRefreshLayout.setVisibility(View.GONE);
-                                emptyRefreshLayout.setVisibility(View.VISIBLE);
-                            } else {
-                                swipeRefreshLayout.setVisibility(View.VISIBLE);
-                                emptyRefreshLayout.setVisibility(View.GONE);
-                            }
+        taskListViewModel.getTasks(filter, taskProperties()).observe(getActivity(), list -> {
+            if (list.isEmpty()) {
+                swipeRefreshLayout.setVisibility(View.GONE);
+                emptyRefreshLayout.setVisibility(View.VISIBLE);
+            } else {
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
+                emptyRefreshLayout.setVisibility(View.GONE);
+            }
 
-                            // stash selected items
-                            Bundle saveState = recyclerAdapter.getSaveState();
+            // stash selected items
+            Bundle saveState = recyclerAdapter.getSaveState();
 
-                            recyclerAdapter.setList(list);
+            recyclerAdapter.setList(list);
 
-                            recyclerAdapter.restoreSaveState(saveState);
-                        }
-                );
+            recyclerAdapter.restoreSaveState(saveState);
+        });
 
         ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerAdapter.applyToRecyclerView(recyclerView);
@@ -431,7 +433,7 @@ public class TaskListFragment extends InjectingFragment implements
     public void loadTaskListContent(boolean animate) {
         recyclerAdapter.setAnimate(animate);
 
-        taskListDataProvider.invalidate();
+        taskListViewModel.invalidate();
     }
 
     protected TaskAdapter createTaskAdapter() {

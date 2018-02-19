@@ -6,6 +6,7 @@
 package com.todoroo.astrid.activity;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.EmptyTaskEditFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
+import org.tasks.ui.TaskListViewModel;
 
 import javax.inject.Inject;
 
@@ -102,6 +104,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @BindView(R.id.detail) FrameLayout detail;
 
     private NavigationDrawerFragment navigationDrawer;
+    private TaskListViewModel viewModel;
 
     /** For indicating the new list screen should be launched at fragment setup time */
     public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
@@ -122,6 +125,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        viewModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
+
+        getComponent().inject(viewModel);
 
         currentNightMode = getNightMode();
 
@@ -300,6 +307,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         }
 
         if(item instanceof Filter) {
+            viewModel.clear();
             startActivity(TaskIntents.getTaskListIntent(this, (Filter) item));
         }
     }
