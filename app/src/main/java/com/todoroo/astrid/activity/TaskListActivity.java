@@ -208,6 +208,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         applyTheme(taskListFragment);
 
+        navigationDrawer.setSelected(filter);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
