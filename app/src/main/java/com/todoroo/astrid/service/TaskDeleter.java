@@ -64,11 +64,12 @@ public class TaskDeleter {
         taskDao.save(item);
     }
 
-    public int markDeleted(List<Task> tasks) {
+    public List<Task> markDeleted(List<Long> taskIds) {
+        List<Task> tasks = taskDao.fetch(taskIds);
         for (Task task : tasks) {
             markDeleted(task);
         }
-        return tasks.size();
+        return tasks;
     }
 
     public int clearCompleted(Filter filter) {
@@ -81,6 +82,9 @@ public class TaskDeleter {
                 completed.add(task);
             }
         }
-        return markDeleted(completed);
+        for (Task task : completed) {
+            markDeleted(task);
+        }
+        return completed.size();
     }
 }

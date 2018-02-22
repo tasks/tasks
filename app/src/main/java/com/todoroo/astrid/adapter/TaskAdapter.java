@@ -16,6 +16,13 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.TaskAttachment;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.primitives.Longs.asList;
+
 /**
  * Adapter for displaying a user's tasks as a list
  *
@@ -25,6 +32,7 @@ import org.tasks.data.TaskAttachment;
 public class TaskAdapter {
 
     private PagedListAdapterHelper<Task> helper;
+    private Set<Long> selected = new HashSet<>();
 
     public int getCount() {
         return helper.getItemCount();
@@ -32,6 +40,14 @@ public class TaskAdapter {
 
     public void setHelper(PagedListAdapterHelper<Task> helper) {
         this.helper = helper;
+    }
+
+    public List<Long> getSelected() {
+        return newArrayList(selected);
+    }
+
+    public void clearSelections() {
+        selected.clear();
     }
 
     public interface OnCompletedTaskListener {
@@ -56,6 +72,24 @@ public class TaskAdapter {
 
     public boolean canIndent(int position, Task task) {
         return false;
+    }
+
+    public void setSelected(long... ids) {
+        selected.clear();
+        selected.addAll(asList(ids));
+    }
+
+    public boolean isSelected(Task task) {
+        return selected.contains(task.getId());
+    }
+
+    public void toggleSelection(Task task) {
+        long id = task.getId();
+        if (selected.contains(id)) {
+            selected.remove(id);
+        } else {
+            selected.add(id);
+        }
     }
 
     public boolean isManuallySorted() {
