@@ -19,15 +19,10 @@ import com.todoroo.astrid.api.FilterListItem;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.filters.FilterCounter;
-import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
-import org.tasks.locale.Locale;
 import org.tasks.preferences.AppearancePreferences;
-import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
 
@@ -46,8 +41,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
     public static final int REQUEST_NEW_GTASK_LIST = 6;
 
-    private FilterAdapter adapter = null;
-
     private final RefreshReceiver refreshReceiver = new RefreshReceiver();
 
     /**
@@ -61,12 +54,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
     private Filter selected = null;
 
-    @Inject FilterCounter filterCounter;
-    @Inject FilterProvider filterProvider;
-    @Inject Theme theme;
-    @Inject ThemeCache themeCache;
-    @Inject Locale locale;
     @Inject LocalBroadcastManager localBroadcastManager;
+    @Inject FilterAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,8 +118,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     private void setUpList() {
-        adapter = new FilterAdapter(filterProvider, filterCounter, getActivity(),
-                true, theme, themeCache, locale);
+        adapter.setNavigationDrawer();
         mDrawerListView.setAdapter(adapter);
         registerForContextMenu(mDrawerListView);
     }

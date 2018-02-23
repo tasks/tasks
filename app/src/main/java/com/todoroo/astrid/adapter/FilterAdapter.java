@@ -39,6 +39,8 @@ import org.tasks.ui.NavigationDrawerFragment;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import static android.support.v4.content.ContextCompat.getColor;
 
 public class FilterAdapter extends ArrayAdapter<FilterListItem> {
@@ -52,24 +54,29 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final FilterProvider filterProvider;
     private final FilterCounter filterCounter;
     private final Activity activity;
-    private final boolean navigationDrawer;
     private final Locale locale;
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
+
+    private boolean navigationDrawer;
 
     /** layout inflater */
     private final LayoutInflater inflater;
     private final ThemeCache themeCache;
 
+    @Inject
     public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity,
-                         boolean navigationDrawer, Theme theme, ThemeCache themeCache, Locale locale) {
+                         Theme theme, ThemeCache themeCache, Locale locale) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
-        this.navigationDrawer = navigationDrawer;
         this.locale = locale;
         this.inflater = theme.getLayoutInflater(activity);
         this.themeCache = themeCache;
+    }
+
+    public void setNavigationDrawer() {
+        navigationDrawer = true;
     }
 
     public FilterListUpdateReceiver getFilterListUpdateReceiver() {
@@ -85,7 +92,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     public void add(FilterListItem item) {
         super.add(item);
         // load sizes
-        if (item instanceof Filter) {
+        if (navigationDrawer && item instanceof Filter) {
             filterCounter.registerFilter((Filter) item);
         }
     }

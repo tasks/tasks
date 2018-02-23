@@ -8,13 +8,8 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.filters.FilterCounter;
-import org.tasks.filters.FilterProvider;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
-import org.tasks.locale.Locale;
-import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
 
@@ -26,12 +21,8 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
     private static final String EXTRA_FILTER_SQL = "extra_filter_query";
     private static final String EXTRA_FILTER_VALUES = "extra_filter_values";
 
-    @Inject FilterProvider filterProvider;
-    @Inject FilterCounter filterCounter;
     @Inject DialogBuilder dialogBuilder;
-    @Inject Theme theme;
-    @Inject ThemeCache themeCache;
-    @Inject Locale locale;
+    @Inject FilterAdapter filterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +30,6 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
         final boolean returnFilter = getIntent().getBooleanExtra(EXTRA_RETURN_FILTER, false);
 
-        final FilterAdapter filterAdapter = new FilterAdapter(filterProvider, filterCounter, this,
-                false, theme, themeCache, locale);
         filterAdapter.populateList();
 
         dialogBuilder.newDialog()
