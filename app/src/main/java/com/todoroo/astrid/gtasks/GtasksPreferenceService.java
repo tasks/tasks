@@ -24,7 +24,7 @@ public class GtasksPreferenceService {
     private static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
 
     private static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
-    private static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
+    public static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
 
     @Inject
     public GtasksPreferenceService(Preferences preferences) {

@@ -23,9 +23,11 @@ import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
@@ -38,6 +40,7 @@ import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.HelpAndFeedbackActivity;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -63,6 +66,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final Activity activity;
     private final Theme theme;
     private final Locale locale;
+    private final Preferences preferences;
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
     private final List<FilterListItem> items = new ArrayList<>();
 
@@ -74,13 +78,14 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     @Inject
     public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter, Activity activity,
-                         Theme theme, ThemeCache themeCache, Locale locale) {
+                         Theme theme, ThemeCache themeCache, Locale locale, Preferences preferences) {
         super(activity, 0);
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
         this.theme = theme;
         this.locale = locale;
+        this.preferences = preferences;
         this.inflater = theme.getLayoutInflater(activity);
         this.themeCache = themeCache;
     }
@@ -231,11 +236,15 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     }
 
     private void addSubMenu(final int titleResource, List<Filter> filters, boolean hideIfEmpty) {
+        addSubMenu(activity.getResources().getString(titleResource), filters, hideIfEmpty);
+    }
+
+    private void addSubMenu(String title, List<Filter> filters, boolean hideIfEmpty) {
         if (hideIfEmpty && filters.isEmpty()) {
             return;
         }
 
-        add(new NavigationDrawerSubheader(activity.getResources().getString(titleResource)));
+        add(new NavigationDrawerSubheader(title));
 
         for (FilterListItem filterListItem : filters) {
             add(filterListItem);
@@ -285,7 +294,11 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
         List<Filter> googleTaskFilters = filterProvider.getGoogleTaskFilters();
         if (!googleTaskFilters.isEmpty()) {
-            addSubMenu(R.string.gtasks_GPr_header, googleTaskFilters, true);
+            String title = preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
+            if (Strings.isNullOrEmpty(title)) {
+                title = activity.getResources().getString(R.string.gtasks_GPr_header);
+            }
+            addSubMenu(title, googleTaskFilters, true);
 
             if (navigationDrawer) {
                 add(new NavigationDrawerAction(
