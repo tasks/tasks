@@ -21,7 +21,7 @@ public class GtasksFilter extends Filter {
 
     private static final int CLOUD = R.drawable.ic_cloud_black_24dp;
 
-    private long storeId;
+    private GoogleTaskList list;
 
     private GtasksFilter() {
         super();
@@ -29,7 +29,7 @@ public class GtasksFilter extends Filter {
 
     public GtasksFilter(GoogleTaskList list) {
         super(list.getTitle(), getQueryTemplate(list), getValuesForNewTasks(list));
-        storeId = list.getId();
+        this.list = list;
         tint = list.getColor();
         icon = CLOUD;
     }
@@ -43,7 +43,7 @@ public class GtasksFilter extends Filter {
     }
 
     public long getStoreId() {
-        return storeId;
+        return list.getId();
     }
 
     private static QueryTemplate getQueryTemplate(GoogleTaskList list) {
@@ -71,13 +71,13 @@ public class GtasksFilter extends Filter {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeLong(storeId);
+        dest.writeParcelable(list, 0);
     }
 
     @Override
     protected void readFromParcel(Parcel source) {
         super.readFromParcel(source);
-        storeId = source.readLong();
+        list = source.readParcelable(getClass().getClassLoader());
     }
 
     /**
@@ -103,4 +103,8 @@ public class GtasksFilter extends Filter {
             return new GtasksFilter[size];
         }
     };
+
+    public GoogleTaskList getList() {
+        return list;
+    }
 }

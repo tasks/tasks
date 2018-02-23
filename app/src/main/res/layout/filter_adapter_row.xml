@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.todoroo.astrid.adapter.CheckableRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="12dp"
-    android:paddingTop="12dp">
+    android:paddingTop="12dp"
+    android:paddingLeft="@dimen/keyline_first"
+    android:paddingStart="@dimen/keyline_first"
+    android:paddingRight="0dp"
+    android:paddingEnd="0dp">
 
     <TextView
         android:id="@+id/size"
@@ -13,13 +17,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:paddingLeft="0dp"
+        android:paddingStart="0dp"
+        android:paddingRight="@dimen/keyline_first"
+        android:paddingEnd="@dimen/keyline_first"
         android:gravity="end"
         android:fontFamily="@string/font_fontFamily_medium"
         android:minEms="3"
-        android:paddingEnd="@dimen/keyline_first"
-        android:paddingLeft="@dimen/keyline_first"
-        android:paddingRight="@dimen/keyline_first"
-        android:paddingStart="@dimen/keyline_first"
         android:textColor="?android:attr/textColorSecondary"
         tools:ignore="UnusedAttribute" />
 
@@ -31,14 +35,10 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center_vertical"
         android:alpha="?attr/alpha_secondary"
-        android:paddingEnd="@dimen/keyline_second"
-        android:paddingLeft="@dimen/keyline_first"
-        android:paddingRight="@dimen/keyline_second"
-        android:paddingStart="@dimen/keyline_first"
         android:scaleType="center"
         android:tint="?attr/icon_tint" />
 
-    <TextView
+    <CheckedTextView
         android:id="@+id/name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -47,10 +47,17 @@
         android:layout_toLeftOf="@id/size"
         android:layout_toRightOf="@id/icon"
         android:layout_toStartOf="@id/size"
+        android:paddingLeft="@dimen/keyline_second"
+        android:paddingStart="@dimen/keyline_second"
+        android:paddingRight="@dimen/keyline_first"
+        android:paddingEnd="@dimen/keyline_first"
         android:gravity="start"
+        android:duplicateParentState="true"
         android:textAlignment="viewStart"
         android:checked="false"
         android:ellipsize="end"
+        android:checkMark="@drawable/checkmark"
+        android:checkMarkTint="?colorAccent"
         android:fontFamily="@string/font_fontFamily_medium"
         android:lines="1"
         android:singleLine="true"
@@ -58,4 +65,4 @@
         android:textSize="14sp"
         tools:ignore="UnusedAttribute" />
 
-</RelativeLayout>
+</com.todoroo.astrid.adapter.CheckableRelativeLayout>

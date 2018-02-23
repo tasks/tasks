@@ -52,8 +52,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private ListView mDrawerListView;
     private View mFragmentContainerView;
 
-    private Filter selected = null;
-
     @Inject LocalBroadcastManager localBroadcastManager;
     @Inject FilterAdapter adapter;
 
@@ -62,7 +60,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-             selected = savedInstanceState.getParcelable(TOKEN_LAST_SELECTED);
+            adapter.setSelected(savedInstanceState.getParcelable(TOKEN_LAST_SELECTED));
         }
     }
 
@@ -141,7 +139,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     }
 
     public void setSelected(Filter selected) {
-        this.selected = selected;
+        adapter.setSelected(selected);
     }
 
     @Override
@@ -161,8 +159,8 @@ public class NavigationDrawerFragment extends InjectingFragment {
     private void selectItem(int position) {
         FilterListItem item = adapter.getItem(position);
         if (item instanceof Filter) {
-            if (!item.equals(selected)) {
-                selected = (Filter) item;
+            if (!item.equals(adapter.getSelected())) {
+                adapter.setSelected((Filter) item);
                 if (mCallbacks != null) {
                     mCallbacks.onFilterItemClicked(item);
                 }
@@ -197,7 +195,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(TOKEN_LAST_SELECTED, selected);
+        outState.putParcelable(TOKEN_LAST_SELECTED, adapter.getSelected());
     }
 
     public void closeDrawer() {

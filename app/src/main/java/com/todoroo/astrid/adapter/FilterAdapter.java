@@ -9,15 +9,20 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
@@ -37,11 +42,13 @@ import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.NavigationDrawerFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 
 public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
@@ -54,12 +61,15 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final FilterProvider filterProvider;
     private final FilterCounter filterCounter;
     private final Activity activity;
+    private final Theme theme;
     private final Locale locale;
     private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
+    private final List<FilterListItem> items = new ArrayList<>();
 
     private boolean navigationDrawer;
+    private boolean remoteListPicker;
+    private Filter selected;
 
-    /** layout inflater */
     private final LayoutInflater inflater;
     private final ThemeCache themeCache;
 
@@ -70,6 +80,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         this.filterProvider = filterProvider;
         this.filterCounter = filterCounter;
         this.activity = activity;
+        this.theme = theme;
         this.locale = locale;
         this.inflater = theme.getLayoutInflater(activity);
         this.themeCache = themeCache;
@@ -91,7 +102,9 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     @Override
     public void add(FilterListItem item) {
         super.add(item);
-        // load sizes
+
+        items.add(item);
+
         if (navigationDrawer && item instanceof Filter) {
             filterCounter.registerFilter((Filter) item);
         }
@@ -118,6 +131,15 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                     viewHolder.name = convertView.findViewById(R.id.name);
                     viewHolder.icon = convertView.findViewById(R.id.icon);
                     viewHolder.size = convertView.findViewById(R.id.size);
+                    if (preLollipop()) {
+                        ColorStateList tintList = new ColorStateList(new int[][]{
+                                new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}},
+                                new int[]{ResourcesCompat.getColor(activity.getResources(), android.R.color.transparent, null), theme.getThemeAccent().getAccentColor()});
+                        Drawable original = ContextCompat.getDrawable(activity, R.drawable.ic_check_black_24dp);
+                        Drawable wrapped = DrawableCompat.wrap(original.mutate());
+                        DrawableCompat.setTintList(wrapped, tintList);
+                        viewHolder.name.setCheckMarkDrawable(wrapped);
+                    }
                     break;
                 case SEPARATOR:
                     convertView = inflater.inflate(R.layout.filter_adapter_separator, parent, false);
@@ -133,9 +155,21 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         return convertView;
     }
 
+    public void setSelected(Filter selected) {
+        this.selected = selected;
+    }
+
+    public Filter getSelected() {
+        return selected;
+    }
+
+    public int indexOf(FilterListItem item) {
+        return items.indexOf(item);
+    }
+
     public static class ViewHolder {
         public FilterListItem item;
-        public TextView name;
+        public CheckedTextView name;
         public ImageView icon;
         public TextView size;
         public View view;
@@ -152,14 +186,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         switch(item.getItemType()) {
             case ITEM:
                 populateItem(viewHolder);
-
-                if (activity instanceof TaskListActivity) {
-                    Filter selected = ((TaskListActivity) activity).getCurrentFilter();
-
-                    if (selected != null && selected.equals(viewHolder.item)) {
-                        convertView.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
-                    }
-                }
                 break;
             case SUBHEADER:
                 populateHeader(viewHolder);
@@ -212,6 +238,24 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         for (FilterListItem filterListItem : filters) {
             add(filterListItem);
         }
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        items.clear();
+    }
+
+    public void populateRemoteListPicker() {
+        clear();
+
+        remoteListPicker = true;
+
+        for (Filter filter : filterProvider.getGoogleTaskFilters()) {
+            add(filter);
+        }
+
+        notifyDataSetChanged();
     }
 
     public void populateList() {
@@ -282,7 +326,12 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             return;
         }
 
-        viewHolder.view.setBackgroundResource(0);
+        if (!remoteListPicker && selected != null && selected.equals(filter)) {
+            viewHolder.view.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
+        } else {
+            viewHolder.view.setBackgroundResource(0);
+        }
+
         viewHolder.icon.setImageResource(filter.icon);
         viewHolder.icon.setColorFilter(filter.tint >= 0
                 ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
@@ -298,7 +347,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             countInt = filterCounter.get(filter);
             viewHolder.size.setText(locale.formatNumber(countInt));
         }
-        viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.INVISIBLE);
+        viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.GONE);
     }
 
     private void populateHeader(ViewHolder viewHolder) {

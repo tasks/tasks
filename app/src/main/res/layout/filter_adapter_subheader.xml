@@ -11,7 +11,7 @@
         style="@style/horizontal_divider"
         android:layout_gravity="top" />
 
-    <TextView
+    <CheckedTextView
         android:paddingRight="0dp"
         android:paddingEnd="0dp"
         android:paddingLeft="@dimen/keyline_first"
@@ -26,6 +26,7 @@
         android:textAlignment="viewStart"
         android:fontFamily="@string/font_fontFamily_medium"
         android:alpha="0.54"
+        android:clickable="false"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         tools:ignore="UnusedAttribute" />

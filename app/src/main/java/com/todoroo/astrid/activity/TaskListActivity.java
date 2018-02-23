@@ -274,7 +274,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
     public void restart() {
         Intent intent = getIntent();
-        intent.putExtra(TaskListActivity.OPEN_FILTER, getCurrentFilter());
+        intent.putExtra(TaskListActivity.OPEN_FILTER, filter);
         finish();
         startActivity(intent);
     }
@@ -476,11 +476,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Override
     public void sortChanged() {
         localBroadcastManager.broadcastRefresh();
-        onFilterItemClicked(getCurrentFilter());
-    }
-
-    public Filter getCurrentFilter() {
-        return filter;
+        onFilterItemClicked(filter);
     }
 
     @Override

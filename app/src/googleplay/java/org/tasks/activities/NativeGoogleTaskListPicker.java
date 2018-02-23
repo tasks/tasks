@@ -4,15 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 
-import com.todoroo.astrid.gtasks.GtasksListService;
+import com.todoroo.astrid.adapter.FilterAdapter;
 
 import org.tasks.data.GoogleTaskList;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleTaskListSelectionHandler;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
-import org.tasks.themes.ThemeAccent;
-import org.tasks.themes.ThemeCache;
 
 import javax.inject.Inject;
 
@@ -33,9 +31,7 @@ public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
     public static final String EXTRA_SELECTED = "extra_selected";
 
     @Inject DialogBuilder dialogBuilder;
-    @Inject GtasksListService gtasksListService;
-    @Inject ThemeCache themeCache;
-    @Inject ThemeAccent themeAccent;
+    @Inject FilterAdapter filterAdapter;
 
     private GoogleTaskListSelectionHandler handler;
 
@@ -43,8 +39,7 @@ public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle arguments = getArguments();
         GoogleTaskList selected = arguments.getParcelable(EXTRA_SELECTED);
-        return createDialog(getActivity(), themeCache, dialogBuilder, gtasksListService,
-                selected, themeAccent, list -> handler.selectedList(list));
+        return createDialog(filterAdapter, dialogBuilder, selected, list -> handler.selectedList(list));
     }
 
     @Override
