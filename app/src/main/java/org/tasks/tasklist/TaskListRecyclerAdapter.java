@@ -5,8 +5,6 @@ import android.arch.paging.PagedList;
 import android.arch.paging.PagedListAdapterHelper;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.recyclerview.extensions.DiffCallback;
 import android.support.v7.recyclerview.extensions.ListAdapterConfig;
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.view.ActionMode;
@@ -40,18 +38,6 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
     private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
 
-    private static final DiffCallback<Task> DIFF_CALLBACK = new DiffCallback<Task>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {
-            return oldItem.getId() == newItem.getId();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Task oldItem, @NonNull Task newItem) {
-            return oldItem.equals(newItem);
-        }
-    };
-
     private final Activity activity;
     private final TaskAdapter adapter;
     private final ViewHolderFactory viewHolderFactory;
@@ -61,6 +47,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     private final Tracker tracker;
     private final DialogBuilder dialogBuilder;
     private final ItemTouchHelper itemTouchHelper;
+    private final PagedListAdapterHelper<Task> adapterHelper;
 
     private ActionMode mode = null;
     private boolean dragging;
@@ -80,9 +67,8 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
         this.tracker = tracker;
         this.dialogBuilder = dialogBuilder;
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback());
+        adapterHelper = new PagedListAdapterHelper<>(this, new ListAdapterConfig.Builder<Task>().setDiffCallback(new DiffCallback(adapter)).build());
     }
-
-    private PagedListAdapterHelper<Task> adapterHelper = new PagedListAdapterHelper<>(this, new ListAdapterConfig.Builder<Task>().setDiffCallback(DIFF_CALLBACK).build());
 
     public void applyToRecyclerView(RecyclerView recyclerView) {
         recyclerView.setAdapter(this);
@@ -119,7 +105,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
         if (task != null) {
             holder.bindView(task);
             holder.setMoving(false);
-            holder.setIndent(adapter.getIndent(task));
+            int indent = adapter.getIndent(task);
+            task.setIndent(indent);
+            holder.setIndent(indent);
             holder.setSelected(adapter.isSelected(task));
         }
     }

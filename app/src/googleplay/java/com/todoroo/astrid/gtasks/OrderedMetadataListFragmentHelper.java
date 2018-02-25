@@ -65,13 +65,13 @@ class OrderedMetadataListFragmentHelper {
 
         @Override
         public int getIndent(Task task) {
-            return task.getGoogleTaskIndent();
+            return task.getIndent();
         }
 
         @Override
         public boolean canIndent(int position, Task task) {
             Task parent = taskAdapter.getTask(position - 1);
-            return parent != null && getIndent(task) <= parent.getGoogleTaskIndent();
+            return parent != null && getIndent(task) <= parent.getIndent();
         }
 
         @Override
@@ -134,7 +134,7 @@ class OrderedMetadataListFragmentHelper {
         }
 
         final ArrayList<Long> chained = new ArrayList<>();
-        final int parentIndent = item.getGoogleTaskIndent();
+        final int parentIndent = item.getIndent();
         updater.applyToChildren(list, itemId, node -> {
             Task childTask = taskDao.fetch(node.taskId);
             if(!TextUtils.isEmpty(childTask.getRecurrence())) {

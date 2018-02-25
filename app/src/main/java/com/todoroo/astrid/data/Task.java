@@ -208,7 +208,7 @@ public class Task implements Parcelable {
     public static final int IMPORTANCE_NONE = 3;
 
     @Ignore
-    private transient int googleTaskIndent;
+    private transient int indent;
 
     @Ignore
     private transient String tags;
@@ -336,7 +336,7 @@ public class Task implements Parcelable {
         calendarUri = _cursor.getString(_cursorIndexOfCalendarUri);
         remoteId = _cursor.getString(_cursorIndexOfRemoteId);
         if (_cursorIndexOfIndent >= 0) {
-            googleTaskIndent = _cursor.getInt(_cursorIndexOfIndent);
+            indent = _cursor.getInt(_cursorIndexOfIndent);
         }
         if (_cursorIndexOfTags >= 0) {
             tags = _cursor.getString(_cursorIndexOfTags);
@@ -394,7 +394,7 @@ public class Task implements Parcelable {
         title = parcel.readString();
         remoteId = parcel.readString();
         transitoryData = parcel.readHashMap(ContentValues.class.getClassLoader());
-        googleTaskIndent = parcel.readInt();
+        indent = parcel.readInt();
     }
 
     public long getId() {
@@ -852,7 +852,7 @@ public class Task implements Parcelable {
         dest.writeString(title);
         dest.writeString(remoteId);
         dest.writeMap(transitoryData);
-        dest.writeInt(googleTaskIndent);
+        dest.writeInt(indent);
     }
 
     @Override
@@ -883,8 +883,12 @@ public class Task implements Parcelable {
                 '}';
     }
 
-    public int getGoogleTaskIndent() {
-        return googleTaskIndent;
+    public int getIndent() {
+        return indent;
+    }
+
+    public void setIndent(int indent) {
+        this.indent = indent;
     }
 
     public boolean insignificantChange(Task task) {
@@ -985,7 +989,6 @@ public class Task implements Parcelable {
 
         Task task = (Task) o;
 
-        if (googleTaskIndent != task.googleTaskIndent) return false;
         if (hasFiles != task.hasFiles) return false;
         if (id != null ? !id.equals(task.id) : task.id != null) return false;
         if (title != null ? !title.equals(task.title) : task.title != null) return false;
@@ -1049,7 +1052,7 @@ public class Task implements Parcelable {
         result = 31 * result + (repeatUntil != null ? repeatUntil.hashCode() : 0);
         result = 31 * result + (calendarUri != null ? calendarUri.hashCode() : 0);
         result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
-        result = 31 * result + googleTaskIndent;
+        result = 31 * result + indent;
         result = 31 * result + (tags != null ? tags.hashCode() : 0);
         result = 31 * result + (hasFiles ? 1 : 0);
         return result;
