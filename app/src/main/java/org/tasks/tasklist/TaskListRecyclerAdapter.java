@@ -235,7 +235,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
         public void onDestroyActionMode(ActionMode actionMode) {
             adapter.clearSelections();
             TaskListRecyclerAdapter.this.mode = null;
-            notifyDataSetChanged();
+            if (!dragging) {
+                notifyDataSetChanged();
+            }
         }
     };
 
@@ -323,6 +325,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
             int fromPosition = source.getAdapterPosition();
             int toPosition = target.getAdapterPosition();
             if (from == -1) {
+                ((ViewHolder) source).setSelected(false);
                 from = fromPosition;
             }
             to = toPosition;
