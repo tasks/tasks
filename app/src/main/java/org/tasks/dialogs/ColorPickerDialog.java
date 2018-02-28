@@ -83,10 +83,9 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 return getDisplayColor(position);
             }
         };
-        adapter.setChecked(selected);
 
         AlertDialogBuilder builder = dialogBuilder.newDialog(theme)
-                .setAdapter(adapter, (dialog, which) -> {
+                .setSingleChoiceItems(adapter, selected, (dialog, which) -> {
                     if (preferences.hasPurchase(R.string.p_purchased_themes) || which < getNumFree()) {
                         callback.themePicked(palette, which);
                     } else {

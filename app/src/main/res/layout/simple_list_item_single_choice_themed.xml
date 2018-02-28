@@ -13,10 +13,10 @@
      limitations under the License.
 -->
 
-<android.support.v7.widget.AppCompatCheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:layout_width="match_parent"
-    android:checkMark="@drawable/ic_check_black_24dp"
+    android:checkMark="@drawable/checkmark"
     android:checkMarkTint="?colorAccent"
     android:checked="false"
     android:layout_height="?android:attr/listPreferredItemHeightSmall"

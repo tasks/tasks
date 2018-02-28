@@ -47,9 +47,8 @@ public class LocalePickerDialog extends InjectingNativeDialogFragment {
         }
         final List<String> display = transform(locales, Locale::getDisplayName);
         SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, display, themeAccent);
-        adapter.setChecked(display.indexOf(locale.getDisplayName()));
         return dialogBuilder.newDialog()
-                .setSingleChoiceItems(adapter, -1, (dialogInterface, i) -> {
+                .setSingleChoiceItems(adapter, display.indexOf(locale.getDisplayName()), (dialogInterface, i) -> {
                     callback.onLocaleSelected(locales.get(i));
                     dialogInterface.dismiss();
                 })

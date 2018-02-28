@@ -234,13 +234,10 @@ public class RepeatControlSet extends TaskEditControlFragment
         boolean customPicked = isCustomValue();
         List<String> repeatOptions = newArrayList(context.getResources().getStringArray(R.array.repeat_options));
         SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, repeatOptions, theme.getThemeAccent());
+        int selected = 0;
         if (customPicked) {
             adapter.insert(repeatRuleToString.toString(rrule), 0);
-            adapter.setChecked(0);
-        } else if (rrule == null) {
-            adapter.setChecked(0);
-        } else {
-            int selected;
+        } else if (rrule != null) {
             switch (rrule.getFreq()) {
                 case DAILY:
                     selected = 1;
@@ -258,12 +255,12 @@ public class RepeatControlSet extends TaskEditControlFragment
                     selected = 0;
                     break;
             }
-            adapter.setChecked(selected);
         }
         dialogBuilder.newDialog()
-                .setAdapter(adapter, (dialogInterface, i) -> {
+                .setSingleChoiceItems(adapter, selected, (dialogInterface, i) -> {
                     if (customPicked) {
                         if (i == 0) {
+                            dialogInterface.dismiss();
                             return;
                         }
                         i--;
@@ -273,6 +270,7 @@ public class RepeatControlSet extends TaskEditControlFragment
                     } else if (i == 5) {
                         newCustomRecurrenceDialog(this, rrule, dueDate)
                                 .show(getFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
+                        dialogInterface.dismiss();
                         return;
                     } else {
                         rrule = new RRule();
@@ -298,8 +296,8 @@ public class RepeatControlSet extends TaskEditControlFragment
                     }
 
                     callback.repeatChanged(rrule != null);
-
                     refreshDisplayView();
+                    dialogInterface.dismiss();
                 })
                 .setOnCancelListener(d -> refreshDisplayView())
                 .show();
