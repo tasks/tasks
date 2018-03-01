@@ -1,5 +1,6 @@
 package org.tasks.data;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
@@ -41,9 +42,10 @@ public final class TagData implements Parcelable {
         reader.readString("tagOrdering", this::setTagOrdering);
     }
 
+    @SuppressLint("ParcelClassLoader")
     @Ignore
     private TagData(Parcel parcel) {
-        id = parcel.readLong();
+        id = (Long) parcel.readValue(null);
         remoteId = parcel.readString();
         name = parcel.readString();
         color = parcel.readInt();
@@ -109,7 +111,7 @@ public final class TagData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
+        dest.writeValue(id);
         dest.writeString(remoteId);
         dest.writeString(name);
         dest.writeInt(color);
