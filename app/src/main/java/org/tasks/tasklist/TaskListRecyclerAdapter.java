@@ -142,9 +142,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
         notifyItemChanged(viewHolder.getAdapterPosition());
         if (adapter.getSelected().isEmpty()) {
             dragging = false;
-            if (mode != null) {
-                mode.finish();
-            }
+            finishActionMode();
         } else {
             if (mode == null) {
                 mode = ((TaskListActivity) activity).startSupportActionMode(actionModeCallback);
@@ -164,7 +162,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     private void deleteSelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_DELETE);
         List<Long> tasks = adapter.getSelected();
-        mode.finish();
+        finishActionMode();
         List<Task> result = taskDeleter.markDeleted(tasks);
         taskList.onTaskDelete(result);
         taskList.makeSnackbar(activity.getString(R.string.delete_multiple_tasks_confirmation, Integer.toString(result.size()))).show();
@@ -173,7 +171,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     private void copySelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_CLONE);
         List<Long> tasks = adapter.getSelected();
-        mode.finish();
+        finishActionMode();
         List<Task> duplicates = taskDuplicator.duplicate(tasks);
         taskList.onTaskCreated(duplicates);
         taskList.makeSnackbar(activity.getString(R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size()))).show();
@@ -182,6 +180,12 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     private void updateModeTitle() {
         if (mode != null) {
             mode.setTitle(Integer.toString(adapter.getSelected().size()));
+        }
+    }
+
+    private void finishActionMode() {
+        if (mode != null) {
+            mode.finish();
         }
     }
 
@@ -307,9 +311,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
         @Override
         public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
-            if (mode != null) {
-                mode.finish();
-            }
+            finishActionMode();
             int fromPosition = source.getAdapterPosition();
             int toPosition = target.getAdapterPosition();
             if (from == -1) {
