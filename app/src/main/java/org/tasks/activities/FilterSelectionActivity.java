@@ -28,12 +28,14 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final boolean returnFilter = getIntent().getBooleanExtra(EXTRA_RETURN_FILTER, false);
+        Intent intent = getIntent();
+        Filter selected = intent.getParcelableExtra(EXTRA_FILTER);
+        boolean returnFilter = intent.getBooleanExtra(EXTRA_RETURN_FILTER, false);
 
         filterAdapter.populateList();
 
         dialogBuilder.newDialog()
-                .setSingleChoiceItems(filterAdapter, -1, (dialog, which) -> {
+                .setSingleChoiceItems(filterAdapter, filterAdapter.indexOf(selected), (dialog, which) -> {
                     final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
                     Intent data = new Intent();
                     if (returnFilter) {

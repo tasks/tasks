@@ -77,6 +77,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
 
         findPreference(R.string.p_widget_filter).setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(WidgetConfigActivity.this, FilterSelectionActivity.class);
+            intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, getFilter());
             intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
             startActivityForResult(intent, REQUEST_FILTER);
             return false;
@@ -138,8 +139,11 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
     }
 
     private void updateFilter() {
-        Filter filter = defaultFilterProvider.getFilterFromPreference(widgetPreferences.getFilterId());
-        findPreference(R.string.p_widget_filter).setSummary(filter.listingTitle);
+        findPreference(R.string.p_widget_filter).setSummary(getFilter().listingTitle);
+    }
+
+    private Filter getFilter() {
+        return defaultFilterProvider.getFilterFromPreference(widgetPreferences.getFilterId());
     }
 
     private void updateTheme() {

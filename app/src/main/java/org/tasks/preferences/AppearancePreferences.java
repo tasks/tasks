@@ -81,6 +81,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
         defaultList.setSummary(filter.listingTitle);
         defaultList.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(AppearancePreferences.this, FilterSelectionActivity.class);
+            intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getDefaultFilter());
             intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
             startActivityForResult(intent, REQUEST_DEFAULT_LIST);
             return true;

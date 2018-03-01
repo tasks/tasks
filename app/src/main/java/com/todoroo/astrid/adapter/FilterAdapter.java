@@ -67,7 +67,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     private final List<FilterListItem> items = new ArrayList<>();
 
     private boolean navigationDrawer;
-    private boolean remoteListPicker;
     private Filter selected;
 
     private final LayoutInflater inflater;
@@ -252,8 +251,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     public void populateRemoteListPicker() {
         clear();
 
-        remoteListPicker = true;
-
         for (Filter filter : filterProvider.getGoogleTaskFilters()) {
             add(filter);
         }
@@ -329,7 +326,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             return;
         }
 
-        if (!remoteListPicker && selected != null && selected.equals(filter)) {
+        if (selected != null && selected.equals(filter)) {
             viewHolder.view.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
         } else {
             viewHolder.view.setBackgroundResource(0);

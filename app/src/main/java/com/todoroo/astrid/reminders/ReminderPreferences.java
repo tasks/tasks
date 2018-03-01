@@ -111,6 +111,7 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         badgePreference.setSummary(filter.listingTitle);
         badgePreference.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(ReminderPreferences.this, FilterSelectionActivity.class);
+            intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getBadgeFilter());
             intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
             startActivityForResult(intent, REQUEST_BADGE_LIST);
             return true;

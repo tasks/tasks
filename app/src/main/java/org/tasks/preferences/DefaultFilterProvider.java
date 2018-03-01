@@ -62,6 +62,10 @@ public class DefaultFilterProvider {
         this.gtasksFilterExposer = gtasksFilterExposer;
     }
 
+    public Filter getDashclockFilter() {
+        return getFilterFromPreference(R.string.p_dashclock_filter);
+    }
+
     public Filter getBadgeFilter() {
         return getFilterFromPreference(R.string.p_badge_list);
     }
@@ -106,17 +110,22 @@ public class DefaultFilterProvider {
 
     public void setDefaultFilter(Filter filter) {
         tracker.reportEvent(Tracking.Events.SET_DEFAULT_LIST);
-        String filterPreferenceValue = getFilterPreferenceValue(filter);
-        if (!Strings.isNullOrEmpty(filterPreferenceValue)) {
-            preferences.setString(R.string.p_default_list, filterPreferenceValue);
-        }
+        setFilterPreference(filter, R.string.p_default_list);
     }
 
     public void setBadgeFilter(Filter filter) {
         tracker.reportEvent(Tracking.Events.SET_BADGE_LIST);
+        setFilterPreference(filter, R.string.p_badge_list);
+    }
+
+    public void setDashclockFilter(Filter filter) {
+        setFilterPreference(filter, R.string.p_dashclock_filter);
+    }
+
+    private void setFilterPreference(Filter filter, int prefId) {
         String filterPreferenceValue = getFilterPreferenceValue(filter);
         if (!Strings.isNullOrEmpty(filterPreferenceValue)) {
-            preferences.setString(R.string.p_badge_list, filterPreferenceValue);
+            preferences.setString(prefId, filterPreferenceValue);
         }
     }
 
