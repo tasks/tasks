@@ -129,6 +129,9 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
                 case ITEM:
                     convertView = inflater.inflate(R.layout.filter_adapter_row, parent, false);
                     viewHolder.name = convertView.findViewById(R.id.name);
+                    if (navigationDrawer) {
+                        viewHolder.name.setCheckMarkDrawable(null);
+                    }
                     viewHolder.icon = convertView.findViewById(R.id.icon);
                     viewHolder.size = convertView.findViewById(R.id.size);
                     if (preLollipop()) {
