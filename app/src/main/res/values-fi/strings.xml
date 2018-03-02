@@ -37,13 +37,13 @@
 	<string name="TAd_hiddenFormat">%s (piilotettu)</string>
 	<string name="TAd_completed">Lopetettu\n%s</string>
 	<string name="TAd_actionEditTask">Muokkaa</string>
-	<string name="SSD_sort_drag">Manuaalinen järjestys alitehtäviin</string>
-	<string name="SSD_sort_auto">Älykäs sorttaus</string>
+	<string name="SSD_sort_drag">Manuaalinen järjestys osatehtäviin</string>
+	<string name="SSD_sort_auto">Älykäs järjestely</string>
 	<string name="SSD_sort_alpha">Otsikoittain</string>
 	<string name="SSD_sort_due">Eräpäivään mennessä</string>
 	<string name="SSD_sort_importance">Prioriteetin mukaan</string>
 	<string name="SSD_sort_modified">Viimeisen muutoksen mukaan</string>
-	<string name="FLA_search_filter">Sopivuus \'%s\'</string>
+	<string name="FLA_search_filter">Täsmää \'%s\'</string>
 	<string name="FLA_new_filter">Luo uusi suodatin</string>
 	<string name="TEA_title_hint">Tehtävän nimi</string>
 	<string name="TEA_importance_label">Tärkeys</string>
@@ -55,7 +55,7 @@
 	<string name="TEA_elapsedDuration_label">Aika on jo käytetty</string>
 	<string name="save">Tallenna</string>
 	<string name="TEA_timer_est">Arvio %s</string>
-	<string name="TEA_timer_elap">Edennyt %s</string>
+	<string name="TEA_timer_elap">Kulunut %s</string>
 	<string name="TEA_no_time">Ei aikaa</string>
 	<string name="due_date">Määräpäivä</string>
 	<string name="due_time">Määräaika</string>
@@ -70,7 +70,7 @@
 	<string name="TEA_control_google_task_list">Google Tehtävä Lista</string>
 	<string name="TEA_control_reminders">Muistutukset</string>
 	<string name="TEA_control_timer">Ajastuksen säätimet</string>
-	<string name="TEA_control_hidden_section">Piilota aina</string>
+	<string name="TEA_control_hidden_section">----Piilota aina----</string>
 	<string name="TEA_load_more">Lataa lisää...</string>
 	<string name="missed_call">Vastaamaton puhelu: %s</string>
 	<string name="MCA_return_call">Soita heti</string>
@@ -84,7 +84,7 @@
 	<string name="CRA_ignore_body">Olet ohittanut useita kalenteritapahtumia. Lopettaako Tasks niistä kyselemisen?</string>
 	<string name="CRA_ignore_all">Ohita kaikki tapahtumat</string>
 	<string name="CRA_ignore_this">Ohita vain tämä tapahtuma</string>
-	<string name="CRA_speech_bubble_start">Näyttää että %s alkaa pian. Haluatko luoda tehtävälistan?</string>
+	<string name="CRA_speech_bubble_start">%s näyttää alkavan pian. Haluatko luoda luettelon toimenpiteistä?</string>
 	<string name="CRA_speech_bubble_end">Näyttää että %s on päättynyt. Haluatko luoda tehtävälistan?</string>
 	<string name="CRA_postpone">Ehkä myöhemmin</string>
 	<string name="CRA_calendar_reminders_pref_title">Kalenteriavustin</string>
@@ -105,10 +105,10 @@
 	<string name="EPr_manage_purge_deleted">Tyjennä poistetut tehtävät</string>
 	<string name="EPr_manage_purge_deleted_message">Haluatko todella tyhjentää kaikki poistetut tehtävät?\n\n Nämä tehtävät häviävät lopullisesti!</string>
 	<string name="EPr_manage_purge_deleted_status">Tyhjennettu %d tehtävää!</string>
-	<string name="EPr_reset_preferences">Nollaa valinnat</string>
+	<string name="EPr_reset_preferences">Nollaa asetukset</string>
 	<string name="EPr_reset_preferences_warning">Asetukset palautetaan oletusarvoihin</string>
 	<string name="EPr_delete_task_data">Poista tehtävän tiedot</string>
-	<string name="EPr_delete_task_data_warning">Kaikki tehtävät poistetaan lopullisesti</string>
+	<string name="EPr_delete_task_data_warning">Kaikki tehtävät poistetaan pysyvästi</string>
 	<string name="EPr_manage_delete_completed_gcal">Poista valmiiden tehtävien kalenteritapahtumat</string>
 	<string name="EPr_manage_delete_completed_gcal_message">Haluatko todella poistaa kaikki tapahtumat valmiista tehtävistä?</string>
 	<string name="EPr_manage_delete_completed_gcal_status">Poistettu %d kanteritapahtumaa!</string>
@@ -139,8 +139,8 @@
 	<string name="CFA_type_intersect">myös</string>
 	<string name="CFA_context_chain">%s on perusteet</string>
 	<string name="CFA_context_delete">Poista rivi</string>
-	<string name="CFA_help">Pitkä painallus kohdessa lisävaihtoehtoja</string>
-	<string name="CFA_button_add">Lisää perusteet</string>
+	<string name="CFA_help">Pitkä painallus lisäoptioita varten</string>
+	<string name="CFA_button_add">Lisää kriteeri</string>
 	<string name="CFC_dueBefore_text">Mennessä: ?</string>
 	<string name="CFC_dueBefore_name">Mennessä...</string>
 	<string name="no_due_date">Ei määräpäivää</string>
@@ -153,8 +153,8 @@
 	<string name="CFC_tag_contains_text">Tunnisteen nimi sisältää: ?</string>
 	<string name="CFC_title_contains_name">Otsikko sisältää..</string>
 	<string name="CFC_title_contains_text">Otsikko sisältää: ?</string>
-	<string name="gcal_TEA_error">Virhe lisättäessä tapahtumaa kalenteriin!</string>
-	<string name="gcal_TEA_showCalendar_label">Avaa tapahtumakalenteri</string>
+	<string name="gcal_TEA_error">Virhe! Lisättäessä tehtävää kalenteriin</string>
+	<string name="gcal_TEA_showCalendar_label">Avaa kalenteritapahtuma</string>
 	<string name="delete_calendar_event_confirmation">Poista kalenteritapahtuma</string>
 	<string name="calendar_event_not_found">Kalenteritapahtumaa ei löydy</string>
 	<string name="gcal_completed_title">%s (valmistunut)</string>
@@ -219,16 +219,24 @@
 		<item quantity="other">ajat</item>
 	</plurals>
 	<plurals name="repeat_minutes">
-		<item quantity="one">Minuutit</item>
+		<item quantity="one">minuutti</item>
 		<item quantity="other">minuuttia</item>
 	</plurals>
 	<plurals name="repeat_n_minutes">
 		<item quantity="one">%d minuutti</item>
 		<item quantity="other">%d minuuttia</item>
 	</plurals>
+	<plurals name="repeat_hours">
+		<item quantity="one">tunti</item>
+		<item quantity="other">tuntia</item>
+	</plurals>
 	<plurals name="repeat_n_hours">
 		<item quantity="one">%d tunti</item>
 		<item quantity="other">%d tuntia</item>
+	</plurals>
+	<plurals name="repeat_days">
+		<item quantity="one">päivä</item>
+		<item quantity="other">päivää</item>
 	</plurals>
 	<plurals name="repeat_n_days">
 		<item quantity="one">%d päivä</item>
@@ -270,6 +278,7 @@
 	<string name="tag_FEx_untagged">Määrittelemätön</string>
 	<string name="delete_tag_confirmation">Poista %s?</string>
 	<string name="TPl_notification">Ajastus aktiivinen %s</string>
+	<string name="TFE_workingOn">Tehtävät ajoitettu</string>
 	<string name="TEA_timer_controls">Ajastin</string>
 	<string name="TEA_timer_comment_started">tehtävä aloitettu:</string>
 	<string name="TEA_timer_comment_stopped">tehtävä lopetettu:</string>
@@ -333,10 +342,10 @@
 	<string name="pick_a_location">Valitse sijainti</string>
 	<string name="when_overdue">Kunnes yliajalla</string>
 	<string name="when_due">Milloin määräaika</string>
-	<string name="geofence_radius_title">Toimintasäde (metriä)</string>
+	<string name="geofence_radius_title">Säde (metriä)</string>
 	<string name="geofence_responsiveness_title">Vasteaika (korkeampi arvo kuluttaa enemmän akkua)</string>
 	<string name="geolocation_reminders">Paikannuksen muistutukset</string>
-	<string name="tags">Tunniste</string>
+	<string name="tags">Tunnisteet</string>
 	<string name="filters">Suodattimet</string>
 	<string name="date_shortcut_hour">Tunnin verran</string>
 	<string name="date_shortcut_morning">Aamu</string>
@@ -352,12 +361,13 @@
 	<string name="tag_settings">Tunnistimien asetukset</string>
 	<string name="list_settings">Listan asetukset</string>
 	<string name="delete">Poista</string>
+	<string name="copy">Kopio</string>
 	<string name="filter_settings">Suodatus asetukset</string>
 	<string name="show_hidden">Näytä piilotetut</string>
 	<string name="show_completed">Näytä valmiit</string>
 	<string name="reverse">Käänteinen</string>
 	<string name="get_plugins">Sovelluksen sisäiset ostot</string>
-	<string name="no_application_found">Liitteen avaamiseksi ei löytdy sovellusta</string>
+	<string name="no_application_found">Liitteen avaamiseksi ei löydy sovellusta</string>
 	<string name="add_attachment">Lisää liite</string>
 	<string name="take_a_picture">Ota kuva</string>
 	<string name="pick_from_gallery">Valitse galleriasta</string>
@@ -414,7 +424,7 @@
 	<string name="master_sync_warning">Android on estänyt automaattisen synkronoinnin</string>
 	<string name="settings_general">Yleinen</string>
 	<string name="language">Kieli</string>
-	<string name="restart_required">Tasks on käynnistettävä uudelleen muutoksen tallentamiseksi</string>
+	<string name="restart_required">Tasks on uudelleen käynnistettävä muutoksien käyttöönottamiseksi</string>
 	<string name="restart_now">Käynnistä uudelleen nyt</string>
 	<string name="restart_later">Myöhemmin</string>
 	<string name="settings_localization">Paikallistaminen</string>
@@ -434,8 +444,15 @@
 	<string name="clear_completed_tasks_confirmation">Siivoa valmiit tehtävät?</string>
 	<string name="copy_multiple_tasks_confirmation">%s kopioitu</string>
 	<string name="delete_multiple_tasks_confirmation">%s poistettu</string>
-	<string name="battery_optimization_settings">Hallinnoi paristojen optimointia</string>
-	<string name="notification_disable_battery_optimizations_description">Pattereiden optimointi voi viivästyttää ilmoituksia</string>
+	<string name="delete_selected_tasks">Poistetaanko valitut tehtävät?</string>
+	<string name="copy_selected_tasks">Kopioi valitut tehtävät?</string>
+	<string name="date_and_time">Päivä ja aika</string>
+	<string name="start_of_week">Viikon alku</string>
+	<string name="use_locale_default">Käytä paikallista oletusta</string>
+	<string name="use_native_datetime_pickers">Käytä kotimaisia päivämäärä- ja aikapoimijoita</string>
+	<string name="notification_channel_settings">Hallinnoi ilmoituksia</string>
+	<string name="battery_optimization_settings">Hallinnoi akun optimointia</string>
+	<string name="notification_disable_battery_optimizations_description">Akun optimointi voi viivästyttää ilmoituksia</string>
 	<string name="bundle_notifications">Niputa ilmoitukset</string>
 	<string name="badges">Merkit</string>
 	<string name="list">Lista</string>
@@ -462,4 +479,15 @@
 	<string name="default_calendar">Oletus kalenteri</string>
 	<string name="badges_description">Näytä tehtävien lukumäärä tehtävien käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>
 	<string name="bundle_notifications_summary">Yhdistä useita ilmoituksia yhteen ilmoitukseen</string>
+	<string name="repeat_monthly_same_day_each_month">sama päivä joka kuukausi</string>
+	<string name="repeat_monthly_every_day_of_nth_week">joka %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">jokaisella %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">ensimmäinen</string>
+	<string name="repeat_monthly_second_week">toinen</string>
+	<string name="repeat_monthly_third_week">kolmas</string>
+	<string name="repeat_monthly_fourth_week">neljäs</string>
+	<string name="repeat_monthly_last_week">viimeinen</string>
+	<string name="tasker_create_task">Luo tehtävä</string>
+	<string name="tasker_list_notification">Ilmoituslista</string>
+	<string name="help">Apua</string>
 </resources>
