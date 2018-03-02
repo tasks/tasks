@@ -21,7 +21,7 @@ import org.tasks.preferences.Preferences;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
-import org.tasks.ui.GoogleTaskListFragment;
+import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -61,7 +61,7 @@ public class TaskEditControlSetFragmentManager {
             TagsControlSet.TAG,
             RepeatControlSet.TAG,
             CommentBarFragment.TAG,
-            GoogleTaskListFragment.TAG
+            RemoteListFragment.TAG
     };
 
     static {
@@ -150,9 +150,9 @@ public class TaskEditControlSetFragmentManager {
                 return new RepeatControlSet();
             case CommentBarFragment.TAG:
                 return new CommentBarFragment();
-            case GoogleTaskListFragment.TAG:
+            case RemoteListFragment.TAG:
                 return syncAdapterHelper.isEnabled()
-                        ? new GoogleTaskListFragment()
+                        ? new RemoteListFragment()
                         : null;
             default:
                 throw new RuntimeException("Unsupported fragment");

@@ -107,4 +107,8 @@ public class GtasksFilter extends Filter {
     public GoogleTaskList getList() {
         return list;
     }
+
+    public String getRemoteId() {
+        return list.getRemoteId();
+    }
 }

@@ -5,24 +5,24 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import com.todoroo.astrid.adapter.FilterAdapter;
+import com.todoroo.astrid.api.Filter;
 
-import org.tasks.data.GoogleTaskList;
 import org.tasks.dialogs.DialogBuilder;
-import org.tasks.gtasks.GoogleTaskListSelectionHandler;
+import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
 
 import javax.inject.Inject;
 
-import static org.tasks.activities.SupportGoogleTaskListPicker.createDialog;
+import static org.tasks.activities.RemoteListSupportPicker.createDialog;
 
-public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
+public class RemoteListNativePicker extends InjectingNativeDialogFragment {
 
-    public static NativeGoogleTaskListPicker newNativeGoogleTaskListPicker(GoogleTaskList defaultList) {
-        NativeGoogleTaskListPicker dialog = new NativeGoogleTaskListPicker();
+    public static RemoteListNativePicker newRemoteListNativePicker(Filter selected) {
+        RemoteListNativePicker dialog = new RemoteListNativePicker();
         Bundle arguments = new Bundle();
-        if (defaultList != null) {
-            arguments.putParcelable(EXTRA_SELECTED, defaultList);
+        if (selected != null) {
+            arguments.putParcelable(EXTRA_SELECTED, selected);
         }
         dialog.setArguments(arguments);
         return dialog;
@@ -33,12 +33,12 @@ public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject FilterAdapter filterAdapter;
 
-    private GoogleTaskListSelectionHandler handler;
+    private RemoteListSelectionHandler handler;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle arguments = getArguments();
-        GoogleTaskList selected = arguments.getParcelable(EXTRA_SELECTED);
+        Filter selected = arguments.getParcelable(EXTRA_SELECTED);
         return createDialog(filterAdapter, dialogBuilder, selected, list -> handler.selectedList(list));
     }
 
@@ -46,7 +46,7 @@ public class NativeGoogleTaskListPicker extends InjectingNativeDialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        handler = (GoogleTaskListSelectionHandler) activity;
+        handler = (RemoteListSelectionHandler) activity;
     }
 
     @Override

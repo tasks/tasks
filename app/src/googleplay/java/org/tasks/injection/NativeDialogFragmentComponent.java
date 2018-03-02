@@ -1,6 +1,6 @@
 package org.tasks.injection;
 
-import org.tasks.activities.NativeGoogleTaskListPicker;
+import org.tasks.activities.RemoteListNativePicker;
 import org.tasks.dialogs.DonationDialog;
 import org.tasks.dialogs.ExportTasksDialog;
 import org.tasks.dialogs.ImportTasksDialog;
@@ -13,7 +13,7 @@ import dagger.Subcomponent;
 
 @Subcomponent(modules = NativeDialogFragmentModule.class)
 public interface NativeDialogFragmentComponent {
-    void inject(NativeGoogleTaskListPicker nativeGoogleTaskListPicker);
+    void inject(RemoteListNativePicker remoteListNativePicker);
 
     void inject(LocalePickerDialog localePickerDialog);
 

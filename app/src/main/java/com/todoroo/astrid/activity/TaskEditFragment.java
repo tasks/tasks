@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
@@ -34,7 +35,6 @@ import com.todoroo.astrid.utility.Flags;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.data.GoogleTaskList;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.dialogs.DialogBuilder;
@@ -44,7 +44,7 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.GoogleTaskListFragment;
+import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.TaskEditControlFragment;
 
@@ -227,8 +227,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         return getFragment(EditTitleControlSet.TAG);
     }
 
-    private GoogleTaskListFragment getGoogleTaskListFragment() {
-        return getFragment(GoogleTaskListFragment.TAG);
+    private RemoteListFragment getRemoteListFragment() {
+        return getFragment(RemoteListFragment.TAG);
     }
 
     private RepeatControlSet getRepeatControlSet() {
@@ -307,8 +307,8 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
         getEditTitleControlSet().repeatChanged(repeat);
     }
 
-    public void onGoogleTaskListChanged(GoogleTaskList list) {
-        getGoogleTaskListFragment().setList(list);
+    public void onRemoteListChanged(Filter list) {
+        getRemoteListFragment().setList(list);
     }
 
     public void onDueDateChanged(long dueDate) {

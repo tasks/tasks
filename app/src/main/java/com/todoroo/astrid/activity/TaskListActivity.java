@@ -43,7 +43,7 @@ import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
-import org.tasks.gtasks.GoogleTaskListSelectionHandler;
+import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
@@ -83,7 +83,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
         TaskEditFragment.TaskEditFragmentCallbackHandler,
         CommentBarFragment.CommentBarFragmentCallback,
         SortDialog.SortDialogCallback,
-        GoogleTaskListSelectionHandler {
+        RemoteListSelectionHandler {
 
     @Inject Preferences preferences;
     @Inject SubtasksHelper subtasksHelper;
@@ -480,8 +480,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     }
 
     @Override
-    public void selectedList(GoogleTaskList list) {
-        getTaskEditFragment().onGoogleTaskListChanged(list);
+    public void selectedList(Filter list) {
+        getTaskEditFragment().onRemoteListChanged(list);
     }
 
     @Override

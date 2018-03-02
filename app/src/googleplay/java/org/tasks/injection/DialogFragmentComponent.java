@@ -1,7 +1,7 @@
 package org.tasks.injection;
 
 import org.tasks.activities.CalendarSelectionDialog;
-import org.tasks.activities.SupportGoogleTaskListPicker;
+import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.RecordAudioDialog;
@@ -19,7 +19,7 @@ import dagger.Subcomponent;
 @Subcomponent(modules = DialogFragmentModule.class)
 public interface DialogFragmentComponent {
 
-    void inject(SupportGoogleTaskListPicker supportGoogleTaskListPicker);
+    void inject(RemoteListSupportPicker remoteListSupportPicker);
 
     void inject(NotificationDialog notificationDialog);
 

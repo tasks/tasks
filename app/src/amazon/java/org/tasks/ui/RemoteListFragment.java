@@ -1,12 +1,12 @@
 package org.tasks.ui;
 
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.Task;
 
 import org.tasks.R;
-import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 
-public class GoogleTaskListFragment extends TaskEditControlFragment {
+public class RemoteListFragment extends TaskEditControlFragment {
     public static final int TAG = R.string.TEA_ctrl_google_task_list;
 
     @Override
@@ -34,7 +34,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     }
 
-    public void setList(GoogleTaskList list) {
+    public void setList(Filter filter) {
 
     }
 }

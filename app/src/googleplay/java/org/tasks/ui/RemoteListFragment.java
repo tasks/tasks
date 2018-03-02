@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
@@ -17,7 +19,6 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 
 import javax.inject.Inject;
@@ -26,9 +27,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.todoroo.andlib.utility.DateUtilities.now;
-import static org.tasks.activities.SupportGoogleTaskListPicker.newSupportGoogleTaskListPicker;
+import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
 
-public class GoogleTaskListFragment extends TaskEditControlFragment {
+public class RemoteListFragment extends TaskEditControlFragment {
 
     private static final String FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection";
     private static final String EXTRA_ORIGINAL_LIST = "extra_original_list";
@@ -43,8 +44,8 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
     @Inject GoogleTaskDao googleTaskDao;
     @Inject Tracker tracker;
 
-    @Nullable private GoogleTaskList originalList;
-    @Nullable private GoogleTaskList selectedList;
+    @Nullable private Filter originalList;
+    @Nullable private Filter selectedList;
 
     @Nullable
     @Override
@@ -55,15 +56,15 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
             selectedList = savedInstanceState.getParcelable(EXTRA_SELECTED_LIST);
         } else {
             if (task.isNew()) {
-                originalList = gtasksListService.getList(task.getTransitory(GoogleTask.KEY));
+                originalList = new GtasksFilter(gtasksListService.getList(task.getTransitory(GoogleTask.KEY)));
             } else {
                 GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
                 if (googleTask != null) {
-                    originalList = gtasksListService.getList(googleTask.getListId());
+                    originalList = new GtasksFilter(gtasksListService.getList(googleTask.getListId()));
                 }
             }
             if (originalList == null) {
-                originalList = gtasksListService.getList(gtasksPreferenceService.getDefaultList());
+                originalList = new GtasksFilter(gtasksListService.getList(gtasksPreferenceService.getDefaultList()));
             }
             selectedList = originalList;
         }
@@ -101,7 +102,7 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
     @OnClick(R.id.google_task_list)
     void clickGoogleTaskList(View view) {
-        newSupportGoogleTaskListPicker(selectedList)
+        newRemoteListSupportPicker(selectedList)
                 .show(getChildFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
     }
 
@@ -113,13 +114,13 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
 
         GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
         if (googleTask == null) {
-            googleTaskDao.insert(new GoogleTask(task.getId(), selectedList.getRemoteId()));
-        } else if (!googleTask.getListId().equals(selectedList.getRemoteId())) {
+            googleTaskDao.insert(new GoogleTask(task.getId(), ((GtasksFilter) selectedList).getRemoteId()));
+        } else if (!googleTask.getListId().equals(((GtasksFilter) selectedList).getRemoteId())) {
             tracker.reportEvent(Tracking.Events.GTASK_MOVE);
             task.putTransitory(SyncFlags.FORCE_SYNC, true);
             googleTask.setDeleted(now());
             googleTaskDao.update(googleTask);
-            googleTaskDao.insert(new GoogleTask(task.getId(), selectedList.getRemoteId()));
+            googleTaskDao.insert(new GoogleTask(task.getId(), ((GtasksFilter) selectedList).getRemoteId()));
         }
     }
 
@@ -133,14 +134,18 @@ public class GoogleTaskListFragment extends TaskEditControlFragment {
         component.inject(this);
     }
 
-    public void setList(GoogleTaskList list) {
-        this.selectedList = list;
+    public void setList(Filter list) {
+        if (list instanceof GtasksFilter) {
+            this.selectedList = list;
+        } else {
+            throw new RuntimeException("Unhandled filter type");
+        }
         refreshView();
     }
 
     private void refreshView() {
         if (selectedList != null) {
-            textView.setText(selectedList.getTitle());
+            textView.setText(selectedList.listingTitle);
         }
     }
 }
