@@ -17,6 +17,9 @@
         android:entryValues="@array/EPr_default_urgency_values"
         android:key="@string/p_default_urgency_key"
         android:title="@string/EPr_default_urgency_title" />
+    <Preference
+        android:key="@string/p_default_remote_list"
+        android:title="@string/default_sync" />
     <com.todoroo.astrid.ui.MultilineListPreference
         android:defaultValue="0"
         android:entries="@array/EPr_default_hideUntil"

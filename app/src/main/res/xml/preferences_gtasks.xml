@@ -13,11 +13,6 @@
             android:key="@string/sync_gtasks"
             android:title="@string/enabled" />
 
-        <Preference
-            android:dependency="@string/sync_gtasks"
-            android:key="@string/p_gtasks_default_list"
-            android:title="@string/default_list" />
-
         <CheckBoxPreference
             android:defaultValue="true"
             android:dependency="@string/sync_gtasks"

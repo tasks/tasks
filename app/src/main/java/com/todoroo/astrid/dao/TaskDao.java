@@ -96,8 +96,7 @@ public abstract class TaskDao {
     @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks " +
             "LEFT JOIN google_tasks ON tasks._id = google_tasks.task " +
             "WHERE tasks.modified > google_tasks.last_sync " +
-            "OR google_tasks.remote_id = '' " +
-            "OR google_tasks.remote_id IS NULL")
+            "OR google_tasks.remote_id = ''")
     public abstract List<Task> getTasksToPush();
 
     @android.arch.persistence.room.Query("SELECT * FROM TASKS " +

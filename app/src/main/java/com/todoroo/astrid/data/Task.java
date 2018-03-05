@@ -949,6 +949,10 @@ public class Task implements Parcelable {
         return tags == null ? new ArrayList<>() : (ArrayList<String>) tags;
     }
 
+    public boolean hasTransitory(String key) {
+        return transitoryData != null && transitoryData.containsKey(key);
+    }
+
     public <T> T getTransitory(String key) {
         if(transitoryData == null) {
             return null;

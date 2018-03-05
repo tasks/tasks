@@ -32,6 +32,8 @@ import com.google.api.services.tasks.model.TaskLists;
 import com.google.api.services.tasks.model.Tasks;
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
@@ -56,6 +58,7 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.InjectingAbstractThreadedSyncAdapter;
 import org.tasks.injection.SyncAdapterComponent;
 import org.tasks.notifications.NotificationManager;
+import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.RecordSyncStatusCallback;
 import org.tasks.time.DateTime;
@@ -96,6 +99,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     @Inject NotificationManager notificationManager;
     @Inject GoogleTaskDao googleTaskDao;
     @Inject TaskCreator taskCreator;
+    @Inject DefaultFilterProvider defaultFilterProvider;
 
     public GoogleTaskSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -174,8 +178,12 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
             nextPageToken = remoteLists.getNextPageToken();
         } while (nextPageToken != null);
         gtasksListService.updateLists(gtaskLists);
-        if (gtasksListService.getList(gtasksPreferenceService.getDefaultList()) == null) {
-            gtasksPreferenceService.setDefaultList(null);
+        Filter defaultRemoteList = defaultFilterProvider.getDefaultRemoteList();
+        if (defaultRemoteList instanceof GtasksFilter) {
+            GoogleTaskList list = gtasksListService.getList(((GtasksFilter) defaultRemoteList).getRemoteId());
+            if (list == null) {
+                preferences.setString(R.string.p_default_remote_list, null);
+            }
         }
         for (final GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
             fetchAndApplyRemoteChanges(list);
@@ -205,25 +213,21 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
         }
 
         GoogleTask gtasksMetadata = googleTaskDao.getByTaskId(task.getId());
+
+        if (gtasksMetadata == null) {
+            return;
+        }
+
         com.google.api.services.tasks.model.Task remoteModel;
         boolean newlyCreated = false;
 
         String remoteId;
-        String listId = gtasksPreferenceService.getDefaultList();
-        if (listId == null) {
-            com.google.api.services.tasks.model.TaskList defaultList = invoker.getGtaskList(DEFAULT_LIST);
-            if (defaultList != null) {
-                listId = defaultList.getId();
-                gtasksPreferenceService.setDefaultList(listId);
-            } else {
-                listId = DEFAULT_LIST;
-            }
-        }
+        Filter defaultRemoteList = defaultFilterProvider.getDefaultRemoteList();
+        String listId = defaultRemoteList instanceof GtasksFilter
+                ? ((GtasksFilter) defaultRemoteList).getRemoteId()
+                : DEFAULT_LIST;
 
-        if (gtasksMetadata == null || Strings.isNullOrEmpty(gtasksMetadata.getRemoteId())) { //Create case
-            if (gtasksMetadata == null) {
-                gtasksMetadata = new GoogleTask(task.getId(), listId);
-            }
+        if (Strings.isNullOrEmpty(gtasksMetadata.getRemoteId())) { //Create case
             String selectedList = gtasksMetadata.getListId();
             if (!Strings.isNullOrEmpty(selectedList)) {
                 listId = selectedList;

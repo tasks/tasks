@@ -21,4 +21,8 @@ public class GtasksListService {
     public GoogleTaskList getList(long storeId) {
         return null;
     }
+
+    public GoogleTaskList getList(String remoteId) {
+        return null;
+    }
 }

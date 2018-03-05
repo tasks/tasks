@@ -9,10 +9,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.tags.TagService;
 
@@ -23,11 +25,14 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.BackgroundScheduler;
 
@@ -43,6 +48,7 @@ public class StartupService {
     private static final int V4_8_0 = 380;
     private static final int V4_9_5 = 434;
     private static final int V5_3_0 = 491;
+    private static final int V5_3_1 = 501;
 
     private final Database database;
     private final Preferences preferences;
@@ -53,12 +59,16 @@ public class StartupService {
     private final Context context;
     private final TagDao tagDao;
     private final FilterDao filterDao;
+    private final DefaultFilterProvider defaultFilterProvider;
+    private final GoogleTaskListDao googleTaskListDao;
 
     @Inject
     public StartupService(Database database, Preferences preferences, Tracker tracker,
                           TagDataDao tagDataDao, TagService tagService,
                           LocalBroadcastManager localBroadcastManager,
-                          @ForApplication Context context, TagDao tagDao, FilterDao filterDao) {
+                          @ForApplication Context context, TagDao tagDao,
+                          FilterDao filterDao, DefaultFilterProvider defaultFilterProvider,
+                          GoogleTaskListDao googleTaskListDao) {
         this.database = database;
         this.preferences = preferences;
         this.tracker = tracker;
@@ -68,6 +78,8 @@ public class StartupService {
         this.context = context;
         this.tagDao = tagDao;
         this.filterDao = filterDao;
+        this.defaultFilterProvider = defaultFilterProvider;
+        this.googleTaskListDao = googleTaskListDao;
     }
 
     /** Called when this application is started up */
@@ -105,6 +117,9 @@ public class StartupService {
                 }
                 if (from < V5_3_0) {
                     migrateFilters();
+                }
+                if (from < V5_3_1) {
+                    migrateDefaultSyncList();
                 }
                 tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
             }
@@ -146,6 +161,16 @@ public class StartupService {
             filter.setSql(migrate(filter.getSql()));
             filter.setCriterion(migrate(filter.getCriterion()));
             filterDao.update(filter);
+        }
+    }
+
+    private void migrateDefaultSyncList() {
+        String defaultGoogleTaskList = preferences.getStringValue("gtasks_defaultlist");
+        if (!Strings.isNullOrEmpty(defaultGoogleTaskList)) {
+            GoogleTaskList googleTaskList = googleTaskListDao.getByRemoteId(defaultGoogleTaskList);
+            if (googleTaskList != null) {
+                defaultFilterProvider.setDefaultRemoteList(new GtasksFilter(googleTaskList));
+            }
         }
     }
 

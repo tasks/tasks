@@ -260,9 +260,15 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     public void populateRemoteListPicker() {
         clear();
 
-        for (Filter filter : filterProvider.getGoogleTaskFilters()) {
-            add(filter);
+        Filter item = new Filter(activity.getString(R.string.dont_sync), null);
+        item.icon = R.drawable.ic_cloud_off_black_24dp;
+        add(item);
+
+        String title = preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
+        if (Strings.isNullOrEmpty(title)) {
+            title = activity.getResources().getString(R.string.gtasks_GPr_header);
         }
+        addSubMenu(title, filterProvider.getGoogleTaskFilters(), true);
 
         notifyDataSetChanged();
     }

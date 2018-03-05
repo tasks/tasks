@@ -6,6 +6,8 @@ import android.text.TextUtils;
 
 import com.google.common.base.Strings;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -23,6 +25,7 @@ import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class TaskCreator {
     private final TagDao tagDao;
     private final GoogleTaskDao googleTaskDao;
     private final Tracker tracker;
+    private final DefaultFilterProvider defaultFilterProvider;
     private final TagDataDao tagDataDao;
     private final TaskDao taskDao;
     private final TagService tagService;
@@ -48,7 +52,7 @@ public class TaskCreator {
     @Inject
     public TaskCreator(GCalHelper gcalHelper, Preferences preferences, TagDataDao tagDataDao,
                        TaskDao taskDao, TagService tagService, TagDao tagDao,
-                       GoogleTaskDao googleTaskDao, Tracker tracker) {
+                       GoogleTaskDao googleTaskDao, Tracker tracker, DefaultFilterProvider defaultFilterProvider) {
         this.gcalHelper = gcalHelper;
         this.preferences = preferences;
         this.tagDataDao = tagDataDao;
@@ -57,6 +61,7 @@ public class TaskCreator {
         this.tagDao = tagDao;
         this.googleTaskDao = googleTaskDao;
         this.tracker = tracker;
+        this.defaultFilterProvider = defaultFilterProvider;
     }
 
     public Task basicQuickAddTask(String title) {
@@ -73,9 +78,13 @@ public class TaskCreator {
 
         createTags(task);
 
-        String googleTaskList = task.getTransitory(GoogleTask.KEY);
-        if (!Strings.isNullOrEmpty(googleTaskList)) {
-            googleTaskDao.insert(new GoogleTask(task.getId(), googleTaskList));
+        if (task.hasTransitory(GoogleTask.KEY)) {
+            googleTaskDao.insert(new GoogleTask(task.getId(), task.getTransitory(GoogleTask.KEY)));
+        } else {
+            Filter remoteList = defaultFilterProvider.getDefaultRemoteList();
+            if (remoteList != null && remoteList instanceof GtasksFilter) {
+                googleTaskDao.insert(new GoogleTask(task.getId(), ((GtasksFilter) remoteList).getRemoteId()));
+            }
         }
 
         taskDao.save(task, null);

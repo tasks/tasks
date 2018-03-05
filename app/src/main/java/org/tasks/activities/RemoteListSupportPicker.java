@@ -55,12 +55,16 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
     public static AlertDialog createDialog(FilterAdapter filterAdapter, DialogBuilder dialogBuilder,
                                            Filter selected, RemoteListSelectionHandler handler) {
         filterAdapter.populateRemoteListPicker();
-        int selectedIndex = filterAdapter.indexOf(selected);
+        int selectedIndex = selected == null ? 0 : filterAdapter.indexOf(selected);
         return dialogBuilder.newDialog()
                 .setSingleChoiceItems(filterAdapter, selectedIndex, (dialog, which) -> {
-                    FilterListItem item = filterAdapter.getItem(which);
-                    if (item instanceof GtasksFilter) {
-                        handler.selectedList((GtasksFilter) item);
+                    if (which == 0) {
+                        handler.selectedList(null);
+                    } else {
+                        FilterListItem item = filterAdapter.getItem(which);
+                        if (item instanceof GtasksFilter) {
+                            handler.selectedList((GtasksFilter) item);
+                        }
                     }
                     dialog.dismiss();
                 })

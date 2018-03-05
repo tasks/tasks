@@ -7,7 +7,7 @@ public class Tracking {
     public enum Events {
         SET_DEFAULT_LIST(R.string.tracking_category_preferences, R.string.p_default_list),
         SET_BADGE_LIST(R.string.tracking_category_preferences, R.string.p_badge_list),
-        GTASK_DEFAULT_LIST(R.string.tracking_category_preferences, R.string.p_gtasks_default_list),
+        DEFAULT_REMOTE_LIST(R.string.tracking_category_preferences, R.string.p_default_remote_list),
         SET_THEME(R.string.tracking_category_preferences, R.string.p_theme),
         SET_COLOR(R.string.tracking_category_preferences, R.string.p_theme_color),
         SET_ACCENT(R.string.tracking_category_preferences, R.string.p_theme_accent),

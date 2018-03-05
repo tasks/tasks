@@ -8,22 +8,17 @@ package com.todoroo.astrid.gtasks;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
-import android.preference.Preference;
 import android.support.annotation.NonNull;
 
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.GoogleTaskList;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.PlayServicesAvailability;
-import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.gtasks.SyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -33,17 +28,13 @@ import org.tasks.preferences.PermissionRequestor;
 import javax.inject.Inject;
 
 import static org.tasks.PermissionUtil.verifyPermissions;
-import static org.tasks.activities.RemoteListNativePicker.newRemoteListNativePicker;
 
-public class GtasksPreferences extends InjectingPreferenceActivity implements RemoteListSelectionHandler {
-
-    private static final String FRAG_TAG_GOOGLE_TASK_LIST_SELECTION = "frag_tag_google_task_list_selection";
+public class GtasksPreferences extends InjectingPreferenceActivity {
 
     private static final int REQUEST_LOGIN = 0;
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject ActivityPermissionRequestor permissionRequestor;
-    @Inject GtasksListService gtasksListService;
     @Inject Tracker tracker;
     @Inject SyncAdapterHelper syncAdapterHelper;
     @Inject PlayServicesAvailability playServicesAvailability;
@@ -96,20 +87,6 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Re
                     .show();
             return true;
         });
-        Preference defaultListPreference = findPreference(R.string.p_gtasks_default_list);
-        defaultListPreference.setOnPreferenceClickListener(preference -> {
-            newRemoteListNativePicker(new GtasksFilter(getDefaultList()))
-                    .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
-            return false;
-        });
-        GoogleTaskList defaultList = getDefaultList();
-        if (defaultList != null) {
-            defaultListPreference.setSummary(defaultList.getTitle());
-        }
-    }
-
-    private GoogleTaskList getDefaultList() {
-        return gtasksListService.getList(gtasksPreferenceService.getDefaultList());
     }
 
     private void requestLogin() {
@@ -157,17 +134,5 @@ public class GtasksPreferences extends InjectingPreferenceActivity implements Re
     @Override
     public void inject(ActivityComponent component) {
         component.inject(this);
-    }
-
-    @Override
-    public void selectedList(Filter list) {
-        if (list instanceof GtasksFilter) {
-            tracker.reportEvent(Tracking.Events.GTASK_DEFAULT_LIST);
-            String listId = ((GtasksFilter) list).getRemoteId();
-            gtasksPreferenceService.setDefaultList(listId);
-        } else {
-            throw new RuntimeException("Unhandled filter type");
-        }
-        findPreference(R.string.p_gtasks_default_list).setSummary(list.listingTitle);
     }
 }

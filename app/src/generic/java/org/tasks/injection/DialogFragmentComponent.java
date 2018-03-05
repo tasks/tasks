@@ -1,6 +1,7 @@
 package org.tasks.injection;
 
 import org.tasks.activities.CalendarSelectionDialog;
+import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.RecordAudioDialog;
@@ -31,4 +32,6 @@ public interface DialogFragmentComponent {
     void inject(RecordAudioDialog recordAudioDialog);
 
     void inject(CustomRecurrenceDialog customRecurrenceDialog);
+
+    void inject(RemoteListSupportPicker remoteListSupportPicker);
 }

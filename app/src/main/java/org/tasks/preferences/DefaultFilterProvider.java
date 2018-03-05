@@ -74,11 +74,19 @@ public class DefaultFilterProvider {
         return getFilterFromPreference(R.string.p_default_list);
     }
 
+    public Filter getDefaultRemoteList() {
+        return getFilterFromPreference(preferences.getStringValue(R.string.p_default_remote_list), null);
+    }
+
     public Filter getFilterFromPreference(int resId) {
         return getFilterFromPreference(preferences.getStringValue(resId));
     }
 
     public Filter getFilterFromPreference(String preferenceValue) {
+        return getFilterFromPreference(preferenceValue, BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
+    }
+
+    private Filter getFilterFromPreference(String preferenceValue, Filter def) {
         if (!isNullOrEmpty(preferenceValue)) {
             try {
                 Filter filter = loadFilter(preferenceValue);
@@ -89,7 +97,7 @@ public class DefaultFilterProvider {
                 Timber.e(e, e.getMessage());
             }
         }
-        return BuiltInFilterExposer.getMyTasksFilter(context.getResources());
+        return def;
     }
 
     private Filter loadFilter(String preferenceValue) {
@@ -120,6 +128,10 @@ public class DefaultFilterProvider {
 
     public void setDashclockFilter(Filter filter) {
         setFilterPreference(filter, R.string.p_dashclock_filter);
+    }
+
+    public void setDefaultRemoteList(Filter filter) {
+        setFilterPreference(filter, R.string.p_default_remote_list);
     }
 
     private void setFilterPreference(Filter filter, int prefId) {
