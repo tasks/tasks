@@ -26,10 +26,6 @@
         <item name="android:textSize">@dimen/task_edit_text_size</item>
     </style>
 
-    <style name="TaskEditTextHint" parent="TaskEditTextPrimary">
-        <item name="android:textColor">?android:attr/textColorTertiary</item>
-    </style>
-
     <style name="WhiteToolbarTheme">
         <item name="dark_status_bar">false</item>
         <item name="overlay_theme">@style/WhiteToolbarOverlay</item>

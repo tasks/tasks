@@ -372,12 +372,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
     private void refreshDisplayView() {
         selectedTags = getSelectedTags();
-        CharSequence tagString = buildTagString();
-        if (TextUtils.isEmpty(tagString)) {
-            tagsDisplay.setText(R.string.tag_FEx_untagged);
-        } else {
-            tagsDisplay.setText(tagString);
-        }
+        tagsDisplay.setText(buildTagString());
     }
 
     private boolean synchronizeTags(long taskId, String taskUuid) {

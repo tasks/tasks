@@ -16,6 +16,7 @@
         android:layout_gravity="top"
         android:layout_weight="100"
         android:gravity="start"
+        android:hint="@string/dont_add_to_calendar"
         android:textAlignment="viewStart" />
 
     <include layout="@layout/control_set_clear_button" />

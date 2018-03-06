@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:textAlignment="viewStart"
-            android:text="@string/TEA_timer_controls" />
+            android:hint="@string/TEA_timer_controls" />
 
     </LinearLayout>
 

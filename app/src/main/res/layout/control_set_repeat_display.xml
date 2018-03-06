@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:gravity="start"
+        android:hint="@string/repeat_option_does_not_repeat"
         android:textAlignment="viewStart" />
 
     <LinearLayout
