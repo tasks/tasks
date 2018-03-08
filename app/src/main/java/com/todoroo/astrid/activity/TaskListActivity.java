@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -38,6 +39,9 @@ import org.tasks.R;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.caldav.CaldavListFragment;
+import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
@@ -97,6 +101,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject Tracker tracker;
     @Inject TaskCreator taskCreator;
     @Inject TaskDao taskDao;
+    @Inject CaldavDao caldavDao;
     @Inject LocalBroadcastManager localBroadcastManager;
 
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -329,6 +334,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
                 return preferences.getBoolean(R.string.p_manual_sort, false)
                         ? GtasksSubtaskListFragment.newGtasksSubtaskListFragment(gtasksFilter, list)
                         : GtasksListFragment.newGtasksListFragment(gtasksFilter, list);
+            }
+        } else if (filter instanceof CaldavFilter) {
+            CaldavFilter caldavFilter = (CaldavFilter) filter;
+            CaldavAccount account = caldavDao.getByUuid(caldavFilter.getUuid());
+            if (account != null) {
+                return CaldavListFragment.newCaldavListFragment(caldavFilter, account);
             }
         } else if (filter != null) {
             return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)

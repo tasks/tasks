@@ -13,6 +13,7 @@ import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 
+import org.tasks.caldav.CaldavListFragment;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.tasklist.GtasksListFragment;
 import org.tasks.tasklist.TagListFragment;
@@ -69,4 +70,6 @@ public interface FragmentComponent {
     void inject(RemoteListFragment remoteListFragment);
 
     void inject(GtasksListFragment gtasksListFragment);
+
+    void inject(CaldavListFragment caldavListFragment);
 }

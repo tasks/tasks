@@ -315,6 +315,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             }
         }
 
+        addSubMenu(R.string.CalDAV, filterProvider.getCalDAVFilters(), false);
+
         if (navigationDrawer) {
             add(new NavigationDrawerSeparator());
 
