@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.google.common.base.Strings;
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -16,6 +17,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.caldav.CalDAVFilterExposer;
 import org.tasks.injection.ForApplication;
 
 import javax.inject.Inject;
@@ -37,6 +39,7 @@ public class DefaultFilterProvider {
     private static final int TYPE_CUSTOM_FILTER = 1;
     private static final int TYPE_TAG = 2;
     private static final int TYPE_GOOGLE_TASKS = 3;
+    private static final int TYPE_CALDAV = 4;
 
     private static final int FILTER_MY_TASKS = 0;
     private static final int FILTER_TODAY = 1;
@@ -49,17 +52,20 @@ public class DefaultFilterProvider {
     private final CustomFilterExposer customFilterExposer;
     private final TagFilterExposer tagFilterExposer;
     private final GtasksFilterExposer gtasksFilterExposer;
+    private final CalDAVFilterExposer calDAVFilterExposer;
 
     @Inject
     public DefaultFilterProvider(@ForApplication Context context, Preferences preferences,
                                  Tracker tracker, CustomFilterExposer customFilterExposer,
-                                 TagFilterExposer tagFilterExposer, GtasksFilterExposer gtasksFilterExposer) {
+                                 TagFilterExposer tagFilterExposer, GtasksFilterExposer gtasksFilterExposer,
+                                 CalDAVFilterExposer calDAVFilterExposer) {
         this.context = context;
         this.preferences = preferences;
         this.tracker = tracker;
         this.customFilterExposer = customFilterExposer;
         this.tagFilterExposer = tagFilterExposer;
         this.gtasksFilterExposer = gtasksFilterExposer;
+        this.calDAVFilterExposer = calDAVFilterExposer;
     }
 
     public Filter getDashclockFilter() {
@@ -111,6 +117,8 @@ public class DefaultFilterProvider {
                 return tagFilterExposer.getFilterByUuid(split[1]);
             case TYPE_GOOGLE_TASKS:
                 return gtasksFilterExposer.getFilter(Long.parseLong(split[1]));
+            case TYPE_CALDAV:
+                return calDAVFilterExposer.getFilterByUuid(split[1]);
             default:
                 return null;
         }
@@ -152,6 +160,8 @@ public class DefaultFilterProvider {
                 return getFilterPreference(filterType, ((TagFilter) filter).getUuid());
             case TYPE_GOOGLE_TASKS:
                 return getFilterPreference(filterType, ((GtasksFilter) filter).getStoreId());
+            case TYPE_CALDAV:
+                return getFilterPreference(filterType, ((CaldavFilter) filter).getUuid());
         }
         return null;
     }
@@ -167,6 +177,8 @@ public class DefaultFilterProvider {
             return TYPE_GOOGLE_TASKS;
         } else if (filter instanceof CustomFilter) {
             return TYPE_CUSTOM_FILTER;
+        } else if (filter instanceof CaldavFilter) {
+            return TYPE_CALDAV;
         }
         return TYPE_FILTER;
     }

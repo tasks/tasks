@@ -7,7 +7,10 @@ import com.todoroo.astrid.gtasks.GtasksFilterExposer;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.timers.TimerFilterExposer;
 
+import org.tasks.caldav.CalDAVFilterExposer;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,17 +21,18 @@ public class FilterProvider {
     private final CustomFilterExposer customFilterExposer;
     private final TagFilterExposer tagFilterExposer;
     private final GtasksFilterExposer gtasksFilterExposer;
+    private final CalDAVFilterExposer calDAVFilterExposer;
 
     @Inject
     public FilterProvider(BuiltInFilterExposer builtInFilterExposer, TimerFilterExposer timerFilterExposer,
                           CustomFilterExposer customFilterExposer, TagFilterExposer tagFilterExposer,
-                          GtasksFilterExposer gtasksFilterExposer) {
-
+                          GtasksFilterExposer gtasksFilterExposer, CalDAVFilterExposer calDAVFilterExposer) {
         this.builtInFilterExposer = builtInFilterExposer;
         this.timerFilterExposer = timerFilterExposer;
         this.customFilterExposer = customFilterExposer;
         this.tagFilterExposer = tagFilterExposer;
         this.gtasksFilterExposer = gtasksFilterExposer;
+        this.calDAVFilterExposer = calDAVFilterExposer;
     }
 
     public Filter getMyTasksFilter() {
@@ -49,5 +53,9 @@ public class FilterProvider {
 
     public List<Filter> getGoogleTaskFilters() {
         return gtasksFilterExposer.getFilters();
+    }
+
+    public List<Filter> getCalDAVFilters() {
+        return calDAVFilterExposer.getFilters();
     }
 }

@@ -19,6 +19,8 @@ import com.todoroo.astrid.utility.TitleParser;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.Tag;
@@ -45,6 +47,7 @@ public class TaskCreator {
     private final GoogleTaskDao googleTaskDao;
     private final Tracker tracker;
     private final DefaultFilterProvider defaultFilterProvider;
+    private final CaldavDao caldavDao;
     private final TagDataDao tagDataDao;
     private final TaskDao taskDao;
     private final TagService tagService;
@@ -52,7 +55,8 @@ public class TaskCreator {
     @Inject
     public TaskCreator(GCalHelper gcalHelper, Preferences preferences, TagDataDao tagDataDao,
                        TaskDao taskDao, TagService tagService, TagDao tagDao,
-                       GoogleTaskDao googleTaskDao, Tracker tracker, DefaultFilterProvider defaultFilterProvider) {
+                       GoogleTaskDao googleTaskDao, Tracker tracker,
+                       DefaultFilterProvider defaultFilterProvider, CaldavDao caldavDao) {
         this.gcalHelper = gcalHelper;
         this.preferences = preferences;
         this.tagDataDao = tagDataDao;
@@ -62,6 +66,7 @@ public class TaskCreator {
         this.googleTaskDao = googleTaskDao;
         this.tracker = tracker;
         this.defaultFilterProvider = defaultFilterProvider;
+        this.caldavDao = caldavDao;
     }
 
     public Task basicQuickAddTask(String title) {
@@ -80,6 +85,8 @@ public class TaskCreator {
 
         if (task.hasTransitory(GoogleTask.KEY)) {
             googleTaskDao.insert(new GoogleTask(task.getId(), task.getTransitory(GoogleTask.KEY)));
+        } else if (task.hasTransitory(CaldavTask.KEY)) {
+            caldavDao.insert(new CaldavTask(task.getId(), task.getTransitory(CaldavTask.KEY)));
         } else {
             Filter remoteList = defaultFilterProvider.getDefaultRemoteList();
             if (remoteList != null && remoteList instanceof GtasksFilter) {
@@ -122,6 +129,8 @@ public class TaskCreator {
                 if (key.equals(Tag.KEY)) {
                     tags.add((String) value);
                 } else if (key.equals(GoogleTask.KEY)) {
+                    task.putTransitory(key, value);
+                } else if (key.equals(CaldavTask.KEY)) {
                     task.putTransitory(key, value);
                 } else {
                     if (value instanceof String) {
