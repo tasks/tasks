@@ -11,6 +11,7 @@
     <dimen name="task_edit_double_padding_top_bottom">18dp</dimen>
     <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
     <dimen name="task_edit_text_size">16sp</dimen>
+    <dimen name="settings_text_size">18sp</dimen>
 
     <item name="tag_characters" format="float" type="dimen">12</item>
 

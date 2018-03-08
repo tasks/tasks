@@ -17,17 +17,14 @@ public interface CaldavDao {
     @Query("SELECT * FROM caldav_account WHERE uuid = :uuid LIMIT 1")
     CaldavAccount getByUuid(String uuid);
 
-    @Query("SELECT * FROM caldav_account WHERE deleted = 0 ORDER BY UPPER(name) ASC")
+    @Query("SELECT * FROM caldav_account ORDER BY UPPER(name) ASC")
     List<CaldavAccount> getAllOrderedByName();
 
     @Insert
-    void insert(CaldavAccount caldavAccount);
+    long insert(CaldavAccount caldavAccount);
 
     @Update
     void update(CaldavAccount caldavAccount);
-
-    @Query("UPDATE caldav_account SET deleted = (strftime('%s','now')*1000) WHERE uuid = :uuid")
-    void markAccountDeleted(String uuid);
 
     @Insert
     void insert(CaldavTask caldavTask);
@@ -55,4 +52,13 @@ public interface CaldavDao {
 
     @Query("SELECT * FROM caldav_account")
     List<CaldavAccount> getAccounts();
+
+    @Delete
+    void delete(CaldavAccount caldavAccount);
+
+    @Query("SELECT * FROM caldav_account WHERE uuid = :uuid LIMIT 1")
+    CaldavAccount getAccount(String uuid);
+
+    @Query("DELETE FROM caldav_tasks WHERE account = :uuid")
+    void deleteTasksForAccount(String uuid);
 }

@@ -16,8 +16,8 @@ import com.todoroo.astrid.ui.ReminderControlSet;
 
 import org.tasks.BuildConfig;
 import org.tasks.R;
-import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.preferences.Preferences;
+import org.tasks.sync.SyncAdapters;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
@@ -72,11 +72,11 @@ public class TaskEditControlSetFragmentManager {
 
     private final Map<String, Integer> controlSetFragments = new LinkedHashMap<>();
     private final List<String> displayOrder;
-    private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
+    private final SyncAdapters syncAdapters;
     private int numRows;
 
-    public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences, GtaskSyncAdapterHelper gtaskSyncAdapterHelper) {
-        this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
+    public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences, SyncAdapters syncAdapters) {
+        this.syncAdapters = syncAdapters;
         displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
         displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
         displayOrder.add(1, activity.getString(CommentBarFragment.TAG));
@@ -151,7 +151,7 @@ public class TaskEditControlSetFragmentManager {
             case CommentBarFragment.TAG:
                 return new CommentBarFragment();
             case RemoteListFragment.TAG:
-                return gtaskSyncAdapterHelper.isEnabled()
+                return syncAdapters.isSyncEnabled()
                         ? new RemoteListFragment()
                         : null;
             default:

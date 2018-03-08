@@ -28,7 +28,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
@@ -48,13 +47,13 @@ import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.RemoteListSelectionHandler;
-import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.RepeatConfirmationReceiver;
+import org.tasks.sync.SyncAdapters;
 import org.tasks.tasklist.GtasksListFragment;
 import org.tasks.tasklist.TagListFragment;
 import org.tasks.themes.Theme;
@@ -97,9 +96,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject TagDataDao tagDataDao;
     @Inject Theme theme;
     @Inject ThemeCache themeCache;
-    @Inject GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
+    @Inject SyncAdapters syncAdapters;
     @Inject Tracker tracker;
-    @Inject TaskCreator taskCreator;
     @Inject TaskDao taskDao;
     @Inject CaldavDao caldavDao;
     @Inject LocalBroadcastManager localBroadcastManager;
@@ -274,7 +272,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
-        gtaskSyncAdapterHelper.checkPlayServices(getTaskListFragment());
+        syncAdapters.checkPlayServices(getTaskListFragment());
     }
 
     public void restart() {

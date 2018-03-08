@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 55,
-    "identityHash": "298da0475e0b181e5298ea1e05302000",
+    "identityHash": "13c156cbb4c26b323967670f04502f53",
     "entities": [
       {
         "tableName": "notification",
@@ -690,7 +690,7 @@
       },
       {
         "tableName": "caldav_account",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `name` TEXT, `color` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `ctag` TEXT, `url` TEXT, `username` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `name` TEXT, `color` INTEGER NOT NULL, `ctag` TEXT, `url` TEXT, `username` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -713,12 +713,6 @@
           {
             "fieldPath": "color",
             "columnName": "color",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "deleted",
-            "columnName": "deleted",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -809,7 +803,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"298da0475e0b181e5298ea1e05302000\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"13c156cbb4c26b323967670f04502f53\")"
     ]
   }
 }

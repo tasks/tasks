@@ -32,6 +32,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
+import org.tasks.caldav.CalDAVSettingsActivity;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
@@ -318,6 +319,14 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         }
 
         addSubMenu(R.string.CalDAV, filterProvider.getCalDAVFilters(), false);
+
+        if (navigationDrawer) {
+            add(new NavigationDrawerAction(
+                    activity.getResources().getString(R.string.add_account),
+                    R.drawable.ic_add_24dp,
+                    new Intent(activity, CalDAVSettingsActivity.class),
+                    NavigationDrawerFragment.REQUEST_NEW_CALDAV_ACCOUNT));
+        }
 
         if (navigationDrawer) {
             add(new NavigationDrawerSeparator());

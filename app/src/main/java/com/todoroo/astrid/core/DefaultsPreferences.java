@@ -13,7 +13,6 @@ import android.support.annotation.NonNull;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 
 import org.tasks.R;
 import org.tasks.activities.CalendarSelectionActivity;
@@ -21,7 +20,6 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.calendars.AndroidCalendar;
 import org.tasks.calendars.CalendarProvider;
-import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
@@ -29,6 +27,7 @@ import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
+import org.tasks.sync.SyncAdapters;
 
 import javax.inject.Inject;
 
@@ -45,8 +44,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity implements 
     @Inject CalendarProvider calendarProvider;
     @Inject ActivityPermissionRequestor permissionRequester;
     @Inject Tracker tracker;
-    @Inject GtasksPreferenceService gtasksPreferenceService;
-    @Inject GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
+    @Inject SyncAdapters syncAdapters;
     @Inject DefaultFilterProvider defaultFilterProvider;
 
     private Preference defaultCalendarPref;
@@ -69,7 +67,7 @@ public class DefaultsPreferences extends InjectingPreferenceActivity implements 
                 ? getString(R.string.dont_add_to_calendar)
                 : defaultCalendarName);
 
-        if (gtaskSyncAdapterHelper.isEnabled()) {
+        if (syncAdapters.isSyncEnabled()) {
             findPreference(R.string.p_default_remote_list).setOnPreferenceClickListener(preference -> {
                 newRemoteListNativePicker(defaultFilterProvider.getDefaultRemoteList())
                         .show(getFragmentManager(), FRAG_TAG_REMOTE_LIST_SELECTION);

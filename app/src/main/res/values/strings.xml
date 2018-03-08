@@ -756,6 +756,11 @@ File %1$s contained %2$s.\n\n
     <string name="send_anonymous_statistics_summary">Send anonymous usage statistics and crash reports to help improve Tasks. No personal data will be collected.</string>
     <string name="tag_already_exists">Tag already exists</string>
   <string name="name_cannot_be_empty">Name cannot be empty</string>
+  <string name="username_required">Username required</string>
+  <string name="password_required">Password required</string>
+  <string name="url_required">URL required</string>
+  <string name="url_host_name_required">Host name required</string>
+  <string name="url_invalid_scheme">Must begin with http(s)://</string>
   <string name="no_title">(No title)</string>
   <string name="back_button_saves_task">Back button saves task</string>
   <string name="default_list">Default list</string>
@@ -832,6 +837,13 @@ File %1$s contained %2$s.\n\n
   <string name="use_locale_default">Use locale default</string>
   <string name="use_native_datetime_pickers">Use native date and time pickers</string>
   <string name="CalDAV">CalDAV</string>
+  <string name="add_account">Add account</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
+  <string name="url">URL</string>
+    <string name="error_adding_account">Error adding account</string>
+    <string name="error_renaming_account">Error renaming account</string>
+  <string name="error_deleting_account">Error deleting account</string>
   <string name="account_settings">Account settings</string>
   <string name="notification_channel_settings">Manage notifications</string>
   <string name="battery_optimization_settings">Manage battery optimizations</string>

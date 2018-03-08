@@ -166,6 +166,9 @@ public abstract class TaskDao {
     @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks INNER JOIN google_tasks ON google_tasks.task = tasks._id WHERE google_tasks.list_id = :googleTaskList")
     public abstract List<Task> getGoogleTasks(String googleTaskList);
 
+    @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks INNER JOIN caldav_tasks ON caldav_tasks.task = tasks._id WHERE caldav_tasks.account = :caldavAccount")
+    public abstract List<Task> getCaldavTasks(String caldavAccount);
+
     // --- save
 
     /**

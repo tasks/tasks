@@ -21,8 +21,8 @@ import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
-import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ForApplication;
+import org.tasks.sync.SyncAdapters;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,15 +47,15 @@ public class FilterCriteriaProvider {
     private final TagService tagService;
     private final GtasksListService gtasksListService;
     private final Resources r;
-    private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
+    private final SyncAdapters syncAdapters;
 
     @Inject
     public FilterCriteriaProvider(@ForApplication Context context, TagService tagService,
-                                  GtasksListService gtasksListService, GtaskSyncAdapterHelper gtaskSyncAdapterHelper) {
+                                  GtasksListService gtasksListService, SyncAdapters syncAdapters) {
         this.context = context;
         this.tagService = tagService;
         this.gtasksListService = gtasksListService;
-        this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
+        this.syncAdapters = syncAdapters;
 
         r = context.getResources();
     }
@@ -68,7 +68,7 @@ public class FilterCriteriaProvider {
         result.add(getDueDateFilter());
         result.add(getImportanceFilter());
         result.add(getTaskTitleContainsFilter());
-        if (gtaskSyncAdapterHelper.isEnabled()) {
+        if (syncAdapters.isGoogleTaskSyncEnabled()) {
             result.add(getGtasksFilterCriteria());
         }
 

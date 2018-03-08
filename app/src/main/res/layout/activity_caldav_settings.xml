@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/asContentBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/name_layout"
+                style="@style/TagSettingsRow">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="textCapSentences|textFilter"
+                    android:maxLines="1"
+                    android:textColor="?attr/asTextColor" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/url_layout"
+                style="@style/TagSettingsRow">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/url"
+                    android:textColor="?attr/asTextColor" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/user_layout"
+                style="@style/TagSettingsRow">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/user"
+                    android:textColor="?attr/asTextColor" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/password_layout"
+                style="@style/TagSettingsRow"
+                app:passwordToggleEnabled="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:textColor="?attr/asTextColor"
+                    android:inputType="textPassword"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout style="@style/TagSettingsRow">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/color"
+                    android:textColor="?attr/asTextColor" />
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                style="@style/TagSettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/background_sync"
+                    android:checked="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/background_sync_label"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:paddingTop="3dp"
+                    android:paddingLeft="4dp"
+                    android:paddingStart="4dp"
+                    android:textSize="@dimen/settings_text_size"
+                    android:layout_toLeftOf="@id/background_sync"
+                    android:layout_toStartOf="@id/background_sync"
+                    android:text="@string/sync_SPr_interval_title"
+                    android:layout_width="match_parent"
+                    android:textColor="?attr/asTextColor"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/master_sync_warning"
+                    android:paddingLeft="4dp"
+                    android:paddingStart="4dp"
+                    android:textColor="?attr/asTextColor"
+                    android:layout_below="@id/background_sync_label"
+                    android:text="@string/master_sync_warning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

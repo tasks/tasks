@@ -26,20 +26,23 @@ public final class CaldavAccount implements Parcelable {
     @ColumnInfo(name = "color")
     private int color = -1;
 
-    @ColumnInfo(name = "deleted")
-    private long deleted;
-
     @ColumnInfo(name = "ctag")
     private String ctag;
 
     @ColumnInfo(name = "url")
-    private String url;
+    private String url = "";
 
     @ColumnInfo(name = "username")
-    private String username;
+    private String username = "";
 
     public CaldavAccount() {
 
+    }
+
+    @Ignore
+    public CaldavAccount(String name, String uuid) {
+        this.name = name;
+        this.uuid = uuid;
     }
 
     @Ignore
@@ -48,7 +51,6 @@ public final class CaldavAccount implements Parcelable {
         uuid = source.readString();
         name = source.readString();
         color = source.readInt();
-        deleted = source.readLong();
         ctag = source.readString();
         url = source.readString();
         username = source.readString();
@@ -86,14 +88,6 @@ public final class CaldavAccount implements Parcelable {
         this.color = color;
     }
 
-    public long getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(long deleted) {
-        this.deleted = deleted;
-    }
-
     public String getCtag() {
         return ctag;
     }
@@ -116,10 +110,6 @@ public final class CaldavAccount implements Parcelable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public boolean isDeleted() {
-        return deleted > 0;
     }
 
     public static Parcelable.Creator<CaldavAccount> CREATOR = new Parcelable.Creator<CaldavAccount>() {
@@ -145,7 +135,6 @@ public final class CaldavAccount implements Parcelable {
         dest.writeString(uuid);
         dest.writeString(name);
         dest.writeInt(color);
-        dest.writeLong(deleted);
         dest.writeString(ctag);
         dest.writeString(url);
         dest.writeString(username);
@@ -158,7 +147,6 @@ public final class CaldavAccount implements Parcelable {
                 ", uuid='" + uuid + '\'' +
                 ", name='" + name + '\'' +
                 ", color=" + color +
-                ", deleted=" + deleted +
                 ", ctag='" + ctag + '\'' +
                 ", url='" + url + '\'' +
                 ", username='" + username + '\'' +
