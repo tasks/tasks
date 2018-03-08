@@ -38,7 +38,7 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
         progressDialog.setIndeterminate(true);
         progressDialog.show();
         setCancelable(false);
-        if (path.endsWith("\\.xml")) {
+        if (path.endsWith(".xml")) {
             xmlImporter.importTasks(getActivity(), path, progressDialog);
         } else {
             jsonImporter.importTasks(getActivity(), path, progressDialog);
