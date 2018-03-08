@@ -18,6 +18,7 @@ import com.todoroo.astrid.data.Task;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
@@ -63,6 +64,7 @@ public class TasksJsonExporter {
     private final GoogleTaskDao googleTaskDao;
     private final FilterDao filterDao;
     private final GoogleTaskListDao googleTaskListDao;
+    private final CaldavDao caldavDao;
     private final TaskDao taskDao;
     private final UserActivityDao userActivityDao;
     private final Preferences preferences;
@@ -92,7 +94,7 @@ public class TasksJsonExporter {
     public TasksJsonExporter(TagDataDao tagDataDao, TaskDao taskDao, UserActivityDao userActivityDao,
                              Preferences preferences, AlarmDao alarmDao, LocationDao locationDao,
                              TagDao tagDao, GoogleTaskDao googleTaskDao, FilterDao filterDao,
-                             GoogleTaskListDao googleTaskListDao) {
+                             GoogleTaskListDao googleTaskListDao, CaldavDao caldavDao) {
         this.tagDataDao = tagDataDao;
         this.taskDao = taskDao;
         this.userActivityDao = userActivityDao;
@@ -103,6 +105,7 @@ public class TasksJsonExporter {
         this.googleTaskDao = googleTaskDao;
         this.filterDao = filterDao;
         this.googleTaskListDao = googleTaskListDao;
+        this.caldavDao = caldavDao;
     }
 
     public void exportTasks(final Context context, final ExportType exportType, @Nullable final ProgressDialog progressDialog) {
@@ -155,7 +158,8 @@ public class TasksJsonExporter {
                     locationDao.getGeofences(taskId),
                     tagDao.getTagsForTask(taskId),
                     googleTaskDao.getAllByTaskId(taskId),
-                    userActivityDao.getCommentsForTask(task.getUuid())));
+                    userActivityDao.getCommentsForTask(task.getUuid()),
+                    caldavDao.getTasks(taskId)));
         }
 
         Map<String, Object> data = new HashMap<>();
@@ -165,7 +169,8 @@ public class TasksJsonExporter {
                 taskBackups,
                 tagDataDao.getAll(),
                 filterDao.getAll(),
-                googleTaskListDao.getAll()));
+                googleTaskListDao.getAll(),
+                caldavDao.getAccounts()));
 
         File file = new File(output);
         file.createNewFile();

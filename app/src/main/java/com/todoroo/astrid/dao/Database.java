@@ -15,6 +15,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.Filter;
@@ -80,6 +81,7 @@ public abstract class Database extends RoomDatabase {
     public abstract FilterDao getFilterDao();
     public abstract GoogleTaskListDao getGoogleTaskListDao();
     public abstract TaskDao getTaskDao();
+    public abstract CaldavDao getCaldavDao();
 
     public static final String NAME = "database";
 

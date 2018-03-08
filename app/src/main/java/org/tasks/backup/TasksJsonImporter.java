@@ -17,6 +17,9 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavTask;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTask;
@@ -53,6 +56,7 @@ public class TasksJsonImporter {
     private final GoogleTaskDao googleTaskDao;
     private final GoogleTaskListDao googleTaskListDao;
     private final FilterDao filterDao;
+    private final CaldavDao caldavDao;
     private final LocationDao locationDao;
 
     private Activity activity;
@@ -73,7 +77,7 @@ public class TasksJsonImporter {
                              DialogBuilder dialogBuilder, TaskDao taskDao, LocationDao locationDao,
                              LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao,
                              TagDao tagDao, GoogleTaskDao googleTaskDao, GoogleTaskListDao googleTaskListDao,
-                             FilterDao filterDao) {
+                             FilterDao filterDao, CaldavDao caldavDao) {
         this.tagDataDao = tagDataDao;
         this.userActivityDao = userActivityDao;
         this.dialogBuilder = dialogBuilder;
@@ -85,6 +89,7 @@ public class TasksJsonImporter {
         this.googleTaskDao = googleTaskDao;
         this.googleTaskListDao = googleTaskListDao;
         this.filterDao = filterDao;
+        this.caldavDao = caldavDao;
     }
 
     public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
@@ -128,6 +133,11 @@ public class TasksJsonImporter {
                     filterDao.insert(filter);
                 }
             }
+            for (CaldavAccount account : backupContainer.caldavAccounts) {
+                if (caldavDao.getAccountByName(account.getName()) == null) {
+                    caldavDao.insert(account);
+                }
+            }
             for (BackupContainer.TaskBackup backup : backupContainer.tasks) {
                 taskCount++;
                 setProgressMessage(activity.getString(R.string.import_progress_read, taskCount));
@@ -159,6 +169,10 @@ public class TasksJsonImporter {
                 for (Location location : backup.locations) {
                     location.setTask(taskId);
                     locationDao.insert(location);
+                }
+                for (CaldavTask caldavTask : backup.caldavTasks) {
+                    caldavTask.setTask(taskId);
+                    caldavDao.insert(caldavTask);
                 }
                 importCount++;
             }

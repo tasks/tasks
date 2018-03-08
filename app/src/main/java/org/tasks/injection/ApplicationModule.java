@@ -10,6 +10,7 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
@@ -131,6 +132,12 @@ public class ApplicationModule {
     @ApplicationScope
     public GoogleTaskListDao getGoogleTaskListDao(Database database) {
         return database.getGoogleTaskListDao();
+    }
+
+    @Provides
+    @ApplicationScope
+    public CaldavDao getCaldavDao(Database database) {
+        return database.getCaldavDao();
     }
 
     @Provides
