@@ -48,7 +48,7 @@ import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
 import org.tasks.gtasks.RemoteListSelectionHandler;
-import org.tasks.gtasks.SyncAdapterHelper;
+import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
@@ -97,7 +97,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     @Inject TagDataDao tagDataDao;
     @Inject Theme theme;
     @Inject ThemeCache themeCache;
-    @Inject SyncAdapterHelper syncAdapterHelper;
+    @Inject GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
     @Inject Tracker tracker;
     @Inject TaskCreator taskCreator;
     @Inject TaskDao taskDao;
@@ -274,7 +274,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
-        syncAdapterHelper.checkPlayServices(getTaskListFragment());
+        gtaskSyncAdapterHelper.checkPlayServices(getTaskListFragment());
     }
 
     public void restart() {

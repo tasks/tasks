@@ -50,7 +50,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
-import org.tasks.gtasks.SyncAdapterHelper;
+import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
@@ -97,7 +97,7 @@ public class TaskListFragment extends InjectingFragment implements
 
     // --- instance variables
 
-    @Inject SyncAdapterHelper syncAdapterHelper;
+    @Inject GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
     @Inject TaskDeleter taskDeleter;
     @Inject TaskDuplicator taskDuplicator;
     @Inject @ForActivity Context context;
@@ -135,7 +135,7 @@ public class TaskListFragment extends InjectingFragment implements
 
     @Override
     public void onRefresh() {
-        if (!syncAdapterHelper.initiateManualSync()) {
+        if (!gtaskSyncAdapterHelper.initiateManualSync()) {
             refresh();
         }
     }
@@ -477,7 +477,7 @@ public class TaskListFragment extends InjectingFragment implements
         for (Task task : tasks) {
             onTaskCreated(task.getUuid());
         }
-        syncAdapterHelper.requestSynchronization();
+        gtaskSyncAdapterHelper.requestSynchronization();
     }
 
     public void onTaskCreated(String uuid) {

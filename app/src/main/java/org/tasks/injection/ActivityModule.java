@@ -5,7 +5,7 @@ import android.content.Context;
 
 import org.tasks.R;
 import org.tasks.fragments.TaskEditControlSetFragmentManager;
-import org.tasks.gtasks.SyncAdapterHelper;
+import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
@@ -55,7 +55,7 @@ public class ActivityModule {
 
     @Provides
     @ActivityScope
-    public TaskEditControlSetFragmentManager getTaskEditControlSetFragmentManager(Preferences preferences, SyncAdapterHelper syncAdapterHelper) {
-        return new TaskEditControlSetFragmentManager(activity, preferences, syncAdapterHelper);
+    public TaskEditControlSetFragmentManager getTaskEditControlSetFragmentManager(Preferences preferences, GtaskSyncAdapterHelper gtaskSyncAdapterHelper) {
+        return new TaskEditControlSetFragmentManager(activity, preferences, gtaskSyncAdapterHelper);
     }
 }

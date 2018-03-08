@@ -4,21 +4,21 @@ import com.google.common.base.Strings;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 
-import org.tasks.gtasks.SyncAdapterHelper;
+import org.tasks.gtasks.GtaskSyncAdapterHelper;
 
 import javax.inject.Inject;
 
 public class GoogleTaskPusher {
 
-    private final SyncAdapterHelper syncAdapterHelper;
+    private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
 
     @Inject
-    public GoogleTaskPusher(SyncAdapterHelper syncAdapterHelper) {
-        this.syncAdapterHelper = syncAdapterHelper;
+    public GoogleTaskPusher(GtaskSyncAdapterHelper gtaskSyncAdapterHelper) {
+        this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
     }
 
     void push(Task task, Task original) {
-        if(!syncAdapterHelper.isEnabled()) {
+        if(!gtaskSyncAdapterHelper.isEnabled()) {
             return;
         }
 
@@ -35,7 +35,7 @@ public class GoogleTaskPusher {
                 !task.getCompletionDate().equals(original.getCompletionDate()) ||
                 !task.getDeletionDate().equals(original.getDeletionDate()) ||
                 task.checkAndClearTransitory(SyncFlags.FORCE_SYNC)) {
-            syncAdapterHelper.requestSynchronization();
+            gtaskSyncAdapterHelper.requestSynchronization();
         }
     }
 }

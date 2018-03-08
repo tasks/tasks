@@ -9,7 +9,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 
 import org.tasks.data.GoogleTaskList;
-import org.tasks.gtasks.SyncAdapterHelper;
+import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.sync.SyncExecutor;
 
 import javax.inject.Inject;
@@ -28,18 +28,18 @@ public class SyncV2Service {
      * for responding to sync requests through this new API.
      */
     private final SyncExecutor syncExecutor;
-    private final SyncAdapterHelper syncAdapterHelper;
+    private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
     private final GtasksSyncService gtasksSyncService;
 
     @Inject
-    public SyncV2Service(SyncExecutor syncExecutor, SyncAdapterHelper syncAdapterHelper, GtasksSyncService gtasksSyncService) {
+    public SyncV2Service(SyncExecutor syncExecutor, GtaskSyncAdapterHelper gtaskSyncAdapterHelper, GtasksSyncService gtasksSyncService) {
         this.syncExecutor = syncExecutor;
-        this.syncAdapterHelper = syncAdapterHelper;
+        this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
         this.gtasksSyncService = gtasksSyncService;
     }
 
     public void clearCompleted(final GoogleTaskList list, final SyncResultCallback callback) {
-        if (syncAdapterHelper.isEnabled()) {
+        if (gtaskSyncAdapterHelper.isEnabled()) {
             syncExecutor.execute(callback, () -> {
                 callback.started();
                 try {
