@@ -33,12 +33,12 @@ import static com.todoroo.astrid.dao.TaskDao.TRANS_SUPPRESS_REFRESH;
 
 public class AfterSaveIntentService extends InjectingJobIntentService {
 
-    private static final String EXTRA_TASK_ID = "extra_task_id";
+    private static final String EXTRA_CURRENT = "extra_current";
     private static final String EXTRA_ORIGINAL = "extra_original";
 
-    public static void enqueue(Context context, long taskId, Task original) {
+    public static void enqueue(Context context, Task current, Task original) {
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_TASK_ID, taskId);
+        intent.putExtra(EXTRA_CURRENT, current);
         intent.putExtra(EXTRA_ORIGINAL, original);
         AfterSaveIntentService.enqueueWork(context, AfterSaveIntentService.class, JobManager.JOB_ID_TASK_STATUS_CHANGE, intent);
     }
@@ -58,20 +58,14 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
         super.onHandleWork(intent);
 
-        long taskId = intent.getLongExtra(EXTRA_TASK_ID, -1);
-        Task original = intent.getParcelableExtra(EXTRA_ORIGINAL);
-
-        if (taskId == -1) {
-            Timber.e("Invalid taskId=%s", taskId);
-            return;
-        }
-
-        Task task = taskDao.fetch(taskId);
+        Task task = intent.getParcelableExtra(EXTRA_CURRENT);
         if (task == null) {
-            Timber.e("Can't find task with id %s", taskId);
+            Timber.e("Missing saved task");
             return;
         }
+        long taskId = task.getId();
 
+        Task original = intent.getParcelableExtra(EXTRA_ORIGINAL);
         if(original == null ||
                 !task.getDueDate().equals(original.getDueDate()) ||
                 !task.getReminderFlags().equals(original.getReminderFlags()) ||

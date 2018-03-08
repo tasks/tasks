@@ -180,7 +180,7 @@ public abstract class TaskDao {
     // TODO: get rid of this super-hack
     public void save(Task task, Task original) {
         if (saveExisting(task, original)) {
-            AfterSaveIntentService.enqueue(context, task.getId(), original);
+            AfterSaveIntentService.enqueue(context, task, original);
         }
     }
 
