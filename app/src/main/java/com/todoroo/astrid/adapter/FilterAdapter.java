@@ -270,6 +270,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         }
         addSubMenu(title, filterProvider.getGoogleTaskFilters(), true);
 
+        addSubMenu(R.string.CalDAV, filterProvider.getCalDAVFilters(), true);
+        
         notifyDataSetChanged();
     }
 

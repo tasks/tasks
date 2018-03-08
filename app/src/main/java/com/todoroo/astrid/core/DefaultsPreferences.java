@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.support.annotation.NonNull;
 
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -119,8 +120,8 @@ public class DefaultsPreferences extends InjectingPreferenceActivity implements 
         tracker.reportEvent(Tracking.Events.DEFAULT_REMOTE_LIST);
         if (list == null) {
             preferences.setString(R.string.p_default_remote_list, null);
-        } else if (list instanceof GtasksFilter) {
-            defaultFilterProvider.setDefaultFilter(list);
+        } else if (list instanceof GtasksFilter || list instanceof CaldavFilter) {
+            defaultFilterProvider.setDefaultRemoteList(list);
         } else {
             throw new RuntimeException("Unhandled filter type");
         }

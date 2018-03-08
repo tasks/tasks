@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.SyncFlags;
@@ -15,10 +16,10 @@ import com.todoroo.astrid.gtasks.GtasksListService;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.DefaultFilterProvider;
 
@@ -42,6 +43,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
     @Inject GtasksListService gtasksListService;
     @Inject GoogleTaskDao googleTaskDao;
+    @Inject CaldavDao caldavDao;
     @Inject Tracker tracker;
     @Inject DefaultFilterProvider defaultFilterProvider;
 
@@ -57,15 +59,23 @@ public class RemoteListFragment extends TaskEditControlFragment {
             selectedList = savedInstanceState.getParcelable(EXTRA_SELECTED_LIST);
         } else {
             if (task.isNew()) {
-                originalList = task.hasTransitory(GoogleTask.KEY)
-                        ? new GtasksFilter(gtasksListService.getList(task.getTransitory(GoogleTask.KEY)))
-                        : defaultFilterProvider.getDefaultRemoteList();
+                if (task.hasTransitory(GoogleTask.KEY)) {
+                    originalList = new GtasksFilter(gtasksListService.getList(task.getTransitory(GoogleTask.KEY)));
+                } else if (task.hasTransitory(CaldavTask.KEY)) {
+                    originalList = new CaldavFilter(caldavDao.getByUuid(task.getTransitory(CaldavTask.KEY)));
+                } else {
+                    originalList = defaultFilterProvider.getDefaultRemoteList();
+                }
             } else {
                 GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
+                CaldavTask caldavTask = caldavDao.getTask(task.getId());
                 if (googleTask != null) {
                     originalList = new GtasksFilter(gtasksListService.getList(googleTask.getListId()));
+                } else if (caldavTask != null) {
+                    originalList = new CaldavFilter(caldavDao.getByUuid(caldavTask.getAccount()));
                 }
             }
+
             selectedList = originalList;
         }
 
@@ -109,19 +119,28 @@ public class RemoteListFragment extends TaskEditControlFragment {
     @Override
     public void apply(Task task) {
         GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
-        if (googleTask != null && selectedList != null && googleTask.getListId().equals(((GtasksFilter) selectedList).getRemoteId())) {
+        if (googleTask != null && selectedList instanceof GtasksFilter && googleTask.getListId().equals(((GtasksFilter) selectedList).getRemoteId())) {
             return;
         }
-
+        CaldavTask caldavTask = caldavDao.getTask(task.getId());
+        if (caldavTask != null && selectedList instanceof CaldavFilter && caldavTask.getAccount().equals(((CaldavFilter) selectedList).getUuid())) {
+            return;
+        }
+        task.putTransitory(SyncFlags.FORCE_SYNC, true);
         if (googleTask != null) {
-            tracker.reportEvent(Tracking.Events.GTASK_MOVE);
-            task.putTransitory(SyncFlags.FORCE_SYNC, true);
             googleTask.setDeleted(now());
             googleTaskDao.update(googleTask);
         }
 
-        if (selectedList != null) {
+        if (caldavTask != null) {
+            caldavTask.setDeleted(now());
+            caldavDao.update(caldavTask);
+        }
+
+        if (selectedList instanceof GtasksFilter) {
             googleTaskDao.insert(new GoogleTask(task.getId(), ((GtasksFilter) selectedList).getRemoteId()));
+        } else if (selectedList instanceof CaldavFilter) {
+            caldavDao.insert(new CaldavTask(task.getId(), ((CaldavFilter) selectedList).getUuid()));
         }
     }
 
@@ -138,7 +157,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
     public void setList(Filter list) {
         if (list == null) {
             this.selectedList = null;
-        } else if (list instanceof GtasksFilter) {
+        } else if (list instanceof GtasksFilter || list instanceof CaldavFilter) {
             this.selectedList = list;
         } else {
             throw new RuntimeException("Unhandled filter type");
