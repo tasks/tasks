@@ -32,6 +32,12 @@ public final class CaldavAccount implements Parcelable {
     @ColumnInfo(name = "ctag")
     private String ctag;
 
+    @ColumnInfo(name = "url")
+    private String url;
+
+    @ColumnInfo(name = "username")
+    private String username;
+
     public CaldavAccount() {
 
     }
@@ -44,6 +50,8 @@ public final class CaldavAccount implements Parcelable {
         color = source.readInt();
         deleted = source.readLong();
         ctag = source.readString();
+        url = source.readString();
+        username = source.readString();
     }
 
     public long getId() {
@@ -94,6 +102,22 @@ public final class CaldavAccount implements Parcelable {
         this.ctag = ctag;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public boolean isDeleted() {
         return deleted > 0;
     }
@@ -123,6 +147,8 @@ public final class CaldavAccount implements Parcelable {
         dest.writeInt(color);
         dest.writeLong(deleted);
         dest.writeString(ctag);
+        dest.writeString(url);
+        dest.writeString(username);
     }
 
     @Override
@@ -134,6 +160,8 @@ public final class CaldavAccount implements Parcelable {
                 ", color=" + color +
                 ", deleted=" + deleted +
                 ", ctag='" + ctag + '\'' +
+                ", url='" + url + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }
