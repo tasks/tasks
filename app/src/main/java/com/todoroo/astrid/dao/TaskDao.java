@@ -97,7 +97,13 @@ public abstract class TaskDao {
             "LEFT JOIN google_tasks ON tasks._id = google_tasks.task " +
             "WHERE tasks.modified > google_tasks.last_sync " +
             "OR google_tasks.remote_id = ''")
-    public abstract List<Task> getTasksToPush();
+    public abstract List<Task> getGoogleTasksToPush();
+
+    @android.arch.persistence.room.Query("SELECT tasks.* FROM tasks " +
+            "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.task " +
+            "WHERE caldav_tasks.account = :uid " +
+            "AND tasks.modified > caldav_tasks.last_sync")
+    public abstract List<Task> getCaldavTasksToPush(String uid);
 
     @android.arch.persistence.room.Query("SELECT * FROM TASKS " +
             "WHERE completed = 0 AND deleted = 0 AND (notificationFlags > 0 OR notifications > 0)")

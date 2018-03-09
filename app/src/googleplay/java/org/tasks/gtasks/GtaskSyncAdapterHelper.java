@@ -78,10 +78,6 @@ public class GtaskSyncAdapterHelper {
                 getAccount() != null;
     }
 
-    public boolean isMasterSyncEnabled() {
-        return ContentResolver.getMasterSyncAutomatically();
-    }
-
     public void enableSynchronization(boolean enabled) {
         Account account = getAccount();
         if (account != null) {

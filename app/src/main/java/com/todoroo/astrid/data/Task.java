@@ -623,6 +623,10 @@ public class Task implements Parcelable {
         setDueDate(newDueDate);
     }
 
+    public boolean isRecurring() {
+        return !Strings.isNullOrEmpty(recurrence);
+    }
+
     public String getRecurrence() {
         return recurrence;
     }
@@ -737,6 +741,10 @@ public class Task implements Parcelable {
 
     public void setModificationDate(Long modificationDate) {
         modified = modificationDate;
+    }
+
+    public Long getModificationDate() {
+        return modified;
     }
 
     public Integer getReminderFlags() {

@@ -6,6 +6,7 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.calendars.CalendarEventProvider;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.LocationDao;
 import org.tasks.data.TagDao;
@@ -28,17 +29,19 @@ public class TaskDeleter {
     private final LocationDao locationDao;
     private final TagDao tagDao;
     private final GoogleTaskDao googleTaskDao;
+    private final CaldavDao caldavDao;
 
     @Inject
     public TaskDeleter(TaskDao taskDao, CalendarEventProvider calendarEventProvider,
                        AlarmDao alarmDao, LocationDao locationDao, TagDao tagDao,
-                       GoogleTaskDao googleTaskDao) {
+                       GoogleTaskDao googleTaskDao, CaldavDao caldavDao) {
         this.taskDao = taskDao;
         this.calendarEventProvider = calendarEventProvider;
         this.alarmDao = alarmDao;
         this.locationDao = locationDao;
         this.tagDao = tagDao;
         this.googleTaskDao = googleTaskDao;
+        this.caldavDao = caldavDao;
     }
 
     public int purgeDeleted() {
@@ -51,6 +54,7 @@ public class TaskDeleter {
             locationDao.deleteByTaskId(id);
             tagDao.deleteByTaskId(id);
             googleTaskDao.deleteByTaskId(id);
+            caldavDao.deleteById(id);
         }
         return deleted.size();
     }

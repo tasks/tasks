@@ -27,3 +27,19 @@
 -dontwarn com.google.errorprone.annotations.CanIgnoreReturnValue
 -dontwarn com.google.errorprone.annotations.concurrent.LazyInit
 -dontwarn com.google.errorprone.annotations.ForOverride
+
+# okhttp
+-dontwarn okio.**
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+
+# https://gitlab.com/bitfireAT/davdroid/blob/9fc3921b3293e19bd7be7bfc3f24d799ed2446bc/app/proguard-rules.txt
+-dontwarn aQute.**
+-dontwarn groovy.**                       # Groovy-based ContentBuilder not used
+-dontwarn javax.cache.**                  # no JCache support in Android
+-dontwarn net.fortuna.ical4j.model.**
+-dontwarn org.codehaus.groovy.**
+-dontwarn org.apache.log4j.**             # ignore warnings from log4j dependency
+-keep class net.fortuna.ical4j.** { *; }  # keep all model classes (properties/factories, created at runtime)
+-keep class org.threeten.bp.** { *; }     # keep ThreeTen (for time zone processing)
+-keep class at.bitfire.** { *; }       # all DAVdroid code is required

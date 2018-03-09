@@ -151,6 +151,10 @@ public class Preferences {
         return getStringValue(R.string.gcal_p_default);
     }
 
+    public String getDefaultRemoteList() {
+        return getStringValue(R.string.p_default_remote_list);
+    }
+
     public int getFirstDayOfWeek() {
         int firstDayOfWeek = getIntegerFromString(R.string.p_start_of_week, 0);
         return firstDayOfWeek < 1 || firstDayOfWeek > 7 ? 0 : firstDayOfWeek;

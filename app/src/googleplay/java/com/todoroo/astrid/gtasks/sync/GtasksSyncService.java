@@ -17,9 +17,9 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 
 import org.tasks.analytics.Tracker;
+import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
-import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.injection.ApplicationScope;
 
 import java.io.IOException;

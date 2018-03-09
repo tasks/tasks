@@ -524,6 +524,18 @@
         </receiver>
 
         <service
+            android:name=".caldav.CalDAVSyncService"
+            android:exported="true"
+            android:permission="signature">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/sync_adapter_caldav" />
+        </service>
+
+        <service
             android:name=".caldav.CalDAVAccountAuthenticatorService"
             android:exported="false">
             <intent-filter>

@@ -24,6 +24,7 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
+import org.tasks.sync.SyncAdapters;
 
 import javax.inject.Inject;
 
@@ -39,6 +40,7 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
     @Inject GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
     @Inject PlayServicesAvailability playServicesAvailability;
     @Inject DialogBuilder dialogBuilder;
+    @Inject SyncAdapters syncAdapters;
     @Inject GoogleTaskDao googleTaskDao;
 
     @Override
@@ -94,12 +96,12 @@ public class GtasksPreferences extends InjectingPreferenceActivity {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
 
         CheckBoxPreference backgroundSync = (CheckBoxPreference) findPreference(getString(R.string.gtask_background_sync));
         backgroundSync.setChecked(gtaskSyncAdapterHelper.isSyncEnabled());
-        if (gtaskSyncAdapterHelper.isMasterSyncEnabled()) {
+        if (syncAdapters.isMasterSyncEnabled()) {
             backgroundSync.setSummary(null);
         } else {
             backgroundSync.setSummary(R.string.master_sync_warning);

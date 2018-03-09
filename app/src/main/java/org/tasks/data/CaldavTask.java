@@ -102,4 +102,17 @@ public class CaldavTask {
     public void setAccount(String account) {
         this.account = account;
     }
+
+    @Override
+    public String toString() {
+        return "CaldavTask{" +
+                "id=" + id +
+                ", task=" + task +
+                ", account='" + account + '\'' +
+                ", remoteId='" + remoteId + '\'' +
+                ", etag='" + etag + '\'' +
+                ", lastSync=" + lastSync +
+                ", deleted=" + deleted +
+                '}';
+    }
 }

@@ -44,8 +44,8 @@ public class DefaultsPreferences extends InjectingPreferenceActivity implements 
     @Inject CalendarProvider calendarProvider;
     @Inject ActivityPermissionRequestor permissionRequester;
     @Inject Tracker tracker;
-    @Inject SyncAdapters syncAdapters;
     @Inject DefaultFilterProvider defaultFilterProvider;
+    @Inject SyncAdapters syncAdapters;
 
     private Preference defaultCalendarPref;
 

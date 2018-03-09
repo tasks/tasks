@@ -191,7 +191,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     }
 
     private void pushLocalChanges() throws UserRecoverableAuthIOException {
-        List<Task> tasks = taskDao.getTasksToPush();
+        List<Task> tasks = taskDao.getGoogleTasksToPush();
         for (Task task : tasks) {
             try {
                 pushTask(task, gtasksInvoker);

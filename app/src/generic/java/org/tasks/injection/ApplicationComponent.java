@@ -20,4 +20,6 @@ public interface ApplicationComponent {
     BroadcastComponent plus(BroadcastModule module);
 
     IntentServiceComponent plus(IntentServiceModule module);
+
+    SyncAdapterComponent plus(SyncAdapterModule syncAdapterModule);
 }

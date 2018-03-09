@@ -41,8 +41,8 @@ public interface CaldavDao {
     @Query("SELECT * FROM caldav_tasks WHERE task = :taskId AND deleted = 0 LIMIT 1")
     CaldavTask getTask(long taskId);
 
-    @Query("SELECT * FROM caldav_tasks WHERE remote_id = :remoteId LIMIT 1")
-    CaldavTask getTask(String remoteId);
+    @Query("SELECT * FROM caldav_tasks WHERE account = :account AND remote_id = :remoteId LIMIT 1")
+    CaldavTask getTask(String account, String remoteId);
 
     @Query("DELETE FROM caldav_tasks WHERE task = :taskId")
     void deleteById(long taskId);
