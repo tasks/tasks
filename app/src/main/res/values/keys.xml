@@ -283,10 +283,12 @@
   <string name="sku_dashclock">dashclock</string>
   <string name="debug_unlock_purchases">Unlock purchases</string>
   <string name="debug_consume_purchases">Consume purchases</string>
+  <string name="debug_strict_mode">Strict mode</string>
   <string name="debug">Debug</string>
   <string name="p_start_of_week">start_of_week</string>
   <string name="p_use_native_datetime_pickers">use_native_datetime_pickers</string>
   <string name="gtask_background_sync">gtask_background_sync</string>
   <string name="p_bundle_notifications">bundle_notifications</string>
+  <string name="p_strict_mode">strict_mode</string>
 
 </resources>

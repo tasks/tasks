@@ -12,6 +12,10 @@
             android:title="@string/debug_consume_purchases"
             android:key="@string/debug_consume_purchases" />
 
+        <CheckBoxPreference
+            android:title="@string/debug_strict_mode"
+            android:key="@string/p_strict_mode" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

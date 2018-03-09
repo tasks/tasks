@@ -9,6 +9,7 @@ import com.facebook.stetho.timber.StethoTree;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
@@ -16,10 +17,12 @@ import timber.log.Timber;
 
 public class BuildSetup {
     private final Context context;
+    private final Preferences preferences;
 
     @Inject
-    public BuildSetup(@ForApplication Context context) {
+    public BuildSetup(@ForApplication Context context, Preferences preferences) {
         this.context = context;
+        this.preferences = preferences;
     }
 
     public boolean setup() {
@@ -31,17 +34,19 @@ public class BuildSetup {
             return false;
         }
         LeakCanary.install(application);
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectNetwork()
-                .penaltyLog()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectLeakedSqlLiteObjects()
-                .detectLeakedClosableObjects()
-                .penaltyLog()
-                .build());
+        if (preferences.getBoolean(R.string.p_strict_mode, false)) {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                    .detectDiskReads()
+                    .detectDiskWrites()
+                    .detectNetwork()
+                    .penaltyLog()
+                    .build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                    .detectLeakedSqlLiteObjects()
+                    .detectLeakedClosableObjects()
+                    .penaltyLog()
+                    .build());
+        }
         return true;
     }
 }
