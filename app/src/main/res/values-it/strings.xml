@@ -374,9 +374,15 @@
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
 	<string name="tag_already_exists">Etichetta già presente</string>
 	<string name="name_cannot_be_empty">Il nome non può essere omesso</string>
+	<string name="username_required">Necessario nome utente</string>
+	<string name="password_required">Necessaria password</string>
+	<string name="url_required">Necessaria URL</string>
+	<string name="url_host_name_required">Necessario nome host</string>
+	<string name="url_invalid_scheme">Deve iniziare con http(s)://</string>
 	<string name="no_title">(nessun titolo)</string>
 	<string name="back_button_saves_task">Il tasto indietro salva l\'attività</string>
 	<string name="default_list">Lista predefinita</string>
+	<string name="default_sync">Sincronizz. predefinita</string>
 	<string name="plugin_description">Tasks è un progetto open source manutenuto da un singolo sviluppatore. Per supportarne lo sviluppo all\'interno dell\'applicazione sono offerte alcune funzioni di nicchia a pagamento...</string>
 	<string name="themes_purchase_description">Sblocca tutti i temi e aggiungi colori alle attività</string>
 	<string name="tasker_description">Lista notifiche in base al contesto. Richiede Tasker o Locale</string>
@@ -445,6 +451,11 @@
 	<string name="start_of_week">Inizio settimana</string>
 	<string name="use_locale_default">Usa default locale</string>
 	<string name="use_native_datetime_pickers">Usa data e ora locali</string>
+	<string name="add_account">Aggiungi account</string>
+	<string name="user">Utente</string>
+	<string name="error_adding_account">Aggiunta account fallita</string>
+	<string name="error_deleting_account">Cancellazione account fallita</string>
+	<string name="account_settings">Impostazioni account</string>
 	<string name="notification_channel_settings">Gestione notifiche</string>
 	<string name="battery_optimization_settings">Ottimizza consumo batteria</string>
 	<string name="notification_disable_battery_optimizations_description">L\'ottimizzazione consumi può ritardare le notifiche</string>
@@ -475,6 +486,7 @@
 	<string name="badges_description">Mostra contatore attività sull\'icona del programma. Non tutti i lanciatori lo supportano.</string>
 	<string name="bundle_notifications_summary">Associa molte notifiche in una sola</string>
 	<string name="repeat_monthly_same_day_each_month">lo stesso giorno di ogni mese</string>
+	<string name="dont_sync">Non sincronizzare</string>
 	<string name="repeat_monthly_every_day_of_nth_week">ogni %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">ogni %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">primo</string>

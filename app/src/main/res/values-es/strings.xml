@@ -373,9 +373,15 @@
 	<string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Task. No se recogerán datos personales.</string>
 	<string name="tag_already_exists">La etiqueta ya existe</string>
 	<string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
+	<string name="username_required">Nombre de usuario requerido</string>
+	<string name="password_required">Contraseña requerida</string>
+	<string name="url_required">URL requerida</string>
+	<string name="url_host_name_required">Nombre de servidor requerido</string>
+	<string name="url_invalid_scheme">Debe comenzar por http(s)://</string>
 	<string name="no_title">(Sin título)</string>
 	<string name="back_button_saves_task">Botón atrás guarda la tarea</string>
 	<string name="default_list">Lista por defecto</string>
+	<string name="default_sync">Sincronización predeterminada</string>
 	<string name="plugin_description">Tasks es un proyecto de código abierto mantenido por un único desarrollador. Algunas características especializadas se podrán comprar desde la aplicación para mantener su desarrollo.</string>
 	<string name="themes_purchase_description">Desbloquea todos los temas y añade color a Tasks</string>
 	<string name="tasker_description">Notificaciones dependientes del contexto. Requiere Tasker o Locale.</string>
@@ -442,6 +448,12 @@
 	<string name="start_of_week">Inicio de semana</string>
 	<string name="use_locale_default">Usar configuración regional</string>
 	<string name="use_native_datetime_pickers">Usar fecha y hora nativas</string>
+	<string name="add_account">Añadir cuenta</string>
+	<string name="user">Usuario</string>
+	<string name="password">Contraseña</string>
+	<string name="error_adding_account">Error añadiendo cuenta</string>
+	<string name="error_deleting_account">Error borrando cuenta</string>
+	<string name="account_settings">Configuración de cuenta</string>
 	<string name="notification_channel_settings">Gestionar notificaciones</string>
 	<string name="battery_optimization_settings">Optimizaciones en gestión de batería</string>
 	<string name="notification_disable_battery_optimizations_description">Optimizaciones de batería pueden retrasar notificaciones</string>
@@ -472,6 +484,7 @@
 	<string name="badges_description">Mostrar número de tareas en icono de Task. No todos los launchers lo soportan.</string>
 	<string name="bundle_notifications_summary">Combinar múltiples notificaciones en una sola</string>
 	<string name="repeat_monthly_same_day_each_month">el mismo día cada mes</string>
+	<string name="dont_sync">No sincronizar</string>
 	<string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">cada %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">primer</string>

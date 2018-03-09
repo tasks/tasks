@@ -216,7 +216,7 @@
 		<item quantity="other">раз</item>
 	</plurals>
 	<plurals name="repeat_minutes">
-		<item quantity="one">минуту</item>
+		<item quantity="one">минута</item>
 		<item quantity="other">минуты/минут</item>
 	</plurals>
 	<plurals name="repeat_n_minutes">
@@ -354,7 +354,7 @@
 	<string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
 	<string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
 	<string name="discard_changes">Отменить изменения?</string>
-	<string name="discard">Не сохранять</string>
+	<string name="discard">Отмена</string>
 	<string name="tag_settings">Настройки тегов</string>
 	<string name="list_settings">Настройки списка</string>
 	<string name="delete">Удалить</string>
@@ -375,9 +375,15 @@
 	<string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собираеться.</string>
 	<string name="tag_already_exists">Тег уже существует</string>
 	<string name="name_cannot_be_empty">Необходимо задать имя</string>
+	<string name="username_required">Требуется имя пользователя</string>
+	<string name="password_required">Требуется пароль</string>
+	<string name="url_required">Требуется URL</string>
+	<string name="url_host_name_required">Требуется имя хоста</string>
+	<string name="url_invalid_scheme">Должно начинаться с http(s)://</string>
 	<string name="no_title">(Без заголовка)</string>
 	<string name="back_button_saves_task">Кнопка «Назад» сохраняет задачу</string>
 	<string name="default_list">Список по умолчанию</string>
+	<string name="default_sync">Синхронизация по-умолчанию</string>
 	<string name="plugin_description">Tasks развивается как проект с открытым исходным кодом и поддерживается единственным разработчиком. Некоторые функции приложения предлагаются как платные для дальнейшего развития программы</string>
 	<string name="themes_purchase_description">Разблокировать все темы и добавить цвета в оформление Tasks</string>
 	<string name="tasker_description">Уведомления списка контекстного подбора. Требуется Tasker или Locale</string>
@@ -446,6 +452,11 @@
 	<string name="start_of_week">Начало недели</string>
 	<string name="use_locale_default">Как в системе</string>
 	<string name="use_native_datetime_pickers">Встроенные элементы даты/времени</string>
+	<string name="add_account">Добавить учётную запись</string>
+	<string name="user">Пользователь</string>
+	<string name="password">Пароль</string>
+	<string name="error_adding_account">Ошибка при добавлении учётной записи</string>
+	<string name="account_settings">Настройки учётной записи</string>
 	<string name="notification_channel_settings">Управление уведомлениями</string>
 	<string name="battery_optimization_settings">Управление расходом батареи</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
@@ -476,6 +487,7 @@
 	<string name="badges_description">Отображать количество задач на иконке приложения (не все лаунчеры это поддерживают)</string>
 	<string name="bundle_notifications_summary">Группировать несколько уведомлений в одно общее</string>
 	<string name="repeat_monthly_same_day_each_month">в тот же день ежеимесячно</string>
+	<string name="dont_sync">Не синхронизировать</string>
 	<string name="repeat_monthly_every_day_of_nth_week">каждый %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">в каждый %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">первая</string>

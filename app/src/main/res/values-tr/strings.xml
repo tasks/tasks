@@ -379,9 +379,15 @@
 	<string name="send_anonymous_statistics_summary">Tasks\'ı iyileştirmeye yardımcı olmak için anonim kullanım istatistiklerini ve kilitlenme raporlarını gönderin. Hiçbir kişisel veri toplanmayacak.</string>
 	<string name="tag_already_exists">Etiket zaten var</string>
 	<string name="name_cannot_be_empty">Ad boş olamaz</string>
+	<string name="username_required">Kullanıcı adı gerekli</string>
+	<string name="password_required">Parola gerekli</string>
+	<string name="url_required">URL gerekli</string>
+	<string name="url_host_name_required">Ana makine adı gerekli</string>
+	<string name="url_invalid_scheme">http(s):// ile başlamalı</string>
 	<string name="no_title">(Başlıksız)</string>
 	<string name="back_button_saves_task">Geri düğmesi görevi kaydeder</string>
 	<string name="default_list">Öntanımlı liste</string>
+	<string name="default_sync">Öntanımlı eşzamanlama</string>
 	<string name="plugin_description">Tasks, bir geliştirici tarafından sürdürülen açık kaynaklı tasarıdır. Bazı özellikleri gelişimi desteklemek için uygulama içi satın alma olarak sunulmaktadır.</string>
 	<string name="themes_purchase_description">Tüm gövdeleri açar ve Tasks\'e birkaç renk ekler</string>
 	<string name="tasker_description">Bağlam bilinçli liste bildirimleri. Tasker veya Locale gerekir</string>
@@ -439,6 +445,7 @@
 	<string name="widget_row_settings">Satır ayarları</string>
 	<string name="sync_error_permissions">Tasks izne gereksiniyor</string>
 	<string name="creating_new_list">Yeni liste oluşturuluyor</string>
+	<string name="contacting_server">Sunucuya bağlanılıyor</string>
 	<string name="deleting_list">Liste siliniyor</string>
 	<string name="renaming_list">Liste yeniden adlandırılıyor</string>
 	<string name="clear_completed_tasks_confirmation">Tamamlanan görevleri temizle?</string>
@@ -450,6 +457,12 @@
 	<string name="start_of_week">Hafta başlangıcı</string>
 	<string name="use_locale_default">Yerel öntanımlısını kullan</string>
 	<string name="use_native_datetime_pickers">Yerli tarih ve zaman seçicileri kullan</string>
+	<string name="add_account">Hesap ekle</string>
+	<string name="user">Kullanıcı</string>
+	<string name="password">Parola</string>
+	<string name="error_adding_account">Hesap eklenirken hata</string>
+	<string name="error_deleting_account">Hesap silinirken hata</string>
+	<string name="account_settings">Hesap ayarları</string>
 	<string name="notification_channel_settings">Bildirimleri yönet</string>
 	<string name="battery_optimization_settings">Pil optimizasyonlarını yönet</string>
 	<string name="notification_disable_battery_optimizations_description">Pil optimizasyonları bildirimleri geciktirebilir</string>
@@ -480,6 +493,7 @@
 	<string name="badges_description">Tasks başlatıcı simgesinde görev sayısı göster. Tüm başlatıcılar rozetleri desteklemez.</string>
 	<string name="bundle_notifications_summary">Birden çok bildirimi tek bildirime birleştir</string>
 	<string name="repeat_monthly_same_day_each_month">her ayın aynı gününde</string>
+	<string name="dont_sync">Eşzamanlama yapma</string>
 	<string name="repeat_monthly_every_day_of_nth_week">her %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">her %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">birinci</string>
@@ -490,4 +504,6 @@
 	<string name="tasker_create_task">Görev oluştur</string>
 	<string name="tasker_list_notification">Bildirimi listele</string>
 	<string name="help">Yardım</string>
+	<string name="calendar_not_found">Takvim bulunamadı</string>
+	<string name="network_error">Bağlantı başarısız</string>
 </resources>

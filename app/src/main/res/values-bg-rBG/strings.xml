@@ -377,9 +377,15 @@
 	<string name="send_anonymous_statistics_summary">Изпращане на анонимна статистика за използването и отчети за грешки, за да се подпомогне подобряването на Tasks. Няма да бъдат събирани персонални данни.</string>
 	<string name="tag_already_exists">Този таг вече съществува</string>
 	<string name="name_cannot_be_empty">Името не може да е празно</string>
+	<string name="username_required">Потребителското име е задължително</string>
+	<string name="password_required">Паролата е задължителна</string>
+	<string name="url_required">URL е задължително</string>
+	<string name="url_host_name_required">Името на хоста е задължително</string>
+	<string name="url_invalid_scheme">Трябва да започва с http(s)://</string>
 	<string name="no_title">(Без заглавие)</string>
 	<string name="back_button_saves_task">Бутон \"Назад\" запазва задачата</string>
 	<string name="default_list">Списък по подразбиране</string>
+	<string name="default_sync">Синхронизация по подразбиране</string>
 	<string name="plugin_description">Tasks е проект с отворен код поддържан от един разработчик. Някои от функциите се предлагат като покупки в приложението за да се подпомогне процеса на разработка.</string>
 	<string name="themes_purchase_description">Отключете всички теми и да добавите малко цвят към Tasks</string>
 	<string name="tasker_description">Context-Aware списък уведомления. Изисква Tasker или Locale</string>
@@ -448,6 +454,11 @@
 	<string name="start_of_week">Начало на седмицата</string>
 	<string name="use_locale_default">Локализация по подразбиране</string>
 	<string name="use_native_datetime_pickers">Контроли за избор на дата и време по подразбиране </string>
+	<string name="add_account">Добави акаунт</string>
+	<string name="user">Потребител</string>
+	<string name="password">Парола</string>
+	<string name="error_adding_account">Грешка при добавяне на акаунт</string>
+	<string name="account_settings">Настройки на акаунта</string>
 	<string name="notification_channel_settings">Управление на уведомления</string>
 	<string name="battery_optimization_settings">Управление на оптимизациите на батерията</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизациите на батерията могат да забавят уведомленията</string>
@@ -478,6 +489,7 @@
 	<string name="badges_description">Показвай броя задачи върху икона на Tasks в лаунчера. Не всички лаунчери поддържат значки.</string>
 	<string name="bundle_notifications_summary">Комбинирай множество нотификации в една</string>
 	<string name="repeat_monthly_same_day_each_month">на един и същ ден всеки месец</string>
+	<string name="dont_sync">Не синхронизирай</string>
 	<string name="repeat_monthly_every_day_of_nth_week">всеки %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">на всеки %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">първи</string>

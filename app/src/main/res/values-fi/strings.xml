@@ -381,6 +381,7 @@
 	<string name="no_title">(Ei nimikettä)</string>
 	<string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
 	<string name="default_list">Oletuslista</string>
+	<string name="default_sync">Oletus synkronointi</string>
 	<string name="plugin_description">Tasks on avoimen koodin projekti jota ylläpitää yksi kehittäjä. Jotkut ominaisuudet ovat saatavina sovelluksen sisäisinä ostoksina joilla tuetaan kehitystyötä.</string>
 	<string name="themes_purchase_description">Avaa kaikki teemat ja lisää väriä Tasks -ohjelmaan</string>
 	<string name="tasker_description">Kontekstiriippuvainen listaus ilmoituksille. Vaatii Tasker tai Locale -sovelluksen</string>
@@ -479,6 +480,7 @@
 	<string name="badges_description">Näytä tehtävien lukumäärä tehtävien käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>
 	<string name="bundle_notifications_summary">Yhdistä useita ilmoituksia yhteen ilmoitukseen</string>
 	<string name="repeat_monthly_same_day_each_month">sama päivä joka kuukausi</string>
+	<string name="dont_sync">Älä synkronoi</string>
 	<string name="repeat_monthly_every_day_of_nth_week">joka %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">jokaisella %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">ensimmäinen</string>

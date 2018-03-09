@@ -375,9 +375,15 @@
 	<string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
 	<string name="tag_already_exists">タグは既に存在します</string>
 	<string name="name_cannot_be_empty">名前は空にできません。</string>
+	<string name="username_required">ユーザー名が必要です</string>
+	<string name="password_required">パスワードが必要です</string>
+	<string name="url_required">URL が必要です</string>
+	<string name="url_host_name_required">ホスト名が必要です</string>
+	<string name="url_invalid_scheme">http(s):// で始める必要があります</string>
 	<string name="no_title">(タイトルなし)</string>
 	<string name="back_button_saves_task">戻るボタンでタスクを保存します</string>
 	<string name="default_list">デフォルトリスト</string>
+	<string name="default_sync">デフォルトの同期</string>
 	<string name="plugin_description">Tasks は、1人の開発者が維持しているオープンソース プロジェクトです。開発をサポートするために、ニッチの機能はアプリ内課金で提供されています。</string>
 	<string name="themes_purchase_description">すべてのテーマのロックを解除して Tasks に色を追加します</string>
 	<string name="tasker_description">コンテキスト アウェア リストの通知。Tasker または Locale が必要です</string>
@@ -446,6 +452,12 @@
 	<string name="start_of_week">週の始まり</string>
 	<string name="use_locale_default">ロケールのデフォルトを使用する</string>
 	<string name="use_native_datetime_pickers">ネイティブの日付と時刻選択を使用する</string>
+	<string name="add_account">アカウントを追加</string>
+	<string name="user">ユーザー</string>
+	<string name="password">パスワード</string>
+	<string name="error_adding_account">アカウントの追加時にエラーが発生しました</string>
+	<string name="error_deleting_account">アカウントの削除時にエラーが発生しました</string>
+	<string name="account_settings">アカウント設定</string>
 	<string name="notification_channel_settings">通知を管理</string>
 	<string name="battery_optimization_settings">バッテリー最適化を管理</string>
 	<string name="notification_disable_battery_optimizations_description">バッテリー最適化をすると通知が遅れることがあります</string>
@@ -476,6 +488,7 @@
 	<string name="badges_description">Tasks ランチャーアイコンにタスク数を表示します。 すべてのランチャーがバッジをサポートしているわけではありません。</string>
 	<string name="bundle_notifications_summary">複数の通知を1つの通知にまとめる</string>
 	<string name="repeat_monthly_same_day_each_month">毎月同じ日に</string>
+	<string name="dont_sync">同期しない</string>
 	<string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s ごと</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">%1$s %2$s ごとに</string>
 	<string name="repeat_monthly_first_week">第一週</string>

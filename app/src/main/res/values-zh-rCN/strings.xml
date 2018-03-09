@@ -374,9 +374,15 @@
 	<string name="send_anonymous_statistics_summary">发送匿名使用情况统计信息和崩溃报告，以帮助改进Tasks。不会收集个人资料。</string>
 	<string name="tag_already_exists">标签已存在</string>
 	<string name="name_cannot_be_empty">名字不能为空</string>
+	<string name="username_required">请填用户名</string>
+	<string name="password_required">请填密码</string>
+	<string name="url_required">请填网址</string>
+	<string name="url_host_name_required">请填主机名</string>
+	<string name="url_invalid_scheme">必须以http(s)://开头</string>
 	<string name="no_title">（无标题）</string>
 	<string name="back_button_saves_task">返回键保存任务</string>
 	<string name="default_list">默认列表</string>
+	<string name="default_sync">默认同步</string>
 	<string name="plugin_description">Tasks是一个开发人员维护的开源项目。有些功能是作为应用内购提供的，以此支持开发。</string>
 	<string name="themes_purchase_description">解锁所有Tasks的主题和颜色</string>
 	<string name="tasker_description">上下文感知列表通知。需要Tasks或Locale</string>
@@ -445,6 +451,13 @@
 	<string name="start_of_week">每周始于</string>
 	<string name="use_locale_default">设备默认值</string>
 	<string name="use_native_datetime_pickers">使用本机日期和时间选择器</string>
+	<string name="add_account">添加帐号</string>
+	<string name="user">用户</string>
+	<string name="password">密码</string>
+	<string name="url">网址</string>
+	<string name="error_adding_account">添加帐号错误</string>
+	<string name="error_deleting_account">删除帐号错误</string>
+	<string name="account_settings">帐号设置</string>
 	<string name="notification_channel_settings">管理通知</string>
 	<string name="battery_optimization_settings">电池优化管理</string>
 	<string name="notification_disable_battery_optimizations_description">电池优化可能会延迟通知</string>
@@ -475,6 +488,7 @@
 	<string name="badges_description">在Tasks启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
 	<string name="bundle_notifications_summary">将多个通知合并为一个通知</string>
 	<string name="repeat_monthly_same_day_each_month">在每月的同一天</string>
+	<string name="dont_sync">不同步</string>
 	<string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">在每 %1$s 个 %2$s</string>
 	<string name="repeat_monthly_first_week">第一个</string>

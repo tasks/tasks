@@ -360,9 +360,15 @@
 	<string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
 	<string name="tag_already_exists">Le tag existe déjà</string>
 	<string name="name_cannot_be_empty">Le nom ne peut pas être vide</string>
+	<string name="username_required">Nom d\'utilisateur requis</string>
+	<string name="password_required">Mot de passe requis</string>
+	<string name="url_required">Adresse URL requise</string>
+	<string name="url_host_name_required">Nom de l\'hôte requis</string>
+	<string name="url_invalid_scheme">Doit commencer avec http(s)://</string>
 	<string name="no_title">(Sans titre)</string>
 	<string name="back_button_saves_task">Faire un retour-arrière sauvegarde la tâche</string>
 	<string name="default_list">Liste par défaut</string>
+	<string name="default_sync">Synchronisation par défaut</string>
 	<string name="plugin_description">Tasks est un projet à source ouverte entretenu par un développeur. Quelques contenus payants sont disponible dans l\'application pour supporter le développement.</string>
 	<string name="themes_purchase_description">Débloquer tous les thèmes et quelques couleurs à Tasks</string>
 	<string name="tasker_description">Notifications de la sensibilité du contexte de la liste. Tasker ou Local est requis.</string>
@@ -416,6 +422,7 @@
 	<string name="widget_row_settings">Paramètres de la ligne</string>
 	<string name="sync_error_permissions">Permissions requises de Tasks.</string>
 	<string name="creating_new_list">Création d\'une nouvelle liste</string>
+	<string name="contacting_server">Connexion au serveur</string>
 	<string name="deleting_list">Suppression de la liste</string>
 	<string name="renaming_list">Renommage de la liste</string>
 	<string name="clear_completed_tasks_confirmation">Supprimer les tâches terminées ?</string>
@@ -427,6 +434,14 @@
 	<string name="start_of_week">Début de la semaine</string>
 	<string name="use_locale_default">Par défaut du lieu d\'utilisation</string>
 	<string name="use_native_datetime_pickers">Utiliser la date et l\'heure native</string>
+	<string name="add_account">Ajouter un compte</string>
+	<string name="user">Utilisateur</string>
+	<string name="password">Mot de passe</string>
+	<string name="url">Adresse URL</string>
+	<string name="error_adding_account">Erreur dans l\'ajout du compte</string>
+
+	<string name="error_deleting_account">Erreur dans la suppression du compte</string>
+	<string name="account_settings">Paramètres du compte</string>
 	<string name="notification_channel_settings">Gérer les notifications</string>
 	<string name="battery_optimization_settings">Gérer les optimisations de la batterie</string>
 	<string name="notification_disable_battery_optimizations_description">Optimisations de la batterie avec des notifications par délais</string>
@@ -456,6 +471,7 @@
 	<string name="badges_description">Afficher un compteur de tâche sur l\'icône du lanceur de Tasks. Certains lanceurs ne supportent pas les badges.</string>
 	<string name="bundle_notifications_summary">Combiner plusieurs notifications dans une seule notification</string>
 	<string name="repeat_monthly_same_day_each_month">le même jour a chaque mois</string>
+	<string name="dont_sync">Ne pas synchroniser</string>
 	<string name="repeat_monthly_every_day_of_nth_week">tous les %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">a chaque tous les %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">premier</string>
@@ -465,4 +481,6 @@
 	<string name="tasker_create_task">Créer tâche</string>
 	<string name="tasker_list_notification">Liste des notifications</string>
 	<string name="help">Aide</string>
+	<string name="calendar_not_found">Calendrier manquant</string>
+	<string name="network_error">Connexion échouée</string>
 </resources>

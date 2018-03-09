@@ -369,6 +369,11 @@
 	<string name="send_anonymous_statistics_summary">Verstuur anoniem gebruikersstatistieken en crash rapporten om Tasks te verbeteren. Er worden geen persoonlijke gegevens verzameld.</string>
 	<string name="tag_already_exists">Label bestaat reeds</string>
 	<string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
+	<string name="username_required">Gebruikersnaam verplicht</string>
+	<string name="password_required">Wachtwoord verplicht</string>
+	<string name="url_required">URL verplicht</string>
+	<string name="url_host_name_required">Website naam verplicht</string>
+	<string name="url_invalid_scheme">Moet beginnen met http(s)://</string>
 	<string name="no_title">(geen titel)</string>
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string name="default_list">Standaard lijst</string>
@@ -436,6 +441,11 @@
 	<string name="start_of_week">Begin van de week</string>
 	<string name="use_locale_default">Gebruik lokale instellingen</string>
 	<string name="use_native_datetime_pickers">Gebruik standaard datum- en tijd selectie</string>
+	<string name="add_account">Account toevoegen</string>
+	<string name="user">Gebruiker</string>
+	<string name="password">Wachtwoord</string>
+	<string name="error_adding_account">Fout bij account toevoegen</string>
+	<string name="account_settings">Account instellingen</string>
 	<string name="notification_channel_settings">Beheer notificaties</string>
 	<string name="battery_optimization_settings">Beheer batterij optimalisatie</string>
 	<string name="notification_disable_battery_optimizations_description">Batterij optimalisatie kan meldingen vertragen</string>

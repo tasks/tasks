@@ -374,9 +374,15 @@
 	<string name="send_anonymous_statistics_summary">Siųsti anoniminę naudojimo statistikos ir gedimų ataskaitas, kad pagerinti Tasks programą. Jokia asmeninė informacija nebus renkama.</string>
 	<string name="tag_already_exists">Etiketė jau egzistuoja</string>
 	<string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
+	<string name="username_required">Reikalingas vartotojo vardas</string>
+	<string name="password_required">Reikalingas slaptažodis</string>
+	<string name="url_required">Reikalingas URL</string>
+	<string name="url_host_name_required">Reikalingas serverio vardas</string>
+	<string name="url_invalid_scheme">Turi prasidėti http(s)://</string>
 	<string name="no_title">(Be pavadinimo)</string>
 	<string name="back_button_saves_task">Mygtukas \"Atgal\" išsaugo pakitimus</string>
 	<string name="default_list">Numatytasis sąrašas</string>
+	<string name="default_sync">Numatytoji sinchronizacija</string>
 	<string name="plugin_description">Tasks yra atviro pirminio kodo projektas, išlaikomas vienintelio programuotojo. \'Kai kurios funkcijos yra siūlomos kaip papildomos ir mokamos, kad būtų išlaikytas projekto vystymas.</string>
 	<string name="themes_purchase_description">Atrakinti visas Tasks temas ir pridėti kelias spalvas</string>
 	<string name="tasker_description">Pranešimai atsižvelgiant į sąrašo turinį. Reikalingas Tasker arba Locale.</string>
@@ -433,6 +439,7 @@
 	<string name="widget_row_settings">Eilutės nustatymai</string>
 	<string name="sync_error_permissions">Tasks reikalingas leidimas</string>
 	<string name="creating_new_list">Kuriant naują sąrašą</string>
+	<string name="contacting_server">Susisiekiama su serveriu</string>
 	<string name="deleting_list">Trinamas sąrašas</string>
 	<string name="renaming_list">Pervadinamas sąrašas</string>
 	<string name="clear_completed_tasks_confirmation">Išvalyti užbaigtas užduotis?</string>
@@ -444,6 +451,12 @@
 	<string name="start_of_week">Savaitės pradžia</string>
 	<string name="use_locale_default">Naudoti įprastą vietovę</string>
 	<string name="use_native_datetime_pickers">Naudoti įprastą datos ir laiko pasirinkimą</string>
+	<string name="add_account">Pridėti paskyrą</string>
+	<string name="user">Vartotojas</string>
+	<string name="password">Slaptažodis</string>
+	<string name="error_adding_account">Klaida kuriant paskyrą</string>
+	<string name="error_deleting_account">Klaida šalinant vartotojo paskyrą</string>
+	<string name="account_settings">Paskyros nustatymai</string>
 	<string name="notification_channel_settings">Valdyti pranešimus</string>
 	<string name="battery_optimization_settings">Valdyti baterijos optimizacijas</string>
 	<string name="notification_disable_battery_optimizations_description">Baterijos optimizacijos gali uždelsti pranešimus</string>
@@ -474,6 +487,7 @@
 	<string name="badges_description">Rodyti užduočių kiekį Tasks paleidimo piktogramoje. Ne visos sistemos palaiko šią funkciją.</string>
 	<string name="bundle_notifications_summary">Sujungti kelis pranešimus į vieną pranešimą</string>
 	<string name="repeat_monthly_same_day_each_month">Tą pačią mėnesio dieną</string>
+	<string name="dont_sync">Nesinchronizuoti</string>
 	<string name="repeat_monthly_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">pirmą</string>
@@ -484,4 +498,6 @@
 	<string name="tasker_create_task">Sukurti užduotį</string>
 	<string name="tasker_list_notification">Rodyti pranešimus</string>
 	<string name="help">Pagalba</string>
+	<string name="calendar_not_found">Kalendorius nerastas</string>
+	<string name="network_error">Sujungimas nepavyko</string>
 </resources>

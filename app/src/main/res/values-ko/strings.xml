@@ -379,6 +379,11 @@
 	<string name="send_anonymous_statistics_summary">Tasks를 향상시키기 위해 사용 기록과 충돌 보고서를 익명으로 전송합니다. 개인 정보는 수집되지 않습니다.</string>
 	<string name="tag_already_exists">태그가 이미 존재합니다</string>
 	<string name="name_cannot_be_empty">이름은 필수 입력항목입니다.</string>
+	<string name="username_required">계정명 필수</string>
+	<string name="password_required">비밀번호 필수</string>
+	<string name="url_required">URL 필수</string>
+	<string name="url_host_name_required">호스트명 필수</string>
+	<string name="url_invalid_scheme">반드시 http(s):// 로 시작해야 합니다. </string>
 	<string name="no_title">(제목 없음)</string>
 	<string name="back_button_saves_task">뒤로가기 버튼으로 할일 저장</string>
 	<string name="default_list">기본 목록</string>
@@ -450,6 +455,11 @@
 	<string name="start_of_week">한 주의 시작</string>
 	<string name="use_locale_default">기본으로 설정된 언어 사용하기</string>
 	<string name="use_native_datetime_pickers">시스템 날짜와 시간 입력창 사용하기</string>
+	<string name="add_account">계정 추가</string>
+	<string name="user">사용자</string>
+	<string name="password">비밀번호</string>
+	<string name="error_adding_account">계정 추가 오류</string>
+	<string name="account_settings">계정 설정</string>
 	<string name="notification_channel_settings">알림 관리</string>
 	<string name="battery_optimization_settings">배터리 최적화 관리</string>
 	<string name="notification_disable_battery_optimizations_description">배터리 최적화 시 알림이 지연될 수 있습니다. </string>

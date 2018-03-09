@@ -353,6 +353,11 @@
 	<string name="send_anonymous_statistics_summary">Wyślij anonimowe statyki użycia i raporty o awariach celem ulepszenia Tasks. Żadne prywatne dane nie będą gromadzone.</string>
 	<string name="tag_already_exists">Tag już istnieje</string>
 	<string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
+	<string name="username_required">Wymagana nazwa użytkownika</string>
+	<string name="password_required">Wymagane hasło</string>
+	<string name="url_required">Wymagany URL</string>
+	<string name="url_host_name_required">Wymagana nazwa hosta</string>
+	<string name="url_invalid_scheme">Musi rozpoczynać się http(s)://</string>
 	<string name="no_title">(Bez tytułu)</string>
 	<string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
 	<string name="default_list">Domyślna lista</string>
@@ -422,6 +427,11 @@
 	<string name="date_and_time">Data i czas</string>
 	<string name="start_of_week">Początek tygodnia</string>
 	<string name="use_locale_default">Użyj domyślnych</string>
+	<string name="add_account">Dodaj konto</string>
+	<string name="user">Użytkownik</string>
+	<string name="password">Hasło</string>
+	<string name="error_adding_account">Błąd przy dodawaniu konta</string>
+	<string name="account_settings">Ustawienia konta</string>
 	<string name="notification_channel_settings">Zarządzaj powiadamieniami</string>
 	<string name="battery_optimization_settings">Zarządzaj zużyciem energii</string>
 	<string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
