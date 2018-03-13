@@ -13,7 +13,6 @@ import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.activities.FilterSelectionActivity;
 import org.tasks.analytics.Tracker;
-import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.injection.ActivityComponent;
@@ -85,7 +84,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
 
         findPreference(R.string.p_widget_theme).setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
-            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.WIDGET_BACKGROUND);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.WIDGET_BACKGROUND);
             intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.getThemeIndex());
             startActivityForResult(intent, REQUEST_THEME_SELECTION);
             return false;
@@ -95,7 +94,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
         colorPreference.setDependency(showHeader.getKey());
         colorPreference.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
-            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
             intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.getColorIndex());
             startActivityForResult(intent, REQUEST_COLOR_SELECTION);
             return false;

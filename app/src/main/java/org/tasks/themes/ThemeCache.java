@@ -16,6 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.google.common.collect.ImmutableList.copyOf;
 
 @ApplicationScope
 public class ThemeCache {
@@ -59,6 +60,7 @@ public class ThemeCache {
         for (int i = 0; i < WidgetTheme.BACKGROUNDS.length ; i++) {
             widgetThemes.add(new WidgetTheme(
                     widgetBackgroundNames[i],
+                    i,
                     getColor(context, WidgetTheme.BACKGROUNDS[i]),
                     getColor(context, i == 0 ? R.color.black_87 : R.color.white_100),
                     getColor(context, i == 0 ? R.color.black_54 : R.color.white_70)));
@@ -96,5 +98,21 @@ public class ThemeCache {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attribute, typedValue, false);
         return typedValue.data != 0;
+    }
+
+    public List<ThemeAccent> getAccents() {
+        return copyOf(accents);
+    }
+
+    public List<ThemeBase> getThemes() {
+        return copyOf(themes);
+    }
+
+    public List<ThemeColor> getColors() {
+        return copyOf(colors);
+    }
+
+    public List<WidgetTheme> getWidgetThemes() {
+        return copyOf(widgetThemes);
     }
 }

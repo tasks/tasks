@@ -6,17 +6,19 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Parcel;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.tasks.R;
+import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.ui.MenuColorizer;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 
-public class ThemeColor {
+public class ThemeColor implements ColorPickerDialog.Pickable {
 
     static final int[] COLORS = new int[] {
             R.style.BlueGrey,
@@ -57,6 +59,16 @@ public class ThemeColor {
         this.colorPrimary = colorPrimary;
         this.colorPrimaryDark = colorPrimaryDark;
         this.isDark = isDark;
+    }
+
+    private ThemeColor(Parcel source) {
+        name = source.readString();
+        index = source.readInt();
+        actionBarTint = source.readInt();
+        style = source.readInt();
+        colorPrimary = source.readInt();
+        colorPrimaryDark = source.readInt();
+        isDark = source.readInt() == 1;
     }
 
     @SuppressLint("NewApi")
@@ -106,8 +118,31 @@ public class ThemeColor {
         }
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getPickerColor() {
+        return colorPrimary;
+    }
+
+    @Override
+    public boolean isFree() {
+        switch (style) {
+            case R.style.Blue:
+            case R.style.BlueGrey:
+            case R.style.DarkGrey:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public int getIndex() {
+        return index;
     }
 
     public int getPrimaryColor() {
@@ -127,7 +162,31 @@ public class ThemeColor {
         MenuColorizer.colorToolbar(toolbar, actionBarTint);
     }
 
-    public int getIndex() {
-        return index;
+    public static Creator<ThemeColor> CREATOR = new Creator<ThemeColor>() {
+        @Override
+        public ThemeColor createFromParcel(Parcel source) {
+            return new ThemeColor(source);
+        }
+
+        @Override
+        public ThemeColor[] newArray(int size) {
+            return new ThemeColor[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeInt(index);
+        dest.writeInt(actionBarTint);
+        dest.writeInt(style);
+        dest.writeInt(colorPrimary);
+        dest.writeInt(colorPrimaryDark);
+        dest.writeInt(isDark ? 1 : 0);
     }
 }

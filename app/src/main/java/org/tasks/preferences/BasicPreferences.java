@@ -88,7 +88,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         themePreference.setSummary(themeBase.getName());
         themePreference.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
-            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.THEMES);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.THEMES);
             startActivityForResult(intent, REQUEST_THEME_PICKER);
             return false;
         });
@@ -96,7 +96,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         colorPreference.setSummary(themeColor.getName());
         colorPreference.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
-            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
             startActivityForResult(intent, REQUEST_COLOR_PICKER);
             return false;
         });
@@ -104,7 +104,7 @@ public class BasicPreferences extends InjectingPreferenceActivity implements
         accentPreference.setSummary(themeAccent.getName());
         accentPreference.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
-            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.ACCENTS);
+            intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.ACCENTS);
             startActivityForResult(intent, REQUEST_ACCENT_PICKER);
             return false;
         });

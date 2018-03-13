@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -14,34 +15,43 @@ import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
-import org.tasks.themes.ThemeCache;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.google.common.collect.Lists.transform;
+
 public class ColorPickerDialog extends InjectingDialogFragment {
 
-    private static final String EXTRA_PALETTE = "extra_palette";
+    private static final String EXTRA_ITEMS = "extra_items";
     private static final String EXTRA_SELECTED = "extra_selected";
     private static final String EXTRA_SHOW_NONE = "extra_show_none";
 
-    public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND}
+    public interface Pickable extends Parcelable {
+        String getName();
+
+        int getPickerColor();
+
+        boolean isFree();
+
+        int getIndex();
+    }
 
     public interface ThemePickerCallback {
-        void themePicked(ColorPalette palette, int index);
+        void themePicked(Pickable pickable);
 
         void initiateThemePurchase();
 
         void dismissed();
     }
 
-    public static ColorPickerDialog newColorPickerDialog(ColorPalette palette, boolean showNone, int selection) {
+    public static ColorPickerDialog newColorPickerDialog(List<? extends Pickable> items, boolean showNone, int selection) {
         ColorPickerDialog dialog = new ColorPickerDialog();
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_PALETTE, palette);
+        args.putParcelableArrayList(EXTRA_ITEMS, new ArrayList<Pickable>(items));
         args.putInt(EXTRA_SELECTED, selection);
         args.putBoolean(EXTRA_SHOW_NONE, showNone);
         dialog.setArguments(args);
@@ -51,10 +61,8 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     @Inject DialogBuilder dialogBuilder;
     @Inject @ForActivity Context context;
     @Inject Preferences preferences;
-    @Inject ThemeCache themeCache;
     @Inject Theme theme;
 
-    private ColorPalette palette;
     private ThemePickerCallback callback;
     private SingleCheckedArrayAdapter adapter;
     private Dialog dialog;
@@ -64,37 +72,36 @@ public class ColorPickerDialog extends InjectingDialogFragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         Bundle arguments = getArguments();
-        palette = (ColorPalette) arguments.getSerializable(EXTRA_PALETTE);
+        final List<Pickable> items = arguments.getParcelableArrayList(EXTRA_ITEMS);
         boolean showNone = arguments.getBoolean(EXTRA_SHOW_NONE);
         int selected = arguments.getInt(EXTRA_SELECTED, -1);
 
-        final List<String> themes = Arrays.asList(context.getResources().getStringArray(getNameRes()));
-
-        adapter = new SingleCheckedArrayAdapter(context, themes, theme.getThemeAccent()) {
+        adapter = new SingleCheckedArrayAdapter(context, transform(items, Pickable::getName), theme.getThemeAccent()) {
             @Override
             protected int getDrawable(int position) {
-                return preferences.hasPurchase(R.string.p_purchased_themes) || position < getNumFree()
+                return preferences.hasPurchase(R.string.p_purchased_themes) || items.get(position).isFree()
                         ? R.drawable.ic_lens_black_24dp
                         : R.drawable.ic_vpn_key_black_24dp;
             }
 
             @Override
             protected int getDrawableColor(int position) {
-                return getDisplayColor(position);
+                return items.get(position).getPickerColor();
             }
         };
 
         AlertDialogBuilder builder = dialogBuilder.newDialog(theme)
                 .setSingleChoiceItems(adapter, selected, (dialog, which) -> {
-                    if (preferences.hasPurchase(R.string.p_purchased_themes) || which < getNumFree()) {
-                        callback.themePicked(palette, which);
+                    Pickable picked = items.get(which);
+                    if (preferences.hasPurchase(R.string.p_purchased_themes) || picked.isFree()) {
+                        callback.themePicked(picked);
                     } else {
                         callback.initiateThemePurchase();
                     }
                 })
                 .setOnDismissListener(dialogInterface -> callback.dismissed());
         if (showNone) {
-            builder.setNeutralButton(R.string.none, (dialogInterface, i) -> callback.themePicked(palette, -1));
+            builder.setNeutralButton(R.string.none, (dialogInterface, i) -> callback.themePicked(null));
         }
         dialog = builder.create();
     }
@@ -127,35 +134,5 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     @Override
     protected void inject(DialogFragmentComponent component) {
         component.inject(this);
-    }
-
-    private int getNameRes() {
-        switch (palette) {
-            case COLORS:
-                return R.array.colors;
-            case ACCENTS:
-                return R.array.accents;
-            case WIDGET_BACKGROUND:
-                return R.array.widget_background;
-            default:
-                return R.array.themes;
-        }
-    }
-
-    private int getDisplayColor(int index) {
-        switch (palette) {
-            case COLORS:
-                return themeCache.getThemeColor(index).getPrimaryColor();
-            case ACCENTS:
-                return themeCache.getThemeAccent(index).getAccentColor();
-            case WIDGET_BACKGROUND:
-                return themeCache.getWidgetTheme(index).getBackgroundColor();
-            default:
-                return themeCache.getThemeBase(index).getContentBackground();
-        }
-    }
-
-    private int getNumFree() {
-        return 2;
     }
 }

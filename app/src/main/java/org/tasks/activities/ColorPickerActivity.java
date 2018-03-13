@@ -7,16 +7,20 @@ import org.tasks.R;
 import org.tasks.billing.PurchaseHelper;
 import org.tasks.billing.PurchaseHelperCallback;
 import org.tasks.dialogs.ColorPickerDialog;
-import org.tasks.dialogs.ColorPickerDialog.ColorPalette;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.themes.Theme;
+import org.tasks.themes.ThemeCache;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import static org.tasks.dialogs.ColorPickerDialog.newColorPickerDialog;
 
 public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implements ColorPickerDialog.ThemePickerCallback, PurchaseHelperCallback {
+
+    public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND}
 
     private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
     private static final int REQUEST_PURCHASE = 1006;
@@ -27,6 +31,9 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
 
     @Inject PurchaseHelper purchaseHelper;
     @Inject Theme theme;
+    @Inject ThemeCache themeCache;
+
+    private ColorPalette palette;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +45,28 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
         super.onPostResume();
 
         Intent intent = getIntent();
-        ColorPalette palette = (ColorPalette) intent.getSerializableExtra(EXTRA_PALETTE);
+        palette = (ColorPalette) intent.getSerializableExtra(EXTRA_PALETTE);
         boolean showNone = intent.getBooleanExtra(EXTRA_SHOW_NONE, false);
         int selected = intent.hasExtra(EXTRA_THEME_INDEX)
                 ? intent.getIntExtra(EXTRA_THEME_INDEX, -1)
                 : getCurrentSelection(palette);
-        newColorPickerDialog(palette, showNone, selected)
+        newColorPickerDialog(getItems(palette), showNone, selected)
                 .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
+    }
+
+    private List<? extends ColorPickerDialog.Pickable> getItems(ColorPalette palette) {
+        switch (palette) {
+            case ACCENTS:
+                return themeCache.getAccents();
+            case COLORS:
+                return themeCache.getColors();
+            case THEMES:
+                return themeCache.getThemes();
+            case WIDGET_BACKGROUND:
+                return themeCache.getWidgetThemes();
+            default:
+                throw new RuntimeException("Un");
+        }
     }
 
     @Override
@@ -53,10 +75,10 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
     }
 
     @Override
-    public void themePicked(final ColorPalette palette, final int index) {
+    public void themePicked(ColorPickerDialog.Pickable picked) {
         Intent data = new Intent();
         data.putExtra(EXTRA_PALETTE, palette);
-        data.putExtra(EXTRA_THEME_INDEX, index);
+        data.putExtra(EXTRA_THEME_INDEX, picked.getIndex());
         setResult(RESULT_OK, data);
         finish();
     }

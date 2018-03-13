@@ -26,7 +26,6 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
-import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -193,7 +192,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
     @OnClick(R.id.color)
     protected void showThemePicker() {
         Intent intent = new Intent(CalDAVSettingsActivity.this, ColorPickerActivity.class);
-        intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+        intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
         intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, true);
         startActivityForResult(intent, REQUEST_COLOR_PICKER);
     }

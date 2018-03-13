@@ -18,8 +18,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.TagFilter;
-import org.tasks.data.TagDataDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
 
@@ -27,7 +25,8 @@ import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.TagDao;
-import org.tasks.dialogs.ColorPickerDialog;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -151,7 +150,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     @OnClick(R.id.color)
     protected void showThemePicker() {
         Intent intent = new Intent(TagSettingsActivity.this, ColorPickerActivity.class);
-        intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerDialog.ColorPalette.COLORS);
+        intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
         intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, selectedTheme);
         intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, true);
         startActivityForResult(intent, REQUEST_COLOR_PICKER);

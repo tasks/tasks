@@ -1,7 +1,5 @@
 package org.tasks.injection;
 
-import android.arch.lifecycle.ViewModel;
-
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.activity.ShareLinkActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
