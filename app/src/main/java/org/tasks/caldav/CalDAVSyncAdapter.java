@@ -36,8 +36,10 @@ import javax.inject.Inject;
 import at.bitfire.dav4android.BasicDigestAuthHandler;
 import at.bitfire.dav4android.DavCalendar;
 import at.bitfire.dav4android.DavResource;
+import at.bitfire.dav4android.PropertyCollection;
 import at.bitfire.dav4android.exception.DavException;
 import at.bitfire.dav4android.exception.HttpException;
+import at.bitfire.dav4android.property.DisplayName;
 import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.GetETag;
 import at.bitfire.ical4android.CalendarStorageException;
@@ -99,10 +101,20 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
         try {
             pushLocalChanges(caldavAccount, httpClient, httpUrl);
 
-            davCalendar.propfind(0, GetCTag.NAME);
+            davCalendar.propfind(0, GetCTag.NAME, DisplayName.NAME);
 
-            String remoteCtag = davCalendar.getProperties().get(GetCTag.class).getCTag();
+            PropertyCollection properties = davCalendar.getProperties();
+            String remoteName = properties.get(DisplayName.class).getDisplayName();
+            if (!caldavAccount.getName().equals(remoteName)) {
+                Timber.d("%s -> %s", caldavAccount.getName(), remoteName);
+                caldavAccount.setName(remoteName);
+                caldavDao.update(caldavAccount);
+                localBroadcastManager.broadcastRefreshList();
+            }
+
+            String remoteCtag = properties.get(GetCTag.class).getCTag();
             String localCtag = caldavAccount.getCtag();
+
 
             if (localCtag != null && localCtag.equals(remoteCtag)) {
                 Timber.d("%s up to date", caldavAccount.getName());
@@ -139,7 +151,9 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
             caldavAccount.setCtag(remoteCtag);
             caldavDao.update(caldavAccount);
         } catch (IOException | HttpException | DavException | CalendarStorageException e) {
-            Timber.e(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
+        } catch (Exception e) {
+            Timber.e(e, e.getMessage());
         }
 
         localBroadcastManager.broadcastRefresh();

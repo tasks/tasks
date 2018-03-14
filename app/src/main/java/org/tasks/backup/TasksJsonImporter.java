@@ -134,7 +134,7 @@ public class TasksJsonImporter {
                 }
             }
             for (CaldavAccount account : backupContainer.caldavAccounts) {
-                if (caldavDao.getAccountByName(account.getName()) == null) {
+                if (caldavDao.getByUuid(account.getUuid()) == null) {
                     caldavDao.insert(account);
                 }
             }

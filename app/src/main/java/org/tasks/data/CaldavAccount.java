@@ -152,4 +152,32 @@ public final class CaldavAccount implements Parcelable {
                 ", username='" + username + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CaldavAccount)) return false;
+
+        CaldavAccount that = (CaldavAccount) o;
+
+        if (id != that.id) return false;
+        if (color != that.color) return false;
+        if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (ctag != null ? !ctag.equals(that.ctag) : that.ctag != null) return false;
+        if (url != null ? !url.equals(that.url) : that.url != null) return false;
+        return username != null ? username.equals(that.username) : that.username == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (uuid != null ? uuid.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + color;
+        result = 31 * result + (ctag != null ? ctag.hashCode() : 0);
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        return result;
+    }
 }

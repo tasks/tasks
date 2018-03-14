@@ -1,5 +1,6 @@
 package org.tasks.caldav;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -36,13 +37,16 @@ import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+import org.tasks.ui.DisplayableException;
 
+import java.net.ConnectException;
 import java.net.IDN;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.inject.Inject;
 
+import at.bitfire.dav4android.exception.HttpException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -83,11 +87,9 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
     @Inject SyncAdapters syncAdapters;
 
     @BindView(R.id.root_layout) LinearLayout root;
-    @BindView(R.id.name) TextInputEditText name;
     @BindView(R.id.url) TextInputEditText url;
     @BindView(R.id.user) TextInputEditText user;
     @BindView(R.id.password) TextInputEditText password;
-    @BindView(R.id.name_layout) TextInputLayout nameLayout;
     @BindView(R.id.url_layout) TextInputLayout urlLayout;
     @BindView(R.id.user_layout) TextInputLayout userLayout;
     @BindView(R.id.password_layout) TextInputLayout passwordLayout;
@@ -101,6 +103,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_caldav_settings);
+
         ButterKnife.bind(this);
 
         caldavAccount = getIntent().getParcelableExtra(EXTRA_CALDAV_DATA);
@@ -111,9 +114,10 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         }
 
         if (savedInstanceState == null) {
-            if (caldavAccount != null) {
+            if (caldavAccount == null) {
+                selectedTheme = themeColor.getIndex();
+            } else {
                 selectedTheme = caldavAccount.getColor();
-                name.setText(caldavAccount.getName());
                 url.setText(caldavAccount.getUrl());
                 user.setText(caldavAccount.getUsername());
             }
@@ -141,17 +145,12 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
 
         if (caldavAccount == null) {
             toolbar.getMenu().findItem(R.id.delete).setVisible(false);
-            name.requestFocus();
+            url.requestFocus();
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(url, InputMethodManager.SHOW_IMPLICIT);
         }
 
         updateTheme();
-    }
-
-    @OnTextChanged(R.id.name)
-    void onNameChanged(CharSequence text) {
-        nameLayout.setError(null);
     }
 
     @OnTextChanged(R.id.url)
@@ -217,10 +216,6 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         component.inject(this);
     }
 
-    private String getNewName() {
-        return name.getText().toString().trim();
-    }
-
     private String getNewURL() {
         return url.getText().toString().trim();
     }
@@ -234,26 +229,12 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         return localAccount == null || !PASSWORD_MASK.equals(input) ? input : localAccount.getPassword();
     }
 
-    private boolean clashes(String newName) {
-        CaldavAccount existing = caldavDao.getAccountByName(newName);
-        return caldavAccount != null && existing != null && caldavAccount.getId() != existing.getId();
-    }
-
     private void save() {
-        String newName = getNewName();
         String username = getNewUsername();
         String url = getNewURL();
         String password = getNewPassword();
 
         boolean failed = false;
-
-        if (isEmpty(newName)) {
-            nameLayout.setError(getString(R.string.name_cannot_be_empty));
-            failed = true;
-        } else if (clashes(newName)) {
-            nameLayout.setError(getString(R.string.tag_already_exists));
-            failed = true;
-        }
 
         if (isEmpty(url)) {
             urlLayout.setError(getString(R.string.url_required));
@@ -302,51 +283,88 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         }
 
         if (caldavAccount == null) {
-            CaldavAccount newAccount = new CaldavAccount(newName, UUIDHelper.newUUID());
-            newAccount.setColor(selectedTheme);
-            newAccount.setUrl(url);
-            newAccount.setUsername(username);
-            if (caldavAccountManager.addAccount(newAccount, password)) {
-                Account account = caldavAccountManager.getAccount(newAccount.getUuid());
-                if (account == null) {
-                    showErrorSnackbar();
-                } else {
-                    newAccount.setId(caldavDao.insert(newAccount));
-                    setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(newAccount)));
-                    finish();
-                }
-            } else {
-                showErrorSnackbar();
-            }
+            CaldavClient client = new CaldavClient(url, username, password);
+            ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
+            dialog.show();
+            client.getDisplayName()
+                    .doAfterTerminate(dialog::dismiss)
+                    .subscribe(this::addAccount, this::getDisplayNameFailed);
+        } else if (needsValidation()) {
+            CaldavClient client = new CaldavClient(url, username, password);
+            ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
+            dialog.show();
+            client.getDisplayName()
+                    .doAfterTerminate(dialog::dismiss)
+                    .subscribe(this::updateAccount, this::getDisplayNameFailed);
         } else if (hasChanges()) {
-            if (localAccount == null) {
-                if (!caldavAccountManager.addAccount(caldavAccount, password)) {
-                    localAccount = caldavAccountManager.getAccount(caldavAccount.getUuid());
-                    if (localAccount == null) {
-                        showErrorSnackbar();
-                        return;
-                    }
-                }
-            }
-
-            caldavAccount.setName(newName);
-            caldavAccount.setColor(selectedTheme);
-            caldavAccount.setUrl(url);
-            caldavAccount.setUsername(username);
-            caldavDao.update(caldavAccount);
-            if (!isEmpty(password)) {
-                localAccount.setPassword(password);
-            }
-            localAccount.setSynchronizationEnabled(backgroundSync.isChecked());
-            setResult(RESULT_OK, new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavAccount)));
-            finish();
+            updateAccount(caldavAccount.getName());
         } else {
             finish();
         }
     }
 
-    private void showErrorSnackbar() {
-        Snackbar snackbar = Snackbar.make(root, getString(R.string.error_adding_account), 8000)
+    private void addAccount(String name) {
+        CaldavAccount newAccount = new CaldavAccount(name, UUIDHelper.newUUID());
+        newAccount.setColor(selectedTheme);
+        newAccount.setUrl(getNewURL());
+        newAccount.setUsername(getNewUsername());
+        if (caldavAccountManager.addAccount(newAccount, getNewPassword())) {
+            Account account = caldavAccountManager.getAccount(newAccount.getUuid());
+            if (account == null) {
+                showGenericError();
+            } else {
+                account.setSynchronizationEnabled(backgroundSync.isChecked());
+                newAccount.setId(caldavDao.insert(newAccount));
+                setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(newAccount)));
+                finish();
+            }
+        } else {
+            showGenericError();
+        }
+    }
+
+    private void updateAccount(String name) {
+        if (localAccount == null) {
+            if (caldavAccountManager.addAccount(caldavAccount, getNewPassword())) {
+                localAccount = caldavAccountManager.getAccount(caldavAccount.getUuid());
+            } else {
+                showGenericError();
+                return;
+            }
+        }
+        caldavAccount.setName(name);
+        caldavAccount.setUrl(getNewURL());
+        caldavAccount.setUsername(getNewUsername());
+        caldavAccount.setColor(selectedTheme);
+        caldavDao.update(caldavAccount);
+        localAccount.setPassword(getNewPassword());
+        localAccount.setSynchronizationEnabled(backgroundSync.isChecked());
+        setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavAccount)));
+        finish();
+    }
+
+    private void getDisplayNameFailed(Throwable t) {
+        if (t instanceof HttpException) {
+            showSnackbar(t.getMessage());
+        } else if (t instanceof DisplayableException) {
+            showSnackbar(((DisplayableException) t).getResId());
+        } else if (t instanceof ConnectException) {
+            showSnackbar(R.string.network_error);
+        } else {
+            showGenericError();
+        }
+    }
+
+    private void showGenericError() {
+        showSnackbar(R.string.error_adding_account);
+    }
+
+    private void showSnackbar(int resId) {
+        showSnackbar(getString(resId));
+    }
+
+    private void showSnackbar(String message) {
+        Snackbar snackbar = Snackbar.make(root, message, 8000)
                 .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color));
         snackbar.getView().setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_background));
         snackbar.show();
@@ -354,23 +372,26 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
 
     private boolean hasChanges() {
         if (caldavAccount == null) {
-            return selectedTheme >= 0 || !isEmpty(getNewName()) ||
+            return selectedTheme >= 0 ||
                     !isEmpty(getNewPassword()) || !isEmpty(getNewURL()) ||
                     !isEmpty(getNewUsername()) || !backgroundSync.isChecked();
         }
         return localAccount == null ||
                 selectedTheme != caldavAccount.getColor() ||
-                !getNewName().equals(caldavAccount.getName()) ||
-                !getNewURL().equals(caldavAccount.getUrl()) ||
-                !getNewUsername().equals(caldavAccount.getUsername()) ||
-                !getNewPassword().equals(localAccount.getPassword()) ||
+                needsValidation() ||
                 backgroundSync.isChecked() != localAccount.isBackgroundSyncEnabled();
+    }
+
+    private boolean needsValidation() {
+        return !getNewURL().equals(caldavAccount.getUrl()) ||
+                !getNewUsername().equals(caldavAccount.getUsername()) ||
+                !getNewPassword().equals(localAccount.getPassword());
     }
 
     @Override
     public void finish() {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(url.getWindowToken(), 0);
         super.finish();
     }
 
