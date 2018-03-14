@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
 import com.todoroo.astrid.adapter.FilterAdapter;
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.GtasksFilter;
@@ -62,8 +63,8 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
                         handler.selectedList(null);
                     } else {
                         FilterListItem item = filterAdapter.getItem(which);
-                        if (item instanceof GtasksFilter) {
-                            handler.selectedList((GtasksFilter) item);
+                        if (item instanceof GtasksFilter || item instanceof CaldavFilter) {
+                            handler.selectedList((Filter) item);
                         }
                     }
                     dialog.dismiss();
