@@ -59,6 +59,8 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
     private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
     private static final String FRAG_TAG_DELETE_ACCOUNT = "frag_tag_delete_account";
 
+    private static final String PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
+
     private static final int REQUEST_COLOR_PICKER = 10109;
 
     public static final String EXTRA_CALDAV_DATA = "caldavData"; //$NON-NLS-1$
@@ -105,6 +107,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
 
         if (caldavAccount != null) {
             localAccount = caldavAccountManager.getAccount(caldavAccount.getUuid());
+            password.setText(PASSWORD_MASK);
         }
 
         if (savedInstanceState == null) {
@@ -166,6 +169,19 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         passwordLayout.setError(null);
     }
 
+    @OnFocusChange(R.id.password)
+    void onPasswordFocused(boolean hasFocus) {
+        if (hasFocus) {
+            if (localAccount != null && PASSWORD_MASK.equals(password.getText().toString())) {
+                password.setText("");
+            }
+        } else {
+            if (localAccount != null && isEmpty(password.getText())) {
+                password.setText(PASSWORD_MASK);
+            }
+        }
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -215,7 +231,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
 
     private String getNewPassword() {
         String input = password.getText().toString().trim();
-        return localAccount == null || !isEmpty(input) ? input : localAccount.getPassword();
+        return localAccount == null || !PASSWORD_MASK.equals(input) ? input : localAccount.getPassword();
     }
 
     private boolean clashes(String newName) {
