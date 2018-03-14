@@ -4,6 +4,7 @@ import com.todoroo.astrid.data.Task;
 
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Recur;
 import net.fortuna.ical4j.model.property.Completed;
 import net.fortuna.ical4j.model.property.Due;
 import net.fortuna.ical4j.model.property.RRule;
@@ -33,7 +34,11 @@ public class TaskConverter {
         local.setImportance(fromRemote(remote.getPriority()));
         RRule repeatRule = remote.getRRule();
         if (repeatRule != null) {
-            local.setRecurrence("RRULE:" + repeatRule.getValue() + (local.repeatAfterCompletion() ? ";FROM=COMPLETION" : ""));
+            Recur recur = repeatRule.getRecur();
+            if (recur.getInterval() == 0) {
+                recur.setInterval(1);
+            }
+            local.setRecurrence("RRULE:" + recur.toString() + (local.repeatAfterCompletion() ? ";FROM=COMPLETION" : ""));
         }
         Due due = remote.getDue();
         if (due != null) {
