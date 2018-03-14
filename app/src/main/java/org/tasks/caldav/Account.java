@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 public class Account {
 
     private static final String AUTHORITY = "org.tasks";
-    public static final String EXTRA_UUID = "uuid";
 
     private AccountManager accountManager;
     private android.accounts.Account account;
@@ -19,12 +18,8 @@ public class Account {
         this.account = account;
     }
 
-    public String getName() {
-        return account.name;
-    }
-
     public String getUuid() {
-        return accountManager.getUserData(account, EXTRA_UUID);
+        return account.name;
     }
 
     String getPassword() {
@@ -37,10 +32,6 @@ public class Account {
 
     void setPassword(String password) {
         accountManager.setPassword(account, password);
-    }
-
-    public void setUuid(String uuid) {
-        accountManager.setUserData(account, EXTRA_UUID, uuid);
     }
 
     boolean isBackgroundSyncEnabled() {

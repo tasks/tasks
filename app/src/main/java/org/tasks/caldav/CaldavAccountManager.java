@@ -7,7 +7,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.common.base.Optional;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -29,7 +28,6 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 import static com.google.common.collect.Iterables.tryFind;
-import static org.tasks.caldav.Account.EXTRA_UUID;
 
 @ApplicationScope
 public class CaldavAccountManager {
@@ -55,10 +53,6 @@ public class CaldavAccountManager {
         this.localBroadcastManager = localBroadcastManager;
         accountManager = android.accounts.AccountManager.get(context);
         syncAccountList();
-    }
-
-    public String getUuid(android.accounts.Account account) {
-        return accountManager.getUserData(account, EXTRA_UUID);
     }
 
     public Account getAccount(String uuid) {
@@ -99,18 +93,8 @@ public class CaldavAccountManager {
 
     boolean addAccount(CaldavAccount caldavAccount, String password) {
         Timber.d("Adding %s", caldavAccount);
-        android.accounts.Account account = new android.accounts.Account(caldavAccount.getName(), ACCOUNT_TYPE);
-        Bundle userdata = new Bundle();
-        userdata.putString(EXTRA_UUID, caldavAccount.getUuid());
-        return accountManager.addAccountExplicitly(account, password, userdata);
-    }
-
-    private void createAccount(Account account) {
-        Timber.d("Adding %s", account);
-        String uuid = account.getUuid();
-        if (!Strings.isNullOrEmpty(uuid)) {
-            caldavDao.insert(new CaldavAccount(account.getName(), uuid));
-        }
+        android.accounts.Account account = new android.accounts.Account(caldavAccount.getUuid(), ACCOUNT_TYPE);
+        return accountManager.addAccountExplicitly(account, password, null);
     }
 
     private void syncAccountList() {
@@ -119,19 +103,8 @@ public class CaldavAccountManager {
 
         for (CaldavAccount local : oldAccountList) {
             Optional<Account> match = tryFind(newAccountList, remote -> local.getUuid().equals(remote.getUuid()));
-            if (match.isPresent()) {
-                Timber.d("found %s", match.get());
-            } else {
+            if (!match.isPresent()) {
                 addAccount(local, null);
-            }
-        }
-
-        for (Account remote : newAccountList) {
-            Optional<CaldavAccount> match = tryFind(oldAccountList, local -> remote.getUuid().equals(local.getUuid()));
-            if (match.isPresent()) {
-                Timber.d("found %s", match.get());
-            } else {
-                createAccount(remote);
             }
         }
     }

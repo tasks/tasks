@@ -52,15 +52,11 @@ import timber.log.Timber;
 
 import static android.text.TextUtils.isEmpty;
 import static org.tasks.caldav.DeleteAccountDialog.newDeleteAccountDialog;
-import static org.tasks.caldav.RenameAccountDialog.newRenameAccountDialog;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
-        implements Toolbar.OnMenuItemClickListener, DeleteAccountDialog.DeleteAccountDialogCallback,
-        RenameAccountDialog.RenameAccountDialogCallback {
+        implements Toolbar.OnMenuItemClickListener, DeleteAccountDialog.DeleteAccountDialogCallback {
 
     private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
-    private static final String FRAG_TAG_RENAME_ACCOUNT = "frag_tag_rename_account";
     private static final String FRAG_TAG_DELETE_ACCOUNT = "frag_tag_delete_account";
 
     private static final int REQUEST_COLOR_PICKER = 10109;
@@ -315,10 +311,6 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
                         return;
                     }
                 }
-            } else if (!newName.equals(localAccount.getName())) {
-                newRenameAccountDialog(caldavAccount.getUuid(), newName)
-                        .show(getSupportFragmentManager(), FRAG_TAG_RENAME_ACCOUNT);
-                return;
             }
 
             caldavAccount.setName(newName);
@@ -444,17 +436,6 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
             setResult(RESULT_OK, new Intent(ACTION_DELETED).putExtra(EXTRA_CALDAV_UUID, caldavAccount.getUuid()));
         }
         finish();
-    }
-
-    @Override
-    public void onListRenamed() {
-        localAccount = caldavAccountManager.getAccount(caldavAccount.getUuid());
-        save();
-    }
-
-    @Override
-    public void renameFailed() {
-        nameLayout.setError(getString(R.string.error_renaming_account));
     }
 
     @Override

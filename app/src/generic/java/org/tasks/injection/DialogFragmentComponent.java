@@ -3,7 +3,6 @@ package org.tasks.injection;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.caldav.DeleteAccountDialog;
-import org.tasks.caldav.RenameAccountDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.RecordAudioDialog;
@@ -38,6 +37,4 @@ public interface DialogFragmentComponent {
     void inject(RemoteListSupportPicker remoteListSupportPicker);
 
     void inject(DeleteAccountDialog deleteAccountDialog);
-
-    void inject(RenameAccountDialog renameAccountDialog);
 }

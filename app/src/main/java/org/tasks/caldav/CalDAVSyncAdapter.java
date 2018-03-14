@@ -67,26 +67,20 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
 
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
-        String accountName = account.name;
-        String uuid = caldavAccountManager.getUuid(account);
-        Timber.d("onPerformSync: %s [%s]", accountName, uuid);
-
-        if (Strings.isNullOrEmpty(uuid)) {
-            caldavAccountManager.removeAccount(account);
-            return;
-        }
-
         // required for dav4android (ServiceLoader)
         Thread.currentThread().setContextClassLoader(getContext().getClassLoader());
 
+        String uuid = account.name;
         CaldavAccount caldavAccount = caldavDao.getAccount(uuid);
         if (caldavAccount == null) {
-            caldavAccount = new CaldavAccount(accountName, uuid);
-            caldavAccount.setId(caldavDao.insert(caldavAccount));
-            localBroadcastManager.broadcastRefreshList();
+            Timber.e("Unknown account %s", uuid);
+            caldavAccountManager.removeAccount(account);
+            return;
         }
+        Timber.d("onPerformSync: %s [%s]", caldavAccount.getName(), uuid);
         org.tasks.caldav.Account localAccount = caldavAccountManager.getAccount(caldavAccount.getUuid());
         if (isNullOrEmpty(localAccount.getPassword())) {
+            Timber.e("Missing password for %s", caldavAccount.getName());
             syncResult.stats.numAuthExceptions++;
             return;
         }
