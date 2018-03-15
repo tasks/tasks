@@ -11,9 +11,12 @@ import org.tasks.data.GoogleTaskList;
 import org.tasks.data.Location;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
+import org.tasks.data.TaskAttachment;
 import org.tasks.data.UserActivity;
 
 import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 public class BackupContainer {
 
@@ -39,17 +42,28 @@ public class BackupContainer {
         List<Tag> tags;
         List<GoogleTask> google;
         List<UserActivity> comments;
-        List<CaldavTask> caldavTasks;
+        private List<TaskAttachment> attachments;
+        private List<CaldavTask> caldavTasks;
 
         TaskBackup(Task task, List<Alarm> alarms, List<Location> locations, List<Tag> tags,
-                   List<GoogleTask> google, List<UserActivity> comments, List<CaldavTask> caldavTasks) {
+                   List<GoogleTask> google, List<UserActivity> comments, List<TaskAttachment> attachments,
+                   List<CaldavTask> caldavTasks) {
             this.task = task;
             this.alarms = alarms;
             this.locations = locations;
             this.tags = tags;
             this.google = google;
             this.comments = comments;
+            this.attachments = attachments;
             this.caldavTasks = caldavTasks;
+        }
+
+        List<TaskAttachment> getAttachments() {
+            return attachments == null ? emptyList() : attachments;
+        }
+
+        List<CaldavTask> getCaldavTasks() {
+            return caldavTasks == null ? emptyList() : caldavTasks;
         }
     }
 }

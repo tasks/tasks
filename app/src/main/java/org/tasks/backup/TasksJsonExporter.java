@@ -25,6 +25,7 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.LocationDao;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivityDao;
 import org.tasks.preferences.Preferences;
 
@@ -64,6 +65,7 @@ public class TasksJsonExporter {
     private final GoogleTaskDao googleTaskDao;
     private final FilterDao filterDao;
     private final GoogleTaskListDao googleTaskListDao;
+    private final TaskAttachmentDao taskAttachmentDao;
     private final CaldavDao caldavDao;
     private final TaskDao taskDao;
     private final UserActivityDao userActivityDao;
@@ -94,7 +96,8 @@ public class TasksJsonExporter {
     public TasksJsonExporter(TagDataDao tagDataDao, TaskDao taskDao, UserActivityDao userActivityDao,
                              Preferences preferences, AlarmDao alarmDao, LocationDao locationDao,
                              TagDao tagDao, GoogleTaskDao googleTaskDao, FilterDao filterDao,
-                             GoogleTaskListDao googleTaskListDao, CaldavDao caldavDao) {
+                             GoogleTaskListDao googleTaskListDao, TaskAttachmentDao taskAttachmentDao,
+                             CaldavDao caldavDao) {
         this.tagDataDao = tagDataDao;
         this.taskDao = taskDao;
         this.userActivityDao = userActivityDao;
@@ -105,6 +108,7 @@ public class TasksJsonExporter {
         this.googleTaskDao = googleTaskDao;
         this.filterDao = filterDao;
         this.googleTaskListDao = googleTaskListDao;
+        this.taskAttachmentDao = taskAttachmentDao;
         this.caldavDao = caldavDao;
     }
 
@@ -159,6 +163,7 @@ public class TasksJsonExporter {
                     tagDao.getTagsForTask(taskId),
                     googleTaskDao.getAllByTaskId(taskId),
                     userActivityDao.getCommentsForTask(task.getUuid()),
+                    taskAttachmentDao.getAttachments(task.getUuid()),
                     caldavDao.getTasks(taskId)));
         }
 

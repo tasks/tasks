@@ -231,6 +231,7 @@
   <string name="tracking_category_event">Event</string>
   <string name="tracking_category_error">Error</string>
   <string name="tracking_category_tasker">Tasker</string>
+  <string name="tracking_category_backup">Backup</string>
   <string name="tracking_action_add">Add</string>
   <string name="tracking_action_start">Start</string>
   <string name="tracking_action_move">Move</string>
@@ -245,6 +246,9 @@
   <string name="tracking_action_preset">Preset</string>
   <string name="tracking_action_task_created">Task created</string>
   <string name="tracking_action_list_notification">List Notification</string>
+  <string name="tracking_action_import_xml">Import XML</string>
+  <string name="tracking_action_import_json">Import JSON</string>
+  <string name="tracking_action_export">Export</string>
 
   <string name="tracking_event_night_mode_mismatch">Night Mismatch</string>
   <string name="tracking_event_play_services_error">Play Services Error</string>

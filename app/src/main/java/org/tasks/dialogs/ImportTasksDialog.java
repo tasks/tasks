@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import com.todoroo.astrid.backup.TasksXmlImporter;
 
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.backup.TasksJsonImporter;
 import org.tasks.injection.InjectingNativeDialogFragment;
 import org.tasks.injection.NativeDialogFragmentComponent;
@@ -27,6 +29,7 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
     @Inject TasksXmlImporter xmlImporter;
     @Inject TasksJsonImporter jsonImporter;
     @Inject DialogBuilder dialogBuilder;
+    @Inject Tracker tracker;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -40,8 +43,10 @@ public class ImportTasksDialog extends InjectingNativeDialogFragment {
         setCancelable(false);
         if (path.endsWith(".xml")) {
             xmlImporter.importTasks(getActivity(), path, progressDialog);
+            tracker.reportEvent(Tracking.Events.IMPORT_XML);
         } else {
             jsonImporter.importTasks(getActivity(), path, progressDialog);
+            tracker.reportEvent(Tracking.Events.IMPORT_JSON);
         }
         return progressDialog;
     }
