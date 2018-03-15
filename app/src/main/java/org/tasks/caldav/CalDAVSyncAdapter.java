@@ -7,12 +7,14 @@ import android.content.SyncResult;
 import android.os.Bundle;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskCreator;
+import com.todoroo.astrid.service.TaskDeleter;
 
 import org.apache.commons.codec.Charsets;
 import org.tasks.AccountManager;
@@ -30,6 +32,7 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -51,7 +54,13 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
+import static com.google.common.base.Predicates.notNull;
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.difference;
+import static com.google.common.collect.Sets.filter;
+import static com.google.common.collect.Sets.newHashSet;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
@@ -62,6 +71,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
     @Inject TaskDao taskDao;
     @Inject LocalBroadcastManager localBroadcastManager;
     @Inject TaskCreator taskCreator;
+    @Inject TaskDeleter taskDeleter;
 
     CalDAVSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -115,27 +125,22 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
             String remoteCtag = properties.get(GetCTag.class).getCTag();
             String localCtag = caldavAccount.getCtag();
 
-
             if (localCtag != null && localCtag.equals(remoteCtag)) {
                 Timber.d("%s up to date", caldavAccount.getName());
                 return;
             }
 
-            // fetch etags
-
-            // check for deleted tasks
-
-            // multiget updated tasks
-
             davCalendar.calendarQuery("VTODO", null, null);
 
-            // fetch and apply remote changes
+            // TODO: multi-get new and modified objects
+
+            // TODO: delete this loop
             for (DavResource vCard : davCalendar.getMembers()) {
-                ResponseBody responseBody = vCard.get("text/calendar");
                 GetETag eTag = (GetETag) vCard.getProperties().get(GetETag.NAME);
                 if (eTag == null || isNullOrEmpty(eTag.getETag())) {
                     throw new DavException("Received CalDAV GET response without ETag for " + vCard.getLocation());
                 }
+                ResponseBody responseBody = vCard.get("text/calendar");
                 MediaType contentType = responseBody.contentType();
                 Charset charset = contentType == null ? Charsets.UTF_8 : contentType.charset(Charsets.UTF_8);
                 InputStream stream = responseBody.byteStream();
@@ -147,6 +152,13 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
                     }
                 }
             }
+
+            Sets.SetView<String> deleted = difference(
+                    newHashSet(caldavDao.getObjects(caldavAccount.getUuid())),
+                    newHashSet(transform(davCalendar.getMembers(), DavResource::fileName)));
+            List<String> toDelete = newArrayList(deleted);
+            taskDeleter.markDeleted(caldavDao.getTasks(caldavAccount.getUuid(), toDelete));
+            caldavDao.deleteObjects(caldavAccount.getUuid(), toDelete);
 
             caldavAccount.setCtag(remoteCtag);
             caldavDao.update(caldavAccount);
@@ -172,8 +184,8 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
 
     private boolean deleteRemoteResource(OkHttpClient httpClient, HttpUrl httpUrl, CaldavTask caldavTask) {
         try {
-            if (!Strings.isNullOrEmpty(caldavTask.getRemoteId())) {
-                DavResource remote = new DavResource(httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.getRemoteId() + ".ics").build());
+            if (!Strings.isNullOrEmpty(caldavTask.getObject())) {
+                DavResource remote = new DavResource(httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.getObject()).build());
                 remote.delete(null);
             }
         } catch (HttpException e) {
@@ -228,7 +240,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
                 DavCalendar.MIME_ICALENDAR,
                 os.toByteArray());
         try {
-            DavResource remote = new DavResource(httpClient, httpUrl.newBuilder().addPathSegment(caldavMetadata.getRemoteId() + ".ics").build());
+            DavResource remote = new DavResource(httpClient, httpUrl.newBuilder().addPathSegment(caldavMetadata.getObject()).build());
             remote.put(requestBody, null, false);
         } catch (HttpException e) {
             Timber.e(e.getMessage(), e);
@@ -261,12 +273,11 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
         if (tasks.size() == 1) {
             at.bitfire.ical4android.Task remote = tasks.get(0);
             Task task;
-            CaldavTask caldavTask = caldavDao.getTask(caldavAccount.getUuid(), remote.getUid());
+            CaldavTask caldavTask = caldavDao.getTask(caldavAccount.getUuid(), fileName);
             if (caldavTask == null) {
                 task = taskCreator.createWithValues(null, "");
                 taskDao.createNew(task);
-                caldavTask = new CaldavTask(task.getId(), caldavAccount.getUuid());
-                caldavTask.setRemoteId(remote.getUid());
+                caldavTask = new CaldavTask(task.getId(), caldavAccount.getUuid(), remote.getUid(), fileName);
                 Timber.d("NEW %s", remote);
             } else {
                 task = taskDao.fetch(caldavTask.getTask());

@@ -13,6 +13,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
+import com.todoroo.astrid.helper.UUIDHelper;
 
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -140,7 +141,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
         if (selectedList instanceof GtasksFilter) {
             googleTaskDao.insert(new GoogleTask(task.getId(), ((GtasksFilter) selectedList).getRemoteId()));
         } else if (selectedList instanceof CaldavFilter) {
-            caldavDao.insert(new CaldavTask(task.getId(), ((CaldavFilter) selectedList).getUuid()));
+            caldavDao.insert(new CaldavTask(task.getId(), ((CaldavFilter) selectedList).getUuid(), UUIDHelper.newUUID()));
         }
     }
 

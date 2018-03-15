@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
+import java.util.Set;
 
 @Dao
 public interface CaldavDao {
@@ -38,8 +39,8 @@ public interface CaldavDao {
     @Query("SELECT * FROM caldav_tasks WHERE task = :taskId AND deleted = 0 LIMIT 1")
     CaldavTask getTask(long taskId);
 
-    @Query("SELECT * FROM caldav_tasks WHERE account = :account AND remote_id = :remoteId LIMIT 1")
-    CaldavTask getTask(String account, String remoteId);
+    @Query("SELECT * FROM caldav_tasks WHERE account = :account AND object = :object LIMIT 1")
+    CaldavTask getTask(String account, String object);
 
     @Query("DELETE FROM caldav_tasks WHERE task = :taskId")
     void deleteById(long taskId);
@@ -58,4 +59,13 @@ public interface CaldavDao {
 
     @Query("DELETE FROM caldav_tasks WHERE account = :uuid")
     void deleteTasksForAccount(String uuid);
+
+    @Query("SELECT object FROM caldav_tasks WHERE account = :account")
+    List<String> getObjects(String account);
+
+    @Query("SELECT task FROM caldav_tasks WHERE account = :account AND object IN (:objects)")
+    List<Long> getTasks(String account, List<String> objects);
+
+    @Query("DELETE FROM caldav_tasks WHERE account = :account AND object IN (:objects)")
+    void deleteObjects(String account, List<String> objects);
 }

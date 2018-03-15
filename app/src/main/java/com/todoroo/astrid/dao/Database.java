@@ -66,7 +66,7 @@ import timber.log.Timber;
                 CaldavAccount.class,
                 CaldavTask.class
         },
-        version = 55)
+        version = 56)
 public abstract class Database extends RoomDatabase {
 
     public abstract NotificationDao notificationDao();

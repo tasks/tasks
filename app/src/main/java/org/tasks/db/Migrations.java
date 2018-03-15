@@ -151,6 +151,13 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_55_56 = new Migration(55, 56) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `object` TEXT");
+        }
+    };
+
     private static Migration NOOP(int from, int to) {
         return new Migration(from, to) {
             @Override
@@ -174,6 +181,7 @@ public class Migrations {
             MIGRATION_51_52,
             MIGRATION_52_53,
             MIGRATION_53_54,
-            MIGRATION_54_55
+            MIGRATION_54_55,
+            MIGRATION_55_56
     };
 }

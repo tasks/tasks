@@ -25,6 +25,9 @@ public class CaldavTask {
     @ColumnInfo(name = "account")
     private String account;
 
+    @ColumnInfo(name = "object")
+    private String object;
+
     @ColumnInfo(name = "remote_id")
     private String remoteId;
 
@@ -42,9 +45,16 @@ public class CaldavTask {
     }
 
     @Ignore
-    public CaldavTask(long task, String account) {
+    public CaldavTask(long task, String account, String remoteId) {
+        this(task, account, remoteId, remoteId + ".ics");
+    }
+
+    @Ignore
+    public CaldavTask(long task, String account, String remoteId, String object) {
         this.task = task;
         this.account = account;
+        this.remoteId = remoteId;
+        this.object = object;
     }
 
     public long getId() {
@@ -61,6 +71,22 @@ public class CaldavTask {
 
     public void setTask(long task) {
         this.task = task;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
     }
 
     public String getRemoteId() {
@@ -95,20 +121,13 @@ public class CaldavTask {
         this.deleted = deleted;
     }
 
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
     @Override
     public String toString() {
         return "CaldavTask{" +
                 "id=" + id +
                 ", task=" + task +
                 ", account='" + account + '\'' +
+                ", object='" + object + '\'' +
                 ", remoteId='" + remoteId + '\'' +
                 ", etag='" + etag + '\'' +
                 ", lastSync=" + lastSync +
