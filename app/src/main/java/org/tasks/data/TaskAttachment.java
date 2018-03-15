@@ -21,7 +21,7 @@ public final class TaskAttachment {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private Long id;
+    private transient Long id;
 
     @ColumnInfo(name = "remoteId")
     private String remoteId = Task.NO_UUID;

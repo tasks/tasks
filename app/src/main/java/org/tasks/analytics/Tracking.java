@@ -35,7 +35,10 @@ public class Tracking {
         RECURRENCE_CUSTOM(R.string.tracking_category_recurrence, R.string.tracking_action_custom),
         RECURRENCE_PRESET(R.string.tracking_category_recurrence, R.string.tracking_action_preset),
         TASKER_CREATE(R.string.tracking_category_tasker, R.string.tracking_action_task_created),
-        TASKER_LIST_NOTIFICATION(R.string.tracking_category_tasker, R.string.tracking_action_list_notification);
+        TASKER_LIST_NOTIFICATION(R.string.tracking_category_tasker, R.string.tracking_action_list_notification),
+        IMPORT_XML(R.string.tracking_category_backup, R.string.tracking_action_import_xml),
+        IMPORT_JSON(R.string.tracking_category_backup, R.string.tracking_action_import_json),
+        EXPORT(R.string.tracking_category_backup, R.string.tracking_action_export);
 
         public final int category;
         public final int action;

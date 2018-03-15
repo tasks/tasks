@@ -29,6 +29,8 @@ import org.tasks.data.Tag;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachment;
+import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.dialogs.DialogBuilder;
@@ -53,6 +55,7 @@ public class TasksJsonImporter {
     private final GoogleTaskDao googleTaskDao;
     private final GoogleTaskListDao googleTaskListDao;
     private final FilterDao filterDao;
+    private final TaskAttachmentDao taskAttachmentDao;
     private final LocationDao locationDao;
 
     private Activity activity;
@@ -73,7 +76,7 @@ public class TasksJsonImporter {
                              DialogBuilder dialogBuilder, TaskDao taskDao, LocationDao locationDao,
                              LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao,
                              TagDao tagDao, GoogleTaskDao googleTaskDao, GoogleTaskListDao googleTaskListDao,
-                             FilterDao filterDao) {
+                             FilterDao filterDao, TaskAttachmentDao taskAttachmentDao) {
         this.tagDataDao = tagDataDao;
         this.userActivityDao = userActivityDao;
         this.dialogBuilder = dialogBuilder;
@@ -85,6 +88,7 @@ public class TasksJsonImporter {
         this.googleTaskDao = googleTaskDao;
         this.googleTaskListDao = googleTaskListDao;
         this.filterDao = filterDao;
+        this.taskAttachmentDao = taskAttachmentDao;
     }
 
     public void importTasks(Activity activity, String input, ProgressDialog progressDialog) {
@@ -159,6 +163,10 @@ public class TasksJsonImporter {
                 for (Location location : backup.locations) {
                     location.setTask(taskId);
                     locationDao.insert(location);
+                }
+                for (TaskAttachment attachment : backup.getAttachments()) {
+                    attachment.setTaskId(taskUuid);
+                    taskAttachmentDao.insert(attachment);
                 }
                 importCount++;
             }

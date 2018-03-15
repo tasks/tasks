@@ -24,6 +24,7 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.LocationDao;
 import org.tasks.data.TagDao;
 import org.tasks.data.TagDataDao;
+import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivityDao;
 import org.tasks.preferences.Preferences;
 
@@ -63,6 +64,7 @@ public class TasksJsonExporter {
     private final GoogleTaskDao googleTaskDao;
     private final FilterDao filterDao;
     private final GoogleTaskListDao googleTaskListDao;
+    private final TaskAttachmentDao taskAttachmentDao;
     private final TaskDao taskDao;
     private final UserActivityDao userActivityDao;
     private final Preferences preferences;
@@ -92,7 +94,7 @@ public class TasksJsonExporter {
     public TasksJsonExporter(TagDataDao tagDataDao, TaskDao taskDao, UserActivityDao userActivityDao,
                              Preferences preferences, AlarmDao alarmDao, LocationDao locationDao,
                              TagDao tagDao, GoogleTaskDao googleTaskDao, FilterDao filterDao,
-                             GoogleTaskListDao googleTaskListDao) {
+                             GoogleTaskListDao googleTaskListDao, TaskAttachmentDao taskAttachmentDao) {
         this.tagDataDao = tagDataDao;
         this.taskDao = taskDao;
         this.userActivityDao = userActivityDao;
@@ -103,6 +105,7 @@ public class TasksJsonExporter {
         this.googleTaskDao = googleTaskDao;
         this.filterDao = filterDao;
         this.googleTaskListDao = googleTaskListDao;
+        this.taskAttachmentDao = taskAttachmentDao;
     }
 
     public void exportTasks(final Context context, final ExportType exportType, @Nullable final ProgressDialog progressDialog) {
@@ -155,7 +158,8 @@ public class TasksJsonExporter {
                     locationDao.getGeofences(taskId),
                     tagDao.getTagsForTask(taskId),
                     googleTaskDao.getAllByTaskId(taskId),
-                    userActivityDao.getCommentsForTask(task.getUuid())));
+                    userActivityDao.getCommentsForTask(task.getUuid()),
+                    taskAttachmentDao.getAttachments(task.getUuid())));
         }
 
         Map<String, Object> data = new HashMap<>();
