@@ -16,8 +16,6 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 
-import org.apache.commons.codec.Charsets;
-import org.tasks.AccountManager;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
@@ -27,10 +25,9 @@ import org.tasks.injection.SyncAdapterComponent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
 import java.net.URI;
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Set;
 
@@ -42,30 +39,29 @@ import at.bitfire.dav4android.DavResource;
 import at.bitfire.dav4android.PropertyCollection;
 import at.bitfire.dav4android.exception.DavException;
 import at.bitfire.dav4android.exception.HttpException;
+import at.bitfire.dav4android.property.CalendarData;
 import at.bitfire.dav4android.property.DisplayName;
 import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.GetETag;
 import at.bitfire.ical4android.CalendarStorageException;
 import at.bitfire.ical4android.InvalidCalendarException;
 import okhttp3.HttpUrl;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import timber.log.Timber;
 
-import static com.google.common.base.Predicates.notNull;
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.collect.Iterables.filter;
+import static com.google.common.collect.Iterables.partition;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Sets.difference;
-import static com.google.common.collect.Sets.filter;
 import static com.google.common.collect.Sets.newHashSet;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
 
-    @Inject AccountManager accountManager;
     @Inject CaldavDao caldavDao;
     @Inject CaldavAccountManager caldavAccountManager;
     @Inject TaskDao taskDao;
@@ -132,30 +128,58 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
 
             davCalendar.calendarQuery("VTODO", null, null);
 
-            // TODO: multi-get new and modified objects
+            Set<String> remoteObjects = newHashSet(transform(davCalendar.getMembers(), DavResource::fileName));
 
-            // TODO: delete this loop
-            for (DavResource vCard : davCalendar.getMembers()) {
+            Iterable<DavResource> changed = filter(davCalendar.getMembers(), vCard -> {
                 GetETag eTag = (GetETag) vCard.getProperties().get(GetETag.NAME);
                 if (eTag == null || isNullOrEmpty(eTag.getETag())) {
-                    throw new DavException("Received CalDAV GET response without ETag for " + vCard.getLocation());
+                    return false;
                 }
-                ResponseBody responseBody = vCard.get("text/calendar");
-                MediaType contentType = responseBody.contentType();
-                Charset charset = contentType == null ? Charsets.UTF_8 : contentType.charset(Charsets.UTF_8);
-                InputStream stream = responseBody.byteStream();
-                try {
-                    processVTodo(vCard.fileName(), caldavAccount, eTag.getETag(), stream, charset);
-                } finally {
-                    if (stream != null) {
-                        stream.close();
+                CaldavTask caldavTask = caldavDao.getTask(caldavAccount.getUuid(), vCard.fileName());
+                return caldavTask == null || !eTag.getETag().equals(caldavTask.getEtag());
+            });
+
+            for (List<DavResource> items : partition(changed, 30)) {
+                if (items.size() == 1) {
+                    DavResource vCard = items.get(0);
+                    PropertyCollection vcardProperties = vCard.getProperties();
+                    GetETag eTag = (GetETag) vcardProperties.get(GetETag.NAME);
+                    if (eTag == null || isNullOrEmpty(eTag.getETag())) {
+                        throw new DavException("Received CalDAV GET response without ETag for " + vCard.getLocation());
+                    }
+                    ResponseBody responseBody = vCard.get("text/calendar");
+                    Reader reader = responseBody.charStream();
+                    try {
+                        processVTodo(vCard.fileName(), caldavAccount, eTag.getETag(), reader);
+                    } finally {
+                        if (reader != null) {
+                            reader.close();
+                        }
+                    }
+                } else {
+                    davCalendar.multiget(newArrayList(transform(changed, DavResource::getLocation)));
+
+                    for (DavResource vCard : davCalendar.getMembers()) {
+                        PropertyCollection vcardProperties = vCard.getProperties();
+
+                        GetETag eTag = (GetETag) vcardProperties.get(GetETag.NAME);
+                        if (eTag == null || isNullOrEmpty(eTag.getETag())) {
+                            throw new DavException("Received CalDAV GET response without ETag for " + vCard.getLocation());
+                        }
+                        CalendarData calendarData = (CalendarData) vcardProperties.get(CalendarData.NAME);
+                        if (calendarData == null || isNullOrEmpty(calendarData.getICalendar())) {
+                            throw new DavException("Received CalDAV GET response without CalendarData for " + vCard.getLocation());
+                        }
+
+                        String vtodo = calendarData.getICalendar();
+                        processVTodo(vCard.fileName(), caldavAccount, eTag.getETag(), new StringReader(vtodo));
                     }
                 }
             }
 
             Sets.SetView<String> deleted = difference(
                     newHashSet(caldavDao.getObjects(caldavAccount.getUuid())),
-                    newHashSet(transform(davCalendar.getMembers(), DavResource::fileName)));
+                    newHashSet(remoteObjects));
             List<String> toDelete = newArrayList(deleted);
             taskDeleter.markDeleted(caldavDao.getTasks(caldavAccount.getUuid(), toDelete));
             caldavDao.deleteObjects(caldavAccount.getUuid(), toDelete);
@@ -259,14 +283,12 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
         return caldavDao.getDeleted(taskId, caldavAccount.getUuid());
     }
 
-    private void processVTodo(String fileName, CaldavAccount caldavAccount, String eTag, InputStream stream, Charset charset) throws IOException, CalendarStorageException {
+    private void processVTodo(String fileName, CaldavAccount caldavAccount, String eTag, Reader reader) throws IOException, CalendarStorageException {
         List<at.bitfire.ical4android.Task> tasks;
         try {
-            InputStreamReader inputStreamReader = new InputStreamReader(stream, charset);
-            tasks = at.bitfire.ical4android.Task.fromReader(inputStreamReader);
-            inputStreamReader.close();
+            tasks = at.bitfire.ical4android.Task.fromReader(reader);
         } catch (InvalidCalendarException e) {
-            Timber.e(e.getMessage(), e);
+            Timber.e(e, e.getMessage());
             return;
         }
 
@@ -286,6 +308,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
             TaskConverter.apply(task, remote);
             task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             taskDao.save(task);
+            caldavTask.setEtag(eTag);
             caldavTask.setLastSync(DateUtilities.now() + 1000L);
             if (caldavTask.getId() == Task.NO_ID) {
                 caldavDao.insert(caldavTask);
