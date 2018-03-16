@@ -16,6 +16,9 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 
+import net.fortuna.ical4j.model.property.ProdId;
+
+import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
@@ -45,6 +48,7 @@ import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.GetETag;
 import at.bitfire.ical4android.CalendarStorageException;
 import at.bitfire.ical4android.InvalidCalendarException;
+import at.bitfire.ical4android.iCalendar;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -61,6 +65,10 @@ import static com.google.common.collect.Sets.newHashSet;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
+
+    static {
+        iCalendar.Companion.setProdId(new ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN"));
+    }
 
     @Inject CaldavDao caldavDao;
     @Inject CaldavAccountManager caldavAccountManager;
