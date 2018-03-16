@@ -155,6 +155,7 @@ public class Migrations {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `object` TEXT");
+            database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `vtodo` TEXT");
         }
     };
 

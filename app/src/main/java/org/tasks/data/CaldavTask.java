@@ -40,6 +40,9 @@ public class CaldavTask {
     @ColumnInfo(name = "deleted")
     private long deleted;
 
+    @ColumnInfo(name = "vtodo")
+    private String vtodo;
+
     public CaldavTask() {
 
     }
@@ -121,6 +124,14 @@ public class CaldavTask {
         this.deleted = deleted;
     }
 
+    public String getVtodo() {
+        return vtodo;
+    }
+
+    public void setVtodo(String vtodo) {
+        this.vtodo = vtodo;
+    }
+
     @Override
     public String toString() {
         return "CaldavTask{" +
@@ -132,6 +143,7 @@ public class CaldavTask {
                 ", etag='" + etag + '\'' +
                 ", lastSync=" + lastSync +
                 ", deleted=" + deleted +
+                ", vtodo='" + vtodo + '\'' +
                 '}';
     }
 }

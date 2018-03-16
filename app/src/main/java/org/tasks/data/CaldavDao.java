@@ -25,7 +25,7 @@ public interface CaldavDao {
     void update(CaldavAccount caldavAccount);
 
     @Insert
-    void insert(CaldavTask caldavTask);
+    long insert(CaldavTask caldavTask);
 
     @Update
     void update(CaldavTask caldavTask);

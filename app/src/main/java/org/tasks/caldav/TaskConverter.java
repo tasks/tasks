@@ -1,5 +1,6 @@
 package org.tasks.caldav;
 
+import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
 
 import net.fortuna.ical4j.model.Date;
@@ -9,14 +10,18 @@ import net.fortuna.ical4j.model.property.Completed;
 import net.fortuna.ical4j.model.property.Due;
 import net.fortuna.ical4j.model.property.RRule;
 
+import org.tasks.data.CaldavTask;
+
+import java.io.IOException;
+import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import at.bitfire.ical4android.InvalidCalendarException;
 import timber.log.Timber;
 
-import static com.todoroo.astrid.data.Task.DUE_DATE;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY;
 import static com.todoroo.astrid.data.Task.URGENCY_SPECIFIC_DAY_TIME;
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -68,21 +73,31 @@ public class TaskConverter {
         }
     }
 
-    static int toRemote(int tasksPriority) {
-        switch (tasksPriority) {
+    static int toRemote(int remotePriority, int localPriority) {
+        switch (localPriority) {
             case Task.IMPORTANCE_DO_OR_DIE:
                 return 1;
             case Task.IMPORTANCE_MUST_DO:
                 return 2;
             case Task.IMPORTANCE_SHOULD_DO:
-                return 3;
+                return remotePriority > 2 ? remotePriority : 3;
             default:
                 return 0;
         }
     }
 
-    public static at.bitfire.ical4android.Task toCaldav(Task task) {
-        at.bitfire.ical4android.Task remote = new at.bitfire.ical4android.Task();
+    public static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {
+        at.bitfire.ical4android.Task remote = null;
+        try {
+            if (!Strings.isNullOrEmpty(caldavTask.getVtodo())) {
+                remote = at.bitfire.ical4android.Task.fromReader(new StringReader(caldavTask.getVtodo())).get(0);
+            }
+        } catch (IOException | InvalidCalendarException e) {
+            Timber.e(e, e.getMessage());
+        }
+        if (remote == null) {
+            remote = new at.bitfire.ical4android.Task();
+        }
         remote.setSummary(task.getTitle());
         remote.setDescription(task.getNotes());
         if (task.hasDueDate()) {
@@ -112,7 +127,8 @@ public class TaskConverter {
                 Timber.e(e, e.getMessage());
             }
         }
-        remote.setPriority(toRemote(task.getImportance()));
+        remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
+        remote.setPriority(toRemote(remote.getPriority(), task.getImportance()));
         return remote;
     }
 }

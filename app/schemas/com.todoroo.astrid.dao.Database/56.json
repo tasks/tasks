@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 56,
-    "identityHash": "dcac47adc6c2df5755061388ec3a1248",
+    "identityHash": "cc409e42965995fd353910a20daf49cf",
     "entities": [
       {
         "tableName": "notification",
@@ -746,7 +746,7 @@
       },
       {
         "tableName": "caldav_tasks",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `account` TEXT, `object` TEXT, `remote_id` TEXT, `etag` TEXT, `last_sync` INTEGER NOT NULL, `deleted` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `account` TEXT, `object` TEXT, `remote_id` TEXT, `etag` TEXT, `last_sync` INTEGER NOT NULL, `deleted` INTEGER NOT NULL, `vtodo` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -795,6 +795,12 @@
             "columnName": "deleted",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "vtodo",
+            "columnName": "vtodo",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -809,7 +815,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"dcac47adc6c2df5755061388ec3a1248\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"cc409e42965995fd353910a20daf49cf\")"
     ]
   }
 }
