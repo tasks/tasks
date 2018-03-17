@@ -10,7 +10,6 @@ import com.todoroo.astrid.timers.TimerFilterExposer;
 import org.tasks.caldav.CalDAVFilterExposer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;

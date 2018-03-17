@@ -144,13 +144,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     compile "me.leolin:ShortcutBadger:1.1.18@aar"
+    compile 'com.google.apis:google-api-services-tasks:v1-rev47-1.22.0'
+    compile 'com.google.api-client:google-api-client-android:1.22.0'
 
     googleplayCompile "com.google.android.gms:play-services-location:${GPS_VERSION}"
     googleplayCompile "com.google.android.gms:play-services-analytics:${GPS_VERSION}"
     googleplayCompile "com.google.android.gms:play-services-auth:${GPS_VERSION}"
     googleplayCompile "com.google.android.gms:play-services-places:${GPS_VERSION}"
-    googleplayCompile 'com.google.apis:google-api-services-tasks:v1-rev47-1.22.0'
-    googleplayCompile 'com.google.api-client:google-api-client-android:1.22.0'
 
     amazonCompile "com.google.android.gms:play-services-analytics:${GPS_VERSION}"
 

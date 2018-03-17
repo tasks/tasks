@@ -6,12 +6,12 @@ import android.net.Uri;
 
 import com.todoroo.andlib.utility.DateUtilities;
 
-import org.tasks.AccountManager;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.calendars.AndroidCalendarEvent;
 import org.tasks.calendars.AndroidCalendarEventAttendee;
 import org.tasks.calendars.CalendarEventProvider;
+import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.injection.BroadcastComponent;
 import org.tasks.injection.InjectingBroadcastReceiver;
 import org.tasks.preferences.Preferences;
@@ -32,7 +32,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
 
     @Inject Preferences preferences;
     @Inject CalendarEventProvider calendarEventProvider;
-    @Inject AccountManager accountManager;
+    @Inject GoogleAccountManager accountManager;
 
     @Override
     public void onReceive(Context context, Intent intent) {

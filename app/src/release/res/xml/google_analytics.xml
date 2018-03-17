@@ -29,7 +29,7 @@
     <screenName name="org.tasks.activities.FilterSelectionActivity">FilterSelectionActivity</screenName>
     <screenName name="org.tasks.activities.TimePickerActivity">TimePickerActivity</screenName>
     <screenName name="org.tasks.files.FileExplore">FileExplore</screenName>
-    <screenName name="com.todoroo.astrid.gtasks.GtasksPreferences">GtasksPreferences</screenName>
+    <screenName name="org.tasks.sync.SynchronizationPreferences">GtasksPreferences</screenName>
     <screenName name="org.tasks.dashclock.DashClockSettings">DashClockSettings</screenName>
     <screenName name="com.todoroo.astrid.core.DefaultsPreferences">DefaultsPreferences</screenName>
     <screenName name="com.todoroo.astrid.core.OldTaskPreferences">OldTaskPreferences</screenName>

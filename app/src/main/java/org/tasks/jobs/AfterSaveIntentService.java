@@ -9,7 +9,6 @@ import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.repeats.RepeatTaskHelper;
@@ -45,7 +44,6 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
 
     @Inject RepeatTaskHelper repeatTaskHelper;
     @Inject @ForApplication Context context;
-    @Inject TaskDao taskDao;
     @Inject NotificationManager notificationManager;
     @Inject GeofenceService geofenceService;
     @Inject TimerPlugin timerPlugin;

@@ -44,8 +44,8 @@ import org.tasks.injection.FragmentComponent;
 import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
-import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.MenuColorizer;
+import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.TaskEditControlFragment;
 
 import java.util.List;

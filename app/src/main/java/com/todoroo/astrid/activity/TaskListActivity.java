@@ -272,7 +272,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
         localBroadcastManager.registerRepeatReceiver(repeatConfirmationReceiver);
 
-        syncAdapters.checkPlayServices(getTaskListFragment());
+        syncAdapters.checkPlayServices(this);
     }
 
     public void restart() {

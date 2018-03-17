@@ -44,7 +44,7 @@
             android:theme="@style/TranslucentDialog" />
 
         <activity
-            android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
+            android:name=".sync.SynchronizationPreferences"
             android:label="@string/synchronization"
             android:theme="@style/Tasks" />
 

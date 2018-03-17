@@ -425,7 +425,7 @@ File %1$s contained %2$s.\n\n
     <!-- Error Message when we receive an IO Exception -->
     <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
 
-    <!-- ============================================== GtasksPreferences == -->
+    <!-- ===========================================SynchronizationPreferencesnces == -->
 
     <!-- GTasks Preferences Title -->
     <string name="gtasks_GPr_header">Google Tasks</string>

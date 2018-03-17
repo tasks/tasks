@@ -20,9 +20,9 @@ import org.tasks.tasklist.TagListFragment;
 import org.tasks.ui.CalendarControlSet;
 import org.tasks.ui.DeadlineControlSet;
 import org.tasks.ui.DescriptionControlSet;
-import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.NavigationDrawerFragment;
 import org.tasks.ui.PriorityControlSet;
+import org.tasks.ui.RemoteListFragment;
 
 import dagger.Subcomponent;
 
