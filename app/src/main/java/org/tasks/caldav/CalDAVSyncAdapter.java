@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -109,6 +110,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
                 .cookieJar(new MemoryCookieStore())
                 .followRedirects(false)
                 .followSslRedirects(false)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .build();
         URI uri = URI.create(caldavAccount.getUrl());
         HttpUrl httpUrl = HttpUrl.get(uri);
