@@ -45,7 +45,7 @@
             android:key="@string/synchronization"
             android:title="@string/synchronization">
             <intent
-                android:targetClass="com.todoroo.astrid.gtasks.GtasksPreferences"
+                android:targetClass="org.tasks.sync.SynchronizationPreferences"
                 android:targetPackage="org.tasks" />
         </Preference>
 

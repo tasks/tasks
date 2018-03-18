@@ -24,6 +24,7 @@ import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 
 import javax.inject.Inject;
@@ -36,6 +37,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
     @Inject GtasksPreferenceService gtasksPreferenceService;
     @Inject ActivityPermissionRequestor permissionRequestor;
+    @Inject PermissionChecker permissionChecker;
     @Inject Tracker tracker;
     @Inject GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
     @Inject PlayServices playServices;
@@ -47,10 +49,13 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.preferences_gtasks);
+        addPreferencesFromResource(R.xml.preferences_synchronization);
 
+        CheckBoxPreference caldavEnabled = (CheckBoxPreference) findPreference(getString(R.string.p_sync_caldav));
+        caldavEnabled.setChecked(syncAdapters.isCaldavSyncEnabled());
+        caldavEnabled.setOnPreferenceChangeListener((preference, newValue) -> ((boolean) newValue) && permissionRequestor.requestCaldavPermissions());
         final CheckBoxPreference gtaskPreference = (CheckBoxPreference) findPreference(getString(R.string.sync_gtasks));
-        gtaskPreference.setChecked(gtaskSyncAdapterHelper.isEnabled());
+        gtaskPreference.setChecked(syncAdapters.isGoogleTaskSyncEnabled());
         gtaskPreference.setOnPreferenceChangeListener((preference, newValue) -> {
             if ((boolean) newValue) {
                 if (!playServices.refreshAndCheck()) {
@@ -106,6 +111,10 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         } else {
             backgroundSync.setSummary(R.string.master_sync_warning);
         }
+        if (!permissionChecker.canAccessAccounts()) {
+            ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(false);
+            ((CheckBoxPreference) findPreference(getString(R.string.p_sync_caldav))).setChecked(false);
+        }
     }
 
     @Override
@@ -124,10 +133,13 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == PermissionRequestor.REQUEST_ACCOUNTS) {
+        if (requestCode == PermissionRequestor.REQUEST_GOOGLE_ACCOUNTS) {
             if (verifyPermissions(grantResults)) {
                 requestLogin();
             }
+        } else if (requestCode == PermissionRequestor.REQUEST_CALDAV_ACCOUNTS) {
+            ((CheckBoxPreference) findPreference(getString(R.string.p_sync_caldav)))
+                    .setChecked(verifyPermissions(grantResults));
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }

@@ -10,6 +10,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 
 import org.tasks.data.GoogleTaskList;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
+import org.tasks.sync.SyncAdapters;
 
 import java.util.List;
 
@@ -27,17 +28,17 @@ import static java.util.Collections.emptyList;
 public class GtasksFilterExposer {
 
     private final GtasksListService gtasksListService;
-    private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
+    private final SyncAdapters syncAdapters;
 
     @Inject
-    public GtasksFilterExposer(GtasksListService gtasksListService, GtaskSyncAdapterHelper gtaskSyncAdapterHelper) {
+    public GtasksFilterExposer(GtasksListService gtasksListService, SyncAdapters syncAdapters) {
         this.gtasksListService = gtasksListService;
-        this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
+        this.syncAdapters = syncAdapters;
     }
 
     public List<Filter> getFilters() {
         // if we aren't logged in (or we are logged in to astrid.com), don't expose features
-        if(!gtaskSyncAdapterHelper.isEnabled()) {
+        if(!syncAdapters.isGoogleTaskSyncEnabled()) {
             return emptyList();
         }
 
@@ -49,7 +50,7 @@ public class GtasksFilterExposer {
     }
 
     public Filter getFilter(long id) {
-        if (gtaskSyncAdapterHelper.isEnabled()) {
+        if (syncAdapters.isGoogleTaskSyncEnabled()) {
             GoogleTaskList list = gtasksListService.getList(id);
             if (list != null) {
                 return filterFromList(list);

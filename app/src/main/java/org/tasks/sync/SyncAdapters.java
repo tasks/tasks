@@ -3,20 +3,28 @@ package org.tasks.sync;
 import android.app.Activity;
 import android.content.ContentResolver;
 
+import org.tasks.R;
 import org.tasks.caldav.CaldavAccountManager;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
+import org.tasks.preferences.PermissionChecker;
+import org.tasks.preferences.Preferences;
 
 import javax.inject.Inject;
 
 public class SyncAdapters {
 
     private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
+    private final Preferences preferences;
     private final CaldavAccountManager caldavAccountManager;
+    private final PermissionChecker permissionChecker;
 
     @Inject
-    public SyncAdapters(GtaskSyncAdapterHelper gtaskSyncAdapterHelper, CaldavAccountManager caldavAccountManager) {
+    public SyncAdapters(GtaskSyncAdapterHelper gtaskSyncAdapterHelper, Preferences preferences,
+                        CaldavAccountManager caldavAccountManager, PermissionChecker permissionChecker) {
         this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
+        this.preferences = preferences;
         this.caldavAccountManager = caldavAccountManager;
+        this.permissionChecker = permissionChecker;
     }
 
     public void requestSynchronization() {
@@ -41,7 +49,7 @@ public class SyncAdapters {
     }
 
     public boolean isCaldavSyncEnabled() {
-        return caldavAccountManager.getAccounts().size() > 0;
+        return preferences.getBoolean(R.string.p_sync_caldav, false) && permissionChecker.canAccessAccounts();
     }
 
     public void checkPlayServices(Activity activity) {

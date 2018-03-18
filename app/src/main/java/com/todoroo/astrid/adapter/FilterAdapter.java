@@ -318,14 +318,17 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             }
         }
 
-        addSubMenu(R.string.CalDAV, filterProvider.getCalDAVFilters(), false);
+        List<Filter> calDAVFilters = filterProvider.getCalDAVFilters();
+        if (!calDAVFilters.isEmpty()) {
+            addSubMenu(R.string.CalDAV, calDAVFilters, false);
 
-        if (navigationDrawer) {
-            add(new NavigationDrawerAction(
-                    activity.getResources().getString(R.string.add_account),
-                    R.drawable.ic_add_24dp,
-                    new Intent(activity, CalDAVSettingsActivity.class),
-                    NavigationDrawerFragment.REQUEST_NEW_CALDAV_ACCOUNT));
+            if (navigationDrawer) {
+                add(new NavigationDrawerAction(
+                        activity.getResources().getString(R.string.add_account),
+                        R.drawable.ic_add_24dp,
+                        new Intent(activity, CalDAVSettingsActivity.class),
+                        NavigationDrawerFragment.REQUEST_NEW_CALDAV_ACCOUNT));
+            }
         }
 
         if (navigationDrawer) {

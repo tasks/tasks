@@ -27,4 +27,11 @@
         </com.todoroo.astrid.ui.MultilinePreference>
 
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/CalDAV">
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="@string/p_sync_caldav"
+            android:title="@string/enabled" />
+    </PreferenceCategory>
 </PreferenceScreen>  
