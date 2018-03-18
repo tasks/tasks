@@ -74,46 +74,6 @@
                     android:textColor="?attr/asTextColor" />
             </android.support.design.widget.TextInputLayout>
 
-            <RelativeLayout
-                style="@style/TagSettingsRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:id="@+id/background_sync"
-                    android:checked="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/background_sync_label"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:paddingTop="3dp"
-                    android:paddingLeft="4dp"
-                    android:paddingStart="4dp"
-                    android:textSize="@dimen/settings_text_size"
-                    android:layout_toLeftOf="@id/background_sync"
-                    android:layout_toStartOf="@id/background_sync"
-                    android:text="@string/sync_SPr_interval_title"
-                    android:layout_width="match_parent"
-                    android:textColor="?attr/asTextColor"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/master_sync_warning"
-                    android:paddingLeft="4dp"
-                    android:paddingStart="4dp"
-                    android:textColor="?attr/asTextColor"
-                    android:layout_below="@id/background_sync_label"
-                    android:text="@string/master_sync_warning"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </RelativeLayout>
-
         </LinearLayout>
 
     </ScrollView>

@@ -5,18 +5,12 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.os.Bundle;
 
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.preferences.Preferences;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
-
-import timber.log.Timber;
 
 public class GtaskSyncAdapterHelper {
 
@@ -24,17 +18,14 @@ public class GtaskSyncAdapterHelper {
 
     private final GoogleAccountManager accountManager;
     private final Preferences preferences;
-    private final GtasksPreferenceService gtasksPreferenceService;
     private final PlayServices playServices;
     private final Tracker tracker;
 
     @Inject
     public GtaskSyncAdapterHelper(GoogleAccountManager accountManager, Preferences preferences,
-                                  GtasksPreferenceService gtasksPreferenceService,
                                   PlayServices playServices, Tracker tracker) {
         this.accountManager = accountManager;
         this.preferences = preferences;
-        this.gtasksPreferenceService = gtasksPreferenceService;
         this.playServices = playServices;
         this.tracker = tracker;
     }
@@ -77,25 +68,8 @@ public class GtaskSyncAdapterHelper {
                 getAccount() != null;
     }
 
-    public void enableBackgroundSynchronization(boolean enabled) {
-        Account account = getAccount();
-        if (account != null) {
-            Timber.d("enableBackgroundSynchronization=%s", enabled);
-            ContentResolver.setSyncAutomatically(account, AUTHORITY, enabled);
-            if (enabled) {
-                ContentResolver.addPeriodicSync(account, AUTHORITY, Bundle.EMPTY, TimeUnit.HOURS.toSeconds(1));
-            } else {
-                ContentResolver.removePeriodicSync(account, AUTHORITY, Bundle.EMPTY);
-            }
-        }
-    }
-
-    public boolean isBackgroundSyncEnabled() {
-        return isEnabled() && ContentResolver.getSyncAutomatically(getAccount(), AUTHORITY);
-    }
-
     private Account getAccount() {
-        return accountManager.getAccount(gtasksPreferenceService.getUserName());
+        return accountManager.getSelectedAccount();
     }
 
     public void checkPlayServices(Activity activity) {

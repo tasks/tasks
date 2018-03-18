@@ -12,11 +12,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -95,8 +92,6 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
     @BindView(R.id.password_layout) TextInputLayout passwordLayout;
     @BindView(R.id.color) TextInputEditText color;
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.background_sync) CheckBox backgroundSync;
-    @BindView(R.id.master_sync_warning) TextView masterSyncWarning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +116,6 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
                 url.setText(caldavAccount.getUrl());
                 user.setText(caldavAccount.getUsername());
             }
-            backgroundSync.setChecked(localAccount == null || localAccount.isBackgroundSyncEnabled());
         } else {
             selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
         }
@@ -186,13 +180,6 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         super.onSaveInstanceState(outState);
 
         outState.putInt(EXTRA_SELECTED_THEME, selectedTheme);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        masterSyncWarning.setVisibility(syncAdapters.isMasterSyncEnabled() ? View.GONE : View.VISIBLE);
     }
 
     @OnFocusChange(R.id.color)
@@ -313,7 +300,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
             if (account == null) {
                 showGenericError();
             } else {
-                account.setSynchronizationEnabled(backgroundSync.isChecked());
+                account.setSynchronizationEnabled(preferences.getBoolean(R.string.p_background_sync, true));
                 newAccount.setId(caldavDao.insert(newAccount));
                 setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(newAccount)));
                 finish();
@@ -338,7 +325,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         caldavAccount.setColor(selectedTheme);
         caldavDao.update(caldavAccount);
         localAccount.setPassword(getNewPassword());
-        localAccount.setSynchronizationEnabled(backgroundSync.isChecked());
+        localAccount.setSynchronizationEnabled(preferences.getBoolean(R.string.p_background_sync, true));
         setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavAccount)));
         finish();
     }
@@ -374,12 +361,11 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
         if (caldavAccount == null) {
             return selectedTheme >= 0 ||
                     !isEmpty(getNewPassword()) || !isEmpty(getNewURL()) ||
-                    !isEmpty(getNewUsername()) || !backgroundSync.isChecked();
+                    !isEmpty(getNewUsername());
         }
         return localAccount == null ||
                 selectedTheme != caldavAccount.getColor() ||
-                needsValidation() ||
-                backgroundSync.isChecked() != localAccount.isBackgroundSyncEnabled();
+                needsValidation();
     }
 
     private boolean needsValidation() {

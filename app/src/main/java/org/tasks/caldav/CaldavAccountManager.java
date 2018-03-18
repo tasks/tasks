@@ -134,4 +134,10 @@ public class CaldavAccountManager {
             ContentResolver.requestSync(account.getAccount(), AUTHORITY, new Bundle());
         }
     }
+
+    public void setBackgroundSynchronization(boolean enabled) {
+        for (org.tasks.caldav.Account account : getAccounts()) {
+            account.setSynchronizationEnabled(enabled);
+        }
+    }
 }

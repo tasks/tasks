@@ -34,10 +34,6 @@ public class Account {
         accountManager.setPassword(account, password);
     }
 
-    boolean isBackgroundSyncEnabled() {
-        return ContentResolver.getSyncAutomatically(account, AUTHORITY);
-    }
-
     void setSynchronizationEnabled(boolean enabled) {
         ContentResolver.setSyncAutomatically(account, AUTHORITY, enabled);
         if (enabled) {

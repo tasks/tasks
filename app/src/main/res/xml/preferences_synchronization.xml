@@ -6,18 +6,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/synchronization">
 
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="@string/p_background_sync"
+        android:title="@string/sync_SPr_interval_title"/>
+
     <PreferenceCategory android:title="@string/gtasks_GPr_header">
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:defaultValue="false"
             android:key="@string/sync_gtasks"
             android:title="@string/enabled" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:dependency="@string/sync_gtasks"
-            android:key="@string/gtask_background_sync"
-            android:title="@string/sync_SPr_interval_title"/>
 
         <com.todoroo.astrid.ui.MultilinePreference
             android:dependency="@string/sync_gtasks"
