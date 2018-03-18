@@ -170,7 +170,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
                         }
                     }
                 } else {
-                    ArrayList<HttpUrl> urls = newArrayList(transform(changed, DavResource::getLocation));
+                    ArrayList<HttpUrl> urls = newArrayList(transform(items, DavResource::getLocation));
                     davCalendar.multiget(urls);
 
                     Timber.d("MULTI %s", urls);
