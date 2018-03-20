@@ -16,6 +16,8 @@ import org.tasks.preferences.Preferences;
 import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 @ApplicationScope
@@ -36,20 +38,28 @@ public final class ReminderService  {
 
     private final JobQueue jobs;
     private final Random random;
+    private final TaskDao taskDao;
     private final Preferences preferences;
 
     @Inject
-    ReminderService(Preferences preferences, JobQueue jobQueue) {
-        this(preferences, jobQueue, new Random());
+    ReminderService(Preferences preferences, JobQueue jobQueue, TaskDao taskDao) {
+        this(preferences, jobQueue, new Random(), taskDao);
     }
 
-    ReminderService(Preferences preferences, JobQueue jobs, Random random) {
+    ReminderService(Preferences preferences, JobQueue jobs, Random random, TaskDao taskDao) {
         this.preferences = preferences;
         this.jobs = jobs;
         this.random = random;
+        this.taskDao = taskDao;
     }
 
-    public void scheduleAllAlarms(TaskDao taskDao) {
+    public void scheduleAllAlarms(List<Long> taskIds) {
+        for (Task task : taskDao.fetch(taskIds)) {
+            scheduleAlarm(task);
+        }
+    }
+
+    public void scheduleAllAlarms() {
         for (Task task : taskDao.getTasksWithReminders()) {
             scheduleAlarm(task);
         }

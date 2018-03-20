@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.activities.DateAndTimePickerActivity;
 import org.tasks.activities.TimePickerActivity;
@@ -31,6 +32,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
 
     @Inject NotificationManager notificationManager;
     @Inject TaskDao taskDao;
+    @Inject ReminderService reminderService;
 
     private List<Long> taskIds = new ArrayList<>();
     private boolean pickingDateTime;
@@ -86,6 +88,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     @Override
     public void snoozeForTime(DateTime time) {
         taskDao.snooze(taskIds, time.getMillis());
+        reminderService.scheduleAllAlarms(taskIds);
         notificationManager.cancel(taskIds);
         setResult(RESULT_OK);
         finish();

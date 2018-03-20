@@ -2,6 +2,7 @@ package com.todoroo.astrid.reminders;
 
 import android.support.test.runner.AndroidJUnit4;
 
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
 import org.junit.After;
@@ -51,6 +52,7 @@ import static org.tasks.makers.TaskMaker.newTask;
 public class ReminderServiceTest extends InjectingTestCase {
 
     @Inject Preferences preferences;
+    @Inject TaskDao taskDao;
 
     private ReminderService service;
     private Random random;
@@ -62,7 +64,7 @@ public class ReminderServiceTest extends InjectingTestCase {
         random = mock(Random.class);
         when(random.nextFloat()).thenReturn(1.0f);
         preferences.reset();
-        service = new ReminderService(preferences, jobs, random);
+        service = new ReminderService(preferences, jobs, random, taskDao);
     }
 
     @After
