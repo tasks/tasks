@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v4.app.JobIntentService;
 
 import com.todoroo.astrid.alarms.AlarmService;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.reminders.ReminderService;
 
 import org.tasks.injection.InjectingJobIntentService;
@@ -30,7 +29,6 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
 
     @Inject AlarmService alarmService;
     @Inject ReminderService reminderService;
-    @Inject TaskDao taskDao;
     @Inject JobQueue jobQueue;
     @Inject NotificationManager notificationManager;
 

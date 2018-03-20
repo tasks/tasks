@@ -2,7 +2,6 @@ package org.tasks.location;
 
 import org.tasks.data.Location;
 import org.tasks.data.LocationDao;
-
 import java.util.List;
 import java.util.Set;
 

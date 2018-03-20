@@ -11,7 +11,6 @@ import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.AlarmJob;
 import org.tasks.jobs.JobQueue;
 
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,15 +59,22 @@ public class AlarmService {
      * Save the given array of alarms into the database
      * @return true if data was changed
      */
-    public boolean synchronizeAlarms(final long taskId, Set<Long> alarms) {
-        List<Alarm> metadata = new ArrayList<>();
-        for(Long alarm : alarms) {
-            Alarm item = new Alarm();
-            item.setTime(alarm);
-            metadata.add(item);
+    public boolean synchronizeAlarms(final long taskId, Set<Long> timestamps) {
+        boolean changed = false;
+
+        for (Alarm item : alarmDao.getAlarms(taskId)) {
+            if (!timestamps.contains(item.getTime())) {
+                jobs.cancelAlarm(item.getId());
+                alarmDao.delete(item);
+                changed = true;
+            }
         }
 
-        boolean changed = synchronizeMetadata(taskId, metadata, m -> jobs.cancelAlarm(m.getId()));
+        // everything that remains shall be written
+        for(Long timestamp : timestamps) {
+            alarmDao.insert(new Alarm(taskId, timestamp));
+            changed = true;
+        }
 
         if(changed) {
             scheduleAlarms(taskId);
@@ -119,43 +125,5 @@ public class AlarmService {
         } else {
             jobs.add(alarmJob);
         }
-    }
-
-    public interface SynchronizeAlarmCallback {
-        void beforeDelete(Alarm alarm);
-    }
-
-    private boolean synchronizeMetadata(long taskId, List<Alarm> alarms, final SynchronizeAlarmCallback callback) {
-        boolean dirty = false;
-        for(Alarm metadatum : alarms) {
-            metadatum.setTask(taskId);
-            metadatum.setId(0L);
-        }
-
-        for (Alarm item : alarmDao.getAlarms(taskId)) {
-            long id = item.getId();
-
-            // clear item id when matching with incoming values
-            item.setId(0L);
-            if(alarms.contains(item)) {
-                alarms.remove(item);
-            } else {
-                // not matched. cut it
-                item.setId(id);
-                if (callback != null) {
-                    callback.beforeDelete(item);
-                }
-                alarmDao.delete(item);
-                dirty = true;
-            }
-        }
-
-        // everything that remains shall be written
-        for(Alarm alarm : alarms) {
-            alarmDao.insert(alarm);
-            dirty = true;
-        }
-
-        return dirty;
     }
 }
