@@ -45,7 +45,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
         boolean cancelExistingNotifications = intent.getBooleanExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, false);
 
         notificationManager.restoreNotifications(cancelExistingNotifications);
-        reminderService.scheduleAllAlarms(taskDao);
+        reminderService.scheduleAllAlarms();
         alarmService.scheduleAllAlarms();
     }
 
