@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'checkstyle'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.6'
@@ -80,6 +81,26 @@ android {
     } else {
         buildTypes.release.signingConfig = null
     }
+}
+
+task checkstyle(type: Checkstyle) {
+    source fileTree('src/main/java')
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+    showViolations true
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        html.destination = "$project.buildDir/reports/checkstyle/checkstyle.html"
+    }
+}
+
+checkstyle {
+    configFile project.file('google_checks.xml')
+    toolVersion = '8.8'
 }
 
 configurations {
