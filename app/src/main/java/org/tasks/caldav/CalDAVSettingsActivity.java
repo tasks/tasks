@@ -109,7 +109,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
 
         if (savedInstanceState == null) {
             if (caldavAccount == null) {
-                selectedTheme = themeColor.getIndex();
+                selectedTheme = -1;
             } else {
                 selectedTheme = caldavAccount.getColor();
                 url.setText(caldavAccount.getUrl());
@@ -168,7 +168,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
                 password.setText("");
             }
         } else {
-            if (localAccount != null && isEmpty(password.getText())) {
+            if (localAccount != null &&  isEmpty(password.getText()) && !isEmpty(localAccount.getPassword())) {
                 password.setText(PASSWORD_MASK);
             }
         }
