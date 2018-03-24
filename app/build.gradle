@@ -1,10 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'checkstyle'
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
-}
-
 repositories {
     jcenter()
     google()
