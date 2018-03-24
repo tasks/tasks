@@ -6,4 +6,8 @@
 
     <issue id="MissingQuantity" severity="ignore"/>
     <issue id="ImpliedQuantity" severity="ignore"/>
+
+    <issue id="InvalidPackage">
+        <ignore regexp="net.fortuna.ical4j.util.JCacheTimeZoneCache" />
+    </issue>
 </lint>
