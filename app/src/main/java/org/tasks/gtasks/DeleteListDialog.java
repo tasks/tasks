@@ -7,98 +7,92 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
-
+import java.io.IOException;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
-
-import java.io.IOException;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public class DeleteListDialog extends InjectingDialogFragment {
 
-    public static DeleteListDialog newDeleteListDialog(String id) {
-        DeleteListDialog dialog = new DeleteListDialog();
-        Bundle args = new Bundle();
-        args.putString(EXTRA_ID, id);
-        dialog.setArguments(args);
-        return dialog;
-    }
+  private static final String EXTRA_ID = "extra_id";
+  @Inject DialogBuilder dialogBuilder;
+  @Inject GtasksInvoker gtasksInvoker;
+  private DeleteListDialogCallback callback;
+  private String id;
+  private ProgressDialog dialog;
 
-    public interface DeleteListDialogCallback {
-        void onListDeleted();
+  public static DeleteListDialog newDeleteListDialog(String id) {
+    DeleteListDialog dialog = new DeleteListDialog();
+    Bundle args = new Bundle();
+    args.putString(EXTRA_ID, id);
+    dialog.setArguments(args);
+    return dialog;
+  }
 
-        void requestFailed();
-    }
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setRetainInstance(true);
+    Bundle arguments = getArguments();
+    id = arguments.getString(EXTRA_ID);
+    dialog = dialogBuilder.newProgressDialog(R.string.deleting_list);
+    execute();
+  }
 
-    private static final String EXTRA_ID = "extra_id";
+  @NonNull
+  @Override
+  public Dialog onCreateDialog(Bundle savedInstanceState) {
+    return dialog;
+  }
 
-    @Inject DialogBuilder dialogBuilder;
-    @Inject GtasksInvoker gtasksInvoker;
+  @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
 
-    private DeleteListDialogCallback callback;
-    private String id;
-    private ProgressDialog dialog;
+    callback = (DeleteListDialogCallback) activity;
+  }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        Bundle arguments = getArguments();
-        id = arguments.getString(EXTRA_ID);
-        dialog = dialogBuilder.newProgressDialog(R.string.deleting_list);
-        execute();
-    }
+  @Override
+  protected void inject(DialogFragmentComponent component) {
+    component.inject(this);
+  }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return dialog;
-    }
+  private void execute() {
+    new AsyncTask<Void, Void, Boolean>() {
+      @Override
+      protected Boolean doInBackground(Void... voids) {
+        try {
+          gtasksInvoker.deleteGtaskList(id);
+          return true;
+        } catch (IOException e) {
+          Timber.e(e, e.getMessage());
+          return false;
+        }
+      }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+      @Override
+      protected void onPostExecute(Boolean result) {
+        if (dialog.isShowing()) {
+          dialog.dismiss();
+        }
 
-        callback = (DeleteListDialogCallback) activity;
-    }
+        if (result) {
+          callback.onListDeleted();
+        } else {
+          callback.requestFailed();
+        }
+      }
+    }.execute();
+  }
 
-    @Override
-    protected void inject(DialogFragmentComponent component) {
-        component.inject(this);
-    }
+  public interface DeleteListDialogCallback {
 
-    private void execute() {
-        new AsyncTask<Void, Void, Boolean>() {
-            @Override
-            protected Boolean doInBackground(Void... voids) {
-                try {
-                    gtasksInvoker.deleteGtaskList(id);
-                    return true;
-                } catch (IOException e) {
-                    Timber.e(e, e.getMessage());
-                    return false;
-                }
-            }
+    void onListDeleted();
 
-            @Override
-            protected void onPostExecute(Boolean result) {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-
-                if (result) {
-                    callback.onListDeleted();
-                } else {
-                    callback.requestFailed();
-                }
-            }
-        }.execute();
-    }
+    void requestFailed();
+  }
 }

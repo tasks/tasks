@@ -3,6 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.todoroo.andlib.data;
 
 import com.todoroo.andlib.sql.SqlTable;
@@ -12,41 +13,41 @@ import com.todoroo.andlib.sql.SqlTable;
  * clone the table when it returns.
  *
  * @author Tim Su <tim@todoroo.com>
- *
  */
 public final class Table extends SqlTable {
-    public final String name;
 
-    public Table(String name) {
-        this(name, null);
-    }
+  public final String name;
 
-    private Table(String name, String alias) {
-        super(name);
-        this.name = name;
-        this.alias = alias;
-    }
+  public Table(String name) {
+    this(name, null);
+  }
 
-    /**
-     * Create a new join table based on this table, but with an alias
-     */
-    @Override
-    public Table as(String newAlias) {
-        return new Table(name, newAlias);
-    }
+  private Table(String name, String alias) {
+    super(name);
+    this.name = name;
+    this.alias = alias;
+  }
 
-    @Override
-    public String toString() {
-        if(hasAlias()) {
-            return expression + " AS " + alias; //$NON-NLS-1$
-        }
-        return expression;
-    }
+  /**
+   * Create a new join table based on this table, but with an alias
+   */
+  @Override
+  public Table as(String newAlias) {
+    return new Table(name, newAlias);
+  }
 
-    public String name() {
-        if(hasAlias()) {
-            return alias;
-        }
-        return name;
+  @Override
+  public String toString() {
+    if (hasAlias()) {
+      return expression + " AS " + alias; //$NON-NLS-1$
     }
+    return expression;
+  }
+
+  public String name() {
+    if (hasAlias()) {
+      return alias;
+    }
+    return name;
+  }
 }

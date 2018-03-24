@@ -7,98 +7,92 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
-
+import java.io.IOException;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.InjectingDialogFragment;
-
-import java.io.IOException;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public class CreateListDialog extends InjectingDialogFragment {
 
-    public static CreateListDialog newCreateListDialog(String name) {
-        CreateListDialog dialog = new CreateListDialog();
-        Bundle args = new Bundle();
-        args.putString(EXTRA_NAME, name);
-        dialog.setArguments(args);
-        return dialog;
-    }
+  private static final String EXTRA_NAME = "extra_name";
+  @Inject DialogBuilder dialogBuilder;
+  @Inject GtasksInvoker gtasksInvoker;
+  private CreateListDialogCallback callback;
+  private ProgressDialog dialog;
+  private String name;
 
-    public interface CreateListDialogCallback {
-        void onListCreated(TaskList taskList);
+  public static CreateListDialog newCreateListDialog(String name) {
+    CreateListDialog dialog = new CreateListDialog();
+    Bundle args = new Bundle();
+    args.putString(EXTRA_NAME, name);
+    dialog.setArguments(args);
+    return dialog;
+  }
 
-        void requestFailed();
-    }
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setRetainInstance(true);
+    Bundle arguments = getArguments();
+    name = arguments.getString(EXTRA_NAME);
+    dialog = dialogBuilder.newProgressDialog(R.string.creating_new_list);
+    execute();
+  }
 
-    private static final String EXTRA_NAME = "extra_name";
+  @NonNull
+  @Override
+  public Dialog onCreateDialog(Bundle savedInstanceState) {
+    return dialog;
+  }
 
-    @Inject DialogBuilder dialogBuilder;
-    @Inject GtasksInvoker gtasksInvoker;
+  @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
 
-    private CreateListDialogCallback callback;
-    private ProgressDialog dialog;
-    private String name;
+    callback = (CreateListDialogCallback) activity;
+  }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
-        Bundle arguments = getArguments();
-        name = arguments.getString(EXTRA_NAME);
-        dialog = dialogBuilder.newProgressDialog(R.string.creating_new_list);
-        execute();
-    }
+  @Override
+  protected void inject(DialogFragmentComponent component) {
+    component.inject(this);
+  }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return dialog;
-    }
+  private void execute() {
+    new AsyncTask<Void, Void, TaskList>() {
+      @Override
+      protected TaskList doInBackground(Void... voids) {
+        try {
+          return gtasksInvoker.createGtaskList(name);
+        } catch (IOException e) {
+          Timber.e(e, e.getMessage());
+          return null;
+        }
+      }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+      @Override
+      protected void onPostExecute(TaskList taskList) {
+        if (dialog.isShowing()) {
+          dialog.dismiss();
+        }
 
-        callback = (CreateListDialogCallback) activity;
-    }
+        if (taskList == null) {
+          callback.requestFailed();
+        } else {
+          callback.onListCreated(taskList);
+        }
+      }
+    }.execute();
+  }
 
-    @Override
-    protected void inject(DialogFragmentComponent component) {
-        component.inject(this);
-    }
+  public interface CreateListDialogCallback {
 
-    private void execute() {
-        new AsyncTask<Void, Void, TaskList>() {
-            @Override
-            protected TaskList doInBackground(Void... voids) {
-                try {
-                    return gtasksInvoker.createGtaskList(name);
-                } catch (IOException e) {
-                    Timber.e(e, e.getMessage());
-                    return null;
-                }
-            }
+    void onListCreated(TaskList taskList);
 
-            @Override
-            protected void onPostExecute(TaskList taskList) {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-
-                if (taskList == null) {
-                    callback.requestFailed();
-                } else {
-                    callback.onListCreated(taskList);
-                }
-            }
-        }.execute();
-    }
+    void requestFailed();
+  }
 }

@@ -4,39 +4,37 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.JobIntentService;
-
+import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.scheduling.RefreshScheduler;
 
-import javax.inject.Inject;
-
 public class RefreshJob extends Job {
 
-    public static class Broadcast extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            JobIntentService.enqueueWork(context, RefreshJob.class, JobManager.JOB_ID_REFRESH, intent);
-        }
-    }
+  public static final String TAG = "job_refresh";
+  @Inject RefreshScheduler refreshScheduler;
+  @Inject LocalBroadcastManager localBroadcastManager;
 
-    public static final String TAG = "job_refresh";
+  @Override
+  protected void inject(IntentServiceComponent component) {
+    component.inject(this);
+  }
 
-    @Inject RefreshScheduler refreshScheduler;
-    @Inject LocalBroadcastManager localBroadcastManager;
+  @Override
+  protected void run() {
+    localBroadcastManager.broadcastRefresh();
+  }
+
+  @Override
+  protected void scheduleNext() {
+    refreshScheduler.scheduleNext();
+  }
+
+  public static class Broadcast extends BroadcastReceiver {
 
     @Override
-    protected void inject(IntentServiceComponent component) {
-        component.inject(this);
+    public void onReceive(Context context, Intent intent) {
+      JobIntentService.enqueueWork(context, RefreshJob.class, JobManager.JOB_ID_REFRESH, intent);
     }
-
-    @Override
-    protected void run() {
-        localBroadcastManager.broadcastRefresh();
-    }
-
-    @Override
-    protected void scheduleNext() {
-        refreshScheduler.scheduleNext();
-    }
+  }
 }

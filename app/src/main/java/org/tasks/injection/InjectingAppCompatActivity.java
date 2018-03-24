@@ -2,26 +2,28 @@ package org.tasks.injection;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
 import org.tasks.locale.Locale;
 
-public abstract class InjectingAppCompatActivity extends AppCompatActivity implements InjectingActivity {
-    private ActivityComponent activityComponent;
+public abstract class InjectingAppCompatActivity extends AppCompatActivity implements
+    InjectingActivity {
 
-    protected InjectingAppCompatActivity() {
-        Locale.getInstance(this).applyOverrideConfiguration(this);
-    }
+  private ActivityComponent activityComponent;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        activityComponent = ((InjectingApplication) getApplication()).getComponent().plus(new ActivityModule(this));
-        inject(activityComponent);
-        setTitle("");
-        super.onCreate(savedInstanceState);
-    }
+  protected InjectingAppCompatActivity() {
+    Locale.getInstance(this).applyOverrideConfiguration(this);
+  }
 
-    @Override
-    public ActivityComponent getComponent() {
-        return activityComponent;
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    activityComponent = ((InjectingApplication) getApplication()).getComponent()
+        .plus(new ActivityModule(this));
+    inject(activityComponent);
+    setTitle("");
+    super.onCreate(savedInstanceState);
+  }
+
+  @Override
+  public ActivityComponent getComponent() {
+    return activityComponent;
+  }
 }

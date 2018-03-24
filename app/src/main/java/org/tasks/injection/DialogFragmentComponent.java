@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import dagger.Subcomponent;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.caldav.DeleteAccountDialog;
@@ -15,36 +16,34 @@ import org.tasks.reminders.NotificationDialog;
 import org.tasks.reminders.SnoozeDialog;
 import org.tasks.repeats.CustomRecurrenceDialog;
 
-import dagger.Subcomponent;
-
 @Subcomponent(modules = DialogFragmentModule.class)
 public interface DialogFragmentComponent {
 
-    void inject(RemoteListSupportPicker remoteListSupportPicker);
+  void inject(RemoteListSupportPicker remoteListSupportPicker);
 
-    void inject(NotificationDialog notificationDialog);
+  void inject(NotificationDialog notificationDialog);
 
-    void inject(MissedCallDialog missedCallDialog);
+  void inject(MissedCallDialog missedCallDialog);
 
-    void inject(CalendarSelectionDialog calendarSelectionDialog);
+  void inject(CalendarSelectionDialog calendarSelectionDialog);
 
-    void inject(AddAttachmentDialog addAttachmentDialog);
+  void inject(AddAttachmentDialog addAttachmentDialog);
 
-    void inject(SnoozeDialog snoozeDialog);
+  void inject(SnoozeDialog snoozeDialog);
 
-    void inject(SortDialog sortDialog);
+  void inject(SortDialog sortDialog);
 
-    void inject(ColorPickerDialog colorPickerDialog);
+  void inject(ColorPickerDialog colorPickerDialog);
 
-    void inject(RecordAudioDialog recordAudioDialog);
+  void inject(RecordAudioDialog recordAudioDialog);
 
-    void inject(CreateListDialog createListDialog);
+  void inject(CreateListDialog createListDialog);
 
-    void inject(DeleteListDialog deleteListDialog);
+  void inject(DeleteListDialog deleteListDialog);
 
-    void inject(RenameListDialog renameListDialog);
+  void inject(RenameListDialog renameListDialog);
 
-    void inject(CustomRecurrenceDialog customRecurrenceDialog);
+  void inject(CustomRecurrenceDialog customRecurrenceDialog);
 
-    void inject(DeleteAccountDialog deleteAccountDialog);
+  void inject(DeleteAccountDialog deleteAccountDialog);
 }

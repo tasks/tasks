@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import dagger.Subcomponent;
 import org.tasks.jobs.AfterSaveIntentService;
 import org.tasks.jobs.BackupJob;
 import org.tasks.jobs.MidnightRefreshJob;
@@ -12,29 +13,28 @@ import org.tasks.scheduling.CalendarNotificationIntentService;
 import org.tasks.scheduling.GeofenceSchedulingIntentService;
 import org.tasks.scheduling.NotificationSchedulerIntentService;
 
-import dagger.Subcomponent;
-
 @Subcomponent(modules = IntentServiceModule.class)
 public interface IntentServiceComponent {
-    void inject(GeofenceSchedulingIntentService geofenceSchedulingIntentService);
 
-    void inject(CalendarNotificationIntentService calendarNotificationIntentService);
+  void inject(GeofenceSchedulingIntentService geofenceSchedulingIntentService);
 
-    void inject(GeofenceTransitionsIntentService geofenceTransitionsIntentService);
+  void inject(CalendarNotificationIntentService calendarNotificationIntentService);
 
-    void inject(NotificationSchedulerIntentService notificationSchedulerIntentService);
+  void inject(GeofenceTransitionsIntentService geofenceTransitionsIntentService);
 
-    void inject(NotificationJob notificationJob);
+  void inject(NotificationSchedulerIntentService notificationSchedulerIntentService);
 
-    void inject(BackupJob backupJob);
+  void inject(NotificationJob notificationJob);
 
-    void inject(MidnightRefreshJob midnightRefreshJob);
+  void inject(BackupJob backupJob);
 
-    void inject(RefreshJob refreshJob);
+  void inject(MidnightRefreshJob midnightRefreshJob);
 
-    void inject(BackgroundScheduler backgroundScheduler);
+  void inject(RefreshJob refreshJob);
 
-    void inject(AfterSaveIntentService afterSaveIntentService);
+  void inject(BackgroundScheduler backgroundScheduler);
 
-    void inject(TaskerIntentService taskerIntentService);
+  void inject(AfterSaveIntentService afterSaveIntentService);
+
+  void inject(TaskerIntentService taskerIntentService);
 }

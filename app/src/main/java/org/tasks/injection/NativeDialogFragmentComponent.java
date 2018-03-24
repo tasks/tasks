@@ -1,5 +1,6 @@
 package org.tasks.injection;
 
+import dagger.Subcomponent;
 import org.tasks.activities.RemoteListNativePicker;
 import org.tasks.dialogs.DonationDialog;
 import org.tasks.dialogs.ExportTasksDialog;
@@ -9,23 +10,22 @@ import org.tasks.dialogs.NativeTimePickerDialog;
 import org.tasks.dialogs.SeekBarDialog;
 import org.tasks.locale.LocalePickerDialog;
 
-import dagger.Subcomponent;
-
 @Subcomponent(modules = NativeDialogFragmentModule.class)
 public interface NativeDialogFragmentComponent {
-    void inject(RemoteListNativePicker remoteListNativePicker);
 
-    void inject(LocalePickerDialog localePickerDialog);
+  void inject(RemoteListNativePicker remoteListNativePicker);
 
-    void inject(NativeDatePickerDialog nativeDatePickerDialog);
+  void inject(LocalePickerDialog localePickerDialog);
 
-    void inject(NativeTimePickerDialog nativeTimePickerDialog);
+  void inject(NativeDatePickerDialog nativeDatePickerDialog);
 
-    void inject(SeekBarDialog seekBarDialog);
+  void inject(NativeTimePickerDialog nativeTimePickerDialog);
 
-    void inject(ExportTasksDialog exportTasksDialog);
+  void inject(SeekBarDialog seekBarDialog);
 
-    void inject(ImportTasksDialog importTasksDialog);
+  void inject(ExportTasksDialog exportTasksDialog);
 
-    void inject(DonationDialog donationDialog);
+  void inject(ImportTasksDialog importTasksDialog);
+
+  void inject(DonationDialog donationDialog);
 }

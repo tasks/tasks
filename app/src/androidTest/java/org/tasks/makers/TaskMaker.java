@@ -1,112 +1,110 @@
 package org.tasks.makers;
 
+import static com.natpryce.makeiteasy.Property.newProperty;
+import static org.tasks.date.DateTimeUtils.newDateTime;
+import static org.tasks.makers.Maker.make;
+
 import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
 import com.natpryce.makeiteasy.Instantiator;
 import com.natpryce.makeiteasy.Property;
 import com.natpryce.makeiteasy.PropertyValue;
 import com.todoroo.astrid.data.Task;
-
 import org.tasks.time.DateTime;
-
-import static com.natpryce.makeiteasy.Property.newProperty;
-import static org.tasks.date.DateTimeUtils.newDateTime;
-import static org.tasks.makers.Maker.make;
 
 public class TaskMaker {
 
-    public static Property<Task, Long> ID = newProperty();
-    public static Property<Task, String> TITLE = newProperty();
-    public static Property<Task, DateTime> DUE_DATE = newProperty();
-    public static Property<Task, DateTime> DUE_TIME = newProperty();
-    public static Property<Task, Integer> PRIORITY = newProperty();
-    public static Property<Task, DateTime> REMINDER_LAST = newProperty();
-    public static Property<Task, Long> RANDOM_REMINDER_PERIOD = newProperty();
-    public static Property<Task, Integer> HIDE_TYPE = newProperty();
-    public static Property<Task, Integer> REMINDERS = newProperty();
-    public static Property<Task, DateTime> CREATION_TIME = newProperty();
-    public static Property<Task, DateTime> COMPLETION_TIME = newProperty();
-    public static Property<Task, DateTime> DELETION_TIME = newProperty();
-    public static Property<Task, DateTime> SNOOZE_TIME = newProperty();
-    public static Property<Task, RRule> RRULE = newProperty();
-    public static Property<Task, Boolean> AFTER_COMPLETE = newProperty();
+  public static Property<Task, Long> ID = newProperty();
+  public static Property<Task, String> TITLE = newProperty();
+  public static Property<Task, DateTime> DUE_DATE = newProperty();
+  public static Property<Task, DateTime> DUE_TIME = newProperty();
+  public static Property<Task, Integer> PRIORITY = newProperty();
+  public static Property<Task, DateTime> REMINDER_LAST = newProperty();
+  public static Property<Task, Long> RANDOM_REMINDER_PERIOD = newProperty();
+  public static Property<Task, Integer> HIDE_TYPE = newProperty();
+  public static Property<Task, Integer> REMINDERS = newProperty();
+  public static Property<Task, DateTime> CREATION_TIME = newProperty();
+  public static Property<Task, DateTime> COMPLETION_TIME = newProperty();
+  public static Property<Task, DateTime> DELETION_TIME = newProperty();
+  public static Property<Task, DateTime> SNOOZE_TIME = newProperty();
+  public static Property<Task, RRule> RRULE = newProperty();
+  public static Property<Task, Boolean> AFTER_COMPLETE = newProperty();
+  private static final Instantiator<Task> instantiator = lookup -> {
+    Task task = new Task();
 
-    @SafeVarargs
-    public static Task newTask(PropertyValue<? super Task, ?>... properties) {
-        return make(instantiator, properties);
+    String title = lookup.valueOf(TITLE, (String) null);
+    if (!Strings.isNullOrEmpty(title)) {
+      task.setTitle(title);
     }
 
-    private static final Instantiator<Task> instantiator = lookup -> {
-        Task task = new Task();
+    long id = lookup.valueOf(ID, Task.NO_ID);
+    if (id != Task.NO_ID) {
+      task.setId(id);
+    }
 
-        String title = lookup.valueOf(TITLE, (String) null);
-        if (!Strings.isNullOrEmpty(title)) {
-            task.setTitle(title);
-        }
+    int priority = lookup.valueOf(PRIORITY, -1);
+    if (priority >= 0) {
+      task.setImportance(priority);
+    }
 
-        long id = lookup.valueOf(ID, Task.NO_ID);
-        if (id != Task.NO_ID) {
-            task.setId(id);
-        }
+    DateTime dueDate = lookup.valueOf(DUE_DATE, (DateTime) null);
+    if (dueDate != null) {
+      task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate.getMillis()));
+    }
 
-        int priority = lookup.valueOf(PRIORITY, -1);
-        if (priority >= 0) {
-            task.setImportance(priority);
-        }
+    DateTime dueTime = lookup.valueOf(DUE_TIME, (DateTime) null);
+    if (dueTime != null) {
+      task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueTime.getMillis()));
+    }
 
-        DateTime dueDate = lookup.valueOf(DUE_DATE, (DateTime) null);
-        if (dueDate != null) {
-            task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate.getMillis()));
-        }
+    DateTime completionTime = lookup.valueOf(COMPLETION_TIME, (DateTime) null);
+    if (completionTime != null) {
+      task.setCompletionDate(completionTime.getMillis());
+    }
 
-        DateTime dueTime = lookup.valueOf(DUE_TIME, (DateTime) null);
-        if (dueTime != null) {
-            task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueTime.getMillis()));
-        }
+    DateTime deletedTime = lookup.valueOf(DELETION_TIME, (DateTime) null);
+    if (deletedTime != null) {
+      task.setDeletionDate(deletedTime.getMillis());
+    }
 
-        DateTime completionTime = lookup.valueOf(COMPLETION_TIME, (DateTime) null);
-        if (completionTime != null) {
-            task.setCompletionDate(completionTime.getMillis());
-        }
+    DateTime snoozeTime = lookup.valueOf(SNOOZE_TIME, (DateTime) null);
+    if (snoozeTime != null) {
+      task.setReminderSnooze(snoozeTime.getMillis());
+    }
 
-        DateTime deletedTime = lookup.valueOf(DELETION_TIME, (DateTime) null);
-        if (deletedTime != null) {
-            task.setDeletionDate(deletedTime.getMillis());
-        }
+    int hideType = lookup.valueOf(HIDE_TYPE, -1);
+    if (hideType >= 0) {
+      task.setHideUntil(task.createHideUntil(hideType, 0));
+    }
 
-        DateTime snoozeTime = lookup.valueOf(SNOOZE_TIME, (DateTime) null);
-        if (snoozeTime != null) {
-            task.setReminderSnooze(snoozeTime.getMillis());
-        }
+    int reminderFlags = lookup.valueOf(REMINDERS, -1);
+    if (reminderFlags >= 0) {
+      task.setReminderFlags(reminderFlags);
+    }
 
-        int hideType = lookup.valueOf(HIDE_TYPE, -1);
-        if (hideType >= 0) {
-            task.setHideUntil(task.createHideUntil(hideType, 0));
-        }
+    DateTime reminderLast = lookup.valueOf(REMINDER_LAST, (DateTime) null);
+    if (reminderLast != null) {
+      task.setReminderLast(reminderLast.getMillis());
+    }
 
-        int reminderFlags = lookup.valueOf(REMINDERS, -1);
-        if (reminderFlags >= 0) {
-            task.setReminderFlags(reminderFlags);
-        }
+    long randomReminderPeriod = lookup.valueOf(RANDOM_REMINDER_PERIOD, 0L);
+    if (randomReminderPeriod > 0) {
+      task.setReminderPeriod(randomReminderPeriod);
+    }
 
-        DateTime reminderLast = lookup.valueOf(REMINDER_LAST, (DateTime) null);
-        if (reminderLast != null) {
-            task.setReminderLast(reminderLast.getMillis());
-        }
+    RRule rrule = lookup.valueOf(RRULE, (RRule) null);
+    if (rrule != null) {
+      task.setRecurrence(rrule, lookup.valueOf(AFTER_COMPLETE, false));
+    }
 
-        long randomReminderPeriod = lookup.valueOf(RANDOM_REMINDER_PERIOD, 0L);
-        if (randomReminderPeriod > 0) {
-            task.setReminderPeriod(randomReminderPeriod);
-        }
+    DateTime creationTime = lookup.valueOf(CREATION_TIME, newDateTime());
+    task.setCreationDate(creationTime.getMillis());
 
-        RRule rrule = lookup.valueOf(RRULE, (RRule) null);
-        if (rrule != null) {
-            task.setRecurrence(rrule, lookup.valueOf(AFTER_COMPLETE, false));
-        }
+    return task;
+  };
 
-        DateTime creationTime = lookup.valueOf(CREATION_TIME, newDateTime());
-        task.setCreationDate(creationTime.getMillis());
-
-        return task;
-    };
+  @SafeVarargs
+  public static Task newTask(PropertyValue<? super Task, ?>... properties) {
+    return make(instantiator, properties);
+  }
 }

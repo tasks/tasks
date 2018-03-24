@@ -1,25 +1,25 @@
 package org.tasks.injection;
 
+import dagger.Component;
 import org.tasks.Tasks;
 import org.tasks.dashclock.DashClockExtension;
 import org.tasks.widget.ScrollableWidgetUpdateService;
 
-import dagger.Component;
-
 @ApplicationScope
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-    SyncAdapterComponent plus(SyncAdapterModule syncAdapterModule);
 
-    void inject(DashClockExtension dashClockExtension);
+  SyncAdapterComponent plus(SyncAdapterModule syncAdapterModule);
 
-    void inject(Tasks tasks);
+  void inject(DashClockExtension dashClockExtension);
 
-    void inject(ScrollableWidgetUpdateService scrollableWidgetUpdateService);
+  void inject(Tasks tasks);
 
-    ActivityComponent plus(ActivityModule module);
+  void inject(ScrollableWidgetUpdateService scrollableWidgetUpdateService);
 
-    BroadcastComponent plus(BroadcastModule module);
+  ActivityComponent plus(ActivityModule module);
 
-    IntentServiceComponent plus(IntentServiceModule module);
+  BroadcastComponent plus(BroadcastModule module);
+
+  IntentServiceComponent plus(IntentServiceModule module);
 }

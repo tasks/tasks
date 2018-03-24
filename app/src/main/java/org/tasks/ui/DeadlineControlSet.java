@@ -1,5 +1,10 @@
 package org.tasks.ui;
 
+import static android.support.v4.content.ContextCompat.getColor;
+import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Arrays.asList;
+import static org.tasks.date.DateTimeUtils.newDateTime;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +21,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-
+import butterknife.BindView;
+import butterknife.OnClick;
+import butterknife.OnItemSelected;
+import butterknife.OnTouch;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
-
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.DatePickerActivity;
 import org.tasks.activities.TimePickerActivity;
@@ -30,398 +40,390 @@ import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-import butterknife.OnItemSelected;
-import butterknife.OnTouch;
-
-import static android.support.v4.content.ContextCompat.getColor;
-import static com.google.common.collect.Lists.newArrayList;
-import static java.util.Arrays.asList;
-import static org.tasks.date.DateTimeUtils.newDateTime;
-
 public class DeadlineControlSet extends TaskEditControlFragment {
 
-    public static final int TAG = R.string.TEA_ctrl_when_pref;
+  public static final int TAG = R.string.TEA_ctrl_when_pref;
 
-    private static final int REQUEST_DATE = 504;
-    private static final int REQUEST_TIME = 505;
-    private static final String EXTRA_DATE = "extra_date";
-    private static final String EXTRA_TIME = "extra_time";
+  private static final int REQUEST_DATE = 504;
+  private static final int REQUEST_TIME = 505;
+  private static final String EXTRA_DATE = "extra_date";
+  private static final String EXTRA_TIME = "extra_time";
+  @Inject Preferences preferences;
+  @Inject @ForActivity
+  Context context;
+  @Inject ThemeBase themeBase;
+  @BindView(R.id.due_date) Spinner dueDateSpinner;
+  @BindView(R.id.due_time) Spinner dueTimeSpinner;
+  @BindView(R.id.clear) View clearButton;
+  DueDateChangeListener callback;
+  private List<String> dueDateOptions = new ArrayList<>();
+  private List<String> dueTimeOptions = new ArrayList<>();
+  private List<String> dueTimeHint = new ArrayList<>();
+  private int dateShortcutMorning;
+  private int dateShortcutAfternoon;
+  private int dateShortcutEvening;
+  private int dateShortcutNight;
+  private String nightString;
+  private String eveningString;
+  private String afternoonString;
+  private String morningString;
+  private String noTimeString;
+  private String todayString;
+  private String tomorrowString;
+  private ArrayAdapter<String> dueDateAdapter;
+  private ArrayAdapter<String> dueTimeAdapter;
+  private long date = 0;
+  private int time = -1;
 
-    private List<String> dueDateOptions = new ArrayList<>();
-    private List<String> dueTimeOptions = new ArrayList<>();
-    private List<String> dueTimeHint = new ArrayList<>();
-    private int dateShortcutMorning;
-    private int dateShortcutAfternoon;
-    private int dateShortcutEvening;
-    private int dateShortcutNight;
-    private String nightString;
-    private String eveningString;
-    private String afternoonString;
-    private String morningString;
-    private String noTimeString;
-    private String todayString;
-    private String tomorrowString;
+  @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
 
-    @Inject Preferences preferences;
-    @Inject @ForActivity Context context;
-    @Inject ThemeBase themeBase;
+    callback = (DueDateChangeListener) activity;
 
-    @BindView(R.id.due_date) Spinner dueDateSpinner;
-    @BindView(R.id.due_time) Spinner dueTimeSpinner;
-    @BindView(R.id.clear) View clearButton;
+    dateShortcutMorning = preferences.getDateShortcutMorning();
+    dateShortcutAfternoon = preferences.getDateShortcutAfternoon();
+    dateShortcutEvening = preferences.getDateShortcutEvening();
+    dateShortcutNight = preferences.getDateShortcutNight();
+    dueTimeHint = asList(
+        "",
+        "",
+        getTimeHint(dateShortcutMorning),
+        getTimeHint(dateShortcutAfternoon),
+        getTimeHint(dateShortcutEvening),
+        getTimeHint(dateShortcutNight));
+    nightString = activity.getString(R.string.date_shortcut_night);
+    eveningString = activity.getString(R.string.date_shortcut_evening);
+    afternoonString = activity.getString(R.string.date_shortcut_afternoon);
+    morningString = activity.getString(R.string.date_shortcut_morning);
+    noTimeString = activity.getString(R.string.TEA_no_time);
+    todayString = activity.getString(R.string.today);
+    tomorrowString = activity.getString(R.string.tomorrow);
+    dueDateOptions = newArrayList(
+        "",
+        todayString,
+        tomorrowString,
+        "",
+        activity.getString(R.string.pick_a_date));
+    dueTimeOptions = newArrayList(
+        "",
+        noTimeString,
+        morningString,
+        afternoonString,
+        eveningString,
+        nightString,
+        activity.getString(R.string.pick_a_time));
+  }
 
-    private ArrayAdapter<String> dueDateAdapter;
-    private ArrayAdapter<String> dueTimeAdapter;
-    private long date = 0;
-    private int time = -1;
+  @Override
+  protected void inject(FragmentComponent component) {
+    component.inject(this);
+  }
 
-    public interface DueDateChangeListener {
-        void dueDateChanged(long dateTime);
+  @Nullable
+  @Override
+  public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    View view = super.onCreateView(inflater, container, savedInstanceState);
+    if (savedInstanceState == null) {
+      if (task.hasDueDate()) {
+        DateTime dateTime = newDateTime(task.getDueDate());
+        date = dateTime.startOfDay().getMillis();
+        time = task.hasDueTime() ? dateTime.getMillisOfDay() : -1;
+      } else {
+        date = 0;
+        time = -1;
+      }
+    } else {
+      date = savedInstanceState.getLong(EXTRA_DATE);
+      time = savedInstanceState.getInt(EXTRA_TIME);
     }
-
-    DueDateChangeListener callback;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        callback = (DueDateChangeListener) activity;
-
-        dateShortcutMorning = preferences.getDateShortcutMorning();
-        dateShortcutAfternoon = preferences.getDateShortcutAfternoon();
-        dateShortcutEvening = preferences.getDateShortcutEvening();
-        dateShortcutNight = preferences.getDateShortcutNight();
-        dueTimeHint = asList(
-                "",
-                "",
-                getTimeHint(dateShortcutMorning),
-                getTimeHint(dateShortcutAfternoon),
-                getTimeHint(dateShortcutEvening),
-                getTimeHint(dateShortcutNight));
-        nightString = activity.getString(R.string.date_shortcut_night);
-        eveningString = activity.getString(R.string.date_shortcut_evening);
-        afternoonString = activity.getString(R.string.date_shortcut_afternoon);
-        morningString = activity.getString(R.string.date_shortcut_morning);
-        noTimeString = activity.getString(R.string.TEA_no_time);
-        todayString = activity.getString(R.string.today);
-        tomorrowString = activity.getString(R.string.tomorrow);
-        dueDateOptions = newArrayList(
-                "",
-                todayString,
-                tomorrowString,
-                "",
-                activity.getString(R.string.pick_a_date));
-        dueTimeOptions = newArrayList(
-                "",
-                noTimeString,
-                morningString,
-                afternoonString,
-                eveningString,
-                nightString,
-                activity.getString(R.string.pick_a_time));
-    }
-
-    @Override
-    protected void inject(FragmentComponent component) {
-        component.inject(this);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        if (savedInstanceState == null) {
-            if (task.hasDueDate()) {
-                DateTime dateTime = newDateTime(task.getDueDate());
-                date = dateTime.startOfDay().getMillis();
-                time = task.hasDueTime() ? dateTime.getMillisOfDay() : -1;
-            } else {
-                date = 0;
-                time = -1;
-            }
-        } else {
-            date = savedInstanceState.getLong(EXTRA_DATE);
-            time = savedInstanceState.getInt(EXTRA_TIME);
+    final int overdueColor = getColor(context, R.color.overdue);
+    dueDateAdapter = new HiddenTopArrayAdapter<String>(context,
+        android.R.layout.simple_spinner_item, dueDateOptions) {
+      @NonNull
+      @Override
+      public View getView(final int position, final View convertView,
+          @NonNull final ViewGroup parent) {
+        int selectedItemPosition = position;
+        if (parent instanceof AdapterView) {
+          selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
         }
-        final int overdueColor = getColor(context, R.color.overdue);
-        dueDateAdapter = new HiddenTopArrayAdapter<String>(context, android.R.layout.simple_spinner_item, dueDateOptions) {
-            @NonNull
-            @Override
-            public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
-                int selectedItemPosition = position;
-                if (parent instanceof AdapterView) {
-                    selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
-                }
-                TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
-                tv.setPadding(0, 0, 0, 0);
-                tv.setText(dueDateOptions.get(selectedItemPosition));
-                int textColor;
-                if (date == 0) {
-                    textColor = getColor(context, R.color.text_tertiary);
-                } else if (date < newDateTime().startOfDay().getMillis()) {
-                    textColor = overdueColor;
-                } else {
-                    textColor = getColor(context, R.color.text_primary);
-                }
-                dueDateSpinner.setBackgroundDrawable(getUnderline(textColor));
-                tv.setTextColor(textColor);
-                return tv;
-            }
-        };
-        dueDateSpinner.setAdapter(dueDateAdapter);
-
-        dueTimeAdapter = new HiddenTopArrayAdapter<String>(context, android.R.layout.simple_spinner_item, dueTimeOptions, dueTimeHint) {
-            @NonNull
-            @Override
-            public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
-                int selectedItemPosition = position;
-                if (parent instanceof AdapterView) {
-                    selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
-                }
-                TextView tv = (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
-                tv.setPadding(0, 0, 0, 0);
-                tv.setText(dueTimeOptions.get(selectedItemPosition));
-                int textColor;
-                if (time == -1) {
-                    textColor = getColor(context, R.color.text_tertiary);
-                } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
-                    textColor = overdueColor;
-                } else {
-                    textColor = getColor(context, R.color.text_primary);
-                }
-                tv.setTextColor(textColor);
-                dueTimeSpinner.setBackgroundDrawable(getUnderline(textColor));
-                return tv;
-            }
-        };
-        dueTimeSpinner.setAdapter(dueTimeAdapter);
-
-        refreshDisplayView();
-
-        return view;
-    }
-
-    @OnClick(R.id.clear)
-    void clearTime(View view) {
-        setDate(0);
-    }
-
-    @OnTouch({R.id.due_date, R.id.due_time})
-    boolean onSpinnersTouched() {
-        AndroidUtilities.hideKeyboard(getActivity());
-        return false;
-    }
-
-    @OnItemSelected(R.id.due_date)
-    void onDateSelected(int position) {
-        DateTime today = newDateTime().startOfDay();
-        switch (position) {
-            case 0:
-                return;
-            case 1:
-                setDate(today.getMillis());
-                break;
-            case 2:
-                setDate(today.plusDays(1).getMillis());
-                break;
-            case 3:
-                setDate(today.plusWeeks(1).getMillis());
-                break;
-            case 4:
-                Intent intent = new Intent(context, DatePickerActivity.class);
-                intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, date);
-                startActivityForResult(intent, REQUEST_DATE);
-                updateDueDateOptions();
-                break;
-        }
-    }
-
-    @OnItemSelected(R.id.due_time)
-    void onTimeSelected(int position) {
-        switch (position) {
-            case 0:
-                return;
-            case 1:
-                setTime(-1);
-                break;
-            case 2:
-                setTime(dateShortcutMorning);
-                break;
-            case 3:
-                setTime(dateShortcutAfternoon);
-                break;
-            case 4:
-                setTime(dateShortcutEvening);
-                break;
-            case 5:
-                setTime(dateShortcutNight);
-                break;
-            case 6:
-                Intent intent = new Intent(context, TimePickerActivity.class);
-                intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, getDueDateTime());
-                startActivityForResult(intent, REQUEST_TIME);
-                updateDueTimeOptions();
-                break;
-        }
-    }
-
-    @Override
-    protected int getLayout() {
-        return R.layout.control_set_deadline;
-    }
-
-    @Override
-    protected int getIcon() {
-        return R.drawable.ic_schedule_24dp;
-    }
-
-    @Override
-    public int controlId() {
-        return TAG;
-    }
-
-    @Override
-    public boolean hasChanges(Task original) {
-        return original.getDueDate() != getDueDateTime();
-    }
-
-    @Override
-    public void apply(Task task) {
-        long dueDate = getDueDateTime();
-        if (dueDate != task.getDueDate()) {
-            task.setReminderSnooze(0L);
-        }
-        task.setDueDate(dueDate);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_DATE) {
-            if (resultCode == Activity.RESULT_OK) {
-                long timestamp = data.getLongExtra(DatePickerActivity.EXTRA_TIMESTAMP, 0L);
-                DateTime dateTime = new DateTime(timestamp);
-                setDate(dateTime.getMillis());
-            } else {
-                refreshDisplayView();
-            }
-        } else if (requestCode == REQUEST_TIME) {
-            if (resultCode == Activity.RESULT_OK) {
-                long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
-                DateTime dateTime = new DateTime(timestamp);
-                setTime(dateTime.getMillisOfDay());
-            } else {
-                refreshDisplayView();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    private long getDueDateTime() {
-        return time >= 0
-                ? Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDateTime(date).withMillisOfDay(time).getMillis())
-                : Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, date);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putLong(EXTRA_DATE, date);
-        outState.putInt(EXTRA_TIME, time);
-    }
-
-    private String getTimeHint(int millisOfDay) {
-        DateTime dateTime = newDateTime().withMillisOfDay(millisOfDay);
-        return DateUtilities.getTimeString(context, dateTime);
-    }
-
-    private void refreshDisplayView() {
-        updateDueDateOptions();
-        updateDueTimeOptions();
-        clearButton.setVisibility(date > 0 ? View.VISIBLE : View.GONE);
-    }
-
-    private void updateDueDateOptions() {
-        DateTime today = newDateTime().startOfDay();
-        String nextWeekString = getString(R.string.next, today.plusWeeks(1).toString("EEEE"));
+        TextView tv = (TextView) inflater
+            .inflate(android.R.layout.simple_spinner_item, parent, false);
+        tv.setPadding(0, 0, 0, 0);
+        tv.setText(dueDateOptions.get(selectedItemPosition));
+        int textColor;
         if (date == 0) {
-            dueDateOptions.set(0, getString(R.string.TEA_no_date));
+          textColor = getColor(context, R.color.text_tertiary);
+        } else if (date < newDateTime().startOfDay().getMillis()) {
+          textColor = overdueColor;
         } else {
-            if (date == today.getMillis()) {
-                dueDateOptions.set(0, todayString);
-            } else if (date == today.plusDays(1).getMillis()) {
-                dueDateOptions.set(0, tomorrowString);
-            } else if (date == today.plusWeeks(1).getMillis()) {
-                dueDateOptions.set(0, nextWeekString);
-            } else {
-                dueDateOptions.set(0, DateUtilities.getLongDateString(newDateTime(date)));
-            }
+          textColor = getColor(context, R.color.text_primary);
         }
-        dueDateOptions.set(3, nextWeekString);
-        dueDateAdapter.notifyDataSetChanged();
-        dueDateSpinner.setSelection(0);
-    }
+        dueDateSpinner.setBackgroundDrawable(getUnderline(textColor));
+        tv.setTextColor(textColor);
+        return tv;
+      }
+    };
+    dueDateSpinner.setAdapter(dueDateAdapter);
 
-    private void updateDueTimeOptions() {
+    dueTimeAdapter = new HiddenTopArrayAdapter<String>(context,
+        android.R.layout.simple_spinner_item, dueTimeOptions, dueTimeHint) {
+      @NonNull
+      @Override
+      public View getView(final int position, final View convertView,
+          @NonNull final ViewGroup parent) {
+        int selectedItemPosition = position;
+        if (parent instanceof AdapterView) {
+          selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
+        }
+        TextView tv = (TextView) inflater
+            .inflate(android.R.layout.simple_spinner_item, parent, false);
+        tv.setPadding(0, 0, 0, 0);
+        tv.setText(dueTimeOptions.get(selectedItemPosition));
+        int textColor;
         if (time == -1) {
-            dueTimeOptions.set(0, noTimeString);
+          textColor = getColor(context, R.color.text_tertiary);
+        } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
+          textColor = overdueColor;
         } else {
-            int compareTime = newDateTime()
-                    .withMillisOfDay(time)
-                    .withSecondOfMinute(0)
-                    .withMillisOfSecond(0)
-                    .getMillisOfDay();
-            if (compareTime == dateShortcutMorning) {
-                dueTimeOptions.set(0, morningString);
-            } else if (compareTime == dateShortcutAfternoon) {
-                dueTimeOptions.set(0, afternoonString);
-            } else if (compareTime == dateShortcutEvening) {
-                dueTimeOptions.set(0, eveningString);
-            } else if (compareTime == dateShortcutNight) {
-                dueTimeOptions.set(0, nightString);
-            } else {
-                dueTimeOptions.set(0, DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(time)));
-            }
+          textColor = getColor(context, R.color.text_primary);
         }
-        dueTimeAdapter.notifyDataSetChanged();
-        dueTimeSpinner.setSelection(0);
-    }
+        tv.setTextColor(textColor);
+        dueTimeSpinner.setBackgroundDrawable(getUnderline(textColor));
+        return tv;
+      }
+    };
+    dueTimeSpinner.setAdapter(dueTimeAdapter);
 
-    private Drawable getUnderline(int color) {
-        Drawable drawable = DrawableCompat.wrap(ContextCompat.getDrawable(context, R.drawable.textfield_underline_black));
-        drawable.mutate();
-        DrawableCompat.setTint(drawable, color);
-        return drawable;
-    }
+    refreshDisplayView();
 
-    private void setDate(long millis) {
-        date = millis;
-        if (date == 0) {
-            time = -1;
-        }
-        callback.dueDateChanged(getDueDateTime());
+    return view;
+  }
+
+  @OnClick(R.id.clear)
+  void clearTime(View view) {
+    setDate(0);
+  }
+
+  @OnTouch({R.id.due_date, R.id.due_time})
+  boolean onSpinnersTouched() {
+    AndroidUtilities.hideKeyboard(getActivity());
+    return false;
+  }
+
+  @OnItemSelected(R.id.due_date)
+  void onDateSelected(int position) {
+    DateTime today = newDateTime().startOfDay();
+    switch (position) {
+      case 0:
+        return;
+      case 1:
+        setDate(today.getMillis());
+        break;
+      case 2:
+        setDate(today.plusDays(1).getMillis());
+        break;
+      case 3:
+        setDate(today.plusWeeks(1).getMillis());
+        break;
+      case 4:
+        Intent intent = new Intent(context, DatePickerActivity.class);
+        intent.putExtra(DatePickerActivity.EXTRA_TIMESTAMP, date);
+        startActivityForResult(intent, REQUEST_DATE);
+        updateDueDateOptions();
+        break;
+    }
+  }
+
+  @OnItemSelected(R.id.due_time)
+  void onTimeSelected(int position) {
+    switch (position) {
+      case 0:
+        return;
+      case 1:
+        setTime(-1);
+        break;
+      case 2:
+        setTime(dateShortcutMorning);
+        break;
+      case 3:
+        setTime(dateShortcutAfternoon);
+        break;
+      case 4:
+        setTime(dateShortcutEvening);
+        break;
+      case 5:
+        setTime(dateShortcutNight);
+        break;
+      case 6:
+        Intent intent = new Intent(context, TimePickerActivity.class);
+        intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, getDueDateTime());
+        startActivityForResult(intent, REQUEST_TIME);
+        updateDueTimeOptions();
+        break;
+    }
+  }
+
+  @Override
+  protected int getLayout() {
+    return R.layout.control_set_deadline;
+  }
+
+  @Override
+  protected int getIcon() {
+    return R.drawable.ic_schedule_24dp;
+  }
+
+  @Override
+  public int controlId() {
+    return TAG;
+  }
+
+  @Override
+  public boolean hasChanges(Task original) {
+    return original.getDueDate() != getDueDateTime();
+  }
+
+  @Override
+  public void apply(Task task) {
+    long dueDate = getDueDateTime();
+    if (dueDate != task.getDueDate()) {
+      task.setReminderSnooze(0L);
+    }
+    task.setDueDate(dueDate);
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_DATE) {
+      if (resultCode == Activity.RESULT_OK) {
+        long timestamp = data.getLongExtra(DatePickerActivity.EXTRA_TIMESTAMP, 0L);
+        DateTime dateTime = new DateTime(timestamp);
+        setDate(dateTime.getMillis());
+      } else {
         refreshDisplayView();
-    }
-
-    private void setTime(int millisOfDay) {
-        time = millisOfDay;
-
-        if (date == 0 && time >= 0) {
-            DateTime dateTime = newDateTime().withMillisOfDay(time);
-            if (dateTime.isBeforeNow()) {
-                dateTime = dateTime.plusDays(1);
-            }
-            date = dateTime.startOfDay().getMillis();
-        }
-        callback.dueDateChanged(getDueDateTime());
+      }
+    } else if (requestCode == REQUEST_TIME) {
+      if (resultCode == Activity.RESULT_OK) {
+        long timestamp = data.getLongExtra(TimePickerActivity.EXTRA_TIMESTAMP, 0L);
+        DateTime dateTime = new DateTime(timestamp);
+        setTime(dateTime.getMillisOfDay());
+      } else {
         refreshDisplayView();
+      }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data);
     }
+  }
+
+  private long getDueDateTime() {
+    return time >= 0
+        ? Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
+        newDateTime(date).withMillisOfDay(time).getMillis())
+        : Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, date);
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    outState.putLong(EXTRA_DATE, date);
+    outState.putInt(EXTRA_TIME, time);
+  }
+
+  private String getTimeHint(int millisOfDay) {
+    DateTime dateTime = newDateTime().withMillisOfDay(millisOfDay);
+    return DateUtilities.getTimeString(context, dateTime);
+  }
+
+  private void refreshDisplayView() {
+    updateDueDateOptions();
+    updateDueTimeOptions();
+    clearButton.setVisibility(date > 0 ? View.VISIBLE : View.GONE);
+  }
+
+  private void updateDueDateOptions() {
+    DateTime today = newDateTime().startOfDay();
+    String nextWeekString = getString(R.string.next, today.plusWeeks(1).toString("EEEE"));
+    if (date == 0) {
+      dueDateOptions.set(0, getString(R.string.TEA_no_date));
+    } else {
+      if (date == today.getMillis()) {
+        dueDateOptions.set(0, todayString);
+      } else if (date == today.plusDays(1).getMillis()) {
+        dueDateOptions.set(0, tomorrowString);
+      } else if (date == today.plusWeeks(1).getMillis()) {
+        dueDateOptions.set(0, nextWeekString);
+      } else {
+        dueDateOptions.set(0, DateUtilities.getLongDateString(newDateTime(date)));
+      }
+    }
+    dueDateOptions.set(3, nextWeekString);
+    dueDateAdapter.notifyDataSetChanged();
+    dueDateSpinner.setSelection(0);
+  }
+
+  private void updateDueTimeOptions() {
+    if (time == -1) {
+      dueTimeOptions.set(0, noTimeString);
+    } else {
+      int compareTime = newDateTime()
+          .withMillisOfDay(time)
+          .withSecondOfMinute(0)
+          .withMillisOfSecond(0)
+          .getMillisOfDay();
+      if (compareTime == dateShortcutMorning) {
+        dueTimeOptions.set(0, morningString);
+      } else if (compareTime == dateShortcutAfternoon) {
+        dueTimeOptions.set(0, afternoonString);
+      } else if (compareTime == dateShortcutEvening) {
+        dueTimeOptions.set(0, eveningString);
+      } else if (compareTime == dateShortcutNight) {
+        dueTimeOptions.set(0, nightString);
+      } else {
+        dueTimeOptions
+            .set(0, DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(time)));
+      }
+    }
+    dueTimeAdapter.notifyDataSetChanged();
+    dueTimeSpinner.setSelection(0);
+  }
+
+  private Drawable getUnderline(int color) {
+    Drawable drawable = DrawableCompat
+        .wrap(ContextCompat.getDrawable(context, R.drawable.textfield_underline_black));
+    drawable.mutate();
+    DrawableCompat.setTint(drawable, color);
+    return drawable;
+  }
+
+  private void setDate(long millis) {
+    date = millis;
+    if (date == 0) {
+      time = -1;
+    }
+    callback.dueDateChanged(getDueDateTime());
+    refreshDisplayView();
+  }
+
+  private void setTime(int millisOfDay) {
+    time = millisOfDay;
+
+    if (date == 0 && time >= 0) {
+      DateTime dateTime = newDateTime().withMillisOfDay(time);
+      if (dateTime.isBeforeNow()) {
+        dateTime = dateTime.plusDays(1);
+      }
+      date = dateTime.startOfDay().getMillis();
+    }
+    callback.dueDateChanged(getDueDateTime());
+    refreshDisplayView();
+  }
+
+  public interface DueDateChangeListener {
+
+    void dueDateChanged(long dateTime);
+  }
 }

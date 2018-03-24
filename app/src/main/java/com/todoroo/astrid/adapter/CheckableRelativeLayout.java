@@ -7,35 +7,35 @@ import android.widget.RelativeLayout;
 
 public class CheckableRelativeLayout extends RelativeLayout implements Checkable {
 
-    private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
+  private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
 
-    private boolean checked = false;
+  private boolean checked = false;
 
-    public CheckableRelativeLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+  public CheckableRelativeLayout(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
+
+  public boolean isChecked() {
+    return checked;
+  }
+
+  public void setChecked(boolean b) {
+    if (b != checked) {
+      checked = b;
+      refreshDrawableState();
     }
+  }
 
-    public boolean isChecked() {
-        return checked;
-    }
+  public void toggle() {
+    setChecked(!checked);
+  }
 
-    public void setChecked(boolean b) {
-        if (b != checked) {
-            checked = b;
-            refreshDrawableState();
-        }
+  @Override
+  public int[] onCreateDrawableState(int extraSpace) {
+    final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
+    if (isChecked()) {
+      mergeDrawableStates(drawableState, CHECKED_STATE_SET);
     }
-
-    public void toggle() {
-        setChecked(!checked);
-    }
-
-    @Override
-    public int[] onCreateDrawableState(int extraSpace) {
-        final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
-        if (isChecked()) {
-            mergeDrawableStates(drawableState, CHECKED_STATE_SET);
-        }
-        return drawableState;
-    }
+    return drawableState;
+  }
 }

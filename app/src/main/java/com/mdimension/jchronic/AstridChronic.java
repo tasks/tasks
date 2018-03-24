@@ -3,6 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
+
 package com.mdimension.jchronic;
 
 import com.mdimension.jchronic.handlers.Handler;
@@ -15,7 +16,6 @@ import com.mdimension.jchronic.tags.Separator;
 import com.mdimension.jchronic.tags.TimeZone;
 import com.mdimension.jchronic.utils.Span;
 import com.mdimension.jchronic.utils.Token;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,35 +38,35 @@ public class AstridChronic {
    * Options are:
    *
    * [<tt>:context</tt>]
-   *     <tt>:past</tt> or <tt>:future</tt> (defaults to <tt>:future</tt>)
+   * <tt>:past</tt> or <tt>:future</tt> (defaults to <tt>:future</tt>)
    *
-   *     If your string represents a birthday, you can set <tt>:context</tt> to <tt>:past</tt>
-   *     and if an ambiguous string is given, it will assume it is in the
-   *     past. Specify <tt>:future</tt> or omit to set a future context.
+   * If your string represents a birthday, you can set <tt>:context</tt> to <tt>:past</tt>
+   * and if an ambiguous string is given, it will assume it is in the
+   * past. Specify <tt>:future</tt> or omit to set a future context.
    *
    * [<tt>:now</tt>]
-   *     Time (defaults to Time.now)
+   * Time (defaults to Time.now)
    *
-   *     By setting <tt>:now</tt> to a Time, all computations will be based off
-   *     of that time instead of Time.now
+   * By setting <tt>:now</tt> to a Time, all computations will be based off
+   * of that time instead of Time.now
    *
    * [<tt>:guess</tt>]
-   *     +true+ or +false+ (defaults to +true+)
+   * +true+ or +false+ (defaults to +true+)
    *
-   *     By default, the parser will guess a single point in time for the
-   *     given date or time. If you'd rather have the entire time span returned,
-   *     set <tt>:guess</tt> to +false+ and a Chronic::Span will be returned.
+   * By default, the parser will guess a single point in time for the
+   * given date or time. If you'd rather have the entire time span returned,
+   * set <tt>:guess</tt> to +false+ and a Chronic::Span will be returned.
    *
    * [<tt>:ambiguous_time_range</tt>]
-   *     Integer or <tt>:none</tt> (defaults to <tt>6</tt> (6am-6pm))
+   * Integer or <tt>:none</tt> (defaults to <tt>6</tt> (6am-6pm))
    *
-   *     If an Integer is given, ambiguous times (like 5:00) will be
-   *     assumed to be within the range of that time in the AM to that time
-   *     in the PM. For example, if you set it to <tt>7</tt>, then the parser will
-   *     look for the time between 7am and 7pm. In the case of 5:00, it would
-   *     assume that means 5:00pm. If <tt>:none</tt> is given, no assumption
-   *     will be made, and the first matching instance of that time will
-   *     be used.
+   * If an Integer is given, ambiguous times (like 5:00) will be
+   * assumed to be within the range of that time in the AM to that time
+   * in the PM. For example, if you set it to <tt>7</tt>, then the parser will
+   * look for the time between 7am and 7pm. In the case of 5:00, it would
+   * assume that means 5:00pm. If <tt>:none</tt> is given, no assumption
+   * will be made, and the first matching instance of that time will
+   * be used.
    */
   private static Span parse(String text, Options options) {
     // store now for later =)
@@ -79,9 +79,9 @@ public class AstridChronic {
     List<Token> tokens = AstridChronic.baseTokenize(normalizedText);
 
     try {
-        tokens = Repeater.scan(tokens, options);
+      tokens = Repeater.scan(tokens, options);
     } catch (Throwable e) {
-        throw new RuntimeException("Failed to scan tokens.", e);
+      throw new RuntimeException("Failed to scan tokens.", e);
     }
 
     tokens = Grabber.scan(tokens, options);
@@ -135,7 +135,8 @@ public class AstridChronic {
     normalizedText = normalizedText.replaceAll("\\bthis past\\b", "last");
     normalizedText = normalizedText.replaceAll("\\bthis last\\b", "last");
     normalizedText = normalizedText.replaceAll("\\b(?:in|during) the (morning)\\b", "$1");
-    normalizedText = normalizedText.replaceAll("\\b(?:in the|during the|at) (afternoon|evening|night)\\b", "$1");
+    normalizedText = normalizedText
+        .replaceAll("\\b(?:in the|during the|at) (afternoon|evening|night)\\b", "$1");
     normalizedText = normalizedText.replaceAll("\\btonight\\b", "this night");
     normalizedText = normalizedText.replaceAll("(?=\\w)([ap]m|oclock)\\b", " $1");
     normalizedText = normalizedText.replaceAll("\\b(hence|after|from)\\b", "future");
@@ -174,10 +175,9 @@ public class AstridChronic {
     long guessValue;
     if (span.getWidth() > 1) {
       guessValue = span.getBegin() + (span.getWidth() / 2);
-    }
-    else {
+    } else {
       guessValue = span.getBegin();
     }
-      return new Span(guessValue, guessValue);
+    return new Span(guessValue, guessValue);
   }
 }

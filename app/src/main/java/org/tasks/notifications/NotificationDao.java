@@ -4,26 +4,26 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-
 import java.util.List;
 
 @Dao
 public interface NotificationDao {
-    @Query("SELECT * FROM notification")
-    List<Notification> getAll();
 
-    @Query("SELECT * FROM notification ORDER BY timestamp DESC")
-    List<Notification> getAllOrdered();
+  @Query("SELECT * FROM notification")
+  List<Notification> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<Notification> notifications);
+  @Query("SELECT * FROM notification ORDER BY timestamp DESC")
+  List<Notification> getAllOrdered();
 
-    @Query("DELETE FROM notification WHERE task = :taskId")
-    int delete(long taskId);
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  void insertAll(List<Notification> notifications);
 
-    @Query("DELETE FROM notification WHERE task IN(:taskIds)")
-    int deleteAll(List<Long> taskIds);
+  @Query("DELETE FROM notification WHERE task = :taskId")
+  int delete(long taskId);
 
-    @Query("SELECT MAX(timestamp) FROM notification")
-    long latestTimestamp();
+  @Query("DELETE FROM notification WHERE task IN(:taskIds)")
+  int deleteAll(List<Long> taskIds);
+
+  @Query("SELECT MAX(timestamp) FROM notification")
+  long latestTimestamp();
 }

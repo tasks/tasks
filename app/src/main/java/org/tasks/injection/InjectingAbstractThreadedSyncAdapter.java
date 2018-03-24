@@ -5,16 +5,16 @@ import android.content.Context;
 
 public abstract class InjectingAbstractThreadedSyncAdapter extends AbstractThreadedSyncAdapter {
 
-    protected InjectingAbstractThreadedSyncAdapter(Context context, boolean autoInitialize) {
-        super(context, autoInitialize);
-        inject(context);
-    }
+  protected InjectingAbstractThreadedSyncAdapter(Context context, boolean autoInitialize) {
+    super(context, autoInitialize);
+    inject(context);
+  }
 
-    private void inject(Context context) {
-        inject(Dagger.get(context)
-                .getApplicationComponent()
-                .plus(new SyncAdapterModule()));
-    }
+  private void inject(Context context) {
+    inject(Dagger.get(context)
+        .getApplicationComponent()
+        .plus(new SyncAdapterModule()));
+  }
 
-    protected abstract void inject(SyncAdapterComponent component);
+  protected abstract void inject(SyncAdapterComponent component);
 }
