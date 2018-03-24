@@ -29,6 +29,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
+import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.CreateListDialog;
 import org.tasks.gtasks.DeleteListDialog;
