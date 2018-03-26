@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">پاک کردن عکس</string>
 	<string name="TVA_add_comment">اضافه کردن نظر</string>
@@ -271,7 +271,6 @@
 	<string name="theme_grey">خاکستری</string>
 	<string name="theme_light">روشن</string>
 	<string name="theme_dark">تیره</string>
-	<string name="default_value">پیش فرض</string>
 	<string name="master_sync_warning">درحال‌حاضر هماهنگ‌سازی خودکار توسط اندروید غیرفعال است</string>
 	<string name="settings_general">عمومی</string>
 	<string name="language">زبان</string>

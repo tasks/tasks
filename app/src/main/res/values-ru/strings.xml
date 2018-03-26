@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Убрать изображение</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
@@ -417,7 +417,6 @@
 	<string name="theme_dark">Тёмная</string>
 	<string name="theme_wallpaper">Как обои</string>
 	<string name="theme_day_night">День / ночь</string>
-	<string name="default_value">По умолчанию</string>
 	<string name="master_sync_warning">Автосинхронизация в Android выключена</string>
 	<string name="settings_general">Общие</string>
 	<string name="language">Язык</string>

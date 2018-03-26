@@ -156,7 +156,7 @@
         <!-- Activity for selecting Android shortcut -->
         <activity
             android:name=".widget.ShortcutConfigActivity"
-            android:theme="@style/TranslucentDialog">
+            android:theme="@style/TranslucentDialog"
             android:label="@string/FSA_label">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -193,14 +193,13 @@
             android:label="@string/miscellaneous"
             android:theme="@style/Tasks" />
 
-        <!-- Activity that configures widget -->
-        <!--suppress AndroidLintExportedPreferenceActivity -->
         <activity
             android:name=".widget.WidgetConfigActivity"
             android:taskAffinity=""
             android:label="@string/widget_settings"
             android:excludeFromRecents="true"
-            android:theme="@style/Tasks" >
+            android:theme="@style/Tasks"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -353,7 +352,8 @@
         <activity
             android:name="com.todoroo.astrid.reminders.ReminderPreferences"
             android:label="@string/notifications"
-            android:theme="@style/Tasks">
+            android:theme="@style/Tasks"
+            android:exported="false" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -470,10 +470,10 @@
                 android:value=".dashclock.DashClockSettings" />
         </service>
 
-        <!--suppress AndroidLintExportedPreferenceActivity -->
-        <activity android:name=".dashclock.DashClockSettings"
-            android:label="@string/app_name"
-            android:exported="true" />
+        <activity
+          android:exported="true"
+          android:label="@string/app_name"
+          android:name=".dashclock.DashClockSettings"/>
 
         <!-- Tasker/Locale -->
 

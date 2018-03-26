@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Verwijder Foto</string>
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
@@ -408,7 +408,6 @@
 	<string name="theme_dark">Donker</string>
 	<string name="theme_wallpaper">Achtergrond</string>
 	<string name="theme_day_night">Dag/Nacht</string>
-	<string name="default_value">Standaard</string>
 	<string name="master_sync_warning">Automatische synchronisatie is momenteel uitgezet door Android</string>
 	<string name="settings_general">Globaal</string>
 	<string name="language">Taal</string>

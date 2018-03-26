@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Bild entfernen</string>
 	<string name="TVA_add_comment">Kommentar hinzufügen …</string>
@@ -407,7 +407,6 @@
 	<string name="theme_dark">Dunkel</string>
 	<string name="theme_wallpaper">Hintergrundbild</string>
 	<string name="theme_day_night">Tag/Nacht</string>
-	<string name="default_value">Standard</string>
 	<string name="master_sync_warning">Automatische Syncronisation ist aktuell im System deaktiviert</string>
 	<string name="settings_general">Allgemein</string>
 	<string name="language">Sprache</string>

@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">הסר תמונה</string>
 	<string name="TVA_add_comment">הוסף הערה</string>
@@ -343,7 +343,6 @@
 	<string name="theme_dark">כהה</string>
 	<string name="theme_wallpaper">תמונת רקע</string>
 	<string name="theme_day_night">יום / לילה</string>
-	<string name="default_value">ברירת מחדל</string>
 	<string name="master_sync_warning">סנכרון אוטומטי כרגע מושבת ע\"י Android</string>
 	<string name="settings_general">כללי</string>
 	<string name="language">שפה</string>

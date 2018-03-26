@@ -53,14 +53,6 @@
         <item>@string/ring_nonstop</item>
     </string-array>
 
-    <string-array name="themes">
-        <item>@string/theme_light</item>
-        <item>@string/theme_black</item>
-        <item>@string/theme_dark</item>
-        <item>@string/theme_wallpaper</item>
-        <item>@string/theme_day_night</item>
-    </string-array>
-
     <string-array name="colors">
         <item>@string/theme_blue_grey</item>
         <item>@string/theme_dark_grey</item>

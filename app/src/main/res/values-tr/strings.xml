@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Resmi sil</string>
 	<string name="TVA_add_comment">Yorum Gir</string>
@@ -421,7 +421,6 @@
 	<string name="theme_dark">Koyu</string>
 	<string name="theme_wallpaper">Duvar kağıdı</string>
 	<string name="theme_day_night">Gündüz/Gece</string>
-	<string name="default_value">Öntanımlı</string>
 	<string name="master_sync_warning">Kendiliğinden eşzamanlama şu anda Android tarafından devre dışı bırakıldı</string>
 	<string name="settings_general">Genel</string>
 	<string name="language">Dil</string>

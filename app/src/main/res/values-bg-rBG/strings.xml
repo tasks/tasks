@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Изчисти Картинка</string>
 	<string name="TVA_add_comment">Добави коментар...</string>
@@ -419,7 +419,6 @@
 	<string name="theme_dark">Тъмна</string>
 	<string name="theme_wallpaper">Тапет</string>
 	<string name="theme_day_night">Ден/Нощ</string>
-	<string name="default_value">По подразбиране</string>
 	<string name="master_sync_warning">Автоматичната синхронизация в момента е деактивирана от Android</string>
 	<string name="settings_general">Общи</string>
 	<string name="language">Език</string>

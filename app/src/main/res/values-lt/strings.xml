@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Išvalyti paveiksliuką</string>
 	<string name="TVA_add_comment">Pridėti komentarą...</string>
@@ -415,7 +415,6 @@
 	<string name="theme_dark">Tamsi</string>
 	<string name="theme_wallpaper">Fono vaizdas</string>
 	<string name="theme_day_night">Diena/Naktis</string>
-	<string name="default_value">Numatytasis</string>
 	<string name="master_sync_warning">Automatinis sinchronizavimas šiuo metu yra išjungtas Android sistemos</string>
 	<string name="settings_general">Pagrindiniai</string>
 	<string name="language">Kalba</string>

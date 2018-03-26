@@ -805,7 +805,6 @@ File %1$s contained %2$s.\n\n
   <string name="theme_dark">Dark</string>
   <string name="theme_wallpaper">Wallpaper</string>
   <string name="theme_day_night">Day/Night</string>
-  <string name="default_value">Default</string>
 
   <string name="master_sync_warning">Automatic synchronization is currently disabled by Android</string>
   <string name="settings_general">General</string>
@@ -843,7 +842,6 @@ File %1$s contained %2$s.\n\n
     <string name="password">Password</string>
   <string name="url">URL</string>
     <string name="error_adding_account">Error adding account</string>
-    <string name="error_renaming_account">Error renaming account</string>
   <string name="error_deleting_account">Error deleting account</string>
   <string name="account_settings">Account settings</string>
   <string name="notification_channel_settings">Manage notifications</string>

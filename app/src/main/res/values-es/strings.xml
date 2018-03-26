@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Borrar imagen</string>
 	<string name="TVA_add_comment">Añadir un comentario...</string>
@@ -414,7 +414,6 @@
 	<string name="theme_dark">Oscuro</string>
 	<string name="theme_wallpaper">Fondo de pantalla</string>
 	<string name="theme_day_night">Día/Noche</string>
-	<string name="default_value">Predeterminado</string>
 	<string name="master_sync_warning">La sincronización automática está actualmente deshabilitada por Android</string>
 	<string name="language">Idioma</string>
 	<string name="restart_required">Debe reiniciar Tasks para que los cambios tengan efecto</string>

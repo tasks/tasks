@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Tyhjennä kuva</string>
 	<string name="TVA_add_comment">Lisää kommentti...</string>
@@ -420,7 +420,6 @@
 	<string name="theme_dark">Tumma</string>
 	<string name="theme_wallpaper">Taustakuva</string>
 	<string name="theme_day_night">Päivä/Yö</string>
-	<string name="default_value">Oletus</string>
 	<string name="master_sync_warning">Android on estänyt automaattisen synkronoinnin</string>
 	<string name="settings_general">Yleinen</string>
 	<string name="language">Kieli</string>

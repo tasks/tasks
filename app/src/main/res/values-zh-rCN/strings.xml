@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">取消选择</string>
 	<string name="TVA_add_comment">添加注释...</string>
@@ -416,7 +416,6 @@
 	<string name="theme_dark">暗色</string>
 	<string name="theme_wallpaper">壁纸</string>
 	<string name="theme_day_night">日/夜</string>
-	<string name="default_value">默认</string>
 	<string name="master_sync_warning">自动同步目前被Android禁用</string>
 	<string name="settings_general">一般</string>
 	<string name="language">语言</string>

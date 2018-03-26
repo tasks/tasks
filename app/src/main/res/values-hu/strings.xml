@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Kép törlése</string>
 	<string name="TVA_add_comment">Hozzászólás írása...</string>
@@ -419,7 +419,6 @@
 	<string name="theme_dark">Sötét</string>
 	<string name="theme_wallpaper">Háttérkép</string>
 	<string name="theme_day_night">Nappal/Éjszaka</string>
-	<string name="default_value">Alapértelmezett</string>
 	<string name="master_sync_warning">Az Android pillanatnyilag letiltotta az automatikus szinkronizálást.</string>
 	<string name="settings_general">Általános</string>
 	<string name="language">Nyelv</string>
