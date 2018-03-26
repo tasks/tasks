@@ -106,7 +106,7 @@ configurations {
 
 final DAGGER_VERSION = '2.9'
 final BUTTERKNIFE_VERSION = '8.8.1'
-final GPS_VERSION = '11.8.0'
+final GPS_VERSION = '12.0.0'
 final SUPPORT_VERSION = '27.1.0'
 final ROOM_VERSION = '1.1.0-beta1'
 final STETHO_VERSION = '1.5.0'
@@ -134,9 +134,9 @@ dependencies {
     debugImplementation "com.facebook.stetho:stetho-timber:${STETHO_VERSION}@aar"
     //noinspection GradleDependency
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    debugImplementation 'com.android.support:multidex:1.0.2'
+    debugImplementation 'com.android.support:multidex:1.0.3'
 
-    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.github.rey5137:material:1.2.4'
     implementation 'com.nononsenseapps:filepicker:4.1.0'
@@ -158,7 +158,7 @@ dependencies {
     implementation ('org.scala-saddle:google-rfc-2445:20110304') {
         transitive = false
     }
-    implementation ('com.wdullaer:materialdatetimepicker:3.2.3') {
+    implementation ('com.wdullaer:materialdatetimepicker:3.5.2') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
     implementation "me.leolin:ShortcutBadger:1.1.18@aar"
