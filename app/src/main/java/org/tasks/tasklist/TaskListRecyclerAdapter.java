@@ -1,11 +1,11 @@
 package org.tasks.tasklist;
 
 import android.app.Activity;
+import android.arch.paging.AsyncPagedListDiffer;
 import android.arch.paging.PagedList;
-import android.arch.paging.PagedListAdapterHelper;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.support.v7.recyclerview.extensions.ListAdapterConfig;
+import android.support.v7.recyclerview.extensions.AsyncDifferConfig;
 import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
@@ -44,7 +44,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   private final Tracker tracker;
   private final DialogBuilder dialogBuilder;
   private final ItemTouchHelper itemTouchHelper;
-  private final PagedListAdapterHelper<Task> adapterHelper;
+  private final AsyncPagedListDiffer<Task> adapterHelper;
 
   private ActionMode mode = null;
   private boolean dragging;
@@ -107,8 +107,8 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     this.tracker = tracker;
     this.dialogBuilder = dialogBuilder;
     itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback());
-    adapterHelper = new PagedListAdapterHelper<>(this,
-        new ListAdapterConfig.Builder<Task>().setDiffCallback(new DiffCallback(adapter)).build());
+    adapterHelper = new AsyncPagedListDiffer<>(this,
+        new AsyncDifferConfig.Builder<>(new DiffCallback(adapter)).build());
   }
 
   public void applyToRecyclerView(RecyclerView recyclerView) {
@@ -263,14 +263,14 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   }
 
   public void setList(PagedList<Task> list) {
-    adapterHelper.setList(list);
+    adapterHelper.submitList(list);
   }
 
   public void setAnimate(boolean animate) {
     this.animate = animate;
   }
 
-  public PagedListAdapterHelper<Task> getHelper() {
+  public AsyncPagedListDiffer<Task> getHelper() {
     return adapterHelper;
   }
 

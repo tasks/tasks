@@ -1,10 +1,11 @@
 package org.tasks.tasklist;
 
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil.ItemCallback;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 
-public class DiffCallback extends android.support.v7.recyclerview.extensions.DiffCallback<Task> {
+public class DiffCallback extends ItemCallback<Task> {
 
   private final TaskAdapter adapter;
 

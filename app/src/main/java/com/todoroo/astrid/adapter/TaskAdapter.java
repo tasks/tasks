@@ -9,7 +9,7 @@ package com.todoroo.astrid.adapter;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.primitives.Longs.asList;
 
-import android.arch.paging.PagedListAdapterHelper;
+import android.arch.paging.AsyncPagedListDiffer;
 import com.google.common.collect.ObjectArrays;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -39,7 +39,7 @@ public class TaskAdapter {
           TAGS, // Concatenated list of tags
           FILE_ID_PROPERTY // File id
       }, Property.class);
-  private PagedListAdapterHelper<Task> helper;
+  private AsyncPagedListDiffer<Task> helper;
   private Set<Long> selected = new HashSet<>();
   private OnCompletedTaskListener onCompletedTaskListener = null;
 
@@ -47,7 +47,7 @@ public class TaskAdapter {
     return helper.getItemCount();
   }
 
-  public void setHelper(PagedListAdapterHelper<Task> helper) {
+  public void setHelper(AsyncPagedListDiffer<Task> helper) {
     this.helper = helper;
   }
 
