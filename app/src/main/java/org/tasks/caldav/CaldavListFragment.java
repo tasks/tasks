@@ -19,7 +19,7 @@ public class CaldavListFragment extends TaskListFragment {
 
   private static final String EXTRA_CALDAV_ACCOUNT = "extra_caldav_account";
   private static final int REQUEST_ACCOUNT_SETTINGS = 10101;
-  protected CaldavAccount account;
+  private CaldavAccount account;
 
   public static TaskListFragment newCaldavListFragment(CaldavFilter filter, CaldavAccount account) {
     CaldavListFragment fragment = new CaldavListFragment();

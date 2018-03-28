@@ -11,7 +11,7 @@ public class TaskCreationBundle {
   public static final String EXTRA_DUE_TIME = "org.tasks.locale.create.STRING_DUE_TIME";
   public static final String EXTRA_PRIORITY = "org.tasks.locale.create.STRING_PRIORITY";
   public static final String EXTRA_DESCRIPTION = "org.tasks.locale.create.STRING_DESCRIPTION";
-  public static final String EXTRA_VERSION_CODE = "org.tasks.locale.create.INT_VERSION_CODE";
+  private static final String EXTRA_VERSION_CODE = "org.tasks.locale.create.INT_VERSION_CODE";
 
   private final Bundle bundle;
 

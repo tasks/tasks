@@ -49,7 +49,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
   private ActionMode mode = null;
   private boolean dragging;
   private boolean animate;
-  private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+  private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
     @Override
     public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
       MenuInflater inflater = actionMode.getMenuInflater();

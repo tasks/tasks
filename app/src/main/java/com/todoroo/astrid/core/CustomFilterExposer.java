@@ -22,7 +22,7 @@ import org.tasks.data.FilterDao;
 public final class CustomFilterExposer {
 
   private static final int filter = R.drawable.ic_filter_list_24dp;
-  private FilterDao filterDao;
+  private final FilterDao filterDao;
 
   @Inject
   public CustomFilterExposer(FilterDao filterDao) {

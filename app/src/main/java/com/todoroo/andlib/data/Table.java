@@ -16,7 +16,7 @@ import com.todoroo.andlib.sql.SqlTable;
  */
 public final class Table extends SqlTable {
 
-  public final String name;
+  private final String name;
 
   public Table(String name) {
     this(name, null);

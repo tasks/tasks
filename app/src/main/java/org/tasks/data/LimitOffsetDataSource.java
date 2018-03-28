@@ -24,7 +24,7 @@ public class LimitOffsetDataSource extends PositionalDataSource<Task> {
   }
 
   @WorkerThread
-  public int countItems() {
+  private int countItems() {
     Cursor cursor = mDb.query(mCountQuery, null);
     try {
       if (cursor.moveToFirst()) {
@@ -47,7 +47,7 @@ public class LimitOffsetDataSource extends PositionalDataSource<Task> {
 
   @Nullable
   @WorkerThread
-  public List<Task> loadRange(int startPosition, int loadCount) {
+  private List<Task> loadRange(int startPosition, int loadCount) {
     Cursor cursor = mDb.query(mLimitOffsetQuery, new Object[]{loadCount, startPosition});
     //noinspection TryFinallyCanBeTryWithResources
     try {

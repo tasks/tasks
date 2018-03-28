@@ -71,8 +71,6 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
-
         <!-- SyncService for Google Tasks -->
 
         <service

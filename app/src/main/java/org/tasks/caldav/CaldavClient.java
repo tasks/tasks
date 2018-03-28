@@ -11,16 +11,11 @@ import java.util.concurrent.Callable;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import org.tasks.R;
-import org.tasks.data.CaldavAccount;
 import org.tasks.ui.DisplayableException;
 
-public class CaldavClient {
+class CaldavClient {
 
   private final DavCalendar davCalendar;
-
-  public CaldavClient(CaldavAccount caldavAccount, Account localAccount) {
-    this(caldavAccount.getUrl(), caldavAccount.getUsername(), localAccount.getPassword());
-  }
 
   public CaldavClient(String url, String username, String password) {
     BasicDigestAuthHandler basicDigestAuthHandler = new BasicDigestAuthHandler(null, username,

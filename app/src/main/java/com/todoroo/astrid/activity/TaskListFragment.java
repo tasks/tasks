@@ -78,7 +78,7 @@ import org.tasks.ui.TaskListViewModel;
 public class TaskListFragment extends InjectingFragment implements
     SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
 
-  public static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
+  private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
   public static final String FILE_METADATA_JOIN = "for_actions"; //$NON-NLS-1$
   private static final String EXTRA_FILTER = "extra_filter";
@@ -429,7 +429,7 @@ public class TaskListFragment extends InjectingFragment implements
     taskAdapter.setHelper(recyclerAdapter.getHelper());
   }
 
-  public Property<?>[] taskProperties() {
+  protected Property<?>[] taskProperties() {
     return TaskAdapter.PROPERTIES;
   }
 

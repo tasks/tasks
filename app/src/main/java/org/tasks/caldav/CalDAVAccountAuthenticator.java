@@ -4,12 +4,11 @@ import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class CalDAVAccountAuthenticator extends AbstractAccountAuthenticator {
+class CalDAVAccountAuthenticator extends AbstractAccountAuthenticator {
 
   private final Context context;
 
@@ -25,8 +24,7 @@ public class CalDAVAccountAuthenticator extends AbstractAccountAuthenticator {
 
   @Override
   public Bundle addAccount(AccountAuthenticatorResponse response, String accountType,
-      String authTokenType, String[] requiredFeatures, Bundle options)
-      throws NetworkErrorException {
+      String authTokenType, String[] requiredFeatures, Bundle options) {
     Intent intent = new Intent(context, CalDAVSettingsActivity.class);
     intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
     Bundle bundle = new Bundle();
@@ -36,13 +34,13 @@ public class CalDAVAccountAuthenticator extends AbstractAccountAuthenticator {
 
   @Override
   public Bundle confirmCredentials(AccountAuthenticatorResponse response, Account account,
-      Bundle options) throws NetworkErrorException {
+      Bundle options) {
     return null;
   }
 
   @Override
   public Bundle getAuthToken(AccountAuthenticatorResponse response, Account account,
-      String authTokenType, Bundle options) throws NetworkErrorException {
+      String authTokenType, Bundle options) {
     return null;
   }
 
@@ -53,13 +51,13 @@ public class CalDAVAccountAuthenticator extends AbstractAccountAuthenticator {
 
   @Override
   public Bundle updateCredentials(AccountAuthenticatorResponse response, Account account,
-      String authTokenType, Bundle options) throws NetworkErrorException {
+      String authTokenType, Bundle options) {
     return null;
   }
 
   @Override
   public Bundle hasFeatures(AccountAuthenticatorResponse response, Account account,
-      String[] features) throws NetworkErrorException {
+      String[] features) {
     return null;
   }
 }

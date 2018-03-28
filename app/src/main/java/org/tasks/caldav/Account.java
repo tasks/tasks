@@ -9,8 +9,8 @@ public class Account {
 
   private static final String AUTHORITY = "org.tasks";
 
-  private AccountManager accountManager;
-  private android.accounts.Account account;
+  private final AccountManager accountManager;
+  private final android.accounts.Account account;
 
   public Account(AccountManager accountManager, android.accounts.Account account) {
     this.accountManager = accountManager;

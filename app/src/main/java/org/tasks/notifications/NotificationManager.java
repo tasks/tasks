@@ -55,7 +55,7 @@ public class NotificationManager {
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_CALLS = "notifications_calls";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
-  public static final String GROUP_KEY = "tasks";
+  private static final String GROUP_KEY = "tasks";
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
   private static final int SUMMARY_NOTIFICATION_ID = 0;
   private final NotificationManagerCompat notificationManagerCompat;

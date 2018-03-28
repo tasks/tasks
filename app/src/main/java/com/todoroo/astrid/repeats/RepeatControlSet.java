@@ -69,8 +69,8 @@ public class RepeatControlSet extends TaskEditControlFragment
     implements CustomRecurrenceDialog.CustomRecurrenceCallback {
 
   public static final int TAG = R.string.TEA_ctrl_repeat_pref;
-  public static final int TYPE_DUE_DATE = 1;
-  public static final int TYPE_COMPLETION_DATE = 2;
+  private static final int TYPE_DUE_DATE = 1;
+  private static final int TYPE_COMPLETION_DATE = 2;
   private static final String FRAG_TAG_CUSTOM_RECURRENCE = "frag_tag_custom_recurrence";
   private static final String EXTRA_RECURRENCE = "extra_recurrence";
   private static final String EXTRA_DUE_DATE = "extra_due_date";

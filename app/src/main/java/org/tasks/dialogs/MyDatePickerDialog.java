@@ -7,6 +7,7 @@ public class MyDatePickerDialog extends DatePickerDialog {
 
   private DialogInterface.OnCancelListener listener;
 
+  @Override
   public void setOnCancelListener(DialogInterface.OnCancelListener listener) {
     this.listener = listener;
   }

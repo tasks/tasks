@@ -9,7 +9,7 @@ import org.tasks.injection.ForApplication;
 public class AppWidgetManager {
 
   private final android.appwidget.AppWidgetManager appWidgetManager;
-  private Context context;
+  private final Context context;
 
   @Inject
   public AppWidgetManager(@ForApplication Context context) {

@@ -19,7 +19,7 @@ public class AlertDialogBuilder {
   private final Theme theme;
   private final Locale locale;
 
-  public AlertDialogBuilder(Context context, Theme theme, Locale locale) {
+  AlertDialogBuilder(Context context, Theme theme, Locale locale) {
     this.context = context;
     this.theme = theme;
     this.locale = locale;
@@ -77,12 +77,6 @@ public class AlertDialogBuilder {
 
   public AlertDialogBuilder setOnCancelListener(DialogInterface.OnCancelListener onCancelListener) {
     builder.setOnCancelListener(onCancelListener);
-    return this;
-  }
-
-  public AlertDialogBuilder setAdapter(ListAdapter adapter,
-      DialogInterface.OnClickListener listener) {
-    builder.setAdapter(adapter, listener);
     return this;
   }
 

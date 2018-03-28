@@ -7,6 +7,7 @@ public class MyTimePickerDialog extends TimePickerDialog {
 
   private DialogInterface.OnDismissListener listener;
 
+  @Override
   public void setOnDismissListener(DialogInterface.OnDismissListener listener) {
     this.listener = listener;
   }

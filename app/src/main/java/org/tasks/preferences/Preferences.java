@@ -95,7 +95,7 @@ public class Preferences {
     return time;
   }
 
-  public boolean quietHoursEnabled() {
+  private boolean quietHoursEnabled() {
     return getBoolean(R.string.p_rmd_enable_quiet, false);
   }
 
@@ -103,11 +103,11 @@ public class Preferences {
     return getInt(R.string.p_rmd_time, (int) TimeUnit.HOURS.toMillis(18));
   }
 
-  public int getQuietHoursStart() {
+  private int getQuietHoursStart() {
     return getMillisPerDayPref(R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start);
   }
 
-  public int getQuietHoursEnd() {
+  private int getQuietHoursEnd() {
     return getMillisPerDayPref(R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end);
   }
 
@@ -157,10 +157,6 @@ public class Preferences {
 
   public String getDefaultCalendar() {
     return getStringValue(R.string.gcal_p_default);
-  }
-
-  public String getDefaultRemoteList() {
-    return getStringValue(R.string.p_default_remote_list);
   }
 
   public int getFirstDayOfWeek() {

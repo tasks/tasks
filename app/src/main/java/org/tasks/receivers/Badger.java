@@ -23,7 +23,7 @@ public class Badger {
 
   private boolean enabled;
 
-  private BroadcastReceiver receiver = new BroadcastReceiver() {
+  private final BroadcastReceiver receiver = new BroadcastReceiver() {
     @Override
     public void onReceive(Context context, Intent intent) {
       publishCount();

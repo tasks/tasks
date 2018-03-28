@@ -396,7 +396,7 @@ public class GtasksTaskListUpdater {
 
     public final long taskId;
     final ArrayList<Node> children = new ArrayList<>();
-    public Node parent;
+    Node parent;
 
     Node(long taskId, Node parent) {
       this.taskId = taskId;

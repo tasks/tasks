@@ -16,13 +16,13 @@ import org.tasks.data.TagData;
 import org.tasks.data.TaskAttachment;
 import org.tasks.data.UserActivity;
 
-public class BackupContainer {
+class BackupContainer {
 
-  List<TaskBackup> tasks;
-  List<TagData> tags;
-  List<Filter> filters;
-  List<GoogleTaskList> googleTaskLists;
-  List<CaldavAccount> caldavAccounts;
+  final List<TaskBackup> tasks;
+  final List<TagData> tags;
+  final List<Filter> filters;
+  final List<GoogleTaskList> googleTaskLists;
+  final List<CaldavAccount> caldavAccounts;
 
   BackupContainer(List<TaskBackup> tasks, List<TagData> tags, List<Filter> filters,
       List<GoogleTaskList> googleTaskLists, List<CaldavAccount> caldavAccounts) {
@@ -35,14 +35,14 @@ public class BackupContainer {
 
   static class TaskBackup {
 
-    Task task;
-    List<Alarm> alarms;
-    List<Location> locations;
-    List<Tag> tags;
-    List<GoogleTask> google;
-    List<UserActivity> comments;
-    private List<TaskAttachment> attachments;
-    private List<CaldavTask> caldavTasks;
+    final Task task;
+    final List<Alarm> alarms;
+    final List<Location> locations;
+    final List<Tag> tags;
+    final List<GoogleTask> google;
+    final List<UserActivity> comments;
+    private final List<TaskAttachment> attachments;
+    private final List<CaldavTask> caldavTasks;
 
     TaskBackup(Task task, List<Alarm> alarms, List<Location> locations, List<Tag> tags,
         List<GoogleTask> google, List<UserActivity> comments, List<TaskAttachment> attachments,

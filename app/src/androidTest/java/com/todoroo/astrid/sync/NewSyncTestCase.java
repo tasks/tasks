@@ -10,12 +10,12 @@ import org.tasks.injection.TestComponent;
 
 public class NewSyncTestCase extends InjectingTestCase {
 
-  public static final String SYNC_TASK_TITLE = "new title";
-  public static final int SYNC_TASK_IMPORTANCE = Task.IMPORTANCE_MUST_DO;
+  private static final String SYNC_TASK_TITLE = "new title";
+  private static final int SYNC_TASK_IMPORTANCE = Task.IMPORTANCE_MUST_DO;
   @Inject TaskDao taskDao;
   @Inject TagDataDao tagDataDao;
 
-  protected Task createTask(String title) {
+  private Task createTask(String title) {
     Task task = new Task();
     task.setTitle(title);
     task.setImportance(SYNC_TASK_IMPORTANCE);
@@ -24,11 +24,11 @@ public class NewSyncTestCase extends InjectingTestCase {
     return task;
   }
 
-  protected Task createTask() {
+  Task createTask() {
     return createTask(SYNC_TASK_TITLE);
   }
 
-  protected TagData createTagData(String name) {
+  private TagData createTagData(String name) {
     TagData tag = new TagData();
     tag.setName(name);
 
@@ -36,7 +36,7 @@ public class NewSyncTestCase extends InjectingTestCase {
     return tag;
   }
 
-  protected TagData createTagData() {
+  TagData createTagData() {
     return createTagData("new tag");
   }
 

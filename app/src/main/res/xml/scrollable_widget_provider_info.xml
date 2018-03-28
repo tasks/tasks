@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 2x2: https://developer.android.com/guide/practices/ui_guidelines/widget_design.html -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="org.tasks.widget.WidgetConfigActivity"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:configure="org.tasks.widget.WidgetConfigActivity"
     android:widgetCategory="keyguard|home_screen"
     android:minWidth="110dp"
     android:minHeight="110dp"
@@ -10,4 +11,5 @@
     android:updatePeriodMillis="1800000"
     android:initialLayout="@layout/scrollable_widget"
     android:initialKeyguardLayout="@layout/scrollable_widget"
-    android:resizeMode="horizontal|vertical" />
+    android:resizeMode="horizontal|vertical"
+  tools:ignore="UnusedAttribute"/>

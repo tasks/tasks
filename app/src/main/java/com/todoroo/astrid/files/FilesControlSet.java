@@ -235,7 +235,7 @@ public class FilesControlSet extends TaskEditControlFragment {
     addAttachment(attachment);
   }
 
-  public interface PlaybackExceptionHandler {
+  interface PlaybackExceptionHandler {
 
     void playbackFailed();
   }

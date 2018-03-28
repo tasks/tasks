@@ -467,7 +467,7 @@ public class SubtasksFilterUpdater {
     final ArrayList<Node> children = new ArrayList<>();
     public String uuid;
     public Node parent;
-    public int indent;
+    int indent;
 
     Node(String uuid, Node parent, int indent) {
       this.uuid = uuid;

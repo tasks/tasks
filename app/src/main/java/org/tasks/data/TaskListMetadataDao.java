@@ -12,7 +12,7 @@ public abstract class TaskListMetadataDao {
   public abstract TaskListMetadata fetchByTagOrFilter(String tagUuid);
 
   @Update
-  public abstract int update(TaskListMetadata taskListMetadata);
+  public abstract void update(TaskListMetadata taskListMetadata);
 
   @Insert
   abstract long insert(TaskListMetadata taskListMetadata);

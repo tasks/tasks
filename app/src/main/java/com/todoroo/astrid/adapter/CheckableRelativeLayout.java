@@ -15,10 +15,12 @@ public class CheckableRelativeLayout extends RelativeLayout implements Checkable
     super(context, attrs);
   }
 
+  @Override
   public boolean isChecked() {
     return checked;
   }
 
+  @Override
   public void setChecked(boolean b) {
     if (b != checked) {
       checked = b;
@@ -26,6 +28,7 @@ public class CheckableRelativeLayout extends RelativeLayout implements Checkable
     }
   }
 
+  @Override
   public void toggle() {
     setChecked(!checked);
   }

@@ -7,7 +7,7 @@ import org.junit.Before;
 
 public abstract class InjectingTestCase {
 
-  protected TestComponent component;
+  private TestComponent component;
 
   @Before
   public void setUp() {

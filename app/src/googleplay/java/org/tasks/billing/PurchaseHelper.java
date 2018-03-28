@@ -30,7 +30,7 @@ public class PurchaseHelper implements IabHelper.OnIabSetupFinishedListener {
   private final Tracker tracker;
   private final InventoryHelper inventory;
   private final Executor executor;
-  private LocalBroadcastManager localBroadcastManager;
+  private final LocalBroadcastManager localBroadcastManager;
 
   private PurchaseHelperCallback activityResultCallback;
   private IabHelper iabHelper;

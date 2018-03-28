@@ -95,7 +95,7 @@ public class GeofenceService {
     return locationDao.getActiveGeofences(taskId);
   }
 
-  public interface SynchronizeGeofenceCallback {
+  interface SynchronizeGeofenceCallback {
 
     void beforeDelete(Location location);
   }

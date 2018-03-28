@@ -63,6 +63,7 @@ public class VoiceOutputAssistant implements OnInitListener {
     }
   }
 
+  @Override
   public void onInit(int status) {
     // status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.
     if (status == TextToSpeech.SUCCESS && mTts != null) {

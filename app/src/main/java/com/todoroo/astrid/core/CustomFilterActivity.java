@@ -409,7 +409,9 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
     /**
      * statistics for filter count
      */
-    public int start, end, max;
+    int start;
+    public int end;
+    int max;
 
     public String getTitleFromCriterion() {
       if (criterion instanceof MultipleSelectCriterion) {
@@ -428,7 +430,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
       throw new UnsupportedOperationException("Unknown criterion type"); //$NON-NLS-1$
     }
 
-    public String getValueFromCriterion() {
+    String getValueFromCriterion() {
       if (type == TYPE_UNIVERSE) {
         return null;
       }

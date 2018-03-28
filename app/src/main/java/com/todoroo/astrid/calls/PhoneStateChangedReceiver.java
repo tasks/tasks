@@ -188,7 +188,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
     return -1;
   }
 
-  public void triggerMissedCallNotification(final String name, final String number,
+  private void triggerMissedCallNotification(final String name, final String number,
       long contactId) {
     final String title = context
         .getString(R.string.missed_call, TextUtils.isEmpty(name) ? number : name);

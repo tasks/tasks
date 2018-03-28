@@ -14,21 +14,21 @@ import org.tasks.time.DateTime;
 
 public class TaskMaker {
 
-  public static Property<Task, Long> ID = newProperty();
-  public static Property<Task, String> TITLE = newProperty();
-  public static Property<Task, DateTime> DUE_DATE = newProperty();
-  public static Property<Task, DateTime> DUE_TIME = newProperty();
-  public static Property<Task, Integer> PRIORITY = newProperty();
-  public static Property<Task, DateTime> REMINDER_LAST = newProperty();
-  public static Property<Task, Long> RANDOM_REMINDER_PERIOD = newProperty();
-  public static Property<Task, Integer> HIDE_TYPE = newProperty();
-  public static Property<Task, Integer> REMINDERS = newProperty();
-  public static Property<Task, DateTime> CREATION_TIME = newProperty();
-  public static Property<Task, DateTime> COMPLETION_TIME = newProperty();
-  public static Property<Task, DateTime> DELETION_TIME = newProperty();
-  public static Property<Task, DateTime> SNOOZE_TIME = newProperty();
-  public static Property<Task, RRule> RRULE = newProperty();
-  public static Property<Task, Boolean> AFTER_COMPLETE = newProperty();
+  public static final Property<Task, Long> ID = newProperty();
+  private static final Property<Task, String> TITLE = newProperty();
+  public static final Property<Task, DateTime> DUE_DATE = newProperty();
+  public static final Property<Task, DateTime> DUE_TIME = newProperty();
+  private static final Property<Task, Integer> PRIORITY = newProperty();
+  public static final Property<Task, DateTime> REMINDER_LAST = newProperty();
+  public static final Property<Task, Long> RANDOM_REMINDER_PERIOD = newProperty();
+  public static final Property<Task, Integer> HIDE_TYPE = newProperty();
+  public static final Property<Task, Integer> REMINDERS = newProperty();
+  public static final Property<Task, DateTime> CREATION_TIME = newProperty();
+  public static final Property<Task, DateTime> COMPLETION_TIME = newProperty();
+  public static final Property<Task, DateTime> DELETION_TIME = newProperty();
+  public static final Property<Task, DateTime> SNOOZE_TIME = newProperty();
+  public static final Property<Task, RRule> RRULE = newProperty();
+  public static final Property<Task, Boolean> AFTER_COMPLETE = newProperty();
   private static final Instantiator<Task> instantiator = lookup -> {
     Task task = new Task();
 

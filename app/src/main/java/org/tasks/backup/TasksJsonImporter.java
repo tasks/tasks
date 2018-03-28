@@ -38,7 +38,6 @@ import org.tasks.data.TaskAttachmentDao;
 import org.tasks.data.UserActivity;
 import org.tasks.data.UserActivityDao;
 import org.tasks.dialogs.DialogBuilder;
-import org.xmlpull.v1.XmlPullParserException;
 import timber.log.Timber;
 
 public class TasksJsonImporter {
@@ -62,7 +61,6 @@ public class TasksJsonImporter {
   private int taskCount;
   private int importCount = 0;
   private int skipCount = 0;
-  private int errorCount = 0;
   private ProgressDialog progressDialog;
   private String input;
 
@@ -101,13 +99,13 @@ public class TasksJsonImporter {
     new Thread(() -> {
       try {
         performImport();
-      } catch (IOException | XmlPullParserException e) {
+      } catch (IOException e) {
         Timber.e(e, e.getMessage());
       }
     }).start();
   }
 
-  private void performImport() throws IOException, XmlPullParserException {
+  private void performImport() throws IOException {
     FileReader fileReader = new FileReader(input);
     String string = CharStreams.toString(fileReader);
     fileReader.close();
@@ -199,7 +197,7 @@ public class TasksJsonImporter {
             r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
             r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
             r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
-            r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount)))
+            r.getQuantityString(R.plurals.Ntasks, 0, 0)))
         .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
         .show();
   }

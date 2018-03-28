@@ -5,7 +5,7 @@ import android.support.v7.util.DiffUtil.ItemCallback;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 
-public class DiffCallback extends ItemCallback<Task> {
+class DiffCallback extends ItemCallback<Task> {
 
   private final TaskAdapter adapter;
 

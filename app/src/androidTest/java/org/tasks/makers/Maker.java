@@ -5,7 +5,7 @@ import static com.natpryce.makeiteasy.MakeItEasy.a;
 import com.natpryce.makeiteasy.Instantiator;
 import com.natpryce.makeiteasy.PropertyValue;
 
-public class Maker {
+class Maker {
 
   @SuppressWarnings("unchecked")
   public static <T> T make(Instantiator<T> instantiator,

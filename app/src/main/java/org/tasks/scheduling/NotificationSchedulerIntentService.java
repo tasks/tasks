@@ -15,7 +15,7 @@ import timber.log.Timber;
 
 public class NotificationSchedulerIntentService extends InjectingJobIntentService {
 
-  public static final String EXTRA_CANCEL_EXISTING_NOTIFICATIONS = "extra_cancel_existing_notifications";
+  private static final String EXTRA_CANCEL_EXISTING_NOTIFICATIONS = "extra_cancel_existing_notifications";
   @Inject AlarmService alarmService;
   @Inject ReminderService reminderService;
   @Inject JobQueue jobQueue;

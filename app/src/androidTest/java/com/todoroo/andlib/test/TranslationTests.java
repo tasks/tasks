@@ -88,7 +88,7 @@ public class TranslationTests {
    * translations in the default text
    */
   @Test
-  public void testFormatStringsMatch() throws Exception {
+  public void testFormatStringsMatch() {
     final Resources resources = getTargetContext().getResources();
     final int[] strings = getResourceIds(R.string.class);
     final FormatStringData[] formatStrings = new FormatStringData[strings.length];
@@ -149,7 +149,7 @@ public class TranslationTests {
    * Test dollar sign resources
    */
   @Test
-  public void testSpecialStringsMatch() throws Exception {
+  public void testSpecialStringsMatch() {
     final StringBuilder failures = new StringBuilder();
 
     forEachLocale(r -> {
@@ -211,12 +211,12 @@ public class TranslationTests {
     /**
      * format characters
      */
-    public final char[] characters;
+    final char[] characters;
 
     /**
      * the original string
      */
-    public final String string;
+    final String string;
 
     public FormatStringData(String string) {
       this.string = string;
@@ -243,7 +243,7 @@ public class TranslationTests {
     /**
      * test that the characters match
      */
-    public boolean matches(FormatStringData other) {
+    boolean matches(FormatStringData other) {
       if (characters.length != other.characters.length) {
         return false;
       }

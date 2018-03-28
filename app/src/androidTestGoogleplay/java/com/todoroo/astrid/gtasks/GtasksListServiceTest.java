@@ -120,8 +120,8 @@ public class GtasksListServiceTest extends InjectingTestCase {
     setLists(taskList);
 
     assertEquals(
-        asList(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(LAST_SYNC, 0L))),
-        gtasksListService.getListsToUpdate(asList(taskList)));
+        singletonList(newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(LAST_SYNC, 0L))),
+        gtasksListService.getListsToUpdate(singletonList(taskList)));
   }
 
   private void setLists(TaskList... list) {

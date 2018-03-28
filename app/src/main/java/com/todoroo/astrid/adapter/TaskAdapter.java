@@ -40,7 +40,7 @@ public class TaskAdapter {
           FILE_ID_PROPERTY // File id
       }, Property.class);
   private AsyncPagedListDiffer<Task> helper;
-  private Set<Long> selected = new HashSet<>();
+  private final Set<Long> selected = new HashSet<>();
   private OnCompletedTaskListener onCompletedTaskListener = null;
 
   public int getCount() {

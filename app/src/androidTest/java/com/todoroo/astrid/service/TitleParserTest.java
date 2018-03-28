@@ -52,7 +52,7 @@ public class TitleParserTest extends InjectingTestCase {
    * repeat, no lists
    */
   @Test
-  public void testNoRegexes() throws Exception {
+  public void testNoRegexes() {
     Task task = taskCreator.basicQuickAddTask("Jog");
     Task nothing = new Task();
     assertFalse(task.hasDueTime());
@@ -230,7 +230,7 @@ public class TitleParserTest extends InjectingTestCase {
    * tests all words using priority 0
    */
   @Test
-  public void testPriority0() throws Exception {
+  public void testPriority0() {
     String[] acceptedStrings = {
         "priority 0",
         "least priority",
@@ -250,7 +250,7 @@ public class TitleParserTest extends InjectingTestCase {
   }
 
   @Test
-  public void testPriority1() throws Exception {
+  public void testPriority1() {
     String[] acceptedStringsAtEnd = {
         "priority 1",
         "low priority",
@@ -284,7 +284,7 @@ public class TitleParserTest extends InjectingTestCase {
   }
 
   @Test
-  public void testPriority2() throws Exception {
+  public void testPriority2() {
     String[] acceptedStringsAtEnd = {
         "priority 2",
         "high priority",
@@ -316,7 +316,7 @@ public class TitleParserTest extends InjectingTestCase {
   }
 
   @Test
-  public void testPriority3() throws Exception {
+  public void testPriority3() {
     String[] acceptedStringsAtEnd = {
         "priority 3",
         "highest priority",
@@ -358,7 +358,7 @@ public class TitleParserTest extends InjectingTestCase {
    * test daily repeat from due date, but with no due date set
    */
   @Test
-  public void testDailyWithNoDueDate() throws Exception {
+  public void testDailyWithNoDueDate() {
     String title = "Jog daily";
     Task task = taskCreator.createWithValues(null, title);
     RRule rrule = new RRule();
@@ -389,7 +389,7 @@ public class TitleParserTest extends InjectingTestCase {
    * test weekly repeat from due date, with no due date & time set
    */
   @Test
-  public void testWeeklyWithNoDueDate() throws Exception {
+  public void testWeeklyWithNoDueDate() {
     String title = "Jog weekly";
     Task task = taskCreator.createWithValues(null, title);
     RRule rrule = new RRule();
@@ -419,7 +419,7 @@ public class TitleParserTest extends InjectingTestCase {
    * test hourly repeat from due date, with no due date but no time
    */
   @Test
-  public void testMonthlyFromNoDueDate() throws Exception {
+  public void testMonthlyFromNoDueDate() {
     String title = "Jog monthly";
     Task task = taskCreator.createWithValues(null, title);
     RRule rrule = new RRule();
@@ -446,7 +446,7 @@ public class TitleParserTest extends InjectingTestCase {
   }
 
   @Test
-  public void testDailyFromDueDate() throws Exception {
+  public void testDailyFromDueDate() {
     String title = "Jog daily starting from today";
     Task task = taskCreator.createWithValues(null, title);
     RRule rrule = new RRule();
@@ -470,7 +470,7 @@ public class TitleParserTest extends InjectingTestCase {
   }
 
   @Test
-  public void testWeeklyFromDueDate() throws Exception {
+  public void testWeeklyFromDueDate() {
     String title = "Jog weekly starting from today";
     Task task = taskCreator.createWithValues(null, title);
     RRule rrule = new RRule();
@@ -501,7 +501,7 @@ public class TitleParserTest extends InjectingTestCase {
    * tests all words using priority 0
    */
   @Test
-  public void testTagsPound() throws Exception {
+  public void testTagsPound() {
     String[] acceptedStrings = {
         "#tag",
         "#a",
@@ -525,7 +525,7 @@ public class TitleParserTest extends InjectingTestCase {
    * tests all words using priority 0
    */
   @Test
-  public void testTagsAt() throws Exception {
+  public void testTagsAt() {
     String[] acceptedStrings = {
         "@tag",
         "@a",

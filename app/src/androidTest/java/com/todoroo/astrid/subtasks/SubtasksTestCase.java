@@ -31,10 +31,10 @@ public class SubtasksTestCase extends InjectingTestCase {
    * E
    * F
    */
-  public static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]"
+  static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]"
       .replaceAll("\\s", "");
-  protected SubtasksFilterUpdater updater;
-  protected Filter filter;
+  SubtasksFilterUpdater updater;
+  Filter filter;
   @Inject TaskListMetadataDao taskListMetadataDao;
   @Inject TaskDao taskDao;
   @Inject Preferences preferences;
@@ -52,7 +52,7 @@ public class SubtasksTestCase extends InjectingTestCase {
     component.inject(this);
   }
 
-  protected void expectParentAndPosition(Task task, Task parent, int positionInParent) {
+  void expectParentAndPosition(Task task, Task parent, int positionInParent) {
     String parentId = (parent == null ? "-1" : parent.getUuid());
     Node n = updater.findNodeForTask(task.getUuid());
     assertNotNull("No node found for task " + task.getTitle(), n);

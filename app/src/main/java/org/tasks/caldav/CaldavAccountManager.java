@@ -59,7 +59,7 @@ public class CaldavAccountManager {
     return null;
   }
 
-  public List<Account> getAccounts() {
+  private List<Account> getAccounts() {
     if (!permissionChecker.canAccessAccounts()) {
       return Collections.emptyList();
     }

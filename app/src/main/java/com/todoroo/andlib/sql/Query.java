@@ -9,14 +9,11 @@ package com.todoroo.andlib.sql;
 import static com.todoroo.andlib.sql.SqlConstants.ALL;
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
 import static com.todoroo.andlib.sql.SqlConstants.FROM;
-import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
-import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
 import static com.todoroo.andlib.sql.SqlConstants.SELECT;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 import static com.todoroo.andlib.sql.SqlConstants.WHERE;
 import static java.util.Arrays.asList;
 
-import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
 
 public final class Query {
@@ -24,17 +21,11 @@ public final class Query {
   private final ArrayList<Criterion> criterions = new ArrayList<>();
   private final ArrayList<Field> fields = new ArrayList<>();
   private final ArrayList<Join> joins = new ArrayList<>();
-  private final ArrayList<Order> orders = new ArrayList<>();
   private SqlTable table;
   private String queryTemplate = null;
-  private int limits = -1;
 
   private Query(Field... fields) {
     this.fields.addAll(asList(fields));
-  }
-
-  public static Query select() {
-    return new Query(Task.PROPERTIES);
   }
 
   public static Query select(Field... fields) {
@@ -53,16 +44,6 @@ public final class Query {
 
   public Query where(Criterion criterion) {
     criterions.add(criterion);
-    return this;
-  }
-
-  public Query orderBy(Order... order) {
-    orders.addAll(asList(order));
-    return this;
-  }
-
-  public Query limit(int limit) {
-    limits = limit;
     return this;
   }
 
@@ -86,27 +67,11 @@ public final class Query {
     visitJoinClause(sql);
     if (queryTemplate == null) {
       visitWhereClause(sql);
-      visitOrderByClause(sql);
-      visitLimitClause(sql);
     } else {
-      if (orders.size() > 0) {
-        throw new IllegalStateException("Can't have extras AND query template"); //$NON-NLS-1$
-      }
       sql.append(queryTemplate);
     }
 
     return sql.toString();
-  }
-
-  private void visitOrderByClause(StringBuilder sql) {
-    if (orders.isEmpty()) {
-      return;
-    }
-    sql.append(ORDER_BY);
-    for (Order order : orders) {
-      sql.append(SPACE).append(order).append(COMMA);
-    }
-    sql.deleteCharAt(sql.length() - 1).append(SPACE);
   }
 
   private void visitWhereClause(StringBuilder sql) {
@@ -142,12 +107,6 @@ public final class Query {
       sql.append(field.toStringInSelect()).append(COMMA);
     }
     sql.deleteCharAt(sql.length() - 1).append(SPACE);
-  }
-
-  private void visitLimitClause(StringBuilder sql) {
-    if (limits > -1) {
-      sql.append(LIMIT).append(SPACE).append(limits).append(SPACE);
-    }
   }
 
   /**

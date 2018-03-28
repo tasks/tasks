@@ -29,7 +29,7 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
   @Inject TaskDao taskDao;
   @Inject ReminderService reminderService;
 
-  private List<Long> taskIds = new ArrayList<>();
+  private final List<Long> taskIds = new ArrayList<>();
   private boolean pickingDateTime;
 
   @Override

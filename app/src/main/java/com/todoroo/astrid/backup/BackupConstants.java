@@ -23,11 +23,6 @@ public class BackupConstants {
   public static final String ASTRID_TAG = "astrid";
 
   /**
-   * Attribute indicating application version
-   */
-  public static final String ASTRID_ATTR_VERSION = "version";
-
-  /**
    * Attribute indicating backup file format
    */
   public static final String ASTRID_ATTR_FORMAT = "format";

@@ -185,7 +185,7 @@ public class Migrations {
       database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `vtodo` TEXT");
     }
   };
-  public static Migration[] MIGRATIONS = new Migration[]{
+  public static final Migration[] MIGRATIONS = new Migration[]{
       MIGRATION_35_36,
       MIGRATION_36_37,
       MIGRATION_37_38,

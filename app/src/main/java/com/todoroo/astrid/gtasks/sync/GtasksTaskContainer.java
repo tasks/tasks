@@ -20,7 +20,7 @@ public class GtasksTaskContainer {
   public final Task task;
   public final ArrayList<GoogleTask> metadata;
   private final long updateTime;
-  public GoogleTask gtaskMetadata;
+  public final GoogleTask gtaskMetadata;
 
   public GtasksTaskContainer(
       com.google.api.services.tasks.model.Task remoteTask,

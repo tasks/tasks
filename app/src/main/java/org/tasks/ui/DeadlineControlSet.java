@@ -55,7 +55,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   @BindView(R.id.due_date) Spinner dueDateSpinner;
   @BindView(R.id.due_time) Spinner dueTimeSpinner;
   @BindView(R.id.clear) View clearButton;
-  DueDateChangeListener callback;
+  private DueDateChangeListener callback;
   private List<String> dueDateOptions = new ArrayList<>();
   private List<String> dueTimeOptions = new ArrayList<>();
   private List<String> dueTimeHint = new ArrayList<>();

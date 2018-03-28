@@ -52,7 +52,7 @@ public class CalDAVSettingsActivity extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener, DeleteAccountDialog.DeleteAccountDialogCallback {
 
   public static final String EXTRA_CALDAV_DATA = "caldavData"; //$NON-NLS-1$
-  public static final String EXTRA_CALDAV_UUID = "uuid"; //$NON-NLS-1$
+  private static final String EXTRA_CALDAV_UUID = "uuid"; //$NON-NLS-1$
   public static final String ACTION_RELOAD = "accountRenamed";
   public static final String ACTION_DELETED = "accountDeleted";
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";

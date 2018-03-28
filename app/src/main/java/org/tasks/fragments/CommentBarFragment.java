@@ -272,7 +272,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
     void addComment(String message, String picture);
   }
 
-  public interface ClearImageCallback {
+  interface ClearImageCallback {
 
     void clearImage();
   }

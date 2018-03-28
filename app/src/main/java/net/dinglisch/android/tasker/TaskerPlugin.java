@@ -49,7 +49,7 @@ public class TaskerPlugin {
   /**
    * @see Setting#hostSupportsOnFireVariableReplacement(Bundle)
    */
-  public final static int EXTRA_HOST_CAPABILITY_SETTING_FIRE_VARIABLE_REPLACEMENT = 8;
+  private final static int EXTRA_HOST_CAPABILITY_SETTING_FIRE_VARIABLE_REPLACEMENT = 8;
   private final static String TAG = "TaskerPlugin";
   private final static String BASE_KEY = "net.dinglisch.android.tasker";
   private final static String EXTRAS_PREFIX = BASE_KEY + ".extras.";
@@ -80,8 +80,6 @@ public class TaskerPlugin {
     return value;
   }
 
-  ;
-
   // ----------------------------- SETTING PLUGIN ONLY --------------------------------- //
 
   private static boolean hostSupports(Bundle extrasFromHost, int capabilityFlag) {
@@ -95,7 +93,7 @@ public class TaskerPlugin {
 
   // ---------------------------------- HELPER FUNCTIONS -------------------------------- //
 
-  public static int getPackageVersionCode(PackageManager pm, String packageName) {
+  private static int getPackageVersionCode(PackageManager pm, String packageName) {
 
     int code = -1;
 
@@ -167,7 +165,7 @@ public class TaskerPlugin {
      * @param extrasFromHost intent extras from the intent received by the edit activity
      * @see #setVariableReplaceKeys(Bundle, String[])
      */
-    public static boolean hostSupportsOnFireVariableReplacement(Bundle extrasFromHost) {
+    static boolean hostSupportsOnFireVariableReplacement(Bundle extrasFromHost) {
       return hostSupports(extrasFromHost, EXTRA_HOST_CAPABILITY_SETTING_FIRE_VARIABLE_REPLACEMENT);
     }
 

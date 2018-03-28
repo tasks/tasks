@@ -46,7 +46,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
   public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
   public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
-  public static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
+  private static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
   public static final String ACTION_RELOAD = "tagRenamed";
   public static final String ACTION_DELETED = "tagDeleted";
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";

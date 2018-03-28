@@ -374,13 +374,13 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
    * ================================================================ views
    * ====================================================================== */
 
-  public static class ViewHolder {
+  static class ViewHolder {
 
-    public FilterListItem item;
-    public CheckedTextView name;
-    public ImageView icon;
-    public TextView size;
-    public View view;
+    FilterListItem item;
+    CheckedTextView name;
+    ImageView icon;
+    TextView size;
+    View view;
   }
 
   public class FilterListUpdateReceiver extends BroadcastReceiver {

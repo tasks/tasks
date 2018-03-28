@@ -60,12 +60,6 @@ public class GtasksInvoker {
         .setPageToken(pageToken));
   }
 
-  public TaskList getGtaskList(String id) throws IOException {
-    return execute(service
-        .tasklists()
-        .get(id));
-  }
-
   public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId,
       boolean includeDeleted, boolean includeHidden, long lastSyncDate, String pageToken)
       throws IOException {

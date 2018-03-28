@@ -99,7 +99,7 @@ public class Filter extends FilterListItem {
    * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
    * @param sqlQuery SQL query for this list (see {@link #sqlQuery} for examples).
    */
-  protected Filter(String listingTitle, String sqlQuery, Map<String, Object> valuesForNewTasks) {
+  Filter(String listingTitle, String sqlQuery, Map<String, Object> valuesForNewTasks) {
     this.listingTitle = listingTitle;
     this.sqlQuery = sqlQuery;
     this.filterOverride = null;

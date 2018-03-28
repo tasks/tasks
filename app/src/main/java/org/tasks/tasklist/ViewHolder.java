@@ -124,10 +124,6 @@ class ViewHolder extends RecyclerView.ViewHolder {
     }
   }
 
-  public boolean isSelected() {
-    return selected;
-  }
-
   public void setSelected(boolean selected) {
     this.selected = selected;
     updateBackground();

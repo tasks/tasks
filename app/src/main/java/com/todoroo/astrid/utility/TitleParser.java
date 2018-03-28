@@ -24,14 +24,12 @@ import timber.log.Timber;
 
 public class TitleParser {
 
-  public static boolean parse(TagService tagService, Task task, ArrayList<String> tags) {
-    boolean markup;
-    markup = repeatHelper(task);
+  public static void parse(TagService tagService, Task task, ArrayList<String> tags) {
+    repeatHelper(task);
     listHelper(tagService, task,
         tags); // Don't need to know if tags affected things since we don't show alerts for them
-    markup = dayHelper(task) || markup;
-    markup = priorityHelper(task) || markup;
-    return markup;
+    dayHelper(task);
+    priorityHelper(task);
   }
 
   public static String trimParenthesis(String pattern) {
@@ -100,7 +98,7 @@ public class TitleParser {
   }
 
   //priorityHelper parses the string and sets the Task's importance
-  private static boolean priorityHelper(Task task) {
+  private static void priorityHelper(Task task) {
     String inputText = task.getTitle();
     String[] importanceStrings = {
         "()((^|[^\\w!])!+|(^|[^\\w!])!\\d)($|[^\\w!])",
@@ -109,13 +107,11 @@ public class TitleParser {
         "(?i)(\\sbang\\s?(\\d)$)",
         "(?i)()(\\shigh(est)?|\\slow(est)?|\\stop|\\sleast) ?priority$"
     };
-    boolean result = false;
     for (String importanceString : importanceStrings) {
       Pattern importancePattern = Pattern.compile(importanceString);
       while (true) {
         Matcher m = importancePattern.matcher(inputText);
         if (m.find()) {
-          result = true;
           task.setImportance(strToPriority(m.group(2).trim()));
           int start = m.start() == 0 ? 0 : m.start() + 1;
           inputText = inputText.substring(0, start) + inputText.substring(m.end());
@@ -126,7 +122,6 @@ public class TitleParser {
       }
     }
     task.setTitle(inputText.trim());
-    return result;
   }
 
   //helper for dayHelper. Converts am/pm to an int 0/1.
@@ -167,7 +162,7 @@ public class TitleParser {
   //Handles setting the task's date.
   //Day of week (e.g. Monday, Tuesday,..) is overridden by a set date (e.g. October 23 2013).
   //Vague times (e.g. breakfast, night) are overridden by a set time (9 am, at 10, 17:00)
-  private static boolean dayHelper(Task task) {
+  private static void dayHelper(Task task) {
     String inputText = task.getTitle();
     Calendar cal = null;
     Boolean containsSpecificTime = false;
@@ -370,14 +365,12 @@ public class TitleParser {
       } else {
         task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, cal.getTime().getTime()));
       }
-      return true;
     }
-    return false;
   }
   //---------------------DATE--------------------------
 
   //Parses through the text and sets the frequency of the task.
-  private static boolean repeatHelper(Task task) {
+  private static void repeatHelper(Task task) {
     String inputText = task.getTitle();
     HashMap<String, Frequency> repeatTimes = new HashMap<>();
     repeatTimes.put("(?i)\\bevery ?\\w{0,6} days?\\b", Frequency.DAILY);
@@ -409,7 +402,7 @@ public class TitleParser {
         rrule.setFreq(rtime);
         rrule.setInterval(findInterval(inputText));
         task.setRecurrence(rrule.toIcal());
-        return true;
+        return;
       }
     }
 
@@ -423,10 +416,9 @@ public class TitleParser {
         rrule.setInterval(1);
         String thing = rrule.toIcal();
         task.setRecurrence(thing);
-        return true;
+        return;
       }
     }
-    return false;
   }
 
   //helper method for repeatHelper.

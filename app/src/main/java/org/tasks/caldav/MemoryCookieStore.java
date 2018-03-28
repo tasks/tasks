@@ -22,14 +22,14 @@ import org.apache.commons.collections4.map.MultiKeyMap;
  * Primitive cookie store that stores cookies in a (volatile) hash map.
  * Will be sufficient for session cookies.
  */
-public class MemoryCookieStore implements CookieJar {
+class MemoryCookieStore implements CookieJar {
 
   /**
    * Stored cookies. The multi-key consists of three parts: name, domain, and path.
    * This ensures that cookies can be overwritten. [RFC 6265 5.3 Storage Model]
    * Not thread-safe!
    */
-  protected final MultiKeyMap<String, Cookie> storage = MultiKeyMap
+  private final MultiKeyMap<String, Cookie> storage = MultiKeyMap
       .multiKeyMap(new HashedMap<MultiKey<? extends String>, Cookie>());
 
   @Override

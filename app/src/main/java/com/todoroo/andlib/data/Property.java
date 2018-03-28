@@ -26,7 +26,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
   /**
    * The database table name this property
    */
-  public final Table table;
+  private final Table table;
 
   /**
    * The database column name for this property
@@ -82,15 +82,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-  }
-
-  // --- children
-
-  public String getColumnName() {
-    if (hasAlias()) {
-      return alias;
-    }
-    return name;
   }
 
   /**

@@ -3,7 +3,6 @@ package org.tasks.injection;
 import com.todoroo.astrid.calls.PhoneStateChangedReceiver;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
 import dagger.Subcomponent;
-import org.tasks.locale.receiver.FireReceiver;
 import org.tasks.notifications.NotificationClearedReceiver;
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
@@ -12,8 +11,6 @@ import org.tasks.widget.TasksWidget;
 
 @Subcomponent(modules = BroadcastModule.class)
 public interface BroadcastComponent {
-
-  void inject(FireReceiver fireReceiver);
 
   void inject(PhoneStateChangedReceiver phoneStateChangedReceiver);
 

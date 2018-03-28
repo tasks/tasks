@@ -106,6 +106,7 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
     getDelegate().onDestroy();
   }
 
+  @Override
   public void invalidateOptionsMenu() {
     getDelegate().invalidateOptionsMenu();
   }

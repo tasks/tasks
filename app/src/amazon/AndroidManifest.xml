@@ -26,8 +26,6 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
-
     </application>
 
 </manifest>

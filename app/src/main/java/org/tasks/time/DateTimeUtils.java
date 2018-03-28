@@ -26,7 +26,7 @@ public class DateTimeUtils {
     return nextMidnight(currentTimeMillis());
   }
 
-  public static long nextMidnight(long timestamp) {
+  private static long nextMidnight(long timestamp) {
     return newDateTime(timestamp).startOfDay().plusDays(1).getMillis();
   }
 

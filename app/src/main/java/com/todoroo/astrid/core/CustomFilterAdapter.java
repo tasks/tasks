@@ -191,10 +191,10 @@ class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
   private class ViewHolder {
 
-    public CriterionInstance item;
-    public ImageView type;
-    public TextView name;
-    public TextView filterCount;
+    CriterionInstance item;
+    ImageView type;
+    TextView name;
+    TextView filterCount;
   }
 
 

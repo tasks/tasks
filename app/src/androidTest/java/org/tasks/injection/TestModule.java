@@ -24,7 +24,7 @@ import org.tasks.preferences.PermissivePermissionChecker;
 @Module
 public class TestModule {
 
-  private Context context;
+  private final Context context;
 
   public TestModule(Context context) {
     this.context = context;

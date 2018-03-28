@@ -164,7 +164,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
     return actionBarTint;
   }
 
-  public int getColorPrimaryDark() {
+  private int getColorPrimaryDark() {
     return colorPrimaryDark;
   }
 

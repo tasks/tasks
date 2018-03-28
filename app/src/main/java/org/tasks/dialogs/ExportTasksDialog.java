@@ -16,7 +16,6 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject TasksJsonExporter tasksJsonExporter;
   @Inject Tracker tracker;
-  private ProgressDialog progressDialog;
 
   public static ExportTasksDialog newExportTasksDialog() {
     return new ExportTasksDialog();
@@ -25,7 +24,7 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    progressDialog = dialogBuilder.newProgressDialog();
+    ProgressDialog progressDialog = dialogBuilder.newProgressDialog();
     progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     progressDialog.setProgress(0);
     progressDialog.setCancelable(false);

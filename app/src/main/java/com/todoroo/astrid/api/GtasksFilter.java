@@ -99,10 +99,6 @@ public class GtasksFilter extends Filter {
     list = source.readParcelable(getClass().getClassLoader());
   }
 
-  public GoogleTaskList getList() {
-    return list;
-  }
-
   public String getRemoteId() {
     return list.getRemoteId();
   }

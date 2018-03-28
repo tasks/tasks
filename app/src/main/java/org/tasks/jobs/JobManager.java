@@ -27,8 +27,8 @@ public class JobManager {
   static final int JOB_ID_NOTIFICATION = 3;
   static final int JOB_ID_MIDNIGHT_REFRESH = 6;
   static final int JOB_ID_BACKUP = 7;
-  private Context context;
-  private AlarmManager alarmManager;
+  private final Context context;
+  private final AlarmManager alarmManager;
 
   @Inject
   public JobManager(@ForApplication Context context, AlarmManager alarmManager) {

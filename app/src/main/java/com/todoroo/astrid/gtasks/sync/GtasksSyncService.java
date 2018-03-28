@@ -150,7 +150,7 @@ public class GtasksSyncService {
     return sibling.get();
   }
 
-  public interface SyncOnSaveOperation {
+  interface SyncOnSaveOperation {
 
     void op(GtasksInvoker invoker) throws IOException;
   }
@@ -159,7 +159,7 @@ public class GtasksSyncService {
 
     final GoogleTask googleTask;
 
-    public MoveOp(GoogleTask googleTask) {
+    MoveOp(GoogleTask googleTask) {
       this.googleTask = googleTask;
     }
 
@@ -173,7 +173,7 @@ public class GtasksSyncService {
 
     private final String listId;
 
-    public ClearOp(String listId) {
+    ClearOp(String listId) {
       this.listId = listId;
     }
 
@@ -187,7 +187,7 @@ public class GtasksSyncService {
 
     private final LinkedBlockingQueue<SyncOnSaveOperation> queue;
 
-    public OperationPushThread(LinkedBlockingQueue<SyncOnSaveOperation> queue) {
+    OperationPushThread(LinkedBlockingQueue<SyncOnSaveOperation> queue) {
       this.queue = queue;
     }
 

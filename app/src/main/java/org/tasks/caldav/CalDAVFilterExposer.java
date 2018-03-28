@@ -13,7 +13,7 @@ import org.tasks.sync.SyncAdapters;
 public class CalDAVFilterExposer {
 
   private final SyncAdapters syncAdapters;
-  private CaldavDao caldavDao;
+  private final CaldavDao caldavDao;
 
   @Inject
   public CalDAVFilterExposer(CaldavDao caldavDao, SyncAdapters syncAdapters) {

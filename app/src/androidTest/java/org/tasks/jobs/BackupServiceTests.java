@@ -37,7 +37,7 @@ public class BackupServiceTests extends InjectingTestCase {
 
   private static final long BACKUP_WAIT_TIME = 500L;
 
-  File temporaryDirectory = null;
+  private File temporaryDirectory = null;
 
   @Inject TasksJsonExporter xmlExporter;
   @Inject TaskDao taskDao;

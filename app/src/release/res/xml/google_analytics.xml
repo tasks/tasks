@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress XmlUnboundNsPrefix -->
 <resources>
     <string name="ga_trackingId">UA-43015607-3</string>
 

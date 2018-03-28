@@ -18,12 +18,12 @@ public class TaskAction {
   /**
    * Intent to call when invoking this operation
    */
-  public PendingIntent intent = null;
+  public PendingIntent intent;
 
   /**
    * Quick action icon
    */
-  public int icon = 0;
+  public int icon;
 
   /**
    * Create an EditOperation object

@@ -39,12 +39,7 @@ public class TagFilterExposer {
   }
 
   public List<Filter> getFilters() {
-    ArrayList<Filter> list = new ArrayList<>();
-
-    list.addAll(filterFromTags(tagService.getTagList()));
-
-    // transmit filter list
-    return list;
+    return filterFromTags(tagService.getTagList());
   }
 
   public Filter getFilterByUuid(String uuid) {

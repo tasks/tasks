@@ -9,7 +9,7 @@ class Dagger {
   private static final Object lock = new Object();
 
   private static Dagger instance;
-  private ApplicationComponent applicationComponent;
+  private final ApplicationComponent applicationComponent;
 
   private Dagger(Context context) {
     Context localeContext = context.getApplicationContext();

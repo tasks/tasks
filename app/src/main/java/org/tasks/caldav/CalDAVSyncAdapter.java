@@ -24,7 +24,6 @@ import at.bitfire.dav4android.property.CalendarData;
 import at.bitfire.dav4android.property.DisplayName;
 import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.GetETag;
-import at.bitfire.ical4android.CalendarStorageException;
 import at.bitfire.ical4android.InvalidCalendarException;
 import at.bitfire.ical4android.iCalendar;
 import com.google.common.base.Strings;
@@ -208,7 +207,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
       caldavAccount.setCtag(remoteCtag);
       Timber.d("UPDATE %s", caldavAccount);
       caldavDao.update(caldavAccount);
-    } catch (IOException | HttpException | DavException | CalendarStorageException e) {
+    } catch (IOException | HttpException | DavException e) {
       Timber.e(e, e.getMessage());
     } catch (Exception e) {
       Timber.e(e, e.getMessage());
@@ -313,7 +312,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
   }
 
   private void processVTodo(String fileName, CaldavAccount caldavAccount, String eTag, String vtodo)
-      throws IOException, CalendarStorageException {
+      throws IOException {
     List<at.bitfire.ical4android.Task> tasks;
     try {
       tasks = at.bitfire.ical4android.Task.fromReader(new StringReader(vtodo));

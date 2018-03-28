@@ -48,7 +48,7 @@ public class DateTimePreferences extends InjectingPreferenceActivity implements
     updateStartOfWeek(preferences.getStringValue(R.string.p_start_of_week));
   }
 
-  String[] getWeekdayEntries() {
+  private String[] getWeekdayEntries() {
     return new String[]{
         getString(R.string.use_locale_default),
         getWeekdayDisplayName(DayOfWeek.SUNDAY),

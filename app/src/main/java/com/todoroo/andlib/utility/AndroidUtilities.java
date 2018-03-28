@@ -277,7 +277,7 @@ public class AndroidUtilities {
     return extension;
   }
 
-  public interface SerializedPut<T> {
+  interface SerializedPut<T> {
 
     void put(T object, String key, char type, String value) throws NumberFormatException;
   }

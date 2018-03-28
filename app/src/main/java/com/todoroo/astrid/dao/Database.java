@@ -145,6 +145,7 @@ public abstract class Database extends RoomDatabase {
   /**
    * Close the database if it has been opened previously
    */
+  @Override
   public synchronized final void close() {
     if (database != null) {
       try {
@@ -159,7 +160,7 @@ public abstract class Database extends RoomDatabase {
   /**
    * @return sql database. opens database if not yet open
    */
-  public synchronized final SupportSQLiteDatabase getDatabase() {
+  private synchronized SupportSQLiteDatabase getDatabase() {
     if (database == null) {
       openForWriting();
     }

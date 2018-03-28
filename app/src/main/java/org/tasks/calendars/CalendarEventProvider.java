@@ -59,18 +59,22 @@ public class CalendarEventProvider {
     }
   }
 
-  public boolean deleteEvent(Task task) {
+  public void deleteEvent(Task task) {
     String uri = task.getCalendarURI();
     task.setCalendarUri("");
-    return deleteEvent(uri);
+    deleteEvent(uri);
   }
 
-  private boolean deleteEvent(String eventUri) {
-    return !TextUtils.isEmpty(eventUri) && deleteEvent(Uri.parse(eventUri));
+  private void deleteEvent(String eventUri) {
+    if (!TextUtils.isEmpty(eventUri)) {
+      deleteEvent(Uri.parse(eventUri));
+    }
   }
 
-  private boolean deleteEvent(Uri eventUri) {
-    return getEvent(eventUri) != null && contentResolver.delete(eventUri, null, null) > 0;
+  private void deleteEvent(Uri eventUri) {
+    if (getEvent(eventUri) != null) {
+      contentResolver.delete(eventUri, null, null);
+    }
   }
 
   public List<AndroidCalendarEvent> getEventsBetween(long start, long end) {

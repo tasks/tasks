@@ -313,15 +313,15 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
    */
   private class HideUntilValue {
 
-    public final String label;
-    public final int setting;
-    public final long date;
+    final String label;
+    final int setting;
+    final long date;
 
-    public HideUntilValue(String label, int setting) {
+    HideUntilValue(String label, int setting) {
       this(label, setting, 0);
     }
 
-    public HideUntilValue(String label, int setting, long date) {
+    HideUntilValue(String label, int setting, long date) {
       this.label = label;
       this.setting = setting;
       this.date = date;

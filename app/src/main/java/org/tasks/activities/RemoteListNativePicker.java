@@ -15,7 +15,7 @@ import org.tasks.injection.NativeDialogFragmentComponent;
 
 public class RemoteListNativePicker extends InjectingNativeDialogFragment {
 
-  public static final String EXTRA_SELECTED = "extra_selected";
+  private static final String EXTRA_SELECTED = "extra_selected";
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
   private RemoteListSelectionHandler handler;

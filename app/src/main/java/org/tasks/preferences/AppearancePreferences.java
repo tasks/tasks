@@ -22,7 +22,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
     SeekBarDialog.SeekBarCallback {
 
   public static final String EXTRA_RESTART = "extra_restart";
-  public static final String EXTRA_FILTERS_CHANGED = "extra_filters_changed";
+  private static final String EXTRA_FILTERS_CHANGED = "extra_filters_changed";
   private static final int REQUEST_CUSTOMIZE = 1004;
   private static final int REQUEST_DEFAULT_LIST = 1005;
   private static final int REQUEST_ROW_PADDING = 1006;

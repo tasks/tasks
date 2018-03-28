@@ -15,7 +15,7 @@ import org.tasks.injection.TestComponent;
 public class SubtasksHelperTest extends SubtasksTestCase {
 
   private static final String[] EXPECTED_ORDER = {"-1", "1", "2", "3", "4", "5", "6"};
-  private static String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]"
+  private static final String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]"
       .replaceAll("\\s", "");
   @Inject TaskDao taskDao;
 

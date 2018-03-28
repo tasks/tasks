@@ -25,7 +25,7 @@ public final class PermaSql {
   /**
    * value to be replaced with the current time as long
    */
-  public static final String VALUE_NOW = "NOW()"; //$NON-NLS-1$
+  private static final String VALUE_NOW = "NOW()"; //$NON-NLS-1$
 
   /**
    * value to be replaced by end of day as long

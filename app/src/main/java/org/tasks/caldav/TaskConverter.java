@@ -22,9 +22,9 @@ import net.fortuna.ical4j.model.property.RRule;
 import org.tasks.data.CaldavTask;
 import timber.log.Timber;
 
-public class TaskConverter {
+class TaskConverter {
 
-  private static DateFormat DUE_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
+  private static final DateFormat DUE_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
 
   public static void apply(Task local, at.bitfire.ical4android.Task remote) {
     if (remote.getCompletedAt() != null) {
@@ -58,7 +58,7 @@ public class TaskConverter {
     }
   }
 
-  static int fromRemote(int remotePriority) {
+  private static int fromRemote(int remotePriority) {
     switch (remotePriority) {
       case 0:
         return Task.IMPORTANCE_NONE;
@@ -71,7 +71,7 @@ public class TaskConverter {
     }
   }
 
-  static int toRemote(int remotePriority, int localPriority) {
+  private static int toRemote(int remotePriority, int localPriority) {
     switch (localPriority) {
       case Task.IMPORTANCE_DO_OR_DIE:
         return 1;
