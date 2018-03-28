@@ -1,5 +1,7 @@
 package org.tasks.widget;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -51,7 +53,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
         Drawable launcher = ContextCompat.getDrawable(this, R.mipmap.ic_launcher);
         if (launcher instanceof BitmapDrawable) {
           intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, ((BitmapDrawable) launcher).getBitmap());
-        } else if (launcher instanceof AdaptiveIconDrawable) {
+        } else if (atLeastOreo() && launcher instanceof AdaptiveIconDrawable) {
           Bitmap bitmap = Bitmap
               .createBitmap(launcher.getIntrinsicWidth(), launcher.getIntrinsicHeight(),
                   Bitmap.Config.ARGB_8888);
@@ -59,6 +61,8 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
           launcher.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
           launcher.draw(canvas);
           intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
+        } else {
+          throw new IllegalStateException("Launcher icon not found");
         }
         intent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
         setResult(RESULT_OK, intent);
