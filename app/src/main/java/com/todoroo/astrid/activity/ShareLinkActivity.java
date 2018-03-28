@@ -18,7 +18,7 @@ import org.tasks.injection.InjectingAppCompatActivity;
 /**
  * @author joshuagross
  *
- *         Create a new task based on incoming links from the "share" menu
+ * Create a new task based on incoming links from the "share" menu
  */
 public final class ShareLinkActivity extends InjectingAppCompatActivity {
 

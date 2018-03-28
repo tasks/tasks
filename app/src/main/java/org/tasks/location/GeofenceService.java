@@ -51,11 +51,6 @@ public class GeofenceService {
     return changed;
   }
 
-  public interface SynchronizeGeofenceCallback {
-
-    void beforeDelete(Location location);
-  }
-
   private boolean synchronizeMetadata(long taskId, List<Location> locations,
       final SynchronizeGeofenceCallback callback) {
     boolean dirty = false;
@@ -98,5 +93,10 @@ public class GeofenceService {
 
   private List<Location> getGeofencesForTask(long taskId) {
     return locationDao.getActiveGeofences(taskId);
+  }
+
+  public interface SynchronizeGeofenceCallback {
+
+    void beforeDelete(Location location);
   }
 }

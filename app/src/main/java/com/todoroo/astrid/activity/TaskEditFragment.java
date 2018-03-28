@@ -212,11 +212,11 @@ public final class TaskEditFragment extends InjectingFragment implements
     }
   }
 
-    /*
-     * ======================================================================
-     * =============================================== model reading / saving
-     * ======================================================================
-     */
+  /*
+   * ======================================================================
+   * =============================================== model reading / saving
+   * ======================================================================
+   */
 
   private EditTitleControlSet getEditTitleControlSet() {
     return getFragment(EditTitleControlSet.TAG);
@@ -252,11 +252,11 @@ public final class TaskEditFragment extends InjectingFragment implements
     return false;
   }
 
-    /*
-     * ======================================================================
-     * ======================================================= event handlers
-     * ======================================================================
-     */
+  /*
+   * ======================================================================
+   * ======================================================= event handlers
+   * ======================================================================
+   */
 
   public void discardButtonClick() {
     if (hasChanges(
@@ -293,11 +293,11 @@ public final class TaskEditFragment extends InjectingFragment implements
     getEditTitleControlSet().setPriority(priority);
   }
 
-    /*
-     * ======================================================================
-     * ========================================== UI component helper classes
-     * ======================================================================
-     */
+  /*
+   * ======================================================================
+   * ========================================== UI component helper classes
+   * ======================================================================
+   */
 
   public void onRepeatChanged(boolean repeat) {
     getEditTitleControlSet().repeatChanged(repeat);

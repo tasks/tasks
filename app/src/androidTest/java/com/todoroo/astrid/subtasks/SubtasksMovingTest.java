@@ -55,15 +55,15 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     updater.moveTo(null, filter, target.getUuid(), beforeId);
   }
 
-    /* Starting State (see SubtasksTestCase):
-    *
-    * A
-    *  B
-    *  C
-    *   D
-    * E
-    * F
-    */
+  /* Starting State (see SubtasksTestCase):
+   *
+   * A
+   *  B
+   *  C
+   *   D
+   * E
+   * F
+   */
 
   @Ignore
   @Test

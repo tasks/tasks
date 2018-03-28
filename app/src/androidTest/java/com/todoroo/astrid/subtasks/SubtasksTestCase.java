@@ -23,14 +23,14 @@ import org.tasks.preferences.Preferences;
 public class SubtasksTestCase extends InjectingTestCase {
 
   /* Starting State:
-  *
-  * A
-  *  B
-  *  C
-  *   D
-  * E
-  * F
-  */
+   *
+   * A
+   *  B
+   *  C
+   *   D
+   * E
+   * F
+   */
   public static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]"
       .replaceAll("\\s", "");
   protected SubtasksFilterUpdater updater;

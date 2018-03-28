@@ -38,15 +38,15 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
   private Task A, B, C, D, E, F;
   private GoogleTaskList list;
 
-    /* Starting State:
-     *
-     * A
-     *  B
-     *  C
-     *   D
-     * E
-     * F
-     */
+  /* Starting State:
+   *
+   * A
+   *  B
+   *  C
+   *   D
+   * E
+   * F
+   */
 
   @Test
   public void testMoveDownFromListBottom() {
@@ -84,12 +84,12 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     whenTriggerMove(C, B);
 
-        /*
-         * A
-         *  C
-         *   D
-         *  B
-         */
+    /*
+     * A
+     *  C
+     *   D
+     *  B
+     */
 
     thenExpectMetadataOrderAndIndent(A, 0, 0);
     thenExpectMetadataOrderAndIndent(B, 3, 1);
@@ -103,13 +103,13 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     whenTriggerMove(B, E);
 
-        /*
-         * A
-         *  C
-         *   D
-         * B
-         * E
-         */
+    /*
+     * A
+     *  C
+     *   D
+     * B
+     * E
+     */
 
     thenExpectMetadataOrderAndIndent(A, 0, 0);
     thenExpectMetadataOrderAndIndent(B, 3, 0);
@@ -123,14 +123,14 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     whenTriggerMove(B, A);
 
-        /*
-         * B
-         * A
-         *  C
-         *   D
-         * E
-         * F
-         */
+    /*
+     * B
+     * A
+     *  C
+     *   D
+     * E
+     * F
+     */
 
     thenExpectMetadataOrderAndIndent(A, 1, 0);
     thenExpectMetadataOrderAndIndent(B, 0, 0);
@@ -143,14 +143,14 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     whenTriggerMove(C, F);
 
-        /*
-         * A
-         *  B
-         * E
-         * C
-         *  D
-         * F
-         */
+    /*
+     * A
+     *  B
+     * E
+     * C
+     *  D
+     * F
+     */
 
     thenExpectMetadataOrderAndIndent(A, 0, 0);
     thenExpectMetadataOrderAndIndent(B, 1, 1);
@@ -165,13 +165,13 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     whenTriggerMove(D, F);
 
-        /*
-         * A
-         *  B
-         *  C
-         * E
-         * D
-         */
+    /*
+     * A
+     *  B
+     *  C
+     * E
+     * D
+     */
 
     thenExpectMetadataOrderAndIndent(A, 0, 0);
     thenExpectMetadataOrderAndIndent(B, 1, 1);
@@ -186,12 +186,12 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     whenTriggerMove(C, A);
 
-        /*
-         * C
-         *  D
-         * A
-         *  B
-         */
+    /*
+     * C
+     *  D
+     * A
+     *  B
+     */
 
     thenExpectMetadataOrderAndIndent(A, 2, 0);
     thenExpectMetadataOrderAndIndent(B, 3, 1);
@@ -205,13 +205,13 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     whenTriggerMove(F, D);
 
-        /*
-         * A
-         *  B
-         *  C
-         *   F
-         *   D
-         */
+    /*
+     * A
+     *  B
+     *  C
+     *   F
+     *   D
+     */
 
     thenExpectMetadataOrderAndIndent(A, 0, 0);
     thenExpectMetadataOrderAndIndent(B, 1, 1);
@@ -227,13 +227,13 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
     whenTriggerMove(B, F);
 
-        /*
-         * A
-         *  C
-         *   D
-         * E
-         * B
-         */
+    /*
+     * A
+     *  C
+     *   D
+     * E
+     * B
+     */
 
     thenExpectMetadataOrderAndIndent(A, 0, 0);
     thenExpectMetadataOrderAndIndent(B, 4, 0);

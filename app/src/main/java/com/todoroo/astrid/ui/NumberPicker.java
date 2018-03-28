@@ -160,10 +160,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   @Override
   public void onClick(View v) {
 
-        /*
-         * The text view may still have focus so clear it's focus which will
-         * trigger the on focus changed and any typed values to be pulled.
-         */
+    /*
+     * The text view may still have focus so clear it's focus which will
+     * trigger the on focus changed and any typed values to be pulled.
+     */
     mText.clearFocus();
 
     // now perform the increment/decrement
@@ -203,11 +203,11 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
   private void updateView() {
 
-        /*
-         * If we don't have displayed values then use the current number else
-         * find the correct value in the displayed values for the current
-         * number.
-         */
+    /*
+     * If we don't have displayed values then use the current number else
+     * find the correct value in the displayed values for the current
+     * number.
+     */
     mText.setText(formatNumber(mCurrent));
   }
 
@@ -227,9 +227,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   @Override
   public void onFocusChange(View v, boolean hasFocus) {
 
-        /*
-         * When focus is lost check that the text field has valid values.
-         */
+    /*
+     * When focus is lost check that the text field has valid values.
+     */
     if (!hasFocus && v instanceof TextView) {
       String str = String.valueOf(((TextView) v).getText());
       if ("".equals(str)) {
@@ -251,10 +251,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   @Override
   public boolean onLongClick(View v) {
 
-        /*
-         * The text view may still have focus so clear it's focus which will
-         * trigger the on focus changed and any typed values to be pulled.
-         */
+    /*
+     * The text view may still have focus so clear it's focus which will
+     * trigger the on focus changed and any typed values to be pulled.
+     */
     mText.clearFocus();
 
     if (R.id.increment == v.getId()) {
@@ -351,11 +351,11 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
       int val = getSelectedPos(result);
 
-            /*
-             * Ensure the user can't type in a value greater than the max
-             * allowed. We have to allow less than min as the user might want to
-             * delete some numbers and then type a new number.
-             */
+      /*
+       * Ensure the user can't type in a value greater than the max
+       * allowed. We have to allow less than min as the user might want to
+       * delete some numbers and then type a new number.
+       */
       if (val > mEnd) {
         return "";
       } else {
