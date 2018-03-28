@@ -115,6 +115,24 @@ public class DateTime {
     return new DateTime(calendar);
   }
 
+  public DateTime noon() {
+    Calendar calendar = getCalendar();
+    calendar.set(Calendar.HOUR_OF_DAY, 12);
+    calendar.set(Calendar.MINUTE, 0);
+    calendar.set(Calendar.SECOND, 0);
+    calendar.set(Calendar.MILLISECOND, 0);
+    return new DateTime(calendar);
+  }
+
+  public DateTime endOfDay() {
+    Calendar calendar = getCalendar();
+    calendar.set(Calendar.HOUR_OF_DAY, 23);
+    calendar.set(Calendar.MINUTE, 59);
+    calendar.set(Calendar.SECOND, 59);
+    calendar.set(Calendar.MILLISECOND, 0);
+    return new DateTime(calendar);
+  }
+
   public DateTime withMillisOfDay(int millisOfDay) {
     if (millisOfDay > MAX_MILLIS_PER_DAY || millisOfDay < 0) {
       throw new RuntimeException("Illegal millis of day: " + millisOfDay);

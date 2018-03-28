@@ -233,7 +233,7 @@ public abstract class TaskDao {
 
   public Cursor getCursor(String queryTemplate) {
     Query query = Query.select(Task.PROPERTIES)
-        .withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate));
+        .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate));
     String queryString = query.from(Task.TABLE).toString();
     if (BuildConfig.DEBUG) {
       Timber.v(queryString);
@@ -245,7 +245,7 @@ public abstract class TaskDao {
       Property<?>... properties) {
     String query = Query
         .select(properties)
-        .withQueryTemplate(PermaSql.replacePlaceholders(queryTemplate))
+        .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate))
         .from(Task.TABLE).toString();
     return new LimitOffsetDataSource(database, query);
   }

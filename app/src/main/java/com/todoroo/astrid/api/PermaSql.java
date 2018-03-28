@@ -9,6 +9,7 @@ package com.todoroo.astrid.api;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import com.todoroo.andlib.utility.DateUtilities;
+import org.tasks.time.DateTime;
 
 /**
  * PermaSql allows for creating SQL statements that can be saved and used
@@ -80,7 +81,7 @@ public final class PermaSql {
   /**
    * Replace placeholder strings with actual
    */
-  public static String replacePlaceholders(String value) {
+  public static String replacePlaceholdersForQuery(String value) {
     if (value.contains(VALUE_NOW)) {
       value = value.replace(VALUE_NOW, Long.toString(DateUtilities.now()));
     }
@@ -97,13 +98,29 @@ public final class PermaSql {
     return value;
   }
 
+  public static String replacePlaceholdersForNewTask(String value) {
+    if (value.contains(VALUE_NOW)) {
+      value = value.replace(VALUE_NOW, Long.toString(DateUtilities.now()));
+    }
+    if (value.contains(VALUE_EOD) || value.contains(VALUE_EOD_DAY_AFTER) ||
+        value.contains(VALUE_EOD_NEXT_WEEK) || value.contains(VALUE_EOD_TOMORROW) ||
+        value.contains(VALUE_EOD_YESTERDAY) || value.contains(VALUE_EOD_NEXT_MONTH)) {
+      value = replaceEodValues(value, newDateTime().noon());
+    }
+    if (value.contains(VALUE_NOON) || value.contains(VALUE_NOON_DAY_AFTER) ||
+        value.contains(VALUE_NOON_NEXT_WEEK) || value.contains(VALUE_NOON_TOMORROW) ||
+        value.contains(VALUE_NOON_YESTERDAY) || value.contains(VALUE_NOON_NEXT_MONTH)) {
+      value = replaceNoonValues(value);
+    }
+    return value;
+  }
+
   private static String replaceEodValues(String value) {
-    long time = newDateTime()
-        .withHourOfDay(23)
-        .withMinuteOfHour(59)
-        .withSecondOfMinute(59)
-        .withMillisOfSecond(0)
-        .getMillis();
+    return replaceEodValues(value, newDateTime().endOfDay());
+  }
+
+  private static String replaceEodValues(String value, DateTime dateTime) {
+    long time = dateTime.getMillis();
     value = value.replace(VALUE_EOD_YESTERDAY, Long.toString(time - DateUtilities.ONE_DAY));
     value = value.replace(VALUE_EOD, Long.toString(time));
     value = value.replace(VALUE_EOD_TOMORROW, Long.toString(time + DateUtilities.ONE_DAY));
@@ -114,12 +131,7 @@ public final class PermaSql {
   }
 
   private static String replaceNoonValues(String value) {
-    long time = newDateTime()
-        .withHourOfDay(12)
-        .withMinuteOfHour(0)
-        .withSecondOfMinute(0)
-        .withMillisOfSecond(0)
-        .getMillis();
+    long time = newDateTime().noon().getMillis();
     value = value.replace(VALUE_NOON_YESTERDAY, Long.toString(time - DateUtilities.ONE_DAY));
     value = value.replace(VALUE_NOON, Long.toString(time));
     value = value.replace(VALUE_NOON_TOMORROW, Long.toString(time + DateUtilities.ONE_DAY));

@@ -132,24 +132,33 @@ public class TaskCreator {
       for (Map.Entry<String, Object> item : values.entrySet()) {
         String key = item.getKey();
         Object value = item.getValue();
-        if (key.equals(Tag.KEY)) {
-          tags.add((String) value);
-        } else if (key.equals(GoogleTask.KEY)) {
-          task.putTransitory(key, value);
-        } else if (key.equals(CaldavTask.KEY)) {
-          task.putTransitory(key, value);
-        } else {
-          if (value instanceof String) {
-            value = PermaSql.replacePlaceholders((String) value);
-          }
+        switch (key) {
+          case Tag.KEY:
+            tags.add((String) value);
+            break;
+          case GoogleTask.KEY:
+            task.putTransitory(key, value);
+            break;
+          case CaldavTask.KEY:
+            task.putTransitory(key, value);
+            break;
+          default:
+            if (value instanceof String) {
+              value = PermaSql.replacePlaceholdersForNewTask((String) value);
+            }
 
-          if (key.equals("dueDate")) {
-            task.setDueDate(Long.valueOf((String) value));
-          } else if (key.equals("importance")) {
-            task.setImportance(Integer.valueOf((String) value));
-          } else {
-            tracker.reportEvent(Tracking.Events.TASK_CREATION_FAILED, "Unhandled key: " + key);
-          }
+            switch (key) {
+              case "dueDate":
+                task.setDueDate(Long.valueOf((String) value));
+                break;
+              case "importance":
+                task.setImportance(Integer.valueOf((String) value));
+                break;
+              default:
+                tracker.reportEvent(Tracking.Events.TASK_CREATION_FAILED, "Unhandled key: " + key);
+                break;
+            }
+            break;
         }
       }
     }

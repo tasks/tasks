@@ -277,7 +277,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         sql.append(TaskCriteria.activeAndVisible()).append(' ');
       } else {
         String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
-        subSql = PermaSql.replacePlaceholders(subSql);
+        subSql = PermaSql.replacePlaceholdersForQuery(subSql);
         sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
       }
 
