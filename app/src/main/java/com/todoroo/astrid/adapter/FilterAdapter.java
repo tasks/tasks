@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
-import org.tasks.caldav.CalDAVSettingsActivity;
+import org.tasks.caldav.CaldavSettingsActivity;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
@@ -251,7 +251,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     }
     addSubMenu(title, filterProvider.getGoogleTaskFilters(), true);
 
-    addSubMenu(R.string.CalDAV, filterProvider.getCalDAVFilters(), true);
+    addSubMenu(R.string.CalDAV, filterProvider.getCaldavFilters(), true);
 
     notifyDataSetChanged();
   }
@@ -297,16 +297,15 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
       }
     }
-
-    List<Filter> calDAVFilters = filterProvider.getCalDAVFilters();
-    if (!calDAVFilters.isEmpty()) {
-      addSubMenu(R.string.CalDAV, calDAVFilters, false);
+    
+    if (preferences.getBoolean(R.string.p_sync_caldav, false)) {
+      addSubMenu(R.string.CalDAV, filterProvider.getCaldavFilters(), false);
 
       if (navigationDrawer) {
         add(new NavigationDrawerAction(
             activity.getResources().getString(R.string.add_account),
             R.drawable.ic_add_24dp,
-            new Intent(activity, CalDAVSettingsActivity.class),
+            new Intent(activity, CaldavSettingsActivity.class),
             NavigationDrawerFragment.REQUEST_NEW_CALDAV_ACCOUNT));
       }
     }

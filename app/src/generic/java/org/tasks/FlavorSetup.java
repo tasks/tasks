@@ -1,7 +1,6 @@
 package org.tasks;
 
 import javax.inject.Inject;
-import org.tasks.caldav.CaldavAccountManager;
 import org.tasks.preferences.Preferences;
 
 public class FlavorSetup {

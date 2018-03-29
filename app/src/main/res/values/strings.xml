@@ -842,7 +842,6 @@ File %1$s contained %2$s.\n\n
     <string name="password">Password</string>
   <string name="url">URL</string>
     <string name="error_adding_account">Error adding account</string>
-  <string name="error_deleting_account">Error deleting account</string>
   <string name="account_settings">Account settings</string>
   <string name="notification_channel_settings">Manage notifications</string>
   <string name="battery_optimization_settings">Manage battery optimizations</string>

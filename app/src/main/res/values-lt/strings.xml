@@ -455,7 +455,6 @@
 	<string name="user">Vartotojas</string>
 	<string name="password">Slaptažodis</string>
 	<string name="error_adding_account">Klaida kuriant paskyrą</string>
-	<string name="error_deleting_account">Klaida šalinant vartotojo paskyrą</string>
 	<string name="account_settings">Paskyros nustatymai</string>
 	<string name="notification_channel_settings">Valdyti pranešimus</string>
 	<string name="battery_optimization_settings">Valdyti baterijos optimizacijas</string>

@@ -3,7 +3,6 @@ package org.tasks.injection;
 import dagger.Subcomponent;
 import org.tasks.activities.CalendarSelectionDialog;
 import org.tasks.activities.RemoteListSupportPicker;
-import org.tasks.caldav.DeleteAccountDialog;
 import org.tasks.dialogs.AddAttachmentDialog;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.dialogs.RecordAudioDialog;
@@ -44,6 +43,4 @@ public interface DialogFragmentComponent {
   void inject(RenameListDialog renameListDialog);
 
   void inject(CustomRecurrenceDialog customRecurrenceDialog);
-
-  void inject(DeleteAccountDialog deleteAccountDialog);
 }

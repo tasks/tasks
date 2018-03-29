@@ -4,34 +4,31 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.caldav.CaldavAccountManager;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
-import org.tasks.preferences.PermissionChecker;
+import org.tasks.jobs.JobManager;
 import org.tasks.preferences.Preferences;
 
 public class SyncAdapters {
 
   private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   private final Preferences preferences;
-  private final CaldavAccountManager caldavAccountManager;
-  private final PermissionChecker permissionChecker;
+  private final JobManager jobManager;
 
   @Inject
   public SyncAdapters(GtaskSyncAdapterHelper gtaskSyncAdapterHelper, Preferences preferences,
-      CaldavAccountManager caldavAccountManager, PermissionChecker permissionChecker) {
+      JobManager jobManager) {
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
     this.preferences = preferences;
-    this.caldavAccountManager = caldavAccountManager;
-    this.permissionChecker = permissionChecker;
+    this.jobManager = jobManager;
   }
 
   public void requestSynchronization() {
     gtaskSyncAdapterHelper.requestSynchronization();
-    caldavAccountManager.requestSynchronization();
+    jobManager.syncCaldavNow();
   }
 
   public boolean initiateManualSync() {
-    return gtaskSyncAdapterHelper.initiateManualSync() | caldavAccountManager.initiateManualSync();
+    return gtaskSyncAdapterHelper.initiateManualSync() | jobManager.syncCaldavNow();
   }
 
   public boolean isMasterSyncEnabled() {
@@ -47,8 +44,7 @@ public class SyncAdapters {
   }
 
   public boolean isCaldavSyncEnabled() {
-    return preferences.getBoolean(R.string.p_sync_caldav, false) && permissionChecker
-        .canAccessAccounts();
+    return preferences.getBoolean(R.string.p_sync_caldav, false);
   }
 
   public void checkPlayServices(Activity activity) {

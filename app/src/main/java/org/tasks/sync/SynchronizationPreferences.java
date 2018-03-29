@@ -19,7 +19,6 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.caldav.CaldavAccountManager;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
@@ -27,6 +26,7 @@ import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
+import org.tasks.jobs.JobManager;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
@@ -46,8 +46,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   @Inject SyncAdapters syncAdapters;
   @Inject GoogleTaskDao googleTaskDao;
   @Inject GoogleAccountManager googleAccountManager;
-  @Inject CaldavAccountManager caldavAccountManager;
   @Inject Preferences preferences;
+  @Inject JobManager jobManager;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -59,8 +59,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         getString(R.string.p_sync_caldav));
     caldavEnabled.setChecked(syncAdapters.isCaldavSyncEnabled());
     caldavEnabled.setOnPreferenceChangeListener((preference, newValue) -> {
-      boolean enabled = ((boolean) newValue) && permissionRequestor.requestCaldavPermissions();
-      caldavAccountManager.setBackgroundSynchronization(
+      boolean enabled = ((boolean) newValue);
+      jobManager.setBackgroundSynchronization(
           enabled && preferences.getBoolean(R.string.p_background_sync, true));
       return enabled;
     });
@@ -90,7 +90,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     findPreference(getString(R.string.p_background_sync))
         .setOnPreferenceChangeListener((preference, o) -> {
           boolean backgroundSyncEnabled = (Boolean) o;
-          caldavAccountManager.setBackgroundSynchronization(backgroundSyncEnabled);
+          jobManager.setBackgroundSynchronization(backgroundSyncEnabled);
           googleAccountManager.setBackgroundSynchronization(backgroundSyncEnabled);
           return true;
         });
@@ -155,9 +155,6 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
       if (verifyPermissions(grantResults)) {
         requestLogin();
       }
-    } else if (requestCode == PermissionRequestor.REQUEST_CALDAV_ACCOUNTS) {
-      ((CheckBoxPreference) findPreference(getString(R.string.p_sync_caldav)))
-          .setChecked(verifyPermissions(grantResults));
     } else {
       super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }

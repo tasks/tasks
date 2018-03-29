@@ -56,15 +56,8 @@
     <!-- *************************** -->
     <!-- caldav and google task sync -->
     <!-- *************************** -->
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_SYNC_STATS"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <!-- ============================================== Exported Permissions = -->
 
@@ -310,7 +303,7 @@
 
         <activity android:name=".activities.FilterSettingsActivity" />
 
-        <activity android:name=".caldav.CalDAVSettingsActivity" />
+        <activity android:name=".caldav.CaldavSettingsActivity" />
 
         <activity
             android:name=".activities.CalendarSelectionActivity"
@@ -499,30 +492,6 @@
                 <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
             </intent-filter>
         </receiver>
-
-        <service
-            android:name=".caldav.CalDAVSyncService"
-            android:exported="true"
-            android:permission="signature">
-            <intent-filter>
-                <action android:name="android.content.SyncAdapter" />
-            </intent-filter>
-            <meta-data
-                android:name="android.content.SyncAdapter"
-                android:resource="@xml/sync_adapter_caldav" />
-        </service>
-
-        <service
-            android:name=".caldav.CalDAVAccountAuthenticatorService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/account_authenticator" />
-        </service>
 
     </application>
 

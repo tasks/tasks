@@ -62,7 +62,7 @@ import timber.log.Timber;
         CaldavAccount.class,
         CaldavTask.class
     },
-    version = 56)
+    version = 57)
 public abstract class Database extends RoomDatabase {
 
   public static final String NAME = "database";

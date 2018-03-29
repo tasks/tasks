@@ -3,17 +3,17 @@ package org.tasks.receivers;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
-import org.tasks.caldav.CaldavAccountManager;
+import org.tasks.jobs.JobManager;
 import org.tasks.sync.SyncAdapters;
 
 public class CalDAVPushReceiver {
 
-  private final CaldavAccountManager caldavAccountManager;
+  private final JobManager jobManager;
   private final SyncAdapters syncAdapters;
 
   @Inject
-  public CalDAVPushReceiver(CaldavAccountManager caldavAccountManager, SyncAdapters syncAdapters) {
-    this.caldavAccountManager = caldavAccountManager;
+  public CalDAVPushReceiver(JobManager jobManager, SyncAdapters syncAdapters) {
+    this.jobManager = jobManager;
     this.syncAdapters = syncAdapters;
   }
 
@@ -26,6 +26,6 @@ public class CalDAVPushReceiver {
       return;
     }
 
-    caldavAccountManager.requestSynchronization();
+    jobManager.syncCaldavNow();
   }
 }

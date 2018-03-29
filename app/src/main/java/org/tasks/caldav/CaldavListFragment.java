@@ -1,7 +1,7 @@
 package org.tasks.caldav;
 
 import static android.app.Activity.RESULT_OK;
-import static org.tasks.caldav.CalDAVSettingsActivity.EXTRA_CALDAV_DATA;
+import static org.tasks.caldav.CaldavSettingsActivity.EXTRA_CALDAV_DATA;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,7 +47,7 @@ public class CaldavListFragment extends TaskListFragment {
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_caldav_list_fragment:
-        Intent intent = new Intent(getActivity(), CalDAVSettingsActivity.class);
+        Intent intent = new Intent(getActivity(), CaldavSettingsActivity.class);
         intent.putExtra(EXTRA_CALDAV_DATA, account);
         startActivityForResult(intent, REQUEST_ACCOUNT_SETTINGS);
         return true;
@@ -62,9 +62,9 @@ public class CaldavListFragment extends TaskListFragment {
       if (resultCode == RESULT_OK) {
         TaskListActivity activity = (TaskListActivity) getActivity();
         String action = data.getAction();
-        if (CalDAVSettingsActivity.ACTION_DELETED.equals(action)) {
+        if (CaldavSettingsActivity.ACTION_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
-        } else if (CalDAVSettingsActivity.ACTION_RELOAD.equals(action)) {
+        } else if (CaldavSettingsActivity.ACTION_RELOAD.equals(action)) {
           activity.getIntent().putExtra(TaskListActivity.OPEN_FILTER,
               (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
           activity.recreate();

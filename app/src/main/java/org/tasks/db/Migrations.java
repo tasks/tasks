@@ -185,6 +185,14 @@ public class Migrations {
       database.execSQL("ALTER TABLE `caldav_tasks` ADD COLUMN `vtodo` TEXT");
     }
   };
+
+  private static final Migration MIGRATION_56_57 = new Migration(56, 57) {
+    @Override
+    public void migrate(@NonNull SupportSQLiteDatabase database) {
+      database.execSQL("ALTER TABLE `caldav_account` ADD COLUMN `password` TEXT");
+    }
+  };
+
   public static final Migration[] MIGRATIONS = new Migration[]{
       MIGRATION_35_36,
       MIGRATION_36_37,
@@ -200,7 +208,8 @@ public class Migrations {
       MIGRATION_52_53,
       MIGRATION_53_54,
       MIGRATION_54_55,
-      MIGRATION_55_56
+      MIGRATION_55_56,
+      MIGRATION_56_57
   };
 
   private static Migration NOOP(int from, int to) {

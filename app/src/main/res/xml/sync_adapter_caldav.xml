@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
-    android:accountType="@string/account_type_caldav"
-    android:contentAuthority="org.tasks"
-    android:supportsUploading="true"
-    android:isAlwaysSyncable="true"
-    android:userVisible="false" />

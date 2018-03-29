@@ -452,7 +452,6 @@
 	<string name="user">Usuario</string>
 	<string name="password">Contraseña</string>
 	<string name="error_adding_account">Error añadiendo cuenta</string>
-	<string name="error_deleting_account">Error borrando cuenta</string>
 	<string name="account_settings">Configuración de cuenta</string>
 	<string name="notification_channel_settings">Gestionar notificaciones</string>
 	<string name="battery_optimization_settings">Optimizaciones en gestión de batería</string>

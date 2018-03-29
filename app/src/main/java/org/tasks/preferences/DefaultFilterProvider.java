@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.caldav.CalDAVFilterExposer;
+import org.tasks.caldav.CaldavFilterExposer;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
@@ -48,20 +48,20 @@ public class DefaultFilterProvider {
   private final CustomFilterExposer customFilterExposer;
   private final TagFilterExposer tagFilterExposer;
   private final GtasksFilterExposer gtasksFilterExposer;
-  private final CalDAVFilterExposer calDAVFilterExposer;
+  private final CaldavFilterExposer caldavFilterExposer;
 
   @Inject
   public DefaultFilterProvider(@ForApplication Context context, Preferences preferences,
       Tracker tracker, CustomFilterExposer customFilterExposer,
       TagFilterExposer tagFilterExposer, GtasksFilterExposer gtasksFilterExposer,
-      CalDAVFilterExposer calDAVFilterExposer) {
+      CaldavFilterExposer caldavFilterExposer) {
     this.context = context;
     this.preferences = preferences;
     this.tracker = tracker;
     this.customFilterExposer = customFilterExposer;
     this.tagFilterExposer = tagFilterExposer;
     this.gtasksFilterExposer = gtasksFilterExposer;
-    this.calDAVFilterExposer = calDAVFilterExposer;
+    this.caldavFilterExposer = caldavFilterExposer;
   }
 
   public Filter getDashclockFilter() {
@@ -134,7 +134,7 @@ public class DefaultFilterProvider {
       case TYPE_GOOGLE_TASKS:
         return gtasksFilterExposer.getFilter(Long.parseLong(split[1]));
       case TYPE_CALDAV:
-        return calDAVFilterExposer.getFilterByUuid(split[1]);
+        return caldavFilterExposer.getFilterByUuid(split[1]);
       default:
         return null;
     }

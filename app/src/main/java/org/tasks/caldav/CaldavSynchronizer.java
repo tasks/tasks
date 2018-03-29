@@ -9,11 +9,7 @@ import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
-import android.accounts.Account;
-import android.content.ContentProviderClient;
 import android.content.Context;
-import android.content.SyncResult;
-import android.os.Bundle;
 import at.bitfire.dav4android.BasicDigestAuthHandler;
 import at.bitfire.dav4android.DavCalendar;
 import at.bitfire.dav4android.DavResource;
@@ -55,52 +51,55 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
-import org.tasks.injection.InjectingAbstractThreadedSyncAdapter;
-import org.tasks.injection.SyncAdapterComponent;
+import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
-public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
+public class CaldavSynchronizer {
 
   static {
     iCalendar.Companion
         .setProdId(new ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN"));
   }
 
-  @Inject CaldavDao caldavDao;
-  @Inject CaldavAccountManager caldavAccountManager;
-  @Inject TaskDao taskDao;
-  @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject TaskCreator taskCreator;
-  @Inject TaskDeleter taskDeleter;
+  private final CaldavDao caldavDao;
+  private final TaskDao taskDao;
+  private final LocalBroadcastManager localBroadcastManager;
+  private final TaskCreator taskCreator;
+  private final TaskDeleter taskDeleter;
+  private final Context context;
 
-  CalDAVSyncAdapter(Context context, boolean autoInitialize) {
-    super(context, autoInitialize);
+  @Inject
+  public CaldavSynchronizer(@ForApplication Context context, CaldavDao caldavDao, TaskDao taskDao,
+      LocalBroadcastManager localBroadcastManager, TaskCreator taskCreator,
+      TaskDeleter taskDeleter) {
+    this.context = context;
+    this.caldavDao = caldavDao;
+    this.taskDao = taskDao;
+    this.localBroadcastManager = localBroadcastManager;
+    this.taskCreator = taskCreator;
+    this.taskDeleter = taskDeleter;
   }
 
-  @Override
-  public void onPerformSync(Account account, Bundle extras, String authority,
-      ContentProviderClient provider, SyncResult syncResult) {
-    // required for dav4android (ServiceLoader)
-    Thread.currentThread().setContextClassLoader(getContext().getClassLoader());
+  public boolean sync() {
+    Thread.currentThread().setContextClassLoader(context.getClassLoader());
+    boolean success = true;
+    for (CaldavAccount account : caldavDao.getAccounts()) {
+      success &= sync(account);
+    }
+    return success;
+  }
 
-    String uuid = account.name;
-    CaldavAccount caldavAccount = caldavDao.getAccount(uuid);
-    if (caldavAccount == null) {
-      Timber.e("Unknown account %s", uuid);
-      caldavAccountManager.removeAccount(account);
-      return;
-    }
+  private boolean sync(CaldavAccount caldavAccount) {
+    // required for dav4android (ServiceLoader)
+
+    String uuid = caldavAccount.getUuid();
     Timber.d("onPerformSync: %s [%s]", caldavAccount.getName(), uuid);
-    org.tasks.caldav.Account localAccount = caldavAccountManager
-        .getAccount(caldavAccount.getUuid());
-    if (isNullOrEmpty(localAccount.getPassword())) {
+    if (isNullOrEmpty(caldavAccount.getPassword())) {
       Timber.e("Missing password for %s", caldavAccount.getName());
-      syncResult.stats.numAuthExceptions++;
-      return;
+      return false;
     }
-    syncResult.stats.numAuthExceptions = 0;
     BasicDigestAuthHandler basicDigestAuthHandler = new BasicDigestAuthHandler(null,
-        caldavAccount.getUsername(), localAccount.getPassword());
+        caldavAccount.getUsername(), caldavAccount.getPassword());
     OkHttpClient httpClient = new OkHttpClient().newBuilder()
         .addNetworkInterceptor(basicDigestAuthHandler)
         .authenticator(basicDigestAuthHandler)
@@ -131,7 +130,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
 
       if (localCtag != null && localCtag.equals(remoteCtag)) {
         Timber.d("%s up to date", caldavAccount.getName());
-        return;
+        return true;
       }
 
       davCalendar.calendarQuery("VTODO", null, null);
@@ -214,6 +213,7 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
     }
 
     localBroadcastManager.broadcastRefresh();
+    return true;
   }
 
   private void pushLocalChanges(CaldavAccount caldavAccount, OkHttpClient httpClient,
@@ -349,10 +349,5 @@ public class CalDAVSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
     } else {
       Timber.e("Received VCALENDAR with %s VTODOs; ignoring %s", tasks.size(), fileName);
     }
-  }
-
-  @Override
-  protected void inject(SyncAdapterComponent component) {
-    component.inject(this);
   }
 }

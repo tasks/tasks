@@ -12,7 +12,6 @@ public abstract class PermissionRequestor {
   public static final int REQUEST_GOOGLE_ACCOUNTS = 53;
   public static final int REQUEST_LOCATION = 54;
   public static final int REQUEST_CONTACTS = 55;
-  public static final int REQUEST_CALDAV_ACCOUNTS = 56;
 
   private final PermissionChecker permissionChecker;
 
@@ -55,14 +54,6 @@ public abstract class PermissionRequestor {
       return true;
     }
     requestPermission(Manifest.permission.GET_ACCOUNTS, REQUEST_GOOGLE_ACCOUNTS);
-    return false;
-  }
-
-  public boolean requestCaldavPermissions() {
-    if (permissionChecker.canAccessAccounts()) {
-      return true;
-    }
-    requestPermission(Manifest.permission.GET_ACCOUNTS, REQUEST_CALDAV_ACCOUNTS);
     return false;
   }
 

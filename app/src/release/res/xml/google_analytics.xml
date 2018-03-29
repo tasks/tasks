@@ -42,4 +42,5 @@
     <screenName name="org.tasks.preferences.HelpAndFeedbackActivity">HelpAndFeedbackActivity</screenName>
     <screenName name="org.tasks.preferences.MiscellaneousPreferences">MiscellaneousPreferences</screenName>
     <screenName name="org.tasks.widget.WidgetConfigActivity">WidgetConfigActivity</screenName>
+    <screenName name="org.tasks.caldav.CaldavSettingsActivity">CaldavSettingsActivity</screenName>
 </resources>
