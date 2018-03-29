@@ -76,6 +76,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
   private static final char SPACE = '\u0020';
   private static final char NO_BREAK_SPACE = '\u00a0';
   private static final String EXTRA_NEW_TAGS = "extra_new_tags";
+  private static final String EXTRA_ORIGINAL_TAGS = "extra_original_tags";
   private static final String EXTRA_SELECTED_TAGS = "extra_selected_tags";
   private final Ordering<TagData> orderByName = new Ordering<TagData>() {
     @Override
@@ -94,6 +95,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
   private View dialogView;
   private AlertDialog dialog;
   private List<TagData> allTags;
+  private ArrayList<TagData> originalTags;
   private ArrayList<TagData> selectedTags;
 
   private Function<TagData, SpannableString> tagToString(final float maxLength) {
@@ -135,13 +137,14 @@ public final class TagsControlSet extends TaskEditControlFragment {
     ArrayList<String> newTags;
     if (savedInstanceState != null) {
       selectedTags = savedInstanceState.getParcelableArrayList(EXTRA_SELECTED_TAGS);
+      originalTags = savedInstanceState.getParcelableArrayList(EXTRA_ORIGINAL_TAGS);
       newTags = savedInstanceState.getStringArrayList(EXTRA_NEW_TAGS);
     } else {
-      selectedTags = new ArrayList<>();
-      selectedTags.addAll(task.isNew()
+      originalTags = new ArrayList<>(task.isNew()
           ? transform(task.getTags(), tagDataDao::getTagByName)
           : tagService.getTagDataForTask(task.getId()));
-      newTags = newArrayList();
+      selectedTags = new ArrayList<>(originalTags);
+      newTags = new ArrayList<>();
     }
     allTags = tagService.getTagList();
     dialogView = inflater.inflate(R.layout.control_set_tag_list, null);
@@ -186,6 +189,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     super.onSaveInstanceState(outState);
 
     outState.putParcelableArrayList(EXTRA_SELECTED_TAGS, selectedTags);
+    outState.putParcelableArrayList(EXTRA_ORIGINAL_TAGS, originalTags);
     outState.putStringArrayList(EXTRA_NEW_TAGS, getNewTags());
   }
 
@@ -366,9 +370,9 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
   @Override
   public boolean hasChanges(Task original) {
-    Set<TagData> existingSet = newHashSet(tagService.getTagDataForTask(original.getUuid()));
+    Set<TagData> originalSet = newHashSet(originalTags);
     Set<TagData> selectedSet = newHashSet(selectedTags);
-    return !existingSet.equals(selectedSet);
+    return !originalSet.equals(selectedSet);
   }
 
   private void refreshDisplayView() {
