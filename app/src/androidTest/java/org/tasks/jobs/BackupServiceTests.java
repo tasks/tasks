@@ -8,11 +8,7 @@ package org.tasks.jobs;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.tasks.date.DateTimeUtils.newDateTime;
-import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.support.test.runner.AndroidJUnit4;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -30,7 +26,6 @@ import org.tasks.backup.TasksJsonExporter;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 import org.tasks.preferences.Preferences;
-import org.tasks.scheduling.AlarmManager;
 
 @RunWith(AndroidJUnit4.class)
 public class BackupServiceTests extends InjectingTestCase {
@@ -39,7 +34,7 @@ public class BackupServiceTests extends InjectingTestCase {
 
   private File temporaryDirectory = null;
 
-  @Inject TasksJsonExporter xmlExporter;
+  @Inject TasksJsonExporter jsonExporter;
   @Inject TaskDao taskDao;
   @Inject Preferences preferences;
 
@@ -90,11 +85,8 @@ public class BackupServiceTests extends InjectingTestCase {
   public void testBackup() {
     assertEquals(0, temporaryDirectory.list().length);
 
-    preferences.setLong(TasksJsonExporter.PREF_BACKUP_LAST_DATE, 0);
-
     // create a backup
-    BackupJob service = new BackupJob(getTargetContext(),
-        new JobManager(getTargetContext(), mock(AlarmManager.class), null), xmlExporter, preferences);
+    BackupJob service = new BackupJob(getTargetContext(), jsonExporter, preferences);
     service.startBackup(getTargetContext());
 
     AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
@@ -103,47 +95,5 @@ public class BackupServiceTests extends InjectingTestCase {
     File[] files = temporaryDirectory.listFiles();
     assertEquals(1, files.length);
     assertTrue(files[0].getName().matches(BackupJob.BACKUP_FILE_NAME_REGEX));
-
-    // assert summary updated
-    assertTrue(preferences.getLong(TasksJsonExporter.PREF_BACKUP_LAST_DATE, 0) > 0);
-  }
-
-  @Test
-  public void testDeletion() throws IOException {
-    // create a bunch of backups
-    assertEquals(0, temporaryDirectory.list().length);
-
-    // create some user files
-    File myFile = new File(temporaryDirectory, "beans");
-    myFile.createNewFile();
-
-    // create some backup files
-    for (int i = 0; i < 10; i++) {
-      String name = String.format("auto.%02d%s.xml", i, newDateTime().toString("MMdd-HHmm"));
-      File tempFile = new File(temporaryDirectory, name);
-      tempFile.createNewFile();
-    }
-
-    // make one really old
-    File[] files = temporaryDirectory.listFiles();
-    files[4].setLastModified(currentTimeMillis() - 20000);
-
-    // assert files created
-    assertEquals(11, files.length);
-
-    // backup
-    BackupJob service = new BackupJob(getTargetContext(),
-        new JobManager(getTargetContext(), mock(AlarmManager.class), null), xmlExporter, preferences);
-    service.startBackup(getTargetContext());
-
-    AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
-
-    // assert the oldest file was deleted
-    assertTrue(temporaryDirectory.listFiles().length < 11);
-    assertFalse(files[4].exists());
-
-    // assert user file still exists
-    service.startBackup(getTargetContext());
-    assertTrue(myFile.exists());
   }
 }

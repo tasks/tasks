@@ -7,7 +7,10 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import com.evernote.android.job.DailyJob;
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.JobRequest.Builder;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
@@ -26,7 +29,6 @@ public class JobManager {
   public static final int JOB_ID_TASKER = 11;
   static final int JOB_ID_REFRESH = 1;
   static final int JOB_ID_MIDNIGHT_REFRESH = 6;
-  static final int JOB_ID_BACKUP = 7;
   private final Context context;
   private final AlarmManager alarmManager;
   private final com.evernote.android.job.JobManager jobManager;
@@ -58,10 +60,8 @@ public class JobManager {
     alarmManager.noWakeup(adjust(time), getPendingBroadcast(MidnightRefreshJob.Broadcast.class));
   }
 
-  public void scheduleMidnightBackup() {
-    long time = nextMidnight();
-    Timber.d("%s: %s", BackupJob.TAG, printTimestamp(time));
-    alarmManager.wakeup(adjust(time), getPendingBroadcast(BackupJob.Broadcast.class));
+  public void scheduleBackup() {
+    DailyJob.schedule(new Builder(BackupJob.TAG), 0, TimeUnit.HOURS.toMillis(24) - 1);
   }
 
   public void cancelNotifications() {

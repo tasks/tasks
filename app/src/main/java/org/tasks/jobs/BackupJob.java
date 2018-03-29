@@ -1,50 +1,46 @@
 package org.tasks.jobs;
 
-import android.content.BroadcastReceiver;
+import static com.google.common.collect.Iterables.skip;
+import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Collections.emptyList;
+
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.JobIntentService;
+import android.support.annotation.NonNull;
+import com.evernote.android.job.Job;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
-import javax.inject.Inject;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import org.tasks.backup.TasksJsonExporter;
-import org.tasks.injection.ForApplication;
-import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class BackupJob extends MidnightJob {
+public class BackupJob extends Job {
 
   public static final String TAG = "job_backup";
-  public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
+  static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.json";
+  static final FileFilter FILE_FILTER = f -> f.getName().matches(BACKUP_FILE_NAME_REGEX);
+  private static final Comparator<File> BY_LAST_MODIFIED = (f1, f2) ->
+      Long.compare(f2.lastModified(), f1.lastModified());
+
   private static final int DAYS_TO_KEEP_BACKUP = 7;
-  @Inject @ForApplication Context context;
-  @Inject JobManager jobManager;
-  @Inject TasksJsonExporter tasksJsonExporter;
-  @Inject Preferences preferences;
+  private final Context context;
+  private final TasksJsonExporter tasksJsonExporter;
+  private final Preferences preferences;
 
-  @SuppressWarnings("unused")
-  public BackupJob() {
-
-  }
-
-  BackupJob(Context context, JobManager jobManager, TasksJsonExporter tasksJsonExporter,
-      Preferences preferences) {
+  BackupJob(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
     this.context = context;
-    this.jobManager = jobManager;
     this.tasksJsonExporter = tasksJsonExporter;
     this.preferences = preferences;
   }
 
+  @NonNull
   @Override
-  protected void run() {
+  protected Result onRunJob(@NonNull Params params) {
     startBackup(context);
-  }
-
-  @Override
-  protected void scheduleNext() {
-    jobManager.scheduleMidnightBackup();
+    return Result.SUCCESS;
   }
 
   void startBackup(Context context) {
@@ -63,42 +59,27 @@ public class BackupJob extends MidnightJob {
   }
 
   private void deleteOldBackups() {
-    FileFilter backupFileFilter = file -> {
-      if (file.getName().matches(BACKUP_FILE_NAME_REGEX)) {
-        return true;
-      }
-      return false;
-    };
     File astridDir = preferences.getBackupDirectory();
     if (astridDir == null) {
       return;
     }
 
     // grab all backup files, sort by modified date, delete old ones
-    File[] files = astridDir.listFiles(backupFileFilter);
-    if (files == null) {
-      return;
-    }
-
-    Arrays.sort(files,
-        (file1, file2) -> -Long.valueOf(file1.lastModified()).compareTo(file2.lastModified()));
-    for (int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
-      if (!files[i].delete()) {
-        Timber.i("Unable to delete: %s", files[i]);
+    File[] fileArray = astridDir.listFiles(FILE_FILTER);
+    for (File file : getDeleteList(fileArray, DAYS_TO_KEEP_BACKUP)) {
+      if (!file.delete()) {
+        Timber.e("Unable to delete: %s", file);
       }
     }
   }
 
-  @Override
-  protected void inject(IntentServiceComponent component) {
-    component.inject(this);
-  }
-
-  public static class Broadcast extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      JobIntentService.enqueueWork(context, BackupJob.class, JobManager.JOB_ID_BACKUP, intent);
+  static List<File> getDeleteList(File[] fileArray, int keepNewest) {
+    if (fileArray == null) {
+      return emptyList();
     }
+
+    List<File> files = Arrays.asList(fileArray);
+    Collections.sort(files, BY_LAST_MODIFIED);
+    return newArrayList(skip(files, keepNewest));
   }
 }

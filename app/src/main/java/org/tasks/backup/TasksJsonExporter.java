@@ -41,8 +41,6 @@ import timber.log.Timber;
 
 public class TasksJsonExporter {
 
-  public static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
-
   // --- public interface
   private final TagDataDao tagDataDao;
 
@@ -122,8 +120,6 @@ public class TasksJsonExporter {
         if (tasks.size() > 0) {
           doTasksExport(output, tasks);
         }
-
-        preferences.setLong(PREF_BACKUP_LAST_DATE, DateUtilities.now());
 
         if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
           onFinishExport(output);

@@ -35,7 +35,7 @@ public class BackgroundScheduler extends InjectingJobIntentService {
     CalendarNotificationIntentService.enqueueWork(context);
     GeofenceSchedulingIntentService.enqueueWork(context);
 
-    jobManager.scheduleMidnightBackup();
+    jobManager.scheduleBackup();
     jobManager.scheduleMidnightRefresh();
 
     refreshScheduler.clear();
