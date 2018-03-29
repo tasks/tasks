@@ -49,8 +49,7 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   private static final String EXTRA_DATE = "extra_date";
   private static final String EXTRA_TIME = "extra_time";
   @Inject Preferences preferences;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject ThemeBase themeBase;
   @BindView(R.id.due_date) Spinner dueDateSpinner;
   @BindView(R.id.due_time) Spinner dueTimeSpinner;

@@ -27,8 +27,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
   private static final String EXTRA_SELECTED = "extra_selected";
   private static final String EXTRA_SHOW_NONE = "extra_show_none";
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject Preferences preferences;
   @Inject Theme theme;
   private ThemePickerCallback callback;

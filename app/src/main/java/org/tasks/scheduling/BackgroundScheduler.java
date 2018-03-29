@@ -14,8 +14,7 @@ import timber.log.Timber;
 
 public class BackgroundScheduler extends InjectingJobIntentService {
 
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
   @Inject TaskDao taskDao;
   @Inject JobManager jobManager;
   @Inject RefreshScheduler refreshScheduler;

@@ -63,8 +63,7 @@ public final class TaskEditFragment extends InjectingFragment implements
   @Inject TaskDeleter taskDeleter;
   @Inject NotificationManager notificationManager;
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject TaskEditControlSetFragmentManager taskEditControlSetFragmentManager;
   @Inject CommentsController commentsController;
   @Inject Preferences preferences;

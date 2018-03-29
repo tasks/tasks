@@ -57,8 +57,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
   @Inject GCalHelper gcalHelper;
   @Inject CalendarProvider calendarProvider;
   @Inject Preferences preferences;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject PermissionChecker permissionChecker;
   @Inject FragmentPermissionRequestor permissionRequestor;
   @Inject Tracker tracker;

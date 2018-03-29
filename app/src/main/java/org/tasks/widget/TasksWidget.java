@@ -44,8 +44,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject ThemeCache themeCache;
   @Inject Locale locale;
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
 
   private static Bitmap getSolidBackground(int bgColor) {
     Bitmap bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap

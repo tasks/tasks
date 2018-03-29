@@ -30,8 +30,7 @@ import org.tasks.preferences.Preferences;
 public class SubtasksListFragment extends TaskListFragment {
 
   @Inject Preferences preferences;
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
   @Inject TaskListMetadataDao taskListMetadataDao;
   @Inject TaskDao taskDao;
   @Inject AstridOrderedListFragmentHelper helper;

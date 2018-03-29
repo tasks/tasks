@@ -19,8 +19,7 @@ public class BackupJob extends MidnightJob {
   public static final String TAG = "job_backup";
   public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
   private static final int DAYS_TO_KEEP_BACKUP = 7;
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
   @Inject JobManager jobManager;
   @Inject TasksJsonExporter tasksJsonExporter;
   @Inject Preferences preferences;

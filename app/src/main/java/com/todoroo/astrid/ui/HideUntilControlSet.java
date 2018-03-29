@@ -63,8 +63,7 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
   private static final int EXISTING_TIME_UNSET = -2;
   private static final int REQUEST_HIDE_UNTIL = 11011;
   private final List<HideUntilValue> spinnerItems = new ArrayList<>();
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject ThemeBase themeBase;
   @Inject Preferences preferences;
   //private final CheckBox enabled;

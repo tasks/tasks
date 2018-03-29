@@ -14,7 +14,7 @@ public class NotificationJob extends com.evernote.android.job.Job {
   private final Notifier notifier;
   private final NotificationQueue notificationQueue;
 
-  public NotificationJob(Preferences preferences, Notifier notifier, NotificationQueue notificationQueue) {
+  NotificationJob(Preferences preferences, Notifier notifier, NotificationQueue notificationQueue) {
     this.preferences = preferences;
     this.notifier = notifier;
     this.notificationQueue = notificationQueue;

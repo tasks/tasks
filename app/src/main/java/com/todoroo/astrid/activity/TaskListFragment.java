@@ -92,8 +92,7 @@ public class TaskListFragment extends InjectingFragment implements
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
   @Inject TaskDuplicator taskDuplicator;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject Preferences preferences;
   @Inject GtasksPreferenceService gtasksPreferenceService;
   @Inject DialogBuilder dialogBuilder;

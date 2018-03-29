@@ -46,8 +46,7 @@ public class TimerControlSet extends TaskEditControlFragment {
   private static final String EXTRA_ESTIMATED = "extra_estimated";
   private static final String EXTRA_ELAPSED = "extra_elapsed";
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject Theme theme;
   @BindView(R.id.display_row_edit) TextView displayEdit;
   @BindView(R.id.timer) Chronometer chronometer;

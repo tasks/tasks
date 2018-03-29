@@ -15,8 +15,7 @@ import org.tasks.injection.InjectingAppCompatActivity;
 public class VoiceCommandActivity extends InjectingAppCompatActivity {
 
   @Inject TaskCreator taskCreator;
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {

@@ -31,8 +31,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
   private static final String EXTRA_CURRENT = "extra_current";
   private static final String EXTRA_ORIGINAL = "extra_original";
   @Inject RepeatTaskHelper repeatTaskHelper;
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
   @Inject NotificationManager notificationManager;
   @Inject GeofenceService geofenceService;
   @Inject TimerPlugin timerPlugin;

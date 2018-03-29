@@ -19,8 +19,7 @@ import timber.log.Timber;
 
 public class TaskerIntentService extends InjectingJobIntentService {
 
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
   @Inject Notifier notifier;
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject TaskerTaskCreator taskerTaskCreator;

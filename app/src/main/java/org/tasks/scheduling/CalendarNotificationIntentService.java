@@ -26,8 +26,7 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
   private static final String URI_PREFIX = "cal-reminder";
   @Inject Preferences preferences;
   @Inject CalendarEventProvider calendarEventProvider;
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
   @Inject AlarmManager alarmManager;
 
   public static void enqueueWork(Context context) {

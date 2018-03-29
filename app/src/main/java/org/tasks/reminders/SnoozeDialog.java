@@ -22,8 +22,7 @@ public class SnoozeDialog extends InjectingDialogFragment {
 
   private final List<String> items = new ArrayList<>();
   @Inject Preferences preferences;
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
   @Inject DialogBuilder dialogBuilder;
   private SnoozeCallback snoozeCallback;
   private DialogInterface.OnCancelListener onCancelListener;

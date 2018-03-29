@@ -51,8 +51,7 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @Inject TaskAttachmentDao taskAttachmentDao;
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
 
   @BindView(R.id.attachment_container) LinearLayout attachmentContainer;
   @BindView(R.id.add_attachment) TextView addAttachment;

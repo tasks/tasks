@@ -77,8 +77,7 @@ public class RepeatControlSet extends TaskEditControlFragment
   private static final String EXTRA_REPEAT_AFTER_COMPLETION = "extra_repeat_after_completion";
   private final List<String> repeatTypes = new ArrayList<>();
   @Inject DialogBuilder dialogBuilder;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject Theme theme;
   @Inject Tracker tracker;
   @Inject RepeatRuleToString repeatRuleToString;

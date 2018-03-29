@@ -77,8 +77,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
   private static final String EXTRA_DATE = "extra_date";
   private static final int REQUEST_PICK_DATE = 505;
   private final List<String> repeatUntilOptions = new ArrayList<>();
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject Locale locale;
   @BindView(R.id.weekGroup) LinearLayout weekGroup1;

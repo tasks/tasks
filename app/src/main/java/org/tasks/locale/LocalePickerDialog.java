@@ -20,8 +20,7 @@ import org.tasks.ui.SingleCheckedArrayAdapter;
 
 public class LocalePickerDialog extends InjectingNativeDialogFragment {
 
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @Inject DialogBuilder dialogBuilder;
   @Inject ThemeAccent themeAccent;
   @Inject Locale locale;

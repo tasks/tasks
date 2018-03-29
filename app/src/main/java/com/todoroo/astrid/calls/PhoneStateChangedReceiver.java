@@ -45,8 +45,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
   @Inject Preferences preferences;
   @Inject NotificationManager notificationManager;
   @Inject PermissionChecker permissionChecker;
-  @Inject @ForApplication
-  Context context;
+  @Inject @ForApplication Context context;
 
   @Override
   public void onReceive(final Context context, Intent intent) {

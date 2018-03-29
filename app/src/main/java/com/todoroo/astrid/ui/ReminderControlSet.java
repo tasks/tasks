@@ -80,8 +80,7 @@ public class ReminderControlSet extends TaskEditControlFragment {
   @Inject FragmentPermissionRequestor permissionRequestor;
   @Inject Device device;
   @Inject Preferences preferences;
-  @Inject @ForActivity
-  Context context;
+  @Inject @ForActivity Context context;
   @BindView(R.id.alert_container) LinearLayout alertContainer;
   @BindView(R.id.reminder_alarm) Spinner mode;
   @BindView(R.id.alarms_add_spinner) Spinner addSpinner;
