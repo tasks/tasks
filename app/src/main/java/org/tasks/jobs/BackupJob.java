@@ -19,7 +19,6 @@ import timber.log.Timber;
 
 public class BackupJob extends Job {
 
-  public static final String TAG = "job_backup";
   static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.json";
   static final FileFilter FILE_FILTER = f -> f.getName().matches(BACKUP_FILE_NAME_REGEX);
   private static final Comparator<File> BY_LAST_MODIFIED = (f1, f2) ->

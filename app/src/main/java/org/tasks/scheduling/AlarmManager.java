@@ -33,13 +33,4 @@ public class AlarmManager {
       alarmManager.set(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
   }
-
-  @SuppressLint("NewApi")
-  public void noWakeup(long time, PendingIntent pendingIntent) {
-    if (atLeastKitKat()) {
-      alarmManager.setExact(android.app.AlarmManager.RTC, time, pendingIntent);
-    } else {
-      alarmManager.set(android.app.AlarmManager.RTC, time, pendingIntent);
-    }
-  }
 }

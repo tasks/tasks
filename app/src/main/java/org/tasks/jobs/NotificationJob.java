@@ -8,8 +8,6 @@ import org.tasks.preferences.Preferences;
 
 public class NotificationJob extends com.evernote.android.job.Job {
 
-  public static final String TAG = "job_notification";
-
   private final Preferences preferences;
   private final Notifier notifier;
   private final NotificationQueue notificationQueue;
