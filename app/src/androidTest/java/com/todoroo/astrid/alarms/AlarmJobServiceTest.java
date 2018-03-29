@@ -20,8 +20,8 @@ import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
-import org.tasks.jobs.AlarmJob;
-import org.tasks.jobs.JobQueue;
+import org.tasks.jobs.AlarmEntry;
+import org.tasks.jobs.NotificationQueue;
 import org.tasks.time.DateTime;
 
 @RunWith(AndroidJUnit4.class)
@@ -31,11 +31,11 @@ public class AlarmJobServiceTest extends InjectingTestCase {
   @Inject TaskDao taskDao;
 
   private AlarmService alarmService;
-  private JobQueue jobs;
+  private NotificationQueue jobs;
 
   @Before
   public void before() {
-    jobs = mock(JobQueue.class);
+    jobs = mock(NotificationQueue.class);
     alarmService = new AlarmService(alarmDao, jobs);
   }
 
@@ -57,7 +57,7 @@ public class AlarmJobServiceTest extends InjectingTestCase {
     alarmService.scheduleAllAlarms();
 
     InOrder order = inOrder(jobs);
-    order.verify(jobs).add(new AlarmJob(alarm));
+    order.verify(jobs).add(new AlarmEntry(alarm));
   }
 
   @Test

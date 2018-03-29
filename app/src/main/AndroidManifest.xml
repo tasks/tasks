@@ -91,6 +91,7 @@
     <application
         tools:ignore="GoogleAppIndexingWarning"
         android:icon="@mipmap/ic_launcher"
+        android:fullBackupContent="@xml/backup_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:theme="@style/Tasks"
@@ -426,12 +427,6 @@
         <receiver android:name=".jobs.RefreshJob$Broadcast" />
         <service
             android:name=".jobs.RefreshJob"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <receiver android:name=".jobs.NotificationJob$Broadcast" />
-        <service
-            android:name=".jobs.NotificationJob"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="false" />
 

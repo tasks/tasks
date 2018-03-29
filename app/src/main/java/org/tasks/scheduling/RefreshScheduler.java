@@ -10,7 +10,6 @@ import java.util.TreeSet;
 import javax.inject.Inject;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.jobs.JobManager;
-import org.tasks.jobs.RefreshJob;
 
 @ApplicationScope
 public class RefreshScheduler {
@@ -25,7 +24,7 @@ public class RefreshScheduler {
 
   public void clear() {
     jobs.clear();
-    jobManager.cancel(RefreshJob.TAG);
+    jobManager.cancelRefresh();
   }
 
   public void scheduleRefresh(Task task) {

@@ -7,6 +7,7 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import com.evernote.android.job.JobRequest;
 import javax.inject.Inject;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
@@ -24,22 +25,26 @@ public class JobManager {
   public static final int JOB_ID_CALENDAR_NOTIFICATION = 10;
   public static final int JOB_ID_TASKER = 11;
   static final int JOB_ID_REFRESH = 1;
-  static final int JOB_ID_NOTIFICATION = 3;
   static final int JOB_ID_MIDNIGHT_REFRESH = 6;
   static final int JOB_ID_BACKUP = 7;
   private final Context context;
   private final AlarmManager alarmManager;
+  private final com.evernote.android.job.JobManager jobManager;
 
   @Inject
-  public JobManager(@ForApplication Context context, AlarmManager alarmManager) {
+  public JobManager(@ForApplication Context context, AlarmManager alarmManager,
+      com.evernote.android.job.JobManager jobManager) {
     this.context = context;
     this.alarmManager = alarmManager;
+    this.jobManager = jobManager;
   }
 
-  @SuppressWarnings("WeakerAccess")
-  public void schedule(String tag, long time) {
-    Timber.d("%s: %s", tag, printTimestamp(time));
-    alarmManager.wakeup(adjust(time), getPendingIntent(tag));
+  public void scheduleNotification(long time) {
+    Timber.d("schedule notification: %s", printTimestamp(time));
+    new JobRequest.Builder(NotificationJob.TAG)
+        .setExact(calculateDelay(time))
+        .build()
+        .schedule();
   }
 
   public void scheduleRefresh(long time) {
@@ -59,9 +64,18 @@ public class JobManager {
     alarmManager.wakeup(adjust(time), getPendingBroadcast(BackupJob.Broadcast.class));
   }
 
-  public void cancel(String tag) {
-    Timber.d("CXL %s", tag);
-    alarmManager.cancel(getPendingIntent(tag));
+  public void cancelNotifications() {
+    Timber.d("cancelNotifications");
+    jobManager.cancelAllForTag(NotificationJob.TAG);
+  }
+
+  public void cancelRefresh() {
+    Timber.d("cancelRefresh");
+    alarmManager.cancel(getPendingIntent(RefreshJob.TAG));
+  }
+
+  private long calculateDelay(long time) {
+    return Math.max(5000, time - currentTimeMillis());
   }
 
   private long adjust(long time) {
@@ -70,8 +84,6 @@ public class JobManager {
 
   private PendingIntent getPendingIntent(String tag) {
     switch (tag) {
-      case NotificationJob.TAG:
-        return getPendingBroadcast(NotificationJob.Broadcast.class);
       case RefreshJob.TAG:
         return getPendingBroadcast(RefreshJob.Broadcast.class);
       default:

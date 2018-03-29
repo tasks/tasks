@@ -1,51 +1,37 @@
 package org.tasks.jobs;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.JobIntentService;
+import android.support.annotation.NonNull;
 import java.util.List;
-import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.Notifier;
-import org.tasks.injection.IntentServiceComponent;
 import org.tasks.preferences.Preferences;
 
-public class NotificationJob extends Job {
+public class NotificationJob extends com.evernote.android.job.Job {
 
   public static final String TAG = "job_notification";
-  @Inject Preferences preferences;
-  @Inject Notifier notifier;
-  @Inject JobQueue jobQueue;
 
+  private final Preferences preferences;
+  private final Notifier notifier;
+  private final NotificationQueue notificationQueue;
+
+  public NotificationJob(Preferences preferences, Notifier notifier, NotificationQueue notificationQueue) {
+    this.preferences = preferences;
+    this.notifier = notifier;
+    this.notificationQueue = notificationQueue;
+  }
+
+  @NonNull
   @Override
-  protected void run() {
+  protected Result onRunJob(@NonNull Params params) {
     if (!preferences.isCurrentlyQuietHours()) {
-      List<? extends JobQueueEntry> overdueJobs = jobQueue.getOverdueJobs();
+      List<? extends NotificationQueueEntry> overdueJobs = notificationQueue.getOverdueJobs();
       notifier.triggerTaskNotifications(overdueJobs);
-      boolean success = jobQueue.remove(overdueJobs);
+      boolean success = notificationQueue.remove(overdueJobs);
       if (BuildConfig.DEBUG && !success) {
         throw new RuntimeException("Failed to remove jobs from queue");
       }
     }
-  }
-
-  @Override
-  protected void scheduleNext() {
-    jobQueue.scheduleNext();
-  }
-
-  @Override
-  protected void inject(IntentServiceComponent component) {
-    component.inject(this);
-  }
-
-  public static class Broadcast extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      JobIntentService
-          .enqueueWork(context, NotificationJob.class, JobManager.JOB_ID_NOTIFICATION, intent);
-    }
+    notificationQueue.scheduleNext();
+    return Result.SUCCESS;
   }
 }

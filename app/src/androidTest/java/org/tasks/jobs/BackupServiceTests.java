@@ -94,7 +94,7 @@ public class BackupServiceTests extends InjectingTestCase {
 
     // create a backup
     BackupJob service = new BackupJob(getTargetContext(),
-        new JobManager(getTargetContext(), mock(AlarmManager.class)), xmlExporter, preferences);
+        new JobManager(getTargetContext(), mock(AlarmManager.class), null), xmlExporter, preferences);
     service.startBackup(getTargetContext());
 
     AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
@@ -133,7 +133,7 @@ public class BackupServiceTests extends InjectingTestCase {
 
     // backup
     BackupJob service = new BackupJob(getTargetContext(),
-        new JobManager(getTargetContext(), mock(AlarmManager.class)), xmlExporter, preferences);
+        new JobManager(getTargetContext(), mock(AlarmManager.class), null), xmlExporter, preferences);
     service.startBackup(getTargetContext());
 
     AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);

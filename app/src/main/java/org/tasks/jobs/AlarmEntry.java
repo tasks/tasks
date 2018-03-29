@@ -2,23 +2,28 @@ package org.tasks.jobs;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
+import com.todoroo.astrid.reminders.ReminderService;
 import org.tasks.notifications.Notification;
 
-public class Reminder implements JobQueueEntry {
+public class AlarmEntry implements NotificationQueueEntry {
 
+  private final long alarmId;
   private final long taskId;
   private final long time;
-  private final int type;
 
-  public Reminder(long taskId, long time, int type) {
+  public AlarmEntry(org.tasks.data.Alarm alarm) {
+    this(alarm.getId(), alarm.getTask(), alarm.getTime());
+  }
+
+  public AlarmEntry(long alarmId, long taskId, Long time) {
+    this.alarmId = alarmId;
     this.taskId = taskId;
     this.time = time;
-    this.type = type;
   }
 
   @Override
   public long getId() {
-    return taskId;
+    return alarmId;
   }
 
   @Override
@@ -30,7 +35,7 @@ public class Reminder implements JobQueueEntry {
   public Notification toNotification() {
     Notification notification = new Notification();
     notification.taskId = taskId;
-    notification.type = type;
+    notification.type = ReminderService.TYPE_ALARM;
     notification.timestamp = currentTimeMillis();
     return notification;
   }
@@ -44,32 +49,31 @@ public class Reminder implements JobQueueEntry {
       return false;
     }
 
-    Reminder reminder = (Reminder) o;
+    AlarmEntry alarmEntry = (AlarmEntry) o;
 
-    if (taskId != reminder.taskId) {
+    if (alarmId != alarmEntry.alarmId) {
       return false;
     }
-    if (time != reminder.time) {
+    if (taskId != alarmEntry.taskId) {
       return false;
     }
-    return type == reminder.type;
-
+    return time == alarmEntry.time;
   }
 
   @Override
   public int hashCode() {
-    int result = (int) (taskId ^ (taskId >>> 32));
+    int result = (int) (alarmId ^ (alarmId >>> 32));
+    result = 31 * result + (int) (taskId ^ (taskId >>> 32));
     result = 31 * result + (int) (time ^ (time >>> 32));
-    result = 31 * result + type;
     return result;
   }
 
   @Override
   public String toString() {
-    return "Reminder{" +
-        "taskId=" + taskId +
+    return "AlarmEntry{" +
+        "alarmId=" + alarmId +
+        ", taskId=" + taskId +
         ", time=" + time +
-        ", type=" + type +
         '}';
   }
 }

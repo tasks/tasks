@@ -29,12 +29,11 @@ import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
 @RunWith(AndroidJUnit4.class)
-public class JobQueueTest {
+public class NotificationQueueTest {
 
   private static final long ONE_MINUTE = TimeUnit.MINUTES.toMillis(1);
-  private static final String TAG = NotificationJob.TAG;
 
-  private JobQueue queue;
+  private NotificationQueue queue;
   private JobManager jobManager;
   private Preferences preferences;
 
@@ -43,7 +42,7 @@ public class JobQueueTest {
     preferences = mock(Preferences.class);
     when(preferences.adjustForQuietHours(anyLong())).then(returnsFirstArg());
     jobManager = mock(JobManager.class);
-    queue = new JobQueue(preferences, jobManager);
+    queue = new NotificationQueue(preferences, jobManager);
   }
 
   @After
@@ -55,15 +54,15 @@ public class JobQueueTest {
   public void alarmAndReminderSameTimeSameID() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
-    queue.add(new AlarmJob(1, 1, now));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
+    queue.add(new AlarmEntry(1, 1, now));
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
 
     Freeze.freezeAt(now).thawAfter(new Snippet() {{
       assertEquals(
-          newHashSet(new AlarmJob(1, 1, now),
-              new Reminder(1, now, TYPE_DUE)),
+          newHashSet(new AlarmEntry(1, 1, now),
+              new ReminderEntry(1, now, TYPE_DUE)),
           newHashSet(queue.getOverdueJobs()));
     }});
   }
@@ -72,16 +71,16 @@ public class JobQueueTest {
   public void removeAlarmLeaveReminder() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
-    queue.add(new AlarmJob(1, 1, now));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
+    queue.add(new AlarmEntry(1, 1, now));
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
 
-    queue.remove(singletonList(new AlarmJob(1, 1, now)));
+    queue.remove(singletonList(new AlarmEntry(1, 1, now)));
 
     Freeze.freezeAt(now).thawAfter(new Snippet() {{
       assertEquals(
-          singletonList(new Reminder(1, now, TYPE_DUE)),
+          singletonList(new ReminderEntry(1, now, TYPE_DUE)),
           queue.getOverdueJobs());
     }});
   }
@@ -90,85 +89,85 @@ public class JobQueueTest {
   public void removeReminderLeaveAlarm() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
-    queue.add(new AlarmJob(1, 1, now));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
+    queue.add(new AlarmEntry(1, 1, now));
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
 
-    queue.remove(singletonList(new Reminder(1, now, TYPE_DUE)));
+    queue.remove(singletonList(new ReminderEntry(1, now, TYPE_DUE)));
 
     Freeze.freezeAt(now).thawAfter(new Snippet() {{
       assertEquals(
-          singletonList(new AlarmJob(1, 1, now)),
+          singletonList(new AlarmEntry(1, 1, now)),
           queue.getOverdueJobs());
     }});
   }
 
   @Test
   public void twoJobsAtSameTime() {
-    queue.add(new Reminder(1, 1, 0));
-    queue.add(new Reminder(2, 1, 0));
+    queue.add(new ReminderEntry(1, 1, 0));
+    queue.add(new ReminderEntry(2, 1, 0));
 
-    verify(jobManager).schedule(TAG, 1);
+    verify(jobManager).scheduleNotification(1);
 
     assertEquals(2, queue.size());
   }
 
   @Test
   public void rescheduleForFirstJob() {
-    queue.add(new Reminder(1, 1, 0));
+    queue.add(new ReminderEntry(1, 1, 0));
 
-    verify(jobManager).schedule(TAG, 1);
+    verify(jobManager).scheduleNotification(1);
   }
 
   @Test
   public void dontRescheduleForLaterJobs() {
-    queue.add(new Reminder(1, 1, 0));
-    queue.add(new Reminder(2, 2, 0));
+    queue.add(new ReminderEntry(1, 1, 0));
+    queue.add(new ReminderEntry(2, 2, 0));
 
-    verify(jobManager).schedule(TAG, 1);
+    verify(jobManager).scheduleNotification(1);
   }
 
   @Test
   public void rescheduleForNewerJob() {
-    queue.add(new Reminder(1, 2, 0));
-    queue.add(new Reminder(1, 1, 0));
+    queue.add(new ReminderEntry(1, 2, 0));
+    queue.add(new ReminderEntry(1, 1, 0));
 
     InOrder order = inOrder(jobManager);
-    order.verify(jobManager).schedule(TAG, 2);
-    order.verify(jobManager).schedule(TAG, 1);
+    order.verify(jobManager).scheduleNotification(2);
+    order.verify(jobManager).scheduleNotification(1);
   }
 
   @Test
   public void rescheduleWhenCancelingOnlyJob() {
-    queue.add(new Reminder(1, 2, 0));
+    queue.add(new ReminderEntry(1, 2, 0));
     queue.cancelReminder(1);
 
     InOrder order = inOrder(jobManager);
-    order.verify(jobManager).schedule(TAG, 2);
-    order.verify(jobManager).cancel(TAG);
+    order.verify(jobManager).scheduleNotification(2);
+    order.verify(jobManager).cancelNotifications();
   }
 
   @Test
   public void rescheduleWhenCancelingFirstJob() {
-    queue.add(new Reminder(1, 1, 0));
-    queue.add(new Reminder(2, 2, 0));
+    queue.add(new ReminderEntry(1, 1, 0));
+    queue.add(new ReminderEntry(2, 2, 0));
 
     queue.cancelReminder(1);
 
     InOrder order = inOrder(jobManager);
-    order.verify(jobManager).schedule(TAG, 1);
-    order.verify(jobManager).schedule(TAG, 2);
+    order.verify(jobManager).scheduleNotification(1);
+    order.verify(jobManager).scheduleNotification(2);
   }
 
   @Test
   public void dontRescheduleWhenCancelingLaterJob() {
-    queue.add(new Reminder(1, 1, 0));
-    queue.add(new Reminder(2, 2, 0));
+    queue.add(new ReminderEntry(1, 1, 0));
+    queue.add(new ReminderEntry(2, 2, 0));
 
     queue.cancelReminder(2);
 
-    verify(jobManager).schedule(TAG, 1);
+    verify(jobManager).scheduleNotification(1);
   }
 
   @Test
@@ -181,23 +180,23 @@ public class JobQueueTest {
   @Test
   public void adjustNextScheduledTimeForQuietHours() {
     when(preferences.adjustForQuietHours(anyLong())).thenReturn(1234L);
-    queue.add(new Reminder(1, 1, 1));
+    queue.add(new ReminderEntry(1, 1, 1));
 
-    verify(jobManager).schedule(TAG, 1234);
+    verify(jobManager).scheduleNotification(1234);
   }
 
   @Test
   public void overdueJobsAreReturned() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
-    queue.add(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
+    queue.add(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE));
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
 
     Freeze.freezeAt(now).thawAfter(new Snippet() {{
       assertEquals(
-          singletonList(new Reminder(1, now, TYPE_DUE)),
+          singletonList(new ReminderEntry(1, now, TYPE_DUE)),
           queue.getOverdueJobs());
     }});
   }
@@ -206,14 +205,14 @@ public class JobQueueTest {
   public void twoOverdueJobsAtSameTimeReturned() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
-    queue.add(new Reminder(2, now, TYPE_DUE));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
+    queue.add(new ReminderEntry(2, now, TYPE_DUE));
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
 
     Freeze.freezeAt(now).thawAfter(new Snippet() {{
       assertEquals(
-          asList(new Reminder(1, now, TYPE_DUE), new Reminder(2, now, TYPE_DUE)),
+          asList(new ReminderEntry(1, now, TYPE_DUE), new ReminderEntry(2, now, TYPE_DUE)),
           queue.getOverdueJobs());
     }});
   }
@@ -222,14 +221,14 @@ public class JobQueueTest {
   public void twoOverdueJobsAtDifferentTimes() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
-    queue.add(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
+    queue.add(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE));
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
 
     Freeze.freezeAt(now + 2 * ONE_MINUTE).thawAfter(new Snippet() {{
       assertEquals(
-          asList(new Reminder(1, now, TYPE_DUE), new Reminder(2, now + ONE_MINUTE, TYPE_DUE)),
+          asList(new ReminderEntry(1, now, TYPE_DUE), new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE)),
           queue.getOverdueJobs());
     }});
   }
@@ -238,17 +237,17 @@ public class JobQueueTest {
   public void overdueJobsAreRemoved() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
-    queue.add(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
+    queue.add(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE));
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
 
     Freeze.freezeAt(now).thawAfter(new Snippet() {{
       queue.remove(queue.getOverdueJobs());
     }});
 
     assertEquals(
-        singletonList(new Reminder(2, now + ONE_MINUTE, TYPE_DUE)),
+        singletonList(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE)),
         queue.getJobs());
   }
 
@@ -256,30 +255,30 @@ public class JobQueueTest {
   public void multipleOverduePeriodsLapsed() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
-    queue.add(new Reminder(2, now + ONE_MINUTE, TYPE_DUE));
-    queue.add(new Reminder(3, now + 2 * ONE_MINUTE, TYPE_DUE));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
+    queue.add(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE));
+    queue.add(new ReminderEntry(3, now + 2 * ONE_MINUTE, TYPE_DUE));
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
 
     Freeze.freezeAt(now + ONE_MINUTE).thawAfter(new Snippet() {{
       queue.remove(queue.getOverdueJobs());
     }});
 
     assertEquals(
-        singletonList(new Reminder(3, now + 2 * ONE_MINUTE, TYPE_DUE)),
+        singletonList(new ReminderEntry(3, now + 2 * ONE_MINUTE, TYPE_DUE)),
         queue.getJobs());
   }
 
   @Test
   public void clearShouldCancelExisting() {
-    queue.add(new Reminder(1, 1, 0));
+    queue.add(new ReminderEntry(1, 1, 0));
 
     queue.clear();
 
     InOrder order = inOrder(jobManager);
-    order.verify(jobManager).schedule(TAG, 1);
-    order.verify(jobManager).cancel(TAG);
+    order.verify(jobManager).scheduleNotification(1);
+    order.verify(jobManager).cancelNotifications();
     assertEquals(0, queue.size());
   }
 
@@ -287,10 +286,10 @@ public class JobQueueTest {
   public void ignoreInvalidCancel() {
     long now = currentTimeMillis();
 
-    queue.add(new Reminder(1, now, TYPE_DUE));
+    queue.add(new ReminderEntry(1, now, TYPE_DUE));
     queue.cancelReminder(2);
 
-    verify(jobManager).schedule(TAG, now);
+    verify(jobManager).scheduleNotification(now);
   }
 
   @Test
@@ -299,21 +298,21 @@ public class JobQueueTest {
     DateTime due = new DateTime(2017, 9, 3, 0, 14, 0, 0);
     DateTime snooze = new DateTime(2017, 9, 3, 0, 14, 59, 999);
 
-    queue.add(new Reminder(1, due.getMillis(), TYPE_DUE));
-    queue.add(new Reminder(2, snooze.getMillis(), TYPE_SNOOZE));
-    queue.add(new Reminder(3, due.plusMinutes(1).getMillis(), TYPE_DUE));
+    queue.add(new ReminderEntry(1, due.getMillis(), TYPE_DUE));
+    queue.add(new ReminderEntry(2, snooze.getMillis(), TYPE_SNOOZE));
+    queue.add(new ReminderEntry(3, due.plusMinutes(1).getMillis(), TYPE_DUE));
 
-    verify(jobManager).schedule(TAG, due.getMillis());
+    verify(jobManager).scheduleNotification(due.getMillis());
 
     Freeze.freezeAt(now).thawAfter(new Snippet() {{
-      List<? extends JobQueueEntry> overdueJobs = queue.getOverdueJobs();
+      List<? extends NotificationQueueEntry> overdueJobs = queue.getOverdueJobs();
       assertEquals(
-          asList(new Reminder(1, due.getMillis(), TYPE_DUE),
-              new Reminder(2, snooze.getMillis(), TYPE_SNOOZE)),
+          asList(new ReminderEntry(1, due.getMillis(), TYPE_DUE),
+              new ReminderEntry(2, snooze.getMillis(), TYPE_SNOOZE)),
           overdueJobs);
       queue.remove(overdueJobs);
       assertEquals(
-          singletonList(new Reminder(3, due.plusMinutes(1).getMillis(), TYPE_DUE)),
+          singletonList(new ReminderEntry(3, due.plusMinutes(1).getMillis(), TYPE_DUE)),
           queue.getJobs());
     }});
   }

@@ -13,8 +13,8 @@ import javax.inject.Inject;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
 import org.tasks.injection.ApplicationScope;
-import org.tasks.jobs.AlarmJob;
-import org.tasks.jobs.JobQueue;
+import org.tasks.jobs.AlarmEntry;
+import org.tasks.jobs.NotificationQueue;
 
 /**
  * Provides operations for working with alerts
@@ -26,13 +26,13 @@ public class AlarmService {
 
   private static final long NO_ALARM = Long.MAX_VALUE;
 
-  private final JobQueue jobs;
+  private final NotificationQueue jobs;
   private final AlarmDao alarmDao;
 
   @Inject
-  public AlarmService(AlarmDao alarmDao, JobQueue jobQueue) {
+  public AlarmService(AlarmDao alarmDao, NotificationQueue notificationQueue) {
     this.alarmDao = alarmDao;
-    jobs = jobQueue;
+    jobs = notificationQueue;
   }
 
   public void rescheduleAlarms(long taskId, long oldDueDate, long newDueDate) {
@@ -49,7 +49,7 @@ public class AlarmService {
     }
   }
 
-  public List<org.tasks.data.Alarm> getAlarms(long taskId) {
+  public List<Alarm> getAlarms(long taskId) {
     return alarmDao.getAlarms(taskId);
   }
 
@@ -83,11 +83,11 @@ public class AlarmService {
 
   // --- alarm scheduling
 
-  private List<org.tasks.data.Alarm> getActiveAlarms() {
+  private List<Alarm> getActiveAlarms() {
     return alarmDao.getActiveAlarms();
   }
 
-  private List<org.tasks.data.Alarm> getActiveAlarmsForTask(long taskId) {
+  private List<Alarm> getActiveAlarmsForTask(long taskId) {
     return alarmDao.getActiveAlarms(taskId);
   }
 
@@ -117,12 +117,12 @@ public class AlarmService {
       return;
     }
 
-    AlarmJob alarmJob = new AlarmJob(alarm);
-    long time = alarmJob.getTime();
+    AlarmEntry alarmEntry = new AlarmEntry(alarm);
+    long time = alarmEntry.getTime();
     if (time == 0 || time == NO_ALARM) {
-      jobs.cancelAlarm(alarmJob.getId());
+      jobs.cancelAlarm(alarmEntry.getId());
     } else {
-      jobs.add(alarmJob);
+      jobs.add(alarmEntry);
     }
   }
 }

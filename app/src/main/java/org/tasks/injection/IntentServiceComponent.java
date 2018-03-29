@@ -4,7 +4,6 @@ import dagger.Subcomponent;
 import org.tasks.jobs.AfterSaveIntentService;
 import org.tasks.jobs.BackupJob;
 import org.tasks.jobs.MidnightRefreshJob;
-import org.tasks.jobs.NotificationJob;
 import org.tasks.jobs.RefreshJob;
 import org.tasks.locale.receiver.TaskerIntentService;
 import org.tasks.location.GeofenceTransitionsIntentService;
@@ -23,8 +22,6 @@ public interface IntentServiceComponent {
   void inject(GeofenceTransitionsIntentService geofenceTransitionsIntentService);
 
   void inject(NotificationSchedulerIntentService notificationSchedulerIntentService);
-
-  void inject(NotificationJob notificationJob);
 
   void inject(BackupJob backupJob);
 

@@ -14,20 +14,20 @@ import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 
 @ApplicationScope
-public class JobQueue {
+public class NotificationQueue {
 
-  private final TreeMultimap<Long, JobQueueEntry> jobs = TreeMultimap
+  private final TreeMultimap<Long, NotificationQueueEntry> jobs = TreeMultimap
       .create(Ordering.natural(), (l, r) -> Ints.compare(l.hashCode(), r.hashCode()));
   private final Preferences preferences;
   private final JobManager jobManager;
 
   @Inject
-  public JobQueue(Preferences preferences, JobManager jobManager) {
+  public NotificationQueue(Preferences preferences, JobManager jobManager) {
     this.preferences = preferences;
     this.jobManager = jobManager;
   }
 
-  public synchronized <T extends JobQueueEntry> void add(T entry) {
+  public synchronized <T extends NotificationQueueEntry> void add(T entry) {
     boolean reschedule = jobs.isEmpty() || entry.getTime() < firstTime();
     jobs.put(entry.getTime(), entry);
     if (reschedule) {
@@ -37,23 +37,23 @@ public class JobQueue {
 
   public synchronized void clear() {
     jobs.clear();
-    jobManager.cancel(NotificationJob.TAG);
+    jobManager.cancelNotifications();
   }
 
   public synchronized void cancelAlarm(long alarmId) {
-    cancel(AlarmJob.class, alarmId);
+    cancel(AlarmEntry.class, alarmId);
   }
 
   public synchronized void cancelReminder(long taskId) {
-    cancel(Reminder.class, taskId);
+    cancel(ReminderEntry.class, taskId);
   }
 
-  private synchronized void cancel(Class<? extends JobQueueEntry> c, long id) {
+  private synchronized void cancel(Class<? extends NotificationQueueEntry> c, long id) {
     boolean reschedule = false;
     long firstTime = firstTime();
-    List<JobQueueEntry> existing = newArrayList(
+    List<NotificationQueueEntry> existing = newArrayList(
         filter(jobs.values(), r -> r.getClass().equals(c) && r.getId() == id));
-    for (JobQueueEntry entry : existing) {
+    for (NotificationQueueEntry entry : existing) {
       reschedule |= entry.getTime() == firstTime;
       jobs.remove(entry.getTime(), entry);
     }
@@ -62,8 +62,8 @@ public class JobQueue {
     }
   }
 
-  synchronized List<? extends JobQueueEntry> getOverdueJobs() {
-    List<JobQueueEntry> result = newArrayList();
+  synchronized List<? extends NotificationQueueEntry> getOverdueJobs() {
+    List<NotificationQueueEntry> result = newArrayList();
     long cutoff = new DateTime().startOfMinute().plusMinutes(1).getMillis();
     for (Long key : jobs.keySet().headSet(cutoff)) {
       result.addAll(jobs.get(key));
@@ -78,10 +78,10 @@ public class JobQueue {
   private void scheduleNext(boolean cancelCurrent) {
     if (jobs.isEmpty()) {
       if (cancelCurrent) {
-        jobManager.cancel(NotificationJob.TAG);
+        jobManager.cancelNotifications();
       }
     } else {
-      jobManager.schedule(NotificationJob.TAG, nextScheduledTime());
+      jobManager.scheduleNotification(nextScheduledTime());
     }
   }
 
@@ -98,13 +98,13 @@ public class JobQueue {
     return jobs.size();
   }
 
-  List<JobQueueEntry> getJobs() {
+  List<NotificationQueueEntry> getJobs() {
     return ImmutableList.copyOf(jobs.values());
   }
 
-  public synchronized boolean remove(List<? extends JobQueueEntry> entries) {
+  public synchronized boolean remove(List<? extends NotificationQueueEntry> entries) {
     boolean success = true;
-    for (JobQueueEntry entry : entries) {
+    for (NotificationQueueEntry entry : entries) {
       success &= !jobs.containsEntry(entry.getTime(), entry) ||
           jobs.remove(entry.getTime(), entry);
     }

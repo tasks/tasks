@@ -12,8 +12,8 @@ import com.todoroo.astrid.data.Task;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.injection.ApplicationScope;
-import org.tasks.jobs.JobQueue;
-import org.tasks.jobs.Reminder;
+import org.tasks.jobs.NotificationQueue;
+import org.tasks.jobs.ReminderEntry;
 import org.tasks.preferences.Preferences;
 import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
@@ -44,17 +44,17 @@ public final class ReminderService {
 
   private static final long NO_ALARM = Long.MAX_VALUE;
 
-  private final JobQueue jobs;
+  private final NotificationQueue jobs;
   private final Random random;
   private final TaskDao taskDao;
   private final Preferences preferences;
 
   @Inject
-  ReminderService(Preferences preferences, JobQueue jobQueue, TaskDao taskDao) {
-    this(preferences, jobQueue, new Random(), taskDao);
+  ReminderService(Preferences preferences, NotificationQueue notificationQueue, TaskDao taskDao) {
+    this(preferences, notificationQueue, new Random(), taskDao);
   }
 
-  ReminderService(Preferences preferences, JobQueue jobs, Random random, TaskDao taskDao) {
+  ReminderService(Preferences preferences, NotificationQueue jobs, Random random, TaskDao taskDao) {
     this.preferences = preferences;
     this.jobs = jobs;
     this.random = random;
@@ -107,13 +107,13 @@ public final class ReminderService {
 
     // snooze trumps all
     if (whenSnooze != NO_ALARM) {
-      jobs.add(new Reminder(taskId, whenSnooze, TYPE_SNOOZE));
+      jobs.add(new ReminderEntry(taskId, whenSnooze, TYPE_SNOOZE));
     } else if (whenRandom < whenDueDate && whenRandom < whenOverdue) {
-      jobs.add(new Reminder(taskId, whenRandom, TYPE_RANDOM));
+      jobs.add(new ReminderEntry(taskId, whenRandom, TYPE_RANDOM));
     } else if (whenDueDate < whenOverdue) {
-      jobs.add(new Reminder(taskId, whenDueDate, TYPE_DUE));
+      jobs.add(new ReminderEntry(taskId, whenDueDate, TYPE_DUE));
     } else if (whenOverdue != NO_ALARM) {
-      jobs.add(new Reminder(taskId, whenOverdue, TYPE_OVERDUE));
+      jobs.add(new ReminderEntry(taskId, whenOverdue, TYPE_OVERDUE));
     }
   }
 

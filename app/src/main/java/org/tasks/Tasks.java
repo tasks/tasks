@@ -1,11 +1,13 @@
 package org.tasks;
 
+import com.evernote.android.job.JobManager;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.todoroo.astrid.service.StartupService;
 import javax.inject.Inject;
 import org.tasks.analytics.Tracker;
 import org.tasks.injection.ApplicationComponent;
 import org.tasks.injection.InjectingApplication;
+import org.tasks.jobs.JobCreator;
 import org.tasks.preferences.Preferences;
 import org.tasks.receivers.Badger;
 import org.tasks.themes.ThemeCache;
@@ -19,6 +21,8 @@ public class Tasks extends InjectingApplication {
   @Inject BuildSetup buildSetup;
   @Inject ThemeCache themeCache;
   @Inject Badger badger;
+  @Inject JobManager jobManager;
+  @Inject JobCreator jobCreator;
 
   @Override
   public void onCreate() {
@@ -39,6 +43,8 @@ public class Tasks extends InjectingApplication {
     themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
 
     startupService.onStartupApplication();
+
+    jobManager.addJobCreator(jobCreator);
   }
 
   @Override

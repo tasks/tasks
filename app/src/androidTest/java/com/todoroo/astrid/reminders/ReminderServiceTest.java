@@ -38,8 +38,8 @@ import org.tasks.R;
 import org.tasks.Snippet;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
-import org.tasks.jobs.JobQueue;
-import org.tasks.jobs.Reminder;
+import org.tasks.jobs.NotificationQueue;
+import org.tasks.jobs.ReminderEntry;
 import org.tasks.preferences.Preferences;
 import org.tasks.reminders.Random;
 import org.tasks.time.DateTime;
@@ -52,11 +52,11 @@ public class ReminderServiceTest extends InjectingTestCase {
 
   private ReminderService service;
   private Random random;
-  private JobQueue jobs;
+  private NotificationQueue jobs;
 
   @Before
   public void before() {
-    jobs = mock(JobQueue.class);
+    jobs = mock(NotificationQueue.class);
     random = mock(Random.class);
     when(random.nextFloat()).thenReturn(1.0f);
     preferences.reset();
@@ -97,7 +97,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
+    order.verify(jobs).add(new ReminderEntry(1, task.getDueDate(), ReminderService.TYPE_DUE));
   }
 
   @Test
@@ -110,7 +110,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
+    order.verify(jobs).add(new ReminderEntry(1, task.getDueDate(), ReminderService.TYPE_DUE));
   }
 
   @Test
@@ -126,7 +126,7 @@ public class ReminderServiceTest extends InjectingTestCase {
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
     order.verify(jobs).add(
-        new Reminder(1, now.startOfDay().withHourOfDay(18).getMillis(), ReminderService.TYPE_DUE));
+        new ReminderEntry(1, now.startOfDay().withHourOfDay(18).getMillis(), ReminderService.TYPE_DUE));
   }
 
   @Test
@@ -181,7 +181,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1, task.getDueDate(), ReminderService.TYPE_DUE));
+    order.verify(jobs).add(new ReminderEntry(1, task.getDueDate(), ReminderService.TYPE_DUE));
   }
 
   @Test
@@ -197,7 +197,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1, task.getReminderSnooze(), ReminderService.TYPE_SNOOZE));
+    order.verify(jobs).add(new ReminderEntry(1, task.getReminderSnooze(), ReminderService.TYPE_SNOOZE));
   }
 
   @Test
@@ -216,7 +216,7 @@ public class ReminderServiceTest extends InjectingTestCase {
       InOrder order = inOrder(jobs);
       order.verify(jobs).cancelReminder(1);
       order.verify(jobs).add(
-          new Reminder(1L, now.minusDays(1).getMillis() + 584206592, ReminderService.TYPE_RANDOM));
+          new ReminderEntry(1L, now.minusDays(1).getMillis() + 584206592, ReminderService.TYPE_RANDOM));
     }});
   }
 
@@ -236,7 +236,7 @@ public class ReminderServiceTest extends InjectingTestCase {
       InOrder order = inOrder(jobs);
       order.verify(jobs).cancelReminder(1);
       order.verify(jobs).add(
-          new Reminder(1L, now.minusDays(1).getMillis() + 584206592, ReminderService.TYPE_RANDOM));
+          new ReminderEntry(1L, now.minusDays(1).getMillis() + 584206592, ReminderService.TYPE_RANDOM));
     }});
   }
 
@@ -256,7 +256,7 @@ public class ReminderServiceTest extends InjectingTestCase {
       InOrder order = inOrder(jobs);
       order.verify(jobs).cancelReminder(1);
       order.verify(jobs)
-          .add(new Reminder(1L, now.getMillis() + 10148400, ReminderService.TYPE_RANDOM));
+          .add(new ReminderEntry(1L, now.getMillis() + 10148400, ReminderService.TYPE_RANDOM));
     }});
   }
 
@@ -272,7 +272,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 23, 15, 30, 1, 0).getMillis(),
+    order.verify(jobs).add(new ReminderEntry(1L, new DateTime(2017, 9, 23, 15, 30, 1, 0).getMillis(),
         ReminderService.TYPE_OVERDUE));
   }
 
@@ -288,7 +288,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 24, 15, 30, 1, 0).getMillis(),
+    order.verify(jobs).add(new ReminderEntry(1L, new DateTime(2017, 9, 24, 15, 30, 1, 0).getMillis(),
         ReminderService.TYPE_OVERDUE));
   }
 
@@ -304,7 +304,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 25, 12, 30, 1, 0).getMillis(),
+    order.verify(jobs).add(new ReminderEntry(1L, new DateTime(2017, 9, 25, 12, 30, 1, 0).getMillis(),
         ReminderService.TYPE_OVERDUE));
   }
 
@@ -321,7 +321,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 23, 15, 0, 0, 0).getMillis(),
+    order.verify(jobs).add(new ReminderEntry(1L, new DateTime(2017, 9, 23, 15, 0, 0, 0).getMillis(),
         ReminderService.TYPE_OVERDUE));
   }
 
@@ -337,7 +337,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 24, 15, 30, 1, 0).getMillis(),
+    order.verify(jobs).add(new ReminderEntry(1L, new DateTime(2017, 9, 24, 15, 30, 1, 0).getMillis(),
         ReminderService.TYPE_OVERDUE));
   }
 
@@ -353,7 +353,7 @@ public class ReminderServiceTest extends InjectingTestCase {
 
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
-    order.verify(jobs).add(new Reminder(1L, new DateTime(2017, 9, 23, 15, 30, 1, 0).getMillis(),
+    order.verify(jobs).add(new ReminderEntry(1L, new DateTime(2017, 9, 23, 15, 30, 1, 0).getMillis(),
         ReminderService.TYPE_OVERDUE));
   }
 
@@ -372,6 +372,6 @@ public class ReminderServiceTest extends InjectingTestCase {
     InOrder order = inOrder(jobs);
     order.verify(jobs).cancelReminder(1);
     order.verify(jobs)
-        .add(new Reminder(1, now.plusMonths(12).getMillis(), ReminderService.TYPE_SNOOZE));
+        .add(new ReminderEntry(1, now.plusMonths(12).getMillis(), ReminderService.TYPE_SNOOZE));
   }
 }

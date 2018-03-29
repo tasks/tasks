@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.tasks.injection.InjectingJobIntentService;
 import org.tasks.injection.IntentServiceComponent;
 import org.tasks.jobs.JobManager;
-import org.tasks.jobs.JobQueue;
+import org.tasks.jobs.NotificationQueue;
 import org.tasks.notifications.NotificationManager;
 import timber.log.Timber;
 
@@ -18,7 +18,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
   private static final String EXTRA_CANCEL_EXISTING_NOTIFICATIONS = "extra_cancel_existing_notifications";
   @Inject AlarmService alarmService;
   @Inject ReminderService reminderService;
-  @Inject JobQueue jobQueue;
+  @Inject NotificationQueue notificationQueue;
   @Inject NotificationManager notificationManager;
 
   public static void enqueueWork(Context context, boolean cancelNotifications) {
@@ -34,7 +34,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
 
     Timber.d("onHandleWork(%s)", intent);
 
-    jobQueue.clear();
+    notificationQueue.clear();
 
     boolean cancelExistingNotifications = intent
         .getBooleanExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, false);

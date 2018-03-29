@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.injection.ForApplication;
-import org.tasks.jobs.JobQueueEntry;
+import org.tasks.jobs.NotificationQueueEntry;
 import org.tasks.notifications.AudioManager;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.notifications.TelephonyManager;
@@ -111,8 +111,8 @@ public class Notifier {
     triggerNotifications(Collections.singletonList(notification), true);
   }
 
-  public void triggerTaskNotifications(List<? extends JobQueueEntry> entries) {
-    triggerNotifications(transform(entries, JobQueueEntry::toNotification), true);
+  public void triggerTaskNotifications(List<? extends NotificationQueueEntry> entries) {
+    triggerNotifications(transform(entries, NotificationQueueEntry::toNotification), true);
   }
 
   private void triggerNotifications(List<org.tasks.notifications.Notification> entries,
