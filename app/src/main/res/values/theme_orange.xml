@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Orange" parent="BlackToolbarTheme">
-        <item name="colorPrimary">@color/orange_500</item>
-        <item name="colorPrimaryDark">@color/orange_700</item>
-    </style>
+  <style name="Orange" parent="BlackToolbarTheme">
+    <item name="colorPrimary">@color/orange_500</item>
+    <item name="colorPrimaryDark">@color/orange_700</item>
+  </style>
 
-    <style name="OrangeAccent" parent="BlackTint">
-        <item name="colorAccent">@color/orange_a400</item>
-        <item name="colorAccentDialog">@color/orange_a400</item>
-    </style>
+  <style name="OrangeAccent" parent="BlackTint">
+    <item name="colorAccent">@color/orange_a400</item>
+    <item name="colorAccentDialog">@color/orange_a400</item>
+  </style>
 
 </resources>

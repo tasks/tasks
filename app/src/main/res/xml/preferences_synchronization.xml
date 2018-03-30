@@ -4,41 +4,41 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/synchronization">
+  android:title="@string/synchronization">
 
-    <PreferenceCategory android:title="@string/gtasks_GPr_header">
+  <PreferenceCategory android:title="@string/gtasks_GPr_header">
 
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:defaultValue="false"
-            android:key="@string/sync_gtasks"
-            android:title="@string/enabled" />
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+      android:defaultValue="false"
+      android:key="@string/sync_gtasks"
+      android:title="@string/enabled"/>
 
-        <com.todoroo.astrid.ui.MultilinePreference
-            android:dependency="@string/sync_gtasks"
-            android:key="@string/sync_SPr_forget_key"
-            android:summary="@string/sync_SPr_forget_description"
-            android:title="@string/sync_SPr_forget">
-        </com.todoroo.astrid.ui.MultilinePreference>
+    <com.todoroo.astrid.ui.MultilinePreference
+      android:dependency="@string/sync_gtasks"
+      android:key="@string/sync_SPr_forget_key"
+      android:summary="@string/sync_SPr_forget_description"
+      android:title="@string/sync_SPr_forget">
+    </com.todoroo.astrid.ui.MultilinePreference>
 
-    </PreferenceCategory>
+  </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/CalDAV">
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/p_sync_caldav"
-            android:title="@string/enabled" />
-    </PreferenceCategory>
+  <PreferenceCategory android:title="@string/CalDAV">
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:key="@string/p_sync_caldav"
+      android:title="@string/enabled"/>
+  </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/sync_SPr_interval_title">
-        <CheckBoxPreference
-          android:defaultValue="true"
-          android:key="@string/p_background_sync"
-          android:title="@string/enabled" />
-        <CheckBoxPreference
-          android:defaultValue="false"
-          android:dependency="@string/p_background_sync"
-          android:key="@string/p_background_sync_unmetered_only"
-          android:title="@string/background_sync_unmetered_only" />
-    </PreferenceCategory>
+  <PreferenceCategory android:title="@string/sync_SPr_interval_title">
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_background_sync"
+      android:title="@string/enabled"/>
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:dependency="@string/p_background_sync"
+      android:key="@string/p_background_sync_unmetered_only"
+      android:title="@string/background_sync_unmetered_only"/>
+  </PreferenceCategory>
 
 </PreferenceScreen>  

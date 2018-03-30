@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vector xmlns:tools="http://schemas.android.com/tools"
-    android:autoMirrored="true" android:height="24dp"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:ignore="UnusedAttribute,VectorRaster">
-    <path android:fillColor="#FF000000" android:pathData="M7,7h10v3l4,-4 -4,-4v3H5v6h2V7zm10,10H7v-3l-4,4 4,4v-3h12v-6h-2v4z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:autoMirrored="true"
+  android:height="24dp"
+  android:viewportHeight="24.0"
+  android:viewportWidth="24.0"
+  android:width="24dp"
+  tools:ignore="UnusedAttribute,VectorRaster">
+  <path
+    android:fillColor="#FF000000"
+    android:pathData="M7,7h10v3l4,-4 -4,-4v3H5v6h2V7zm10,10H7v-3l-4,4 4,4v-3h12v-6h-2v4z"/>
 </vector>

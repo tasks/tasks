@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <lint>
-    <issue id="MissingTranslation" severity="ignore"/>
+  <issue id="MissingTranslation" severity="ignore"/>
 
-    <issue id="MissingQuantity" severity="ignore"/>
-    <issue id="ImpliedQuantity" severity="ignore"/>
+  <issue id="MissingQuantity" severity="ignore"/>
+  <issue id="ImpliedQuantity" severity="ignore"/>
 
-    <issue id="InvalidPackage">
-        <ignore regexp="net.fortuna.ical4j.util.JCacheTimeZoneCache" />
-    </issue>
+  <issue id="InvalidPackage">
+    <ignore regexp="net.fortuna.ical4j.util.JCacheTimeZoneCache"/>
+  </issue>
 </lint>

@@ -14,26 +14,27 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-    
-    <AutoCompleteTextView android:id="@+id/text1"
-        android:hint="@string/new_tag"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        style="@style/TextBoxText"
-        android:textColorHint="?attr/asTextColorHint"
-        android:inputType="textCapSentences"/>
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/button1"
-        android:tint="?attr/icon_tint"
-        android:src="@drawable/ic_close_24dp"
-        android:contentDescription="@string/remove"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+  <AutoCompleteTextView
+    android:id="@+id/text1"
+    style="@style/TextBoxText"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:layout_gravity="center_vertical"
+    android:hint="@string/new_tag"
+    android:inputType="textCapSentences"
+    android:textColorHint="?attr/asTextColorHint"/>
+
+  <ImageView
+    android:id="@+id/button1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:contentDescription="@string/remove"
+    android:src="@drawable/ic_close_24dp"
+    android:tint="?attr/icon_tint"/>
 </LinearLayout>

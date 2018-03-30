@@ -1,498 +1,508 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="org.tasks">
-
-
-    <uses-sdk tools:overrideLibrary="timber.log"/>
-
-    <!-- ================================================== Used Permissions = -->
-
-    <!-- ************* -->
-    <!-- notifications -->
-    <!-- ************* -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- *************************** -->
-    <!-- google calendar integration -->
-    <!-- *************************** -->
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-
-    <!-- ****************** -->
-    <!-- creating shortcuts -->
-    <!-- ****************** -->
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-
-    <!-- **************************************** -->
-    <!-- write backups and attachments to storage -->
-    <!-- **************************************** -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- ********************* -->
-    <!-- missed call reminders -->
-    <!-- ********************* -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_CALL_LOG" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <!-- ******************************************* -->
-    <!-- scheduling reminders after rebooting device -->
-    <!-- ******************************************* -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
-    <!-- ********************* -->
-    <!-- recording voice notes -->
-    <!-- ********************* -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-feature android:name="android.hardware.microphone" android:required="false" />
-
-    <!-- *********************************** -->
-    <!-- keep device awake for notifications -->
-    <!-- *********************************** -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <!-- *************************** -->
-    <!-- caldav and google task sync -->
-    <!-- *************************** -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
-    <!-- ============================================== Exported Permissions = -->
-
-    <!-- for v2 tasks provider -->
-    <permission
-        android:name="org.tasks.permission.READ_TASKS"
-        android:permissionGroup="android.permission-group.MESSAGES"
-        android:protectionLevel="normal"
-        android:label="@string/read_permission_label"
-        android:description="@string/read_permission_desc" />
-
-    <uses-permission android:name="org.tasks.permission.READ_TASKS" />
-
-    <!-- ========================================================== Metadata = -->
-
-    <supports-screens
-        android:xlargeScreens="true"
-        android:largeScreens="true" />
-
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-
-    <application
-        tools:ignore="GoogleAppIndexingWarning"
-        android:icon="@mipmap/ic_launcher"
-        android:fullBackupContent="@xml/backup_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:label="@string/app_name"
-        android:theme="@style/Tasks"
-        android:allowBackup="true"
-        android:name=".Tasks"
-        android:supportsRtl="true"
-        android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
-
-        <!-- ====================================================== Activities = -->
-
-        <activity
-            android:name=".activities.ColorPickerActivity"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name=".activities.DatePickerActivity"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name=".activities.TimePickerActivity"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name=".activities.DateAndTimePickerActivity"
-            android:theme="@style/TranslucentDialog"
-            android:taskAffinity="" />
-
-        <activity
-            android:name=".activities.FilterSelectionActivity"
-            android:exported="true"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name=".activities.AddAttachmentActivity"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name=".activities.CameraActivity"
-            android:theme="@style/TranslucentDialog" />
-
-        <!-- Activity that displays task list -->
-        <activity
-            android:name="com.todoroo.astrid.activity.TaskListActivity"
-            android:launchMode="singleTask" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name="com.todoroo.astrid.activity.TaskEditActivity">
-            <intent-filter tools:ignore="AppLinkUrlError">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/task" />
-            </intent-filter>
-        </activity>
-
-        <!-- Activity for selecting Android shortcut -->
-        <activity
-            android:name=".widget.ShortcutConfigActivity"
-            android:theme="@style/TranslucentDialog"
-            android:label="@string/FSA_label">
-            <intent-filter>
-                <action android:name="android.intent.action.CREATE_SHORTCUT" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <!-- Activity launched from ShareLink menu item -->
-        <!-- TODO: clearTaskOnLaunch probable cause of #275 -->
-        <activity
-            android:name="com.todoroo.astrid.activity.ShareLinkActivity"
-            android:clearTaskOnLaunch="true">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="text/plain" />
-            </intent-filter>
-        </activity>
-
-        <!-- Activity for preferences -->
-
-        <activity
-            android:name=".preferences.HelpAndFeedbackActivity"
-            android:label="@string/help_and_feedback"
-            android:theme="@style/Tasks" />
-
-        <activity
-            android:name=".preferences.BasicPreferences"
-            android:label="@string/TLA_menu_settings"
-            android:theme="@style/Tasks" />
-
-        <activity
-            android:name=".preferences.MiscellaneousPreferences"
-            android:label="@string/miscellaneous"
-            android:theme="@style/Tasks" />
-
-        <activity
-            android:name=".widget.WidgetConfigActivity"
-            android:taskAffinity=""
-            android:label="@string/widget_settings"
-            android:excludeFromRecents="true"
-            android:theme="@style/Tasks"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-
-        <!-- ======================================================= Receivers = -->
-
-        <!-- widgets -->
-        <receiver
-            android:name=".widget.TasksWidget"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.todoroo.astrid.widget.TasksWidget.COMPLETE_TASK"/>
-                <action android:name="com.todoroo.astrid.widget.TasksWidget.EDIT_TASK"/>
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/scrollable_widget_provider_info" />
-        </receiver>
-
-        <receiver android:name="com.todoroo.astrid.calls.PhoneStateChangedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-        </receiver>
-
-        <!-- ======================================================== Services = -->
-
-        <service
-            android:name=".widget.ScrollableWidgetUpdateService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
-
-        <!-- ======================================================= Providers = -->
-
-        <provider
-            android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
-            android:authorities="org.tasks;org.tasks.tasksprovider"
-            android:exported="true"
-            android:multiprocess="true"
-            android:grantUriPermissions="true"
-            android:readPermission="org.tasks.permission.READ_TASKS" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths" />
-        </provider>
-
-        <!-- ========================================================= Plugins = -->
-
-        <activity
-            android:name=".preferences.AppearancePreferences"
-            android:label="@string/EPr_appearance_header"
-            android:theme="@style/Tasks" />
-
-        <activity
-            android:name=".preferences.DateTimePreferences"
-            android:label="@string/date_and_time"
-            android:theme="@style/Tasks" />
-
-        <activity
-            android:name="com.todoroo.astrid.core.DefaultsPreferences"
-            android:label="@string/task_defaults"
-            android:theme="@style/Tasks"/>
-
-        <activity
-            android:name="com.todoroo.astrid.activity.BeastModePreferences"
-            android:theme="@style/Tasks"/>
-
-        <activity
-            android:name=".reminders.MissedCallActivity"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:taskAffinity=""
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name=".reminders.SnoozeActivity"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:taskAffinity=""
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name=".reminders.NotificationActivity"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:taskAffinity=""
-            android:theme="@style/TranslucentDialog" />
-
-        <!-- tags -->
-
-        <!-- custom filters -->
-        <activity
-            android:name="com.todoroo.astrid.core.CustomFilterActivity"
-            android:theme="@style/Tasks"/>
-
-        <!-- actfm -->
-
-        <activity android:name=".activities.TagSettingsActivity" />
-
-        <activity android:name=".activities.FilterSettingsActivity" />
-
-        <activity android:name=".caldav.CaldavSettingsActivity" />
-
-        <activity
-            android:name=".activities.CalendarSelectionActivity"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
-            android:theme="@style/TasksDialog"/>
-
-        <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver" />
-
-        <!-- old tasks -->
-        <activity
-            android:name="com.todoroo.astrid.core.OldTaskPreferences"
-            android:label="@string/EPr_manage_header"
-            android:theme="@style/Tasks"/>
-
-        <!-- premium -->
-        <activity
-            android:name="com.todoroo.astrid.files.AACRecordingActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/TranslucentDialog" />
-
-        <activity
-            android:name=".files.MyFilePickerActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Tasks">
-            <intent-filter>
-                <action android:name="android.intent.action.GET_CONTENT" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".files.FileExplore"
-            android:theme="@style/TranslucentDialog"/>
-
-        <!-- reminders -->
-        <activity
-            android:name="com.todoroo.astrid.reminders.ReminderPreferences"
-            android:label="@string/notifications"
-            android:theme="@style/Tasks"
-            android:exported="false" >
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES" />
-            </intent-filter>
-
-        </activity>
-
-        <activity
-            android:name=".voice.VoiceCommandActivity"
-            android:theme="@style/TranslucentDialog">
-            <intent-filter>
-                <action android:name="com.google.android.gm.action.AUTO_SEND"/>
-
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain"/>
-            </intent-filter>
-        </activity>
-
-        <receiver android:name=".receivers.BootCompletedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".receivers.CompleteTaskReceiver"/>
-
-        <receiver android:name=".receivers.MyPackageReplacedReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".jobs.AfterSaveIntentService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name=".scheduling.GeofenceSchedulingIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-        <service
-            android:name=".scheduling.BackgroundScheduler"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-        <service
-            android:name=".scheduling.NotificationSchedulerIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <receiver android:name=".scheduling.CalendarNotificationIntentService$Broadcast" />
-        <service
-            android:name=".scheduling.CalendarNotificationIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <receiver android:name=".location.GeofenceTransitionsIntentService$Broadcast" />
-        <service
-            android:name=".location.GeofenceTransitionsIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <receiver android:name=".notifications.NotificationClearedReceiver" />
-
-        <service
-            android:name=".locale.receiver.TaskerIntentService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="false" />
-
-        <!-- Uses Library -->
-        <uses-library
-            android:name="com.google.android.maps"
-            android:required="false" />
-
-        <!-- DashClock extension -->
-
-        <service android:name=".dashclock.DashClockExtension"
-            android:icon="@drawable/ic_check_white_24dp"
-            android:label="@string/app_name"
-            android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
-            <intent-filter>
-                <action android:name="com.google.android.apps.dashclock.Extension" />
-            </intent-filter>
-            <meta-data android:name="protocolVersion" android:value="2" />
-            <meta-data android:name="worldReadable" android:value="true" />
-            <meta-data android:name="description"
-                android:value="Display a count of active tasks" />
-            <meta-data android:name="settingsActivity"
-                android:value=".dashclock.DashClockSettings" />
-        </service>
-
-        <activity
-          android:exported="true"
-          android:label="@string/app_name"
-          android:name=".dashclock.DashClockSettings"/>
-
-        <!-- Tasker/Locale -->
-
-        <activity
-            android:name=".locale.ui.activity.TaskerCreateTaskActivity"
-            android:exported="true"
-            android:enabled="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/tasker_create_task"
-            android:theme="@style/Tasks"
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:windowSoftInputMode="adjustResize"
-            tools:ignore="ExportedActivity">
-            <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".locale.ui.activity.TaskerSettingsActivity"
-            android:exported="false"
-            android:label="@string/tasker_list_notification"
-            android:theme="@style/Tasks"
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:windowSoftInputMode="adjustResize"/>
-
-        <activity-alias
-            android:name="com.twofortyfouram.locale.example.setting.toast.ui.activity.PluginActivity"
-            android:exported="true"
-            android:enabled="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/tasker_list_notification"
-            android:targetActivity=".locale.ui.activity.TaskerSettingsActivity"
-            tools:ignore="ExportedActivity">
-            <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
-            </intent-filter>
-        </activity-alias>
-
-        <receiver
-            android:name=".locale.receiver.FireReceiver"
-            android:exported="true"
-            android:enabled="true"
-            tools:ignore="ExportedReceiver">
-            <intent-filter>
-                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
-            </intent-filter>
-        </receiver>
-
-    </application>
+  xmlns:tools="http://schemas.android.com/tools"
+  package="org.tasks">
+
+
+  <uses-sdk tools:overrideLibrary="timber.log"/>
+
+  <!-- ================================================== Used Permissions = -->
+
+  <!-- ************* -->
+  <!-- notifications -->
+  <!-- ************* -->
+  <uses-permission android:name="android.permission.VIBRATE"/>
+
+  <!-- *************************** -->
+  <!-- google calendar integration -->
+  <!-- *************************** -->
+  <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+  <uses-permission android:name="android.permission.READ_CALENDAR"/>
+
+  <!-- ****************** -->
+  <!-- creating shortcuts -->
+  <!-- ****************** -->
+  <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+
+  <!-- **************************************** -->
+  <!-- write backups and attachments to storage -->
+  <!-- **************************************** -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+  <!-- ********************* -->
+  <!-- missed call reminders -->
+  <!-- ********************* -->
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+  <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+  <!-- ******************************************* -->
+  <!-- scheduling reminders after rebooting device -->
+  <!-- ******************************************* -->
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+  <!-- ********************* -->
+  <!-- recording voice notes -->
+  <!-- ********************* -->
+  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+  <uses-feature
+    android:name="android.hardware.microphone"
+    android:required="false"/>
+
+  <!-- *********************************** -->
+  <!-- keep device awake for notifications -->
+  <!-- *********************************** -->
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+  <!-- *************************** -->
+  <!-- caldav and google task sync -->
+  <!-- *************************** -->
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+  <!-- ============================================== Exported Permissions = -->
+
+  <!-- for v2 tasks provider -->
+  <permission
+    android:description="@string/read_permission_desc"
+    android:label="@string/read_permission_label"
+    android:name="org.tasks.permission.READ_TASKS"
+    android:permissionGroup="android.permission-group.MESSAGES"
+    android:protectionLevel="normal"/>
+
+  <uses-permission android:name="org.tasks.permission.READ_TASKS"/>
+
+  <!-- ========================================================== Metadata = -->
+
+  <supports-screens
+    android:largeScreens="true"
+    android:xlargeScreens="true"/>
+
+  <uses-feature
+    android:name="android.hardware.touchscreen"
+    android:required="false"/>
+
+  <application
+    android:allowBackup="true"
+    android:fullBackupContent="@xml/backup_config"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences"
+    android:name=".Tasks"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/Tasks"
+    tools:ignore="GoogleAppIndexingWarning">
+
+    <!-- ====================================================== Activities = -->
+
+    <activity
+      android:name=".activities.ColorPickerActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name=".activities.DatePickerActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name=".activities.TimePickerActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name=".activities.DateAndTimePickerActivity"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:exported="true"
+      android:name=".activities.FilterSelectionActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name=".activities.AddAttachmentActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name=".activities.CameraActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <!-- Activity that displays task list -->
+    <activity
+      android:launchMode="singleTask"
+      android:name="com.todoroo.astrid.activity.TaskListActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+
+    <activity android:name="com.todoroo.astrid.activity.TaskEditActivity">
+      <intent-filter tools:ignore="AppLinkUrlError">
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="vnd.android.cursor.item/task"/>
+      </intent-filter>
+    </activity>
+
+    <!-- Activity for selecting Android shortcut -->
+    <activity
+      android:label="@string/FSA_label"
+      android:name=".widget.ShortcutConfigActivity"
+      android:theme="@style/TranslucentDialog">
+      <intent-filter>
+        <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+
+    <!-- Activity launched from ShareLink menu item -->
+    <!-- TODO: clearTaskOnLaunch probable cause of #275 -->
+    <activity
+      android:clearTaskOnLaunch="true"
+      android:name="com.todoroo.astrid.activity.ShareLinkActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.SEND"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/plain"/>
+      </intent-filter>
+    </activity>
+
+    <!-- Activity for preferences -->
+
+    <activity
+      android:label="@string/help_and_feedback"
+      android:name=".preferences.HelpAndFeedbackActivity"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:label="@string/TLA_menu_settings"
+      android:name=".preferences.BasicPreferences"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:label="@string/miscellaneous"
+      android:name=".preferences.MiscellaneousPreferences"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:excludeFromRecents="true"
+      android:exported="false"
+      android:label="@string/widget_settings"
+      android:name=".widget.WidgetConfigActivity"
+      android:taskAffinity=""
+      android:theme="@style/Tasks">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+      </intent-filter>
+    </activity>
+
+    <!-- ======================================================= Receivers = -->
+
+    <!-- widgets -->
+    <receiver
+      android:label="@string/app_name"
+      android:name=".widget.TasksWidget">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+        <action android:name="com.todoroo.astrid.widget.TasksWidget.COMPLETE_TASK"/>
+        <action android:name="com.todoroo.astrid.widget.TasksWidget.EDIT_TASK"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/scrollable_widget_provider_info"/>
+    </receiver>
+
+    <receiver android:name="com.todoroo.astrid.calls.PhoneStateChangedReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.PHONE_STATE"/>
+      </intent-filter>
+    </receiver>
+
+    <!-- ======================================================== Services = -->
+
+    <service
+      android:name=".widget.ScrollableWidgetUpdateService"
+      android:permission="android.permission.BIND_REMOTEVIEWS"/>
+
+    <!-- ======================================================= Providers = -->
+
+    <provider
+      android:authorities="org.tasks;org.tasks.tasksprovider"
+      android:exported="true"
+      android:grantUriPermissions="true"
+      android:multiprocess="true"
+      android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
+      android:readPermission="org.tasks.permission.READ_TASKS"/>
+
+    <provider
+      android:authorities="${applicationId}.provider"
+      android:exported="false"
+      android:grantUriPermissions="true"
+      android:name="android.support.v4.content.FileProvider">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_provider_paths"/>
+    </provider>
+
+    <!-- ========================================================= Plugins = -->
+
+    <activity
+      android:label="@string/EPr_appearance_header"
+      android:name=".preferences.AppearancePreferences"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:label="@string/date_and_time"
+      android:name=".preferences.DateTimePreferences"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:label="@string/task_defaults"
+      android:name="com.todoroo.astrid.core.DefaultsPreferences"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:name="com.todoroo.astrid.activity.BeastModePreferences"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:excludeFromRecents="true"
+      android:launchMode="singleTask"
+      android:name=".reminders.MissedCallActivity"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:excludeFromRecents="true"
+      android:launchMode="singleTask"
+      android:name=".reminders.SnoozeActivity"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:excludeFromRecents="true"
+      android:launchMode="singleTask"
+      android:name=".reminders.NotificationActivity"
+      android:taskAffinity=""
+      android:theme="@style/TranslucentDialog"/>
+
+    <!-- tags -->
+
+    <!-- custom filters -->
+    <activity
+      android:name="com.todoroo.astrid.core.CustomFilterActivity"
+      android:theme="@style/Tasks"/>
+
+    <!-- actfm -->
+
+    <activity android:name=".activities.TagSettingsActivity"/>
+
+    <activity android:name=".activities.FilterSettingsActivity"/>
+
+    <activity android:name=".caldav.CaldavSettingsActivity"/>
+
+    <activity
+      android:name=".activities.CalendarSelectionActivity"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:name="com.todoroo.astrid.gcal.CalendarReminderActivity"
+      android:theme="@style/TasksDialog"/>
+
+    <receiver android:name="com.todoroo.astrid.gcal.CalendarAlarmReceiver"/>
+
+    <!-- old tasks -->
+    <activity
+      android:label="@string/EPr_manage_header"
+      android:name="com.todoroo.astrid.core.OldTaskPreferences"
+      android:theme="@style/Tasks"/>
+
+    <!-- premium -->
+    <activity
+      android:configChanges="orientation|screenSize"
+      android:name="com.todoroo.astrid.files.AACRecordingActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/TranslucentDialog"/>
+
+    <activity
+      android:label="@string/app_name"
+      android:name=".files.MyFilePickerActivity"
+      android:theme="@style/Tasks">
+      <intent-filter>
+        <action android:name="android.intent.action.GET_CONTENT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name=".files.FileExplore"
+      android:theme="@style/TranslucentDialog"/>
+
+    <!-- reminders -->
+    <activity
+      android:exported="false"
+      android:label="@string/notifications"
+      android:name="com.todoroo.astrid.reminders.ReminderPreferences"
+      android:theme="@style/Tasks">
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
+      </intent-filter>
+
+    </activity>
+
+    <activity
+      android:name=".voice.VoiceCommandActivity"
+      android:theme="@style/TranslucentDialog">
+      <intent-filter>
+        <action android:name="com.google.android.gm.action.AUTO_SEND"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/plain"/>
+      </intent-filter>
+    </activity>
+
+    <receiver android:name=".receivers.BootCompletedReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </receiver>
+
+    <receiver android:name=".receivers.CompleteTaskReceiver"/>
+
+    <receiver android:name=".receivers.MyPackageReplacedReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+      </intent-filter>
+    </receiver>
+
+    <service
+      android:exported="false"
+      android:name=".jobs.AfterSaveIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+    <service
+      android:exported="false"
+      android:name=".scheduling.GeofenceSchedulingIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+    <service
+      android:exported="false"
+      android:name=".scheduling.BackgroundScheduler"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+    <service
+      android:exported="false"
+      android:name=".scheduling.NotificationSchedulerIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <receiver android:name=".scheduling.CalendarNotificationIntentService$Broadcast"/>
+    <service
+      android:exported="false"
+      android:name=".scheduling.CalendarNotificationIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <receiver android:name=".location.GeofenceTransitionsIntentService$Broadcast"/>
+    <service
+      android:exported="false"
+      android:name=".location.GeofenceTransitionsIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <receiver android:name=".notifications.NotificationClearedReceiver"/>
+
+    <service
+      android:exported="false"
+      android:name=".locale.receiver.TaskerIntentService"
+      android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+    <!-- Uses Library -->
+    <uses-library
+      android:name="com.google.android.maps"
+      android:required="false"/>
+
+    <!-- DashClock extension -->
+
+    <service
+      android:icon="@drawable/ic_check_white_24dp"
+      android:label="@string/app_name"
+      android:name=".dashclock.DashClockExtension"
+      android:permission="com.google.android.apps.dashclock.permission.READ_EXTENSION_DATA">
+      <intent-filter>
+        <action android:name="com.google.android.apps.dashclock.Extension"/>
+      </intent-filter>
+
+      <meta-data
+        android:name="protocolVersion"
+        android:value="2"/>
+      <meta-data
+        android:name="worldReadable"
+        android:value="true"/>
+      <meta-data
+        android:name="description"
+        android:value="Display a count of active tasks"/>
+      <meta-data
+        android:name="settingsActivity"
+        android:value=".dashclock.DashClockSettings"/>
+    </service>
+
+    <activity
+      android:exported="true"
+      android:label="@string/app_name"
+      android:name=".dashclock.DashClockSettings"/>
+
+    <!-- Tasker/Locale -->
+
+    <activity
+      android:enabled="true"
+      android:exported="true"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/tasker_create_task"
+      android:name=".locale.ui.activity.TaskerCreateTaskActivity"
+      android:theme="@style/Tasks"
+      android:uiOptions="splitActionBarWhenNarrow"
+      android:windowSoftInputMode="adjustResize"
+      tools:ignore="ExportedActivity">
+      <intent-filter>
+        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:exported="false"
+      android:label="@string/tasker_list_notification"
+      android:name=".locale.ui.activity.TaskerSettingsActivity"
+      android:theme="@style/Tasks"
+      android:uiOptions="splitActionBarWhenNarrow"
+      android:windowSoftInputMode="adjustResize"/>
+
+    <activity-alias
+      android:enabled="true"
+      android:exported="true"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/tasker_list_notification"
+      android:name="com.twofortyfouram.locale.example.setting.toast.ui.activity.PluginActivity"
+      android:targetActivity=".locale.ui.activity.TaskerSettingsActivity"
+      tools:ignore="ExportedActivity">
+      <intent-filter>
+        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING"/>
+      </intent-filter>
+    </activity-alias>
+
+    <receiver
+      android:enabled="true"
+      android:exported="true"
+      android:name=".locale.receiver.FireReceiver"
+      tools:ignore="ExportedReceiver">
+      <intent-filter>
+        <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
+      </intent-filter>
+    </receiver>
+
+  </application>
 
 </manifest>

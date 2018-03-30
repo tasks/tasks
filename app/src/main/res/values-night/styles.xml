@@ -1,3 +1,4 @@
 <resources>
-    <style name="popup_overlay" parent="ThemeOverlay.AppCompat" />
+
+  <style name="popup_overlay" parent="ThemeOverlay.AppCompat"/>
 </resources>

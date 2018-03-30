@@ -1,20 +1,20 @@
 <org.tasks.ui.DraggableSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_layout"
-    style="@style/task_list_container"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:ignore="UnusedAttribute">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/swipe_layout"
+  style="@style/task_list_container"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  tools:ignore="UnusedAttribute">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay"
-        android:paddingBottom="@dimen/task_list_footer_height"
-        android:elevation="@dimen/elevation_task_list"
-        android:background="?attr/asWindowBackground"
-        android:clipToPadding="false"/>
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recycler_view"
+    android:scrollbarStyle="outsideOverlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/task_list_footer_height"
+    android:background="?attr/asWindowBackground"
+    android:clipToPadding="false"
+    android:elevation="@dimen/elevation_task_list"
+    android:scrollbars="vertical"/>
 
 </org.tasks.ui.DraggableSwipeRefreshLayout>

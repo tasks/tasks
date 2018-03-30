@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.tasks">
+  package="org.tasks">
 
-    <application>
-        <!-- Google Analytics -->
+  <application>
+    <!-- Google Analytics -->
 
-        <receiver
-            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
-            </intent-filter>
-        </receiver>
+    <receiver
+      android:enabled="true"
+      android:name="com.google.android.gms.analytics.AnalyticsReceiver">
+      <intent-filter>
+        <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
+      </intent-filter>
+    </receiver>
 
-        <service
-            android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false" />
+    <service
+      android:enabled="true"
+      android:exported="false"
+      android:name="com.google.android.gms.analytics.AnalyticsService"/>
 
-        <receiver
-            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
+    <receiver
+      android:exported="true"
+      android:name="com.google.android.gms.analytics.CampaignTrackingReceiver">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER"/>
+      </intent-filter>
+    </receiver>
 
-    </application>
+  </application>
 
 </manifest>

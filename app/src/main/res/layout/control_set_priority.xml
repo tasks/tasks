@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:gravity="center_vertical"
+  android:orientation="horizontal">
+
+  <TextView
+    style="@style/TaskEditTextPrimary"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="0dp"
+    android:paddingEnd="@dimen/keyline_second"
+    android:paddingLeft="0dp"
+    android:paddingRight="@dimen/keyline_second"
+    android:gravity="start|center_vertical"
+    android:text="@string/TEA_importance_label"/>
+
+  <RadioGroup
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
+    android:layout_gravity="end"
+    android:paddingStart="@dimen/keyline_second"
+    android:paddingEnd="0dp"
+    android:paddingLeft="@dimen/keyline_second"
+    android:paddingRight="0dp"
+    android:gravity="end"
     android:orientation="horizontal">
 
-    <TextView
-        style="@style/TaskEditTextPrimary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start|center_vertical"
-        android:paddingEnd="@dimen/keyline_second"
-        android:paddingLeft="0dp"
-        android:paddingRight="@dimen/keyline_second"
-        android:paddingStart="0dp"
-        android:text="@string/TEA_importance_label" />
+    <android.support.v7.widget.AppCompatRadioButton
+      android:id="@+id/priority_none"
+      style="@style/priority_button"
+      android:buttonTint="@color/importance_4"
+      tools:ignore="UnusedAttribute"/>
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:gravity="end"
-        android:orientation="horizontal"
-        android:paddingRight="0dp"
-        android:paddingEnd="0dp"
-        android:paddingLeft="@dimen/keyline_second"
-        android:paddingStart="@dimen/keyline_second">
+    <android.support.v7.widget.AppCompatRadioButton
+      android:id="@+id/priority_low"
+      style="@style/priority_button"
+      android:buttonTint="@color/importance_3"
+      tools:ignore="UnusedAttribute"/>
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/priority_none"
-            style="@style/priority_button"
-            android:buttonTint="@color/importance_4"
-            tools:ignore="UnusedAttribute" />
+    <android.support.v7.widget.AppCompatRadioButton
+      android:id="@+id/priority_medium"
+      style="@style/priority_button"
+      android:buttonTint="@color/importance_2"
+      tools:ignore="UnusedAttribute"/>
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/priority_low"
-            style="@style/priority_button"
-            android:buttonTint="@color/importance_3"
-            tools:ignore="UnusedAttribute" />
-
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/priority_medium"
-            style="@style/priority_button"
-            android:buttonTint="@color/importance_2"
-            tools:ignore="UnusedAttribute" />
-
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/priority_high"
-            style="@style/priority_button"
-            android:buttonTint="@color/importance_1"
-            tools:ignore="UnusedAttribute" />
-    </RadioGroup>
+    <android.support.v7.widget.AppCompatRadioButton
+      android:id="@+id/priority_high"
+      style="@style/priority_button"
+      android:buttonTint="@color/importance_1"
+      tools:ignore="UnusedAttribute"/>
+  </RadioGroup>
 
 </LinearLayout>

@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
+  <item
+    android:id="@+id/menu_voice_add"
+    android:icon="@drawable/ic_mic_24dp"
+    android:title="@string/EPr_voiceInputEnabled_title"
+    app:showAsAction="ifRoom"/>
+  <item
+    android:id="@+id/menu_search"
+    android:icon="@drawable/ic_search_24dp"
+    android:title="@string/TLA_menu_search"
+    app:actionViewClass="android.support.v7.widget.SearchView"
+    app:showAsAction="ifRoom|collapseActionView"/>
+  <item
+    android:id="@+id/menu_sort"
+    android:icon="@drawable/ic_sort_24dp"
+    android:title="@string/TLA_menu_sort"
+    app:showAsAction="ifRoom"/>
+  <group
+    android:checkableBehavior="all">
     <item
-        android:id="@+id/menu_voice_add"
-        android:title="@string/EPr_voiceInputEnabled_title"
-        android:icon="@drawable/ic_mic_24dp"
-        app:showAsAction="ifRoom"/>
+      android:id="@+id/menu_show_hidden"
+      android:checkable="true"
+      android:title="@string/show_hidden"/>
     <item
-        android:id="@+id/menu_search"
-        android:title="@string/TLA_menu_search"
-        android:icon="@drawable/ic_search_24dp"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView"/>
-    <item
-        android:id="@+id/menu_sort"
-        android:title="@string/TLA_menu_sort"
-        android:icon="@drawable/ic_sort_24dp"
-        app:showAsAction="ifRoom" />
-    <group
-        android:checkableBehavior="all">
-        <item
-            android:id="@+id/menu_show_hidden"
-            android:title="@string/show_hidden"
-            android:checkable="true"/>
-        <item
-            android:id="@+id/menu_show_completed"
-            android:title="@string/show_completed"
-            android:checkable="true" />
-    </group>
-    <item
-        android:id="@+id/menu_clear_completed"
-        android:title="@string/gtasks_GTA_clear_completed"
-        app:showAsAction="never" />
+      android:id="@+id/menu_show_completed"
+      android:checkable="true"
+      android:title="@string/show_completed"/>
+  </group>
+  <item
+    android:id="@+id/menu_clear_completed"
+    android:title="@string/gtasks_GTA_clear_completed"
+    app:showAsAction="never"/>
 </menu>

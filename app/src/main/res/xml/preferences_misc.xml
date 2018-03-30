@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/miscellaneous">
+  android:title="@string/miscellaneous">
 
-    <Preference
-        android:key="@string/p_attachment_dir"
-        android:title="@string/attachment_directory" />
+  <Preference
+    android:key="@string/p_attachment_dir"
+    android:title="@string/attachment_directory"/>
 
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:defaultValue="false"
-        android:key="@string/p_voiceRemindersEnabled"
-        android:summary="@string/EPr_voiceRemindersEnabled_desc_enabled"
-        android:title="@string/EPr_voiceRemindersEnabled_title" />
+  <com.todoroo.astrid.ui.MultilineCheckboxPreference
+    android:defaultValue="false"
+    android:key="@string/p_voiceRemindersEnabled"
+    android:summary="@string/EPr_voiceRemindersEnabled_desc_enabled"
+    android:title="@string/EPr_voiceRemindersEnabled_title"/>
 
-    <CheckBoxPreference
-        android:key="@string/p_calendar_reminders"
-        android:summary="@string/CRA_calendar_reminders_pref_desc_enabled"
-        android:title="@string/CRA_calendar_reminders_pref_title"
-        android:defaultValue="false"/>
+  <CheckBoxPreference
+    android:defaultValue="false"
+    android:key="@string/p_calendar_reminders"
+    android:summary="@string/CRA_calendar_reminders_pref_desc_enabled"
+    android:title="@string/CRA_calendar_reminders_pref_title"/>
 
-    <CheckBoxPreference
-        android:key="@string/p_end_at_deadline"
-        android:summaryOff="@string/EPr_cal_end_at_due_time"
-        android:summaryOn="@string/EPr_cal_start_at_due_time"
-        android:title="@string/EPr_cal_end_or_start_at_due_time"
-        android:defaultValue="true"/>
+  <CheckBoxPreference
+    android:defaultValue="true"
+    android:key="@string/p_end_at_deadline"
+    android:summaryOff="@string/EPr_cal_end_at_due_time"
+    android:summaryOn="@string/EPr_cal_start_at_due_time"
+    android:title="@string/EPr_cal_end_or_start_at_due_time"/>
 
 </PreferenceScreen>

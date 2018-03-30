@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="@dimen/task_edit_double_padding_top_bottom"
+  android:paddingBottom="@dimen/task_edit_double_padding_top_bottom"
+  android:baselineAligned="false"
+  android:orientation="horizontal">
+
+  <LinearLayout
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/task_edit_double_padding_top_bottom"
-    android:layout_marginBottom="@dimen/task_edit_double_padding_top_bottom"
-    android:baselineAligned="false">
+    android:layout_weight="100"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="100">
+    <TextView
+      android:id="@+id/alarm_string"
+      style="@style/TaskEditTextPrimary"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="?attr/asTextColor"/>
 
-        <TextView
-            style="@style/TaskEditTextPrimary"
-            android:id="@+id/alarm_string"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/asTextColor" />
+    <Spinner
+      android:id="@+id/reminder_random_interval"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"/>
 
-        <Spinner
-            android:id="@+id/reminder_random_interval"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+  </LinearLayout>
 
-    </LinearLayout>
-
-    <include layout="@layout/control_set_clear_button" />
+  <include layout="@layout/control_set_clear_button"/>
 
 </LinearLayout>

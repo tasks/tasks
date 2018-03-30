@@ -1,227 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="geofence_radius_values">
-        <item>75</item>
-        <item>125</item>
-        <item>250</item>
-        <item>500</item>
-        <item>1000</item>
-    </string-array>
+  <string-array name="geofence_radius_values">
+    <item>75</item>
+    <item>125</item>
+    <item>250</item>
+    <item>500</item>
+    <item>1000</item>
+  </string-array>
 
-    <string-array name="geofence_responsiveness">
-        <item>00:15</item>
-        <item>00:30</item>
-        <item>01:00</item>
-        <item>05:00</item>
-        <item>10:00</item>
-    </string-array>
+  <string-array name="geofence_responsiveness">
+    <item>00:15</item>
+    <item>00:30</item>
+    <item>01:00</item>
+    <item>05:00</item>
+    <item>10:00</item>
+  </string-array>
 
-    <string-array name="geofence_responsiveness_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>300</item>
-        <item>600</item>
-    </string-array>
+  <string-array name="geofence_responsiveness_values">
+    <item>15</item>
+    <item>30</item>
+    <item>60</item>
+    <item>300</item>
+    <item>600</item>
+  </string-array>
 
-    <string-array name="TEA_hideUntil">
-        <item>@string/due_date</item>
-        <item>@string/due_time</item>
-        <item>@string/day_before_due</item>
-        <item>@string/week_before_due</item>
-        <item>@string/pick_a_date_and_time</item>
-    </string-array>
+  <string-array name="TEA_hideUntil">
+    <item>@string/due_date</item>
+    <item>@string/due_time</item>
+    <item>@string/day_before_due</item>
+    <item>@string/week_before_due</item>
+    <item>@string/pick_a_date_and_time</item>
+  </string-array>
 
-    <string-array name="EPr_default_hideUntil">
-        <item>@string/dont_hide</item>
-        <item>@string/due_date</item>
-        <item>@string/day_before_due</item>
-        <item>@string/week_before_due</item>
-    </string-array>
+  <string-array name="EPr_default_hideUntil">
+    <item>@string/dont_hide</item>
+    <item>@string/due_date</item>
+    <item>@string/day_before_due</item>
+    <item>@string/week_before_due</item>
+  </string-array>
 
-    <string-array name="EPr_default_importance">
-        <item>@string/priority_high</item>
-        <item>@string/priority_medium</item>
-        <item>@string/priority_low</item>
-        <item>@string/none</item>
-    </string-array>
+  <string-array name="EPr_default_importance">
+    <item>@string/priority_high</item>
+    <item>@string/priority_medium</item>
+    <item>@string/priority_low</item>
+    <item>@string/none</item>
+  </string-array>
 
-    <string-array name="reminder_ring_modes">
-        <item>@string/ring_once</item>
-        <item>@string/ring_five_times</item>
-        <item>@string/ring_nonstop</item>
-    </string-array>
+  <string-array name="reminder_ring_modes">
+    <item>@string/ring_once</item>
+    <item>@string/ring_five_times</item>
+    <item>@string/ring_nonstop</item>
+  </string-array>
 
-    <string-array name="colors">
-        <item>@string/theme_blue_grey</item>
-        <item>@string/theme_dark_grey</item>
-        <item>@string/theme_red</item>
-        <item>@string/theme_pink</item>
-        <item>@string/theme_purple</item>
-        <item>@string/theme_deep_purple</item>
-        <item>@string/theme_indigo</item>
-        <item>@string/theme_blue</item>
-        <item>@string/theme_light_blue</item>
-        <item>@string/theme_cyan</item>
-        <item>@string/theme_teal</item>
-        <item>@string/theme_green</item>
-        <item>@string/theme_light_green</item>
-        <item>@string/theme_lime</item>
-        <item>@string/theme_yellow</item>
-        <item>@string/theme_amber</item>
-        <item>@string/theme_orange</item>
-        <item>@string/theme_deep_orange</item>
-        <item>@string/theme_brown</item>
-        <item>@string/theme_grey</item>
-    </string-array>
+  <string-array name="colors">
+    <item>@string/theme_blue_grey</item>
+    <item>@string/theme_dark_grey</item>
+    <item>@string/theme_red</item>
+    <item>@string/theme_pink</item>
+    <item>@string/theme_purple</item>
+    <item>@string/theme_deep_purple</item>
+    <item>@string/theme_indigo</item>
+    <item>@string/theme_blue</item>
+    <item>@string/theme_light_blue</item>
+    <item>@string/theme_cyan</item>
+    <item>@string/theme_teal</item>
+    <item>@string/theme_green</item>
+    <item>@string/theme_light_green</item>
+    <item>@string/theme_lime</item>
+    <item>@string/theme_yellow</item>
+    <item>@string/theme_amber</item>
+    <item>@string/theme_orange</item>
+    <item>@string/theme_deep_orange</item>
+    <item>@string/theme_brown</item>
+    <item>@string/theme_grey</item>
+  </string-array>
 
-    <string-array name="accents">
-        <item>@string/theme_blue_grey</item>
-        <item>@string/theme_red</item>
-        <item>@string/theme_pink</item>
-        <item>@string/theme_purple</item>
-        <item>@string/theme_deep_purple</item>
-        <item>@string/theme_indigo</item>
-        <item>@string/theme_blue</item>
-        <item>@string/theme_light_blue</item>
-        <item>@string/theme_cyan</item>
-        <item>@string/theme_teal</item>
-        <item>@string/theme_green</item>
-        <item>@string/theme_light_green</item>
-        <item>@string/theme_lime</item>
-        <item>@string/theme_yellow</item>
-        <item>@string/theme_amber</item>
-        <item>@string/theme_orange</item>
-        <item>@string/theme_deep_orange</item>
-    </string-array>
+  <string-array name="accents">
+    <item>@string/theme_blue_grey</item>
+    <item>@string/theme_red</item>
+    <item>@string/theme_pink</item>
+    <item>@string/theme_purple</item>
+    <item>@string/theme_deep_purple</item>
+    <item>@string/theme_indigo</item>
+    <item>@string/theme_blue</item>
+    <item>@string/theme_light_blue</item>
+    <item>@string/theme_cyan</item>
+    <item>@string/theme_teal</item>
+    <item>@string/theme_green</item>
+    <item>@string/theme_light_green</item>
+    <item>@string/theme_lime</item>
+    <item>@string/theme_yellow</item>
+    <item>@string/theme_amber</item>
+    <item>@string/theme_orange</item>
+    <item>@string/theme_deep_orange</item>
+  </string-array>
 
-    <string-array name="widget_background">
-        <item>@string/theme_light</item>
-        <item>@string/theme_black</item>
-        <item>@string/theme_dark</item>
-    </string-array>
+  <string-array name="widget_background">
+    <item>@string/theme_light</item>
+    <item>@string/theme_black</item>
+    <item>@string/theme_dark</item>
+  </string-array>
 
-    <string-array name="localization">
-        <item>af-rZA</item>
-        <item>ar</item>
-        <item>bg-bg</item>
-        <item>ca</item>
-        <item>cs</item>
-        <item>da</item>
-        <item>de</item>
-        <item>el</item>
-        <item>en</item>
-        <item>es</item>
-        <item>fa</item>
-        <item>fi</item>
-        <item>fr</item>
-        <item>gl</item>
-        <item>hu</item>
-        <item>it</item>
-        <item>iw</item>
-        <item>ja</item>
-        <item>ko</item>
-        <item>nb</item>
-        <item>nl</item>
-        <item>pl</item>
-        <item>pt</item>
-        <item>pt-br</item>
-        <item>ro</item>
-        <item>ru</item>
-        <item>sk</item>
-        <item>sl-si</item>
-        <item>sr</item>
-        <item>sv</item>
-        <item>th</item>
-        <item>tr</item>
-        <item>uk</item>
-        <item>zh-cn</item>
-        <item>zh-tw</item>
-    </string-array>
+  <string-array name="localization">
+    <item>af-rZA</item>
+    <item>ar</item>
+    <item>bg-bg</item>
+    <item>ca</item>
+    <item>cs</item>
+    <item>da</item>
+    <item>de</item>
+    <item>el</item>
+    <item>en</item>
+    <item>es</item>
+    <item>fa</item>
+    <item>fi</item>
+    <item>fr</item>
+    <item>gl</item>
+    <item>hu</item>
+    <item>it</item>
+    <item>iw</item>
+    <item>ja</item>
+    <item>ko</item>
+    <item>nb</item>
+    <item>nl</item>
+    <item>pl</item>
+    <item>pt</item>
+    <item>pt-br</item>
+    <item>ro</item>
+    <item>ru</item>
+    <item>sk</item>
+    <item>sl-si</item>
+    <item>sr</item>
+    <item>sv</item>
+    <item>th</item>
+    <item>tr</item>
+    <item>uk</item>
+    <item>zh-cn</item>
+    <item>zh-tw</item>
+  </string-array>
 
-    <string-array name="layout_direction_entries">
-        <item>@string/use_locale_default</item>
-        <item>@string/layout_direction_left_to_right</item>
-        <item>@string/layout_direction_right_to_left</item>
-    </string-array>
+  <string-array name="layout_direction_entries">
+    <item>@string/use_locale_default</item>
+    <item>@string/layout_direction_left_to_right</item>
+    <item>@string/layout_direction_right_to_left</item>
+  </string-array>
 
-    <string-array name="layout_direction_values">
-        <item>-1</item>
-        <item>0</item>
-        <item>1</item>
-    </string-array>
+  <string-array name="layout_direction_values">
+    <item>-1</item>
+    <item>0</item>
+    <item>1</item>
+  </string-array>
 
-    <string-array name="EPr_default_urgency">
-        <item>@string/no_deadline</item>
-        <item>@string/today</item>
-        <item>@string/tomorrow</item>
-        <item>@string/day_after_tomorrow</item>
-        <item>@string/next_week</item>
-    </string-array>
+  <string-array name="EPr_default_urgency">
+    <item>@string/no_deadline</item>
+    <item>@string/today</item>
+    <item>@string/tomorrow</item>
+    <item>@string/day_after_tomorrow</item>
+    <item>@string/next_week</item>
+  </string-array>
 
-    <string-array name="EPr_default_reminders">
-        <item>@string/no_deadline_reminder</item>
-        <item>@string/at_deadline</item>
-        <item>@string/when_overdue</item>
-        <item>@string/at_deadline_or_overdue</item>
-    </string-array>
+  <string-array name="EPr_default_reminders">
+    <item>@string/no_deadline_reminder</item>
+    <item>@string/at_deadline</item>
+    <item>@string/when_overdue</item>
+    <item>@string/at_deadline_or_overdue</item>
+  </string-array>
 
-    <string-array name="CFC_dueBefore_entries">
-        <item>@string/no_due_date</item>
-        <item>@string/yesterday</item>
-        <item>@string/today</item>
-        <item>@string/tomorrow</item>
-        <item>@string/day_after_tomorrow</item>
-        <item>@string/next_week</item>
-        <item>@string/next_month</item>
-    </string-array>
+  <string-array name="CFC_dueBefore_entries">
+    <item>@string/no_due_date</item>
+    <item>@string/yesterday</item>
+    <item>@string/today</item>
+    <item>@string/tomorrow</item>
+    <item>@string/day_after_tomorrow</item>
+    <item>@string/next_week</item>
+    <item>@string/next_month</item>
+  </string-array>
 
-    <string-array name="TEA_reminder_random">
-        <item>@string/random_reminder_hour</item>
-        <item>@string/random_reminder_day</item>
-        <item>@string/random_reminder_week</item>
-        <item>@string/random_reminder_two_weeks</item>
-        <item>@string/random_reminder_month</item>
-        <item>@string/random_reminder_two_months</item>
-    </string-array>
+  <string-array name="TEA_reminder_random">
+    <item>@string/random_reminder_hour</item>
+    <item>@string/random_reminder_day</item>
+    <item>@string/random_reminder_week</item>
+    <item>@string/random_reminder_two_weeks</item>
+    <item>@string/random_reminder_month</item>
+    <item>@string/random_reminder_two_months</item>
+  </string-array>
 
-    <string-array name="EPr_reminder_random">
-        <item>@string/default_random_reminder_disabled</item>
-        <item>@string/default_random_reminder_hourly</item>
-        <item>@string/default_random_reminder_daily</item>
-        <item>@string/default_random_reminder_weekly</item>
-        <item>@string/default_random_reminder_bi_weekly</item>
-        <item>@string/default_random_reminder_monthly</item>
-        <item>@string/default_random_reminder_bi_monthly</item>
-    </string-array>
+  <string-array name="EPr_reminder_random">
+    <item>@string/default_random_reminder_disabled</item>
+    <item>@string/default_random_reminder_hourly</item>
+    <item>@string/default_random_reminder_daily</item>
+    <item>@string/default_random_reminder_weekly</item>
+    <item>@string/default_random_reminder_bi_weekly</item>
+    <item>@string/default_random_reminder_monthly</item>
+    <item>@string/default_random_reminder_bi_monthly</item>
+  </string-array>
 
-    <string-array name="repeat_options">
-        <item>@string/repeat_option_does_not_repeat</item>
-        <item>@string/repeat_option_every_day</item>
-        <item>@string/repeat_option_every_week</item>
-        <item>@string/repeat_option_every_month</item>
-        <item>@string/repeat_option_every_year</item>
-        <item>@string/repeat_option_custom</item>
-    </string-array>
+  <string-array name="repeat_options">
+    <item>@string/repeat_option_does_not_repeat</item>
+    <item>@string/repeat_option_every_day</item>
+    <item>@string/repeat_option_every_week</item>
+    <item>@string/repeat_option_every_month</item>
+    <item>@string/repeat_option_every_year</item>
+    <item>@string/repeat_option_custom</item>
+  </string-array>
 
-    <string-array name="repeat_frequency">
-        <item>@string/repeat_minutely</item>
-        <item>@string/repeat_hourly</item>
-        <item>@string/repeat_daily</item>
-        <item>@string/repeat_weekly</item>
-        <item>@string/repeat_monthly</item>
-        <item>@string/repeat_yearly</item>
-    </string-array>
+  <string-array name="repeat_frequency">
+    <item>@string/repeat_minutely</item>
+    <item>@string/repeat_hourly</item>
+    <item>@string/repeat_daily</item>
+    <item>@string/repeat_weekly</item>
+    <item>@string/repeat_monthly</item>
+    <item>@string/repeat_yearly</item>
+  </string-array>
 
-    <string-array name="repeat_type">
-        <item>@string/repeat_type_due</item>
-        <item>@string/repeat_type_completion</item>
-    </string-array>
+  <string-array name="repeat_type">
+    <item>@string/repeat_type_due</item>
+    <item>@string/repeat_type_completion</item>
+  </string-array>
 
-    <string-array name="day_of_week_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
+  <string-array name="day_of_week_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
 </resources>

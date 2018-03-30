@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/updatesFooter"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/updatesFooter"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:paddingStart="@dimen/keyline_first"
+  android:paddingEnd="@dimen/keyline_first"
+  android:paddingLeft="@dimen/keyline_first"
+  android:paddingRight="@dimen/keyline_first"
+  android:background="?attr/colorPrimary"
+  android:gravity="center_vertical"
+  android:minHeight="50dp"
+  android:orientation="horizontal">
+
+  <ImageView
+    android:id="@+id/picture"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_weight="1"
+    android:layout_gravity="center_vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:ignore="ContentDescription"/>
+
+  <EditText
+    android:id="@+id/commentField"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
-    android:gravity="center_vertical"
-    android:minHeight="50dp"
-    android:orientation="horizontal"
-    android:paddingLeft="@dimen/keyline_first"
-    android:paddingStart="@dimen/keyline_first"
-    android:paddingRight="@dimen/keyline_first"
-    android:paddingEnd="@dimen/keyline_first">
+    android:layout_weight="100"
+    android:layout_gravity="center_vertical"
+    android:paddingStart="@dimen/keyline_second"
+    android:paddingEnd="0dp"
+    android:paddingLeft="@dimen/keyline_second"
+    android:paddingRight="0dp"
+    android:background="@null"
+    android:freezesText="true"
+    android:gravity="start"
+    android:hint="@string/TVA_add_comment"
+    android:imeOptions="flagNoExtractUi|actionDone"
+    android:inputType="textCapSentences"
+    android:nextFocusLeft="@id/commentField"
+    android:nextFocusUp="@id/commentField"
+    android:textAlignment="viewStart"
+    android:textColor="?attr/actionBarPrimaryText"
+    android:textColorHint="?attr/actionBarSecondaryText"
+    android:textCursorDrawable="@null"
+    android:textSize="16sp"/>
 
-    <ImageView
-        android:id="@+id/picture"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center_vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:layout_weight="1"
-        tools:ignore="ContentDescription" />
-
-    <EditText
-        android:id="@+id/commentField"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="100"
-        android:background="@null"
-        android:freezesText="true"
-        android:hint="@string/TVA_add_comment"
-        android:imeOptions="flagNoExtractUi|actionDone"
-        android:inputType="textCapSentences"
-        android:nextFocusUp="@id/commentField"
-        android:nextFocusLeft="@id/commentField"
-        android:gravity="start"
-        android:textAlignment="viewStart"
-        android:paddingLeft="@dimen/keyline_second"
-        android:paddingStart="@dimen/keyline_second"
-        android:paddingRight="0dp"
-        android:paddingEnd="0dp"
-        android:textColor="?attr/actionBarPrimaryText"
-        android:textColorHint="?attr/actionBarSecondaryText"
-        android:textCursorDrawable="@null"
-        android:textSize="16sp" />
-
-    <ImageView
-        android:id="@+id/commentButton"
-        android:layout_width="39dip"
-        android:layout_height="39dip"
-        android:layout_marginStart="3dp"
-        android:layout_marginLeft="3dip"
-        android:layout_weight="1"
-        android:scaleType="center"
-        android:src="@drawable/ic_add_24dp"
-        android:tint="?attr/actionBarPrimaryText"
-        android:visibility="gone" />
+  <ImageView
+    android:id="@+id/commentButton"
+    android:layout_width="39dip"
+    android:layout_height="39dip"
+    android:layout_weight="1"
+    android:layout_marginStart="3dp"
+    android:layout_marginLeft="3dip"
+    android:scaleType="center"
+    android:src="@drawable/ic_add_24dp"
+    android:tint="?attr/actionBarPrimaryText"
+    android:visibility="gone"/>
 
 </LinearLayout>
