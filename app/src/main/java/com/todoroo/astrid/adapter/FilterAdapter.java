@@ -130,10 +130,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
           viewHolder.name = convertView.findViewById(R.id.name);
           if (navigationDrawer) {
             viewHolder.name.setCheckMarkDrawable(null);
-          }
-          viewHolder.icon = convertView.findViewById(R.id.icon);
-          viewHolder.size = convertView.findViewById(R.id.size);
-          if (preLollipop()) {
+          } else if (preLollipop()) {
             ColorStateList tintList = new ColorStateList(new int[][]{
                 new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}},
                 new int[]{
@@ -144,6 +141,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             DrawableCompat.setTintList(wrapped, tintList);
             viewHolder.name.setCheckMarkDrawable(wrapped);
           }
+          viewHolder.icon = convertView.findViewById(R.id.icon);
+          viewHolder.size = convertView.findViewById(R.id.size);
           break;
         case SEPARATOR:
           convertView = inflater.inflate(R.layout.filter_adapter_separator, parent, false);
