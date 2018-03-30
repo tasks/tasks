@@ -888,4 +888,5 @@ File %1$s contained %2$s.\n\n
   <string name="help">Help</string>
   <string name="calendar_not_found">Calendar not found</string>
   <string name="network_error">Connection failed</string>
+  <string name="background_sync_unmetered_only">Only on unmetered connections</string>
 </resources>

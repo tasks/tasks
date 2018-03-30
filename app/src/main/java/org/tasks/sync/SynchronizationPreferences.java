@@ -59,9 +59,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         getString(R.string.p_sync_caldav));
     caldavEnabled.setChecked(syncAdapters.isCaldavSyncEnabled());
     caldavEnabled.setOnPreferenceChangeListener((preference, newValue) -> {
-      boolean enabled = ((boolean) newValue);
-      jobManager.updateBackgroundSync(enabled, false);
-      return enabled;
+      jobManager.updateBackgroundSync(((boolean) newValue), null, null);
+      return true;
     });
     final CheckBoxPreference gtaskPreference = (CheckBoxPreference) findPreference(
         getString(R.string.sync_gtasks));
@@ -86,10 +85,14 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
           DateUtilities.getDateStringWithTime(SynchronizationPreferences.this,
               gtasksPreferenceService.getLastSyncDate())));
     }
+    findPreference(getString(R.string.p_background_sync_unmetered_only))
+        .setOnPreferenceChangeListener((preference, o) -> {
+          jobManager.updateBackgroundSync(null, null, (Boolean) o);
+          return true;
+        });
     findPreference(getString(R.string.p_background_sync))
         .setOnPreferenceChangeListener((preference, o) -> {
-          boolean enabled = (Boolean) o;
-          jobManager.updateBackgroundSync(false, enabled);
+          jobManager.updateBackgroundSync(null, (Boolean) o, null);
           return true;
         });
     findPreference(getString(R.string.sync_SPr_forget_key))

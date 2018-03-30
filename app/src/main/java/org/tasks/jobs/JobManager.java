@@ -10,6 +10,7 @@ import com.evernote.android.job.JobRequest.Builder;
 import com.evernote.android.job.JobRequest.NetworkType;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
@@ -64,38 +65,44 @@ public class JobManager {
   }
 
   public void updateBackgroundSync() {
-    updateBackgroundSync(false, false);
+    updateBackgroundSync(null, null, null);
   }
 
-  public void updateBackgroundSync(boolean forceAccountPresent, boolean forceBackgroundEnabled) {
-    boolean backgroundEnabled =
-        forceBackgroundEnabled || preferences.getBoolean(R.string.p_background_sync, true);
-    boolean accountsPresent =
-        forceAccountPresent || preferences.getBoolean(R.string.p_sync_caldav, false) ||
-            !isEmpty(preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME));
-    scheduleBackgroundSynchronization(backgroundEnabled && accountsPresent);
+  public void updateBackgroundSync(@Nullable Boolean forceAccountPresent,
+      @Nullable Boolean forceBackgroundEnabled, @Nullable Boolean forceOnlyOnUnmetered) {
+    boolean backgroundEnabled = forceBackgroundEnabled == null
+        ? preferences.getBoolean(R.string.p_background_sync, true)
+        : forceBackgroundEnabled;
+    boolean accountsPresent = forceAccountPresent == null
+        ? (preferences.getBoolean(R.string.sync_gtasks, false) || preferences.getBoolean(R.string.p_sync_caldav, false))
+        : forceAccountPresent;
+    boolean onlyOnWifi = forceOnlyOnUnmetered == null
+        ? preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
+        : forceOnlyOnUnmetered;
+    scheduleBackgroundSynchronization(backgroundEnabled && accountsPresent, onlyOnWifi);
   }
 
-  private void scheduleBackgroundSynchronization(boolean enabled) {
-    Timber.d("background sync enabled: %s", enabled);
+  private void scheduleBackgroundSynchronization(boolean enabled, boolean onlyOnUnmetered) {
+    Timber.d("background sync enabled: %s, onlyOnUnmetered: %s", enabled, onlyOnUnmetered);
     if (enabled) {
-      new JobRequest.Builder(JobCreator.TAG_SYNC)
-          .setRequiredNetworkType(NetworkType.CONNECTED)
-          .setRequirementsEnforced(true)
+      new JobRequest.Builder(JobCreator.TAG_BACKGROUND_SYNC)
           .setPeriodic(TimeUnit.HOURS.toMillis(1))
+          .setRequiredNetworkType(onlyOnUnmetered ? NetworkType.UNMETERED : NetworkType.CONNECTED)
+          .setRequirementsEnforced(true)
           .setUpdateCurrent(true)
           .build()
           .schedule();
     } else {
-      jobManager.cancelAllForTag(JobCreator.TAG_SYNC);
+      jobManager.cancelAllForTag(JobCreator.TAG_BACKGROUND_SYNC);
     }
   }
 
   public void syncNow() {
     new JobRequest.Builder(JobCreator.TAG_SYNC)
+        .setExecutionWindow(TimeUnit.SECONDS.toMillis(1), TimeUnit.SECONDS.toMillis(5))
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .setRequirementsEnforced(true)
-        .setExecutionWindow(1, 5000)
+        .setUpdateCurrent(true)
         .build()
         .schedule();
   }

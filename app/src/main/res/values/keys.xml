@@ -295,5 +295,6 @@
   <string name="p_strict_mode">strict_mode</string>
   <string name="warned_play_services">warned_play_services</string>
     <string name="p_sync_caldav">sync_caldav</string>
+  <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
 
 </resources>

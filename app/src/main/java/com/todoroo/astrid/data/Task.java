@@ -977,6 +977,64 @@ public class Task implements Parcelable {
     return remoteId != null ? remoteId.equals(task.remoteId) : task.remoteId == null;
   }
 
+  public boolean googleTaskUpToDate(Task original) {
+    if (this == original) {
+      return true;
+    }
+    if (original == null) {
+      return false;
+    }
+
+    if (title != null ? !title.equals(original.title) : original.title != null) {
+      return false;
+    }
+    if (dueDate != null ? !dueDate.equals(original.dueDate) : original.dueDate != null) {
+      return false;
+    }
+    if (completed != null ? !completed.equals(original.completed) : original.completed != null) {
+      return false;
+    }
+    if (deleted != null ? !deleted.equals(original.deleted) : original.deleted != null) {
+      return false;
+    }
+    return notes != null ? notes.equals(original.notes) : original.notes == null;
+  }
+
+  public boolean caldavUpToDate(Task original) {
+    if (this == original) {
+      return true;
+    }
+    if (original == null) {
+      return false;
+    }
+
+    if (title != null ? !title.equals(original.title) : original.title != null) {
+      return false;
+    }
+    if (importance != null ? !importance.equals(original.importance)
+        : original.importance != null) {
+      return false;
+    }
+    if (dueDate != null ? !dueDate.equals(original.dueDate) : original.dueDate != null) {
+      return false;
+    }
+    if (completed != null ? !completed.equals(original.completed) : original.completed != null) {
+      return false;
+    }
+    if (deleted != null ? !deleted.equals(original.deleted) : original.deleted != null) {
+      return false;
+    }
+    if (notes != null ? !notes.equals(original.notes) : original.notes != null) {
+      return false;
+    }
+    if (recurrence != null ? !recurrence.equals(original.recurrence)
+        : original.recurrence != null) {
+      return false;
+    }
+    return repeatUntil != null ? repeatUntil.equals(original.repeatUntil)
+        : original.repeatUntil == null;
+  }
+
   public boolean isSaved() {
     return getId() != NO_ID;
   }

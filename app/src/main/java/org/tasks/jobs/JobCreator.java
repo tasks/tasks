@@ -14,6 +14,7 @@ import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import org.tasks.scheduling.RefreshScheduler;
+import timber.log.Timber;
 
 @ApplicationScope
 public class JobCreator implements com.evernote.android.job.JobCreator {
@@ -32,6 +33,7 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
   static final String TAG_REFRESH = "tag_refresh";
   static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
   static final String TAG_NOTIFICATION = "tag_notification";
+  static final String TAG_BACKGROUND_SYNC = "tag_background_sync";
   static final String TAG_SYNC = "tag_sync";
 
   @Inject
@@ -57,6 +59,7 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
       case TAG_NOTIFICATION:
         return new NotificationJob(preferences, notifier, notificationQueue);
       case TAG_SYNC:
+      case TAG_BACKGROUND_SYNC:
         return new SyncJob(caldavSynchronizer, googleTaskSynchronizer);
       case TAG_BACKUP:
         return new BackupJob(context, tasksJsonExporter, preferences);
@@ -64,7 +67,8 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
       case TAG_REFRESH:
         return new RefreshJob(refreshScheduler, localBroadcastManager);
       default:
-        throw new IllegalArgumentException("Unhandled tag: " + tag);
+        Timber.e("Unhandled tag: " + tag);
+        return null;
     }
   }
 }

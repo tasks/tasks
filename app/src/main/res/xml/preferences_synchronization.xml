@@ -6,11 +6,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/synchronization">
 
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="@string/p_background_sync"
-        android:title="@string/sync_SPr_interval_title"/>
-
     <PreferenceCategory android:title="@string/gtasks_GPr_header">
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
@@ -33,4 +28,17 @@
             android:key="@string/p_sync_caldav"
             android:title="@string/enabled" />
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sync_SPr_interval_title">
+        <CheckBoxPreference
+          android:defaultValue="true"
+          android:key="@string/p_background_sync"
+          android:title="@string/enabled" />
+        <CheckBoxPreference
+          android:defaultValue="false"
+          android:dependency="@string/p_background_sync"
+          android:key="@string/p_background_sync_unmetered_only"
+          android:title="@string/background_sync_unmetered_only" />
+    </PreferenceCategory>
+
 </PreferenceScreen>  
