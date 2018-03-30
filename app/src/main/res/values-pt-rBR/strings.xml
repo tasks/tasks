@@ -335,7 +335,6 @@
 	<string name="theme_dark">Escuro</string>
 	<string name="theme_wallpaper">Plano de fundo</string>
 	<string name="theme_day_night">Dia/Noite</string>
-	<string name="master_sync_warning">Sincronização automática está atualmente desabilitada pelo Android</string>
 	<string name="settings_general">Geral</string>
 	<string name="language">Idioma</string>
 	<string name="restart_required">Você deve reiniciar seu aplicativo para que as alterações sejam aplicadas.</string>

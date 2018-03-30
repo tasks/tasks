@@ -344,7 +344,6 @@
 	<string name="theme_dark">Темний</string>
 	<string name="theme_wallpaper">Шпалери</string>
 	<string name="theme_day_night">День/Ніч</string>
-	<string name="master_sync_warning">Автоматична синхронізація наразі недоступна в Android</string>
 	<string name="settings_general">Загальні</string>
 	<string name="language">Мова</string>
 	<string name="restart_required">Tasks має бути перезавантажено для вступу змін в дію.</string>

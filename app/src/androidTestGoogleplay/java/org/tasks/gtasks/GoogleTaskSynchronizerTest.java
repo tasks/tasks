@@ -4,7 +4,7 @@ import static com.natpryce.makeiteasy.MakeItEasy.with;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE;
 import static com.todoroo.astrid.data.Task.HIDE_UNTIL_DUE_TIME;
 import static junit.framework.Assert.assertEquals;
-import static org.tasks.gtasks.GoogleTaskSyncAdapter.mergeDates;
+import static org.tasks.gtasks.GoogleTaskSynchronizer.mergeDates;
 import static org.tasks.makers.TaskMaker.DUE_DATE;
 import static org.tasks.makers.TaskMaker.DUE_TIME;
 import static org.tasks.makers.TaskMaker.HIDE_TYPE;
@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import org.tasks.time.DateTime;
 
 @RunWith(AndroidJUnit4.class)
-public class GoogleTaskSyncAdapterTest {
+public class GoogleTaskSynchronizerTest {
 
   @Test
   public void testMergeDate() {

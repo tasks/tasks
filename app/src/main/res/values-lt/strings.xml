@@ -421,7 +421,6 @@
 	<string name="theme_dark">Tamsi</string>
 	<string name="theme_wallpaper">Fono vaizdas</string>
 	<string name="theme_day_night">Diena/Naktis</string>
-	<string name="master_sync_warning">Automatinis sinchronizavimas šiuo metu yra išjungtas Android sistemos</string>
 	<string name="settings_general">Pagrindiniai</string>
 	<string name="language">Kalba</string>
 	<string name="restart_required">Kad nustatymai įsigaliotų, Tasks turi būti perkrauta</string>

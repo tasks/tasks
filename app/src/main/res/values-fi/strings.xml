@@ -421,7 +421,6 @@
 	<string name="theme_dark">Tumma</string>
 	<string name="theme_wallpaper">Taustakuva</string>
 	<string name="theme_day_night">Päivä/Yö</string>
-	<string name="master_sync_warning">Android on estänyt automaattisen synkronoinnin</string>
 	<string name="settings_general">Yleinen</string>
 	<string name="language">Kieli</string>
 	<string name="restart_required">Tasks on uudelleen käynnistettävä muutoksien käyttöönottamiseksi</string>

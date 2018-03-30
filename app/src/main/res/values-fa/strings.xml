@@ -271,7 +271,6 @@
 	<string name="theme_grey">خاکستری</string>
 	<string name="theme_light">روشن</string>
 	<string name="theme_dark">تیره</string>
-	<string name="master_sync_warning">درحال‌حاضر هماهنگ‌سازی خودکار توسط اندروید غیرفعال است</string>
 	<string name="settings_general">عمومی</string>
 	<string name="language">زبان</string>
 	<string name="restart_now">اکنون ریست کن</string>

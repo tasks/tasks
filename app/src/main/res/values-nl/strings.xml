@@ -413,7 +413,6 @@
 	<string name="theme_dark">Donker</string>
 	<string name="theme_wallpaper">Achtergrond</string>
 	<string name="theme_day_night">Dag/Nacht</string>
-	<string name="master_sync_warning">Automatische synchronisatie is momenteel uitgezet door Android</string>
 	<string name="settings_general">Globaal</string>
 	<string name="language">Taal</string>
 	<string name="restart_required">Tasks moet opnieuw gestart worden om de nieuwe wijzingen te activeren</string>

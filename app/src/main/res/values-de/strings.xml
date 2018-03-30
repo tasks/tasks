@@ -411,7 +411,6 @@
 	<string name="theme_dark">Dunkel</string>
 	<string name="theme_wallpaper">Hintergrundbild</string>
 	<string name="theme_day_night">Tag/Nacht</string>
-	<string name="master_sync_warning">Automatische Syncronisation ist aktuell im System deaktiviert</string>
 	<string name="settings_general">Allgemein</string>
 	<string name="language">Sprache</string>
 	<string name="restart_required">Tasks muss neugestartet werden um die Änderungen zu übernehmen</string>

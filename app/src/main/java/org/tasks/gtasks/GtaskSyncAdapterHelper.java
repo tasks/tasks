@@ -28,38 +28,6 @@ public class GtaskSyncAdapterHelper {
     this.tracker = tracker;
   }
 
-  /**
-   * Helper method to trigger an immediate sync ("refresh").
-   *
-   * <p>This should only be used when we need to preempt the normal sync schedule. Typically, this
-   * means the user has pressed the "refresh" button.
-   *
-   * Note that SYNC_EXTRAS_MANUAL will cause an immediate sync, without any optimization to
-   * preserve battery life. If you know new data is available (perhaps via a GCM notification),
-   * but the user is not actively waiting for that data, you should omit this flag; this will give
-   * the OS additional freedom in scheduling your sync request.
-   */
-  public boolean initiateManualSync() {
-    Account account = getAccount();
-    if (account == null) {
-      return false;
-    }
-    Bundle extras = new Bundle();
-    // Disable sync backoff and ignore sync preferences. In other words...perform sync NOW!
-    extras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-    extras.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-    ContentResolver.requestSync(account, AUTHORITY, extras);
-    return true;
-  }
-
-  public void requestSynchronization() {
-    Account account = getAccount();
-    if (account == null) {
-      return;
-    }
-    ContentResolver.requestSync(account, AUTHORITY, new Bundle());
-  }
-
   public boolean isEnabled() {
     return preferences.getBoolean(R.string.sync_gtasks, false) &&
         playServices.isPlayServicesAvailable() &&

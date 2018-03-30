@@ -60,8 +60,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     caldavEnabled.setChecked(syncAdapters.isCaldavSyncEnabled());
     caldavEnabled.setOnPreferenceChangeListener((preference, newValue) -> {
       boolean enabled = ((boolean) newValue);
-      jobManager.setBackgroundSynchronization(
-          enabled && preferences.getBoolean(R.string.p_background_sync, true));
+      jobManager.updateBackgroundSync(enabled, false);
       return enabled;
     });
     final CheckBoxPreference gtaskPreference = (CheckBoxPreference) findPreference(
@@ -76,7 +75,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         }
         return false;
       } else {
-        googleAccountManager.setBackgroundSynchronization(false);
+        jobManager.updateBackgroundSync();
         tracker.reportEvent(Tracking.Events.GTASK_DISABLED);
         gtasksPreferenceService.stopOngoing();
         return true;
@@ -89,9 +88,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     }
     findPreference(getString(R.string.p_background_sync))
         .setOnPreferenceChangeListener((preference, o) -> {
-          boolean backgroundSyncEnabled = (Boolean) o;
-          jobManager.setBackgroundSynchronization(backgroundSyncEnabled);
-          googleAccountManager.setBackgroundSynchronization(backgroundSyncEnabled);
+          boolean enabled = (Boolean) o;
+          jobManager.updateBackgroundSync(false, enabled);
           return true;
         });
     findPreference(getString(R.string.sync_SPr_forget_key))
@@ -101,7 +99,6 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
                 gtasksPreferenceService.clearLastSyncDate();
                 gtasksPreferenceService.setUserName(null);
                 googleTaskDao.deleteAll();
-                googleAccountManager.setBackgroundSynchronization(false);
                 tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
                 gtaskPreference.setChecked(false);
               })
@@ -120,16 +117,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   protected void onResume() {
     super.onResume();
 
-    CheckBoxPreference backgroundSync = (CheckBoxPreference) findPreference(
-        getString(R.string.p_background_sync));
-    if (syncAdapters.isMasterSyncEnabled()) {
-      backgroundSync.setSummary(null);
-    } else {
-      backgroundSync.setSummary(R.string.master_sync_warning);
-    }
     if (!permissionChecker.canAccessAccounts()) {
       ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(false);
-      ((CheckBoxPreference) findPreference(getString(R.string.p_sync_caldav))).setChecked(false);
     }
   }
 
@@ -138,9 +127,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     if (requestCode == REQUEST_LOGIN) {
       boolean enabled = resultCode == RESULT_OK;
       if (enabled) {
-        boolean backgroundSyncEnabled = preferences.getBoolean(R.string.p_background_sync, true);
-        googleAccountManager.setBackgroundSynchronization(backgroundSyncEnabled);
         tracker.reportEvent(Tracking.Events.GTASK_ENABLED);
+        jobManager.updateBackgroundSync();
       }
       ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(enabled);
     } else {

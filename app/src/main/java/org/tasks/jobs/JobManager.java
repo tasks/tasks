@@ -1,5 +1,6 @@
 package org.tasks.jobs;
 
+import static android.text.TextUtils.isEmpty;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
@@ -7,9 +8,12 @@ import com.evernote.android.job.DailyJob;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.JobRequest.Builder;
 import com.evernote.android.job.JobRequest.NetworkType;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
+import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 @ApplicationScope
@@ -24,10 +28,12 @@ public class JobManager {
   public static final int JOB_ID_TASKER = 11;
 
   private final com.evernote.android.job.JobManager jobManager;
+  private final Preferences preferences;
 
   @Inject
-  public JobManager(com.evernote.android.job.JobManager jobManager) {
+  public JobManager(com.evernote.android.job.JobManager jobManager, Preferences preferences) {
     this.jobManager = jobManager;
+    this.preferences = preferences;
   }
 
   public void scheduleNotification(long time) {
@@ -57,9 +63,23 @@ public class JobManager {
         TimeUnit.HOURS.toMillis(24) - 1);
   }
 
-  public void setBackgroundSynchronization(boolean enabled) {
+  public void updateBackgroundSync() {
+    updateBackgroundSync(false, false);
+  }
+
+  public void updateBackgroundSync(boolean forceAccountPresent, boolean forceBackgroundEnabled) {
+    boolean backgroundEnabled =
+        forceBackgroundEnabled || preferences.getBoolean(R.string.p_background_sync, true);
+    boolean accountsPresent =
+        forceAccountPresent || preferences.getBoolean(R.string.p_sync_caldav, false) ||
+            !isEmpty(preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME));
+    scheduleBackgroundSynchronization(backgroundEnabled && accountsPresent);
+  }
+
+  private void scheduleBackgroundSynchronization(boolean enabled) {
+    Timber.d("background sync enabled: %s", enabled);
     if (enabled) {
-      new JobRequest.Builder(JobCreator.TAG_CALDAV_SYNC)
+      new JobRequest.Builder(JobCreator.TAG_SYNC)
           .setRequiredNetworkType(NetworkType.CONNECTED)
           .setRequirementsEnforced(true)
           .setPeriodic(TimeUnit.HOURS.toMillis(1))
@@ -67,18 +87,17 @@ public class JobManager {
           .build()
           .schedule();
     } else {
-      jobManager.cancelAllForTag(JobCreator.TAG_CALDAV_SYNC);
+      jobManager.cancelAllForTag(JobCreator.TAG_SYNC);
     }
   }
 
-  public boolean syncCaldavNow() {
-    new JobRequest.Builder(JobCreator.TAG_CALDAV_SYNC)
+  public void syncNow() {
+    new JobRequest.Builder(JobCreator.TAG_SYNC)
         .setRequiredNetworkType(NetworkType.CONNECTED)
         .setRequirementsEnforced(true)
         .setExecutionWindow(1, 5000)
         .build()
         .schedule();
-    return true;
   }
 
   public void cancelNotifications() {
@@ -93,5 +112,9 @@ public class JobManager {
 
   private long calculateDelay(long time) {
     return Math.max(5000, time - currentTimeMillis());
+  }
+
+  public void addJobCreator(JobCreator jobCreator) {
+    jobManager.addJobCreator(jobCreator);
   }
 }

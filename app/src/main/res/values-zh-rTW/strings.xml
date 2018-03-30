@@ -230,7 +230,6 @@
 	<string name="color">色彩</string>
 	<string name="accent">強調色</string>
 	<string name="themes">其他主題</string>
-	<string name="master_sync_warning">自動同步功能目前在 Android 上是無效的。</string>
 	<string name="settings_general">一般</string>
 	<string name="language">語言</string>
 	<string name="restart_required">Tasks 必須重新啟動以使變更生效</string>

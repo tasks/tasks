@@ -422,7 +422,6 @@
 	<string name="theme_dark">Scuro</string>
 	<string name="theme_wallpaper">Sfondo</string>
 	<string name="theme_day_night">Giorno/Notte</string>
-	<string name="master_sync_warning">La sincronizzazione automatica è disabilitata da Android</string>
 	<string name="settings_general">Generale</string>
 	<string name="language">Lingua</string>
 	<string name="restart_required">Per rendere attive le modifiche l\'attività va riavviata</string>

@@ -1,30 +1,10 @@
-/*
- * Copyright 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.tasks.gtasks;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
-import android.accounts.Account;
 import android.app.PendingIntent;
-import android.content.ContentProviderClient;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SyncResult;
-import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
@@ -59,8 +39,7 @@ import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
-import org.tasks.injection.InjectingAbstractThreadedSyncAdapter;
-import org.tasks.injection.SyncAdapterComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
@@ -68,36 +47,49 @@ import org.tasks.sync.RecordSyncStatusCallback;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
-/**
- * Define a sync adapter for the app.
- *
- * <p>This class is instantiated in {@link GoogleTaskSyncService}, which also binds SyncAdapter to
- * the system. SyncAdapter should only be initialized in SyncService, never anywhere else.
- *
- * <p>The system calls onPerformSync() via an RPC call through the IBinder object supplied by
- * SyncService.
- */
-public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter {
+public class GoogleTaskSynchronizer {
 
   private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
 
-  @Inject GtasksPreferenceService gtasksPreferenceService;
-  @Inject LocalBroadcastManager localBroadcastManager;
-  @Inject GoogleTaskListDao googleTaskListDao;
-  @Inject GtasksSyncService gtasksSyncService;
-  @Inject GtasksListService gtasksListService;
-  @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
-  @Inject Preferences preferences;
-  @Inject GtasksInvoker gtasksInvoker;
-  @Inject TaskDao taskDao;
-  @Inject Tracker tracker;
-  @Inject NotificationManager notificationManager;
-  @Inject GoogleTaskDao googleTaskDao;
-  @Inject TaskCreator taskCreator;
-  @Inject DefaultFilterProvider defaultFilterProvider;
+  private final Context context;
+  private final GtasksPreferenceService gtasksPreferenceService;
+  private final LocalBroadcastManager localBroadcastManager;
+  private final GoogleTaskListDao googleTaskListDao;
+  private final GtasksSyncService gtasksSyncService;
+  private final GtasksListService gtasksListService;
+  private final GtasksTaskListUpdater gtasksTaskListUpdater;
+  private final Preferences preferences;
+  private final GtasksInvoker gtasksInvoker;
+  private final TaskDao taskDao;
+  private final Tracker tracker;
+  private final NotificationManager notificationManager;
+  private final GoogleTaskDao googleTaskDao;
+  private final TaskCreator taskCreator;
+  private final DefaultFilterProvider defaultFilterProvider;
 
-  public GoogleTaskSyncAdapter(Context context, boolean autoInitialize) {
-    super(context, autoInitialize);
+  @Inject
+  public GoogleTaskSynchronizer(@ForApplication Context context,
+      GtasksPreferenceService gtasksPreferenceService, LocalBroadcastManager localBroadcastManager,
+      GoogleTaskListDao googleTaskListDao, GtasksSyncService gtasksSyncService,
+      GtasksListService gtasksListService, GtasksTaskListUpdater gtasksTaskListUpdater,
+      Preferences preferences, GtasksInvoker gtasksInvoker, TaskDao taskDao, Tracker tracker,
+      NotificationManager notificationManager, GoogleTaskDao googleTaskDao, TaskCreator taskCreator,
+      DefaultFilterProvider defaultFilterProvider) {
+    this.context = context;
+    this.gtasksPreferenceService = gtasksPreferenceService;
+    this.localBroadcastManager = localBroadcastManager;
+    this.googleTaskListDao = googleTaskListDao;
+    this.gtasksSyncService = gtasksSyncService;
+    this.gtasksListService = gtasksListService;
+    this.gtasksTaskListUpdater = gtasksTaskListUpdater;
+    this.preferences = preferences;
+    this.gtasksInvoker = gtasksInvoker;
+    this.taskDao = taskDao;
+    this.tracker = tracker;
+    this.notificationManager = notificationManager;
+    this.googleTaskDao = googleTaskDao;
+    this.taskCreator = taskCreator;
+    this.defaultFilterProvider = defaultFilterProvider;
   }
 
   public static void mergeDates(long remoteDueDate, Task local) {
@@ -114,26 +106,9 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     }
   }
 
-  /**
-   * Called by the Android system in response to a request to run the sync adapter. The work
-   * required to read data from the network, parse it, and store it in the content provider is done
-   * here. Extending AbstractThreadedSyncAdapter ensures that all methods within SyncAdapter run on
-   * a background thread. For this reason, blocking I/O and other long-running tasks can be run
-   * <em>in situ</em>, and you don't have to set up a separate thread for them. .
-   *
-   * <p>This is where we actually perform any work required to perform a sync. {@link
-   * android.content.AbstractThreadedSyncAdapter} guarantees that this will be called on a non-UI
-   * thread, so it is safe to peform blocking I/O here.
-   *
-   * <p>The syncResult argument allows you to pass information back to the method that triggered the
-   * sync.
-   */
-  @Override
-  public void onPerformSync(Account account, Bundle extras, String authority,
-      ContentProviderClient provider, SyncResult syncResult) {
-    if (!account.name.equals(gtasksPreferenceService.getUserName())) {
-      Timber.d("Sync not enabled for %s", account);
-      syncResult.stats.numAuthExceptions++;
+  public void sync() {
+    String account = gtasksPreferenceService.getUserName();
+    if (TextUtils.isEmpty(account)) {
       return;
     }
     Timber.d("%s: start sync", account);
@@ -145,7 +120,7 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
       gtasksPreferenceService.recordSuccessfulSync();
     } catch (UserRecoverableAuthIOException e) {
       Timber.e(e, e.getMessage());
-      sendNotification(getContext(), e.getIntent());
+      sendNotification(context, e.getIntent());
     } catch (IOException e) {
       Timber.e(e, e.getMessage());
     } catch (Exception e) {
@@ -215,9 +190,6 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     }
   }
 
-  /**
-   * Synchronize with server when data changes
-   */
   private void pushTask(Task task, GtasksInvoker invoker) throws IOException {
     for (GoogleTask deleted : googleTaskDao.getDeletedByTaskId(task.getId())) {
       gtasksInvoker.deleteGtask(deleted.getListId(), deleted.getRemoteId());
@@ -421,10 +393,5 @@ public class GoogleTaskSyncAdapter extends InjectingAbstractThreadedSyncAdapter 
     for (GoogleTask values : metadata) {
       googleTaskDao.insert(values);
     }
-  }
-
-  @Override
-  protected void inject(SyncAdapterComponent component) {
-    component.inject(this);
   }
 }

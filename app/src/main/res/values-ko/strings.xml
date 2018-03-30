@@ -426,7 +426,6 @@
 	<string name="theme_dark">어둡게</string>
 	<string name="theme_wallpaper">바탕화면</string>
 	<string name="theme_day_night">주간/야간</string>
-	<string name="master_sync_warning">현재 자동 동기화는 안드로이드에 의해 사용이 불가합니다. </string>
 	<string name="settings_general">일반</string>
 	<string name="language">언어</string>
 	<string name="restart_required">이 변경을 적용하려면 Tasks 앱을 재시작해야 합니다. </string>

@@ -9,8 +9,6 @@ import org.tasks.widget.ScrollableWidgetUpdateService;
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
 
-  SyncAdapterComponent plus(SyncAdapterModule syncAdapterModule);
-
   void inject(DashClockExtension dashClockExtension);
 
   void inject(Tasks tasks);

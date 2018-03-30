@@ -425,7 +425,6 @@
 	<string name="theme_dark">Sötét</string>
 	<string name="theme_wallpaper">Háttérkép</string>
 	<string name="theme_day_night">Nappal/Éjszaka</string>
-	<string name="master_sync_warning">Az Android pillanatnyilag letiltotta az automatikus szinkronizálást.</string>
 	<string name="settings_general">Általános</string>
 	<string name="language">Nyelv</string>
 	<string name="restart_required">A változás érvényesítéséhez újra kell indítani a Tasks appot</string>

@@ -80,24 +80,20 @@ public class CaldavSynchronizer {
     this.taskDeleter = taskDeleter;
   }
 
-  public boolean sync() {
+  public void sync() {
+    // required for dav4android (ServiceLoader)
     Thread.currentThread().setContextClassLoader(context.getClassLoader());
-    boolean success = true;
     for (CaldavAccount account : caldavDao.getAccounts()) {
-      success &= sync(account);
+      sync(account);
     }
-    return success;
   }
 
-  private boolean sync(CaldavAccount caldavAccount) {
-    // required for dav4android (ServiceLoader)
-
-    String uuid = caldavAccount.getUuid();
-    Timber.d("onPerformSync: %s [%s]", caldavAccount.getName(), uuid);
+  private void sync(CaldavAccount caldavAccount) {
     if (isNullOrEmpty(caldavAccount.getPassword())) {
-      Timber.e("Missing password for %s", caldavAccount.getName());
-      return false;
+      Timber.e("Missing password for %s", caldavAccount);
+      return;
     }
+    Timber.d("sync(%s)", caldavAccount);
     BasicDigestAuthHandler basicDigestAuthHandler = new BasicDigestAuthHandler(null,
         caldavAccount.getUsername(), caldavAccount.getPassword());
     OkHttpClient httpClient = new OkHttpClient().newBuilder()
@@ -130,7 +126,7 @@ public class CaldavSynchronizer {
 
       if (localCtag != null && localCtag.equals(remoteCtag)) {
         Timber.d("%s up to date", caldavAccount.getName());
-        return true;
+        return;
       }
 
       davCalendar.calendarQuery("VTODO", null, null);
@@ -213,7 +209,6 @@ public class CaldavSynchronizer {
     }
 
     localBroadcastManager.broadcastRefresh();
-    return true;
   }
 
   private void pushLocalChanges(CaldavAccount caldavAccount, OkHttpClient httpClient,

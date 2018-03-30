@@ -422,7 +422,6 @@
 	<string name="theme_dark">Tmavá</string>
 	<string name="theme_wallpaper">Tapeta</string>
 	<string name="theme_day_night">Deň/Noc</string>
-	<string name="master_sync_warning">Automatická synchronizácia je pozastavená Androidom </string>
 	<string name="settings_general">Všeobecný</string>
 	<string name="language">Jazyk</string>
 	<string name="restart_required">Úlohy treba reštartovať, aby sa zmena prejavila</string>

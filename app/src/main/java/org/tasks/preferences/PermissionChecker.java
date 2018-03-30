@@ -1,5 +1,6 @@
 package org.tasks.preferences;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
 import static com.todoroo.andlib.utility.AndroidUtilities.preJellybean;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -34,7 +35,7 @@ public class PermissionChecker {
   }
 
   public boolean canAccessAccounts() {
-    return checkPermission(Manifest.permission.GET_ACCOUNTS);
+    return atLeastOreo() || checkPermission(Manifest.permission.GET_ACCOUNTS);
   }
 
   public boolean canAccessLocation() {

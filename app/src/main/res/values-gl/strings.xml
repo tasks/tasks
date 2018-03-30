@@ -342,7 +342,6 @@
 	<string name="theme_dark">Oscuro</string>
 	<string name="theme_wallpaper">Fondo de pantalla</string>
 	<string name="theme_day_night">Día/Noche</string>
-	<string name="master_sync_warning">La sincronización automática está actualmente deshabilitada por Android</string>
 	<string name="settings_general">Xeneral</string>
 	<string name="language">Idioma</string>
 	<string name="restart_required">Debe reiniciar Tasks para que los cambios tengan efecto</string>

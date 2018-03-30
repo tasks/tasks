@@ -425,7 +425,6 @@
 	<string name="theme_dark">Тъмна</string>
 	<string name="theme_wallpaper">Тапет</string>
 	<string name="theme_day_night">Ден/Нощ</string>
-	<string name="master_sync_warning">Автоматичната синхронизация в момента е деактивирана от Android</string>
 	<string name="settings_general">Общи</string>
 	<string name="language">Език</string>
 	<string name="restart_required">Tasks трябва да бъде рестартиран за да влязат промените в сила</string>

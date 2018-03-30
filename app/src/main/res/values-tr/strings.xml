@@ -427,7 +427,6 @@
 	<string name="theme_dark">Koyu</string>
 	<string name="theme_wallpaper">Duvar kağıdı</string>
 	<string name="theme_day_night">Gündüz/Gece</string>
-	<string name="master_sync_warning">Kendiliğinden eşzamanlama şu anda Android tarafından devre dışı bırakıldı</string>
 	<string name="settings_general">Genel</string>
 	<string name="language">Dil</string>
 	<string name="restart_required">Değişikliklerin etkili olması için Tasks yeniden başlatılmalıdır</string>

@@ -22,17 +22,12 @@ public class SyncAdapters {
     this.jobManager = jobManager;
   }
 
-  public void requestSynchronization() {
-    gtaskSyncAdapterHelper.requestSynchronization();
-    jobManager.syncCaldavNow();
-  }
-
-  public boolean initiateManualSync() {
-    return gtaskSyncAdapterHelper.initiateManualSync() | jobManager.syncCaldavNow();
-  }
-
-  public boolean isMasterSyncEnabled() {
-    return ContentResolver.getMasterSyncAutomatically();
+  public boolean syncNow() {
+    if (isGoogleTaskSyncEnabled() || isCaldavSyncEnabled()) {
+      jobManager.syncNow();
+      return true;
+    }
+    return false;
   }
 
   public boolean isSyncEnabled() {

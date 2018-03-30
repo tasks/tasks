@@ -5,22 +5,16 @@ import static com.google.common.collect.Lists.transform;
 import static java.util.Arrays.asList;
 
 import android.accounts.Account;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.os.Bundle;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.PermissionChecker;
-import timber.log.Timber;
 
 public class GoogleAccountManager {
-
-  private static final String AUTHORITY = "org.tasks";
 
   private final PermissionChecker permissionChecker;
   private final android.accounts.AccountManager accountManager;
@@ -51,20 +45,6 @@ public class GoogleAccountManager {
 
   public Account getSelectedAccount() {
     return getAccount(gtasksPreferenceService.getUserName());
-  }
-
-  public void setBackgroundSynchronization(boolean enabled) {
-    Account account = getSelectedAccount();
-    if (account != null) {
-      Timber.d("enableBackgroundSynchronization=%s", enabled);
-      ContentResolver.setSyncAutomatically(account, AUTHORITY, enabled);
-      if (enabled) {
-        ContentResolver
-            .addPeriodicSync(account, AUTHORITY, Bundle.EMPTY, TimeUnit.HOURS.toSeconds(1));
-      } else {
-        ContentResolver.removePeriodicSync(account, AUTHORITY, Bundle.EMPTY);
-      }
-    }
   }
 
   public Account getAccount(final String name) {

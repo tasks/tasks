@@ -293,7 +293,6 @@
 	<string name="theme_dark">Tmavý</string>
 	<string name="theme_wallpaper">Tapeta</string>
 	<string name="theme_day_night">Den/Noc</string>
-	<string name="master_sync_warning">Automatická synchronizace je právě zakázána Androidem</string>
 	<string name="settings_general">Všeobecný</string>
 	<string name="language">Jazyk</string>
 	<string name="restart_required">Úkoly musí být restartovány, aby se změny projevily</string>

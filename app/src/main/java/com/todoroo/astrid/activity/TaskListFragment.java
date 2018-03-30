@@ -126,7 +126,7 @@ public class TaskListFragment extends InjectingFragment implements
 
   @Override
   public void onRefresh() {
-    if (!syncAdapters.initiateManualSync()) {
+    if (!syncAdapters.syncNow()) {
       refresh();
     }
   }
@@ -440,7 +440,7 @@ public class TaskListFragment extends InjectingFragment implements
     for (Task task : tasks) {
       onTaskCreated(task.getUuid());
     }
-    syncAdapters.requestSynchronization();
+    syncAdapters.syncNow();
   }
 
   public void onTaskCreated(String uuid) {

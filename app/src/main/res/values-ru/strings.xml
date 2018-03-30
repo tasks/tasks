@@ -423,7 +423,6 @@
 	<string name="theme_dark">Тёмная</string>
 	<string name="theme_wallpaper">Как обои</string>
 	<string name="theme_day_night">День / ночь</string>
-	<string name="master_sync_warning">Автосинхронизация в Android выключена</string>
 	<string name="settings_general">Общие</string>
 	<string name="language">Язык</string>
 	<string name="restart_required">Для применения изменений программа должна быть перезапущена</string>

@@ -373,7 +373,6 @@
 	<string name="theme_dark">כהה</string>
 	<string name="theme_wallpaper">תמונת רקע</string>
 	<string name="theme_day_night">יום / לילה</string>
-	<string name="master_sync_warning">סנכרון אוטומטי כרגע מושבת ע\"י אנדרואיד</string>
 	<string name="settings_general">כללי</string>
 	<string name="language">שפה</string>
 	<string name="restart_required">יש לאתחל את האפליקציה כדי לגרום לשינוי להשפיע</string>

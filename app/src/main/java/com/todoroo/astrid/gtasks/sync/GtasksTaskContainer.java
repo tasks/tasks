@@ -6,7 +6,7 @@
 
 package com.todoroo.astrid.gtasks.sync;
 
-import static org.tasks.gtasks.GoogleTaskSyncAdapter.mergeDates;
+import static org.tasks.gtasks.GoogleTaskSynchronizer.mergeDates;
 
 import com.google.api.client.util.DateTime;
 import com.todoroo.andlib.utility.DateUtilities;

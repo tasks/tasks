@@ -9,6 +9,7 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.Notifier;
 import org.tasks.backup.TasksJsonExporter;
 import org.tasks.caldav.CaldavSynchronizer;
+import org.tasks.gtasks.GoogleTaskSynchronizer;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
@@ -25,18 +26,19 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
   private final RefreshScheduler refreshScheduler;
   private final LocalBroadcastManager localBroadcastManager;
   private final CaldavSynchronizer caldavSynchronizer;
+  private final GoogleTaskSynchronizer googleTaskSynchronizer;
 
   static final String TAG_BACKUP = "tag_backup";
   static final String TAG_REFRESH = "tag_refresh";
   static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
   static final String TAG_NOTIFICATION = "tag_notification";
-  static final String TAG_CALDAV_SYNC = "tag_caldav_sync";
+  static final String TAG_SYNC = "tag_sync";
 
   @Inject
   public JobCreator(@ForApplication Context context, Preferences preferences, Notifier notifier,
       NotificationQueue notificationQueue, TasksJsonExporter tasksJsonExporter,
       RefreshScheduler refreshScheduler, LocalBroadcastManager localBroadcastManager,
-      CaldavSynchronizer caldavSynchronizer) {
+      CaldavSynchronizer caldavSynchronizer, GoogleTaskSynchronizer googleTaskSynchronizer) {
     this.context = context;
     this.preferences = preferences;
     this.notifier = notifier;
@@ -45,6 +47,7 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
     this.refreshScheduler = refreshScheduler;
     this.localBroadcastManager = localBroadcastManager;
     this.caldavSynchronizer = caldavSynchronizer;
+    this.googleTaskSynchronizer = googleTaskSynchronizer;
   }
 
   @Nullable
@@ -53,8 +56,8 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
     switch (tag) {
       case TAG_NOTIFICATION:
         return new NotificationJob(preferences, notifier, notificationQueue);
-      case TAG_CALDAV_SYNC:
-        return new CaldavSyncJob(caldavSynchronizer);
+      case TAG_SYNC:
+        return new SyncJob(caldavSynchronizer, googleTaskSynchronizer);
       case TAG_BACKUP:
         return new BackupJob(context, tasksJsonExporter, preferences);
       case TAG_MIDNIGHT_REFRESH:

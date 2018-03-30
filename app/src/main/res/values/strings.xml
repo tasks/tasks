@@ -806,7 +806,6 @@ File %1$s contained %2$s.\n\n
   <string name="theme_wallpaper">Wallpaper</string>
   <string name="theme_day_night">Day/Night</string>
 
-  <string name="master_sync_warning">Automatic synchronization is currently disabled by Android</string>
   <string name="settings_general">General</string>
   <string name="language">Language</string>
   <string name="restart_required">Tasks must be restarted for change to take effect</string>
