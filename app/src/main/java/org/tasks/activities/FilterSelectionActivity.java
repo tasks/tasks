@@ -31,22 +31,27 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
 
     filterAdapter.populateList();
 
-    dialogBuilder.newDialog()
-        .setSingleChoiceItems(filterAdapter, filterAdapter.indexOf(selected), (dialog, which) -> {
-          final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
-          Intent data = new Intent();
-          if (returnFilter) {
-            data.putExtra(EXTRA_FILTER, selectedFilter);
-          }
-          data.putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
-          data.putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
-          if (selectedFilter.valuesForNewTasks != null) {
-            data.putExtra(EXTRA_FILTER_VALUES,
-                AndroidUtilities.mapToSerializedString(selectedFilter.valuesForNewTasks));
-          }
-          setResult(RESULT_OK, data);
-          dialog.dismiss();
-        })
+    dialogBuilder
+        .newDialog()
+        .setSingleChoiceItems(
+            filterAdapter,
+            filterAdapter.indexOf(selected),
+            (dialog, which) -> {
+              final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
+              Intent data = new Intent();
+              if (returnFilter) {
+                data.putExtra(EXTRA_FILTER, selectedFilter);
+              }
+              data.putExtra(EXTRA_FILTER_NAME, selectedFilter.listingTitle);
+              data.putExtra(EXTRA_FILTER_SQL, selectedFilter.getSqlQuery());
+              if (selectedFilter.valuesForNewTasks != null) {
+                data.putExtra(
+                    EXTRA_FILTER_VALUES,
+                    AndroidUtilities.mapToSerializedString(selectedFilter.valuesForNewTasks));
+              }
+              setResult(RESULT_OK, data);
+              dialog.dismiss();
+            })
         .setOnDismissListener(dialog -> finish())
         .show();
   }

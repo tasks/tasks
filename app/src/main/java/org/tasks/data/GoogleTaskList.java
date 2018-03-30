@@ -10,36 +10,42 @@ import android.os.Parcelable;
 @Entity(tableName = "google_task_lists")
 public class GoogleTaskList implements Parcelable {
 
-  public static Creator<GoogleTaskList> CREATOR = new Creator<GoogleTaskList>() {
-    @Override
-    public GoogleTaskList createFromParcel(Parcel parcel) {
-      return new GoogleTaskList(parcel);
-    }
+  public static Creator<GoogleTaskList> CREATOR =
+      new Creator<GoogleTaskList>() {
+        @Override
+        public GoogleTaskList createFromParcel(Parcel parcel) {
+          return new GoogleTaskList(parcel);
+        }
 
-    @Override
-    public GoogleTaskList[] newArray(int size) {
-      return new GoogleTaskList[size];
-    }
-  };
+        @Override
+        public GoogleTaskList[] newArray(int size) {
+          return new GoogleTaskList[size];
+        }
+      };
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   private transient long id;
+
   @ColumnInfo(name = "remote_id")
   private String remoteId;
+
   @ColumnInfo(name = "title")
   private String title;
+
   @ColumnInfo(name = "remote_order")
   private int remoteOrder;
+
   @ColumnInfo(name = "last_sync")
   private long lastSync;
+
   @ColumnInfo(name = "deleted")
   private long deleted;
+
   @ColumnInfo(name = "color")
   private Integer color;
 
-  public GoogleTaskList() {
-
-  }
+  public GoogleTaskList() {}
 
   @Ignore
   public GoogleTaskList(Parcel parcel) {
@@ -154,15 +160,24 @@ public class GoogleTaskList implements Parcelable {
 
   @Override
   public String toString() {
-    return "GoogleTaskList{" +
-        "id=" + id +
-        ", remoteId='" + remoteId + '\'' +
-        ", title='" + title + '\'' +
-        ", remoteOrder=" + remoteOrder +
-        ", lastSync=" + lastSync +
-        ", deleted=" + deleted +
-        ", color=" + color +
-        '}';
+    return "GoogleTaskList{"
+        + "id="
+        + id
+        + ", remoteId='"
+        + remoteId
+        + '\''
+        + ", title='"
+        + title
+        + '\''
+        + ", remoteOrder="
+        + remoteOrder
+        + ", lastSync="
+        + lastSync
+        + ", deleted="
+        + deleted
+        + ", color="
+        + color
+        + '}';
   }
 
   @Override

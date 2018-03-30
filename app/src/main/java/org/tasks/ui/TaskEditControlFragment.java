@@ -21,8 +21,8 @@ public abstract class TaskEditControlFragment extends InjectingFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     final View view = inflater.inflate(R.layout.control_set_template, null);
     LinearLayout content = view.findViewById(R.id.content);
     inflater.inflate(getLayout(), content);

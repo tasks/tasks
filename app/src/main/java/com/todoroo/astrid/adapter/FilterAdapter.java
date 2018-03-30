@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.adapter;
 
 import static android.support.v4.content.ContextCompat.getColor;
@@ -71,9 +70,14 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
   private Filter selected;
 
   @Inject
-  public FilterAdapter(FilterProvider filterProvider, FilterCounter filterCounter,
+  public FilterAdapter(
+      FilterProvider filterProvider,
+      FilterCounter filterCounter,
       Activity activity,
-      Theme theme, ThemeCache themeCache, Locale locale, Preferences preferences) {
+      Theme theme,
+      ThemeCache themeCache,
+      Locale locale,
+      Preferences preferences) {
     super(activity, 0);
     this.filterProvider = filterProvider;
     this.filterCounter = filterCounter;
@@ -118,9 +122,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     filterCounter.refreshFilterCounts(this::notifyDataSetChanged);
   }
 
-  /**
-   * Create or reuse a view
-   */
+  /** Create or reuse a view */
   private View newView(View convertView, ViewGroup parent, FilterListItem.Type viewType) {
     if (convertView == null) {
       ViewHolder viewHolder = new ViewHolder();
@@ -131,11 +133,17 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
           if (navigationDrawer) {
             viewHolder.name.setCheckMarkDrawable(null);
           } else if (preLollipop()) {
-            ColorStateList tintList = new ColorStateList(new int[][]{
-                new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}},
-                new int[]{
-                    ResourcesCompat.getColor(activity.getResources(), android.R.color.transparent,
-                        null), theme.getThemeAccent().getAccentColor()});
+            ColorStateList tintList =
+                new ColorStateList(
+                    new int[][] {
+                      new int[] {-android.R.attr.state_checked},
+                      new int[] {android.R.attr.state_checked}
+                    },
+                    new int[] {
+                      ResourcesCompat.getColor(
+                          activity.getResources(), android.R.color.transparent, null),
+                      theme.getThemeAccent().getAccentColor()
+                    });
             Drawable original = ContextCompat.getDrawable(activity, R.drawable.ic_check_black_24dp);
             Drawable wrapped = DrawableCompat.wrap(original.mutate());
             DrawableCompat.setTintList(wrapped, tintList);
@@ -264,21 +272,23 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     addSubMenu(R.string.filters, filterProvider.getFilters(), false);
 
     if (navigationDrawer) {
-      add(new NavigationDrawerAction(
-          activity.getResources().getString(R.string.FLA_new_filter),
-          R.drawable.ic_add_24dp,
-          new Intent(activity, CustomFilterActivity.class),
-          NavigationDrawerFragment.ACTIVITY_REQUEST_NEW_FILTER));
+      add(
+          new NavigationDrawerAction(
+              activity.getResources().getString(R.string.FLA_new_filter),
+              R.drawable.ic_add_24dp,
+              new Intent(activity, CustomFilterActivity.class),
+              NavigationDrawerFragment.ACTIVITY_REQUEST_NEW_FILTER));
     }
 
     addSubMenu(R.string.tags, filterProvider.getTags(), false);
 
     if (navigationDrawer) {
-      add(new NavigationDrawerAction(
-          activity.getResources().getString(R.string.new_tag),
-          R.drawable.ic_add_24dp,
-          new Intent(activity, TagSettingsActivity.class),
-          NavigationDrawerFragment.REQUEST_NEW_LIST));
+      add(
+          new NavigationDrawerAction(
+              activity.getResources().getString(R.string.new_tag),
+              R.drawable.ic_add_24dp,
+              new Intent(activity, TagSettingsActivity.class),
+              NavigationDrawerFragment.REQUEST_NEW_LIST));
     }
 
     List<Filter> googleTaskFilters = filterProvider.getGoogleTaskFilters();
@@ -290,39 +300,43 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       addSubMenu(title, googleTaskFilters, true);
 
       if (navigationDrawer) {
-        add(new NavigationDrawerAction(
-            activity.getResources().getString(R.string.new_list),
-            R.drawable.ic_add_24dp,
-            new Intent(activity, GoogleTaskListSettingsActivity.class),
-            NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
+        add(
+            new NavigationDrawerAction(
+                activity.getResources().getString(R.string.new_list),
+                R.drawable.ic_add_24dp,
+                new Intent(activity, GoogleTaskListSettingsActivity.class),
+                NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
       }
     }
-    
+
     if (preferences.getBoolean(R.string.p_sync_caldav, false)) {
       addSubMenu(R.string.CalDAV, filterProvider.getCaldavFilters(), false);
 
       if (navigationDrawer) {
-        add(new NavigationDrawerAction(
-            activity.getResources().getString(R.string.add_account),
-            R.drawable.ic_add_24dp,
-            new Intent(activity, CaldavSettingsActivity.class),
-            NavigationDrawerFragment.REQUEST_NEW_CALDAV_ACCOUNT));
+        add(
+            new NavigationDrawerAction(
+                activity.getResources().getString(R.string.add_account),
+                R.drawable.ic_add_24dp,
+                new Intent(activity, CaldavSettingsActivity.class),
+                NavigationDrawerFragment.REQUEST_NEW_CALDAV_ACCOUNT));
       }
     }
 
     if (navigationDrawer) {
       add(new NavigationDrawerSeparator());
 
-      add(new NavigationDrawerAction(
-          activity.getResources().getString(R.string.TLA_menu_settings),
-          R.drawable.ic_settings_24dp,
-          new Intent(activity, BasicPreferences.class),
-          REQUEST_SETTINGS));
-      add(new NavigationDrawerAction(
-          activity.getResources().getString(R.string.help_and_feedback),
-          R.drawable.ic_help_24dp,
-          new Intent(activity, HelpAndFeedbackActivity.class),
-          0));
+      add(
+          new NavigationDrawerAction(
+              activity.getResources().getString(R.string.TLA_menu_settings),
+              R.drawable.ic_settings_24dp,
+              new Intent(activity, BasicPreferences.class),
+              REQUEST_SETTINGS));
+      add(
+          new NavigationDrawerAction(
+              activity.getResources().getString(R.string.help_and_feedback),
+              R.drawable.ic_help_24dp,
+              new Intent(activity, HelpAndFeedbackActivity.class),
+              0));
     }
 
     notifyDataSetChanged();
@@ -343,9 +357,10 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     }
 
     viewHolder.icon.setImageResource(filter.icon);
-    viewHolder.icon.setColorFilter(filter.tint >= 0
-        ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
-        : getColor(activity, R.color.text_primary));
+    viewHolder.icon.setColorFilter(
+        filter.tint >= 0
+            ? themeCache.getThemeColor(filter.tint).getPrimaryColor()
+            : getColor(activity, R.color.text_primary));
 
     String title = filter.listingTitle;
     if (!title.equals(viewHolder.name.getText())) {

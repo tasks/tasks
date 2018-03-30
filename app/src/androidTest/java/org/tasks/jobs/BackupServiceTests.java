@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package org.tasks.jobs;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
@@ -31,12 +30,10 @@ import org.tasks.preferences.Preferences;
 public class BackupServiceTests extends InjectingTestCase {
 
   private static final long BACKUP_WAIT_TIME = 500L;
-
-  private File temporaryDirectory = null;
-
   @Inject TasksJsonExporter jsonExporter;
   @Inject TaskDao taskDao;
   @Inject Preferences preferences;
+  private File temporaryDirectory = null;
 
   @Override
   public void setUp() {

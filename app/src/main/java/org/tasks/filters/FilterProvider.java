@@ -21,10 +21,13 @@ public class FilterProvider {
   private final CaldavFilterExposer caldavFilterExposer;
 
   @Inject
-  public FilterProvider(BuiltInFilterExposer builtInFilterExposer,
+  public FilterProvider(
+      BuiltInFilterExposer builtInFilterExposer,
       TimerFilterExposer timerFilterExposer,
-      CustomFilterExposer customFilterExposer, TagFilterExposer tagFilterExposer,
-      GtasksFilterExposer gtasksFilterExposer, CaldavFilterExposer caldavFilterExposer) {
+      CustomFilterExposer customFilterExposer,
+      TagFilterExposer tagFilterExposer,
+      GtasksFilterExposer gtasksFilterExposer,
+      CaldavFilterExposer caldavFilterExposer) {
     this.builtInFilterExposer = builtInFilterExposer;
     this.timerFilterExposer = timerFilterExposer;
     this.customFilterExposer = customFilterExposer;

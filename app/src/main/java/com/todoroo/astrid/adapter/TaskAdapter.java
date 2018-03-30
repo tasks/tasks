@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.adapter;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -28,19 +27,26 @@ import org.tasks.data.TaskAttachment;
  */
 public class TaskAdapter {
 
-  private static final StringProperty TAGS = new StringProperty(null,
-      "group_concat(nullif(" + TaskListFragment.TAGS_METADATA_JOIN + ".tag_uid, '')" + ", ',')")
-      .as("tags");
-  private static final LongProperty FILE_ID_PROPERTY = TaskAttachment.ID
-      .cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
-  public static final Property<?>[] PROPERTIES = ObjectArrays.concat(
-      Task.PROPERTIES,
-      new Property<?>[]{
-          TAGS, // Concatenated list of tags
-          FILE_ID_PROPERTY // File id
-      }, Property.class);
-  private AsyncPagedListDiffer<Task> helper;
+  private static final StringProperty TAGS =
+      new StringProperty(
+              null,
+              "group_concat(nullif("
+                  + TaskListFragment.TAGS_METADATA_JOIN
+                  + ".tag_uid, '')"
+                  + ", ',')")
+          .as("tags");
+  private static final LongProperty FILE_ID_PROPERTY =
+      TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
+  public static final Property<?>[] PROPERTIES =
+      ObjectArrays.concat(
+          Task.PROPERTIES,
+          new Property<?>[] {
+            TAGS, // Concatenated list of tags
+            FILE_ID_PROPERTY // File id
+          },
+          Property.class);
   private final Set<Long> selected = new HashSet<>();
+  private AsyncPagedListDiffer<Task> helper;
   private OnCompletedTaskListener onCompletedTaskListener = null;
 
   public int getCount() {
@@ -89,13 +95,9 @@ public class TaskAdapter {
     return false;
   }
 
-  public void moved(int from, int to) {
+  public void moved(int from, int to) {}
 
-  }
-
-  public void indented(int position, int delta) {
-
-  }
+  public void indented(int position, int delta) {}
 
   public long getTaskId(int position) {
     return getTask(position).getId();

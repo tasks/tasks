@@ -22,21 +22,20 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject TaskDao taskDao;
   @Inject Preferences preferences;
-  private final BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      refresh();
-    }
-  };
+  private final BroadcastReceiver refreshReceiver =
+      new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+          refresh();
+        }
+      };
   @Inject LocalBroadcastManager localBroadcastManager;
 
   @Override
   public void onCreate() {
     super.onCreate();
 
-    ((InjectingApplication) getApplication())
-        .getComponent()
-        .inject(this);
+    ((InjectingApplication) getApplication()).getComponent().inject(this);
 
     localBroadcastManager.registerRefreshReceiver(refreshReceiver);
   }
@@ -65,13 +64,14 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
       } else {
         Intent clickIntent = new Intent(this, TaskListActivity.class);
         clickIntent.putExtra(TaskListActivity.LOAD_FILTER, filterPreference);
-        ExtensionData extensionData = new ExtensionData()
-            .visible(true)
-            .icon(R.drawable.ic_check_white_24dp)
-            .status(Integer.toString(count))
-            .expandedTitle(getResources().getQuantityString(R.plurals.task_count, count, count))
-            .expandedBody(filter.listingTitle)
-            .clickIntent(clickIntent);
+        ExtensionData extensionData =
+            new ExtensionData()
+                .visible(true)
+                .icon(R.drawable.ic_check_white_24dp)
+                .status(Integer.toString(count))
+                .expandedTitle(getResources().getQuantityString(R.plurals.task_count, count, count))
+                .expandedBody(filter.listingTitle)
+                .clickIntent(clickIntent);
         if (count == 1) {
           List<Task> tasks = taskDao.fetchFiltered(filter);
           if (!tasks.isEmpty()) {
@@ -81,12 +81,13 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
         publish(extensionData);
       }
     } else {
-      publish(new ExtensionData()
-          .visible(true)
-          .icon(R.drawable.ic_check_white_24dp)
-          .status(getString(R.string.buy))
-          .expandedTitle(getString(R.string.buy_dashclock_extension))
-          .clickIntent(new Intent(this, DashClockSettings.class)));
+      publish(
+          new ExtensionData()
+              .visible(true)
+              .icon(R.drawable.ic_check_white_24dp)
+              .status(getString(R.string.buy))
+              .expandedTitle(getString(R.string.buy_dashclock_extension))
+              .clickIntent(new Intent(this, DashClockSettings.class)));
     }
   }
 

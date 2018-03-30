@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks.sync;
 
 import android.text.TextUtils;
@@ -35,16 +34,19 @@ public class GtasksSyncService {
   private final TaskDao taskDao;
   private final GtasksPreferenceService gtasksPreferenceService;
   private final GtasksInvoker gtasksInvoker;
-  private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<>();
+  private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue =
+      new LinkedBlockingQueue<>();
   private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   private final Tracker tracker;
   private final GoogleTaskDao googleTaskDao;
 
   @Inject
-  public GtasksSyncService(TaskDao taskDao,
+  public GtasksSyncService(
+      TaskDao taskDao,
       GtasksPreferenceService gtasksPreferenceService,
       GtasksInvoker gtasksInvoker,
-      GtaskSyncAdapterHelper gtaskSyncAdapterHelper, Tracker tracker,
+      GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
+      Tracker tracker,
       GoogleTaskDao googleTaskDao) {
     this.taskDao = taskDao;
     this.gtasksPreferenceService = gtasksPreferenceService;
@@ -68,7 +70,7 @@ public class GtasksSyncService {
       return;
     }
     if (gtasksPreferenceService
-        .isOngoing()) //Don't try and sync changes that occur during a normal sync
+        .isOngoing()) // Don't try and sync changes that occur during a normal sync
     {
       return;
     }
@@ -97,20 +99,21 @@ public class GtasksSyncService {
     }
   }
 
-  public void iterateThroughList(String listId,
-      final GtasksTaskListUpdater.OrderedListIterator iterator, long startAtOrder,
+  public void iterateThroughList(
+      String listId,
+      final GtasksTaskListUpdater.OrderedListIterator iterator,
+      long startAtOrder,
       boolean reverse) {
-    List<GoogleTask> tasks = reverse
-        ? googleTaskDao.getTasksFromReverse(listId, startAtOrder)
-        : googleTaskDao.getTasksFrom(listId, startAtOrder);
+    List<GoogleTask> tasks =
+        reverse
+            ? googleTaskDao.getTasksFromReverse(listId, startAtOrder)
+            : googleTaskDao.getTasksFrom(listId, startAtOrder);
     for (GoogleTask entry : tasks) {
       iterator.processTask(entry.getTask(), entry);
     }
   }
 
-  /**
-   * Gets the remote id string of the parent task
-   */
+  /** Gets the remote id string of the parent task */
   public String getRemoteParentId(GoogleTask googleTask) {
     String parent = null;
     long parentId = googleTask.getParent();
@@ -124,27 +127,26 @@ public class GtasksSyncService {
     return parent;
   }
 
-  /**
-   * Gets the remote id string of the previous sibling task
-   */
+  /** Gets the remote id string of the previous sibling task */
   public String getRemoteSiblingId(String listId, GoogleTask gtasksMetadata) {
     final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getIndent());
     final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getParent());
     final AtomicReference<String> sibling = new AtomicReference<>();
-    GtasksTaskListUpdater.OrderedListIterator iterator = (taskId, googleTask) -> {
-      Task t = taskDao.fetch(taskId);
-      if (t == null || t.isDeleted()) {
-        return;
-      }
-      int currIndent = googleTask.getIndent();
-      long currParent = googleTask.getParent();
+    GtasksTaskListUpdater.OrderedListIterator iterator =
+        (taskId, googleTask) -> {
+          Task t = taskDao.fetch(taskId);
+          if (t == null || t.isDeleted()) {
+            return;
+          }
+          int currIndent = googleTask.getIndent();
+          long currParent = googleTask.getParent();
 
-      if (currIndent == indentToMatch.get() && currParent == parentToMatch.get()) {
-        if (sibling.get() == null) {
-          sibling.set(googleTask.getRemoteId());
-        }
-      }
-    };
+          if (currIndent == indentToMatch.get() && currParent == parentToMatch.get()) {
+            if (sibling.get() == null) {
+              sibling.set(googleTask.getRemoteId());
+            }
+          }
+        };
 
     iterateThroughList(listId, iterator, gtasksMetadata.getOrder(), true);
     return sibling.get();

@@ -11,10 +11,9 @@ import org.tasks.backup.XmlReader;
 @Entity(tableName = "tags")
 public class Tag {
 
-  public static final String KEY = "tags-tag"; //$NON-NLS-1$
+  public static final String KEY = "tags-tag"; // $NON-NLS-1$
 
-  @Deprecated
-  public static final Table TABLE = new Table("tags");
+  @Deprecated public static final Table TABLE = new Table("tags");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
@@ -32,9 +31,7 @@ public class Tag {
   @ColumnInfo(name = "task_uid")
   private transient String taskUid;
 
-  public Tag() {
-
-  }
+  public Tag() {}
 
   @Ignore
   public Tag(long task, String taskUid, String name, String tagUid) {

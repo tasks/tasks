@@ -41,8 +41,10 @@ import org.tasks.themes.ThemeColor;
 import org.tasks.ui.MenuColorizer;
 
 public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActivity
-    implements Toolbar.OnMenuItemClickListener, CreateListDialog.CreateListDialogCallback,
-    DeleteListDialog.DeleteListDialogCallback, RenameListDialog.RenameListDialogCallback {
+    implements Toolbar.OnMenuItemClickListener,
+        CreateListDialog.CreateListDialogCallback,
+        DeleteListDialog.DeleteListDialogCallback,
+        RenameListDialog.RenameListDialogCallback {
 
   public static final String EXTRA_STORE_DATA = "extra_store_data";
   public static final String ACTION_DELETED = "action_deleted";
@@ -59,9 +61,16 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   @Inject Tracker tracker;
   @Inject ThemeCache themeCache;
   @Inject ThemeColor themeColor;
-  @BindView(R.id.name) TextInputEditText name;
-  @BindView(R.id.color) TextInputEditText color;
-  @BindView(R.id.toolbar) Toolbar toolbar;
+
+  @BindView(R.id.name)
+  TextInputEditText name;
+
+  @BindView(R.id.color)
+  TextInputEditText color;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
   private boolean isNewList;
   private GoogleTaskList gtasksList;
   private int selectedTheme;
@@ -87,15 +96,17 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setTitle(isNewList ? getString(R.string.new_list) : gtasksList.getTitle());
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this,
-        backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-    toolbar.setNavigationOnClickListener(v -> {
-      if (backButtonSavesTask) {
-        discard();
-      } else {
-        save();
-      }
-    });
+    toolbar.setNavigationIcon(
+        ContextCompat.getDrawable(
+            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+    toolbar.setNavigationOnClickListener(
+        v -> {
+          if (backButtonSavesTask) {
+            discard();
+          } else {
+            save();
+          }
+        });
     toolbar.inflateMenu(R.menu.menu_tag_settings);
     toolbar.setOnMenuItemClickListener(this);
     toolbar.showOverflowMenu();
@@ -154,8 +165,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     }
 
     if (isNewList) {
-      newCreateListDialog(newName)
-          .show(getSupportFragmentManager(), FRAG_TAG_CREATE_LIST_DIALOG);
+      newCreateListDialog(newName).show(getSupportFragmentManager(), FRAG_TAG_CREATE_LIST_DIALOG);
     } else if (nameChanged()) {
       newRenameListDialog(gtasksList.getRemoteId(), newName)
           .show(getSupportFragmentManager(), FRAG_TAG_RENAME_LIST_DIALOG);
@@ -163,8 +173,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
       if (colorChanged()) {
         gtasksList.setColor(selectedTheme);
         googleTaskListDao.insertOrReplace(gtasksList);
-        setResult(RESULT_OK, new Intent(ACTION_RELOAD)
-            .putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+        setResult(
+            RESULT_OK,
+            new Intent(ACTION_RELOAD)
+                .putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
       }
       finish();
     }
@@ -187,10 +199,13 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void deleteTag() {
-    dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, gtasksList.getTitle())
-        .setPositiveButton(R.string.delete,
-            (dialog, which) -> newDeleteListDialog(gtasksList.getRemoteId())
-                .show(getSupportFragmentManager(), FRAG_TAG_DELETE_LIST_DIALOG))
+    dialogBuilder
+        .newMessageDialog(R.string.delete_tag_confirmation, gtasksList.getTitle())
+        .setPositiveButton(
+            R.string.delete,
+            (dialog, which) ->
+                newDeleteListDialog(gtasksList.getRemoteId())
+                    .show(getSupportFragmentManager(), FRAG_TAG_DELETE_LIST_DIALOG))
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
@@ -207,7 +222,8 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
 
   private void discard() {
     if (hasChanges()) {
-      dialogBuilder.newMessageDialog(R.string.discard_changes)
+      dialogBuilder
+          .newMessageDialog(R.string.discard_changes)
           .setPositiveButton(R.string.keep_editing, null)
           .setNegativeButton(R.string.discard, (dialog, which) -> finish())
           .show();
@@ -243,7 +259,8 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     gtasksList.setTitle(taskList.getTitle());
     gtasksList.setColor(selectedTheme);
     gtasksList.setId(googleTaskListDao.insertOrReplace(gtasksList));
-    setResult(RESULT_OK,
+    setResult(
+        RESULT_OK,
         new Intent().putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
@@ -262,8 +279,10 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     gtasksList.setTitle(taskList.getTitle());
     gtasksList.setColor(selectedTheme);
     googleTaskListDao.insertOrReplace(gtasksList);
-    setResult(RESULT_OK, new Intent(ACTION_RELOAD)
-        .putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+    setResult(
+        RESULT_OK,
+        new Intent(ACTION_RELOAD)
+            .putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
 

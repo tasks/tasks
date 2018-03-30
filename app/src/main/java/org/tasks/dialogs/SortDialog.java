@@ -69,15 +69,20 @@ public class SortDialog extends InjectingDialogFragment {
       selectedIndex -= 1;
     }
 
-    alertDialog = dialogBuilder.newDialog()
-        .setSingleChoiceItems(items, selectedIndex, (dialog, which) -> {
-          selectedIndex = which;
-          enableReverse();
-        })
-        .setPositiveButton(R.string.TLA_menu_sort, (dialog, which) -> setSelection(false))
-        .setNeutralButton(R.string.reverse, (dialog, which) -> setSelection(true))
-        .setNegativeButton(android.R.string.cancel, null)
-        .showThemedListView();
+    alertDialog =
+        dialogBuilder
+            .newDialog()
+            .setSingleChoiceItems(
+                items,
+                selectedIndex,
+                (dialog, which) -> {
+                  selectedIndex = which;
+                  enableReverse();
+                })
+            .setPositiveButton(R.string.TLA_menu_sort, (dialog, which) -> setSelection(false))
+            .setNeutralButton(R.string.reverse, (dialog, which) -> setSelection(true))
+            .setNegativeButton(android.R.string.cancel, null)
+            .showThemedListView();
 
     enableReverse();
 

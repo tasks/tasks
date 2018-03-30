@@ -21,8 +21,8 @@ public class BackupJob extends Job {
 
   static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.json";
   static final FileFilter FILE_FILTER = f -> f.getName().matches(BACKUP_FILE_NAME_REGEX);
-  private static final Comparator<File> BY_LAST_MODIFIED = (f1, f2) ->
-      Long.compare(f2.lastModified(), f1.lastModified());
+  private static final Comparator<File> BY_LAST_MODIFIED =
+      (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified());
 
   private static final int DAYS_TO_KEEP_BACKUP = 7;
   private final Context context;
@@ -33,6 +33,16 @@ public class BackupJob extends Job {
     this.context = context;
     this.tasksJsonExporter = tasksJsonExporter;
     this.preferences = preferences;
+  }
+
+  static List<File> getDeleteList(File[] fileArray, int keepNewest) {
+    if (fileArray == null) {
+      return emptyList();
+    }
+
+    List<File> files = Arrays.asList(fileArray);
+    Collections.sort(files, BY_LAST_MODIFIED);
+    return newArrayList(skip(files, keepNewest));
   }
 
   @NonNull
@@ -50,8 +60,8 @@ public class BackupJob extends Job {
     }
 
     try {
-      tasksJsonExporter
-          .exportTasks(context, TasksJsonExporter.ExportType.EXPORT_TYPE_SERVICE, null);
+      tasksJsonExporter.exportTasks(
+          context, TasksJsonExporter.ExportType.EXPORT_TYPE_SERVICE, null);
     } catch (Exception e) {
       Timber.e(e, e.getMessage());
     }
@@ -70,15 +80,5 @@ public class BackupJob extends Job {
         Timber.e("Unable to delete: %s", file);
       }
     }
-  }
-
-  static List<File> getDeleteList(File[] fileArray, int keepNewest) {
-    if (fileArray == null) {
-      return emptyList();
-    }
-
-    List<File> files = Arrays.asList(fileArray);
-    Collections.sort(files, BY_LAST_MODIFIED);
-    return newArrayList(skip(files, keepNewest));
   }
 }

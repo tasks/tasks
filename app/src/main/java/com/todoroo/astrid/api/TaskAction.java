@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.api;
 
 import android.app.PendingIntent;
@@ -15,19 +14,13 @@ import android.app.PendingIntent;
  */
 public class TaskAction {
 
-  /**
-   * Intent to call when invoking this operation
-   */
+  /** Intent to call when invoking this operation */
   public PendingIntent intent;
 
-  /**
-   * Quick action icon
-   */
+  /** Quick action icon */
   public int icon;
 
-  /**
-   * Create an EditOperation object
-   */
+  /** Create an EditOperation object */
   public TaskAction(PendingIntent intent, int icon) {
     super();
     this.intent = intent;

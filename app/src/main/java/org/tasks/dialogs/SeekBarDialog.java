@@ -24,9 +24,16 @@ public class SeekBarDialog extends InjectingNativeDialogFragment {
   private static final String EXTRA_MIN = "extra_min";
   private static final String EXTRA_MAX = "extra_max";
   private static final String EXTRA_REQUEST_CODE = "extra_request_code";
-  @BindView(R.id.slider) Slider slider;
-  @BindView(R.id.min) TextView min;
-  @BindView(R.id.max) TextView max;
+
+  @BindView(R.id.slider)
+  Slider slider;
+
+  @BindView(R.id.min)
+  TextView min;
+
+  @BindView(R.id.max)
+  TextView max;
+
   @Inject DialogBuilder dialogBuilder;
   @Inject Theme theme;
   @Inject Locale locale;
@@ -34,8 +41,8 @@ public class SeekBarDialog extends InjectingNativeDialogFragment {
   private int requestCode;
   private SeekBarCallback callback;
 
-  public static SeekBarDialog newSeekBarDialog(int layout, int min, int max, int initial,
-      int requestCode) {
+  public static SeekBarDialog newSeekBarDialog(
+      int layout, int min, int max, int initial, int requestCode) {
     SeekBarDialog dialog = new SeekBarDialog();
     Bundle args = new Bundle();
     args.putInt(EXTRA_LAYOUT, layout);
@@ -66,9 +73,11 @@ public class SeekBarDialog extends InjectingNativeDialogFragment {
     slider.setValueRange(arguments.getInt(EXTRA_MIN), arguments.getInt(EXTRA_MAX), false);
     min.setText(locale.formatNumber(slider.getMinValue()));
     max.setText(locale.formatNumber(slider.getMaxValue()));
-    return dialogBuilder.newDialog()
+    return dialogBuilder
+        .newDialog()
         .setView(view)
-        .setPositiveButton(android.R.string.ok,
+        .setPositiveButton(
+            android.R.string.ok,
             (dialogInterface, i) -> callback.valueSelected(slider.getValue(), requestCode))
         .setNegativeButton(android.R.string.cancel, null)
         .show();

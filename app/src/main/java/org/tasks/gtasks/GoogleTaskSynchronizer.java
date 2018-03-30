@@ -49,7 +49,7 @@ import timber.log.Timber;
 
 public class GoogleTaskSynchronizer {
 
-  private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
+  private static final String DEFAULT_LIST = "@default"; // $NON-NLS-1$
 
   private final Context context;
   private final GtasksPreferenceService gtasksPreferenceService;
@@ -68,12 +68,21 @@ public class GoogleTaskSynchronizer {
   private final DefaultFilterProvider defaultFilterProvider;
 
   @Inject
-  public GoogleTaskSynchronizer(@ForApplication Context context,
-      GtasksPreferenceService gtasksPreferenceService, LocalBroadcastManager localBroadcastManager,
-      GoogleTaskListDao googleTaskListDao, GtasksSyncService gtasksSyncService,
-      GtasksListService gtasksListService, GtasksTaskListUpdater gtasksTaskListUpdater,
-      Preferences preferences, GtasksInvoker gtasksInvoker, TaskDao taskDao, Tracker tracker,
-      NotificationManager notificationManager, GoogleTaskDao googleTaskDao, TaskCreator taskCreator,
+  public GoogleTaskSynchronizer(
+      @ForApplication Context context,
+      GtasksPreferenceService gtasksPreferenceService,
+      LocalBroadcastManager localBroadcastManager,
+      GoogleTaskListDao googleTaskListDao,
+      GtasksSyncService gtasksSyncService,
+      GtasksListService gtasksListService,
+      GtasksTaskListUpdater gtasksTaskListUpdater,
+      Preferences preferences,
+      GtasksInvoker gtasksInvoker,
+      TaskDao taskDao,
+      Tracker tracker,
+      NotificationManager notificationManager,
+      GoogleTaskDao googleTaskDao,
+      TaskCreator taskCreator,
       DefaultFilterProvider defaultFilterProvider) {
     this.context = context;
     this.gtasksPreferenceService = gtasksPreferenceService;
@@ -95,10 +104,11 @@ public class GoogleTaskSynchronizer {
   public static void mergeDates(long remoteDueDate, Task local) {
     if (remoteDueDate > 0 && local.hasDueTime()) {
       DateTime oldDate = newDateTime(local.getDueDate());
-      DateTime newDate = newDateTime(remoteDueDate)
-          .withHourOfDay(oldDate.getHourOfDay())
-          .withMinuteOfHour(oldDate.getMinuteOfHour())
-          .withSecondOfMinute(oldDate.getSecondOfMinute());
+      DateTime newDate =
+          newDateTime(remoteDueDate)
+              .withHourOfDay(oldDate.getHourOfDay())
+              .withMinuteOfHour(oldDate.getMinuteOfHour())
+              .withSecondOfMinute(oldDate.getSecondOfMinute());
       local.setDueDateAdjustingHideUntil(
           Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate.getMillis()));
     } else {
@@ -112,8 +122,8 @@ public class GoogleTaskSynchronizer {
       return;
     }
     Timber.d("%s: start sync", account);
-    RecordSyncStatusCallback callback = new RecordSyncStatusCallback(gtasksPreferenceService,
-        localBroadcastManager);
+    RecordSyncStatusCallback callback =
+        new RecordSyncStatusCallback(gtasksPreferenceService, localBroadcastManager);
     try {
       callback.started();
       synchronize();
@@ -134,16 +144,18 @@ public class GoogleTaskSynchronizer {
   private void sendNotification(Context context, Intent intent) {
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_FROM_BACKGROUND);
 
-    PendingIntent resolve = PendingIntent
-        .getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-        NotificationManager.NOTIFICATION_CHANNEL_DEFAULT).setAutoCancel(true)
-        .setContentIntent(resolve)
-        .setContentTitle(context.getString(R.string.sync_error_permissions))
-        .setContentText(context.getString(R.string.common_google_play_services_notification_ticker))
-        .setAutoCancel(true)
-        .setSmallIcon(R.drawable.ic_warning_white_24dp)
-        .setTicker(context.getString(R.string.common_google_play_services_notification_ticker));
+    PendingIntent resolve =
+        PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
+            .setAutoCancel(true)
+            .setContentIntent(resolve)
+            .setContentTitle(context.getString(R.string.sync_error_permissions))
+            .setContentText(
+                context.getString(R.string.common_google_play_services_notification_ticker))
+            .setAutoCancel(true)
+            .setSmallIcon(R.drawable.ic_warning_white_24dp)
+            .setTicker(context.getString(R.string.common_google_play_services_notification_ticker));
     notificationManager.notify(Constants.NOTIFICATION_SYNC_ERROR, builder, true, false, false);
   }
 
@@ -166,8 +178,8 @@ public class GoogleTaskSynchronizer {
     gtasksListService.updateLists(gtaskLists);
     Filter defaultRemoteList = defaultFilterProvider.getDefaultRemoteList();
     if (defaultRemoteList instanceof GtasksFilter) {
-      GoogleTaskList list = gtasksListService
-          .getList(((GtasksFilter) defaultRemoteList).getRemoteId());
+      GoogleTaskList list =
+          gtasksListService.getList(((GtasksFilter) defaultRemoteList).getRemoteId());
       if (list == null) {
         preferences.setString(R.string.p_default_remote_list, null);
       }
@@ -207,32 +219,33 @@ public class GoogleTaskSynchronizer {
 
     String remoteId;
     Filter defaultRemoteList = defaultFilterProvider.getDefaultRemoteList();
-    String listId = defaultRemoteList instanceof GtasksFilter
-        ? ((GtasksFilter) defaultRemoteList).getRemoteId()
-        : DEFAULT_LIST;
+    String listId =
+        defaultRemoteList instanceof GtasksFilter
+            ? ((GtasksFilter) defaultRemoteList).getRemoteId()
+            : DEFAULT_LIST;
 
-    if (Strings.isNullOrEmpty(gtasksMetadata.getRemoteId())) { //Create case
+    if (Strings.isNullOrEmpty(gtasksMetadata.getRemoteId())) { // Create case
       String selectedList = gtasksMetadata.getListId();
       if (!Strings.isNullOrEmpty(selectedList)) {
         listId = selectedList;
       }
       remoteModel = new com.google.api.services.tasks.model.Task();
       newlyCreated = true;
-    } else { //update case
+    } else { // update case
       remoteId = gtasksMetadata.getRemoteId();
       listId = gtasksMetadata.getListId();
       remoteModel = new com.google.api.services.tasks.model.Task();
       remoteModel.setId(remoteId);
     }
 
-    //If task was newly created but without a title, don't sync--we're in the middle of
-    //creating a task which may end up being cancelled. Also don't sync new but already
-    //deleted tasks
+    // If task was newly created but without a title, don't sync--we're in the middle of
+    // creating a task which may end up being cancelled. Also don't sync new but already
+    // deleted tasks
     if (newlyCreated && (TextUtils.isEmpty(task.getTitle()) || task.getDeletionDate() > 0)) {
       return;
     }
 
-    //Update the remote model's changed properties
+    // Update the remote model's changed properties
     if (task.isDeleted()) {
       remoteModel.setDeleted(true);
     }
@@ -245,10 +258,10 @@ public class GoogleTaskSynchronizer {
     if (task.isCompleted()) {
       remoteModel.setCompleted(
           GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getCompletionDate()));
-      remoteModel.setStatus("completed"); //$NON-NLS-1$
+      remoteModel.setStatus("completed"); // $NON-NLS-1$
     } else {
       remoteModel.setCompleted(null);
-      remoteModel.setStatus("needsAction"); //$NON-NLS-1$
+      remoteModel.setStatus("needsAction"); // $NON-NLS-1$
     }
 
     if (!newlyCreated) {
@@ -263,11 +276,11 @@ public class GoogleTaskSynchronizer {
       String parent = gtasksSyncService.getRemoteParentId(gtasksMetadata);
       String priorSibling = gtasksSyncService.getRemoteSiblingId(listId, gtasksMetadata);
 
-      com.google.api.services.tasks.model.Task created = invoker
-          .createGtask(listId, remoteModel, parent, priorSibling);
+      com.google.api.services.tasks.model.Task created =
+          invoker.createGtask(listId, remoteModel, parent, priorSibling);
 
       if (created != null) {
-        //Update the metadata for the newly created task
+        // Update the metadata for the newly created task
         gtasksMetadata.setRemoteId(created.getId());
         gtasksMetadata.setListId(listId);
       } else {
@@ -296,8 +309,13 @@ public class GoogleTaskSynchronizer {
       List<com.google.api.services.tasks.model.Task> tasks = new ArrayList<>();
       String nextPageToken = null;
       do {
-        Tasks taskList = gtasksInvoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
-            includeDeletedAndHidden, lastSyncDate + 1000L, nextPageToken);
+        Tasks taskList =
+            gtasksInvoker.getAllGtasksFromListId(
+                listId,
+                includeDeletedAndHidden,
+                includeDeletedAndHidden,
+                lastSyncDate + 1000L,
+                nextPageToken);
         if (taskList == null) {
           break;
         }
@@ -362,9 +380,8 @@ public class GoogleTaskSynchronizer {
   }
 
   /**
-   * Synchronize metadata for given task id. Deletes rows in database that
-   * are not identical to those in the metadata list, creates rows that
-   * have no match.
+   * Synchronize metadata for given task id. Deletes rows in database that are not identical to
+   * those in the metadata list, creates rows that have no match.
    *
    * @param taskId id of task to perform synchronization on
    * @param metadata list of new metadata items to save

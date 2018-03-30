@@ -18,9 +18,7 @@ package com.android.vending.billing;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Represents an in-app product's listing details.
- */
+/** Represents an in-app product's listing details. */
 @SuppressWarnings("ALL")
 public class SkuDetails {
 

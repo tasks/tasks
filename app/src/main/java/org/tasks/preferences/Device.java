@@ -30,8 +30,11 @@ public class Device {
   }
 
   public boolean hasCamera() {
-    return context.getPackageManager()
-        .queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), 0).size() > 0;
+    return context
+            .getPackageManager()
+            .queryIntentActivities(new Intent(MediaStore.ACTION_IMAGE_CAPTURE), 0)
+            .size()
+        > 0;
   }
 
   public boolean hasGallery() {
@@ -46,8 +49,8 @@ public class Device {
 
   public boolean voiceInputAvailable() {
     PackageManager pm = context.getPackageManager();
-    List<ResolveInfo> activities = pm.queryIntentActivities(
-        new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+    List<ResolveInfo> activities =
+        pm.queryIntentActivities(new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
     return (activities.size() != 0);
   }
 
@@ -55,20 +58,31 @@ public class Device {
     try {
       java.util.Locale appLocale = locale.getLocale();
       java.util.Locale deviceLocale = locale.getDeviceLocale();
-      return Joiner.on("\n").join(asList(
-          "",
-          "----------",
-          "Tasks: " + BuildConfig.VERSION_NAME + " (" + BuildConfig.FLAVOR + " build "
-              + BuildConfig.VERSION_CODE + ")",
-          "Android: " + Build.VERSION.RELEASE + " (" + Build.DISPLAY + ")",
-          "Locale: " + deviceLocale + (!deviceLocale.equals(appLocale) ? " (" + appLocale + ")"
-              : ""),
-          "Model: " + Build.MANUFACTURER + " " + Build.MODEL,
-          "Product: " + Build.PRODUCT + " (" + Build.DEVICE + ")",
-          "Kernel: " + System.getProperty("os.version") + " (" + Build.VERSION.INCREMENTAL + ")",
-          "----------",
-          ""
-      ));
+      return Joiner.on("\n")
+          .join(
+              asList(
+                  "",
+                  "----------",
+                  "Tasks: "
+                      + BuildConfig.VERSION_NAME
+                      + " ("
+                      + BuildConfig.FLAVOR
+                      + " build "
+                      + BuildConfig.VERSION_CODE
+                      + ")",
+                  "Android: " + Build.VERSION.RELEASE + " (" + Build.DISPLAY + ")",
+                  "Locale: "
+                      + deviceLocale
+                      + (!deviceLocale.equals(appLocale) ? " (" + appLocale + ")" : ""),
+                  "Model: " + Build.MANUFACTURER + " " + Build.MODEL,
+                  "Product: " + Build.PRODUCT + " (" + Build.DEVICE + ")",
+                  "Kernel: "
+                      + System.getProperty("os.version")
+                      + " ("
+                      + Build.VERSION.INCREMENTAL
+                      + ")",
+                  "----------",
+                  ""));
     } catch (Exception e) {
       Timber.e(e, e.getMessage());
     }

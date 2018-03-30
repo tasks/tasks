@@ -51,9 +51,13 @@ public class DefaultFilterProvider {
   private final CaldavFilterExposer caldavFilterExposer;
 
   @Inject
-  public DefaultFilterProvider(@ForApplication Context context, Preferences preferences,
-      Tracker tracker, CustomFilterExposer customFilterExposer,
-      TagFilterExposer tagFilterExposer, GtasksFilterExposer gtasksFilterExposer,
+  public DefaultFilterProvider(
+      @ForApplication Context context,
+      Preferences preferences,
+      Tracker tracker,
+      CustomFilterExposer customFilterExposer,
+      TagFilterExposer tagFilterExposer,
+      GtasksFilterExposer gtasksFilterExposer,
       CaldavFilterExposer caldavFilterExposer) {
     this.context = context;
     this.preferences = preferences;
@@ -91,8 +95,8 @@ public class DefaultFilterProvider {
   }
 
   public Filter getDefaultRemoteList() {
-    return getFilterFromPreference(preferences.getStringValue(R.string.p_default_remote_list),
-        null);
+    return getFilterFromPreference(
+        preferences.getStringValue(R.string.p_default_remote_list), null);
   }
 
   public void setDefaultRemoteList(Filter filter) {
@@ -104,8 +108,8 @@ public class DefaultFilterProvider {
   }
 
   public Filter getFilterFromPreference(String preferenceValue) {
-    return getFilterFromPreference(preferenceValue,
-        BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
+    return getFilterFromPreference(
+        preferenceValue, BuiltInFilterExposer.getMyTasksFilter(context.getResources()));
   }
 
   private Filter getFilterFromPreference(String preferenceValue, Filter def) {

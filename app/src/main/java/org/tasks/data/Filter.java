@@ -65,12 +65,21 @@ public class Filter {
 
   @Override
   public String toString() {
-    return "Filter{" +
-        "id=" + id +
-        ", title='" + title + '\'' +
-        ", sql='" + sql + '\'' +
-        ", values='" + values + '\'' +
-        ", criterion='" + criterion + '\'' +
-        '}';
+    return "Filter{"
+        + "id="
+        + id
+        + ", title='"
+        + title
+        + '\''
+        + ", sql='"
+        + sql
+        + '\''
+        + ", values='"
+        + values
+        + '\''
+        + ", criterion='"
+        + criterion
+        + '\''
+        + '}';
   }
 }

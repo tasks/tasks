@@ -12,9 +12,7 @@ public abstract class InjectingFragment extends Fragment {
     super.onAttach(activity);
 
     if (!injected) {
-      inject(((InjectingActivity) activity)
-          .getComponent()
-          .plus(new FragmentModule(this)));
+      inject(((InjectingActivity) activity).getComponent().plus(new FragmentModule(this)));
       injected = true;
     }
   }

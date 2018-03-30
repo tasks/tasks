@@ -79,8 +79,6 @@ public class TaskCreationBundle {
 
   @Override
   public String toString() {
-    return "TaskCreationBundle{" +
-        "bundle=" + bundle +
-        '}';
+    return "TaskCreationBundle{" + "bundle=" + bundle + '}';
   }
 }

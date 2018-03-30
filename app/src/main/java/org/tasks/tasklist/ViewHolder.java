@@ -52,23 +52,51 @@ class ViewHolder extends RecyclerView.ViewHolder {
   private final int background;
   private final int selectedColor;
   private final int textColorOverdue;
-  @BindView(R.id.row) public ViewGroup row;
-  @BindView(R.id.due_date) public TextView dueDate;
+
+  @BindView(R.id.row)
+  public ViewGroup row;
+
+  @BindView(R.id.due_date)
+  public TextView dueDate;
+
   public Task task;
-  @BindView(R.id.rowBody) ViewGroup rowBody;
-  @BindView(R.id.title) TextView nameView;
-  @BindView(R.id.completeBox) CheckableImageView completeBox;
-  @BindView(R.id.tag_block) TextView tagBlock;
-  @BindView(R.id.taskActionIcon) ImageView taskActionIcon;
+
+  @BindView(R.id.rowBody)
+  ViewGroup rowBody;
+
+  @BindView(R.id.title)
+  TextView nameView;
+
+  @BindView(R.id.completeBox)
+  CheckableImageView completeBox;
+
+  @BindView(R.id.tag_block)
+  TextView tagBlock;
+
+  @BindView(R.id.taskActionIcon)
+  ImageView taskActionIcon;
+
   private int indent;
   private boolean selected;
   private boolean moving;
 
-  ViewHolder(Context context, ViewGroup view, boolean showFullTaskTitle, int fontSize,
-      CheckBoxes checkBoxes, TagFormatter tagFormatter,
-      int textColorOverdue, int textColorSecondary, int textColorHint, TaskDao taskDao,
-      DialogBuilder dialogBuilder, ViewHolderCallbacks callback,
-      DisplayMetrics metrics, int background, int selectedColor, int rowPadding) {
+  ViewHolder(
+      Context context,
+      ViewGroup view,
+      boolean showFullTaskTitle,
+      int fontSize,
+      CheckBoxes checkBoxes,
+      TagFormatter tagFormatter,
+      int textColorOverdue,
+      int textColorSecondary,
+      int textColorHint,
+      TaskDao taskDao,
+      DialogBuilder dialogBuilder,
+      ViewHolderCallbacks callback,
+      DisplayMetrics metrics,
+      int background,
+      int selectedColor,
+      int rowPadding) {
     super(view);
     this.context = context;
     this.checkBoxes = checkBoxes;
@@ -93,10 +121,10 @@ class ViewHolder extends RecyclerView.ViewHolder {
     if (atLeastKitKat()) {
       rowBody.setPadding(0, rowPadding, 0, rowPadding);
     } else {
-      ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) rowBody
-          .getLayoutParams();
-      layoutParams
-          .setMargins(layoutParams.leftMargin, rowPadding, layoutParams.rightMargin, rowPadding);
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) rowBody.getLayoutParams();
+      layoutParams.setMargins(
+          layoutParams.leftMargin, rowPadding, layoutParams.rightMargin, rowPadding);
     }
 
     nameView.setTextSize(fontSize);
@@ -134,8 +162,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
     this.indent = indent;
     int indentSize = getIndentSize(indent);
     if (atLeastLollipop()) {
-      ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) row
-          .getLayoutParams();
+      ViewGroup.MarginLayoutParams layoutParams =
+          (ViewGroup.MarginLayoutParams) row.getLayoutParams();
       layoutParams.setMarginStart(indentSize);
     } else {
       rowBody.setPadding(indentSize, rowBody.getPaddingTop(), 0, rowBody.getPaddingBottom());
@@ -162,9 +190,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     setTaskAppearance();
   }
 
-  /**
-   * Helper method to set the contents and visibility of each field
-   */
+  /** Helper method to set the contents and visibility of each field */
   private synchronized void setFieldContentsAndVisibility() {
     String nameValue = task.getTitle();
 
@@ -242,8 +268,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
       dueDateView.setText(dateValue);
       dueDateView.setVisibility(View.VISIBLE);
     } else if (task.isCompleted()) {
-      String dateValue = DateUtilities
-          .getRelativeDateStringWithTime(context, task.getCompletionDate());
+      String dateValue =
+          DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate());
       dueDateView.setText(context.getResources().getString(R.string.TAd_completed, dateValue));
       dueDateView.setTextColor(textColorHint);
       dueDateView.setVisibility(View.VISIBLE);
@@ -318,10 +344,12 @@ class ViewHolder extends RecyclerView.ViewHolder {
     }
     SpannableString description = new SpannableString(t.getNotes());
     Linkify.addLinks(description, Linkify.ALL);
-    AlertDialog dialog = dialogBuilder.newDialog()
-        .setMessage(description)
-        .setPositiveButton(android.R.string.ok, null)
-        .show();
+    AlertDialog dialog =
+        dialogBuilder
+            .newDialog()
+            .setMessage(description)
+            .setPositiveButton(android.R.string.ok, null)
+            .show();
     View message = dialog.findViewById(android.R.id.message);
     if (message != null && message instanceof TextView) {
       ((TextView) message).setMovementMethod(LinkMovementMethod.getInstance());
@@ -330,10 +358,10 @@ class ViewHolder extends RecyclerView.ViewHolder {
 
   private void showFilesDialog(Task task) {
     // TODO: reimplement this
-//        FilesControlSet filesControlSet = new FilesControlSet();
-//        filesControlSet.hideAddAttachmentButton();
-//        filesControlSet.readFromTask(task);
-//        filesControlSet.getView().performClick();
+    //        FilesControlSet filesControlSet = new FilesControlSet();
+    //        filesControlSet.hideAddAttachmentButton();
+    //        filesControlSet.readFromTask(task);
+    //        filesControlSet.getView().performClick();
   }
 
   interface ViewHolderCallbacks {

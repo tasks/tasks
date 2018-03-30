@@ -23,14 +23,13 @@ import org.tasks.themes.ThemeAccent;
 
 public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
 
-  @NonNull
-  private final Context context;
+  @NonNull private final Context context;
   private final ThemeAccent accent;
   private final int alpha;
   private final int tint;
 
-  public SingleCheckedArrayAdapter(@NonNull Context context, @NonNull List<String> items,
-      ThemeAccent accent) {
+  public SingleCheckedArrayAdapter(
+      @NonNull Context context, @NonNull List<String> items, ThemeAccent accent) {
     super(context, R.layout.simple_list_item_single_choice_themed, items);
     this.context = context;
     this.accent = accent;
@@ -43,11 +42,15 @@ public class SingleCheckedArrayAdapter extends ArrayAdapter<String> {
   public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
     CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
     if (preLollipop()) {
-      ColorStateList tintList = new ColorStateList(new int[][]{
-          new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}},
-          new int[]{
-              ResourcesCompat.getColor(context.getResources(), android.R.color.transparent, null),
-              accent.getAccentColor()});
+      ColorStateList tintList =
+          new ColorStateList(
+              new int[][] {
+                new int[] {-android.R.attr.state_checked}, new int[] {android.R.attr.state_checked}
+              },
+              new int[] {
+                ResourcesCompat.getColor(context.getResources(), android.R.color.transparent, null),
+                accent.getAccentColor()
+              });
       Drawable original = ContextCompat.getDrawable(context, R.drawable.ic_check_black_24dp);
       Drawable wrapped = DrawableCompat.wrap(original.mutate());
       DrawableCompat.setTintList(wrapped, tintList);

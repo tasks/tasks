@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.data;
 
 import android.text.TextUtils;
@@ -12,9 +11,9 @@ import com.todoroo.andlib.sql.Field;
 /**
  * Property represents a typed column in a database.
  *
- * Within a given database row, the parameter may not exist, in which case the
- * value is null, it may be of an incorrect type, in which case an exception is
- * thrown, or the correct type, in which case the value is returned.
+ * <p>Within a given database row, the parameter may not exist, in which case the value is null, it
+ * may be of an incorrect type, in which case an exception is thrown, or the correct type, in which
+ * case the value is returned.
  *
  * @param <TYPE> a database supported type, such as String or Integer
  * @author Tim Su <tim@todoroo.com>
@@ -23,37 +22,27 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
   // --- implementation
 
-  /**
-   * The database table name this property
-   */
+  /** The database column name for this property */
+  public final String name;
+  /** The database table name this property */
   private final Table table;
 
   /**
-   * The database column name for this property
-   */
-  public final String name;
-
-  /**
-   * Create a property by table and column name. Uses the default property
-   * expression which is derived from default table name
+   * Create a property by table and column name. Uses the default property expression which is
+   * derived from default table name
    */
   Property(Table table, String columnName) {
     this(table, columnName, (table == null) ? (columnName) : (table.name() + "." + columnName));
   }
 
-  /**
-   * Create a property by table and column name, manually specifying an
-   * expression to use in SQL
-   */
+  /** Create a property by table and column name, manually specifying an expression to use in SQL */
   Property(Table table, String columnName, String expression) {
     super(expression);
     this.table = table;
     this.name = columnName;
   }
 
-  /**
-   * Return a clone of this property
-   */
+  /** Return a clone of this property */
   @Override
   public Property<TYPE> clone() {
     try {
@@ -63,9 +52,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     }
   }
 
-  /**
-   * Return a clone of this property
-   */
+  /** Return a clone of this property */
   Property<TYPE> cloneAs(String tableAlias, String columnAlias) {
     Table aliasedTable = this.table;
     if (!TextUtils.isEmpty(tableAlias)) {
@@ -73,8 +60,10 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     }
 
     try {
-      Property<TYPE> newInstance = this.getClass().getConstructor(Table.class, String.class)
-          .newInstance(aliasedTable, this.name);
+      Property<TYPE> newInstance =
+          this.getClass()
+              .getConstructor(Table.class, String.class)
+              .newInstance(aliasedTable, this.name);
       if (!TextUtils.isEmpty(columnAlias)) {
         return (Property<TYPE>) newInstance.as(columnAlias);
       }
@@ -136,9 +125,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
 
   // --- pseudo-properties
 
-  /**
-   * Runs a SQL function and returns the result as a string
-   */
+  /** Runs a SQL function and returns the result as a string */
   public static class CountProperty extends IntegerProperty {
 
     public CountProperty() {

@@ -27,28 +27,32 @@ public class MissedCallDialog extends InjectingDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    List<String> actions = asList(
-        getString(R.string.MCA_return_call),
-        getString(R.string.MCA_add_task),
-        getString(R.string.MCA_ignore));
+    List<String> actions =
+        asList(
+            getString(R.string.MCA_return_call),
+            getString(R.string.MCA_add_task),
+            getString(R.string.MCA_ignore));
 
     handler = (MissedCallHandler) getActivity();
 
-    return dialogBuilder.newDialog()
+    return dialogBuilder
+        .newDialog()
         .setTitle(title)
-        .setItems(actions, (dialog, which) -> {
-          switch (which) {
-            case 0:
-              handler.callNow();
-              break;
-            case 1:
-              handler.callLater();
-              break;
-            default:
-              handler.ignore();
-              break;
-          }
-        })
+        .setItems(
+            actions,
+            (dialog, which) -> {
+              switch (which) {
+                case 0:
+                  handler.callNow();
+                  break;
+                case 1:
+                  handler.callLater();
+                  break;
+                default:
+                  handler.ignore();
+                  break;
+              }
+            })
         .show();
   }
 

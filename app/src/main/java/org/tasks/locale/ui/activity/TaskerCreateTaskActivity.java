@@ -19,9 +19,8 @@ import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 
-public final class TaskerCreateTaskActivity extends
-    AbstractFragmentPluginAppCompatActivity implements PurchaseHelperCallback,
-    Toolbar.OnMenuItemClickListener {
+public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
+    implements PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
 
   private static final int REQUEST_PURCHASE = 10125;
   private static final String EXTRA_PURCHASE_INITIATED = "extra_purchase_initiated";
@@ -29,12 +28,23 @@ public final class TaskerCreateTaskActivity extends
   @Inject Preferences preferences;
   @Inject PurchaseHelper purchaseHelper;
 
-  @BindView(R.id.title) TextInputEditText title;
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.due_date) TextInputEditText dueDate;
-  @BindView(R.id.due_time) TextInputEditText dueTime;
-  @BindView(R.id.priority) TextInputEditText priority;
-  @BindView(R.id.description) TextInputEditText description;
+  @BindView(R.id.title)
+  TextInputEditText title;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
+  @BindView(R.id.due_date)
+  TextInputEditText dueDate;
+
+  @BindView(R.id.due_time)
+  TextInputEditText dueTime;
+
+  @BindView(R.id.priority)
+  TextInputEditText priority;
+
+  @BindView(R.id.description)
+  TextInputEditText description;
 
   private Bundle previousBundle;
   private boolean purchaseInitiated;
@@ -49,15 +59,17 @@ public final class TaskerCreateTaskActivity extends
 
     toolbar.setTitle(R.string.tasker_create_task);
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this,
-        backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-    toolbar.setNavigationOnClickListener(v -> {
-      if (backButtonSavesTask) {
-        discardButtonClick();
-      } else {
-        save();
-      }
-    });
+    toolbar.setNavigationIcon(
+        ContextCompat.getDrawable(
+            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+    toolbar.setNavigationOnClickListener(
+        v -> {
+          if (backButtonSavesTask) {
+            discardButtonClick();
+          } else {
+            save();
+          }
+        });
     toolbar.setOnMenuItemClickListener(this);
     toolbar.inflateMenu(R.menu.menu_tasker_create_task);
     MenuColorizer.colorToolbar(this, toolbar);
@@ -70,15 +82,19 @@ public final class TaskerCreateTaskActivity extends
     }
 
     if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInitiated) {
-      purchaseInitiated = purchaseHelper
-          .purchase(this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker),
-              REQUEST_PURCHASE, this);
+      purchaseInitiated =
+          purchaseHelper.purchase(
+              this,
+              getString(R.string.sku_tasker),
+              getString(R.string.p_purchased_tasker),
+              REQUEST_PURCHASE,
+              this);
     }
   }
 
   @Override
-  public void onPostCreateWithPreviousResult(final Bundle previousBundle,
-      final String previousBlurb) {
+  public void onPostCreateWithPreviousResult(
+      final Bundle previousBundle, final String previousBlurb) {
     this.previousBundle = previousBundle;
     TaskCreationBundle bundle = new TaskCreationBundle(previousBundle);
     title.setText(bundle.getTitle());
@@ -103,13 +119,15 @@ public final class TaskerCreateTaskActivity extends
     bundle.setDescription(description.getText().toString().trim());
     Bundle resultBundle = bundle.build();
     if (TaskerPlugin.Setting.hostSupportsOnFireVariableReplacement(this)) {
-      TaskerPlugin.Setting.setVariableReplaceKeys(resultBundle, new String[]{
-          TaskCreationBundle.EXTRA_TITLE,
-          TaskCreationBundle.EXTRA_DUE_DATE,
-          TaskCreationBundle.EXTRA_DUE_TIME,
-          TaskCreationBundle.EXTRA_PRIORITY,
-          TaskCreationBundle.EXTRA_DESCRIPTION
-      });
+      TaskerPlugin.Setting.setVariableReplaceKeys(
+          resultBundle,
+          new String[] {
+            TaskCreationBundle.EXTRA_TITLE,
+            TaskCreationBundle.EXTRA_DUE_DATE,
+            TaskCreationBundle.EXTRA_DUE_TIME,
+            TaskCreationBundle.EXTRA_PRIORITY,
+            TaskCreationBundle.EXTRA_DESCRIPTION
+          });
     }
     return resultBundle;
   }

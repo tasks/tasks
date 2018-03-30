@@ -53,7 +53,6 @@ public class ReminderEntry implements NotificationQueueEntry {
       return false;
     }
     return type == reminderEntry.type;
-
   }
 
   @Override
@@ -66,10 +65,6 @@ public class ReminderEntry implements NotificationQueueEntry {
 
   @Override
   public String toString() {
-    return "ReminderEntry{" +
-        "taskId=" + taskId +
-        ", time=" + time +
-        ", type=" + type +
-        '}';
+    return "ReminderEntry{" + "taskId=" + taskId + ", time=" + time + ", type=" + type + '}';
   }
 }

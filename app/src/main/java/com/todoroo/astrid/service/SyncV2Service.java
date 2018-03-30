@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.service;
 
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
@@ -14,8 +13,8 @@ import org.tasks.gtasks.GtaskSyncAdapterHelper;
 import org.tasks.sync.SyncExecutor;
 
 /**
- * SyncV2Service is a simplified synchronization interface for supporting
- * next-generation sync interfaces such as Google Tasks and Astrid.com
+ * SyncV2Service is a simplified synchronization interface for supporting next-generation sync
+ * interfaces such as Google Tasks and Astrid.com
  *
  * @author Tim Su <tim@astrid.com>
  */
@@ -31,7 +30,9 @@ public class SyncV2Service {
   private final GtasksSyncService gtasksSyncService;
 
   @Inject
-  public SyncV2Service(SyncExecutor syncExecutor, GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
+  public SyncV2Service(
+      SyncExecutor syncExecutor,
+      GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
       GtasksSyncService gtasksSyncService) {
     this.syncExecutor = syncExecutor;
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
@@ -40,14 +41,16 @@ public class SyncV2Service {
 
   public void clearCompleted(final GoogleTaskList list, final SyncResultCallback callback) {
     if (gtaskSyncAdapterHelper.isEnabled()) {
-      syncExecutor.execute(callback, () -> {
-        callback.started();
-        try {
-          gtasksSyncService.clearCompleted(list.getRemoteId());
-        } finally {
-          callback.finished();
-        }
-      });
+      syncExecutor.execute(
+          callback,
+          () -> {
+            callback.started();
+            try {
+              gtasksSyncService.clearCompleted(list.getRemoteId());
+            } finally {
+              callback.finished();
+            }
+          });
     }
   }
 }

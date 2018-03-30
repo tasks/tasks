@@ -14,10 +14,12 @@ public class RemoteGtaskListMaker {
 
   public static final Property<TaskList, String> REMOTE_ID = newProperty();
   public static final Property<TaskList, String> NAME = newProperty();
-  private static final Instantiator<TaskList> instantiator = lookup -> new TaskList()
-      .setId(lookup.valueOf(REMOTE_ID, "1"))
-      .setTitle(lookup.valueOf(NAME, "Default"))
-      .setUpdated(new DateTime(currentTimeMillis()));
+  private static final Instantiator<TaskList> instantiator =
+      lookup ->
+          new TaskList()
+              .setId(lookup.valueOf(REMOTE_ID, "1"))
+              .setTitle(lookup.valueOf(NAME, "Default"))
+              .setUpdated(new DateTime(currentTimeMillis()));
 
   public static TaskList newRemoteList(PropertyValue<? super TaskList, ?>... properties) {
     return make(instantiator, properties);

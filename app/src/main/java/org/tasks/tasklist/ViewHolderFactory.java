@@ -34,8 +34,12 @@ public class ViewHolderFactory {
   private final int rowPadding;
 
   @Inject
-  public ViewHolderFactory(@ForActivity Context context, Preferences preferences,
-      CheckBoxes checkBoxes, TagFormatter tagFormatter, TaskDao taskDao,
+  public ViewHolderFactory(
+      @ForActivity Context context,
+      Preferences preferences,
+      CheckBoxes checkBoxes,
+      TagFormatter tagFormatter,
+      TaskDao taskDao,
       DialogBuilder dialogBuilder) {
     this.context = context;
     this.checkBoxes = checkBoxes;
@@ -54,8 +58,22 @@ public class ViewHolderFactory {
   }
 
   ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks) {
-    return new ViewHolder(context, viewGroup, showFullTaskTitle, fontSize, checkBoxes,
-        tagFormatter, textColorOverdue, textColorSecondary, textColorHint, taskDao,
-        dialogBuilder, callbacks, metrics, background, selectedColor, rowPadding);
+    return new ViewHolder(
+        context,
+        viewGroup,
+        showFullTaskTitle,
+        fontSize,
+        checkBoxes,
+        tagFormatter,
+        textColorOverdue,
+        textColorSecondary,
+        textColorHint,
+        taskDao,
+        dialogBuilder,
+        callbacks,
+        metrics,
+        background,
+        selectedColor,
+        rowPadding);
   }
 }

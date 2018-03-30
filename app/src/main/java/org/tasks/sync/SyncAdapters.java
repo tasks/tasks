@@ -1,7 +1,6 @@
 package org.tasks.sync;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
@@ -15,7 +14,9 @@ public class SyncAdapters {
   private final JobManager jobManager;
 
   @Inject
-  public SyncAdapters(GtaskSyncAdapterHelper gtaskSyncAdapterHelper, Preferences preferences,
+  public SyncAdapters(
+      GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
+      Preferences preferences,
       JobManager jobManager) {
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
     this.preferences = preferences;

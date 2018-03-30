@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.repeats;
 
 import static android.support.v4.content.ContextCompat.getColor;
@@ -81,9 +80,16 @@ public class RepeatControlSet extends TaskEditControlFragment
   @Inject Theme theme;
   @Inject Tracker tracker;
   @Inject RepeatRuleToString repeatRuleToString;
-  @BindView(R.id.display_row_edit) TextView displayView;
-  @BindView(R.id.repeatType) Spinner typeSpinner;
-  @BindView(R.id.repeatTypeContainer) LinearLayout repeatTypeContainer;
+
+  @BindView(R.id.display_row_edit)
+  TextView displayView;
+
+  @BindView(R.id.repeatType)
+  Spinner typeSpinner;
+
+  @BindView(R.id.repeatTypeContainer)
+  LinearLayout repeatTypeContainer;
+
   private RRule rrule;
   private HiddenTopArrayAdapter<String> typeAdapter;
   private long dueDate;
@@ -116,8 +122,8 @@ public class RepeatControlSet extends TaskEditControlFragment
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
     if (savedInstanceState == null) {
       repeatAfterCompletion = task.repeatAfterCompletion();
@@ -148,23 +154,25 @@ public class RepeatControlSet extends TaskEditControlFragment
 
     repeatTypes.add("");
     repeatTypes.addAll(Arrays.asList(getResources().getStringArray(R.array.repeat_type)));
-    typeAdapter = new HiddenTopArrayAdapter<String>(context, 0, repeatTypes) {
-      @NonNull
-      @Override
-      public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        int selectedItemPosition = position;
-        if (parent instanceof AdapterView) {
-          selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
-        }
-        TextView tv = (TextView) inflater
-            .inflate(android.R.layout.simple_spinner_item, parent, false);
-        tv.setPadding(0, 0, 0, 0);
-        tv.setText(repeatTypes.get(selectedItemPosition));
-        return tv;
-      }
-    };
-    Drawable drawable = DrawableCompat
-        .wrap(ContextCompat.getDrawable(context, R.drawable.textfield_underline_black));
+    typeAdapter =
+        new HiddenTopArrayAdapter<String>(context, 0, repeatTypes) {
+          @NonNull
+          @Override
+          public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+            int selectedItemPosition = position;
+            if (parent instanceof AdapterView) {
+              selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
+            }
+            TextView tv =
+                (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+            tv.setPadding(0, 0, 0, 0);
+            tv.setText(repeatTypes.get(selectedItemPosition));
+            return tv;
+          }
+        };
+    Drawable drawable =
+        DrawableCompat.wrap(
+            ContextCompat.getDrawable(context, R.drawable.textfield_underline_black));
     drawable.mutate();
     DrawableCompat.setTint(drawable, getColor(context, R.color.text_primary));
     typeSpinner.setBackgroundDrawable(drawable);
@@ -208,21 +216,21 @@ public class RepeatControlSet extends TaskEditControlFragment
       return false;
     }
     Frequency frequency = rrule.getFreq();
-    return (frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty() ||
-        frequency == HOURLY ||
-        frequency == MINUTELY ||
-        rrule.getUntil() != null ||
-        rrule.getInterval() != 1 ||
-        rrule.getCount() != 0;
+    return (frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()
+        || frequency == HOURLY
+        || frequency == MINUTELY
+        || rrule.getUntil() != null
+        || rrule.getInterval() != 1
+        || rrule.getCount() != 0;
   }
 
   @OnClick(R.id.display_row_edit)
   void openPopup(View view) {
     boolean customPicked = isCustomValue();
-    List<String> repeatOptions = newArrayList(
-        context.getResources().getStringArray(R.array.repeat_options));
-    SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, repeatOptions,
-        theme.getThemeAccent());
+    List<String> repeatOptions =
+        newArrayList(context.getResources().getStringArray(R.array.repeat_options));
+    SingleCheckedArrayAdapter adapter =
+        new SingleCheckedArrayAdapter(context, repeatOptions, theme.getThemeAccent());
     int selected = 0;
     if (customPicked) {
       adapter.insert(repeatRuleToString.toString(rrule), 0);
@@ -245,49 +253,53 @@ public class RepeatControlSet extends TaskEditControlFragment
           break;
       }
     }
-    dialogBuilder.newDialog()
-        .setSingleChoiceItems(adapter, selected, (dialogInterface, i) -> {
-          if (customPicked) {
-            if (i == 0) {
+    dialogBuilder
+        .newDialog()
+        .setSingleChoiceItems(
+            adapter,
+            selected,
+            (dialogInterface, i) -> {
+              if (customPicked) {
+                if (i == 0) {
+                  dialogInterface.dismiss();
+                  return;
+                }
+                i--;
+              }
+              if (i == 0) {
+                rrule = null;
+              } else if (i == 5) {
+                newCustomRecurrenceDialog(this, rrule, dueDate)
+                    .show(getFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
+                dialogInterface.dismiss();
+                return;
+              } else {
+                rrule = new RRule();
+                rrule.setInterval(1);
+                repeatAfterCompletion = false;
+
+                switch (i) {
+                  case 1:
+                    rrule.setFreq(DAILY);
+                    break;
+                  case 2:
+                    rrule.setFreq(WEEKLY);
+                    break;
+                  case 3:
+                    rrule.setFreq(MONTHLY);
+                    break;
+                  case 4:
+                    rrule.setFreq(YEARLY);
+                    break;
+                }
+
+                tracker.reportEvent(Tracking.Events.RECURRENCE_PRESET, rrule.toIcal());
+              }
+
+              callback.repeatChanged(rrule != null);
+              refreshDisplayView();
               dialogInterface.dismiss();
-              return;
-            }
-            i--;
-          }
-          if (i == 0) {
-            rrule = null;
-          } else if (i == 5) {
-            newCustomRecurrenceDialog(this, rrule, dueDate)
-                .show(getFragmentManager(), FRAG_TAG_CUSTOM_RECURRENCE);
-            dialogInterface.dismiss();
-            return;
-          } else {
-            rrule = new RRule();
-            rrule.setInterval(1);
-            repeatAfterCompletion = false;
-
-            switch (i) {
-              case 1:
-                rrule.setFreq(DAILY);
-                break;
-              case 2:
-                rrule.setFreq(WEEKLY);
-                break;
-              case 3:
-                rrule.setFreq(MONTHLY);
-                break;
-              case 4:
-                rrule.setFreq(YEARLY);
-                break;
-            }
-
-            tracker.reportEvent(Tracking.Events.RECURRENCE_PRESET, rrule.toIcal());
-          }
-
-          callback.repeatChanged(rrule != null);
-          refreshDisplayView();
-          dialogInterface.dismiss();
-        })
+            })
         .setOnCancelListener(d -> refreshDisplayView())
         .show();
   }
@@ -309,9 +321,9 @@ public class RepeatControlSet extends TaskEditControlFragment
 
   @Override
   public boolean hasChanges(Task original) {
-    return !getRecurrenceValue().equals(original.getRecurrence()) ||
-        original.getRepeatUntil() != (rrule == null ? 0
-            : DateTime.from(rrule.getUntil()).getMillis());
+    return !getRecurrenceValue().equals(original.getRecurrence())
+        || original.getRepeatUntil()
+            != (rrule == null ? 0 : DateTime.from(rrule.getUntil()).getMillis());
   }
 
   @Override
@@ -333,7 +345,7 @@ public class RepeatControlSet extends TaskEditControlFragment
     copy.setUntil(null);
     String result = copy.toIcal();
     if (repeatAfterCompletion && !TextUtils.isEmpty(result)) {
-      result += ";FROM=COMPLETION"; //$NON-NLS-1$
+      result += ";FROM=COMPLETION"; // $NON-NLS-1$
     }
 
     return result;

@@ -49,8 +49,9 @@ class TaskConverter {
         local.setDueDate(Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
       } else {
         try {
-          local.setDueDate(Task.createDueDate(URGENCY_SPECIFIC_DAY,
-              DUE_DATE_FORMAT.parse(due.getValue()).getTime()));
+          local.setDueDate(
+              Task.createDueDate(
+                  URGENCY_SPECIFIC_DAY, DUE_DATE_FORMAT.parse(due.getValue()).getTime()));
         } catch (ParseException e) {
           Timber.e(e, e.getMessage());
         }
@@ -88,8 +89,8 @@ class TaskConverter {
     at.bitfire.ical4android.Task remote = null;
     try {
       if (!Strings.isNullOrEmpty(caldavTask.getVtodo())) {
-        remote = at.bitfire.ical4android.Task.fromReader(new StringReader(caldavTask.getVtodo()))
-            .get(0);
+        remote =
+            at.bitfire.ical4android.Task.fromReader(new StringReader(caldavTask.getVtodo())).get(0);
       }
     } catch (IOException | InvalidCalendarException e) {
       Timber.e(e, e.getMessage());
@@ -109,18 +110,18 @@ class TaskConverter {
           Timber.e(e, e.getMessage());
         }
       }
-      remote.setDue(new Due(task.hasDueTime()
-          ? new DateTime(task.getDueDate())
-          : new Date(new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis())));
+      remote.setDue(
+          new Due(
+              task.hasDueTime()
+                  ? new DateTime(task.getDueDate())
+                  : new Date(new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis())));
     }
     if (task.isCompleted()) {
       remote.setCompletedAt(new Completed(new DateTime(task.getCompletionDate())));
     }
     if (task.isRecurring()) {
       try {
-        String rrule = task
-            .getRecurrenceWithoutFrom()
-            .replace("RRULE:", "");
+        String rrule = task.getRecurrenceWithoutFrom().replace("RRULE:", "");
         remote.setRRule(new RRule(rrule));
       } catch (ParseException e) {
         Timber.e(e, e.getMessage());

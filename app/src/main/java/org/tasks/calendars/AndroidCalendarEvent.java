@@ -11,7 +11,12 @@ public class AndroidCalendarEvent {
   private final int calendarId;
   private final List<AndroidCalendarEventAttendee> attendees;
 
-  public AndroidCalendarEvent(long id, String title, long start, long end, int calendarId,
+  public AndroidCalendarEvent(
+      long id,
+      String title,
+      long start,
+      long end,
+      int calendarId,
       List<AndroidCalendarEventAttendee> attendees) {
     this.id = id;
     this.title = title;
@@ -47,13 +52,20 @@ public class AndroidCalendarEvent {
 
   @Override
   public String toString() {
-    return "AndroidCalendarEvent{" +
-        "id=" + id +
-        ", title='" + title + '\'' +
-        ", start=" + start +
-        ", end=" + end +
-        ", calendarId=" + calendarId +
-        ", attendees=" + attendees +
-        '}';
+    return "AndroidCalendarEvent{"
+        + "id="
+        + id
+        + ", title='"
+        + title
+        + '\''
+        + ", start="
+        + start
+        + ", end="
+        + end
+        + ", calendarId="
+        + calendarId
+        + ", attendees="
+        + attendees
+        + '}';
   }
 }

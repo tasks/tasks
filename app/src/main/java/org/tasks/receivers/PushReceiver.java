@@ -28,9 +28,9 @@ public class PushReceiver {
       Timber.d("Suppressed sync: %s", task);
       return;
     }
-    if (task.checkAndClearTransitory(SyncFlags.FORCE_SYNC) ||
-        (googleTaskSyncEnabled && !task.googleTaskUpToDate(original)) ||
-        (caldavSyncEnabled && !task.caldavUpToDate(original))) {
+    if (task.checkAndClearTransitory(SyncFlags.FORCE_SYNC)
+        || (googleTaskSyncEnabled && !task.googleTaskUpToDate(original))
+        || (caldavSyncEnabled && !task.caldavUpToDate(original))) {
       jobManager.syncNow();
     }
   }

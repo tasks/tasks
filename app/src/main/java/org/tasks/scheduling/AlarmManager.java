@@ -25,8 +25,8 @@ public class AlarmManager {
   @SuppressLint("NewApi")
   public void wakeup(long time, PendingIntent pendingIntent) {
     if (atLeastMarshmallow()) {
-      alarmManager
-          .setExactAndAllowWhileIdle(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
+      alarmManager.setExactAndAllowWhileIdle(
+          android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
     } else if (atLeastKitKat()) {
       alarmManager.setExact(android.app.AlarmManager.RTC_WAKEUP, time, pendingIntent);
     } else {

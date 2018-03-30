@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.dao.TaskDao;
@@ -64,10 +63,18 @@ public class TasksJsonExporter {
   private String latestSetVersionName;
 
   @Inject
-  public TasksJsonExporter(TagDataDao tagDataDao, TaskDao taskDao, UserActivityDao userActivityDao,
-      Preferences preferences, AlarmDao alarmDao, LocationDao locationDao,
-      TagDao tagDao, GoogleTaskDao googleTaskDao, FilterDao filterDao,
-      GoogleTaskListDao googleTaskListDao, TaskAttachmentDao taskAttachmentDao,
+  public TasksJsonExporter(
+      TagDataDao tagDataDao,
+      TaskDao taskDao,
+      UserActivityDao userActivityDao,
+      Preferences preferences,
+      AlarmDao alarmDao,
+      LocationDao locationDao,
+      TagDao tagDao,
+      GoogleTaskDao googleTaskDao,
+      FilterDao filterDao,
+      GoogleTaskListDao googleTaskListDao,
+      TaskAttachmentDao taskAttachmentDao,
       CaldavDao caldavDao) {
     this.tagDataDao = tagDataDao;
     this.taskDao = taskDao;
@@ -94,13 +101,16 @@ public class TasksJsonExporter {
   }
 
   private void setProgress(final int taskNumber, final int total) {
-    post(() -> {
-      progressDialog.setMax(total);
-      progressDialog.setProgress(taskNumber);
-    });
+    post(
+        () -> {
+          progressDialog.setMax(total);
+          progressDialog.setProgress(taskNumber);
+        });
   }
 
-  public void exportTasks(final Context context, final ExportType exportType,
+  public void exportTasks(
+      final Context context,
+      final ExportType exportType,
       @Nullable final ProgressDialog progressDialog) {
     this.context = context;
     this.exportCount = 0;
@@ -110,30 +120,34 @@ public class TasksJsonExporter {
 
     handler = exportType == ExportType.EXPORT_TYPE_MANUAL ? new Handler() : null;
 
-    new Thread(() -> {
-      try {
-        String output = setupFile(backupDirectory,
-            exportType);
+    new Thread(
+            () -> {
+              try {
+                String output = setupFile(backupDirectory, exportType);
 
-        List<Task> tasks = taskDao.getAll();
+                List<Task> tasks = taskDao.getAll();
 
-        if (tasks.size() > 0) {
-          doTasksExport(output, tasks);
-        }
+                if (tasks.size() > 0) {
+                  doTasksExport(output, tasks);
+                }
 
-        if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
-          onFinishExport(output);
-        }
-      } catch (IOException e) {
-        Timber.e(e, e.getMessage());
-      } finally {
-        post(() -> {
-          if (progressDialog != null && progressDialog.isShowing() && context instanceof Activity) {
-            DialogUtilities.dismissDialog((Activity) context, progressDialog);
-          }
-        });
-      }
-    }).start();
+                if (exportType == ExportType.EXPORT_TYPE_MANUAL) {
+                  onFinishExport(output);
+                }
+              } catch (IOException e) {
+                Timber.e(e, e.getMessage());
+              } finally {
+                post(
+                    () -> {
+                      if (progressDialog != null
+                          && progressDialog.isShowing()
+                          && context instanceof Activity) {
+                        DialogUtilities.dismissDialog((Activity) context, progressDialog);
+                      }
+                    });
+              }
+            })
+        .start();
   }
 
   private void doTasksExport(String output, List<Task> tasks) throws IOException {
@@ -143,34 +157,35 @@ public class TasksJsonExporter {
     for (Task task : tasks) {
       setProgress(taskBackups.size(), tasks.size());
       long taskId = task.getId();
-      taskBackups.add(new BackupContainer.TaskBackup(
-          task,
-          alarmDao.getAlarms(taskId),
-          locationDao.getGeofences(taskId),
-          tagDao.getTagsForTask(taskId),
-          googleTaskDao.getAllByTaskId(taskId),
-          userActivityDao.getCommentsForTask(task.getUuid()),
-          taskAttachmentDao.getAttachments(task.getUuid()),
-          caldavDao.getTasks(taskId)));
+      taskBackups.add(
+          new BackupContainer.TaskBackup(
+              task,
+              alarmDao.getAlarms(taskId),
+              locationDao.getGeofences(taskId),
+              tagDao.getTagsForTask(taskId),
+              googleTaskDao.getAllByTaskId(taskId),
+              userActivityDao.getCommentsForTask(task.getUuid()),
+              taskAttachmentDao.getAttachments(task.getUuid()),
+              caldavDao.getTasks(taskId)));
     }
 
     Map<String, Object> data = new HashMap<>();
     data.put("version", BuildConfig.VERSION_CODE);
     data.put("timestamp", System.currentTimeMillis());
-    data.put("data", new BackupContainer(
-        taskBackups,
-        tagDataDao.getAll(),
-        filterDao.getAll(),
-        googleTaskListDao.getAll(),
-        caldavDao.getAccounts()));
+    data.put(
+        "data",
+        new BackupContainer(
+            taskBackups,
+            tagDataDao.getAll(),
+            filterDao.getAll(),
+            googleTaskListDao.getAll(),
+            caldavDao.getAccounts()));
 
     File file = new File(output);
     file.createNewFile();
     FileOutputStream fos = new FileOutputStream(file);
     OutputStreamWriter out = new OutputStreamWriter(fos);
-    Gson gson = BuildConfig.DEBUG
-        ? new GsonBuilder().setPrettyPrinting().create()
-        : new Gson();
+    Gson gson = BuildConfig.DEBUG ? new GsonBuilder().setPrettyPrinting().create() : new Gson();
     out.write(gson.toJson(data));
     out.close();
     fos.close();
@@ -178,18 +193,23 @@ public class TasksJsonExporter {
   }
 
   private void onFinishExport(final String outputFile) {
-    post(() -> {
-      if (exportCount == 0) {
-        Toast
-            .makeText(context, context.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG)
-            .show();
-      } else {
-        CharSequence text = String.format(context.getString(R.string.export_toast),
-            context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
-                exportCount), outputFile);
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-      }
-    });
+    post(
+        () -> {
+          if (exportCount == 0) {
+            Toast.makeText(
+                    context, context.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG)
+                .show();
+          } else {
+            CharSequence text =
+                String.format(
+                    context.getString(R.string.export_toast),
+                    context
+                        .getResources()
+                        .getQuantityString(R.plurals.Ntasks, exportCount, exportCount),
+                    outputFile);
+            Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+          }
+        });
   }
 
   /**
@@ -213,13 +233,13 @@ public class TasksJsonExporter {
             fileName = String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
             break;
           default:
-            throw new IllegalArgumentException("Invalid export type"); //$NON-NLS-1$
+            throw new IllegalArgumentException("Invalid export type"); // $NON-NLS-1$
         }
         return directory.getAbsolutePath() + File.separator + fileName;
       } else {
         // Unable to make the /sdcard/astrid directory.
-        throw new IOException(context.getString(R.string.DLG_error_sdcard,
-            directory.getAbsolutePath()));
+        throw new IOException(
+            context.getString(R.string.DLG_error_sdcard, directory.getAbsolutePath()));
       }
     } else {
       // Unable to access the sdcard because it's not in the mounted state.

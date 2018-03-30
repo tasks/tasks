@@ -19,9 +19,9 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 
-
-public class TimePickerActivity extends InjectingAppCompatActivity implements
-    TimePickerDialog.OnTimeSetListener, NativeTimePickerDialog.NativeTimePickerDialogCallback {
+public class TimePickerActivity extends InjectingAppCompatActivity
+    implements TimePickerDialog.OnTimeSetListener,
+        NativeTimePickerDialog.NativeTimePickerDialogCallback {
 
   public static final String EXTRA_TIMESTAMP = "extra_timestamp";
   private static final String FRAG_TAG_TIME_PICKER = "frag_tag_time_picker";
@@ -40,15 +40,18 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements
     FragmentManager fragmentManager = getFragmentManager();
     if (preferences.getBoolean(R.string.p_use_native_datetime_pickers, false)) {
       if (fragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER) == null) {
-        newNativeTimePickerDialog(initial)
-            .show(fragmentManager, FRAG_TAG_TIME_PICKER);
+        newNativeTimePickerDialog(initial).show(fragmentManager, FRAG_TAG_TIME_PICKER);
       }
     } else {
-      MyTimePickerDialog dialog = (MyTimePickerDialog) fragmentManager
-          .findFragmentByTag(FRAG_TAG_TIME_PICKER);
+      MyTimePickerDialog dialog =
+          (MyTimePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
       if (dialog == null) {
         dialog = new MyTimePickerDialog();
-        dialog.initialize(null, initial.getHourOfDay(), initial.getMinuteOfHour(), 0,
+        dialog.initialize(
+            null,
+            initial.getHourOfDay(),
+            initial.getMinuteOfHour(),
+            0,
             DateFormat.is24HourFormat(this));
         dialog.setThemeDark(themeBase.isDarkTheme(this));
         dialog.setAccentColor(themeAccent.getAccentColor());
@@ -65,8 +68,8 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements
   }
 
   @Override
-  public void onTimeSet(TimePickerDialog timePickerDialog, final int hours, final int minutes,
-      int seconds) {
+  public void onTimeSet(
+      TimePickerDialog timePickerDialog, final int hours, final int minutes, int seconds) {
     timeSet(hours, minutes);
   }
 
@@ -82,11 +85,9 @@ public class TimePickerActivity extends InjectingAppCompatActivity implements
 
   private void timeSet(final int hour, final int minute) {
     Intent data = new Intent();
-    data.putExtra(EXTRA_TIMESTAMP, initial
-        .startOfDay()
-        .withHourOfDay(hour)
-        .withMinuteOfHour(minute)
-        .getMillis());
+    data.putExtra(
+        EXTRA_TIMESTAMP,
+        initial.startOfDay().withHourOfDay(hour).withMinuteOfHour(minute).getMillis());
     setResult(RESULT_OK, data);
     finish();
   }

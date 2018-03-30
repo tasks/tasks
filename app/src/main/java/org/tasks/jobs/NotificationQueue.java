@@ -16,8 +16,8 @@ import org.tasks.time.DateTime;
 @ApplicationScope
 public class NotificationQueue {
 
-  private final TreeMultimap<Long, NotificationQueueEntry> jobs = TreeMultimap
-      .create(Ordering.natural(), (l, r) -> Ints.compare(l.hashCode(), r.hashCode()));
+  private final TreeMultimap<Long, NotificationQueueEntry> jobs =
+      TreeMultimap.create(Ordering.natural(), (l, r) -> Ints.compare(l.hashCode(), r.hashCode()));
   private final Preferences preferences;
   private final JobManager jobManager;
 
@@ -51,8 +51,8 @@ public class NotificationQueue {
   private synchronized void cancel(Class<? extends NotificationQueueEntry> c, long id) {
     boolean reschedule = false;
     long firstTime = firstTime();
-    List<NotificationQueueEntry> existing = newArrayList(
-        filter(jobs.values(), r -> r.getClass().equals(c) && r.getId() == id));
+    List<NotificationQueueEntry> existing =
+        newArrayList(filter(jobs.values(), r -> r.getClass().equals(c) && r.getId() == id));
     for (NotificationQueueEntry entry : existing) {
       reschedule |= entry.getTime() == firstTime;
       jobs.remove(entry.getTime(), entry);
@@ -105,8 +105,7 @@ public class NotificationQueue {
   public synchronized boolean remove(List<? extends NotificationQueueEntry> entries) {
     boolean success = true;
     for (NotificationQueueEntry entry : entries) {
-      success &= !jobs.containsEntry(entry.getTime(), entry) ||
-          jobs.remove(entry.getTime(), entry);
+      success &= !jobs.containsEntry(entry.getTime(), entry) || jobs.remove(entry.getTime(), entry);
     }
     return success;
   }

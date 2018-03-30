@@ -32,8 +32,12 @@ public class SubtasksHelper {
   private final TaskListMetadataDao taskListMetadataDao;
 
   @Inject
-  public SubtasksHelper(@ForApplication Context context, Preferences preferences, TaskDao taskDao,
-      TagDataDao tagDataDao, TaskListMetadataDao taskListMetadataDao) {
+  public SubtasksHelper(
+      @ForApplication Context context,
+      Preferences preferences,
+      TaskDao taskDao,
+      TagDataDao tagDataDao,
+      TaskListMetadataDao taskListMetadataDao) {
     this.context = context;
     this.preferences = preferences;
     this.taskDao = taskDao;
@@ -44,8 +48,8 @@ public class SubtasksHelper {
   @Deprecated
   private static List<Long> getIdList(String serializedTree) {
     ArrayList<Long> ids = new ArrayList<>();
-    String[] digitsOnly = serializedTree
-        .split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
+    String[] digitsOnly =
+        serializedTree.split("[\\[\\],\\s]"); // Split on [ ] , or whitespace chars
     for (String idString : digitsOnly) {
       try {
         if (!TextUtils.isEmpty(idString)) {
@@ -69,13 +73,11 @@ public class SubtasksHelper {
     return ids.toArray(new String[ids.size()]);
   }
 
-  /**
-   * Takes a subtasks string containing local ids and remaps it to one containing UUIDs
-   */
+  /** Takes a subtasks string containing local ids and remaps it to one containing UUIDs */
   static String convertTreeToRemoteIds(TaskDao taskDao, String localTree) {
     List<Long> localIds = getIdList(localTree);
     Map<Long, String> idMap = getIdMap(taskDao, localIds);
-    idMap.put(-1L, "-1"); //$NON-NLS-1$
+    idMap.put(-1L, "-1"); // $NON-NLS-1$
 
     Node tree = SubtasksFilterUpdater.buildTreeModel(localTree, null);
     remapLocalTreeToRemote(tree, idMap);
@@ -100,15 +102,18 @@ public class SubtasksHelper {
   }
 
   private static void remapLocalTreeToRemote(Node root, Map<Long, String> idMap) {
-    remapTree(root, idMap, uuid -> {
-      Long localId = -1L;
-      try {
-        localId = Long.parseLong(uuid);
-      } catch (NumberFormatException e) {
-        Timber.e(e, e.getMessage());
-      }
-      return localId;
-    });
+    remapTree(
+        root,
+        idMap,
+        uuid -> {
+          Long localId = -1L;
+          try {
+            localId = Long.parseLong(uuid);
+          } catch (NumberFormatException e) {
+            Timber.e(e, e.getMessage());
+          }
+          return localId;
+        });
   }
 
   private static Map<Long, String> getIdMap(TaskDao taskDao, List<Long> keys) {
@@ -121,11 +126,11 @@ public class SubtasksHelper {
   }
 
   public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
-    return preferences.getBoolean(R.string.p_manual_sort, false) &&
-        filter != null &&
-        (filter.supportsSubtasks() ||
-            BuiltInFilterExposer.isInbox(context, filter) ||
-            BuiltInFilterExposer.isTodayFilter(context, filter));
+    return preferences.getBoolean(R.string.p_manual_sort, false)
+        && filter != null
+        && (filter.supportsSubtasks()
+            || BuiltInFilterExposer.isInbox(context, filter)
+            || BuiltInFilterExposer.isTodayFilter(context, filter));
   }
 
   public String applySubtasksToWidgetFilter(Filter filter, String query) {
@@ -146,8 +151,8 @@ public class SubtasksHelper {
 
         query = query.replaceAll("ORDER BY .*", "");
         query = query + String.format(" ORDER BY %s", getOrderString(tagData, tlm));
-        query = query
-            .replace(TaskDao.TaskCriteria.isVisible().toString(), Criterion.all.toString());
+        query =
+            query.replace(TaskDao.TaskCriteria.isVisible().toString(), Criterion.all.toString());
       }
 
       filter.setFilterQueryOverride(query);
@@ -162,7 +167,7 @@ public class SubtasksHelper {
     } else if (tagData != null) {
       serialized = convertTreeToRemoteIds(taskDao, tagData.getTagOrdering());
     } else {
-      serialized = "[]"; //$NON-NLS-1$
+      serialized = "[]"; // $NON-NLS-1$
     }
 
     return SubtasksFilterUpdater.buildOrderString(getStringIdArray(serialized));

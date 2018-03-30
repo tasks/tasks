@@ -6,8 +6,8 @@ import javax.inject.Inject;
 import org.tasks.locale.Locale;
 import org.tasks.themes.Theme;
 
-public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity implements
-    InjectingActivity {
+public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity
+    implements InjectingActivity {
 
   @Inject Theme theme;
   private ActivityComponent activityComponent;
@@ -18,8 +18,8 @@ public abstract class ThemedInjectingAppCompatActivity extends AppCompatActivity
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    activityComponent = ((InjectingApplication) getApplication()).getComponent()
-        .plus(new ActivityModule(this));
+    activityComponent =
+        ((InjectingApplication) getApplication()).getComponent().plus(new ActivityModule(this));
     inject(activityComponent);
     setTitle(null);
     super.onCreate(savedInstanceState);

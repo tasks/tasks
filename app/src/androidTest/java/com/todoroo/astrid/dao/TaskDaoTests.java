@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.dao;
 
 import static junit.framework.Assert.assertEquals;
@@ -24,9 +23,7 @@ public class TaskDaoTests extends InjectingTestCase {
 
   @Inject TaskDao taskDao;
 
-  /**
-   * Test basic task creation, fetch, and save
-   */
+  /** Test basic task creation, fetch, and save */
   @Test
   public void testTaskCreation() {
     assertEquals(0, taskDao.getAll().size());
@@ -61,9 +58,7 @@ public class TaskDaoTests extends InjectingTestCase {
     assertEquals("melancholy", task.getTitle());
   }
 
-  /**
-   * Test various task fetch conditions
-   */
+  /** Test various task fetch conditions */
   @Test
   public void testTaskConditions() {
     // create normal task
@@ -106,9 +101,7 @@ public class TaskDaoTests extends InjectingTestCase {
     assertEquals(5, taskDao.getVisibleTasks().size());
   }
 
-  /**
-   * Test task deletion
-   */
+  /** Test task deletion */
   @Test
   public void testTDeletion() {
     assertEquals(0, taskDao.getAll().size());
@@ -125,9 +118,7 @@ public class TaskDaoTests extends InjectingTestCase {
     assertEquals(0, taskDao.getAll().size());
   }
 
-  /**
-   * Test save without prior create doesn't work
-   */
+  /** Test save without prior create doesn't work */
   @Test
   public void testSaveWithoutCreate() {
     // try to save task "happy"
@@ -140,9 +131,7 @@ public class TaskDaoTests extends InjectingTestCase {
     assertEquals(0, taskDao.getAll().size());
   }
 
-  /**
-   * Test passing invalid task indices to various things
-   */
+  /** Test passing invalid task indices to various things */
   @Test
   public void testInvalidIndex() {
     assertEquals(0, taskDao.getAll().size());
@@ -162,4 +151,3 @@ public class TaskDaoTests extends InjectingTestCase {
 
   // TODO check eventing
 }
-

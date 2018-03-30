@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.ui;
 
 import static android.support.v4.content.ContextCompat.getColor;
@@ -66,9 +65,13 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
   @Inject @ForActivity Context context;
   @Inject ThemeBase themeBase;
   @Inject Preferences preferences;
-  //private final CheckBox enabled;
-  @BindView(R.id.hideUntil) Spinner spinner;
-  @BindView(R.id.clear) ImageView clearButton;
+  // private final CheckBox enabled;
+  @BindView(R.id.hideUntil)
+  Spinner spinner;
+
+  @BindView(R.id.clear)
+  ImageView clearButton;
+
   private ArrayAdapter<HideUntilValue> adapter;
   private int previousSetting = Task.HIDE_UNTIL_NONE;
   private int selection;
@@ -85,47 +88,49 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
 
   @Nullable
   @Override
-  public View onCreateView(final LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
-    adapter = new HiddenTopArrayAdapter<HideUntilValue>(context,
-        android.R.layout.simple_spinner_item, spinnerItems) {
-      @NonNull
-      @Override
-      public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        int selectedItemPosition = position;
-        if (parent instanceof AdapterView) {
-          selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
-        }
-        TextView tv = (TextView) inflater
-            .inflate(android.R.layout.simple_spinner_item, parent, false);
-        tv.setPadding(0, 0, 0, 0);
-        HideUntilValue value = getItem(selectedItemPosition);
-        if (value.setting == Task.HIDE_UNTIL_NONE) {
-          clearButton.setVisibility(View.GONE);
-          tv.setText(value.label);
-          tv.setTextColor(getColor(context, R.color.text_tertiary));
-        } else {
-          String display = value.label;
-          if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY
-              && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
-            display = display.toLowerCase();
+    adapter =
+        new HiddenTopArrayAdapter<HideUntilValue>(
+            context, android.R.layout.simple_spinner_item, spinnerItems) {
+          @NonNull
+          @Override
+          public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+            int selectedItemPosition = position;
+            if (parent instanceof AdapterView) {
+              selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
+            }
+            TextView tv =
+                (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+            tv.setPadding(0, 0, 0, 0);
+            HideUntilValue value = getItem(selectedItemPosition);
+            if (value.setting == Task.HIDE_UNTIL_NONE) {
+              clearButton.setVisibility(View.GONE);
+              tv.setText(value.label);
+              tv.setTextColor(getColor(context, R.color.text_tertiary));
+            } else {
+              String display = value.label;
+              if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY
+                  && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
+                display = display.toLowerCase();
+              }
+              tv.setText(getString(R.string.TEA_hideUntil_display, display));
+              tv.setTextColor(getColor(context, R.color.text_primary));
+            }
+            return tv;
           }
-          tv.setText(getString(R.string.TEA_hideUntil_display, display));
-          tv.setTextColor(getColor(context, R.color.text_primary));
-        }
-        return tv;
-      }
-    };
+        };
     if (savedInstanceState == null) {
       long dueDate = task.getDueDate();
       long hideUntil = task.getHideUntil();
 
-      DateTime dueDay = newDateTime(dueDate)
-          .withHourOfDay(0)
-          .withMinuteOfHour(0)
-          .withSecondOfMinute(0)
-          .withMillisOfSecond(0);
+      DateTime dueDay =
+          newDateTime(dueDate)
+              .withHourOfDay(0)
+              .withMinuteOfHour(0)
+              .withSecondOfMinute(0)
+              .withMillisOfSecond(0);
 
       // For the hide until due case, we need the time component
       long dueTime = dueDate / 1000L * 1000L;
@@ -134,8 +139,8 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
         selection = 0;
         hideUntil = 0;
         if (task.isNew()) {
-          int defaultHideUntil = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
-              HIDE_UNTIL_NONE);
+          int defaultHideUntil =
+              preferences.getIntegerFromString(R.string.p_default_hideUntil_key, HIDE_UNTIL_NONE);
           switch (defaultHideUntil) {
             case HIDE_UNTIL_DUE:
               selection = 1;
@@ -231,19 +236,21 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
     spinnerItems.clear();
     // set up base values
     String[] labels = getResources().getStringArray(R.array.TEA_hideUntil);
-    spinnerItems.addAll(new ArrayList<>(asList(
-        new HideUntilValue(labels[0], Task.HIDE_UNTIL_DUE),
-        new HideUntilValue(labels[1], Task.HIDE_UNTIL_DUE_TIME),
-        new HideUntilValue(labels[2], Task.HIDE_UNTIL_DAY_BEFORE),
-        new HideUntilValue(labels[3], Task.HIDE_UNTIL_WEEK_BEFORE),
-        new HideUntilValue(labels[4], Task.HIDE_UNTIL_SPECIFIC_DAY, -1))));
+    spinnerItems.addAll(
+        new ArrayList<>(
+            asList(
+                new HideUntilValue(labels[0], Task.HIDE_UNTIL_DUE),
+                new HideUntilValue(labels[1], Task.HIDE_UNTIL_DUE_TIME),
+                new HideUntilValue(labels[2], Task.HIDE_UNTIL_DAY_BEFORE),
+                new HideUntilValue(labels[3], Task.HIDE_UNTIL_WEEK_BEFORE),
+                new HideUntilValue(labels[4], Task.HIDE_UNTIL_SPECIFIC_DAY, -1))));
 
     if (specificDate > 0) {
       spinnerItems.add(0, getHideUntilValue(specificDate));
       existingDate = specificDate;
     } else {
-      spinnerItems.add(0,
-          new HideUntilValue(getString(R.string.TEA_hideUntil_label), Task.HIDE_UNTIL_NONE));
+      spinnerItems.add(
+          0, new HideUntilValue(getString(R.string.TEA_hideUntil_label), Task.HIDE_UNTIL_NONE));
       existingDate = EXISTING_TIME_UNSET;
     }
     adapter.notifyDataSetChanged();
@@ -251,13 +258,18 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
 
   private HideUntilValue getHideUntilValue(long timestamp) {
     DateTime hideUntilAsDate = newDateTime(timestamp);
-    if (hideUntilAsDate.getHourOfDay() == 0 && hideUntilAsDate.getMinuteOfHour() == 0
+    if (hideUntilAsDate.getHourOfDay() == 0
+        && hideUntilAsDate.getMinuteOfHour() == 0
         && hideUntilAsDate.getSecondOfMinute() == 0) {
-      return new HideUntilValue(DateUtilities.getDateString(newDateTime(timestamp)),
-          Task.HIDE_UNTIL_SPECIFIC_DAY, timestamp);
+      return new HideUntilValue(
+          DateUtilities.getDateString(newDateTime(timestamp)),
+          Task.HIDE_UNTIL_SPECIFIC_DAY,
+          timestamp);
     } else {
-      return new HideUntilValue(DateUtilities.getDateStringWithTime(context, timestamp),
-          Task.HIDE_UNTIL_SPECIFIC_DAY_TIME, timestamp);
+      return new HideUntilValue(
+          DateUtilities.getDateStringWithTime(context, timestamp),
+          Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
+          timestamp);
     }
   }
 
@@ -298,9 +310,8 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
 
   private void refreshDisplayView() {
     selectedValue = adapter.getItem(selection);
-    clearButton.setVisibility(selectedValue.setting == Task.HIDE_UNTIL_NONE
-        ? View.GONE
-        : View.VISIBLE);
+    clearButton.setVisibility(
+        selectedValue.setting == Task.HIDE_UNTIL_NONE ? View.GONE : View.VISIBLE);
   }
 
   // --- setting up values

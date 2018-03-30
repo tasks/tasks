@@ -48,55 +48,64 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
   private ActionMode mode = null;
   private boolean dragging;
-  private boolean animate;
-  private final ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
-    @Override
-    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-      MenuInflater inflater = actionMode.getMenuInflater();
-      inflater.inflate(R.menu.menu_multi_select, menu);
-      MenuColorizer.colorMenu(activity, menu);
-      return true;
-    }
-
-    @Override
-    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-      return false;
-    }
-
-    @Override
-    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-      switch (item.getItemId()) {
-        case R.id.delete:
-          dialogBuilder.newMessageDialog(R.string.delete_selected_tasks)
-              .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> deleteSelectedItems())
-              .setNegativeButton(android.R.string.cancel, null)
-              .show();
+  private final ActionMode.Callback actionModeCallback =
+      new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+          MenuInflater inflater = actionMode.getMenuInflater();
+          inflater.inflate(R.menu.menu_multi_select, menu);
+          MenuColorizer.colorMenu(activity, menu);
           return true;
-        case R.id.copy_tasks:
-          dialogBuilder.newMessageDialog(R.string.copy_selected_tasks)
-              .setPositiveButton(android.R.string.ok, ((dialogInterface, i) -> copySelectedItems()))
-              .setNegativeButton(android.R.string.cancel, null)
-              .show();
-          return true;
-        default:
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
           return false;
-      }
-    }
+        }
 
-    @Override
-    public void onDestroyActionMode(ActionMode actionMode) {
-      adapter.clearSelections();
-      TaskListRecyclerAdapter.this.mode = null;
-      if (!dragging) {
-        notifyDataSetChanged();
-      }
-    }
-  };
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+          switch (item.getItemId()) {
+            case R.id.delete:
+              dialogBuilder
+                  .newMessageDialog(R.string.delete_selected_tasks)
+                  .setPositiveButton(
+                      android.R.string.ok, (dialogInterface, i) -> deleteSelectedItems())
+                  .setNegativeButton(android.R.string.cancel, null)
+                  .show();
+              return true;
+            case R.id.copy_tasks:
+              dialogBuilder
+                  .newMessageDialog(R.string.copy_selected_tasks)
+                  .setPositiveButton(
+                      android.R.string.ok, ((dialogInterface, i) -> copySelectedItems()))
+                  .setNegativeButton(android.R.string.cancel, null)
+                  .show();
+              return true;
+            default:
+              return false;
+          }
+        }
 
-  public TaskListRecyclerAdapter(Activity activity, TaskAdapter adapter,
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+          adapter.clearSelections();
+          TaskListRecyclerAdapter.this.mode = null;
+          if (!dragging) {
+            notifyDataSetChanged();
+          }
+        }
+      };
+  private boolean animate;
+
+  public TaskListRecyclerAdapter(
+      Activity activity,
+      TaskAdapter adapter,
       ViewHolderFactory viewHolderFactory,
-      TaskListFragment taskList, TaskDeleter taskDeleter,
-      TaskDuplicator taskDuplicator, Tracker tracker,
+      TaskListFragment taskList,
+      TaskDeleter taskDeleter,
+      TaskDuplicator taskDuplicator,
+      Tracker tracker,
       DialogBuilder dialogBuilder) {
     this.activity = activity;
     this.adapter = adapter;
@@ -107,8 +116,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     this.tracker = tracker;
     this.dialogBuilder = dialogBuilder;
     itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback());
-    adapterHelper = new AsyncPagedListDiffer<>(this,
-        new AsyncDifferConfig.Builder<>(new DiffCallback(adapter)).build());
+    adapterHelper =
+        new AsyncPagedListDiffer<>(
+            this, new AsyncDifferConfig.Builder<>(new DiffCallback(adapter)).build());
   }
 
   public void applyToRecyclerView(RecyclerView recyclerView) {
@@ -135,8 +145,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
 
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    ViewGroup view = (ViewGroup) LayoutInflater.from(activity)
-        .inflate(R.layout.task_adapter_row_simple, parent, false);
+    ViewGroup view =
+        (ViewGroup)
+            LayoutInflater.from(activity).inflate(R.layout.task_adapter_row_simple, parent, false);
     return viewHolderFactory.newViewHolder(view, this);
   }
 
@@ -206,8 +217,10 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     finishActionMode();
     List<Task> result = taskDeleter.markDeleted(tasks);
     taskList.onTaskDelete(result);
-    taskList.makeSnackbar(activity
-        .getString(R.string.delete_multiple_tasks_confirmation, Integer.toString(result.size())))
+    taskList
+        .makeSnackbar(
+            activity.getString(
+                R.string.delete_multiple_tasks_confirmation, Integer.toString(result.size())))
         .show();
   }
 
@@ -217,8 +230,10 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     finishActionMode();
     List<Task> duplicates = taskDuplicator.duplicate(tasks);
     taskList.onTaskCreated(duplicates);
-    taskList.makeSnackbar(activity
-        .getString(R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size())))
+    taskList
+        .makeSnackbar(
+            activity.getString(
+                R.string.copy_multiple_tasks_confirmation, Integer.toString(duplicates.size())))
         .show();
   }
 
@@ -311,8 +326,8 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source,
-        RecyclerView.ViewHolder target) {
+    public boolean onMove(
+        RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
       finishActionMode();
       int fromPosition = source.getAdapterPosition();
       int toPosition = target.getAdapterPosition();
@@ -331,8 +346,14 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     }
 
     @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-        float dX, float dY, int actionState, boolean isCurrentlyActive) {
+    public void onChildDraw(
+        Canvas c,
+        RecyclerView recyclerView,
+        RecyclerView.ViewHolder viewHolder,
+        float dX,
+        float dY,
+        int actionState,
+        boolean isCurrentlyActive) {
       if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
         float shiftSize = ((ViewHolder) viewHolder).getShiftSize();
         dX = Math.max(-shiftSize, Math.min(shiftSize, dX));
@@ -365,8 +386,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
       adapter.indented(
-          viewHolder.getAdapterPosition(),
-          direction == ItemTouchHelper.RIGHT ? 1 : -1);
+          viewHolder.getAdapterPosition(), direction == ItemTouchHelper.RIGHT ? 1 : -1);
       taskList.loadTaskListContent(false);
     }
   }

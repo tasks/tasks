@@ -65,11 +65,20 @@ public class TasksJsonImporter {
   private String input;
 
   @Inject
-  public TasksJsonImporter(TagDataDao tagDataDao, UserActivityDao userActivityDao,
-      DialogBuilder dialogBuilder, TaskDao taskDao, LocationDao locationDao,
-      LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao,
-      TagDao tagDao, GoogleTaskDao googleTaskDao, GoogleTaskListDao googleTaskListDao,
-      FilterDao filterDao, TaskAttachmentDao taskAttachmentDao, CaldavDao caldavDao) {
+  public TasksJsonImporter(
+      TagDataDao tagDataDao,
+      UserActivityDao userActivityDao,
+      DialogBuilder dialogBuilder,
+      TaskDao taskDao,
+      LocationDao locationDao,
+      LocalBroadcastManager localBroadcastManager,
+      AlarmDao alarmDao,
+      TagDao tagDao,
+      GoogleTaskDao googleTaskDao,
+      GoogleTaskListDao googleTaskListDao,
+      FilterDao filterDao,
+      TaskAttachmentDao taskAttachmentDao,
+      CaldavDao caldavDao) {
     this.tagDataDao = tagDataDao;
     this.userActivityDao = userActivityDao;
     this.dialogBuilder = dialogBuilder;
@@ -96,13 +105,15 @@ public class TasksJsonImporter {
 
     handler = new Handler();
 
-    new Thread(() -> {
-      try {
-        performImport();
-      } catch (IOException e) {
-        Timber.e(e, e.getMessage());
-      }
-    }).start();
+    new Thread(
+            () -> {
+              try {
+                performImport();
+              } catch (IOException e) {
+                Timber.e(e, e.getMessage());
+              }
+            })
+        .start();
   }
 
   private void performImport() throws IOException {
@@ -179,25 +190,29 @@ public class TasksJsonImporter {
       }
     } finally {
       localBroadcastManager.broadcastRefresh();
-      handler.post(() -> {
-        if (progressDialog.isShowing()) {
-          DialogUtilities.dismissDialog(activity, progressDialog);
-          showSummary();
-        }
-      });
+      handler.post(
+          () -> {
+            if (progressDialog.isShowing()) {
+              DialogUtilities.dismissDialog(activity, progressDialog);
+              showSummary();
+            }
+          });
     }
   }
 
   private void showSummary() {
     Resources r = activity.getResources();
-    dialogBuilder.newDialog()
+    dialogBuilder
+        .newDialog()
         .setTitle(R.string.import_summary_title)
-        .setMessage(activity.getString(R.string.import_summary_message,
-            input,
-            r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
-            r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
-            r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
-            r.getQuantityString(R.plurals.Ntasks, 0, 0)))
+        .setMessage(
+            activity.getString(
+                R.string.import_summary_message,
+                input,
+                r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
+                r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
+                r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
+                r.getQuantityString(R.plurals.Ntasks, 0, 0)))
         .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
         .show();
   }

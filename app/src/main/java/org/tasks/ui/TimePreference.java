@@ -46,8 +46,8 @@ public class TimePreference extends Preference {
 
   private void setMillisOfDay(int millisOfDay) {
     this.millisOfDay = millisOfDay;
-    String setting = DateUtilities
-        .getTimeString(getContext(), new DateTime().withMillisOfDay(millisOfDay));
+    String setting =
+        DateUtilities.getTimeString(getContext(), new DateTime().withMillisOfDay(millisOfDay));
     setSummary(summary == null ? setting : String.format(summary, setting));
   }
 

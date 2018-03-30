@@ -65,8 +65,7 @@ public class GtasksApiUtilitiesTest {
             TimeZone.getTimeZone("GMT"));
 
     assertEquals(
-        new DateTime(2014, 1, 8, 6, 0, 0, 0).getMillis(),
-        gtasksDueTimeToUnixTime(googleDueDate));
+        new DateTime(2014, 1, 8, 6, 0, 0, 0).getMillis(), gtasksDueTimeToUnixTime(googleDueDate));
   }
 
   @Test

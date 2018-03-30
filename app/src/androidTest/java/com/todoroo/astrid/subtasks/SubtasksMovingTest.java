@@ -22,8 +22,8 @@ public class SubtasksMovingTest extends SubtasksTestCase {
     createTasks();
     TaskListMetadata m = new TaskListMetadata();
     m.setFilter(TaskListMetadata.FILTER_ID_ALL);
-    updater.initializeFromSerializedTree(m, filter,
-        SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE));
+    updater.initializeFromSerializedTree(
+        m, filter, SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE));
 
     // Assert initial state is correct
     expectParentAndPosition(A, null, 0);

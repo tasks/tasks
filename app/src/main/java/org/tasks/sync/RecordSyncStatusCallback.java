@@ -9,7 +9,8 @@ public class RecordSyncStatusCallback implements SyncResultCallback {
   private final GtasksPreferenceService gtasksPreferenceService;
   private final LocalBroadcastManager localBroadcastManager;
 
-  public RecordSyncStatusCallback(GtasksPreferenceService gtasksPreferenceService,
+  public RecordSyncStatusCallback(
+      GtasksPreferenceService gtasksPreferenceService,
       LocalBroadcastManager localBroadcastManager) {
     this.gtasksPreferenceService = gtasksPreferenceService;
     this.localBroadcastManager = localBroadcastManager;

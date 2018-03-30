@@ -14,8 +14,8 @@ import timber.log.Timber;
 @ApplicationScope
 public class SyncExecutor {
 
-  private final ExecutorService executor = newSingleThreadExecutor(
-      new ThreadFactoryBuilder().setNameFormat("sync-executor-%d").build());
+  private final ExecutorService executor =
+      newSingleThreadExecutor(new ThreadFactoryBuilder().setNameFormat("sync-executor-%d").build());
 
   private final Tracker tracker;
 
@@ -34,8 +34,8 @@ public class SyncExecutor {
     }
   }
 
-  private Runnable wrapWithExceptionHandling(final SyncResultCallback callback,
-      final Runnable command) {
+  private Runnable wrapWithExceptionHandling(
+      final SyncResultCallback callback, final Runnable command) {
     return () -> {
       try {
         command.run();

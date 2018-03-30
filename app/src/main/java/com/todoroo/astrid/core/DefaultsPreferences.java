@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.core;
 
 import static org.tasks.PermissionUtil.verifyPermissions;
@@ -32,8 +31,8 @@ import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
 
-public class DefaultsPreferences extends InjectingPreferenceActivity implements
-    RemoteListSelectionHandler {
+public class DefaultsPreferences extends InjectingPreferenceActivity
+    implements RemoteListSelectionHandler {
 
   private static final String FRAG_TAG_REMOTE_LIST_SELECTION = "frag_tag_remote_list_selection";
 
@@ -55,23 +54,27 @@ public class DefaultsPreferences extends InjectingPreferenceActivity implements
     addPreferencesFromResource(R.xml.preferences_defaults);
 
     defaultCalendarPref = findPreference(getString(R.string.gcal_p_default));
-    defaultCalendarPref.setOnPreferenceClickListener(preference -> {
-      if (permissionRequester.requestCalendarPermissions()) {
-        startCalendarSelectionActivity();
-      }
-      return false;
-    });
+    defaultCalendarPref.setOnPreferenceClickListener(
+        preference -> {
+          if (permissionRequester.requestCalendarPermissions()) {
+            startCalendarSelectionActivity();
+          }
+          return false;
+        });
     String defaultCalendarName = getDefaultCalendarName();
-    defaultCalendarPref.setSummary(defaultCalendarName == null
-        ? getString(R.string.dont_add_to_calendar)
-        : defaultCalendarName);
+    defaultCalendarPref.setSummary(
+        defaultCalendarName == null
+            ? getString(R.string.dont_add_to_calendar)
+            : defaultCalendarName);
 
     if (syncAdapters.isSyncEnabled()) {
-      findPreference(R.string.p_default_remote_list).setOnPreferenceClickListener(preference -> {
-        newRemoteListNativePicker(defaultFilterProvider.getDefaultRemoteList())
-            .show(getFragmentManager(), FRAG_TAG_REMOTE_LIST_SELECTION);
-        return false;
-      });
+      findPreference(R.string.p_default_remote_list)
+          .setOnPreferenceClickListener(
+              preference -> {
+                newRemoteListNativePicker(defaultFilterProvider.getDefaultRemoteList())
+                    .show(getFragmentManager(), FRAG_TAG_REMOTE_LIST_SELECTION);
+                return false;
+              });
       updateRemoteListSummary();
     } else {
       remove(R.string.p_default_remote_list);
@@ -85,14 +88,14 @@ public class DefaultsPreferences extends InjectingPreferenceActivity implements
   }
 
   private String getDefaultCalendarName() {
-    AndroidCalendar calendar = calendarProvider
-        .getCalendar(preferences.getStringValue(R.string.gcal_p_default));
+    AndroidCalendar calendar =
+        calendarProvider.getCalendar(preferences.getStringValue(R.string.gcal_p_default));
     return calendar == null ? null : calendar.getName();
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
       if (verifyPermissions(grantResults)) {
         startCalendarSelectionActivity();
@@ -105,7 +108,8 @@ public class DefaultsPreferences extends InjectingPreferenceActivity implements
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_CALENDAR_SELECTION && resultCode == RESULT_OK) {
-      preferences.setString(R.string.gcal_p_default,
+      preferences.setString(
+          R.string.gcal_p_default,
           data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_ID));
       defaultCalendarPref.setSummary(
           data.getStringExtra(CalendarSelectionActivity.EXTRA_CALENDAR_NAME));
@@ -129,9 +133,9 @@ public class DefaultsPreferences extends InjectingPreferenceActivity implements
 
   private void updateRemoteListSummary() {
     Filter defaultFilter = defaultFilterProvider.getDefaultRemoteList();
-    findPreference(R.string.p_default_remote_list).setSummary(defaultFilter == null
-        ? getString(R.string.dont_sync)
-        : defaultFilter.listingTitle);
+    findPreference(R.string.p_default_remote_list)
+        .setSummary(
+            defaultFilter == null ? getString(R.string.dont_sync) : defaultFilter.listingTitle);
   }
 
   @Override

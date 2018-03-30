@@ -19,6 +19,12 @@ import timber.log.Timber;
 @ApplicationScope
 public class JobCreator implements com.evernote.android.job.JobCreator {
 
+  static final String TAG_BACKUP = "tag_backup";
+  static final String TAG_REFRESH = "tag_refresh";
+  static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
+  static final String TAG_NOTIFICATION = "tag_notification";
+  static final String TAG_BACKGROUND_SYNC = "tag_background_sync";
+  static final String TAG_SYNC = "tag_sync";
   private final Context context;
   private final Preferences preferences;
   private final Notifier notifier;
@@ -29,18 +35,17 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
   private final CaldavSynchronizer caldavSynchronizer;
   private final GoogleTaskSynchronizer googleTaskSynchronizer;
 
-  static final String TAG_BACKUP = "tag_backup";
-  static final String TAG_REFRESH = "tag_refresh";
-  static final String TAG_MIDNIGHT_REFRESH = "tag_midnight_refresh";
-  static final String TAG_NOTIFICATION = "tag_notification";
-  static final String TAG_BACKGROUND_SYNC = "tag_background_sync";
-  static final String TAG_SYNC = "tag_sync";
-
   @Inject
-  public JobCreator(@ForApplication Context context, Preferences preferences, Notifier notifier,
-      NotificationQueue notificationQueue, TasksJsonExporter tasksJsonExporter,
-      RefreshScheduler refreshScheduler, LocalBroadcastManager localBroadcastManager,
-      CaldavSynchronizer caldavSynchronizer, GoogleTaskSynchronizer googleTaskSynchronizer) {
+  public JobCreator(
+      @ForApplication Context context,
+      Preferences preferences,
+      Notifier notifier,
+      NotificationQueue notificationQueue,
+      TasksJsonExporter tasksJsonExporter,
+      RefreshScheduler refreshScheduler,
+      LocalBroadcastManager localBroadcastManager,
+      CaldavSynchronizer caldavSynchronizer,
+      GoogleTaskSynchronizer googleTaskSynchronizer) {
     this.context = context;
     this.preferences = preferences;
     this.notifier = notifier;

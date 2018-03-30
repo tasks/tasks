@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.timers;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -34,8 +33,11 @@ public class TimerPlugin {
   private final TaskDao taskDao;
 
   @Inject
-  public TimerPlugin(@ForApplication Context context, NotificationManager notificationManager,
-      Tracker tracker, TaskDao taskDao) {
+  public TimerPlugin(
+      @ForApplication Context context,
+      NotificationManager notificationManager,
+      Tracker tracker,
+      TaskDao taskDao) {
     this.context = context;
     this.notificationManager = notificationManager;
     this.tracker = tracker;
@@ -86,22 +88,23 @@ public class TimerPlugin {
       Filter filter = TimerFilterExposer.createFilter(context);
       Intent notifyIntent = TaskIntents.getTaskListIntent(context, filter);
       notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-      PendingIntent pendingIntent = PendingIntent.getActivity(context,
-          Constants.NOTIFICATION_TIMER, notifyIntent, 0);
+      PendingIntent pendingIntent =
+          PendingIntent.getActivity(context, Constants.NOTIFICATION_TIMER, notifyIntent, 0);
 
       Resources r = context.getResources();
       String appName = r.getString(R.string.app_name);
-      String text = r.getString(R.string.TPl_notification,
-          r.getQuantityString(R.plurals.Ntasks, count, count));
-      NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-          NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
-          .setContentIntent(pendingIntent)
-          .setContentTitle(appName)
-          .setContentText(text)
-          .setWhen(currentTimeMillis())
-          .setSmallIcon(R.drawable.ic_timer_white_24dp)
-          .setAutoCancel(false)
-          .setOngoing(true);
+      String text =
+          r.getString(
+              R.string.TPl_notification, r.getQuantityString(R.plurals.Ntasks, count, count));
+      NotificationCompat.Builder builder =
+          new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TIMERS)
+              .setContentIntent(pendingIntent)
+              .setContentTitle(appName)
+              .setContentText(text)
+              .setWhen(currentTimeMillis())
+              .setSmallIcon(R.drawable.ic_timer_white_24dp)
+              .setAutoCancel(false)
+              .setOngoing(true);
       notificationManager.notify(Constants.NOTIFICATION_TIMER, builder, false, false, false);
     }
   }

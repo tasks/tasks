@@ -22,8 +22,8 @@ import org.tasks.R;
 public class Locale {
 
   private static final Locale DEFAULT = new Locale(java.util.Locale.getDefault(), null, -1);
-  private static final int[] sDialogButtons = new int[]{android.R.id.button1, android.R.id.button2,
-      android.R.id.button3};
+  private static final int[] sDialogButtons =
+      new int[] {android.R.id.button1, android.R.id.button2, android.R.id.button3};
   private static final char LEFT_TO_RIGHT_MARK = '\u200e';
   private static final char RIGHT_TO_LEFT_MARK = '\u200f';
   private static Locale INSTANCE;
@@ -66,12 +66,13 @@ public class Locale {
       synchronized (DEFAULT) {
         if (INSTANCE == null) {
           Context applicationContext = context.getApplicationContext();
-          SharedPreferences prefs = PreferenceManager
-              .getDefaultSharedPreferences(applicationContext);
-          String language = prefs
-              .getString(applicationContext.getString(R.string.p_language), null);
-          int directionOverride = Integer.parseInt(
-              prefs.getString(applicationContext.getString(R.string.p_layout_direction), "-1"));
+          SharedPreferences prefs =
+              PreferenceManager.getDefaultSharedPreferences(applicationContext);
+          String language =
+              prefs.getString(applicationContext.getString(R.string.p_language), null);
+          int directionOverride =
+              Integer.parseInt(
+                  prefs.getString(applicationContext.getString(R.string.p_layout_direction), "-1"));
           setDefault(DEFAULT.getLocale(), language, directionOverride);
         }
       }
@@ -84,8 +85,8 @@ public class Locale {
     setDefault(locale, null, -1);
   }
 
-  private static void setDefault(java.util.Locale locale, String languageOverride,
-      int directionOverride) {
+  private static void setDefault(
+      java.util.Locale locale, String languageOverride, int directionOverride) {
     INSTANCE = new Locale(locale, languageOverride, directionOverride);
     java.util.Locale.setDefault(locale);
   }
@@ -141,8 +142,8 @@ public class Locale {
     configuration.locale = getLocale();
     final int layoutDirection = 1 + appDirectionality;
     configuration.screenLayout =
-        (configuration.screenLayout & ~Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) |
-            (layoutDirection << Configuration.SCREENLAYOUT_LAYOUTDIR_SHIFT);
+        (configuration.screenLayout & ~Configuration.SCREENLAYOUT_LAYOUTDIR_MASK)
+            | (layoutDirection << Configuration.SCREENLAYOUT_LAYOUTDIR_SHIFT);
     return configuration;
   }
 
@@ -172,9 +173,7 @@ public class Locale {
 
   public Integer parseInteger(String number) {
     try {
-      return NumberFormat.getNumberInstance(appLocale)
-          .parse(number)
-          .intValue();
+      return NumberFormat.getNumberInstance(appLocale).parse(number).intValue();
     } catch (ParseException e) {
       return null;
     }
@@ -195,7 +194,8 @@ public class Locale {
 
     Locale locale = (Locale) o;
 
-    return languageOverride != null ? languageOverride.equals(locale.languageOverride)
+    return languageOverride != null
+        ? languageOverride.equals(locale.languageOverride)
         : locale.languageOverride == null;
   }
 
@@ -206,14 +206,21 @@ public class Locale {
 
   @Override
   public String toString() {
-    return "Locale{" +
-        "deviceLocale=" + deviceLocale +
-        ", appLocale=" + appLocale +
-        ", appDirectionality=" + appDirectionality +
-        ", languageOverride='" + languageOverride + '\'' +
-        ", directionOverride=" + directionOverride +
-        ", hasUserOverrides=" + hasUserOverrides +
-        '}';
+    return "Locale{"
+        + "deviceLocale="
+        + deviceLocale
+        + ", appLocale="
+        + appLocale
+        + ", appDirectionality="
+        + appDirectionality
+        + ", languageOverride='"
+        + languageOverride
+        + '\''
+        + ", directionOverride="
+        + directionOverride
+        + ", hasUserOverrides="
+        + hasUserOverrides
+        + '}';
   }
 
   @SuppressLint("NewApi")

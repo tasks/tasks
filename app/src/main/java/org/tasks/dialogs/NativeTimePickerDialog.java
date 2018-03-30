@@ -14,8 +14,8 @@ import org.tasks.injection.NativeDialogFragmentComponent;
 import org.tasks.themes.Theme;
 import org.tasks.time.DateTime;
 
-public class NativeTimePickerDialog extends InjectingNativeDialogFragment implements
-    TimePickerDialog.OnTimeSetListener {
+public class NativeTimePickerDialog extends InjectingNativeDialogFragment
+    implements TimePickerDialog.OnTimeSetListener {
 
   private static final String EXTRA_HOUR = "extra_hour";
   private static final String EXTRA_MINUTE = "extra_minute";
@@ -42,8 +42,13 @@ public class NativeTimePickerDialog extends InjectingNativeDialogFragment implem
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     Context context = theme.wrap(getActivity());
     Bundle args = getArguments();
-    TimePickerDialog timePickerDialog = new TimePickerDialog(context, this, args.getInt(EXTRA_HOUR),
-        args.getInt(EXTRA_MINUTE), DateUtilities.is24HourFormat(context));
+    TimePickerDialog timePickerDialog =
+        new TimePickerDialog(
+            context,
+            this,
+            args.getInt(EXTRA_HOUR),
+            args.getInt(EXTRA_MINUTE),
+            DateUtilities.is24HourFormat(context));
     timePickerDialog.setTitle("");
     return timePickerDialog;
   }

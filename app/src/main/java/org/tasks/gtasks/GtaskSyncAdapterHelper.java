@@ -2,8 +2,6 @@ package org.tasks.gtasks;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.os.Bundle;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -20,8 +18,11 @@ public class GtaskSyncAdapterHelper {
   private final Tracker tracker;
 
   @Inject
-  public GtaskSyncAdapterHelper(GoogleAccountManager accountManager, Preferences preferences,
-      PlayServices playServices, Tracker tracker) {
+  public GtaskSyncAdapterHelper(
+      GoogleAccountManager accountManager,
+      Preferences preferences,
+      PlayServices playServices,
+      Tracker tracker) {
     this.accountManager = accountManager;
     this.preferences = preferences;
     this.playServices = playServices;
@@ -29,9 +30,9 @@ public class GtaskSyncAdapterHelper {
   }
 
   public boolean isEnabled() {
-    return preferences.getBoolean(R.string.sync_gtasks, false) &&
-        playServices.isPlayServicesAvailable() &&
-        getAccount() != null;
+    return preferences.getBoolean(R.string.sync_gtasks, false)
+        && playServices.isPlayServicesAvailable()
+        && getAccount() != null;
   }
 
   private Account getAccount() {
@@ -39,9 +40,9 @@ public class GtaskSyncAdapterHelper {
   }
 
   public void checkPlayServices(Activity activity) {
-    if (preferences.getBoolean(R.string.sync_gtasks, false) &&
-        !playServices.refreshAndCheck() &&
-        !preferences.getBoolean(R.string.warned_play_services, false)) {
+    if (preferences.getBoolean(R.string.sync_gtasks, false)
+        && !playServices.refreshAndCheck()
+        && !preferences.getBoolean(R.string.warned_play_services, false)) {
       preferences.setBoolean(R.string.warned_play_services, true);
       playServices.resolve(activity);
       tracker.reportEvent(Tracking.Events.PLAY_SERVICES_WARNING, playServices.getStatus());

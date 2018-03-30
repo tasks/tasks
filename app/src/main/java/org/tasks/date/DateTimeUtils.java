@@ -9,8 +9,8 @@ public class DateTimeUtils {
     return new DateTime(year, month, day, 0, 0, 0);
   }
 
-  public static DateTime newDateUtc(int year, int month, int day, int hour, int minute,
-      int second) {
+  public static DateTime newDateUtc(
+      int year, int month, int day, int hour, int minute, int second) {
     return new DateTime(year, month, day, hour, minute, second, 0, TimeZone.getTimeZone("GMT"));
   }
 

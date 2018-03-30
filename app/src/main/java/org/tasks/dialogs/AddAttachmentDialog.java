@@ -42,7 +42,8 @@ public class AddAttachmentDialog extends InjectingDialogFragment {
     }
     entries.add(getString(R.string.pick_from_storage));
     actions.add(() -> callback.pickFromStorage());
-    return dialogBuilder.newDialog()
+    return dialogBuilder
+        .newDialog()
         .setItems(entries, (dialog, which) -> actions.get(which).run())
         .show();
   }

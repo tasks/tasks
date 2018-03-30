@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.ui;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -81,9 +80,16 @@ public class ReminderControlSet extends TaskEditControlFragment {
   @Inject Device device;
   @Inject Preferences preferences;
   @Inject @ForActivity Context context;
-  @BindView(R.id.alert_container) LinearLayout alertContainer;
-  @BindView(R.id.reminder_alarm) Spinner mode;
-  @BindView(R.id.alarms_add_spinner) Spinner addSpinner;
+
+  @BindView(R.id.alert_container)
+  LinearLayout alertContainer;
+
+  @BindView(R.id.reminder_alarm)
+  Spinner mode;
+
+  @BindView(R.id.alarms_add_spinner)
+  Spinner addSpinner;
+
   private long taskId;
   private int flags;
   private long randomReminder;
@@ -100,15 +106,15 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
 
-    remindAdapter = new HiddenTopArrayAdapter(context, android.R.layout.simple_spinner_item,
-        spinnerOptions);
+    remindAdapter =
+        new HiddenTopArrayAdapter(context, android.R.layout.simple_spinner_item, spinnerOptions);
     String[] modes = getResources().getStringArray(R.array.reminder_ring_modes);
-    ArrayAdapter<String> modeAdapter = new ArrayAdapter<>(context,
-        android.R.layout.simple_spinner_item, modes);
+    ArrayAdapter<String> modeAdapter =
+        new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, modes);
     modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     mode.setAdapter(modeAdapter);
 
@@ -210,10 +216,10 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
   @Override
   public boolean hasChanges(Task original) {
-    return getFlags() != original.getReminderFlags() ||
-        getRandomReminderPeriod() != original.getReminderPeriod() ||
-        !newHashSet(currentAlarms()).equals(alarms) ||
-        !newHashSet(geofenceService.getGeofences(taskId)).equals(locations);
+    return getFlags() != original.getReminderFlags()
+        || getRandomReminderPeriod() != original.getReminderPeriod()
+        || !newHashSet(currentAlarms()).equals(alarms)
+        || !newHashSet(geofenceService.getGeofences(taskId)).equals(locations);
   }
 
   @Override
@@ -256,8 +262,8 @@ public class ReminderControlSet extends TaskEditControlFragment {
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == PermissionRequestor.REQUEST_LOCATION) {
       if (verifyPermissions(grantResults)) {
         pickLocation();
@@ -309,8 +315,8 @@ public class ReminderControlSet extends TaskEditControlFragment {
 
   private void addNewAlarm() {
     Intent intent = new Intent(getActivity(), DateAndTimePickerActivity.class);
-    intent.putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP,
-        newDateTime().startOfDay().getMillis());
+    intent.putExtra(
+        DateAndTimePickerActivity.EXTRA_TIMESTAMP, newDateTime().startOfDay().getMillis());
     startActivityForResult(intent, REQUEST_NEW_ALARM);
   }
 
@@ -324,13 +330,16 @@ public class ReminderControlSet extends TaskEditControlFragment {
   private void addAlarmRow(final View alertItem, String text, final View.OnClickListener onRemove) {
     TextView display = alertItem.findViewById(R.id.alarm_string);
     display.setText(text);
-    alertItem.findViewById(R.id.clear).setOnClickListener(v -> {
-      alertContainer.removeView(alertItem);
-      if (onRemove != null) {
-        onRemove.onClick(v);
-      }
-      updateSpinner();
-    });
+    alertItem
+        .findViewById(R.id.clear)
+        .setOnClickListener(
+            v -> {
+              alertContainer.removeView(alertItem);
+              if (onRemove != null) {
+                onRemove.onClick(v);
+              }
+              updateSpinner();
+            });
     updateSpinner();
   }
 
@@ -365,8 +374,8 @@ public class ReminderControlSet extends TaskEditControlFragment {
   }
 
   private void addRandomReminder(long reminderPeriod) {
-    View alarmRow = addAlarmRow(getString(R.string.randomly_once) + " ",
-        v -> randomControlSet = null);
+    View alarmRow =
+        addAlarmRow(getString(R.string.randomly_once) + " ", v -> randomControlSet = null);
     randomControlSet = new RandomReminderControlSet(context, alarmRow, reminderPeriod);
   }
 

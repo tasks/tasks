@@ -25,8 +25,8 @@ import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
 /**
- * Wrapper around the official Google Tasks API to simplify common operations. In the case
- * of an exception, each request is tried twice in case of a timeout.
+ * Wrapper around the official Google Tasks API to simplify common operations. In the case of an
+ * exception, each request is tried twice in case of a timeout.
  *
  * @author Sam Bosley
  */
@@ -38,15 +38,18 @@ public class GtasksInvoker {
   private final Tasks service;
 
   @Inject
-  public GtasksInvoker(@ForApplication Context context, GtasksPreferenceService preferenceService,
+  public GtasksInvoker(
+      @ForApplication Context context,
+      GtasksPreferenceService preferenceService,
       PlayServices playServices) {
-    credential = GoogleAccountCredential
-        .usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS));
+    credential =
+        GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS));
     this.playServices = playServices;
     setUserName(preferenceService.getUserName());
-    service = new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
-        .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
-        .build();
+    service =
+        new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
+            .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
+            .build();
   }
 
   public void setUserName(String username) {
@@ -54,80 +57,64 @@ public class GtasksInvoker {
   }
 
   public TaskLists allGtaskLists(String pageToken) throws IOException {
-    return execute(service
-        .tasklists()
-        .list()
-        .setPageToken(pageToken));
+    return execute(service.tasklists().list().setPageToken(pageToken));
   }
 
-  public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId,
-      boolean includeDeleted, boolean includeHidden, long lastSyncDate, String pageToken)
+  public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(
+      String listId,
+      boolean includeDeleted,
+      boolean includeHidden,
+      long lastSyncDate,
+      String pageToken)
       throws IOException {
-    return execute(service
-        .tasks()
-        .list(listId)
-        .setShowDeleted(includeDeleted)
-        .setShowHidden(includeHidden)
-        .setPageToken(pageToken)
-        .setUpdatedMin(
-            GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()));
+    return execute(
+        service
+            .tasks()
+            .list(listId)
+            .setShowDeleted(includeDeleted)
+            .setShowHidden(includeHidden)
+            .setPageToken(pageToken)
+            .setUpdatedMin(
+                GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339()));
   }
 
   public Task createGtask(String listId, Task task, String parent, String priorSiblingId)
       throws IOException {
     Timber.d("createGtask: %s", prettyPrint(task));
-    return execute(service
-        .tasks()
-        .insert(listId, task)
-        .setParent(parent)
-        .setPrevious(priorSiblingId));
+    return execute(
+        service.tasks().insert(listId, task).setParent(parent).setPrevious(priorSiblingId));
   }
 
   public void updateGtask(String listId, Task task) throws IOException {
     Timber.d("updateGtask: %s", prettyPrint(task));
-    execute(service
-        .tasks()
-        .update(listId, task.getId(), task));
+    execute(service.tasks().update(listId, task.getId(), task));
   }
 
   public Task moveGtask(String listId, String taskId, String parentId, String previousId)
       throws IOException {
-    return execute(service
-        .tasks()
-        .move(listId, taskId)
-        .setParent(parentId)
-        .setPrevious(previousId));
+    return execute(
+        service.tasks().move(listId, taskId).setParent(parentId).setPrevious(previousId));
   }
 
   public void deleteGtaskList(String listId) throws IOException {
-    execute(service
-        .tasklists()
-        .delete(listId));
+    execute(service.tasklists().delete(listId));
   }
 
   public TaskList renameGtaskList(String listId, String title) throws IOException {
-    return execute(service
-        .tasklists()
-        .patch(listId, new TaskList().setTitle(title)));
+    return execute(service.tasklists().patch(listId, new TaskList().setTitle(title)));
   }
 
   public TaskList createGtaskList(String title) throws IOException {
-    return execute(service
-        .tasklists()
-        .insert(new TaskList().setTitle(title)));
+    return execute(service.tasklists().insert(new TaskList().setTitle(title)));
   }
 
   public void clearCompleted(String listId) throws IOException {
-    execute(service
-        .tasks()
-        .clear(listId));
+    execute(service.tasks().clear(listId));
   }
 
   public void deleteGtask(String listId, String taskId) throws IOException {
     try {
-      execute(service
-          .tasks()
-          .delete(listId, taskId));
+      execute(service.tasks().delete(listId, taskId));
     } catch (HttpNotFoundException ignored) {
 
     }

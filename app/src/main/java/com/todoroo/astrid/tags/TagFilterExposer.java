@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.tags;
 
 import com.google.common.base.Strings;
@@ -28,9 +27,7 @@ public class TagFilterExposer {
     this.tagService = tagService;
   }
 
-  /**
-   * Create filter from new tag object
-   */
+  /** Create filter from new tag object */
   private static TagFilter filterFromTag(TagData tag) {
     if (tag == null || Strings.isNullOrEmpty(tag.getName())) {
       return null;

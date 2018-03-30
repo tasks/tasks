@@ -64,8 +64,11 @@ public class TagListFragment extends TaskListFragment {
         if (TagSettingsActivity.ACTION_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
         } else if (TagSettingsActivity.ACTION_RELOAD.equals(action)) {
-          activity.getIntent().putExtra(TaskListActivity.OPEN_FILTER,
-              (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+          activity
+              .getIntent()
+              .putExtra(
+                  TaskListActivity.OPEN_FILTER,
+                  (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
           activity.recreate();
         }
       }

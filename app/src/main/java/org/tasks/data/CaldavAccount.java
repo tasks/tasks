@@ -1,6 +1,5 @@
 package org.tasks.data;
 
-
 import static com.todoroo.astrid.data.Task.NO_UUID;
 
 import android.arch.persistence.room.ColumnInfo;
@@ -14,39 +13,45 @@ import android.text.TextUtils;
 @Entity(tableName = "caldav_account")
 public final class CaldavAccount implements Parcelable {
 
-  public static Parcelable.Creator<CaldavAccount> CREATOR = new Parcelable.Creator<CaldavAccount>() {
-    @Override
-    public CaldavAccount createFromParcel(Parcel source) {
-      return new CaldavAccount(source);
-    }
+  public static Parcelable.Creator<CaldavAccount> CREATOR =
+      new Parcelable.Creator<CaldavAccount>() {
+        @Override
+        public CaldavAccount createFromParcel(Parcel source) {
+          return new CaldavAccount(source);
+        }
 
-    @Override
-    public CaldavAccount[] newArray(int size) {
-      return new CaldavAccount[size];
-    }
-  };
+        @Override
+        public CaldavAccount[] newArray(int size) {
+          return new CaldavAccount[size];
+        }
+      };
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   private long id;
+
   @ColumnInfo(name = "uuid")
   private String uuid = NO_UUID;
+
   @ColumnInfo(name = "name")
   private String name = "";
+
   @ColumnInfo(name = "color")
   private int color = -1;
+
   @ColumnInfo(name = "ctag")
   private String ctag;
+
   @ColumnInfo(name = "url")
   private String url = "";
+
   @ColumnInfo(name = "username")
   private String username = "";
+
   @ColumnInfo(name = "password")
   private transient String password = "";
 
-  public CaldavAccount() {
-
-  }
+  public CaldavAccount() {}
 
   @Ignore
   public CaldavAccount(String name, String uuid) {
@@ -149,16 +154,30 @@ public final class CaldavAccount implements Parcelable {
 
   @Override
   public String toString() {
-    return "CaldavAccount{" +
-        "id=" + id +
-        ", uuid='" + uuid + '\'' +
-        ", name='" + name + '\'' +
-        ", color=" + color +
-        ", ctag='" + ctag + '\'' +
-        ", url='" + url + '\'' +
-        ", username='" + username + '\'' +
-        ", password='" + (TextUtils.isEmpty(password) ? "null" : "******") + '\'' +
-        '}';
+    return "CaldavAccount{"
+        + "id="
+        + id
+        + ", uuid='"
+        + uuid
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", color="
+        + color
+        + ", ctag='"
+        + ctag
+        + '\''
+        + ", url='"
+        + url
+        + '\''
+        + ", username='"
+        + username
+        + '\''
+        + ", password='"
+        + (TextUtils.isEmpty(password) ? "null" : "******")
+        + '\''
+        + '}';
   }
 
   @Override

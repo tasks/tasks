@@ -45,8 +45,8 @@ public class PreferenceTests {
 
     long dueDate = new DateTime(2015, 12, 29, 18, 0, 1).getMillis();
 
-    assertEquals(new DateTime(2015, 12, 29, 19, 0).getMillis(),
-        preferences.adjustForQuietHours(dueDate));
+    assertEquals(
+        new DateTime(2015, 12, 29, 19, 0).getMillis(), preferences.adjustForQuietHours(dueDate));
   }
 
   @Test
@@ -56,8 +56,8 @@ public class PreferenceTests {
 
     long dueDate = new DateTime(2015, 12, 29, 22, 0, 1).getMillis();
 
-    assertEquals(new DateTime(2015, 12, 30, 10, 0).getMillis(),
-        preferences.adjustForQuietHours(dueDate));
+    assertEquals(
+        new DateTime(2015, 12, 30, 10, 0).getMillis(), preferences.adjustForQuietHours(dueDate));
   }
 
   @Test
@@ -67,8 +67,8 @@ public class PreferenceTests {
 
     long dueDate = new DateTime(2015, 12, 29, 23, 30).getMillis();
 
-    assertEquals(new DateTime(2015, 12, 30, 10, 0).getMillis(),
-        preferences.adjustForQuietHours(dueDate));
+    assertEquals(
+        new DateTime(2015, 12, 30, 10, 0).getMillis(), preferences.adjustForQuietHours(dueDate));
   }
 
   @Test
@@ -78,8 +78,8 @@ public class PreferenceTests {
 
     long dueDate = new DateTime(2015, 12, 30, 7, 15).getMillis();
 
-    assertEquals(new DateTime(2015, 12, 30, 10, 0).getMillis(),
-        preferences.adjustForQuietHours(dueDate));
+    assertEquals(
+        new DateTime(2015, 12, 30, 10, 0).getMillis(), preferences.adjustForQuietHours(dueDate));
   }
 
   @Test

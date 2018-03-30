@@ -20,19 +20,21 @@ public class Badger {
   private final DefaultFilterProvider defaultFilterProvider;
   private final TaskDao taskDao;
   private final LocalBroadcastManager localBroadcastManager;
-
+  private final BroadcastReceiver receiver =
+      new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+          publishCount();
+        }
+      };
   private boolean enabled;
 
-  private final BroadcastReceiver receiver = new BroadcastReceiver() {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-      publishCount();
-    }
-  };
-
   @Inject
-  public Badger(@ForApplication Context context, DefaultFilterProvider defaultFilterProvider,
-      TaskDao taskDao, LocalBroadcastManager localBroadcastManager) {
+  public Badger(
+      @ForApplication Context context,
+      DefaultFilterProvider defaultFilterProvider,
+      TaskDao taskDao,
+      LocalBroadcastManager localBroadcastManager) {
     this.context = context;
     this.defaultFilterProvider = defaultFilterProvider;
     this.taskDao = taskDao;

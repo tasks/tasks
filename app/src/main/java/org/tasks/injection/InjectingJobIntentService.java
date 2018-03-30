@@ -8,11 +8,9 @@ public abstract class InjectingJobIntentService extends JobIntentService {
 
   @Override
   protected void onHandleWork(@NonNull Intent intent) {
-    inject(((InjectingApplication) getApplication())
-        .getComponent()
-        .plus(new IntentServiceModule()));
+    inject(
+        ((InjectingApplication) getApplication()).getComponent().plus(new IntentServiceModule()));
   }
-
 
   protected abstract void inject(IntentServiceComponent component);
 }

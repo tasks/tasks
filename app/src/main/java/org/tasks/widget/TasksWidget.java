@@ -38,7 +38,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
   public static final String COMPLETE_TASK = "COMPLETE_TASK";
   public static final String EDIT_TASK = "EDIT_TASK";
   public static final String EXTRA_FILTER_ID = "extra_filter_id";
-  public static final String EXTRA_ID = "extra_id"; //$NON-NLS-1$
+  public static final String EXTRA_ID = "extra_id"; // $NON-NLS-1$
   private static final int flags = FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP;
   @Inject Preferences preferences;
   @Inject DefaultFilterProvider defaultFilterProvider;
@@ -48,7 +48,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
 
   private static Bitmap getSolidBackground(int bgColor) {
     Bitmap bitmap = Bitmap.createBitmap(2, 2, Bitmap.Config.ARGB_8888); // Create a Bitmap
-    new Canvas(bitmap).drawColor(bgColor); //Set the color
+    new Canvas(bitmap).drawColor(bgColor); // Set the color
     return bitmap;
   }
 
@@ -113,9 +113,8 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     }
     if (widgetPreferences.showHeader()) {
       remoteViews.setViewVisibility(R.id.widget_header, View.VISIBLE);
-      remoteViews.setViewVisibility(R.id.widget_reconfigure, widgetPreferences.showSettings()
-          ? View.VISIBLE
-          : View.GONE);
+      remoteViews.setViewVisibility(
+          R.id.widget_reconfigure, widgetPreferences.showSettings() ? View.VISIBLE : View.GONE);
       remoteViews.setInt(R.id.widget_title, "setTextColor", color.getActionBarTint());
       remoteViews.setInt(R.id.widget_button, "setColorFilter", color.getActionBarTint());
       remoteViews.setInt(R.id.widget_reconfigure, "setColorFilter", color.getActionBarTint());
@@ -124,10 +123,10 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     }
     int opacityPercentage = widgetPreferences.getOpacity();
     int opacity = (int) ((opacityPercentage / 100.0) * 255.0);
-    remoteViews.setImageViewBitmap(R.id.widget_background,
-        getSolidBackground(theme.getBackgroundColor()));
-    remoteViews.setImageViewBitmap(R.id.widget_header_background,
-        getSolidBackground(color.getPrimaryColor()));
+    remoteViews.setImageViewBitmap(
+        R.id.widget_background, getSolidBackground(theme.getBackgroundColor()));
+    remoteViews.setImageViewBitmap(
+        R.id.widget_header_background, getSolidBackground(color.getPrimaryColor()));
     remoteViews.setInt(R.id.widget_background, "setAlpha", opacity);
     remoteViews.setInt(R.id.widget_header_background, "setAlpha", opacity);
 
@@ -135,12 +134,12 @@ public class TasksWidget extends InjectingAppWidgetProvider {
     remoteViews.setTextViewText(R.id.widget_title, filter.listingTitle);
     remoteViews.setRemoteAdapter(R.id.list_view, rvIntent);
     remoteViews.setEmptyView(R.id.list_view, R.id.empty_view);
-    remoteViews
-        .setOnClickPendingIntent(R.id.widget_title, getOpenListIntent(context, filterId, id));
-    remoteViews
-        .setOnClickPendingIntent(R.id.widget_button, getNewTaskIntent(context, filterId, id));
-    remoteViews
-        .setOnClickPendingIntent(R.id.widget_reconfigure, getWidgetConfigIntent(context, id));
+    remoteViews.setOnClickPendingIntent(
+        R.id.widget_title, getOpenListIntent(context, filterId, id));
+    remoteViews.setOnClickPendingIntent(
+        R.id.widget_button, getNewTaskIntent(context, filterId, id));
+    remoteViews.setOnClickPendingIntent(
+        R.id.widget_reconfigure, getWidgetConfigIntent(context, id));
     remoteViews.setPendingIntentTemplate(R.id.list_view, getPendingIntentTemplate(context));
     return remoteViews;
   }

@@ -55,8 +55,8 @@ public class NotificationManager {
   public static final String NOTIFICATION_CHANNEL_TASKER = "notifications_tasker";
   public static final String NOTIFICATION_CHANNEL_CALLS = "notifications_calls";
   public static final String NOTIFICATION_CHANNEL_TIMERS = "notifications_timers";
-  private static final String GROUP_KEY = "tasks";
   static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
+  private static final String GROUP_KEY = "tasks";
   private static final int SUMMARY_NOTIFICATION_ID = 0;
   private final NotificationManagerCompat notificationManagerCompat;
   private final NotificationDao notificationDao;
@@ -66,8 +66,12 @@ public class NotificationManager {
   private final CheckBoxes checkBoxes;
 
   @Inject
-  public NotificationManager(@ForApplication Context context, Preferences preferences,
-      NotificationDao notificationDao, TaskDao taskDao, CheckBoxes checkBoxes) {
+  public NotificationManager(
+      @ForApplication Context context,
+      Preferences preferences,
+      NotificationDao notificationDao,
+      TaskDao taskDao,
+      CheckBoxes checkBoxes) {
     this.context = context;
     this.preferences = preferences;
     this.notificationDao = notificationDao;
@@ -75,8 +79,8 @@ public class NotificationManager {
     this.checkBoxes = checkBoxes;
     notificationManagerCompat = NotificationManagerCompat.from(context);
     if (atLeastOreo()) {
-      android.app.NotificationManager notificationManager = (android.app.NotificationManager)
-          context.getSystemService(Context.NOTIFICATION_SERVICE);
+      android.app.NotificationManager notificationManager =
+          (android.app.NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
       notificationManager.createNotificationChannel(
           createNotificationChannel(NOTIFICATION_CHANNEL_DEFAULT, R.string.notifications));
       notificationManager.createNotificationChannel(
@@ -91,8 +95,9 @@ public class NotificationManager {
   @TargetApi(Build.VERSION_CODES.O)
   private NotificationChannel createNotificationChannel(String channelId, int nameResId) {
     String channelName = context.getString(nameResId);
-    NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName,
-        android.app.NotificationManager.IMPORTANCE_HIGH);
+    NotificationChannel notificationChannel =
+        new NotificationChannel(
+            channelId, channelName, android.app.NotificationManager.IMPORTANCE_HIGH);
     notificationChannel.enableLights(true);
     notificationChannel.enableVibration(true);
     notificationChannel.setBypassDnd(true);
@@ -103,31 +108,33 @@ public class NotificationManager {
 
   public void cancel(long id) {
     notificationManagerCompat.cancel((int) id);
-    Completable.fromAction(() -> {
-      if (id == SUMMARY_NOTIFICATION_ID) {
-        List<Long> tasks = transform(notificationDao.getAll(), n -> n.taskId);
-        for (Long task : tasks) {
-          notificationManagerCompat.cancel(task.intValue());
-        }
-        notificationDao.deleteAll(tasks);
-      } else if (notificationDao.delete(id) > 0) {
-        notifyTasks(Collections.emptyList(), false, false, false);
-      }
-    })
+    Completable.fromAction(
+            () -> {
+              if (id == SUMMARY_NOTIFICATION_ID) {
+                List<Long> tasks = transform(notificationDao.getAll(), n -> n.taskId);
+                for (Long task : tasks) {
+                  notificationManagerCompat.cancel(task.intValue());
+                }
+                notificationDao.deleteAll(tasks);
+              } else if (notificationDao.delete(id) > 0) {
+                notifyTasks(Collections.emptyList(), false, false, false);
+              }
+            })
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe();
   }
 
   public void cancel(List<Long> ids) {
-    Completable.fromAction(() -> {
-      for (Long id : ids) {
-        notificationManagerCompat.cancel(id.intValue());
-      }
-      if (notificationDao.deleteAll(ids) > 0) {
-        notifyTasks(Collections.emptyList(), false, false, false);
-      }
-    })
+    Completable.fromAction(
+            () -> {
+              for (Long id : ids) {
+                notificationManagerCompat.cancel(id.intValue());
+              }
+              if (notificationDao.deleteAll(ids) > 0) {
+                notifyTasks(Collections.emptyList(), false, false, false);
+              }
+            })
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe();
@@ -150,10 +157,13 @@ public class NotificationManager {
     }
   }
 
-  public void notifyTasks(List<org.tasks.notifications.Notification> newNotifications,
-      boolean alert, boolean nonstop, boolean fiveTimes) {
-    List<org.tasks.notifications.Notification> existingNotifications = notificationDao
-        .getAllOrdered();
+  public void notifyTasks(
+      List<org.tasks.notifications.Notification> newNotifications,
+      boolean alert,
+      boolean nonstop,
+      boolean fiveTimes) {
+    List<org.tasks.notifications.Notification> existingNotifications =
+        notificationDao.getAllOrdered();
     notificationDao.insertAll(newNotifications);
     int totalCount = existingNotifications.size() + newNotifications.size();
     if (totalCount == 0) {
@@ -181,37 +191,50 @@ public class NotificationManager {
     }
   }
 
-  private void createNotifications(List<org.tasks.notifications.Notification> notifications,
-      boolean alert, boolean nonstop, boolean fiveTimes, boolean useGroupKey) {
+  private void createNotifications(
+      List<org.tasks.notifications.Notification> notifications,
+      boolean alert,
+      boolean nonstop,
+      boolean fiveTimes,
+      boolean useGroupKey) {
     for (org.tasks.notifications.Notification notification : notifications) {
       NotificationCompat.Builder builder = getTaskNotification(notification);
       if (builder == null) {
         notificationManagerCompat.cancel((int) notification.taskId);
         notificationDao.delete(notification.taskId);
       } else {
-        builder.setGroup(
-            useGroupKey ? GROUP_KEY : (atLeastNougat() ? Long.toString(notification.taskId) : null))
-            .setGroupAlertBehavior(alert ? NotificationCompat.GROUP_ALERT_CHILDREN
-                : NotificationCompat.GROUP_ALERT_SUMMARY);
+        builder
+            .setGroup(
+                useGroupKey
+                    ? GROUP_KEY
+                    : (atLeastNougat() ? Long.toString(notification.taskId) : null))
+            .setGroupAlertBehavior(
+                alert
+                    ? NotificationCompat.GROUP_ALERT_CHILDREN
+                    : NotificationCompat.GROUP_ALERT_SUMMARY);
         notify(notification.taskId, builder, alert, nonstop, fiveTimes);
         alert = false;
       }
     }
   }
 
-  public void notify(long notificationId, NotificationCompat.Builder builder, boolean alert,
-      boolean nonstop, boolean fiveTimes) {
+  public void notify(
+      long notificationId,
+      NotificationCompat.Builder builder,
+      boolean alert,
+      boolean nonstop,
+      boolean fiveTimes) {
     if (!preferences.getBoolean(R.string.p_rmd_enabled, true)) {
       return;
     }
     int ringTimes = fiveTimes ? 5 : 1;
     if (alert) {
-      builder.setSound(preferences.getRingtone())
+      builder
+          .setSound(preferences.getRingtone())
           .setPriority(NotificationCompat.PRIORITY_HIGH)
           .setDefaults(preferences.getNotificationDefaults());
     } else {
-      builder.setDefaults(0)
-          .setTicker(null);
+      builder.setDefaults(0).setTicker(null);
     }
     Notification notification = builder.build();
     if (alert && nonstop) {
@@ -223,27 +246,32 @@ public class NotificationManager {
     }
     Intent deleteIntent = new Intent(context, NotificationClearedReceiver.class);
     deleteIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId);
-    notification.deleteIntent = PendingIntent
-        .getBroadcast(context, (int) notificationId, deleteIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT);
+    notification.deleteIntent =
+        PendingIntent.getBroadcast(
+            context, (int) notificationId, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     for (int i = 0; i < ringTimes; i++) {
       notificationManagerCompat.notify((int) notificationId, notification);
     }
   }
 
-  private void updateSummary(boolean notify, boolean nonStop, boolean fiveTimes,
+  private void updateSummary(
+      boolean notify,
+      boolean nonStop,
+      boolean fiveTimes,
       List<org.tasks.notifications.Notification> newNotifications) {
     List<Task> tasks = taskDao.activeNotifications();
     int taskCount = tasks.size();
     ArrayList<Long> taskIds = newArrayList(transform(tasks, Task::getId));
-    Filter filter = new Filter(context.getString(R.string.notifications),
-        new QueryTemplate().where(Task.ID.in(taskIds)));
+    Filter filter =
+        new Filter(
+            context.getString(R.string.notifications),
+            new QueryTemplate().where(Task.ID.in(taskIds)));
     long when = notificationDao.latestTimestamp();
     int maxPriority = 3;
-    String summaryTitle = context.getResources()
-        .getQuantityString(R.plurals.task_count, taskCount, taskCount);
-    NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
-        .setBigContentTitle(summaryTitle);
+    String summaryTitle =
+        context.getResources().getQuantityString(R.plurals.task_count, taskCount, taskCount);
+    NotificationCompat.InboxStyle style =
+        new NotificationCompat.InboxStyle().setBigContentTitle(summaryTitle);
     List<String> titles = newArrayList();
     List<String> ticker = newArrayList();
     for (Task task : tasks) {
@@ -259,25 +287,31 @@ public class NotificationManager {
       }
       ticker.add(task.getTitle());
     }
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-        NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
-        .setContentTitle(summaryTitle)
-        .setContentText(
-            Joiner.on(context.getString(R.string.list_separator_with_space)).join(titles))
-        .setShowWhen(true)
-        .setWhen(when)
-        .setSmallIcon(R.drawable.ic_done_all_white_24dp)
-        .setStyle(style)
-        .setColor(checkBoxes.getPriorityColor(maxPriority))
-        .setOnlyAlertOnce(false)
-        .setContentIntent(PendingIntent
-            .getActivity(context, 0, TaskIntents.getTaskListIntent(context, filter),
-                PendingIntent.FLAG_UPDATE_CURRENT))
-        .setGroupSummary(true)
-        .setGroup(GROUP_KEY)
-        .setTicker(Joiner.on(context.getString(R.string.list_separator_with_space)).join(ticker))
-        .setGroupAlertBehavior(notify ? NotificationCompat.GROUP_ALERT_SUMMARY
-            : NotificationCompat.GROUP_ALERT_CHILDREN);
+    NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
+            .setContentTitle(summaryTitle)
+            .setContentText(
+                Joiner.on(context.getString(R.string.list_separator_with_space)).join(titles))
+            .setShowWhen(true)
+            .setWhen(when)
+            .setSmallIcon(R.drawable.ic_done_all_white_24dp)
+            .setStyle(style)
+            .setColor(checkBoxes.getPriorityColor(maxPriority))
+            .setOnlyAlertOnce(false)
+            .setContentIntent(
+                PendingIntent.getActivity(
+                    context,
+                    0,
+                    TaskIntents.getTaskListIntent(context, filter),
+                    PendingIntent.FLAG_UPDATE_CURRENT))
+            .setGroupSummary(true)
+            .setGroup(GROUP_KEY)
+            .setTicker(
+                Joiner.on(context.getString(R.string.list_separator_with_space)).join(ticker))
+            .setGroupAlertBehavior(
+                notify
+                    ? NotificationCompat.GROUP_ALERT_SUMMARY
+                    : NotificationCompat.GROUP_ALERT_CHILDREN);
 
     Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
     snoozeIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -317,10 +351,12 @@ public class NotificationManager {
     }
 
     // task due date was changed, but alarm wasn't rescheduled
-    boolean dueInFuture = task.hasDueTime() && task.getDueDate() > DateUtilities.now() ||
-        !task.hasDueTime() && task.getDueDate() - DateUtilities.now() > DateUtilities.ONE_DAY;
-    if ((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) &&
-        (!task.hasDueDate() || dueInFuture)) {
+    boolean dueInFuture =
+        task.hasDueTime() && task.getDueDate() > DateUtilities.now()
+            || !task.hasDueTime()
+                && task.getDueDate() - DateUtilities.now() > DateUtilities.ONE_DAY;
+    if ((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE)
+        && (!task.hasDueDate() || dueInFuture)) {
       return null;
     }
 
@@ -332,21 +368,21 @@ public class NotificationManager {
     task.setReminderLast(new DateTime(when).endOfMinute().getMillis());
     taskDao.save(task);
 
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-        NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
-        .setCategory(NotificationCompat.CATEGORY_REMINDER)
-        .setContentTitle(taskTitle)
-        .setContentText(context.getString(R.string.app_name))
-        .setColor(checkBoxes.getPriorityColor(task.getImportance()))
-        .setSmallIcon(R.drawable.ic_check_white_24dp)
-        .setWhen(when)
-        .setOnlyAlertOnce(false)
-        .setShowWhen(true)
-        .setTicker(taskTitle);
+    NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setContentTitle(taskTitle)
+            .setContentText(context.getString(R.string.app_name))
+            .setColor(checkBoxes.getPriorityColor(task.getImportance()))
+            .setSmallIcon(R.drawable.ic_check_white_24dp)
+            .setWhen(when)
+            .setOnlyAlertOnce(false)
+            .setShowWhen(true)
+            .setTicker(taskTitle);
 
     final Intent intent = new Intent(context, NotificationActivity.class);
     intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-    intent.setAction("NOTIFY" + id); //$NON-NLS-1$
+    intent.setAction("NOTIFY" + id); // $NON-NLS-1$
     intent.putExtra(NotificationActivity.EXTRA_TASK_ID, id);
     intent.putExtra(NotificationActivity.EXTRA_TITLE, taskTitle);
     builder.setContentIntent(
@@ -357,20 +393,26 @@ public class NotificationManager {
     }
     Intent completeIntent = new Intent(context, CompleteTaskReceiver.class);
     completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id);
-    PendingIntent completePendingIntent = PendingIntent
-        .getBroadcast(context, (int) id, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    PendingIntent completePendingIntent =
+        PendingIntent.getBroadcast(
+            context, (int) id, completeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-    NotificationCompat.Action completeAction = new NotificationCompat.Action.Builder(
-        R.drawable.ic_check_white_24dp, context.getResources().getString(R.string.rmd_NoA_done),
-        completePendingIntent).build();
+    NotificationCompat.Action completeAction =
+        new NotificationCompat.Action.Builder(
+                R.drawable.ic_check_white_24dp,
+                context.getResources().getString(R.string.rmd_NoA_done),
+                completePendingIntent)
+            .build();
 
     Intent snoozeIntent = new Intent(context, SnoozeActivity.class);
     snoozeIntent.setFlags(FLAG_ACTIVITY_NEW_TASK);
     snoozeIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
-    PendingIntent snoozePendingIntent = PendingIntent
-        .getActivity(context, (int) id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+    PendingIntent snoozePendingIntent =
+        PendingIntent.getActivity(
+            context, (int) id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-    NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
+    NotificationCompat.WearableExtender wearableExtender =
+        new NotificationCompat.WearableExtender();
     wearableExtender.addAction(completeAction);
     for (final SnoozeOption snoozeOption : SnoozeDialog.getSnoozeOptions(preferences)) {
       final long timestamp = snoozeOption.getDateTime().getMillis();
@@ -379,17 +421,23 @@ public class NotificationManager {
       wearableIntent.setAction(String.format("snooze-%s-%s", id, timestamp));
       wearableIntent.putExtra(SnoozeActivity.EXTRA_TASK_ID, id);
       wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp);
-      PendingIntent wearablePendingIntent = PendingIntent
-          .getActivity(context, (int) id, wearableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-      wearableExtender.addAction(new NotificationCompat.Action.Builder(
-          R.drawable.ic_snooze_white_24dp, context.getString(snoozeOption.getResId()),
-          wearablePendingIntent)
-          .build());
+      PendingIntent wearablePendingIntent =
+          PendingIntent.getActivity(
+              context, (int) id, wearableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+      wearableExtender.addAction(
+          new NotificationCompat.Action.Builder(
+                  R.drawable.ic_snooze_white_24dp,
+                  context.getString(snoozeOption.getResId()),
+                  wearablePendingIntent)
+              .build());
     }
 
-    return builder.addAction(completeAction)
-        .addAction(R.drawable.ic_snooze_white_24dp,
-            context.getResources().getString(R.string.rmd_NoA_snooze), snoozePendingIntent)
+    return builder
+        .addAction(completeAction)
+        .addAction(
+            R.drawable.ic_snooze_white_24dp,
+            context.getResources().getString(R.string.rmd_NoA_snooze),
+            snoozePendingIntent)
         .extend(wearableExtender);
   }
 }

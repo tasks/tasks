@@ -17,33 +17,39 @@ import timber.log.Timber;
 @Entity(tableName = "userActivity")
 public class UserActivity implements Parcelable {
 
-  public static final Creator<UserActivity> CREATOR = new Creator<UserActivity>() {
-    @Override
-    public UserActivity createFromParcel(Parcel source) {
-      return new UserActivity(source);
-    }
+  public static final Creator<UserActivity> CREATOR =
+      new Creator<UserActivity>() {
+        @Override
+        public UserActivity createFromParcel(Parcel source) {
+          return new UserActivity(source);
+        }
 
-    @Override
-    public UserActivity[] newArray(int size) {
-      return new UserActivity[size];
-    }
-  };
+        @Override
+        public UserActivity[] newArray(int size) {
+          return new UserActivity[size];
+        }
+      };
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   private transient Long id;
+
   @ColumnInfo(name = "remoteId")
   private String remoteId = Task.NO_UUID;
+
   @ColumnInfo(name = "message")
   private String message = "";
+
   @ColumnInfo(name = "picture")
   private String picture = "";
+
   @ColumnInfo(name = "target_id")
   private transient String targetId = Task.NO_UUID;
+
   @ColumnInfo(name = "created_at")
   private Long created = 0L;
 
-  public UserActivity() {
-  }
+  public UserActivity() {}
 
   @Ignore
   public UserActivity(XmlReader reader) {

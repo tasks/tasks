@@ -34,8 +34,8 @@ public class ColorPickerDialog extends InjectingDialogFragment {
   private SingleCheckedArrayAdapter adapter;
   private Dialog dialog;
 
-  public static ColorPickerDialog newColorPickerDialog(List<? extends Pickable> items,
-      boolean showNone, int selection) {
+  public static ColorPickerDialog newColorPickerDialog(
+      List<? extends Pickable> items, boolean showNone, int selection) {
     ColorPickerDialog dialog = new ColorPickerDialog();
     Bundle args = new Bundle();
     args.putParcelableArrayList(EXTRA_ITEMS, new ArrayList<Pickable>(items));
@@ -54,31 +54,38 @@ public class ColorPickerDialog extends InjectingDialogFragment {
     boolean showNone = arguments.getBoolean(EXTRA_SHOW_NONE);
     int selected = arguments.getInt(EXTRA_SELECTED, -1);
 
-    adapter = new SingleCheckedArrayAdapter(context, transform(items, Pickable::getName),
-        theme.getThemeAccent()) {
-      @Override
-      protected int getDrawable(int position) {
-        return preferences.hasPurchase(R.string.p_purchased_themes) || items.get(position).isFree()
-            ? R.drawable.ic_lens_black_24dp
-            : R.drawable.ic_vpn_key_black_24dp;
-      }
-
-      @Override
-      protected int getDrawableColor(int position) {
-        return items.get(position).getPickerColor();
-      }
-    };
-
-    AlertDialogBuilder builder = dialogBuilder.newDialog(theme)
-        .setSingleChoiceItems(adapter, selected, (dialog, which) -> {
-          Pickable picked = items.get(which);
-          if (preferences.hasPurchase(R.string.p_purchased_themes) || picked.isFree()) {
-            callback.themePicked(picked);
-          } else {
-            callback.initiateThemePurchase();
+    adapter =
+        new SingleCheckedArrayAdapter(
+            context, transform(items, Pickable::getName), theme.getThemeAccent()) {
+          @Override
+          protected int getDrawable(int position) {
+            return preferences.hasPurchase(R.string.p_purchased_themes)
+                    || items.get(position).isFree()
+                ? R.drawable.ic_lens_black_24dp
+                : R.drawable.ic_vpn_key_black_24dp;
           }
-        })
-        .setOnDismissListener(dialogInterface -> callback.dismissed());
+
+          @Override
+          protected int getDrawableColor(int position) {
+            return items.get(position).getPickerColor();
+          }
+        };
+
+    AlertDialogBuilder builder =
+        dialogBuilder
+            .newDialog(theme)
+            .setSingleChoiceItems(
+                adapter,
+                selected,
+                (dialog, which) -> {
+                  Pickable picked = items.get(which);
+                  if (preferences.hasPurchase(R.string.p_purchased_themes) || picked.isFree()) {
+                    callback.themePicked(picked);
+                  } else {
+                    callback.initiateThemePurchase();
+                  }
+                })
+            .setOnDismissListener(dialogInterface -> callback.dismissed());
     if (showNone) {
       builder.setNeutralButton(R.string.none, (dialogInterface, i) -> callback.themePicked(null));
     }

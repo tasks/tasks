@@ -31,8 +31,7 @@ public class SubtasksTestCase extends InjectingTestCase {
    * E
    * F
    */
-  static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]"
-      .replaceAll("\\s", "");
+  static final String DEFAULT_SERIALIZED_TREE = "[-1, [1, 2, [3, 4]], 5, 6]".replaceAll("\\s", "");
   SubtasksFilterUpdater updater;
   Filter filter;
   @Inject TaskListMetadataDao taskListMetadataDao;
@@ -59,5 +58,4 @@ public class SubtasksTestCase extends InjectingTestCase {
     assertEquals("Parent mismatch", parentId, n.parent.uuid);
     assertEquals("Position mismatch", positionInParent, n.parent.children.indexOf(n));
   }
-
 }

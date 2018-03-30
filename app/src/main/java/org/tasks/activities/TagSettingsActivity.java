@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package org.tasks.activities;
 
 import static android.text.TextUtils.isEmpty;
@@ -41,14 +40,14 @@ import org.tasks.preferences.Preferences;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 
-public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implements
-    Toolbar.OnMenuItemClickListener {
+public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
+    implements Toolbar.OnMenuItemClickListener {
 
-  public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; //$NON-NLS-1$
-  public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
-  private static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
+  public static final String TOKEN_AUTOPOPULATE_NAME = "autopopulateName"; // $NON-NLS-1$
+  public static final String EXTRA_TAG_DATA = "tagData"; // $NON-NLS-1$
   public static final String ACTION_RELOAD = "tagRenamed";
   public static final String ACTION_DELETED = "tagDeleted";
+  private static final String EXTRA_TAG_UUID = "uuid"; // $NON-NLS-1$
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
   private static final int REQUEST_COLOR_PICKER = 10109;
   @Inject TagService tagService;
@@ -59,10 +58,19 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
   @Inject ThemeCache themeCache;
   @Inject ThemeColor themeColor;
   @Inject Tracker tracker;
-  @BindView(R.id.name) TextInputEditText name;
-  @BindView(R.id.name_layout) TextInputLayout nameLayout;
-  @BindView(R.id.color) TextInputEditText color;
-  @BindView(R.id.toolbar) Toolbar toolbar;
+
+  @BindView(R.id.name)
+  TextInputEditText name;
+
+  @BindView(R.id.name_layout)
+  TextInputLayout nameLayout;
+
+  @BindView(R.id.color)
+  TextInputEditText color;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
   private boolean isNewTag;
   private TagData tagData;
   private int selectedTheme;
@@ -88,15 +96,17 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
 
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setTitle(isNewTag ? getString(R.string.new_tag) : tagData.getName());
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this,
-        backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-    toolbar.setNavigationOnClickListener(v -> {
-      if (backButtonSavesTask) {
-        discard();
-      } else {
-        save();
-      }
-    });
+    toolbar.setNavigationIcon(
+        ContextCompat.getDrawable(
+            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+    toolbar.setNavigationOnClickListener(
+        v -> {
+          if (backButtonSavesTask) {
+            discard();
+          } else {
+            save();
+          }
+        });
     toolbar.inflateMenu(R.menu.menu_tag_settings);
     toolbar.setOnMenuItemClickListener(this);
     toolbar.showOverflowMenu();
@@ -179,15 +189,16 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
       tagData.setName(newName);
       tagData.setColor(selectedTheme);
       tagDataDao.createNew(tagData);
-      setResult(RESULT_OK,
-          new Intent().putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
+      setResult(
+          RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
     } else if (hasChanges()) {
       tagData.setName(newName);
       tagData.setColor(selectedTheme);
       tagService.rename(tagData.getRemoteId(), newName);
       tagDataDao.update(tagData);
       tagDao.rename(tagData.getRemoteId(), newName);
-      setResult(RESULT_OK,
+      setResult(
+          RESULT_OK,
           new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
     }
 
@@ -232,16 +243,19 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
   }
 
   private void deleteTag() {
-    dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, tagData.getName())
-        .setPositiveButton(R.string.delete, (dialog, which) -> {
-          if (tagData != null) {
-            String uuid = tagData.getRemoteId();
-            tagDao.deleteTag(uuid);
-            tagDataDao.delete(tagData.getId());
-            setResult(RESULT_OK, new Intent(ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
-          }
-          finish();
-        })
+    dialogBuilder
+        .newMessageDialog(R.string.delete_tag_confirmation, tagData.getName())
+        .setPositiveButton(
+            R.string.delete,
+            (dialog, which) -> {
+              if (tagData != null) {
+                String uuid = tagData.getRemoteId();
+                tagDao.deleteTag(uuid);
+                tagDataDao.delete(tagData.getId());
+                setResult(RESULT_OK, new Intent(ACTION_DELETED).putExtra(EXTRA_TAG_UUID, uuid));
+              }
+              finish();
+            })
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
@@ -250,7 +264,8 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity implem
     if (!hasChanges()) {
       finish();
     } else {
-      dialogBuilder.newMessageDialog(R.string.discard_changes)
+      dialogBuilder
+          .newMessageDialog(R.string.discard_changes)
           .setPositiveButton(R.string.discard, (dialog, which) -> finish())
           .setNegativeButton(android.R.string.cancel, null)
           .show();

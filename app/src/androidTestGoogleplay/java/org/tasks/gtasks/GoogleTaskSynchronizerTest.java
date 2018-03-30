@@ -25,9 +25,7 @@ public class GoogleTaskSynchronizerTest {
 
     mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 11))).getDueDate(), local);
 
-    assertEquals(
-        new DateTime(2016, 3, 11, 12, 0).getMillis(),
-        local.getDueDate().longValue());
+    assertEquals(new DateTime(2016, 3, 11, 12, 0).getMillis(), local.getDueDate().longValue());
   }
 
   @Test
@@ -36,63 +34,59 @@ public class GoogleTaskSynchronizerTest {
 
     mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 11))).getDueDate(), local);
 
-    assertEquals(
-        new DateTime(2016, 3, 11, 13, 30, 1).getMillis(),
-        local.getDueDate().longValue());
+    assertEquals(new DateTime(2016, 3, 11, 13, 30, 1).getMillis(), local.getDueDate().longValue());
   }
 
   @Test
   public void testDueDateAdjustHideBackwards() {
-    Task local = newTask(with(DUE_DATE, new DateTime(2016, 3, 12)),
-        with(HIDE_TYPE, HIDE_UNTIL_DUE));
+    Task local =
+        newTask(with(DUE_DATE, new DateTime(2016, 3, 12)), with(HIDE_TYPE, HIDE_UNTIL_DUE));
 
     mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 11))).getDueDate(), local);
 
-    assertEquals(
-        new DateTime(2016, 3, 11).getMillis(),
-        local.getHideUntil().longValue());
+    assertEquals(new DateTime(2016, 3, 11).getMillis(), local.getHideUntil().longValue());
   }
 
   @Test
   public void testDueDateAdjustHideForwards() {
-    Task local = newTask(with(DUE_DATE, new DateTime(2016, 3, 12)),
-        with(HIDE_TYPE, HIDE_UNTIL_DUE));
+    Task local =
+        newTask(with(DUE_DATE, new DateTime(2016, 3, 12)), with(HIDE_TYPE, HIDE_UNTIL_DUE));
 
     mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 14))).getDueDate(), local);
 
-    assertEquals(
-        new DateTime(2016, 3, 14).getMillis(),
-        local.getHideUntil().longValue());
+    assertEquals(new DateTime(2016, 3, 14).getMillis(), local.getHideUntil().longValue());
   }
 
   @Test
   public void testDueTimeAdjustHideBackwards() {
-    Task local = newTask(with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
-        with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
+    Task local =
+        newTask(
+            with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
+            with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
 
     mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 11))).getDueDate(), local);
 
     assertEquals(
-        new DateTime(2016, 3, 11, 13, 30, 1).getMillis(),
-        local.getHideUntil().longValue());
+        new DateTime(2016, 3, 11, 13, 30, 1).getMillis(), local.getHideUntil().longValue());
   }
 
   @Test
   public void testDueTimeAdjustTimeForwards() {
-    Task local = newTask(with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
-        with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
+    Task local =
+        newTask(
+            with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
+            with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
 
     mergeDates(newTask(with(DUE_DATE, new DateTime(2016, 3, 14))).getDueDate(), local);
 
     assertEquals(
-        new DateTime(2016, 3, 14, 13, 30, 1).getMillis(),
-        local.getHideUntil().longValue());
+        new DateTime(2016, 3, 14, 13, 30, 1).getMillis(), local.getHideUntil().longValue());
   }
 
   @Test
   public void testDueDateClearHide() {
-    Task local = newTask(with(DUE_DATE, new DateTime(2016, 3, 12)),
-        with(HIDE_TYPE, HIDE_UNTIL_DUE));
+    Task local =
+        newTask(with(DUE_DATE, new DateTime(2016, 3, 12)), with(HIDE_TYPE, HIDE_UNTIL_DUE));
 
     mergeDates(newTask().getDueDate(), local);
 
@@ -101,8 +95,10 @@ public class GoogleTaskSynchronizerTest {
 
   @Test
   public void testDueTimeClearHide() {
-    Task local = newTask(with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
-        with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
+    Task local =
+        newTask(
+            with(DUE_TIME, new DateTime(2016, 3, 12, 13, 30)),
+            with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME));
 
     mergeDates(newTask().getDueDate(), local);
 

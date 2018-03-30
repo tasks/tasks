@@ -53,8 +53,8 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
       }
       long eventId = Long.parseLong(uriString.substring(pathIndex));
       if (eventId > 0) {
-        boolean fromPostpone = CalendarNotificationIntentService.URI_PREFIX_POSTPONE
-            .equals(data.getScheme());
+        boolean fromPostpone =
+            CalendarNotificationIntentService.URI_PREFIX_POSTPONE.equals(data.getScheme());
         showCalReminder(context, eventId, fromPostpone);
       }
     } catch (IllegalArgumentException e) {

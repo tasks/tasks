@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
- * <p>
- * See the file "LICENSE" for the full license governing this code.
+ *
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.service;
 
 import static junit.framework.Assert.assertEquals;
@@ -60,24 +59,22 @@ public class TitleParserTest extends InjectingTestCase {
     assertEquals(task.getRecurrence(), nothing.getRecurrence());
   }
 
-  /**
-   * Tests correct date is parsed
-   **/
+  /** Tests correct date is parsed */
   @Test
   public void testMonthDate() {
     String[] titleMonthStrings = {
-        "Jan.", "January",
-        "Feb.", "February",
-        "Mar.", "March",
-        "Apr.", "April",
-        "May", "May",
-        "Jun.", "June",
-        "Jul.", "July",
-        "Aug.", "August",
-        "Sep.", "September",
-        "Oct.", "October",
-        "Nov.", "November",
-        "Dec.", "December"
+      "Jan.", "January",
+      "Feb.", "February",
+      "Mar.", "March",
+      "Apr.", "April",
+      "May", "May",
+      "Jun.", "June",
+      "Jul.", "July",
+      "Aug.", "August",
+      "Sep.", "September",
+      "Oct.", "October",
+      "Nov.", "November",
+      "Dec.", "December"
     };
     for (int i = 0; i < 23; i++) {
       String testTitle = "Jog on " + titleMonthStrings[i] + " 12.";
@@ -138,11 +135,7 @@ public class TitleParserTest extends InjectingTestCase {
 
   @Test
   public void test_several_forms_of_eight() {
-    String[] testTitles = {
-        "Jog 8 AM",
-        "Jog 8 o'clock AM",
-        "at 8:00 AM"
-    };
+    String[] testTitles = {"Jog 8 AM", "Jog 8 o'clock AM", "at 8:00 AM"};
     for (String testTitle : testTitles) {
       Task task = insertTitleAddTask(testTitle);
       DateTime date = newDateTime(task.getDueDate());
@@ -154,11 +147,7 @@ public class TitleParserTest extends InjectingTestCase {
   @Test
   public void test_several_forms_of_1230PM() {
     String[] testTitles = {
-        "Jog 12:30 PM",
-        "at 12:30 PM",
-        "Do something on 12:30 PM",
-        "Jog at 12:30 PM Friday"
-
+      "Jog 12:30 PM", "at 12:30 PM", "Do something on 12:30 PM", "Jog at 12:30 PM Friday"
     };
     for (String testTitle : testTitles) {
       Task task = insertTitleAddTask(testTitle);
@@ -172,7 +161,6 @@ public class TitleParserTest extends InjectingTestCase {
     return taskCreator.createWithValues(null, title);
   }
 
-
   // ----------------Days begin----------------//
   @Test
   public void testDays() {
@@ -182,7 +170,7 @@ public class TitleParserTest extends InjectingTestCase {
     Task task = taskCreator.createWithValues(null, title);
     DateTime date = newDateTime(task.getDueDate());
     assertEquals(date.getDayOfWeek(), today.get(Calendar.DAY_OF_WEEK));
-    //Calendar starts 1-6, date.getDay() starts at 0
+    // Calendar starts 1-6, date.getDay() starts at 0
 
     title = "Jog tomorrow";
     task = taskCreator.createWithValues(null, title);
@@ -190,23 +178,9 @@ public class TitleParserTest extends InjectingTestCase {
     assertEquals((date.getDayOfWeek()) % 7, (today.get(Calendar.DAY_OF_WEEK) + 1) % 7);
 
     String[] days = {
-        "sunday",
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
+      "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday",
     };
-    String[] abrevDays = {
-        "sun.",
-        "mon.",
-        "tue.",
-        "wed.",
-        "thu.",
-        "fri.",
-        "sat."
-    };
+    String[] abrevDays = {"sun.", "mon.", "tue.", "wed.", "thu.", "fri.", "sat."};
 
     for (int i = 1; i <= 6; i++) {
       title = "Jog " + days[i];
@@ -219,24 +193,16 @@ public class TitleParserTest extends InjectingTestCase {
       date = newDateTime(task.getDueDate());
       assertEquals(date.getDayOfWeek(), i + 1);
     }
-
   }
 
-  //----------------Days end----------------//
+  // ----------------Days end----------------//
 
-  //----------------Priority begin----------------//
+  // ----------------Priority begin----------------//
 
-  /**
-   * tests all words using priority 0
-   */
+  /** tests all words using priority 0 */
   @Test
   public void testPriority0() {
-    String[] acceptedStrings = {
-        "priority 0",
-        "least priority",
-        "lowest priority",
-        "bang 0"
-    };
+    String[] acceptedStrings = {"priority 0", "least priority", "lowest priority", "bang 0"};
     for (String acceptedString : acceptedStrings) {
       String title = "Jog " + acceptedString;
       Task task = taskCreator.createWithValues(null, title);
@@ -251,50 +217,39 @@ public class TitleParserTest extends InjectingTestCase {
 
   @Test
   public void testPriority1() {
-    String[] acceptedStringsAtEnd = {
-        "priority 1",
-        "low priority",
-        "bang",
-        "bang 1"
-    };
-    String[] acceptedStringsAnywhere = {
-        "!1",
-        "!"
-    };
+    String[] acceptedStringsAtEnd = {"priority 1", "low priority", "bang", "bang 1"};
+    String[] acceptedStringsAnywhere = {"!1", "!"};
     Task task;
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
-      task = taskCreator.basicQuickAddTask(
-          "Jog " + acceptedStringAtEnd); //test at end of task. should set importance.
+      task =
+          taskCreator.basicQuickAddTask(
+              "Jog " + acceptedStringAtEnd); // test at end of task. should set importance.
       assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
     }
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
-      task = taskCreator.basicQuickAddTask(
-          acceptedStringAtEnd + " jog"); //test at beginning of task. should not set importance.
+      task =
+          taskCreator.basicQuickAddTask(
+              acceptedStringAtEnd
+                  + " jog"); // test at beginning of task. should not set importance.
       assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
     }
     for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
-      task = taskCreator.basicQuickAddTask(
-          "Jog " + acceptedStringAnywhere); //test at end of task. should set importance.
+      task =
+          taskCreator.basicQuickAddTask(
+              "Jog " + acceptedStringAnywhere); // test at end of task. should set importance.
       assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
 
-      task = taskCreator.basicQuickAddTask(
-          acceptedStringAnywhere + " jog"); //test at beginning of task. should set importance.
+      task =
+          taskCreator.basicQuickAddTask(
+              acceptedStringAnywhere + " jog"); // test at beginning of task. should set importance.
       assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
     }
   }
 
   @Test
   public void testPriority2() {
-    String[] acceptedStringsAtEnd = {
-        "priority 2",
-        "high priority",
-        "bang bang",
-        "bang 2"
-    };
-    String[] acceptedStringsAnywhere = {
-        "!2",
-        "!!"
-    };
+    String[] acceptedStringsAtEnd = {"priority 2", "high priority", "bang bang", "bang 2"};
+    String[] acceptedStringsAnywhere = {"!2", "!!"};
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
       String title = "Jog " + acceptedStringAtEnd;
       Task task = taskCreator.createWithValues(null, title);
@@ -318,18 +273,13 @@ public class TitleParserTest extends InjectingTestCase {
   @Test
   public void testPriority3() {
     String[] acceptedStringsAtEnd = {
-        "priority 3",
-        "highest priority",
-        "bang bang bang",
-        "bang 3",
-        "bang bang bang bang bang bang bang"
+      "priority 3",
+      "highest priority",
+      "bang bang bang",
+      "bang 3",
+      "bang bang bang bang bang bang bang"
     };
-    String[] acceptedStringsAnywhere = {
-        "!3",
-        "!!!",
-        "!6",
-        "!!!!!!!!!!!!!"
-    };
+    String[] acceptedStringsAnywhere = {"!3", "!!!", "!6", "!!!!!!!!!!!!!"};
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
       String title = "Jog " + acceptedStringAtEnd;
       Task task = taskCreator.createWithValues(null, title);
@@ -350,13 +300,11 @@ public class TitleParserTest extends InjectingTestCase {
     }
   }
 
-  //----------------Priority end----------------//
+  // ----------------Priority end----------------//
 
-  //----------------Repeats begin----------------//
+  // ----------------Repeats begin----------------//
 
-  /**
-   * test daily repeat from due date, but with no due date set
-   */
+  /** test daily repeat from due date, but with no due date set */
   @Test
   public void testDailyWithNoDueDate() {
     String title = "Jog daily";
@@ -382,12 +330,9 @@ public class TitleParserTest extends InjectingTestCase {
       assertFalse(task.hasDueTime());
       assertFalse(task.hasDueDate());
     }
-
   }
 
-  /**
-   * test weekly repeat from due date, with no due date & time set
-   */
+  /** test weekly repeat from due date, with no due date & time set */
   @Test
   public void testWeeklyWithNoDueDate() {
     String title = "Jog weekly";
@@ -415,9 +360,7 @@ public class TitleParserTest extends InjectingTestCase {
     }
   }
 
-  /**
-   * test hourly repeat from due date, with no due date but no time
-   */
+  /** test hourly repeat from due date, with no due date but no time */
   @Test
   public void testMonthlyFromNoDueDate() {
     String title = "Jog monthly";
@@ -493,25 +436,18 @@ public class TitleParserTest extends InjectingTestCase {
     }
   }
 
-//----------------Repeats end----------------//
+  // ----------------Repeats end----------------//
 
-  //----------------Tags begin----------------//
+  // ----------------Tags begin----------------//
 
-  /**
-   * tests all words using priority 0
-   */
+  /** tests all words using priority 0 */
   @Test
   public void testTagsPound() {
-    String[] acceptedStrings = {
-        "#tag",
-        "#a",
-        "#(a cool tag)",
-        "#(cool)"
-    };
+    String[] acceptedStrings = {"#tag", "#a", "#(a cool tag)", "#(cool)"};
     Task task;
     for (String acceptedString : acceptedStrings) {
       task = new Task();
-      task.setTitle("Jog " + acceptedString); //test at end of task. should set importance.
+      task.setTitle("Jog " + acceptedString); // test at end of task. should set importance.
       ArrayList<String> tags = new ArrayList<>();
       TitleParser.listHelper(tagService, task, tags);
       String tag = TitleParser.trimParenthesis(acceptedString);
@@ -521,21 +457,14 @@ public class TitleParserTest extends InjectingTestCase {
     }
   }
 
-  /**
-   * tests all words using priority 0
-   */
+  /** tests all words using priority 0 */
   @Test
   public void testTagsAt() {
-    String[] acceptedStrings = {
-        "@tag",
-        "@a",
-        "@(a cool tag)",
-        "@(cool)"
-    };
+    String[] acceptedStrings = {"@tag", "@a", "@(a cool tag)", "@(cool)"};
     Task task;
     for (String acceptedString : acceptedStrings) {
       task = new Task();
-      task.setTitle("Jog " + acceptedString); //test at end of task. should set importance.
+      task.setTitle("Jog " + acceptedString); // test at end of task. should set importance.
       ArrayList<String> tags = new ArrayList<>();
       TitleParser.listHelper(tagService, task, tags);
       String tag = TitleParser.trimParenthesis(acceptedString);

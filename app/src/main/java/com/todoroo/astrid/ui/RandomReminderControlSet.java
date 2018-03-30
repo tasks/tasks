@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
@@ -28,23 +27,24 @@ class RandomReminderControlSet {
     Spinner periodSpinner = parentView.findViewById(R.id.reminder_random_interval);
     periodSpinner.setVisibility(View.VISIBLE);
     // create adapter
-    ArrayAdapter<String> adapter = new ArrayAdapter<>(
-        context, android.R.layout.simple_spinner_item,
-        context.getResources().getStringArray(R.array.TEA_reminder_random));
+    ArrayAdapter<String> adapter =
+        new ArrayAdapter<>(
+            context,
+            android.R.layout.simple_spinner_item,
+            context.getResources().getStringArray(R.array.TEA_reminder_random));
     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     periodSpinner.setAdapter(adapter);
 
-    periodSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-      @Override
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedIndex = position;
-      }
+    periodSpinner.setOnItemSelectedListener(
+        new AdapterView.OnItemSelectedListener() {
+          @Override
+          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            selectedIndex = position;
+          }
 
-      @Override
-      public void onNothingSelected(AdapterView<?> parent) {
-
-      }
-    });
+          @Override
+          public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
     // create hour array
     String[] hourStrings = context.getResources().getStringArray(R.array.TEA_reminder_random_hours);

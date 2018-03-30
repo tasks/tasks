@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
@@ -57,7 +56,11 @@ public class Field extends DBObject<Field> {
 
       @Override
       protected void populate(StringBuilder sb) {
-        sb.append(field).append(SPACE).append(Operator.in).append(SPACE).append(LEFT_PARENTHESIS)
+        sb.append(field)
+            .append(SPACE)
+            .append(Operator.in)
+            .append(SPACE)
+            .append(LEFT_PARENTHESIS)
             .append(SPACE);
         for (T t : value) {
           sb.append(t.toString()).append(COMMA);
@@ -73,7 +76,11 @@ public class Field extends DBObject<Field> {
 
       @Override
       protected void populate(StringBuilder sb) {
-        sb.append(field).append(SPACE).append(Operator.in).append(SPACE).append(LEFT_PARENTHESIS)
+        sb.append(field)
+            .append(SPACE)
+            .append(Operator.in)
+            .append(SPACE)
+            .append(LEFT_PARENTHESIS)
             .append(query)
             .append(RIGHT_PARENTHESIS);
       }

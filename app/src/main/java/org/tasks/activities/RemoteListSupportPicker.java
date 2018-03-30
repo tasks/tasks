@@ -33,22 +33,29 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
     return dialog;
   }
 
-  public static AlertDialog createDialog(FilterAdapter filterAdapter, DialogBuilder dialogBuilder,
-      Filter selected, RemoteListSelectionHandler handler) {
+  public static AlertDialog createDialog(
+      FilterAdapter filterAdapter,
+      DialogBuilder dialogBuilder,
+      Filter selected,
+      RemoteListSelectionHandler handler) {
     filterAdapter.populateRemoteListPicker();
     int selectedIndex = selected == null ? 0 : filterAdapter.indexOf(selected);
-    return dialogBuilder.newDialog()
-        .setSingleChoiceItems(filterAdapter, selectedIndex, (dialog, which) -> {
-          if (which == 0) {
-            handler.selectedList(null);
-          } else {
-            FilterListItem item = filterAdapter.getItem(which);
-            if (item instanceof GtasksFilter || item instanceof CaldavFilter) {
-              handler.selectedList((Filter) item);
-            }
-          }
-          dialog.dismiss();
-        })
+    return dialogBuilder
+        .newDialog()
+        .setSingleChoiceItems(
+            filterAdapter,
+            selectedIndex,
+            (dialog, which) -> {
+              if (which == 0) {
+                handler.selectedList(null);
+              } else {
+                FilterListItem item = filterAdapter.getItem(which);
+                if (item instanceof GtasksFilter || item instanceof CaldavFilter) {
+                  handler.selectedList((Filter) item);
+                }
+              }
+              dialog.dismiss();
+            })
         .show();
   }
 

@@ -7,5 +7,4 @@ interface SnoozeCallback {
   void snoozeForTime(DateTime time);
 
   void pickDateTime();
-
 }

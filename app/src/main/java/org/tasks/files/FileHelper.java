@@ -22,8 +22,7 @@ public class FileHelper {
     Cursor cursor = activity.managedQuery(uri, projection, null, null, null);
 
     if (cursor != null) {
-      int column_index = cursor
-          .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+      int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
       cursor.moveToFirst();
       return cursor.getString(column_index);
     } else {
@@ -33,8 +32,8 @@ public class FileHelper {
 
   public static Intent getReadableActionView(Context context, String path, String type) {
     Intent intent = new Intent(Intent.ACTION_VIEW);
-    Uri uri = FileProvider
-        .getUriForFile(context, Constants.FILE_PROVIDER_AUTHORITY, new File(path));
+    Uri uri =
+        FileProvider.getUriForFile(context, Constants.FILE_PROVIDER_AUTHORITY, new File(path));
     intent.setDataAndType(uri, type);
     grantReadPermissions(context, intent, uri);
     return intent;
@@ -47,13 +46,13 @@ public class FileHelper {
       if (atLeastLollipop()) {
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
       } else {
-        List<ResolveInfo> resolveInfoList = context.getPackageManager()
-            .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        List<ResolveInfo> resolveInfoList =
+            context
+                .getPackageManager()
+                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         for (ResolveInfo resolveInfo : resolveInfoList) {
           context.grantUriPermission(
-              resolveInfo.activityInfo.packageName,
-              uri,
-              Intent.FLAG_GRANT_READ_URI_PERMISSION);
+              resolveInfo.activityInfo.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
       }
     }

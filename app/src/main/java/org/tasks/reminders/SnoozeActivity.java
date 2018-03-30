@@ -16,8 +16,8 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.time.DateTime;
 
-public class SnoozeActivity extends InjectingAppCompatActivity implements SnoozeCallback,
-    DialogInterface.OnCancelListener {
+public class SnoozeActivity extends InjectingAppCompatActivity
+    implements SnoozeCallback, DialogInterface.OnCancelListener {
 
   public static final String EXTRA_TASK_ID = "id";
   public static final String EXTRA_TASK_IDS = "ids";
@@ -25,11 +25,10 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
   private static final String FRAG_TAG_SNOOZE_DIALOG = "frag_tag_snooze_dialog";
   private static final String EXTRA_PICKING_DATE_TIME = "extra_picking_date_time";
   private static final int REQUEST_DATE_TIME = 10101;
+  private final List<Long> taskIds = new ArrayList<>();
   @Inject NotificationManager notificationManager;
   @Inject TaskDao taskDao;
   @Inject ReminderService reminderService;
-
-  private final List<Long> taskIds = new ArrayList<>();
   private boolean pickingDateTime;
 
   @Override
@@ -70,8 +69,8 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
       snoozeForTime(new DateTime(intent.getLongExtra(EXTRA_SNOOZE_TIME, 0L)));
     } else {
       FragmentManager fragmentManager = getSupportFragmentManager();
-      SnoozeDialog fragmentByTag = (SnoozeDialog) fragmentManager
-          .findFragmentByTag(FRAG_TAG_SNOOZE_DIALOG);
+      SnoozeDialog fragmentByTag =
+          (SnoozeDialog) fragmentManager.findFragmentByTag(FRAG_TAG_SNOOZE_DIALOG);
       if (fragmentByTag == null) {
         fragmentByTag = new SnoozeDialog();
         fragmentByTag.show(fragmentManager, FRAG_TAG_SNOOZE_DIALOG);
@@ -101,8 +100,8 @@ public class SnoozeActivity extends InjectingAppCompatActivity implements Snooze
     pickingDateTime = true;
 
     Intent intent = new Intent(this, DateAndTimePickerActivity.class);
-    intent.putExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP,
-        new DateTime().plusMinutes(30).getMillis());
+    intent.putExtra(
+        DateAndTimePickerActivity.EXTRA_TIMESTAMP, new DateTime().plusMinutes(30).getMillis());
     startActivityForResult(intent, REQUEST_DATE_TIME);
   }
 

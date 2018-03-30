@@ -57,8 +57,7 @@ public class ApplicationModule {
   @Provides
   @ApplicationScope
   public Database getAppDatabase(Tracker tracker) {
-    return Room
-        .databaseBuilder(context, Database.class, Database.NAME)
+    return Room.databaseBuilder(context, Database.class, Database.NAME)
         .allowMainThreadQueries() // TODO: remove me
         .addMigrations(Migrations.MIGRATIONS)
         .build()

@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.files;
 
 import static org.tasks.PermissionUtil.verifyPermissions;
@@ -21,10 +20,10 @@ import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.themes.Theme;
 
-public class AACRecordingActivity extends InjectingAppCompatActivity implements
-    RecordAudioDialog.RecordAudioDialogCallback {
+public class AACRecordingActivity extends InjectingAppCompatActivity
+    implements RecordAudioDialog.RecordAudioDialogCallback {
 
-  public static final String RESULT_OUTFILE = "outfile"; //$NON-NLS-1$
+  public static final String RESULT_OUTFILE = "outfile"; // $NON-NLS-1$
   private static final String FRAG_TAG_RECORD_AUDIO = "frag_tag_record_audio";
   @Inject ActivityPermissionRequestor permissionRequestor;
   @Inject Theme theme;
@@ -41,8 +40,8 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements
 
   private void showDialog() {
     FragmentManager supportFragmentManager = getSupportFragmentManager();
-    RecordAudioDialog dialog = (RecordAudioDialog) supportFragmentManager
-        .findFragmentByTag(FRAG_TAG_RECORD_AUDIO);
+    RecordAudioDialog dialog =
+        (RecordAudioDialog) supportFragmentManager.findFragmentByTag(FRAG_TAG_RECORD_AUDIO);
     if (dialog == null) {
       dialog = newRecordAudioDialog();
       dialog.show(supportFragmentManager, FRAG_TAG_RECORD_AUDIO);
@@ -55,8 +54,8 @@ public class AACRecordingActivity extends InjectingAppCompatActivity implements
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == PermissionRequestor.REQUEST_MIC) {
       if (verifyPermissions(grantResults)) {
         showDialog();

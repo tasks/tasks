@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.core;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -53,8 +52,8 @@ public final class CustomFilterExposer {
 
     sql = sql.replace("tasks.userId=0", "1"); // TODO: replace dirty hack for missing column
 
-    CustomFilter customFilter = new CustomFilter(title, sql, values, savedFilter.getId(),
-        savedFilter.getCriterion());
+    CustomFilter customFilter =
+        new CustomFilter(title, sql, values, savedFilter.getId(), savedFilter.getCriterion());
     customFilter.icon = filter;
     return customFilter;
   }

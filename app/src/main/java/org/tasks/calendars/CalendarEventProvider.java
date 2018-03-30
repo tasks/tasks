@@ -21,11 +21,11 @@ import timber.log.Timber;
 public class CalendarEventProvider {
 
   private static final String[] COLUMNS = {
-      _ID,
-      CalendarContract.Events.DTSTART,
-      CalendarContract.Events.DTEND,
-      CalendarContract.Events.TITLE,
-      CalendarContract.Events.CALENDAR_ID
+    _ID,
+    CalendarContract.Events.DTSTART,
+    CalendarContract.Events.DTEND,
+    CalendarContract.Events.TITLE,
+    CalendarContract.Events.CALENDAR_ID
   };
 
   private final ContentResolver contentResolver;
@@ -33,7 +33,9 @@ public class CalendarEventProvider {
   private final CalendarEventAttendeeProvider calendarEventAttendeeProvider;
 
   @Inject
-  public CalendarEventProvider(@ForApplication Context context, PermissionChecker permissionChecker,
+  public CalendarEventProvider(
+      @ForApplication Context context,
+      PermissionChecker permissionChecker,
       CalendarEventAttendeeProvider calendarEventAttendeeProvider) {
     this.permissionChecker = permissionChecker;
     this.calendarEventAttendeeProvider = calendarEventAttendeeProvider;
@@ -42,8 +44,11 @@ public class CalendarEventProvider {
 
   @Nullable
   public AndroidCalendarEvent getEvent(long eventId) {
-    List<AndroidCalendarEvent> events = getCalendarEvents(CalendarContract.Events.CONTENT_URI,
-        _ID + " = ?", new String[]{Long.toString(eventId)});
+    List<AndroidCalendarEvent> events =
+        getCalendarEvents(
+            CalendarContract.Events.CONTENT_URI,
+            _ID + " = ?",
+            new String[] {Long.toString(eventId)});
     return events.isEmpty() ? null : events.get(0);
   }
 
@@ -81,11 +86,11 @@ public class CalendarEventProvider {
     return getCalendarEvents(
         CalendarContract.Events.CONTENT_URI,
         CalendarContract.Events.DTSTART + " > ? AND " + CalendarContract.Events.DTSTART + " < ?",
-        new String[]{Long.toString(start), Long.toString(end)});
+        new String[] {Long.toString(start), Long.toString(end)});
   }
 
-  private List<AndroidCalendarEvent> getCalendarEvents(Uri uri, String selection,
-      String[] selectionArgs) {
+  private List<AndroidCalendarEvent> getCalendarEvents(
+      Uri uri, String selection, String[] selectionArgs) {
     if (!permissionChecker.canAccessCalendars()) {
       return Collections.emptyList();
     }
@@ -102,13 +107,14 @@ public class CalendarEventProvider {
         int calendarIdIndex = cursor.getColumnIndexOrThrow(CalendarContract.Events.CALENDAR_ID);
         while (cursor.moveToNext()) {
           long id = cursor.getLong(idIndex);
-          events.add(new AndroidCalendarEvent(
-              id,
-              cursor.getString(titleIndex),
-              cursor.getLong(startIndex),
-              cursor.getLong(endIndex),
-              cursor.getInt(calendarIdIndex),
-              calendarEventAttendeeProvider.getAttendees(id)));
+          events.add(
+              new AndroidCalendarEvent(
+                  id,
+                  cursor.getString(titleIndex),
+                  cursor.getLong(startIndex),
+                  cursor.getLong(endIndex),
+                  cursor.getInt(calendarIdIndex),
+                  calendarEventAttendeeProvider.getAttendees(id)));
         }
       }
     } catch (Exception e) {

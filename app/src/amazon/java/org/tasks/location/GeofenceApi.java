@@ -8,19 +8,11 @@ import org.tasks.data.Location;
 public class GeofenceApi {
 
   @Inject
-  public GeofenceApi() {
+  public GeofenceApi() {}
 
-  }
+  public void register(List<Location> activeGeofences) {}
 
-  public void register(List<Location> activeGeofences) {
+  public void cancel(Location geofence) {}
 
-  }
-
-  public void cancel(Location geofence) {
-
-  }
-
-  public void cancel(List<Location> geofences) {
-
-  }
+  public void cancel(List<Location> geofences) {}
 }

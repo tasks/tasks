@@ -19,11 +19,11 @@ public class GoogleTasksUnsuccessfulResponseHandler implements HttpUnsuccessfulR
 
   private final PlayServices playServices;
   private final GoogleAccountCredential googleAccountCredential;
-  private final HttpBackOffUnsuccessfulResponseHandler backoffHandler = new HttpBackOffUnsuccessfulResponseHandler(
-      BACKOFF);
+  private final HttpBackOffUnsuccessfulResponseHandler backoffHandler =
+      new HttpBackOffUnsuccessfulResponseHandler(BACKOFF);
 
-  public GoogleTasksUnsuccessfulResponseHandler(PlayServices playServices,
-      GoogleAccountCredential googleAccountCredential) {
+  public GoogleTasksUnsuccessfulResponseHandler(
+      PlayServices playServices, GoogleAccountCredential googleAccountCredential) {
     this.playServices = playServices;
     this.googleAccountCredential = googleAccountCredential;
   }

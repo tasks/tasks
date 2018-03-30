@@ -13,9 +13,8 @@ public abstract class InjectingNativeDialogFragment extends DialogFragment {
     super.onAttach(activity);
 
     if (!injected) {
-      inject(((InjectingActivity) activity)
-          .getComponent()
-          .plus(new NativeDialogFragmentModule(this)));
+      inject(
+          ((InjectingActivity) activity).getComponent().plus(new NativeDialogFragmentModule(this)));
       injected = true;
     }
   }

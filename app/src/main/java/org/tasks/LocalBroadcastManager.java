@@ -47,9 +47,9 @@ public class LocalBroadcastManager {
 
   /**
    * Action name for broadcast intent notifying that task was created from repeating template
-   * <li> EXTRAS_TASK_ID id of the task
-   * <li> EXTRAS_OLD_DUE_DATE task old due date (could be 0)
-   * <li> EXTRAS_NEW_DUE_DATE task new due date (will not be 0)
+   * <li>EXTRAS_TASK_ID id of the task
+   * <li>EXTRAS_OLD_DUE_DATE task old due date (could be 0)
+   * <li>EXTRAS_NEW_DUE_DATE task new due date (will not be 0)
    */
   public void broadcastRepeat(long id, long oldDueDate, long newDueDate) {
     Intent intent = new Intent(REPEAT);

@@ -26,10 +26,15 @@ public class AndroidCalendar {
 
   @Override
   public String toString() {
-    return "AndroidCalendar{" +
-        "id='" + id + '\'' +
-        ", name='" + name + '\'' +
-        ", color=" + color +
-        '}';
+    return "AndroidCalendar{"
+        + "id='"
+        + id
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", color="
+        + color
+        + '}';
   }
 }

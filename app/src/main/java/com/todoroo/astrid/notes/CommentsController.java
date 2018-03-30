@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.notes;
 
 import static android.support.v4.content.ContextCompat.getColor;
@@ -46,32 +45,35 @@ public class CommentsController {
   private ViewGroup commentsContainer;
 
   @Inject
-  public CommentsController(UserActivityDao userActivityDao, Activity activity,
-      Preferences preferences) {
+  public CommentsController(
+      UserActivityDao userActivityDao, Activity activity, Preferences preferences) {
     this.userActivityDao = userActivityDao;
     this.activity = activity;
     this.preferences = preferences;
   }
 
-  private static void setupImagePopupForCommentView(View view, ImageView commentPictureView,
-      final Uri updateBitmap,
-      final Activity activity) {
+  private static void setupImagePopupForCommentView(
+      View view, ImageView commentPictureView, final Uri updateBitmap, final Activity activity) {
     if (updateBitmap != null) {
       commentPictureView.setVisibility(View.VISIBLE);
       String path = getPathFromUri(activity, updateBitmap);
       commentPictureView.setImageBitmap(
-          sampleBitmap(path, commentPictureView.getLayoutParams().width,
+          sampleBitmap(
+              path,
+              commentPictureView.getLayoutParams().width,
               commentPictureView.getLayoutParams().height));
 
-      view.setOnClickListener(v -> {
-        File file = new File(updateBitmap.getPath());
-        Uri uri = FileProvider
-            .getUriForFile(activity, Constants.FILE_PROVIDER_AUTHORITY, file.getAbsoluteFile());
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(uri, "image/*");
-        FileHelper.grantReadPermissions(activity, intent, uri);
-        activity.startActivity(intent);
-      });
+      view.setOnClickListener(
+          v -> {
+            File file = new File(updateBitmap.getPath());
+            Uri uri =
+                FileProvider.getUriForFile(
+                    activity, Constants.FILE_PROVIDER_AUTHORITY, file.getAbsoluteFile());
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, "image/*");
+            FileHelper.grantReadPermissions(activity, intent, uri);
+            activity.startActivity(intent);
+          });
     } else {
       commentPictureView.setVisibility(View.GONE);
     }
@@ -102,25 +104,24 @@ public class CommentsController {
       loadMore.setText(R.string.TEA_load_more);
       loadMore.setTextColor(getColor(activity, R.color.text_secondary));
       loadMore.setBackgroundColor(Color.alpha(0));
-      loadMore.setOnClickListener(v -> {
-        // Perform action on click
-        commentItems += 10;
-        reloadView();
-      });
+      loadMore.setOnClickListener(
+          v -> {
+            // Perform action on click
+            commentItems += 10;
+            reloadView();
+          });
       commentsContainer.addView(loadMore);
     }
   }
 
   private View getUpdateNotes(UserActivity userActivity, ViewGroup parent) {
-    View convertView = activity.getLayoutInflater()
-        .inflate(R.layout.comment_adapter_row, parent, false);
+    View convertView =
+        activity.getLayoutInflater().inflate(R.layout.comment_adapter_row, parent, false);
     bindView(convertView, userActivity);
     return convertView;
   }
 
-  /**
-   * Helper method to set the contents and visibility of each field
-   */
+  /** Helper method to set the contents and visibility of each field */
   private void bindView(View view, UserActivity item) {
     // name
     final TextView nameView = view.findViewById(R.id.title);

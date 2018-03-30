@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks;
 
 import android.text.TextUtils;
@@ -36,8 +35,8 @@ class OrderedMetadataListFragmentHelper {
   private GoogleTaskList list;
 
   @Inject
-  OrderedMetadataListFragmentHelper(TaskDao taskDao, GtasksTaskListUpdater updater,
-      GoogleTaskDao googleTaskDao) {
+  OrderedMetadataListFragmentHelper(
+      TaskDao taskDao, GtasksTaskListUpdater updater, GoogleTaskDao googleTaskDao) {
     this.taskDao = taskDao;
     this.updater = updater;
     this.googleTaskDao = googleTaskDao;
@@ -79,18 +78,21 @@ class OrderedMetadataListFragmentHelper {
 
     final ArrayList<Long> chained = new ArrayList<>();
     final int parentIndent = item.getIndent();
-    updater.applyToChildren(list, itemId, node -> {
-      Task childTask = taskDao.fetch(node.taskId);
-      if (!TextUtils.isEmpty(childTask.getRecurrence())) {
-        GoogleTask googleTask = updater.getTaskMetadata(node.taskId);
-        googleTask.setIndent(parentIndent);
-        googleTaskDao.update(googleTask);
-      }
-      childTask.setCompletionDate(completionDate);
-      taskDao.save(childTask);
+    updater.applyToChildren(
+        list,
+        itemId,
+        node -> {
+          Task childTask = taskDao.fetch(node.taskId);
+          if (!TextUtils.isEmpty(childTask.getRecurrence())) {
+            GoogleTask googleTask = updater.getTaskMetadata(node.taskId);
+            googleTask.setIndent(parentIndent);
+            googleTaskDao.update(googleTask);
+          }
+          childTask.setCompletionDate(completionDate);
+          taskDao.save(childTask);
 
-      chained.add(node.taskId);
-    });
+          chained.add(node.taskId);
+        });
 
     if (chained.size() > 0) {
       chainedCompletions.put(itemId, chained);
@@ -129,7 +131,8 @@ class OrderedMetadataListFragmentHelper {
     public void moved(int from, int to) {
       long targetTaskId = taskAdapter.getTaskId(from);
       if (targetTaskId <= 0) {
-        return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+        return; // This can happen with gestures on empty parts of the list (e.g. extra space below
+        // tasks)
       }
 
       try {
@@ -148,7 +151,8 @@ class OrderedMetadataListFragmentHelper {
     public void indented(int which, int delta) {
       long targetTaskId = taskAdapter.getTaskId(which);
       if (targetTaskId <= 0) {
-        return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+        return; // This can happen with gestures on empty parts of the list (e.g. extra space below
+        // tasks)
       }
       try {
         updater.indent(list, targetTaskId, delta);

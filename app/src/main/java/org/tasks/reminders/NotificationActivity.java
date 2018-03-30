@@ -12,8 +12,8 @@ import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.receivers.CompleteTaskReceiver;
 
-public class NotificationActivity extends InjectingAppCompatActivity implements
-    NotificationDialog.NotificationHandler {
+public class NotificationActivity extends InjectingAppCompatActivity
+    implements NotificationDialog.NotificationHandler {
 
   public static final String EXTRA_TITLE = "extra_title";
   public static final String EXTRA_TASK_ID = "extra_task_id";
@@ -46,8 +46,8 @@ public class NotificationActivity extends InjectingAppCompatActivity implements
     taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L);
 
     FragmentManager fragmentManager = getSupportFragmentManager();
-    NotificationDialog fragment = (NotificationDialog) fragmentManager
-        .findFragmentByTag(FRAG_TAG_NOTIFICATION_FRAGMENT);
+    NotificationDialog fragment =
+        (NotificationDialog) fragmentManager.findFragmentByTag(FRAG_TAG_NOTIFICATION_FRAGMENT);
     if (fragment == null) {
       fragment = new NotificationDialog();
       fragment.show(fragmentManager, FRAG_TAG_NOTIFICATION_FRAGMENT);
@@ -62,9 +62,7 @@ public class NotificationActivity extends InjectingAppCompatActivity implements
 
   @Override
   public void edit() {
-    TaskIntents
-        .getEditTaskStack(this, null, taskId)
-        .startActivities();
+    TaskIntents.getEditTaskStack(this, null, taskId).startActivities();
     notificationManager.cancel(taskId);
     finish();
   }

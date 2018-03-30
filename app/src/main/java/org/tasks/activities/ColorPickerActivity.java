@@ -15,8 +15,8 @@ import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 
-public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implements
-    ColorPickerDialog.ThemePickerCallback, PurchaseHelperCallback {
+public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
+    implements ColorPickerDialog.ThemePickerCallback, PurchaseHelperCallback {
 
   public static final String EXTRA_PALETTE = "extra_palette";
   public static final String EXTRA_SHOW_NONE = "extra_show_none";
@@ -40,9 +40,10 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
     Intent intent = getIntent();
     palette = (ColorPalette) intent.getSerializableExtra(EXTRA_PALETTE);
     boolean showNone = intent.getBooleanExtra(EXTRA_SHOW_NONE, false);
-    int selected = intent.hasExtra(EXTRA_THEME_INDEX)
-        ? intent.getIntExtra(EXTRA_THEME_INDEX, -1)
-        : getCurrentSelection(palette);
+    int selected =
+        intent.hasExtra(EXTRA_THEME_INDEX)
+            ? intent.getIntExtra(EXTRA_THEME_INDEX, -1)
+            : getCurrentSelection(palette);
     newColorPickerDialog(getItems(palette), showNone, selected)
         .show(getSupportFragmentManager(), FRAG_TAG_COLOR_PICKER);
   }
@@ -78,9 +79,12 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
 
   @Override
   public void initiateThemePurchase() {
-    purchaseHelper
-        .purchase(this, getString(R.string.sku_themes), getString(R.string.p_purchased_themes),
-            REQUEST_PURCHASE, this);
+    purchaseHelper.purchase(
+        this,
+        getString(R.string.sku_themes),
+        getString(R.string.p_purchased_themes),
+        REQUEST_PURCHASE,
+        this);
   }
 
   @Override
@@ -115,5 +119,10 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity implem
     }
   }
 
-  public enum ColorPalette {THEMES, COLORS, ACCENTS, WIDGET_BACKGROUND}
+  public enum ColorPalette {
+    THEMES,
+    COLORS,
+    ACCENTS,
+    WIDGET_BACKGROUND
+  }
 }

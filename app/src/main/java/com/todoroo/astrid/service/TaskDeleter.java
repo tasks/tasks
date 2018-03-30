@@ -29,9 +29,14 @@ public class TaskDeleter {
   private final CaldavDao caldavDao;
 
   @Inject
-  public TaskDeleter(TaskDao taskDao, CalendarEventProvider calendarEventProvider,
-      AlarmDao alarmDao, LocationDao locationDao, TagDao tagDao,
-      GoogleTaskDao googleTaskDao, CaldavDao caldavDao) {
+  public TaskDeleter(
+      TaskDao taskDao,
+      CalendarEventProvider calendarEventProvider,
+      AlarmDao alarmDao,
+      LocationDao locationDao,
+      TagDao tagDao,
+      GoogleTaskDao googleTaskDao,
+      CaldavDao caldavDao) {
     this.taskDao = taskDao;
     this.calendarEventProvider = calendarEventProvider;
     this.alarmDao = alarmDao;
@@ -75,9 +80,11 @@ public class TaskDeleter {
 
   public int clearCompleted(Filter filter) {
     List<Task> completed = new ArrayList<>();
-    String query = filter.getSqlQuery()
-        .replace(isVisible().toString(), all.toString())
-        .replace(notCompleted().toString(), all.toString());
+    String query =
+        filter
+            .getSqlQuery()
+            .replace(isVisible().toString(), all.toString())
+            .replace(notCompleted().toString(), all.toString());
     for (Task task : taskDao.fetchFiltered(query)) {
       if (task.isCompleted()) {
         completed.add(task);

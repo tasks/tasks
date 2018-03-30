@@ -88,21 +88,19 @@ public class TaskTest {
 
   @Test
   public void testRemoveTimeForSpecificDay() {
-    long expected = specificDueDate
-        .withHourOfDay(12)
-        .withMinuteOfHour(0)
-        .withSecondOfMinute(0)
-        .withMillisOfSecond(0)
-        .getMillis();
+    long expected =
+        specificDueDate
+            .withHourOfDay(12)
+            .withMinuteOfHour(0)
+            .withSecondOfMinute(0)
+            .withMillisOfSecond(0)
+            .getMillis();
     assertEquals(expected, createDueDate(URGENCY_SPECIFIC_DAY, specificDueDate.getMillis()));
   }
 
   @Test
   public void testRemoveSecondsForSpecificTime() {
-    long expected = specificDueDate
-        .withSecondOfMinute(1)
-        .withMillisOfSecond(0)
-        .getMillis();
+    long expected = specificDueDate.withSecondOfMinute(1).withMillisOfSecond(0).getMillis();
     assertEquals(expected, createDueDate(URGENCY_SPECIFIC_DAY_TIME, specificDueDate.getMillis()));
   }
 
@@ -176,21 +174,29 @@ public class TaskTest {
   @Test
   public void testTaskIsNotHiddenAtHideUntilTime() {
     final long now = currentTimeMillis();
-    freezeAt(now).thawAfter(new Snippet() {{
-      Task task = new Task();
-      task.setHideUntil(now);
-      assertFalse(task.isHidden());
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                Task task = new Task();
+                task.setHideUntil(now);
+                assertFalse(task.isHidden());
+              }
+            });
   }
 
   @Test
   public void testTaskIsHiddenBeforeHideUntilTime() {
     final long now = currentTimeMillis();
-    freezeAt(now).thawAfter(new Snippet() {{
-      Task task = new Task();
-      task.setHideUntil(now + 1);
-      assertTrue(task.isHidden());
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                Task task = new Task();
+                task.setHideUntil(now + 1);
+                assertTrue(task.isHidden());
+              }
+            });
   }
 
   @Test
@@ -208,54 +214,74 @@ public class TaskTest {
   @Test
   public void testTaskNotOverdueAtDueTime() {
     final long now = currentTimeMillis();
-    freezeAt(now).thawAfter(new Snippet() {{
-      Task task = new Task();
-      task.setDueDate(now);
-      assertFalse(task.isOverdue());
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                Task task = new Task();
+                task.setDueDate(now);
+                assertFalse(task.isOverdue());
+              }
+            });
   }
 
   @Test
   public void testTaskIsOverduePastDueTime() {
     final long dueDate = currentTimeMillis();
-    freezeAt(dueDate + 1).thawAfter(new Snippet() {{
-      Task task = new Task();
-      task.setDueDate(dueDate);
-      assertTrue(task.isOverdue());
-    }});
+    freezeAt(dueDate + 1)
+        .thawAfter(
+            new Snippet() {
+              {
+                Task task = new Task();
+                task.setDueDate(dueDate);
+                assertTrue(task.isOverdue());
+              }
+            });
   }
 
   @Test
   public void testTaskNotOverdueBeforeNoonOnDueDate() {
     final DateTime dueDate = new DateTime().startOfDay();
-    freezeAt(dueDate.plusHours(12).minusMillis(1)).thawAfter(new Snippet() {{
-      Task task = new Task();
-      task.setDueDate(dueDate.getMillis());
-      assertFalse(task.hasDueTime());
-      assertFalse(task.isOverdue());
-    }});
+    freezeAt(dueDate.plusHours(12).minusMillis(1))
+        .thawAfter(
+            new Snippet() {
+              {
+                Task task = new Task();
+                task.setDueDate(dueDate.getMillis());
+                assertFalse(task.hasDueTime());
+                assertFalse(task.isOverdue());
+              }
+            });
   }
 
   @Test
   public void testTaskOverdueAtNoonOnDueDate() {
     final DateTime dueDate = new DateTime().startOfDay();
-    freezeAt(dueDate.plusHours(12)).thawAfter(new Snippet() {{
-      Task task = new Task();
-      task.setDueDate(dueDate.getMillis());
-      assertFalse(task.hasDueTime());
-      assertFalse(task.isOverdue());
-    }});
+    freezeAt(dueDate.plusHours(12))
+        .thawAfter(
+            new Snippet() {
+              {
+                Task task = new Task();
+                task.setDueDate(dueDate.getMillis());
+                assertFalse(task.hasDueTime());
+                assertFalse(task.isOverdue());
+              }
+            });
   }
 
   @Test
   public void testTaskWithNoDueTimeIsOverdue() {
     final DateTime dueDate = new DateTime().startOfDay();
-    freezeAt(dueDate.plusDays(1)).thawAfter(new Snippet() {{
-      Task task = new Task();
-      task.setDueDate(dueDate.getMillis());
-      assertFalse(task.hasDueTime());
-      assertTrue(task.isOverdue());
-    }});
+    freezeAt(dueDate.plusDays(1))
+        .thawAfter(
+            new Snippet() {
+              {
+                Task task = new Task();
+                task.setDueDate(dueDate.getMillis());
+                assertFalse(task.hasDueTime());
+                assertTrue(task.isOverdue());
+              }
+            });
   }
 
   @Test

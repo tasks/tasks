@@ -6,30 +6,25 @@ import com.todoroo.astrid.api.FilterListItem;
 
 public class NavigationDrawerSubheader extends FilterListItem {
 
-  public static final Parcelable.Creator<NavigationDrawerSubheader> CREATOR = new Parcelable.Creator<NavigationDrawerSubheader>() {
+  public static final Parcelable.Creator<NavigationDrawerSubheader> CREATOR =
+      new Parcelable.Creator<NavigationDrawerSubheader>() {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public NavigationDrawerSubheader createFromParcel(Parcel source) {
-      NavigationDrawerSubheader navigationDrawerSubheader = new NavigationDrawerSubheader();
-      navigationDrawerSubheader.readFromParcel(source);
-      return navigationDrawerSubheader;
-    }
+        /** {@inheritDoc} */
+        @Override
+        public NavigationDrawerSubheader createFromParcel(Parcel source) {
+          NavigationDrawerSubheader navigationDrawerSubheader = new NavigationDrawerSubheader();
+          navigationDrawerSubheader.readFromParcel(source);
+          return navigationDrawerSubheader;
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public NavigationDrawerSubheader[] newArray(int size) {
-      return new NavigationDrawerSubheader[size];
-    }
-  };
+        /** {@inheritDoc} */
+        @Override
+        public NavigationDrawerSubheader[] newArray(int size) {
+          return new NavigationDrawerSubheader[size];
+        }
+      };
 
-  private NavigationDrawerSubheader() {
-
-  }
+  private NavigationDrawerSubheader() {}
 
   public NavigationDrawerSubheader(String listingTitle) {
     this.listingTitle = listingTitle;

@@ -46,9 +46,9 @@ public abstract class RecurringIntervalIntentService extends InjectingJobIntentS
       Timber.d("will run at %s [lastRun=%s]", printTimestamp(nextRun), printTimestamp(lastRun));
     }
 
-    PendingIntent pendingIntent = PendingIntent
-        .getBroadcast(this, 0, new Intent(this, getBroadcastClass()),
-            PendingIntent.FLAG_UPDATE_CURRENT);
+    PendingIntent pendingIntent =
+        PendingIntent.getBroadcast(
+            this, 0, new Intent(this, getBroadcastClass()), PendingIntent.FLAG_UPDATE_CURRENT);
     alarmManager.wakeup(nextRun, pendingIntent);
   }
 

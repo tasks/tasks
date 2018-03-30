@@ -19,14 +19,17 @@ import org.tasks.injection.InjectingDialogFragment;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 
-public class RecordAudioDialog extends InjectingDialogFragment implements
-    AACRecorder.AACRecorderCallbacks {
+public class RecordAudioDialog extends InjectingDialogFragment
+    implements AACRecorder.AACRecorderCallbacks {
 
   private final AtomicReference<String> nameRef = new AtomicReference<>();
   @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
   @Inject Theme theme;
-  @BindView(R.id.timer) Chronometer timer;
+
+  @BindView(R.id.timer)
+  Chronometer timer;
+
   private AACRecorder recorder;
   private String tempFile;
   private RecordAudioDialogCallback callback;
@@ -44,7 +47,8 @@ public class RecordAudioDialog extends InjectingDialogFragment implements
 
     startRecording();
 
-    return dialogBuilder.newDialog()
+    return dialogBuilder
+        .newDialog()
         .setTitle(R.string.audio_recording_title)
         .setView(view)
         .create();

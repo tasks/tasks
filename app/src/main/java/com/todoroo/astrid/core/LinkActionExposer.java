@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.core;
 
 import android.app.PendingIntent;
@@ -40,8 +39,7 @@ public class LinkActionExposer {
     Linkify.addLinks(titleSpan, Linkify.ALL);
 
     URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
-    if (urlSpans.length == 0 && !hasNotes &&
-        !hasAttachments) {
+    if (urlSpans.length == 0 && !hasNotes && !hasAttachments) {
       return null;
     }
 
@@ -69,8 +67,8 @@ public class LinkActionExposer {
     return null;
   }
 
-  private static TaskAction createLinkAction(Context context, long id, String url, String text,
-      PackageManager pm) {
+  private static TaskAction createLinkAction(
+      Context context, long id, String url, String text, PackageManager pm) {
     Intent itemIntent = new Intent(Intent.ACTION_VIEW);
     itemIntent.setData(Uri.parse(url));
     List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(itemIntent, 0);

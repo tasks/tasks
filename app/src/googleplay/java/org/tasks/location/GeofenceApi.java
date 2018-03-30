@@ -31,7 +31,9 @@ public class GeofenceApi {
   private final PermissionChecker permissionChecker;
 
   @Inject
-  public GeofenceApi(@ForApplication Context context, Preferences preferences,
+  public GeofenceApi(
+      @ForApplication Context context,
+      Preferences preferences,
       PermissionChecker permissionChecker) {
     this.context = context;
     this.preferences = preferences;
@@ -43,25 +45,30 @@ public class GeofenceApi {
       return;
     }
 
-    newClient(client -> {
-      @SuppressWarnings("ResourceType")
-      @SuppressLint("MissingPermission")
-      PendingResult<Status> result = LocationServices.GeofencingApi.addGeofences(
-          client,
-          getRequests(locations),
-          PendingIntent.getBroadcast(context, 0,
-              new Intent(context, GeofenceTransitionsIntentService.Broadcast.class),
-              PendingIntent.FLAG_UPDATE_CURRENT));
-      result.setResultCallback(status -> {
-        if (status.isSuccess()) {
-          Timber.i("Registered %s", locations);
-        } else {
-          Timber.e("Failed to register %s", locations);
-        }
+    newClient(
+        client -> {
+          @SuppressWarnings("ResourceType")
+          @SuppressLint("MissingPermission")
+          PendingResult<Status> result =
+              LocationServices.GeofencingApi.addGeofences(
+                  client,
+                  getRequests(locations),
+                  PendingIntent.getBroadcast(
+                      context,
+                      0,
+                      new Intent(context, GeofenceTransitionsIntentService.Broadcast.class),
+                      PendingIntent.FLAG_UPDATE_CURRENT));
+          result.setResultCallback(
+              status -> {
+                if (status.isSuccess()) {
+                  Timber.i("Registered %s", locations);
+                } else {
+                  Timber.e("Failed to register %s", locations);
+                }
 
-        client.disconnect();
-      });
-    });
+                client.disconnect();
+              });
+        });
   }
 
   public void cancel(final Location location) {
@@ -75,16 +82,19 @@ public class GeofenceApi {
 
     List<String> ids = Lists.transform(locations, geofence -> Long.toString(geofence.getId()));
 
-    newClient(client -> LocationServices.GeofencingApi.removeGeofences(client, ids)
-        .setResultCallback(status -> {
-          if (status.isSuccess()) {
-            Timber.i("Removed %s", locations);
-          } else {
-            Timber.e("Failed to remove %s", locations);
-          }
+    newClient(
+        client ->
+            LocationServices.GeofencingApi.removeGeofences(client, ids)
+                .setResultCallback(
+                    status -> {
+                      if (status.isSuccess()) {
+                        Timber.i("Removed %s", locations);
+                      } else {
+                        Timber.e("Failed to remove %s", locations);
+                      }
 
-          client.disconnect();
-        }));
+                      client.disconnect();
+                    }));
   }
 
   private void newClient(final GoogleApi.GoogleApiClientConnectionHandler handler) {
@@ -97,8 +107,10 @@ public class GeofenceApi {
 
   private com.google.android.gms.location.Geofence toGoogleGeofence(Location location) {
     int radius = preferences.getIntegerFromString(R.string.p_geofence_radius, 250);
-    int responsiveness = (int) TimeUnit.SECONDS
-        .toMillis(preferences.getIntegerFromString(R.string.p_geofence_responsiveness, 60));
+    int responsiveness =
+        (int)
+            TimeUnit.SECONDS.toMillis(
+                preferences.getIntegerFromString(R.string.p_geofence_responsiveness, 60));
     return new com.google.android.gms.location.Geofence.Builder()
         .setCircularRegion(location.getLatitude(), location.getLongitude(), radius)
         .setNotificationResponsiveness(responsiveness)

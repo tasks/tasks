@@ -33,8 +33,8 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
 
     int transitionType = geofencingEvent.getGeofenceTransition();
 
-    List<com.google.android.gms.location.Geofence> triggeringGeofences = geofencingEvent
-        .getTriggeringGeofences();
+    List<com.google.android.gms.location.Geofence> triggeringGeofences =
+        geofencingEvent.getTriggeringGeofences();
     Timber.i("Received geofence transition: %s, %s", transitionType, triggeringGeofences);
     if (transitionType == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
       for (com.google.android.gms.location.Geofence triggerGeofence : triggeringGeofences) {
@@ -64,8 +64,11 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
 
     @Override
     public void onReceive(Context context, Intent intent) {
-      JobIntentService.enqueueWork(context, GeofenceTransitionsIntentService.class,
-          JobManager.JOB_ID_GEOFENCE_TRANSITION, intent);
+      JobIntentService.enqueueWork(
+          context,
+          GeofenceTransitionsIntentService.class,
+          JobManager.JOB_ID_GEOFENCE_TRANSITION,
+          intent);
     }
   }
 }

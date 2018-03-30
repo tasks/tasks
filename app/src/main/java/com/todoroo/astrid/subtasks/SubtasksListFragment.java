@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
@@ -73,7 +72,7 @@ public class SubtasksListFragment extends TaskListFragment {
     if (taskListMetadata == null) {
       String defaultOrder = preferences.getStringValue(prefId);
       if (TextUtils.isEmpty(defaultOrder)) {
-        defaultOrder = "[]"; //$NON-NLS-1$
+        defaultOrder = "[]"; // $NON-NLS-1$
       }
       defaultOrder = SubtasksHelper.convertTreeToRemoteIds(taskDao, defaultOrder);
       taskListMetadata = new TaskListMetadata();

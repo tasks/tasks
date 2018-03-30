@@ -17,7 +17,6 @@ import org.tasks.injection.NativeDialogFragmentComponent;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 
-
 public class LocalePickerDialog extends InjectingNativeDialogFragment {
 
   @Inject @ForActivity Context context;
@@ -38,10 +37,13 @@ public class LocalePickerDialog extends InjectingNativeDialogFragment {
       locales.add(locale.withLanguage(override));
     }
     final List<String> display = transform(locales, Locale::getDisplayName);
-    SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, display,
-        themeAccent);
-    return dialogBuilder.newDialog()
-        .setSingleChoiceItems(adapter, display.indexOf(locale.getDisplayName()),
+    SingleCheckedArrayAdapter adapter =
+        new SingleCheckedArrayAdapter(context, display, themeAccent);
+    return dialogBuilder
+        .newDialog()
+        .setSingleChoiceItems(
+            adapter,
+            display.indexOf(locale.getDisplayName()),
             (dialogInterface, i) -> {
               callback.onLocaleSelected(locales.get(i));
               dialogInterface.dismiss();

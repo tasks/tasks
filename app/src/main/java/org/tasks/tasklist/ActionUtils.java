@@ -13,23 +13,29 @@ import org.tasks.themes.ThemeColor;
 public class ActionUtils {
 
   // cribbed from Twittnuker
-  public static void applySupportActionModeColor(ThemeColor themeColor,
-      final android.support.v7.view.ActionMode modeCompat) {
+  public static void applySupportActionModeColor(
+      ThemeColor themeColor, final android.support.v7.view.ActionMode modeCompat) {
     // Very dirty implementation
     // This call ensures TitleView created
     modeCompat.setTitle(modeCompat.getTitle());
     View contextView = null;
     if (modeCompat instanceof WindowDecorActionBar.ActionModeImpl) {
-      WindowDecorActionBar actionBar = (WindowDecorActionBar) findFieldOfTypes(modeCompat,
-          WindowDecorActionBar.ActionModeImpl.class, WindowDecorActionBar.class);
+      WindowDecorActionBar actionBar =
+          (WindowDecorActionBar)
+              findFieldOfTypes(
+                  modeCompat,
+                  WindowDecorActionBar.ActionModeImpl.class,
+                  WindowDecorActionBar.class);
       if (actionBar == null) {
         return;
       }
-      contextView = (View) findFieldOfTypes(actionBar, WindowDecorActionBar.class,
-          ActionBarContextView.class);
+      contextView =
+          (View)
+              findFieldOfTypes(actionBar, WindowDecorActionBar.class, ActionBarContextView.class);
     } else if (modeCompat instanceof StandaloneActionMode) {
-      contextView = (View) findFieldOfTypes(modeCompat, StandaloneActionMode.class,
-          ActionBarContextView.class);
+      contextView =
+          (View)
+              findFieldOfTypes(modeCompat, StandaloneActionMode.class, ActionBarContextView.class);
     }
     if (!(contextView instanceof ActionBarContextView)) {
       return;
@@ -48,8 +54,8 @@ public class ActionUtils {
     }
   }
 
-  private static <T> Object findFieldOfTypes(T obj, Class<? extends T> cls,
-      Class<?>... checkTypes) {
+  private static <T> Object findFieldOfTypes(
+      T obj, Class<? extends T> cls, Class<?>... checkTypes) {
     labelField:
     for (Field field : cls.getDeclaredFields()) {
       field.setAccessible(true);

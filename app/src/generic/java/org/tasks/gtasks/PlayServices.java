@@ -8,9 +8,7 @@ import javax.inject.Inject;
 public class PlayServices {
 
   @Inject
-  public PlayServices() {
-
-  }
+  public PlayServices() {}
 
   public boolean isPlayServicesAvailable() {
     return false;
@@ -20,9 +18,7 @@ public class PlayServices {
     return false;
   }
 
-  public void resolve(Activity activity) {
-
-  }
+  public void resolve(Activity activity) {}
 
   public String getStatus() {
     return null;
@@ -32,8 +28,8 @@ public class PlayServices {
     return false;
   }
 
-  public void getAuthToken(GtasksLoginActivity gtasksLoginActivity, String a,
-      GtasksLoginActivity.AuthResultHandler authResultHandler) {
-
-  }
+  public void getAuthToken(
+      GtasksLoginActivity gtasksLoginActivity,
+      String a,
+      GtasksLoginActivity.AuthResultHandler authResultHandler) {}
 }

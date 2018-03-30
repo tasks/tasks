@@ -28,8 +28,8 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class AddAttachmentActivity extends InjectingAppCompatActivity implements
-    DialogInterface.OnCancelListener, AddAttachmentDialog.AddAttachmentCallback {
+public class AddAttachmentActivity extends InjectingAppCompatActivity
+    implements DialogInterface.OnCancelListener, AddAttachmentDialog.AddAttachmentCallback {
 
   public static final String EXTRA_PATH = "extra_path";
   public static final String EXTRA_TYPE = "extra_type";
@@ -45,8 +45,8 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
     super.onCreate(savedInstanceState);
 
     FragmentManager fragmentManager = getSupportFragmentManager();
-    AddAttachmentDialog dialog = (AddAttachmentDialog) fragmentManager
-        .findFragmentByTag(FRAG_TAG_ATTACHMENT_DIALOG);
+    AddAttachmentDialog dialog =
+        (AddAttachmentDialog) fragmentManager.findFragmentByTag(FRAG_TAG_ATTACHMENT_DIALOG);
     if (dialog == null) {
       dialog = new AddAttachmentDialog();
       dialog.show(fragmentManager, FRAG_TAG_ATTACHMENT_DIALOG);
@@ -107,8 +107,8 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity implements
     } else if (requestCode == REQUEST_CODE_RECORD) {
       if (resultCode == RESULT_OK) {
         final String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
-        final String extension = recordedAudioPath
-            .substring(recordedAudioPath.lastIndexOf('.') + 1);
+        final String extension =
+            recordedAudioPath.substring(recordedAudioPath.lastIndexOf('.') + 1);
         Intent intent = new Intent();
         intent.putExtra(EXTRA_PATH, recordedAudioPath);
         intent.putExtra(EXTRA_TYPE, TaskAttachment.FILE_TYPE_AUDIO + extension);

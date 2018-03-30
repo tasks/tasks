@@ -18,8 +18,8 @@ public class AppWidgetManager {
   }
 
   public void updateWidgets() {
-    int[] widgetIds = appWidgetManager
-        .getAppWidgetIds(new ComponentName(context, TasksWidget.class));
+    int[] widgetIds =
+        appWidgetManager.getAppWidgetIds(new ComponentName(context, TasksWidget.class));
     appWidgetManager.notifyAppWidgetViewDataChanged(widgetIds, R.id.list_view);
   }
 }

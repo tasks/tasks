@@ -28,7 +28,9 @@ public class PlayServices {
   private final GoogleAccountManager accountManager;
 
   @Inject
-  public PlayServices(@ForApplication Context context, Preferences preferences,
+  public PlayServices(
+      @ForApplication Context context,
+      Preferences preferences,
       GoogleAccountManager googleAccountManager) {
     this.context = context;
     this.preferences = preferences;
@@ -60,8 +62,9 @@ public class PlayServices {
     if (googleApiAvailability.isUserResolvableError(error)) {
       googleApiAvailability.getErrorDialog(activity, error, REQUEST_RESOLUTION).show();
     } else {
-      Toast.makeText(activity, R.string.common_google_play_services_notification_ticker,
-          Toast.LENGTH_LONG).show();
+      Toast.makeText(
+              activity, R.string.common_google_play_services_notification_ticker, Toast.LENGTH_LONG)
+          .show();
     }
   }
 
@@ -78,8 +81,8 @@ public class PlayServices {
       String token = credential.getToken();
       Timber.d("Invalidating %s", token);
       GoogleAuthUtil.clearToken(context, token);
-      GoogleAuthUtil
-          .getToken(context, credential.getSelectedAccount(), "oauth2:" + TasksScopes.TASKS, null);
+      GoogleAuthUtil.getToken(
+          context, credential.getSelectedAccount(), "oauth2:" + TasksScopes.TASKS, null);
       return true;
     } catch (GoogleAuthException e) {
       Timber.e(e, e.getMessage());
@@ -90,25 +93,30 @@ public class PlayServices {
     }
   }
 
-  public void getAuthToken(final Activity activity, final String accountName,
+  public void getAuthToken(
+      final Activity activity,
+      final String accountName,
       final GtasksLoginActivity.AuthResultHandler handler) {
     final Account account = accountManager.getAccount(accountName);
     if (account == null) {
       handler.authenticationFailed(
           activity.getString(R.string.gtasks_error_accountNotFound, accountName));
     } else {
-      new Thread(() -> {
-        try {
-          GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null);
-          handler.authenticationSuccessful(accountName);
-        } catch (UserRecoverableAuthException e) {
-          Timber.e(e, e.getMessage());
-          activity.startActivityForResult(e.getIntent(), GtasksLoginActivity.RC_REQUEST_OAUTH);
-        } catch (GoogleAuthException | IOException e) {
-          Timber.e(e, e.getMessage());
-          handler.authenticationFailed(activity.getString(R.string.gtasks_GLA_errorIOAuth));
-        }
-      }).start();
+      new Thread(
+              () -> {
+                try {
+                  GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null);
+                  handler.authenticationSuccessful(accountName);
+                } catch (UserRecoverableAuthException e) {
+                  Timber.e(e, e.getMessage());
+                  activity.startActivityForResult(
+                      e.getIntent(), GtasksLoginActivity.RC_REQUEST_OAUTH);
+                } catch (GoogleAuthException | IOException e) {
+                  Timber.e(e, e.getMessage());
+                  handler.authenticationFailed(activity.getString(R.string.gtasks_GLA_errorIOAuth));
+                }
+              })
+          .start();
     }
   }
 }

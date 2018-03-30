@@ -28,9 +28,7 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
   public void onCreate() {
     super.onCreate();
 
-    ((InjectingApplication) getApplication())
-        .getComponent()
-        .inject(this);
+    ((InjectingApplication) getApplication()).getComponent().inject(this);
   }
 
   @Override
@@ -52,8 +50,14 @@ public class ScrollableWidgetUpdateService extends RemoteViewsService {
     }
 
     int widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-    return new ScrollableViewsFactory(subtasksHelper, preferences,
+    return new ScrollableViewsFactory(
+        subtasksHelper,
+        preferences,
         locale.createConfigurationContext(getApplicationContext()),
-        widgetId, taskDao, defaultFilterProvider, widgetCheckBoxes, themeCache);
+        widgetId,
+        taskDao,
+        defaultFilterProvider,
+        widgetCheckBoxes,
+        themeCache);
   }
 }

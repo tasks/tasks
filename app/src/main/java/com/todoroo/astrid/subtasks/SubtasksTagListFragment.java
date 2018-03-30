@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.subtasks;
 
 import android.app.Activity;
@@ -40,8 +39,8 @@ public class SubtasksTagListFragment extends TagListFragment {
   @Override
   public void setTaskAdapter() {
     String tdId = tagData.getRemoteId();
-    TaskListMetadata taskListMetadata = taskListMetadataDao
-        .fetchByTagOrFilter(tagData.getRemoteId());
+    TaskListMetadata taskListMetadata =
+        taskListMetadataDao.fetchByTagOrFilter(tagData.getRemoteId());
     if (taskListMetadata == null && !Task.isUuidEmpty(tdId)) {
       taskListMetadata = new TaskListMetadata();
       taskListMetadata.setTagUuid(tdId);

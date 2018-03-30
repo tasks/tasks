@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.backup;
 
 /**
@@ -17,36 +16,24 @@ public class BackupConstants {
 
   // --- general xml
 
-  /**
-   * Tag containing Astrid backup data
-   */
+  /** Tag containing Astrid backup data */
   public static final String ASTRID_TAG = "astrid";
 
-  /**
-   * Attribute indicating backup file format
-   */
+  /** Attribute indicating backup file format */
   public static final String ASTRID_ATTR_FORMAT = "format";
 
   // --- format 2
 
-  /**
-   * Tag containing a task
-   */
+  /** Tag containing a task */
   public static final String TASK_TAG = "task";
 
-  /**
-   * Tag containing a comment item
-   */
+  /** Tag containing a comment item */
   public static final String COMMENT_TAG = "comment";
 
-  /**
-   * Tag containing a metadata item
-   */
+  /** Tag containing a metadata item */
   public static final String METADATA_TAG = "metadata";
 
-  /**
-   * Tag containing a tagdata item
-   */
+  /** Tag containing a tagdata item */
   public static final String TAGDATA_TAG = "tagdata";
 
   // --- general

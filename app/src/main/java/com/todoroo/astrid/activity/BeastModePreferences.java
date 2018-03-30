@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.activity;
 
 import static java.util.Arrays.asList;
@@ -29,13 +28,18 @@ import org.tasks.preferences.Preferences;
 import org.tasks.preferences.beast.BeastModeRecyclerAdapter;
 import org.tasks.ui.MenuColorizer;
 
-public class BeastModePreferences extends ThemedInjectingAppCompatActivity implements
-    Toolbar.OnMenuItemClickListener {
+public class BeastModePreferences extends ThemedInjectingAppCompatActivity
+    implements Toolbar.OnMenuItemClickListener {
 
-  private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v3"; //$NON-NLS-1$
+  private static final String BEAST_MODE_ORDER_PREF = "beast_mode_order_v3"; // $NON-NLS-1$
   private static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";";
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.recycler_view) RecyclerView recyclerView;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
+  @BindView(R.id.recycler_view)
+  RecyclerView recyclerView;
+
   @Inject Preferences preferences;
   private BeastModeRecyclerAdapter adapter;
 
@@ -53,8 +57,8 @@ public class BeastModePreferences extends ThemedInjectingAppCompatActivity imple
     preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
   }
 
-  public static ArrayList<String> constructOrderedControlList(Preferences preferences,
-      Context context) {
+  public static ArrayList<String> constructOrderedControlList(
+      Preferences preferences, Context context) {
     String order = preferences.getStringValue(BEAST_MODE_ORDER_PREF);
     ArrayList<String> list = new ArrayList<>();
     String[] itemsArray;

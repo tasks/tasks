@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
@@ -46,8 +45,11 @@ public class EditTitleControlSet extends TaskEditControlFragment {
   @Inject TaskDao taskDao;
   @Inject CheckBoxes checkBoxes;
 
-  @BindView(R.id.title) EditText editText;
-  @BindView(R.id.completeBox) CheckableImageView completeBox;
+  @BindView(R.id.title)
+  EditText editText;
+
+  @BindView(R.id.completeBox)
+  CheckableImageView completeBox;
 
   private boolean showKeyboard;
   private boolean isComplete;
@@ -62,8 +64,8 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(getLayout(), null);
     ButterKnife.bind(this, view);
     if (savedInstanceState == null) {
@@ -108,8 +110,8 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
     if (showKeyboard) {
       editText.requestFocus();
-      InputMethodManager imm = (InputMethodManager) getActivity()
-          .getSystemService(Context.INPUT_METHOD_SERVICE);
+      InputMethodManager imm =
+          (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
       imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
   }
@@ -164,16 +166,14 @@ public class EditTitleControlSet extends TaskEditControlFragment {
 
   @Override
   public boolean hasChanges(Task original) {
-    return !title.equals(original.getTitle()) ||
-        isComplete != original.isCompleted() ||
-        (original.isNew() && !Strings.isNullOrEmpty(title));
+    return !title.equals(original.getTitle())
+        || isComplete != original.isCompleted()
+        || (original.isNew() && !Strings.isNullOrEmpty(title));
   }
 
   @Override
   public void apply(Task task) {
-    task.setTitle(Strings.isNullOrEmpty(title)
-        ? getString(R.string.no_title)
-        : title);
+    task.setTitle(Strings.isNullOrEmpty(title) ? getString(R.string.no_title) : title);
     if (isComplete != task.isCompleted()) {
       taskDao.setComplete(task, isComplete);
     }

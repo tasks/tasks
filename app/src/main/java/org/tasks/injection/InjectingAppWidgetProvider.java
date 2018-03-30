@@ -8,9 +8,10 @@ public abstract class InjectingAppWidgetProvider extends AppWidgetProvider {
 
   @Override
   public void onReceive(Context context, Intent intent) {
-    inject(((InjectingApplication) context.getApplicationContext())
-        .getComponent()
-        .plus(new BroadcastModule()));
+    inject(
+        ((InjectingApplication) context.getApplicationContext())
+            .getComponent()
+            .plus(new BroadcastModule()));
 
     super.onReceive(context, intent);
   }

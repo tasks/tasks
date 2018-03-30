@@ -48,43 +48,45 @@ public class TaskListViewModel extends ViewModel {
 
   private LiveData<PagedList<Task>> getLiveData(Filter filter, Property<?>[] properties) {
     return new LivePagedListBuilder<>(
-        new LivePagedListProvider<Integer, Task>() {
-          @Override
-          protected LimitOffsetDataSource createDataSource() {
-            latest = toDataSource(filter, properties);
-            return latest;
-          }
-        }, 20)
+            new LivePagedListProvider<Integer, Task>() {
+              @Override
+              protected LimitOffsetDataSource createDataSource() {
+                latest = toDataSource(filter, properties);
+                return latest;
+              }
+            },
+            20)
         .build();
   }
 
   private LimitOffsetDataSource toDataSource(Filter filter, Property<?>[] properties) {
-    Criterion tagsJoinCriterion = Criterion.and(
-        Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
+    Criterion tagsJoinCriterion =
+        Criterion.and(Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
 
     if (filter instanceof TagFilter) {
       String uuid = ((TagFilter) filter).getUuid();
-      tagsJoinCriterion = Criterion
-          .and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + ".tag_uid").neq(uuid));
+      tagsJoinCriterion =
+          Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + ".tag_uid").neq(uuid));
     }
 
     // TODO: For now, we'll modify the query to join and include the things like tag data here.
-    // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
+    // Eventually, we might consider restructuring things so that this query is constructed
+    // elsewhere.
     String joinedQuery =
-        Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN),
-            tagsJoinCriterion).toString() //$NON-NLS-1$
-            + Join.left(TaskAttachment.TABLE.as(FILE_METADATA_JOIN),
-            Task.UUID.eq(Field.field(FILE_METADATA_JOIN + ".task_id")))
+        Join.left(Tag.TABLE.as(TAGS_METADATA_JOIN), tagsJoinCriterion).toString() // $NON-NLS-1$
+            + Join.left(
+                TaskAttachment.TABLE.as(FILE_METADATA_JOIN),
+                Task.UUID.eq(Field.field(FILE_METADATA_JOIN + ".task_id")))
             + filter.getSqlQuery();
 
-    String query = SortHelper.adjustQueryForFlagsAndSort(
-        preferences, joinedQuery, preferences.getSortMode());
+    String query =
+        SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, preferences.getSortMode());
 
     String groupedQuery;
     if (query.contains("GROUP BY")) {
       groupedQuery = query;
     } else if (query.contains("ORDER BY")) {
-      groupedQuery = query.replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
+      groupedQuery = query.replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); // $NON-NLS-1$
     } else {
       groupedQuery = query + " GROUP BY " + Task.ID;
     }

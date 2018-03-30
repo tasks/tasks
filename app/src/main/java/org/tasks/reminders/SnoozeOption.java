@@ -22,9 +22,6 @@ public class SnoozeOption {
 
   @Override
   public String toString() {
-    return "SnoozeOption{" +
-        "resId=" + resId +
-        ", dateTime=" + dateTime +
-        '}';
+    return "SnoozeOption{" + "resId=" + resId + ", dateTime=" + dateTime + '}';
   }
 }

@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks;
 
 import com.todoroo.astrid.api.Filter;
@@ -28,14 +27,10 @@ import timber.log.Timber;
 @ApplicationScope
 public class GtasksTaskListUpdater {
 
-  /**
-   * map of task -> parent task
-   */
+  /** map of task -> parent task */
   final HashMap<Long, Long> parents = new HashMap<>();
 
-  /**
-   * map of task -> prior sibling
-   */
+  /** map of task -> prior sibling */
   final HashMap<Long, Long> siblings = new HashMap<>();
 
   private final GtasksSyncService gtasksSyncService;
@@ -70,12 +65,15 @@ public class GtasksTaskListUpdater {
   // --- used during synchronization
 
   public void correctOrderAndIndentForList(String listId) {
-    orderAndIndentHelper(listId, new AtomicLong(0L), Task.NO_ID, 0,
-        new HashSet<>());
+    orderAndIndentHelper(listId, new AtomicLong(0L), Task.NO_ID, 0, new HashSet<>());
   }
 
-  private void orderAndIndentHelper(final String listId, final AtomicLong order, final long parent,
-      final int indentLevel, final Set<Long> alreadyChecked) {
+  private void orderAndIndentHelper(
+      final String listId,
+      final AtomicLong order,
+      final long parent,
+      final int indentLevel,
+      final Set<Long> alreadyChecked) {
     for (GoogleTask curr : googleTaskDao.byRemoteOrder(listId, parent)) {
       if (!alreadyChecked.contains(curr.getTask())) {
         curr.setIndent(indentLevel);
@@ -92,43 +90,43 @@ public class GtasksTaskListUpdater {
     final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
     final AtomicInteger previousIndent = new AtomicInteger(-1);
 
-    iterateThroughList(list, (taskId, metadata) -> {
-      int indent = metadata.getIndent();
+    iterateThroughList(
+        list,
+        (taskId, metadata) -> {
+          int indent = metadata.getIndent();
 
-      try {
-        long parent, sibling;
-        if (indent > previousIndent.get()) {
-          parent = previousTask.get();
-          sibling = Task.NO_ID;
-        } else if (indent == previousIndent.get()) {
-          sibling = previousTask.get();
-          parent = parents.get(sibling);
-        } else {
-          // move up once for each indent
-          sibling = previousTask.get();
-          for (int i = indent; i < previousIndent.get(); i++) {
-            sibling = parents.get(sibling);
+          try {
+            long parent, sibling;
+            if (indent > previousIndent.get()) {
+              parent = previousTask.get();
+              sibling = Task.NO_ID;
+            } else if (indent == previousIndent.get()) {
+              sibling = previousTask.get();
+              parent = parents.get(sibling);
+            } else {
+              // move up once for each indent
+              sibling = previousTask.get();
+              for (int i = indent; i < previousIndent.get(); i++) {
+                sibling = parents.get(sibling);
+              }
+              if (parents.containsKey(sibling)) {
+                parent = parents.get(sibling);
+              } else {
+                parent = Task.NO_ID;
+              }
+            }
+            parents.put(taskId, parent);
+            siblings.put(taskId, sibling);
+          } catch (Exception e) {
+            Timber.e(e, e.getMessage());
           }
-          if (parents.containsKey(sibling)) {
-            parent = parents.get(sibling);
-          } else {
-            parent = Task.NO_ID;
-          }
-        }
-        parents.put(taskId, parent);
-        siblings.put(taskId, sibling);
-      } catch (Exception e) {
-        Timber.e(e, e.getMessage());
-      }
 
-      previousTask.set(taskId);
-      previousIndent.set(indent);
-    });
+          previousTask.set(taskId);
+          previousIndent.set(indent);
+        });
   }
 
-  /**
-   * Indent a task and all its children
-   */
+  /** Indent a task and all its children */
   public void indent(final GoogleTaskList list, final long targetTaskId, final int delta) {
     if (list == null) {
       return;
@@ -141,47 +139,49 @@ public class GtasksTaskListUpdater {
     final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
     final AtomicLong globalOrder = new AtomicLong(-1);
 
-    iterateThroughList(list, (taskId, googleTask) -> {
-      int indent = googleTask.getIndent();
+    iterateThroughList(
+        list,
+        (taskId, googleTask) -> {
+          int indent = googleTask.getIndent();
 
-      long order = globalOrder.incrementAndGet();
-      googleTask.setOrder(order);
+          long order = globalOrder.incrementAndGet();
+          googleTask.setOrder(order);
 
-      if (targetTaskId == taskId) {
-        // if indenting is warranted, indent me and my children
-        if (indent + delta <= previousIndent.get() + 1 && indent + delta >= 0) {
-          targetTaskIndent.set(indent);
-          googleTask.setIndent(indent + delta);
+          if (targetTaskId == taskId) {
+            // if indenting is warranted, indent me and my children
+            if (indent + delta <= previousIndent.get() + 1 && indent + delta >= 0) {
+              targetTaskIndent.set(indent);
+              googleTask.setIndent(indent + delta);
 
-          long newParent = computeNewParent(list, taskId, indent + delta - 1);
-          if (newParent == taskId) {
-            googleTask.setParent(Task.NO_ID);
+              long newParent = computeNewParent(list, taskId, indent + delta - 1);
+              if (newParent == taskId) {
+                googleTask.setParent(Task.NO_ID);
+              } else {
+                googleTask.setParent(newParent);
+              }
+              saveAndUpdateModifiedDate(googleTask);
+            }
+          } else if (targetTaskIndent.get() > -1) {
+            // found first task that is not beneath target
+            if (indent <= targetTaskIndent.get()) {
+              targetTaskIndent.set(-1);
+            } else {
+              googleTask.setIndent(indent + delta);
+              saveAndUpdateModifiedDate(googleTask);
+            }
           } else {
-            googleTask.setParent(newParent);
+            previousIndent.set(indent);
+            previousTask.set(taskId);
           }
-          saveAndUpdateModifiedDate(googleTask);
-        }
-      } else if (targetTaskIndent.get() > -1) {
-        // found first task that is not beneath target
-        if (indent <= targetTaskIndent.get()) {
-          targetTaskIndent.set(-1);
-        } else {
-          googleTask.setIndent(indent + delta);
-          saveAndUpdateModifiedDate(googleTask);
-        }
-      } else {
-        previousIndent.set(indent);
-        previousTask.set(taskId);
-      }
 
-      saveAndUpdateModifiedDate(googleTask);
-    });
+          saveAndUpdateModifiedDate(googleTask);
+        });
     onMovedOrIndented(getTaskMetadata(targetTaskId));
   }
 
   /**
-   * Helper function to iterate through a list and compute a new parent for the target task
-   * based on the target parent's indent
+   * Helper function to iterate through a list and compute a new parent for the target task based on
+   * the target parent's indent
    */
   private long computeNewParent(GoogleTaskList list, long targetTaskId, int targetParentIndent) {
     final AtomicInteger desiredParentIndent = new AtomicInteger(targetParentIndent);
@@ -189,16 +189,18 @@ public class GtasksTaskListUpdater {
     final AtomicLong lastPotentialParent = new AtomicLong(Task.NO_ID);
     final AtomicBoolean computedParent = new AtomicBoolean(false);
 
-    iterateThroughList(list, (taskId, googleTask) -> {
-      if (targetTask.get() == taskId) {
-        computedParent.set(true);
-      }
+    iterateThroughList(
+        list,
+        (taskId, googleTask) -> {
+          if (targetTask.get() == taskId) {
+            computedParent.set(true);
+          }
 
-      int indent = googleTask.getIndent();
-      if (!computedParent.get() && indent == desiredParentIndent.get()) {
-        lastPotentialParent.set(taskId);
-      }
-    });
+          int indent = googleTask.getIndent();
+          if (!computedParent.get() && indent == desiredParentIndent.get()) {
+            lastPotentialParent.set(taskId);
+          }
+        });
 
     if (lastPotentialParent.get() == Task.NO_ID) {
       return Task.NO_ID;
@@ -207,11 +209,10 @@ public class GtasksTaskListUpdater {
   }
 
   /**
-   * Move a task and all its children to the position right above
-   * taskIdToMoveto. Will change the indent level to match taskIdToMoveTo.
+   * Move a task and all its children to the position right above taskIdToMoveto. Will change the
+   * indent level to match taskIdToMoveTo.
    */
-  void moveTo(GoogleTaskList list, final long targetTaskId,
-      final long moveBeforeTaskId) {
+  void moveTo(GoogleTaskList list, final long targetTaskId, final long moveBeforeTaskId) {
     if (list == null) {
       return;
     }
@@ -229,8 +230,7 @@ public class GtasksTaskListUpdater {
         if (sibling != null && !ancestorOf(target, sibling)) {
           int index = sibling.parent.children.indexOf(sibling);
 
-          if (target.parent == sibling.parent &&
-              target.parent.children.indexOf(target) < index) {
+          if (target.parent == sibling.parent && target.parent.children.indexOf(target) < index) {
             index--;
           }
 
@@ -257,8 +257,8 @@ public class GtasksTaskListUpdater {
     return ancestorOf(ancestor, descendant.parent);
   }
 
-  private void traverseTreeAndWriteValues(GoogleTaskList list, Node node, AtomicLong order,
-      int indent) {
+  private void traverseTreeAndWriteValues(
+      GoogleTaskList list, Node node, AtomicLong order, int indent) {
     if (node.taskId != Task.NO_ID) {
       GoogleTask googleTask = getTaskMetadata(node.taskId);
       if (googleTask == null) {
@@ -300,33 +300,35 @@ public class GtasksTaskListUpdater {
     final AtomicInteger previoustIndent = new AtomicInteger(-1);
     final AtomicReference<Node> currentNode = new AtomicReference<>(root);
 
-    iterateThroughList(list, (taskId, googleTask) -> {
-      int indent = googleTask.getIndent();
+    iterateThroughList(
+        list,
+        (taskId, googleTask) -> {
+          int indent = googleTask.getIndent();
 
-      int previousIndentValue = previoustIndent.get();
-      if (indent == previousIndentValue) { // sibling
-        Node parent = currentNode.get().parent;
-        currentNode.set(new Node(taskId, parent));
-        parent.children.add(currentNode.get());
-      } else if (indent > previousIndentValue) { // child
-        Node parent = currentNode.get();
-        currentNode.set(new Node(taskId, parent));
-        parent.children.add(currentNode.get());
-      } else { // in a different tree
-        Node node = currentNode.get().parent;
-        for (int i = indent; i < previousIndentValue; i++) {
-          node = node.parent;
-          if (node == null) {
-            node = root;
-            break;
+          int previousIndentValue = previoustIndent.get();
+          if (indent == previousIndentValue) { // sibling
+            Node parent = currentNode.get().parent;
+            currentNode.set(new Node(taskId, parent));
+            parent.children.add(currentNode.get());
+          } else if (indent > previousIndentValue) { // child
+            Node parent = currentNode.get();
+            currentNode.set(new Node(taskId, parent));
+            parent.children.add(currentNode.get());
+          } else { // in a different tree
+            Node node = currentNode.get().parent;
+            for (int i = indent; i < previousIndentValue; i++) {
+              node = node.parent;
+              if (node == null) {
+                node = root;
+                break;
+              }
+            }
+            currentNode.set(new Node(taskId, node));
+            node.children.add(currentNode.get());
           }
-        }
-        currentNode.set(new Node(taskId, node));
-        node.children.add(currentNode.get());
-      }
 
-      previoustIndent.set(indent);
-    });
+          previoustIndent.set(indent);
+        });
     return root;
   }
 
@@ -334,11 +336,8 @@ public class GtasksTaskListUpdater {
     googleTaskDao.update(googleTask);
   }
 
-  /**
-   * Apply an operation only to the children of the task
-   */
-  void applyToChildren(GoogleTaskList list, long targetTaskId,
-      OrderedListNodeVisitor visitor) {
+  /** Apply an operation only to the children of the task */
+  void applyToChildren(GoogleTaskList list, long targetTaskId, OrderedListNodeVisitor visitor) {
 
     Node root = buildTreeModel(list);
     Node target = findNode(root, targetTaskId);
@@ -359,9 +358,7 @@ public class GtasksTaskListUpdater {
 
   // --- task cascading operations
 
-  /**
-   * Removes a task from the order hierarchy and un-indent children
-   */
+  /** Removes a task from the order hierarchy and un-indent children */
   void onDeleteTask(GoogleTaskList list, final long targetTaskId) {
     if (list == null) {
       return;
@@ -404,4 +401,3 @@ public class GtasksTaskListUpdater {
     }
   }
 }
-

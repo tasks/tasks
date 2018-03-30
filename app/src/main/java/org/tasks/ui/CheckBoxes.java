@@ -30,11 +30,12 @@ public class CheckBoxes {
     checkboxes = wrapDrawable(context, R.drawable.ic_check_box_outline_blank_24dp);
     repeatingCheckboxes = wrapDrawable(context, R.drawable.ic_repeat_24dp);
     completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
-    priorityColors = ImmutableList.of(
-        getColor(context, R.color.importance_1),
-        getColor(context, R.color.importance_2),
-        getColor(context, R.color.importance_3),
-        getColor(context, R.color.importance_4));
+    priorityColors =
+        ImmutableList.of(
+            getColor(context, R.color.importance_1),
+            getColor(context, R.color.importance_2),
+            getColor(context, R.color.importance_3),
+            getColor(context, R.color.importance_4));
     priorityColorsArray = Ints.toArray(priorityColors);
   }
 

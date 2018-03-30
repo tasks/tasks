@@ -49,10 +49,10 @@ import timber.log.Timber;
 public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
-  public static final String EXTRA_CALDAV_DATA = "caldavData"; //$NON-NLS-1$
-  private static final String EXTRA_CALDAV_UUID = "uuid"; //$NON-NLS-1$
+  public static final String EXTRA_CALDAV_DATA = "caldavData"; // $NON-NLS-1$
   public static final String ACTION_RELOAD = "accountRenamed";
   public static final String ACTION_DELETED = "accountDeleted";
+  private static final String EXTRA_CALDAV_UUID = "uuid"; // $NON-NLS-1$
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
   private static final String PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
   private static final int REQUEST_COLOR_PICKER = 10109;
@@ -63,15 +63,34 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
   @Inject Tracker tracker;
   @Inject CaldavDao caldavDao;
   @Inject SyncAdapters syncAdapters;
-  @BindView(R.id.root_layout) LinearLayout root;
-  @BindView(R.id.url) TextInputEditText url;
-  @BindView(R.id.user) TextInputEditText user;
-  @BindView(R.id.password) TextInputEditText password;
-  @BindView(R.id.url_layout) TextInputLayout urlLayout;
-  @BindView(R.id.user_layout) TextInputLayout userLayout;
-  @BindView(R.id.password_layout) TextInputLayout passwordLayout;
-  @BindView(R.id.color) TextInputEditText color;
-  @BindView(R.id.toolbar) Toolbar toolbar;
+
+  @BindView(R.id.root_layout)
+  LinearLayout root;
+
+  @BindView(R.id.url)
+  TextInputEditText url;
+
+  @BindView(R.id.user)
+  TextInputEditText user;
+
+  @BindView(R.id.password)
+  TextInputEditText password;
+
+  @BindView(R.id.url_layout)
+  TextInputLayout urlLayout;
+
+  @BindView(R.id.user_layout)
+  TextInputLayout userLayout;
+
+  @BindView(R.id.password_layout)
+  TextInputLayout passwordLayout;
+
+  @BindView(R.id.color)
+  TextInputEditText color;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
   private CaldavAccount caldavAccount;
   private int selectedTheme;
 
@@ -104,15 +123,17 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setTitle(
         caldavAccount == null ? getString(R.string.add_account) : caldavAccount.getName());
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(this,
-        backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-    toolbar.setNavigationOnClickListener(v -> {
-      if (backButtonSavesTask) {
-        discard();
-      } else {
-        save();
-      }
-    });
+    toolbar.setNavigationIcon(
+        ContextCompat.getDrawable(
+            this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+    toolbar.setNavigationOnClickListener(
+        v -> {
+          if (backButtonSavesTask) {
+            discard();
+          } else {
+            save();
+          }
+        });
     toolbar.inflateMenu(R.menu.menu_tag_settings);
     toolbar.setOnMenuItemClickListener(this);
     toolbar.showOverflowMenu();
@@ -255,14 +276,16 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
       CaldavClient client = new CaldavClient(url, username, password);
       ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
       dialog.show();
-      client.getDisplayName()
+      client
+          .getDisplayName()
           .doAfterTerminate(dialog::dismiss)
           .subscribe(this::addAccount, this::getDisplayNameFailed);
     } else if (needsValidation()) {
       CaldavClient client = new CaldavClient(url, username, password);
       ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
       dialog.show();
-      client.getDisplayName()
+      client
+          .getDisplayName()
           .doAfterTerminate(dialog::dismiss)
           .subscribe(this::updateAccount, this::getDisplayNameFailed);
     } else if (hasChanges()) {
@@ -279,10 +302,11 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
     newAccount.setUsername(getNewUsername());
     newAccount.setPassword(getNewPassword());
     newAccount.setId(caldavDao.insert(newAccount));
-    setResult(RESULT_OK,
+    setResult(
+        RESULT_OK,
         new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(newAccount)));
     finish();
-    }
+  }
 
   private void updateAccount(String name) {
     caldavAccount.setName(name);
@@ -291,7 +315,8 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
     caldavAccount.setColor(selectedTheme);
     caldavAccount.setPassword(getNewPassword());
     caldavDao.update(caldavAccount);
-    setResult(RESULT_OK,
+    setResult(
+        RESULT_OK,
         new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavAccount)));
     finish();
   }
@@ -317,27 +342,29 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
   }
 
   private void showSnackbar(String message) {
-    Snackbar snackbar = Snackbar.make(root, message, 8000)
-        .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color));
-    snackbar.getView()
+    Snackbar snackbar =
+        Snackbar.make(root, message, 8000)
+            .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color));
+    snackbar
+        .getView()
         .setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_background));
     snackbar.show();
   }
 
   private boolean hasChanges() {
     if (caldavAccount == null) {
-      return selectedTheme >= 0 ||
-          !isEmpty(getNewPassword()) || !isEmpty(getNewURL()) ||
-          !isEmpty(getNewUsername());
+      return selectedTheme >= 0
+          || !isEmpty(getNewPassword())
+          || !isEmpty(getNewURL())
+          || !isEmpty(getNewUsername());
     }
-    return selectedTheme != caldavAccount.getColor() ||
-        needsValidation();
+    return selectedTheme != caldavAccount.getColor() || needsValidation();
   }
 
   private boolean needsValidation() {
-    return !getNewURL().equals(caldavAccount.getUrl()) ||
-        !getNewUsername().equals(caldavAccount.getUsername()) ||
-        !getNewPassword().equals(caldavAccount.getPassword());
+    return !getNewURL().equals(caldavAccount.getUrl())
+        || !getNewUsername().equals(caldavAccount.getUsername())
+        || !getNewPassword().equals(caldavAccount.getPassword());
   }
 
   @Override
@@ -371,15 +398,20 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
   }
 
   private void deleteAccount() {
-    dialogBuilder.newMessageDialog(R.string.delete_tag_confirmation, caldavAccount.getName())
-        .setPositiveButton(R.string.delete, (dialog, which) -> {
-          if (caldavAccount != null) {
-            caldavDao.delete(caldavAccount);
-            setResult(RESULT_OK,
-                new Intent(ACTION_DELETED).putExtra(EXTRA_CALDAV_UUID, caldavAccount.getUuid()));
-          }
-          finish();
-        })
+    dialogBuilder
+        .newMessageDialog(R.string.delete_tag_confirmation, caldavAccount.getName())
+        .setPositiveButton(
+            R.string.delete,
+            (dialog, which) -> {
+              if (caldavAccount != null) {
+                caldavDao.delete(caldavAccount);
+                setResult(
+                    RESULT_OK,
+                    new Intent(ACTION_DELETED)
+                        .putExtra(EXTRA_CALDAV_UUID, caldavAccount.getUuid()));
+              }
+              finish();
+            })
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }
@@ -388,7 +420,8 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
     if (!hasChanges()) {
       finish();
     } else {
-      dialogBuilder.newMessageDialog(R.string.discard_changes)
+      dialogBuilder
+          .newMessageDialog(R.string.discard_changes)
           .setPositiveButton(R.string.discard, (dialog, which) -> finish())
           .setNegativeButton(android.R.string.cancel, null)
           .show();

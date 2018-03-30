@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.SqlConstants.AND;
@@ -15,12 +14,13 @@ import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 public abstract class Criterion {
 
-  public static final Criterion all = new Criterion(Operator.exists) {
-    @Override
-    protected void populate(StringBuilder sb) {
-      sb.append(1);
-    }
-  };
+  public static final Criterion all =
+      new Criterion(Operator.exists) {
+        @Override
+        protected void populate(StringBuilder sb) {
+          sb.append(1);
+        }
+      };
   final Operator operator;
 
   public Criterion(Operator operator) {
@@ -73,5 +73,4 @@ public abstract class Criterion {
     builder.append(RIGHT_PARENTHESIS);
     return builder.toString();
   }
-
 }

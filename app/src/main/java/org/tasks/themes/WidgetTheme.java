@@ -6,30 +6,28 @@ import org.tasks.dialogs.ColorPickerDialog;
 
 public class WidgetTheme implements ColorPickerDialog.Pickable {
 
-  static final int[] BACKGROUNDS = new int[]{
-      R.color.grey_50,
-      R.color.widget_background_black,
-      R.color.md_background_dark
-  };
-  public static Creator<WidgetTheme> CREATOR = new Creator<WidgetTheme>() {
-    @Override
-    public WidgetTheme createFromParcel(Parcel source) {
-      return new WidgetTheme(source);
-    }
+  static final int[] BACKGROUNDS =
+      new int[] {R.color.grey_50, R.color.widget_background_black, R.color.md_background_dark};
+  public static Creator<WidgetTheme> CREATOR =
+      new Creator<WidgetTheme>() {
+        @Override
+        public WidgetTheme createFromParcel(Parcel source) {
+          return new WidgetTheme(source);
+        }
 
-    @Override
-    public WidgetTheme[] newArray(int size) {
-      return new WidgetTheme[size];
-    }
-  };
+        @Override
+        public WidgetTheme[] newArray(int size) {
+          return new WidgetTheme[size];
+        }
+      };
   private final String name;
   private final int index;
   private final int backgroundColor;
   private final int textColorPrimary;
   private final int textColorSecondary;
 
-  public WidgetTheme(String name, int index, int backgroundColor, int textColorPrimary,
-      int textColorSecondary) {
+  public WidgetTheme(
+      String name, int index, int backgroundColor, int textColorPrimary, int textColorSecondary) {
     this.name = name;
     this.index = index;
     this.backgroundColor = backgroundColor;

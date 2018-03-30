@@ -18,8 +18,9 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 
-public class DatePickerActivity extends InjectingAppCompatActivity implements
-    DatePickerDialog.OnDateSetListener, NativeDatePickerDialog.NativeDatePickerDialogCallback {
+public class DatePickerActivity extends InjectingAppCompatActivity
+    implements DatePickerDialog.OnDateSetListener,
+        NativeDatePickerDialog.NativeDatePickerDialogCallback {
 
   public static final String EXTRA_TIMESTAMP = "extra_timestamp";
   private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
@@ -38,16 +39,15 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements
 
     if (preferences.getBoolean(R.string.p_use_native_datetime_pickers, false)) {
       if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
-        newNativeDatePickerDialog(initial)
-            .show(fragmentManager, FRAG_TAG_DATE_PICKER);
+        newNativeDatePickerDialog(initial).show(fragmentManager, FRAG_TAG_DATE_PICKER);
       }
     } else {
-      MyDatePickerDialog dialog = (MyDatePickerDialog) fragmentManager
-          .findFragmentByTag(FRAG_TAG_DATE_PICKER);
+      MyDatePickerDialog dialog =
+          (MyDatePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER);
       if (dialog == null) {
         dialog = new MyDatePickerDialog();
-        dialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1,
-            initial.getDayOfMonth());
+        dialog.initialize(
+            null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
         dialog.setVersion(DatePickerDialog.Version.VERSION_2);
         dialog.setThemeDark(themeBase.isDarkTheme(this));
         dialog.setAccentColor(themeAccent.getAccentColor());
@@ -68,8 +68,8 @@ public class DatePickerActivity extends InjectingAppCompatActivity implements
   }
 
   @Override
-  public void onDateSet(DatePickerDialog view, final int year, final int monthOfYear,
-      final int dayOfMonth) {
+  public void onDateSet(
+      DatePickerDialog view, final int year, final int monthOfYear, final int dayOfMonth) {
     dateSet(year, monthOfYear, dayOfMonth);
   }
 

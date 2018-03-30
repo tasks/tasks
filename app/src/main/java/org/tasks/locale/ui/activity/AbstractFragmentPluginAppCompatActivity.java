@@ -6,8 +6,8 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import timber.log.Timber;
 
-public abstract class AbstractFragmentPluginAppCompatActivity extends
-    ThemedInjectingAppCompatActivity {
+public abstract class AbstractFragmentPluginAppCompatActivity
+    extends ThemedInjectingAppCompatActivity {
 
   boolean mIsCancelled = false;
 
@@ -26,8 +26,9 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends
     if (isLocalePluginIntent(getIntent())) {
       final Bundle previousBundle = getPreviousBundle();
 
-      Timber.d("Creating Activity with Intent=%s, savedInstanceState=%s, EXTRA_BUNDLE=%s",
-          getIntent(), savedInstanceState, previousBundle); //$NON-NLS-1$
+      Timber.d(
+          "Creating Activity with Intent=%s, savedInstanceState=%s, EXTRA_BUNDLE=%s",
+          getIntent(), savedInstanceState, previousBundle); // $NON-NLS-1$
     }
   }
 
@@ -56,10 +57,8 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends
         if (null != resultBundle) {
           String blurb = getResultBlurb(resultBundle);
           Intent resultIntent = new Intent();
-          resultIntent.putExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE,
-              resultBundle);
-          resultIntent.putExtra(com.twofortyfouram.locale.api.Intent.EXTRA_STRING_BLURB,
-              blurb);
+          resultIntent.putExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE, resultBundle);
+          resultIntent.putExtra(com.twofortyfouram.locale.api.Intent.EXTRA_STRING_BLURB, blurb);
           setResult(RESULT_OK, resultIntent);
         }
       }
@@ -69,13 +68,13 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends
 
   /**
    * @return The {@link com.twofortyfouram.locale.api.Intent#EXTRA_BUNDLE EXTRA_BUNDLE} that was
-   * previously saved to the host and subsequently passed back to this Activity for further editing.
-   * Internally, this method relies on {@link #isBundleValid(Bundle)}.  If the bundle exists but is
-   * not valid, this method will return null.
+   *     previously saved to the host and subsequently passed back to this Activity for further
+   *     editing. Internally, this method relies on {@link #isBundleValid(Bundle)}. If the bundle
+   *     exists but is not valid, this method will return null.
    */
   private Bundle getPreviousBundle() {
-    final Bundle bundle = getIntent().getBundleExtra(
-        com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
+    final Bundle bundle =
+        getIntent().getBundleExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
 
     if (null != bundle) {
       if (isBundleValid(bundle)) {
@@ -88,38 +87,36 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends
 
   /**
    * @return The {@link com.twofortyfouram.locale.api.Intent#EXTRA_STRING_BLURB EXTRA_STRING_BLURB}
-   * that was previously saved to the host and subsequently passed back to this Activity for further
-   * editing.
+   *     that was previously saved to the host and subsequently passed back to this Activity for
+   *     further editing.
    */
   private String getPreviousBlurb() {
-    return getIntent().getStringExtra(
-        com.twofortyfouram.locale.api.Intent.EXTRA_STRING_BLURB);
+    return getIntent().getStringExtra(com.twofortyfouram.locale.api.Intent.EXTRA_STRING_BLURB);
   }
 
   /**
-   * <p>Validates the Bundle, to ensure that a malicious application isn't attempting to pass
-   * an invalid Bundle.</p>
+   * Validates the Bundle, to ensure that a malicious application isn't attempting to pass an
+   * invalid Bundle.
    *
-   * @param bundle The plug-in's Bundle previously returned by the edit Activity.  {@code bundle}
-   * should not be mutated by this method.
+   * @param bundle The plug-in's Bundle previously returned by the edit Activity. {@code bundle}
+   *     should not be mutated by this method.
    * @return true if {@code bundle} is valid for the plug-in.
    */
   protected abstract boolean isBundleValid(final Bundle bundle);
 
   /**
-   * Plug-in Activity lifecycle callback to allow the Activity to restore
-   * state for editing a previously saved plug-in instance. This callback will
-   * occur during the onPostCreate() phase of the Activity lifecycle.
-   * <p>{@code bundle} will have been
-   * validated by {@link #isBundleValid(Bundle)} prior to this
-   * method being called.  If {@link #isBundleValid(Bundle)} returned false, then this
-   * method will not be called.  This helps ensure that plug-in Activity subclasses only have to
-   * worry about bundle validation once, in the {@link #isBundleValid(Bundle)}
-   * method.</p>
+   * Plug-in Activity lifecycle callback to allow the Activity to restore state for editing a
+   * previously saved plug-in instance. This callback will occur during the onPostCreate() phase of
+   * the Activity lifecycle.
+   *
+   * <p>{@code bundle} will have been validated by {@link #isBundleValid(Bundle)} prior to this
+   * method being called. If {@link #isBundleValid(Bundle)} returned false, then this method will
+   * not be called. This helps ensure that plug-in Activity subclasses only have to worry about
+   * bundle validation once, in the {@link #isBundleValid(Bundle)} method.
+   *
    * <p>Note this callback only occurs the first time the Activity is created, so it will not be
-   * called
-   * when the Activity is recreated (e.g. {@code savedInstanceState != null}) such as after a
-   * configuration change like a screen rotation.</p>
+   * called when the Activity is recreated (e.g. {@code savedInstanceState != null}) such as after a
+   * configuration change like a screen rotation.
    *
    * @param previousBundle Previous bundle that the Activity saved.
    * @param previousBlurb Previous blurb that the Activity saved
@@ -127,9 +124,7 @@ public abstract class AbstractFragmentPluginAppCompatActivity extends
   protected abstract void onPostCreateWithPreviousResult(
       final Bundle previousBundle, final String previousBlurb);
 
-  /**
-   * @return Bundle for the plug-in or {@code null} if a valid Bundle cannot be generated.
-   */
+  /** @return Bundle for the plug-in or {@code null} if a valid Bundle cannot be generated. */
   protected abstract Bundle getResultBundle();
 
   /**

@@ -16,9 +16,13 @@ public class AndroidCalendarEventAttendee {
 
   @Override
   public String toString() {
-    return "AndroidCalendarEventAttendee{" +
-        "name='" + name + '\'' +
-        ", email='" + email + '\'' +
-        '}';
+    return "AndroidCalendarEventAttendee{"
+        + "name='"
+        + name
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + '}';
   }
 }

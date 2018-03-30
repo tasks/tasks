@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.activity;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
@@ -73,26 +72,25 @@ import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.TaskListViewModel;
 import timber.log.Timber;
 
-public class TaskListActivity extends InjectingAppCompatActivity implements
-    OnFilterItemClickedListener,
-    TaskListFragment.TaskListFragmentCallbackHandler,
-    PriorityControlSet.OnPriorityChanged,
-    TimerControlSet.TimerControlSetCallback,
-    RepeatControlSet.RepeatChangedListener,
-    DeadlineControlSet.DueDateChangeListener,
-    TaskEditFragment.TaskEditFragmentCallbackHandler,
-    CommentBarFragment.CommentBarFragmentCallback,
-    SortDialog.SortDialogCallback,
-    RemoteListSelectionHandler {
+public class TaskListActivity extends InjectingAppCompatActivity
+    implements OnFilterItemClickedListener,
+        TaskListFragment.TaskListFragmentCallbackHandler,
+        PriorityControlSet.OnPriorityChanged,
+        TimerControlSet.TimerControlSetCallback,
+        RepeatControlSet.RepeatChangedListener,
+        DeadlineControlSet.DueDateChangeListener,
+        TaskEditFragment.TaskEditFragmentCallbackHandler,
+        CommentBarFragment.CommentBarFragmentCallback,
+        SortDialog.SortDialogCallback,
+        RemoteListSelectionHandler {
 
-  /**
-   * For indicating the new list screen should be launched at fragment setup time
-   */
-  public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; //$NON-NLS-1$
-  public static final String OPEN_FILTER = "open_filter"; //$NON-NLS-1$
+  /** For indicating the new list screen should be launched at fragment setup time */
+  public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; // $NON-NLS-1$
+
+  public static final String OPEN_FILTER = "open_filter"; // $NON-NLS-1$
   public static final String LOAD_FILTER = "load_filter";
-  public static final String OPEN_TASK = "open_task"; //$NON-NLS-1$
-  public static final String OPEN_NEW_TASK = "open_new_task"; //$NON-NLS-1$
+  public static final String OPEN_TASK = "open_task"; // $NON-NLS-1$
+  public static final String OPEN_NEW_TASK = "open_new_task"; // $NON-NLS-1$
   private static final String FRAG_TAG_TASK_LIST = "frag_tag_task_list";
   @Inject Preferences preferences;
   @Inject SubtasksHelper subtasksHelper;
@@ -107,9 +105,16 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
   @Inject TaskDao taskDao;
   @Inject CaldavDao caldavDao;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
-  @BindView(R.id.master) FrameLayout master;
-  @BindView(R.id.detail) FrameLayout detail;
+
+  @BindView(R.id.drawer_layout)
+  DrawerLayout drawerLayout;
+
+  @BindView(R.id.master)
+  FrameLayout master;
+
+  @BindView(R.id.detail)
+  FrameLayout detail;
+
   private NavigationDrawerFragment navigationDrawer;
   private TaskListViewModel viewModel;
   private int currentNightMode;
@@ -117,9 +122,7 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
   private Filter filter;
   private ActionMode actionMode = null;
 
-  /**
-   * @see android.app.Activity#onCreate(Bundle)
-   */
+  /** @see android.app.Activity#onCreate(Bundle) */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -137,12 +140,13 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     navigationDrawer = getNavigationDrawerFragment();
     navigationDrawer.setUp(drawerLayout);
 
-    drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-      @Override
-      public void onDrawerStateChanged(int newState) {
-        finishActionMode();
-      }
-    });
+    drawerLayout.addDrawerListener(
+        new DrawerLayout.SimpleDrawerListener() {
+          @Override
+          public void onDrawerStateChanged(int newState) {
+            finishActionMode();
+          }
+        });
 
     handleIntent();
   }
@@ -162,8 +166,10 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     TaskEditFragment taskEditFragment = getTaskEditFragment();
     if (taskEditFragment == null) {
       hideDetailFragment();
-    } else if (intent.hasExtra(OPEN_FILTER) || intent.hasExtra(LOAD_FILTER) || intent
-        .hasExtra(OPEN_TASK) || intent.hasExtra(OPEN_NEW_TASK)) {
+    } else if (intent.hasExtra(OPEN_FILTER)
+        || intent.hasExtra(LOAD_FILTER)
+        || intent.hasExtra(OPEN_TASK)
+        || intent.hasExtra(OPEN_NEW_TASK)) {
       taskEditFragment.save();
       taskEditFinished();
     } else {
@@ -176,8 +182,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
       intent.removeExtra(OPEN_FILTER);
       loadTaskListFragment(filter);
     } else if (intent.hasExtra(LOAD_FILTER)) {
-      Filter filter = defaultFilterProvider
-          .getFilterFromPreference(intent.getStringExtra(LOAD_FILTER));
+      Filter filter =
+          defaultFilterProvider.getFilterFromPreference(intent.getStringExtra(LOAD_FILTER));
       intent.removeExtra(LOAD_FILTER);
       loadTaskListFragment(filter);
     } else if (taskListFragment == null) {
@@ -196,7 +202,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
   private void hideDetailFragment() {
     if (isDoublePaneLayout()) {
-      getSupportFragmentManager().beginTransaction()
+      getSupportFragmentManager()
+          .beginTransaction()
           .replace(R.id.detail, new EmptyTaskEditFragment())
           .commit();
     } else {
@@ -218,7 +225,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
     navigationDrawer.setSelected(filter);
 
     FragmentManager fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction()
+    fragmentManager
+        .beginTransaction()
         .replace(R.id.master, taskListFragment, FRAG_TAG_TASK_LIST)
         .commit();
   }
@@ -253,8 +261,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
   }
 
   private NavigationDrawerFragment getNavigationDrawerFragment() {
-    return (NavigationDrawerFragment) getSupportFragmentManager()
-        .findFragmentById(NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
+    return (NavigationDrawerFragment)
+        getSupportFragmentManager()
+            .findFragmentById(NavigationDrawerFragment.FRAGMENT_NAVIGATION_DRAWER);
   }
 
   @Override
@@ -422,13 +431,12 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
   }
 
   public TaskListFragment getTaskListFragment() {
-    return (TaskListFragment) getSupportFragmentManager()
-        .findFragmentByTag(FRAG_TAG_TASK_LIST);
+    return (TaskListFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG_TASK_LIST);
   }
 
   public TaskEditFragment getTaskEditFragment() {
-    return (TaskEditFragment) getSupportFragmentManager()
-        .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
+    return (TaskEditFragment)
+        getSupportFragmentManager().findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
   }
 
   @Override
@@ -457,8 +465,9 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
 
   @Override
   public void taskEditFinished() {
-    getSupportFragmentManager().popBackStackImmediate(TaskEditFragment.TAG_TASKEDIT_FRAGMENT,
-        FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    getSupportFragmentManager()
+        .popBackStackImmediate(
+            TaskEditFragment.TAG_TASKEDIT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     hideDetailFragment();
     hideKeyboard();
     getTaskListFragment().loadTaskListContent();
@@ -467,8 +476,8 @@ public class TaskListActivity extends InjectingAppCompatActivity implements
   private void hideKeyboard() {
     View view = getCurrentFocus();
     if (view != null) {
-      InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(
-          INPUT_METHOD_SERVICE);
+      InputMethodManager inputMethodManager =
+          (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
       inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
   }

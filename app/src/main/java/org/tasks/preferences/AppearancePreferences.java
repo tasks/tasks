@@ -18,8 +18,8 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.locale.Locale;
 
-public class AppearancePreferences extends InjectingPreferenceActivity implements
-    SeekBarDialog.SeekBarCallback {
+public class AppearancePreferences extends InjectingPreferenceActivity
+    implements SeekBarDialog.SeekBarCallback {
 
   public static final String EXTRA_RESTART = "extra_restart";
   private static final String EXTRA_FILTERS_CHANGED = "extra_filters_changed";
@@ -42,9 +42,7 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    result = savedInstanceState == null
-        ? new Bundle()
-        : savedInstanceState.getBundle(EXTRA_BUNDLE);
+    result = savedInstanceState == null ? new Bundle() : savedInstanceState.getBundle(EXTRA_BUNDLE);
 
     addPreferencesFromResource(R.xml.preferences_appearance);
 
@@ -55,38 +53,53 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
     setExtraOnChange(R.string.p_show_recently_modified_filter, EXTRA_FILTERS_CHANGED);
     setExtraOnChange(R.string.p_show_not_in_list_filter, EXTRA_FILTERS_CHANGED);
     findPreference(getString(R.string.customize_edit_screen))
-        .setOnPreferenceClickListener(preference -> {
-          startActivityForResult(new Intent(AppearancePreferences.this, BeastModePreferences.class),
-              REQUEST_CUSTOMIZE);
-          return true;
-        });
+        .setOnPreferenceClickListener(
+            preference -> {
+              startActivityForResult(
+                  new Intent(AppearancePreferences.this, BeastModePreferences.class),
+                  REQUEST_CUSTOMIZE);
+              return true;
+            });
 
-    findPreference(R.string.p_fontSize).setOnPreferenceClickListener(preference -> {
-      newSeekBarDialog(R.layout.dialog_font_size_seekbar, 10, 48, preferences.getFontSize(),
-          REQUEST_FONT_SIZE)
-          .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
-      return false;
-    });
+    findPreference(R.string.p_fontSize)
+        .setOnPreferenceClickListener(
+            preference -> {
+              newSeekBarDialog(
+                      R.layout.dialog_font_size_seekbar,
+                      10,
+                      48,
+                      preferences.getFontSize(),
+                      REQUEST_FONT_SIZE)
+                  .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
+              return false;
+            });
     updateFontSize();
 
-    findPreference(R.string.p_rowPadding).setOnPreferenceClickListener(preference -> {
-      newSeekBarDialog(R.layout.dialog_font_size_seekbar, 0, 16, preferences.getRowPadding(),
-          REQUEST_ROW_PADDING)
-          .show(getFragmentManager(), FRAG_TAG_ROW_PADDING_SEEKBAR);
-      return false;
-    });
+    findPreference(R.string.p_rowPadding)
+        .setOnPreferenceClickListener(
+            preference -> {
+              newSeekBarDialog(
+                      R.layout.dialog_font_size_seekbar,
+                      0,
+                      16,
+                      preferences.getRowPadding(),
+                      REQUEST_ROW_PADDING)
+                  .show(getFragmentManager(), FRAG_TAG_ROW_PADDING_SEEKBAR);
+              return false;
+            });
     updateRowPadding();
     Preference defaultList = findPreference(getString(R.string.p_default_list));
     Filter filter = defaultFilterProvider.getDefaultFilter();
     defaultList.setSummary(filter.listingTitle);
-    defaultList.setOnPreferenceClickListener(preference -> {
-      Intent intent = new Intent(AppearancePreferences.this, FilterSelectionActivity.class);
-      intent
-          .putExtra(FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getDefaultFilter());
-      intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-      startActivityForResult(intent, REQUEST_DEFAULT_LIST);
-      return true;
-    });
+    defaultList.setOnPreferenceClickListener(
+        preference -> {
+          Intent intent = new Intent(AppearancePreferences.this, FilterSelectionActivity.class);
+          intent.putExtra(
+              FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getDefaultFilter());
+          intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+          startActivityForResult(intent, REQUEST_DEFAULT_LIST);
+          return true;
+        });
   }
 
   @Override
@@ -123,11 +136,13 @@ public class AppearancePreferences extends InjectingPreferenceActivity implement
   }
 
   private void setExtraOnChange(final int resId, final String extra) {
-    findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-      tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, newValue.toString());
-      result.putBoolean(extra, true);
-      return true;
-    });
+    findPreference(getString(resId))
+        .setOnPreferenceChangeListener(
+            (preference, newValue) -> {
+              tracker.reportEvent(Tracking.Events.SET_PREFERENCE, resId, newValue.toString());
+              result.putBoolean(extra, true);
+              return true;
+            });
   }
 
   @Override

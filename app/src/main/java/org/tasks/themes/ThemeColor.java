@@ -19,39 +19,41 @@ import org.tasks.ui.MenuColorizer;
 
 public class ThemeColor implements ColorPickerDialog.Pickable {
 
-  static final int[] COLORS = new int[]{
-      R.style.BlueGrey,
-      R.style.DarkGrey,
-      R.style.Red,
-      R.style.Pink,
-      R.style.Purple,
-      R.style.DeepPurple,
-      R.style.Indigo,
-      R.style.Blue,
-      R.style.LightBlue,
-      R.style.Cyan,
-      R.style.Teal,
-      R.style.Green,
-      R.style.LightGreen,
-      R.style.Lime,
-      R.style.Yellow,
-      R.style.Amber,
-      R.style.Orange,
-      R.style.DeepOrange,
-      R.style.Brown,
-      R.style.Grey
-  };
-  public static Creator<ThemeColor> CREATOR = new Creator<ThemeColor>() {
-    @Override
-    public ThemeColor createFromParcel(Parcel source) {
-      return new ThemeColor(source);
-    }
+  static final int[] COLORS =
+      new int[] {
+        R.style.BlueGrey,
+        R.style.DarkGrey,
+        R.style.Red,
+        R.style.Pink,
+        R.style.Purple,
+        R.style.DeepPurple,
+        R.style.Indigo,
+        R.style.Blue,
+        R.style.LightBlue,
+        R.style.Cyan,
+        R.style.Teal,
+        R.style.Green,
+        R.style.LightGreen,
+        R.style.Lime,
+        R.style.Yellow,
+        R.style.Amber,
+        R.style.Orange,
+        R.style.DeepOrange,
+        R.style.Brown,
+        R.style.Grey
+      };
+  public static Creator<ThemeColor> CREATOR =
+      new Creator<ThemeColor>() {
+        @Override
+        public ThemeColor createFromParcel(Parcel source) {
+          return new ThemeColor(source);
+        }
 
-    @Override
-    public ThemeColor[] newArray(int size) {
-      return new ThemeColor[size];
-    }
-  };
+        @Override
+        public ThemeColor[] newArray(int size) {
+          return new ThemeColor[size];
+        }
+      };
   private final String name;
   private final int index;
   private final int actionBarTint;
@@ -60,8 +62,13 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
   private final int colorPrimaryDark;
   private final boolean isDark;
 
-  public ThemeColor(String name, int index, int colorPrimary, int colorPrimaryDark,
-      int actionBarTint, boolean isDark) {
+  public ThemeColor(
+      String name,
+      int index,
+      int colorPrimary,
+      int colorPrimaryDark,
+      int actionBarTint,
+      boolean isDark) {
     this.name = name;
     this.index = index;
     this.actionBarTint = actionBarTint;

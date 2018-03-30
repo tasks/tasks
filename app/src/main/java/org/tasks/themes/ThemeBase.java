@@ -11,24 +11,22 @@ import org.tasks.dialogs.ColorPickerDialog;
 
 public class ThemeBase implements ColorPickerDialog.Pickable {
 
-  private static final int[] THEMES = new int[]{
-      R.style.Tasks,
-      R.style.ThemeBlack,
-      R.style.Tasks,
-      R.style.Wallpaper,
-      R.style.Tasks
-  };
-  public static Creator<ThemeBase> CREATOR = new Creator<ThemeBase>() {
-    @Override
-    public ThemeBase createFromParcel(Parcel source) {
-      return new ThemeBase(source);
-    }
+  private static final int[] THEMES =
+      new int[] {
+        R.style.Tasks, R.style.ThemeBlack, R.style.Tasks, R.style.Wallpaper, R.style.Tasks
+      };
+  public static Creator<ThemeBase> CREATOR =
+      new Creator<ThemeBase>() {
+        @Override
+        public ThemeBase createFromParcel(Parcel source) {
+          return new ThemeBase(source);
+        }
 
-    @Override
-    public ThemeBase[] newArray(int size) {
-      return new ThemeBase[size];
-    }
-  };
+        @Override
+        public ThemeBase[] newArray(int size) {
+          return new ThemeBase[size];
+        }
+      };
   private final String name;
   private final int index;
   private final int style;
@@ -77,8 +75,9 @@ public class ThemeBase implements ColorPickerDialog.Pickable {
 
   public boolean isDarkTheme(Activity activity) {
     return index == 4
-        ? Configuration.UI_MODE_NIGHT_YES == (activity.getResources().getConfiguration().uiMode
-        & Configuration.UI_MODE_NIGHT_MASK)
+        ? Configuration.UI_MODE_NIGHT_YES
+            == (activity.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK)
         : index > 0;
   }
 

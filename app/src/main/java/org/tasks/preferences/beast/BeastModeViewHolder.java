@@ -14,7 +14,9 @@ import org.tasks.R;
 class BeastModeViewHolder extends RecyclerView.ViewHolder {
 
   private final ItemTouchHelper itemTouchHelper;
-  @BindView(R.id.text) TextView textView;
+
+  @BindView(R.id.text)
+  TextView textView;
 
   BeastModeViewHolder(View itemView, ItemTouchHelper itemTouchHelper) {
     super(itemView);

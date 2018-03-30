@@ -26,9 +26,12 @@ public class TaskDuplicator {
   private final LocalBroadcastManager localBroadcastManager;
 
   @Inject
-  public TaskDuplicator(GCalHelper gcalHelper, TaskDao taskDao,
+  public TaskDuplicator(
+      GCalHelper gcalHelper,
+      TaskDao taskDao,
       LocalBroadcastManager localBroadcastManager,
-      TagDao tagDao, GoogleTaskDao googleTaskDao) {
+      TagDao tagDao,
+      GoogleTaskDao googleTaskDao) {
     this.gcalHelper = gcalHelper;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
@@ -62,8 +65,9 @@ public class TaskDuplicator {
 
     taskDao.createNew(clone);
 
-    tagDao.insert(transform(tags,
-        tag -> new Tag(clone.getId(), clone.getUuid(), tag.getName(), tag.getTagUid())));
+    tagDao.insert(
+        transform(
+            tags, tag -> new Tag(clone.getId(), clone.getUuid(), tag.getName(), tag.getTagUid())));
 
     if (googleTask != null) {
       googleTaskDao.insert(new GoogleTask(clone.getId(), googleTask.getListId()));

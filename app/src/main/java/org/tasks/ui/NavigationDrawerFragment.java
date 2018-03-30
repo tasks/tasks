@@ -34,14 +34,13 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
   public static final int REQUEST_NEW_GTASK_LIST = 6;
   public static final int REQUEST_NEW_CALDAV_ACCOUNT = 7;
-  private static final String TOKEN_LAST_SELECTED = "lastSelected"; //$NON-NLS-1$
+  private static final String TOKEN_LAST_SELECTED = "lastSelected"; // $NON-NLS-1$
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject FilterAdapter adapter;
-  /**
-   * A pointer to the current callbacks instance (the Activity).
-   */
+  /** A pointer to the current callbacks instance (the Activity). */
   private OnFilterItemClickedListener mCallbacks;
+
   private DrawerLayout mDrawerLayout;
   private ListView mDrawerListView;
   private View mFragmentContainerView;
@@ -66,16 +65,17 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == FilterAdapter.REQUEST_SETTINGS && resultCode == Activity.RESULT_OK
+    if (requestCode == FilterAdapter.REQUEST_SETTINGS
+        && resultCode == Activity.RESULT_OK
         && data != null) {
       if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
         TaskListActivity activity = (TaskListActivity) getActivity();
         activity.restart();
       }
-    } else if (requestCode == REQUEST_NEW_LIST ||
-        requestCode == ACTIVITY_REQUEST_NEW_FILTER ||
-        requestCode == REQUEST_NEW_GTASK_LIST ||
-        requestCode == REQUEST_NEW_CALDAV_ACCOUNT) {
+    } else if (requestCode == REQUEST_NEW_LIST
+        || requestCode == ACTIVITY_REQUEST_NEW_FILTER
+        || requestCode == REQUEST_NEW_GTASK_LIST
+        || requestCode == REQUEST_NEW_CALDAV_ACCOUNT) {
       if (resultCode == RESULT_OK && data != null) {
         Filter newList = data.getParcelableExtra(TaskListActivity.OPEN_FILTER);
         if (newList != null) {
@@ -88,24 +88,26 @@ public class NavigationDrawerFragment extends InjectingFragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
     if (atLeastLollipop()) {
       ((ScrimInsetsFrameLayout) layout.findViewById(R.id.scrim_layout))
           .setOnInsetsCallback(insets -> mDrawerListView.setPadding(0, insets.top, 0, 0));
     }
     mDrawerListView = layout.findViewById(android.R.id.list);
-    mDrawerListView.setOnItemClickListener((parent, view, position, id) -> {
-      mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-        @Override
-        public void onDrawerClosed(View drawerView) {
-          mDrawerLayout.removeDrawerListener(this);
-          selectItem(position);
-        }
-      });
-      close();
-    });
+    mDrawerListView.setOnItemClickListener(
+        (parent, view, position, id) -> {
+          mDrawerLayout.addDrawerListener(
+              new DrawerLayout.SimpleDrawerListener() {
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                  mDrawerLayout.removeDrawerListener(this);
+                  selectItem(position);
+                }
+              });
+          close();
+        });
 
     return layout;
   }

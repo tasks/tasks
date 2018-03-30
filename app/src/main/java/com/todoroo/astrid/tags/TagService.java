@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.tags;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -59,9 +58,7 @@ public final class TagService {
     return newArrayList(transform(uuids, this::tagFromUUID));
   }
 
-  /**
-   * Return all tags (including metadata tags and TagData tags) in an array list
-   */
+  /** Return all tags (including metadata tags and TagData tags) in an array list */
   public List<TagData> getTagList() {
     final List<TagData> tagList = new ArrayList<>();
     for (TagData tagData : tagDataDao.tagDataOrderedByName()) {
@@ -77,8 +74,8 @@ public final class TagService {
   }
 
   /**
-   * If a tag already exists in the database that case insensitively matches the
-   * given tag, return that. Otherwise, return the argument
+   * If a tag already exists in the database that case insensitively matches the given tag, return
+   * that. Otherwise, return the argument
    */
   public String getTagWithCase(String tag) {
     TagData tagData = tagDataDao.getTagByName(tag);

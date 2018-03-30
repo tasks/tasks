@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.files;
 
 import android.annotation.SuppressLint;
@@ -53,8 +52,11 @@ public class FilesControlSet extends TaskEditControlFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject @ForActivity Context context;
 
-  @BindView(R.id.attachment_container) LinearLayout attachmentContainer;
-  @BindView(R.id.add_attachment) TextView addAttachment;
+  @BindView(R.id.attachment_container)
+  LinearLayout attachmentContainer;
+
+  @BindView(R.id.add_attachment)
+  TextView addAttachment;
 
   private String taskUuid;
 
@@ -73,8 +75,8 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
 
     taskUuid = task.getUuid();
@@ -90,8 +92,8 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @OnClick(R.id.add_attachment)
   void addAttachment(View view) {
-    startActivityForResult(new Intent(context, AddAttachmentActivity.class),
-        REQUEST_ADD_ATTACHMENT);
+    startActivityForResult(
+        new Intent(context, AddAttachmentActivity.class), REQUEST_ADD_ATTACHMENT);
   }
 
   @Override
@@ -110,9 +112,7 @@ public class FilesControlSet extends TaskEditControlFragment {
   }
 
   @Override
-  public void apply(Task task) {
-
-  }
+  public void apply(Task task) {}
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -129,8 +129,8 @@ public class FilesControlSet extends TaskEditControlFragment {
   }
 
   private void addAttachment(TaskAttachment taskAttachment) {
-    View fileRow = getActivity().getLayoutInflater()
-        .inflate(R.layout.file_row, attachmentContainer, false);
+    View fileRow =
+        getActivity().getLayoutInflater().inflate(R.layout.file_row, attachmentContainer, false);
     fileRow.setTag(taskAttachment);
     attachmentContainer.addView(fileRow);
     addAttachment(taskAttachment, fileRow);
@@ -143,17 +143,21 @@ public class FilesControlSet extends TaskEditControlFragment {
     nameView.setOnClickListener(v -> showFile(taskAttachment));
     View clearFile = fileRow.findViewById(R.id.clear);
     clearFile.setOnClickListener(
-        v -> dialogBuilder.newMessageDialog(R.string.premium_remove_file_confirm)
-            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-              taskAttachmentDao.delete(taskAttachment);
-              if (!Strings.isNullOrEmpty(taskAttachment.getPath())) {
-                File f = new File(taskAttachment.getPath());
-                f.delete();
-              }
-              attachmentContainer.removeView(fileRow);
-            })
-            .setNegativeButton(android.R.string.cancel, null)
-            .show());
+        v ->
+            dialogBuilder
+                .newMessageDialog(R.string.premium_remove_file_confirm)
+                .setPositiveButton(
+                    android.R.string.ok,
+                    (dialog, which) -> {
+                      taskAttachmentDao.delete(taskAttachment);
+                      if (!Strings.isNullOrEmpty(taskAttachment.getPath())) {
+                        File f = new File(taskAttachment.getPath());
+                        f.delete();
+                      }
+                      attachmentContainer.removeView(fileRow);
+                    })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show());
   }
 
   private void validateFiles(List<TaskAttachment> files) {
@@ -162,7 +166,7 @@ public class FilesControlSet extends TaskEditControlFragment {
       if (!Strings.isNullOrEmpty(m.getPath())) {
         File f = new File(m.getPath());
         if (!f.exists()) {
-          m.setPath(""); //$NON-NLS-1$
+          m.setPath(""); // $NON-NLS-1$
           // No local file and no url -- delete the metadata
           taskAttachmentDao.delete(m);
           files.remove(i);
@@ -183,16 +187,19 @@ public class FilesControlSet extends TaskEditControlFragment {
 
   @SuppressLint("NewApi")
   private void showFile(final TaskAttachment m) {
-    final String fileType = !Strings.isNullOrEmpty(m.getContentType()) ? m.getContentType()
-        : TaskAttachment.FILE_TYPE_OTHER;
+    final String fileType =
+        !Strings.isNullOrEmpty(m.getContentType())
+            ? m.getContentType()
+            : TaskAttachment.FILE_TYPE_OTHER;
     final String filePath = m.getPath();
 
     if (fileType.startsWith(TaskAttachment.FILE_TYPE_AUDIO)) {
       play(m.getPath(), () -> showFromIntent(filePath, fileType));
     } else if (fileType.startsWith(TaskAttachment.FILE_TYPE_IMAGE)) {
       try {
-        Intent intent = FileHelper
-            .getReadableActionView(context, filePath, TaskAttachment.FILE_TYPE_IMAGE + "*");
+        Intent intent =
+            FileHelper.getReadableActionView(
+                context, filePath, TaskAttachment.FILE_TYPE_IMAGE + "*");
         getActivity().startActivity(intent);
       } catch (ActivityNotFoundException e) {
         Timber.e(e, e.getMessage());
@@ -228,8 +235,8 @@ public class FilesControlSet extends TaskEditControlFragment {
   }
 
   private void createNewFileAttachment(String path, String fileName, String fileType) {
-    TaskAttachment attachment = TaskAttachment
-        .createNewAttachment(taskUuid, path, fileName, fileType);
+    TaskAttachment attachment =
+        TaskAttachment.createNewAttachment(taskUuid, path, fileName, fileType);
     taskAttachmentDao.createNew(attachment);
     addAttachment(attachment);
   }

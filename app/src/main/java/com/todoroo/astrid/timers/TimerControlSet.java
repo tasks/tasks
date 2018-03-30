@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
- * <p/>
- * See the file "LICENSE" for the full license governing this code.
+ *
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.timers;
 
 import android.app.Activity;
@@ -48,9 +47,16 @@ public class TimerControlSet extends TaskEditControlFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject @ForActivity Context context;
   @Inject Theme theme;
-  @BindView(R.id.display_row_edit) TextView displayEdit;
-  @BindView(R.id.timer) Chronometer chronometer;
-  @BindView(R.id.timer_button) ImageView timerButton;
+
+  @BindView(R.id.display_row_edit)
+  TextView displayEdit;
+
+  @BindView(R.id.timer)
+  Chronometer chronometer;
+
+  @BindView(R.id.timer_button)
+  ImageView timerButton;
+
   private TimeDurationControlSet estimated;
   private TimeDurationControlSet elapsed;
   private long timerStarted;
@@ -60,8 +66,8 @@ public class TimerControlSet extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
     int elapsedSeconds;
     int estimatedSeconds;
@@ -114,7 +120,8 @@ public class TimerControlSet extends TaskEditControlFragment {
   }
 
   private AlertDialog buildDialog() {
-    return dialogBuilder.newDialog()
+    return dialogBuilder
+        .newDialog()
         .setView(dialogView)
         .setPositiveButton(android.R.string.ok, (dialog12, which) -> refreshDisplayView())
         .setOnCancelListener(dialog1 -> refreshDisplayView())
@@ -154,8 +161,8 @@ public class TimerControlSet extends TaskEditControlFragment {
 
   @Override
   public boolean hasChanges(Task original) {
-    return elapsed.getTimeDurationInSeconds() != original.getElapsedSeconds() ||
-        estimated.getTimeDurationInSeconds() != original.getEstimatedSeconds();
+    return elapsed.getTimeDurationInSeconds() != original.getElapsedSeconds()
+        || estimated.getTimeDurationInSeconds() != original.getEstimatedSeconds();
   }
 
   @Override
@@ -184,7 +191,7 @@ public class TimerControlSet extends TaskEditControlFragment {
     String toDisplay;
 
     if (!TextUtils.isEmpty(est) && !TextUtils.isEmpty(elap)) {
-      toDisplay = est + ", " + elap; //$NON-NLS-1$
+      toDisplay = est + ", " + elap; // $NON-NLS-1$
     } else if (!TextUtils.isEmpty(est)) {
       toDisplay = est;
     } else if (!TextUtils.isEmpty(elap)) {
@@ -197,9 +204,8 @@ public class TimerControlSet extends TaskEditControlFragment {
   }
 
   private void updateChronometer() {
-    timerButton.setImageResource(timerActive()
-        ? R.drawable.ic_pause_24dp
-        : R.drawable.ic_play_arrow_24dp);
+    timerButton.setImageResource(
+        timerActive() ? R.drawable.ic_pause_24dp : R.drawable.ic_play_arrow_24dp);
 
     long elapsed = this.elapsed.getTimeDurationInSeconds() * 1000L;
     if (timerActive()) {
@@ -207,11 +213,11 @@ public class TimerControlSet extends TaskEditControlFragment {
       elapsed += DateUtilities.now() - timerStarted;
       chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
       if (elapsed > DateUtilities.ONE_DAY) {
-        chronometer.setOnChronometerTickListener(cArg -> {
-          long t = SystemClock.elapsedRealtime() - cArg.getBase();
-          cArg.setText(DateFormat.format("d'd' h:mm", t)); //$NON-NLS-1$
-        });
-
+        chronometer.setOnChronometerTickListener(
+            cArg -> {
+              long t = SystemClock.elapsedRealtime() - cArg.getBase();
+              cArg.setText(DateFormat.format("d'd' h:mm", t)); // $NON-NLS-1$
+            });
       }
       chronometer.start();
     } else {

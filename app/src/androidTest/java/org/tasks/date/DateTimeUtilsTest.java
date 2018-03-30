@@ -19,16 +19,26 @@ public class DateTimeUtilsTest {
 
   @Test
   public void testGetCurrentTime() {
-    freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(now.getMillis(), currentTimeMillis());
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(now.getMillis(), currentTimeMillis());
+              }
+            });
   }
 
   @Test
   public void testCreateNewUtcDate() {
     DateTime utc = now.toUTC();
-    DateTime actual = newDateUtc(utc.getYear(), utc.getMonthOfYear(), utc.getDayOfMonth(),
-        utc.getHourOfDay(), utc.getMinuteOfHour(), utc.getSecondOfMinute());
+    DateTime actual =
+        newDateUtc(
+            utc.getYear(),
+            utc.getMonthOfYear(),
+            utc.getDayOfMonth(),
+            utc.getHourOfDay(),
+            utc.getMinuteOfHour(),
+            utc.getSecondOfMinute());
     assertEquals(utc.getMillis(), actual.getMillis());
   }
 

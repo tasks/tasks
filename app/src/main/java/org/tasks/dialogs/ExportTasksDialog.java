@@ -32,8 +32,8 @@ public class ExportTasksDialog extends InjectingNativeDialogFragment {
     progressDialog.show();
 
     setCancelable(false);
-    tasksJsonExporter.exportTasks(getActivity(), TasksJsonExporter.ExportType.EXPORT_TYPE_MANUAL,
-        progressDialog);
+    tasksJsonExporter.exportTasks(
+        getActivity(), TasksJsonExporter.ExportType.EXPORT_TYPE_MANUAL, progressDialog);
     tracker.reportEvent(Tracking.Events.EXPORT);
     return progressDialog;
   }

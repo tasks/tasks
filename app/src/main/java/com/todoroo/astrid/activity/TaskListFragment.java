@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.activity;
 
 import static android.support.v4.content.ContextCompat.getColor;
@@ -70,17 +69,16 @@ import org.tasks.ui.ProgressDialogAsyncTask;
 import org.tasks.ui.TaskListViewModel;
 
 /**
- * Primary activity for the Bente application. Shows a list of upcoming tasks
- * and a user's coaches.
+ * Primary activity for the Bente application. Shows a list of upcoming tasks and a user's coaches.
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class TaskListFragment extends InjectingFragment implements
-    SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
+public class TaskListFragment extends InjectingFragment
+    implements SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
 
+  public static final String TAGS_METADATA_JOIN = "for_tags"; // $NON-NLS-1$
+  public static final String FILE_METADATA_JOIN = "for_actions"; // $NON-NLS-1$
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
-  public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
-  public static final String FILE_METADATA_JOIN = "for_actions"; //$NON-NLS-1$
   private static final String EXTRA_FILTER = "extra_filter";
   private static final String FRAG_TAG_SORT_DIALOG = "frag_tag_sort_dialog";
 
@@ -102,11 +100,22 @@ public class TaskListFragment extends InjectingFragment implements
   @Inject ViewHolderFactory viewHolderFactory;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Device device;
-  @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
-  @BindView(R.id.swipe_layout_empty) SwipeRefreshLayout emptyRefreshLayout;
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.task_list_coordinator) CoordinatorLayout coordinatorLayout;
-  @BindView(R.id.recycler_view) RecyclerView recyclerView;
+
+  @BindView(R.id.swipe_layout)
+  SwipeRefreshLayout swipeRefreshLayout;
+
+  @BindView(R.id.swipe_layout_empty)
+  SwipeRefreshLayout emptyRefreshLayout;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
+  @BindView(R.id.task_list_coordinator)
+  CoordinatorLayout coordinatorLayout;
+
+  @BindView(R.id.recycler_view)
+  RecyclerView recyclerView;
+
   private TaskListViewModel taskListViewModel;
   private TaskAdapter taskAdapter = null;
   private TaskListRecyclerAdapter recyclerAdapter;
@@ -134,10 +143,11 @@ public class TaskListFragment extends InjectingFragment implements
   protected void setSyncOngoing(final boolean ongoing) {
     Activity activity = getActivity();
     if (activity != null) {
-      activity.runOnUiThread(() -> {
-        swipeRefreshLayout.setRefreshing(ongoing);
-        emptyRefreshLayout.setRefreshing(ongoing);
-      });
+      activity.runOnUiThread(
+          () -> {
+            swipeRefreshLayout.setRefreshing(ongoing);
+            emptyRefreshLayout.setRefreshing(ongoing);
+          });
     }
   }
 
@@ -164,9 +174,7 @@ public class TaskListFragment extends InjectingFragment implements
     component.inject(this);
   }
 
-  /**
-   * Called when loading up the activity
-   */
+  /** Called when loading up the activity */
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -193,8 +201,8 @@ public class TaskListFragment extends InjectingFragment implements
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View parent = inflater.inflate(R.layout.fragment_task_list, container, false);
     ButterKnife.bind(this, parent);
     setupRefresh(swipeRefreshLayout);
@@ -237,27 +245,32 @@ public class TaskListFragment extends InjectingFragment implements
     menu.findItem(R.id.menu_voice_add).setVisible(device.voiceInputAvailable());
     final MenuItem item = menu.findItem(R.id.menu_search);
     final SearchView actionView = (SearchView) MenuItemCompat.getActionView(item);
-    actionView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-      @Override
-      public boolean onQueryTextSubmit(String query) {
-        query = query.trim();
-        String title = getString(R.string.FLA_search_filter, query);
-        Filter savedFilter = new Filter(title,
-            new QueryTemplate().where(Criterion.and(
-                Task.DELETION_DATE.eq(0),
-                Criterion.or(
-                    Task.NOTES.like("%" + query + "%"),
-                    Task.TITLE.like("%" + query + "%")))));
-        ((TaskListActivity) getActivity()).onFilterItemClicked(savedFilter);
-        MenuItemCompat.collapseActionView(item);
-        return true;
-      }
+    actionView.setOnQueryTextListener(
+        new SearchView.OnQueryTextListener() {
+          @Override
+          public boolean onQueryTextSubmit(String query) {
+            query = query.trim();
+            String title = getString(R.string.FLA_search_filter, query);
+            Filter savedFilter =
+                new Filter(
+                    title,
+                    new QueryTemplate()
+                        .where(
+                            Criterion.and(
+                                Task.DELETION_DATE.eq(0),
+                                Criterion.or(
+                                    Task.NOTES.like("%" + query + "%"),
+                                    Task.TITLE.like("%" + query + "%")))));
+            ((TaskListActivity) getActivity()).onFilterItemClicked(savedFilter);
+            MenuItemCompat.collapseActionView(item);
+            return true;
+          }
 
-      @Override
-      public boolean onQueryTextChange(String query) {
-        return false;
-      }
-    });
+          @Override
+          public boolean onQueryTextChange(String query) {
+            return false;
+          }
+        });
   }
 
   @Override
@@ -265,11 +278,11 @@ public class TaskListFragment extends InjectingFragment implements
     switch (item.getItemId()) {
       case R.id.menu_voice_add:
         Intent recognition = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        recognition.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        recognition.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         recognition.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
-        recognition
-            .putExtra(RecognizerIntent.EXTRA_PROMPT, getString(R.string.voice_create_prompt));
+        recognition.putExtra(
+            RecognizerIntent.EXTRA_PROMPT, getString(R.string.voice_create_prompt));
         startActivityForResult(recognition, TaskListFragment.VOICE_RECOGNITION_REQUEST_CODE);
         return true;
       case R.id.menu_sort:
@@ -294,7 +307,8 @@ public class TaskListFragment extends InjectingFragment implements
         startActivityForResult(intent, REQUEST_EDIT_FILTER);
         return true;
       case R.id.menu_clear_completed:
-        dialogBuilder.newMessageDialog(R.string.clear_completed_tasks_confirmation)
+        dialogBuilder
+            .newMessageDialog(R.string.clear_completed_tasks_confirmation)
             .setPositiveButton(android.R.string.ok, (dialog, which) -> clearCompleted())
             .setNegativeButton(android.R.string.cancel, null)
             .show();
@@ -337,22 +351,26 @@ public class TaskListFragment extends InjectingFragment implements
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
 
-    taskListViewModel.getTasks(filter, taskProperties()).observe(getActivity(), list -> {
-      if (list.isEmpty()) {
-        swipeRefreshLayout.setVisibility(View.GONE);
-        emptyRefreshLayout.setVisibility(View.VISIBLE);
-      } else {
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
-        emptyRefreshLayout.setVisibility(View.GONE);
-      }
+    taskListViewModel
+        .getTasks(filter, taskProperties())
+        .observe(
+            getActivity(),
+            list -> {
+              if (list.isEmpty()) {
+                swipeRefreshLayout.setVisibility(View.GONE);
+                emptyRefreshLayout.setVisibility(View.VISIBLE);
+              } else {
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
+                emptyRefreshLayout.setVisibility(View.GONE);
+              }
 
-      // stash selected items
-      Bundle saveState = recyclerAdapter.getSaveState();
+              // stash selected items
+              Bundle saveState = recyclerAdapter.getSaveState();
 
-      recyclerAdapter.setList(list);
+              recyclerAdapter.setList(list);
 
-      recyclerAdapter.restoreSaveState(saveState);
-    });
+              recyclerAdapter.restoreSaveState(saveState);
+            });
 
     ((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
     recyclerAdapter.applyToRecyclerView(recyclerView);
@@ -369,8 +387,9 @@ public class TaskListFragment extends InjectingFragment implements
   }
 
   public Snackbar makeSnackbar(String text) {
-    Snackbar snackbar = Snackbar.make(coordinatorLayout, text, 8000)
-        .setActionTextColor(getColor(context, R.color.snackbar_text_color));
+    Snackbar snackbar =
+        Snackbar.make(coordinatorLayout, text, 8000)
+            .setActionTextColor(getColor(context, R.color.snackbar_text_color));
     snackbar.getView().setBackgroundColor(getColor(context, R.color.snackbar_background));
     return snackbar;
   }
@@ -383,8 +402,8 @@ public class TaskListFragment extends InjectingFragment implements
   }
 
   /**
-   * Called by the RefreshReceiver when the task list receives a refresh
-   * broadcast. Subclasses should override this.
+   * Called by the RefreshReceiver when the task list receives a refresh broadcast. Subclasses
+   * should override this.
    */
   private void refresh() {
     // TODO: compare indents in diff callback, then animate this
@@ -413,9 +432,7 @@ public class TaskListFragment extends InjectingFragment implements
     return new TaskAdapter();
   }
 
-  /**
-   * Fill in the Task List with current items
-   */
+  /** Fill in the Task List with current items */
   protected void setTaskAdapter() {
     if (filter == null) {
       return;
@@ -423,8 +440,16 @@ public class TaskListFragment extends InjectingFragment implements
 
     // set up list adapters
     taskAdapter = createTaskAdapter();
-    recyclerAdapter = new TaskListRecyclerAdapter(getActivity(), taskAdapter, viewHolderFactory,
-        this, taskDeleter, taskDuplicator, tracker, dialogBuilder);
+    recyclerAdapter =
+        new TaskListRecyclerAdapter(
+            getActivity(),
+            taskAdapter,
+            viewHolderFactory,
+            this,
+            taskDeleter,
+            taskDuplicator,
+            tracker,
+            dialogBuilder);
     taskAdapter.setHelper(recyclerAdapter.getHelper());
   }
 
@@ -443,8 +468,7 @@ public class TaskListFragment extends InjectingFragment implements
     syncAdapters.syncNow();
   }
 
-  public void onTaskCreated(String uuid) {
-  }
+  public void onTaskCreated(String uuid) {}
 
   /*
    * ======================================================================
@@ -476,8 +500,9 @@ public class TaskListFragment extends InjectingFragment implements
         List<String> match = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
         if (match != null && match.size() > 0 && match.get(0).length() > 0) {
           String recognizedSpeech = match.get(0);
-          recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-              recognizedSpeech.substring(1).toLowerCase();
+          recognizedSpeech =
+              recognizedSpeech.substring(0, 1).toUpperCase()
+                  + recognizedSpeech.substring(1).toLowerCase();
 
           onTaskListItemClicked(addTask(recognizedSpeech));
         }
@@ -489,8 +514,11 @@ public class TaskListFragment extends InjectingFragment implements
         if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
         } else if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
-          activity.getIntent().putExtra(TaskListActivity.OPEN_FILTER,
-              (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
+          activity
+              .getIntent()
+              .putExtra(
+                  TaskListActivity.OPEN_FILTER,
+                  (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
           activity.recreate();
         }
       }
@@ -509,13 +537,13 @@ public class TaskListFragment extends InjectingFragment implements
   }
 
   protected boolean hasDraggableOption() {
-    return BuiltInFilterExposer.isInbox(context, filter) || BuiltInFilterExposer
-        .isTodayFilter(context, filter);
+    return BuiltInFilterExposer.isInbox(context, filter)
+        || BuiltInFilterExposer.isTodayFilter(context, filter);
   }
 
   /**
-   * Container Activity must implement this interface and we ensure that it
-   * does during the onAttach() callback
+   * Container Activity must implement this interface and we ensure that it does during the
+   * onAttach() callback
    */
   public interface TaskListFragmentCallbackHandler {
 

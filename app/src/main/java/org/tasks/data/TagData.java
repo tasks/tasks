@@ -13,31 +13,36 @@ import org.tasks.backup.XmlReader;
 @Entity(tableName = "tagdata")
 public final class TagData implements Parcelable {
 
-  public static final Creator<TagData> CREATOR = new Creator<TagData>() {
-    @Override
-    public TagData createFromParcel(Parcel source) {
-      return new TagData(source);
-    }
+  public static final Creator<TagData> CREATOR =
+      new Creator<TagData>() {
+        @Override
+        public TagData createFromParcel(Parcel source) {
+          return new TagData(source);
+        }
 
-    @Override
-    public TagData[] newArray(int size) {
-      return new TagData[size];
-    }
-  };
+        @Override
+        public TagData[] newArray(int size) {
+          return new TagData[size];
+        }
+      };
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   private transient Long id;
+
   @ColumnInfo(name = "remoteId")
   private String remoteId = Task.NO_UUID;
+
   @ColumnInfo(name = "name")
   private String name = "";
+
   @ColumnInfo(name = "color")
   private Integer color = -1;
+
   @ColumnInfo(name = "tagOrdering")
   private String tagOrdering = "[]";
 
-  public TagData() {
-  }
+  public TagData() {}
 
   @Ignore
   public TagData(XmlReader reader) {
@@ -134,7 +139,8 @@ public final class TagData implements Parcelable {
     if (color != null ? !color.equals(tagData.color) : tagData.color != null) {
       return false;
     }
-    return tagOrdering != null ? tagOrdering.equals(tagData.tagOrdering)
+    return tagOrdering != null
+        ? tagOrdering.equals(tagData.tagOrdering)
         : tagData.tagOrdering == null;
   }
 
@@ -150,12 +156,20 @@ public final class TagData implements Parcelable {
 
   @Override
   public String toString() {
-    return "TagData{" +
-        "id=" + id +
-        ", remoteId='" + remoteId + '\'' +
-        ", name='" + name + '\'' +
-        ", color=" + color +
-        ", tagOrdering='" + tagOrdering + '\'' +
-        '}';
+    return "TagData{"
+        + "id="
+        + id
+        + ", remoteId='"
+        + remoteId
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", color="
+        + color
+        + ", tagOrdering='"
+        + tagOrdering
+        + '\''
+        + '}';
   }
 }

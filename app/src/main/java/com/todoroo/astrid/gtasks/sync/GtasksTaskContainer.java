@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks.sync;
 
 import static org.tasks.gtasks.GoogleTaskSynchronizer.mergeDates;
@@ -19,12 +18,13 @@ public class GtasksTaskContainer {
 
   public final Task task;
   public final ArrayList<GoogleTask> metadata;
-  private final long updateTime;
   public final GoogleTask gtaskMetadata;
+  private final long updateTime;
 
   public GtasksTaskContainer(
       com.google.api.services.tasks.model.Task remoteTask,
-      Task localTask, String listId,
+      Task localTask,
+      String listId,
       GoogleTask metadata) {
     task = localTask;
     this.metadata = new ArrayList<>();

@@ -15,16 +15,15 @@ import timber.log.Timber;
 public class CalendarEventAttendeeProvider {
 
   private static final String[] COLUMNS = {
-      CalendarContract.Attendees.ATTENDEE_NAME,
-      CalendarContract.Attendees.ATTENDEE_EMAIL,
+    CalendarContract.Attendees.ATTENDEE_NAME, CalendarContract.Attendees.ATTENDEE_EMAIL,
   };
 
   private final PermissionChecker permissionChecker;
   private final ContentResolver contentResolver;
 
   @Inject
-  public CalendarEventAttendeeProvider(@ForApplication Context context,
-      PermissionChecker permissionChecker) {
+  public CalendarEventAttendeeProvider(
+      @ForApplication Context context, PermissionChecker permissionChecker) {
     this.permissionChecker = permissionChecker;
     contentResolver = context.getContentResolver();
   }
@@ -38,18 +37,20 @@ public class CalendarEventAttendeeProvider {
     Cursor cursor = null;
     try {
       //noinspection ResourceType
-      cursor = contentResolver.query(
-          CalendarContract.Attendees.CONTENT_URI,
-          COLUMNS,
-          CalendarContract.Attendees.EVENT_ID + " = ? ",
-          new String[]{Long.toString(id)}, null);
+      cursor =
+          contentResolver.query(
+              CalendarContract.Attendees.CONTENT_URI,
+              COLUMNS,
+              CalendarContract.Attendees.EVENT_ID + " = ? ",
+              new String[] {Long.toString(id)},
+              null);
       if (cursor != null && cursor.getCount() > 0) {
         int emailIndex = cursor.getColumnIndexOrThrow(CalendarContract.Attendees.ATTENDEE_EMAIL);
         int nameIndex = cursor.getColumnIndexOrThrow(CalendarContract.Attendees.ATTENDEE_NAME);
         while (cursor.moveToNext()) {
-          attendees.add(new AndroidCalendarEventAttendee(
-              cursor.getString(nameIndex),
-              cursor.getString(emailIndex)));
+          attendees.add(
+              new AndroidCalendarEventAttendee(
+                  cursor.getString(nameIndex), cursor.getString(emailIndex)));
         }
       }
     } catch (Exception e) {

@@ -66,10 +66,7 @@ public class NewRepeatTests {
     assertEquals(newDayTime(2017, 8, 28, 1, 44), calculateNextDueDate(task));
   }
 
-  /**
-   * Tests for repeating from completionDate
-   */
-
+  /** Tests for repeating from completionDate */
   @Test
   public void testRepeatMinutelyFromCompleteDateCompleteBefore() throws ParseException {
     DateTime dueDateTime = newDayTime(2016, 8, 30, 0, 25);
@@ -181,8 +178,9 @@ public class NewRepeatTests {
   @Test
   public void testAdvancedRepeatWeeklyFromDueDate() throws ParseException {
     DateTime dueDateTime = newDayTime(2016, 8, 29, 0, 25);
-    Task task = newWeeklyFromDue(1, dueDateTime, new WeekdayNum(0, Weekday.MO),
-        new WeekdayNum(0, Weekday.WE));
+    Task task =
+        newWeeklyFromDue(
+            1, dueDateTime, new WeekdayNum(0, Weekday.MO), new WeekdayNum(0, Weekday.WE));
 
     assertEquals(newDayTime(2016, 8, 31, 0, 25), calculateNextDueDate(task));
   }
@@ -191,8 +189,13 @@ public class NewRepeatTests {
   public void testAdvancedRepeatWeeklyFromCompleteDateCompleteBefore() throws ParseException {
     DateTime dueDateTime = newDayTime(2016, 8, 29, 0, 25);
     DateTime completionDateTime = newDayTime(2016, 8, 28, 1, 9);
-    Task task = newWeeklyFromCompleted(1, dueDateTime, completionDateTime,
-        new WeekdayNum(0, Weekday.MO), new WeekdayNum(0, Weekday.WE));
+    Task task =
+        newWeeklyFromCompleted(
+            1,
+            dueDateTime,
+            completionDateTime,
+            new WeekdayNum(0, Weekday.MO),
+            new WeekdayNum(0, Weekday.WE));
 
     assertEquals(newDayTime(2016, 8, 29, 0, 25), calculateNextDueDate(task));
   }
@@ -201,15 +204,22 @@ public class NewRepeatTests {
   public void testAdvancedRepeatWeeklyFromCompleteDateCompleteAfter() throws ParseException {
     DateTime dueDateTime = newDayTime(2016, 8, 29, 0, 25);
     DateTime completionDateTime = newDayTime(2016, 9, 1, 1, 9);
-    Task task = newWeeklyFromCompleted(1, dueDateTime, completionDateTime,
-        new WeekdayNum(0, Weekday.MO), new WeekdayNum(0, Weekday.WE));
+    Task task =
+        newWeeklyFromCompleted(
+            1,
+            dueDateTime,
+            completionDateTime,
+            new WeekdayNum(0, Weekday.MO),
+            new WeekdayNum(0, Weekday.WE));
 
     assertEquals(newDayTime(2016, 9, 5, 0, 25), calculateNextDueDate(task));
   }
 
   private DateTime newDayTime(int year, int month, int day, int hour, int minute) {
-    return new DateTime(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-        new DateTime(year, month, day, hour, minute).getMillis()));
+    return new DateTime(
+        Task.createDueDate(
+            Task.URGENCY_SPECIFIC_DAY_TIME,
+            new DateTime(year, month, day, hour, minute).getMillis()));
   }
 
   private DateTime calculateNextDueDate(Task task) throws ParseException {
@@ -218,39 +228,47 @@ public class NewRepeatTests {
   }
 
   private Task newFromDue(Frequency frequency, int interval, DateTime dueDateTime) {
-    return new Task() {{
-      setRecurrence(getRecurrenceRule(frequency, interval, false));
-      setDueDate(dueDateTime.getMillis());
-    }};
+    return new Task() {
+      {
+        setRecurrence(getRecurrenceRule(frequency, interval, false));
+        setDueDate(dueDateTime.getMillis());
+      }
+    };
   }
 
   private Task newWeeklyFromDue(int interval, DateTime dueDateTime, WeekdayNum... weekdays) {
-    return new Task() {{
-      setRecurrence(getRecurrenceRule(Frequency.WEEKLY, interval, false, weekdays));
-      setDueDate(dueDateTime.getMillis());
-    }};
+    return new Task() {
+      {
+        setRecurrence(getRecurrenceRule(Frequency.WEEKLY, interval, false, weekdays));
+        setDueDate(dueDateTime.getMillis());
+      }
+    };
   }
 
-  private Task newFromCompleted(Frequency frequency, int interval, DateTime dueDateTime,
-      DateTime completionDate) {
-    return new Task() {{
-      setRecurrence(getRecurrenceRule(frequency, interval, true));
-      setDueDate(dueDateTime.getMillis());
-      setCompletionDate(completionDate.getMillis());
-    }};
+  private Task newFromCompleted(
+      Frequency frequency, int interval, DateTime dueDateTime, DateTime completionDate) {
+    return new Task() {
+      {
+        setRecurrence(getRecurrenceRule(frequency, interval, true));
+        setDueDate(dueDateTime.getMillis());
+        setCompletionDate(completionDate.getMillis());
+      }
+    };
   }
 
-  private Task newWeeklyFromCompleted(int interval, DateTime dueDateTime, DateTime completionDate,
-      WeekdayNum... weekdays) {
-    return new Task() {{
-      setRecurrence(getRecurrenceRule(Frequency.WEEKLY, interval, true, weekdays));
-      setDueDate(dueDateTime.getMillis());
-      setCompletionDate(completionDate.getMillis());
-    }};
+  private Task newWeeklyFromCompleted(
+      int interval, DateTime dueDateTime, DateTime completionDate, WeekdayNum... weekdays) {
+    return new Task() {
+      {
+        setRecurrence(getRecurrenceRule(Frequency.WEEKLY, interval, true, weekdays));
+        setDueDate(dueDateTime.getMillis());
+        setCompletionDate(completionDate.getMillis());
+      }
+    };
   }
 
-  private String getRecurrenceRule(Frequency frequency, int interval, boolean fromCompletion,
-      WeekdayNum... weekdays) {
+  private String getRecurrenceRule(
+      Frequency frequency, int interval, boolean fromCompletion, WeekdayNum... weekdays) {
     RRule rrule = new RRule();
     rrule.setFreq(frequency);
     rrule.setInterval(interval);

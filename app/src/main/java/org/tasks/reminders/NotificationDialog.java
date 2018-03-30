@@ -27,28 +27,32 @@ public class NotificationDialog extends InjectingDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    List<String> items = asList(
-        getString(R.string.TAd_actionEditTask),
-        getString(R.string.rmd_NoA_snooze),
-        getString(R.string.rmd_NoA_done));
+    List<String> items =
+        asList(
+            getString(R.string.TAd_actionEditTask),
+            getString(R.string.rmd_NoA_snooze),
+            getString(R.string.rmd_NoA_done));
 
     handler = (NotificationHandler) getActivity();
 
-    return dialogBuilder.newDialog()
+    return dialogBuilder
+        .newDialog()
         .setTitle(title)
-        .setItems(items, (dialog, which) -> {
-          switch (which) {
-            case 0:
-              handler.edit();
-              break;
-            case 1:
-              handler.snooze();
-              break;
-            case 2:
-              handler.complete();
-              break;
-          }
-        })
+        .setItems(
+            items,
+            (dialog, which) -> {
+              switch (which) {
+                case 0:
+                  handler.edit();
+                  break;
+                case 1:
+                  handler.snooze();
+                  break;
+                case 2:
+                  handler.complete();
+                  break;
+              }
+            })
         .show();
   }
 

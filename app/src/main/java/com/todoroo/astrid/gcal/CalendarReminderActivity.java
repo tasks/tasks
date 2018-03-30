@@ -35,27 +35,31 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
   private final OnClickListener dismissListener = v -> finish();
   @Inject Preferences preferences;
   @Inject DialogBuilder dialogBuilder;
-  private final OnClickListener ignoreListener = new OnClickListener() {
-    @Override
-    public void onClick(final View v) {
-      // Check for number of ignore presses
-      int ignorePresses = preferences.getInt(PREF_IGNORE_PRESSES, 0);
-      ignorePresses++;
-      if (ignorePresses == IGNORE_PROMPT_COUNT) {
-        dialogBuilder.newMessageDialog(R.string.CRA_ignore_body)
-            .setPositiveButton(R.string.CRA_ignore_all, (dialog, which) -> {
-              preferences.setBoolean(R.string.p_calendar_reminders, false);
-              dismissListener.onClick(v);
-            })
-            .setNegativeButton(R.string.CRA_ignore_this,
-                (dialog, which) -> dismissListener.onClick(v))
-            .show();
-      } else {
-        dismissListener.onClick(v);
-      }
-      preferences.setInt(PREF_IGNORE_PRESSES, ignorePresses);
-    }
-  };
+  private final OnClickListener ignoreListener =
+      new OnClickListener() {
+        @Override
+        public void onClick(final View v) {
+          // Check for number of ignore presses
+          int ignorePresses = preferences.getInt(PREF_IGNORE_PRESSES, 0);
+          ignorePresses++;
+          if (ignorePresses == IGNORE_PROMPT_COUNT) {
+            dialogBuilder
+                .newMessageDialog(R.string.CRA_ignore_body)
+                .setPositiveButton(
+                    R.string.CRA_ignore_all,
+                    (dialog, which) -> {
+                      preferences.setBoolean(R.string.p_calendar_reminders, false);
+                      dismissListener.onClick(v);
+                    })
+                .setNegativeButton(
+                    R.string.CRA_ignore_this, (dialog, which) -> dismissListener.onClick(v))
+                .show();
+          } else {
+            dismissListener.onClick(v);
+          }
+          preferences.setInt(PREF_IGNORE_PRESSES, ignorePresses);
+        }
+      };
   @Inject AlarmManager alarmManager;
   @Inject ThemeAccent themeAccent;
   private String eventName;
@@ -78,8 +82,8 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     fromPostpone = intent.getBooleanExtra(TOKEN_FROM_POSTPONE, false);
     eventId = intent.getLongExtra(TOKEN_EVENT_ID, -1);
     eventName = intent.getStringExtra(TOKEN_EVENT_NAME);
-    endTime = intent
-        .getLongExtra(TOKEN_EVENT_END_TIME, DateUtilities.now() + DateUtilities.ONE_HOUR);
+    endTime =
+        intent.getLongExtra(TOKEN_EVENT_END_TIME, DateUtilities.now() + DateUtilities.ONE_HOUR);
 
     createListButton = findViewById(R.id.create_list);
     postponeButton = findViewById(R.id.postpone);
@@ -98,8 +102,7 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
   }
 
   private void setupUi() {
-    ((TextView) findViewById(R.id.reminder_title))
-        .setText(getString(R.string.CRA_title));
+    ((TextView) findViewById(R.id.reminder_title)).setText(getString(R.string.CRA_title));
 
     TextView dialogView = findViewById(R.id.reminder_message);
     String speechText;
@@ -122,11 +125,13 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     ignoreButton.setOnClickListener(ignoreListener);
     dismissButton.setOnClickListener(dismissListener);
 
-    ignoreSettingsButton.setOnClickListener(v -> {
-      Intent editPreferences = new Intent(CalendarReminderActivity.this, BasicPreferences.class);
-      startActivity(editPreferences);
-      dismissListener.onClick(v);
-    });
+    ignoreSettingsButton.setOnClickListener(
+        v -> {
+          Intent editPreferences =
+              new Intent(CalendarReminderActivity.this, BasicPreferences.class);
+          startActivity(editPreferences);
+          dismissListener.onClick(v);
+        });
 
     if (!fromPostpone) {
       postponeButton.setOnClickListener(v -> postpone());
@@ -149,8 +154,9 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     eventAlarm.setData(
         Uri.parse(CalendarNotificationIntentService.URI_PREFIX_POSTPONE + "://" + eventId));
 
-    PendingIntent pendingIntent = PendingIntent.getBroadcast(this,
-        CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
+    PendingIntent pendingIntent =
+        PendingIntent.getBroadcast(
+            this, CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm, 0);
 
     alarmManager.cancel(pendingIntent);
 
@@ -158,5 +164,4 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
     alarmManager.wakeup(alarmTime, pendingIntent);
     dismissButton.performClick();
   }
-
 }

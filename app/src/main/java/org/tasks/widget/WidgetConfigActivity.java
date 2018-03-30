@@ -25,8 +25,8 @@ import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
 import org.tasks.themes.WidgetTheme;
 
-public class WidgetConfigActivity extends InjectingPreferenceActivity implements
-    SeekBarDialog.SeekBarCallback {
+public class WidgetConfigActivity extends InjectingPreferenceActivity
+    implements SeekBarDialog.SeekBarCallback {
 
   private static final String FRAG_TAG_OPACITY_SEEKBAR = "frag_tag_opacity_seekbar";
   private static final String FRAG_TAG_FONT_SIZE_SEEKBAR = "frag_tag_font_size_seekbar";
@@ -54,8 +54,10 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
 
     addPreferencesFromResource(R.xml.preferences_widget);
 
-    appWidgetId = getIntent()
-        .getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+    appWidgetId =
+        getIntent()
+            .getIntExtra(
+                AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
     // If they gave us an intent without the widget id, just bail.
     if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
@@ -73,46 +75,66 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
     CheckBoxPreference showSettings = setupCheckbox(R.string.p_widget_show_settings);
     showSettings.setDependency(showHeader.getKey());
 
-    findPreference(R.string.p_widget_filter).setOnPreferenceClickListener(preference -> {
-      Intent intent = new Intent(WidgetConfigActivity.this, FilterSelectionActivity.class);
-      intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, getFilter());
-      intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-      startActivityForResult(intent, REQUEST_FILTER);
-      return false;
-    });
+    findPreference(R.string.p_widget_filter)
+        .setOnPreferenceClickListener(
+            preference -> {
+              Intent intent = new Intent(WidgetConfigActivity.this, FilterSelectionActivity.class);
+              intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, getFilter());
+              intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+              startActivityForResult(intent, REQUEST_FILTER);
+              return false;
+            });
 
-    findPreference(R.string.p_widget_theme).setOnPreferenceClickListener(preference -> {
-      Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
-      intent.putExtra(ColorPickerActivity.EXTRA_PALETTE,
-          ColorPickerActivity.ColorPalette.WIDGET_BACKGROUND);
-      intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.getThemeIndex());
-      startActivityForResult(intent, REQUEST_THEME_SELECTION);
-      return false;
-    });
+    findPreference(R.string.p_widget_theme)
+        .setOnPreferenceClickListener(
+            preference -> {
+              Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
+              intent.putExtra(
+                  ColorPickerActivity.EXTRA_PALETTE,
+                  ColorPickerActivity.ColorPalette.WIDGET_BACKGROUND);
+              intent.putExtra(
+                  ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.getThemeIndex());
+              startActivityForResult(intent, REQUEST_THEME_SELECTION);
+              return false;
+            });
 
     Preference colorPreference = findPreference(R.string.p_widget_color);
     colorPreference.setDependency(showHeader.getKey());
-    colorPreference.setOnPreferenceClickListener(preference -> {
-      Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
-      intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
-      intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.getColorIndex());
-      startActivityForResult(intent, REQUEST_COLOR_SELECTION);
-      return false;
-    });
+    colorPreference.setOnPreferenceClickListener(
+        preference -> {
+          Intent intent = new Intent(WidgetConfigActivity.this, ColorPickerActivity.class);
+          intent.putExtra(
+              ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
+          intent.putExtra(ColorPickerActivity.EXTRA_THEME_INDEX, widgetPreferences.getColorIndex());
+          startActivityForResult(intent, REQUEST_COLOR_SELECTION);
+          return false;
+        });
 
-    findPreference(R.string.p_widget_opacity).setOnPreferenceClickListener(preference -> {
-      newSeekBarDialog(R.layout.dialog_opacity_seekbar, 0, 100, widgetPreferences.getOpacity(),
-          REQUEST_OPACITY)
-          .show(getFragmentManager(), FRAG_TAG_OPACITY_SEEKBAR);
-      return false;
-    });
+    findPreference(R.string.p_widget_opacity)
+        .setOnPreferenceClickListener(
+            preference -> {
+              newSeekBarDialog(
+                      R.layout.dialog_opacity_seekbar,
+                      0,
+                      100,
+                      widgetPreferences.getOpacity(),
+                      REQUEST_OPACITY)
+                  .show(getFragmentManager(), FRAG_TAG_OPACITY_SEEKBAR);
+              return false;
+            });
 
-    findPreference(R.string.p_widget_font_size).setOnPreferenceClickListener(preference -> {
-      newSeekBarDialog(R.layout.dialog_font_size_seekbar, 10, 22, widgetPreferences.getFontSize(),
-          REQUEST_FONT_SIZE)
-          .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
-      return false;
-    });
+    findPreference(R.string.p_widget_font_size)
+        .setOnPreferenceClickListener(
+            preference -> {
+              newSeekBarDialog(
+                      R.layout.dialog_font_size_seekbar,
+                      10,
+                      22,
+                      widgetPreferences.getFontSize(),
+                      REQUEST_FONT_SIZE)
+                  .show(getFragmentManager(), FRAG_TAG_FONT_SIZE_SEEKBAR);
+              return false;
+            });
 
     updateFilter();
     updateOpacity();
@@ -165,7 +187,7 @@ public class WidgetConfigActivity extends InjectingPreferenceActivity implements
     // force update after setting preferences
     Intent intent = new Intent(this, TasksWidget.class);
     intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[]{appWidgetId});
+    intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] {appWidgetId});
     sendBroadcast(intent);
   }
 

@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks.api;
 
 import com.google.api.services.tasks.model.Task;
@@ -23,7 +22,11 @@ public class MoveRequest {
   private String parentId;
   private String priorSiblingId;
 
-  public MoveRequest(GtasksInvoker service, String taskId, String destinationList, String parentId,
+  public MoveRequest(
+      GtasksInvoker service,
+      String taskId,
+      String destinationList,
+      String parentId,
       String priorSiblingId) {
     this.service = service;
     this.taskId = taskId;

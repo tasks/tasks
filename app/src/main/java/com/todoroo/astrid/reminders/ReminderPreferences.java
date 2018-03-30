@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.reminders;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
@@ -71,15 +70,14 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         R.string.p_rmd_quietStart,
         R.string.p_rmd_quietEnd,
         R.string.p_rmd_persistent);
-    resetGeofencesOnChange(
-        R.string.p_geofence_radius,
-        R.string.p_geofence_responsiveness);
+    resetGeofencesOnChange(R.string.p_geofence_radius, R.string.p_geofence_responsiveness);
 
-    fieldMissedCalls = (CheckBoxPreference) findPreference(
-        getString(R.string.p_field_missed_calls));
+    fieldMissedCalls =
+        (CheckBoxPreference) findPreference(getString(R.string.p_field_missed_calls));
     fieldMissedCalls.setOnPreferenceChangeListener(
-        (preference, newValue) -> newValue != null && (!(boolean) newValue || permissionRequestor
-            .requestMissedCallPermissions()));
+        (preference, newValue) ->
+            newValue != null
+                && (!(boolean) newValue || permissionRequestor.requestMissedCallPermissions()));
     fieldMissedCalls.setChecked(
         fieldMissedCalls.isChecked() && permissionChecker.canAccessMissedCallPermissions());
 
@@ -94,40 +92,44 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
         .setOnPreferenceClickListener(this::openBatteryOptimizationSettings);
 
     findPreference(R.string.p_bundle_notifications)
-        .setOnPreferenceChangeListener((preference, o) -> {
-          NotificationSchedulerIntentService.enqueueWork(this, true);
-          return true;
-        });
+        .setOnPreferenceChangeListener(
+            (preference, o) -> {
+              NotificationSchedulerIntentService.enqueueWork(this, true);
+              return true;
+            });
 
     findPreference(R.string.p_badges_enabled)
-        .setOnPreferenceChangeListener((preference, newValue) -> {
-          if (newValue != null) {
-            boolean enabled = (boolean) newValue;
-            badger.setEnabled(enabled);
-            if (enabled) {
-              showRestartDialog();
-            }
-            return true;
-          }
-          return false;
-        });
+        .setOnPreferenceChangeListener(
+            (preference, newValue) -> {
+              if (newValue != null) {
+                boolean enabled = (boolean) newValue;
+                badger.setEnabled(enabled);
+                if (enabled) {
+                  showRestartDialog();
+                }
+                return true;
+              }
+              return false;
+            });
 
     Preference badgePreference = findPreference(getString(R.string.p_badge_list));
     Filter filter = defaultFilterProvider.getBadgeFilter();
     badgePreference.setSummary(filter.listingTitle);
-    badgePreference.setOnPreferenceClickListener(preference -> {
-      Intent intent = new Intent(ReminderPreferences.this, FilterSelectionActivity.class);
-      intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getBadgeFilter());
-      intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-      startActivityForResult(intent, REQUEST_BADGE_LIST);
-      return true;
-    });
+    badgePreference.setOnPreferenceClickListener(
+        preference -> {
+          Intent intent = new Intent(ReminderPreferences.this, FilterSelectionActivity.class);
+          intent.putExtra(
+              FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getBadgeFilter());
+          intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+          startActivityForResult(intent, REQUEST_BADGE_LIST);
+          return true;
+        });
 
     requires(device.supportsLocationServices(), R.string.geolocation_reminders);
     requires(atLeastOreo(), R.string.notification_channel_settings);
     requires(atLeastMarshmallow(), R.string.battery_optimization_settings);
-    requires(preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate,
-        R.string.p_led_notification);
+    requires(
+        preOreo(), R.string.p_rmd_ringtone, R.string.p_rmd_vibrate, R.string.p_led_notification);
     requires(atLeastJellybean(), R.string.p_bundle_notifications);
   }
 
@@ -149,25 +151,29 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
 
   private void rescheduleNotificationsOnChange(int... resIds) {
     for (int resId : resIds) {
-      findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-        NotificationSchedulerIntentService.enqueueWork(this, false);
-        return true;
-      });
+      findPreference(getString(resId))
+          .setOnPreferenceChangeListener(
+              (preference, newValue) -> {
+                NotificationSchedulerIntentService.enqueueWork(this, false);
+                return true;
+              });
     }
   }
 
   private void resetGeofencesOnChange(int... resIds) {
     for (int resId : resIds) {
-      findPreference(getString(resId)).setOnPreferenceChangeListener((preference, newValue) -> {
-        GeofenceSchedulingIntentService.enqueueWork(this);
-        return true;
-      });
+      findPreference(getString(resId))
+          .setOnPreferenceChangeListener(
+              (preference, newValue) -> {
+                GeofenceSchedulingIntentService.enqueueWork(this);
+                return true;
+              });
     }
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == PermissionRequestor.REQUEST_CONTACTS) {
       if (verifyPermissions(grantResults)) {
         fieldMissedCalls.setChecked(true);
@@ -178,33 +184,40 @@ public class ReminderPreferences extends InjectingPreferenceActivity {
   }
 
   private void initializeTimePreference(final TimePreference preference, final int requestCode) {
-    preference.setOnPreferenceClickListener(ignored -> {
-      final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
-      Intent intent = new Intent(ReminderPreferences.this, TimePickerActivity.class);
-      intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
-      startActivityForResult(intent, requestCode);
-      return true;
-    });
+    preference.setOnPreferenceClickListener(
+        ignored -> {
+          final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
+          Intent intent = new Intent(ReminderPreferences.this, TimePickerActivity.class);
+          intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
+          startActivityForResult(intent, requestCode);
+          return true;
+        });
   }
 
   private void initializeRingtonePreference() {
-    Preference.OnPreferenceChangeListener ringtoneChangedListener = (preference, value) -> {
-      if ("".equals(value)) {
-        preference.setSummary(R.string.silent);
-      } else {
-        Ringtone ringtone = RingtoneManager.getRingtone(ReminderPreferences.this, value == null
-            ? Settings.System.DEFAULT_NOTIFICATION_URI : Uri.parse((String) value));
-        preference.setSummary(ringtone == null ? "" : ringtone.getTitle(ReminderPreferences.this));
-      }
-      return true;
-    };
+    Preference.OnPreferenceChangeListener ringtoneChangedListener =
+        (preference, value) -> {
+          if ("".equals(value)) {
+            preference.setSummary(R.string.silent);
+          } else {
+            Ringtone ringtone =
+                RingtoneManager.getRingtone(
+                    ReminderPreferences.this,
+                    value == null
+                        ? Settings.System.DEFAULT_NOTIFICATION_URI
+                        : Uri.parse((String) value));
+            preference.setSummary(
+                ringtone == null ? "" : ringtone.getTitle(ReminderPreferences.this));
+          }
+          return true;
+        };
 
     String ringtoneKey = getString(R.string.p_rmd_ringtone);
     Preference ringtonePreference = findPreference(ringtoneKey);
     ringtonePreference.setOnPreferenceChangeListener(ringtoneChangedListener);
-    ringtoneChangedListener
-        .onPreferenceChange(ringtonePreference, PreferenceManager.getDefaultSharedPreferences(this)
-            .getString(ringtoneKey, null));
+    ringtoneChangedListener.onPreferenceChange(
+        ringtonePreference,
+        PreferenceManager.getDefaultSharedPreferences(this).getString(ringtoneKey, null));
   }
 
   @Override

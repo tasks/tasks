@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
@@ -37,9 +36,7 @@ public class GtasksMetadataServiceTest extends InjectingTestCase {
 
   @Override
   protected void inject(TestComponent component) {
-    component
-        .plus(new GtasksMetadataServiceTestModule(getTargetContext()))
-        .inject(this);
+    component.plus(new GtasksMetadataServiceTestModule(getTargetContext())).inject(this);
   }
 
   @Test

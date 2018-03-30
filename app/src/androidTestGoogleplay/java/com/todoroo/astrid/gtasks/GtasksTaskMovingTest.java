@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks;
 
 import static junit.framework.Assert.assertEquals;
@@ -245,9 +244,7 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
 
   // --- helpers
 
-  /**
-   * moveTo = null => move to end
-   */
+  /** moveTo = null => move to end */
   private void whenTriggerMove(Task target, Task moveTo) {
     gtasksTaskListUpdater.moveTo(list, target.getId(), moveTo == null ? -1 : moveTo.getId());
   }
@@ -278,14 +275,12 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
     component.inject(this);
   }
 
-  /**
-   * A
-   * B
-   * C
-   * D
-   * E
-   * F
-   */
+  // A
+  //  B
+  //  C
+  //   D
+  // E
+  // F
   private void givenTasksABCDEF() {
     A = createTask("A", 0, 0);
     B = createTask("B", 1, 1);

@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
@@ -14,9 +13,7 @@ import android.widget.Checkable;
 
 public class CheckableImageView extends AppCompatImageView implements Checkable {
 
-  private static final int[] CHECKED_STATE_SET = {
-      android.R.attr.state_checked
-  };
+  private static final int[] CHECKED_STATE_SET = {android.R.attr.state_checked};
   private boolean mChecked;
   private boolean mBroadcasting;
 
@@ -42,7 +39,7 @@ public class CheckableImageView extends AppCompatImageView implements Checkable 
   }
 
   /**
-   * <p>Changes the checked state of this button.</p>
+   * Changes the checked state of this button.
    *
    * @param checked true to check the button, false to uncheck it
    */

@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.dao;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
@@ -46,23 +45,24 @@ import timber.log.Timber;
  * @author Tim Su <tim@todoroo.com>
  */
 @android.arch.persistence.room.Database(
-    entities = {
-        Notification.class,
-        TagData.class,
-        UserActivity.class,
-        TaskAttachment.class,
-        TaskListMetadata.class,
-        Task.class,
-        Alarm.class,
-        Location.class,
-        Tag.class,
-        GoogleTask.class,
-        Filter.class,
-        GoogleTaskList.class,
-        CaldavAccount.class,
-        CaldavTask.class
-    },
-    version = 57)
+  entities = {
+    Notification.class,
+    TagData.class,
+    UserActivity.class,
+    TaskAttachment.class,
+    TaskListMetadata.class,
+    Task.class,
+    Alarm.class,
+    Location.class,
+    Tag.class,
+    GoogleTask.class,
+    Filter.class,
+    GoogleTaskList.class,
+    CaldavAccount.class,
+    CaldavTask.class
+  },
+  version = 57
+)
 public abstract class Database extends RoomDatabase {
 
   public static final String NAME = "database";
@@ -115,10 +115,10 @@ public abstract class Database extends RoomDatabase {
   }
 
   /**
-   * Open the database for writing. Must be closed afterwards. If user is
-   * out of disk space, database may be opened for reading instead
+   * Open the database for writing. Must be closed afterwards. If user is out of disk space,
+   * database may be opened for reading instead
    */
-  public synchronized final void openForWriting() {
+  public final synchronized void openForWriting() {
     if (database != null && !database.isReadOnly() && database.isOpen()) {
       return;
     }
@@ -132,21 +132,17 @@ public abstract class Database extends RoomDatabase {
     }
   }
 
-  /**
-   * Open the database for reading. Must be closed afterwards
-   */
-  public synchronized final void openForReading() {
+  /** Open the database for reading. Must be closed afterwards */
+  public final synchronized void openForReading() {
     if (database != null && database.isOpen()) {
       return;
     }
     database = getOpenHelper().getReadableDatabase();
   }
 
-  /**
-   * Close the database if it has been opened previously
-   */
+  /** Close the database if it has been opened previously */
   @Override
-  public synchronized final void close() {
+  public final synchronized void close() {
     if (database != null) {
       try {
         database.close();
@@ -157,9 +153,7 @@ public abstract class Database extends RoomDatabase {
     database = null;
   }
 
-  /**
-   * @return sql database. opens database if not yet open
-   */
+  /** @return sql database. opens database if not yet open */
   private synchronized SupportSQLiteDatabase getDatabase() {
     if (database == null) {
       openForWriting();
@@ -167,9 +161,7 @@ public abstract class Database extends RoomDatabase {
     return database;
   }
 
-  /**
-   * @return human-readable database name for debugging
-   */
+  /** @return human-readable database name for debugging */
   @Override
   public String toString() {
     return "DB:" + getName();
@@ -181,4 +173,3 @@ public abstract class Database extends RoomDatabase {
     return getDatabase().query(sql, null);
   }
 }
-

@@ -51,9 +51,16 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   @Inject Preferences preferences;
   @Inject @ForActivity Context context;
   @Inject ThemeBase themeBase;
-  @BindView(R.id.due_date) Spinner dueDateSpinner;
-  @BindView(R.id.due_time) Spinner dueTimeSpinner;
-  @BindView(R.id.clear) View clearButton;
+
+  @BindView(R.id.due_date)
+  Spinner dueDateSpinner;
+
+  @BindView(R.id.due_time)
+  Spinner dueTimeSpinner;
+
+  @BindView(R.id.clear)
+  View clearButton;
+
   private DueDateChangeListener callback;
   private List<String> dueDateOptions = new ArrayList<>();
   private List<String> dueTimeOptions = new ArrayList<>();
@@ -84,13 +91,14 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     dateShortcutAfternoon = preferences.getDateShortcutAfternoon();
     dateShortcutEvening = preferences.getDateShortcutEvening();
     dateShortcutNight = preferences.getDateShortcutNight();
-    dueTimeHint = asList(
-        "",
-        "",
-        getTimeHint(dateShortcutMorning),
-        getTimeHint(dateShortcutAfternoon),
-        getTimeHint(dateShortcutEvening),
-        getTimeHint(dateShortcutNight));
+    dueTimeHint =
+        asList(
+            "",
+            "",
+            getTimeHint(dateShortcutMorning),
+            getTimeHint(dateShortcutAfternoon),
+            getTimeHint(dateShortcutEvening),
+            getTimeHint(dateShortcutNight));
     nightString = activity.getString(R.string.date_shortcut_night);
     eveningString = activity.getString(R.string.date_shortcut_evening);
     afternoonString = activity.getString(R.string.date_shortcut_afternoon);
@@ -98,20 +106,17 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     noTimeString = activity.getString(R.string.TEA_no_time);
     todayString = activity.getString(R.string.today);
     tomorrowString = activity.getString(R.string.tomorrow);
-    dueDateOptions = newArrayList(
-        "",
-        todayString,
-        tomorrowString,
-        "",
-        activity.getString(R.string.pick_a_date));
-    dueTimeOptions = newArrayList(
-        "",
-        noTimeString,
-        morningString,
-        afternoonString,
-        eveningString,
-        nightString,
-        activity.getString(R.string.pick_a_time));
+    dueDateOptions =
+        newArrayList("", todayString, tomorrowString, "", activity.getString(R.string.pick_a_date));
+    dueTimeOptions =
+        newArrayList(
+            "",
+            noTimeString,
+            morningString,
+            afternoonString,
+            eveningString,
+            nightString,
+            activity.getString(R.string.pick_a_time));
   }
 
   @Override
@@ -121,8 +126,8 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(final LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
     if (savedInstanceState == null) {
       if (task.hasDueDate()) {
@@ -138,62 +143,64 @@ public class DeadlineControlSet extends TaskEditControlFragment {
       time = savedInstanceState.getInt(EXTRA_TIME);
     }
     final int overdueColor = getColor(context, R.color.overdue);
-    dueDateAdapter = new HiddenTopArrayAdapter<String>(context,
-        android.R.layout.simple_spinner_item, dueDateOptions) {
-      @NonNull
-      @Override
-      public View getView(final int position, final View convertView,
-          @NonNull final ViewGroup parent) {
-        int selectedItemPosition = position;
-        if (parent instanceof AdapterView) {
-          selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
-        }
-        TextView tv = (TextView) inflater
-            .inflate(android.R.layout.simple_spinner_item, parent, false);
-        tv.setPadding(0, 0, 0, 0);
-        tv.setText(dueDateOptions.get(selectedItemPosition));
-        int textColor;
-        if (date == 0) {
-          textColor = getColor(context, R.color.text_tertiary);
-        } else if (date < newDateTime().startOfDay().getMillis()) {
-          textColor = overdueColor;
-        } else {
-          textColor = getColor(context, R.color.text_primary);
-        }
-        dueDateSpinner.setBackgroundDrawable(getUnderline(textColor));
-        tv.setTextColor(textColor);
-        return tv;
-      }
-    };
+    dueDateAdapter =
+        new HiddenTopArrayAdapter<String>(
+            context, android.R.layout.simple_spinner_item, dueDateOptions) {
+          @NonNull
+          @Override
+          public View getView(
+              final int position, final View convertView, @NonNull final ViewGroup parent) {
+            int selectedItemPosition = position;
+            if (parent instanceof AdapterView) {
+              selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
+            }
+            TextView tv =
+                (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+            tv.setPadding(0, 0, 0, 0);
+            tv.setText(dueDateOptions.get(selectedItemPosition));
+            int textColor;
+            if (date == 0) {
+              textColor = getColor(context, R.color.text_tertiary);
+            } else if (date < newDateTime().startOfDay().getMillis()) {
+              textColor = overdueColor;
+            } else {
+              textColor = getColor(context, R.color.text_primary);
+            }
+            dueDateSpinner.setBackgroundDrawable(getUnderline(textColor));
+            tv.setTextColor(textColor);
+            return tv;
+          }
+        };
     dueDateSpinner.setAdapter(dueDateAdapter);
 
-    dueTimeAdapter = new HiddenTopArrayAdapter<String>(context,
-        android.R.layout.simple_spinner_item, dueTimeOptions, dueTimeHint) {
-      @NonNull
-      @Override
-      public View getView(final int position, final View convertView,
-          @NonNull final ViewGroup parent) {
-        int selectedItemPosition = position;
-        if (parent instanceof AdapterView) {
-          selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
-        }
-        TextView tv = (TextView) inflater
-            .inflate(android.R.layout.simple_spinner_item, parent, false);
-        tv.setPadding(0, 0, 0, 0);
-        tv.setText(dueTimeOptions.get(selectedItemPosition));
-        int textColor;
-        if (time == -1) {
-          textColor = getColor(context, R.color.text_tertiary);
-        } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
-          textColor = overdueColor;
-        } else {
-          textColor = getColor(context, R.color.text_primary);
-        }
-        tv.setTextColor(textColor);
-        dueTimeSpinner.setBackgroundDrawable(getUnderline(textColor));
-        return tv;
-      }
-    };
+    dueTimeAdapter =
+        new HiddenTopArrayAdapter<String>(
+            context, android.R.layout.simple_spinner_item, dueTimeOptions, dueTimeHint) {
+          @NonNull
+          @Override
+          public View getView(
+              final int position, final View convertView, @NonNull final ViewGroup parent) {
+            int selectedItemPosition = position;
+            if (parent instanceof AdapterView) {
+              selectedItemPosition = ((AdapterView) parent).getSelectedItemPosition();
+            }
+            TextView tv =
+                (TextView) inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
+            tv.setPadding(0, 0, 0, 0);
+            tv.setText(dueTimeOptions.get(selectedItemPosition));
+            int textColor;
+            if (time == -1) {
+              textColor = getColor(context, R.color.text_tertiary);
+            } else if (newDateTime(date).withMillisOfDay(time).isBeforeNow()) {
+              textColor = overdueColor;
+            } else {
+              textColor = getColor(context, R.color.text_primary);
+            }
+            tv.setTextColor(textColor);
+            dueTimeSpinner.setBackgroundDrawable(getUnderline(textColor));
+            return tv;
+          }
+        };
     dueTimeSpinner.setAdapter(dueTimeAdapter);
 
     refreshDisplayView();
@@ -319,8 +326,8 @@ public class DeadlineControlSet extends TaskEditControlFragment {
 
   private long getDueDateTime() {
     return time >= 0
-        ? Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-        newDateTime(date).withMillisOfDay(time).getMillis())
+        ? Task.createDueDate(
+            Task.URGENCY_SPECIFIC_DAY_TIME, newDateTime(date).withMillisOfDay(time).getMillis())
         : Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, date);
   }
 
@@ -368,11 +375,12 @@ public class DeadlineControlSet extends TaskEditControlFragment {
     if (time == -1) {
       dueTimeOptions.set(0, noTimeString);
     } else {
-      int compareTime = newDateTime()
-          .withMillisOfDay(time)
-          .withSecondOfMinute(0)
-          .withMillisOfSecond(0)
-          .getMillisOfDay();
+      int compareTime =
+          newDateTime()
+              .withMillisOfDay(time)
+              .withSecondOfMinute(0)
+              .withMillisOfSecond(0)
+              .getMillisOfDay();
       if (compareTime == dateShortcutMorning) {
         dueTimeOptions.set(0, morningString);
       } else if (compareTime == dateShortcutAfternoon) {
@@ -382,8 +390,8 @@ public class DeadlineControlSet extends TaskEditControlFragment {
       } else if (compareTime == dateShortcutNight) {
         dueTimeOptions.set(0, nightString);
       } else {
-        dueTimeOptions
-            .set(0, DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(time)));
+        dueTimeOptions.set(
+            0, DateUtilities.getTimeString(context, newDateTime().withMillisOfDay(time)));
       }
     }
     dueTimeAdapter.notifyDataSetChanged();
@@ -391,8 +399,9 @@ public class DeadlineControlSet extends TaskEditControlFragment {
   }
 
   private Drawable getUnderline(int color) {
-    Drawable drawable = DrawableCompat
-        .wrap(ContextCompat.getDrawable(context, R.drawable.textfield_underline_black));
+    Drawable drawable =
+        DrawableCompat.wrap(
+            ContextCompat.getDrawable(context, R.drawable.textfield_underline_black));
     drawable.mutate();
     DrawableCompat.setTint(drawable, color);
     return drawable;

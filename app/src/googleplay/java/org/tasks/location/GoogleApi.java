@@ -17,23 +17,24 @@ public class GoogleApi implements GoogleApiClient.ConnectionCallbacks {
 
   @Inject
   public GoogleApi(@ForApplication Context context) {
-    builder = new GoogleApiClient.Builder(context)
-        .addApi(LocationServices.API)
-        .addApi(Places.GEO_DATA_API)
-        .addConnectionCallbacks(this);
+    builder =
+        new GoogleApiClient.Builder(context)
+            .addApi(LocationServices.API)
+            .addApi(Places.GEO_DATA_API)
+            .addConnectionCallbacks(this);
   }
 
   public void connect(final GoogleApiClientConnectionHandler googleApiClientConnectionHandler) {
-    connect(googleApiClientConnectionHandler,
+    connect(
+        googleApiClientConnectionHandler,
         connectionResult -> Timber.e("onConnectionFailed(%s)", connectionResult));
   }
 
-  private void connect(final GoogleApiClientConnectionHandler googleApiClientConnectionHandler,
+  private void connect(
+      final GoogleApiClientConnectionHandler googleApiClientConnectionHandler,
       GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener) {
     this.googleApiClientConnectionHandler = googleApiClientConnectionHandler;
-    googleApiClient = builder
-        .addOnConnectionFailedListener(onConnectionFailedListener)
-        .build();
+    googleApiClient = builder.addOnConnectionFailedListener(onConnectionFailedListener).build();
     googleApiClient.connect();
   }
 

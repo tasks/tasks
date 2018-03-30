@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.service;
 
 import android.content.Context;
@@ -59,11 +58,17 @@ public class StartupService {
   private final GoogleTaskListDao googleTaskListDao;
 
   @Inject
-  public StartupService(Database database, Preferences preferences, Tracker tracker,
-      TagDataDao tagDataDao, TagService tagService,
+  public StartupService(
+      Database database,
+      Preferences preferences,
+      Tracker tracker,
+      TagDataDao tagDataDao,
+      TagService tagService,
       LocalBroadcastManager localBroadcastManager,
-      @ForApplication Context context, TagDao tagDao,
-      FilterDao filterDao, DefaultFilterProvider defaultFilterProvider,
+      @ForApplication Context context,
+      TagDao tagDao,
+      FilterDao filterDao,
+      DefaultFilterProvider defaultFilterProvider,
       GoogleTaskListDao googleTaskListDao) {
     this.database = database;
     this.preferences = preferences;
@@ -78,9 +83,7 @@ public class StartupService {
     this.googleTaskListDao = googleTaskListDao;
   }
 
-  /**
-   * Called when this application is started up
-   */
+  /** Called when this application is started up */
   public synchronized void onStartupApplication() {
     try {
       database.openForWriting();
@@ -132,8 +135,7 @@ public class StartupService {
       // preserve pre-marshmallow default backup location
       if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
         if (!preferences.isStringValueSet(R.string.p_backup_dir)) {
-          String directory = String.format("%s/astrid",
-              Environment.getExternalStorageDirectory());
+          String directory = String.format("%s/astrid", Environment.getExternalStorageDirectory());
           File file = new File(directory);
           if (file.exists() && file.isDirectory()) {
             preferences.setString(R.string.p_backup_dir, directory);
@@ -146,8 +148,8 @@ public class StartupService {
   }
 
   private void removeDuplicateTags() {
-    ListMultimap<String, TagData> tagsByUuid = Multimaps
-        .index(tagService.getTagList(), TagData::getRemoteId);
+    ListMultimap<String, TagData> tagsByUuid =
+        Multimaps.index(tagService.getTagList(), TagData::getRemoteId);
     for (String uuid : tagsByUuid.keySet()) {
       removeDuplicateTagData(tagsByUuid.get(uuid));
       removeDuplicateTagMetadata(uuid);

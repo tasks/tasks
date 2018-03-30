@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.activity;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -53,8 +52,8 @@ import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.TaskEditControlFragment;
 
-public final class TaskEditFragment extends InjectingFragment implements
-    Toolbar.OnMenuItemClickListener {
+public final class TaskEditFragment extends InjectingFragment
+    implements Toolbar.OnMenuItemClickListener {
 
   public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
   private static final String EXTRA_TASK = "extra_task";
@@ -70,9 +69,16 @@ public final class TaskEditFragment extends InjectingFragment implements
   @Inject Tracker tracker;
   @Inject TimerPlugin timerPlugin;
   @Inject LocalBroadcastManager localBroadcastManager;
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.comments) LinearLayout comments;
-  @BindView(R.id.control_sets) LinearLayout controlSets;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
+  @BindView(R.id.comments)
+  LinearLayout comments;
+
+  @BindView(R.id.control_sets)
+  LinearLayout controlSets;
+
   Task model = null;
   private TaskEditFragmentCallbackHandler callback;
 
@@ -97,8 +103,8 @@ public final class TaskEditFragment extends InjectingFragment implements
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_task_edit, container, false);
     ButterKnife.bind(this, view);
 
@@ -106,15 +112,17 @@ public final class TaskEditFragment extends InjectingFragment implements
     model = arguments.getParcelable(EXTRA_TASK);
 
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-    toolbar.setNavigationIcon(ContextCompat.getDrawable(context,
-        backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
-    toolbar.setNavigationOnClickListener(v -> {
-      if (backButtonSavesTask) {
-        discardButtonClick();
-      } else {
-        save();
-      }
-    });
+    toolbar.setNavigationIcon(
+        ContextCompat.getDrawable(
+            context, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
+    toolbar.setNavigationOnClickListener(
+        v -> {
+          if (backButtonSavesTask) {
+            discardButtonClick();
+          } else {
+            save();
+          }
+        });
     toolbar.inflateMenu(R.menu.menu_task_edit_fragment);
     toolbar.setOnMenuItemClickListener(this);
     MenuColorizer.colorToolbar(context, toolbar);
@@ -127,16 +135,17 @@ public final class TaskEditFragment extends InjectingFragment implements
     commentsController.reloadView();
 
     FragmentManager fragmentManager = getChildFragmentManager();
-    List<TaskEditControlFragment> taskEditControlFragments = taskEditControlSetFragmentManager
-        .getOrCreateFragments(fragmentManager, model);
+    List<TaskEditControlFragment> taskEditControlFragments =
+        taskEditControlSetFragmentManager.getOrCreateFragments(fragmentManager, model);
 
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     for (int i = 0; i < taskEditControlFragments.size(); i++) {
       TaskEditControlFragment taskEditControlFragment = taskEditControlFragments.get(i);
       String tag = getString(taskEditControlFragment.controlId());
-      fragmentTransaction
-          .replace(TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS[i],
-              taskEditControlFragment, tag);
+      fragmentTransaction.replace(
+          TaskEditControlSetFragmentManager.TASK_EDIT_CONTROL_FRAGMENT_ROWS[i],
+          taskEditControlFragment,
+          tag);
     }
     fragmentTransaction.commit();
 
@@ -163,29 +172,32 @@ public final class TaskEditFragment extends InjectingFragment implements
   public Task stopTimer() {
     timerPlugin.stopTimer(model);
     String elapsedTime = DateUtils.formatElapsedTime(model.getElapsedSeconds());
-    addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
-        getString(R.string.TEA_timer_comment_stopped),
-        DateUtilities.getTimeString(getActivity(), newDateTime()),
-        getString(R.string.TEA_timer_comment_spent),
-        elapsedTime), null);
+    addComment(
+        String.format(
+            "%s %s\n%s %s", // $NON-NLS-1$
+            getString(R.string.TEA_timer_comment_stopped),
+            DateUtilities.getTimeString(getActivity(), newDateTime()),
+            getString(R.string.TEA_timer_comment_spent),
+            elapsedTime),
+        null);
     return model;
   }
 
   public Task startTimer() {
     timerPlugin.startTimer(model);
-    addComment(String.format("%s %s",
-        getString(R.string.TEA_timer_comment_started),
-        DateUtilities.getTimeString(getActivity(), newDateTime())),
+    addComment(
+        String.format(
+            "%s %s",
+            getString(R.string.TEA_timer_comment_started),
+            DateUtilities.getTimeString(getActivity(), newDateTime())),
         null);
     return model;
   }
 
-  /**
-   * Save task model from values in UI components
-   */
+  /** Save task model from values in UI components */
   public void save() {
-    List<TaskEditControlFragment> fragments = taskEditControlSetFragmentManager
-        .getFragmentsInPersistOrder(getChildFragmentManager());
+    List<TaskEditControlFragment> fragments =
+        taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager());
     if (hasChanges(fragments)) {
       boolean isNewTask = model.isNew();
       if (isNewTask) {
@@ -201,9 +213,7 @@ public final class TaskEditFragment extends InjectingFragment implements
       }
 
       if (isNewTask) {
-        ((TaskListActivity) getActivity())
-            .getTaskListFragment()
-            .onTaskCreated(model.getUuid());
+        ((TaskListActivity) getActivity()).getTaskListFragment().onTaskCreated(model.getUuid());
       }
       callback.taskEditFinished();
     } else {
@@ -260,7 +270,8 @@ public final class TaskEditFragment extends InjectingFragment implements
   public void discardButtonClick() {
     if (hasChanges(
         taskEditControlSetFragmentManager.getFragmentsInPersistOrder(getChildFragmentManager()))) {
-      dialogBuilder.newMessageDialog(R.string.discard_confirmation)
+      dialogBuilder
+          .newMessageDialog(R.string.discard_confirmation)
           .setPositiveButton(R.string.keep_editing, null)
           .setNegativeButton(R.string.discard, (dialog, which) -> discard())
           .show();
@@ -278,12 +289,15 @@ public final class TaskEditFragment extends InjectingFragment implements
   }
 
   private void deleteButtonClick() {
-    dialogBuilder.newMessageDialog(R.string.DLG_delete_this_task_question)
-        .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-          timerPlugin.stopTimer(model);
-          taskDeleter.markDeleted(model);
-          callback.taskEditFinished();
-        })
+    dialogBuilder
+        .newMessageDialog(R.string.DLG_delete_this_task_question)
+        .setPositiveButton(
+            android.R.string.ok,
+            (dialog, which) -> {
+              timerPlugin.stopTimer(model);
+              taskDeleter.markDeleted(model);
+              callback.taskEditFinished();
+            })
         .setNegativeButton(android.R.string.cancel, null)
         .show();
   }

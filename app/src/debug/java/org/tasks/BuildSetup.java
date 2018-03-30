@@ -32,17 +32,19 @@ public class BuildSetup {
     }
     LeakCanary.install(application);
     if (preferences.getBoolean(R.string.p_strict_mode, false)) {
-      StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-          .detectDiskReads()
-          .detectDiskWrites()
-          .detectNetwork()
-          .penaltyLog()
-          .build());
-      StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-          .detectLeakedSqlLiteObjects()
-          .detectLeakedClosableObjects()
-          .penaltyLog()
-          .build());
+      StrictMode.setThreadPolicy(
+          new StrictMode.ThreadPolicy.Builder()
+              .detectDiskReads()
+              .detectDiskWrites()
+              .detectNetwork()
+              .penaltyLog()
+              .build());
+      StrictMode.setVmPolicy(
+          new StrictMode.VmPolicy.Builder()
+              .detectLeakedSqlLiteObjects()
+              .detectLeakedClosableObjects()
+              .penaltyLog()
+              .build());
     }
     return true;
   }

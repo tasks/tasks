@@ -12,34 +12,39 @@ import org.tasks.backup.XmlReader;
 @Entity(tableName = "locations")
 public class Location implements Serializable, Parcelable {
 
-  public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {
-    @Override
-    public Location createFromParcel(Parcel source) {
-      return new Location(source);
-    }
+  public static final Parcelable.Creator<Location> CREATOR =
+      new Parcelable.Creator<Location>() {
+        @Override
+        public Location createFromParcel(Parcel source) {
+          return new Location(source);
+        }
 
-    @Override
-    public Location[] newArray(int size) {
-      return new Location[size];
-    }
-  };
+        @Override
+        public Location[] newArray(int size) {
+          return new Location[size];
+        }
+      };
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   private transient long id;
+
   @ColumnInfo(name = "task")
   private transient long task;
+
   @ColumnInfo(name = "name")
   private String name;
+
   @ColumnInfo(name = "latitude")
   private double latitude;
+
   @ColumnInfo(name = "longitude")
   private double longitude;
+
   @ColumnInfo(name = "radius")
   private int radius;
 
-  public Location() {
-
-  }
+  public Location() {}
 
   @Ignore
   public Location(Parcel parcel) {
@@ -153,14 +158,21 @@ public class Location implements Serializable, Parcelable {
 
   @Override
   public String toString() {
-    return "Location{" +
-        "id=" + id +
-        ", task=" + task +
-        ", name='" + name + '\'' +
-        ", latitude=" + latitude +
-        ", longitude=" + longitude +
-        ", radius=" + radius +
-        '}';
+    return "Location{"
+        + "id="
+        + id
+        + ", task="
+        + task
+        + ", name='"
+        + name
+        + '\''
+        + ", latitude="
+        + latitude
+        + ", longitude="
+        + longitude
+        + ", radius="
+        + radius
+        + '}';
   }
 
   @Override

@@ -34,30 +34,32 @@ public class TagFormatter {
   private final ThemeCache themeCache;
   private final float tagCharacters;
   private final Function<String, TagData> uuidToTag = this::getTag;
-  private final Ordering<TagData> orderByName = new Ordering<TagData>() {
-    @Override
-    public int compare(TagData left, TagData right) {
-      return left.getName().compareTo(right.getName());
-    }
-  };
-  private final Ordering<TagData> orderByLength = new Ordering<TagData>() {
-    @Override
-    public int compare(TagData left, TagData right) {
-      int leftLength = left.getName().length();
-      int rightLength = right.getName().length();
-      if (leftLength < rightLength) {
-        return -1;
-      } else if (rightLength < leftLength) {
-        return 1;
-      } else {
-        return 0;
-      }
-    }
-  };
+  private final Ordering<TagData> orderByName =
+      new Ordering<TagData>() {
+        @Override
+        public int compare(TagData left, TagData right) {
+          return left.getName().compareTo(right.getName());
+        }
+      };
+  private final Ordering<TagData> orderByLength =
+      new Ordering<TagData>() {
+        @Override
+        public int compare(TagData left, TagData right) {
+          int leftLength = left.getName().length();
+          int rightLength = right.getName().length();
+          if (leftLength < rightLength) {
+            return -1;
+          } else if (rightLength < leftLength) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      };
 
   @Inject
-  public TagFormatter(@ForApplication Context context, TagService tagService,
-      ThemeCache themeCache) {
+  public TagFormatter(
+      @ForApplication Context context, TagService tagService, ThemeCache themeCache) {
     this.tagService = tagService;
     this.themeCache = themeCache;
 
@@ -109,9 +111,15 @@ public class TagFormatter {
       int themeIndex = tagData.getColor();
       ThemeColor color =
           themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
-      string.setSpan(new BackgroundColorSpan(color.getPrimaryColor()), 0, string.length(),
+      string.setSpan(
+          new BackgroundColorSpan(color.getPrimaryColor()),
+          0,
+          string.length(),
           Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-      string.setSpan(new ForegroundColorSpan(color.getActionBarTint()), 0, string.length(),
+      string.setSpan(
+          new ForegroundColorSpan(color.getActionBarTint()),
+          0,
+          string.length(),
           Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
       return string;
     };

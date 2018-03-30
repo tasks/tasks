@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.utility;
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
@@ -66,33 +65,35 @@ public class DateUtilitiesTest {
 
   @Test
   public void testTimeString() {
-    forEachLocale(() -> {
-      DateTime d = newDateTime();
+    forEachLocale(
+        () -> {
+          DateTime d = newDateTime();
 
-      DateUtilities.is24HourOverride = false;
-      for (int i = 0; i < 24; i++) {
-        d = d.withHourOfDay(i);
-        getTimeString(getTargetContext(), d);
-      }
+          DateUtilities.is24HourOverride = false;
+          for (int i = 0; i < 24; i++) {
+            d = d.withHourOfDay(i);
+            getTimeString(getTargetContext(), d);
+          }
 
-      DateUtilities.is24HourOverride = true;
-      for (int i = 0; i < 24; i++) {
-        d = d.withHourOfDay(i);
-        getTimeString(getTargetContext(), d);
-      }
-    });
+          DateUtilities.is24HourOverride = true;
+          for (int i = 0; i < 24; i++) {
+            d = d.withHourOfDay(i);
+            getTimeString(getTargetContext(), d);
+          }
+        });
   }
 
   @Test
   public void testDateString() {
-    forEachLocale(() -> {
-      DateTime d = newDateTime();
+    forEachLocale(
+        () -> {
+          DateTime d = newDateTime();
 
-      for (int i = 0; i < 12; i++) {
-        d = d.withMonthOfYear(i);
-        getDateString(d);
-      }
-    });
+          for (int i = 0; i < 12; i++) {
+            d = d.withMonthOfYear(i);
+            getDateString(d);
+          }
+        });
   }
 
   @Test
@@ -122,16 +123,24 @@ public class DateUtilitiesTest {
 
   @Test
   public void testGetDateStringHidingYear() {
-    freezeAt(newDate(2014, 1, 1)).thawAfter(new Snippet() {{
-      assertEquals("Jan 1", getDateString(newDateTime()));
-    }});
+    freezeAt(newDate(2014, 1, 1))
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals("Jan 1", getDateString(newDateTime()));
+              }
+            });
   }
 
   @Test
   public void testGetDateStringWithDifferentYear() {
-    freezeAt(newDate(2013, 12, 31)).thawAfter(new Snippet() {{
-      assertEquals("Jan 1 '14", getDateString(new DateTime(2014, 1, 1, 0, 0, 0)));
-    }});
+    freezeAt(newDate(2013, 12, 31))
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals("Jan 1 '14", getDateString(new DateTime(2014, 1, 1, 0, 0, 0)));
+              }
+            });
   }
 
   @Test
@@ -139,9 +148,13 @@ public class DateUtilitiesTest {
     DateTime now = new DateTime(2013, 12, 1, 12, 19, 45, 192);
     final long expected = new DateTime(2014, 1, 1, 12, 19, 45, 192).getMillis();
 
-    freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(expected, oneMonthFromNow());
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(expected, oneMonthFromNow());
+              }
+            });
   }
 
   @Test
@@ -149,9 +162,13 @@ public class DateUtilitiesTest {
     DateTime now = new DateTime(2013, 12, 31, 16, 31, 20, 597);
     final long expected = new DateTime(2014, 1, 31, 16, 31, 20, 597).getMillis();
 
-    freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(expected, oneMonthFromNow());
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(expected, oneMonthFromNow());
+              }
+            });
   }
 
   @Test
@@ -159,9 +176,13 @@ public class DateUtilitiesTest {
     final DateTime now = new DateTime(2013, 12, 31, 17, 17, 32, 900);
     final long expected = new DateTime(2014, 7, 1, 17, 17, 32, 900).getMillis();
 
-    freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(expected, addCalendarMonthsToUnixtime(now.getMillis(), 6));
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(expected, addCalendarMonthsToUnixtime(now.getMillis(), 6));
+              }
+            });
   }
 
   @Test
@@ -169,9 +190,13 @@ public class DateUtilitiesTest {
     DateTime now = new DateTime(2014, 1, 31, 12, 54, 33, 175);
     final long expected = new DateTime(2014, 3, 3, 12, 54, 33, 175).getMillis();
 
-    freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(expected, oneMonthFromNow());
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(expected, oneMonthFromNow());
+              }
+            });
   }
 
   @Test
@@ -179,17 +204,19 @@ public class DateUtilitiesTest {
     DateTime now = new DateTime(2014, 2, 28, 9, 19, 7, 990);
     final long expected = new DateTime(2014, 3, 28, 9, 19, 7, 990).getMillis();
 
-    freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(expected, oneMonthFromNow());
-    }});
+    freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(expected, oneMonthFromNow());
+              }
+            });
   }
 
   @Test
   public void testShouldGetStartOfDay() {
     DateTime now = new DateTime(2014, 1, 3, 10, 41, 41, 520);
-    assertEquals(
-        now.startOfDay().getMillis(),
-        getStartOfDay(now.getMillis()));
+    assertEquals(now.startOfDay().getMillis(), getStartOfDay(now.getMillis()));
   }
 
   @Test
@@ -216,101 +243,145 @@ public class DateUtilitiesTest {
 
   @Test
   public void testAddMonthsToTimestamp() {
-    assertEquals(newDate(2014, 1, 1).getMillis(),
+    assertEquals(
+        newDate(2014, 1, 1).getMillis(),
         addCalendarMonthsToUnixtime(newDate(2013, 12, 1).getMillis(), 1));
-    assertEquals(newDate(2014, 12, 31).getMillis(),
+    assertEquals(
+        newDate(2014, 12, 31).getMillis(),
         addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getMillis(), 12));
   }
 
   @Test
   public void testAddMonthsWithLessDays() {
-    assertEquals(newDate(2014, 3, 3).getMillis(),
+    assertEquals(
+        newDate(2014, 3, 3).getMillis(),
         addCalendarMonthsToUnixtime(newDate(2013, 12, 31).getMillis(), 2));
   }
 
   @Test
   public void testAddMonthsWithMoreDays() {
-    assertEquals(newDate(2014, 1, 30).getMillis(),
+    assertEquals(
+        newDate(2014, 1, 30).getMillis(),
         addCalendarMonthsToUnixtime(newDate(2013, 11, 30).getMillis(), 2));
   }
 
   @Test
   public void usDateNoYear() {
     setLocale(Locale.US);
-    freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
-        assertEquals("Jan 14", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2018, 1, 1))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "Jan 14",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void usDateWithYear() {
     setLocale(Locale.US);
-    freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
-        assertEquals("Jan 14 '18", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "Jan 14 '18",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void germanDateNoYear() {
     setLocale(Locale.GERMAN);
-    freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
-        assertEquals("14 Jan.", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2018, 1, 1))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "14 Jan.",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void germanDateWithYear() {
     setLocale(Locale.GERMAN);
-    freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
-        assertEquals("14 Jan. '18", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "14 Jan. '18",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void koreanDateNoYear() {
     setLocale(Locale.KOREAN);
-    freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
-        assertEquals("1월 14일", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2018, 1, 1))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "1월 14일",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void koreanDateWithYear() {
     setLocale(Locale.KOREAN);
-    freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
-        assertEquals("18년 1월 14일", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "18년 1월 14일",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void japaneseDateNoYear() {
     setLocale(Locale.JAPANESE);
-    freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
-        assertEquals("1月 14日", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2018, 1, 1))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "1月 14日",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void japaneseDateWithYear() {
     setLocale(Locale.JAPANESE);
-    freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
-        assertEquals("18年 1月 14日", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "18年 1月 14日",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void chineseDateNoYear() {
     setLocale(Locale.CHINESE);
-    freezeAt(new DateTime(2018, 1, 1)).thawAfter(() ->
-        assertEquals("1月 14日", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2018, 1, 1))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "1月 14日",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 
   @Test
   public void chineseDateWithYear() {
     setLocale(Locale.CHINESE);
-    freezeAt(new DateTime(2017, 12, 12)).thawAfter(() ->
-        assertEquals("18年 1月 14日", DateUtilities.getRelativeDateStringWithTime(getTargetContext(),
-            new DateTime(2018, 1, 14).getMillis())));
+    freezeAt(new DateTime(2017, 12, 12))
+        .thawAfter(
+            () ->
+                assertEquals(
+                    "18年 1月 14日",
+                    DateUtilities.getRelativeDateStringWithTime(
+                        getTargetContext(), new DateTime(2018, 1, 14).getMillis())));
   }
 }

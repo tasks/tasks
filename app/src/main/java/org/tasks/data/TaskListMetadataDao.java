@@ -21,4 +21,3 @@ public abstract class TaskListMetadataDao {
     taskListMetadata.setId(insert(taskListMetadata));
   }
 }
-

@@ -25,8 +25,8 @@ public class HiddenTopArrayAdapter<T> extends ArrayAdapter<T> {
   }
 
   @Override
-  public View getDropDownView(final int position, final View convertView,
-      @NonNull final ViewGroup parent) {
+  public View getDropDownView(
+      final int position, final View convertView, @NonNull final ViewGroup parent) {
     View v;
 
     if (position == 0) {
@@ -35,8 +35,10 @@ public class HiddenTopArrayAdapter<T> extends ArrayAdapter<T> {
       tv.setVisibility(View.GONE);
       v = tv;
     } else {
-      ViewGroup vg = (ViewGroup) LayoutInflater.from(getContext())
-          .inflate(R.layout.simple_spinner_dropdown_item, parent, false);
+      ViewGroup vg =
+          (ViewGroup)
+              LayoutInflater.from(getContext())
+                  .inflate(R.layout.simple_spinner_dropdown_item, parent, false);
       ((TextView) vg.findViewById(R.id.text1)).setText(getItem(position).toString());
       if (position < hints.size()) {
         ((TextView) vg.findViewById(R.id.text2)).setText(hints.get(position));

@@ -1,21 +1,17 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.utility;
 
 public class Flags {
 
-  /**
-   * If set, indicates tags changed during task save
-   */
+  /** If set, indicates tags changed during task save */
   public static final int TAGS_CHANGED = 1 << 1;
-  /**
-   * If set, indicates that TaskListFragmentPager should not intercept touch events
-   */
+  /** If set, indicates that TaskListFragmentPager should not intercept touch events */
   public static final int TLFP_NO_INTERCEPT_TOUCH = 1 << 7;
+
   private static int state = 0;
 
   public static boolean checkAndClear(int flag) {
@@ -31,5 +27,4 @@ public class Flags {
   public static void set(int flag) {
     state |= flag;
   }
-
 }

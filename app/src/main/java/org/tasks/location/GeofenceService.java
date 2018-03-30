@@ -51,8 +51,8 @@ public class GeofenceService {
     return changed;
   }
 
-  private boolean synchronizeMetadata(long taskId, List<Location> locations,
-      final SynchronizeGeofenceCallback callback) {
+  private boolean synchronizeMetadata(
+      long taskId, List<Location> locations, final SynchronizeGeofenceCallback callback) {
     boolean dirty = false;
     for (Location metadatum : locations) {
       metadatum.setTask(taskId);

@@ -12,7 +12,7 @@ public final class FireReceiver extends BroadcastReceiver {
 
   @Override
   public final void onReceive(final Context context, final Intent intent) {
-    Timber.d("Received %s", intent); //$NON-NLS-1$
+    Timber.d("Received %s", intent); // $NON-NLS-1$
 
     /*
      * Note: It is OK if a host sends an ordered broadcast for plug-in
@@ -21,8 +21,9 @@ public final class FireReceiver extends BroadcastReceiver {
      */
 
     if (!com.twofortyfouram.locale.api.Intent.ACTION_FIRE_SETTING.equals(intent.getAction())) {
-      Timber.e("Intent action is not %s",
-          com.twofortyfouram.locale.api.Intent.ACTION_FIRE_SETTING); //$NON-NLS-1$
+      Timber.e(
+          "Intent action is not %s",
+          com.twofortyfouram.locale.api.Intent.ACTION_FIRE_SETTING); // $NON-NLS-1$
       return;
     }
 
@@ -35,13 +36,12 @@ public final class FireReceiver extends BroadcastReceiver {
      * asserting the package is probably good enough.
      */
     if (!context.getPackageName().equals(intent.getPackage())
-        && !new ComponentName(context, this.getClass().getName()).equals(intent
-        .getComponent())) {
-      Timber.e("Intent is not explicit"); //$NON-NLS-1$
+        && !new ComponentName(context, this.getClass().getName()).equals(intent.getComponent())) {
+      Timber.e("Intent is not explicit"); // $NON-NLS-1$
       return;
     }
 
-    JobIntentService
-        .enqueueWork(context, TaskerIntentService.class, JobManager.JOB_ID_TASKER, intent);
+    JobIntentService.enqueueWork(
+        context, TaskerIntentService.class, JobManager.JOB_ID_TASKER, intent);
   }
 }

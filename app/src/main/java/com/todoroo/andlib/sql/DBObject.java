@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.SqlConstants.AS;
@@ -46,7 +45,8 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
     if (alias != null ? !alias.equals(dbObject.alias) : dbObject.alias != null) {
       return false;
     }
-    if (expression != null ? !expression.equals(dbObject.expression)
+    if (expression != null
+        ? !expression.equals(dbObject.expression)
         : dbObject.expression != null) {
       return false;
     }

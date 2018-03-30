@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.tags;
 
 import static com.google.common.base.Predicates.notNull;
@@ -78,18 +77,22 @@ public final class TagsControlSet extends TaskEditControlFragment {
   private static final String EXTRA_NEW_TAGS = "extra_new_tags";
   private static final String EXTRA_ORIGINAL_TAGS = "extra_original_tags";
   private static final String EXTRA_SELECTED_TAGS = "extra_selected_tags";
-  private final Ordering<TagData> orderByName = new Ordering<TagData>() {
-    @Override
-    public int compare(TagData left, TagData right) {
-      return left.getName().compareTo(right.getName());
-    }
-  };
+  private final Ordering<TagData> orderByName =
+      new Ordering<TagData>() {
+        @Override
+        public int compare(TagData left, TagData right) {
+          return left.getName().compareTo(right.getName());
+        }
+      };
   @Inject TagDao tagDao;
   @Inject TagDataDao tagDataDao;
   @Inject TagService tagService;
   @Inject DialogBuilder dialogBuilder;
   @Inject ThemeCache themeCache;
-  @BindView(R.id.display_row_edit) TextView tagsDisplay;
+
+  @BindView(R.id.display_row_edit)
+  TextView tagsDisplay;
+
   private LinearLayout newTagLayout;
   private ListView tagListView;
   private View dialogView;
@@ -101,16 +104,23 @@ public final class TagsControlSet extends TaskEditControlFragment {
   private Function<TagData, SpannableString> tagToString(final float maxLength) {
     return tagData -> {
       String tagName = tagData.getName();
-      tagName = tagName
-          .substring(0, Math.min(tagName.length(), (int) maxLength))
-          .replace(' ', NO_BREAK_SPACE);
+      tagName =
+          tagName
+              .substring(0, Math.min(tagName.length(), (int) maxLength))
+              .replace(' ', NO_BREAK_SPACE);
       SpannableString string = new SpannableString(NO_BREAK_SPACE + tagName + NO_BREAK_SPACE);
       int themeIndex = tagData.getColor();
       ThemeColor color =
           themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
-      string.setSpan(new BackgroundColorSpan(color.getPrimaryColor()), 0, string.length(),
+      string.setSpan(
+          new BackgroundColorSpan(color.getPrimaryColor()),
+          0,
+          string.length(),
           Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-      string.setSpan(new ForegroundColorSpan(color.getActionBarTint()), 0, string.length(),
+      string.setSpan(
+          new ForegroundColorSpan(color.getActionBarTint()),
+          0,
+          string.length(),
           Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
       return string;
     };
@@ -131,8 +141,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
     ArrayList<String> newTags;
     if (savedInstanceState != null) {
@@ -140,9 +150,11 @@ public final class TagsControlSet extends TaskEditControlFragment {
       originalTags = savedInstanceState.getParcelableArrayList(EXTRA_ORIGINAL_TAGS);
       newTags = savedInstanceState.getStringArrayList(EXTRA_NEW_TAGS);
     } else {
-      originalTags = new ArrayList<>(task.isNew()
-          ? transform(task.getTags(), tagDataDao::getTagByName)
-          : tagService.getTagDataForTask(task.getId()));
+      originalTags =
+          new ArrayList<>(
+              task.isNew()
+                  ? transform(task.getTags(), tagDataDao::getTagByName)
+                  : tagService.getTagDataForTask(task.getId()));
       selectedTags = new ArrayList<>(originalTags);
       newTags = new ArrayList<>();
     }
@@ -151,16 +163,16 @@ public final class TagsControlSet extends TaskEditControlFragment {
     newTagLayout = dialogView.findViewById(R.id.newTags);
     tagListView = dialogView.findViewById(R.id.existingTags);
     tagListView.setAdapter(
-        new ArrayAdapter<TagData>(getActivity(), R.layout.simple_list_item_multiple_choice_themed,
-            allTags) {
+        new ArrayAdapter<TagData>(
+            getActivity(), R.layout.simple_list_item_multiple_choice_themed, allTags) {
           @NonNull
           @SuppressLint("NewApi")
           @Override
           public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             CheckedTextView view = (CheckedTextView) super.getView(position, convertView, parent);
             TagData tagData = allTags.get(position);
-            ThemeColor themeColor = themeCache
-                .getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
+            ThemeColor themeColor =
+                themeCache.getThemeColor(tagData.getColor() >= 0 ? tagData.getColor() : 19);
             view.setText(tagData.getName());
             Drawable original = ContextCompat.getDrawable(getContext(), R.drawable.ic_label_24dp);
             Drawable wrapped = DrawableCompat.wrap(original.mutate());
@@ -215,7 +227,8 @@ public final class TagsControlSet extends TaskEditControlFragment {
   }
 
   private AlertDialog buildDialog() {
-    return dialogBuilder.newDialog()
+    return dialogBuilder
+        .newDialog()
         .setView(dialogView)
         .setOnDismissListener(dialogInterface -> refreshDisplayView())
         .create();
@@ -274,9 +287,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     return tags;
   }
 
-  /**
-   * Adds a tag to the tag field
-   */
+  /** Adds a tag to the tag field */
   private void addTag(String tagName) {
     LayoutInflater inflater = getActivity().getLayoutInflater();
 
@@ -294,62 +305,61 @@ public final class TagsControlSet extends TaskEditControlFragment {
     tagItem = inflater.inflate(R.layout.tag_edit_row, null);
     newTagLayout.addView(tagItem);
     if (tagName == null) {
-      tagName = ""; //$NON-NLS-1$
+      tagName = ""; // $NON-NLS-1$
     }
 
-    final AutoCompleteTextView textView = tagItem.
-        findViewById(R.id.text1);
+    final AutoCompleteTextView textView = tagItem.findViewById(R.id.text1);
     textView.setText(tagName);
 
-    textView.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void afterTextChanged(Editable s) {
-        //
-      }
+    textView.addTextChangedListener(
+        new TextWatcher() {
+          @Override
+          public void afterTextChanged(Editable s) {
+            //
+          }
 
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count,
-          int after) {
-        //
-      }
+          @Override
+          public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            //
+          }
 
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before,
-          int count) {
-        if (count > 0 && newTagLayout.getChildAt(newTagLayout.getChildCount() - 1) ==
-            tagItem) {
-          addTag(""); //$NON-NLS-1$
-        }
-      }
-    });
+          @Override
+          public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (count > 0 && newTagLayout.getChildAt(newTagLayout.getChildCount() - 1) == tagItem) {
+              addTag(""); // $NON-NLS-1$
+            }
+          }
+        });
 
-    textView.setOnEditorActionListener((arg0, actionId, arg2) -> {
-      if (actionId != EditorInfo.IME_NULL) {
-        return false;
-      }
-      if (getLastTextView().getText().length() != 0) {
-        addTag(""); //$NON-NLS-1$
-      }
-      return true;
-    });
+    textView.setOnEditorActionListener(
+        (arg0, actionId, arg2) -> {
+          if (actionId != EditorInfo.IME_NULL) {
+            return false;
+          }
+          if (getLastTextView().getText().length() != 0) {
+            addTag(""); // $NON-NLS-1$
+          }
+          return true;
+        });
 
-    tagItem.findViewById(R.id.button1).setOnClickListener(v -> {
-      TextView lastView = getLastTextView();
-      if (lastView == textView && textView.getText().length() == 0) {
-        return;
-      }
+    tagItem
+        .findViewById(R.id.button1)
+        .setOnClickListener(
+            v -> {
+              TextView lastView = getLastTextView();
+              if (lastView == textView && textView.getText().length() == 0) {
+                return;
+              }
 
-      if (newTagLayout.getChildCount() > 1) {
-        newTagLayout.removeView(tagItem);
-      } else {
-        textView.setText(""); //$NON-NLS-1$
-      }
-    });
+              if (newTagLayout.getChildCount() > 1) {
+                newTagLayout.removeView(tagItem);
+              } else {
+                textView.setText(""); // $NON-NLS-1$
+              }
+            });
   }
 
-  /**
-   * Get tags container last text view. might be null
-   */
+  /** Get tags container last text view. might be null */
   private TextView getLastTextView() {
     if (newTagLayout.getChildCount() == 0) {
       return null;

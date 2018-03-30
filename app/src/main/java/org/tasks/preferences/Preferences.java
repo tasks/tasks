@@ -27,9 +27,9 @@ import timber.log.Timber;
 
 public class Preferences {
 
-  private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
+  private static final String P_CURRENT_VERSION = "cv"; // $NON-NLS-1$
 
-  private static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
+  private static final String PREF_SORT_SORT = "sort_sort"; // $NON-NLS-1$
 
   private final Context context;
   private final PermissionChecker permissionChecker;
@@ -41,8 +41,8 @@ public class Preferences {
     this.context = context;
     this.permissionChecker = permissionChecker;
     prefs = PreferenceManager.getDefaultSharedPreferences(context);
-    publicPrefs = context
-        .getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE);
+    publicPrefs =
+        context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS, Context.MODE_PRIVATE);
   }
 
   private static String getNonCollidingFileName(String dir, String baseName, String extension) {
@@ -50,7 +50,7 @@ public class Preferences {
     File f = new File(dir + File.separator + baseName + extension);
     String tempName = baseName;
     while (f.exists()) {
-      tempName = baseName + "-" + tries; //$NON-NLS-1$
+      tempName = baseName + "-" + tries; // $NON-NLS-1$
       f = new File(dir + File.separator + tempName + extension);
       tries++;
     }
@@ -165,10 +165,7 @@ public class Preferences {
   }
 
   public void clear() {
-    prefs
-        .edit()
-        .clear()
-        .commit();
+    prefs.edit().clear().commit();
   }
 
   public void setDefaults() {
@@ -202,8 +199,8 @@ public class Preferences {
   }
 
   public int getDefaultReminders() {
-    return getIntegerFromString(R.string.p_default_reminders_key,
-        Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
+    return getIntegerFromString(
+        R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
   }
 
   public int getDefaultRingMode() {
@@ -263,9 +260,9 @@ public class Preferences {
   }
 
   public boolean fieldMissedPhoneCalls() {
-    return getBoolean(R.string.p_field_missed_calls, true) &&
-        notificationsEnabled() &&
-        permissionChecker.canAccessMissedCallPermissions();
+    return getBoolean(R.string.p_field_missed_calls, true)
+        && notificationsEnabled()
+        && permissionChecker.canAccessMissedCallPermissions();
   }
 
   public boolean hasPurchase(int keyResource) {
@@ -364,15 +361,13 @@ public class Preferences {
     if (externalFilesDir == null) {
       return null;
     }
-    String path = String.format("%s/%s",
-        externalFilesDir.getAbsolutePath(),
-        type);
+    String path = String.format("%s/%s", externalFilesDir.getAbsolutePath(), type);
     File file = new File(path);
     return file.isDirectory() || file.mkdirs() ? file : null;
   }
 
   public String getNewAudioAttachmentPath(AtomicReference<String> nameReference) {
-    return getNewAttachmentPath(".m4a", nameReference); //$NON-NLS-1$
+    return getNewAttachmentPath(".m4a", nameReference); // $NON-NLS-1$
   }
 
   public String getNewAttachmentPath(String extension, AtomicReference<String> nameReference) {

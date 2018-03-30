@@ -31,8 +31,6 @@ public class DateTimeUtils {
   }
 
   public static String printTimestamp(long timestamp) {
-    return BuildConfig.DEBUG
-        ? new Date(timestamp).toString()
-        : Long.toString(timestamp);
+    return BuildConfig.DEBUG ? new Date(timestamp).toString() : Long.toString(timestamp);
   }
 }

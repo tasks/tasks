@@ -1,7 +1,4 @@
-/**
- *
- */
-
+/** */
 package com.todoroo.astrid.voice;
 
 import android.content.Context;
@@ -15,9 +12,7 @@ import javax.inject.Inject;
 import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
-/**
- * @author Arne Jans
- */
+/** @author Arne Jans */
 public class VoiceOutputAssistant implements OnInitListener {
 
   private final Context context;
@@ -46,15 +41,16 @@ public class VoiceOutputAssistant implements OnInitListener {
     if (mTts != null && isTTSInitialized) {
       final String id = UUID.randomUUID().toString();
       Timber.d("%s: %s (%s)", mTts, textToSpeak, id);
-      mTts.setOnUtteranceCompletedListener(utteranceId -> {
-        Timber.d("%s: onUtteranceCompleted", utteranceId);
-        if (utteranceId.equals(id)) {
-          shutdown();
-        }
-      });
+      mTts.setOnUtteranceCompletedListener(
+          utteranceId -> {
+            Timber.d("%s: onUtteranceCompleted", utteranceId);
+            if (utteranceId.equals(id)) {
+              shutdown();
+            }
+          });
       HashMap<String, String> params = new HashMap<>();
-      params.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
-          String.valueOf(AudioManager.STREAM_NOTIFICATION));
+      params.put(
+          TextToSpeech.Engine.KEY_PARAM_STREAM, String.valueOf(AudioManager.STREAM_NOTIFICATION));
       params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, id);
       mTts.speak(textToSpeak, TextToSpeech.QUEUE_ADD, params);
     } else {

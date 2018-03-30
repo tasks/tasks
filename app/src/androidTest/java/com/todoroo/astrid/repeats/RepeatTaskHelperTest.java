@@ -64,127 +64,139 @@ public class RepeatTaskHelperTest extends InjectingTestCase {
 
   @Test
   public void testMinutelyRepeat() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=MINUTELY;INTERVAL=30")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=MINUTELY;INTERVAL=30")));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2017, 10, 4, 14, 0, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2017, 10, 4, 14, 0, 1));
   }
 
   @Test
   public void testMinutelyRepeatAfterCompletion() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(COMPLETION_TIME, new DateTime(2017, 10, 4, 13, 17, 45, 340)),
-        with(RRULE, new RRule("RRULE:FREQ=MINUTELY;INTERVAL=30")),
-        with(AFTER_COMPLETE, true));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(COMPLETION_TIME, new DateTime(2017, 10, 4, 13, 17, 45, 340)),
+            with(RRULE, new RRule("RRULE:FREQ=MINUTELY;INTERVAL=30")),
+            with(AFTER_COMPLETE, true));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2017, 10, 4, 13, 47, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2017, 10, 4, 13, 47, 1));
   }
 
   @Test
   public void testMinutelyDecrementCount() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=MINUTELY;COUNT=2;INTERVAL=30")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=MINUTELY;COUNT=2;INTERVAL=30")));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2017, 10, 4, 14, 0, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2017, 10, 4, 14, 0, 1));
 
     assertEquals(1, new RRule(task.getRecurrenceWithoutFrom()).getCount());
   }
 
   @Test
   public void testMinutelyLastOccurrence() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=MINUTELY;COUNT=1;INTERVAL=30")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=MINUTELY;COUNT=1;INTERVAL=30")));
 
     helper.handleRepeat(task);
   }
 
   @Test
   public void testHourlyRepeat() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=HOURLY;INTERVAL=6")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=HOURLY;INTERVAL=6")));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2017, 10, 4, 19, 30, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2017, 10, 4, 19, 30, 1));
   }
 
   @Test
   public void testHourlyRepeatAfterCompletion() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(COMPLETION_TIME, new DateTime(2017, 10, 4, 13, 17, 45, 340)),
-        with(RRULE, new RRule("RRULE:FREQ=HOURLY;INTERVAL=6")),
-        with(AFTER_COMPLETE, true));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(COMPLETION_TIME, new DateTime(2017, 10, 4, 13, 17, 45, 340)),
+            with(RRULE, new RRule("RRULE:FREQ=HOURLY;INTERVAL=6")),
+            with(AFTER_COMPLETE, true));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2017, 10, 4, 19, 17, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2017, 10, 4, 19, 17, 1));
   }
 
   @Test
   public void testDailyRepeat() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=DAILY;INTERVAL=6")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=DAILY;INTERVAL=6")));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2017, 10, 10, 13, 30, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2017, 10, 10, 13, 30, 1));
   }
 
   @Test
   public void testRepeatWeeklyNoDays() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=WEEKLY;INTERVAL=2")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=WEEKLY;INTERVAL=2")));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2017, 10, 18, 13, 30, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2017, 10, 18, 13, 30, 1));
   }
 
   @Test
   public void testYearly() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=YEARLY;INTERVAL=3")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=YEARLY;INTERVAL=3")));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2020, 10, 4, 13, 30, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2020, 10, 4, 13, 30, 1));
   }
 
   @Test
   public void testMonthlyRepeat() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=MONTHLY;INTERVAL=3")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 10, 4, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=MONTHLY;INTERVAL=3")));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 10, 4, 13, 30, 1),
-        new DateTime(2018, 1, 4, 13, 30, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 10, 4, 13, 30, 1), new DateTime(2018, 1, 4, 13, 30, 1));
   }
 
   @Test
   public void testMonthlyRepeatAtEndOfMonth() throws ParseException {
-    Task task = newTask(with(ID, 1L),
-        with(DUE_TIME, new DateTime(2017, 1, 31, 13, 30)),
-        with(RRULE, new RRule("RRULE:FREQ=MONTHLY;INTERVAL=1")));
+    Task task =
+        newTask(
+            with(ID, 1L),
+            with(DUE_TIME, new DateTime(2017, 1, 31, 13, 30)),
+            with(RRULE, new RRule("RRULE:FREQ=MONTHLY;INTERVAL=1")));
 
-    repeatAndVerify(task,
-        new DateTime(2017, 1, 31, 13, 30, 1),
-        new DateTime(2017, 2, 28, 13, 30, 1));
+    repeatAndVerify(
+        task, new DateTime(2017, 1, 31, 13, 30, 1), new DateTime(2017, 2, 28, 13, 30, 1));
   }
 
   private void repeatAndVerify(Task task, DateTime oldDueDate, DateTime newDueDate) {
@@ -192,7 +204,8 @@ public class RepeatTaskHelperTest extends InjectingTestCase {
 
     mocks.verify(gCalHelper).rescheduleRepeatingTask(task);
     mocks.verify(alarmService).rescheduleAlarms(1, oldDueDate.getMillis(), newDueDate.getMillis());
-    mocks.verify(localBroadcastManager)
+    mocks
+        .verify(localBroadcastManager)
         .broadcastRepeat(1, oldDueDate.getMillis(), newDueDate.getMillis());
   }
 

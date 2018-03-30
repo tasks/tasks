@@ -48,7 +48,7 @@ public class LimitOffsetDataSource extends PositionalDataSource<Task> {
   @Nullable
   @WorkerThread
   private List<Task> loadRange(int startPosition, int loadCount) {
-    Cursor cursor = mDb.query(mLimitOffsetQuery, new Object[]{loadCount, startPosition});
+    Cursor cursor = mDb.query(mLimitOffsetQuery, new Object[] {loadCount, startPosition});
     //noinspection TryFinallyCanBeTryWithResources
     try {
       return convertRows(cursor);
@@ -58,8 +58,8 @@ public class LimitOffsetDataSource extends PositionalDataSource<Task> {
   }
 
   @Override
-  public void loadInitial(@NonNull LoadInitialParams params,
-      @NonNull LoadInitialCallback<Task> callback) {
+  public void loadInitial(
+      @NonNull LoadInitialParams params, @NonNull LoadInitialCallback<Task> callback) {
     int totalCount = countItems();
     if (totalCount == 0) {
       callback.onResult(Collections.emptyList(), 0, 0);
@@ -83,8 +83,8 @@ public class LimitOffsetDataSource extends PositionalDataSource<Task> {
 
   @WorkerThread
   @Override
-  public void loadRange(@NonNull LoadRangeParams params,
-      @NonNull LoadRangeCallback<Task> callback) {
+  public void loadRange(
+      @NonNull LoadRangeParams params, @NonNull LoadRangeCallback<Task> callback) {
     List<Task> list = loadRange(params.startPosition, params.loadSize);
     if (list != null) {
       callback.onResult(list);

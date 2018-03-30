@@ -59,12 +59,15 @@ public class NotificationQueueTest {
 
     verify(jobManager).scheduleNotification(now);
 
-    Freeze.freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(
-          newHashSet(new AlarmEntry(1, 1, now),
-              new ReminderEntry(1, now, TYPE_DUE)),
-          newHashSet(queue.getOverdueJobs()));
-    }});
+    Freeze.freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(
+                    newHashSet(new AlarmEntry(1, 1, now), new ReminderEntry(1, now, TYPE_DUE)),
+                    newHashSet(queue.getOverdueJobs()));
+              }
+            });
   }
 
   @Test
@@ -78,11 +81,14 @@ public class NotificationQueueTest {
 
     queue.remove(singletonList(new AlarmEntry(1, 1, now)));
 
-    Freeze.freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(
-          singletonList(new ReminderEntry(1, now, TYPE_DUE)),
-          queue.getOverdueJobs());
-    }});
+    Freeze.freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(
+                    singletonList(new ReminderEntry(1, now, TYPE_DUE)), queue.getOverdueJobs());
+              }
+            });
   }
 
   @Test
@@ -96,11 +102,13 @@ public class NotificationQueueTest {
 
     queue.remove(singletonList(new ReminderEntry(1, now, TYPE_DUE)));
 
-    Freeze.freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(
-          singletonList(new AlarmEntry(1, 1, now)),
-          queue.getOverdueJobs());
-    }});
+    Freeze.freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(singletonList(new AlarmEntry(1, 1, now)), queue.getOverdueJobs());
+              }
+            });
   }
 
   @Test
@@ -194,11 +202,14 @@ public class NotificationQueueTest {
 
     verify(jobManager).scheduleNotification(now);
 
-    Freeze.freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(
-          singletonList(new ReminderEntry(1, now, TYPE_DUE)),
-          queue.getOverdueJobs());
-    }});
+    Freeze.freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(
+                    singletonList(new ReminderEntry(1, now, TYPE_DUE)), queue.getOverdueJobs());
+              }
+            });
   }
 
   @Test
@@ -210,11 +221,16 @@ public class NotificationQueueTest {
 
     verify(jobManager).scheduleNotification(now);
 
-    Freeze.freezeAt(now).thawAfter(new Snippet() {{
-      assertEquals(
-          asList(new ReminderEntry(1, now, TYPE_DUE), new ReminderEntry(2, now, TYPE_DUE)),
-          queue.getOverdueJobs());
-    }});
+    Freeze.freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(
+                    asList(
+                        new ReminderEntry(1, now, TYPE_DUE), new ReminderEntry(2, now, TYPE_DUE)),
+                    queue.getOverdueJobs());
+              }
+            });
   }
 
   @Test
@@ -226,11 +242,17 @@ public class NotificationQueueTest {
 
     verify(jobManager).scheduleNotification(now);
 
-    Freeze.freezeAt(now + 2 * ONE_MINUTE).thawAfter(new Snippet() {{
-      assertEquals(
-          asList(new ReminderEntry(1, now, TYPE_DUE), new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE)),
-          queue.getOverdueJobs());
-    }});
+    Freeze.freezeAt(now + 2 * ONE_MINUTE)
+        .thawAfter(
+            new Snippet() {
+              {
+                assertEquals(
+                    asList(
+                        new ReminderEntry(1, now, TYPE_DUE),
+                        new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE)),
+                    queue.getOverdueJobs());
+              }
+            });
   }
 
   @Test
@@ -242,13 +264,15 @@ public class NotificationQueueTest {
 
     verify(jobManager).scheduleNotification(now);
 
-    Freeze.freezeAt(now).thawAfter(new Snippet() {{
-      queue.remove(queue.getOverdueJobs());
-    }});
+    Freeze.freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                queue.remove(queue.getOverdueJobs());
+              }
+            });
 
-    assertEquals(
-        singletonList(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE)),
-        queue.getJobs());
+    assertEquals(singletonList(new ReminderEntry(2, now + ONE_MINUTE, TYPE_DUE)), queue.getJobs());
   }
 
   @Test
@@ -261,13 +285,16 @@ public class NotificationQueueTest {
 
     verify(jobManager).scheduleNotification(now);
 
-    Freeze.freezeAt(now + ONE_MINUTE).thawAfter(new Snippet() {{
-      queue.remove(queue.getOverdueJobs());
-    }});
+    Freeze.freezeAt(now + ONE_MINUTE)
+        .thawAfter(
+            new Snippet() {
+              {
+                queue.remove(queue.getOverdueJobs());
+              }
+            });
 
     assertEquals(
-        singletonList(new ReminderEntry(3, now + 2 * ONE_MINUTE, TYPE_DUE)),
-        queue.getJobs());
+        singletonList(new ReminderEntry(3, now + 2 * ONE_MINUTE, TYPE_DUE)), queue.getJobs());
   }
 
   @Test
@@ -304,16 +331,21 @@ public class NotificationQueueTest {
 
     verify(jobManager).scheduleNotification(due.getMillis());
 
-    Freeze.freezeAt(now).thawAfter(new Snippet() {{
-      List<? extends NotificationQueueEntry> overdueJobs = queue.getOverdueJobs();
-      assertEquals(
-          asList(new ReminderEntry(1, due.getMillis(), TYPE_DUE),
-              new ReminderEntry(2, snooze.getMillis(), TYPE_SNOOZE)),
-          overdueJobs);
-      queue.remove(overdueJobs);
-      assertEquals(
-          singletonList(new ReminderEntry(3, due.plusMinutes(1).getMillis(), TYPE_DUE)),
-          queue.getJobs());
-    }});
+    Freeze.freezeAt(now)
+        .thawAfter(
+            new Snippet() {
+              {
+                List<? extends NotificationQueueEntry> overdueJobs = queue.getOverdueJobs();
+                assertEquals(
+                    asList(
+                        new ReminderEntry(1, due.getMillis(), TYPE_DUE),
+                        new ReminderEntry(2, snooze.getMillis(), TYPE_SNOOZE)),
+                    overdueJobs);
+                queue.remove(overdueJobs);
+                assertEquals(
+                    singletonList(new ReminderEntry(3, due.plusMinutes(1).getMillis(), TYPE_DUE)),
+                    queue.getJobs());
+              }
+            });
   }
 }

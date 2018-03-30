@@ -18,29 +18,32 @@ class CaldavClient {
   private final DavCalendar davCalendar;
 
   public CaldavClient(String url, String username, String password) {
-    BasicDigestAuthHandler basicDigestAuthHandler = new BasicDigestAuthHandler(null, username,
-        password);
-    OkHttpClient httpClient = new OkHttpClient().newBuilder()
-        .addNetworkInterceptor(basicDigestAuthHandler)
-        .authenticator(basicDigestAuthHandler)
-        .cookieJar(new MemoryCookieStore())
-        .followRedirects(false)
-        .followSslRedirects(false)
-        .build();
+    BasicDigestAuthHandler basicDigestAuthHandler =
+        new BasicDigestAuthHandler(null, username, password);
+    OkHttpClient httpClient =
+        new OkHttpClient()
+            .newBuilder()
+            .addNetworkInterceptor(basicDigestAuthHandler)
+            .authenticator(basicDigestAuthHandler)
+            .cookieJar(new MemoryCookieStore())
+            .followRedirects(false)
+            .followSslRedirects(false)
+            .build();
     URI uri = URI.create(url);
     HttpUrl httpUrl = HttpUrl.get(uri);
     davCalendar = new DavCalendar(httpClient, httpUrl);
   }
 
   public Single<String> getDisplayName() {
-    Callable<String> callable = () -> {
-      davCalendar.propfind(0, DisplayName.NAME);
-      DisplayName displayName = davCalendar.getProperties().get(DisplayName.class);
-      if (displayName == null) {
-        throw new DisplayableException(R.string.calendar_not_found);
-      }
-      return displayName.getDisplayName();
-    };
+    Callable<String> callable =
+        () -> {
+          davCalendar.propfind(0, DisplayName.NAME);
+          DisplayName displayName = davCalendar.getProperties().get(DisplayName.class);
+          if (displayName == null) {
+            throw new DisplayableException(R.string.calendar_not_found);
+          }
+          return displayName.getDisplayName();
+        };
     return Single.fromCallable(callable)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread());

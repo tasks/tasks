@@ -151,8 +151,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
       if (task.isCompleted()) {
         textColorTitle = textColorSecondary;
-        row.setInt(R.id.widget_text, "setPaintFlags",
-            Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        row.setInt(
+            R.id.widget_text, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
       } else {
         row.setInt(R.id.widget_text, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
       }
@@ -186,8 +186,8 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       }
 
       if (atLeastJellybeanMR1()) {
-        row.setInt(R.id.widget_row, "setLayoutDirection",
-            Locale.getInstance(context).getDirectionality());
+        row.setInt(
+            R.id.widget_row, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
       }
 
       return row;
@@ -220,8 +220,9 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
       rv.setInt(R.id.widget, "setLayoutDirection", Locale.getInstance(context).getDirectionality());
     }
     appWidgetManager.partiallyUpdateAppWidget(widgetId, rv);
-    String query = SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort)
-        .replaceAll("LIMIT \\d+", "");
+    String query =
+        SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort)
+            .replaceAll("LIMIT \\d+", "");
     return subtasksHelper.applySubtasksToWidgetFilter(filter, query);
   }
 
@@ -229,12 +230,16 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     if (task.hasDueDate()) {
       Resources resources = context.getResources();
       row.setViewVisibility(R.id.widget_due_date, View.VISIBLE);
-      row.setTextViewText(R.id.widget_due_date, task.isCompleted()
-          ? resources.getString(R.string.TAd_completed,
-          DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate()))
-          : DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
+      row.setTextViewText(
+          R.id.widget_due_date,
+          task.isCompleted()
+              ? resources.getString(
+                  R.string.TAd_completed,
+                  DateUtilities.getRelativeDateStringWithTime(context, task.getCompletionDate()))
+              : DateUtilities.getRelativeDateStringWithTime(context, task.getDueDate()));
       //noinspection ResourceAsColor
-      row.setTextColor(R.id.widget_due_date,
+      row.setTextColor(
+          R.id.widget_due_date,
           task.isOverdue() ? getColor(context, R.color.overdue) : textColorSecondary);
       row.setFloat(R.id.widget_due_date, "setTextSize", dueDateTextSize);
     } else {

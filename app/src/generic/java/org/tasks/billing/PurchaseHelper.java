@@ -14,24 +14,21 @@ public class PurchaseHelper {
     this.preferences = preferences;
   }
 
-  public boolean purchase(final Activity activity,
-      final String sku, final String pref,
-      final int requestCode, final PurchaseHelperCallback callback) {
+  public boolean purchase(
+      final Activity activity,
+      final String sku,
+      final String pref,
+      final int requestCode,
+      final PurchaseHelperCallback callback) {
     preferences.setBoolean(pref, true);
     callback.purchaseCompleted(true, sku);
     return true;
   }
 
-  public void handleActivityResult(PurchaseHelperCallback callback, int requestCode, int resultCode,
-      Intent data) {
+  public void handleActivityResult(
+      PurchaseHelperCallback callback, int requestCode, int resultCode, Intent data) {}
 
-  }
+  public void disposeIabHelper() {}
 
-  public void disposeIabHelper() {
-
-  }
-
-  public void consumePurchases() {
-
-  }
+  public void consumePurchases() {}
 }

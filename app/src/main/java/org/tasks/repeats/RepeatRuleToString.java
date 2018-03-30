@@ -45,22 +45,30 @@ public class RepeatRuleToString {
       if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()) {
         String dayString = getDayString(rrule);
         if (count > 0) {
-          return context
-              .getString(R.string.repeats_single_on_number_of_times, frequencyString, dayString,
-                  count, countString);
+          return context.getString(
+              R.string.repeats_single_on_number_of_times,
+              frequencyString,
+              dayString,
+              count,
+              countString);
         } else if (repeatUntil == null) {
           return context.getString(R.string.repeats_single_on, frequencyString, dayString);
         } else {
-          return context.getString(R.string.repeats_single_on_until, frequencyString, dayString,
+          return context.getString(
+              R.string.repeats_single_on_until,
+              frequencyString,
+              dayString,
               DateUtilities.getLongDateString(repeatUntil));
         }
       } else if (count > 0) {
-        return context.getString(R.string.repeats_single_number_of_times, frequencyString, count,
-            countString);
+        return context.getString(
+            R.string.repeats_single_number_of_times, frequencyString, count, countString);
       } else if (repeatUntil == null) {
         return context.getString(R.string.repeats_single, frequencyString);
       } else {
-        return context.getString(R.string.repeats_single_until, frequencyString,
+        return context.getString(
+            R.string.repeats_single_until,
+            frequencyString,
             DateUtilities.getLongDateString(repeatUntil));
       }
     } else {
@@ -69,22 +77,30 @@ public class RepeatRuleToString {
       if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.getByDay().isEmpty()) {
         String dayString = getDayString(rrule);
         if (count > 0) {
-          return context
-              .getString(R.string.repeats_plural_on_number_of_times, frequencyPlural, dayString,
-                  count, countString);
+          return context.getString(
+              R.string.repeats_plural_on_number_of_times,
+              frequencyPlural,
+              dayString,
+              count,
+              countString);
         } else if (repeatUntil == null) {
           return context.getString(R.string.repeats_plural_on, frequencyPlural, dayString);
         } else {
-          return context.getString(R.string.repeats_plural_on_until, frequencyPlural, dayString,
+          return context.getString(
+              R.string.repeats_plural_on_until,
+              frequencyPlural,
+              dayString,
               DateUtilities.getLongDateString(repeatUntil));
         }
       } else if (count > 0) {
-        return context.getString(R.string.repeats_plural_number_of_times, frequencyPlural, count,
-            countString);
+        return context.getString(
+            R.string.repeats_plural_number_of_times, frequencyPlural, count, countString);
       } else if (repeatUntil == null) {
         return context.getString(R.string.repeats_plural, frequencyPlural);
       } else {
-        return context.getString(R.string.repeats_plural_until, frequencyPlural,
+        return context.getString(
+            R.string.repeats_plural_until,
+            frequencyPlural,
             DateUtilities.getLongDateString(repeatUntil));
       }
     }
@@ -107,17 +123,20 @@ public class RepeatRuleToString {
       dayOfWeekCalendar.set(Calendar.DAY_OF_WEEK, weekdayToCalendarDay(weekdayNum.wday));
       weekday = longWeekdays[dayOfWeekCalendar.get(Calendar.DAY_OF_WEEK)];
       if (weekdayNum.num == -1) {
-        return context.getString(R.string.repeat_monthly_every_day_of_nth_week,
+        return context.getString(
+            R.string.repeat_monthly_every_day_of_nth_week,
             context.getString(R.string.repeat_monthly_last_week),
             weekday);
       } else {
-        int[] resources = new int[]{
-            R.string.repeat_monthly_first_week,
-            R.string.repeat_monthly_second_week,
-            R.string.repeat_monthly_third_week,
-            R.string.repeat_monthly_fourth_week
-        };
-        return context.getString(R.string.repeat_monthly_every_day_of_nth_week,
+        int[] resources =
+            new int[] {
+              R.string.repeat_monthly_first_week,
+              R.string.repeat_monthly_second_week,
+              R.string.repeat_monthly_third_week,
+              R.string.repeat_monthly_fourth_week
+            };
+        return context.getString(
+            R.string.repeat_monthly_every_day_of_nth_week,
             context.getString(resources[weekdayNum.num - 1]),
             weekday);
       }

@@ -27,8 +27,11 @@ public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListene
   private Inventory inventory;
 
   @Inject
-  public InventoryHelper(@ForApplication Context context, Preferences preferences,
-      LocalBroadcastManager localBroadcastManager, @Named("iab-executor") Executor executor) {
+  public InventoryHelper(
+      @ForApplication Context context,
+      Preferences preferences,
+      LocalBroadcastManager localBroadcastManager,
+      @Named("iab-executor") Executor executor) {
     this.context = context;
     this.preferences = preferences;
     this.localBroadcastManager = localBroadcastManager;
@@ -36,8 +39,8 @@ public class InventoryHelper implements IabBroadcastReceiver.IabBroadcastListene
   }
 
   public void initialize() {
-    context.registerReceiver(new IabBroadcastReceiver(this),
-        new IntentFilter(IabBroadcastReceiver.ACTION));
+    context.registerReceiver(
+        new IabBroadcastReceiver(this), new IntentFilter(IabBroadcastReceiver.ACTION));
     refreshInventory();
   }
 

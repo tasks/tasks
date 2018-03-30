@@ -70,8 +70,11 @@ public class GtasksListFragment extends TaskListFragment {
         if (GoogleTaskListSettingsActivity.ACTION_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
         } else if (GoogleTaskListSettingsActivity.ACTION_RELOAD.equals(action)) {
-          activity.getIntent().putExtra(TaskListActivity.OPEN_FILTER,
-              (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+          activity
+              .getIntent()
+              .putExtra(
+                  TaskListActivity.OPEN_FILTER,
+                  (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
           activity.recreate();
         }
       }
@@ -83,19 +86,21 @@ public class GtasksListFragment extends TaskListFragment {
   @Override
   protected void clearCompleted() {
     tracker.reportEvent(Tracking.Events.GTASK_CLEAR_COMPLETED);
-    syncService.clearCompleted(list, new SyncResultCallback() {
-      @Override
-      public void started() {
-        setSyncOngoing(true);
-      }
+    syncService.clearCompleted(
+        list,
+        new SyncResultCallback() {
+          @Override
+          public void started() {
+            setSyncOngoing(true);
+          }
 
-      @Override
-      public void finished() {
-        setSyncOngoing(false);
+          @Override
+          public void finished() {
+            setSyncOngoing(false);
 
-        onRefresh();
-      }
-    });
+            onRefresh();
+          }
+        });
   }
 
   @Override

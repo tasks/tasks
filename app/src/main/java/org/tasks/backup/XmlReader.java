@@ -4,7 +4,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 public class XmlReader {
 
-  private static final String XML_NULL = "null"; //$NON-NLS-1$
+  private static final String XML_NULL = "null"; // $NON-NLS-1$
   private final XmlPullParser xpp;
 
   public XmlReader(XmlPullParser xpp) {

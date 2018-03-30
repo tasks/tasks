@@ -13,9 +13,8 @@ public abstract class InjectingTestCase {
   public void setUp() {
     initializeMockito(getTargetContext());
 
-    component = DaggerTestComponent.builder()
-        .testModule(new TestModule(getTargetContext()))
-        .build();
+    component =
+        DaggerTestComponent.builder().testModule(new TestModule(getTargetContext())).build();
     inject(component);
   }
 

@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
@@ -27,11 +26,11 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import org.tasks.R;
 import timber.log.Timber;
 
-public class NumberPicker extends LinearLayout implements OnClickListener,
-    OnFocusChangeListener, OnLongClickListener {
+public class NumberPicker extends LinearLayout
+    implements OnClickListener, OnFocusChangeListener, OnLongClickListener {
 
-  private static final char[] DIGIT_CHARACTERS = new char[]{'0', '1', '2',
-      '3', '4', '5', '6', '7', '8', '9'};
+  private static final char[] DIGIT_CHARACTERS =
+      new char[] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
   private final Handler mHandler;
   private final EditText mText;
   private final InputFilter mNumberInputFilter;
@@ -45,19 +44,20 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   private Formatter mFormatter;
   private boolean mIncrement;
   private boolean mDecrement;
-  private final Runnable mRunnable = new Runnable() {
-    @Override
-    public void run() {
-      long speed = 60;
-      if (mIncrement) {
-        changeCurrent(mCurrent + incrementBy);
-        mHandler.postDelayed(this, speed);
-      } else if (mDecrement) {
-        changeCurrent(mCurrent - incrementBy);
-        mHandler.postDelayed(this, speed);
-      }
-    }
-  };
+  private final Runnable mRunnable =
+      new Runnable() {
+        @Override
+        public void run() {
+          long speed = 60;
+          if (mIncrement) {
+            changeCurrent(mCurrent + incrementBy);
+            mHandler.postDelayed(this, speed);
+          } else if (mDecrement) {
+            changeCurrent(mCurrent - incrementBy);
+            mHandler.postDelayed(this, speed);
+          }
+        }
+      };
 
   public NumberPicker(Context context) {
     this(context, null);
@@ -66,8 +66,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   public NumberPicker(Context context, AttributeSet attrs) {
     super(context, attrs);
     setOrientation(VERTICAL);
-    LayoutInflater inflater = (LayoutInflater) context
-        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    LayoutInflater inflater =
+        (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     inflater.inflate(getLayout(), this, true);
     mHandler = new Handler();
     InputFilter inputFilter = new NumberPickerInputFilter();
@@ -83,26 +83,54 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     mText = findViewById(R.id.timepicker_input);
     mText.setOnFocusChangeListener(this);
-    mText.setFilters(new InputFilter[]{inputFilter});
+    mText.setFilters(new InputFilter[] {inputFilter});
 
     // disable keyboard until user requests it
     AndroidUtilities.suppressVirtualKeyboard(mText);
 
-    Animation slideUpOutAnimation = new TranslateAnimation(
-        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
-        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -100);
+    Animation slideUpOutAnimation =
+        new TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            -100);
     slideUpOutAnimation.setDuration(200);
-    Animation slideUpInAnimation = new TranslateAnimation(
-        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
-        Animation.RELATIVE_TO_SELF, 100, Animation.RELATIVE_TO_SELF, 0);
+    Animation slideUpInAnimation =
+        new TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            100,
+            Animation.RELATIVE_TO_SELF,
+            0);
     slideUpInAnimation.setDuration(200);
-    Animation slideDownOutAnimation = new TranslateAnimation(
-        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
-        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 100);
+    Animation slideDownOutAnimation =
+        new TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            100);
     slideDownOutAnimation.setDuration(200);
-    Animation slideDownInAnimation = new TranslateAnimation(
-        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
-        Animation.RELATIVE_TO_SELF, -100, Animation.RELATIVE_TO_SELF, 0);
+    Animation slideDownInAnimation =
+        new TranslateAnimation(
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            0,
+            Animation.RELATIVE_TO_SELF,
+            -100,
+            Animation.RELATIVE_TO_SELF,
+            0);
     slideDownInAnimation.setDuration(200);
 
     if (!isEnabled()) {
@@ -120,7 +148,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
   /**
    * @return The number of allowable digits that can be typed in (-1 for unlimited) e.g. return 2 if
-   * you don't want to allow 00002 even if 2 is in range.
+   *     you don't want to allow 00002 even if 2 is in range.
    */
   private int getMaxDigits() {
     return -1;
@@ -144,8 +172,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   }
 
   /**
-   * Set the range of numbers allowed for the number picker. The current value
-   * will be automatically set to the start.
+   * Set the range of numbers allowed for the number picker. The current value will be automatically
+   * set to the start.
    *
    * @param start the start of the range (inclusive)
    * @param end the end of the range (inclusive)
@@ -175,8 +203,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   }
 
   private String formatNumber(int value) {
-    return (mFormatter != null) ? mFormatter.toString(value) : String
-        .valueOf(value);
+    return (mFormatter != null) ? mFormatter.toString(value) : String.valueOf(value);
   }
 
   private void changeCurrent(int current) {
@@ -198,7 +225,6 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     } else {
       return current;
     }
-
   }
 
   private void updateView() {
@@ -245,8 +271,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   }
 
   /**
-   * We start the long click here but rely on the {@link NumberPickerButton}
-   * to inform us when the long click has ended.
+   * We start the long click here but rely on the {@link NumberPickerButton} to inform us when the
+   * long click has ended.
    */
   @Override
   public boolean onLongClick(View v) {
@@ -284,9 +310,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
   }
 
-  /**
-   * @return the current value.
-   */
+  /** @return the current value. */
   public int getCurrent() {
     String str = String.valueOf(((TextView) mText).getText());
     validateCurrentView(str, true);
@@ -300,9 +324,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
   public interface OnChangedListener {
 
-    /**
-     * return new value
-     */
+    /** return new value */
     int onChanged(int newVal);
   }
 
@@ -314,10 +336,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
   private class NumberPickerInputFilter implements InputFilter {
 
     @Override
-    public CharSequence filter(CharSequence source, int start, int end,
-        Spanned dest, int dstart, int dend) {
-      return mNumberInputFilter.filter(source, start, end, dest,
-          dstart, dend);
+    public CharSequence filter(
+        CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+      return mNumberInputFilter.filter(source, start, end, dest, dstart, dend);
     }
   }
 
@@ -329,17 +350,18 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     @Override
-    public CharSequence filter(CharSequence source, int start, int end,
-        Spanned dest, int dstart, int dend) {
+    public CharSequence filter(
+        CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
-      CharSequence filtered = super.filter(source, start, end, dest,
-          dstart, dend);
+      CharSequence filtered = super.filter(source, start, end, dest, dstart, dend);
       if (filtered == null) {
         filtered = source.subSequence(start, end);
       }
 
-      String result = String.valueOf(dest.subSequence(0, dstart))
-          + filtered + dest.subSequence(dend, dest.length());
+      String result =
+          String.valueOf(dest.subSequence(0, dstart))
+              + filtered
+              + dest.subSequence(dend, dest.length());
 
       if ("".equals(result)) {
         return result;

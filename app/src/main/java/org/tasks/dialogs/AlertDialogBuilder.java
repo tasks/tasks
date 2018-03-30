@@ -42,14 +42,14 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  public AlertDialogBuilder setPositiveButton(int ok,
-      DialogInterface.OnClickListener onClickListener) {
+  public AlertDialogBuilder setPositiveButton(
+      int ok, DialogInterface.OnClickListener onClickListener) {
     builder.setPositiveButton(ok, onClickListener);
     return this;
   }
 
-  public AlertDialogBuilder setNegativeButton(int cancel,
-      DialogInterface.OnClickListener onClickListener) {
+  public AlertDialogBuilder setNegativeButton(
+      int cancel, DialogInterface.OnClickListener onClickListener) {
     builder.setNegativeButton(cancel, onClickListener);
     return this;
   }
@@ -59,13 +59,13 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  public AlertDialogBuilder setItems(List<String> strings,
-      DialogInterface.OnClickListener onClickListener) {
+  public AlertDialogBuilder setItems(
+      List<String> strings, DialogInterface.OnClickListener onClickListener) {
     return setItems(strings.toArray(new String[strings.size()]), onClickListener);
   }
 
-  public AlertDialogBuilder setItems(String[] strings,
-      DialogInterface.OnClickListener onClickListener) {
+  public AlertDialogBuilder setItems(
+      String[] strings, DialogInterface.OnClickListener onClickListener) {
     builder.setItems(addDirectionality(strings.clone()), onClickListener);
     return this;
   }
@@ -80,10 +80,12 @@ public class AlertDialogBuilder {
     return this;
   }
 
-  public AlertDialogBuilder setSingleChoiceItems(List<String> strings, int selectedIndex,
-      DialogInterface.OnClickListener onClickListener) {
-    builder.setSingleChoiceItems(addDirectionality(strings.toArray(new String[strings.size()])),
-        selectedIndex, onClickListener);
+  public AlertDialogBuilder setSingleChoiceItems(
+      List<String> strings, int selectedIndex, DialogInterface.OnClickListener onClickListener) {
+    builder.setSingleChoiceItems(
+        addDirectionality(strings.toArray(new String[strings.size()])),
+        selectedIndex,
+        onClickListener);
     return this;
   }
 
@@ -100,14 +102,14 @@ public class AlertDialogBuilder {
     return locale.getDirectionalityMark() + string;
   }
 
-  public AlertDialogBuilder setSingleChoiceItems(ListAdapter adapter, int selectedIndex,
-      DialogInterface.OnClickListener onClickListener) {
+  public AlertDialogBuilder setSingleChoiceItems(
+      ListAdapter adapter, int selectedIndex, DialogInterface.OnClickListener onClickListener) {
     builder.setSingleChoiceItems(adapter, selectedIndex, onClickListener);
     return this;
   }
 
-  public AlertDialogBuilder setNeutralButton(int reverse,
-      DialogInterface.OnClickListener onClickListener) {
+  public AlertDialogBuilder setNeutralButton(
+      int reverse, DialogInterface.OnClickListener onClickListener) {
     builder.setNeutralButton(reverse, onClickListener);
     return this;
   }

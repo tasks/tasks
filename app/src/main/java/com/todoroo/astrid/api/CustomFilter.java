@@ -8,32 +8,28 @@ import java.util.Map;
 
 public class CustomFilter extends Filter {
 
-  /**
-   * Parcelable Creator Object
-   */
-  public static final Parcelable.Creator<CustomFilter> CREATOR = new Parcelable.Creator<CustomFilter>() {
+  /** Parcelable Creator Object */
+  public static final Parcelable.Creator<CustomFilter> CREATOR =
+      new Parcelable.Creator<CustomFilter>() {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CustomFilter createFromParcel(Parcel source) {
-      return new CustomFilter(source);
-    }
+        /** {@inheritDoc} */
+        @Override
+        public CustomFilter createFromParcel(Parcel source) {
+          return new CustomFilter(source);
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CustomFilter[] newArray(int size) {
-      return new CustomFilter[size];
-    }
-  };
+        /** {@inheritDoc} */
+        @Override
+        public CustomFilter[] newArray(int size) {
+          return new CustomFilter[size];
+        }
+      };
+
   private long id;
   private String criterion;
 
-  public CustomFilter(String listingTitle, String sql, Map<String, Object> values, long id,
-      String criterion) {
+  public CustomFilter(
+      String listingTitle, String sql, Map<String, Object> values, long id, String criterion) {
     super(listingTitle, sql, values);
     this.id = id;
     this.criterion = criterion;
@@ -59,9 +55,7 @@ public class CustomFilter extends Filter {
     return id;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);

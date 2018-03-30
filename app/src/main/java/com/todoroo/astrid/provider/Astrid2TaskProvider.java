@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.provider;
 
 import android.content.ContentValues;
@@ -31,11 +30,10 @@ import org.tasks.ui.CheckBoxes;
 import timber.log.Timber;
 
 /**
- * This is the legacy Astrid task provider. While it will continue to be
- * supported, note that it does not expose all of the information in
- * Astrid, nor does it support many editing operations.
+ * This is the legacy Astrid task provider. While it will continue to be supported, note that it
+ * does not expose all of the information in Astrid, nor does it support many editing operations.
  *
- * See the individual methods for a description of what is returned.
+ * <p>See the individual methods for a description of what is returned.
  *
  * @author Tim Su <tim@todoroo.com>
  */
@@ -47,21 +45,28 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
   private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
-  private final static String NAME = "name";
-  private final static String IMPORTANCE_COLOR = "importance_color";
-  private final static String IDENTIFIER = "identifier";
-  private final static String PREFERRED_DUE_DATE = "preferredDueDate";
-  private final static String DEFINITE_DUE_DATE = "definiteDueDate";
-  private final static String IMPORTANCE = "importance";
-  private final static String ID = "id";
+  private static final String NAME = "name";
+  private static final String IMPORTANCE_COLOR = "importance_color";
+  private static final String IDENTIFIER = "identifier";
+  private static final String PREFERRED_DUE_DATE = "preferredDueDate";
+  private static final String DEFINITE_DUE_DATE = "definiteDueDate";
+  private static final String IMPORTANCE = "importance";
+  private static final String ID = "id";
 
-  private final static String TAGS_ID = "tags_id";
+  private static final String TAGS_ID = "tags_id";
 
-  private static final String[] TASK_FIELD_LIST = new String[]{NAME, IMPORTANCE_COLOR,
-      PREFERRED_DUE_DATE, DEFINITE_DUE_DATE,
-      IMPORTANCE, IDENTIFIER, TAGS_ID};
+  private static final String[] TASK_FIELD_LIST =
+      new String[] {
+        NAME,
+        IMPORTANCE_COLOR,
+        PREFERRED_DUE_DATE,
+        DEFINITE_DUE_DATE,
+        IMPORTANCE,
+        IDENTIFIER,
+        TAGS_ID
+      };
 
-  private static final String[] TAGS_FIELD_LIST = new String[]{ID, NAME};
+  private static final String[] TAGS_FIELD_LIST = new String[] {ID, NAME};
 
   private static final int URI_TASKS = 0;
   private static final int URI_TAGS = 1;
@@ -113,8 +118,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
   }
 
   /**
-   * Note: tag id is no longer a real column, so we pass in a UID
-   * generated from the tag string.
+   * Note: tag id is no longer a real column, so we pass in a UID generated from the tag string.
    *
    * @return two-column cursor: tag id (string) and tag name
    */
@@ -150,14 +154,15 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
   /**
    * Cursor with the following columns
+   *
    * <ol>
-   * <li>task title, string
-   * <li>task importance color, int android RGB color
-   * <li>task due date (was: preferred due date), long millis since epoch
-   * <li>task due date (was: absolute due date), long millis since epoch
-   * <li>task importance, integer from 0 to 3 (0 => most important)
-   * <li>task id, long
-   * <li>task tags, string tags separated by |
+   *   <li>task title, string
+   *   <li>task importance color, int android RGB color
+   *   <li>task due date (was: preferred due date), long millis since epoch
+   *   <li>task due date (was: absolute due date), long millis since epoch
+   *   <li>task importance, integer from 0 to 3 (0 => most important)
+   *   <li>task id, long
+   *   <li>task tags, string tags separated by |
    * </ol>
    *
    * @return cursor as described above
@@ -184,8 +189,12 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
   }
 
   @Override
-  public Cursor query(@NonNull Uri uri, String[] projection, String selection,
-      String[] selectionArgs, String sortOrder) {
+  public Cursor query(
+      @NonNull Uri uri,
+      String[] projection,
+      String selection,
+      String[] selectionArgs,
+      String sortOrder) {
     switch (URI_MATCHER.match(uri)) {
       case URI_TASKS:
         return getTasks();
@@ -197,8 +206,8 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
   }
 
   @Override
-  public int update(@NonNull Uri uri, ContentValues values, String selection,
-      String[] selectionArgs) {
+  public int update(
+      @NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
     throw new UnsupportedOperationException("not supported");
   }
 

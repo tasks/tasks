@@ -44,9 +44,8 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
     Intent intent = new Intent();
     intent.putExtra(EXTRA_CURRENT, current);
     intent.putExtra(EXTRA_ORIGINAL, original);
-    AfterSaveIntentService
-        .enqueueWork(context, AfterSaveIntentService.class, JobManager.JOB_ID_TASK_STATUS_CHANGE,
-            intent);
+    AfterSaveIntentService.enqueueWork(
+        context, AfterSaveIntentService.class, JobManager.JOB_ID_TASK_STATUS_CHANGE, intent);
   }
 
   @Override
@@ -61,12 +60,12 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
     long taskId = task.getId();
 
     Task original = intent.getParcelableExtra(EXTRA_ORIGINAL);
-    if (original == null ||
-        !task.getDueDate().equals(original.getDueDate()) ||
-        !task.getReminderFlags().equals(original.getReminderFlags()) ||
-        !task.getReminderPeriod().equals(original.getReminderPeriod()) ||
-        !task.getReminderLast().equals(original.getReminderLast()) ||
-        !task.getReminderSnooze().equals(original.getReminderSnooze())) {
+    if (original == null
+        || !task.getDueDate().equals(original.getDueDate())
+        || !task.getReminderFlags().equals(original.getReminderFlags())
+        || !task.getReminderPeriod().equals(original.getReminderPeriod())
+        || !task.getReminderLast().equals(original.getReminderLast())
+        || !task.getReminderSnooze().equals(original.getReminderSnooze())) {
       reminderService.scheduleAlarm(task);
     }
 
@@ -107,8 +106,9 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
         // change title of calendar event
         ContentResolver cr = context.getContentResolver();
         ContentValues values = new ContentValues();
-        values.put(CalendarContract.Events.TITLE, context.getString(R.string.gcal_completed_title,
-            task.getTitle()));
+        values.put(
+            CalendarContract.Events.TITLE,
+            context.getString(R.string.gcal_completed_title, task.getTitle()));
         cr.update(Uri.parse(calendarUri), values, null, null);
       } catch (Exception e) {
         Timber.e(e, e.getMessage());

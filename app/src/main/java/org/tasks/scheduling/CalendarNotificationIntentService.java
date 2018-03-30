@@ -30,8 +30,11 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
   @Inject AlarmManager alarmManager;
 
   public static void enqueueWork(Context context) {
-    JobIntentService.enqueueWork(context, CalendarNotificationIntentService.class,
-        JobManager.JOB_ID_CALENDAR_NOTIFICATION, new Intent());
+    JobIntentService.enqueueWork(
+        context,
+        CalendarNotificationIntentService.class,
+        JobManager.JOB_ID_CALENDAR_NOTIFICATION,
+        new Intent());
   }
 
   @Override
@@ -49,9 +52,12 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
       eventAlarm.setAction(CalendarAlarmReceiver.BROADCAST_CALENDAR_REMINDER);
       eventAlarm.setData(Uri.parse(URI_PREFIX + "://" + event.getId()));
 
-      PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-          CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER, eventAlarm,
-          PendingIntent.FLAG_UPDATE_CURRENT);
+      PendingIntent pendingIntent =
+          PendingIntent.getBroadcast(
+              context,
+              CalendarAlarmReceiver.REQUEST_CODE_CAL_REMINDER,
+              eventAlarm,
+              PendingIntent.FLAG_UPDATE_CURRENT);
 
       long reminderTime = event.getStart() - FIFTEEN_MINUTES;
       alarmManager.wakeup(reminderTime, pendingIntent);
@@ -61,8 +67,9 @@ public class CalendarNotificationIntentService extends RecurringIntervalIntentSe
 
   @Override
   long intervalMillis() {
-    return preferences.getBoolean(R.string.p_calendar_reminders, false) ? TimeUnit.HOURS
-        .toMillis(12) : 0;
+    return preferences.getBoolean(R.string.p_calendar_reminders, false)
+        ? TimeUnit.HOURS.toMillis(12)
+        : 0;
   }
 
   @Override

@@ -28,24 +28,23 @@ public class Tracker {
     analytics = GoogleAnalytics.getInstance(context);
     tracker = analytics.newTracker(R.xml.google_analytics);
     tracker.setAppVersion(Integer.toString(BuildConfig.VERSION_CODE));
-    final StandardExceptionParser standardExceptionParser = new StandardExceptionParser(context,
-        null);
-    exceptionParser = (thread, throwable) -> {
-      StringBuilder stack = new StringBuilder()
-          .append(standardExceptionParser.getDescription(thread, throwable))
-          .append("\n")
-          .append(throwable.getClass().getName())
-          .append("\n");
-      for (StackTraceElement element : throwable.getStackTrace()) {
-        stack.append(element.toString())
-            .append("\n");
-      }
-      return stack.toString();
-    };
-    ExceptionReporter reporter = new ExceptionReporter(
-        tracker,
-        Thread.getDefaultUncaughtExceptionHandler(),
-        context);
+    final StandardExceptionParser standardExceptionParser =
+        new StandardExceptionParser(context, null);
+    exceptionParser =
+        (thread, throwable) -> {
+          StringBuilder stack =
+              new StringBuilder()
+                  .append(standardExceptionParser.getDescription(thread, throwable))
+                  .append("\n")
+                  .append(throwable.getClass().getName())
+                  .append("\n");
+          for (StackTraceElement element : throwable.getStackTrace()) {
+            stack.append(element.toString()).append("\n");
+          }
+          return stack.toString();
+        };
+    ExceptionReporter reporter =
+        new ExceptionReporter(tracker, Thread.getDefaultUncaughtExceptionHandler(), context);
     reporter.setExceptionParser(exceptionParser);
     Thread.setDefaultUncaughtExceptionHandler(reporter);
   }
@@ -60,10 +59,11 @@ public class Tracker {
 
   public void reportException(Thread thread, Throwable t) {
     Timber.e(t, t.getMessage());
-    tracker.send(new HitBuilders.ExceptionBuilder()
-        .setDescription(exceptionParser.getDescription(thread.getName(), t))
-        .setFatal(false)
-        .build());
+    tracker.send(
+        new HitBuilders.ExceptionBuilder()
+            .setDescription(exceptionParser.getDescription(thread.getName(), t))
+            .setFatal(false)
+            .build());
   }
 
   public void reportEvent(Tracking.Events event) {
@@ -83,9 +83,8 @@ public class Tracker {
   }
 
   private void reportEvent(int category, String action, String label) {
-    HitBuilders.EventBuilder eventBuilder = new HitBuilders.EventBuilder()
-        .setCategory(context.getString(category))
-        .setAction(action);
+    HitBuilders.EventBuilder eventBuilder =
+        new HitBuilders.EventBuilder().setCategory(context.getString(category)).setAction(action);
     if (!Strings.isNullOrEmpty(label)) {
       eventBuilder.setLabel(label);
     }

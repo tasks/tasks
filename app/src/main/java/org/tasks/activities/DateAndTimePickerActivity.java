@@ -19,9 +19,10 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.time.DateTime;
 
-public class DateAndTimePickerActivity extends InjectingAppCompatActivity implements
-    DatePickerDialog.OnDateSetListener, DialogInterface.OnCancelListener,
-    NativeDatePickerDialog.NativeDatePickerDialogCallback {
+public class DateAndTimePickerActivity extends InjectingAppCompatActivity
+    implements DatePickerDialog.OnDateSetListener,
+        DialogInterface.OnCancelListener,
+        NativeDatePickerDialog.NativeDatePickerDialogCallback {
 
   public static final String EXTRA_TIMESTAMP = "extra_timestamp";
   private static final String FRAG_TAG_DATE_PICKER = "frag_tag_date_picker";
@@ -49,16 +50,15 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
     FragmentManager fragmentManager = getFragmentManager();
     if (preferences.getBoolean(R.string.p_use_native_datetime_pickers, false)) {
       if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
-        newNativeDatePickerDialog(initial)
-            .show(fragmentManager, FRAG_TAG_DATE_PICKER);
+        newNativeDatePickerDialog(initial).show(fragmentManager, FRAG_TAG_DATE_PICKER);
       }
     } else {
-      MyDatePickerDialog datePickerDialog = (MyDatePickerDialog) fragmentManager
-          .findFragmentByTag(FRAG_TAG_DATE_PICKER);
+      MyDatePickerDialog datePickerDialog =
+          (MyDatePickerDialog) fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER);
       if (datePickerDialog == null) {
         datePickerDialog = new MyDatePickerDialog();
-        datePickerDialog.initialize(null, initial.getYear(), initial.getMonthOfYear() - 1,
-            initial.getDayOfMonth());
+        datePickerDialog.initialize(
+            null, initial.getYear(), initial.getMonthOfYear() - 1, initial.getDayOfMonth());
         datePickerDialog.setThemeDark(themeBase.isDarkTheme(this));
         datePickerDialog.setAccentColor(themeAccent.getAccentColor());
         int firstDayOfWeek = preferences.getFirstDayOfWeek();
@@ -106,9 +106,8 @@ public class DateAndTimePickerActivity extends InjectingAppCompatActivity implem
 
   private void dateSet(int year, int month, int day) {
     dateSelected = true;
-    final long timestamp = new DateTime(year, month + 1, day)
-        .withMillisOfDay(initial.getMillisOfDay())
-        .getMillis();
+    final long timestamp =
+        new DateTime(year, month + 1, day).withMillisOfDay(initial.getMillisOfDay()).getMillis();
     Intent intent = new Intent(this, TimePickerActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
     intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, timestamp);

@@ -57,8 +57,8 @@ import timber.log.Timber;
 public class CaldavSynchronizer {
 
   static {
-    iCalendar.Companion
-        .setProdId(new ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN"));
+    iCalendar.Companion.setProdId(
+        new ProdId("+//IDN tasks.org//android-" + BuildConfig.VERSION_CODE + "//EN"));
   }
 
   private final CaldavDao caldavDao;
@@ -69,8 +69,12 @@ public class CaldavSynchronizer {
   private final Context context;
 
   @Inject
-  public CaldavSynchronizer(@ForApplication Context context, CaldavDao caldavDao, TaskDao taskDao,
-      LocalBroadcastManager localBroadcastManager, TaskCreator taskCreator,
+  public CaldavSynchronizer(
+      @ForApplication Context context,
+      CaldavDao caldavDao,
+      TaskDao taskDao,
+      LocalBroadcastManager localBroadcastManager,
+      TaskCreator taskCreator,
       TaskDeleter taskDeleter) {
     this.context = context;
     this.caldavDao = caldavDao;
@@ -94,16 +98,18 @@ public class CaldavSynchronizer {
       return;
     }
     Timber.d("sync(%s)", caldavAccount);
-    BasicDigestAuthHandler basicDigestAuthHandler = new BasicDigestAuthHandler(null,
-        caldavAccount.getUsername(), caldavAccount.getPassword());
-    OkHttpClient httpClient = new OkHttpClient().newBuilder()
-        .addNetworkInterceptor(basicDigestAuthHandler)
-        .authenticator(basicDigestAuthHandler)
-        .cookieJar(new MemoryCookieStore())
-        .followRedirects(false)
-        .followSslRedirects(false)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .build();
+    BasicDigestAuthHandler basicDigestAuthHandler =
+        new BasicDigestAuthHandler(null, caldavAccount.getUsername(), caldavAccount.getPassword());
+    OkHttpClient httpClient =
+        new OkHttpClient()
+            .newBuilder()
+            .addNetworkInterceptor(basicDigestAuthHandler)
+            .authenticator(basicDigestAuthHandler)
+            .cookieJar(new MemoryCookieStore())
+            .followRedirects(false)
+            .followSslRedirects(false)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build();
     URI uri = URI.create(caldavAccount.getUrl());
     HttpUrl httpUrl = HttpUrl.get(uri);
     DavCalendar davCalendar = new DavCalendar(httpClient, httpUrl);
@@ -131,17 +137,21 @@ public class CaldavSynchronizer {
 
       davCalendar.calendarQuery("VTODO", null, null);
 
-      Set<String> remoteObjects = newHashSet(
-          transform(davCalendar.getMembers(), DavResource::fileName));
+      Set<String> remoteObjects =
+          newHashSet(transform(davCalendar.getMembers(), DavResource::fileName));
 
-      Iterable<DavResource> changed = filter(davCalendar.getMembers(), vCard -> {
-        GetETag eTag = (GetETag) vCard.getProperties().get(GetETag.NAME);
-        if (eTag == null || isNullOrEmpty(eTag.getETag())) {
-          return false;
-        }
-        CaldavTask caldavTask = caldavDao.getTask(caldavAccount.getUuid(), vCard.fileName());
-        return caldavTask == null || !eTag.getETag().equals(caldavTask.getEtag());
-      });
+      Iterable<DavResource> changed =
+          filter(
+              davCalendar.getMembers(),
+              vCard -> {
+                GetETag eTag = (GetETag) vCard.getProperties().get(GetETag.NAME);
+                if (eTag == null || isNullOrEmpty(eTag.getETag())) {
+                  return false;
+                }
+                CaldavTask caldavTask =
+                    caldavDao.getTask(caldavAccount.getUuid(), vCard.fileName());
+                return caldavTask == null || !eTag.getETag().equals(caldavTask.getEtag());
+              });
 
       for (List<DavResource> items : partition(changed, 30)) {
         if (items.size() == 1) {
@@ -157,8 +167,8 @@ public class CaldavSynchronizer {
           Reader reader = null;
           try {
             reader = responseBody.charStream();
-            processVTodo(vCard.fileName(), caldavAccount, eTag.getETag(),
-                CharStreams.toString(reader));
+            processVTodo(
+                vCard.fileName(), caldavAccount, eTag.getETag(), CharStreams.toString(reader));
           } finally {
             if (reader != null) {
               reader.close();
@@ -184,15 +194,17 @@ public class CaldavSynchronizer {
                   "Received CalDAV GET response without CalendarData for " + vCard.getLocation());
             }
 
-            processVTodo(vCard.fileName(), caldavAccount, eTag.getETag(),
-                calendarData.getICalendar());
+            processVTodo(
+                vCard.fileName(), caldavAccount, eTag.getETag(), calendarData.getICalendar());
           }
         }
       }
 
-      List<String> deleted = newArrayList(difference(
-          newHashSet(caldavDao.getObjects(caldavAccount.getUuid())),
-          newHashSet(remoteObjects)));
+      List<String> deleted =
+          newArrayList(
+              difference(
+                  newHashSet(caldavDao.getObjects(caldavAccount.getUuid())),
+                  newHashSet(remoteObjects)));
       if (deleted.size() > 0) {
         Timber.d("DELETED %s", deleted);
         taskDeleter.markDeleted(caldavDao.getTasks(caldavAccount.getUuid(), deleted));
@@ -211,8 +223,8 @@ public class CaldavSynchronizer {
     localBroadcastManager.broadcastRefresh();
   }
 
-  private void pushLocalChanges(CaldavAccount caldavAccount, OkHttpClient httpClient,
-      HttpUrl httpUrl) {
+  private void pushLocalChanges(
+      CaldavAccount caldavAccount, OkHttpClient httpClient, HttpUrl httpUrl) {
     List<Task> tasks = taskDao.getCaldavTasksToPush(caldavAccount.getUuid());
     for (com.todoroo.astrid.data.Task task : tasks) {
       try {
@@ -223,12 +235,13 @@ public class CaldavSynchronizer {
     }
   }
 
-  private boolean deleteRemoteResource(OkHttpClient httpClient, HttpUrl httpUrl,
-      CaldavTask caldavTask) {
+  private boolean deleteRemoteResource(
+      OkHttpClient httpClient, HttpUrl httpUrl, CaldavTask caldavTask) {
     try {
       if (!Strings.isNullOrEmpty(caldavTask.getObject())) {
-        DavResource remote = new DavResource(httpClient,
-            httpUrl.newBuilder().addPathSegment(caldavTask.getObject()).build());
+        DavResource remote =
+            new DavResource(
+                httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.getObject()).build());
         remote.delete(null);
       }
     } catch (HttpException e) {
@@ -244,8 +257,9 @@ public class CaldavSynchronizer {
     return true;
   }
 
-  private void pushTask(Task task, CaldavAccount caldavAccount, OkHttpClient httpClient,
-      HttpUrl httpUrl) throws IOException {
+  private void pushTask(
+      Task task, CaldavAccount caldavAccount, OkHttpClient httpClient, HttpUrl httpUrl)
+      throws IOException {
     Timber.d("pushing %s", task);
     List<CaldavTask> deleted = getDeleted(task.getId(), caldavAccount);
     if (!deleted.isEmpty()) {
@@ -284,8 +298,9 @@ public class CaldavSynchronizer {
     RequestBody requestBody = RequestBody.create(DavCalendar.MIME_ICALENDAR, data);
 
     try {
-      DavResource remote = new DavResource(httpClient,
-          httpUrl.newBuilder().addPathSegment(caldavTask.getObject()).build());
+      DavResource remote =
+          new DavResource(
+              httpClient, httpUrl.newBuilder().addPathSegment(caldavTask.getObject()).build());
       remote.put(requestBody, null, false);
       GetETag getETag = remote.getProperties().get(GetETag.class);
       if (getETag != null && !isNullOrEmpty(getETag.getETag())) {
@@ -323,8 +338,8 @@ public class CaldavSynchronizer {
       if (caldavTask == null) {
         task = taskCreator.createWithValues(null, "");
         taskDao.createNew(task);
-        caldavTask = new CaldavTask(task.getId(), caldavAccount.getUuid(), remote.getUid(),
-            fileName);
+        caldavTask =
+            new CaldavTask(task.getId(), caldavAccount.getUuid(), remote.getUid(), fileName);
       } else {
         task = taskDao.fetch(caldavTask.getTask());
       }

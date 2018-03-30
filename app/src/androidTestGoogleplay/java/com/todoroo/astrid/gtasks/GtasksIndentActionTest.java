@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks;
 
 import static junit.framework.Assert.assertNotNull;
@@ -188,8 +187,7 @@ public class GtasksIndentActionTest extends InjectingTestCase {
     GoogleTask metadata = googleTaskDao.getByTaskId(targetTask.getId());
     assertNotNull("task has metadata", metadata);
     int indentation = metadata.getIndent();
-    assertTrue("indentation: " + indentation,
-        indentation == expected);
+    assertTrue("indentation: " + indentation, indentation == expected);
   }
 
   private void givenTask(Task taskToTest) {

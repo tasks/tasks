@@ -29,18 +29,17 @@ public class TaskerIntentService extends InjectingJobIntentService {
   protected void onHandleWork(@NonNull Intent intent) {
     super.onHandleWork(intent);
 
-    final Bundle bundle = intent
-        .getBundleExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
+    final Bundle bundle = intent.getBundleExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
 
     if (null == bundle) {
-      Timber.e("%s is missing",
-          com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE); //$NON-NLS-1$
+      Timber.e("%s is missing", com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE); // $NON-NLS-1$
       return;
     }
 
     if (ListNotificationBundle.isBundleValid(bundle)) {
-      Filter filter = defaultFilterProvider.getFilterFromPreference(
-          bundle.getString(ListNotificationBundle.BUNDLE_EXTRA_STRING_FILTER));
+      Filter filter =
+          defaultFilterProvider.getFilterFromPreference(
+              bundle.getString(ListNotificationBundle.BUNDLE_EXTRA_STRING_FILTER));
       notifier.triggerFilterNotification(filter);
       tracker.reportEvent(Tracking.Events.TASKER_LIST_NOTIFICATION);
     } else if (TaskCreationBundle.isBundleValid(bundle)) {

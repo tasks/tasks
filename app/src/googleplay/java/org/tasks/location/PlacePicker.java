@@ -25,8 +25,9 @@ public class PlacePicker {
       activity.startActivity(e.getIntent());
     } catch (GooglePlayServicesNotAvailableException e) {
       Timber.e(e, e.getMessage());
-      Toast.makeText(activity, R.string.common_google_play_services_notification_ticker,
-          Toast.LENGTH_LONG).show();
+      Toast.makeText(
+              activity, R.string.common_google_play_services_notification_ticker, Toast.LENGTH_LONG)
+          .show();
     }
     return null;
   }

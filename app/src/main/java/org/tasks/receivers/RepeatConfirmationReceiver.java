@@ -55,27 +55,33 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
     }
   }
 
-  private void showSnackbar(TaskListFragment taskListFragment, final Task task,
-      final long oldDueDate, final long newDueDate) {
+  private void showSnackbar(
+      TaskListFragment taskListFragment,
+      final Task task,
+      final long oldDueDate,
+      final long newDueDate) {
     String dueDateString = getRelativeDateAndTimeString(activity, newDueDate);
-    String snackbarText = activity
-        .getString(R.string.repeat_snackbar, task.getTitle(), dueDateString);
-    taskListFragment.makeSnackbar(snackbarText)
-        .setAction(R.string.DLG_undo, v -> {
-          task.setDueDateAdjustingHideUntil(oldDueDate);
-          task.setCompletionDate(0L);
-          try {
-            RRule rrule = new RRule(task.getRecurrenceWithoutFrom());
-            int count = rrule.getCount();
-            if (count > 0) {
-              rrule.setCount(count + 1);
-            }
-            task.setRecurrence(rrule, task.repeatAfterCompletion());
-          } catch (ParseException e) {
-            Timber.e(e, e.getMessage());
-          }
-          taskDao.save(task);
-        })
+    String snackbarText =
+        activity.getString(R.string.repeat_snackbar, task.getTitle(), dueDateString);
+    taskListFragment
+        .makeSnackbar(snackbarText)
+        .setAction(
+            R.string.DLG_undo,
+            v -> {
+              task.setDueDateAdjustingHideUntil(oldDueDate);
+              task.setCompletionDate(0L);
+              try {
+                RRule rrule = new RRule(task.getRecurrenceWithoutFrom());
+                int count = rrule.getCount();
+                if (count > 0) {
+                  rrule.setCount(count + 1);
+                }
+                task.setRecurrence(rrule, task.repeatAfterCompletion());
+              } catch (ParseException e) {
+                Timber.e(e, e.getMessage());
+              }
+              taskDao.save(task);
+            })
         .show();
   }
 
@@ -83,8 +89,11 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
     String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
     if (Task.hasDueTime(date)) {
       // TODO: localize this
-      dueString = String.format("%s at %s", dueString, //$NON-NLS-1$
-          DateUtilities.getTimeString(context, date));
+      dueString =
+          String.format(
+              "%s at %s",
+              dueString, // $NON-NLS-1$
+              DateUtilities.getTimeString(context, date));
     }
     return dueString;
   }

@@ -22,5 +22,4 @@ public class SyncModelTest extends NewSyncTestCase {
     TagData tag = createTagData();
     assertFalse(Task.NO_UUID.equals(tag.getRemoteId()));
   }
-
 }

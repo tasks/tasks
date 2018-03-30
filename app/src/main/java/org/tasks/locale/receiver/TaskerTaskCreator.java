@@ -35,8 +35,8 @@ public class TaskerTaskCreator {
     if (!isNullOrEmpty(dueDateString)) {
       try {
         LocalDate dueDate = LocalDate.parse(dueDateString, dateFormatter);
-        DateTime dt = new DateTime(dueDate.getYear(), dueDate.getMonthValue(),
-            dueDate.getDayOfMonth());
+        DateTime dt =
+            new DateTime(dueDate.getYear(), dueDate.getMonthValue(), dueDate.getDayOfMonth());
         task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dt.getMillis()));
       } catch (Exception e) {
         Timber.e(e, e.getMessage());
@@ -47,11 +47,13 @@ public class TaskerTaskCreator {
     if (!isNullOrEmpty(dueTimeString)) {
       try {
         LocalTime dueTime = LocalTime.parse(dueTimeString, timeFormatter);
-        task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-            new DateTime(task.hasDueDate() ? task.getDueDate() : currentTimeMillis())
-                .withHourOfDay(dueTime.getHour())
-                .withMinuteOfHour(dueTime.getMinute())
-                .getMillis()));
+        task.setDueDate(
+            Task.createDueDate(
+                Task.URGENCY_SPECIFIC_DAY_TIME,
+                new DateTime(task.hasDueDate() ? task.getDueDate() : currentTimeMillis())
+                    .withHourOfDay(dueTime.getHour())
+                    .withMinuteOfHour(dueTime.getMinute())
+                    .getMillis()));
       } catch (Exception e) {
         Timber.e(e, e.getMessage());
       }

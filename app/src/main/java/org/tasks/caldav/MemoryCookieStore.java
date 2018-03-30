@@ -19,18 +19,17 @@ import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.collections4.map.MultiKeyMap;
 
 /**
- * Primitive cookie store that stores cookies in a (volatile) hash map.
- * Will be sufficient for session cookies.
+ * Primitive cookie store that stores cookies in a (volatile) hash map. Will be sufficient for
+ * session cookies.
  */
 class MemoryCookieStore implements CookieJar {
 
   /**
-   * Stored cookies. The multi-key consists of three parts: name, domain, and path.
-   * This ensures that cookies can be overwritten. [RFC 6265 5.3 Storage Model]
-   * Not thread-safe!
+   * Stored cookies. The multi-key consists of three parts: name, domain, and path. This ensures
+   * that cookies can be overwritten. [RFC 6265 5.3 Storage Model] Not thread-safe!
    */
-  private final MultiKeyMap<String, Cookie> storage = MultiKeyMap
-      .multiKeyMap(new HashedMap<MultiKey<? extends String>, Cookie>());
+  private final MultiKeyMap<String, Cookie> storage =
+      MultiKeyMap.multiKeyMap(new HashedMap<MultiKey<? extends String>, Cookie>());
 
   @Override
   public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
@@ -66,5 +65,4 @@ class MemoryCookieStore implements CookieJar {
 
     return cookies;
   }
-
 }

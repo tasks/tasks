@@ -70,10 +70,6 @@ public class AlarmEntry implements NotificationQueueEntry {
 
   @Override
   public String toString() {
-    return "AlarmEntry{" +
-        "alarmId=" + alarmId +
-        ", taskId=" + taskId +
-        ", time=" + time +
-        '}';
+    return "AlarmEntry{" + "alarmId=" + alarmId + ", taskId=" + taskId + ", time=" + time + '}';
   }
 }

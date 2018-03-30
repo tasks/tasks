@@ -41,10 +41,15 @@ public class Notifier {
   private final CheckBoxes checkBoxes;
 
   @Inject
-  public Notifier(@ForApplication Context context, TaskDao taskDao,
-      NotificationManager notificationManager, TelephonyManager telephonyManager,
-      AudioManager audioManager, VoiceOutputAssistant voiceOutputAssistant,
-      Preferences preferences, CheckBoxes checkBoxes) {
+  public Notifier(
+      @ForApplication Context context,
+      TaskDao taskDao,
+      NotificationManager notificationManager,
+      TelephonyManager telephonyManager,
+      AudioManager audioManager,
+      VoiceOutputAssistant voiceOutputAssistant,
+      Preferences preferences,
+      CheckBoxes checkBoxes) {
     this.context = context;
     this.taskDao = taskDao;
     this.notificationManager = notificationManager;
@@ -65,42 +70,37 @@ public class Notifier {
     Intent intent = new Intent(context, TaskListActivity.class);
     intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
     intent.putExtra(TaskListActivity.OPEN_FILTER, filter);
-    PendingIntent pendingIntent = PendingIntent
-        .getActivity(context, filter.listingTitle.hashCode(), intent,
-            PendingIntent.FLAG_UPDATE_CURRENT);
+    PendingIntent pendingIntent =
+        PendingIntent.getActivity(
+            context, filter.listingTitle.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-    String summaryTitle = context.getResources()
-        .getQuantityString(R.plurals.task_count, count, count);
-    NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle()
-        .setBigContentTitle(summaryTitle);
+    String summaryTitle =
+        context.getResources().getQuantityString(R.plurals.task_count, count, count);
+    NotificationCompat.InboxStyle style =
+        new NotificationCompat.InboxStyle().setBigContentTitle(summaryTitle);
     int maxPriority = 3;
     for (Task task : tasks) {
       style.addLine(task.getTitle());
       maxPriority = Math.min(maxPriority, task.getImportance());
     }
 
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-        NotificationManager.NOTIFICATION_CHANNEL_TASKER)
-        .setSmallIcon(R.drawable.ic_done_all_white_24dp)
-        .setCategory(NotificationCompat.CATEGORY_REMINDER)
-        .setTicker(summaryTitle)
-        .setContentTitle(summaryTitle)
-        .setContentText(filter.listingTitle)
-        .setContentIntent(pendingIntent)
-        .setAutoCancel(true)
-        .setWhen(currentTimeMillis())
-        .setShowWhen(true)
-        .setColor(checkBoxes.getPriorityColor(maxPriority))
-        .setGroupSummary(true)
-        .setGroup(filter.listingTitle)
-        .setStyle(style);
+    NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_TASKER)
+            .setSmallIcon(R.drawable.ic_done_all_white_24dp)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setTicker(summaryTitle)
+            .setContentTitle(summaryTitle)
+            .setContentText(filter.listingTitle)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .setWhen(currentTimeMillis())
+            .setShowWhen(true)
+            .setColor(checkBoxes.getPriorityColor(maxPriority))
+            .setGroupSummary(true)
+            .setGroup(filter.listingTitle)
+            .setStyle(style);
 
-    notificationManager.notify(
-        filter.listingTitle.hashCode(),
-        builder,
-        true,
-        false,
-        false);
+    notificationManager.notify(filter.listingTitle.hashCode(), builder, true, false, false);
   }
 
   public void triggerTaskNotification(long id, int type) {
@@ -115,8 +115,8 @@ public class Notifier {
     triggerNotifications(transform(entries, NotificationQueueEntry::toNotification), true);
   }
 
-  private void triggerNotifications(List<org.tasks.notifications.Notification> entries,
-      boolean alert) {
+  private void triggerNotifications(
+      List<org.tasks.notifications.Notification> entries, boolean alert) {
     List<org.tasks.notifications.Notification> notifications = new ArrayList<>();
     boolean ringFiveTimes = false;
     boolean ringNonstop = false;
@@ -144,11 +144,11 @@ public class Notifier {
 
     notificationManager.notifyTasks(notifications, alert, ringNonstop, ringFiveTimes);
 
-    if (alert &&
-        preferences.getBoolean(R.string.p_voiceRemindersEnabled, false) &&
-        !ringNonstop &&
-        !audioManager.notificationsMuted() &&
-        telephonyManager.callStateIdle()) {
+    if (alert
+        && preferences.getBoolean(R.string.p_voiceRemindersEnabled, false)
+        && !ringNonstop
+        && !audioManager.notificationsMuted()
+        && telephonyManager.callStateIdle()) {
       for (org.tasks.notifications.Notification notification : notifications) {
         AndroidUtilities.sleepDeep(2000);
         voiceOutputAssistant.speak(

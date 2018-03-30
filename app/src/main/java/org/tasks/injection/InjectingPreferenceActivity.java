@@ -24,8 +24,8 @@ import org.tasks.themes.Theme;
 import org.tasks.ui.MenuColorizer;
 import timber.log.Timber;
 
-public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity implements
-    InjectingActivity {
+public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity
+    implements InjectingActivity {
 
   @Inject DialogBuilder dialogBuilder;
   private ActivityComponent activityComponent;
@@ -36,9 +36,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
-    activityComponent = ((InjectingApplication) getApplication())
-        .getComponent()
-        .plus(new ActivityModule(this));
+    activityComponent =
+        ((InjectingApplication) getApplication()).getComponent().plus(new ActivityModule(this));
     inject(activityComponent);
 
     Theme theme = activityComponent.getTheme();
@@ -49,8 +48,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
 
     ViewGroup root = findViewById(android.R.id.content);
     View content = root.getChildAt(0);
-    LinearLayout toolbarContainer = (LinearLayout) View
-        .inflate(this, R.layout.activity_prefs, null);
+    LinearLayout toolbarContainer =
+        (LinearLayout) View.inflate(this, R.layout.activity_prefs, null);
 
     root.removeAllViews();
     toolbarContainer.addView(content);
@@ -114,13 +113,17 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
   }
 
   protected void showRestartDialog() {
-    dialogBuilder.newDialog()
+    dialogBuilder
+        .newDialog()
         .setMessage(R.string.restart_required)
-        .setPositiveButton(R.string.restart_now, (dialogInterface, i) -> {
-          Intent nextIntent = new Intent(InjectingPreferenceActivity.this, TaskListActivity.class);
-          nextIntent.putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
-          ProcessPhoenix.triggerRebirth(InjectingPreferenceActivity.this, nextIntent);
-        })
+        .setPositiveButton(
+            R.string.restart_now,
+            (dialogInterface, i) -> {
+              Intent nextIntent =
+                  new Intent(InjectingPreferenceActivity.this, TaskListActivity.class);
+              nextIntent.putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
+              ProcessPhoenix.triggerRebirth(InjectingPreferenceActivity.this, nextIntent);
+            })
         .setNegativeButton(R.string.restart_later, null)
         .show();
   }

@@ -21,7 +21,9 @@ public class GoogleAccountManager {
   private final GtasksPreferenceService gtasksPreferenceService;
 
   @Inject
-  public GoogleAccountManager(@ForApplication Context context, PermissionChecker permissionChecker,
+  public GoogleAccountManager(
+      @ForApplication Context context,
+      PermissionChecker permissionChecker,
       GtasksPreferenceService gtasksPreferenceService) {
     this.permissionChecker = permissionChecker;
 

@@ -55,10 +55,19 @@ public class CommentBarFragment extends TaskEditControlFragment {
   @Inject DialogBuilder dialogBuilder;
   @Inject Device device;
   @Inject Preferences preferences;
-  @BindView(R.id.commentButton) View commentButton;
-  @BindView(R.id.commentField) EditText commentField;
-  @BindView(R.id.picture) ImageView pictureButton;
-  @BindView(R.id.updatesFooter) LinearLayout commentBar;
+
+  @BindView(R.id.commentButton)
+  View commentButton;
+
+  @BindView(R.id.commentField)
+  EditText commentField;
+
+  @BindView(R.id.picture)
+  ImageView pictureButton;
+
+  @BindView(R.id.updatesFooter)
+  LinearLayout commentBar;
+
   private CommentBarFragmentCallback callback;
   private Uri pendingCommentPicture = null;
 
@@ -87,8 +96,8 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(getLayout(), container, false);
     ButterKnife.bind(this, view);
 
@@ -128,15 +137,14 @@ public class CommentBarFragment extends TaskEditControlFragment {
   }
 
   @Override
-  public void apply(Task task) {
-
-  }
+  public void apply(Task task) {}
 
   @OnTextChanged(R.id.commentField)
   void onTextChanged(CharSequence s) {
-    commentButton.setVisibility(pendingCommentPicture == null && Strings.isNullOrEmpty(s.toString())
-        ? View.GONE
-        : View.VISIBLE);
+    commentButton.setVisibility(
+        pendingCommentPicture == null && Strings.isNullOrEmpty(s.toString())
+            ? View.GONE
+            : View.VISIBLE);
   }
 
   @OnEditorAction(R.id.commentField)
@@ -171,10 +179,11 @@ public class CommentBarFragment extends TaskEditControlFragment {
     if (pendingCommentPicture == null) {
       showPictureLauncher(null);
     } else {
-      showPictureLauncher(() -> {
-        pendingCommentPicture = null;
-        resetPictureButton();
-      });
+      showPictureLauncher(
+          () -> {
+            pendingCommentPicture = null;
+            resetPictureButton();
+          });
     }
   }
 
@@ -198,8 +207,9 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
   private void setPictureButtonToPendingPicture() {
     String path = getPathFromUri(activity, pendingCommentPicture);
-    Bitmap bitmap = sampleBitmap(path, pictureButton.getLayoutParams().width,
-        pictureButton.getLayoutParams().height);
+    Bitmap bitmap =
+        sampleBitmap(
+            path, pictureButton.getLayoutParams().width, pictureButton.getLayoutParams().height);
     pictureButton.setImageBitmap(bitmap);
     commentButton.setVisibility(View.VISIBLE);
   }
@@ -218,7 +228,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
     }
 
     if (commentField != null) {
-      commentField.setText(""); //$NON-NLS-1$
+      commentField.setText(""); // $NON-NLS-1$
     }
 
     pendingCommentPicture = null;
@@ -229,8 +239,9 @@ public class CommentBarFragment extends TaskEditControlFragment {
   private void resetPictureButton() {
     TypedValue typedValue = new TypedValue();
     getActivity().getTheme().resolveAttribute(R.attr.actionBarPrimaryText, typedValue, true);
-    Drawable drawable = DrawableCompat
-        .wrap(ContextCompat.getDrawable(getContext(), R.drawable.ic_camera_alt_black_24dp));
+    Drawable drawable =
+        DrawableCompat.wrap(
+            ContextCompat.getDrawable(getContext(), R.drawable.ic_camera_alt_black_24dp));
     drawable.mutate();
     DrawableCompat.setTint(drawable, typedValue.data);
     pictureButton.setImageDrawable(drawable);
@@ -242,8 +253,10 @@ public class CommentBarFragment extends TaskEditControlFragment {
 
     final boolean cameraAvailable = device.hasCamera();
     if (cameraAvailable) {
-      runnables.add(() -> startActivityForResult(new Intent(activity, CameraActivity.class),
-          REQUEST_CODE_CAMERA));
+      runnables.add(
+          () ->
+              startActivityForResult(
+                  new Intent(activity, CameraActivity.class), REQUEST_CODE_CAMERA));
       options.add(getString(R.string.take_a_picture));
     }
 
@@ -255,15 +268,14 @@ public class CommentBarFragment extends TaskEditControlFragment {
     if (runnables.size() == 1) {
       runnables.get(0).run();
     } else {
-      DialogInterface.OnClickListener listener = (d, which) -> {
-        runnables.get(which).run();
-        d.dismiss();
-      };
+      DialogInterface.OnClickListener listener =
+          (d, which) -> {
+            runnables.get(which).run();
+            d.dismiss();
+          };
 
       // show a menu of available options
-      dialogBuilder.newDialog()
-          .setItems(options, listener)
-          .show().setOwnerActivity(activity);
+      dialogBuilder.newDialog().setItems(options, listener).show().setOwnerActivity(activity);
     }
   }
 

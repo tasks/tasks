@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks.auth;
 
 import android.app.ProgressDialog;
@@ -22,8 +21,8 @@ import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 
 /**
- * This activity allows users to sign in or log in to Google Tasks
- * through the Android account manager
+ * This activity allows users to sign in or log in to Google Tasks through the Android account
+ * manager
  *
  * @author Sam Bosley
  */
@@ -46,8 +45,9 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
     if (existingUsername != null && accountManager.hasAccount(existingUsername)) {
       getAuthToken(existingUsername);
     } else {
-      Intent chooseAccountIntent = android.accounts.AccountManager.newChooseAccountIntent(
-          null, null, new String[]{"com.google"}, false, null, null, null, null);
+      Intent chooseAccountIntent =
+          android.accounts.AccountManager.newChooseAccountIntent(
+              null, null, new String[] {"com.google"}, false, null, null, null, null);
       startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT);
     }
   }
@@ -65,23 +65,26 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
   }
 
   private void getAuthToken(String a, final ProgressDialog pd) {
-    playServices.getAuthToken(this, a, new AuthResultHandler() {
-      @Override
-      public void authenticationSuccessful(String accountName) {
-        gtasksPreferenceService.setUserName(accountName);
-        gtasksInvoker.setUserName(accountName);
-        setResult(RESULT_OK);
-        finish();
-        DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
-      }
+    playServices.getAuthToken(
+        this,
+        a,
+        new AuthResultHandler() {
+          @Override
+          public void authenticationSuccessful(String accountName) {
+            gtasksPreferenceService.setUserName(accountName);
+            gtasksInvoker.setUserName(accountName);
+            setResult(RESULT_OK);
+            finish();
+            DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+          }
 
-      @Override
-      public void authenticationFailed(final String message) {
-        runOnUiThread(
-            () -> Toast.makeText(GtasksLoginActivity.this, message, Toast.LENGTH_LONG).show());
-        DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
-      }
-    });
+          @Override
+          public void authenticationFailed(final String message) {
+            runOnUiThread(
+                () -> Toast.makeText(GtasksLoginActivity.this, message, Toast.LENGTH_LONG).show());
+            DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+          }
+        });
   }
 
   @Override
@@ -95,7 +98,7 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
       pd.show();
       getAuthToken(accountName, pd);
     } else {
-      //User didn't give permission--cancel
+      // User didn't give permission--cancel
       finish();
     }
   }

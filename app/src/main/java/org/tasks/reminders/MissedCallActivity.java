@@ -14,11 +14,11 @@ import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
 import org.tasks.notifications.NotificationManager;
 
-public class MissedCallActivity extends InjectingAppCompatActivity implements
-    MissedCallDialog.MissedCallHandler {
+public class MissedCallActivity extends InjectingAppCompatActivity
+    implements MissedCallDialog.MissedCallHandler {
 
-  public static final String EXTRA_NUMBER = "number"; //$NON-NLS-1$
-  public static final String EXTRA_NAME = "name"; //$NON-NLS-1$
+  public static final String EXTRA_NUMBER = "number"; // $NON-NLS-1$
+  public static final String EXTRA_NAME = "name"; // $NON-NLS-1$
   public static final String EXTRA_TITLE = "extra_title";
   public static final String EXTRA_CALL_NOW = "extra_call_now";
   public static final String EXTRA_CALL_LATER = "extra_call_later";
@@ -58,8 +58,8 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements
       callLater();
     } else {
       FragmentManager fragmentManager = getSupportFragmentManager();
-      MissedCallDialog fragment = (MissedCallDialog) fragmentManager
-          .findFragmentByTag(FRAG_TAG_MISSED_CALL_FRAGMENT);
+      MissedCallDialog fragment =
+          (MissedCallDialog) fragmentManager.findFragmentByTag(FRAG_TAG_MISSED_CALL_FRAGMENT);
       if (fragment == null) {
         fragment = new MissedCallDialog();
         fragment.show(fragmentManager, FRAG_TAG_MISSED_CALL_FRAGMENT);
@@ -76,20 +76,19 @@ public class MissedCallActivity extends InjectingAppCompatActivity implements
   @Override
   public void callNow() {
     Intent call = new Intent(Intent.ACTION_VIEW);
-    call.setData(Uri.parse("tel:" + number)); //$NON-NLS-1$
+    call.setData(Uri.parse("tel:" + number)); // $NON-NLS-1$
     startActivity(call);
     cancelNotificationAndFinish();
   }
 
   @Override
   public void callLater() {
-    String title = TextUtils.isEmpty(name)
-        ? getString(R.string.MCA_task_title_no_name, number)
-        : getString(R.string.MCA_task_title_name, name, number);
+    String title =
+        TextUtils.isEmpty(name)
+            ? getString(R.string.MCA_task_title_no_name, number)
+            : getString(R.string.MCA_task_title_name, name, number);
     Task task = taskCreator.basicQuickAddTask(title);
-    TaskIntents
-        .getEditTaskStack(this, null, task.getId())
-        .startActivities();
+    TaskIntents.getEditTaskStack(this, null, task.getId()).startActivities();
     cancelNotificationAndFinish();
   }
 

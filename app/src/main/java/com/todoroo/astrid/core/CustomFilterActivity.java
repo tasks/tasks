@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.core;
 
 import static android.text.TextUtils.isEmpty;
@@ -58,12 +57,12 @@ import org.tasks.ui.MenuColorizer;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-public class CustomFilterActivity extends ThemedInjectingAppCompatActivity implements
-    Toolbar.OnMenuItemClickListener {
+public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
+    implements Toolbar.OnMenuItemClickListener {
 
   static final int MENU_GROUP_CONTEXT_TYPE = 1;
   static final int MENU_GROUP_CONTEXT_DELETE = 2;
-  private static final String IDENTIFIER_UNIVERSE = "active"; //$NON-NLS-1$
+  private static final String IDENTIFIER_UNIVERSE = "active"; // $NON-NLS-1$
   private static final int MENU_GROUP_FILTER = 0;
 
   // --- hierarchy of filter classes
@@ -74,8 +73,13 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
   // --- activity
   @Inject FilterCriteriaProvider filterCriteriaProvider;
   @Inject Locale locale;
-  @BindView(R.id.tag_name) EditText filterName;
-  @BindView(R.id.toolbar) Toolbar toolbar;
+
+  @BindView(R.id.tag_name)
+  EditText filterName;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
   private ListView listView;
   private CustomFilterAdapter adapter;
 
@@ -85,9 +89,11 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
       CriterionInstance item = adapter.getItem(i);
 
       // criterion|entry|text|type|sql
-      values.append(escape(item.criterion.identifier))
+      values
+          .append(escape(item.criterion.identifier))
           .append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-      values.append(escape(item.getValueFromCriterion()))
+      values
+          .append(escape(item.getValueFromCriterion()))
           .append(AndroidUtilities.SERIALIZATION_SEPARATOR);
       values.append(escape(item.criterion.text)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
       values.append(item.type).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
@@ -102,10 +108,10 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
 
   private static String escape(String item) {
     if (item == null) {
-      return ""; //$NON-NLS-1$
+      return ""; // $NON-NLS-1$
     }
-    return item.replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
-        AndroidUtilities.SEPARATOR_ESCAPE);
+    return item.replace(
+        AndroidUtilities.SERIALIZATION_SEPARATOR, AndroidUtilities.SEPARATOR_ESCAPE);
   }
 
   @Override
@@ -141,9 +147,16 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
 
   private CriterionInstance getStartingUniverse() {
     CriterionInstance instance = new CriterionInstance();
-    instance.criterion = new MultipleSelectCriterion(IDENTIFIER_UNIVERSE,
-        getString(R.string.CFA_universe_all),
-        null, null, null, null, null, null);
+    instance.criterion =
+        new MultipleSelectCriterion(
+            IDENTIFIER_UNIVERSE,
+            getString(R.string.CFA_universe_all),
+            null,
+            null,
+            null,
+            null,
+            null,
+            null);
     instance.type = CriterionInstance.TYPE_UNIVERSE;
     return instance;
   }
@@ -151,21 +164,22 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
   private void setUpListeners() {
     findViewById(R.id.add).setOnClickListener(v -> listView.showContextMenu());
 
-    listView.setOnCreateContextMenuListener((menu, v, menuInfo) -> {
-      if (menu.hasVisibleItems()) {
-                /* If it has items already, then the user did not click on the "Add Criteria" button, but instead
-                   long held on a row in the list view, which caused CustomFilterAdapter.onCreateContextMenu
-                   to be invoked before this onCreateContextMenu method was invoked.
-                 */
-        return;
-      }
+    listView.setOnCreateContextMenuListener(
+        (menu, v, menuInfo) -> {
+          if (menu.hasVisibleItems()) {
+            /* If it has items already, then the user did not click on the "Add Criteria" button, but instead
+              long held on a row in the list view, which caused CustomFilterAdapter.onCreateContextMenu
+              to be invoked before this onCreateContextMenu method was invoked.
+            */
+            return;
+          }
 
-      int i = 0;
-      for (CustomFilterCriterion item : filterCriteriaProvider.getAll()) {
-        menu.add(CustomFilterActivity.MENU_GROUP_FILTER, i, 0, item.name);
-        i++;
-      }
-    });
+          int i = 0;
+          for (CustomFilterCriterion item : filterCriteriaProvider.getAll()) {
+            menu.add(CustomFilterActivity.MENU_GROUP_FILTER, i, 0, item.name);
+            i++;
+          }
+        });
   }
 
   // --- listeners and action events
@@ -226,31 +240,30 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
       }
 
-      if (instance.criterion.valuesForNewTasks != null &&
-          instance.type == CriterionInstance.TYPE_INTERSECT) {
+      if (instance.criterion.valuesForNewTasks != null
+          && instance.type == CriterionInstance.TYPE_INTERSECT) {
         for (Entry<String, Object> entry : instance.criterion.valuesForNewTasks.entrySet()) {
-          values.put(entry.getKey().replace("?", value),
-              entry.getValue().toString().replace("?", value));
+          values.put(
+              entry.getKey().replace("?", value), entry.getValue().toString().replace("?", value));
         }
       }
     }
 
     org.tasks.data.Filter storeObject = persist(title, sql.toString(), values);
-    Filter filter = new CustomFilter(title, sql.toString(), values, storeObject.getId(),
-        storeObject.getCriterion());
+    Filter filter =
+        new CustomFilter(
+            title, sql.toString(), values, storeObject.getId(), storeObject.getCriterion());
     setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, filter));
     finish();
   }
 
-  /**
-   * Recalculate all sizes
-   */
+  /** Recalculate all sizes */
   void updateList() {
     int max = 0, last = -1;
 
-    StringBuilder sql = new StringBuilder(
-        Query.select(new CountProperty()).from(Task.TABLE).toString()).
-        append(" WHERE ");
+    StringBuilder sql =
+        new StringBuilder(Query.select(new CountProperty()).from(Task.TABLE).toString())
+            .append(" WHERE ");
 
     for (int i = 0; i < adapter.getCount(); i++) {
       CriterionInstance instance = adapter.getItem(i);
@@ -320,7 +333,8 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
     if (filterName.getText().toString().trim().isEmpty() && adapter.getCount() <= 1) {
       finish();
     } else {
-      dialogBuilder.newMessageDialog(R.string.discard_changes)
+      dialogBuilder
+          .newMessageDialog(R.string.discard_changes)
           .setPositiveButton(R.string.keep_editing, null)
           .setNegativeButton(R.string.discard, (dialog, which) -> finish())
           .show();
@@ -334,10 +348,12 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
       CustomFilterCriterion criterion = filterCriteriaProvider.getAll().get(item.getItemId());
       final CriterionInstance instance = new CriterionInstance();
       instance.criterion = criterion;
-      adapter.showOptionsFor(instance, () -> {
-        adapter.add(instance);
-        updateList();
-      });
+      adapter.showOptionsFor(
+          instance,
+          () -> {
+            adapter.add(instance);
+            updateList();
+          });
       return true;
     }
 
@@ -386,37 +402,29 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
     public static final int TYPE_INTERSECT = 2;
     public static final int TYPE_UNIVERSE = 3;
 
-    /**
-     * criteria for this instance
-     */
+    /** criteria for this instance */
     public CustomFilterCriterion criterion;
 
-    /**
-     * which of the entries is selected (MultipleSelect)
-     */
+    /** which of the entries is selected (MultipleSelect) */
     public int selectedIndex = -1;
 
-    /**
-     * text of selection (TextInput)
-     */
+    /** text of selection (TextInput) */
     public String selectedText = null;
 
-    /**
-     * type of join
-     */
+    /** type of join */
     public int type = TYPE_INTERSECT;
 
-    /**
-     * statistics for filter count
-     */
-    int start;
     public int end;
+    /** statistics for filter count */
+    int start;
+
     int max;
 
     public String getTitleFromCriterion() {
       if (criterion instanceof MultipleSelectCriterion) {
-        if (selectedIndex >= 0 && ((MultipleSelectCriterion) criterion).entryTitles != null &&
-            selectedIndex < ((MultipleSelectCriterion) criterion).entryTitles.length) {
+        if (selectedIndex >= 0
+            && ((MultipleSelectCriterion) criterion).entryTitles != null
+            && selectedIndex < ((MultipleSelectCriterion) criterion).entryTitles.length) {
           String title = ((MultipleSelectCriterion) criterion).entryTitles[selectedIndex];
           return criterion.text.replace("?", title);
         }
@@ -427,7 +435,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         }
         return criterion.text.replace("?", selectedText);
       }
-      throw new UnsupportedOperationException("Unknown criterion type"); //$NON-NLS-1$
+      throw new UnsupportedOperationException("Unknown criterion type"); // $NON-NLS-1$
     }
 
     String getValueFromCriterion() {
@@ -435,15 +443,16 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity imple
         return null;
       }
       if (criterion instanceof MultipleSelectCriterion) {
-        if (selectedIndex >= 0 && ((MultipleSelectCriterion) criterion).entryValues != null &&
-            selectedIndex < ((MultipleSelectCriterion) criterion).entryValues.length) {
+        if (selectedIndex >= 0
+            && ((MultipleSelectCriterion) criterion).entryValues != null
+            && selectedIndex < ((MultipleSelectCriterion) criterion).entryValues.length) {
           return ((MultipleSelectCriterion) criterion).entryValues[selectedIndex];
         }
         return criterion.text;
       } else if (criterion instanceof TextInputCriterion) {
         return selectedText;
       }
-      throw new UnsupportedOperationException("Unknown criterion type"); //$NON-NLS-1$
+      throw new UnsupportedOperationException("Unknown criterion type"); // $NON-NLS-1$
     }
   }
 }

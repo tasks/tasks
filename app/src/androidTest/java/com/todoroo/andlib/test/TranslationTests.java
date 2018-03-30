@@ -1,11 +1,9 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.test;
-
 
 import static android.support.test.InstrumentationRegistry.getTargetContext;
 import static junit.framework.Assert.assertEquals;
@@ -24,18 +22,15 @@ import org.junit.runner.RunWith;
 import org.tasks.R;
 
 /**
- * Tests translations for consistency with the default values. You must
- * extend this class and create it with your own values for strings
- * and arrays.
+ * Tests translations for consistency with the default values. You must extend this class and create
+ * it with your own values for strings and arrays.
  *
  * @author Tim Su <tim@todoroo.com>
  */
 @RunWith(AndroidJUnit4.class)
 public class TranslationTests {
 
-  /**
-   * Loop through each locale and call runnable
-   */
+  /** Loop through each locale and call runnable */
   private void forEachLocale(Callback<Resources> callback) {
     Locale[] locales = Locale.getAvailableLocales();
     for (Locale locale : locales) {
@@ -50,9 +45,7 @@ public class TranslationTests {
     return new Resources(resources.getAssets(), resources.getDisplayMetrics(), configuration);
   }
 
-  /**
-   * Internal test of format string parser
-   */
+  /** Internal test of format string parser */
   @Test
   public void testFormatStringParser() {
     String s = "abc";
@@ -84,8 +77,8 @@ public class TranslationTests {
   }
 
   /**
-   * Test that the format specifiers in translations match exactly the
-   * translations in the default text
+   * Test that the format specifiers in translations match exactly the translations in the default
+   * text
    */
   @Test
   public void testFormatStringsMatch() {
@@ -101,72 +94,68 @@ public class TranslationTests {
         formatStrings[i] = new FormatStringData(string);
       } catch (Exception e) {
         String name = resources.getResourceName(strings[i]);
-        failures.append(String.format("error opening %s: %s\n",
-            name, e.getMessage()));
+        failures.append(String.format("error opening %s: %s\n", name, e.getMessage()));
       }
     }
 
-    forEachLocale(r -> {
-      Locale locale = r.getConfiguration().locale;
-      for (int i = 0; i < strings.length; i++) {
-        try {
-          switch (strings[i]) {
-            case R.string.abc_shareactionprovider_share_with_application:
-              continue;
+    forEachLocale(
+        r -> {
+          Locale locale = r.getConfiguration().locale;
+          for (int i = 0; i < strings.length; i++) {
+            try {
+              switch (strings[i]) {
+                case R.string.abc_shareactionprovider_share_with_application:
+                  continue;
+              }
+              String string = r.getString(strings[i]);
+              FormatStringData newFS = new FormatStringData(string);
+              if (!newFS.matches(formatStrings[i])) {
+                String name = r.getResourceName(strings[i]);
+                failures.append(
+                    String.format(
+                        "%s (%s): %s != %s\n", name, locale.toString(), newFS, formatStrings[i]));
+              }
+            } catch (Exception e) {
+              String name = r.getResourceName(strings[i]);
+              failures.append(
+                  String.format(
+                      "%s: error opening %s: %s\n", locale.toString(), name, e.getMessage()));
+            }
           }
-          String string = r.getString(strings[i]);
-          FormatStringData newFS = new FormatStringData(string);
-          if (!newFS.matches(formatStrings[i])) {
-            String name = r.getResourceName(strings[i]);
-            failures.append(String.format("%s (%s): %s != %s\n",
-                name, locale.toString(), newFS, formatStrings[i]));
-          }
-        } catch (Exception e) {
-          String name = r.getResourceName(strings[i]);
-          failures.append(String.format("%s: error opening %s: %s\n",
-              locale.toString(), name, e.getMessage()));
-        }
-      }
-    });
+        });
 
     assertTrue(failures.toString(), errorCount(failures) == 0);
   }
 
-  /**
-   * check if string contains contains substrings
-   */
+  /** check if string contains contains substrings */
   private void contains(Resources r, int resource, StringBuilder failures, String expected) {
     String translation = r.getString(resource);
     if (!translation.contains(expected)) {
       Locale locale = r.getConfiguration().locale;
       String name = r.getResourceName(resource);
-      failures.append(String.format("%s: %s did not contain: %s\n",
-          locale.toString(), name, expected));
+      failures.append(
+          String.format("%s: %s did not contain: %s\n", locale.toString(), name, expected));
     }
   }
 
-  /**
-   * Test dollar sign resources
-   */
+  /** Test dollar sign resources */
   @Test
   public void testSpecialStringsMatch() {
     final StringBuilder failures = new StringBuilder();
 
-    forEachLocale(r -> {
-      contains(r, R.string.CFC_tag_text, failures, "?");
-      contains(r, R.string.CFC_title_contains_text, failures, "?");
-      contains(r, R.string.CFC_dueBefore_text, failures, "?");
-      contains(r, R.string.CFC_tag_contains_text, failures, "?");
-      contains(r, R.string.CFC_gtasks_list_text, failures, "?");
-    });
+    forEachLocale(
+        r -> {
+          contains(r, R.string.CFC_tag_text, failures, "?");
+          contains(r, R.string.CFC_title_contains_text, failures, "?");
+          contains(r, R.string.CFC_dueBefore_text, failures, "?");
+          contains(r, R.string.CFC_tag_contains_text, failures, "?");
+          contains(r, R.string.CFC_gtasks_list_text, failures, "?");
+        });
 
-    assertEquals(failures.toString(), 0,
-        failures.toString().replaceAll("[^\n]", "").length());
+    assertEquals(failures.toString(), 0, failures.toString().replaceAll("[^\n]", "").length());
   }
 
-  /**
-   * Count newlines
-   */
+  /** Count newlines */
   private int errorCount(StringBuilder failures) {
     int count = 0;
     int pos = -1;
@@ -179,9 +168,7 @@ public class TranslationTests {
     }
   }
 
-  /**
-   * @return an array of all string resource id's
-   */
+  /** @return an array of all string resource id's */
   private int[] getResourceIds(Class<?> resources) {
     Field[] fields = resources.getDeclaredFields();
     List<Integer> ids = new ArrayList<>(fields.length);
@@ -208,14 +195,10 @@ public class TranslationTests {
 
     private static final char[] scratch = new char[10];
 
-    /**
-     * format characters
-     */
+    /** format characters */
     final char[] characters;
 
-    /**
-     * the original string
-     */
+    /** the original string */
     final String string;
 
     public FormatStringData(String string) {
@@ -240,9 +223,7 @@ public class TranslationTests {
       }
     }
 
-    /**
-     * test that the characters match
-     */
+    /** test that the characters match */
     boolean matches(FormatStringData other) {
       if (characters.length != other.characters.length) {
         return false;
@@ -259,7 +240,6 @@ public class TranslationTests {
         } else if (characters[i] != other.characters[i]) {
           return false;
         }
-
       }
       return true;
     }

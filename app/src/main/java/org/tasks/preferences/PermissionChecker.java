@@ -48,9 +48,9 @@ public class PermissionChecker {
 
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
   public boolean canAccessMissedCallPermissions() {
-    return checkPermission(Manifest.permission.READ_CONTACTS) &&
-        checkPermission(Manifest.permission.READ_PHONE_STATE) &&
-        (preJellybean() || checkPermission(Manifest.permission.READ_CALL_LOG));
+    return checkPermission(Manifest.permission.READ_CONTACTS)
+        && checkPermission(Manifest.permission.READ_PHONE_STATE)
+        && (preJellybean() || checkPermission(Manifest.permission.READ_CALL_LOG));
   }
 
   private boolean checkPermission(String permission) {

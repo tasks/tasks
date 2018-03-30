@@ -51,8 +51,11 @@ public class CalendarControlSet extends TaskEditControlFragment {
   private static final String EXTRA_URI = "extra_uri";
   private static final String EXTRA_ID = "extra_id";
 
-  @BindView(R.id.clear) View cancelButton;
-  @BindView(R.id.calendar_display_which) TextView calendar;
+  @BindView(R.id.clear)
+  View cancelButton;
+
+  @BindView(R.id.calendar_display_which)
+  TextView calendar;
 
   @Inject GCalHelper gcalHelper;
   @Inject CalendarProvider calendarProvider;
@@ -70,8 +73,8 @@ public class CalendarControlSet extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
     boolean canAccessCalendars = permissionChecker.canAccessCalendars();
     if (savedInstanceState != null) {
@@ -174,9 +177,11 @@ public class CalendarControlSet extends TaskEditControlFragment {
           task.setCalendarUri(uri.toString());
           // pop up the new event
           Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-          intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+          intent.putExtra(
+              CalendarContract.EXTRA_EVENT_BEGIN_TIME,
               values.getAsLong(CalendarContract.Events.DTSTART));
-          intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+          intent.putExtra(
+              CalendarContract.EXTRA_EVENT_END_TIME,
               values.getAsLong(CalendarContract.Events.DTEND));
           startActivity(intent);
         }
@@ -199,12 +204,15 @@ public class CalendarControlSet extends TaskEditControlFragment {
     if (isNullOrEmpty(eventUri)) {
       clear();
     } else {
-      dialogBuilder.newMessageDialog(R.string.delete_calendar_event_confirmation)
-          .setPositiveButton(R.string.delete, (dialog, which) -> {
-            if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_CLEAR_EVENT)) {
-              clear();
-            }
-          })
+      dialogBuilder
+          .newMessageDialog(R.string.delete_calendar_event_confirmation)
+          .setPositiveButton(
+              R.string.delete,
+              (dialog, which) -> {
+                if (permissionRequestor.requestCalendarPermissions(REQUEST_CODE_CLEAR_EVENT)) {
+                  clear();
+                }
+              })
           .setNegativeButton(android.R.string.cancel, null)
           .show();
     }
@@ -233,9 +241,13 @@ public class CalendarControlSet extends TaskEditControlFragment {
     ContentResolver cr = getActivity().getContentResolver();
     Uri uri = Uri.parse(eventUri);
     Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-    Cursor cursor = cr
-        .query(uri, new String[]{CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND},
-            null, null, null);
+    Cursor cursor =
+        cr.query(
+            uri,
+            new String[] {CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND},
+            null,
+            null,
+            null);
     try {
       if (cursor.getCount() == 0) {
         // event no longer exists
@@ -277,8 +289,8 @@ public class CalendarControlSet extends TaskEditControlFragment {
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == REQUEST_CODE_OPEN_EVENT) {
       if (verifyPermissions(grantResults)) {
         openCalendarEvent();
@@ -313,8 +325,9 @@ public class CalendarControlSet extends TaskEditControlFragment {
     try {
       Uri uri = Uri.parse(eventUri);
       ContentResolver contentResolver = context.getContentResolver();
-      Cursor cursor = contentResolver
-          .query(uri, new String[]{CalendarContract.Events.DTSTART}, null, null, null);
+      Cursor cursor =
+          contentResolver.query(
+              uri, new String[] {CalendarContract.Events.DTSTART}, null, null, null);
       try {
         if (cursor.getCount() != 0) {
           return true;

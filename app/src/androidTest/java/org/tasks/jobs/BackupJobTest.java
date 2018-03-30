@@ -17,6 +17,12 @@ import org.tasks.time.DateTime;
 
 @RunWith(AndroidJUnit4.class)
 public class BackupJobTest {
+  private static File newFile(DateTime lastModified) {
+    File result = mock(File.class);
+    stub(result.lastModified()).toReturn(lastModified.getMillis());
+    return result;
+  }
+
   @Test
   public void filterExcludesXmlFiles() {
     assertFalse(BackupJob.FILE_FILTER.accept(new File("/a/b/c/d/auto.180329-0001.xml")));
@@ -33,9 +39,7 @@ public class BackupJobTest {
     File file2 = newFile(newDate(2018, 3, 28));
     File file3 = newFile(newDate(2018, 3, 29));
 
-    assertEquals(
-        emptyList(),
-        BackupJob.getDeleteList(new File[] {file2, file1, file3}, 7));
+    assertEquals(emptyList(), BackupJob.getDeleteList(new File[] {file2, file1, file3}, 7));
   }
 
   @Test
@@ -50,13 +54,6 @@ public class BackupJobTest {
     File file3 = newFile(newDate(2018, 3, 29));
 
     assertEquals(
-        singletonList(file1),
-        BackupJob.getDeleteList(new File[] {file2, file1, file3}, 2));
-  }
-
-  private static File newFile(DateTime lastModified) {
-    File result = mock(File.class);
-    stub(result.lastModified()).toReturn(lastModified.getMillis());
-    return result;
+        singletonList(file1), BackupJob.getDeleteList(new File[] {file2, file1, file3}, 2));
   }
 }

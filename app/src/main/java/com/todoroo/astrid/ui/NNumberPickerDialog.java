@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
@@ -20,9 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.tasks.R;
 
-/**
- * Dialog box with an arbitrary number of number pickers
- */
+/** Dialog box with an arbitrary number of number pickers */
 class NNumberPickerDialog extends AlertDialog implements OnClickListener {
 
   private final List<NumberPicker> pickers = new LinkedList<>();
@@ -37,31 +34,36 @@ class NNumberPickerDialog extends AlertDialog implements OnClickListener {
    * @param incrementBy picker increment by array
    * @param start picker range start array
    * @param end picker range end array
-   * @param separators text separating the spinners. whole array, or individual elements can be
-   * null
+   * @param separators text separating the spinners. whole array, or individual elements can be null
    */
-  public NNumberPickerDialog(Context context, OnNNumberPickedListener callBack,
-      String title, int[] initialValue, int[] incrementBy, int[] start,
-      int[] end, String[] separators) {
+  public NNumberPickerDialog(
+      Context context,
+      OnNNumberPickedListener callBack,
+      String title,
+      int[] initialValue,
+      int[] incrementBy,
+      int[] start,
+      int[] end,
+      String[] separators) {
     super(context);
     mCallback = callBack;
 
     setButton(DialogInterface.BUTTON_POSITIVE, context.getText(android.R.string.ok), this);
-    setButton(DialogInterface.BUTTON_NEGATIVE, context.getText(android.R.string.cancel),
+    setButton(
+        DialogInterface.BUTTON_NEGATIVE,
+        context.getText(android.R.string.cancel),
         (OnClickListener) null);
 
-    LayoutInflater inflater = (LayoutInflater) context
-        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    LayoutInflater inflater =
+        (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     View view = inflater.inflate(R.layout.n_number_picker_dialog, null);
     setView(view);
     LinearLayout container = (LinearLayout) view;
 
     setTitle(title);
-    LayoutParams npLayout = new LayoutParams(LayoutParams.WRAP_CONTENT,
-        LayoutParams.MATCH_PARENT);
+    LayoutParams npLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
     npLayout.gravity = 1;
-    LayoutParams sepLayout = new LayoutParams(LayoutParams.WRAP_CONTENT,
-        LayoutParams.MATCH_PARENT);
+    LayoutParams sepLayout = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
     for (int i = 0; i < incrementBy.length; i++) {
       NumberPicker np = new NumberPicker(context, null);
       np.setIncrementBy(incrementBy[i]);

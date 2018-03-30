@@ -14,12 +14,13 @@ import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionRequestor;
 
-public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity implements
-    CalendarSelectionDialog.CalendarSelectionHandler {
+public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity
+    implements CalendarSelectionDialog.CalendarSelectionHandler {
 
   public static final String EXTRA_CALENDAR_ID = "extra_calendar_id";
   public static final String EXTRA_CALENDAR_NAME = "extra_calendar_name";
-  private static final String FRAG_TAG_CALENDAR_PREFERENCE_SELECTION = "frag_tag_calendar_preference_selection";
+  private static final String FRAG_TAG_CALENDAR_PREFERENCE_SELECTION =
+      "frag_tag_calendar_preference_selection";
   @Inject ActivityPermissionRequestor permissionRequestor;
 
   @Override
@@ -33,8 +34,9 @@ public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity 
 
   private void showDialog() {
     FragmentManager fragmentManager = getSupportFragmentManager();
-    CalendarSelectionDialog fragmentByTag = (CalendarSelectionDialog) fragmentManager
-        .findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
+    CalendarSelectionDialog fragmentByTag =
+        (CalendarSelectionDialog)
+            fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
     if (fragmentByTag == null) {
       Intent intent = getIntent();
       fragmentByTag = newCalendarSelectionDialog(intent.getStringExtra(EXTRA_CALENDAR_NAME));
@@ -63,8 +65,8 @@ public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity 
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == PermissionRequestor.REQUEST_CALENDAR) {
       if (verifyPermissions(grantResults)) {
         showDialog();

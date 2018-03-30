@@ -5,7 +5,7 @@ import com.evernote.android.job.Job;
 import org.tasks.caldav.CaldavSynchronizer;
 import org.tasks.gtasks.GoogleTaskSynchronizer;
 
-public class SyncJob extends Job{
+public class SyncJob extends Job {
 
   private final CaldavSynchronizer caldavSynchronizer;
   private final GoogleTaskSynchronizer googleTaskSynchronizer;

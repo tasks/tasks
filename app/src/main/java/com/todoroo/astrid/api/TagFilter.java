@@ -16,30 +16,25 @@ import org.tasks.data.TagData;
 
 public class TagFilter extends Filter {
 
-  /**
-   * Parcelable Creator Object
-   */
-  public static final Parcelable.Creator<TagFilter> CREATOR = new Parcelable.Creator<TagFilter>() {
+  /** Parcelable Creator Object */
+  public static final Parcelable.Creator<TagFilter> CREATOR =
+      new Parcelable.Creator<TagFilter>() {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TagFilter createFromParcel(Parcel source) {
-      TagFilter item = new TagFilter();
-      item.readFromParcel(source);
-      return item;
-    }
+        /** {@inheritDoc} */
+        @Override
+        public TagFilter createFromParcel(Parcel source) {
+          TagFilter item = new TagFilter();
+          item.readFromParcel(source);
+          return item;
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TagFilter[] newArray(int size) {
-      return new TagFilter[size];
-    }
+        /** {@inheritDoc} */
+        @Override
+        public TagFilter[] newArray(int size) {
+          return new TagFilter[size];
+        }
+      };
 
-  };
   private static final int TAG = R.drawable.ic_label_24dp;
   private String uuid;
 
@@ -57,9 +52,9 @@ public class TagFilter extends Filter {
   private static QueryTemplate queryTemplate(String uuid) {
     return new QueryTemplate()
         .join(Join.inner(Tag.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags.task_uid"))))
-        .where(Criterion.and(
-            Field.field("mtags.tag_uid").eq(uuid),
-            TaskDao.TaskCriteria.activeAndVisible()));
+        .where(
+            Criterion.and(
+                Field.field("mtags.tag_uid").eq(uuid), TaskDao.TaskCriteria.activeAndVisible()));
   }
 
   private static Map<String, Object> getValuesForNewTask(TagData tagData) {
@@ -72,9 +67,7 @@ public class TagFilter extends Filter {
     return uuid;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);

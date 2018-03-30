@@ -11,14 +11,13 @@ import com.todoroo.andlib.utility.DateUtilities;
 @Entity(tableName = "google_tasks")
 public class GoogleTask {
 
-  public static final String KEY = "gtasks"; //$NON-NLS-1$
+  public static final String KEY = "gtasks"; // $NON-NLS-1$
+
+  @Deprecated public static final Table TABLE = new Table("google_tasks");
 
   @Deprecated
-  public static final Table TABLE = new Table("google_tasks");
-
-  @Deprecated
-  public static final Property.IntegerProperty INDENT = new Property.IntegerProperty(
-      GoogleTask.TABLE, "indent");
+  public static final Property.IntegerProperty INDENT =
+      new Property.IntegerProperty(GoogleTask.TABLE, "indent");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
@@ -51,12 +50,9 @@ public class GoogleTask {
   @ColumnInfo(name = "deleted")
   private long deleted;
 
-  @Ignore
-  private transient boolean suppressSync;
+  @Ignore private transient boolean suppressSync;
 
-  public GoogleTask() {
-
-  }
+  public GoogleTask() {}
 
   @Ignore
   public GoogleTask(long task, String listId) {
@@ -215,17 +211,29 @@ public class GoogleTask {
 
   @Override
   public String toString() {
-    return "GoogleTask{" +
-        "id=" + id +
-        ", task=" + task +
-        ", remoteId='" + remoteId + '\'' +
-        ", listId='" + listId + '\'' +
-        ", parent=" + parent +
-        ", indent=" + indent +
-        ", order=" + order +
-        ", remoteOrder=" + remoteOrder +
-        ", lastSync=" + lastSync +
-        ", deleted=" + deleted +
-        '}';
+    return "GoogleTask{"
+        + "id="
+        + id
+        + ", task="
+        + task
+        + ", remoteId='"
+        + remoteId
+        + '\''
+        + ", listId='"
+        + listId
+        + '\''
+        + ", parent="
+        + parent
+        + ", indent="
+        + indent
+        + ", order="
+        + order
+        + ", remoteOrder="
+        + remoteOrder
+        + ", lastSync="
+        + lastSync
+        + ", deleted="
+        + deleted
+        + '}';
   }
 }

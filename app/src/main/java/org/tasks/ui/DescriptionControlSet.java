@@ -19,14 +19,15 @@ public class DescriptionControlSet extends TaskEditControlFragment {
   public static final int TAG = R.string.TEA_ctrl_notes_pref;
   private static final String EXTRA_DESCRIPTION = "extra_description";
 
-  @BindView(R.id.notes) EditText editText;
+  @BindView(R.id.notes)
+  EditText editText;
 
   private String description;
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = super.onCreateView(inflater, container, savedInstanceState);
     if (savedInstanceState == null) {
       description = task.getNotes();

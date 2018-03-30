@@ -15,9 +15,8 @@ import org.tasks.locale.bundle.ListNotificationBundle;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
-public final class TaskerSettingsActivity extends
-    AbstractFragmentPluginPreferenceActivity implements PurchaseHelperCallback,
-    Toolbar.OnMenuItemClickListener {
+public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferenceActivity
+    implements PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
 
   private static final int REQUEST_SELECT_FILTER = 10124;
   private static final int REQUEST_PURCHASE = 10125;
@@ -39,37 +38,45 @@ public final class TaskerSettingsActivity extends
     addPreferencesFromResource(R.xml.preferences_tasker);
 
     if (savedInstanceState != null) {
-      previousBundle = savedInstanceState
-          .getParcelable(ListNotificationBundle.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
+      previousBundle =
+          savedInstanceState.getParcelable(ListNotificationBundle.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
       filter = savedInstanceState.getParcelable(EXTRA_FILTER);
       purchaseInitiated = savedInstanceState.getBoolean(EXTRA_PURCHASE_INITIATED);
     } else {
       filter = defaultFilterProvider.getDefaultFilter();
     }
 
-    findPreference(R.string.filter).setOnPreferenceClickListener(preference -> {
-      Intent intent = new Intent(TaskerSettingsActivity.this, FilterSelectionActivity.class);
-      intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, filter);
-      intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-      startActivityForResult(intent, REQUEST_SELECT_FILTER);
-      return false;
-    });
+    findPreference(R.string.filter)
+        .setOnPreferenceClickListener(
+            preference -> {
+              Intent intent =
+                  new Intent(TaskerSettingsActivity.this, FilterSelectionActivity.class);
+              intent.putExtra(FilterSelectionActivity.EXTRA_FILTER, filter);
+              intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+              startActivityForResult(intent, REQUEST_SELECT_FILTER);
+              return false;
+            });
 
     refreshPreferences();
 
     if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInitiated) {
-      purchaseInitiated = purchaseHelper
-          .purchase(this, getString(R.string.sku_tasker), getString(R.string.p_purchased_tasker),
-              REQUEST_PURCHASE, this);
+      purchaseInitiated =
+          purchaseHelper.purchase(
+              this,
+              getString(R.string.sku_tasker),
+              getString(R.string.p_purchased_tasker),
+              REQUEST_PURCHASE,
+              this);
     }
   }
 
   @Override
-  public void onPostCreateWithPreviousResult(final Bundle previousBundle,
-      final String previousBlurb) {
+  public void onPostCreateWithPreviousResult(
+      final Bundle previousBundle, final String previousBlurb) {
     this.previousBundle = previousBundle;
-    this.filter = defaultFilterProvider
-        .getFilterFromPreference(ListNotificationBundle.getFilter(previousBundle));
+    this.filter =
+        defaultFilterProvider.getFilterFromPreference(
+            ListNotificationBundle.getFilter(previousBundle));
     refreshPreferences();
   }
 
@@ -80,8 +87,8 @@ public final class TaskerSettingsActivity extends
 
   @Override
   protected Bundle getResultBundle() {
-    return ListNotificationBundle
-        .generateBundle(defaultFilterProvider.getFilterPreferenceValue(filter));
+    return ListNotificationBundle.generateBundle(
+        defaultFilterProvider.getFilterPreferenceValue(filter));
   }
 
   @Override

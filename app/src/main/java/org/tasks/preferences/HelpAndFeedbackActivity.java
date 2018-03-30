@@ -19,8 +19,10 @@ public class HelpAndFeedbackActivity extends InjectingPreferenceActivity {
 
     addPreferencesFromResource(R.xml.preferences_help);
 
-    Intent mailto = new Intent(Intent.ACTION_SENDTO,
-        Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null));
+    Intent mailto =
+        new Intent(
+            Intent.ACTION_SENDTO,
+            Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null));
     mailto.putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
     mailto.putExtra(Intent.EXTRA_TEXT, device.getDebugInfo());
     findPreference(getString(R.string.contact_developer)).setIntent(mailto);

@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks;
 
 import static junit.framework.Assert.assertEquals;
@@ -110,8 +109,10 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
     if (expectedParent == null) {
       assertEquals("Task " + task.getTitle() + " parent none", 0, parent);
     } else {
-      assertEquals("Task " + task.getTitle() + " parent " +
-          expectedParent.getTitle(), expectedParent.getId(), parent);
+      assertEquals(
+          "Task " + task.getTitle() + " parent " + expectedParent.getTitle(),
+          expectedParent.getId(),
+          parent);
     }
   }
 
@@ -120,8 +121,10 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
     if (expectedSibling == null) {
       assertEquals("Task " + task.getTitle() + " sibling null", 0L, sibling);
     } else {
-      assertEquals("Task " + task.getTitle() + " sibling " +
-          expectedSibling.getTitle(), expectedSibling.getId(), sibling);
+      assertEquals(
+          "Task " + task.getTitle() + " sibling " + expectedSibling.getTitle(),
+          expectedSibling.getId(),
+          sibling);
     }
   }
 
@@ -130,8 +133,10 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
     if (expectedParent == null) {
       assertEquals("Task " + task.getTitle() + " parent null", 0L, parent);
     } else {
-      assertEquals("Task " + task.getTitle() + " parent " +
-          expectedParent.getTitle(), expectedParent.getId(), parent);
+      assertEquals(
+          "Task " + task.getTitle() + " parent " + expectedParent.getTitle(),
+          expectedParent.getId(),
+          parent);
     }
   }
 
@@ -162,23 +167,20 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
     }
   }
 
-  /**
-   * A
-   * B
-   * C
-   * D
-   * E
-   */
+  // A
+  //  B
+  //  C
+  //   D
+  // E
   private Task[] givenTasksABCDE() {
-    return new Task[]{
-        createTask("A", 0, 0),
-        createTask("B", 1, 1),
-        createTask("C", 2, 1),
-        createTask("D", 3, 2),
-        createTask("E", 4, 0),
+    return new Task[] {
+      createTask("A", 0, 0),
+      createTask("B", 1, 1),
+      createTask("C", 2, 1),
+      createTask("D", 3, 2),
+      createTask("E", 4, 0),
     };
   }
-
 
   private Task createTask(String title, long order, int indent) {
     Task task = new Task();

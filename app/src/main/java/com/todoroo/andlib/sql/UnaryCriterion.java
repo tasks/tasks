@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
@@ -23,9 +22,7 @@ public class UnaryCriterion extends Criterion {
     return new UnaryCriterion(expression, Operator.eq, value);
   }
 
-  /**
-   * Sanitize the given input for SQL
-   */
+  /** Sanitize the given input for SQL */
   public static String sanitize(String input) {
     return input.replace("'", "''");
   }

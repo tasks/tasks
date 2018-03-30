@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
@@ -13,15 +12,12 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import org.tasks.R;
 
-/**
- * This class exists purely to cancel long click events.
- */
+/** This class exists purely to cancel long click events. */
 public class NumberPickerButton extends AppCompatImageButton {
 
   private NumberPicker mNumberPicker;
 
-  public NumberPickerButton(Context context, AttributeSet attrs,
-      int defStyle) {
+  public NumberPickerButton(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
   }
 
@@ -51,8 +47,7 @@ public class NumberPickerButton extends AppCompatImageButton {
 
   @Override
   public boolean onKeyUp(int keyCode, KeyEvent event) {
-    if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER)
-        || (keyCode == KeyEvent.KEYCODE_ENTER)) {
+    if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER) || (keyCode == KeyEvent.KEYCODE_ENTER)) {
       cancelLongpress();
     }
     return super.onKeyUp(keyCode, event);

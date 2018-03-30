@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.alarms;
 
 import java.util.LinkedHashSet;
@@ -91,27 +90,21 @@ public class AlarmService {
     return alarmDao.getActiveAlarms(taskId);
   }
 
-  /**
-   * Schedules all alarms
-   */
+  /** Schedules all alarms */
   public void scheduleAllAlarms() {
     for (Alarm alarm : getActiveAlarms()) {
       scheduleAlarm(alarm);
     }
   }
 
-  /**
-   * Schedules alarms for a single task
-   */
+  /** Schedules alarms for a single task */
   private void scheduleAlarms(long taskId) {
     for (Alarm alarm : getActiveAlarmsForTask(taskId)) {
       scheduleAlarm(alarm);
     }
   }
 
-  /**
-   * Schedules alarms for a single task
-   */
+  /** Schedules alarms for a single task */
   private void scheduleAlarm(Alarm alarm) {
     if (alarm == null) {
       return;

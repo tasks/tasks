@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.backup;
 
 import android.app.Activity;
@@ -40,8 +39,8 @@ import timber.log.Timber;
 
 public class TasksXmlImporter {
 
-  private static final String FORMAT2 = "2"; //$NON-NLS-1$
-  private static final String FORMAT3 = "3"; //$NON-NLS-1$
+  private static final String FORMAT2 = "2"; // $NON-NLS-1$
+  private static final String FORMAT3 = "3"; // $NON-NLS-1$
   private final TagDataDao tagDataDao;
   private final UserActivityDao userActivityDao;
   private final DialogBuilder dialogBuilder;
@@ -61,10 +60,16 @@ public class TasksXmlImporter {
   private String input;
 
   @Inject
-  public TasksXmlImporter(TagDataDao tagDataDao, UserActivityDao userActivityDao,
-      DialogBuilder dialogBuilder, TaskDao taskDao, LocationDao locationDao,
-      LocalBroadcastManager localBroadcastManager, AlarmDao alarmDao,
-      TagDao tagDao, GoogleTaskDao googleTaskDao) {
+  public TasksXmlImporter(
+      TagDataDao tagDataDao,
+      UserActivityDao userActivityDao,
+      DialogBuilder dialogBuilder,
+      TaskDao taskDao,
+      LocationDao locationDao,
+      LocalBroadcastManager localBroadcastManager,
+      AlarmDao alarmDao,
+      TagDao tagDao,
+      GoogleTaskDao googleTaskDao) {
     this.tagDataDao = tagDataDao;
     this.userActivityDao = userActivityDao;
     this.dialogBuilder = dialogBuilder;
@@ -87,13 +92,15 @@ public class TasksXmlImporter {
 
     handler = new Handler();
 
-    new Thread(() -> {
-      try {
-        performImport();
-      } catch (IOException | XmlPullParserException e) {
-        Timber.e(e, e.getMessage());
-      }
-    }).start();
+    new Thread(
+            () -> {
+              try {
+                performImport();
+              } catch (IOException | XmlPullParserException e) {
+                Timber.e(e, e.getMessage());
+              }
+            })
+        .start();
   }
 
   // --- importers
@@ -122,33 +129,36 @@ public class TasksXmlImporter {
               new Format3TaskImporter(xpp);
             } else {
               throw new UnsupportedOperationException(
-                  "Did not know how to import tasks with xml format '" +
-                      format + "'");
+                  "Did not know how to import tasks with xml format '" + format + "'");
             }
           }
         }
       }
     } finally {
       localBroadcastManager.broadcastRefresh();
-      handler.post(() -> {
-        if (progressDialog.isShowing()) {
-          DialogUtilities.dismissDialog(activity, progressDialog);
-          showSummary();
-        }
-      });
+      handler.post(
+          () -> {
+            if (progressDialog.isShowing()) {
+              DialogUtilities.dismissDialog(activity, progressDialog);
+              showSummary();
+            }
+          });
     }
   }
 
   private void showSummary() {
     Resources r = activity.getResources();
-    dialogBuilder.newDialog()
+    dialogBuilder
+        .newDialog()
         .setTitle(R.string.import_summary_title)
-        .setMessage(activity.getString(R.string.import_summary_message,
-            input,
-            r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
-            r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
-            r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
-            r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount)))
+        .setMessage(
+            activity.getString(
+                R.string.import_summary_message,
+                input,
+                r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
+                r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
+                r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
+                r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount)))
         .setPositiveButton(android.R.string.ok, (dialog, id) -> dialog.dismiss())
         .show();
   }
@@ -160,8 +170,7 @@ public class TasksXmlImporter {
     XmlPullParser xpp;
     Task currentTask;
 
-    Format2TaskImporter() {
-    }
+    Format2TaskImporter() {}
 
     Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
       this.xpp = xpp;
@@ -206,10 +215,7 @@ public class TasksXmlImporter {
       }
     }
 
-    /**
-     * Imports a comment from the XML we're reading.
-     * taken from EditNoteActivity.addComment()
-     */
+    /** Imports a comment from the XML we're reading. taken from EditNoteActivity.addComment() */
     void parseComment() {
       if (!currentTask.isSaved()) {
         return;

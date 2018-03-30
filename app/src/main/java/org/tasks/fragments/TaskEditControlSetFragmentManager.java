@@ -29,37 +29,39 @@ import org.tasks.ui.TaskEditControlFragment;
 
 public class TaskEditControlSetFragmentManager {
 
-  public static final int[] TASK_EDIT_CONTROL_FRAGMENT_ROWS = new int[]{
-      R.id.row_title,
-      R.id.comment_bar,
-      R.id.row_1,
-      R.id.row_2,
-      R.id.row_3,
-      R.id.row_4,
-      R.id.row_5,
-      R.id.row_6,
-      R.id.row_7,
-      R.id.row_8,
-      R.id.row_9,
-      R.id.row_10,
-      R.id.row_11
-  };
+  public static final int[] TASK_EDIT_CONTROL_FRAGMENT_ROWS =
+      new int[] {
+        R.id.row_title,
+        R.id.comment_bar,
+        R.id.row_1,
+        R.id.row_2,
+        R.id.row_3,
+        R.id.row_4,
+        R.id.row_5,
+        R.id.row_6,
+        R.id.row_7,
+        R.id.row_8,
+        R.id.row_9,
+        R.id.row_10,
+        R.id.row_11
+      };
 
-  private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS = new int[]{
-      EditTitleControlSet.TAG,
-      DeadlineControlSet.TAG,
-      TimerControlSet.TAG,
-      DescriptionControlSet.TAG,
-      CalendarControlSet.TAG,
-      PriorityControlSet.TAG,
-      HideUntilControlSet.TAG,
-      ReminderControlSet.TAG,
-      FilesControlSet.TAG,
-      TagsControlSet.TAG,
-      RepeatControlSet.TAG,
-      CommentBarFragment.TAG,
-      RemoteListFragment.TAG
-  };
+  private static final int[] TASK_EDIT_CONTROL_SET_FRAGMENTS =
+      new int[] {
+        EditTitleControlSet.TAG,
+        DeadlineControlSet.TAG,
+        TimerControlSet.TAG,
+        DescriptionControlSet.TAG,
+        CalendarControlSet.TAG,
+        PriorityControlSet.TAG,
+        HideUntilControlSet.TAG,
+        ReminderControlSet.TAG,
+        FilesControlSet.TAG,
+        TagsControlSet.TAG,
+        RepeatControlSet.TAG,
+        CommentBarFragment.TAG,
+        RemoteListFragment.TAG
+      };
 
   static {
     if (BuildConfig.DEBUG
@@ -73,8 +75,8 @@ public class TaskEditControlSetFragmentManager {
   private final SyncAdapters syncAdapters;
   private int numRows;
 
-  public TaskEditControlSetFragmentManager(Activity activity, Preferences preferences,
-      SyncAdapters syncAdapters) {
+  public TaskEditControlSetFragmentManager(
+      Activity activity, Preferences preferences, SyncAdapters syncAdapters) {
     this.syncAdapters = syncAdapters;
     displayOrder = BeastModePreferences.constructOrderedControlList(preferences, activity);
     displayOrder.add(0, activity.getString(EditTitleControlSet.TAG));
@@ -94,8 +96,8 @@ public class TaskEditControlSetFragmentManager {
   public List<TaskEditControlFragment> getFragmentsInPersistOrder(FragmentManager fragmentManager) {
     List<TaskEditControlFragment> fragments = new ArrayList<>();
     for (String tag : controlSetFragments.keySet()) {
-      TaskEditControlFragment fragment = (TaskEditControlFragment) fragmentManager
-          .findFragmentByTag(tag);
+      TaskEditControlFragment fragment =
+          (TaskEditControlFragment) fragmentManager.findFragmentByTag(tag);
       if (fragment != null) {
         fragments.add(fragment);
       }
@@ -103,16 +105,16 @@ public class TaskEditControlSetFragmentManager {
     return fragments;
   }
 
-  public List<TaskEditControlFragment> getOrCreateFragments(FragmentManager fragmentManager,
-      Task task) {
+  public List<TaskEditControlFragment> getOrCreateFragments(
+      FragmentManager fragmentManager, Task task) {
     Bundle arguments = new Bundle();
     arguments.putParcelable(TaskEditControlFragment.EXTRA_TASK, task);
 
     List<TaskEditControlFragment> fragments = new ArrayList<>();
     for (int i = 0; i < numRows; i++) {
       String tag = displayOrder.get(i);
-      TaskEditControlFragment fragment = (TaskEditControlFragment) fragmentManager
-          .findFragmentByTag(tag);
+      TaskEditControlFragment fragment =
+          (TaskEditControlFragment) fragmentManager.findFragmentByTag(tag);
       if (fragment == null) {
         Integer resId = controlSetFragments.get(tag);
         fragment = createFragment(resId);
@@ -153,9 +155,7 @@ public class TaskEditControlSetFragmentManager {
       case CommentBarFragment.TAG:
         return new CommentBarFragment();
       case RemoteListFragment.TAG:
-        return syncAdapters.isSyncEnabled()
-            ? new RemoteListFragment()
-            : null;
+        return syncAdapters.isSyncEnabled() ? new RemoteListFragment() : null;
       default:
         throw new RuntimeException("Unsupported fragment");
     }

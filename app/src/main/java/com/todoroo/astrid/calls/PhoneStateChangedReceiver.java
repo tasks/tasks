@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.calls;
 
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -141,13 +140,14 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
   private Cursor getMissedCalls() {
     if (permissionChecker.canAccessMissedCallPermissions()) {
       //noinspection MissingPermission
-      return context.getContentResolver().query(
-          Calls.CONTENT_URI,
-          new String[]{Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME},
-          Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
-          new String[]{Integer.toString(Calls.MISSED_TYPE), "1"},
-          Calls.DATE + " DESC"
-      );
+      return context
+          .getContentResolver()
+          .query(
+              Calls.CONTENT_URI,
+              new String[] {Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME},
+              Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
+              new String[] {Integer.toString(Calls.MISSED_TYPE), "1"},
+              Calls.DATE + " DESC");
     }
     return null;
   }
@@ -172,10 +172,12 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
   }
 
   private long getContactIdFromNumber(Context context, String number) {
-    Uri contactUri = Uri
-        .withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-    Cursor c = context.getContentResolver()
-        .query(contactUri, new String[]{ContactsContract.PhoneLookup._ID}, null, null, null);
+    Uri contactUri =
+        Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+    Cursor c =
+        context
+            .getContentResolver()
+            .query(contactUri, new String[] {ContactsContract.PhoneLookup._ID}, null, null, null);
 
     try {
       if (c.moveToFirst()) {
@@ -187,10 +189,10 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
     return -1;
   }
 
-  private void triggerMissedCallNotification(final String name, final String number,
-      long contactId) {
-    final String title = context
-        .getString(R.string.missed_call, TextUtils.isEmpty(name) ? number : name);
+  private void triggerMissedCallNotification(
+      final String name, final String number, long contactId) {
+    final String title =
+        context.getString(R.string.missed_call, TextUtils.isEmpty(name) ? number : name);
 
     Intent missedCallDialog = new Intent(context, MissedCallActivity.class);
     missedCallDialog.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -198,17 +200,20 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
     missedCallDialog.putExtra(MissedCallActivity.EXTRA_NAME, name);
     missedCallDialog.putExtra(MissedCallActivity.EXTRA_TITLE, title);
 
-    NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-        NotificationManager.NOTIFICATION_CHANNEL_CALLS)
-        .setTicker(title)
-        .setContentTitle(title)
-        .setContentText(context.getString(R.string.app_name))
-        .setWhen(currentTimeMillis())
-        .setShowWhen(true)
-        .setSmallIcon(R.drawable.ic_check_white_24dp)
-        .setContentIntent(PendingIntent
-            .getActivity(context, missedCallDialog.hashCode(), missedCallDialog,
-                PendingIntent.FLAG_UPDATE_CURRENT));
+    NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_CALLS)
+            .setTicker(title)
+            .setContentTitle(title)
+            .setContentText(context.getString(R.string.app_name))
+            .setWhen(currentTimeMillis())
+            .setShowWhen(true)
+            .setSmallIcon(R.drawable.ic_check_white_24dp)
+            .setContentIntent(
+                PendingIntent.getActivity(
+                    context,
+                    missedCallDialog.hashCode(),
+                    missedCallDialog,
+                    PendingIntent.FLAG_UPDATE_CURRENT));
 
     Bitmap contactImage = getContactImage(contactId);
     if (contactImage != null) {
@@ -229,12 +234,16 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
     callLater.putExtra(MissedCallActivity.EXTRA_TITLE, title);
     callLater.putExtra(MissedCallActivity.EXTRA_CALL_LATER, true);
     builder
-        .addAction(R.drawable.ic_phone_white_24dp, context.getString(R.string.MCA_return_call),
-            PendingIntent.getActivity(context, callNow.hashCode(), callNow,
-                PendingIntent.FLAG_UPDATE_CURRENT))
-        .addAction(R.drawable.ic_add_white_24dp, context.getString(R.string.MCA_add_task),
-            PendingIntent.getActivity(context, callLater.hashCode(), callLater,
-                PendingIntent.FLAG_UPDATE_CURRENT));
+        .addAction(
+            R.drawable.ic_phone_white_24dp,
+            context.getString(R.string.MCA_return_call),
+            PendingIntent.getActivity(
+                context, callNow.hashCode(), callNow, PendingIntent.FLAG_UPDATE_CURRENT))
+        .addAction(
+            R.drawable.ic_add_white_24dp,
+            context.getString(R.string.MCA_add_task),
+            PendingIntent.getActivity(
+                context, callLater.hashCode(), callLater, PendingIntent.FLAG_UPDATE_CURRENT));
 
     notificationManager.notify(number.hashCode(), builder, true, false, false);
   }
@@ -243,8 +252,8 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
     Bitmap b = null;
     if (contactId >= 0) {
       Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
-      InputStream input = ContactsContract.Contacts
-          .openContactPhotoInputStream(context.getContentResolver(), uri);
+      InputStream input =
+          ContactsContract.Contacts.openContactPhotoInputStream(context.getContentResolver(), uri);
       try {
         b = BitmapFactory.decodeStream(input);
       } catch (OutOfMemoryError e) {

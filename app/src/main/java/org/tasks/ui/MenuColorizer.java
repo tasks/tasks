@@ -27,9 +27,8 @@ import android.view.SubMenu;
 import org.tasks.R;
 
 /**
- * Helper class to set the color and transparency for menu icons in an ActionBar/Toolbar.</p>
- *
- * Example usage:
+ * Helper class to set the color and transparency for menu icons in an ActionBar/Toolbar. Example
+ * usage:
  *
  * <pre>
  * <code>
@@ -48,8 +47,7 @@ import org.tasks.R;
  */
 public class MenuColorizer {
 
-  private MenuColorizer() {
-  }
+  private MenuColorizer() {}
 
   public static void colorToolbar(Context context, Toolbar toolbar) {
     TypedValue typedValue = new TypedValue();
@@ -69,9 +67,7 @@ public class MenuColorizer {
     colorMenu(menu, typedValue.data);
   }
 
-  /**
-   * Sets a color filter on all menu icons, including the overflow button (if it exists)
-   */
+  /** Sets a color filter on all menu icons, including the overflow button (if it exists) */
   private static void colorMenu(final Menu menu, final int color) {
     for (int i = 0, size = menu.size(); i < size; i++) {
       final MenuItem menuItem = menu.getItem(i);
@@ -85,9 +81,7 @@ public class MenuColorizer {
     }
   }
 
-  /**
-   * Sets a color filter on a {@link MenuItem}
-   */
+  /** Sets a color filter on a {@link MenuItem} */
   private static void colorMenuItem(final MenuItem menuItem, final int color) {
     colorDrawable(menuItem.getIcon(), color);
   }

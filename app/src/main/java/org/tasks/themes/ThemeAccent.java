@@ -7,36 +7,38 @@ import org.tasks.dialogs.ColorPickerDialog;
 
 public class ThemeAccent implements ColorPickerDialog.Pickable {
 
-  static final int[] ACCENTS = new int[]{
-      R.style.BlueGreyAccent,
-      R.style.RedAccent,
-      R.style.PinkAccent,
-      R.style.PurpleAccent,
-      R.style.DeepPurpleAccent,
-      R.style.IndigoAccent,
-      R.style.BlueAccent,
-      R.style.LightBlueAccent,
-      R.style.CyanAccent,
-      R.style.TealAccent,
-      R.style.GreenAccent,
-      R.style.LightGreenAccent,
-      R.style.LimeAccent,
-      R.style.YellowAccent,
-      R.style.AmberAccent,
-      R.style.OrangeAccent,
-      R.style.DeepOrangeAccent
-  };
-  public static Creator<ThemeAccent> CREATOR = new Creator<ThemeAccent>() {
-    @Override
-    public ThemeAccent createFromParcel(Parcel source) {
-      return new ThemeAccent(source);
-    }
+  static final int[] ACCENTS =
+      new int[] {
+        R.style.BlueGreyAccent,
+        R.style.RedAccent,
+        R.style.PinkAccent,
+        R.style.PurpleAccent,
+        R.style.DeepPurpleAccent,
+        R.style.IndigoAccent,
+        R.style.BlueAccent,
+        R.style.LightBlueAccent,
+        R.style.CyanAccent,
+        R.style.TealAccent,
+        R.style.GreenAccent,
+        R.style.LightGreenAccent,
+        R.style.LimeAccent,
+        R.style.YellowAccent,
+        R.style.AmberAccent,
+        R.style.OrangeAccent,
+        R.style.DeepOrangeAccent
+      };
+  public static Creator<ThemeAccent> CREATOR =
+      new Creator<ThemeAccent>() {
+        @Override
+        public ThemeAccent createFromParcel(Parcel source) {
+          return new ThemeAccent(source);
+        }
 
-    @Override
-    public ThemeAccent[] newArray(int size) {
-      return new ThemeAccent[size];
-    }
-  };
+        @Override
+        public ThemeAccent[] newArray(int size) {
+          return new ThemeAccent[size];
+        }
+      };
   private final String name;
   private final int index;
   private final int style;

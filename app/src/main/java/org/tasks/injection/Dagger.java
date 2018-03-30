@@ -14,15 +14,15 @@ class Dagger {
   private Dagger(Context context) {
     Context localeContext = context.getApplicationContext();
     try {
-      localeContext = Locale.getInstance(localeContext)
-          .createConfigurationContext(localeContext);
+      localeContext = Locale.getInstance(localeContext).createConfigurationContext(localeContext);
     } catch (Exception e) {
       Timber.e(e.getMessage(), e);
     }
 
-    applicationComponent = DaggerApplicationComponent.builder()
-        .applicationModule(new ApplicationModule(localeContext))
-        .build();
+    applicationComponent =
+        DaggerApplicationComponent.builder()
+            .applicationModule(new ApplicationModule(localeContext))
+            .build();
   }
 
   public static Dagger get(Context context) {

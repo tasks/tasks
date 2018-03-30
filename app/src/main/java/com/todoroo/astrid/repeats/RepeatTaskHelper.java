@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.repeats;
 
 import static org.tasks.date.DateTimeUtils.newDate;
@@ -35,16 +34,19 @@ import timber.log.Timber;
 
 public class RepeatTaskHelper {
 
-  private static final Comparator<WeekdayNum> weekdayCompare = (object1, object2) ->
-      object1.wday.javaDayNum - object2.wday.javaDayNum;
+  private static final Comparator<WeekdayNum> weekdayCompare =
+      (object1, object2) -> object1.wday.javaDayNum - object2.wday.javaDayNum;
   private final GCalHelper gcalHelper;
   private final TaskDao taskDao;
   private final LocalBroadcastManager localBroadcastManager;
   private final AlarmService alarmService;
 
   @Inject
-  public RepeatTaskHelper(GCalHelper gcalHelper, AlarmService alarmService,
-      TaskDao taskDao, LocalBroadcastManager localBroadcastManager) {
+  public RepeatTaskHelper(
+      GCalHelper gcalHelper,
+      AlarmService alarmService,
+      TaskDao taskDao,
+      LocalBroadcastManager localBroadcastManager) {
     this.gcalHelper = gcalHelper;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
@@ -52,13 +54,11 @@ public class RepeatTaskHelper {
   }
 
   private static boolean repeatFinished(long newDueDate, long repeatUntil) {
-    return repeatUntil > 0 && newDateTime(newDueDate).startOfDay()
-        .isAfter(newDateTime(repeatUntil).startOfDay());
+    return repeatUntil > 0
+        && newDateTime(newDueDate).startOfDay().isAfter(newDateTime(repeatUntil).startOfDay());
   }
 
-  /**
-   * Compute next due date
-   */
+  /** Compute next due date */
   static long computeNextDueDate(Task task, String recurrence, boolean repeatAfterCompletion)
       throws ParseException {
     RRule rrule = initRRule(recurrence);
@@ -69,7 +69,8 @@ public class RepeatTaskHelper {
 
     if (rrule.getFreq() == Frequency.HOURLY || rrule.getFreq() == Frequency.MINUTELY) {
       return handleSubdayRepeat(original, rrule);
-    } else if (rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0
+    } else if (rrule.getFreq() == Frequency.WEEKLY
+        && rrule.getByDay().size() > 0
         && repeatAfterCompletion) {
       return handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime());
     } else if (rrule.getFreq() == Frequency.MONTHLY && rrule.getByDay().isEmpty()) {
@@ -79,8 +80,8 @@ public class RepeatTaskHelper {
     }
   }
 
-  private static long handleWeeklyRepeatAfterComplete(RRule rrule, DateTime original,
-      boolean hasDueTime) {
+  private static long handleWeeklyRepeatAfterComplete(
+      RRule rrule, DateTime original, boolean hasDueTime) {
     List<WeekdayNum> byDay = rrule.getByDay();
     long newDate = original.getMillis();
     newDate += DateUtilities.ONE_WEEK * (rrule.getInterval() - 1);
@@ -101,15 +102,13 @@ public class RepeatTaskHelper {
     }
   }
 
-  private static long handleMonthlyRepeat(DateTime original, DateValue startDateAsDV,
-      boolean hasDueTime, RRule rrule) {
+  private static long handleMonthlyRepeat(
+      DateTime original, DateValue startDateAsDV, boolean hasDueTime, RRule rrule) {
     if (original.isLastDayOfMonth()) {
       int interval = rrule.getInterval();
 
       DateTime newDateTime = original.plusMonths(interval);
-      long time = newDateTime
-          .withDayOfMonth(newDateTime.getNumberOfDaysInMonth())
-          .getMillis();
+      long time = newDateTime.withDayOfMonth(newDateTime.getNumberOfDaysInMonth()).getMillis();
       if (hasDueTime) {
         return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
       } else {
@@ -132,8 +131,9 @@ public class RepeatTaskHelper {
 
   private static long invokeRecurrence(RRule rrule, DateTime original, DateValue startDateAsDV) {
     long newDueDate = -1;
-    RecurrenceIterator iterator = RecurrenceIteratorFactory.createRecurrenceIterator(rrule,
-        startDateAsDV, TimeZone.getDefault());
+    RecurrenceIterator iterator =
+        RecurrenceIteratorFactory.createRecurrenceIterator(
+            rrule, startDateAsDV, TimeZone.getDefault());
     DateValue nextDate;
 
     for (int i = 0; i < 10; i++) { // ten tries then we give up
@@ -156,32 +156,34 @@ public class RepeatTaskHelper {
     return newDueDate;
   }
 
-  /**
-   * Compute long due date from DateValue
-   */
+  /** Compute long due date from DateValue */
   private static long buildNewDueDate(DateTime original, DateValue nextDate) {
     long newDueDate;
     if (nextDate instanceof DateTimeValueImpl) {
       DateTimeValueImpl newDateTime = (DateTimeValueImpl) nextDate;
-      DateTime date = newDateUtc(newDateTime.year(), newDateTime.month(),
-          newDateTime.day(), newDateTime.hour(),
-          newDateTime.minute(), newDateTime.second())
-          .toLocal();
+      DateTime date =
+          newDateUtc(
+                  newDateTime.year(),
+                  newDateTime.month(),
+                  newDateTime.day(),
+                  newDateTime.hour(),
+                  newDateTime.minute(),
+                  newDateTime.second())
+              .toLocal();
       // time may be inaccurate due to DST, force time to be same
-      date = date
-          .withHourOfDay(original.getHourOfDay())
-          .withMinuteOfHour(original.getMinuteOfHour());
+      date =
+          date.withHourOfDay(original.getHourOfDay()).withMinuteOfHour(original.getMinuteOfHour());
       newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, date.getMillis());
     } else {
-      newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
-          newDate(nextDate.year(), nextDate.month(), nextDate.day()).getMillis());
+      newDueDate =
+          Task.createDueDate(
+              Task.URGENCY_SPECIFIC_DAY,
+              newDate(nextDate.year(), nextDate.month(), nextDate.day()).getMillis());
     }
     return newDueDate;
   }
 
-  /**
-   * Initialize RRule instance
-   */
+  /** Initialize RRule instance */
   private static RRule initRRule(String recurrence) throws ParseException {
     RRule rrule = new RRule(recurrence);
 
@@ -194,20 +196,19 @@ public class RepeatTaskHelper {
     return rrule;
   }
 
-  /**
-   * Set up repeat start date
-   */
-  private static DateTime setUpStartDate(Task task, boolean repeatAfterCompletion,
-      Frequency frequency) {
+  /** Set up repeat start date */
+  private static DateTime setUpStartDate(
+      Task task, boolean repeatAfterCompletion, Frequency frequency) {
     if (repeatAfterCompletion) {
       DateTime startDate =
           task.isCompleted() ? newDateTime(task.getCompletionDate()) : newDateTime();
       if (task.hasDueTime() && frequency != Frequency.HOURLY && frequency != Frequency.MINUTELY) {
         DateTime dueDate = newDateTime(task.getDueDate());
-        startDate = startDate
-            .withHourOfDay(dueDate.getHourOfDay())
-            .withMinuteOfHour(dueDate.getMinuteOfHour())
-            .withSecondOfMinute(dueDate.getSecondOfMinute());
+        startDate =
+            startDate
+                .withHourOfDay(dueDate.getHourOfDay())
+                .withMinuteOfHour(dueDate.getMinuteOfHour())
+                .withSecondOfMinute(dueDate.getSecondOfMinute());
       }
       return startDate;
     } else {
@@ -217,12 +218,16 @@ public class RepeatTaskHelper {
 
   private static DateValue setUpStartDateAsDV(Task task, DateTime startDate) {
     if (task.hasDueTime()) {
-      return new DateTimeValueImpl(startDate.getYear(),
-          startDate.getMonthOfYear(), startDate.getDayOfMonth(),
-          startDate.getHourOfDay(), startDate.getMinuteOfHour(), startDate.getSecondOfMinute());
+      return new DateTimeValueImpl(
+          startDate.getYear(),
+          startDate.getMonthOfYear(),
+          startDate.getDayOfMonth(),
+          startDate.getHourOfDay(),
+          startDate.getMinuteOfHour(),
+          startDate.getSecondOfMinute());
     } else {
-      return new DateValueImpl(startDate.getYear(),
-          startDate.getMonthOfYear(), startDate.getDayOfMonth());
+      return new DateValueImpl(
+          startDate.getYear(), startDate.getMonthOfYear(), startDate.getDayOfMonth());
     }
   }
 
@@ -236,7 +241,8 @@ public class RepeatTaskHelper {
         millis = DateUtilities.ONE_MINUTE;
         break;
       default:
-        throw new RuntimeException("Error handing subday repeat: " + rrule.getFreq()); //$NON-NLS-1$
+        throw new RuntimeException(
+            "Error handing subday repeat: " + rrule.getFreq()); // $NON-NLS-1$
     }
     long newDueDate = startDate.getMillis() + millis * rrule.getInterval();
     return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDueDate);
@@ -288,5 +294,4 @@ public class RepeatTaskHelper {
       localBroadcastManager.broadcastRepeat(task.getId(), oldDueDate, newDueDate);
     }
   }
-
 }

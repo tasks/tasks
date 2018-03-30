@@ -22,13 +22,16 @@ public interface GoogleTaskDao {
   @Update
   void update(GoogleTask googleTask);
 
-  @Query("SELECT * FROM google_tasks WHERE list_id = :listId AND parent = :parent ORDER BY remote_order ASC")
+  @Query(
+      "SELECT * FROM google_tasks WHERE list_id = :listId AND parent = :parent ORDER BY remote_order ASC")
   List<GoogleTask> byRemoteOrder(String listId, long parent);
 
-  @Query("SELECT * FROM google_tasks WHERE list_id = :listId AND `order` > :startAtOrder - 1 ORDER BY `order` ASC ")
+  @Query(
+      "SELECT * FROM google_tasks WHERE list_id = :listId AND `order` > :startAtOrder - 1 ORDER BY `order` ASC ")
   List<GoogleTask> getTasksFrom(String listId, long startAtOrder);
 
-  @Query("SELECT * FROM google_tasks WHERE list_id = :listId AND `order` < :startAtOrder ORDER BY `order` DESC")
+  @Query(
+      "SELECT * FROM google_tasks WHERE list_id = :listId AND `order` < :startAtOrder ORDER BY `order` DESC")
   List<GoogleTask> getTasksFromReverse(String listId, long startAtOrder);
 
   @Query("DELETE FROM google_tasks WHERE task = :taskId")

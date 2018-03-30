@@ -18,13 +18,11 @@ package com.android.vending.billing;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Represents an in-app billing purchase.
- */
+/** Represents an in-app billing purchase. */
 @SuppressWarnings("ALL")
 public class Purchase {
 
-  String mItemType;  // ITEM_TYPE_INAPP or ITEM_TYPE_SUBS
+  String mItemType; // ITEM_TYPE_INAPP or ITEM_TYPE_SUBS
   String mOrderId;
   String mPackageName;
   String mSku;

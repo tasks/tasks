@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gtasks;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -32,9 +31,12 @@ public class GtasksListService {
   private final TaskDao taskDao;
 
   @Inject
-  public GtasksListService(GoogleTaskListDao googleTaskListDao,
-      TaskDeleter taskDeleter, LocalBroadcastManager localBroadcastManager,
-      GoogleTaskDao googleTaskDao, TaskDao taskDao) {
+  public GtasksListService(
+      GoogleTaskListDao googleTaskListDao,
+      TaskDeleter taskDeleter,
+      LocalBroadcastManager localBroadcastManager,
+      GoogleTaskDao googleTaskDao,
+      TaskDao taskDao) {
     this.googleTaskListDao = googleTaskListDao;
     this.taskDeleter = taskDeleter;
     this.localBroadcastManager = localBroadcastManager;
@@ -113,8 +115,9 @@ public class GtasksListService {
       long lastUpdate = remoteList.getUpdated().getValue();
       if (lastSync < lastUpdate) {
         listsToUpdate.add(localList);
-        Timber.d("%s out of date [local=%s] [remote=%s]", listName, printTimestamp(lastSync),
-            printTimestamp(lastUpdate));
+        Timber.d(
+            "%s out of date [local=%s] [remote=%s]",
+            listName, printTimestamp(lastSync), printTimestamp(lastUpdate));
       } else {
         Timber.d("%s up to date", listName);
       }

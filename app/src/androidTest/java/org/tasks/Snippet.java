@@ -1,5 +1,3 @@
 package org.tasks;
 
-public class Snippet {
-
-}
+public class Snippet {}

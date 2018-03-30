@@ -43,8 +43,9 @@ public class GtasksListServiceTest extends InjectingTestCase {
   @Override
   public void setUp() {
     super.setUp();
-    gtasksListService = new GtasksListService(googleTaskListDao, taskDeleter,
-        localBroadcastManager, googleTaskDao, taskDao);
+    gtasksListService =
+        new GtasksListService(
+            googleTaskListDao, taskDeleter, localBroadcastManager, googleTaskDao, taskDao);
   }
 
   @Override
@@ -54,15 +55,12 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
   @Test
   public void testCreateNewList() {
-    setLists(newRemoteList(
-        with(RemoteGtaskListMaker.REMOTE_ID, "1"),
-        with(RemoteGtaskListMaker.NAME, "Default")));
+    setLists(
+        newRemoteList(
+            with(RemoteGtaskListMaker.REMOTE_ID, "1"), with(RemoteGtaskListMaker.NAME, "Default")));
 
     assertEquals(
-        newGtaskList(
-            with(ID, 1L),
-            with(REMOTE_ID, "1"),
-            with(NAME, "Default")),
+        newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(NAME, "Default")),
         googleTaskListDao.getById(1L));
   }
 
@@ -87,20 +85,19 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
     setLists(taskList);
 
-    assertEquals(singletonList(newGtaskList(with(ID, 2L), with(REMOTE_ID, "2"))),
+    assertEquals(
+        singletonList(newGtaskList(with(ID, 2L), with(REMOTE_ID, "2"))),
         googleTaskListDao.getActiveLists());
   }
 
   @Test
   public void testUpdateListName() {
-    googleTaskListDao.insertOrReplace(newGtaskList(
-        with(ID, 1L),
-        with(REMOTE_ID, "1"),
-        with(NAME, "oldName")));
+    googleTaskListDao.insertOrReplace(
+        newGtaskList(with(ID, 1L), with(REMOTE_ID, "1"), with(NAME, "oldName")));
 
-    setLists(newRemoteList(
-        with(RemoteGtaskListMaker.REMOTE_ID, "1"),
-        with(RemoteGtaskListMaker.NAME, "newName")));
+    setLists(
+        newRemoteList(
+            with(RemoteGtaskListMaker.REMOTE_ID, "1"), with(RemoteGtaskListMaker.NAME, "newName")));
 
     assertEquals("newName", googleTaskListDao.getById(1).getTitle());
   }
@@ -114,8 +111,8 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
   @Test
   public void testNewListNeedsUpdate() {
-    TaskList taskList = new TaskList().setId("1").setTitle("Default")
-        .setUpdated(new DateTime(currentTimeMillis()));
+    TaskList taskList =
+        new TaskList().setId("1").setTitle("Default").setUpdated(new DateTime(currentTimeMillis()));
 
     setLists(taskList);
 

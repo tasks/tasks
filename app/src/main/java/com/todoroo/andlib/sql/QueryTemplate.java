@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.SqlConstants.COMMA;
@@ -16,8 +15,7 @@ import static java.util.Arrays.asList;
 import java.util.ArrayList;
 
 /**
- * Query Template returns a bunch of criteria that allows a query to be
- * constructed
+ * Query Template returns a bunch of criteria that allows a query to be constructed
  *
  * @author Tim Su <tim@todoroo.com>
  */

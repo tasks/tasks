@@ -21,11 +21,15 @@ public class TaskTest extends InjectingTestCase {
 
   @Test
   public void testSavedTaskHasCreationDate() {
-    freezeClock().thawAfter(new Snippet() {{
-      Task task = new Task();
-      taskDao.createNew(task);
-      assertEquals(currentTimeMillis(), (long) task.getCreationDate());
-    }});
+    freezeClock()
+        .thawAfter(
+            new Snippet() {
+              {
+                Task task = new Task();
+                taskDao.createNew(task);
+                assertEquals(currentTimeMillis(), (long) task.getCreationDate());
+              }
+            });
   }
 
   @Test

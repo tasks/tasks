@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.gcal;
 
 import android.content.ContentResolver;
@@ -28,9 +27,7 @@ import timber.log.Timber;
 
 public class GCalHelper {
 
-  /**
-   * If task has no estimated time, how early to set a task in calendar (seconds)
-   */
+  /** If task has no estimated time, how early to set a task in calendar (seconds) */
   private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
   private final TaskDao taskDao;
@@ -40,8 +37,12 @@ public class GCalHelper {
   private final ContentResolver cr;
 
   @Inject
-  public GCalHelper(@ForApplication Context context, TaskDao taskDao, Preferences preferences,
-      PermissionChecker permissionChecker, CalendarEventProvider calendarEventProvider) {
+  public GCalHelper(
+      @ForApplication Context context,
+      TaskDao taskDao,
+      Preferences preferences,
+      PermissionChecker permissionChecker,
+      CalendarEventProvider calendarEventProvider) {
     this.taskDao = taskDao;
     this.preferences = preferences;
     this.permissionChecker = permissionChecker;
@@ -99,8 +100,9 @@ public class GCalHelper {
       values.put(CalendarContract.Events.TITLE, task.getTitle());
       values.put(CalendarContract.Events.DESCRIPTION, task.getNotes());
       values.put(CalendarContract.Events.HAS_ALARM, 0);
-      boolean valuesContainCalendarId = (values.containsKey(CalendarContract.Events.CALENDAR_ID) &&
-          !TextUtils.isEmpty(values.getAsString(CalendarContract.Events.CALENDAR_ID)));
+      boolean valuesContainCalendarId =
+          (values.containsKey(CalendarContract.Events.CALENDAR_ID)
+              && !TextUtils.isEmpty(values.getAsString(CalendarContract.Events.CALENDAR_ID)));
       if (!valuesContainCalendarId) {
         String calendarId = preferences.getDefaultCalendar();
         if (!TextUtils.isEmpty(calendarId)) {

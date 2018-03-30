@@ -18,9 +18,7 @@ public class Alarm {
   @ColumnInfo(name = "time")
   private long time;
 
-  public Alarm() {
-
-  }
+  public Alarm() {}
 
   @Ignore
   public Alarm(long task, long time) {
@@ -82,10 +80,6 @@ public class Alarm {
 
   @Override
   public String toString() {
-    return "Alarm{" +
-        "id=" + id +
-        ", task=" + task +
-        ", time=" + time +
-        '}';
+    return "Alarm{" + "id=" + id + ", task=" + task + ", time=" + time + '}';
   }
 }

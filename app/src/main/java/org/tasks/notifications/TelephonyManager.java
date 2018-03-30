@@ -10,8 +10,8 @@ public class TelephonyManager {
 
   @Inject
   public TelephonyManager(@ForApplication Context context) {
-    telephonyManager = (android.telephony.TelephonyManager)
-        context.getSystemService(Context.TELEPHONY_SERVICE);
+    telephonyManager =
+        (android.telephony.TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
   }
 
   public boolean callStateIdle() {

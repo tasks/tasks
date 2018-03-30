@@ -15,30 +15,25 @@ import org.tasks.data.CaldavTask;
 
 public class CaldavFilter extends Filter {
 
-  /**
-   * Parcelable Creator Object
-   */
-  public static final Creator<CaldavFilter> CREATOR = new Creator<CaldavFilter>() {
+  /** Parcelable Creator Object */
+  public static final Creator<CaldavFilter> CREATOR =
+      new Creator<CaldavFilter>() {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CaldavFilter createFromParcel(Parcel source) {
-      CaldavFilter item = new CaldavFilter();
-      item.readFromParcel(source);
-      return item;
-    }
+        /** {@inheritDoc} */
+        @Override
+        public CaldavFilter createFromParcel(Parcel source) {
+          CaldavFilter item = new CaldavFilter();
+          item.readFromParcel(source);
+          return item;
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CaldavFilter[] newArray(int size) {
-      return new CaldavFilter[size];
-    }
+        /** {@inheritDoc} */
+        @Override
+        public CaldavFilter[] newArray(int size) {
+          return new CaldavFilter[size];
+        }
+      };
 
-  };
   private static final int TAG = R.drawable.ic_cloud_black_24dp;
   private CaldavAccount account;
 
@@ -56,9 +51,10 @@ public class CaldavFilter extends Filter {
   private static QueryTemplate queryTemplate(CaldavAccount caldavAccount) {
     return new QueryTemplate()
         .join(Join.left(CaldavTask.TABLE, Task.ID.eq(Field.field("caldav_tasks.task"))))
-        .where(Criterion.and(
-            TaskDao.TaskCriteria.activeAndVisible(),
-            Field.field("account").eq(caldavAccount.getUuid())));
+        .where(
+            Criterion.and(
+                TaskDao.TaskCriteria.activeAndVisible(),
+                Field.field("account").eq(caldavAccount.getUuid())));
   }
 
   private static Map<String, Object> getValuesForNewTask(CaldavAccount caldavAccount) {
@@ -71,9 +67,7 @@ public class CaldavFilter extends Filter {
     return account.getUuid();
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);

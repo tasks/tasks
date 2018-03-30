@@ -57,23 +57,26 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
     } else {
       calendars.add(0, new AndroidCalendar(null, getString(R.string.dont_add_to_calendar), -1));
       List<String> calendarNames = transform(calendars, AndroidCalendar::getName);
-      adapter = new SingleCheckedArrayAdapter(getActivity(), calendarNames,
-          theme.getThemeAccent()) {
-        @Override
-        protected int getDrawable(int position) {
-          return R.drawable.ic_event_24dp;
-        }
+      adapter =
+          new SingleCheckedArrayAdapter(getActivity(), calendarNames, theme.getThemeAccent()) {
+            @Override
+            protected int getDrawable(int position) {
+              return R.drawable.ic_event_24dp;
+            }
 
-        @Override
-        protected int getDrawableColor(int position) {
-          return calendars.get(position).getColor();
-        }
-      };
+            @Override
+            protected int getDrawableColor(int position) {
+              return calendars.get(position).getColor();
+            }
+          };
       selectedIndex = Strings.isNullOrEmpty(selected) ? 0 : calendarNames.indexOf(selected);
     }
 
-    return dialogBuilder.newDialog()
-        .setSingleChoiceItems(adapter, selectedIndex,
+    return dialogBuilder
+        .newDialog()
+        .setSingleChoiceItems(
+            adapter,
+            selectedIndex,
             (dialog, which) -> handler.selectedCalendar(calendars.get(which)))
         .setOnDismissListener(dialogInterface -> handler.cancel())
         .show();

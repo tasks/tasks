@@ -44,7 +44,7 @@ public abstract class PermissionRequestor {
       return true;
     }
     requestPermissions(
-        new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
+        new String[] {Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
         requestCode);
     return false;
   }
@@ -69,16 +69,22 @@ public abstract class PermissionRequestor {
     if (permissionChecker.canAccessMissedCallPermissions()) {
       return true;
     }
-    String[] permissions = atLeastJellybean()
-        ? new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE,
-        Manifest.permission.READ_CALL_LOG}
-        : new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE};
+    String[] permissions =
+        atLeastJellybean()
+            ? new String[] {
+              Manifest.permission.READ_CONTACTS,
+              Manifest.permission.READ_PHONE_STATE,
+              Manifest.permission.READ_CALL_LOG
+            }
+            : new String[] {
+              Manifest.permission.READ_CONTACTS, Manifest.permission.READ_PHONE_STATE
+            };
     requestPermissions(permissions, REQUEST_CONTACTS);
     return false;
   }
 
   private void requestPermission(String permission, int rc) {
-    requestPermissions(new String[]{permission}, rc);
+    requestPermissions(new String[] {permission}, rc);
   }
 
   protected abstract void requestPermissions(String[] permissions, int requestCode);

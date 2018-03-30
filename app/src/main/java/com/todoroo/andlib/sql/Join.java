@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.SqlConstants.AND;
@@ -34,8 +33,15 @@ public class Join {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append(joinType).append(SPACE).append(JOIN).append(SPACE).append(joinTable).append(SPACE)
-        .append(ON).append(SPACE).append("(");
+    sb.append(joinType)
+        .append(SPACE)
+        .append(JOIN)
+        .append(SPACE)
+        .append(joinTable)
+        .append(SPACE)
+        .append(ON)
+        .append(SPACE)
+        .append("(");
     for (int i = 0; i < criterions.length; i++) {
       sb.append(criterions[i]);
       if (i < criterions.length - 1) {

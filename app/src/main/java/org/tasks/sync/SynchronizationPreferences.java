@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package org.tasks.sync;
 
 import static org.tasks.PermissionUtil.verifyPermissions;
@@ -55,65 +54,75 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
     addPreferencesFromResource(R.xml.preferences_synchronization);
 
-    CheckBoxPreference caldavEnabled = (CheckBoxPreference) findPreference(
-        getString(R.string.p_sync_caldav));
+    CheckBoxPreference caldavEnabled =
+        (CheckBoxPreference) findPreference(getString(R.string.p_sync_caldav));
     caldavEnabled.setChecked(syncAdapters.isCaldavSyncEnabled());
-    caldavEnabled.setOnPreferenceChangeListener((preference, newValue) -> {
-      jobManager.updateBackgroundSync(((boolean) newValue), null, null);
-      return true;
-    });
-    final CheckBoxPreference gtaskPreference = (CheckBoxPreference) findPreference(
-        getString(R.string.sync_gtasks));
+    caldavEnabled.setOnPreferenceChangeListener(
+        (preference, newValue) -> {
+          jobManager.updateBackgroundSync(((boolean) newValue), null, null);
+          return true;
+        });
+    final CheckBoxPreference gtaskPreference =
+        (CheckBoxPreference) findPreference(getString(R.string.sync_gtasks));
     gtaskPreference.setChecked(syncAdapters.isGoogleTaskSyncEnabled());
-    gtaskPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-      if ((boolean) newValue) {
-        if (!playServices.refreshAndCheck()) {
-          playServices.resolve(SynchronizationPreferences.this);
-        } else if (permissionRequestor.requestAccountPermissions()) {
-          requestLogin();
-        }
-        return false;
-      } else {
-        jobManager.updateBackgroundSync();
-        tracker.reportEvent(Tracking.Events.GTASK_DISABLED);
-        gtasksPreferenceService.stopOngoing();
-        return true;
-      }
-    });
+    gtaskPreference.setOnPreferenceChangeListener(
+        (preference, newValue) -> {
+          if ((boolean) newValue) {
+            if (!playServices.refreshAndCheck()) {
+              playServices.resolve(SynchronizationPreferences.this);
+            } else if (permissionRequestor.requestAccountPermissions()) {
+              requestLogin();
+            }
+            return false;
+          } else {
+            jobManager.updateBackgroundSync();
+            tracker.reportEvent(Tracking.Events.GTASK_DISABLED);
+            gtasksPreferenceService.stopOngoing();
+            return true;
+          }
+        });
     if (gtasksPreferenceService.getLastSyncDate() > 0) {
-      gtaskPreference.setSummary(getString(R.string.sync_status_success,
-          DateUtilities.getDateStringWithTime(SynchronizationPreferences.this,
-              gtasksPreferenceService.getLastSyncDate())));
+      gtaskPreference.setSummary(
+          getString(
+              R.string.sync_status_success,
+              DateUtilities.getDateStringWithTime(
+                  SynchronizationPreferences.this, gtasksPreferenceService.getLastSyncDate())));
     }
     findPreference(getString(R.string.p_background_sync_unmetered_only))
-        .setOnPreferenceChangeListener((preference, o) -> {
-          jobManager.updateBackgroundSync(null, null, (Boolean) o);
-          return true;
-        });
+        .setOnPreferenceChangeListener(
+            (preference, o) -> {
+              jobManager.updateBackgroundSync(null, null, (Boolean) o);
+              return true;
+            });
     findPreference(getString(R.string.p_background_sync))
-        .setOnPreferenceChangeListener((preference, o) -> {
-          jobManager.updateBackgroundSync(null, (Boolean) o, null);
-          return true;
-        });
+        .setOnPreferenceChangeListener(
+            (preference, o) -> {
+              jobManager.updateBackgroundSync(null, (Boolean) o, null);
+              return true;
+            });
     findPreference(getString(R.string.sync_SPr_forget_key))
-        .setOnPreferenceClickListener(preference -> {
-          dialogBuilder.newMessageDialog(R.string.sync_forget_confirm)
-              .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                gtasksPreferenceService.clearLastSyncDate();
-                gtasksPreferenceService.setUserName(null);
-                googleTaskDao.deleteAll();
-                tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
-                gtaskPreference.setChecked(false);
-              })
-              .setNegativeButton(android.R.string.cancel, null)
-              .show();
-          return true;
-        });
+        .setOnPreferenceClickListener(
+            preference -> {
+              dialogBuilder
+                  .newMessageDialog(R.string.sync_forget_confirm)
+                  .setPositiveButton(
+                      android.R.string.ok,
+                      (dialog, which) -> {
+                        gtasksPreferenceService.clearLastSyncDate();
+                        gtasksPreferenceService.setUserName(null);
+                        googleTaskDao.deleteAll();
+                        tracker.reportEvent(Tracking.Events.GTASK_LOGOUT);
+                        gtaskPreference.setChecked(false);
+                      })
+                  .setNegativeButton(android.R.string.cancel, null)
+                  .show();
+              return true;
+            });
   }
 
   private void requestLogin() {
-    startActivityForResult(new Intent(SynchronizationPreferences.this, GtasksLoginActivity.class),
-        REQUEST_LOGIN);
+    startActivityForResult(
+        new Intent(SynchronizationPreferences.this, GtasksLoginActivity.class), REQUEST_LOGIN);
   }
 
   @Override
@@ -140,8 +149,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == PermissionRequestor.REQUEST_GOOGLE_ACCOUNTS) {
       if (verifyPermissions(grantResults)) {
         requestLogin();

@@ -15,8 +15,8 @@ import org.tasks.injection.InjectingPreferenceActivity;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
 
-public class DashClockSettings extends InjectingPreferenceActivity implements
-    PurchaseHelperCallback {
+public class DashClockSettings extends InjectingPreferenceActivity
+    implements PurchaseHelperCallback {
 
   private static final String EXTRA_PURCHASE_INITIATED = "extra_purchase_initiated";
   private static final int REQUEST_SELECT_FILTER = 1005;
@@ -40,20 +40,25 @@ public class DashClockSettings extends InjectingPreferenceActivity implements
     addPreferencesFromResource(R.xml.preferences_dashclock);
 
     findPreference(getString(R.string.p_dashclock_filter))
-        .setOnPreferenceClickListener(preference -> {
-          Intent intent = new Intent(DashClockSettings.this, FilterSelectionActivity.class);
-          intent.putExtra(FilterSelectionActivity.EXTRA_FILTER,
-              defaultFilterProvider.getDashclockFilter());
-          intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
-          startActivityForResult(intent, REQUEST_SELECT_FILTER);
-          return false;
-        });
+        .setOnPreferenceClickListener(
+            preference -> {
+              Intent intent = new Intent(DashClockSettings.this, FilterSelectionActivity.class);
+              intent.putExtra(
+                  FilterSelectionActivity.EXTRA_FILTER, defaultFilterProvider.getDashclockFilter());
+              intent.putExtra(FilterSelectionActivity.EXTRA_RETURN_FILTER, true);
+              startActivityForResult(intent, REQUEST_SELECT_FILTER);
+              return false;
+            });
 
     refreshPreferences();
 
     if (!preferences.hasPurchase(R.string.p_purchased_dashclock) && !purchaseInitiated) {
-      purchaseHelper.purchase(this, getString(R.string.sku_dashclock),
-          getString(R.string.p_purchased_dashclock), REQUEST_PURCHASE, this);
+      purchaseHelper.purchase(
+          this,
+          getString(R.string.sku_dashclock),
+          getString(R.string.p_purchased_dashclock),
+          REQUEST_PURCHASE,
+          this);
       purchaseInitiated = true;
     }
   }

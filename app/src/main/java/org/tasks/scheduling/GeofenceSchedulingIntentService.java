@@ -15,8 +15,11 @@ public class GeofenceSchedulingIntentService extends InjectingJobIntentService {
   @Inject GeofenceService geofenceService;
 
   public static void enqueueWork(Context context) {
-    JobIntentService.enqueueWork(context, GeofenceSchedulingIntentService.class,
-        JobManager.JOB_ID_GEOFENCE_SCHEDULING, new Intent());
+    JobIntentService.enqueueWork(
+        context,
+        GeofenceSchedulingIntentService.class,
+        JobManager.JOB_ID_GEOFENCE_SCHEDULING,
+        new Intent());
   }
 
   @Override

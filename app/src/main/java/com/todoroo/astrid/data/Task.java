@@ -1,11 +1,9 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.data;
-
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -39,113 +37,89 @@ import timber.log.Timber;
  *
  * @author Tim Su <tim@todoroo.com>
  */
-@Entity(tableName = "tasks",
-    indices = @Index(name = "t_rid", value = "remoteId", unique = true))
+@Entity(tableName = "tasks", indices = @Index(name = "t_rid", value = "remoteId", unique = true))
 public class Task implements Parcelable {
 
   // --- table and uri
 
-  /**
-   * table for this model
-   */
+  /** table for this model */
   public static final Table TABLE = new Table("tasks");
 
   public static final long NO_ID = 0;
 
   // --- properties
-  public static final LongProperty ID = new LongProperty(
-      TABLE, "_id");
-  public static final StringProperty TITLE = new StringProperty(
-      TABLE, "title");
-  public static final IntegerProperty IMPORTANCE = new IntegerProperty(
-      TABLE, "importance");
-  public static final LongProperty DUE_DATE = new LongProperty(
-      TABLE, "dueDate");
-  public static final LongProperty HIDE_UNTIL = new LongProperty(
-      TABLE, "hideUntil");
-  public static final LongProperty MODIFICATION_DATE = new LongProperty(
-      TABLE, "modified");
-  public static final LongProperty COMPLETION_DATE = new LongProperty(
-      TABLE, "completed");
-  public static final LongProperty DELETION_DATE = new LongProperty(
-      TABLE, "deleted");
-  public static final StringProperty NOTES = new StringProperty(
-      TABLE, "notes");
-  public static final LongProperty TIMER_START = new LongProperty(
-      TABLE, "timerStart");
-  /**
-   * constant value for no uuid
-   */
-  public static final String NO_UUID = "0"; //$NON-NLS-1$
-  public static final StringProperty UUID = new StringProperty(
-      TABLE, "remoteId");
-  /**
-   * List of all properties for this model
-   */
-  public static final Property<?>[] PROPERTIES = new Property<?>[]{
-      new StringProperty(TABLE, "calendarUri"),
-      COMPLETION_DATE,
-      new LongProperty(TABLE, "created"),
-      DELETION_DATE,
-      DUE_DATE,
-      new IntegerProperty(TABLE, "elapsedSeconds"),
-      new IntegerProperty(TABLE, "estimatedSeconds"),
-      HIDE_UNTIL,
-      ID,
-      IMPORTANCE,
-      MODIFICATION_DATE,
-      NOTES,
-      new StringProperty(TABLE, "recurrence"),
-      new IntegerProperty(TABLE, "notificationFlags"),
-      new LongProperty(TABLE, "lastNotified"),
-      new LongProperty(TABLE, "notifications"),
-      new LongProperty(TABLE, "snoozeTime"),
-      new LongProperty(TABLE, "repeatUntil"),
-      TIMER_START,
-      TITLE,
-      UUID
-  };
-  /**
-   * whether to send a reminder at deadline
-   */
+  public static final LongProperty ID = new LongProperty(TABLE, "_id");
+  public static final StringProperty TITLE = new StringProperty(TABLE, "title");
+  public static final IntegerProperty IMPORTANCE = new IntegerProperty(TABLE, "importance");
+  public static final LongProperty DUE_DATE = new LongProperty(TABLE, "dueDate");
+  public static final LongProperty HIDE_UNTIL = new LongProperty(TABLE, "hideUntil");
+  public static final LongProperty MODIFICATION_DATE = new LongProperty(TABLE, "modified");
+  public static final LongProperty COMPLETION_DATE = new LongProperty(TABLE, "completed");
+  public static final LongProperty DELETION_DATE = new LongProperty(TABLE, "deleted");
+  public static final StringProperty NOTES = new StringProperty(TABLE, "notes");
+  public static final LongProperty TIMER_START = new LongProperty(TABLE, "timerStart");
+  /** constant value for no uuid */
+  public static final String NO_UUID = "0"; // $NON-NLS-1$
+
+  public static final StringProperty UUID = new StringProperty(TABLE, "remoteId");
+  /** List of all properties for this model */
+  public static final Property<?>[] PROPERTIES =
+      new Property<?>[] {
+        new StringProperty(TABLE, "calendarUri"),
+        COMPLETION_DATE,
+        new LongProperty(TABLE, "created"),
+        DELETION_DATE,
+        DUE_DATE,
+        new IntegerProperty(TABLE, "elapsedSeconds"),
+        new IntegerProperty(TABLE, "estimatedSeconds"),
+        HIDE_UNTIL,
+        ID,
+        IMPORTANCE,
+        MODIFICATION_DATE,
+        NOTES,
+        new StringProperty(TABLE, "recurrence"),
+        new IntegerProperty(TABLE, "notificationFlags"),
+        new LongProperty(TABLE, "lastNotified"),
+        new LongProperty(TABLE, "notifications"),
+        new LongProperty(TABLE, "snoozeTime"),
+        new LongProperty(TABLE, "repeatUntil"),
+        TIMER_START,
+        TITLE,
+        UUID
+      };
+  /** whether to send a reminder at deadline */
   public static final int NOTIFY_AT_DEADLINE = 1 << 1;
-  /**
-   * whether to send reminders while task is overdue
-   */
+  /** whether to send reminders while task is overdue */
   public static final int NOTIFY_AFTER_DEADLINE = 1 << 2;
-  /**
-   * reminder mode non-stop
-   */
+  /** reminder mode non-stop */
   public static final int NOTIFY_MODE_NONSTOP = 1 << 3;
-  /**
-   * reminder mode five times (exclusive with non-stop)
-   */
+  /** reminder mode five times (exclusive with non-stop) */
   public static final int NOTIFY_MODE_FIVE = 1 << 4;
+
   public static final int IMPORTANCE_DO_OR_DIE = 0;
   public static final int IMPORTANCE_MUST_DO = 1;
   public static final int IMPORTANCE_SHOULD_DO = 2;
   public static final int IMPORTANCE_NONE = 3;
-  public static final Creator<Task> CREATOR = new Creator<Task>() {
-    @Override
-    public Task createFromParcel(Parcel source) {
-      return new Task(source);
-    }
+  public static final Creator<Task> CREATOR =
+      new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel source) {
+          return new Task(source);
+        }
 
-    @Override
-    public Task[] newArray(int size) {
-      return new Task[size];
-    }
-  };
-  /**
-   * urgency array index -> significance
-   */
+        @Override
+        public Task[] newArray(int size) {
+          return new Task[size];
+        }
+      };
+  /** urgency array index -> significance */
   public static final int URGENCY_NONE = 0;
+
   public static final int URGENCY_SPECIFIC_DAY = 7;
   public static final int URGENCY_SPECIFIC_DAY_TIME = 8;
-  /**
-   * hide until array index -> significance
-   */
+  /** hide until array index -> significance */
   public static final int HIDE_UNTIL_NONE = 0;
+
   public static final int HIDE_UNTIL_DUE = 1;
   public static final int HIDE_UNTIL_DAY_BEFORE = 2;
   public static final int HIDE_UNTIL_WEEK_BEFORE = 3;
@@ -164,110 +138,85 @@ public class Task implements Parcelable {
   static final int URGENCY_NEXT_MONTH = 6;
 
   // --- importance settings (note: importance > 3 are supported via plugin)
-  /**
-   * ID
-   */
+  /** ID */
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   public transient Long id = NO_ID;
-  /**
-   * Name of Task
-   */
+  /** Name of Task */
   @ColumnInfo(name = "title")
   public String title = "";
-  /**
-   * Importance of Task (see importance flags)
-   */
+  /** Importance of Task (see importance flags) */
   @ColumnInfo(name = "importance")
   public Integer importance = IMPORTANCE_NONE;
-  /**
-   * Unixtime Task is due, 0 if not set
-   */
+  /** Unixtime Task is due, 0 if not set */
   @ColumnInfo(name = "dueDate")
   public Long dueDate = 0L;
-  /**
-   * Unixtime Task should be hidden until, 0 if not set
-   */
+  /** Unixtime Task should be hidden until, 0 if not set */
   @ColumnInfo(name = "hideUntil")
   public Long hideUntil = 0L;
-  /**
-   * Unixtime Task was created
-   */
+  /** Unixtime Task was created */
   @ColumnInfo(name = "created")
   public Long created = 0L;
-  /**
-   * Unixtime Task was last touched
-   */
+  /** Unixtime Task was last touched */
   @ColumnInfo(name = "modified")
   public Long modified = 0L;
-  /**
-   * Unixtime Task was completed. 0 means active
-   */
+  /** Unixtime Task was completed. 0 means active */
   @ColumnInfo(name = "completed")
   public Long completed = 0L;
 
   // --- data access boilerplate
-  /**
-   * Unixtime Task was deleted. 0 means not deleted
-   */
+  /** Unixtime Task was deleted. 0 means not deleted */
   @ColumnInfo(name = "deleted")
   public Long deleted = 0L;
+
   @ColumnInfo(name = "notes")
   public String notes = "";
+
   @ColumnInfo(name = "estimatedSeconds")
   public Integer estimatedSeconds = 0;
+
   @ColumnInfo(name = "elapsedSeconds")
   public Integer elapsedSeconds = 0;
+
   @ColumnInfo(name = "timerStart")
   public Long timerStart = 0L;
-  /**
-   * Flags for when to send reminders
-   */
+  /** Flags for when to send reminders */
   @ColumnInfo(name = "notificationFlags")
   public Integer notificationFlags = 0;
 
   // --- parcelable helpers
-  /**
-   * Reminder period, in milliseconds. 0 means disabled
-   */
+  /** Reminder period, in milliseconds. 0 means disabled */
   @ColumnInfo(name = "notifications")
   public Long notifications = 0L;
 
   // --- data access methods
-  /**
-   * Unixtime the last reminder was triggered
-   */
+  /** Unixtime the last reminder was triggered */
   @ColumnInfo(name = "lastNotified")
   public Long lastNotified = 0L;
-  /**
-   * Unixtime snooze is set (0 -> no snooze)
-   */
+  /** Unixtime snooze is set (0 -> no snooze) */
   @ColumnInfo(name = "snoozeTime")
   public Long snoozeTime = 0L;
+
   @ColumnInfo(name = "recurrence")
   public String recurrence = "";
+
   @ColumnInfo(name = "repeatUntil")
   public Long repeatUntil = 0L;
+
   @ColumnInfo(name = "calendarUri")
   public String calendarUri = "";
 
   // --- due and hide until date management
-  /**
-   * Remote id
-   */
+  /** Remote id */
   @ColumnInfo(name = "remoteId")
   public String remoteId = NO_UUID;
-  @Ignore
-  private transient int indent;
-  @Ignore
-  private transient String tags;
-  @Ignore
-  private transient boolean hasFiles;
-  @Ignore
-  private transient HashMap<String, Object> transitoryData = null;
 
-  public Task() {
-  }
+  @Ignore private transient int indent;
+  @Ignore private transient String tags;
+  @Ignore private transient boolean hasFiles;
+  @Ignore private transient HashMap<String, Object> transitoryData = null;
+
+  public Task() {}
 
   @Ignore
   public Task(Cursor _cursor) {
@@ -443,8 +392,8 @@ public class Task implements Parcelable {
   }
 
   /**
-   * Creates due date for this task. If this due date has no time associated,
-   * we move it to the last millisecond of the day.
+   * Creates due date for this task. If this due date has no time associated, we move it to the last
+   * millisecond of the day.
    *
    * @param setting one of the URGENCY_* constants
    * @param customDate if specific day or day & time is set, this value
@@ -488,19 +437,18 @@ public class Task implements Parcelable {
 
     DateTime dueDate = newDateTime(date).withMillisOfSecond(0);
     if (setting != URGENCY_SPECIFIC_DAY_TIME) {
-      dueDate = dueDate
-          .withHourOfDay(12)
-          .withMinuteOfHour(0)
-          .withSecondOfMinute(0); // Seconds == 0 means no due time
+      dueDate =
+          dueDate
+              .withHourOfDay(12)
+              .withMinuteOfHour(0)
+              .withSecondOfMinute(0); // Seconds == 0 means no due time
     } else {
       dueDate = dueDate.withSecondOfMinute(1); // Seconds > 0 means due time exists
     }
     return dueDate.getMillis();
   }
 
-  /**
-   * Checks whether provided due date has a due time or only a date
-   */
+  /** Checks whether provided due date has a due time or only a date */
   public static boolean hasDueTime(long dueDate) {
     return dueDate > 0 && (dueDate % 60000 > 0);
   }
@@ -535,23 +483,17 @@ public class Task implements Parcelable {
     remoteId = uuid;
   }
 
-  /**
-   * Checks whether task is done. Requires COMPLETION_DATE
-   */
+  /** Checks whether task is done. Requires COMPLETION_DATE */
   public boolean isCompleted() {
     return completed > 0;
   }
 
-  /**
-   * Checks whether task is deleted. Will return false if DELETION_DATE not read
-   */
+  /** Checks whether task is deleted. Will return false if DELETION_DATE not read */
   public boolean isDeleted() {
     return deleted > 0;
   }
 
-  /**
-   * Checks whether task is hidden. Requires HIDDEN_UNTIL
-   */
+  /** Checks whether task is hidden. Requires HIDDEN_UNTIL */
   public boolean isHidden() {
     return hideUntil > DateUtilities.now();
   }
@@ -560,9 +502,7 @@ public class Task implements Parcelable {
     return hideUntil > 0;
   }
 
-  /**
-   * Checks whether task is done. Requires DUE_DATE
-   */
+  /** Checks whether task is done. Requires DUE_DATE */
   public boolean hasDueDate() {
     return dueDate > 0;
   }
@@ -603,19 +543,14 @@ public class Task implements Parcelable {
 
     DateTime hideUntil = newDateTime(date).withMillisOfSecond(0); // get rid of millis
     if (setting != HIDE_UNTIL_SPECIFIC_DAY_TIME && setting != HIDE_UNTIL_DUE_TIME) {
-      hideUntil = hideUntil
-          .withHourOfDay(0)
-          .withMinuteOfHour(0)
-          .withSecondOfMinute(0);
+      hideUntil = hideUntil.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0);
     } else {
       hideUntil = hideUntil.withSecondOfMinute(1);
     }
     return hideUntil.getMillis();
   }
 
-  /**
-   * Checks whether this due date has a due time or only a date
-   */
+  /** Checks whether this due date has a due time or only a date */
   public boolean hasDueTime() {
     return hasDueDate() && hasDueTime(getDueDate());
   }
@@ -633,7 +568,7 @@ public class Task implements Parcelable {
   }
 
   public String sanitizedRecurrence() {
-    return getRecurrenceWithoutFrom().replaceAll("BYDAY=;", "");  //$NON-NLS-1$//$NON-NLS-2$
+    return getRecurrenceWithoutFrom().replaceAll("BYDAY=;", ""); // $NON-NLS-1$//$NON-NLS-2$
   }
 
   public String getRecurrenceWithoutFrom() {
@@ -837,17 +772,13 @@ public class Task implements Parcelable {
     return getId() == NO_ID;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public int describeContents() {
     return 0;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeString(calendarUri);
@@ -877,30 +808,57 @@ public class Task implements Parcelable {
 
   @Override
   public String toString() {
-    return "Task{" +
-        "id=" + id +
-        ", title='" + title + '\'' +
-        ", importance=" + importance +
-        ", dueDate=" + dueDate +
-        ", transitoryData=" + transitoryData +
-        ", hideUntil=" + hideUntil +
-        ", created=" + created +
-        ", modified=" + modified +
-        ", completed=" + completed +
-        ", deleted=" + deleted +
-        ", notes='" + notes + '\'' +
-        ", estimatedSeconds=" + estimatedSeconds +
-        ", elapsedSeconds=" + elapsedSeconds +
-        ", timerStart=" + timerStart +
-        ", notificationFlags=" + notificationFlags +
-        ", notifications=" + notifications +
-        ", lastNotified=" + lastNotified +
-        ", snoozeTime=" + snoozeTime +
-        ", recurrence='" + recurrence + '\'' +
-        ", repeatUntil=" + repeatUntil +
-        ", calendarUri='" + calendarUri + '\'' +
-        ", remoteId='" + remoteId + '\'' +
-        '}';
+    return "Task{"
+        + "id="
+        + id
+        + ", title='"
+        + title
+        + '\''
+        + ", importance="
+        + importance
+        + ", dueDate="
+        + dueDate
+        + ", transitoryData="
+        + transitoryData
+        + ", hideUntil="
+        + hideUntil
+        + ", created="
+        + created
+        + ", modified="
+        + modified
+        + ", completed="
+        + completed
+        + ", deleted="
+        + deleted
+        + ", notes='"
+        + notes
+        + '\''
+        + ", estimatedSeconds="
+        + estimatedSeconds
+        + ", elapsedSeconds="
+        + elapsedSeconds
+        + ", timerStart="
+        + timerStart
+        + ", notificationFlags="
+        + notificationFlags
+        + ", notifications="
+        + notifications
+        + ", lastNotified="
+        + lastNotified
+        + ", snoozeTime="
+        + snoozeTime
+        + ", recurrence='"
+        + recurrence
+        + '\''
+        + ", repeatUntil="
+        + repeatUntil
+        + ", calendarUri='"
+        + calendarUri
+        + '\''
+        + ", remoteId='"
+        + remoteId
+        + '\''
+        + '}';
   }
 
   public int getIndent() {
@@ -949,19 +907,23 @@ public class Task implements Parcelable {
     if (notes != null ? !notes.equals(task.notes) : task.notes != null) {
       return false;
     }
-    if (estimatedSeconds != null ? !estimatedSeconds.equals(task.estimatedSeconds)
+    if (estimatedSeconds != null
+        ? !estimatedSeconds.equals(task.estimatedSeconds)
         : task.estimatedSeconds != null) {
       return false;
     }
-    if (elapsedSeconds != null ? !elapsedSeconds.equals(task.elapsedSeconds)
+    if (elapsedSeconds != null
+        ? !elapsedSeconds.equals(task.elapsedSeconds)
         : task.elapsedSeconds != null) {
       return false;
     }
-    if (notificationFlags != null ? !notificationFlags.equals(task.notificationFlags)
+    if (notificationFlags != null
+        ? !notificationFlags.equals(task.notificationFlags)
         : task.notificationFlags != null) {
       return false;
     }
-    if (notifications != null ? !notifications.equals(task.notifications)
+    if (notifications != null
+        ? !notifications.equals(task.notifications)
         : task.notifications != null) {
       return false;
     }
@@ -1011,7 +973,8 @@ public class Task implements Parcelable {
     if (title != null ? !title.equals(original.title) : original.title != null) {
       return false;
     }
-    if (importance != null ? !importance.equals(original.importance)
+    if (importance != null
+        ? !importance.equals(original.importance)
         : original.importance != null) {
       return false;
     }
@@ -1027,11 +990,13 @@ public class Task implements Parcelable {
     if (notes != null ? !notes.equals(original.notes) : original.notes != null) {
       return false;
     }
-    if (recurrence != null ? !recurrence.equals(original.recurrence)
+    if (recurrence != null
+        ? !recurrence.equals(original.recurrence)
         : original.recurrence != null) {
       return false;
     }
-    return repeatUntil != null ? repeatUntil.equals(original.repeatUntil)
+    return repeatUntil != null
+        ? repeatUntil.equals(original.repeatUntil)
         : original.repeatUntil == null;
   }
 
@@ -1139,26 +1104,31 @@ public class Task implements Parcelable {
     if (notes != null ? !notes.equals(task.notes) : task.notes != null) {
       return false;
     }
-    if (estimatedSeconds != null ? !estimatedSeconds.equals(task.estimatedSeconds)
+    if (estimatedSeconds != null
+        ? !estimatedSeconds.equals(task.estimatedSeconds)
         : task.estimatedSeconds != null) {
       return false;
     }
-    if (elapsedSeconds != null ? !elapsedSeconds.equals(task.elapsedSeconds)
+    if (elapsedSeconds != null
+        ? !elapsedSeconds.equals(task.elapsedSeconds)
         : task.elapsedSeconds != null) {
       return false;
     }
     if (timerStart != null ? !timerStart.equals(task.timerStart) : task.timerStart != null) {
       return false;
     }
-    if (notificationFlags != null ? !notificationFlags.equals(task.notificationFlags)
+    if (notificationFlags != null
+        ? !notificationFlags.equals(task.notificationFlags)
         : task.notificationFlags != null) {
       return false;
     }
-    if (notifications != null ? !notifications.equals(task.notifications)
+    if (notifications != null
+        ? !notifications.equals(task.notifications)
         : task.notifications != null) {
       return false;
     }
-    if (lastNotified != null ? !lastNotified.equals(task.lastNotified)
+    if (lastNotified != null
+        ? !lastNotified.equals(task.lastNotified)
         : task.lastNotified != null) {
       return false;
     }

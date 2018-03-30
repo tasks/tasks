@@ -46,7 +46,14 @@ public class DateTime {
     this(year, month, day, hour, minute, second, millisecond, TimeZone.getDefault());
   }
 
-  public DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond,
+  public DateTime(
+      int year,
+      int month,
+      int day,
+      int hour,
+      int minute,
+      int second,
+      int millisecond,
       TimeZone timeZone) {
     GregorianCalendar gregorianCalendar = new GregorianCalendar(timeZone);
     gregorianCalendar.set(year, month - 1, day, hour, minute, second);
@@ -153,10 +160,10 @@ public class DateTime {
   public int getMillisOfDay() {
     Calendar calendar = getCalendar();
     long millisOfDay =
-        calendar.get(Calendar.MILLISECOND) +
-            TimeUnit.SECONDS.toMillis(calendar.get(Calendar.SECOND)) +
-            TimeUnit.MINUTES.toMillis(calendar.get(Calendar.MINUTE)) +
-            TimeUnit.HOURS.toMillis(calendar.get(Calendar.HOUR_OF_DAY));
+        calendar.get(Calendar.MILLISECOND)
+            + TimeUnit.SECONDS.toMillis(calendar.get(Calendar.SECOND))
+            + TimeUnit.MINUTES.toMillis(calendar.get(Calendar.MINUTE))
+            + TimeUnit.HOURS.toMillis(calendar.get(Calendar.HOUR_OF_DAY));
     return (int) millisOfDay;
   }
 
@@ -310,9 +317,7 @@ public class DateTime {
   }
 
   public DateValue toDateValue() {
-    return timestamp == 0
-        ? null
-        : new DateValueImpl(getYear(), getMonthOfYear(), getDayOfMonth());
+    return timestamp == 0 ? null : new DateValueImpl(getYear(), getMonthOfYear(), getDayOfMonth());
   }
 
   public int getDayOfWeekInMonth() {
@@ -358,7 +363,6 @@ public class DateTime {
       return false;
     }
     return !(timeZone != null ? !timeZone.equals(dateTime.timeZone) : dateTime.timeZone != null);
-
   }
 
   @Override
@@ -370,8 +374,8 @@ public class DateTime {
 
   public String toString(String format) {
     Calendar calendar = getCalendar();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format,
-        Locale.getInstance().getLocale());
+    SimpleDateFormat simpleDateFormat =
+        new SimpleDateFormat(format, Locale.getInstance().getLocale());
     simpleDateFormat.setCalendar(calendar);
     return simpleDateFormat.format(calendar.getTime());
   }

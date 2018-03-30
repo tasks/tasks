@@ -54,8 +54,10 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
         if (launcher instanceof BitmapDrawable) {
           intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, ((BitmapDrawable) launcher).getBitmap());
         } else if (atLeastOreo() && launcher instanceof AdaptiveIconDrawable) {
-          Bitmap bitmap = Bitmap
-              .createBitmap(launcher.getIntrinsicWidth(), launcher.getIntrinsicHeight(),
+          Bitmap bitmap =
+              Bitmap.createBitmap(
+                  launcher.getIntrinsicWidth(),
+                  launcher.getIntrinsicHeight(),
                   Bitmap.Config.ARGB_8888);
           Canvas canvas = new Canvas(bitmap);
           launcher.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());

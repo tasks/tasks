@@ -65,11 +65,13 @@ class AstridOrderedListFragmentHelper {
     }
 
     final ArrayList<String> chained = new ArrayList<>();
-    updater.applyToDescendants(itemId, node -> {
-      String uuid = node.uuid;
-      taskDao.setCompletionDate(uuid, completionDate);
-      chained.add(node.uuid);
-    });
+    updater.applyToDescendants(
+        itemId,
+        node -> {
+          String uuid = node.uuid;
+          taskDao.setCompletionDate(uuid, completionDate);
+          chained.add(node.uuid);
+        });
 
     if (chained.size() > 0) {
       // move recurring items to item parent
@@ -129,12 +131,13 @@ class AstridOrderedListFragmentHelper {
     public void moved(int from, int to) {
       String targetTaskId = taskAdapter.getItemUuid(from);
       if (!Task.isValidUuid(targetTaskId)) {
-        return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+        return; // This can happen with gestures on empty parts of the list (e.g. extra space below
+        // tasks)
       }
 
       try {
         if (to >= taskAdapter.getCount()) {
-          updater.moveTo(list, fragment.getFilter(), targetTaskId, "-1"); //$NON-NLS-1$
+          updater.moveTo(list, fragment.getFilter(), targetTaskId, "-1"); // $NON-NLS-1$
         } else {
           String destinationTaskId = taskAdapter.getItemUuid(to);
           updater.moveTo(list, fragment.getFilter(), targetTaskId, destinationTaskId);
@@ -148,7 +151,8 @@ class AstridOrderedListFragmentHelper {
     public void indented(int which, int delta) {
       String targetTaskId = taskAdapter.getItemUuid(which);
       if (!Task.isValidUuid(targetTaskId)) {
-        return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
+        return; // This can happen with gestures on empty parts of the list (e.g. extra space below
+        // tasks)
       }
       try {
         updater.indent(list, fragment.getFilter(), targetTaskId, delta);

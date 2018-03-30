@@ -57,8 +57,8 @@ public class SnoozeDialog extends InjectingDialogFragment {
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_morning, tomorrowMorning));
     } else {
       snoozeOptions.add(new SnoozeOption(R.string.date_shortcut_tomorrow_morning, tomorrowMorning));
-      snoozeOptions
-          .add(new SnoozeOption(R.string.date_shortcut_tomorrow_afternoon, tomorrowAfternoon));
+      snoozeOptions.add(
+          new SnoozeOption(R.string.date_shortcut_tomorrow_afternoon, tomorrowAfternoon));
     }
 
     return snoozeOptions;
@@ -70,28 +70,33 @@ public class SnoozeDialog extends InjectingDialogFragment {
     final List<SnoozeOption> snoozeOptions = getSnoozeOptions(preferences);
 
     for (SnoozeOption snoozeOption : snoozeOptions) {
-      items.add(String.format("%s (%s)",
-          getString(snoozeOption.getResId()),
-          getTimeString(context, snoozeOption.getDateTime())));
+      items.add(
+          String.format(
+              "%s (%s)",
+              getString(snoozeOption.getResId()),
+              getTimeString(context, snoozeOption.getDateTime())));
     }
 
     items.add(getString(R.string.pick_a_date_and_time));
 
-    return dialogBuilder.newDialog()
+    return dialogBuilder
+        .newDialog()
         .setTitle(R.string.rmd_NoA_snooze)
-        .setItems(items, (dialog, which) -> {
-          switch (which) {
-            case 0:
-            case 1:
-            case 2:
-              snoozeCallback.snoozeForTime(snoozeOptions.get(which).getDateTime());
-              break;
-            case 3:
-              dialog.dismiss();
-              snoozeCallback.pickDateTime();
-              break;
-          }
-        })
+        .setItems(
+            items,
+            (dialog, which) -> {
+              switch (which) {
+                case 0:
+                case 1:
+                case 2:
+                  snoozeCallback.snoozeForTime(snoozeOptions.get(which).getDateTime());
+                  break;
+                case 3:
+                  dialog.dismiss();
+                  snoozeCallback.pickDateTime();
+                  break;
+              }
+            })
         .show();
   }
 

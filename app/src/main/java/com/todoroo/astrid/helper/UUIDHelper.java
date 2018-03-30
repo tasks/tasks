@@ -6,9 +6,7 @@ public class UUIDHelper {
 
   private static final long MIN_UUID = 100000000;
 
-  /**
-   * @return a pair consisting of the newly generated uuid and the corresponding proof text
-   */
+  /** @return a pair consisting of the newly generated uuid and the corresponding proof text */
   public static String newUUID() {
     long uuid;
     do {

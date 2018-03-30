@@ -24,8 +24,12 @@ class BackupContainer {
   final List<GoogleTaskList> googleTaskLists;
   final List<CaldavAccount> caldavAccounts;
 
-  BackupContainer(List<TaskBackup> tasks, List<TagData> tags, List<Filter> filters,
-      List<GoogleTaskList> googleTaskLists, List<CaldavAccount> caldavAccounts) {
+  BackupContainer(
+      List<TaskBackup> tasks,
+      List<TagData> tags,
+      List<Filter> filters,
+      List<GoogleTaskList> googleTaskLists,
+      List<CaldavAccount> caldavAccounts) {
     this.tasks = tasks;
     this.tags = tags;
     this.filters = filters;
@@ -44,8 +48,14 @@ class BackupContainer {
     private final List<TaskAttachment> attachments;
     private final List<CaldavTask> caldavTasks;
 
-    TaskBackup(Task task, List<Alarm> alarms, List<Location> locations, List<Tag> tags,
-        List<GoogleTask> google, List<UserActivity> comments, List<TaskAttachment> attachments,
+    TaskBackup(
+        Task task,
+        List<Alarm> alarms,
+        List<Location> locations,
+        List<Tag> tags,
+        List<GoogleTask> google,
+        List<UserActivity> comments,
+        List<TaskAttachment> attachments,
         List<CaldavTask> caldavTasks) {
       this.task = task;
       this.alarms = alarms;

@@ -11,8 +11,7 @@ public class CaldavTask {
 
   public static final String KEY = "caldav";
 
-  @Deprecated
-  public static final Table TABLE = new Table("caldav_tasks");
+  @Deprecated public static final Table TABLE = new Table("caldav_tasks");
 
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
@@ -42,9 +41,7 @@ public class CaldavTask {
   @ColumnInfo(name = "vtodo")
   private String vtodo;
 
-  public CaldavTask() {
-
-  }
+  public CaldavTask() {}
 
   @Ignore
   public CaldavTask(long task, String account, String remoteId) {
@@ -133,16 +130,30 @@ public class CaldavTask {
 
   @Override
   public String toString() {
-    return "CaldavTask{" +
-        "id=" + id +
-        ", task=" + task +
-        ", account='" + account + '\'' +
-        ", object='" + object + '\'' +
-        ", remoteId='" + remoteId + '\'' +
-        ", etag='" + etag + '\'' +
-        ", lastSync=" + lastSync +
-        ", deleted=" + deleted +
-        ", vtodo='" + vtodo + '\'' +
-        '}';
+    return "CaldavTask{"
+        + "id="
+        + id
+        + ", task="
+        + task
+        + ", account='"
+        + account
+        + '\''
+        + ", object='"
+        + object
+        + '\''
+        + ", remoteId='"
+        + remoteId
+        + '\''
+        + ", etag='"
+        + etag
+        + '\''
+        + ", lastSync="
+        + lastSync
+        + ", deleted="
+        + deleted
+        + ", vtodo='"
+        + vtodo
+        + '\''
+        + '}';
   }
 }

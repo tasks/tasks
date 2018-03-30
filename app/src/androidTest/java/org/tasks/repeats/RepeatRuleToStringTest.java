@@ -25,19 +25,22 @@ public class RepeatRuleToStringTest {
 
   @Test
   public void weeklyByDay() {
-    assertEquals("Repeats weekly on Mon, Tue, Wed, Thu, Fri",
+    assertEquals(
+        "Repeats weekly on Mon, Tue, Wed, Thu, Fri",
         toString("RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,TU,WE,TH,FR"));
   }
 
   @Test
   public void printDaysInRepeatRuleOrder() {
-    assertEquals("Repeats weekly on Fri, Thu, Wed, Tue, Mon",
+    assertEquals(
+        "Repeats weekly on Fri, Thu, Wed, Tue, Mon",
         toString("RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=FR,TH,WE,TU,MO"));
   }
 
   @Test
   public void useLocaleForDays() {
-    assertEquals("Wiederhole wöchentlich am Sa., So.",
+    assertEquals(
+        "Wiederhole wöchentlich am Sa., So.",
         toString("de", "RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=SA,SU"));
   }
 

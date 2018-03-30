@@ -47,10 +47,17 @@ public class TaskCreator {
   private final TagService tagService;
 
   @Inject
-  public TaskCreator(GCalHelper gcalHelper, Preferences preferences, TagDataDao tagDataDao,
-      TaskDao taskDao, TagService tagService, TagDao tagDao,
-      GoogleTaskDao googleTaskDao, Tracker tracker,
-      DefaultFilterProvider defaultFilterProvider, CaldavDao caldavDao) {
+  public TaskCreator(
+      GCalHelper gcalHelper,
+      Preferences preferences,
+      TagDataDao tagDataDao,
+      TaskDao taskDao,
+      TagService tagService,
+      TagDao tagDao,
+      GoogleTaskDao googleTaskDao,
+      Tracker tracker,
+      DefaultFilterProvider defaultFilterProvider,
+      CaldavDao caldavDao) {
     this.gcalHelper = gcalHelper;
     this.preferences = preferences;
     this.tagDataDao = tagDataDao;
@@ -64,9 +71,9 @@ public class TaskCreator {
   }
 
   private static void setDefaultReminders(Preferences preferences, Task task) {
-    task.setReminderPeriod(DateUtilities.ONE_HOUR *
-        preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
-            0));
+    task.setReminderPeriod(
+        DateUtilities.ONE_HOUR
+            * preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, 0));
     task.setReminderFlags(preferences.getDefaultReminders() | preferences.getDefaultRingMode());
   }
 
@@ -77,9 +84,10 @@ public class TaskCreator {
     taskDao.createNew(task);
 
     boolean gcalCreateEventEnabled =
-        preferences.isDefaultCalendarSet() && task.hasDueDate(); //$NON-NLS-1$
-    if (!TextUtils.isEmpty(task.getTitle()) && gcalCreateEventEnabled && TextUtils
-        .isEmpty(task.getCalendarURI())) {
+        preferences.isDefaultCalendarSet() && task.hasDueDate(); // $NON-NLS-1$
+    if (!TextUtils.isEmpty(task.getTitle())
+        && gcalCreateEventEnabled
+        && TextUtils.isEmpty(task.getCalendarURI())) {
       Uri calendarUri = gcalHelper.createTaskEvent(task, new ContentValues());
       task.setCalendarUri(calendarUri.toString());
     }
@@ -94,8 +102,8 @@ public class TaskCreator {
     } else {
       Filter remoteList = defaultFilterProvider.getDefaultRemoteList();
       if (remoteList != null && remoteList instanceof GtasksFilter) {
-        googleTaskDao
-            .insert(new GoogleTask(task.getId(), ((GtasksFilter) remoteList).getRemoteId()));
+        googleTaskDao.insert(
+            new GoogleTask(task.getId(), ((GtasksFilter) remoteList).getRemoteId()));
       }
     }
 
@@ -104,8 +112,8 @@ public class TaskCreator {
   }
 
   /**
-   * Create task from the given content values, saving it. This version
-   * doesn't need to start with a base task model.
+   * Create task from the given content values, saving it. This version doesn't need to start with a
+   * base task model.
    */
   public Task createWithValues(Map<String, Object> values, String title) {
     Task task = new Task();
@@ -117,12 +125,15 @@ public class TaskCreator {
 
     task.setUuid(UUIDHelper.newUUID());
 
-    task.setImportance(preferences
-        .getIntegerFromString(R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
-    task.setDueDate(Task.createDueDate(
-        preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE), 0));
-    int setting = preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
-        Task.HIDE_UNTIL_NONE);
+    task.setImportance(
+        preferences.getIntegerFromString(
+            R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
+    task.setDueDate(
+        Task.createDueDate(
+            preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),
+            0));
+    int setting =
+        preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE);
     task.setHideUntil(task.createHideUntil(setting, 0));
     setDefaultReminders(preferences, task);
 

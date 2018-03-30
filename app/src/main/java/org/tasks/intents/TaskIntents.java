@@ -16,8 +16,8 @@ public class TaskIntents {
     return TaskStackBuilder.create(context).addNextIntent(intent);
   }
 
-  public static TaskStackBuilder getEditTaskStack(Context context, final Filter filter,
-      final long taskId) {
+  public static TaskStackBuilder getEditTaskStack(
+      Context context, final Filter filter, final long taskId) {
     Intent intent = getTaskListIntent(context, filter);
     intent.putExtra(TaskListActivity.OPEN_TASK, taskId);
     return TaskStackBuilder.create(context).addNextIntent(intent);

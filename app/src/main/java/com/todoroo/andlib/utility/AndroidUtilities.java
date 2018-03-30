@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.utility;
 
 import android.app.Activity;
@@ -32,29 +31,26 @@ import timber.log.Timber;
  */
 public class AndroidUtilities {
 
-  public static final String SEPARATOR_ESCAPE = "!PIPE!"; //$NON-NLS-1$
-  public static final String SERIALIZATION_SEPARATOR = "|"; //$NON-NLS-1$
+  public static final String SEPARATOR_ESCAPE = "!PIPE!"; // $NON-NLS-1$
+  public static final String SERIALIZATION_SEPARATOR = "|"; // $NON-NLS-1$
 
   // --- utility methods
 
-  /**
-   * Suppress virtual keyboard until user's first tap
-   */
+  /** Suppress virtual keyboard until user's first tap */
   public static void suppressVirtualKeyboard(final TextView editor) {
     final int inputType = editor.getInputType();
     editor.setInputType(InputType.TYPE_NULL);
-    editor.setOnTouchListener((v, event) -> {
-      editor.setInputType(inputType);
-      editor.setOnTouchListener(null);
-      return false;
-    });
+    editor.setOnTouchListener(
+        (v, event) -> {
+          editor.setInputType(inputType);
+          editor.setOnTouchListener(null);
+          return false;
+        });
   }
 
   // --- serialization
 
-  /**
-   * Serializes a content value into a string
-   */
+  /** Serializes a content value into a string */
   public static String mapToSerializedString(Map<String, Object> source) {
     StringBuilder result = new StringBuilder();
     for (Entry<String, Object> entry : source.entrySet()) {
@@ -63,13 +59,11 @@ public class AndroidUtilities {
     return result.toString();
   }
 
-  /**
-   * add serialized helper
-   */
-  private static void addSerialized(StringBuilder result,
-      String key, Object value) {
-    result.append(key.replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE)).append(
-        SERIALIZATION_SEPARATOR);
+  /** add serialized helper */
+  private static void addSerialized(StringBuilder result, String key, Object value) {
+    result
+        .append(key.replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE))
+        .append(SERIALIZATION_SEPARATOR);
     if (value instanceof Integer) {
       result.append('i').append(value);
     } else if (value instanceof Double) {
@@ -77,7 +71,8 @@ public class AndroidUtilities {
     } else if (value instanceof Long) {
       result.append('l').append(value);
     } else if (value instanceof String) {
-      result.append('s')
+      result
+          .append('s')
           .append(value.toString().replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE));
     } else if (value instanceof Boolean) {
       result.append('b').append(value);
@@ -93,30 +88,33 @@ public class AndroidUtilities {
     }
 
     Map<String, Object> result = new HashMap<>();
-    fromSerialized(string, result, (object, key, type, value) -> {
-      switch (type) {
-        case 'i':
-          object.put(key, Integer.parseInt(value));
-          break;
-        case 'd':
-          object.put(key, Double.parseDouble(value));
-          break;
-        case 'l':
-          object.put(key, Long.parseLong(value));
-          break;
-        case 's':
-          object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
-          break;
-        case 'b':
-          object.put(key, Boolean.parseBoolean(value));
-          break;
-      }
-    });
+    fromSerialized(
+        string,
+        result,
+        (object, key, type, value) -> {
+          switch (type) {
+            case 'i':
+              object.put(key, Integer.parseInt(value));
+              break;
+            case 'd':
+              object.put(key, Double.parseDouble(value));
+              break;
+            case 'l':
+              object.put(key, Long.parseLong(value));
+              break;
+            case 's':
+              object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+              break;
+            case 'b':
+              object.put(key, Boolean.parseBoolean(value));
+              break;
+          }
+        });
     return result;
   }
 
   private static <T> void fromSerialized(String string, T object, SerializedPut<T> putter) {
-    String[] pairs = string.split("\\" + SERIALIZATION_SEPARATOR); //$NON-NLS-1$
+    String[] pairs = string.split("\\" + SERIALIZATION_SEPARATOR); // $NON-NLS-1$
     for (int i = 0; i < pairs.length; i += 2) {
       try {
         String key = pairs[i].replaceAll(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR);
@@ -134,9 +132,7 @@ public class AndroidUtilities {
     }
   }
 
-  /**
-   * Copy a file from one place to another
-   */
+  /** Copy a file from one place to another */
   public static void copyFile(File in, File out) throws Exception {
     FileInputStream fis = new FileInputStream(in);
     FileOutputStream fos = new FileOutputStream(out);
@@ -148,9 +144,7 @@ public class AndroidUtilities {
     }
   }
 
-  /**
-   * Copy stream from source to destination
-   */
+  /** Copy stream from source to destination */
   private static void copyStream(InputStream source, OutputStream dest) throws IOException {
     int bytes;
     byte[] buffer;
@@ -218,8 +212,8 @@ public class AndroidUtilities {
   }
 
   /**
-   * Sleep, ignoring interruption. Before using this method, think carefully
-   * about why you are ignoring interruptions.
+   * Sleep, ignoring interruption. Before using this method, think carefully about why you are
+   * ignoring interruptions.
    */
   public static void sleepDeep(long l) {
     try {
@@ -229,9 +223,7 @@ public class AndroidUtilities {
     }
   }
 
-  /**
-   * Capitalize the first character
-   */
+  /** Capitalize the first character */
   public static String capitalize(String string) {
     return string.substring(0, 1).toUpperCase() + string.substring(1);
   }
@@ -240,8 +232,8 @@ public class AndroidUtilities {
     try {
       View currentFocus = activity.getCurrentFocus();
       if (currentFocus != null) {
-        InputMethodManager inputMethodManager = (InputMethodManager) activity
-            .getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager inputMethodManager =
+            (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
       }
     } catch (Exception e) {
@@ -255,16 +247,14 @@ public class AndroidUtilities {
    * @param views - a list of views that might potentially be displaying the keyboard
    */
   public static void hideSoftInputForViews(Context context, View... views) {
-    InputMethodManager imm = (InputMethodManager) context
-        .getSystemService(Context.INPUT_METHOD_SERVICE);
+    InputMethodManager imm =
+        (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
     for (View v : views) {
       imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
   }
 
-  /**
-   * Returns the final word characters after the last '.'
-   */
+  /** Returns the final word characters after the last '.' */
   public static String getFileExtension(String file) {
     int index = file.lastIndexOf('.');
     String extension = "";

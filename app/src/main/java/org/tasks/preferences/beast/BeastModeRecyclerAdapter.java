@@ -42,8 +42,9 @@ public class BeastModeRecyclerAdapter extends RecyclerView.Adapter<BeastModeView
 
   @Override
   public BeastModeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.preference_draggable_row, parent, false);
+    View view =
+        LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.preference_draggable_row, parent, false);
     return new BeastModeViewHolder(view, itemTouchHelper);
   }
 
@@ -80,8 +81,8 @@ public class BeastModeRecyclerAdapter extends RecyclerView.Adapter<BeastModeView
     }
 
     @Override
-    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder from,
-        RecyclerView.ViewHolder to) {
+    public boolean onMove(
+        RecyclerView recyclerView, RecyclerView.ViewHolder from, RecyclerView.ViewHolder to) {
       int fromPosition = from.getAdapterPosition();
       int toPosition = to.getAdapterPosition();
       Collections.swap(items, fromPosition, toPosition);
@@ -90,8 +91,6 @@ public class BeastModeRecyclerAdapter extends RecyclerView.Adapter<BeastModeView
     }
 
     @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
-    }
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {}
   }
 }

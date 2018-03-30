@@ -42,4 +42,3 @@ public abstract class TagDataDao {
     tag.setId(insert(tag));
   }
 }
-

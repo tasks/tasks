@@ -7,9 +7,7 @@ import timber.log.Timber;
 public class BuildSetup {
 
   @Inject
-  public BuildSetup() {
-
-  }
+  public BuildSetup() {}
 
   public boolean setup() {
     Timber.plant(new ErrorReportingTree());

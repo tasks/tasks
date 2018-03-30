@@ -16,8 +16,8 @@ import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.time.DateTime;
 
-public class NativeDatePickerDialog extends InjectingNativeDialogFragment implements
-    DatePickerDialog.OnDateSetListener {
+public class NativeDatePickerDialog extends InjectingNativeDialogFragment
+    implements DatePickerDialog.OnDateSetListener {
 
   private static final String EXTRA_YEAR = "extra_year";
   private static final String EXTRA_MONTH = "extra_month";
@@ -47,8 +47,13 @@ public class NativeDatePickerDialog extends InjectingNativeDialogFragment implem
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     Bundle args = getArguments();
-    DatePickerDialog datePickerDialog = new DatePickerDialog(theme.wrap(getActivity()), this,
-        args.getInt(EXTRA_YEAR), args.getInt(EXTRA_MONTH), args.getInt(EXTRA_DAY));
+    DatePickerDialog datePickerDialog =
+        new DatePickerDialog(
+            theme.wrap(getActivity()),
+            this,
+            args.getInt(EXTRA_YEAR),
+            args.getInt(EXTRA_MONTH),
+            args.getInt(EXTRA_DAY));
     int firstDayOfWeek = preferences.getFirstDayOfWeek();
     if (firstDayOfWeek >= 1 && firstDayOfWeek <= 7 && atLeastMarshmallow()) {
       datePickerDialog.getDatePicker().setFirstDayOfWeek(firstDayOfWeek);

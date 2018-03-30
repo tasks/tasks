@@ -14,6 +14,4 @@ import javax.inject.Qualifier;
 @Target({FIELD, PARAMETER, METHOD})
 @Documented
 @Retention(RUNTIME)
-public @interface ForActivity {
-
-}
+public @interface ForActivity {}

@@ -24,10 +24,19 @@ public class PriorityControlSet extends TaskEditControlFragment {
   public static final int TAG = R.string.TEA_ctrl_importance_pref;
   private static final String EXTRA_PRIORITY = "extra_priority";
   @Inject CheckBoxes checkBoxes;
-  @BindView(R.id.priority_high) AppCompatRadioButton priorityHigh;
-  @BindView(R.id.priority_medium) AppCompatRadioButton priorityMedium;
-  @BindView(R.id.priority_low) AppCompatRadioButton priorityLow;
-  @BindView(R.id.priority_none) AppCompatRadioButton priorityNone;
+
+  @BindView(R.id.priority_high)
+  AppCompatRadioButton priorityHigh;
+
+  @BindView(R.id.priority_medium)
+  AppCompatRadioButton priorityMedium;
+
+  @BindView(R.id.priority_low)
+  AppCompatRadioButton priorityLow;
+
+  @BindView(R.id.priority_none)
+  AppCompatRadioButton priorityNone;
+
   private OnPriorityChanged callback;
   private int priority;
 
@@ -51,8 +60,8 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  public View onCreateView(
+      LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     final View view = super.onCreateView(inflater, container, savedInstanceState);
     if (savedInstanceState == null) {
       priority = task.getImportance();
@@ -111,9 +120,13 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
   private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
     int color = checkBoxes.getPriorityColors().get(priority);
-    CompoundButtonCompat.setButtonTintList(radioButton, new ColorStateList(new int[][]{
-        new int[]{-android.R.attr.state_checked}, new int[]{android.R.attr.state_checked}},
-        new int[]{color, color}));
+    CompoundButtonCompat.setButtonTintList(
+        radioButton,
+        new ColorStateList(
+            new int[][] {
+              new int[] {-android.R.attr.state_checked}, new int[] {android.R.attr.state_checked}
+            },
+            new int[] {color, color}));
   }
 
   private int getPriority() {

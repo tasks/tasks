@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.timers;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -38,8 +37,9 @@ public final class TimerFilterExposer {
 
   public static Filter createFilter(Context context) {
     Resources r = context.getResources();
-    Filter filter = new Filter(r.getString(R.string.TFE_workingOn),
-        new QueryTemplate().where(Task.TIMER_START.gt(0)));
+    Filter filter =
+        new Filter(
+            r.getString(R.string.TFE_workingOn), new QueryTemplate().where(Task.TIMER_START.gt(0)));
     filter.icon = R.drawable.ic_timer_24dp;
     return filter;
   }

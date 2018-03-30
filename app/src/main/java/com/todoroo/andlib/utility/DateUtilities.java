@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.utility;
 
 import static org.tasks.date.DateTimeUtils.newDateTime;
@@ -16,25 +15,17 @@ import org.tasks.R;
 import org.tasks.locale.Locale;
 import org.tasks.time.DateTime;
 
-
 public class DateUtilities {
 
-  /**
-   * Represents a single hour
-   */
+  /** Represents a single hour */
   public static final long ONE_HOUR = 3600000L;
-  /**
-   * Represents a single day
-   */
+  /** Represents a single day */
   public static final long ONE_DAY = 24 * ONE_HOUR;
-  /**
-   * Represents a single week
-   */
+  /** Represents a single week */
   public static final long ONE_WEEK = 7 * ONE_DAY;
-  /**
-   * Represents a single minute
-   */
+  /** Represents a single minute */
   public static final long ONE_MINUTE = 60000L;
+
   private static final long abbreviationLimit = DateUtilities.ONE_DAY * 6;
   private static final String JA = "MMM d\u65E5";
   private static final String JA_YEAR = "yy\u5E74 " + JA;
@@ -45,8 +36,8 @@ public class DateUtilities {
   static Boolean is24HourOverride = null;
 
   /**
-   * Add the specified amount of months to the given time.<br/>
-   * The day of month will stay the same.<br/>
+   * Add the specified amount of months to the given time.<br>
+   * The day of month will stay the same.<br>
    *
    * @param time the base-time (in milliseconds) to which the amount of months is added
    * @param interval the amount of months to be added
@@ -63,9 +54,7 @@ public class DateUtilities {
     return result.getMillis();
   }
 
-  /**
-   * Returns unixtime for current time
-   */
+  /** Returns unixtime for current time */
   public static long now() {
     return currentTimeMillis();
   }
@@ -74,9 +63,7 @@ public class DateUtilities {
    * =========================================================== formatters
    * ====================================================================== */
 
-  /**
-   * Returns unixtime one month from now
-   */
+  /** Returns unixtime one month from now */
   public static long oneMonthFromNow() {
     return addCalendarMonthsToUnixtime(currentTimeMillis(), 1);
   }
@@ -138,26 +125,18 @@ public class DateUtilities {
       case "KE":
       case "MN":
       case "US":
-        return includeYear
-            ? monthFormat + " d ''yy"
-            : monthFormat + " d";
+        return includeYear ? monthFormat + " d ''yy" : monthFormat + " d";
       default:
-        return includeYear
-            ? "d " + monthFormat + " ''yy"
-            : "d " + monthFormat;
+        return includeYear ? "d " + monthFormat + " ''yy" : "d " + monthFormat;
     }
   }
 
-  /**
-   * @return weekday
-   */
+  /** @return weekday */
   public static String getWeekday(DateTime date) {
     return date.toString("EEEE");
   }
 
-  /**
-   * @return weekday
-   */
+  /** @return weekday */
   public static String getWeekdayShort(DateTime date) {
     return date.toString("EEE");
   }
@@ -175,15 +154,16 @@ public class DateUtilities {
   public static String getRelativeDateStringWithTime(Context context, long timestamp) {
     String string = DateUtilities.getRelativeDay(context, timestamp, false);
     if (Task.hasDueTime(timestamp)) {
-      string = String.format("%s %s", string, //$NON-NLS-1$
-          DateUtilities.getTimeString(context, timestamp));
+      string =
+          String.format(
+              "%s %s",
+              string, // $NON-NLS-1$
+              DateUtilities.getTimeString(context, timestamp));
     }
     return string;
   }
 
-  /**
-   * @return yesterday, today, tomorrow, or null
-   */
+  /** @return yesterday, today, tomorrow, or null */
   public static String getRelativeDay(Context context, long date, boolean abbreviated) {
     long today = getStartOfDay(currentTimeMillis());
     long input = getStartOfDay(date);
@@ -201,7 +181,8 @@ public class DateUtilities {
     }
 
     if (today + abbreviationLimit >= input && today - abbreviationLimit <= input) {
-      return abbreviated ? DateUtilities.getWeekdayShort(newDateTime(date))
+      return abbreviated
+          ? DateUtilities.getWeekdayShort(newDateTime(date))
           : DateUtilities.getWeekday(newDateTime(date));
     }
 

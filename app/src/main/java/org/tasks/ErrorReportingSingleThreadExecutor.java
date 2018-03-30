@@ -8,18 +8,19 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import org.tasks.analytics.Tracker;
 
-public class ErrorReportingSingleThreadExecutor implements Executor,
-    Thread.UncaughtExceptionHandler {
+public class ErrorReportingSingleThreadExecutor
+    implements Executor, Thread.UncaughtExceptionHandler {
 
   private final ExecutorService executorService;
   private final Tracker tracker;
 
   public ErrorReportingSingleThreadExecutor(String nameFormat, Tracker tracker) {
-    executorService = newSingleThreadExecutor(
-        new ThreadFactoryBuilder()
-            .setNameFormat(String.format("%s-%%d", nameFormat))
-            .setUncaughtExceptionHandler(this)
-            .build());
+    executorService =
+        newSingleThreadExecutor(
+            new ThreadFactoryBuilder()
+                .setNameFormat(String.format("%s-%%d", nameFormat))
+                .setUncaughtExceptionHandler(this)
+                .build());
     this.tracker = tracker;
   }
 

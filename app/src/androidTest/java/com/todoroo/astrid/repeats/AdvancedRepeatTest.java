@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.repeats;
 
 import static junit.framework.Assert.assertEquals;
@@ -37,8 +36,7 @@ public class AdvancedRepeatTest {
   private RRule rrule;
 
   public static void assertDateTimeEquals(long date, long other) {
-    assertEquals("Expected: " + newDateTime(date) + ", Actual: " + newDateTime(other),
-        date, other);
+    assertEquals("Expected: " + newDateTime(date) + ", Actual: " + newDateTime(other), date, other);
   }
 
   // --- date with time tests
@@ -55,8 +53,9 @@ public class AdvancedRepeatTest {
     buildRRule(1, Frequency.DAILY);
 
     // test specific day & time
-    long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-        new DateTime(2010, 8, 1, 10, 4, 0).getMillis());
+    long dayWithTime =
+        Task.createDueDate(
+            Task.URGENCY_SPECIFIC_DAY_TIME, new DateTime(2010, 8, 1, 10, 4, 0).getMillis());
     task.setDueDate(dayWithTime);
 
     long nextDayWithTime = dayWithTime + DateUtilities.ONE_DAY;
@@ -71,14 +70,13 @@ public class AdvancedRepeatTest {
     buildRRule(1, Frequency.DAILY);
 
     // test specific day & time
-    long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-        new DateTime(2010, 8, 1, 10, 4, 0).getMillis());
+    long dayWithTime =
+        Task.createDueDate(
+            Task.URGENCY_SPECIFIC_DAY_TIME, new DateTime(2010, 8, 1, 10, 4, 0).getMillis());
     task.setDueDate(dayWithTime);
 
-    DateTime todayWithTime = newDateTime()
-        .withHourOfDay(10)
-        .withMinuteOfHour(4)
-        .withSecondOfMinute(1);
+    DateTime todayWithTime =
+        newDateTime().withHourOfDay(10).withMinuteOfHour(4).withSecondOfMinute(1);
     long nextDayWithTimeLong = todayWithTime.getMillis();
     nextDayWithTimeLong += DateUtilities.ONE_DAY;
     nextDayWithTimeLong = nextDayWithTimeLong / 1000L * 1000;
@@ -87,9 +85,7 @@ public class AdvancedRepeatTest {
     assertDateTimeEquals(nextDayWithTimeLong, nextDueDate);
   }
 
-  /**
-   * test multiple days per week - DUE DATE
-   */
+  /** test multiple days per week - DUE DATE */
   @Test
   public void testDueDateInPastSingleWeekMultiDay() throws Exception {
     buildRRule(1, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
@@ -107,9 +103,7 @@ public class AdvancedRepeatTest {
     assertDueDate(nextDueDate, THIS, Calendar.MONDAY);
   }
 
-  /**
-   * test single day repeats - DUE DATE
-   */
+  /** test single day repeats - DUE DATE */
   @Test
   public void testDueDateSingleDay() throws Exception {
     buildRRule(1, Frequency.WEEKLY, Weekday.MO);
@@ -139,9 +133,7 @@ public class AdvancedRepeatTest {
     assertDueDate(nextDueDate, NEXT, Calendar.MONDAY);
   }
 
-  /**
-   * test multiple days per week - DUE DATE
-   */
+  /** test multiple days per week - DUE DATE */
   @Test
   public void testDueDateSingleWeekMultiDay() throws Exception {
 
@@ -162,9 +154,7 @@ public class AdvancedRepeatTest {
 
   // --- completion tests
 
-  /**
-   * test multiple days per week, multiple intervals - DUE DATE
-   */
+  /** test multiple days per week, multiple intervals - DUE DATE */
   @Test
   public void testDueDateMultiWeekMultiDay() throws Exception {
     buildRRule(2, Frequency.WEEKLY, Weekday.MO, Weekday.WE, Weekday.FR);
@@ -182,9 +172,7 @@ public class AdvancedRepeatTest {
     assertDueDate(nextDueDate, NEXT, Calendar.MONDAY);
   }
 
-  /**
-   * test multiple days per week - COMPLETE DATE
-   */
+  /** test multiple days per week - COMPLETE DATE */
   @Test
   public void testCompleteDateSingleWeek() throws Exception {
     for (Weekday wday : Weekday.values()) {
@@ -213,9 +201,7 @@ public class AdvancedRepeatTest {
 
   // --- helpers
 
-  /**
-   * test multiple days per week, multiple intervals - COMPLETE DATE
-   */
+  /** test multiple days per week, multiple intervals - COMPLETE DATE */
   @Test
   public void testCompleteDateMultiWeek() throws Exception {
     for (Weekday wday : Weekday.values()) {

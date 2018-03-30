@@ -50,8 +50,8 @@ public class CameraActivity extends InjectingAppCompatActivity {
         if (atLeastLollipop()) {
           intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         } else {
-          List<ResolveInfo> resolveInfoList = getPackageManager()
-              .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+          List<ResolveInfo> resolveInfoList =
+              getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
           for (ResolveInfo resolveInfo : resolveInfoList) {
             grantUriPermission(
                 resolveInfo.activityInfo.packageName,

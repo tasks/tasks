@@ -18,8 +18,8 @@ import org.tasks.ui.TimePreference;
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.format.TextStyle;
 
-public class DateTimePreferences extends InjectingPreferenceActivity implements
-    Preference.OnPreferenceChangeListener {
+public class DateTimePreferences extends InjectingPreferenceActivity
+    implements Preference.OnPreferenceChangeListener {
 
   private static final int REQUEST_MORNING = 10001;
   private static final int REQUEST_AFTERNOON = 10002;
@@ -49,10 +49,10 @@ public class DateTimePreferences extends InjectingPreferenceActivity implements
   }
 
   private String[] getWeekdayEntries() {
-    return new String[]{
-        getString(R.string.use_locale_default),
-        getWeekdayDisplayName(DayOfWeek.SUNDAY),
-        getWeekdayDisplayName(DayOfWeek.MONDAY)
+    return new String[] {
+      getString(R.string.use_locale_default),
+      getWeekdayDisplayName(DayOfWeek.SUNDAY),
+      getWeekdayDisplayName(DayOfWeek.MONDAY)
     };
   }
 
@@ -82,13 +82,14 @@ public class DateTimePreferences extends InjectingPreferenceActivity implements
 
   private void initializeTimePreference(final TimePreference preference, final int requestCode) {
     preference.setOnPreferenceChangeListener(this);
-    preference.setOnPreferenceClickListener(ignored -> {
-      final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
-      Intent intent = new Intent(DateTimePreferences.this, TimePickerActivity.class);
-      intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
-      startActivityForResult(intent, requestCode);
-      return true;
-    });
+    preference.setOnPreferenceClickListener(
+        ignored -> {
+          final DateTime current = new DateTime().withMillisOfDay(preference.getMillisOfDay());
+          Intent intent = new Intent(DateTimePreferences.this, TimePickerActivity.class);
+          intent.putExtra(TimePickerActivity.EXTRA_TIMESTAMP, current.getMillis());
+          startActivityForResult(intent, requestCode);
+          return true;
+        });
   }
 
   @Override
@@ -161,9 +162,10 @@ public class DateTimePreferences extends InjectingPreferenceActivity implements
   }
 
   private void invalidSetting(int errorResId, int settingResId, int relativeResId) {
-    Toast.makeText(this,
-        getString(errorResId, getString(settingResId), getString(relativeResId)),
-        Toast.LENGTH_SHORT)
+    Toast.makeText(
+            this,
+            getString(errorResId, getString(settingResId), getString(relativeResId)),
+            Toast.LENGTH_SHORT)
         .show();
   }
 

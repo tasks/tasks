@@ -65,8 +65,11 @@ public class CaldavListFragment extends TaskListFragment {
         if (CaldavSettingsActivity.ACTION_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
         } else if (CaldavSettingsActivity.ACTION_RELOAD.equals(action)) {
-          activity.getIntent().putExtra(TaskListActivity.OPEN_FILTER,
-              (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+          activity
+              .getIntent()
+              .putExtra(
+                  TaskListActivity.OPEN_FILTER,
+                  (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
           activity.recreate();
         }
       }

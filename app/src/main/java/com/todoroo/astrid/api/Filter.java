@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.api;
 
 import android.os.Parcel;
@@ -14,57 +13,49 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A <code>FilterListFilter</code> allows users to display tasks that have
- * something in common.
- * <p>
- * A plug-in can expose new <code>FilterListFilter</code>s to the system by
- * responding to the <code>com.todoroo.astrid.GET_FILTERS</code> broadcast
- * intent.
+ * A <code>FilterListFilter</code> allows users to display tasks that have something in common.
+ *
+ * <p>A plug-in can expose new <code>FilterListFilter</code>s to the system by responding to the
+ * <code>com.todoroo.astrid.GET_FILTERS</code> broadcast intent.
  *
  * @author Tim Su <tim@todoroo.com>
  */
 public class Filter extends FilterListItem {
 
-  /**
-   * Parcelable Creator Object
-   */
-  public static final Parcelable.Creator<Filter> CREATOR = new Parcelable.Creator<Filter>() {
+  /** Parcelable Creator Object */
+  public static final Parcelable.Creator<Filter> CREATOR =
+      new Parcelable.Creator<Filter>() {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Filter createFromParcel(Parcel source) {
-      Filter item = new Filter();
-      item.readFromParcel(source);
-      return item;
-    }
+        /** {@inheritDoc} */
+        @Override
+        public Filter createFromParcel(Parcel source) {
+          Filter item = new Filter();
+          item.readFromParcel(source);
+          return item;
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Filter[] newArray(int size) {
-      return new Filter[size];
-    }
-  };
+        /** {@inheritDoc} */
+        @Override
+        public Filter[] newArray(int size) {
+          return new Filter[size];
+        }
+      };
   /**
-   * Values to apply to a task when quick-adding a task from this filter.
-   * For example, when a user views tasks tagged 'ABC', the
-   * tasks they create should also be tagged 'ABC'. If set to null, no
+   * Values to apply to a task when quick-adding a task from this filter. For example, when a user
+   * views tasks tagged 'ABC', the tasks they create should also be tagged 'ABC'. If set to null, no
    * additional values will be stored for a task. Can use {@link PermaSql}
    */
-  final public Map<String, Object> valuesForNewTasks = new HashMap<>();
+  public final Map<String, Object> valuesForNewTasks = new HashMap<>();
   /**
-   * {@link PermaSql} query for this filter. The query will be appended to the select
-   * statement after "<code>SELECT fields FROM table %s</code>". It is
-   * recommended that you use a {@link QueryTemplate} to construct your
-   * query.
-   * <p>
-   * Examples:
+   * {@link PermaSql} query for this filter. The query will be appended to the select statement
+   * after "<code>SELECT fields FROM table %s</code>". It is recommended that you use a {@link
+   * QueryTemplate} to construct your query.
+   *
+   * <p>Examples:
+   *
    * <ul>
-   * <li><code>"WHERE completionDate = 0"</code>
-   * <li><code>"INNER JOIN " +
+   *   <li><code>"WHERE completionDate = 0"</code>
+   *   <li><code>"INNER JOIN " +
    * Constants.TABLE_METADATA + " ON metadata.task = tasks.id WHERE
    * metadata.namespace = " + NAMESPACE + " AND metadata.key = 'a' AND
    * metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"</code>
@@ -72,8 +63,8 @@ public class Filter extends FilterListItem {
    */
   String sqlQuery;
   /**
-   * Field for holding a modified sqlQuery based on sqlQuery. Useful for adjusting
-   * query for sort/subtasks without breaking the equality checking based on sqlQuery.
+   * Field for holding a modified sqlQuery based on sqlQuery. Useful for adjusting query for
+   * sort/subtasks without breaking the equality checking based on sqlQuery.
    */
   private String filterOverride;
 
@@ -87,10 +78,9 @@ public class Filter extends FilterListItem {
    * @param listingTitle Title of this item as displayed on the lists page, e.g. Inbox
    * @param sqlQuery SQL query for this list (see {@link #sqlQuery} for examples).
    */
-  public Filter(String listingTitle, QueryTemplate sqlQuery,
-      Map<String, Object> valuesForNewTasks) {
-    this(listingTitle, sqlQuery == null ? null : sqlQuery.toString(),
-        valuesForNewTasks);
+  public Filter(
+      String listingTitle, QueryTemplate sqlQuery, Map<String, Object> valuesForNewTasks) {
+    this(listingTitle, sqlQuery == null ? null : sqlQuery.toString(), valuesForNewTasks);
   }
 
   /**
@@ -108,9 +98,7 @@ public class Filter extends FilterListItem {
     }
   }
 
-  /**
-   * Utility constructor
-   */
+  /** Utility constructor */
   Filter() {
     // do nothing
   }
@@ -132,8 +120,7 @@ public class Filter extends FilterListItem {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result
-        + ((sqlQuery == null) ? 0 : sqlQuery.hashCode());
+    result = prime * result + ((sqlQuery == null) ? 0 : sqlQuery.hashCode());
     result = prime * result + ((listingTitle == null) ? 0 : listingTitle.hashCode());
     return result;
   }
@@ -172,9 +159,7 @@ public class Filter extends FilterListItem {
     return Type.ITEM;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
@@ -197,10 +182,15 @@ public class Filter extends FilterListItem {
 
   @Override
   public String toString() {
-    return "Filter{" +
-        "sqlQuery='" + sqlQuery + '\'' +
-        ", filterOverride='" + filterOverride + '\'' +
-        ", valuesForNewTasks=" + valuesForNewTasks +
-        '}';
+    return "Filter{"
+        + "sqlQuery='"
+        + sqlQuery
+        + '\''
+        + ", filterOverride='"
+        + filterOverride
+        + '\''
+        + ", valuesForNewTasks="
+        + valuesForNewTasks
+        + '}';
   }
 }

@@ -16,29 +16,25 @@ import org.tasks.data.GoogleTaskList;
 
 public class GtasksFilter extends Filter {
 
-  /**
-   * Parcelable Creator Object
-   */
-  public static final Parcelable.Creator<GtasksFilter> CREATOR = new Parcelable.Creator<GtasksFilter>() {
+  /** Parcelable Creator Object */
+  public static final Parcelable.Creator<GtasksFilter> CREATOR =
+      new Parcelable.Creator<GtasksFilter>() {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GtasksFilter createFromParcel(Parcel source) {
-      GtasksFilter item = new GtasksFilter();
-      item.readFromParcel(source);
-      return item;
-    }
+        /** {@inheritDoc} */
+        @Override
+        public GtasksFilter createFromParcel(Parcel source) {
+          GtasksFilter item = new GtasksFilter();
+          item.readFromParcel(source);
+          return item;
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GtasksFilter[] newArray(int size) {
-      return new GtasksFilter[size];
-    }
-  };
+        /** {@inheritDoc} */
+        @Override
+        public GtasksFilter[] newArray(int size) {
+          return new GtasksFilter[size];
+        }
+      };
+
   private static final int CLOUD = R.drawable.ic_cloud_black_24dp;
   private GoogleTaskList list;
 
@@ -64,9 +60,10 @@ public class GtasksFilter extends Filter {
   private static QueryTemplate getQueryTemplate(GoogleTaskList list) {
     return new QueryTemplate()
         .join(Join.left(GoogleTask.TABLE, Task.ID.eq(Field.field("google_tasks.task"))))
-        .where(Criterion.and(
-            TaskDao.TaskCriteria.activeAndVisible(),
-            Field.field("list_id").eq(list.getRemoteId())));
+        .where(
+            Criterion.and(
+                TaskDao.TaskCriteria.activeAndVisible(),
+                Field.field("list_id").eq(list.getRemoteId())));
   }
 
   private static Map<String, Object> getValuesForNewTasks(GoogleTaskList list) {
@@ -84,9 +81,7 @@ public class GtasksFilter extends Filter {
     return true;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);

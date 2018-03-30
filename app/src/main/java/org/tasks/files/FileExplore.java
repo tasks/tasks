@@ -19,10 +19,10 @@ import org.tasks.preferences.PermissionRequestor;
 
 public class FileExplore extends InjectingAppCompatActivity {
 
-  public static final String EXTRA_FILE = "extra_file"; //$NON-NLS-1$
-  public static final String EXTRA_DIRECTORY = "extra_directory"; //$NON-NLS-1$
+  public static final String EXTRA_FILE = "extra_file"; // $NON-NLS-1$
+  public static final String EXTRA_DIRECTORY = "extra_directory"; // $NON-NLS-1$
   public static final String EXTRA_START_PATH = "extra_start_path";
-  public static final String EXTRA_DIRECTORY_MODE = "extra_directory_mode"; //$NON-NLS-1$
+  public static final String EXTRA_DIRECTORY_MODE = "extra_directory_mode"; // $NON-NLS-1$
   private static final int REQUEST_PICKER = 1000;
   @Inject ActivityPermissionRequestor permissionRequestor;
 
@@ -72,8 +72,8 @@ public class FileExplore extends InjectingAppCompatActivity {
   }
 
   @Override
-  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-      @NonNull int[] grantResults) {
+  public void onRequestPermissionsResult(
+      int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     if (requestCode == PermissionRequestor.REQUEST_FILE_WRITE) {
       if (verifyPermissions(grantResults)) {
         launchPicker();

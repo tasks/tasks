@@ -12,8 +12,7 @@ public final class ListNotificationBundle {
   public static final String BUNDLE_EXTRA_PREVIOUS_BUNDLE = "org.tasks.locale.PREVIOUS_BUNDLE";
   private static final String BUNDLE_EXTRA_INT_VERSION_CODE = "org.tasks.locale.INT_VERSION_CODE";
 
-  private ListNotificationBundle() {
-  }
+  private ListNotificationBundle() {}
 
   public static boolean isBundleValid(final Bundle bundle) {
     if (null == bundle) {

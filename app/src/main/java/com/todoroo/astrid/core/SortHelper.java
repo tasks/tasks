@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.core;
 
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
@@ -32,11 +31,9 @@ public class SortHelper {
 
   private static final Order ORDER_TITLE = Order.asc(Functions.upper(Task.TITLE));
 
-  /**
-   * Takes a SQL query, and if there isn't already an order, creates an order.
-   */
-  public static String adjustQueryForFlagsAndSort(Preferences preferences, String originalSql,
-      int sort) {
+  /** Takes a SQL query, and if there isn't already an order, creates an order. */
+  public static String adjustQueryForFlagsAndSort(
+      Preferences preferences, String originalSql, int sort) {
     // sort
     if (originalSql == null) {
       originalSql = "";
@@ -52,17 +49,19 @@ public class SortHelper {
 
     // flags
     if (preferences.getBoolean(R.string.p_show_completed_tasks, false)) {
-      originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
-          Criterion.all.toString());
+      originalSql =
+          originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(), Criterion.all.toString());
     } else {
-      originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
-          Criterion
-              .or(Task.COMPLETION_DATE.lte(0), Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000))
-              .toString());
+      originalSql =
+          originalSql.replace(
+              Task.COMPLETION_DATE.eq(0).toString(),
+              Criterion.or(
+                      Task.COMPLETION_DATE.lte(0),
+                      Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000))
+                  .toString());
     }
     if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
-      originalSql = originalSql.replace(isVisible().toString(),
-          Criterion.all.toString());
+      originalSql = originalSql.replace(isVisible().toString(), Criterion.all.toString());
     }
 
     return originalSql;
@@ -75,22 +74,31 @@ public class SortHelper {
         order = ORDER_TITLE;
         break;
       case SORT_DUE:
-        order = Order.asc(
-            "(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE (CASE WHEN (dueDate / 60000) > 0 THEN dueDate ELSE (dueDate + 43140000) END) END)+importance");
+        order =
+            Order.asc(
+                "(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000)*2 ELSE (CASE WHEN (dueDate / 60000) > 0 THEN dueDate ELSE (dueDate + 43140000) END) END)+importance");
         break;
       case SORT_IMPORTANCE:
-        order = Order.asc(
-            "importance*(strftime('%s','now')*1000)+(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000) ELSE dueDate END)");
+        order =
+            Order.asc(
+                "importance*(strftime('%s','now')*1000)+(CASE WHEN (dueDate=0) THEN (strftime('%s','now')*1000) ELSE dueDate END)");
         break;
       case SORT_MODIFIED:
         order = Order.desc(Task.MODIFICATION_DATE);
         break;
       case SORT_WIDGET:
       default:
-        order = Order.asc("(CASE WHEN (dueDate=0) " + // if no due date
-            "THEN (strftime('%s','now')*1000)*2 " + // then now * 2
-            "ELSE (" + adjustedDueDateFunction() + ") END) " + // else due time
-            "+ 172800000 * importance"); // add 2 days * importance
+        order =
+            Order.asc(
+                "(CASE WHEN (dueDate=0) "
+                    + // if no due date
+                    "THEN (strftime('%s','now')*1000)*2 "
+                    + // then now * 2
+                    "ELSE ("
+                    + adjustedDueDateFunction()
+                    + ") END) "
+                    + // else due time
+                    "+ 172800000 * importance"); // add 2 days * importance
     }
     if (sortType != SORT_ALPHA) {
       order.addSecondaryExpression(ORDER_TITLE);

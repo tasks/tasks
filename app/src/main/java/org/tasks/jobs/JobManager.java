@@ -1,6 +1,5 @@
 package org.tasks.jobs;
 
-import static android.text.TextUtils.isEmpty;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
@@ -8,7 +7,6 @@ import com.evernote.android.job.DailyJob;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.JobRequest.Builder;
 import com.evernote.android.job.JobRequest.NetworkType;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -60,25 +58,30 @@ public class JobManager {
   }
 
   public void scheduleBackup() {
-    DailyJob.schedule(new Builder(JobCreator.TAG_BACKUP), 0,
-        TimeUnit.HOURS.toMillis(24) - 1);
+    DailyJob.schedule(new Builder(JobCreator.TAG_BACKUP), 0, TimeUnit.HOURS.toMillis(24) - 1);
   }
 
   public void updateBackgroundSync() {
     updateBackgroundSync(null, null, null);
   }
 
-  public void updateBackgroundSync(@Nullable Boolean forceAccountPresent,
-      @Nullable Boolean forceBackgroundEnabled, @Nullable Boolean forceOnlyOnUnmetered) {
-    boolean backgroundEnabled = forceBackgroundEnabled == null
-        ? preferences.getBoolean(R.string.p_background_sync, true)
-        : forceBackgroundEnabled;
-    boolean accountsPresent = forceAccountPresent == null
-        ? (preferences.getBoolean(R.string.sync_gtasks, false) || preferences.getBoolean(R.string.p_sync_caldav, false))
-        : forceAccountPresent;
-    boolean onlyOnWifi = forceOnlyOnUnmetered == null
-        ? preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
-        : forceOnlyOnUnmetered;
+  public void updateBackgroundSync(
+      @Nullable Boolean forceAccountPresent,
+      @Nullable Boolean forceBackgroundEnabled,
+      @Nullable Boolean forceOnlyOnUnmetered) {
+    boolean backgroundEnabled =
+        forceBackgroundEnabled == null
+            ? preferences.getBoolean(R.string.p_background_sync, true)
+            : forceBackgroundEnabled;
+    boolean accountsPresent =
+        forceAccountPresent == null
+            ? (preferences.getBoolean(R.string.sync_gtasks, false)
+                || preferences.getBoolean(R.string.p_sync_caldav, false))
+            : forceAccountPresent;
+    boolean onlyOnWifi =
+        forceOnlyOnUnmetered == null
+            ? preferences.getBoolean(R.string.p_background_sync_unmetered_only, false)
+            : forceOnlyOnUnmetered;
     scheduleBackgroundSynchronization(backgroundEnabled && accountsPresent, onlyOnWifi);
   }
 

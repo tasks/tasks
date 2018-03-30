@@ -7,35 +7,29 @@ import com.todoroo.astrid.api.FilterListItem;
 
 public class NavigationDrawerAction extends FilterListItem {
 
-  /**
-   * Parcelable Creator Object
-   */
-  public static final Parcelable.Creator<NavigationDrawerAction> CREATOR = new Parcelable.Creator<NavigationDrawerAction>() {
+  /** Parcelable Creator Object */
+  public static final Parcelable.Creator<NavigationDrawerAction> CREATOR =
+      new Parcelable.Creator<NavigationDrawerAction>() {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public NavigationDrawerAction createFromParcel(Parcel source) {
-      NavigationDrawerAction item = new NavigationDrawerAction();
-      item.readFromParcel(source);
-      return item;
-    }
+        /** {@inheritDoc} */
+        @Override
+        public NavigationDrawerAction createFromParcel(Parcel source) {
+          NavigationDrawerAction item = new NavigationDrawerAction();
+          item.readFromParcel(source);
+          return item;
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public NavigationDrawerAction[] newArray(int size) {
-      return new NavigationDrawerAction[size];
-    }
-  };
+        /** {@inheritDoc} */
+        @Override
+        public NavigationDrawerAction[] newArray(int size) {
+          return new NavigationDrawerAction[size];
+        }
+      };
+
   public Intent intent;
   public int requestCode;
 
-  private NavigationDrawerAction() {
-
-  }
+  private NavigationDrawerAction() {}
 
   public NavigationDrawerAction(String listingTitle, int icon, Intent intent, int requestCode) {
     this.listingTitle = listingTitle;
@@ -49,9 +43,7 @@ public class NavigationDrawerAction extends FilterListItem {
     return Type.ITEM;
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);

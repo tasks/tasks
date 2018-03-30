@@ -32,8 +32,10 @@ public class DateTimeTest {
     TimeZone def = TimeZone.getDefault();
     try {
       TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
-      assertEquals(2,
-          new DateTime(2015, 10, 31, 2, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
+      assertEquals(
+          2,
+          new DateTime(2015, 10, 31, 2, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
               .getHourOfDay());
     } finally {
       TimeZone.setDefault(def);
@@ -45,8 +47,10 @@ public class DateTimeTest {
     TimeZone def = TimeZone.getDefault();
     try {
       TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
-      assertEquals(2,
-          new DateTime(2015, 11, 2, 2, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
+      assertEquals(
+          2,
+          new DateTime(2015, 11, 2, 2, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
               .getHourOfDay());
     } finally {
       TimeZone.setDefault(def);
@@ -58,23 +62,33 @@ public class DateTimeTest {
     TimeZone def = TimeZone.getDefault();
     try {
       TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
-      assertEquals(1,
-          new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(1))
+      assertEquals(
+          1,
+          new DateTime(2015, 3, 8, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(1))
               .getHourOfDay());
-      assertEquals(3,
-          new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
+      assertEquals(
+          3,
+          new DateTime(2015, 3, 8, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
               .getHourOfDay());
-      assertEquals(3,
-          new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(3))
+      assertEquals(
+          3,
+          new DateTime(2015, 3, 8, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(3))
               .getHourOfDay());
-      assertEquals(4,
-          new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(4))
+      assertEquals(
+          4,
+          new DateTime(2015, 3, 8, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(4))
               .getHourOfDay());
 
       assertEquals(
-          new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
+          new DateTime(2015, 3, 8, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
               .getMillis(),
-          new DateTime(2015, 3, 8, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(3))
+          new DateTime(2015, 3, 8, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(3))
               .getMillis());
     } finally {
       TimeZone.setDefault(def);
@@ -86,14 +100,20 @@ public class DateTimeTest {
     TimeZone def = TimeZone.getDefault();
     try {
       TimeZone.setDefault(TimeZone.getTimeZone("America/Chicago"));
-      assertEquals(1,
-          new DateTime(2015, 11, 1, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(1))
+      assertEquals(
+          1,
+          new DateTime(2015, 11, 1, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(1))
               .getHourOfDay());
-      assertEquals(2,
-          new DateTime(2015, 11, 1, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
+      assertEquals(
+          2,
+          new DateTime(2015, 11, 1, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(2))
               .getHourOfDay());
-      assertEquals(3,
-          new DateTime(2015, 11, 1, 0, 0, 0).withMillisOfDay((int) TimeUnit.HOURS.toMillis(3))
+      assertEquals(
+          3,
+          new DateTime(2015, 11, 1, 0, 0, 0)
+              .withMillisOfDay((int) TimeUnit.HOURS.toMillis(3))
               .getHourOfDay());
     } finally {
       TimeZone.setDefault(def);
@@ -196,8 +216,7 @@ public class DateTimeTest {
   @Test
   public void testWithHourOfDay() {
     assertEquals(
-        new DateTime(2015, 11, 6, 23, 0, 0),
-        new DateTime(2015, 11, 6, 1, 0, 0).withHourOfDay(23));
+        new DateTime(2015, 11, 6, 23, 0, 0), new DateTime(2015, 11, 6, 1, 0, 0).withHourOfDay(23));
   }
 
   @Test
@@ -222,17 +241,15 @@ public class DateTimeTest {
   @Test
   public void testMinusMinutes() {
     assertEquals(
-        new DateTime(2015, 11, 4, 23, 59, 0),
-        new DateTime(2015, 11, 5, 0, 1, 0).minusMinutes(2));
+        new DateTime(2015, 11, 4, 23, 59, 0), new DateTime(2015, 11, 5, 0, 1, 0).minusMinutes(2));
   }
 
   @Test
   public void testIsBefore() {
-    assertTrue(new DateTime(2015, 11, 4, 23, 59, 0)
-        .isBefore(new DateTime(2015, 11, 4, 23, 59, 1)));
+    assertTrue(new DateTime(2015, 11, 4, 23, 59, 0).isBefore(new DateTime(2015, 11, 4, 23, 59, 1)));
 
-    assertFalse(new DateTime(2015, 11, 4, 23, 59, 0)
-        .isBefore(new DateTime(2015, 11, 4, 23, 59, 0)));
+    assertFalse(
+        new DateTime(2015, 11, 4, 23, 59, 0).isBefore(new DateTime(2015, 11, 4, 23, 59, 0)));
   }
 
   @Test
@@ -242,25 +259,21 @@ public class DateTimeTest {
 
   @Test
   public void testIsAfter() {
-    assertTrue(new DateTime(2015, 11, 4, 23, 59, 1)
-        .isAfter(new DateTime(2015, 11, 4, 23, 59, 0)));
+    assertTrue(new DateTime(2015, 11, 4, 23, 59, 1).isAfter(new DateTime(2015, 11, 4, 23, 59, 0)));
 
-    assertFalse(new DateTime(2015, 11, 4, 23, 59, 0)
-        .isAfter(new DateTime(2015, 11, 4, 23, 59, 0)));
+    assertFalse(new DateTime(2015, 11, 4, 23, 59, 0).isAfter(new DateTime(2015, 11, 4, 23, 59, 0)));
   }
 
   @Test
   public void testWithYear() {
     assertEquals(
-        new DateTime(2016, 1, 1, 1, 1, 1),
-        new DateTime(2015, 1, 1, 1, 1, 1).withYear(2016));
+        new DateTime(2016, 1, 1, 1, 1, 1), new DateTime(2015, 1, 1, 1, 1, 1).withYear(2016));
   }
 
   @Test
   public void testWithMonthOfYear() {
     assertEquals(
-        new DateTime(2015, 1, 2, 3, 4, 5),
-        new DateTime(2015, 2, 2, 3, 4, 5).withMonthOfYear(1));
+        new DateTime(2015, 1, 2, 3, 4, 5), new DateTime(2015, 2, 2, 3, 4, 5).withMonthOfYear(1));
   }
 
   @Test
@@ -271,37 +284,37 @@ public class DateTimeTest {
   @Test
   public void testWithDayOfMonth() {
     assertEquals(
-        new DateTime(2015, 1, 2, 3, 4, 5),
-        new DateTime(2015, 1, 1, 3, 4, 5).withDayOfMonth(2));
+        new DateTime(2015, 1, 2, 3, 4, 5), new DateTime(2015, 1, 1, 3, 4, 5).withDayOfMonth(2));
   }
 
   @Test
   public void testPlusMinutes() {
     assertEquals(
-        new DateTime(2015, 1, 2, 3, 4, 5),
-        new DateTime(2015, 1, 2, 2, 59, 5).plusMinutes(5));
+        new DateTime(2015, 1, 2, 3, 4, 5), new DateTime(2015, 1, 2, 2, 59, 5).plusMinutes(5));
   }
 
   @Test
   public void testPlusHours() {
     assertEquals(
-        new DateTime(2015, 1, 2, 3, 4, 5),
-        new DateTime(2015, 1, 1, 3, 4, 5).plusHours(24));
+        new DateTime(2015, 1, 2, 3, 4, 5), new DateTime(2015, 1, 1, 3, 4, 5).plusHours(24));
   }
 
   @Test
   public void testPlusWeeks() {
     assertEquals(
-        new DateTime(2015, 1, 2, 3, 4, 5),
-        new DateTime(2014, 12, 12, 3, 4, 5).plusWeeks(3));
+        new DateTime(2015, 1, 2, 3, 4, 5), new DateTime(2014, 12, 12, 3, 4, 5).plusWeeks(3));
   }
 
   @Test
   public void testIsBeforeNow() {
-    Freeze.freezeAt(new DateTime(2015, 10, 6, 16, 15, 27)).thawAfter(new Snippet() {{
-      assertFalse(new DateTime(2015, 10, 6, 16, 15, 27).isBeforeNow());
-      assertTrue(new DateTime(2015, 10, 6, 16, 15, 26).isBeforeNow());
-    }});
+    Freeze.freezeAt(new DateTime(2015, 10, 6, 16, 15, 27))
+        .thawAfter(
+            new Snippet() {
+              {
+                assertFalse(new DateTime(2015, 10, 6, 16, 15, 27).isBeforeNow());
+                assertTrue(new DateTime(2015, 10, 6, 16, 15, 26).isBeforeNow());
+              }
+            });
   }
 
   @Test
@@ -314,12 +327,10 @@ public class DateTimeTest {
   @Test
   public void testMinusDays() {
     assertEquals(
-        new DateTime(2015, 11, 6, 16, 19, 16),
-        new DateTime(2015, 12, 4, 16, 19, 16).minusDays(28));
+        new DateTime(2015, 11, 6, 16, 19, 16), new DateTime(2015, 12, 4, 16, 19, 16).minusDays(28));
 
     assertEquals(
-        new DateTime(2015, 11, 6, 16, 19, 16),
-        new DateTime(2015, 11, 7, 16, 19, 16).minusDays(1));
+        new DateTime(2015, 11, 6, 16, 19, 16), new DateTime(2015, 11, 7, 16, 19, 16).minusDays(1));
   }
 
   @Test

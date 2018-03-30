@@ -1,9 +1,8 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.astrid.core;
 
 import android.content.Context;
@@ -44,11 +43,10 @@ public final class BuiltInFilterExposer {
     this.preferences = preferences;
   }
 
-  /**
-   * Build inbox filter
-   */
+  /** Build inbox filter */
   public static Filter getMyTasksFilter(Resources r) {
-    return new Filter(r.getString(R.string.BFE_Active),
+    return new Filter(
+        r.getString(R.string.BFE_Active),
         new QueryTemplate().where(TaskCriteria.activeAndVisible()));
   }
 
@@ -56,27 +54,36 @@ public final class BuiltInFilterExposer {
     String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
     Map<String, Object> todayValues = new HashMap<>();
     todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
-    return new Filter(todayTitle,
-        new QueryTemplate().where(
-            Criterion.and(TaskCriteria.activeAndVisible(),
-                Task.DUE_DATE.gt(0),
-                Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
+    return new Filter(
+        todayTitle,
+        new QueryTemplate()
+            .where(
+                Criterion.and(
+                    TaskCriteria.activeAndVisible(),
+                    Task.DUE_DATE.gt(0),
+                    Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
         todayValues);
   }
 
   public static Filter getRecentlyModifiedFilter(Resources r) {
-    return new Filter(r.getString(R.string.BFE_Recent),
-        new QueryTemplate().where(
-            TaskCriteria.notDeleted()).orderBy(
-            Order.desc(Task.MODIFICATION_DATE)).limit(15));
+    return new Filter(
+        r.getString(R.string.BFE_Recent),
+        new QueryTemplate()
+            .where(TaskCriteria.notDeleted())
+            .orderBy(Order.desc(Task.MODIFICATION_DATE))
+            .limit(15));
   }
 
   public static Filter getUncategorizedFilter(Resources r) {
-    return new Filter(r.getString(R.string.tag_FEx_untagged),
-        new QueryTemplate().where(Criterion.and(
-            Criterion.not(Task.UUID.in(Query.select(Field.field("task_uid")).from(Tag.TABLE))),
-            TaskCriteria.isActive(),
-            TaskCriteria.isVisible())));
+    return new Filter(
+        r.getString(R.string.tag_FEx_untagged),
+        new QueryTemplate()
+            .where(
+                Criterion.and(
+                    Criterion.not(
+                        Task.UUID.in(Query.select(Field.field("task_uid")).from(Tag.TABLE))),
+                    TaskCriteria.isActive(),
+                    TaskCriteria.isVisible())));
   }
 
   public static boolean isInbox(Context context, Filter filter) {

@@ -1,16 +1,15 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
-
 package com.todoroo.andlib.data;
 
 import com.todoroo.andlib.sql.SqlTable;
 
 /**
- * Table class. Most fields are final, so methods such as <code>as</code> will
- * clone the table when it returns.
+ * Table class. Most fields are final, so methods such as <code>as</code> will clone the table when
+ * it returns.
  *
  * @author Tim Su <tim@todoroo.com>
  */
@@ -28,9 +27,7 @@ public final class Table extends SqlTable {
     this.alias = alias;
   }
 
-  /**
-   * Create a new join table based on this table, but with an alias
-   */
+  /** Create a new join table based on this table, but with an alias */
   @Override
   public Table as(String newAlias) {
     return new Table(name, newAlias);
@@ -39,7 +36,7 @@ public final class Table extends SqlTable {
   @Override
   public String toString() {
     if (hasAlias()) {
-      return expression + " AS " + alias; //$NON-NLS-1$
+      return expression + " AS " + alias; // $NON-NLS-1$
     }
     return expression;
   }

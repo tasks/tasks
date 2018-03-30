@@ -15,8 +15,8 @@ import org.tasks.injection.TestComponent;
 public class SubtasksHelperTest extends SubtasksTestCase {
 
   private static final String[] EXPECTED_ORDER = {"-1", "1", "2", "3", "4", "5", "6"};
-  private static final String EXPECTED_REMOTE = "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]"
-      .replaceAll("\\s", "");
+  private static final String EXPECTED_REMOTE =
+      "[\"-1\", [\"6\", \"4\", [\"3\", \"1\"]], \"2\", \"5\"]".replaceAll("\\s", "");
   @Inject TaskDao taskDao;
 
   @Override
@@ -25,8 +25,8 @@ public class SubtasksHelperTest extends SubtasksTestCase {
     createTasks();
     TaskListMetadata m = new TaskListMetadata();
     m.setFilter(TaskListMetadata.FILTER_ID_ALL);
-    updater.initializeFromSerializedTree(m, filter,
-        SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE));
+    updater.initializeFromSerializedTree(
+        m, filter, SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE));
   }
 
   private void createTask(String title, String uuid) {
@@ -58,8 +58,9 @@ public class SubtasksHelperTest extends SubtasksTestCase {
 
   @Test
   public void testLocalToRemoteIdMapping() {
-    String mapped = SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE)
-        .replaceAll("\\s", "");
+    String mapped =
+        SubtasksHelper.convertTreeToRemoteIds(taskDao, DEFAULT_SERIALIZED_TREE)
+            .replaceAll("\\s", "");
     assertEquals(EXPECTED_REMOTE, mapped);
   }
 

@@ -1,5 +1,5 @@
-//package com.yourcompany.yourcondition;
-//package com.yourcompany.yoursetting;
+// package com.yourcompany.yourcondition;
+// package com.yourcompany.yoursetting;
 
 package net.dinglisch.android.tasker;
 
@@ -32,7 +32,8 @@ package net.dinglisch.android.tasker;
 // added Host.addHintTimeoutMS()
 
 // v1.7 20160619
-// null check for getCallingActivity() in hostSupportsOnFireVariableReplacement( Activity editActivity )
+// null check for getCallingActivity() in hostSupportsOnFireVariableReplacement( Activity
+// editActivity )
 
 // v1.8 20161002
 // added hostSupportsKeyEncoding(), setKeyEncoding() and Host.getKeysWithEncoding()
@@ -46,21 +47,18 @@ import android.util.Log;
 
 public class TaskerPlugin {
 
-  /**
-   * @see Setting#hostSupportsOnFireVariableReplacement(Bundle)
-   */
-  private final static int EXTRA_HOST_CAPABILITY_SETTING_FIRE_VARIABLE_REPLACEMENT = 8;
-  private final static String TAG = "TaskerPlugin";
-  private final static String BASE_KEY = "net.dinglisch.android.tasker";
-  private final static String EXTRAS_PREFIX = BASE_KEY + ".extras.";
-  private final static int FIRST_ON_FIRE_VARIABLES_TASKER_VERSION = 80;
-  /**
-   * Host capabilities, passed to plugin with edit intents
-   */
-  private final static String EXTRA_HOST_CAPABILITIES = EXTRAS_PREFIX + "HOST_CAPABILITIES";
+  /** @see Setting#hostSupportsOnFireVariableReplacement(Bundle) */
+  private static final int EXTRA_HOST_CAPABILITY_SETTING_FIRE_VARIABLE_REPLACEMENT = 8;
 
-  private static Object getBundleValueSafe(Bundle b, String key, Class<?> expectedClass,
-      String funcName) {
+  private static final String TAG = "TaskerPlugin";
+  private static final String BASE_KEY = "net.dinglisch.android.tasker";
+  private static final String EXTRAS_PREFIX = BASE_KEY + ".extras.";
+  private static final int FIRST_ON_FIRE_VARIABLES_TASKER_VERSION = 80;
+  /** Host capabilities, passed to plugin with edit intents */
+  private static final String EXTRA_HOST_CAPABILITIES = EXTRAS_PREFIX + "HOST_CAPABILITIES";
+
+  private static Object getBundleValueSafe(
+      Bundle b, String key, Class<?> expectedClass, String funcName) {
     Object value = null;
 
     if (b != null) {
@@ -69,8 +67,14 @@ public class TaskerPlugin {
         if (obj == null) {
           Log.w(TAG, funcName + ": " + key + ": null value");
         } else if (obj.getClass() != expectedClass) {
-          Log.w(TAG,
-              funcName + ": " + key + ": expected " + expectedClass.getClass().getName() + ", got "
+          Log.w(
+              TAG,
+              funcName
+                  + ": "
+                  + key
+                  + ": expected "
+                  + expectedClass.getClass().getName()
+                  + ", got "
                   + obj.getClass().getName());
         } else {
           value = obj;
@@ -83,12 +87,11 @@ public class TaskerPlugin {
   // ----------------------------- SETTING PLUGIN ONLY --------------------------------- //
 
   private static boolean hostSupports(Bundle extrasFromHost, int capabilityFlag) {
-    Integer flags = (Integer) getBundleValueSafe(extrasFromHost, EXTRA_HOST_CAPABILITIES,
-        Integer.class, "hostSupports");
-    return
-        (flags != null) &&
-            ((flags & capabilityFlag) > 0)
-        ;
+    Integer flags =
+        (Integer)
+            getBundleValueSafe(
+                extrasFromHost, EXTRA_HOST_CAPABILITIES, Integer.class, "hostSupports");
+    return (flags != null) && ((flags & capabilityFlag) > 0);
   }
 
   // ---------------------------------- HELPER FUNCTIONS -------------------------------- //
@@ -111,8 +114,8 @@ public class TaskerPlugin {
     return code;
   }
 
-  private static void addStringArrayToBundleAsString(String[] toAdd, Bundle bundle, String key,
-      String callerName) {
+  private static void addStringArrayToBundleAsString(
+      String[] toAdd, Bundle bundle, String key, String callerName) {
 
     StringBuilder builder = new StringBuilder();
 
@@ -148,19 +151,17 @@ public class TaskerPlugin {
 
   public static class Setting {
 
-    /**
-     * @see #setVariableReplaceKeys(Bundle, String[])
-     */
-    private final static String BUNDLE_KEY_VARIABLE_REPLACE_STRINGS =
+    /** @see #setVariableReplaceKeys(Bundle, String[]) */
+    private static final String BUNDLE_KEY_VARIABLE_REPLACE_STRINGS =
         EXTRAS_PREFIX + "VARIABLE_REPLACE_KEYS";
 
     /**
      * Used by: plugin EditActivity.
      *
-     * Indicates to plugin that host will replace variables in specified bundle keys.
+     * <p>Indicates to plugin that host will replace variables in specified bundle keys.
      *
-     * Replacement takes place every time the setting is fired, before the bundle is
-     * passed to the plugin FireReceiver.
+     * <p>Replacement takes place every time the setting is fired, before the bundle is passed to
+     * the plugin FireReceiver.
      *
      * @param extrasFromHost intent extras from the intent received by the edit activity
      * @see #setVariableReplaceKeys(Bundle, String[])
@@ -172,36 +173,35 @@ public class TaskerPlugin {
     /**
      * Used by: plugin EditActivity.
      *
-     * Description as above.
+     * <p>Description as above.
      *
-     * This version also includes backwards compatibility with pre 4.2 Tasker versions.
-     * At some point this function will be deprecated.
+     * <p>This version also includes backwards compatibility with pre 4.2 Tasker versions. At some
+     * point this function will be deprecated.
      *
      * @param editActivity the plugin edit activity, needed to test calling Tasker version
      * @see #setVariableReplaceKeys(Bundle, String[])
      */
-
     public static boolean hostSupportsOnFireVariableReplacement(Activity editActivity) {
 
-      boolean supportedFlag = hostSupportsOnFireVariableReplacement(
-          editActivity.getIntent().getExtras());
+      boolean supportedFlag =
+          hostSupportsOnFireVariableReplacement(editActivity.getIntent().getExtras());
 
       if (!supportedFlag) {
 
         ComponentName callingActivity = editActivity.getCallingActivity();
 
         if (callingActivity == null) {
-          Log.w(TAG,
+          Log.w(
+              TAG,
               "hostSupportsOnFireVariableReplacement: null callingActivity, defaulting to false");
         } else {
           String callerPackage = callingActivity.getPackageName();
 
           // Tasker only supporteed this from 1.0.10
           supportedFlag =
-              (callerPackage.startsWith(BASE_KEY)) &&
-                  (getPackageVersionCode(editActivity.getPackageManager(), callerPackage)
-                      > FIRST_ON_FIRE_VARIABLES_TASKER_VERSION)
-          ;
+              (callerPackage.startsWith(BASE_KEY))
+                  && (getPackageVersionCode(editActivity.getPackageManager(), callerPackage)
+                      > FIRST_ON_FIRE_VARIABLES_TASKER_VERSION);
         }
       }
 
@@ -211,7 +211,7 @@ public class TaskerPlugin {
     /**
      * Used by: plugin EditActivity
      *
-     * Indicates to host which bundle keys should be replaced.
+     * <p>Indicates to host which bundle keys should be replaced.
      *
      * @param resultBundleToHost the bundle being returned to the host
      * @param listOfKeyNames which bundle keys to replace variables in when setting fires
@@ -220,9 +220,10 @@ public class TaskerPlugin {
      */
     public static void setVariableReplaceKeys(Bundle resultBundleToHost, String[] listOfKeyNames) {
       addStringArrayToBundleAsString(
-          listOfKeyNames, resultBundleToHost, BUNDLE_KEY_VARIABLE_REPLACE_STRINGS,
-          "setVariableReplaceKeys"
-      );
+          listOfKeyNames,
+          resultBundleToHost,
+          BUNDLE_KEY_VARIABLE_REPLACE_STRINGS,
+          "setVariableReplaceKeys");
     }
   }
 }

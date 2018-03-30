@@ -18,8 +18,8 @@ import timber.log.Timber;
 
 public class SubtasksFilterUpdater {
 
-  static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; //$NON-NLS-1$
-  static final String TODAY_TASKS_ORDER = "today_tasks_order"; //$NON-NLS-1$
+  static final String ACTIVE_TASKS_ORDER = "active_tasks_order"; // $NON-NLS-1$
+  static final String TODAY_TASKS_ORDER = "today_tasks_order"; // $NON-NLS-1$
 
   private final TaskListMetadataDao taskListMetadataDao;
   private final TaskDao taskDao;
@@ -35,19 +35,19 @@ public class SubtasksFilterUpdater {
   static String buildOrderString(String[] ids) {
     StringBuilder builder = new StringBuilder();
     if (ids.length == 0) {
-      return "(1)"; //$NON-NLS-1$
+      return "(1)"; // $NON-NLS-1$
     }
     for (int i = ids.length - 1; i >= 0; i--) {
       builder.append(Task.UUID.eq(ids[i]).toString());
       if (i > 0) {
-        builder.append(", "); //$NON-NLS-1$
+        builder.append(", "); // $NON-NLS-1$
       }
     }
     return builder.toString();
   }
 
   static Node buildTreeModel(String serializedTree, JSONTreeModelBuilder callback) {
-    Node root = new Node("-1", null, -1); //$NON-NLS-1$
+    Node root = new Node("-1", null, -1); // $NON-NLS-1$
     try {
       JSONArray tree = new JSONArray(serializedTree);
       recursivelyBuildChildren(root, tree, callback);
@@ -57,8 +57,8 @@ public class SubtasksFilterUpdater {
     return root;
   }
 
-  private static void recursivelyBuildChildren(Node node, JSONArray children,
-      JSONTreeModelBuilder callback) throws JSONException {
+  private static void recursivelyBuildChildren(
+      Node node, JSONArray children, JSONTreeModelBuilder callback) throws JSONException {
     for (int i = 1; i < children.length(); i++) {
       JSONArray subarray = children.optJSONArray(i);
       String uuid;
@@ -105,12 +105,12 @@ public class SubtasksFilterUpdater {
 
   private String getSerializedTree(TaskListMetadata list) {
     if (list == null) {
-      return "[]"; //$NON-NLS-1$
+      return "[]"; // $NON-NLS-1$
     }
     String order = list.getTaskIds();
-    if (TextUtils.isEmpty(order) || "null".equals(order)) //$NON-NLS-1$
+    if (TextUtils.isEmpty(order) || "null".equals(order)) // $NON-NLS-1$
     {
-      order = "[]"; //$NON-NLS-1$
+      order = "[]"; // $NON-NLS-1$
     }
 
     return order;
@@ -133,9 +133,10 @@ public class SubtasksFilterUpdater {
 
     query = query.replaceAll("ORDER BY .*", "");
     query = query + String.format("ORDER BY %s", getOrderString());
-    query = query.replace(
-        TaskDao.TaskCriteria.activeAndVisible().toString(),
-        TaskDao.TaskCriteria.notDeleted().toString());
+    query =
+        query.replace(
+            TaskDao.TaskCriteria.activeAndVisible().toString(),
+            TaskDao.TaskCriteria.notDeleted().toString());
 
     filter.setFilterQueryOverride(query);
   }
@@ -162,11 +163,12 @@ public class SubtasksFilterUpdater {
       currentIds.add(id);
     }
     Set<String> idsInQuery = new HashSet<>();
-    String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", "");  //$NON-NLS-1$//$NON-NLS-2$
-    sql = sql + " ORDER BY created"; //$NON-NLS-1$
-    sql = sql.replace(
-        TaskDao.TaskCriteria.activeAndVisible().toString(),
-        TaskDao.TaskCriteria.notDeleted().toString());
+    String sql = filter.getSqlQuery().replaceAll("ORDER BY .*", ""); // $NON-NLS-1$//$NON-NLS-2$
+    sql = sql + " ORDER BY created"; // $NON-NLS-1$
+    sql =
+        sql.replace(
+            TaskDao.TaskCriteria.activeAndVisible().toString(),
+            TaskDao.TaskCriteria.notDeleted().toString());
     List<Task> tasks = taskDao.fetchFiltered(sql);
     for (Task task : tasks) {
       String id = task.getUuid();
@@ -322,7 +324,7 @@ public class SubtasksFilterUpdater {
       return;
     }
 
-    if ("-1".equals(beforeTaskId)) { //$NON-NLS-1$
+    if ("-1".equals(beforeTaskId)) { // $NON-NLS-1$
       moveToEndOfList(list, filter, target);
       return;
     }
