@@ -104,10 +104,6 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
 
     caldavAccount = getIntent().getParcelableExtra(EXTRA_CALDAV_DATA);
 
-    if (!isEmpty(caldavAccount.getPassword())) {
-      password.setText(PASSWORD_MASK);
-    }
-
     if (savedInstanceState == null) {
       if (caldavAccount == null) {
         selectedTheme = -1;
@@ -115,6 +111,9 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
         selectedTheme = caldavAccount.getColor();
         url.setText(caldavAccount.getUrl());
         user.setText(caldavAccount.getUsername());
+        if (!isEmpty(caldavAccount.getPassword())) {
+          password.setText(PASSWORD_MASK);
+        }
       }
     } else {
       selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
