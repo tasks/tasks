@@ -1,5 +1,7 @@
 package org.tasks.injection;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
+
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import com.evernote.android.job.JobManager;
@@ -26,6 +28,9 @@ import org.tasks.data.UserActivityDao;
 import org.tasks.db.Migrations;
 import org.tasks.locale.Locale;
 import org.tasks.notifications.NotificationDao;
+import org.tasks.security.Encryption;
+import org.tasks.security.KeyStoreEncryption;
+import org.tasks.security.NoEncryption;
 
 @Module
 public class ApplicationModule {
@@ -148,5 +153,11 @@ public class ApplicationModule {
   @ApplicationScope
   public JobManager getJobManager() {
     return JobManager.create(context);
+  }
+
+  @Provides
+  @ApplicationScope
+  public Encryption getEncryption() {
+    return atLeastMarshmallow() ? new KeyStoreEncryption() : new NoEncryption();
   }
 }
