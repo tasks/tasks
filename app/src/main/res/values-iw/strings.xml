@@ -272,8 +272,6 @@
 	<string name="customize_edit_screen">התאם אישית את מסך עריכת משימה</string>
 	<string name="source_code">קוד מקור</string>
 	<string name="translations">תרום לתרגום</string>
-	<string name="report_an_issue">דווח/י על בעיה</string>
-	<string name="help_and_feedback">עזרה ומשוב</string>
 	<string name="contact_developer">צור קשר</string>
 	<string name="rate_tasks">דרג אפליקציה</string>
 	<string name="quiet_hours_summary">ללא התראות בשעות השקטות</string>

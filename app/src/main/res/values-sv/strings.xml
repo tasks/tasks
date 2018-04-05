@@ -246,8 +246,6 @@
 	<string name="customize_edit_screen">Anpassa redigeringsvyn</string>
 	<string name="source_code">Källkod</string>
 	<string name="translations">Hjälp till med översättning</string>
-	<string name="report_an_issue">Rapportera ett problem</string>
-	<string name="help_and_feedback">Hjälp &amp; Återkoppling</string>
 	<string name="contact_developer">Kontakta utvecklaren</string>
 	<string name="rate_tasks">Betygsätt Tasks</string>
 	<string name="quiet_hours_summary">Inga påminnelser kommer att göras under under tyst period</string>

@@ -32,7 +32,6 @@ import org.tasks.locale.ui.activity.TaskerSettingsActivity;
 import org.tasks.preferences.AppearancePreferences;
 import org.tasks.preferences.BasicPreferences;
 import org.tasks.preferences.DateTimePreferences;
-import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.MiscellaneousPreferences;
 import org.tasks.reminders.MissedCallActivity;
 import org.tasks.reminders.NotificationActivity;
@@ -115,8 +114,6 @@ public interface ActivityComponent {
   void inject(ShortcutConfigActivity shortcutConfigActivity);
 
   void inject(MiscellaneousPreferences miscellaneousPreferences);
-
-  void inject(HelpAndFeedbackActivity helpAndFeedbackActivity);
 
   void inject(DateTimePreferences dateTimePreferences);
 

@@ -321,8 +321,6 @@
 	<string name="customize_edit_screen">Personalizza schermata di modifica</string>
 	<string name="source_code">Codice sorgente</string>
 	<string name="translations">Contribuisci alla traduzione</string>
-	<string name="report_an_issue">Segnala un problema</string>
-	<string name="help_and_feedback">Aiuto &amp; Suggerimenti</string>
 	<string name="contact_developer">Contatta lo sviluppatore</string>
 	<string name="rate_tasks">Attività</string>
 	<string name="quiet_hours_summary">Non notificare durante le ore di riposo</string>

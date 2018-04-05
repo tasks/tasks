@@ -205,7 +205,6 @@ public class Preferences {
     PreferenceManager.setDefaultValues(context, R.xml.preferences_defaults, true);
     PreferenceManager.setDefaultValues(context, R.xml.preferences_synchronization, true);
     PreferenceManager.setDefaultValues(context, R.xml.preferences_misc, true);
-    PreferenceManager.setDefaultValues(context, R.xml.preferences_privacy, true);
     PreferenceManager.setDefaultValues(context, R.xml.preferences_reminders, true);
 
     BeastModePreferences.setDefaultOrder(this, context);

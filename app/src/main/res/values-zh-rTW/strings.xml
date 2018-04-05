@@ -207,7 +207,6 @@
 	<string name="enabled">啟用</string>
 	<string name="row_spacing">行距</string>
 	<string name="translations">貢獻翻譯</string>
-	<string name="help_and_feedback">說明與回饋</string>
 	<string name="rate_tasks">為 Tasks 評分</string>
 	<string name="TLA_menu_donate">贊助</string>
 	<string name="geofence_radius_title">半徑 (公尺)</string>

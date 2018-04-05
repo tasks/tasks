@@ -14,6 +14,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +41,6 @@ import org.tasks.billing.row.SkuRowData;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
-import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.ui.MenuColorizer;
 import timber.log.Timber;
 
@@ -233,7 +233,7 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_help:
-        startActivity(new Intent(this, HelpAndFeedbackActivity.class));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/help")));
         return true;
       case R.id.menu_refresh_purchases:
         billingClient.queryPurchases();

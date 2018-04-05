@@ -249,8 +249,6 @@
 	<string name="customize_edit_screen">Налаштувати вікно редагування</string>
 	<string name="source_code">Вихідний код</string>
 	<string name="translations">Допомогти перекласти</string>
-	<string name="report_an_issue">Повідомити про помилку</string>
-	<string name="help_and_feedback">Допомога і відгуки</string>
 	<string name="contact_developer">Зв\'язатися з розробником</string>
 	<string name="rate_tasks">Оцінити Tasks</string>
 	<string name="quiet_hours_summary">Без нагадувань під час тихих годин</string>

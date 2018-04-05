@@ -212,8 +212,6 @@
 	<string name="row_spacing">فاصله سطرها</string>
 	<string name="source_code">کد مبدا</string>
 	<string name="translations">مشارکت در ترجمه</string>
-	<string name="report_an_issue">گزارش یک مطلب</string>
-	<string name="help_and_feedback">کمک و بازخورد</string>
 	<string name="contact_developer">تماس با توسعه دهنده</string>
 	<string name="rate_tasks">ارزیابی وظیفه</string>
 	<string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>

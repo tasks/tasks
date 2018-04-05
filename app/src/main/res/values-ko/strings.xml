@@ -326,8 +326,6 @@
 	<string name="customize_edit_screen">일정 편집화면 레이아웃 설정하기</string>
 	<string name="source_code">소스 코드</string>
 	<string name="translations">번역 참여하기</string>
-	<string name="report_an_issue">문제점 보고하기</string>
-	<string name="help_and_feedback">도움말 &amp; 피드백</string>
 	<string name="contact_developer">개발자와 연락</string>
 	<string name="rate_tasks">Tasks 평가하기</string>
 	<string name="quiet_hours_summary">무음 시간대에는 알림 해제</string>

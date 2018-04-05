@@ -33,7 +33,6 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
@@ -47,7 +46,6 @@ import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.BasicPreferences;
-import org.tasks.preferences.HelpAndFeedbackActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
@@ -347,12 +345,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
               R.drawable.ic_settings_24dp,
               new Intent(activity, BasicPreferences.class),
               REQUEST_SETTINGS));
-      add(
-          new NavigationDrawerAction(
-              activity.getResources().getString(R.string.help_and_feedback),
-              R.drawable.ic_help_24dp,
-              new Intent(activity, HelpAndFeedbackActivity.class),
-              0));
     }
 
     notifyDataSetChanged();

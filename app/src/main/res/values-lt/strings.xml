@@ -321,8 +321,6 @@
 	<string name="customize_edit_screen">Pritaikyti redagavimo ekraną</string>
 	<string name="source_code">Pirminis kodas</string>
 	<string name="translations">Padėti išversti</string>
-	<string name="report_an_issue">Pranešti apie problemą</string>
-	<string name="help_and_feedback">Pagalba ir atsiliepimai</string>
 	<string name="contact_developer">Susisiekti su programuotoju</string>
 	<string name="rate_tasks">Įvertinti Tasks</string>
 	<string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>

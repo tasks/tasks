@@ -65,7 +65,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
     result = savedInstanceState == null ? new Bundle() : savedInstanceState.getBundle(EXTRA_RESULT);
 
     addPreferencesFromResource(R.xml.preferences);
-    addPreferencesFromResource(R.xml.preferences_privacy);
     if (BuildConfig.DEBUG) {
       addPreferencesFromResource(R.xml.preferences_debug);
     }

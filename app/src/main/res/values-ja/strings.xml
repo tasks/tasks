@@ -322,8 +322,6 @@
 	<string name="customize_edit_screen">編集画面をカスタマイズ</string>
 	<string name="source_code">ソースコード</string>
 	<string name="translations">翻訳に貢献する</string>
-	<string name="report_an_issue">問題を報告</string>
-	<string name="help_and_feedback">ヘルプ &amp; フィードバック</string>
 	<string name="contact_developer">開発者に連絡</string>
 	<string name="rate_tasks">Tasks を評価</string>
 	<string name="quiet_hours_summary">消音時間の間はリマインダーは動作しません</string>

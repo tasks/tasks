@@ -319,8 +319,6 @@
 	<string name="customize_edit_screen">Edit scherm aanpassen</string>
 	<string name="source_code">Bron code</string>
 	<string name="translations">Help vertalen</string>
-	<string name="report_an_issue">Meld een probleem</string>
-	<string name="help_and_feedback">Help &amp; Terugkoppeling</string>
 	<string name="contact_developer">Contact ontwikkelaar</string>
 	<string name="rate_tasks">Beoordeel Taken</string>
 	<string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>

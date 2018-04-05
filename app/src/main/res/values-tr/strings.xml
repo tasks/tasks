@@ -326,8 +326,6 @@
 	<string name="customize_edit_screen">Düzenleme ekranını özelleştir</string>
 	<string name="source_code">Kaynak kodu</string>
 	<string name="translations">Çeviri katkıları</string>
-	<string name="report_an_issue">Sorun bildir</string>
-	<string name="help_and_feedback">Yardım ve geri bildirim</string>
 	<string name="contact_developer">Geliştiriciyle iletişime geç</string>
 	<string name="rate_tasks">Tasks\'i Oyla</string>
 	<string name="quiet_hours_summary">Sessiz saatlerde hatırlatıcı yok</string>

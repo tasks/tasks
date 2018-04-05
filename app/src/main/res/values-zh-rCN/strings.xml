@@ -321,8 +321,6 @@
 	<string name="customize_edit_screen">自定义编辑屏幕</string>
 	<string name="source_code">源代码</string>
 	<string name="translations">贡献翻译</string>
-	<string name="report_an_issue">报告个问题</string>
-	<string name="help_and_feedback">帮助和反馈</string>
 	<string name="contact_developer">联系开发者</string>
 	<string name="rate_tasks">给Tasks打分</string>
 	<string name="quiet_hours_summary">静音期间不提醒</string>

@@ -703,8 +703,6 @@ File %1$s contained %2$s.\n\n
   <string name="customize_edit_screen">Customize edit screen</string>
   <string name="source_code">Source code</string>
   <string name="translations">Contribute translations</string>
-  <string name="report_an_issue">Report an issue</string>
-  <string name="help_and_feedback">Help &amp; feedback</string>
   <string name="contact_developer">Contact developer</string>
   <string name="rate_tasks">Rate Tasks</string>
   <string name="quiet_hours_summary">No reminders during quiet hours</string>
@@ -764,6 +762,7 @@ File %1$s contained %2$s.\n\n
   <string name="back_button_saves_task">Back button saves task</string>
   <string name="default_list">Default list</string>
   <string name="default_sync">Default sync</string>
+  <string name="donate_summary">Donations are greatly appreciated</string>
   <string name="filter">Filter</string>
   <string name="opacity">Opacity</string>
 
@@ -888,6 +887,8 @@ File %1$s contained %2$s.\n\n
   <string name="error_billing_unavailable">Billing unavailable. Make sure your Google Play app
         is setup correctly</string>
   <string name="error_billing_default">Billing unavailable. Please check your device.</string>
+  <string name="about">About</string>
+  <string name="license_summary">Tasks is free and open-source software, licensed under the GNU General Public License v3.0</string>
 
   <string name="themes">Additional themes</string>
   <string name="pro_caldav_sync">CalDAV synchronization</string>

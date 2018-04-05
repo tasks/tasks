@@ -325,8 +325,6 @@
 	<string name="customize_edit_screen">Saadä muokkaus -näkymää</string>
 	<string name="source_code">Lähdekoodi</string>
 	<string name="translations">Osallistu kääntämiseen</string>
-	<string name="report_an_issue">Ilmoita virheestä</string>
-	<string name="help_and_feedback">Apu &amp; palaute</string>
 	<string name="contact_developer">Ota yhteyttä kehittäjään</string>
 	<string name="rate_tasks">Arvostele Tasks</string>
 	<string name="quiet_hours_summary">Ei ilmoituksia hiljaisena aikana</string>

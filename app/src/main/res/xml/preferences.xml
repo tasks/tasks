@@ -101,4 +101,53 @@
 
   </PreferenceCategory>
 
+  <PreferenceCategory
+    android:title="@string/about">
+
+    <Preference
+      android:summary="@string/license_summary"
+      android:title="@string/source_code">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="https://github.com/tasks/tasks"/>
+    </Preference>
+
+    <Preference
+      android:summary="@string/donate_summary"
+      android:title="@string/TLA_menu_donate">
+
+      <intent
+        android:targetClass="org.tasks.billing.PurchaseActivity"
+        android:targetPackage="org.tasks"/>
+
+    </Preference>
+
+    <Preference
+      android:key="@string/rate_tasks"
+      android:title="@string/rate_tasks">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="market://details?id=org.tasks"/>
+    </Preference>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="@string/privacy"
+    android:title="@string/privacy">
+
+    <Preference android:title="@string/privacy_policy">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="http://tasks.org/privacy.html"/>
+    </Preference>
+
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_collect_statistics"
+      android:summary="@string/send_anonymous_statistics_summary"
+      android:title="@string/send_anonymous_statistics"/>
+
+  </PreferenceCategory>
+
 </PreferenceScreen>

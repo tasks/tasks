@@ -148,8 +148,6 @@
 	<string name="customize_edit_screen">تعديل الشاشه</string>
 	<string name="source_code">مصدر الكود</string>
 	<string name="translations">أسهم في الترجمة</string>
-	<string name="report_an_issue">بلغ عن مشكل</string>
-	<string name="help_and_feedback">المساعدة والتقييم</string>
 	<string name="contact_developer">الاتصال بالمطورين</string>
 	<string name="rate_tasks">تقييم المهمات</string>
 	<string name="quiet_hours_summary">لا تذكير أثناء أوقات الراحة</string>

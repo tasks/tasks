@@ -3,12 +3,15 @@ package org.tasks.injection;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -20,14 +23,17 @@ import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.AppCompatPreferenceActivity;
+import org.tasks.preferences.Device;
 import org.tasks.themes.Theme;
 import org.tasks.ui.MenuColorizer;
 import timber.log.Timber;
 
 public abstract class InjectingPreferenceActivity extends AppCompatPreferenceActivity
-    implements InjectingActivity {
+    implements InjectingActivity, OnMenuItemClickListener {
 
   @Inject DialogBuilder dialogBuilder;
+  @Inject Device device;
+
   private ActivityComponent activityComponent;
 
   protected InjectingPreferenceActivity() {
@@ -66,6 +72,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
     }
     toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp));
     toolbar.setNavigationOnClickListener(v -> finish());
+    toolbar.inflateMenu(R.menu.menu_preferences);
+    toolbar.setOnMenuItemClickListener(this);
     MenuColorizer.colorToolbar(this, toolbar);
   }
 
@@ -126,5 +134,29 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
             })
         .setNegativeButton(R.string.restart_later, null)
         .show();
+  }
+
+  @Override
+  public boolean onMenuItemClick(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.menu_contact:
+        Intent mailto =
+            new Intent(
+                Intent.ACTION_SENDTO,
+                Uri.fromParts("mailto", "Tasks Support <support@tasks.org>", null));
+        mailto.putExtra(Intent.EXTRA_SUBJECT, "Tasks Feedback");
+        mailto.putExtra(Intent.EXTRA_TEXT, device.getDebugInfo());
+        startActivity(mailto);
+        return true;
+      case R.id.menu_help:
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getHelpUrl())));
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  protected String getHelpUrl() {
+    return "http://tasks.org/help";
   }
 }

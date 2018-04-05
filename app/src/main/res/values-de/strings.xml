@@ -317,8 +317,6 @@
 	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
 	<string name="source_code">Quelltext</string>
 	<string name="translations">Zur Übersetzung beitragen</string>
-	<string name="report_an_issue">Fehler melden</string>
-	<string name="help_and_feedback">Hilfe &amp; Feedback</string>
 	<string name="contact_developer">Entwickler kontaktieren</string>
 	<string name="rate_tasks">Bewerte Tasks</string>
 	<string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>

@@ -247,8 +247,6 @@
 	<string name="customize_edit_screen">Personalizar pantalla de edición</string>
 	<string name="source_code">Código fonte</string>
 	<string name="translations">Contribúe coa tradución</string>
-	<string name="report_an_issue">Informa dun erro</string>
-	<string name="help_and_feedback">Ayuda y valoraciones</string>
 	<string name="contact_developer">Contactar co revelador</string>
 	<string name="rate_tasks">Valorar Tasks</string>
 	<string name="quiet_hours_summary">Sen avisos en horario silencioso</string>

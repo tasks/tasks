@@ -242,8 +242,6 @@
 	<string name="customize_edit_screen">Personalizar tela de edição</string>
 	<string name="source_code">Código fonte</string>
 	<string name="translations">Ajude com as traduções</string>
-	<string name="report_an_issue">Relatar um problema</string>
-	<string name="help_and_feedback">Ajuda e Feedback</string>
 	<string name="contact_developer">Contatar desenvolvedor</string>
 	<string name="rate_tasks">Avaliar o Tasks</string>
 	<string name="quiet_hours_summary">Sem lembretes durante as horas calmas</string>
