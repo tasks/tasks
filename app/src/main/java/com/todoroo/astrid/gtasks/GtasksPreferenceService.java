@@ -19,7 +19,6 @@ public class GtasksPreferenceService {
   private static final String IDENTIFIER = "gtasks"; // $NON-NLS-1$
   public static final String PREF_USER_NAME = IDENTIFIER + "_user"; // $NON-NLS-1$
   private static final String PREF_LAST_SYNC = "_last_sync"; // $NON-NLS-1$
-  private static final String PREF_ONGOING = "_ongoing"; // $NON-NLS-1$
   private final Preferences preferences;
 
   @Inject
@@ -40,19 +39,9 @@ public class GtasksPreferenceService {
     return preferences.getLong(IDENTIFIER + PREF_LAST_SYNC, 0);
   }
 
-  /** @return Last Error, or null if no last error */
-  public boolean isOngoing() {
-    return preferences.getBoolean(IDENTIFIER + PREF_ONGOING, false);
-  }
-
   /** Deletes Last Successful Sync Date */
   public void clearLastSyncDate() {
     preferences.clear(IDENTIFIER + PREF_LAST_SYNC);
-  }
-
-  /** Set Ongoing */
-  public void stopOngoing() {
-    preferences.setBoolean(IDENTIFIER + PREF_ONGOING, false);
   }
 
   /** Set Last Successful Sync Date */
@@ -60,8 +49,7 @@ public class GtasksPreferenceService {
     preferences.setLong(IDENTIFIER + PREF_LAST_SYNC, DateUtilities.now() + 1000);
   }
 
-  /** Set Last Attempted Sync Date */
-  public void recordSyncStart() {
-    preferences.setBoolean(IDENTIFIER + PREF_ONGOING, true);
+  public boolean isOngoing() {
+    return preferences.isSyncOngoing();
   }
 }

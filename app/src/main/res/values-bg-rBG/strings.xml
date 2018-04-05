@@ -446,7 +446,6 @@
 	<string name="user">Потребител</string>
 	<string name="password">Парола</string>
 	<string name="error_adding_account">Грешка при добавяне на акаунт</string>
-	<string name="account_settings">Настройки на акаунта</string>
 	<string name="notification_channel_settings">Управление на уведомления</string>
 	<string name="battery_optimization_settings">Управление на оптимизациите на батерията</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизациите на батерията могат да забавят уведомленията</string>

@@ -427,7 +427,6 @@
 	<string name="password">Mot de passe</string>
 	<string name="url">Adresse URL</string>
 	<string name="error_adding_account">Erreur dans l\'ajout du compte</string>
-	<string name="account_settings">Paramètres du compte</string>
 	<string name="notification_channel_settings">Gérer les notifications</string>
 	<string name="battery_optimization_settings">Gérer les optimisations de la batterie</string>
 	<string name="notification_disable_battery_optimizations_description">Optimisations de la batterie avec des notifications par délais</string>

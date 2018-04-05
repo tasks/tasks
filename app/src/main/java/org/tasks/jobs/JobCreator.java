@@ -65,7 +65,8 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
         return new NotificationJob(preferences, notifier, notificationQueue);
       case TAG_SYNC:
       case TAG_BACKGROUND_SYNC:
-        return new SyncJob(caldavSynchronizer, googleTaskSynchronizer);
+        return new SyncJob(
+            caldavSynchronizer, googleTaskSynchronizer, localBroadcastManager, preferences);
       case TAG_BACKUP:
         return new BackupJob(context, tasksJsonExporter, preferences);
       case TAG_MIDNIGHT_REFRESH:

@@ -1,7 +1,7 @@
 package org.tasks.caldav;
 
 import static android.app.Activity.RESULT_OK;
-import static org.tasks.caldav.CaldavSettingsActivity.EXTRA_CALDAV_DATA;
+import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_DATA;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,19 +12,19 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import org.tasks.R;
-import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.injection.FragmentComponent;
 
 public class CaldavListFragment extends TaskListFragment {
 
-  private static final String EXTRA_CALDAV_ACCOUNT = "extra_caldav_account";
+  private static final String EXTRA_CALDAV_CALENDAR = "extra_caldav_calendar";
   private static final int REQUEST_ACCOUNT_SETTINGS = 10101;
-  private CaldavAccount account;
+  private CaldavCalendar calendar;
 
-  public static TaskListFragment newCaldavListFragment(CaldavFilter filter, CaldavAccount account) {
+  public static TaskListFragment newCaldavListFragment(CaldavFilter filter, CaldavCalendar calendar) {
     CaldavListFragment fragment = new CaldavListFragment();
     fragment.filter = filter;
-    fragment.account = account;
+    fragment.calendar = calendar;
     return fragment;
   }
 
@@ -33,7 +33,7 @@ public class CaldavListFragment extends TaskListFragment {
     super.onCreate(savedInstanceState);
 
     if (savedInstanceState != null) {
-      this.account = savedInstanceState.getParcelable(EXTRA_CALDAV_ACCOUNT);
+      this.calendar = savedInstanceState.getParcelable(EXTRA_CALDAV_CALENDAR);
     }
   }
 
@@ -47,8 +47,8 @@ public class CaldavListFragment extends TaskListFragment {
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_caldav_list_fragment:
-        Intent intent = new Intent(getActivity(), CaldavSettingsActivity.class);
-        intent.putExtra(EXTRA_CALDAV_DATA, account);
+        Intent intent = new Intent(getActivity(), CaldavCalendarSettingsActivity.class);
+        intent.putExtra(EXTRA_CALDAV_DATA, calendar);
         startActivityForResult(intent, REQUEST_ACCOUNT_SETTINGS);
         return true;
       default:
@@ -62,9 +62,9 @@ public class CaldavListFragment extends TaskListFragment {
       if (resultCode == RESULT_OK) {
         TaskListActivity activity = (TaskListActivity) getActivity();
         String action = data.getAction();
-        if (CaldavSettingsActivity.ACTION_DELETED.equals(action)) {
+        if (CaldavCalendarSettingsActivity.ACTION_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
-        } else if (CaldavSettingsActivity.ACTION_RELOAD.equals(action)) {
+        } else if (CaldavCalendarSettingsActivity.ACTION_RELOAD.equals(action)) {
           activity
               .getIntent()
               .putExtra(
@@ -81,7 +81,7 @@ public class CaldavListFragment extends TaskListFragment {
   @Override
   public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
-    outState.putParcelable(EXTRA_CALDAV_ACCOUNT, account);
+    outState.putParcelable(EXTRA_CALDAV_CALENDAR, calendar);
   }
 
   @Override

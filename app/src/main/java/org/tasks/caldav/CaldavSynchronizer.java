@@ -5,6 +5,7 @@ import static com.google.common.collect.Iterables.filter;
 import static com.google.common.collect.Iterables.partition;
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.difference;
 import static com.google.common.collect.Sets.newHashSet;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
@@ -23,6 +24,7 @@ import at.bitfire.dav4android.property.GetETag;
 import at.bitfire.ical4android.InvalidCalendarException;
 import at.bitfire.ical4android.iCalendar;
 import com.google.common.base.Strings;
+import com.google.common.collect.Iterables;
 import com.google.common.io.CharStreams;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -49,6 +51,7 @@ import okhttp3.ResponseBody;
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.injection.ForApplication;
@@ -88,18 +91,46 @@ public class CaldavSynchronizer {
     // required for dav4android (ServiceLoader)
     Thread.currentThread().setContextClassLoader(context.getClassLoader());
     for (CaldavAccount account : caldavDao.getAccounts()) {
-      sync(account);
+      CaldavClient caldavClient =
+          new CaldavClient(account.getUrl(), account.getUsername(), account.getPassword());
+      List<DavResource> resources = caldavClient.getCalendars();
+      Set<String> urls = newHashSet(transform(resources, c -> c.getLocation().toString()));
+      Timber.d("Found calendars: %s", urls);
+      for (CaldavCalendar deleted : caldavDao.findDeletedCalendars(account.getUuid(), newArrayList(urls))) {
+        taskDeleter.markDeleted(caldavDao.getTasksByCalendar(deleted.getUuid()));
+        caldavDao.deleteTasksForCalendar(deleted.getUuid());
+        caldavDao.delete(deleted);
+        localBroadcastManager.broadcastRefreshList();
+      }
+      for (DavResource resource : resources) {
+        String url = resource.getLocation().toString();
+        PropertyCollection properties = resource.getProperties();
+        CaldavCalendar calendar = caldavDao.getCalendarByUrl(account.getUuid(), url);
+        if (calendar == null) {
+          calendar = new CaldavCalendar();
+          calendar.setName(properties.get(DisplayName.class).getDisplayName());
+          calendar.setAccount(account.getUuid());
+          calendar.setUrl(url);
+          calendar.setUuid(UUIDHelper.newUUID());
+          calendar.setId(caldavDao.insert(calendar));
+          localBroadcastManager.broadcastRefreshList();
+        }
+        String ctag = properties.get(GetCTag.class).getCTag();
+        if (calendar.getCtag() == null || !calendar.getCtag().equals(ctag)) {
+          sync(account, calendar);
+        }
+      }
     }
   }
 
-  private void sync(CaldavAccount caldavAccount) {
-    if (isNullOrEmpty(caldavAccount.getPassword())) {
-      Timber.e("Missing password for %s", caldavAccount);
+  private void sync(CaldavAccount account, CaldavCalendar caldavCalendar) {
+    if (isNullOrEmpty(account.getPassword())) {
+      Timber.e("Missing password for %s", caldavCalendar);
       return;
     }
-    Timber.d("sync(%s)", caldavAccount);
+    Timber.d("sync(%s)", caldavCalendar);
     BasicDigestAuthHandler basicDigestAuthHandler =
-        new BasicDigestAuthHandler(null, caldavAccount.getUsername(), caldavAccount.getPassword());
+        new BasicDigestAuthHandler(null, account.getUsername(), account.getPassword());
     OkHttpClient httpClient =
         new OkHttpClient()
             .newBuilder()
@@ -110,28 +141,28 @@ public class CaldavSynchronizer {
             .followSslRedirects(false)
             .readTimeout(30, TimeUnit.SECONDS)
             .build();
-    URI uri = URI.create(caldavAccount.getUrl());
+    URI uri = URI.create(caldavCalendar.getUrl());
     HttpUrl httpUrl = HttpUrl.get(uri);
     DavCalendar davCalendar = new DavCalendar(httpClient, httpUrl);
     try {
-      pushLocalChanges(caldavAccount, httpClient, httpUrl);
+      pushLocalChanges(caldavCalendar, httpClient, httpUrl);
 
       davCalendar.propfind(0, GetCTag.NAME, DisplayName.NAME);
 
       PropertyCollection properties = davCalendar.getProperties();
       String remoteName = properties.get(DisplayName.class).getDisplayName();
-      if (!caldavAccount.getName().equals(remoteName)) {
-        Timber.d("%s -> %s", caldavAccount.getName(), remoteName);
-        caldavAccount.setName(remoteName);
-        caldavDao.update(caldavAccount);
+      if (!caldavCalendar.getName().equals(remoteName)) {
+        Timber.d("%s -> %s", caldavCalendar.getName(), remoteName);
+        caldavCalendar.setName(remoteName);
+        caldavDao.update(caldavCalendar);
         localBroadcastManager.broadcastRefreshList();
       }
 
       String remoteCtag = properties.get(GetCTag.class).getCTag();
-      String localCtag = caldavAccount.getCtag();
+      String localCtag = caldavCalendar.getCtag();
 
       if (localCtag != null && localCtag.equals(remoteCtag)) {
-        Timber.d("%s up to date", caldavAccount.getName());
+        Timber.d("%s up to date", caldavCalendar.getName());
         return;
       }
 
@@ -149,7 +180,7 @@ public class CaldavSynchronizer {
                   return false;
                 }
                 CaldavTask caldavTask =
-                    caldavDao.getTask(caldavAccount.getUuid(), vCard.fileName());
+                    caldavDao.getTask(caldavCalendar.getUuid(), vCard.fileName());
                 return caldavTask == null || !eTag.getETag().equals(caldavTask.getEtag());
               });
 
@@ -168,14 +199,15 @@ public class CaldavSynchronizer {
           try {
             reader = responseBody.charStream();
             processVTodo(
-                vCard.fileName(), caldavAccount, eTag.getETag(), CharStreams.toString(reader));
+                vCard.fileName(), caldavCalendar, eTag.getETag(), CharStreams.toString(reader));
           } finally {
             if (reader != null) {
               reader.close();
             }
           }
         } else {
-          ArrayList<HttpUrl> urls = newArrayList(transform(items, DavResource::getLocation));
+          ArrayList<HttpUrl> urls =
+              newArrayList(Iterables.transform(items, DavResource::getLocation));
           davCalendar.multiget(urls);
 
           Timber.d("MULTI %s", urls);
@@ -195,7 +227,7 @@ public class CaldavSynchronizer {
             }
 
             processVTodo(
-                vCard.fileName(), caldavAccount, eTag.getETag(), calendarData.getICalendar());
+                vCard.fileName(), caldavCalendar, eTag.getETag(), calendarData.getICalendar());
           }
         }
       }
@@ -203,17 +235,17 @@ public class CaldavSynchronizer {
       List<String> deleted =
           newArrayList(
               difference(
-                  newHashSet(caldavDao.getObjects(caldavAccount.getUuid())),
+                  newHashSet(caldavDao.getObjects(caldavCalendar.getUuid())),
                   newHashSet(remoteObjects)));
       if (deleted.size() > 0) {
         Timber.d("DELETED %s", deleted);
-        taskDeleter.markDeleted(caldavDao.getTasks(caldavAccount.getUuid(), deleted));
-        caldavDao.deleteObjects(caldavAccount.getUuid(), deleted);
+        taskDeleter.markDeleted(caldavDao.getTasks(caldavCalendar.getUuid(), deleted));
+        caldavDao.deleteObjects(caldavCalendar.getUuid(), deleted);
       }
 
-      caldavAccount.setCtag(remoteCtag);
-      Timber.d("UPDATE %s", caldavAccount);
-      caldavDao.update(caldavAccount);
+      caldavCalendar.setCtag(remoteCtag);
+      Timber.d("UPDATE %s", caldavCalendar);
+      caldavDao.update(caldavCalendar);
     } catch (IOException | HttpException | DavException e) {
       Timber.e(e);
     } catch (Exception e) {
@@ -224,11 +256,11 @@ public class CaldavSynchronizer {
   }
 
   private void pushLocalChanges(
-      CaldavAccount caldavAccount, OkHttpClient httpClient, HttpUrl httpUrl) {
-    List<Task> tasks = taskDao.getCaldavTasksToPush(caldavAccount.getUuid());
+      CaldavCalendar caldavCalendar, OkHttpClient httpClient, HttpUrl httpUrl) {
+    List<Task> tasks = taskDao.getCaldavTasksToPush(caldavCalendar.getUuid());
     for (com.todoroo.astrid.data.Task task : tasks) {
       try {
-        pushTask(task, caldavAccount, httpClient, httpUrl);
+        pushTask(task, caldavCalendar, httpClient, httpUrl);
       } catch (IOException e) {
         Timber.e(e);
       }
@@ -258,10 +290,10 @@ public class CaldavSynchronizer {
   }
 
   private void pushTask(
-      Task task, CaldavAccount caldavAccount, OkHttpClient httpClient, HttpUrl httpUrl)
+      Task task, CaldavCalendar caldavCalendar, OkHttpClient httpClient, HttpUrl httpUrl)
       throws IOException {
     Timber.d("pushing %s", task);
-    List<CaldavTask> deleted = getDeleted(task.getId(), caldavAccount);
+    List<CaldavTask> deleted = getDeleted(task.getId(), caldavCalendar);
     if (!deleted.isEmpty()) {
       for (CaldavTask entry : deleted) {
         deleteRemoteResource(httpClient, httpUrl, entry);
@@ -317,11 +349,12 @@ public class CaldavSynchronizer {
     Timber.d("SENT %s", caldavTask);
   }
 
-  private List<CaldavTask> getDeleted(long taskId, CaldavAccount caldavAccount) {
-    return caldavDao.getDeleted(taskId, caldavAccount.getUuid());
+  private List<CaldavTask> getDeleted(long taskId, CaldavCalendar caldavCalendar) {
+    return caldavDao.getDeleted(taskId, caldavCalendar.getUuid());
   }
 
-  private void processVTodo(String fileName, CaldavAccount caldavAccount, String eTag, String vtodo)
+  private void processVTodo(
+      String fileName, CaldavCalendar caldavCalendar, String eTag, String vtodo)
       throws IOException {
     List<at.bitfire.ical4android.Task> tasks;
     try {
@@ -334,12 +367,12 @@ public class CaldavSynchronizer {
     if (tasks.size() == 1) {
       at.bitfire.ical4android.Task remote = tasks.get(0);
       Task task;
-      CaldavTask caldavTask = caldavDao.getTask(caldavAccount.getUuid(), fileName);
+      CaldavTask caldavTask = caldavDao.getTask(caldavCalendar.getUuid(), fileName);
       if (caldavTask == null) {
         task = taskCreator.createWithValues(null, "");
         taskDao.createNew(task);
         caldavTask =
-            new CaldavTask(task.getId(), caldavAccount.getUuid(), remote.getUid(), fileName);
+            new CaldavTask(task.getId(), caldavCalendar.getUuid(), remote.getUid(), fileName);
       } else {
         task = taskDao.fetch(caldavTask.getTask());
       }

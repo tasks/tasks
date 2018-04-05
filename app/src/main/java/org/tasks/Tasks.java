@@ -38,6 +38,8 @@ public class Tasks extends InjectingApplication {
 
     AndroidThreeTen.init(this);
 
+    preferences.setSyncOngoing(false);
+
     jobManager.addJobCreator(jobCreator);
 
     flavorSetup.setup();
@@ -47,8 +49,6 @@ public class Tasks extends InjectingApplication {
     themeCache.getThemeBase(preferences.getInt(R.string.p_theme, 0)).setDefaultNightMode();
 
     startupService.onStartupApplication();
-
-    gtasksPreferenceService.stopOngoing(); // if sync ongoing flag was set, clear it
 
     jobManager.updateBackgroundSync();
     jobManager.scheduleMidnightRefresh();

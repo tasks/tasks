@@ -8,13 +8,14 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
+import java.util.Arrays;
 
 @Entity(tableName = "caldav_account")
-public final class CaldavAccount implements Parcelable {
+public class CaldavAccount implements Parcelable {
 
   public static Parcelable.Creator<CaldavAccount> CREATOR =
       new Parcelable.Creator<CaldavAccount>() {
+
         @Override
         public CaldavAccount createFromParcel(Parcel source) {
           return new CaldavAccount(source);
@@ -36,12 +37,6 @@ public final class CaldavAccount implements Parcelable {
   @ColumnInfo(name = "name")
   private String name = "";
 
-  @ColumnInfo(name = "color")
-  private int color = -1;
-
-  @ColumnInfo(name = "ctag")
-  private String ctag;
-
   @ColumnInfo(name = "url")
   private String url = "";
 
@@ -51,24 +46,20 @@ public final class CaldavAccount implements Parcelable {
   @ColumnInfo(name = "password")
   private transient String password = "";
 
-  public CaldavAccount() {}
+  @ColumnInfo(name = "iv")
+  private transient byte[] iv = null;
 
-  @Ignore
-  public CaldavAccount(String name, String uuid) {
-    this.name = name;
-    this.uuid = uuid;
-  }
+  public CaldavAccount() {}
 
   @Ignore
   public CaldavAccount(Parcel source) {
     id = source.readLong();
     uuid = source.readString();
     name = source.readString();
-    color = source.readInt();
-    ctag = source.readString();
     url = source.readString();
     username = source.readString();
     password = source.readString();
+    iv = source.createByteArray();
   }
 
   public long getId() {
@@ -95,22 +86,6 @@ public final class CaldavAccount implements Parcelable {
     this.name = name;
   }
 
-  public int getColor() {
-    return color;
-  }
-
-  public void setColor(int color) {
-    this.color = color;
-  }
-
-  public String getCtag() {
-    return ctag;
-  }
-
-  public void setCtag(String ctag) {
-    this.ctag = ctag;
-  }
-
   public String getUrl() {
     return url;
   }
@@ -135,49 +110,25 @@ public final class CaldavAccount implements Parcelable {
     this.password = password;
   }
 
-  @Override
-  public int describeContents() {
-    return 0;
+  public byte[] getIv() {
+    return iv;
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    dest.writeLong(id);
-    dest.writeString(uuid);
-    dest.writeString(name);
-    dest.writeInt(color);
-    dest.writeString(ctag);
-    dest.writeString(url);
-    dest.writeString(username);
-    dest.writeString(password);
+  public void setIv(byte[] iv) {
+    this.iv = iv;
   }
 
   @Override
   public String toString() {
-    return "CaldavAccount{"
-        + "id="
-        + id
-        + ", uuid='"
-        + uuid
-        + '\''
-        + ", name='"
-        + name
-        + '\''
-        + ", color="
-        + color
-        + ", ctag='"
-        + ctag
-        + '\''
-        + ", url='"
-        + url
-        + '\''
-        + ", username='"
-        + username
-        + '\''
-        + ", password='"
-        + (TextUtils.isEmpty(password) ? "null" : "******")
-        + '\''
-        + '}';
+    return "CaldavAccount{" +
+        "id=" + id +
+        ", uuid='" + uuid + '\'' +
+        ", name='" + name + '\'' +
+        ", url='" + url + '\'' +
+        ", username='" + username + '\'' +
+        ", password='" + password + '\'' +
+        ", iv=" + Arrays.toString(iv) +
+        '}';
   }
 
   @Override
@@ -194,16 +145,10 @@ public final class CaldavAccount implements Parcelable {
     if (id != that.id) {
       return false;
     }
-    if (color != that.color) {
-      return false;
-    }
     if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) {
       return false;
     }
     if (name != null ? !name.equals(that.name) : that.name != null) {
-      return false;
-    }
-    if (ctag != null ? !ctag.equals(that.ctag) : that.ctag != null) {
       return false;
     }
     if (url != null ? !url.equals(that.url) : that.url != null) {
@@ -212,7 +157,10 @@ public final class CaldavAccount implements Parcelable {
     if (username != null ? !username.equals(that.username) : that.username != null) {
       return false;
     }
-    return password != null ? password.equals(that.password) : that.password == null;
+    if (password != null ? !password.equals(that.password) : that.password != null) {
+      return false;
+    }
+    return Arrays.equals(iv, that.iv);
   }
 
   @Override
@@ -220,11 +168,26 @@ public final class CaldavAccount implements Parcelable {
     int result = (int) (id ^ (id >>> 32));
     result = 31 * result + (uuid != null ? uuid.hashCode() : 0);
     result = 31 * result + (name != null ? name.hashCode() : 0);
-    result = 31 * result + color;
-    result = 31 * result + (ctag != null ? ctag.hashCode() : 0);
     result = 31 * result + (url != null ? url.hashCode() : 0);
     result = 31 * result + (username != null ? username.hashCode() : 0);
     result = 31 * result + (password != null ? password.hashCode() : 0);
+    result = 31 * result + Arrays.hashCode(iv);
     return result;
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeLong(id);
+    dest.writeString(uuid);
+    dest.writeString(name);
+    dest.writeString(url);
+    dest.writeString(username);
+    dest.writeString(password);
+    dest.writeByteArray(iv);
   }
 }

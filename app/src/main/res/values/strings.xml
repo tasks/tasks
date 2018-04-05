@@ -603,7 +603,7 @@ File %1$s contained %2$s.\n\n
   <string name="tag_FEx_untagged">Uncategorized</string>
 
   <string name="delete_tag_confirmation">Delete %s?</string>
-
+  <string name="remove_caldav_account_confirmation">Remove %s?</string>
 
   <!-- Android Notification Title (%s => # tasks) -->
   <string name="TPl_notification">Timers Active for %s!</string>
@@ -830,7 +830,7 @@ File %1$s contained %2$s.\n\n
   <string name="password">Password</string>
   <string name="url">URL</string>
   <string name="error_adding_account">Error adding account</string>
-  <string name="account_settings">Account settings</string>
+  <string name="calendar_settings">Calendar settings</string>
   <string name="notification_channel_settings">Manage notifications</string>
   <string name="battery_optimization_settings">Manage battery optimizations</string>
   <string name="notification_disable_battery_optimizations_description">Battery optimizations may delay notifications</string>
@@ -875,6 +875,9 @@ File %1$s contained %2$s.\n\n
   <string name="tasker_create_task">Create task</string>
   <string name="tasker_list_notification">List notification</string>
   <string name="help">Help</string>
+  <string name="caldav_principal_not_found">Principal not found</string>
+  <string name="caldav_home_set_not_found">Home set not found</string>
+  <string name="caldav_no_supported_calendars">Could not find any calendars with VTODO support</string>
   <string name="calendar_not_found">Calendar not found</string>
   <string name="network_error">Connection failed</string>
   <string name="background_sync_unmetered_only">Only on unmetered connections</string>

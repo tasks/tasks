@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.GoogleTask;
@@ -43,7 +42,6 @@ import org.tasks.injection.ForApplication;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
-import org.tasks.sync.RecordSyncStatusCallback;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
 
@@ -53,7 +51,6 @@ public class GoogleTaskSynchronizer {
 
   private final Context context;
   private final GtasksPreferenceService gtasksPreferenceService;
-  private final LocalBroadcastManager localBroadcastManager;
   private final GoogleTaskListDao googleTaskListDao;
   private final GtasksSyncService gtasksSyncService;
   private final GtasksListService gtasksListService;
@@ -71,7 +68,6 @@ public class GoogleTaskSynchronizer {
   public GoogleTaskSynchronizer(
       @ForApplication Context context,
       GtasksPreferenceService gtasksPreferenceService,
-      LocalBroadcastManager localBroadcastManager,
       GoogleTaskListDao googleTaskListDao,
       GtasksSyncService gtasksSyncService,
       GtasksListService gtasksListService,
@@ -86,7 +82,6 @@ public class GoogleTaskSynchronizer {
       DefaultFilterProvider defaultFilterProvider) {
     this.context = context;
     this.gtasksPreferenceService = gtasksPreferenceService;
-    this.localBroadcastManager = localBroadcastManager;
     this.googleTaskListDao = googleTaskListDao;
     this.gtasksSyncService = gtasksSyncService;
     this.gtasksListService = gtasksListService;
@@ -122,10 +117,7 @@ public class GoogleTaskSynchronizer {
       return;
     }
     Timber.d("%s: start sync", account);
-    RecordSyncStatusCallback callback =
-        new RecordSyncStatusCallback(gtasksPreferenceService, localBroadcastManager);
     try {
-      callback.started();
       synchronize();
       gtasksPreferenceService.recordSuccessfulSync();
     } catch (UserRecoverableAuthIOException e) {
@@ -136,7 +128,6 @@ public class GoogleTaskSynchronizer {
     } catch (Exception e) {
       tracker.reportException(e);
     } finally {
-      callback.finished();
       Timber.d("%s: end sync", account);
     }
   }

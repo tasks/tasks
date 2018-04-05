@@ -18,6 +18,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.util.Pair;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +40,6 @@ import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
-import org.tasks.caldav.CaldavSettingsActivity;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
@@ -258,13 +259,19 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     item.icon = R.drawable.ic_cloud_off_black_24dp;
     add(item);
 
-    String title = preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
-    if (Strings.isNullOrEmpty(title)) {
-      title = activity.getResources().getString(R.string.gtasks_GPr_header);
+    String googleTaskTitle = preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
+    if (Strings.isNullOrEmpty(googleTaskTitle)) {
+      googleTaskTitle = activity.getResources().getString(R.string.gtasks_GPr_header);
     }
-    addSubMenu(title, filterProvider.getGoogleTaskFilters(), true);
+    addSubMenu(googleTaskTitle, filterProvider.getGoogleTaskFilters(), true);
 
-    addSubMenu(R.string.CalDAV, filterProvider.getCaldavFilters(), true);
+    for (Pair<String, List<Filter>> account : filterProvider.getCaldavFilters()) {
+      String caldavTitle = account.first;
+      if (TextUtils.isEmpty(caldavTitle)) {
+        caldavTitle = activity.getString(R.string.CalDAV);
+      }
+      addSubMenu(caldavTitle, account.second, true);
+    }
 
     notifyDataSetChanged();
   }
@@ -314,17 +321,12 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       }
     }
 
-    if (preferences.getBoolean(R.string.p_sync_caldav, false)) {
-      addSubMenu(R.string.CalDAV, filterProvider.getCaldavFilters(), false);
-
-      if (navigationDrawer) {
-        add(
-            new NavigationDrawerAction(
-                activity.getResources().getString(R.string.add_account),
-                R.drawable.ic_add_24dp,
-                new Intent(activity, CaldavSettingsActivity.class),
-                NavigationDrawerFragment.REQUEST_NEW_CALDAV_ACCOUNT));
+    for (Pair<String, List<Filter>> account : filterProvider.getCaldavFilters()) {
+      String title = account.first;
+      if (TextUtils.isEmpty(title)) {
+        title = activity.getString(R.string.CalDAV);
       }
+      addSubMenu(title, account.second, true);
     }
 
     if (navigationDrawer) {

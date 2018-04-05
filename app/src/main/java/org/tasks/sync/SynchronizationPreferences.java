@@ -10,6 +10,8 @@ import static org.tasks.PermissionUtil.verifyPermissions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.support.annotation.NonNull;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -18,6 +20,9 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.caldav.CaldavAccountSettingsActivity;
+import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
@@ -34,6 +39,7 @@ import org.tasks.preferences.Preferences;
 public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
   private static final int REQUEST_LOGIN = 0;
+  private static final int REQUEST_CALDAV_SETTINGS = 101;
 
   @Inject GtasksPreferenceService gtasksPreferenceService;
   @Inject ActivityPermissionRequestor permissionRequestor;
@@ -47,6 +53,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   @Inject GoogleAccountManager googleAccountManager;
   @Inject Preferences preferences;
   @Inject JobManager jobManager;
+  @Inject CaldavDao caldavDao;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -54,14 +61,25 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
     addPreferencesFromResource(R.xml.preferences_synchronization);
 
-    CheckBoxPreference caldavEnabled =
-        (CheckBoxPreference) findPreference(getString(R.string.p_sync_caldav));
-    caldavEnabled.setChecked(syncAdapters.isCaldavSyncEnabled());
-    caldavEnabled.setOnPreferenceChangeListener(
-        (preference, newValue) -> {
-          jobManager.updateBackgroundSync(((boolean) newValue), null, null);
-          return true;
+    PreferenceCategory caldavPreferences = (PreferenceCategory) findPreference(getString(R.string.CalDAV));
+    for (CaldavAccount caldavAccount : caldavDao.getAccounts()) {
+      Preference accountPreferences = new Preference(this);
+      accountPreferences.setTitle(caldavAccount.getName());
+      accountPreferences.setOnPreferenceClickListener(preference -> {
+        Intent intent = new Intent(this, CaldavAccountSettingsActivity.class);
+        intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, caldavAccount);
+        startActivityForResult(intent, REQUEST_CALDAV_SETTINGS);
+        return false;
+      });
+      caldavPreferences.addPreference(accountPreferences);
+    }
+    findPreference(getString(R.string.add_account)).setOnPreferenceClickListener(
+        preference -> {
+          startActivityForResult(new Intent(this, CaldavAccountSettingsActivity.class),
+              REQUEST_CALDAV_SETTINGS);
+          return false;
         });
+
     final CheckBoxPreference gtaskPreference =
         (CheckBoxPreference) findPreference(getString(R.string.sync_gtasks));
     gtaskPreference.setChecked(syncAdapters.isGoogleTaskSyncEnabled());
@@ -77,7 +95,6 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
           } else {
             jobManager.updateBackgroundSync();
             tracker.reportEvent(Tracking.Events.GTASK_DISABLED);
-            gtasksPreferenceService.stopOngoing();
             return true;
           }
         });
@@ -143,6 +160,13 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         jobManager.updateBackgroundSync();
       }
       ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(enabled);
+    } else if (requestCode == REQUEST_CALDAV_SETTINGS) {
+      if (resultCode == RESULT_OK) {
+        jobManager.updateBackgroundSync();
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+      }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }

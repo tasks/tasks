@@ -20,8 +20,8 @@ public class CaldavTask {
   @ColumnInfo(name = "task")
   private long task;
 
-  @ColumnInfo(name = "account")
-  private String account;
+  @ColumnInfo(name = "calendar")
+  private String calendar;
 
   @ColumnInfo(name = "object")
   private String object;
@@ -49,9 +49,9 @@ public class CaldavTask {
   }
 
   @Ignore
-  public CaldavTask(long task, String account, String remoteId, String object) {
+  public CaldavTask(long task, String calendar, String remoteId, String object) {
     this.task = task;
-    this.account = account;
+    this.calendar = calendar;
     this.remoteId = remoteId;
     this.object = object;
   }
@@ -72,12 +72,12 @@ public class CaldavTask {
     this.task = task;
   }
 
-  public String getAccount() {
-    return account;
+  public String getCalendar() {
+    return calendar;
   }
 
-  public void setAccount(String account) {
-    this.account = account;
+  public void setCalendar(String calendar) {
+    this.calendar = calendar;
   }
 
   public String getObject() {
@@ -135,8 +135,8 @@ public class CaldavTask {
         + id
         + ", task="
         + task
-        + ", account='"
-        + account
+        + ", calendar='"
+        + calendar
         + '\''
         + ", object='"
         + object

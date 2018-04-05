@@ -432,7 +432,6 @@
 	<string name="user">Benutzer</string>
 	<string name="password">Passwort</string>
 	<string name="error_adding_account">Fehler beim Hinzufügen des Accounts</string>
-	<string name="account_settings">Account Einstellungen</string>
 	<string name="notification_channel_settings">Verwalte Benachrichtigungen</string>
 	<string name="battery_optimization_settings">Energiespar-Optionen verwalten</string>
 	<string name="notification_disable_battery_optimizations_description">Energiesparfunktionen verwalten</string>

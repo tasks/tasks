@@ -22,11 +22,12 @@
 
   </PreferenceCategory>
 
-  <PreferenceCategory android:title="@string/CalDAV">
-    <CheckBoxPreference
-      android:defaultValue="false"
-      android:key="@string/p_sync_caldav"
-      android:title="@string/enabled"/>
+  <PreferenceCategory
+    android:key="@string/CalDAV"
+    android:title="@string/CalDAV">
+    <Preference
+      android:key="@string/add_account"
+      android:title="@string/add_account"/>
   </PreferenceCategory>
 
   <PreferenceCategory android:title="@string/sync_SPr_interval_title">

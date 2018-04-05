@@ -23,7 +23,8 @@ import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.activities.TimePickerActivity;
 import org.tasks.billing.PurchaseActivity;
-import org.tasks.caldav.CaldavSettingsActivity;
+import org.tasks.caldav.CaldavAccountSettingsActivity;
+import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.dashclock.DashClockSettings;
 import org.tasks.files.FileExplore;
 import org.tasks.files.MyFilePickerActivity;
@@ -127,11 +128,13 @@ public interface ActivityComponent {
 
   void inject(GoogleTaskListSettingsActivity googleTaskListSettingsActivity);
 
-  void inject(CaldavSettingsActivity caldavSettingsActivity);
+  void inject(CaldavCalendarSettingsActivity caldavCalendarSettingsActivity);
 
   void inject(TaskerCreateTaskActivity taskerCreateTaskActivity);
 
   void inject(TaskListViewModel taskListViewModel);
 
   void inject(PurchaseActivity purchaseActivity);
+
+  void inject(CaldavAccountSettingsActivity caldavAccountSettingsActivity);
 }

@@ -20,6 +20,7 @@ import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.helper.UUIDHelper;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
@@ -60,7 +61,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
           originalList =
               new GtasksFilter(gtasksListService.getList(task.getTransitory(GoogleTask.KEY)));
         } else if (task.hasTransitory(CaldavTask.KEY)) {
-          originalList = new CaldavFilter(caldavDao.getByUuid(task.getTransitory(CaldavTask.KEY)));
+          originalList = new CaldavFilter(caldavDao.getCalendarByUuid(task.getTransitory(CaldavTask.KEY)));
         } else {
           originalList = defaultFilterProvider.getDefaultRemoteList();
         }
@@ -70,7 +71,10 @@ public class RemoteListFragment extends TaskEditControlFragment {
         if (googleTask != null) {
           originalList = new GtasksFilter(gtasksListService.getList(googleTask.getListId()));
         } else if (caldavTask != null) {
-          originalList = new CaldavFilter(caldavDao.getByUuid(caldavTask.getAccount()));
+          CaldavCalendar calendarByUuid = caldavDao.getCalendarByUuid(caldavTask.getCalendar());
+          if (calendarByUuid != null) {
+            originalList = new CaldavFilter(calendarByUuid);
+          }
         }
       }
 
@@ -125,7 +129,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
     CaldavTask caldavTask = caldavDao.getTask(task.getId());
     if (caldavTask != null
         && selectedList instanceof CaldavFilter
-        && caldavTask.getAccount().equals(((CaldavFilter) selectedList).getUuid())) {
+        && caldavTask.getCalendar().equals(((CaldavFilter) selectedList).getUuid())) {
       return;
     }
     task.putTransitory(SyncFlags.FORCE_SYNC, true);

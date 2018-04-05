@@ -45,7 +45,7 @@ import org.tasks.activities.TagSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.caldav.CaldavListFragment;
-import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.TagData;
@@ -341,9 +341,9 @@ public class TaskListActivity extends InjectingAppCompatActivity
       }
     } else if (filter instanceof CaldavFilter) {
       CaldavFilter caldavFilter = (CaldavFilter) filter;
-      CaldavAccount account = caldavDao.getByUuid(caldavFilter.getUuid());
-      if (account != null) {
-        return CaldavListFragment.newCaldavListFragment(caldavFilter, account);
+      CaldavCalendar calendar = caldavDao.getCalendarByUuid(caldavFilter.getUuid());
+      if (calendar != null) {
+        return CaldavListFragment.newCaldavListFragment(caldavFilter, calendar);
       }
     } else if (filter != null) {
       return subtasksHelper.shouldUseSubtasksFragmentForFilter(filter)

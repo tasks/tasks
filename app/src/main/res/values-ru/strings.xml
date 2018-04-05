@@ -444,7 +444,6 @@
 	<string name="user">Пользователь</string>
 	<string name="password">Пароль</string>
 	<string name="error_adding_account">Ошибка при добавлении учётной записи</string>
-	<string name="account_settings">Настройки учётной записи</string>
 	<string name="notification_channel_settings">Управление уведомлениями</string>
 	<string name="battery_optimization_settings">Управление расходом батареи</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>

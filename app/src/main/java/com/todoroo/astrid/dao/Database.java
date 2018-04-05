@@ -15,6 +15,7 @@ import org.tasks.analytics.Tracking;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.Filter;
@@ -39,11 +40,6 @@ import org.tasks.notifications.Notification;
 import org.tasks.notifications.NotificationDao;
 import timber.log.Timber;
 
-/**
- * Database wrapper
- *
- * @author Tim Su <tim@todoroo.com>
- */
 @android.arch.persistence.room.Database(
   entities = {
     Notification.class,
@@ -58,10 +54,11 @@ import timber.log.Timber;
     GoogleTask.class,
     Filter.class,
     GoogleTaskList.class,
-    CaldavAccount.class,
-    CaldavTask.class
+    CaldavCalendar.class,
+    CaldavTask.class,
+    CaldavAccount.class
   },
-  version = 57
+  version = 58
 )
 public abstract class Database extends RoomDatabase {
 

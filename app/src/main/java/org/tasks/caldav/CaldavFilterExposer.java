@@ -1,12 +1,15 @@
 package org.tasks.caldav;
 
+import static com.google.common.collect.Lists.transform;
+
+import android.support.v4.util.Pair;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.sync.SyncAdapters;
 
@@ -21,23 +24,20 @@ public class CaldavFilterExposer {
     this.syncAdapters = syncAdapters;
   }
 
-  public List<Filter> getFilters() {
-    if (!syncAdapters.isCaldavSyncEnabled()) {
-      return Collections.emptyList();
+  public List<Pair<String, List<Filter>>> getFilters() {
+    List<Pair<String, List<Filter>>> filters = new ArrayList<>();
+    for (CaldavAccount account : caldavDao.getAccounts()) {
+      List<CaldavCalendar> calendars = caldavDao.getCalendarsByAccount(account.getUuid());
+      filters.add(new Pair<>(account.getName(), transform(calendars, CaldavFilter::new)));
     }
-    List<CaldavAccount> allOrderedByName = caldavDao.getAllOrderedByName();
-    List<Filter> result = new ArrayList<>();
-    for (CaldavAccount account : allOrderedByName) {
-      result.add(new CaldavFilter(account));
-    }
-    return result;
+    return filters;
   }
 
   public Filter getFilterByUuid(String uuid) {
     if (syncAdapters.isCaldavSyncEnabled()) {
-      CaldavAccount caldavAccount = caldavDao.getByUuid(uuid);
-      if (caldavAccount != null) {
-        return new CaldavFilter(caldavAccount);
+      CaldavCalendar caldavCalendar = caldavDao.getCalendarByUuid(uuid);
+      if (caldavCalendar != null) {
+        return new CaldavFilter(caldavCalendar);
       }
     }
     return null;

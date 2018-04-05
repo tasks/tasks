@@ -445,4 +445,12 @@ public class Preferences {
   public boolean usePersistentReminders() {
     return getBoolean(R.string.p_rmd_persistent, true);
   }
+
+  public void setSyncOngoing(boolean value) {
+    setBoolean(R.string.p_sync_ongoing, value);
+  }
+
+  public boolean isSyncOngoing() {
+    return getBoolean(R.string.p_sync_ongoing, false);
+  }
 }

@@ -395,7 +395,6 @@
 	<string name="password">סיסמא</string>
 	<string name="url">כתובת URL</string>
 	<string name="error_adding_account">שגיאה בהוספת חשבון</string>
-	<string name="account_settings">הגדרות חשבון</string>
 	<string name="notification_channel_settings">נהל התראות</string>
 	<string name="battery_optimization_settings">נהל חיסכון בסוללה</string>
 	<string name="notification_disable_battery_optimizations_description">חיסכון בסוללה עלול לעכב התראות</string>

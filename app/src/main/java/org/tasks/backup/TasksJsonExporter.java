@@ -179,7 +179,7 @@ public class TasksJsonExporter {
             tagDataDao.getAll(),
             filterDao.getAll(),
             googleTaskListDao.getAll(),
-            caldavDao.getAccounts()));
+            caldavDao.getCalendars()));
 
     File file = new File(output);
     file.createNewFile();

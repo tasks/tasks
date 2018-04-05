@@ -433,7 +433,6 @@
 	<string name="user">Gebruiker</string>
 	<string name="password">Wachtwoord</string>
 	<string name="error_adding_account">Fout bij account toevoegen</string>
-	<string name="account_settings">Account instellingen</string>
 	<string name="notification_channel_settings">Beheer notificaties</string>
 	<string name="battery_optimization_settings">Beheer batterij optimalisatie</string>
 	<string name="notification_disable_battery_optimizations_description">Batterij optimalisatie kan meldingen vertragen</string>

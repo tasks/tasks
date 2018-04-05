@@ -443,7 +443,6 @@
 	<string name="user">Užívateľ</string>
 	<string name="password">Heslo</string>
 	<string name="error_adding_account">Chyba pridania účtu</string>
-	<string name="account_settings">Nastavenie účtu</string>
 	<string name="notification_channel_settings">Spravovať upozornenia</string>
 	<string name="battery_optimization_settings">Zníženie spotreby energie</string>
 	<string name="notification_disable_battery_optimizations_description">Zníženie spotreby môže spôsobiť oneskorenie upozornení</string>

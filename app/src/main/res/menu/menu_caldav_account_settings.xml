@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
+
   <item
-    android:id="@+id/menu_caldav_list_fragment"
-    android:title="@string/calendar_settings"
-    app:showAsAction="never"/>
+    android:id="@+id/remove"
+    android:icon="@drawable/ic_delete_24dp"
+    android:title="@string/remove"
+    app:showAsAction="ifRoom"/>
+
 </menu>

@@ -444,7 +444,6 @@
 	<string name="password">密码</string>
 	<string name="url">网址</string>
 	<string name="error_adding_account">添加帐号错误</string>
-	<string name="account_settings">帐号设置</string>
 	<string name="notification_channel_settings">管理通知</string>
 	<string name="battery_optimization_settings">电池优化管理</string>
 	<string name="notification_disable_battery_optimizations_description">电池优化可能会延迟通知</string>

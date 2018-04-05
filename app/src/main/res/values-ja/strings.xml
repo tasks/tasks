@@ -444,7 +444,6 @@
 	<string name="user">ユーザー</string>
 	<string name="password">パスワード</string>
 	<string name="error_adding_account">アカウントの追加時にエラーが発生しました</string>
-	<string name="account_settings">アカウント設定</string>
 	<string name="notification_channel_settings">通知を管理</string>
 	<string name="battery_optimization_settings">バッテリー最適化を管理</string>
 	<string name="notification_disable_battery_optimizations_description">バッテリー最適化をすると通知が遅れることがあります</string>

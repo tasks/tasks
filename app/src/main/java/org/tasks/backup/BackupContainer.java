@@ -5,7 +5,7 @@ import static java.util.Collections.emptyList;
 import com.todoroo.astrid.data.Task;
 import java.util.List;
 import org.tasks.data.Alarm;
-import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.Filter;
 import org.tasks.data.GoogleTask;
@@ -22,19 +22,23 @@ class BackupContainer {
   final List<TagData> tags;
   final List<Filter> filters;
   final List<GoogleTaskList> googleTaskLists;
-  final List<CaldavAccount> caldavAccounts;
+  private final List<CaldavCalendar> caldavCalendars;
 
   BackupContainer(
       List<TaskBackup> tasks,
       List<TagData> tags,
       List<Filter> filters,
       List<GoogleTaskList> googleTaskLists,
-      List<CaldavAccount> caldavAccounts) {
+      List<CaldavCalendar> caldavCalendars) {
     this.tasks = tasks;
     this.tags = tags;
     this.filters = filters;
     this.googleTaskLists = googleTaskLists;
-    this.caldavAccounts = caldavAccounts;
+    this.caldavCalendars = caldavCalendars;
+  }
+
+  public List<CaldavCalendar> getCaldavCalendars() {
+    return caldavCalendars == null ? emptyList() : caldavCalendars;
   }
 
   static class TaskBackup {

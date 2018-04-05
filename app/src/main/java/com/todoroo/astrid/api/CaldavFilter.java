@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Task;
 import java.util.HashMap;
 import java.util.Map;
 import org.tasks.R;
-import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavTask;
 
 public class CaldavFilter extends Filter {
@@ -35,49 +35,49 @@ public class CaldavFilter extends Filter {
       };
 
   private static final int TAG = R.drawable.ic_cloud_black_24dp;
-  private CaldavAccount account;
+  private CaldavCalendar calendar;
 
   private CaldavFilter() {
     super();
   }
 
-  public CaldavFilter(CaldavAccount account) {
-    super(account.getName(), queryTemplate(account), getValuesForNewTask(account));
-    this.account = account;
-    tint = account.getColor();
+  public CaldavFilter(CaldavCalendar calendar) {
+    super(calendar.getName(), queryTemplate(calendar), getValuesForNewTask(calendar));
+    this.calendar = calendar;
+    tint = calendar.getColor();
     icon = TAG;
   }
 
-  private static QueryTemplate queryTemplate(CaldavAccount caldavAccount) {
+  private static QueryTemplate queryTemplate(CaldavCalendar caldavCalendar) {
     return new QueryTemplate()
         .join(Join.left(CaldavTask.TABLE, Task.ID.eq(Field.field("caldav_tasks.task"))))
         .where(
             Criterion.and(
                 TaskDao.TaskCriteria.activeAndVisible(),
-                Field.field("account").eq(caldavAccount.getUuid())));
+                Field.field("calendar").eq(caldavCalendar.getUuid())));
   }
 
-  private static Map<String, Object> getValuesForNewTask(CaldavAccount caldavAccount) {
+  private static Map<String, Object> getValuesForNewTask(CaldavCalendar caldavCalendar) {
     Map<String, Object> result = new HashMap<>();
-    result.put(CaldavTask.KEY, caldavAccount.getUuid());
+    result.put(CaldavTask.KEY, caldavCalendar.getUuid());
     return result;
   }
 
   public String getUuid() {
-    return account.getUuid();
+    return calendar.getUuid();
   }
 
   /** {@inheritDoc} */
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
-    dest.writeParcelable(account, 0);
+    dest.writeParcelable(calendar, 0);
   }
 
   @Override
   protected void readFromParcel(Parcel source) {
     super.readFromParcel(source);
-    account = source.readParcelable(getClass().getClassLoader());
+    calendar = source.readParcelable(getClass().getClassLoader());
   }
 
   @Override

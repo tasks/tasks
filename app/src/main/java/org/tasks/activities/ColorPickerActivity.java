@@ -74,7 +74,7 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
   public void themePicked(ColorPickerDialog.Pickable picked) {
     Intent data = new Intent();
     data.putExtra(EXTRA_PALETTE, palette);
-    data.putExtra(EXTRA_THEME_INDEX, picked.getIndex());
+    data.putExtra(EXTRA_THEME_INDEX, picked == null ? -1 : picked.getIndex());
     setResult(RESULT_OK, data);
     finish();
   }

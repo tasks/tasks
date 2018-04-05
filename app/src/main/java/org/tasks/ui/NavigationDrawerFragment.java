@@ -33,7 +33,6 @@ public class NavigationDrawerFragment extends InjectingFragment {
   public static final int REQUEST_NEW_LIST = 4;
   public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
   public static final int REQUEST_NEW_GTASK_LIST = 6;
-  public static final int REQUEST_NEW_CALDAV_ACCOUNT = 7;
   private static final String TOKEN_LAST_SELECTED = "lastSelected"; // $NON-NLS-1$
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject LocalBroadcastManager localBroadcastManager;
@@ -77,8 +76,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
       }
     } else if (requestCode == REQUEST_NEW_LIST
         || requestCode == ACTIVITY_REQUEST_NEW_FILTER
-        || requestCode == REQUEST_NEW_GTASK_LIST
-        || requestCode == REQUEST_NEW_CALDAV_ACCOUNT) {
+        || requestCode == REQUEST_NEW_GTASK_LIST) {
       if (resultCode == RESULT_OK && data != null) {
         Filter newList = data.getParcelableExtra(TaskListActivity.OPEN_FILTER);
         if (newList != null) {

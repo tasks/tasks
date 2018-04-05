@@ -27,11 +27,6 @@ import org.tasks.data.LimitOffsetDataSource;
 import org.tasks.jobs.AfterSaveIntentService;
 import timber.log.Timber;
 
-/**
- * Data Access layer for {@link Task}-related operations.
- *
- * @author Tim Su <tim@todoroo.com>
- */
 @Dao
 public abstract class TaskDao {
 
@@ -103,9 +98,9 @@ public abstract class TaskDao {
   @android.arch.persistence.room.Query(
       "SELECT tasks.* FROM tasks "
           + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.task "
-          + "WHERE caldav_tasks.account = :uid "
+          + "WHERE caldav_tasks.calendar = :calendar "
           + "AND tasks.modified > caldav_tasks.last_sync")
-  public abstract List<Task> getCaldavTasksToPush(String uid);
+  public abstract List<Task> getCaldavTasksToPush(String calendar);
 
   @android.arch.persistence.room.Query(
       "SELECT * FROM TASKS "
@@ -146,8 +141,8 @@ public abstract class TaskDao {
   public abstract List<Task> getGoogleTasks(String googleTaskList);
 
   @android.arch.persistence.room.Query(
-      "SELECT tasks.* FROM tasks INNER JOIN caldav_tasks ON caldav_tasks.task = tasks._id WHERE caldav_tasks.account = :caldavAccount")
-  public abstract List<Task> getCaldavTasks(String caldavAccount);
+      "SELECT tasks.* FROM tasks INNER JOIN caldav_tasks ON caldav_tasks.task = tasks._id WHERE caldav_tasks.calendar = :calendar")
+  public abstract List<Task> getCaldavTasks(String calendar);
 
   /**
    * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on

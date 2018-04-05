@@ -449,7 +449,6 @@
 	<string name="user">Kullanıcı</string>
 	<string name="password">Parola</string>
 	<string name="error_adding_account">Hesap eklenirken hata</string>
-	<string name="account_settings">Hesap ayarları</string>
 	<string name="notification_channel_settings">Bildirimleri yönet</string>
 	<string name="battery_optimization_settings">Pil optimizasyonlarını yönet</string>
 	<string name="notification_disable_battery_optimizations_description">Pil optimizasyonları bildirimleri geciktirebilir</string>

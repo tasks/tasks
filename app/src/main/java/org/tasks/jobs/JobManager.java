@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.CaldavDao;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -28,11 +29,16 @@ public class JobManager {
 
   private final com.evernote.android.job.JobManager jobManager;
   private final Preferences preferences;
+  private final CaldavDao caldavDao;
 
   @Inject
-  public JobManager(com.evernote.android.job.JobManager jobManager, Preferences preferences) {
+  public JobManager(
+      com.evernote.android.job.JobManager jobManager,
+      Preferences preferences,
+      CaldavDao caldavDao) {
     this.jobManager = jobManager;
     this.preferences = preferences;
+    this.caldavDao = caldavDao;
   }
 
   public void scheduleNotification(long time) {
@@ -76,7 +82,7 @@ public class JobManager {
     boolean accountsPresent =
         forceAccountPresent == null
             ? (preferences.getBoolean(R.string.sync_gtasks, false)
-                || preferences.getBoolean(R.string.p_sync_caldav, false))
+                || caldavDao.getAccounts().size() > 0)
             : forceAccountPresent;
     boolean onlyOnWifi =
         forceOnlyOnUnmetered == null

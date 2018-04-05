@@ -4,7 +4,6 @@ import static android.text.TextUtils.isEmpty;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,57 +11,49 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import at.bitfire.dav4android.DavResource;
+import at.bitfire.dav4android.PropertyCollection;
 import at.bitfire.dav4android.exception.HttpException;
+import at.bitfire.dav4android.property.DisplayName;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
-import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
+import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
 import java.net.IDN;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
-import org.tasks.activities.ColorPickerActivity;
 import org.tasks.analytics.Tracker;
-import org.tasks.analytics.Tracking;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
-import org.tasks.themes.ThemeCache;
-import org.tasks.themes.ThemeColor;
 import org.tasks.ui.DisplayableException;
 import timber.log.Timber;
 
-public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
+public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActivity
     implements Toolbar.OnMenuItemClickListener {
 
   public static final String EXTRA_CALDAV_DATA = "caldavData"; // $NON-NLS-1$
-  public static final String ACTION_RELOAD = "accountRenamed";
-  public static final String ACTION_DELETED = "accountDeleted";
-  private static final String EXTRA_CALDAV_UUID = "uuid"; // $NON-NLS-1$
-  private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
   private static final String PASSWORD_MASK = "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022";
-  private static final int REQUEST_COLOR_PICKER = 10109;
   @Inject DialogBuilder dialogBuilder;
   @Inject Preferences preferences;
-  @Inject ThemeCache themeCache;
-  @Inject ThemeColor themeColor;
   @Inject Tracker tracker;
   @Inject CaldavDao caldavDao;
   @Inject SyncAdapters syncAdapters;
+  @Inject TaskDeleter taskDeleter;
 
   @BindView(R.id.root_layout)
   LinearLayout root;
@@ -85,38 +76,29 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
   @BindView(R.id.password_layout)
   TextInputLayout passwordLayout;
 
-  @BindView(R.id.color)
-  TextInputEditText color;
-
   @BindView(R.id.toolbar)
   Toolbar toolbar;
 
   private CaldavAccount caldavAccount;
-  private int selectedTheme;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_caldav_settings);
+    setContentView(R.layout.activity_caldav_account_settings);
 
     ButterKnife.bind(this);
 
     caldavAccount = getIntent().getParcelableExtra(EXTRA_CALDAV_DATA);
 
     if (savedInstanceState == null) {
-      if (caldavAccount == null) {
-        selectedTheme = -1;
-      } else {
-        selectedTheme = caldavAccount.getColor();
+      if (caldavAccount != null) {
         url.setText(caldavAccount.getUrl());
         user.setText(caldavAccount.getUsername());
         if (!isEmpty(caldavAccount.getPassword())) {
           password.setText(PASSWORD_MASK);
         }
       }
-    } else {
-      selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
     }
 
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
@@ -133,20 +115,16 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
             save();
           }
         });
-    toolbar.inflateMenu(R.menu.menu_tag_settings);
+    toolbar.inflateMenu(R.menu.menu_caldav_account_settings);
     toolbar.setOnMenuItemClickListener(this);
     toolbar.showOverflowMenu();
 
-    color.setInputType(InputType.TYPE_NULL);
-
     if (caldavAccount == null) {
-      toolbar.getMenu().findItem(R.id.delete).setVisible(false);
+      toolbar.getMenu().findItem(R.id.remove).setVisible(false);
       url.requestFocus();
       InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
       imm.showSoftInput(url, InputMethodManager.SHOW_IMPLICIT);
     }
-
-    updateTheme();
   }
 
   @OnTextChanged(R.id.url)
@@ -175,29 +153,6 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
         password.setText(PASSWORD_MASK);
       }
     }
-  }
-
-  @Override
-  protected void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-
-    outState.putInt(EXTRA_SELECTED_THEME, selectedTheme);
-  }
-
-  @OnFocusChange(R.id.color)
-  void onFocusChange(boolean focused) {
-    if (focused) {
-      color.clearFocus();
-      showThemePicker();
-    }
-  }
-
-  @OnClick(R.id.color)
-  protected void showThemePicker() {
-    Intent intent = new Intent(CaldavSettingsActivity.this, ColorPickerActivity.class);
-    intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
-    intent.putExtra(ColorPickerActivity.EXTRA_SHOW_NONE, true);
-    startActivityForResult(intent, REQUEST_COLOR_PICKER);
   }
 
   @Override
@@ -276,51 +231,49 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
       ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
       dialog.show();
       client
-          .getDisplayName()
+          .getHomeSet()
           .doAfterTerminate(dialog::dismiss)
-          .subscribe(this::addAccount, this::getDisplayNameFailed);
+          .subscribe(this::addAccount, this::requestFailed);
     } else if (needsValidation()) {
       CaldavClient client = new CaldavClient(url, username, password);
       ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
       dialog.show();
       client
-          .getDisplayName()
+          .getHomeSet()
           .doAfterTerminate(dialog::dismiss)
-          .subscribe(this::updateAccount, this::getDisplayNameFailed);
+          .subscribe(this::updateAccount, this::requestFailed);
     } else if (hasChanges()) {
-      updateAccount(caldavAccount.getName());
+      updateAccount(caldavAccount.getUrl());
     } else {
       finish();
     }
   }
 
-  private void addAccount(String name) {
-    CaldavAccount newAccount = new CaldavAccount(name, UUIDHelper.newUUID());
-    newAccount.setColor(selectedTheme);
-    newAccount.setUrl(getNewURL());
+  private void addAccount(String principal) {
+    Timber.d("Found principal: %s", principal);
+
+    CaldavAccount newAccount = new CaldavAccount();
+    newAccount.setUrl(principal);
     newAccount.setUsername(getNewUsername());
     newAccount.setPassword(getNewPassword());
+    newAccount.setUuid(UUIDHelper.newUUID());
     newAccount.setId(caldavDao.insert(newAccount));
-    setResult(
-        RESULT_OK,
-        new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(newAccount)));
+
+    setResult(RESULT_OK);
     finish();
   }
 
-  private void updateAccount(String name) {
-    caldavAccount.setName(name);
-    caldavAccount.setUrl(getNewURL());
+  private void updateAccount(String principal) {
+    caldavAccount.setUrl(principal);
     caldavAccount.setUsername(getNewUsername());
-    caldavAccount.setColor(selectedTheme);
     caldavAccount.setPassword(getNewPassword());
     caldavDao.update(caldavAccount);
-    setResult(
-        RESULT_OK,
-        new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavAccount)));
+
+    setResult(RESULT_OK);
     finish();
   }
 
-  private void getDisplayNameFailed(Throwable t) {
+  private void requestFailed(Throwable t) {
     if (t instanceof HttpException) {
       showSnackbar(t.getMessage());
     } else if (t instanceof DisplayableException) {
@@ -352,12 +305,9 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
 
   private boolean hasChanges() {
     if (caldavAccount == null) {
-      return selectedTheme >= 0
-          || !isEmpty(getNewPassword())
-          || !isEmpty(getNewURL())
-          || !isEmpty(getNewUsername());
+      return !isEmpty(getNewPassword()) || !isEmpty(getNewURL()) || !isEmpty(getNewUsername());
     }
-    return selectedTheme != caldavAccount.getColor() || needsValidation();
+    return needsValidation();
   }
 
   private boolean needsValidation() {
@@ -382,33 +332,20 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
     }
   }
 
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_COLOR_PICKER) {
-      if (resultCode == RESULT_OK) {
-        int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
-        tracker.reportEvent(Tracking.Events.SET_TAG_COLOR, Integer.toString(index));
-        selectedTheme = index;
-        updateTheme();
-      }
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
-    }
-  }
-
-  private void deleteAccount() {
+  private void removeAccount() {
     dialogBuilder
-        .newMessageDialog(R.string.delete_tag_confirmation, caldavAccount.getName())
+        .newMessageDialog(R.string.remove_caldav_account_confirmation, caldavAccount.getName())
         .setPositiveButton(
-            R.string.delete,
+            R.string.remove,
             (dialog, which) -> {
-              if (caldavAccount != null) {
-                caldavDao.delete(caldavAccount);
-                setResult(
-                    RESULT_OK,
-                    new Intent(ACTION_DELETED)
-                        .putExtra(EXTRA_CALDAV_UUID, caldavAccount.getUuid()));
+              for (CaldavCalendar calendar :
+                  caldavDao.getCalendarsByAccount(caldavAccount.getUuid())) {
+                taskDeleter.markDeleted(caldavDao.getTasksByCalendar(calendar.getUuid()));
+                caldavDao.deleteTasksForCalendar(calendar.getUuid());
               }
+              caldavDao.deleteCalendarsForAccount(caldavAccount.getUuid());
+              caldavDao.delete(caldavAccount);
+              setResult(RESULT_OK);
               finish();
             })
         .setNegativeButton(android.R.string.cancel, null)
@@ -427,26 +364,13 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
     }
   }
 
-  private void updateTheme() {
-    ThemeColor themeColor;
-    if (selectedTheme < 0) {
-      themeColor = this.themeColor;
-      color.setText(R.string.none);
-    } else {
-      themeColor = themeCache.getThemeColor(selectedTheme);
-      color.setText(themeColor.getName());
-    }
-    themeColor.apply(toolbar);
-    themeColor.applyToStatusBar(this);
-  }
-
   @Override
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.delete:
-        deleteAccount();
+      case R.id.remove:
+        removeAccount();
         break;
     }
-    return super.onOptionsItemSelected(item);
+    return onOptionsItemSelected(item);
   }
 }

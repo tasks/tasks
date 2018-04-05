@@ -300,7 +300,13 @@
 
     <activity android:name=".activities.FilterSettingsActivity"/>
 
-    <activity android:name=".caldav.CaldavSettingsActivity"/>
+    <activity
+      android:name=".caldav.CaldavAccountSettingsActivity"
+      android:theme="@style/Tasks"/>
+
+    <activity
+      android:name=".caldav.CaldavCalendarSettingsActivity"
+      android:theme="@style/Tasks"/>
 
     <activity
       android:name=".activities.CalendarSelectionActivity"
