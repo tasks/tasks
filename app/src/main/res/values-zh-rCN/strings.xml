@@ -362,7 +362,6 @@
 	<string name="show_hidden">显示隐藏的任务</string>
 	<string name="show_completed">显示已完成任务</string>
 	<string name="reverse">反向</string>
-	<string name="get_plugins">应用内购买</string>
 	<string name="no_application_found">没有能打开附件的应用</string>
 	<string name="add_attachment">添加附件</string>
 	<string name="take_a_picture">拍张照片</string>
@@ -383,20 +382,12 @@
 	<string name="back_button_saves_task">返回键保存任务</string>
 	<string name="default_list">默认列表</string>
 	<string name="default_sync">默认同步</string>
-	<string name="plugin_description">Tasks是一个开发人员维护的开源项目。有些功能是作为应用内购提供的，以此支持开发。</string>
-	<string name="themes_purchase_description">解锁所有Tasks的主题和颜色</string>
-	<string name="tasker_description">上下文感知列表通知。需要Tasks或Locale</string>
 	<string name="donate_summary">不胜感激</string>
-	<string name="dashclock_purchase_description">显示活动任务的计数。需要安装DashClock Widget</string>
-	<string name="buy">购买</string>
-	<string name="buy_dashclock_extension">购买扩展</string>
-	<string name="billing_service_busy">应用内结算服务繁忙，请稍后重试</string>
 	<string name="filter">过滤器</string>
 	<string name="opacity">不透明度</string>
 	<string name="theme">主题</string>
 	<string name="color">颜色</string>
 	<string name="accent">强调色</string>
-	<string name="themes">其他主题</string>
 	<string name="theme_red">红色</string>
 	<string name="theme_pink">粉色</string>
 	<string name="theme_purple">紫色</string>
@@ -497,4 +488,5 @@
 	<string name="tasker_create_task">创建任务</string>
 	<string name="tasker_list_notification">列出通知</string>
 	<string name="help">帮助</string>
+	<string name="themes">其他主题</string>
 </resources>

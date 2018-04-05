@@ -358,7 +358,6 @@
 	<string name="show_hidden">Ausgeblendete anzeigen</string>
 	<string name="show_completed">Erledigte anzeigen</string>
 	<string name="reverse">Rückgangig</string>
-	<string name="get_plugins">In App-Käufe</string>
 	<string name="no_application_found">Keine Anwendung zum Öffnen des Anhangs gefunden</string>
 	<string name="add_attachment">Anhang hinzufügen</string>
 	<string name="take_a_picture">Bild aufnehmen</string>
@@ -377,18 +376,10 @@
 	<string name="no_title">(kein Titel)</string>
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
 	<string name="default_list">Standard-Liste</string>
-	<string name="plugin_description">Tasks ist ein Open Source-Projekt eines einzelnen Entwicklers. Manche Funktionen werden daher als In App-Käufe angeboten, um die Entwicklung zu unterstützen.</string>
-	<string name="themes_purchase_description">Entsperre alle Themes</string>
-	<string name="tasker_description">Kontext-bezogene Listenbenachrichtigungen. Benötigt Tasker oder Locale</string>
 	<string name="donate_summary">Spenden sind sehr willkommen</string>
-	<string name="dashclock_purchase_description">Anzahl aktiver Aufgaben anzeigen (DashClock-Widget benötigt).</string>
-	<string name="buy">Kaufen</string>
-	<string name="buy_dashclock_extension">Erweiterung kaufen</string>
-	<string name="billing_service_busy">Dienst für In-App Käufe ist beschäftigt, versuchen Sie es später noch einmal</string>
 	<string name="opacity">Durchsichtigkeit</string>
 	<string name="color">Farbe</string>
 	<string name="accent">Akzent</string>
-	<string name="themes">Zusätzliche Themes</string>
 	<string name="theme_red">Rot</string>
 	<string name="theme_purple">Lila</string>
 	<string name="theme_deep_purple">Dunkel-Lila</string>
@@ -474,4 +465,5 @@
 	<string name="repeat_monthly_fourth_week">vierte</string>
 	<string name="repeat_monthly_last_week">Nachname</string>
 	<string name="help">Hilfe</string>
+	<string name="themes">Zusätzliche Themes</string>
 </resources>

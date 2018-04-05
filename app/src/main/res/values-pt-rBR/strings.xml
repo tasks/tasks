@@ -282,7 +282,6 @@
 	<string name="filter_settings">Configurações de filtro</string>
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar completas</string>
-	<string name="get_plugins">Compras no app</string>
 	<string name="no_application_found">Nenhuma aplicação encontrada para abrir o anexo</string>
 	<string name="add_attachment">Adicionar anexo</string>
 	<string name="take_a_picture">Tirar uma foto</string>
@@ -296,20 +295,12 @@
 	<string name="no_title">(Sem título)</string>
 	<string name="back_button_saves_task">Botão voltar salva a tarefa</string>
 	<string name="default_list">Lista padrão</string>
-	<string name="plugin_description">Tasks é um projeto de código aberto mantido por um desenvolvedor. Algumas funções são oferecidas como compras dentro do app a fim de apoiar o desenvolvimento.</string>
-	<string name="themes_purchase_description">Desbloquear todos os temas e adicionar um pouco de cor ao Tasks</string>
-	<string name="tasker_description">Notificações contextuadas de listas. Necessita Tasker ou Locale.</string>
 	<string name="donate_summary">Doações são muito valiosas</string>
-	<string name="dashclock_purchase_description">Mostra um contador de tarefas ativas. Necessita DashClock Widget.</string>
-	<string name="buy">Comprar</string>
-	<string name="buy_dashclock_extension">Comprar extensão</string>
-	<string name="billing_service_busy">O serviço de compras no app está ocupado. Tente novamente mais tarde.</string>
 	<string name="filter">Filtrar</string>
 	<string name="opacity">Opacidade</string>
 	<string name="theme">Tema</string>
 	<string name="color">Cor</string>
 	<string name="accent">Cor de realce</string>
-	<string name="themes">Temas adicionais</string>
 	<string name="theme_red">Vermelho</string>
 	<string name="theme_pink">Rosa</string>
 	<string name="theme_purple">Roxo</string>
@@ -364,4 +355,5 @@
 	<string name="use_native_datetime_pickers">Usar calendário nativo</string>
 	<string name="dont_add_to_calendar">Não inserir no calendário</string>
 	<string name="default_calendar">Calendário padrão</string>
+	<string name="themes">Temas adicionais</string>
 </resources>

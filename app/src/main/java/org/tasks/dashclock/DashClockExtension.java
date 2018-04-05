@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.injection.InjectingApplication;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
@@ -22,6 +23,8 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
   @Inject DefaultFilterProvider defaultFilterProvider;
   @Inject TaskDao taskDao;
   @Inject Preferences preferences;
+  @Inject LocalBroadcastManager localBroadcastManager;
+  @Inject Inventory inventory;
   private final BroadcastReceiver refreshReceiver =
       new BroadcastReceiver() {
         @Override
@@ -29,7 +32,6 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
           refresh();
         }
       };
-  @Inject LocalBroadcastManager localBroadcastManager;
 
   @Override
   public void onCreate() {
@@ -53,7 +55,7 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
   }
 
   private void refresh() {
-    if (preferences.hasPurchase(R.string.p_purchased_dashclock)) {
+    if (inventory.purchasedDashclock()) {
       final String filterPreference = preferences.getStringValue(R.string.p_dashclock_filter);
       Filter filter = defaultFilterProvider.getFilterFromPreference(filterPreference);
 
@@ -85,8 +87,8 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
           new ExtensionData()
               .visible(true)
               .icon(R.drawable.ic_check_white_24dp)
-              .status(getString(R.string.buy))
-              .expandedTitle(getString(R.string.buy_dashclock_extension))
+              .status(getString(R.string.subscribe_to_pro))
+              .expandedTitle(getString(R.string.subscribe_to_pro))
               .clickIntent(new Intent(this, DashClockSettings.class)));
     }
   }

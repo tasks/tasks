@@ -367,7 +367,6 @@
 	<string name="show_hidden">숨겨진 할일 표시</string>
 	<string name="show_completed">완료한 할일 표시</string>
 	<string name="reverse">역순</string>
-	<string name="get_plugins">인앱 결제</string>
 	<string name="no_application_found">첨부 파일을 열 수 있는 앱이 발견되지 않았습니다</string>
 	<string name="add_attachment">첨부파일 추가</string>
 	<string name="take_a_picture">사진 촬영</string>
@@ -387,20 +386,12 @@
 	<string name="no_title">(제목 없음)</string>
 	<string name="back_button_saves_task">뒤로가기 버튼으로 할일 저장</string>
 	<string name="default_list">기본 목록</string>
-	<string name="plugin_description">Tasks는 한 명의 개발자에 의해 유지되고 있는 오픈 소스 프로젝트입니다. 개발을 지속하기 위해 몇몇 기능들은 인앱 결제를 통해 제공되고 있습니다.</string>
-	<string name="themes_purchase_description">모든 테마 잠금 해제 및 색상 추가</string>
-	<string name="tasker_description">컨텍스트 기반의 리스트 알림. Tasker 또는 Locale이 필요합니다.</string>
 	<string name="donate_summary">기부를 해주시면 감사하겠습니다</string>
-	<string name="dashclock_purchase_description">활성화된 할일의 개수를 표시합니다. DashClock Widget을 필요로 합니다.</string>
-	<string name="buy">구매</string>
-	<string name="buy_dashclock_extension">확장팩 구매</string>
-	<string name="billing_service_busy">인앱 결제 서비스가 혼잡합니다, 나중에 다시 시도하세요</string>
 	<string name="filter">필터</string>
 	<string name="opacity">불투명도</string>
 	<string name="theme">테마</string>
 	<string name="color">색상</string>
 	<string name="accent">강조</string>
-	<string name="themes">추가적인 테마</string>
 	<string name="theme_red">빨강</string>
 	<string name="theme_pink">분홍</string>
 	<string name="theme_purple">보라</string>
@@ -496,4 +487,5 @@
 	<string name="repeat_monthly_third_week">세번째</string>
 	<string name="repeat_monthly_fourth_week">네번째</string>
 	<string name="repeat_monthly_last_week">마지막</string>
+	<string name="themes">추가적인 테마</string>
 </resources>

@@ -224,4 +224,12 @@
     <item>1</item>
     <item>2</item>
   </string-array>
+
+  <string-array name="pro_description">
+    <item>@string/themes</item>
+    <item>@string/pro_caldav_sync</item>
+    <item>@string/pro_multiple_google_task_accounts</item>
+    <item>@string/pro_tasker_plugins</item>
+    <item>@string/pro_dashclock_extension</item>
+  </string-array>
 </resources>

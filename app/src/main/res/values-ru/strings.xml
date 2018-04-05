@@ -363,7 +363,6 @@
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse">Наоборот</string>
-	<string name="get_plugins">Покупки в приложении</string>
 	<string name="no_application_found">Не найдено приложение для открытия прикреплённого файла</string>
 	<string name="add_attachment">Прикрепить файл</string>
 	<string name="take_a_picture">Сделать снимок</string>
@@ -384,20 +383,12 @@
 	<string name="back_button_saves_task">Кнопка «Назад» сохраняет задачу</string>
 	<string name="default_list">Список по умолчанию</string>
 	<string name="default_sync">Синхронизация по-умолчанию</string>
-	<string name="plugin_description">Tasks развивается как проект с открытым исходным кодом и поддерживается единственным разработчиком. Некоторые функции приложения предлагаются как платные для дальнейшего развития программы</string>
-	<string name="themes_purchase_description">Разблокировать все темы и добавить цвета в оформление Tasks</string>
-	<string name="tasker_description">Уведомления списка контекстного подбора. Требуется Tasker или Locale</string>
 	<string name="donate_summary">Благодарю за поддержку</string>
-	<string name="dashclock_purchase_description">Вывести счетчик активных задач. Нужен DashClock-виджет</string>
-	<string name="buy">Купить</string>
-	<string name="buy_dashclock_extension">Купить расширение</string>
-	<string name="billing_service_busy">Встроенный сервис перегружен, попробуйте позже</string>
 	<string name="filter">Фильтр</string>
 	<string name="opacity">Прозрачность</string>
 	<string name="theme">Цветовая тема</string>
 	<string name="color">Цвет</string>
 	<string name="accent">Акцент</string>
-	<string name="themes">Дополнительные темы</string>
 	<string name="theme_red">Красный</string>
 	<string name="theme_pink">Розовый</string>
 	<string name="theme_purple">Пурпурный</string>
@@ -497,4 +488,5 @@
 	<string name="tasker_create_task">Создать задачу</string>
 	<string name="tasker_list_notification">Список уведомлений</string>
 	<string name="help">Помощь</string>
+	<string name="themes">Дополнительные темы</string>
 </resources>

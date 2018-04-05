@@ -221,15 +221,12 @@
 	<string name="filter_settings">過濾器設定</string>
 	<string name="show_hidden">顯示隱藏</string>
 	<string name="show_completed">顯示已完成</string>
-	<string name="get_plugins">程式內購買</string>
 	<string name="default_list">預設清單</string>
-	<string name="themes_purchase_description">解鎖全部主題並為工作增加一些色彩</string>
 	<string name="donate_summary">非常歡迎您的贊助!</string>
 	<string name="opacity">透明度</string>
 	<string name="theme">主題</string>
 	<string name="color">色彩</string>
 	<string name="accent">強調色</string>
-	<string name="themes">其他主題</string>
 	<string name="settings_general">一般</string>
 	<string name="language">語言</string>
 	<string name="restart_required">Tasks 必須重新啟動以使變更生效</string>
@@ -248,4 +245,5 @@
 	<string name="repeats_monthly">每月</string>
 	<string name="repeats_yearly">每年</string>
 	<string name="repeats_plural">每 %s 重複</string>
+	<string name="themes">其他主題</string>
 </resources>

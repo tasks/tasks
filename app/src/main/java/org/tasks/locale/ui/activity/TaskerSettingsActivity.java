@@ -8,28 +8,26 @@ import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.FilterSelectionActivity;
-import org.tasks.billing.PurchaseHelper;
-import org.tasks.billing.PurchaseHelperCallback;
+import org.tasks.billing.BillingClient;
+import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.ListNotificationBundle;
 import org.tasks.preferences.DefaultFilterProvider;
-import org.tasks.preferences.Preferences;
 
 public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferenceActivity
-    implements PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
+    implements Toolbar.OnMenuItemClickListener {
 
   private static final int REQUEST_SELECT_FILTER = 10124;
-  private static final int REQUEST_PURCHASE = 10125;
+  private static final int REQUEST_SUBSCRIPTION = 10125;
   private static final String EXTRA_FILTER = "extra_filter";
-  private static final String EXTRA_PURCHASE_INITIATED = "extra_purchase_initiated";
 
-  @Inject Preferences preferences;
   @Inject DefaultFilterProvider defaultFilterProvider;
-  @Inject PurchaseHelper purchaseHelper;
+  @Inject BillingClient billingClient;
+  @Inject Inventory inventory;
 
   private Bundle previousBundle;
   private Filter filter;
-  private boolean purchaseInitiated;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
@@ -41,7 +39,6 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferen
       previousBundle =
           savedInstanceState.getParcelable(ListNotificationBundle.BUNDLE_EXTRA_PREVIOUS_BUNDLE);
       filter = savedInstanceState.getParcelable(EXTRA_FILTER);
-      purchaseInitiated = savedInstanceState.getBoolean(EXTRA_PURCHASE_INITIATED);
     } else {
       filter = defaultFilterProvider.getDefaultFilter();
     }
@@ -59,14 +56,8 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferen
 
     refreshPreferences();
 
-    if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInitiated) {
-      purchaseInitiated =
-          purchaseHelper.purchase(
-              this,
-              getString(R.string.sku_tasker),
-              getString(R.string.p_purchased_tasker),
-              REQUEST_PURCHASE,
-              this);
+    if (!inventory.purchasedTasker()) {
+      startActivityForResult(new Intent(this, PurchaseActivity.class), REQUEST_SUBSCRIPTION);
     }
   }
 
@@ -108,19 +99,12 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferen
         filter = data.getParcelableExtra(FilterSelectionActivity.EXTRA_FILTER);
         refreshPreferences();
       }
-    } else if (requestCode == REQUEST_PURCHASE) {
-      purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
+    } else if (requestCode == REQUEST_SUBSCRIPTION) {
+      if (!inventory.purchasedTasker()) {
+        cancel();
+      }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
-    }
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-
-    if (!isChangingConfigurations()) {
-      purchaseHelper.disposeIabHelper();
     }
   }
 
@@ -129,7 +113,6 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferen
     super.onSaveInstanceState(outState);
     outState.putParcelable(ListNotificationBundle.BUNDLE_EXTRA_PREVIOUS_BUNDLE, previousBundle);
     outState.putParcelable(EXTRA_FILTER, filter);
-    outState.putBoolean(EXTRA_PURCHASE_INITIATED, purchaseInitiated);
   }
 
   private void refreshPreferences() {
@@ -142,19 +125,12 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferen
   }
 
   @Override
-  public void purchaseCompleted(boolean success, String sku) {
-    if (!success) {
-      cancel();
-    }
-  }
-
-  @Override
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_save:
         finish();
         return true;
     }
-    return super.onOptionsItemSelected(item);
+    return onOptionsItemSelected(item);
   }
 }

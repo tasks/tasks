@@ -290,7 +290,6 @@
 	<string name="show_hidden">Показати приховані</string>
 	<string name="show_completed">Показати завершені</string>
 	<string name="reverse">Реверс</string>
-	<string name="get_plugins">Покупки в застосунку</string>
 	<string name="no_application_found">Не знайдено програми для відкриття вкладення</string>
 	<string name="add_attachment">Додати вкладення</string>
 	<string name="take_a_picture">Зробити фото</string>
@@ -305,20 +304,12 @@
 	<string name="no_title">(без назви)</string>
 	<string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
 	<string name="default_list">Типовий список</string>
-	<string name="plugin_description">Tasks це проект з відкритим кодом, що обслуговується одним розробником. З метою підтримки розробки, деякі функції доступні лише після придбання через додаток.</string>
-	<string name="themes_purchase_description">Розблокувати усі схеми та додати кольори до Tasks</string>
-	<string name="tasker_description">Контекстні сповіщення списку. Потрібен Tasker або Locale</string>
 	<string name="donate_summary">Пожертви щиро вітаються</string>
-	<string name="dashclock_purchase_description">Показати кількість активних завдань. Потрібен DashClock Widget</string>
-	<string name="buy">Придбати</string>
-	<string name="buy_dashclock_extension">Придбати розширення</string>
-	<string name="billing_service_busy">Сервіс оплати застосунку перевантажено, спробуйте пізніше.</string>
 	<string name="filter">Фільтр</string>
 	<string name="opacity">Прозорість</string>
 	<string name="theme">Схема</string>
 	<string name="color">Колір</string>
 	<string name="accent">Акцент</string>
-	<string name="themes">Додаткові схеми</string>
 	<string name="theme_red">Червоний</string>
 	<string name="theme_pink">Рожевий</string>
 	<string name="theme_purple">Пурпуровий</string>
@@ -368,4 +359,5 @@
 	<string name="delete_multiple_tasks_confirmation">%s видалено</string>
 	<string name="delete_selected_tasks">Видалити вибрані завдання?</string>
 	<string name="copy_selected_tasks">Копіювати вибрані завдання?</string>
+	<string name="themes">Додаткові схеми</string>
 </resources>

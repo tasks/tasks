@@ -358,7 +358,6 @@
 	<string name="show_hidden">Toon verborgen</string>
 	<string name="show_completed">Toon voltooide</string>
 	<string name="reverse">Omgekeerde</string>
-	<string name="get_plugins">In-app aankopen</string>
 	<string name="no_application_found">Geen applicatie gevonden om de bijlage te openen</string>
 	<string name="add_attachment">Bijlage toevoegen</string>
 	<string name="take_a_picture">Maak een foto</string>
@@ -377,18 +376,10 @@
 	<string name="no_title">(geen titel)</string>
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string name="default_list">Standaard lijst</string>
-	<string name="plugin_description">Tasks is een open source project onderhouden bij een ontwikkelaar. Sommige functionaliteit worden als in-app aankopen aangeboden om de ontwikkeling te ondersteunen.</string>
-	<string name="themes_purchase_description">Ontlock alle thema\'s en voeg kleuren toe aan Tasks</string>
-	<string name="tasker_description"> Contextbewuste notificaties. Vereist Tasker of Locale</string>
 	<string name="donate_summary">Donaties worden erg gewaardeerd</string>
-	<string name="dashclock_purchase_description">Toon een teller van actieve taken. Vereist DashClock Widget</string>
-	<string name="buy">Kopen</string>
-	<string name="buy_dashclock_extension">Koop uitbreiding</string>
-	<string name="billing_service_busy">In-app rekening service is bezig, probeer later opnieuw</string>
 	<string name="opacity">Transparantie</string>
 	<string name="theme">Thema</string>
 	<string name="color">Kleur</string>
-	<string name="themes">Extra thema\'s</string>
 	<string name="theme_red">Rood</string>
 	<string name="theme_pink">Roze</string>
 	<string name="theme_purple">Paars</string>
@@ -484,4 +475,5 @@
 	<string name="repeat_monthly_last_week">laatste</string>
 	<string name="tasker_create_task">Taak maken</string>
 	<string name="tasker_list_notification">Notificatie lijst</string>
+	<string name="themes">Extra thema\'s</string>
 </resources>

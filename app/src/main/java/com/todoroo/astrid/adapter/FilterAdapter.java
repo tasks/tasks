@@ -33,9 +33,12 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
+import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavSettingsActivity;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
@@ -53,6 +56,7 @@ import org.tasks.ui.NavigationDrawerFragment;
 public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
   public static final int REQUEST_SETTINGS = 10123;
+  public static final int REQUEST_PURCHASE = 10124;
 
   // --- instance variables
   private static final int VIEW_TYPE_COUNT = FilterListItem.Type.values().length;
@@ -61,6 +65,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
   private final Activity activity;
   private final Theme theme;
   private final Locale locale;
+  private final Inventory inventory;
   private final Preferences preferences;
   private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
   private final List<FilterListItem> items = new ArrayList<>();
@@ -77,6 +82,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       Theme theme,
       ThemeCache themeCache,
       Locale locale,
+      Inventory inventory,
       Preferences preferences) {
     super(activity, 0);
     this.filterProvider = filterProvider;
@@ -84,6 +90,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     this.activity = activity;
     this.theme = theme;
     this.locale = locale;
+    this.inventory = inventory;
     this.preferences = preferences;
     this.inflater = theme.getLayoutInflater(activity);
     this.themeCache = themeCache;
@@ -324,6 +331,15 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     if (navigationDrawer) {
       add(new NavigationDrawerSeparator());
+
+      if (!inventory.hasPro()) {
+        add(
+            new NavigationDrawerAction(
+                activity.getResources().getString(R.string.subscribe_to_pro),
+                R.drawable.ic_attach_money_black_24dp,
+                new Intent(activity, PurchaseActivity.class),
+                REQUEST_PURCHASE));
+      }
 
       add(
           new NavigationDrawerAction(

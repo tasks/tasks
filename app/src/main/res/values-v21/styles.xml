@@ -10,4 +10,10 @@
     <item name="android:visibility">gone</item>
   </style>
 
+  <style name="ButtonStyle" parent="BaseButtonStyle">
+    <item name="android:backgroundTint">?attr/colorAccent</item>
+    <item name="android:textColor">@android:color/white</item>
+    <item name="android:layout_gravity">bottom|end</item>
+  </style>
+
 </resources>

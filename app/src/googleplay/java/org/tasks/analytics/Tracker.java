@@ -1,7 +1,9 @@
 package org.tasks.analytics;
 
+import static org.tasks.billing.BillingClient.BillingResponseToString;
+
 import android.content.Context;
-import com.android.vending.billing.IabResult;
+import com.android.billingclient.api.BillingClient.BillingResponse;
 import com.google.android.gms.analytics.ExceptionParser;
 import com.google.android.gms.analytics.ExceptionReporter;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -92,12 +94,14 @@ public class Tracker {
     tracker.send(eventBuilder.build());
   }
 
-  public void reportIabResult(IabResult result, String sku) {
+  public void reportIabResult(@BillingResponse int response, String sku) {
     tracker.send(
         new HitBuilders.EventBuilder()
             .setCategory(context.getString(R.string.tracking_category_iab))
             .setAction(sku)
-            .setLabel(result.getMessage())
+            .setLabel(BillingResponseToString(response))
             .build());
   }
+
+
 }

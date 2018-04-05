@@ -367,7 +367,6 @@
 	<string name="show_hidden">Gizlenenleri göster</string>
 	<string name="show_completed">Tamamlananları göster</string>
 	<string name="reverse">Ters</string>
-	<string name="get_plugins">Uygulama içi satın almalar</string>
 	<string name="no_application_found">Ek dosyasını açmak için hiçbir uygulama bulunamadı</string>
 	<string name="add_attachment">Ek ekle</string>
 	<string name="take_a_picture">Bir fotoğraf çek</string>
@@ -388,20 +387,12 @@
 	<string name="back_button_saves_task">Geri düğmesi görevi kaydeder</string>
 	<string name="default_list">Öntanımlı liste</string>
 	<string name="default_sync">Öntanımlı eşzamanlama</string>
-	<string name="plugin_description">Tasks, bir geliştirici tarafından sürdürülen açık kaynaklı tasarıdır. Bazı özellikleri gelişimi desteklemek için uygulama içi satın alma olarak sunulmaktadır.</string>
-	<string name="themes_purchase_description">Tüm gövdeleri açar ve Tasks\'e birkaç renk ekler</string>
-	<string name="tasker_description">Bağlam bilinçli liste bildirimleri. Tasker veya Locale gerekir</string>
 	<string name="donate_summary">Bağışlar makbule geçer</string>
-	<string name="dashclock_purchase_description">Etkin görevlerin sayısını gösterir. DashClock Widget gerekir</string>
-	<string name="buy">Satın al</string>
-	<string name="buy_dashclock_extension">Eklenti satın al</string>
-	<string name="billing_service_busy">Uygulama içi faturalama hizmeti meşgul, daha sonra yeniden deneyin</string>
 	<string name="filter">Süzgeç</string>
 	<string name="opacity">Şeffaflık</string>
 	<string name="theme">Gövde</string>
 	<string name="color">Renk</string>
 	<string name="accent">Ara renk</string>
-	<string name="themes">Ek gövdeler</string>
 	<string name="theme_red">Kırmızı</string>
 	<string name="theme_pink">Pembe</string>
 	<string name="theme_purple">Mor</string>
@@ -504,4 +495,5 @@
 	<string name="help">Yardım</string>
 	<string name="calendar_not_found">Takvim bulunamadı</string>
 	<string name="network_error">Bağlantı başarısız</string>
+	<string name="themes">Ek gövdeler</string>
 </resources>

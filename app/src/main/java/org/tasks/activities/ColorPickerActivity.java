@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import java.util.List;
 import javax.inject.Inject;
-import org.tasks.R;
-import org.tasks.billing.PurchaseHelper;
-import org.tasks.billing.PurchaseHelperCallback;
+import org.tasks.billing.BillingClient;
+import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
@@ -16,16 +16,18 @@ import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 
 public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
-    implements ColorPickerDialog.ThemePickerCallback, PurchaseHelperCallback {
+    implements ColorPickerDialog.ThemePickerCallback {
 
   public static final String EXTRA_PALETTE = "extra_palette";
   public static final String EXTRA_SHOW_NONE = "extra_show_none";
   public static final String EXTRA_THEME_INDEX = "extra_index";
   private static final String FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker";
-  private static final int REQUEST_PURCHASE = 1006;
-  @Inject PurchaseHelper purchaseHelper;
+  private static final int REQUEST_SUBSCRIPTION = 10101;
   @Inject Theme theme;
   @Inject ThemeCache themeCache;
+  @Inject BillingClient billingClient;
+  @Inject Inventory inventory;
+
   private ColorPalette palette;
 
   @Override
@@ -59,7 +61,7 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
       case WIDGET_BACKGROUND:
         return themeCache.getWidgetThemes();
       default:
-        throw new RuntimeException("Un");
+        throw new IllegalArgumentException("Unsupported palette: " + palette);
     }
   }
 
@@ -79,12 +81,7 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
 
   @Override
   public void initiateThemePurchase() {
-    purchaseHelper.purchase(
-        this,
-        getString(R.string.sku_themes),
-        getString(R.string.p_purchased_themes),
-        REQUEST_PURCHASE,
-        this);
+    startActivityForResult(new Intent(this, PurchaseActivity.class), REQUEST_SUBSCRIPTION);
   }
 
   @Override
@@ -94,17 +91,12 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_PURCHASE) {
-      purchaseHelper.handleActivityResult(null, requestCode, resultCode, data);
+    if (requestCode == REQUEST_SUBSCRIPTION) {
+      if (!inventory.purchasedThemes()) {
+        finish();
+      }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
-    }
-  }
-
-  @Override
-  public void purchaseCompleted(boolean success, String sku) {
-    if (!success) {
-      finish();
     }
   }
 

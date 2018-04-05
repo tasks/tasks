@@ -22,6 +22,7 @@ import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.activities.TimePickerActivity;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavSettingsActivity;
 import org.tasks.dashclock.DashClockSettings;
 import org.tasks.files.FileExplore;
@@ -134,4 +135,6 @@ public interface ActivityComponent {
   void inject(TaskerCreateTaskActivity taskerCreateTaskActivity);
 
   void inject(TaskListViewModel taskListViewModel);
+
+  void inject(PurchaseActivity purchaseActivity);
 }

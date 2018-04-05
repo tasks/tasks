@@ -313,7 +313,6 @@
 	<string name="show_hidden">הצגת משימות נסתרות</string>
 	<string name="show_completed">הצגת משימות שבוצעו</string>
 	<string name="reverse">אחורה</string>
-	<string name="get_plugins">רכישות בתוך הישום</string>
 	<string name="no_application_found">לא נמצאה אפליקצה לפתיחת הקובץ</string>
 	<string name="add_attachment">הוספ/י קובץ</string>
 	<string name="take_a_picture">צלם תמונה</string>
@@ -334,20 +333,12 @@
 	<string name="back_button_saves_task">כפתור \"חזרה\" שומר שינויים במשימה</string>
 	<string name="default_list">רשימת ברירת מחדל</string>
 	<string name="default_sync">סנכרון ברירת מחדל</string>
-	<string name="plugin_description">זו אפליקציית קוד פתוח, מתוחזקת ע\"י מפתח אחד. מספר מאפיינים מוצעים לרכישה בתוך האפליקציה בכדי לתמוך בפיתוח.</string>
-	<string name="themes_purchase_description">בטל נעילת ערכות נושא והוסף צבע למשימות</string>
-	<string name="tasker_description">Context-aware רשימת משימות. נדרש Tasker או Locale</string>
 	<string name="donate_summary">תרומות יתקבלו בברכה</string>
-	<string name="dashclock_purchase_description">הצג כמות של משימות פעילות. נחוץ ישומון DashClock</string>
-	<string name="buy">רכישה</string>
-	<string name="buy_dashclock_extension">רכוש תוספת</string>
-	<string name="billing_service_busy">שרות רכישה עמוס, נסה מאוחר יותר</string>
 	<string name="filter">סינון</string>
 	<string name="opacity">אטימות</string>
 	<string name="theme">ערכת נושא</string>
 	<string name="color">צבע</string>
 	<string name="accent">צבע משני</string>
-	<string name="themes">ערכות נושא נוספות</string>
 	<string name="theme_red">אדום</string>
 	<string name="theme_pink">ורוד</string>
 	<string name="theme_purple">סגול</string>
@@ -424,4 +415,5 @@
 	<string name="dont_sync">ללא סנכרון</string>
 	<string name="calendar_not_found">יומן לא נמצא</string>
 	<string name="network_error">החיבור נכשל</string>
+	<string name="themes">ערכות נושא נוספות</string>
 </resources>

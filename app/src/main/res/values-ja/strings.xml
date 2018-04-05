@@ -363,7 +363,6 @@
 	<string name="show_hidden">非表示を表示</string>
 	<string name="show_completed">完了を表示</string>
 	<string name="reverse">逆順</string>
-	<string name="get_plugins">アプリ内課金</string>
 	<string name="no_application_found">添付ファイルを開くアプリケーションが見つかりません</string>
 	<string name="add_attachment">添付ファイルを追加</string>
 	<string name="take_a_picture">写真を撮影</string>
@@ -384,20 +383,12 @@
 	<string name="back_button_saves_task">戻るボタンでタスクを保存します</string>
 	<string name="default_list">デフォルトリスト</string>
 	<string name="default_sync">デフォルトの同期</string>
-	<string name="plugin_description">Tasks は、1人の開発者が維持しているオープンソース プロジェクトです。開発をサポートするために、ニッチの機能はアプリ内課金で提供されています。</string>
-	<string name="themes_purchase_description">すべてのテーマのロックを解除して Tasks に色を追加します</string>
-	<string name="tasker_description">コンテキスト アウェア リストの通知。Tasker または Locale が必要です</string>
 	<string name="donate_summary">寄付は大歓迎です</string>
-	<string name="dashclock_purchase_description">アクティブなタスクの数を表示します。DashClock ウィジェットが必要です。</string>
-	<string name="buy">購入</string>
-	<string name="buy_dashclock_extension">購入エクステンション</string>
-	<string name="billing_service_busy">アプリ内課金サービスがビジー状態です。後でもう一度試してください</string>
 	<string name="filter">フィルター</string>
 	<string name="opacity">透明度</string>
 	<string name="theme">テーマ</string>
 	<string name="color">色</string>
 	<string name="accent">アクセント</string>
-	<string name="themes">追加のテーマ</string>
 	<string name="theme_red">赤</string>
 	<string name="theme_pink">ピンク</string>
 	<string name="theme_purple">紫</string>
@@ -497,4 +488,5 @@
 	<string name="tasker_create_task">タスクを作成</string>
 	<string name="tasker_list_notification">通知のリスト</string>
 	<string name="help">ヘルプ</string>
+	<string name="themes">追加のテーマ</string>
 </resources>

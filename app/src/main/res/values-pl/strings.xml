@@ -341,7 +341,6 @@
 	<string name="show_hidden">Pokaż ukryte</string>
 	<string name="show_completed">Pokaż ukończone</string>
 	<string name="reverse">Odwrotnie</string>
-	<string name="get_plugins">Zakupy w aplikacji</string>
 	<string name="no_application_found">Nie znaleziono aplikacji do otwarcia załącznika</string>
 	<string name="add_attachment">Dodaj załącznik</string>
 	<string name="take_a_picture">Wybierz obrazek</string>
@@ -361,19 +360,12 @@
 	<string name="no_title">(Bez tytułu)</string>
 	<string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
 	<string name="default_list">Domyślna lista</string>
-	<string name="plugin_description">Tasks jest projektem na licencji open source utrzymywanym przez jednego developera. Płatne funkcje wspierają rozwój aplikacji.</string>
-	<string name="themes_purchase_description">Odblokuj wszystkie motywy i dodaj trochę kolorów do Tasks</string>
 	<string name="donate_summary">Dotacje są bardzo mile widziane</string>
-	<string name="dashclock_purchase_description">Wyświetla liczbę aktywnych zadań. Wymaga DashClock Widget</string>
-	<string name="buy">Kup</string>
-	<string name="buy_dashclock_extension">Kup rozszerzenie</string>
-	<string name="billing_service_busy">Serwis zakupów w aplikacji jest zajęty, spróbuj później</string>
 	<string name="filter">Filtr</string>
 	<string name="opacity">Nieprzezroczystość</string>
 	<string name="theme">Motyw</string>
 	<string name="color">Kolor</string>
 	<string name="accent">Akcent</string>
-	<string name="themes">Dodatkowe motywy</string>
 	<string name="theme_red">Czerwony</string>
 	<string name="theme_pink">Różowy</string>
 	<string name="theme_purple">Fioletowy</string>
@@ -451,4 +443,5 @@
 	<string name="repeat_monthly_third_week">trzeci</string>
 	<string name="repeat_monthly_fourth_week">czwarty</string>
 	<string name="repeat_monthly_last_week">ostatni</string>
+	<string name="themes">Dodatkowe motywy</string>
 </resources>

@@ -157,8 +157,6 @@
 	<string name="show_hidden">Vis skjulte</string>
 	<string name="show_completed">Vis fullførte</string>
 	<string name="tag_already_exists">Tagg finnes allerede</string>
-	<string name="plugin_description">Tasks er et åpent kildekode-prosjekt vedlikeholdt av en utvikler. Enkelte funksjoner blir tilbudt som en betalt oppgradering i appen for å støtte videre utvikling.</string>
-	<string name="tasker_description">Kontekstbevisste listevarsler. Krever Tasker eller Locale</string>
 	<string name="opacity">Ugjennomsiktighet</string>
 	<string name="language">Språk</string>
 	<string name="restart_required">Tasks må startes om for at endringene skal ta effekt</string>

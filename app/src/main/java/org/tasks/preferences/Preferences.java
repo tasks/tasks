@@ -1,7 +1,10 @@
 package org.tasks.preferences;
 
 import static android.content.SharedPreferences.Editor;
+import static com.google.common.collect.Iterables.transform;
+import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybean;
+import static java.util.Collections.emptySet;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,11 +14,14 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
+import com.android.billingclient.api.Purchase;
+import com.google.gson.GsonBuilder;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 import java.io.File;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
@@ -121,6 +127,30 @@ public class Preferences {
 
   public int getDateShortcutEvening() {
     return getMillisPerDayPref(R.string.p_date_shortcut_evening, R.integer.default_evening);
+  }
+
+  public Iterable<Purchase> getPurchases() {
+    try {
+      return transform(
+          prefs.getStringSet(context.getString(R.string.p_purchases), emptySet()),
+          p ->
+              new GsonBuilder().create().fromJson(p, com.android.billingclient.api.Purchase.class));
+    } catch (Exception e) {
+      Timber.e(e, e.getMessage());
+      return emptySet();
+    }
+  }
+
+  public void setPurchases(Collection<Purchase> purchases) {
+    try {
+      Editor editor = prefs.edit();
+      editor.putStringSet(
+          context.getString(R.string.p_purchases),
+          newHashSet(transform(purchases, p -> new GsonBuilder().create().toJson(p))));
+      editor.apply();
+    } catch (Exception e) {
+      Timber.e(e, e.getMessage());
+    }
   }
 
   public int getDateShortcutNight() {
@@ -263,10 +293,6 @@ public class Preferences {
     return getBoolean(R.string.p_field_missed_calls, true)
         && notificationsEnabled()
         && permissionChecker.canAccessMissedCallPermissions();
-  }
-
-  public boolean hasPurchase(int keyResource) {
-    return getBoolean(keyResource, false);
   }
 
   public boolean getBoolean(int keyResources, boolean defValue) {

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import com.android.billingclient.api.BillingClient.BillingResponse;
 import com.todoroo.astrid.api.AstridApiConstants;
 import javax.inject.Inject;
 import org.tasks.injection.ForApplication;
@@ -14,6 +15,7 @@ public class LocalBroadcastManager {
   public static final String REFRESH = BuildConfig.APPLICATION_ID + ".REFRESH";
   public static final String REFRESH_LIST = BuildConfig.APPLICATION_ID + ".REFRESH_LIST";
   private static final String REPEAT = BuildConfig.APPLICATION_ID + ".REPEAT";
+  private static final String REFRESH_PURCHASES = BuildConfig.APPLICATION_ID + ".REFRESH_PURCHASES";
 
   private final android.support.v4.content.LocalBroadcastManager localBroadcastManager;
   private final AppWidgetManager appWidgetManager;
@@ -34,6 +36,10 @@ public class LocalBroadcastManager {
 
   public void registerRepeatReceiver(BroadcastReceiver broadcastReceiver) {
     localBroadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(REPEAT));
+  }
+
+  public void registerPurchaseReceiver(BroadcastReceiver broadcastReceiver) {
+    localBroadcastManager.registerReceiver(broadcastReceiver, new IntentFilter(REFRESH_PURCHASES));
   }
 
   public void broadcastRefresh() {
@@ -61,5 +67,9 @@ public class LocalBroadcastManager {
 
   public void unregisterReceiver(BroadcastReceiver broadcastReceiver) {
     localBroadcastManager.unregisterReceiver(broadcastReceiver);
+  }
+
+  public void broadcastPurchasesUpdated() {
+    localBroadcastManager.sendBroadcast(new Intent(REFRESH_PURCHASES));
   }
 }

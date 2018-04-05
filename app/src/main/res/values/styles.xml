@@ -111,4 +111,28 @@
     <item name="android:background">@android:color/transparent</item>
   </style>
 
+  <style name="CardViewStyle" parent="CardView">
+    <item name="android:layout_marginTop">0dp</item>
+    <item name="android:layout_marginBottom">0dp</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginRight">@dimen/card_view_margin</item>
+    <item name="android:layout_marginEnd" tools:ignore="NewApi">@dimen/card_view_margin</item>
+    <item name="android:layout_marginLeft">@dimen/card_view_margin</item>
+    <item name="android:layout_marginStart" tools:ignore="NewApi">@dimen/card_view_margin</item>
+    <item name="cardCornerRadius">@dimen/card_view_card_corner_radius</item>
+    <item name="cardElevation">@dimen/card_view_card_elevation</item>
+    <item name="cardPreventCornerOverlap">false</item>
+  </style>
+
+  <style name="BaseButtonStyle" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:layout_width">@dimen/button_width</item>
+    <item name="android:layout_height">@dimen/button_height</item>
+  </style>
+
+  <style name="ButtonStyle" parent="BaseButtonStyle">
+    <item name="android:background">?attr/colorAccent</item>
+    <item name="android:textColor">@android:color/white</item>
+    <item name="android:layout_gravity">bottom|end</item>
+  </style>
+
 </resources>

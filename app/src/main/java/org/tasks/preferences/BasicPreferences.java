@@ -1,17 +1,14 @@
 package org.tasks.preferences;
 
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
-import static org.tasks.dialogs.DonationDialog.newDonationDialog;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
 import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
 import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.TwoStatePreference;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.core.OldTaskPreferences;
 import com.todoroo.astrid.reminders.ReminderPreferences;
@@ -22,8 +19,8 @@ import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
-import org.tasks.billing.PurchaseHelper;
-import org.tasks.billing.PurchaseHelperCallback;
+import org.tasks.billing.BillingClient;
+import org.tasks.billing.Inventory;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.files.FileExplore;
 import org.tasks.injection.ActivityComponent;
@@ -34,15 +31,12 @@ import org.tasks.themes.ThemeAccent;
 import org.tasks.themes.ThemeBase;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
-import timber.log.Timber;
 
 public class BasicPreferences extends InjectingPreferenceActivity
-    implements LocalePickerDialog.LocaleSelectionHandler, PurchaseHelperCallback {
+    implements LocalePickerDialog.LocaleSelectionHandler {
 
-  public static final int REQUEST_PURCHASE = 10007;
   private static final String EXTRA_RESULT = "extra_result";
   private static final String FRAG_TAG_LOCALE_PICKER = "frag_tag_locale_picker";
-  private static final String FRAG_TAG_DONATION = "frag_tag_donation";
   private static final String FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks";
   private static final String FRAG_TAG_EXPORT_TASKS = "frag_tag_export_tasks";
   private static final int RC_PREFS = 10001;
@@ -59,7 +53,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
   @Inject DialogBuilder dialogBuilder;
   @Inject Locale locale;
   @Inject ThemeCache themeCache;
-  @Inject PurchaseHelper purchaseHelper;
+  @Inject BillingClient billingClient;
+  @Inject Inventory inventory;
 
   private Bundle result;
 
@@ -70,8 +65,10 @@ public class BasicPreferences extends InjectingPreferenceActivity
     result = savedInstanceState == null ? new Bundle() : savedInstanceState.getBundle(EXTRA_RESULT);
 
     addPreferencesFromResource(R.xml.preferences);
-    addPreferencesFromResource(R.xml.preferences_addons);
     addPreferencesFromResource(R.xml.preferences_privacy);
+    if (BuildConfig.DEBUG) {
+      addPreferencesFromResource(R.xml.preferences_debug);
+    }
 
     setupActivity(R.string.EPr_appearance_header, AppearancePreferences.class);
     setupActivity(R.string.notifications, ReminderPreferences.class);
@@ -136,88 +133,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
               return false;
             });
 
-    findPreference(R.string.TLA_menu_donate)
-        .setOnPreferenceClickListener(
-            preference -> {
-              if (BuildConfig.FLAVOR.equals("googleplay")) {
-                newDonationDialog().show(getFragmentManager(), FRAG_TAG_DONATION);
-              } else {
-                startActivity(
-                    new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/donate")));
-              }
-              return false;
-            });
-
-    findPreference(R.string.p_purchased_themes)
-        .setOnPreferenceChangeListener(
-            (preference, newValue) -> {
-              if (newValue != null
-                  && (boolean) newValue
-                  && !preferences.hasPurchase(R.string.p_purchased_themes)) {
-                purchaseHelper.purchase(
-                    BasicPreferences.this,
-                    getString(R.string.sku_themes),
-                    getString(R.string.p_purchased_themes),
-                    REQUEST_PURCHASE,
-                    BasicPreferences.this);
-              }
-              return false;
-            });
-
-    findPreference(R.string.p_purchased_tasker)
-        .setOnPreferenceChangeListener(
-            (preference, newValue) -> {
-              if (newValue != null
-                  && (boolean) newValue
-                  && !preferences.hasPurchase(R.string.p_purchased_tasker)) {
-                purchaseHelper.purchase(
-                    BasicPreferences.this,
-                    getString(R.string.sku_tasker),
-                    getString(R.string.p_purchased_tasker),
-                    REQUEST_PURCHASE,
-                    BasicPreferences.this);
-              }
-              return false;
-            });
-
-    findPreference(R.string.p_purchased_dashclock)
-        .setOnPreferenceChangeListener(
-            (preference, newValue) -> {
-              if (newValue != null
-                  && (boolean) newValue
-                  && !preferences.hasPurchase(R.string.p_purchased_dashclock)) {
-                purchaseHelper.purchase(
-                    BasicPreferences.this,
-                    getString(R.string.sku_dashclock),
-                    getString(R.string.p_purchased_dashclock),
-                    REQUEST_PURCHASE,
-                    BasicPreferences.this);
-              }
-              return false;
-            });
-
-    if (BuildConfig.DEBUG) {
-      addPreferencesFromResource(R.xml.preferences_debug);
-
-      findPreference(getString(R.string.debug_unlock_purchases))
-          .setOnPreferenceClickListener(
-              preference -> {
-                preferences.setBoolean(R.string.p_purchased_dashclock, true);
-                preferences.setBoolean(R.string.p_purchased_tasker, true);
-                preferences.setBoolean(R.string.p_purchased_themes, true);
-                recreate();
-                return true;
-              });
-
-      findPreference(getString(R.string.debug_consume_purchases))
-          .setOnPreferenceClickListener(
-              preference -> {
-                purchaseHelper.consumePurchases();
-                recreate();
-                return true;
-              });
-    }
-
     findPreference(R.string.backup_BAc_import)
         .setOnPreferenceClickListener(
             preference -> {
@@ -237,15 +152,14 @@ public class BasicPreferences extends InjectingPreferenceActivity
 
     initializeBackupDirectory();
 
-    requires(R.string.get_plugins, atLeastJellybeanMR1(), R.string.p_purchased_dashclock);
     requires(
         R.string.settings_localization,
         atLeastJellybeanMR1(),
         R.string.p_language,
         R.string.p_layout_direction);
 
+    //noinspection ConstantConditions
     if (!BuildConfig.FLAVOR.equals("googleplay")) {
-      requires(R.string.settings_general, false, R.string.synchronization);
       requires(R.string.privacy, false, R.string.p_collect_statistics);
     }
   }
@@ -307,8 +221,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
         newImportTasksDialog(data.getStringExtra(FileExplore.EXTRA_FILE))
             .show(getFragmentManager(), FRAG_TAG_IMPORT_TASKS);
       }
-    } else if (requestCode == REQUEST_PURCHASE) {
-      purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }
@@ -342,32 +254,6 @@ public class BasicPreferences extends InjectingPreferenceActivity
     setResult(Activity.RESULT_OK, data);
 
     super.finish();
-  }
-
-  @Override
-  public void purchaseCompleted(final boolean success, final String sku) {
-    runOnUiThread(
-        () -> {
-          if (getString(R.string.sku_tasker).equals(sku)) {
-            ((TwoStatePreference) findPreference(R.string.p_purchased_tasker)).setChecked(success);
-          } else if (getString(R.string.sku_dashclock).equals(sku)) {
-            ((TwoStatePreference) findPreference(R.string.p_purchased_dashclock))
-                .setChecked(success);
-          } else if (getString(R.string.sku_themes).equals(sku)) {
-            ((TwoStatePreference) findPreference(R.string.p_purchased_themes)).setChecked(success);
-          } else {
-            Timber.d("Unhandled sku: %s", sku);
-          }
-        });
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-
-    if (!isChangingConfigurations()) {
-      purchaseHelper.disposeIabHelper();
-    }
   }
 
   private void initializeBackupDirectory() {

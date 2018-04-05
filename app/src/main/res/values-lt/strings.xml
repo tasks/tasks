@@ -362,7 +362,6 @@
 	<string name="show_hidden">Rodyti paslėptus</string>
 	<string name="show_completed">Rodyti užbaigtus</string>
 	<string name="reverse">Atvirkščiai</string>
-	<string name="get_plugins">Apsipirkimas programoje</string>
 	<string name="no_application_found">Nerasta programa, kuri galėtų atidaryti prisegtą failą</string>
 	<string name="add_attachment">Pridėti failą</string>
 	<string name="take_a_picture">Nufotografuoti</string>
@@ -383,20 +382,12 @@
 	<string name="back_button_saves_task">Mygtukas \"Atgal\" išsaugo pakitimus</string>
 	<string name="default_list">Numatytasis sąrašas</string>
 	<string name="default_sync">Numatytoji sinchronizacija</string>
-	<string name="plugin_description">Tasks yra atviro pirminio kodo projektas, išlaikomas vienintelio programuotojo. \'Kai kurios funkcijos yra siūlomos kaip papildomos ir mokamos, kad būtų išlaikytas projekto vystymas.</string>
-	<string name="themes_purchase_description">Atrakinti visas Tasks temas ir pridėti kelias spalvas</string>
-	<string name="tasker_description">Pranešimai atsižvelgiant į sąrašo turinį. Reikalingas Tasker arba Locale.</string>
 	<string name="donate_summary">Paaukojimai yra ypač vertinami</string>
-	<string name="dashclock_purchase_description">Rodyti aktyvių užduočių skaičių. Reikalingas DashClock Widget</string>
-	<string name="buy">Pirkti</string>
-	<string name="buy_dashclock_extension">Pirkti plėtinį</string>
-	<string name="billing_service_busy">Programos sąskaitų paslauga užimta, pabandykite vėliau</string>
 	<string name="filter">Filtras</string>
 	<string name="opacity">Permatomumas</string>
 	<string name="theme">Tema</string>
 	<string name="color">Spalva</string>
 	<string name="accent">Akcentas</string>
-	<string name="themes">Papildomos temos</string>
 	<string name="theme_red">Raudona</string>
 	<string name="theme_pink">Rožinė</string>
 	<string name="theme_purple">Violetinė</string>
@@ -498,4 +489,5 @@
 	<string name="help">Pagalba</string>
 	<string name="calendar_not_found">Kalendorius nerastas</string>
 	<string name="network_error">Sujungimas nepavyko</string>
+	<string name="themes">Papildomos temos</string>
 </resources>

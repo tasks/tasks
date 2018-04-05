@@ -2,7 +2,6 @@ package org.tasks.injection;
 
 import dagger.Subcomponent;
 import org.tasks.activities.RemoteListNativePicker;
-import org.tasks.dialogs.DonationDialog;
 import org.tasks.dialogs.ExportTasksDialog;
 import org.tasks.dialogs.ImportTasksDialog;
 import org.tasks.dialogs.NativeDatePickerDialog;
@@ -26,6 +25,4 @@ public interface NativeDialogFragmentComponent {
   void inject(ExportTasksDialog exportTasksDialog);
 
   void inject(ImportTasksDialog importTasksDialog);
-
-  void inject(DonationDialog donationDialog);
 }

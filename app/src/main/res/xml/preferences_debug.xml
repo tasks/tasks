@@ -4,13 +4,11 @@
   <PreferenceCategory
     android:title="@string/debug">
 
-    <Preference
-      android:key="@string/debug_unlock_purchases"
-      android:title="@string/debug_unlock_purchases"/>
-
-    <Preference
-      android:key="@string/debug_consume_purchases"
-      android:title="@string/debug_consume_purchases"/>
+    <Preference android:title="@string/debug_display_purchases">
+      <intent
+        android:targetClass="org.tasks.billing.PurchaseActivity"
+        android:targetPackage="org.tasks"/>
+    </Preference>
 
     <CheckBoxPreference
       android:key="@string/p_strict_mode"

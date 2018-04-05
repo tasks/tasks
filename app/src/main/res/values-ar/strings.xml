@@ -164,7 +164,6 @@
 	<string name="filter_settings">إعدادات التصفية</string>
 	<string name="show_hidden">عرض المهام المخفية</string>
 	<string name="show_completed">إظهار المكتملة</string>
-	<string name="plugin_description">تاسكس هو مشروع مفتوح المصدر مدموع من طرف مطور واحد. بعض الخيارات متوفرة عن الطريق الدفع من داخل التطبيق من أجل دعم التطوير</string>
 	<string name="opacity">التعتيم</string>
 	<string name="settings_localization">تخصيص اللغة و الجهة</string>
 	<string name="layout_direction">إتجاه التنسيق</string>

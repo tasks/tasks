@@ -286,7 +286,6 @@
 	<string name="show_hidden">Visa dolda</string>
 	<string name="show_completed">Visa slutförda</string>
 	<string name="reverse">Omvänt</string>
-	<string name="get_plugins">Köp i app</string>
 	<string name="no_application_found">Ingen applikation hittades för att öppna bilagan</string>
 	<string name="add_attachment">Bifoga filer</string>
 	<string name="take_a_picture">Ta en bild</string>
@@ -301,18 +300,10 @@
 	<string name="no_title">(Ingen titel)</string>
 	<string name="back_button_saves_task">Bakåtknapp sparar uppgift</string>
 	<string name="default_list">Standardlista</string>
-	<string name="plugin_description">Tasks är ett open source projekt som drivs av en ensam utvecklare. Några av funktionerna blir tillgängliga via köp i appar för att stödja fortsatt utveckling.</string>
-	<string name="themes_purchase_description">Lås upp alla teman och sätt lite färg på Tasks</string>
-	<string name="tasker_description">Innehållsbaserade listpåminnelser. Kräver Tasker eller Locale</string>
 	<string name="donate_summary">Donationer uppskattas varmt</string>
-	<string name="dashclock_purchase_description">Visa antalet aktiva uppgifter. Kräver DashClock Widget</string>
-	<string name="buy">Köp</string>
-	<string name="buy_dashclock_extension">Köp tillägg</string>
-	<string name="billing_service_busy">Köp i appar tjänsten är upptagen, försök igen senare</string>
 	<string name="opacity">Opacitet</string>
 	<string name="theme">Tema</string>
 	<string name="color">Färg</string>
-	<string name="themes">Fler teman</string>
 	<string name="theme_red">Röd</string>
 	<string name="theme_pink">Rosa</string>
 	<string name="theme_purple">Lila</string>
@@ -351,4 +342,5 @@
 	<string name="deleting_list">Tar bort lista</string>
 	<string name="renaming_list">Byter namn på listan</string>
 	<string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
+	<string name="themes">Fler teman</string>
 </resources>

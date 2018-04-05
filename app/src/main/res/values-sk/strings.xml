@@ -363,7 +363,6 @@
 	<string name="show_hidden">Zobraziť skryté</string>
 	<string name="show_completed">Zobraziť dokončené</string>
 	<string name="reverse">Opačné</string>
-	<string name="get_plugins">Aplikácia obsahuje platené prvky</string>
 	<string name="no_application_found">Na otvorenie tohto súboru nebola nájdená vhodná aplikácia </string>
 	<string name="add_attachment">Pridať prílohu </string>
 	<string name="take_a_picture">Spraviť obrázok</string>
@@ -384,19 +383,11 @@
 	<string name="back_button_saves_task">Uložiť úlohu tlačidlom Späť</string>
 	<string name="default_list">Predvolený zoznam</string>
 	<string name="default_sync">Predvolené synchronizácia </string>
-	<string name="plugin_description">Úlohy sú open-source projektom, ktorý udržiava jeden vývojár. Pre podporu ďalšieho vývoja sú niektoré funkcie ponúkané ako platené.</string>
-	<string name="themes_purchase_description">Odomknúť všetky témy a pridať farby do Úloh</string>
-	<string name="tasker_description">Zoznam s upozorňovaním na polohu. Vyžaduje sa Tasker alebo Locale</string>
 	<string name="donate_summary">Sme vďační za Vaše dary</string>
-	<string name="dashclock_purchase_description">Zobraziť počet aktívnych úloh. Vyžaduje sa DashClock Widget.</string>
-	<string name="buy">Kúpiť</string>
-	<string name="buy_dashclock_extension">Kúpiť rozšírenie</string>
-	<string name="billing_service_busy">Služba platenia v aplikácii je zaneprázdnená, skúste znovu neskôr</string>
 	<string name="opacity">Nejasnosť</string>
 	<string name="theme">Téma</string>
 	<string name="color">Farba</string>
 	<string name="accent">Zvýraznenie </string>
-	<string name="themes">Ďaľšie témy</string>
 	<string name="theme_red">Červená</string>
 	<string name="theme_pink">Ružová</string>
 	<string name="theme_purple">Fialová</string>
@@ -496,4 +487,5 @@
 	<string name="tasker_create_task">Vytvor úlohu</string>
 	<string name="tasker_list_notification">Zoznam upozornení</string>
 	<string name="help">Pomoc</string>
+	<string name="themes">Ďaľšie témy</string>
 </resources>

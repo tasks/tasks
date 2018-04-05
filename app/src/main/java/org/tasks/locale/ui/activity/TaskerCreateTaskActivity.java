@@ -11,22 +11,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import javax.inject.Inject;
 import net.dinglisch.android.tasker.TaskerPlugin;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.billing.PurchaseHelper;
-import org.tasks.billing.PurchaseHelperCallback;
+import org.tasks.billing.BillingClient;
+import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.locale.bundle.TaskCreationBundle;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
 
 public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCompatActivity
-    implements PurchaseHelperCallback, Toolbar.OnMenuItemClickListener {
+    implements Toolbar.OnMenuItemClickListener {
 
-  private static final int REQUEST_PURCHASE = 10125;
-  private static final String EXTRA_PURCHASE_INITIATED = "extra_purchase_initiated";
+  private static final int REQUEST_SUBSCRIPTION = 10101;
 
   @Inject Preferences preferences;
-  @Inject PurchaseHelper purchaseHelper;
+  @Inject BillingClient billingClient;
+  @Inject Inventory inventory;
+  @Inject LocalBroadcastManager localBroadcastManager;
 
   @BindView(R.id.title)
   TextInputEditText title;
@@ -47,7 +50,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   TextInputEditText description;
 
   private Bundle previousBundle;
-  private boolean purchaseInitiated;
 
   @Override
   public void onCreate(final Bundle savedInstanceState) {
@@ -76,19 +78,12 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
 
     if (savedInstanceState != null) {
       previousBundle = savedInstanceState.getParcelable(TaskCreationBundle.EXTRA_BUNDLE);
-      purchaseInitiated = savedInstanceState.getBoolean(EXTRA_PURCHASE_INITIATED);
       TaskCreationBundle bundle = new TaskCreationBundle(previousBundle);
       title.setText(bundle.getTitle());
     }
 
-    if (!preferences.hasPurchase(R.string.p_purchased_tasker) && !purchaseInitiated) {
-      purchaseInitiated =
-          purchaseHelper.purchase(
-              this,
-              getString(R.string.sku_tasker),
-              getString(R.string.p_purchased_tasker),
-              REQUEST_PURCHASE,
-              this);
+    if (!inventory.purchasedTasker()) {
+      startActivityForResult(new Intent(this, PurchaseActivity.class), REQUEST_SUBSCRIPTION);
     }
   }
 
@@ -138,15 +133,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   }
 
   @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == REQUEST_PURCHASE) {
-      purchaseHelper.handleActivityResult(this, requestCode, resultCode, data);
-    } else {
-      super.onActivityResult(requestCode, resultCode, data);
-    }
-  }
-
-  @Override
   public void onBackPressed() {
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     if (backButtonSavesTask) {
@@ -166,31 +152,14 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   }
 
   @Override
-  protected void onDestroy() {
-    super.onDestroy();
-
-    if (!isChangingConfigurations()) {
-      purchaseHelper.disposeIabHelper();
-    }
-  }
-
-  @Override
   protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
     outState.putParcelable(TaskCreationBundle.EXTRA_BUNDLE, previousBundle);
-    outState.putBoolean(EXTRA_PURCHASE_INITIATED, purchaseInitiated);
   }
 
   @Override
   public void inject(ActivityComponent component) {
     component.inject(this);
-  }
-
-  @Override
-  public void purchaseCompleted(boolean success, String sku) {
-    if (!success) {
-      discardButtonClick();
-    }
   }
 
   @Override
@@ -204,6 +173,17 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
             new Intent(Intent.ACTION_VIEW).setData(Uri.parse("http://tasks.org/help/tasker")));
         return true;
     }
-    return super.onOptionsItemSelected(item);
+    return onOptionsItemSelected(item);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_SUBSCRIPTION) {
+      if (!inventory.purchasedTasker()) {
+        discardButtonClick();
+      }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data);
+    }
   }
 }

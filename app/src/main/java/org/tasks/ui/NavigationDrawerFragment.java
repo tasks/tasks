@@ -65,12 +65,15 @@ public class NavigationDrawerFragment extends InjectingFragment {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == FilterAdapter.REQUEST_SETTINGS
-        && resultCode == Activity.RESULT_OK
-        && data != null) {
-      if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
-        TaskListActivity activity = (TaskListActivity) getActivity();
-        activity.restart();
+    if (requestCode == FilterAdapter.REQUEST_SETTINGS) {
+      if (resultCode == Activity.RESULT_OK && data != null) {
+        if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
+          ((TaskListActivity) getActivity()).restart();
+        }
+      }
+    } else if (requestCode == FilterAdapter.REQUEST_PURCHASE) {
+      if (resultCode == Activity.RESULT_OK) {
+        ((TaskListActivity) getActivity()).restart();
       }
     } else if (requestCode == REQUEST_NEW_LIST
         || requestCode == ACTIVITY_REQUEST_NEW_FILTER

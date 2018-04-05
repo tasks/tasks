@@ -363,7 +363,6 @@
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar terminadas</string>
 	<string name="reverse">Reverter</string>
-	<string name="get_plugins">Compras na aplicação</string>
 	<string name="no_application_found">Nenhuma aplicação encontrada para abrir o anexo</string>
 	<string name="add_attachment">Adicionar anexo</string>
 	<string name="take_a_picture">Tirar uma foto</string>
@@ -378,17 +377,12 @@
 	<string name="no_title">(Sem título)</string>
 	<string name="back_button_saves_task">O botão voltar guarda a tarefa</string>
 	<string name="default_list">Lista padrão</string>
-	<string name="plugin_description">Tasks é um projeto de código aberto mantido por um programador. Alguns recursos são oferecidos através de compras no aplicativo para apoiar o desenvolvimento.</string>
-	<string name="themes_purchase_description">Desbloqueie todos os temas e adicione alguma cor ao Tasks</string>
 	<string name="donate_summary">Os donativos são muito apreciados</string>
-	<string name="buy">Comprar</string>
-	<string name="buy_dashclock_extension">Comprar extensão</string>
 	<string name="filter">Filtro</string>
 	<string name="opacity">Opacidade</string>
 	<string name="theme">Tema</string>
 	<string name="color">Cor</string>
 	<string name="accent">Realçe</string>
-	<string name="themes">Temas adicionais</string>
 	<string name="theme_red">Vermelho</string>
 	<string name="theme_pink">Rosa</string>
 	<string name="theme_purple">Púrpura</string>
@@ -465,4 +459,5 @@
 	<string name="repeat_monthly_third_week">terceiro</string>
 	<string name="repeat_monthly_fourth_week">quarto</string>
 	<string name="repeat_monthly_last_week">último</string>
+	<string name="themes">Temas adicionais</string>
 </resources>

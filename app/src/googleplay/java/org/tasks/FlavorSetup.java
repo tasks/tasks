@@ -1,22 +1,23 @@
 package org.tasks;
 
 import javax.inject.Inject;
-import org.tasks.billing.InventoryHelper;
+import org.tasks.billing.BillingClient;
 import org.tasks.gtasks.PlayServices;
 
 public class FlavorSetup {
 
-  private final InventoryHelper inventoryHelper;
   private final PlayServices playServices;
+  private final BillingClient billingClient;
 
   @Inject
-  public FlavorSetup(InventoryHelper inventoryHelper, PlayServices playServices) {
-    this.inventoryHelper = inventoryHelper;
+  public FlavorSetup(PlayServices playServices,
+      BillingClient billingClient) {
     this.playServices = playServices;
+    this.billingClient = billingClient;
   }
 
   public void setup() {
-    inventoryHelper.initialize();
+    billingClient.initialize();
     playServices.refresh();
   }
 }

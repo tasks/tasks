@@ -361,7 +361,6 @@
 	<string name="show_hidden">Mostrar oculto</string>
 	<string name="show_completed">Mostrar completado</string>
 	<string name="reverse">Invertir</string>
-	<string name="get_plugins">Compras en la aplicación</string>
 	<string name="no_application_found">No se ha encontrado una aplicación para abrir el archivo adjunto</string>
 	<string name="add_attachment">Adjuntar archivo</string>
 	<string name="take_a_picture">Tomar fotografía</string>
@@ -382,19 +381,11 @@
 	<string name="back_button_saves_task">Botón atrás guarda la tarea</string>
 	<string name="default_list">Lista por defecto</string>
 	<string name="default_sync">Sincronización predeterminada</string>
-	<string name="plugin_description">Tasks es un proyecto de código abierto mantenido por un único desarrollador. Algunas características especializadas se podrán comprar desde la aplicación para mantener su desarrollo.</string>
-	<string name="themes_purchase_description">Desbloquea todos los temas y añade color a Tasks</string>
-	<string name="tasker_description">Notificaciones dependientes del contexto. Requiere Tasker o Locale.</string>
 	<string name="donate_summary">Se agradecen enormemente las donaciones</string>
-	<string name="dashclock_purchase_description">Muestra una cuenta de las tareas activas. Requiere DashClock Widget</string>
-	<string name="buy">Comprar</string>
-	<string name="buy_dashclock_extension">Comprar extensión</string>
-	<string name="billing_service_busy">El servicio de compra desde la aplicación está ocupado, inténtelo más tarde.</string>
 	<string name="filter">Filtro</string>
 	<string name="opacity">Opacidad</string>
 	<string name="theme">Tema</string>
 	<string name="accent">Acentuado</string>
-	<string name="themes">Temas adicionales</string>
 	<string name="theme_red">Rojo</string>
 	<string name="theme_pink">Rosa</string>
 	<string name="theme_purple">Morado</string>
@@ -493,4 +484,5 @@
 	<string name="tasker_create_task">Crear tarea</string>
 	<string name="tasker_list_notification">Listar notificación</string>
 	<string name="help">Ayuda</string>
+	<string name="themes">Temas adicionales</string>
 </resources>

@@ -258,11 +258,7 @@
   <string name="tracking_event_multiselect_clone">Multiselect clone</string>
   <string name="p_badges_enabled">badges_enabled</string>
   <string name="p_badge_list">badge_list</string>
-  <string name="p_purchased_tasker">purchased_tasker</string>
-  <string name="p_purchased_dashclock">purchased_dashclock</string>
-  <string name="p_purchased_themes">purchased_themes</string>
   <string name="tasker_locale">Tasker/Locale</string>
-  <string name="dashclock">DashClock extension</string>
   <string name="p_theme">theme_style</string>
   <string name="p_theme_color">theme_color</string>
   <string name="p_theme_accent">theme_accent</string>
@@ -282,11 +278,10 @@
   <string name="p_dashclock_filter">dashclock_filter</string>
   <string name="p_default_remote_list">default_remote_list</string>
 
-  <string name="sku_tasker">tasker</string>
-  <string name="sku_dashclock">dashclock</string>
-  <string name="debug_unlock_purchases">Unlock purchases</string>
-  <string name="debug_consume_purchases">Consume purchases</string>
+  <string name="debug_display_purchases">Purchases</string>
+  <string name="debug_consume">Consume</string>
   <string name="debug_strict_mode">Strict mode</string>
+  <string name="debug_buy">Buy</string>
   <string name="debug">Debug</string>
   <string name="p_start_of_week">start_of_week</string>
   <string name="p_use_native_datetime_pickers">use_native_datetime_pickers</string>
@@ -296,5 +291,6 @@
   <string name="warned_play_services">warned_play_services</string>
   <string name="p_sync_caldav">sync_caldav</string>
   <string name="p_background_sync_unmetered_only">background_sync_unmetered_only</string>
+  <string name="p_purchases">purchases</string>
 
 </resources>

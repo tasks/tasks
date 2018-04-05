@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.injection.DialogFragmentComponent;
 import org.tasks.injection.ForActivity;
 import org.tasks.injection.InjectingDialogFragment;
@@ -30,6 +31,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
   @Inject @ForActivity Context context;
   @Inject Preferences preferences;
   @Inject Theme theme;
+  @Inject Inventory inventory;
   private ThemePickerCallback callback;
   private SingleCheckedArrayAdapter adapter;
   private Dialog dialog;
@@ -59,8 +61,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
             context, transform(items, Pickable::getName), theme.getThemeAccent()) {
           @Override
           protected int getDrawable(int position) {
-            return preferences.hasPurchase(R.string.p_purchased_themes)
-                    || items.get(position).isFree()
+            return inventory.purchasedThemes() || items.get(position).isFree()
                 ? R.drawable.ic_lens_black_24dp
                 : R.drawable.ic_vpn_key_black_24dp;
           }
@@ -79,7 +80,7 @@ public class ColorPickerDialog extends InjectingDialogFragment {
                 selected,
                 (dialog, which) -> {
                   Pickable picked = items.get(which);
-                  if (preferences.hasPurchase(R.string.p_purchased_themes) || picked.isFree()) {
+                  if (inventory.purchasedThemes() || picked.isFree()) {
                     callback.themePicked(picked);
                   } else {
                     callback.initiateThemePurchase();

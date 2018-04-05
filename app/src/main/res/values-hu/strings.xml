@@ -365,7 +365,6 @@
 	<string name="show_hidden">Rejtettek megjelenítése</string>
 	<string name="show_completed">Elvégzettek megjelenítése</string>
 	<string name="reverse">Visszafelé</string>
-	<string name="get_plugins">Alkalmazáson belüli vásárlások</string>
 	<string name="no_application_found">A csatolmány megnyitására alkalmas program nem található</string>
 	<string name="add_attachment">Csatolmány hozzáadása</string>
 	<string name="take_a_picture">Kép készítése</string>
@@ -386,20 +385,12 @@
 	<string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
 	<string name="default_list">Alapértelmezett lista</string>
 	<string name="default_sync">Alapértelmezett szinkronizáció</string>
-	<string name="plugin_description">A Tasks egyetlen fejlesztő által karbantartott nyílt forráskódú projekt. Néhány funkció csak alkalmazáson belüli vásárlással érhető el, ezzel is támogatva a fejlesztést.</string>
-	<string name="themes_purchase_description">Az összes Tasks téma és szín elérhetővé tétele</string>
-	<string name="tasker_description">Kontextus-függő lista emlékeztető. Használatához Tasker vagy Locale szükséges.</string>
 	<string name="donate_summary">Támogatását nagyra értékeljük</string>
-	<string name="dashclock_purchase_description">Aktív feladatok számának megjelenítése. DashClock Widget megléte szükséges.</string>
-	<string name="buy">Vásárlás</string>
-	<string name="buy_dashclock_extension">Kiterjesztés vásárlása</string>
-	<string name="billing_service_busy">Az alkalmazáson belüli vásárlások szolgáltatás nem elérhető, kérem, próbálja később.</string>
 	<string name="filter">Szűrő</string>
 	<string name="opacity">Átlátszóság</string>
 	<string name="theme">Téma</string>
 	<string name="color">Szín</string>
 	<string name="accent">Kiemelés</string>
-	<string name="themes">További témák</string>
 	<string name="theme_red">Piros</string>
 	<string name="theme_pink">Rózsaszín</string>
 	<string name="theme_purple">Lila</string>
@@ -500,4 +491,5 @@
 	<string name="tasker_create_task">Feladat létrehozása</string>
 	<string name="tasker_list_notification">Lista értesítés</string>
 	<string name="help">Súgó</string>
+	<string name="themes">További témák</string>
 </resources>

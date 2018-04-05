@@ -3,11 +3,6 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="org.tasks">
 
-  <!-- **************** -->
-  <!-- in-app donations -->
-  <!-- **************** -->
-  <uses-permission android:name="com.android.vending.BILLING"/>
-
   <!-- ************************ -->
   <!-- location based reminders -->
   <!-- ************************ -->

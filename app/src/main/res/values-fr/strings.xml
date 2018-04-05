@@ -348,7 +348,6 @@
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>
 	<string name="reverse">Inverser</string>
-	<string name="get_plugins">Achats intégrés à l\'application</string>
 	<string name="no_application_found">Aucune application trouvée pour ouvrir la pièce jointe</string>
 	<string name="add_attachment">Ajouter une pièce jointe</string>
 	<string name="take_a_picture">Prendre une photo</string>
@@ -369,19 +368,11 @@
 	<string name="back_button_saves_task">Faire un retour-arrière sauvegarde la tâche</string>
 	<string name="default_list">Liste par défaut</string>
 	<string name="default_sync">Synchronisation par défaut</string>
-	<string name="plugin_description">Tasks est un projet à source ouverte entretenu par un développeur. Quelques contenus payants sont disponible dans l\'application pour supporter le développement.</string>
-	<string name="themes_purchase_description">Débloquer tous les thèmes et quelques couleurs à Tasks</string>
-	<string name="tasker_description">Notifications de la sensibilité du contexte de la liste. Tasker ou Local est requis.</string>
 	<string name="donate_summary">Les donations sont grandement appréciées.</string>
-	<string name="dashclock_purchase_description">Affiche le nombre de tâches actives. Requiert le widget DashClock</string>
-	<string name="buy">Acheter</string>
-	<string name="buy_dashclock_extension">Acheter l\'extension</string>
-	<string name="billing_service_busy">Le service de facturation intégré à l\'application est surchargé, réessayez plus tard.</string>
 	<string name="filter">Filtre</string>
 	<string name="opacity">Transparence</string>
 	<string name="theme">Thème</string>
 	<string name="color">Couleur</string>
-	<string name="themes">Thèmes additionnels</string>
 	<string name="theme_red">Rouge</string>
 	<string name="theme_pink">Rose</string>
 	<string name="theme_purple">Violet</string>
@@ -480,4 +471,5 @@
 	<string name="help">Aide</string>
 	<string name="calendar_not_found">Calendrier manquant</string>
 	<string name="network_error">Connexion échouée</string>
+	<string name="themes">Thèmes additionnels</string>
 </resources>

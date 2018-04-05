@@ -6,6 +6,7 @@
 package com.todoroo.astrid.activity;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.todoroo.astrid.adapter.FilterAdapter.REQUEST_PURCHASE;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
@@ -53,6 +54,8 @@ import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.injection.ForActivity;
@@ -67,6 +70,7 @@ import org.tasks.ui.CheckBoxes;
 import org.tasks.ui.MenuColorizer;
 import org.tasks.ui.ProgressDialogAsyncTask;
 import org.tasks.ui.TaskListViewModel;
+import timber.log.Timber;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming tasks and a user's coaches.
@@ -100,6 +104,7 @@ public class TaskListFragment extends InjectingFragment
   @Inject ViewHolderFactory viewHolderFactory;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Device device;
+  @Inject Inventory inventory;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -227,6 +232,7 @@ public class TaskListFragment extends InjectingFragment
   }
 
   private void setupMenu(Menu menu) {
+    menu.findItem(R.id.menu_purchase).setVisible(!inventory.hasPro());
     MenuItem hidden = menu.findItem(R.id.menu_show_hidden);
     if (preferences.getBoolean(R.string.p_show_hidden_tasks, false)) {
       hidden.setChecked(true);
@@ -313,8 +319,11 @@ public class TaskListFragment extends InjectingFragment
             .setNegativeButton(android.R.string.cancel, null)
             .show();
         return true;
+      case R.id.menu_purchase:
+        startActivityForResult(new Intent(context, PurchaseActivity.class), REQUEST_PURCHASE);
+        return true;
       default:
-        return super.onOptionsItemSelected(item);
+        return onOptionsItemSelected(item);
     }
   }
 
@@ -521,6 +530,10 @@ public class TaskListFragment extends InjectingFragment
                   (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
           activity.recreate();
         }
+      }
+    } else if (requestCode == REQUEST_PURCHASE) {
+      if (inventory.hasPro()) {
+        ((TaskListActivity) getActivity()).restart();
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

@@ -366,7 +366,6 @@
 	<string name="show_hidden">Näytä piilotetut</string>
 	<string name="show_completed">Näytä valmiit</string>
 	<string name="reverse">Käänteinen</string>
-	<string name="get_plugins">Sovelluksen sisäiset ostot</string>
 	<string name="no_application_found">Liitteen avaamiseksi ei löydy sovellusta</string>
 	<string name="add_attachment">Lisää liite</string>
 	<string name="take_a_picture">Ota kuva</string>
@@ -382,20 +381,12 @@
 	<string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
 	<string name="default_list">Oletuslista</string>
 	<string name="default_sync">Oletus synkronointi</string>
-	<string name="plugin_description">Tasks on avoimen koodin projekti jota ylläpitää yksi kehittäjä. Jotkut ominaisuudet ovat saatavina sovelluksen sisäisinä ostoksina joilla tuetaan kehitystyötä.</string>
-	<string name="themes_purchase_description">Avaa kaikki teemat ja lisää väriä Tasks -ohjelmaan</string>
-	<string name="tasker_description">Kontekstiriippuvainen listaus ilmoituksille. Vaatii Tasker tai Locale -sovelluksen</string>
 	<string name="donate_summary">Lahjoitukset ovat erittäin tervetulleita</string>
-	<string name="dashclock_purchase_description">Näytä aktiivisten tehtävien määrä. Vaatii DashClock Widgetin</string>
-	<string name="buy">Osta</string>
-	<string name="buy_dashclock_extension">Osta laajennusosa</string>
-	<string name="billing_service_busy">Sovelluksen sisäinen laskutuspalvelu on varattu, yritä myöhemmin uudelleen</string>
 	<string name="filter">Suodatin</string>
 	<string name="opacity">Läpinäkyvyys</string>
 	<string name="theme">Teema</string>
 	<string name="color">Väri</string>
 	<string name="accent">Sävy</string>
-	<string name="themes">Lisäteemat</string>
 	<string name="theme_red">Pun.</string>
 	<string name="theme_pink">Pinkki</string>
 	<string name="theme_purple">Purppura</string>
@@ -490,4 +481,5 @@
 	<string name="tasker_create_task">Luo tehtävä</string>
 	<string name="tasker_list_notification">Ilmoituslista</string>
 	<string name="help">Apua</string>
+	<string name="themes">Lisäteemat</string>
 </resources>
