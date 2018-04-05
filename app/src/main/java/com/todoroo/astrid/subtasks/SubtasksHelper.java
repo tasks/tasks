@@ -56,7 +56,7 @@ public class SubtasksHelper {
           ids.add(Long.parseLong(idString));
         }
       } catch (NumberFormatException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
     return ids;
@@ -110,7 +110,7 @@ public class SubtasksHelper {
           try {
             localId = Long.parseLong(uuid);
           } catch (NumberFormatException e) {
-            Timber.e(e, e.getMessage());
+            Timber.e(e);
           }
           return localId;
         });

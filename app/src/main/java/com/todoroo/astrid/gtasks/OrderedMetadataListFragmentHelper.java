@@ -143,7 +143,7 @@ class OrderedMetadataListFragmentHelper {
           updater.moveTo(list, targetTaskId, destinationTaskId);
         }
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
 
@@ -157,7 +157,7 @@ class OrderedMetadataListFragmentHelper {
       try {
         updater.indent(list, targetTaskId, delta);
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }

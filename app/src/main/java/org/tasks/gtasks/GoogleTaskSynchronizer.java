@@ -129,10 +129,10 @@ public class GoogleTaskSynchronizer {
       synchronize();
       gtasksPreferenceService.recordSuccessfulSync();
     } catch (UserRecoverableAuthIOException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       sendNotification(context, e.getIntent());
     } catch (IOException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     } catch (Exception e) {
       tracker.reportException(e);
     } finally {
@@ -197,7 +197,7 @@ public class GoogleTaskSynchronizer {
       } catch (UserRecoverableAuthIOException e) {
         throw e;
       } catch (IOException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }
@@ -268,7 +268,7 @@ public class GoogleTaskSynchronizer {
       try {
         invoker.updateGtask(listId, remoteModel);
       } catch (HttpNotFoundException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
         googleTaskDao.delete(gtasksMetadata);
         return;
       }
@@ -353,7 +353,7 @@ public class GoogleTaskSynchronizer {
     } catch (UserRecoverableAuthIOException e) {
       throw e;
     } catch (IOException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 

@@ -215,9 +215,9 @@ public class CaldavSynchronizer {
       Timber.d("UPDATE %s", caldavAccount);
       caldavDao.update(caldavAccount);
     } catch (IOException | HttpException | DavException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
 
     localBroadcastManager.broadcastRefresh();
@@ -230,7 +230,7 @@ public class CaldavSynchronizer {
       try {
         pushTask(task, caldavAccount, httpClient, httpUrl);
       } catch (IOException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }
@@ -246,11 +246,11 @@ public class CaldavSynchronizer {
       }
     } catch (HttpException e) {
       if (e.getStatus() != 404) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
         return false;
       }
     } catch (IOException e) {
-      Timber.e(e.getMessage(), e);
+      Timber.e(e);
       return false;
     }
     caldavDao.delete(caldavTask);
@@ -308,7 +308,7 @@ public class CaldavSynchronizer {
         caldavTask.setVtodo(new String(data));
       }
     } catch (HttpException e) {
-      Timber.e(e.getMessage(), e);
+      Timber.e(e);
       return;
     }
 
@@ -327,7 +327,7 @@ public class CaldavSynchronizer {
     try {
       tasks = at.bitfire.ical4android.Task.fromReader(new StringReader(vtodo));
     } catch (InvalidCalendarException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return;
     }
 

@@ -16,7 +16,7 @@ public abstract class InjectingJobIntentService extends JobIntentService {
     try {
       doWork(intent);
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 

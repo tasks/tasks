@@ -332,7 +332,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
         action.intent.send();
       } catch (PendingIntent.CanceledException e) {
         // Oh well
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }

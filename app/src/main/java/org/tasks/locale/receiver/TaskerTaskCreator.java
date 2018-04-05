@@ -39,7 +39,7 @@ public class TaskerTaskCreator {
             new DateTime(dueDate.getYear(), dueDate.getMonthValue(), dueDate.getDayOfMonth());
         task.setDueDate(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dt.getMillis()));
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
 
@@ -55,7 +55,7 @@ public class TaskerTaskCreator {
                     .withMinuteOfHour(dueTime.getMinute())
                     .getMillis()));
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
 
@@ -65,7 +65,7 @@ public class TaskerTaskCreator {
         int priority = Integer.parseInt(priorityString);
         task.setImportance(Math.max(0, Math.min(3, priority)));
       } catch (NumberFormatException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
 

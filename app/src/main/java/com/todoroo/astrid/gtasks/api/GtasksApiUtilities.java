@@ -55,7 +55,7 @@ public class GtasksApiUtilities {
       Date returnDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
       return returnDate.getTime();
     } catch (NumberFormatException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return 0;
     }
   }

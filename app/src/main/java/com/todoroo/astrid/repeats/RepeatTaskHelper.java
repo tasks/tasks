@@ -262,7 +262,7 @@ public class RepeatTaskHelper {
           return;
         }
       } catch (ParseException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
         return;
       }
 

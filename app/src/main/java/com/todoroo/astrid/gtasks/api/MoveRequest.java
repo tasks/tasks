@@ -39,7 +39,7 @@ public class MoveRequest {
     try {
       return executePush();
     } catch (IOException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       recover();
       return executePush();
     }

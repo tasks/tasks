@@ -146,7 +146,7 @@ public class GtasksInvoker {
       try {
         return Thread.currentThread().getStackTrace()[4].getMethodName();
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
     return "";

@@ -240,7 +240,7 @@ public class CaldavSettingsActivity extends ThemedInjectingAppCompatActivity
           try {
             host = IDN.toASCII(host);
           } catch (Exception e) {
-            Timber.e(e.getMessage(), e);
+            Timber.e(e);
           }
           String path = baseURL.getEncodedPath();
           int port = baseURL.getPort();

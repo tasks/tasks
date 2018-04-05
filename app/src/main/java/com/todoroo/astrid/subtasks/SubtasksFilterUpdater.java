@@ -52,7 +52,7 @@ public class SubtasksFilterUpdater {
       JSONArray tree = new JSONArray(serializedTree);
       recursivelyBuildChildren(root, tree, callback);
     } catch (JSONException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     return root;
   }

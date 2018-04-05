@@ -110,7 +110,7 @@ public class TasksJsonImporter {
               try {
                 performImport();
               } catch (IOException e) {
-                Timber.e(e, e.getMessage());
+                Timber.e(e);
               }
             })
         .start();

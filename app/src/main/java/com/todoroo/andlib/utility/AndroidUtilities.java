@@ -124,10 +124,10 @@ public class AndroidUtilities {
         } catch (NumberFormatException e) {
           // failed parse to number
           putter.put(object, key, 's', value);
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
         }
       } catch (IndexOutOfBoundsException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }
@@ -237,7 +237,7 @@ public class AndroidUtilities {
         inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
       }
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 

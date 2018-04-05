@@ -152,7 +152,7 @@ public class NavigationDrawerFragment extends InjectingFragment {
       localBroadcastManager.unregisterReceiver(refreshReceiver);
     } catch (IllegalArgumentException e) {
       // Might not have fully initialized
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 

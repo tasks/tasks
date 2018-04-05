@@ -97,7 +97,7 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
     try {
       publishUpdate(data);
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 }

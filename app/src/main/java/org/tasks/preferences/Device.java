@@ -84,7 +84,7 @@ public class Device {
                   "----------",
                   ""));
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     return "";
   }

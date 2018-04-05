@@ -56,14 +56,14 @@ public class BackupJob extends Job {
     try {
       deleteOldBackups();
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
 
     try {
       tasksJsonExporter.exportTasks(
           context, TasksJsonExporter.ExportType.EXPORT_TYPE_SERVICE, null);
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 

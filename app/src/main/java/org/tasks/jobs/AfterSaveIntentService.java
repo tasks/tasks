@@ -109,7 +109,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
             context.getString(R.string.gcal_completed_title, task.getTitle()));
         cr.update(Uri.parse(calendarUri), values, null, null);
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }

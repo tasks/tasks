@@ -87,7 +87,7 @@ public class Inventory {
       return Security.verifyPurchase(
           billingKey, purchase.getOriginalJson(), purchase.getSignature());
     } catch (IOException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return false;
     }
   }

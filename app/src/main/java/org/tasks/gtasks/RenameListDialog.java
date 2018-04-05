@@ -73,7 +73,7 @@ public class RenameListDialog extends InjectingDialogFragment {
         try {
           return gtasksInvoker.renameGtaskList(id, name);
         } catch (IOException e) {
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
           return null;
         }
       }

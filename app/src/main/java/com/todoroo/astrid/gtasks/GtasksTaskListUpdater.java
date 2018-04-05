@@ -118,7 +118,7 @@ public class GtasksTaskListUpdater {
             parents.put(taskId, parent);
             siblings.put(taskId, sibling);
           } catch (Exception e) {
-            Timber.e(e, e.getMessage());
+            Timber.e(e);
           }
 
           previousTask.set(taskId);

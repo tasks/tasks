@@ -87,7 +87,7 @@ public class UserActivity implements Parcelable {
       }
       return null;
     } catch (JSONException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return null;
     }
   }

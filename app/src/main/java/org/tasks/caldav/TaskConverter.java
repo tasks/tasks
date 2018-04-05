@@ -53,7 +53,7 @@ class TaskConverter {
               Task.createDueDate(
                   URGENCY_SPECIFIC_DAY, DUE_DATE_FORMAT.parse(due.getValue()).getTime()));
         } catch (ParseException e) {
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
         }
       }
     }
@@ -93,7 +93,7 @@ class TaskConverter {
             at.bitfire.ical4android.Task.fromReader(new StringReader(caldavTask.getVtodo())).get(0);
       }
     } catch (IOException | InvalidCalendarException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     if (remote == null) {
       remote = new at.bitfire.ical4android.Task();
@@ -107,7 +107,7 @@ class TaskConverter {
         try {
           remote.setDue(new Due(newDateTime(task.getDueDate()).toString("yyyyMMdd")));
         } catch (ParseException e) {
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
         }
       }
       remote.setDue(
@@ -124,7 +124,7 @@ class TaskConverter {
         String rrule = task.getRecurrenceWithoutFrom().replace("RRULE:", "");
         remote.setRRule(new RRule(rrule));
       } catch (ParseException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());

@@ -95,7 +95,7 @@ public class TasksWidget extends InjectingAppWidgetProvider {
         appWidgetManager.updateAppWidget(id, createScrollableWidget(context, id));
       }
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 

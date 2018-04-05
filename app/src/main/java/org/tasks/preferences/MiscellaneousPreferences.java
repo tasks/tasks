@@ -67,7 +67,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
       }
     } catch (VerifyError e) {
       // unavailable
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     super.onActivityResult(requestCode, resultCode, data);
   }
@@ -135,7 +135,7 @@ public class MiscellaneousPreferences extends InjectingPreferenceActivity {
                   voiceOutputAssistant.shutdown();
                 }
               } catch (VerifyError e) {
-                Timber.e(e, e.getMessage());
+                Timber.e(e);
                 preference.setEnabled(false);
                 preferences.setBoolean(preference.getKey(), false);
               }

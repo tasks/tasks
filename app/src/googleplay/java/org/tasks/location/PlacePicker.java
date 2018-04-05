@@ -21,10 +21,10 @@ public class PlacePicker {
     try {
       return builder.build(activity);
     } catch (GooglePlayServicesRepairableException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       activity.startActivity(e.getIntent());
     } catch (GooglePlayServicesNotAvailableException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       Toast.makeText(
               activity, R.string.common_google_play_services_notification_ticker, Toast.LENGTH_LONG)
           .show();

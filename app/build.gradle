@@ -147,7 +147,7 @@ dependencies {
     implementation "com.android.support:support-v13:${SUPPORT_VERSION}"
     implementation "com.android.support:cardview-v7:${SUPPORT_VERSION}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.jakewharton.timber:timber:4.5.1'
+    implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     //noinspection GradleDependency
     implementation 'com.google.guava:guava:20.0'

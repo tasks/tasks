@@ -22,7 +22,7 @@ public class DialogUtilities {
           try {
             dialog.dismiss();
           } catch (Exception e) {
-            Timber.e(e, e.getMessage());
+            Timber.e(e);
           }
         });
   }

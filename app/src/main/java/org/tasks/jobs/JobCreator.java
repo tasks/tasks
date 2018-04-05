@@ -72,7 +72,7 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
       case TAG_REFRESH:
         return new RefreshJob(refreshScheduler, localBroadcastManager);
       default:
-        Timber.e("Unhandled tag: " + tag);
+        Timber.e("Unhandled tag: %s", tag);
         return null;
     }
   }

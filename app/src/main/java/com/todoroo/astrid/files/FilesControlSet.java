@@ -68,7 +68,7 @@ public class FilesControlSet extends TaskEditControlFragment {
       mediaPlayer.prepare();
       mediaPlayer.start();
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       handler.playbackFailed();
     }
   }
@@ -202,7 +202,7 @@ public class FilesControlSet extends TaskEditControlFragment {
                 context, filePath, TaskAttachment.FILE_TYPE_IMAGE + "*");
         getActivity().startActivity(intent);
       } catch (ActivityNotFoundException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
         Toast.makeText(context, R.string.no_application_found, Toast.LENGTH_SHORT).show();
       }
     } else {
@@ -229,7 +229,7 @@ public class FilesControlSet extends TaskEditControlFragment {
       Intent intent = FileHelper.getReadableActionView(context, file, type);
       getActivity().startActivity(intent);
     } catch (ActivityNotFoundException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       Toast.makeText(context, R.string.file_type_unhandled, Toast.LENGTH_LONG).show();
     }
   }

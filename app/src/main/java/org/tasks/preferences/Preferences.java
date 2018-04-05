@@ -136,7 +136,7 @@ public class Preferences {
           p ->
               new GsonBuilder().create().fromJson(p, com.android.billingclient.api.Purchase.class));
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return emptySet();
     }
   }
@@ -149,7 +149,7 @@ public class Preferences {
           newHashSet(transform(purchases, p -> new GsonBuilder().create().toJson(p))));
       editor.apply();
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 
@@ -254,7 +254,7 @@ public class Preferences {
     try {
       return Integer.parseInt(value);
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return defaultValue;
     }
   }
@@ -279,7 +279,7 @@ public class Preferences {
     try {
       return prefs.getBoolean(key, defValue);
     } catch (ClassCastException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return defValue;
     }
   }

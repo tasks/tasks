@@ -78,7 +78,7 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
                 }
                 task.setRecurrence(rrule, task.repeatAfterCompletion());
               } catch (ParseException e) {
-                Timber.e(e, e.getMessage());
+                Timber.e(e);
               }
               taskDao.save(task);
             })

@@ -120,7 +120,7 @@ public class DefaultFilterProvider {
           return filter;
         }
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
     return def;

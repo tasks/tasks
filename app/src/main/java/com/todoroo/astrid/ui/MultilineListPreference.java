@@ -25,7 +25,7 @@ public class MultilineListPreference extends ListPreference {
       super.onBindView(view);
     } catch (Exception e) {
       // happens on 4.0 emulators
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     MultilineHelper.makeMultiline(view);
   }

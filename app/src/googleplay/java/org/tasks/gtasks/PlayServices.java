@@ -85,10 +85,10 @@ public class PlayServices {
           context, credential.getSelectedAccount(), "oauth2:" + TasksScopes.TASKS, null);
       return true;
     } catch (GoogleAuthException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return false;
     } catch (IOException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return true;
     }
   }
@@ -108,11 +108,11 @@ public class PlayServices {
                   GoogleAuthUtil.getToken(activity, account, "oauth2:" + TasksScopes.TASKS, null);
                   handler.authenticationSuccessful(accountName);
                 } catch (UserRecoverableAuthException e) {
-                  Timber.e(e, e.getMessage());
+                  Timber.e(e);
                   activity.startActivityForResult(
                       e.getIntent(), GtasksLoginActivity.RC_REQUEST_OAUTH);
                 } catch (GoogleAuthException | IOException e) {
-                  Timber.e(e, e.getMessage());
+                  Timber.e(e);
                   handler.authenticationFailed(activity.getString(R.string.gtasks_GLA_errorIOAuth));
                 }
               })

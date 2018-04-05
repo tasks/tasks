@@ -143,7 +143,7 @@ class AstridOrderedListFragmentHelper {
           updater.moveTo(list, fragment.getFilter(), targetTaskId, destinationTaskId);
         }
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
 
@@ -157,7 +157,7 @@ class AstridOrderedListFragmentHelper {
       try {
         updater.indent(list, fragment.getFilter(), targetTaskId, delta);
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }

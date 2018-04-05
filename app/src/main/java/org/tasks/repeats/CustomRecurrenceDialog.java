@@ -186,7 +186,7 @@ public class CustomRecurrenceDialog extends InjectingDialogFragment {
         rrule = new RRule(rule);
       }
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     if (rrule == null) {
       rrule = new RRule();

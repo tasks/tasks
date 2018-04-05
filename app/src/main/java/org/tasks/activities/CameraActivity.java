@@ -107,7 +107,7 @@ public class CameraActivity extends InjectingAppCompatActivity {
       }
       return file;
     } catch (IOException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     return null;
   }

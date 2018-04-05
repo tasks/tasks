@@ -38,6 +38,7 @@ package net.dinglisch.android.tasker;
 // v1.8 20161002
 // added hostSupportsKeyEncoding(), setKeyEncoding() and Host.getKeysWithEncoding()
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.pm.PackageInfo;
@@ -45,6 +46,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
+@SuppressLint("LogNotTimber")
 public class TaskerPlugin {
 
   /** @see Setting#hostSupportsOnFireVariableReplacement(Bundle) */

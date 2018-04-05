@@ -52,7 +52,7 @@ public class Badger {
       }
       enabled = newValue;
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 

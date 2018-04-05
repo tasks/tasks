@@ -118,7 +118,7 @@ public class CalendarEventProvider {
         }
       }
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     } finally {
       if (cursor != null) {
         cursor.close();

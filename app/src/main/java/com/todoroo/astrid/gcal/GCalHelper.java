@@ -119,7 +119,7 @@ public class GCalHelper {
       return eventUri;
     } catch (Exception e) {
       // won't work on emulator
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
 
     return null;

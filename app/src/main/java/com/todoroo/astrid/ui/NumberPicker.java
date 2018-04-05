@@ -305,7 +305,7 @@ public class NumberPicker extends LinearLayout
     try {
       return Integer.parseInt(str);
     } catch (NumberFormatException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return mStart;
     }
   }

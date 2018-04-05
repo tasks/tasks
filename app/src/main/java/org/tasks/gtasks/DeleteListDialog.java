@@ -69,7 +69,7 @@ public class DeleteListDialog extends InjectingDialogFragment {
           gtasksInvoker.deleteGtaskList(id);
           return true;
         } catch (IOException e) {
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
           return false;
         }
       }

@@ -459,7 +459,7 @@ public class TitleParser {
           interval = Integer.parseInt(intervalStr);
         } catch (NumberFormatException e) {
           // Ah well
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
         }
       }
     }

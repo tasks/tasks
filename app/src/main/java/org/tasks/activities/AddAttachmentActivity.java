@@ -170,7 +170,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity
       }
       return file;
     } catch (IOException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     return null;
   }
@@ -196,7 +196,7 @@ public class AddAttachmentActivity extends InjectingAppCompatActivity
     try {
       AndroidUtilities.copyFile(src, dst);
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       Toast.makeText(this, R.string.file_err_copy, Toast.LENGTH_LONG).show();
       return null;
     }

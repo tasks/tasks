@@ -177,7 +177,7 @@ public class TaskCreator {
     try {
       TitleParser.parse(tagService, task, tags);
     } catch (Throwable e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
 
     task.setTags(tags);

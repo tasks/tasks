@@ -127,7 +127,7 @@ public abstract class Database extends RoomDatabase {
       database = getOpenHelper().getWritableDatabase();
     } catch (Exception e) {
       tracker.reportEvent(Tracking.Events.DB_OPEN_FAILED, e.getMessage());
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       throw new IllegalStateException(e);
     }
   }
@@ -147,7 +147,7 @@ public abstract class Database extends RoomDatabase {
       try {
         database.close();
       } catch (IOException e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
     database = null;

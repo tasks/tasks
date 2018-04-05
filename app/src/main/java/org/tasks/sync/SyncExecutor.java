@@ -28,7 +28,7 @@ public class SyncExecutor {
     try {
       executor.execute(wrapWithExceptionHandling(callback, command));
     } catch (RejectedExecutionException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       tracker.reportException(e);
       callback.finished();
     }
@@ -40,7 +40,7 @@ public class SyncExecutor {
       try {
         command.run();
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
         tracker.reportException(e);
         executor.shutdownNow();
         callback.finished();

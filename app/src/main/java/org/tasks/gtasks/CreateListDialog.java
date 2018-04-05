@@ -69,7 +69,7 @@ public class CreateListDialog extends InjectingDialogFragment {
         try {
           return gtasksInvoker.createGtaskList(name);
         } catch (IOException e) {
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
           return null;
         }
       }

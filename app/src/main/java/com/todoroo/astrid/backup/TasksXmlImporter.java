@@ -97,7 +97,7 @@ public class TasksXmlImporter {
               try {
                 performImport();
               } catch (IOException | XmlPullParserException e) {
-                Timber.e(e, e.getMessage());
+                Timber.e(e);
               }
             })
         .start();
@@ -194,7 +194,7 @@ public class TasksXmlImporter {
           }
         } catch (Exception e) {
           errorCount++;
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
         }
       }
     }
@@ -304,7 +304,7 @@ public class TasksXmlImporter {
           }
         } catch (Exception e) {
           errorCount++;
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
         }
       }
     }

@@ -135,7 +135,7 @@ public class TasksJsonExporter {
                   onFinishExport(output);
                 }
               } catch (IOException e) {
-                Timber.e(e, e.getMessage());
+                Timber.e(e);
               } finally {
                 post(
                     () -> {

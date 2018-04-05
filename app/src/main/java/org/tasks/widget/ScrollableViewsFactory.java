@@ -192,7 +192,7 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
       return row;
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
 
     return null;

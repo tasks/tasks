@@ -84,12 +84,12 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
           try {
             calls = getMissedCalls();
           } catch (Exception e) { // Sometimes database is locked, retry once
-            Timber.e(e, e.getMessage());
+            Timber.e(e);
             AndroidUtilities.sleepDeep(300L);
             try {
               calls = getMissedCalls();
             } catch (Exception e2) {
-              Timber.e(e2, e2.getMessage());
+              Timber.e(e2);
               calls = null;
             }
           }
@@ -125,7 +125,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
               triggerMissedCallNotification(name, number, contactId);
             }
           } catch (Exception e) {
-            Timber.e(e, e.getMessage());
+            Timber.e(e);
           } finally {
             if (calls != null) {
               calls.close();
@@ -257,7 +257,7 @@ public class PhoneStateChangedReceiver extends InjectingBroadcastReceiver {
       try {
         b = BitmapFactory.decodeStream(input);
       } catch (OutOfMemoryError e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
     return b;

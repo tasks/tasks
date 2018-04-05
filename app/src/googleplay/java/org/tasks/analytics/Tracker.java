@@ -61,7 +61,7 @@ public class Tracker {
   }
 
   public void reportException(Thread thread, Throwable t) {
-    Timber.e(t, t.getMessage());
+    Timber.e(t);
     tracker.send(
         new HitBuilders.ExceptionBuilder()
             .setDescription(exceptionParser.getDescription(thread.getName(), t))

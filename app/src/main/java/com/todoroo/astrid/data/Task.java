@@ -458,7 +458,7 @@ public class Task implements Parcelable {
       long value = Long.parseLong(uuid);
       return value > 0;
     } catch (NumberFormatException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return isUuidEmpty(uuid);
     }
   }

@@ -31,7 +31,7 @@ public abstract class ProgressDialogAsyncTask extends AsyncTask<Void, Void, Inte
       try {
         progressDialog.dismiss();
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
 

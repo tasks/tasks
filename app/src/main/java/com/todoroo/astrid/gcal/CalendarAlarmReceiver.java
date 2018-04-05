@@ -59,7 +59,7 @@ public class CalendarAlarmReceiver extends InjectingBroadcastReceiver {
       }
     } catch (IllegalArgumentException e) {
       // Some cursor read failed, or badly formed uri
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 

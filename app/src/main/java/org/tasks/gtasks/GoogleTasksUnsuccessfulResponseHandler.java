@@ -32,7 +32,7 @@ public class GoogleTasksUnsuccessfulResponseHandler implements HttpUnsuccessfulR
   public boolean handleResponse(HttpRequest request, HttpResponse response, boolean supportsRetry)
       throws IOException {
     HttpResponseException httpResponseException = new HttpResponseException(response);
-    Timber.e(httpResponseException, httpResponseException.getMessage());
+    Timber.e(httpResponseException);
     if (!supportsRetry) {
       return false;
     }

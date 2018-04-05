@@ -67,7 +67,7 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
       ActivityInfo activityInfo = getPackageManager().getActivityInfo(componentName, 0);
       toolbar.setTitle(activityInfo.labelRes);
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       toolbar.setTitle(getTitle());
     }
     toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24dp));

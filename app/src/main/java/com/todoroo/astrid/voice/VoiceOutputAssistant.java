@@ -100,7 +100,7 @@ public class VoiceOutputAssistant implements OnInitListener {
         mTts = null;
         isTTSInitialized = false;
       } catch (VerifyError e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }

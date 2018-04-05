@@ -89,7 +89,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
             calendarId = null;
           }
         } catch (Exception e) {
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
           tracker.reportException(e);
           calendarId = null;
         }
@@ -186,7 +186,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
           startActivity(intent);
         }
       } catch (Exception e) {
-        Timber.e(e, e.getMessage());
+        Timber.e(e);
       }
     }
   }
@@ -261,7 +261,7 @@ public class CalendarControlSet extends TaskEditControlFragment {
         startActivity(intent);
       }
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       Toast.makeText(getActivity(), R.string.gcal_TEA_error, Toast.LENGTH_LONG).show();
     } finally {
       cursor.close();

@@ -77,7 +77,7 @@ public class CommentBarFragment extends TaskEditControlFragment {
       json.put("uri", uri.toString());
       return json;
     } catch (JSONException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
     return null;
   }

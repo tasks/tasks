@@ -201,7 +201,7 @@ public class GtasksSyncService {
         try {
           op = queue.take();
         } catch (InterruptedException e) {
-          Timber.e(e, e.getMessage());
+          Timber.e(e);
           continue;
         }
         try {

@@ -87,7 +87,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
     try {
       context.getContentResolver().notifyChange(CONTENT_URI, null);
     } catch (Exception e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
     }
   }
 
@@ -144,7 +144,7 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
     try {
       m = MessageDigest.getInstance("MD5");
     } catch (NoSuchAlgorithmException e) {
-      Timber.e(e, e.getMessage());
+      Timber.e(e);
       return -1;
     }
 

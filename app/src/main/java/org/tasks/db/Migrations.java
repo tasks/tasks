@@ -31,7 +31,7 @@ public class Migrations {
           try {
             database.execSQL("ALTER TABLE `store` ADD COLUMN `value4` TEXT DEFAULT -1");
           } catch (SQLiteException e) {
-            Timber.w(e, e.getMessage());
+            Timber.w(e);
           }
         }
       };

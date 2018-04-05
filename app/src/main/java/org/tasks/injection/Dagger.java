@@ -16,7 +16,7 @@ class Dagger {
     try {
       localeContext = Locale.getInstance(localeContext).createConfigurationContext(localeContext);
     } catch (Exception e) {
-      Timber.e(e.getMessage(), e);
+      Timber.e(e);
     }
 
     applicationComponent =
