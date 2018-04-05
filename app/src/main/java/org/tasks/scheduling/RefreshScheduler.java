@@ -22,11 +22,6 @@ public class RefreshScheduler {
     this.jobManager = jobManager;
   }
 
-  public void clear() {
-    jobs.clear();
-    jobManager.cancelRefresh();
-  }
-
   public void scheduleRefresh(Task task) {
     if (task.isCompleted()) {
       scheduleRefresh(task.getCompletionDate() + ONE_MINUTE);

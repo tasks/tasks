@@ -25,19 +25,13 @@ public class BackgroundScheduler extends InjectingJobIntentService {
   }
 
   @Override
-  protected void onHandleWork(@NonNull Intent intent) {
-    super.onHandleWork(intent);
-
+  protected void doWork(@NonNull Intent intent) {
     Timber.d("onHandleWork(%s)", intent);
 
     NotificationSchedulerIntentService.enqueueWork(context, false);
     CalendarNotificationIntentService.enqueueWork(context);
     GeofenceSchedulingIntentService.enqueueWork(context);
 
-    jobManager.scheduleBackup();
-    jobManager.scheduleMidnightRefresh();
-
-    refreshScheduler.clear();
     for (Task task : taskDao.needsRefresh()) {
       refreshScheduler.scheduleRefresh(task);
     }

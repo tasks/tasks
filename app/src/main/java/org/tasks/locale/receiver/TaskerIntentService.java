@@ -26,9 +26,7 @@ public class TaskerIntentService extends InjectingJobIntentService {
   @Inject Tracker tracker;
 
   @Override
-  protected void onHandleWork(@NonNull Intent intent) {
-    super.onHandleWork(intent);
-
+  protected void doWork(@NonNull Intent intent) {
     final Bundle bundle = intent.getBundleExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
 
     if (null == bundle) {

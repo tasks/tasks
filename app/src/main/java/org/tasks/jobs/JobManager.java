@@ -115,11 +115,6 @@ public class JobManager {
     jobManager.cancelAllForTag(JobCreator.TAG_NOTIFICATION);
   }
 
-  public void cancelRefresh() {
-    Timber.d("cancelRefresh");
-    jobManager.cancelAllForTag(JobCreator.TAG_REFRESH);
-  }
-
   private long calculateDelay(long time) {
     return Math.max(5000, time - currentTimeMillis());
   }

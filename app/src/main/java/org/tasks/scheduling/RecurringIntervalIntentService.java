@@ -20,9 +20,7 @@ public abstract class RecurringIntervalIntentService extends InjectingJobIntentS
   @Inject AlarmManager alarmManager;
 
   @Override
-  protected void onHandleWork(Intent intent) {
-    super.onHandleWork(intent);
-
+  protected void doWork(Intent intent) {
     long interval = intervalMillis();
 
     if (interval <= 0) {

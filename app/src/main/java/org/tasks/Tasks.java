@@ -38,6 +38,8 @@ public class Tasks extends InjectingApplication {
 
     AndroidThreeTen.init(this);
 
+    jobManager.addJobCreator(jobCreator);
+
     flavorSetup.setup();
 
     badger.setEnabled(preferences.getBoolean(R.string.p_badges_enabled, true));
@@ -46,10 +48,11 @@ public class Tasks extends InjectingApplication {
 
     startupService.onStartupApplication();
 
-    jobManager.addJobCreator(jobCreator);
-
     gtasksPreferenceService.stopOngoing(); // if sync ongoing flag was set, clear it
+
     jobManager.updateBackgroundSync();
+    jobManager.scheduleMidnightRefresh();
+    jobManager.scheduleBackup();
   }
 
   @Override

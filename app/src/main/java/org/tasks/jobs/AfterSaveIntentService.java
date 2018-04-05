@@ -49,9 +49,7 @@ public class AfterSaveIntentService extends InjectingJobIntentService {
   }
 
   @Override
-  protected void onHandleWork(@NonNull Intent intent) {
-    super.onHandleWork(intent);
-
+  protected void doWork(@NonNull Intent intent) {
     Task task = intent.getParcelableExtra(EXTRA_CURRENT);
     if (task == null) {
       Timber.e("Missing saved task");

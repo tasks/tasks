@@ -33,9 +33,7 @@ public class NotificationSchedulerIntentService extends InjectingJobIntentServic
   }
 
   @Override
-  protected void onHandleWork(Intent intent) {
-    super.onHandleWork(intent);
-
+  protected void doWork(Intent intent) {
     Timber.d("onHandleWork(%s)", intent);
 
     notificationQueue.clear();

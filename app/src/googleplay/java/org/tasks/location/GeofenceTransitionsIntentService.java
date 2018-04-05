@@ -22,9 +22,7 @@ public class GeofenceTransitionsIntentService extends InjectingJobIntentService 
   @Inject Notifier notifier;
 
   @Override
-  protected void onHandleWork(Intent intent) {
-    super.onHandleWork(intent);
-
+  protected void doWork(Intent intent) {
     GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
     if (geofencingEvent.hasError()) {
       Timber.e("geofence error code %s", geofencingEvent.getErrorCode());
