@@ -28,10 +28,13 @@
 -dontwarn com.google.errorprone.annotations.concurrent.LazyInit
 -dontwarn com.google.errorprone.annotations.ForOverride
 
-# okhttp
+# https://github.com/square/okhttp/blob/0b74bba08805c28f6aede626cf06f213ef6480f2/README.md
+-dontwarn okhttp3.**
 -dontwarn okio.**
--dontwarn javax.annotation.Nullable
--dontwarn javax.annotation.ParametersAreNonnullByDefault
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
 
 # https://gitlab.com/bitfireAT/davdroid/blob/9fc3921b3293e19bd7be7bfc3f24d799ed2446bc/app/proguard-rules.txt
 -dontwarn aQute.**
@@ -43,7 +46,6 @@
 -keep class net.fortuna.ical4j.** { *; }  # keep all model classes (properties/factories, created at runtime)
 -keep class org.threeten.bp.** { *; }     # keep ThreeTen (for time zone processing)
 -keep class at.bitfire.** { *; }       # all DAVdroid code is required
-
 
 # https://github.com/evernote/android-job/blob/v1.2.5/library/proguard.cfg
 -dontwarn com.evernote.android.job.gcm.**
