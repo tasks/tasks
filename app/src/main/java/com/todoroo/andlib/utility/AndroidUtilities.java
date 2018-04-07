@@ -179,6 +179,10 @@ public class AndroidUtilities {
     return !atLeastJellybean();
   }
 
+  public static boolean preMarshmallow() {
+    return !atLeastMarshmallow();
+  }
+
   public static boolean preOreo() {
     return !atLeastOreo();
   }

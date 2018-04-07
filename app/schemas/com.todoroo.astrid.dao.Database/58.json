@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 58,
-    "identityHash": "119477b5c2bd3389e53fef40e4844e01",
+    "identityHash": "dad699968028cb1d91c793e29b73ceb9",
     "entities": [
       {
         "tableName": "notification",
@@ -761,7 +761,7 @@
             "notNull": true
           },
           {
-            "fieldPath": "account",
+            "fieldPath": "calendar",
             "columnName": "calendar",
             "affinity": "TEXT",
             "notNull": false
@@ -814,7 +814,7 @@
       },
       {
         "tableName": "caldav_account",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `name` TEXT, `url` TEXT, `username` TEXT, `password` TEXT, `iv` BLOB)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `name` TEXT, `url` TEXT, `username` TEXT, `password` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -851,12 +851,6 @@
             "columnName": "password",
             "affinity": "TEXT",
             "notNull": false
-          },
-          {
-            "fieldPath": "iv",
-            "columnName": "iv",
-            "affinity": "BLOB",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -871,7 +865,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"119477b5c2bd3389e53fef40e4844e01\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"dad699968028cb1d91c793e29b73ceb9\")"
     ]
   }
 }

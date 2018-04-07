@@ -65,6 +65,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     for (CaldavAccount caldavAccount : caldavDao.getAccounts()) {
       Preference accountPreferences = new Preference(this);
       accountPreferences.setTitle(caldavAccount.getName());
+      accountPreferences.setSummary(caldavAccount.getUrl());
       accountPreferences.setOnPreferenceClickListener(preference -> {
         Intent intent = new Intent(this, CaldavAccountSettingsActivity.class);
         intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, caldavAccount);
@@ -73,12 +74,14 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
       });
       caldavPreferences.addPreference(accountPreferences);
     }
-    findPreference(getString(R.string.add_account)).setOnPreferenceClickListener(
-        preference -> {
-          startActivityForResult(new Intent(this, CaldavAccountSettingsActivity.class),
-              REQUEST_CALDAV_SETTINGS);
-          return false;
-        });
+    Preference addCaldavAccount = new Preference(this);
+    addCaldavAccount.setTitle(R.string.add_account);
+    addCaldavAccount.setOnPreferenceClickListener(preference -> {
+      startActivityForResult(new Intent(this, CaldavAccountSettingsActivity.class),
+          REQUEST_CALDAV_SETTINGS);
+      return false;
+    });
+    caldavPreferences.addPreference(addCaldavAccount);
 
     final CheckBoxPreference gtaskPreference =
         (CheckBoxPreference) findPreference(getString(R.string.sync_gtasks));

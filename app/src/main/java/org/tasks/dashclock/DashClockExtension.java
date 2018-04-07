@@ -87,8 +87,8 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
           new ExtensionData()
               .visible(true)
               .icon(R.drawable.ic_check_white_24dp)
-              .status(getString(R.string.subscribe_to_pro))
-              .expandedTitle(getString(R.string.subscribe_to_pro))
+              .status(getString(R.string.upgrade_to_pro))
+              .expandedTitle(getString(R.string.upgrade_to_pro))
               .clickIntent(new Intent(this, DashClockSettings.class)));
     }
   }

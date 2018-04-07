@@ -27,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import org.tasks.R;
+import org.tasks.data.CaldavAccount;
+import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
 import timber.log.Timber;
 
@@ -35,7 +37,14 @@ class CaldavClient {
   private final DavResource davResource;
   private HttpUrl httpUrl;
 
-  public CaldavClient(String url, String username, String password) {
+  CaldavClient(CaldavAccount caldavAccount, Encryption encryption) {
+    this(
+        caldavAccount.getUrl(),
+        caldavAccount.getUsername(),
+        encryption.decrypt(caldavAccount.getPassword()));
+  }
+
+  CaldavClient(String url, String username, String password) {
     BasicDigestAuthHandler basicDigestAuthHandler =
         new BasicDigestAuthHandler(null, username, password);
     OkHttpClient httpClient =

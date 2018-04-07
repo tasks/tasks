@@ -1,6 +1,7 @@
 package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
+import static com.todoroo.andlib.utility.AndroidUtilities.preMarshmallow;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,10 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import at.bitfire.dav4android.DavResource;
-import at.bitfire.dav4android.PropertyCollection;
 import at.bitfire.dav4android.exception.HttpException;
-import at.bitfire.dav4android.property.DisplayName;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnFocusChange;
@@ -28,7 +26,6 @@ import java.net.ConnectException;
 import java.net.IDN;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -39,8 +36,10 @@ import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.security.Encryption;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.ui.DisplayableException;
+import org.tasks.ui.MenuColorizer;
 import timber.log.Timber;
 
 public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActivity
@@ -54,9 +53,13 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   @Inject CaldavDao caldavDao;
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
+  @Inject Encryption encryption;
 
   @BindView(R.id.root_layout)
   LinearLayout root;
+
+  @BindView(R.id.name)
+  TextInputEditText name;
 
   @BindView(R.id.url)
   TextInputEditText url;
@@ -66,6 +69,9 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
 
   @BindView(R.id.password)
   TextInputEditText password;
+
+  @BindView(R.id.name_layout)
+  TextInputLayout nameLayout;
 
   @BindView(R.id.url_layout)
   TextInputLayout urlLayout;
@@ -92,7 +98,13 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     caldavAccount = getIntent().getParcelableExtra(EXTRA_CALDAV_DATA);
 
     if (savedInstanceState == null) {
+      if (caldavAccount == null) {
+        if (preMarshmallow()) {
+          passwordLayout.setError(getString(R.string.encryption_warning));
+        }
+      }
       if (caldavAccount != null) {
+        name.setText(caldavAccount.getName());
         url.setText(caldavAccount.getUrl());
         user.setText(caldavAccount.getUsername());
         if (!isEmpty(caldavAccount.getPassword())) {
@@ -118,13 +130,19 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     toolbar.inflateMenu(R.menu.menu_caldav_account_settings);
     toolbar.setOnMenuItemClickListener(this);
     toolbar.showOverflowMenu();
+    MenuColorizer.colorToolbar(this, toolbar);
 
     if (caldavAccount == null) {
       toolbar.getMenu().findItem(R.id.remove).setVisible(false);
-      url.requestFocus();
+      name.requestFocus();
       InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-      imm.showSoftInput(url, InputMethodManager.SHOW_IMPLICIT);
+      imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
     }
+  }
+
+  @OnTextChanged(R.id.name)
+  void onNameChanged(CharSequence text) {
+    nameLayout.setError(null);
   }
 
   @OnTextChanged(R.id.url)
@@ -149,7 +167,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
         password.setText("");
       }
     } else {
-      if (isEmpty(password.getText()) && !isEmpty(caldavAccount.getPassword())) {
+      if (isEmpty(password.getText()) && caldavAccount != null) {
         password.setText(PASSWORD_MASK);
       }
     }
@@ -160,6 +178,10 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     component.inject(this);
   }
 
+  private String getNewName() {
+    return name.getText().toString().trim();
+  }
+
   private String getNewURL() {
     return url.getText().toString().trim();
   }
@@ -168,17 +190,35 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     return user.getText().toString().trim();
   }
 
+  private boolean passwordChanged() {
+    return caldavAccount == null || !PASSWORD_MASK.equals(password.getText().toString().trim());
+  }
+
   private String getNewPassword() {
     String input = password.getText().toString().trim();
-    return PASSWORD_MASK.equals(input) ? caldavAccount.getPassword() : input;
+    return PASSWORD_MASK.equals(input)
+        ? encryption.decrypt(caldavAccount.getPassword())
+        : input;
   }
 
   private void save() {
+    String name = getNewName();
     String username = getNewUsername();
     String url = getNewURL();
     String password = getNewPassword();
 
     boolean failed = false;
+
+    if (isEmpty(name)) {
+      nameLayout.setError(getString(R.string.name_cannot_be_empty));
+      failed = true;
+    } else {
+      CaldavAccount accountByName = caldavDao.getAccountByName(name);
+      if (accountByName != null && !accountByName.equals(caldavAccount)) {
+        nameLayout.setError(getString(R.string.duplicate_name));
+        failed = true;
+      }
+    }
 
     if (isEmpty(url)) {
       urlLayout.setError(getString(R.string.url_required));
@@ -255,7 +295,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     CaldavAccount newAccount = new CaldavAccount();
     newAccount.setUrl(principal);
     newAccount.setUsername(getNewUsername());
-    newAccount.setPassword(getNewPassword());
+    newAccount.setPassword(encryption.encrypt(getNewPassword()));
     newAccount.setUuid(UUIDHelper.newUUID());
     newAccount.setId(caldavDao.insert(newAccount));
 
@@ -264,9 +304,12 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   }
 
   private void updateAccount(String principal) {
+    caldavAccount.setName(getNewName());
     caldavAccount.setUrl(principal);
     caldavAccount.setUsername(getNewUsername());
-    caldavAccount.setPassword(getNewPassword());
+    if (passwordChanged()) {
+      caldavAccount.setPassword(encryption.encrypt(getNewPassword()));
+    }
     caldavDao.update(caldavAccount);
 
     setResult(RESULT_OK);
@@ -305,21 +348,24 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
 
   private boolean hasChanges() {
     if (caldavAccount == null) {
-      return !isEmpty(getNewPassword()) || !isEmpty(getNewURL()) || !isEmpty(getNewUsername());
+      return !isEmpty(getNewName())
+          || !isEmpty(getNewPassword())
+          || !isEmpty(getNewURL())
+          || !isEmpty(getNewUsername());
     }
-    return needsValidation();
+    return needsValidation() || !getNewName().equals(caldavAccount.getName());
   }
 
   private boolean needsValidation() {
     return !getNewURL().equals(caldavAccount.getUrl())
         || !getNewUsername().equals(caldavAccount.getUsername())
-        || !getNewPassword().equals(caldavAccount.getPassword());
+        || passwordChanged();
   }
 
   @Override
   public void finish() {
     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.hideSoftInputFromWindow(url.getWindowToken(), 0);
+    imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
     super.finish();
   }
 

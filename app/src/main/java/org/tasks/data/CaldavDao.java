@@ -90,4 +90,7 @@ public interface CaldavDao {
 
   @Query("SELECT * FROM caldav_calendar WHERE account = :account AND url = :url LIMIT 1")
   CaldavCalendar getCalendarByUrl(String account, String url);
+
+  @Query("SELECT * FROM caldav_account WHERE name = :name COLLATE NOCASE LIMIT 1")
+  CaldavAccount getAccountByName(String name);
 }

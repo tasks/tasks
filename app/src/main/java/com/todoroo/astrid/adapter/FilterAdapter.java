@@ -335,7 +335,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       if (!inventory.hasPro()) {
         add(
             new NavigationDrawerAction(
-                activity.getResources().getString(R.string.subscribe_to_pro),
+                activity.getResources().getString(R.string.upgrade_to_pro),
                 R.drawable.ic_attach_money_black_24dp,
                 new Intent(activity, PurchaseActivity.class),
                 REQUEST_PURCHASE));

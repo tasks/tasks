@@ -24,6 +24,7 @@ import at.bitfire.dav4android.property.GetETag;
 import at.bitfire.ical4android.InvalidCalendarException;
 import at.bitfire.ical4android.iCalendar;
 import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.io.CharStreams;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -55,6 +56,7 @@ import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.injection.ForApplication;
+import org.tasks.security.Encryption;
 import timber.log.Timber;
 
 public class CaldavSynchronizer {
@@ -69,6 +71,7 @@ public class CaldavSynchronizer {
   private final LocalBroadcastManager localBroadcastManager;
   private final TaskCreator taskCreator;
   private final TaskDeleter taskDeleter;
+  private final Encryption encryption;
   private final Context context;
 
   @Inject
@@ -78,25 +81,31 @@ public class CaldavSynchronizer {
       TaskDao taskDao,
       LocalBroadcastManager localBroadcastManager,
       TaskCreator taskCreator,
-      TaskDeleter taskDeleter) {
+      TaskDeleter taskDeleter,
+      Encryption encryption) {
     this.context = context;
     this.caldavDao = caldavDao;
     this.taskDao = taskDao;
     this.localBroadcastManager = localBroadcastManager;
     this.taskCreator = taskCreator;
     this.taskDeleter = taskDeleter;
+    this.encryption = encryption;
   }
 
   public void sync() {
     // required for dav4android (ServiceLoader)
     Thread.currentThread().setContextClassLoader(context.getClassLoader());
     for (CaldavAccount account : caldavDao.getAccounts()) {
-      CaldavClient caldavClient =
-          new CaldavClient(account.getUrl(), account.getUsername(), account.getPassword());
+      if (isNullOrEmpty(account.getPassword())) {
+        Timber.e("Missing password for %s", account);
+        continue;
+      }
+      CaldavClient caldavClient = new CaldavClient(account, encryption);
       List<DavResource> resources = caldavClient.getCalendars();
       Set<String> urls = newHashSet(transform(resources, c -> c.getLocation().toString()));
       Timber.d("Found calendars: %s", urls);
-      for (CaldavCalendar deleted : caldavDao.findDeletedCalendars(account.getUuid(), newArrayList(urls))) {
+      for (CaldavCalendar deleted :
+          caldavDao.findDeletedCalendars(account.getUuid(), newArrayList(urls))) {
         taskDeleter.markDeleted(caldavDao.getTasksByCalendar(deleted.getUuid()));
         caldavDao.deleteTasksForCalendar(deleted.getUuid());
         caldavDao.delete(deleted);
@@ -115,22 +124,15 @@ public class CaldavSynchronizer {
           calendar.setId(caldavDao.insert(calendar));
           localBroadcastManager.broadcastRefreshList();
         }
-        String ctag = properties.get(GetCTag.class).getCTag();
-        if (calendar.getCtag() == null || !calendar.getCtag().equals(ctag)) {
-          sync(account, calendar);
-        }
+        sync(account, calendar);
       }
     }
   }
 
   private void sync(CaldavAccount account, CaldavCalendar caldavCalendar) {
-    if (isNullOrEmpty(account.getPassword())) {
-      Timber.e("Missing password for %s", caldavCalendar);
-      return;
-    }
     Timber.d("sync(%s)", caldavCalendar);
     BasicDigestAuthHandler basicDigestAuthHandler =
-        new BasicDigestAuthHandler(null, account.getUsername(), account.getPassword());
+        new BasicDigestAuthHandler(null, account.getUsername(), encryption.decrypt(account.getPassword()));
     OkHttpClient httpClient =
         new OkHttpClient()
             .newBuilder()
@@ -173,7 +175,7 @@ public class CaldavSynchronizer {
 
       Iterable<DavResource> changed =
           filter(
-              davCalendar.getMembers(),
+              ImmutableSet.copyOf(davCalendar.getMembers()),
               vCard -> {
                 GetETag eTag = (GetETag) vCard.getProperties().get(GetETag.NAME);
                 if (eTag == null || isNullOrEmpty(eTag.getETag())) {

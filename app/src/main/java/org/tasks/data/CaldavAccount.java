@@ -46,9 +46,6 @@ public class CaldavAccount implements Parcelable {
   @ColumnInfo(name = "password")
   private transient String password = "";
 
-  @ColumnInfo(name = "iv")
-  private transient byte[] iv = null;
-
   public CaldavAccount() {}
 
   @Ignore
@@ -59,7 +56,6 @@ public class CaldavAccount implements Parcelable {
     url = source.readString();
     username = source.readString();
     password = source.readString();
-    iv = source.createByteArray();
   }
 
   public long getId() {
@@ -110,14 +106,6 @@ public class CaldavAccount implements Parcelable {
     this.password = password;
   }
 
-  public byte[] getIv() {
-    return iv;
-  }
-
-  public void setIv(byte[] iv) {
-    this.iv = iv;
-  }
-
   @Override
   public String toString() {
     return "CaldavAccount{" +
@@ -127,7 +115,6 @@ public class CaldavAccount implements Parcelable {
         ", url='" + url + '\'' +
         ", username='" + username + '\'' +
         ", password='" + password + '\'' +
-        ", iv=" + Arrays.toString(iv) +
         '}';
   }
 
@@ -157,10 +144,7 @@ public class CaldavAccount implements Parcelable {
     if (username != null ? !username.equals(that.username) : that.username != null) {
       return false;
     }
-    if (password != null ? !password.equals(that.password) : that.password != null) {
-      return false;
-    }
-    return Arrays.equals(iv, that.iv);
+    return password != null ? password.equals(that.password) : that.password == null;
   }
 
   @Override
@@ -171,7 +155,6 @@ public class CaldavAccount implements Parcelable {
     result = 31 * result + (url != null ? url.hashCode() : 0);
     result = 31 * result + (username != null ? username.hashCode() : 0);
     result = 31 * result + (password != null ? password.hashCode() : 0);
-    result = 31 * result + Arrays.hashCode(iv);
     return result;
   }
 
@@ -188,6 +171,5 @@ public class CaldavAccount implements Parcelable {
     dest.writeString(url);
     dest.writeString(username);
     dest.writeString(password);
-    dest.writeByteArray(iv);
   }
 }
