@@ -1,7 +1,6 @@
 package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
-import static com.todoroo.andlib.utility.AndroidUtilities.preMarshmallow;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -98,11 +97,6 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     caldavAccount = getIntent().getParcelableExtra(EXTRA_CALDAV_DATA);
 
     if (savedInstanceState == null) {
-      if (caldavAccount == null) {
-        if (preMarshmallow()) {
-          passwordLayout.setError(getString(R.string.encryption_warning));
-        }
-      }
       if (caldavAccount != null) {
         name.setText(caldavAccount.getName());
         url.setText(caldavAccount.getUrl());
@@ -293,6 +287,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     Timber.d("Found principal: %s", principal);
 
     CaldavAccount newAccount = new CaldavAccount();
+    newAccount.setName(getNewName());
     newAccount.setUrl(principal);
     newAccount.setUsername(getNewUsername());
     newAccount.setPassword(encryption.encrypt(getNewPassword()));

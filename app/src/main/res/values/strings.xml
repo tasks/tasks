@@ -899,6 +899,5 @@ File %1$s contained %2$s.\n\n
   <string name="pro_multiple_google_task_accounts">Multiple Google Task accounts</string>
   <string name="pro_tasker_plugins">Tasker plugins</string>
   <string name="pro_dashclock_extension">Dashclock extension</string>
-  <string name="encryption_warning">Passwords are stored in plain text on devices running Android 5 or below. This is a security concern if your device has been rooted.</string>
 
 </resources>
