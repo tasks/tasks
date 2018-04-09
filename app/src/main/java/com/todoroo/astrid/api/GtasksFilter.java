@@ -63,6 +63,7 @@ public class GtasksFilter extends Filter {
         .where(
             Criterion.and(
                 TaskDao.TaskCriteria.activeAndVisible(),
+                Field.field("google_tasks.deleted").eq(0),
                 Field.field("list_id").eq(list.getRemoteId())));
   }
 
