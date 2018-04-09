@@ -3,6 +3,7 @@ package org.tasks.caldav;
 import static android.text.TextUtils.isEmpty;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,8 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import at.bitfire.dav4android.exception.HttpException;
 import butterknife.BindView;
@@ -86,6 +89,12 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
     Intent intent = getIntent();
     caldavCalendar = intent.getParcelableExtra(EXTRA_CALDAV_CALENDAR);
+    if (caldavCalendar == null) {
+      caldavAccount = intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT);
+    } else {
+      caldavAccount = caldavDao.getAccountByUuid(caldavCalendar.getAccount());
+      nameLayout.setVisibility(View.GONE);
+    }
     caldavAccount =
         caldavCalendar == null
             ? intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)
@@ -121,6 +130,12 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     color.setInputType(InputType.TYPE_NULL);
 
     updateTheme();
+
+    if (caldavCalendar == null) {
+      name.requestFocus();
+      InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+      imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
+    }
   }
 
   @Override
@@ -256,6 +271,13 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
   private String getNewName() {
     return name.getText().toString().trim();
+  }
+
+  @Override
+  public void finish() {
+    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(name.getWindowToken(), 0);
+    super.finish();
   }
 
   @Override
