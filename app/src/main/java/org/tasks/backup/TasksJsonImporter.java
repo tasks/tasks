@@ -18,6 +18,7 @@ import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.data.Alarm;
 import org.tasks.data.AlarmDao;
+import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
@@ -141,7 +142,11 @@ public class TasksJsonImporter {
           filterDao.insert(filter);
         }
       }
-      // TODO: Add caldav accounts to backup
+      for (CaldavAccount account : backupContainer.getCaldavAccounts()) {
+        if (caldavDao.getAccountByUuid(account.getUuid()) == null) {
+          caldavDao.insert(account);
+        }
+      }
       for (CaldavCalendar calendar : backupContainer.getCaldavCalendars()) {
         if (caldavDao.getCalendarByUuid(calendar.getUuid()) == null) {
           caldavDao.insert(calendar);

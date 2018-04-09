@@ -13,6 +13,9 @@ public interface CaldavDao {
   @Query("SELECT * FROM caldav_calendar WHERE uuid = :uuid LIMIT 1")
   CaldavCalendar getCalendarByUuid(String uuid);
 
+  @Query("SELECT * FROM caldav_account WHERE uuid = :uuid LIMIT 1")
+  CaldavAccount getAccountByUuid(String uuid);
+
   @Query("SELECT * FROM caldav_account ORDER BY UPPER(name) ASC")
   List<CaldavAccount> getAccounts();
 
