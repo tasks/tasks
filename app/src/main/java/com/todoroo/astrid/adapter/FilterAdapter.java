@@ -7,6 +7,7 @@ package com.todoroo.astrid.adapter;
 
 import static android.support.v4.content.ContextCompat.getColor;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
+import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -40,6 +41,8 @@ import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
+import org.tasks.caldav.CaldavCalendarSettingsActivity;
+import org.tasks.data.CaldavAccount;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
@@ -226,7 +229,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     return getView(position, convertView, parent);
   }
 
-  private void addSubMenu(final int titleResource, List<Filter> filters, boolean hideIfEmpty) {
+  private void addSubMenu(
+      final int titleResource, List<Filter> filters, boolean hideIfEmpty) {
     addSubMenu(activity.getResources().getString(titleResource), filters, hideIfEmpty);
   }
 
@@ -265,12 +269,13 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     }
     addSubMenu(googleTaskTitle, filterProvider.getGoogleTaskFilters(), true);
 
-    for (Pair<String, List<Filter>> account : filterProvider.getCaldavFilters()) {
-      String caldavTitle = account.first;
+    for (Pair<CaldavAccount, List<Filter>> filters : filterProvider.getCaldavFilters()) {
+      CaldavAccount account = filters.first;
+      String caldavTitle = account.getName();
       if (TextUtils.isEmpty(caldavTitle)) {
         caldavTitle = activity.getString(R.string.CalDAV);
       }
-      addSubMenu(caldavTitle, account.second, true);
+      addSubMenu(caldavTitle, filters.second, true);
     }
 
     notifyDataSetChanged();
@@ -321,12 +326,23 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       }
     }
 
-    for (Pair<String, List<Filter>> account : filterProvider.getCaldavFilters()) {
-      String title = account.first;
+    for (Pair<CaldavAccount, List<Filter>> filters : filterProvider.getCaldavFilters()) {
+      CaldavAccount account = filters.first;
+      String title = account.getName();
       if (TextUtils.isEmpty(title)) {
         title = activity.getString(R.string.CalDAV);
       }
-      addSubMenu(title, account.second, true);
+      addSubMenu(title, filters.second, !navigationDrawer);
+
+      if (navigationDrawer) {
+        add(
+            new NavigationDrawerAction(
+                activity.getString(R.string.caldav_create_new_collection),
+                R.drawable.ic_add_24dp,
+                new Intent(activity, CaldavCalendarSettingsActivity.class)
+                    .putExtra(EXTRA_CALDAV_ACCOUNT, account),
+                NavigationDrawerFragment.REQUEST_NEW_CALDAV_COLLECTION));
+      }
     }
 
     if (navigationDrawer) {

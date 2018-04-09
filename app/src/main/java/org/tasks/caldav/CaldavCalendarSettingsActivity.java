@@ -1,36 +1,49 @@
 package org.tasks.caldav;
 
+import static android.text.TextUtils.isEmpty;
+
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.widget.LinearLayout;
+import at.bitfire.dav4android.exception.HttpException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
+import butterknife.OnTextChanged;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.CaldavFilter;
+import java.net.ConnectException;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
 import org.tasks.preferences.Preferences;
+import org.tasks.security.Encryption;
 import org.tasks.sync.SyncAdapters;
 import org.tasks.themes.ThemeCache;
 import org.tasks.themes.ThemeColor;
+import org.tasks.ui.DisplayableException;
+import org.tasks.ui.MenuColorizer;
 
 public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActivity {
 
-  public static final String EXTRA_CALDAV_DATA = "caldavData"; // $NON-NLS-1$
+  public static final String EXTRA_CALDAV_CALENDAR = "extra_caldav_calendar";
+  public static final String EXTRA_CALDAV_ACCOUNT = "extra_caldav_account";
   public static final String ACTION_RELOAD = "accountRenamed";
   public static final String ACTION_DELETED = "accountDeleted";
   private static final String EXTRA_SELECTED_THEME = "extra_selected_theme";
@@ -42,18 +55,26 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   @Inject Tracker tracker;
   @Inject CaldavDao caldavDao;
   @Inject SyncAdapters syncAdapters;
+  @Inject Encryption encryption;
 
   @BindView(R.id.root_layout)
   LinearLayout root;
 
+  @BindView(R.id.name)
+  TextInputEditText name;
+
   @BindView(R.id.color)
   TextInputEditText color;
+
+  @BindView(R.id.name_layout)
+  TextInputLayout nameLayout;
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
 
   private CaldavCalendar caldavCalendar;
-  private int selectedTheme;
+  private CaldavAccount caldavAccount;
+  private int selectedTheme = -1;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +84,27 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
     ButterKnife.bind(this);
 
-    caldavCalendar = getIntent().getParcelableExtra(EXTRA_CALDAV_DATA);
+    Intent intent = getIntent();
+    caldavCalendar = intent.getParcelableExtra(EXTRA_CALDAV_CALENDAR);
+    caldavAccount =
+        caldavCalendar == null
+            ? intent.getParcelableExtra(EXTRA_CALDAV_ACCOUNT)
+            : caldavDao.getAccountByUuid(caldavCalendar.getAccount());
 
     if (savedInstanceState == null) {
-      selectedTheme = caldavCalendar.getColor();
+      if (caldavCalendar != null) {
+        name.setText(caldavCalendar.getName());
+        selectedTheme = caldavCalendar.getColor();
+      }
     } else {
       selectedTheme = savedInstanceState.getInt(EXTRA_SELECTED_THEME);
     }
 
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
-    toolbar.setTitle(caldavCalendar.getName());
+    toolbar.setTitle(
+        caldavCalendar == null
+            ? getString(R.string.caldav_create_new_collection)
+            : caldavCalendar.getName());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(
             this, backButtonSavesTask ? R.drawable.ic_close_24dp : R.drawable.ic_save_24dp));
@@ -84,6 +116,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
             save();
           }
         });
+    MenuColorizer.colorToolbar(this, toolbar);
 
     color.setInputType(InputType.TYPE_NULL);
 
@@ -95,6 +128,11 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     super.onSaveInstanceState(outState);
 
     outState.putInt(EXTRA_SELECTED_THEME, selectedTheme);
+  }
+
+  @OnTextChanged(R.id.name)
+  void onNameChanged(CharSequence text) {
+    nameLayout.setError(null);
   }
 
   @OnFocusChange(R.id.color)
@@ -120,14 +158,85 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void save() {
-    if (hasChanges()) {
+    String name = getNewName();
+
+    boolean failed = false;
+
+    if (isEmpty(name)) {
+      nameLayout.setError(getString(R.string.name_cannot_be_empty));
+      failed = true;
+    } else {
+      CaldavCalendar calendarByName = caldavDao.getCalendar(caldavAccount.getUuid(), name);
+      if (calendarByName != null && !calendarByName.equals(caldavCalendar)) {
+        nameLayout.setError(getString(R.string.duplicate_name));
+        failed = true;
+      }
+    }
+
+    if (failed) {
+      return;
+    }
+
+    if (caldavCalendar == null) {
+      CaldavClient client = new CaldavClient(caldavAccount, encryption);
+      ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.creating_new_list);
+      dialog.show();
+      client
+          .makeCollection(name)
+          .doAfterTerminate(dialog::dismiss)
+          .subscribe(this::createSuccessful, this::requestFailed);
+    } else if (hasChanges()) {
       updateAccount();
     } else {
       finish();
     }
   }
 
+  private void requestFailed(Throwable t) {
+    if (t instanceof HttpException) {
+      showSnackbar(t.getMessage());
+    } else if (t instanceof DisplayableException) {
+      showSnackbar(((DisplayableException) t).getResId());
+    } else if (t instanceof ConnectException) {
+      showSnackbar(R.string.network_error);
+    } else {
+      showGenericError();
+    }
+  }
+
+  private void showGenericError() {
+    showSnackbar(R.string.error_adding_account);
+  }
+
+  private void showSnackbar(int resId) {
+    showSnackbar(getString(resId));
+  }
+
+  private void showSnackbar(String message) {
+    Snackbar snackbar =
+        Snackbar.make(root, message, 8000)
+            .setActionTextColor(ContextCompat.getColor(this, R.color.snackbar_text_color));
+    snackbar
+        .getView()
+        .setBackgroundColor(ContextCompat.getColor(this, R.color.snackbar_background));
+    snackbar.show();
+  }
+
+  private void createSuccessful(String url) {
+    CaldavCalendar caldavCalendar = new CaldavCalendar();
+    caldavCalendar.setAccount(caldavAccount.getUuid());
+    caldavCalendar.setUrl(url);
+    caldavCalendar.setName(getNewName());
+    caldavCalendar.setColor(selectedTheme);
+    caldavCalendar.setId(caldavDao.insert(caldavCalendar));
+    setResult(
+        RESULT_OK,
+        new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
+    finish();
+  }
+
   private void updateAccount() {
+    caldavCalendar.setName(getNewName());
     caldavCalendar.setColor(selectedTheme);
     caldavDao.update(caldavCalendar);
     setResult(
@@ -138,7 +247,15 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private boolean hasChanges() {
-    return selectedTheme != caldavCalendar.getColor();
+    if (caldavCalendar == null) {
+      return !isEmpty(getNewName()) || selectedTheme != -1;
+    }
+    return !caldavCalendar.getName().equals(getNewName())
+        || selectedTheme != caldavCalendar.getColor();
+  }
+
+  private String getNewName() {
+    return name.getText().toString().trim();
   }
 
   @Override

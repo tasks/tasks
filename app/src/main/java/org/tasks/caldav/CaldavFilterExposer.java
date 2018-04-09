@@ -24,11 +24,11 @@ public class CaldavFilterExposer {
     this.syncAdapters = syncAdapters;
   }
 
-  public List<Pair<String, List<Filter>>> getFilters() {
-    List<Pair<String, List<Filter>>> filters = new ArrayList<>();
+  public List<Pair<CaldavAccount, List<Filter>>> getFilters() {
+    List<Pair<CaldavAccount, List<Filter>>> filters = new ArrayList<>();
     for (CaldavAccount account : caldavDao.getAccounts()) {
       List<CaldavCalendar> calendars = caldavDao.getCalendarsByAccount(account.getUuid());
-      filters.add(new Pair<>(account.getName(), transform(calendars, CaldavFilter::new)));
+      filters.add(new Pair<>(account, transform(calendars, CaldavFilter::new)));
     }
     return filters;
   }

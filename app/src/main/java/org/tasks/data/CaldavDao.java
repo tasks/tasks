@@ -73,6 +73,10 @@ public interface CaldavDao {
   @Query("SELECT * FROM caldav_calendar WHERE uuid = :uuid LIMIT 1")
   CaldavCalendar getCalendar(String uuid);
 
+  @Query(
+      "SELECT * FROM caldav_calendar WHERE account = :account AND name = :name COLLATE NOCASE LIMIT 1")
+  CaldavCalendar getCalendar(String account, String name);
+
   @Query("DELETE FROM caldav_calendar WHERE account = :account")
   void deleteCalendarsForAccount(String account);
 

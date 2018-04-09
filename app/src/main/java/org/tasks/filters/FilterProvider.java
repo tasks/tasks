@@ -1,6 +1,7 @@
 package org.tasks.filters;
 
 import android.support.v4.util.Pair;
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.caldav.CaldavFilterExposer;
+import org.tasks.data.CaldavAccount;
 
 public class FilterProvider {
 
@@ -58,7 +60,7 @@ public class FilterProvider {
     return gtasksFilterExposer.getFilters();
   }
 
-  public List<Pair<String, List<Filter>>> getCaldavFilters() {
+  public List<Pair<CaldavAccount, List<Filter>>> getCaldavFilters() {
     return caldavFilterExposer.getFilters();
   }
 }

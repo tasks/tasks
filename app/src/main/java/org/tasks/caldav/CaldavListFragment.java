@@ -1,7 +1,6 @@
 package org.tasks.caldav;
 
 import static android.app.Activity.RESULT_OK;
-import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_DATA;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +47,7 @@ public class CaldavListFragment extends TaskListFragment {
     switch (item.getItemId()) {
       case R.id.menu_caldav_list_fragment:
         Intent intent = new Intent(getActivity(), CaldavCalendarSettingsActivity.class);
-        intent.putExtra(EXTRA_CALDAV_DATA, calendar);
+        intent.putExtra(EXTRA_CALDAV_CALENDAR, calendar);
         startActivityForResult(intent, REQUEST_ACCOUNT_SETTINGS);
         return true;
       default:

@@ -1,12 +1,15 @@
 package org.tasks.caldav;
 
 import static android.text.TextUtils.isEmpty;
+import static at.bitfire.dav4android.XmlUtils.NS_CALDAV;
+import static at.bitfire.dav4android.XmlUtils.NS_CARDDAV;
+import static at.bitfire.dav4android.XmlUtils.NS_WEBDAV;
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
 
 import at.bitfire.dav4android.BasicDigestAuthHandler;
 import at.bitfire.dav4android.DavResource;
 import at.bitfire.dav4android.PropertyCollection;
+import at.bitfire.dav4android.XmlUtils;
 import at.bitfire.dav4android.exception.DavException;
 import at.bitfire.dav4android.exception.HttpException;
 import at.bitfire.dav4android.property.CalendarHomeSet;
@@ -15,14 +18,15 @@ import at.bitfire.dav4android.property.DisplayName;
 import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.ResourceType;
 import at.bitfire.dav4android.property.SupportedCalendarComponentSet;
+import com.todoroo.astrid.helper.UUIDHelper;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -30,6 +34,7 @@ import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
+import org.xmlpull.v1.XmlSerializer;
 import timber.log.Timber;
 
 class CaldavClient {
@@ -151,5 +156,51 @@ class CaldavClient {
       throw new DisplayableException(R.string.caldav_no_supported_calendars);
     }
     return urls;
+  }
+
+  public Single<String> makeCollection(String displayName) {
+    return Single.fromCallable(
+            () -> {
+              davResource.setLocation(
+                  davResource.getLocation().resolve(UUIDHelper.newUUID() + "/"));
+              String mkcolString = getMkcolString(displayName);
+              davResource.mkCol(mkcolString);
+              return davResource.getLocation().toString();
+            })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+  }
+
+  private String getMkcolString(String displayName) throws IOException {
+    StringWriter stringWriter = new StringWriter();
+    XmlSerializer xml = XmlUtils.newSerializer();
+    xml.setOutput(stringWriter);
+    xml.startDocument("UTF-8", null);
+    xml.setPrefix("", NS_WEBDAV);
+    xml.setPrefix("CAL", NS_CALDAV);
+    xml.setPrefix("CARD", NS_CARDDAV);
+    xml.startTag(NS_WEBDAV, "mkcol");
+    xml.startTag(XmlUtils.NS_WEBDAV, "set");
+    xml.startTag(XmlUtils.NS_WEBDAV, "prop");
+    xml.startTag(XmlUtils.NS_WEBDAV, "resourcetype");
+    xml.startTag(XmlUtils.NS_WEBDAV, "collection");
+    xml.endTag(XmlUtils.NS_WEBDAV, "collection");
+    xml.startTag(XmlUtils.NS_CALDAV, "calendar");
+    xml.endTag(XmlUtils.NS_CALDAV, "calendar");
+    xml.endTag(XmlUtils.NS_WEBDAV, "resourcetype");
+    xml.startTag(XmlUtils.NS_WEBDAV, "displayname");
+    xml.text(displayName);
+    xml.endTag(XmlUtils.NS_WEBDAV, "displayname");
+    xml.startTag(XmlUtils.NS_CALDAV, "supported-calendar-component-set");
+    xml.startTag(XmlUtils.NS_CALDAV, "comp");
+    xml.attribute(null, "name", "VTODO");
+    xml.endTag(XmlUtils.NS_CALDAV, "comp");
+    xml.endTag(XmlUtils.NS_CALDAV, "supported-calendar-component-set");
+    xml.endTag(XmlUtils.NS_WEBDAV, "prop");
+    xml.endTag(XmlUtils.NS_WEBDAV, "set");
+    xml.endTag(XmlUtils.NS_WEBDAV, "mkcol");
+    xml.endDocument();
+    xml.flush();
+    return stringWriter.toString();
   }
 }
