@@ -27,14 +27,19 @@ class TaskConverter {
   private static final DateFormat DUE_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
 
   public static void apply(Task local, at.bitfire.ical4android.Task remote) {
-    if (remote.getCompletedAt() != null) {
+    Completed completedAt = remote.getCompletedAt();
+    if (completedAt == null) {
+      local.setCompletionDate(0L);
+    } else {
       local.setCompletionDate(remote.getCompletedAt().getDate().getTime());
     }
     local.setTitle(remote.getSummary());
     local.setNotes(remote.getDescription());
     local.setImportance(fromRemote(remote.getPriority()));
     RRule repeatRule = remote.getRRule();
-    if (repeatRule != null) {
+    if (repeatRule == null) {
+      local.setRecurrence("");
+    } else {
       Recur recur = repeatRule.getRecur();
       if (recur.getInterval() == 0) {
         recur.setInterval(1);
@@ -43,7 +48,9 @@ class TaskConverter {
           "RRULE:" + recur.toString() + (local.repeatAfterCompletion() ? ";FROM=COMPLETION" : ""));
     }
     Due due = remote.getDue();
-    if (due != null) {
+    if (due == null) {
+      local.setDueDate(0L);
+    } else {
       Date dueDate = due.getDate();
       if (dueDate instanceof DateTime) {
         local.setDueDate(Task.createDueDate(URGENCY_SPECIFIC_DAY_TIME, dueDate.getTime()));
@@ -115,10 +122,11 @@ class TaskConverter {
               task.hasDueTime()
                   ? new DateTime(task.getDueDate())
                   : new Date(new org.tasks.time.DateTime(task.getDueDate()).toUTC().getMillis())));
+    } else {
+      remote.setDue(null);
     }
-    if (task.isCompleted()) {
-      remote.setCompletedAt(new Completed(new DateTime(task.getCompletionDate())));
-    }
+    remote.setCompletedAt(
+        task.isCompleted() ? new Completed(new DateTime(task.getCompletionDate())) : null);
     if (task.isRecurring()) {
       try {
         String rrule = task.getRecurrenceWithoutFrom().replace("RRULE:", "");
@@ -126,6 +134,8 @@ class TaskConverter {
       } catch (ParseException e) {
         Timber.e(e);
       }
+    } else {
+      remote.setRRule(null);
     }
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
     remote.setPriority(toRemote(remote.getPriority(), task.getImportance()));
