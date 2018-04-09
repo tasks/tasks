@@ -127,7 +127,7 @@ class CaldavClient {
           1, ResourceType.NAME, DisplayName.NAME, SupportedCalendarComponentSet.NAME, GetCTag.NAME);
     } catch (IOException | HttpException | DavException e) {
       Timber.e(e);
-      return emptyList();
+      return null;
     }
     List<DavResource> urls = new ArrayList<>();
     for (DavResource member : davResource.getMembers()) {
@@ -151,20 +151,5 @@ class CaldavClient {
       throw new DisplayableException(R.string.caldav_no_supported_calendars);
     }
     return urls;
-  }
-
-  public Single<String> getDisplayName() {
-    Callable<String> callable =
-        () -> {
-          davResource.propfind(0, DisplayName.NAME);
-          DisplayName displayName = davResource.getProperties().get(DisplayName.class);
-          if (displayName == null) {
-            throw new DisplayableException(R.string.calendar_not_found);
-          }
-          return displayName.getDisplayName();
-        };
-    return Single.fromCallable(callable)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread());
   }
 }

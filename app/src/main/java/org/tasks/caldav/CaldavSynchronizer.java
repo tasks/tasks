@@ -102,6 +102,9 @@ public class CaldavSynchronizer {
       }
       CaldavClient caldavClient = new CaldavClient(account, encryption);
       List<DavResource> resources = caldavClient.getCalendars();
+      if (resources == null) {
+        continue;
+      }
       Set<String> urls = newHashSet(transform(resources, c -> c.getLocation().toString()));
       Timber.d("Found calendars: %s", urls);
       for (CaldavCalendar deleted :
