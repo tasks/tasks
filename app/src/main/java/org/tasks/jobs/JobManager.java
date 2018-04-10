@@ -108,10 +108,8 @@ public class JobManager {
 
   public void syncNow() {
     new JobRequest.Builder(JobCreator.TAG_SYNC)
-        .setExecutionWindow(TimeUnit.SECONDS.toMillis(1), TimeUnit.SECONDS.toMillis(5))
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .setRequirementsEnforced(true)
         .setUpdateCurrent(true)
+        .startNow()
         .build()
         .schedule();
   }

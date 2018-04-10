@@ -33,7 +33,7 @@ public class SyncJob extends Job {
   protected Result onRunJob(@NonNull Params params) {
     synchronized (LOCK) {
       if (preferences.isSyncOngoing()) {
-        return Result.SUCCESS;
+        return Result.RESCHEDULE;
       }
     }
 
