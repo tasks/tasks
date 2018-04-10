@@ -354,10 +354,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
             R.string.delete,
             (dialog, which) -> {
               CaldavClient caldavClient =
-                  new CaldavClient(
-                      caldavCalendar.getUrl(),
-                      caldavAccount.getUsername(),
-                      encryption.decrypt(caldavAccount.getPassword()));
+                  new CaldavClient(caldavAccount, caldavCalendar, encryption);
               ProgressDialog progressDialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
               progressDialog.show();
               caldavClient

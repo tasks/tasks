@@ -33,6 +33,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import org.tasks.R;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
 import org.tasks.security.Encryption;
 import org.tasks.ui.DisplayableException;
 import org.xmlpull.v1.XmlSerializer;
@@ -46,6 +47,13 @@ class CaldavClient {
   CaldavClient(CaldavAccount caldavAccount, Encryption encryption) {
     this(
         caldavAccount.getUrl(),
+        caldavAccount.getUsername(),
+        encryption.decrypt(caldavAccount.getPassword()));
+  }
+
+  CaldavClient(CaldavAccount caldavAccount, CaldavCalendar caldavCalendar, Encryption encryption) {
+    this(
+        caldavCalendar.getUrl(),
         caldavAccount.getUsername(),
         encryption.decrypt(caldavAccount.getPassword()));
   }

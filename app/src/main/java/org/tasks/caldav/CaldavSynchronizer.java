@@ -11,7 +11,6 @@ import static com.google.common.collect.Sets.newHashSet;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.content.Context;
-import at.bitfire.dav4android.BasicDigestAuthHandler;
 import at.bitfire.dav4android.DavCalendar;
 import at.bitfire.dav4android.DavResource;
 import at.bitfire.dav4android.PropertyCollection;
@@ -38,11 +37,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import net.fortuna.ical4j.model.property.ProdId;
 import okhttp3.HttpUrl;
@@ -127,34 +124,19 @@ public class CaldavSynchronizer {
           calendar.setId(caldavDao.insert(calendar));
           localBroadcastManager.broadcastRefreshList();
         }
-        sync(account, calendar);
+        sync(calendar, resource);
       }
     }
   }
 
-  private void sync(CaldavAccount account, CaldavCalendar caldavCalendar) {
+  private void sync(CaldavCalendar caldavCalendar, DavResource resource) {
     Timber.d("sync(%s)", caldavCalendar);
-    BasicDigestAuthHandler basicDigestAuthHandler =
-        new BasicDigestAuthHandler(null, account.getUsername(), encryption.decrypt(account.getPassword()));
-    OkHttpClient httpClient =
-        new OkHttpClient()
-            .newBuilder()
-            .addNetworkInterceptor(basicDigestAuthHandler)
-            .authenticator(basicDigestAuthHandler)
-            .cookieJar(new MemoryCookieStore())
-            .followRedirects(false)
-            .followSslRedirects(false)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .build();
-    URI uri = URI.create(caldavCalendar.getUrl());
-    HttpUrl httpUrl = HttpUrl.get(uri);
-    DavCalendar davCalendar = new DavCalendar(httpClient, httpUrl);
+    OkHttpClient httpClient = resource.getHttpClient();
+    HttpUrl httpUrl = resource.getLocation();
     try {
       pushLocalChanges(caldavCalendar, httpClient, httpUrl);
 
-      davCalendar.propfind(0, GetCTag.NAME, DisplayName.NAME);
-
-      PropertyCollection properties = davCalendar.getProperties();
+      PropertyCollection properties = resource.getProperties();
       String remoteName = properties.get(DisplayName.class).getDisplayName();
       if (!caldavCalendar.getName().equals(remoteName)) {
         Timber.d("%s -> %s", caldavCalendar.getName(), remoteName);
@@ -170,6 +152,8 @@ public class CaldavSynchronizer {
         Timber.d("%s up to date", caldavCalendar.getName());
         return;
       }
+
+      DavCalendar davCalendar = new DavCalendar(httpClient, httpUrl);
 
       davCalendar.calendarQuery("VTODO", null, null);
 
@@ -298,7 +282,7 @@ public class CaldavSynchronizer {
       Task task, CaldavCalendar caldavCalendar, OkHttpClient httpClient, HttpUrl httpUrl)
       throws IOException {
     Timber.d("pushing %s", task);
-    List<CaldavTask> deleted = getDeleted(task.getId(), caldavCalendar);
+    List<CaldavTask> deleted = caldavDao.getDeleted(task.getId(), caldavCalendar.getUuid());
     if (!deleted.isEmpty()) {
       for (CaldavTask entry : deleted) {
         deleteRemoteResource(httpClient, httpUrl, entry);
@@ -352,10 +336,6 @@ public class CaldavSynchronizer {
     caldavTask.setLastSync(currentTimeMillis());
     caldavDao.update(caldavTask);
     Timber.d("SENT %s", caldavTask);
-  }
-
-  private List<CaldavTask> getDeleted(long taskId, CaldavCalendar caldavCalendar) {
-    return caldavDao.getDeleted(taskId, caldavCalendar.getUuid());
   }
 
   private void processVTodo(
