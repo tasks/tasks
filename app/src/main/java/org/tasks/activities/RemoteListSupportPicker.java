@@ -2,8 +2,10 @@ package org.tasks.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.CaldavFilter;
@@ -18,18 +20,20 @@ import org.tasks.injection.InjectingDialogFragment;
 
 public class RemoteListSupportPicker extends InjectingDialogFragment {
 
-  private static final String EXTRA_SELECTED = "extra_selected";
+  public static final String EXTRA_SELECTED = "extra_selected";
+
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
-  private RemoteListSelectionHandler handler;
 
-  public static RemoteListSupportPicker newRemoteListSupportPicker(Filter selected) {
+  public static RemoteListSupportPicker newRemoteListSupportPicker(
+      Filter selected, Fragment targetFragment, int requestCode) {
     RemoteListSupportPicker dialog = new RemoteListSupportPicker();
     Bundle arguments = new Bundle();
     if (selected != null) {
       arguments.putParcelable(EXTRA_SELECTED, selected);
     }
     dialog.setArguments(arguments);
+    dialog.setTargetFragment(targetFragment, requestCode);
     return dialog;
   }
 
@@ -64,14 +68,15 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     Bundle arguments = getArguments();
     Filter selected = arguments == null ? null : arguments.getParcelable(EXTRA_SELECTED);
-    return createDialog(filterAdapter, dialogBuilder, selected, list -> handler.selectedList(list));
+    return createDialog(filterAdapter, dialogBuilder, selected, this::selected);
   }
 
-  @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-
-    handler = (RemoteListSelectionHandler) activity;
+  private void selected(Filter filter) {
+    getTargetFragment()
+        .onActivityResult(
+            getTargetRequestCode(),
+            Activity.RESULT_OK,
+            new Intent().putExtra(EXTRA_SELECTED, filter));
   }
 
   @Override

@@ -1,8 +1,9 @@
 package org.tasks.ui;
 
-import static com.todoroo.andlib.utility.DateUtilities.now;
+import static android.app.Activity.RESULT_OK;
 import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,12 +15,12 @@ import butterknife.OnClick;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.helper.UUIDHelper;
+import com.todoroo.astrid.service.TaskMover;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
@@ -35,6 +36,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
       "frag_tag_google_task_list_selection";
   private static final String EXTRA_ORIGINAL_LIST = "extra_original_list";
   private static final String EXTRA_SELECTED_LIST = "extra_selected_list";
+  private static final int REQUEST_CODE_SELECT_LIST = 10101;
 
   @BindView(R.id.google_task_list)
   TextView textView;
@@ -43,6 +45,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
   @Inject GoogleTaskDao googleTaskDao;
   @Inject CaldavDao caldavDao;
   @Inject DefaultFilterProvider defaultFilterProvider;
+  @Inject TaskMover taskMover;
 
   @Nullable private Filter originalList;
   @Nullable private Filter selectedList;
@@ -61,7 +64,8 @@ public class RemoteListFragment extends TaskEditControlFragment {
           originalList =
               new GtasksFilter(gtasksListService.getList(task.getTransitory(GoogleTask.KEY)));
         } else if (task.hasTransitory(CaldavTask.KEY)) {
-          originalList = new CaldavFilter(caldavDao.getCalendarByUuid(task.getTransitory(CaldavTask.KEY)));
+          originalList =
+              new CaldavFilter(caldavDao.getCalendarByUuid(task.getTransitory(CaldavTask.KEY)));
         } else {
           originalList = defaultFilterProvider.getDefaultRemoteList();
         }
@@ -114,43 +118,13 @@ public class RemoteListFragment extends TaskEditControlFragment {
 
   @OnClick(R.id.google_task_list)
   void clickGoogleTaskList(View view) {
-    newRemoteListSupportPicker(selectedList)
-        .show(getChildFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
+    newRemoteListSupportPicker(selectedList, this, REQUEST_CODE_SELECT_LIST)
+        .show(getFragmentManager(), FRAG_TAG_GOOGLE_TASK_LIST_SELECTION);
   }
 
   @Override
   public void apply(Task task) {
-    GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
-    if (googleTask != null
-        && selectedList instanceof GtasksFilter
-        && googleTask.getListId().equals(((GtasksFilter) selectedList).getRemoteId())) {
-      return;
-    }
-    CaldavTask caldavTask = caldavDao.getTask(task.getId());
-    if (caldavTask != null
-        && selectedList instanceof CaldavFilter
-        && caldavTask.getCalendar().equals(((CaldavFilter) selectedList).getUuid())) {
-      return;
-    }
-    task.putTransitory(SyncFlags.FORCE_SYNC, true);
-    if (googleTask != null) {
-      googleTask.setDeleted(now());
-      googleTaskDao.update(googleTask);
-    }
-
-    if (caldavTask != null) {
-      caldavTask.setDeleted(now());
-      caldavDao.update(caldavTask);
-    }
-
-    if (selectedList instanceof GtasksFilter) {
-      googleTaskDao.insert(
-          new GoogleTask(task.getId(), ((GtasksFilter) selectedList).getRemoteId()));
-    } else if (selectedList instanceof CaldavFilter) {
-      caldavDao.insert(
-          new CaldavTask(
-              task.getId(), ((CaldavFilter) selectedList).getUuid(), UUIDHelper.newUUID()));
-    }
+    taskMover.move(task, selectedList);
   }
 
   @Override
@@ -163,7 +137,18 @@ public class RemoteListFragment extends TaskEditControlFragment {
     component.inject(this);
   }
 
-  public void setList(Filter list) {
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_CODE_SELECT_LIST) {
+      if (resultCode == RESULT_OK) {
+        setList(data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED));
+      }
+    } else {
+      super.onActivityResult(requestCode, resultCode, data);
+    }
+  }
+
+  private void setList(Filter list) {
     if (list == null) {
       this.selectedList = null;
     } else if (list instanceof GtasksFilter || list instanceof CaldavFilter) {

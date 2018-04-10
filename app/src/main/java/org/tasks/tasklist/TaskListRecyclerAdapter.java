@@ -1,5 +1,7 @@
 package org.tasks.tasklist;
 
+import static org.tasks.activities.RemoteListSupportPicker.newRemoteListSupportPicker;
+
 import android.app.Activity;
 import android.arch.paging.AsyncPagedListDiffer;
 import android.arch.paging.PagedList;
@@ -34,6 +36,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     implements ViewHolder.ViewHolderCallbacks, ListUpdateCallback {
 
   private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
+  private static final String FRAG_TAG_REMOTE_LIST_PICKER = "frag_tag_remote_list_picker";
 
   private final Activity activity;
   private final TaskAdapter adapter;
@@ -66,6 +69,10 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
           switch (item.getItemId()) {
+            case R.id.move_tasks:
+              newRemoteListSupportPicker(null, taskList, TaskListFragment.REQUEST_MOVE_TASKS)
+                  .show(taskList.getFragmentManager(), FRAG_TAG_REMOTE_LIST_PICKER);
+              return true;
             case R.id.delete:
               dialogBuilder
                   .newMessageDialog(R.string.delete_selected_tasks)
@@ -243,7 +250,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     }
   }
 
-  private void finishActionMode() {
+  public void finishActionMode() {
     if (mode != null) {
       mode.finish();
     }

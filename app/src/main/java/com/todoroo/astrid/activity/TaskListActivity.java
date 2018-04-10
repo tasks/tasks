@@ -81,8 +81,7 @@ public class TaskListActivity extends InjectingAppCompatActivity
         DeadlineControlSet.DueDateChangeListener,
         TaskEditFragment.TaskEditFragmentCallbackHandler,
         CommentBarFragment.CommentBarFragmentCallback,
-        SortDialog.SortDialogCallback,
-        RemoteListSelectionHandler {
+        SortDialog.SortDialogCallback {
 
   /** For indicating the new list screen should be launched at fragment setup time */
   public static final String TOKEN_CREATE_NEW_LIST_NAME = "newListName"; // $NON-NLS-1$
@@ -494,11 +493,6 @@ public class TaskListActivity extends InjectingAppCompatActivity
   public void sortChanged() {
     localBroadcastManager.broadcastRefresh();
     onFilterItemClicked(filter);
-  }
-
-  @Override
-  public void selectedList(Filter list) {
-    getTaskEditFragment().onRemoteListChanged(list);
   }
 
   @Override

@@ -24,7 +24,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesControlSet;
@@ -49,7 +48,6 @@ import org.tasks.injection.InjectingFragment;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.Preferences;
 import org.tasks.ui.MenuColorizer;
-import org.tasks.ui.RemoteListFragment;
 import org.tasks.ui.TaskEditControlFragment;
 
 public final class TaskEditFragment extends InjectingFragment
@@ -231,10 +229,6 @@ public final class TaskEditFragment extends InjectingFragment
     return getFragment(EditTitleControlSet.TAG);
   }
 
-  private RemoteListFragment getRemoteListFragment() {
-    return getFragment(RemoteListFragment.TAG);
-  }
-
   private RepeatControlSet getRepeatControlSet() {
     return getFragment(RepeatControlSet.TAG);
   }
@@ -314,10 +308,6 @@ public final class TaskEditFragment extends InjectingFragment
 
   public void onRepeatChanged(boolean repeat) {
     getEditTitleControlSet().repeatChanged(repeat);
-  }
-
-  public void onRemoteListChanged(Filter list) {
-    getRemoteListFragment().setList(list);
   }
 
   public void onDueDateChanged(long dueDate) {

@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.activity;
 
+import static android.app.Activity.RESULT_OK;
 import static android.support.v4.content.ContextCompat.getColor;
 
 import android.app.Activity;
@@ -45,12 +46,14 @@ import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.service.TaskDuplicator;
+import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.timers.TimerPlugin;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.activities.FilterSettingsActivity;
+import org.tasks.activities.RemoteListSupportPicker;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.dialogs.DialogBuilder;
@@ -84,6 +87,7 @@ public class TaskListFragment extends InjectingFragment
 
   // --- instance variables
   private static final int REQUEST_EDIT_FILTER = 11544;
+  public static final int REQUEST_MOVE_TASKS = 11545;
   private final RefreshReceiver refreshReceiver = new RefreshReceiver();
   @Inject protected Tracker tracker;
   protected Filter filter;
@@ -100,6 +104,7 @@ public class TaskListFragment extends InjectingFragment
   @Inject ViewHolderFactory viewHolderFactory;
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Device device;
+  @Inject TaskMover taskMover;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -496,7 +501,7 @@ public class TaskListFragment extends InjectingFragment
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == VOICE_RECOGNITION_REQUEST_CODE) {
-      if (resultCode == Activity.RESULT_OK) {
+      if (resultCode == RESULT_OK) {
         List<String> match = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
         if (match != null && match.size() > 0 && match.get(0).length() > 0) {
           String recognizedSpeech = match.get(0);
@@ -508,7 +513,7 @@ public class TaskListFragment extends InjectingFragment
         }
       }
     } else if (requestCode == REQUEST_EDIT_FILTER) {
-      if (resultCode == Activity.RESULT_OK) {
+      if (resultCode == RESULT_OK) {
         String action = data.getAction();
         TaskListActivity activity = (TaskListActivity) getActivity();
         if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
@@ -521,6 +526,13 @@ public class TaskListFragment extends InjectingFragment
                   (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
           activity.recreate();
         }
+      }
+    } else if (requestCode == REQUEST_MOVE_TASKS) {
+      if (resultCode == RESULT_OK) {
+        taskMover.move(
+            taskAdapter.getSelected(),
+            data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED));
+        recyclerAdapter.finishActionMode();
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
