@@ -52,6 +52,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     private ActionMode mode = null;
     private boolean dragging;
     private boolean animate;
+    private RecyclerView recyclerView;
 
     public TaskListRecyclerAdapter(Activity activity, TaskAdapter adapter,
                                    ViewHolderFactory viewHolderFactory,
@@ -71,6 +72,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     }
 
     public void applyToRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
         recyclerView.setAdapter(this);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
@@ -242,7 +244,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
     @Override
     public void onMoved(int fromPosition, int toPosition) {
         if (animate) {
+            notifyItemChanged(fromPosition);
             notifyItemMoved(fromPosition, toPosition);
+            recyclerView.scrollToPosition(fromPosition);
         } else {
             notifyDataSetChanged();
         }
