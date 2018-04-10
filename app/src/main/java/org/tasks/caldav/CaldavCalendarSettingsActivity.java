@@ -11,7 +11,9 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
 import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
@@ -23,6 +25,7 @@ import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.CaldavFilter;
+import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -43,7 +46,8 @@ import org.tasks.themes.ThemeColor;
 import org.tasks.ui.DisplayableException;
 import org.tasks.ui.MenuColorizer;
 
-public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActivity {
+public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActivity
+    implements OnMenuItemClickListener {
 
   public static final String EXTRA_CALDAV_CALENDAR = "extra_caldav_calendar";
   public static final String EXTRA_CALDAV_ACCOUNT = "extra_caldav_account";
@@ -59,6 +63,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   @Inject CaldavDao caldavDao;
   @Inject SyncAdapters syncAdapters;
   @Inject Encryption encryption;
+  @Inject TaskDeleter taskDeleter;
 
   @BindView(R.id.root_layout)
   LinearLayout root;
@@ -125,6 +130,8 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
             save();
           }
         });
+    toolbar.inflateMenu(R.menu.menu_caldav_calendar_settings);
+    toolbar.setOnMenuItemClickListener(this);
     MenuColorizer.colorToolbar(this, toolbar);
 
     color.setInputType(InputType.TYPE_NULL);
@@ -194,7 +201,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
     if (caldavCalendar == null) {
       CaldavClient client = new CaldavClient(caldavAccount, encryption);
-      ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.creating_new_list);
+      ProgressDialog dialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
       dialog.show();
       client
           .makeCollection(name)
@@ -326,5 +333,45 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     }
     themeColor.apply(toolbar);
     themeColor.applyToStatusBar(this);
+  }
+
+  @Override
+  public boolean onMenuItemClick(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.remove:
+        deleteCollection();
+        break;
+    }
+    return onOptionsItemSelected(item);
+  }
+
+  private void deleteCollection() {
+    dialogBuilder
+        .newMessageDialog(R.string.delete_tag_confirmation, caldavCalendar.getName())
+        .setPositiveButton(
+            R.string.delete,
+            (dialog, which) -> {
+              CaldavClient caldavClient =
+                  new CaldavClient(
+                      caldavCalendar.getUrl(),
+                      caldavAccount.getUsername(),
+                      encryption.decrypt(caldavAccount.getPassword()));
+              ProgressDialog progressDialog = dialogBuilder.newProgressDialog(R.string.contacting_server);
+              progressDialog.show();
+              caldavClient
+                  .deleteCollection()
+                  .doAfterTerminate(progressDialog::dismiss)
+                  .subscribe(this::onDeleted, this::requestFailed);
+            })
+        .setNegativeButton(android.R.string.cancel, null)
+        .show();
+  }
+
+  private void onDeleted() {
+    taskDeleter.markDeleted(caldavDao.getTasksByCalendar(caldavCalendar.getUuid()));
+    caldavDao.deleteTasksForCalendar(caldavCalendar.getUuid());
+    caldavDao.delete(caldavCalendar);
+    setResult(RESULT_OK, new Intent(ACTION_DELETED));
+    finish();
   }
 }

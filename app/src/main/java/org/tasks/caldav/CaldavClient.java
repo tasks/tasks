@@ -19,6 +19,7 @@ import at.bitfire.dav4android.property.GetCTag;
 import at.bitfire.dav4android.property.ResourceType;
 import at.bitfire.dav4android.property.SupportedCalendarComponentSet;
 import com.todoroo.astrid.helper.UUIDHelper;
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -156,6 +157,13 @@ class CaldavClient {
       throw new DisplayableException(R.string.caldav_no_supported_calendars);
     }
     return urls;
+  }
+
+  public Completable deleteCollection() {
+    return Completable.fromAction(() ->
+        davResource.delete(null))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
   }
 
   public Single<String> makeCollection(String displayName) {
