@@ -25,6 +25,7 @@ import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.CaldavFilter;
+import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.net.ConnectException;
 import javax.inject.Inject;
@@ -246,6 +247,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
 
   private void createSuccessful(String url) {
     CaldavCalendar caldavCalendar = new CaldavCalendar();
+    caldavCalendar.setUuid(UUIDHelper.newUUID());
     caldavCalendar.setAccount(caldavAccount.getUuid());
     caldavCalendar.setUrl(url);
     caldavCalendar.setName(getNewName());
