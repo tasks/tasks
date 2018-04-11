@@ -45,7 +45,6 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
-import com.todoroo.astrid.service.TaskDuplicator;
 import com.todoroo.astrid.service.TaskMover;
 import com.todoroo.astrid.timers.TimerPlugin;
 import java.util.List;
@@ -64,6 +63,7 @@ import org.tasks.injection.InjectingFragment;
 import org.tasks.preferences.Device;
 import org.tasks.preferences.Preferences;
 import org.tasks.sync.SyncAdapters;
+import org.tasks.tasklist.ActionModeProvider;
 import org.tasks.tasklist.TaskListRecyclerAdapter;
 import org.tasks.tasklist.ViewHolderFactory;
 import org.tasks.ui.CheckBoxes;
@@ -93,7 +93,6 @@ public class TaskListFragment extends InjectingFragment
   protected Filter filter;
   @Inject SyncAdapters syncAdapters;
   @Inject TaskDeleter taskDeleter;
-  @Inject TaskDuplicator taskDuplicator;
   @Inject @ForActivity Context context;
   @Inject Preferences preferences;
   @Inject GtasksPreferenceService gtasksPreferenceService;
@@ -105,6 +104,7 @@ public class TaskListFragment extends InjectingFragment
   @Inject LocalBroadcastManager localBroadcastManager;
   @Inject Device device;
   @Inject TaskMover taskMover;
+  @Inject ActionModeProvider actionModeProvider;
 
   @BindView(R.id.swipe_layout)
   SwipeRefreshLayout swipeRefreshLayout;
@@ -447,15 +447,11 @@ public class TaskListFragment extends InjectingFragment
     taskAdapter = createTaskAdapter();
     recyclerAdapter =
         new TaskListRecyclerAdapter(
-            getActivity(),
             taskAdapter,
             viewHolderFactory,
             this,
-            taskDeleter,
-            taskDuplicator,
-            tracker,
-            dialogBuilder);
-    taskAdapter.setHelper(recyclerAdapter.getHelper());
+            actionModeProvider);
+    taskAdapter.setHelper(recyclerAdapter.getAsyncPagedListDiffer());
   }
 
   protected Property<?>[] taskProperties() {

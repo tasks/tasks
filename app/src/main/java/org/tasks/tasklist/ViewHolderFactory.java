@@ -7,6 +7,7 @@ import static org.tasks.preferences.ResourceResolver.getResourceId;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.todoroo.astrid.dao.TaskDao;
 import javax.inject.Inject;
@@ -57,10 +58,11 @@ public class ViewHolderFactory {
     rowPadding = convertDpToPixels(metrics, preferences.getInt(R.string.p_rowPadding, 16));
   }
 
-  ViewHolder newViewHolder(ViewGroup viewGroup, ViewHolder.ViewHolderCallbacks callbacks) {
+  ViewHolder newViewHolder(ViewGroup parent, ViewHolder.ViewHolderCallbacks callbacks) {
     return new ViewHolder(
         context,
-        viewGroup,
+        (ViewGroup)
+            LayoutInflater.from(context).inflate(R.layout.task_adapter_row_simple, parent, false),
         showFullTaskTitle,
         fontSize,
         checkBoxes,
