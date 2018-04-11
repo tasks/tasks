@@ -100,4 +100,7 @@ public interface CaldavDao {
 
   @Query("SELECT * FROM caldav_account WHERE name = :name COLLATE NOCASE LIMIT 1")
   CaldavAccount getAccountByName(String name);
+
+  @Query("SELECT DISTINCT calendar FROM caldav_tasks WHERE deleted = 0 AND task IN (:tasks)")
+  List<String> getCalendars(List<Long> tasks);
 }

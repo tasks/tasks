@@ -20,7 +20,8 @@ import org.tasks.injection.InjectingDialogFragment;
 
 public class RemoteListSupportPicker extends InjectingDialogFragment {
 
-  public static final String EXTRA_SELECTED = "extra_selected";
+  public static final String EXTRA_SELECTED_FILTER = "extra_selected_filter";
+  private static final String EXTRA_NO_SELECTION = "extra_no_selection";
 
   @Inject DialogBuilder dialogBuilder;
   @Inject FilterAdapter filterAdapter;
@@ -29,9 +30,17 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
       Filter selected, Fragment targetFragment, int requestCode) {
     RemoteListSupportPicker dialog = new RemoteListSupportPicker();
     Bundle arguments = new Bundle();
-    if (selected != null) {
-      arguments.putParcelable(EXTRA_SELECTED, selected);
-    }
+    arguments.putParcelable(EXTRA_SELECTED_FILTER, selected);
+    dialog.setArguments(arguments);
+    dialog.setTargetFragment(targetFragment, requestCode);
+    return dialog;
+  }
+
+  public static RemoteListSupportPicker newRemoteListSupportPicker(
+      Fragment targetFragment, int requestCode) {
+    RemoteListSupportPicker dialog = new RemoteListSupportPicker();
+    Bundle arguments = new Bundle();
+    arguments.putBoolean(EXTRA_NO_SELECTION, true);
     dialog.setArguments(arguments);
     dialog.setTargetFragment(targetFragment, requestCode);
     return dialog;
@@ -40,10 +49,8 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
   public static AlertDialog createDialog(
       FilterAdapter filterAdapter,
       DialogBuilder dialogBuilder,
-      Filter selected,
+      int selectedIndex,
       RemoteListSelectionHandler handler) {
-    filterAdapter.populateRemoteListPicker();
-    int selectedIndex = selected == null ? 0 : filterAdapter.indexOf(selected);
     return dialogBuilder
         .newDialog()
         .setSingleChoiceItems(
@@ -66,8 +73,11 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
   @NonNull
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
+    filterAdapter.populateRemoteListPicker();
     Bundle arguments = getArguments();
-    Filter selected = arguments == null ? null : arguments.getParcelable(EXTRA_SELECTED);
+    int selected =
+        arguments.getBoolean(EXTRA_NO_SELECTION, false)
+            ? -1 : filterAdapter.indexOf(arguments.getParcelable(EXTRA_SELECTED_FILTER), 0);
     return createDialog(filterAdapter, dialogBuilder, selected, this::selected);
   }
 
@@ -76,7 +86,7 @@ public class RemoteListSupportPicker extends InjectingDialogFragment {
         .onActivityResult(
             getTargetRequestCode(),
             Activity.RESULT_OK,
-            new Intent().putExtra(EXTRA_SELECTED, filter));
+            new Intent().putExtra(EXTRA_SELECTED_FILTER, filter));
   }
 
   @Override

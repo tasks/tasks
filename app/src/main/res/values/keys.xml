@@ -256,6 +256,7 @@
   <string name="tracking_event_task_creation">Task creation</string>
   <string name="tracking_event_multiselect_delete">Multiselect delete</string>
   <string name="tracking_event_multiselect_clone">Multiselect clone</string>
+  <string name="tracking_event_multiselect_move">Multiselect move</string>
   <string name="p_badges_enabled">badges_enabled</string>
   <string name="p_badge_list">badge_list</string>
   <string name="tasker_locale">Tasker/Locale</string>

@@ -141,7 +141,7 @@ public class RemoteListFragment extends TaskEditControlFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_CODE_SELECT_LIST) {
       if (resultCode == RESULT_OK) {
-        setList(data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED));
+        setList(data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED_FILTER));
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);

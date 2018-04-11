@@ -525,9 +525,10 @@ public class TaskListFragment extends InjectingFragment
       }
     } else if (requestCode == REQUEST_MOVE_TASKS) {
       if (resultCode == RESULT_OK) {
+        tracker.reportEvent(Tracking.Events.MULTISELECT_MOVE);
         taskMover.move(
             taskAdapter.getSelected(),
-            data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED));
+            data.getParcelableExtra(RemoteListSupportPicker.EXTRA_SELECTED_FILTER));
         recyclerAdapter.finishActionMode();
       }
     } else {

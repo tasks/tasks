@@ -183,8 +183,9 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     this.selected = selected;
   }
 
-  public int indexOf(FilterListItem item) {
-    return items.indexOf(item);
+  public int indexOf(FilterListItem item, int defaultValue) {
+    int index = items.indexOf(item);
+    return index == -1 ? defaultValue : index;
   }
 
   @NonNull

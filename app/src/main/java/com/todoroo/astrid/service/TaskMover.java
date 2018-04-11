@@ -15,6 +15,7 @@ import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.sync.SyncAdapters;
 
 public class TaskMover {
@@ -22,13 +23,20 @@ public class TaskMover {
   private final CaldavDao caldavDao;
   private final GoogleTaskDao googleTaskDao;
   private final SyncAdapters syncAdapters;
+  private final GoogleTaskListDao googleTaskListDao;
 
   @Inject
-  public TaskMover(TaskDao taskDao, CaldavDao caldavDao, GoogleTaskDao googleTaskDao, SyncAdapters syncAdapters) {
+  public TaskMover(
+      TaskDao taskDao,
+      CaldavDao caldavDao,
+      GoogleTaskDao googleTaskDao,
+      SyncAdapters syncAdapters,
+      GoogleTaskListDao googleTaskListDao) {
     this.taskDao = taskDao;
     this.caldavDao = caldavDao;
     this.googleTaskDao = googleTaskDao;
     this.syncAdapters = syncAdapters;
+    this.googleTaskListDao = googleTaskListDao;
   }
 
   public void move(List<Long> tasks, Filter selectedList) {
@@ -44,6 +52,21 @@ public class TaskMover {
 
   public void move(Task task, Filter selectedList) {
     performMove(task, selectedList);
+  }
+
+  public Filter getSingleFilter(List<Long> tasks) {
+    List<String> caldavCalendars = caldavDao.getCalendars(tasks);
+    List<String> googleTaskLists = googleTaskDao.getLists(tasks);
+    if (caldavCalendars.isEmpty()) {
+      if (googleTaskLists.size() == 1) {
+        return new GtasksFilter(googleTaskListDao.getByRemoteId(googleTaskLists.get(0)));
+      }
+    } else if (googleTaskLists.isEmpty()) {
+      if (caldavCalendars.size() == 1) {
+        return new CaldavFilter(caldavDao.getCalendar(caldavCalendars.get(0)));
+      }
+    }
+    return null;
   }
 
   private void performMove(Task task, Filter selectedList) {

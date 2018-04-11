@@ -35,7 +35,7 @@ public class FilterSelectionActivity extends InjectingAppCompatActivity {
         .newDialog()
         .setSingleChoiceItems(
             filterAdapter,
-            filterAdapter.indexOf(selected),
+            filterAdapter.indexOf(selected, -1),
             (dialog, which) -> {
               final Filter selectedFilter = (Filter) filterAdapter.getItem(which);
               Intent data = new Intent();

@@ -32,8 +32,8 @@ public class RemoteListNativePicker extends InjectingNativeDialogFragment {
 
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
-    Bundle arguments = getArguments();
-    Filter selected = arguments.getParcelable(EXTRA_SELECTED);
+    filterAdapter.populateRemoteListPicker();
+    int selected = filterAdapter.indexOf(getArguments().getParcelable(EXTRA_SELECTED), 0);
     return createDialog(filterAdapter, dialogBuilder, selected, list -> handler.selectedList(list));
   }
 
