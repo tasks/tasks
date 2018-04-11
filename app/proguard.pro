@@ -1,5 +1,8 @@
 -dontobfuscate
 
+-keep class com.rey.material.widget.Slider
+-dontwarn com.rey.material.**
+
 # https://code.google.com/p/android/issues/detail?id=78293
 -keep public class android.support.v7.widget.** { *; }
 -keep public class android.support.v7.internal.widget.** { *; }
