@@ -125,12 +125,17 @@ public final class TaskerSettingsActivity extends AbstractFragmentPluginPreferen
   }
 
   @Override
+  protected String getHelpUrl() {
+    return "http://tasks.org/help/tasker";
+  }
+
+  @Override
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_save:
         finish();
         return true;
     }
-    return onOptionsItemSelected(item);
+    return super.onMenuItemClick(item);
   }
 }
