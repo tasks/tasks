@@ -233,7 +233,7 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_help:
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/help")));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")));
         return true;
       case R.id.menu_refresh_purchases:
         billingClient.queryPurchases();
