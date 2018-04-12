@@ -20,6 +20,8 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.billing.Inventory;
+import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavAccountSettingsActivity;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
@@ -40,6 +42,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
   private static final int REQUEST_LOGIN = 0;
   private static final int REQUEST_CALDAV_SETTINGS = 101;
+  private static final int REQUEST_CALDAV_SUBSCRIBE = 102;
 
   @Inject GtasksPreferenceService gtasksPreferenceService;
   @Inject ActivityPermissionRequestor permissionRequestor;
@@ -54,6 +57,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   @Inject Preferences preferences;
   @Inject JobManager jobManager;
   @Inject CaldavDao caldavDao;
+  @Inject Inventory inventory;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -75,12 +79,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
       caldavPreferences.addPreference(accountPreferences);
     }
     Preference addCaldavAccount = new Preference(this);
+    addCaldavAccount.setKey(getString(R.string.add_account));
     addCaldavAccount.setTitle(R.string.add_account);
-    addCaldavAccount.setOnPreferenceClickListener(preference -> {
-      startActivityForResult(new Intent(this, CaldavAccountSettingsActivity.class),
-          REQUEST_CALDAV_SETTINGS);
-      return false;
-    });
     caldavPreferences.addPreference(addCaldavAccount);
 
     final CheckBoxPreference gtaskPreference =
@@ -149,9 +149,28 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   protected void onResume() {
     super.onResume();
 
+    Preference addCaldavAccount = findPreference(R.string.add_account);
+    if (inventory.hasPro()) {
+      addCaldavAccount.setSummary(null);
+      addCaldavAccount.setOnPreferenceClickListener(preference -> {
+        addCaldavAccount();
+        return false;
+      });
+    } else {
+      addCaldavAccount.setSummary(R.string.requires_pro_subscription);
+      addCaldavAccount.setOnPreferenceClickListener(preference -> {
+        startActivityForResult(new Intent(this, PurchaseActivity.class), REQUEST_CALDAV_SUBSCRIBE);
+        return false;
+      });
+    }
+
     if (!permissionChecker.canAccessAccounts()) {
       ((CheckBoxPreference) findPreference(getString(R.string.sync_gtasks))).setChecked(false);
     }
+  }
+
+  private void addCaldavAccount() {
+    startActivityForResult(new Intent(this, CaldavAccountSettingsActivity.class), REQUEST_CALDAV_SETTINGS);
   }
 
   @Override
@@ -169,6 +188,10 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+      }
+    } else if (requestCode == REQUEST_CALDAV_SUBSCRIBE) {
+      if (inventory.hasPro()) {
+        addCaldavAccount();
       }
     } else {
       super.onActivityResult(requestCode, resultCode, data);
