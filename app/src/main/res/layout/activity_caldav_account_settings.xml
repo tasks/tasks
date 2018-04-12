@@ -30,6 +30,7 @@
           android:layout_height="wrap_content"
           android:hint="@string/name"
           android:imeOptions="flagNoExtractUi"
+          android:inputType="textCapSentences|textAutoCorrect"
           android:textColor="?attr/asTextColor"/>
 
       </android.support.design.widget.TextInputLayout>
