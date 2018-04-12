@@ -8,6 +8,6 @@
 [![Get it on Amazon App Store](https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-black.png)](https://www.amazon.com/gp/product/B00QHGTL7O/ref=mas_pm_tasks_astrid_to_do_list_clone)
 
 Visit the wiki to
-* [help with translations](https://github.com/tasks/tasks/wiki/Translations)
-* [become a beta tester](https://github.com/tasks/tasks/wiki/Beta-Testing)
-* [get started with development](https://github.com/tasks/tasks/wiki/Getting-Started-with-Development)
+* [help with translations](http://tasks.org/docs/translations.html)
+* [become a beta tester](http://tasks.org/docs/pre_release_testing.html)
+* [get started with development](http://tasks.org/docs/develop.html)
