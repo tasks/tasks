@@ -4,6 +4,7 @@ import static android.text.TextUtils.isEmpty;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -408,6 +409,9 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
   @Override
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
+      case R.id.help:
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/caldav")));
+        break;
       case R.id.remove:
         removeAccount();
         break;
