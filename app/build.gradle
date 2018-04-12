@@ -166,8 +166,8 @@ dependencies {
     implementation "me.leolin:ShortcutBadger:1.1.18@aar"
     implementation 'com.google.apis:google-api-services-tasks:v1-rev47-1.22.0'
     implementation 'com.google.api-client:google-api-client-android:1.22.0'
+    implementation 'com.android.billingclient:billing:1.0'
 
-    googleplayImplementation 'com.android.billingclient:billing:1.0'
     googleplayImplementation "com.google.android.gms:play-services-location:${GPS_VERSION}"
     googleplayImplementation "com.google.android.gms:play-services-analytics:${GPS_VERSION}"
     googleplayImplementation "com.google.android.gms:play-services-auth:${GPS_VERSION}"

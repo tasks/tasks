@@ -102,6 +102,4 @@ public class Tracker {
             .setLabel(BillingResponseToString(response))
             .build());
   }
-
-
 }

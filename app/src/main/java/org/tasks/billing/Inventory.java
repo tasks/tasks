@@ -1,16 +1,12 @@
 package org.tasks.billing;
 
-import android.content.Context;
 import com.android.billingclient.api.Purchase;
 import com.google.common.collect.ImmutableList;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
-import org.tasks.injection.ForApplication;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
@@ -26,14 +22,14 @@ public class Inventory {
   public static final List<String> SKU_SUBS = ImmutableList.of(SKU_PRO);
 
   private final Preferences preferences;
-  private final String billingKey;
+  private final SignatureVerifier signatureVerifier;
 
   private Map<String, Purchase> purchases = new HashMap<>();
 
   @Inject
-  public Inventory(@ForApplication Context context, Preferences preferences) {
+  public Inventory(Preferences preferences, SignatureVerifier signatureVerifier) {
     this.preferences = preferences;
-    billingKey = context.getString(R.string.gp_key);
+    this.signatureVerifier = signatureVerifier;
     for (Purchase purchase : preferences.getPurchases()) {
       add(purchase);
     }
@@ -52,7 +48,7 @@ public class Inventory {
   }
 
   private void add(Purchase purchase) {
-    if (verifySignature(purchase)) {
+    if (signatureVerifier.verifySignature(purchase)) {
       Timber.d("add(%s)", purchase);
       purchases.put(purchase.getSku(), purchase);
     }
@@ -80,16 +76,6 @@ public class Inventory {
 
   public boolean purchased(String sku) {
     return purchases.containsKey(sku);
-  }
-
-  private boolean verifySignature(Purchase purchase) {
-    try {
-      return Security.verifyPurchase(
-          billingKey, purchase.getOriginalJson(), purchase.getSignature());
-    } catch (IOException e) {
-      Timber.e(e);
-      return false;
-    }
   }
 
   public Purchase getPurchase(String sku) {
