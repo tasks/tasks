@@ -121,7 +121,9 @@ public final class TaskEditFragment extends InjectingFragment
             save();
           }
         });
-    toolbar.inflateMenu(R.menu.menu_task_edit_fragment);
+    if (!model.isNew()) {
+      toolbar.inflateMenu(R.menu.menu_task_edit_fragment);
+    }
     toolbar.setOnMenuItemClickListener(this);
     MenuColorizer.colorToolbar(context, toolbar);
 
