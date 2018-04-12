@@ -131,7 +131,9 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
             save();
           }
         });
-    toolbar.inflateMenu(R.menu.menu_caldav_calendar_settings);
+    if (caldavCalendar != null) {
+      toolbar.inflateMenu(R.menu.menu_caldav_calendar_settings);
+    }
     toolbar.setOnMenuItemClickListener(this);
     MenuColorizer.colorToolbar(this, toolbar);
 
@@ -340,7 +342,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   @Override
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
-      case R.id.remove:
+      case R.id.delete:
         deleteCollection();
         break;
     }
