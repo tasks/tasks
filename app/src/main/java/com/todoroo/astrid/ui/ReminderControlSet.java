@@ -6,8 +6,11 @@
 package com.todoroo.astrid.ui;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static com.google.common.collect.Sets.newHashSet;
 import static com.todoroo.andlib.utility.DateUtilities.getLongDateStringWithTime;
+import static com.todoroo.astrid.data.Task.NO_ID;
+import static java.util.Collections.emptyList;
 import static org.tasks.PermissionUtil.verifyPermissions;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
@@ -140,11 +143,9 @@ public class ReminderControlSet extends TaskEditControlFragment {
   }
 
   private List<Long> currentAlarms() {
-    final List<Long> alarms = new ArrayList<>();
-    for (Alarm entry : alarmService.getAlarms(taskId)) {
-      alarms.add(entry.getTime());
-    }
-    return alarms;
+    return taskId == NO_ID
+        ? emptyList()
+        : transform(alarmService.getAlarms(taskId), Alarm::getTime);
   }
 
   @OnItemSelected(R.id.alarms_add_spinner)

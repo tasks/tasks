@@ -1,6 +1,8 @@
 package org.tasks.location;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.todoroo.astrid.data.Task.NO_ID;
+import static java.util.Collections.emptyList;
 
 import java.util.List;
 import java.util.Set;
@@ -20,7 +22,7 @@ public class GeofenceService {
   }
 
   public List<Location> getGeofences(long taskId) {
-    return locationDao.getGeofences(taskId);
+    return taskId == NO_ID ? emptyList() : locationDao.getGeofences(taskId);
   }
 
   public void setupGeofences() {
