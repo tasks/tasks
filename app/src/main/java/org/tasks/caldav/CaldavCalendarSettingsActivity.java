@@ -33,6 +33,7 @@ import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.analytics.Tracking.Events;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
@@ -255,6 +256,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     caldavCalendar.setName(getNewName());
     caldavCalendar.setColor(selectedTheme);
     caldavCalendar.setId(caldavDao.insert(caldavCalendar));
+    tracker.reportEvent(Events.CALDAV_LIST_ADDED);
     setResult(
         RESULT_OK,
         new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
@@ -372,6 +374,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     taskDeleter.markDeleted(caldavDao.getTasksByCalendar(caldavCalendar.getUuid()));
     caldavDao.deleteTasksForCalendar(caldavCalendar.getUuid());
     caldavDao.delete(caldavCalendar);
+    tracker.reportEvent(Events.CALDAV_LIST_DELETED);
     setResult(RESULT_OK, new Intent(ACTION_DELETED));
     finish();
   }

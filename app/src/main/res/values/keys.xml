@@ -232,9 +232,12 @@
   <string name="tracking_category_error">Error</string>
   <string name="tracking_category_tasker">Tasker</string>
   <string name="tracking_category_backup">Backup</string>
+  <string name="tracking_category_caldav">Caldav</string>
   <string name="tracking_action_add">Add</string>
   <string name="tracking_action_start">Start</string>
   <string name="tracking_action_new_list">New List</string>
+  <string name="tracking_action_add_account">Add Account</string>
+  <string name="tracking_action_remove_account">Remove Account</string>
   <string name="tracking_action_rename_list">Rename List</string>
   <string name="tracking_action_delete_list">Delete List</string>
   <string name="tracking_action_on">On</string>

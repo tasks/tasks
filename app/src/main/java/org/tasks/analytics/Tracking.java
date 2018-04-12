@@ -28,7 +28,7 @@ public class Tracking {
     MULTISELECT_DELETE(
         R.string.tracking_category_event, R.string.tracking_event_multiselect_delete),
     MULTISELECT_CLONE(R.string.tracking_category_event, R.string.tracking_event_multiselect_clone),
-    MULTISELECT_MOVE(R.string.tracking_category_event, R.string.tracking_event_multiselect_clone),
+    MULTISELECT_MOVE(R.string.tracking_category_event, R.string.tracking_event_multiselect_move),
     CLEAR_COMPLETED(R.string.tracking_category_event, R.string.tracking_action_clear_completed),
     UPGRADE(R.string.tracking_category_event, R.string.tracking_event_upgrade),
     DB_OPEN_FAILED(R.string.tracking_category_error, R.string.tracking_event_db_open),
@@ -45,7 +45,11 @@ public class Tracking {
         R.string.tracking_category_tasker, R.string.tracking_action_list_notification),
     IMPORT_XML(R.string.tracking_category_backup, R.string.tracking_action_import_xml),
     IMPORT_JSON(R.string.tracking_category_backup, R.string.tracking_action_import_json),
-    EXPORT(R.string.tracking_category_backup, R.string.tracking_action_export);
+    EXPORT(R.string.tracking_category_backup, R.string.tracking_action_export),
+    CALDAV_ACCOUNT_ADDED(R.string.tracking_category_caldav, R.string.tracking_action_add_account),
+    CALDAV_ACCOUNT_REMOVED(R.string.tracking_category_caldav, R.string.tracking_action_remove_account),
+    CALDAV_LIST_ADDED(R.string.tracking_category_caldav, R.string.tracking_action_new_list),
+    CALDAV_LIST_DELETED(R.string.tracking_category_caldav, R.string.tracking_action_delete_list);
 
     public final int category;
     public final int action;

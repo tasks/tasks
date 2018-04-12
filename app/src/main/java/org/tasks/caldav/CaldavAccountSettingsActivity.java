@@ -29,6 +29,7 @@ import java.net.URISyntaxException;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking.Events;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
@@ -295,6 +296,8 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     newAccount.setUuid(UUIDHelper.newUUID());
     newAccount.setId(caldavDao.insert(newAccount));
 
+    tracker.reportEvent(Events.CALDAV_ACCOUNT_ADDED);
+
     setResult(RESULT_OK);
     finish();
   }
@@ -387,6 +390,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
               }
               caldavDao.deleteCalendarsForAccount(caldavAccount.getUuid());
               caldavDao.delete(caldavAccount);
+              tracker.reportEvent(Events.CALDAV_ACCOUNT_REMOVED);
               setResult(RESULT_OK);
               finish();
             })
