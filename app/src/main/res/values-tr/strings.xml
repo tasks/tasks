@@ -490,7 +490,6 @@
 	<string name="tasker_create_task">Görev oluştur</string>
 	<string name="tasker_list_notification">Bildirimi listele</string>
 	<string name="help">Yardım</string>
-	<string name="calendar_not_found">Takvim bulunamadı</string>
 	<string name="network_error">Bağlantı başarısız</string>
 	<string name="themes">Ek gövdeler</string>
 </resources>

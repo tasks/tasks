@@ -466,7 +466,6 @@
 	<string name="tasker_create_task">Créer tâche</string>
 	<string name="tasker_list_notification">Liste des notifications</string>
 	<string name="help">Aide</string>
-	<string name="calendar_not_found">Calendrier manquant</string>
 	<string name="network_error">Connexion échouée</string>
 	<string name="themes">Thèmes additionnels</string>
 </resources>

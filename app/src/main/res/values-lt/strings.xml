@@ -484,7 +484,6 @@
 	<string name="tasker_create_task">Sukurti užduotį</string>
 	<string name="tasker_list_notification">Rodyti pranešimus</string>
 	<string name="help">Pagalba</string>
-	<string name="calendar_not_found">Kalendorius nerastas</string>
 	<string name="network_error">Sujungimas nepavyko</string>
 	<string name="themes">Papildomos temos</string>
 </resources>

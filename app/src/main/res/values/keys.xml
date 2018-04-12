@@ -282,7 +282,6 @@
   <string name="p_dashclock_filter">dashclock_filter</string>
   <string name="p_default_remote_list">default_remote_list</string>
 
-  <string name="debug_display_purchases">Purchases</string>
   <string name="debug_consume">Consume</string>
   <string name="debug_strict_mode">Strict mode</string>
   <string name="debug_buy">Buy</string>

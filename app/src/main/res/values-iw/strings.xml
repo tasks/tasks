@@ -410,7 +410,6 @@
 	<string name="repeats_yearly">בכל שנה</string>
 	<string name="repeats_plural">חוזר כל %s</string>
 	<string name="dont_sync">ללא סנכרון</string>
-	<string name="calendar_not_found">יומן לא נמצא</string>
 	<string name="network_error">החיבור נכשל</string>
 	<string name="themes">ערכות נושא נוספות</string>
 </resources>

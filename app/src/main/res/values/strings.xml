@@ -877,10 +877,8 @@ File %1$s contained %2$s.\n\n
   <string name="tasker_create_task">Create task</string>
   <string name="tasker_list_notification">List notification</string>
   <string name="help">Help</string>
-  <string name="caldav_principal_not_found">Principal not found</string>
   <string name="caldav_home_set_not_found">Home set not found</string>
   <string name="caldav_no_supported_calendars">Could not find any calendars with VTODO support</string>
-  <string name="calendar_not_found">Calendar not found</string>
   <string name="network_error">Connection failed</string>
   <string name="background_sync_unmetered_only">Only on unmetered connections</string>
   <string name="upgrade">Upgrade</string>
