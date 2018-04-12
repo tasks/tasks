@@ -61,7 +61,7 @@ public interface CaldavDao {
   @Query("SELECT * FROM caldav_tasks WHERE task = :taskId")
   List<CaldavTask> getTasks(long taskId);
 
-  @Query("SELECT task FROM caldav_tasks WHERE calendar = :calendar")
+  @Query("SELECT task FROM caldav_tasks WHERE calendar = :calendar AND deleted = 0")
   List<Long> getTasksByCalendar(String calendar);
 
   @Query("SELECT * FROM caldav_calendar")
