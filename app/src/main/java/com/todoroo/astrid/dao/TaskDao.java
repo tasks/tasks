@@ -137,12 +137,8 @@ public abstract class TaskDao {
   public abstract int deleteById(long id);
 
   @android.arch.persistence.room.Query(
-      "SELECT tasks.* FROM tasks INNER JOIN google_tasks ON google_tasks.task = tasks._id WHERE google_tasks.list_id = :googleTaskList")
+      "SELECT tasks.* FROM tasks INNER JOIN google_tasks ON google_tasks.task = tasks._id WHERE google_tasks.deleted = 0 AND google_tasks.list_id = :googleTaskList")
   public abstract List<Task> getGoogleTasks(String googleTaskList);
-
-  @android.arch.persistence.room.Query(
-      "SELECT tasks.* FROM tasks INNER JOIN caldav_tasks ON caldav_tasks.task = tasks._id WHERE caldav_tasks.calendar = :calendar")
-  public abstract List<Task> getCaldavTasks(String calendar);
 
   /**
    * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on
