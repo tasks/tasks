@@ -52,5 +52,9 @@
   <screenName name="org.tasks.preferences.MiscellaneousPreferences">MiscellaneousPreferences
   </screenName>
   <screenName name="org.tasks.widget.WidgetConfigActivity">WidgetConfigActivity</screenName>
-  <screenName name="org.tasks.caldav.CaldavCalendarSettingsActivity">CaldavSettingsActivity</screenName>
+  <screenName name="org.tasks.caldav.CaldavCalendarSettingsActivity">CaldavSettingsActivity
+  </screenName>
+  <screenName name="org.tasks.caldav.CaldavAccountSettingsActivity">CaldavAccountSettingsActivity
+  </screenName>
+  <screenName name="org.tasks.billing.PurchaseActivity">PurchaseActivity</screenName>
 </resources>

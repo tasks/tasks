@@ -102,20 +102,23 @@ public class BillingClient implements PurchasesUpdatedListener {
 
     // Update the UI and purchases inventory with new list of purchases
     inventory.clear();
-    onPurchasesUpdated(BillingResponse.OK, result.getPurchasesList());
+    add(result.getPurchasesList());
   }
 
   @Override
   public void onPurchasesUpdated(@BillingResponse int resultCode, List<Purchase> purchases) {
     if (resultCode == BillingResponse.OK) {
-      inventory.add(purchases);
-      localBroadcastManager.broadcastPurchasesUpdated();
-    } else {
-      String skus =
-          purchases == null ? "null" : Joiner.on(";").join(transform(purchases, Purchase::getSku));
-      Timber.i("onPurchasesUpdate(%s, %s)", BillingResponseToString(resultCode), skus);
-      tracker.reportIabResult(resultCode, skus);
+      add(purchases);
     }
+    String skus =
+        purchases == null ? "null" : Joiner.on(";").join(transform(purchases, Purchase::getSku));
+    Timber.i("onPurchasesUpdated(%s, %s)", BillingResponseToString(resultCode), skus);
+    tracker.reportIabResult(resultCode, skus);
+  }
+
+  private void add(List<Purchase> purchases) {
+    inventory.add(purchases);
+    localBroadcastManager.broadcastPurchasesUpdated();
   }
 
   /** Start a purchase flow */
