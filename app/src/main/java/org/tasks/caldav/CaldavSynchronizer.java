@@ -303,7 +303,7 @@ public class CaldavSynchronizer {
       return;
     }
 
-    at.bitfire.ical4android.Task remoteModel = TaskConverter.toCaldav(caldavTask, task);
+    at.bitfire.ical4android.Task remoteModel = CaldavConverter.toCaldav(caldavTask, task);
 
     if (Strings.isNullOrEmpty(caldavTask.getRemoteId())) {
       String caldavUid = UUIDHelper.newUUID();
@@ -361,7 +361,7 @@ public class CaldavSynchronizer {
       } else {
         task = taskDao.fetch(caldavTask.getTask());
       }
-      TaskConverter.apply(task, remote);
+      CaldavConverter.apply(task, remote);
       task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
       taskDao.save(task);
       caldavTask.setVtodo(vtodo);

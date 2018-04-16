@@ -22,7 +22,7 @@ import net.fortuna.ical4j.model.property.RRule;
 import org.tasks.data.CaldavTask;
 import timber.log.Timber;
 
-class TaskConverter {
+public class CaldavConverter {
 
   private static final DateFormat DUE_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd", Locale.US);
 
@@ -33,6 +33,10 @@ class TaskConverter {
     } else {
       local.setCompletionDate(remote.getCompletedAt().getDate().getTime());
     }
+    Long createdAt = remote.getCreatedAt();
+    if (createdAt != null) {
+      local.setCreationDate(newDateTime(createdAt).toLocal().getMillis());
+    }
     local.setTitle(remote.getSummary());
     local.setNotes(remote.getDescription());
     local.setImportance(fromRemote(remote.getPriority()));
@@ -41,7 +45,7 @@ class TaskConverter {
       local.setRecurrence("");
     } else {
       Recur recur = repeatRule.getRecur();
-      if (recur.getInterval() == 0) {
+      if (recur.getInterval() <= 0) {
         recur.setInterval(1);
       }
       local.setRecurrence(
@@ -67,29 +71,26 @@ class TaskConverter {
   }
 
   private static int fromRemote(int remotePriority) {
-    switch (remotePriority) {
-      case 0:
-        return Task.IMPORTANCE_NONE;
-      case 1:
-        return Task.IMPORTANCE_DO_OR_DIE;
-      case 2:
-        return Task.IMPORTANCE_MUST_DO;
-      default:
-        return Task.IMPORTANCE_SHOULD_DO;
+    if (remotePriority == 0) {
+      return Task.IMPORTANCE_NONE;
     }
+    if (remotePriority == 5) {
+      return Task.IMPORTANCE_MUST_DO;
+    }
+    return remotePriority < 5 ? Task.IMPORTANCE_DO_OR_DIE : Task.IMPORTANCE_SHOULD_DO;
   }
 
   private static int toRemote(int remotePriority, int localPriority) {
-    switch (localPriority) {
-      case Task.IMPORTANCE_DO_OR_DIE:
-        return 1;
-      case Task.IMPORTANCE_MUST_DO:
-        return 2;
-      case Task.IMPORTANCE_SHOULD_DO:
-        return remotePriority > 2 ? remotePriority : 3;
-      default:
-        return 0;
+    if (localPriority == Task.IMPORTANCE_NONE) {
+      return 0;
     }
+    if (localPriority == Task.IMPORTANCE_MUST_DO) {
+      return 5;
+    }
+    if (localPriority == Task.IMPORTANCE_DO_OR_DIE) {
+      return remotePriority < 5 ? Math.max(1, remotePriority) : 1;
+    }
+    return remotePriority > 5 ? Math.min(9, remotePriority) : 9;
   }
 
   public static at.bitfire.ical4android.Task toCaldav(CaldavTask caldavTask, Task task) {
@@ -105,6 +106,7 @@ class TaskConverter {
     if (remote == null) {
       remote = new at.bitfire.ical4android.Task();
     }
+    remote.setCreatedAt(newDateTime(task.getCreationDate()).toUTC().getMillis());
     remote.setSummary(task.getTitle());
     remote.setDescription(task.getNotes());
     if (task.hasDueDate()) {
