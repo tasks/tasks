@@ -209,6 +209,11 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
   }
 
   @Override
+  public void clickAux(SkuRowData skuRowData) {
+    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/subscribe")));
+  }
+
+  @Override
   public void click(SkuRowData skuRowData) {
     String sku = skuRowData.getSku();
     String skuType = skuRowData.getSkuType();
@@ -233,7 +238,7 @@ public class PurchaseActivity extends ThemedInjectingAppCompatActivity
   public boolean onMenuItemClick(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_help:
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/subscribe")));
         return true;
       case R.id.menu_refresh_purchases:
         billingClient.queryPurchases();

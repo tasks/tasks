@@ -35,9 +35,11 @@ import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.billing.row.RowDataProvider;
 import org.tasks.billing.row.RowViewHolder;
+import org.tasks.billing.row.RowViewHolder.ButtonClick;
 import org.tasks.billing.row.SkuRowData;
 
-public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder> implements RowDataProvider {
+public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder> implements RowDataProvider,
+    ButtonClick {
 
   public static final int TYPE_HEADER = 0;
   public static final int TYPE_NORMAL = 1;
@@ -75,7 +77,7 @@ public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder> implements 
     } else {
       View item =
           LayoutInflater.from(parent.getContext()).inflate(R.layout.sku_details_row, parent, false);
-      return new RowViewHolder(item, row -> onClickHandler.click(getData(row)));
+      return new RowViewHolder(item, this);
     }
   }
 
@@ -91,18 +93,24 @@ public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder> implements 
           String[] rows = context.getResources().getStringArray(R.array.pro_description);
           holder.description.setText(
               Joiner.on('\n').join(transform(asList(rows), item -> "\u2022 " + item)));
-          holder.button.setVisibility(View.VISIBLE);
+          holder.subscribeButton.setVisibility(View.VISIBLE);
           holder.price.setVisibility(View.VISIBLE);
           holder.price.setText(data.getPrice());
-          holder.button.setText(
-              inventory.purchased(sku) ? R.string.button_subscribed : R.string.button_subscribe);
+          if (inventory.purchased(sku)) {
+            holder.subscribeButton.setText(R.string.button_subscribed);
+            holder.auxiliaryButton.setVisibility(View.GONE);
+          } else {
+            holder.subscribeButton.setText(R.string.button_subscribe);
+            holder.auxiliaryButton.setVisibility(View.VISIBLE);
+          }
         } else {
           holder.description.setText(data.getDescription());
-          holder.button.setVisibility(View.GONE);
+          holder.subscribeButton.setVisibility(View.GONE);
           holder.price.setVisibility(View.GONE);
+          holder.auxiliaryButton.setVisibility(View.GONE);
           if (BuildConfig.DEBUG) {
-            holder.button.setVisibility(View.VISIBLE);
-            holder.button.setText(
+            holder.subscribeButton.setVisibility(View.VISIBLE);
+            holder.subscribeButton.setText(
                 inventory.purchased(sku) ? R.string.debug_consume : R.string.debug_buy);
           }
         }
@@ -120,7 +128,19 @@ public class SkusAdapter extends RecyclerView.Adapter<RowViewHolder> implements 
     return data.isEmpty() ? null : data.get(position);
   }
 
+  @Override
+  public void onAuxiliaryClick(int row) {
+    onClickHandler.clickAux(getData(row));
+  }
+
+  @Override
+  public void onClick(int row) {
+    onClickHandler.click(getData(row));
+  }
+
   public interface OnClickHandler {
+    void clickAux(SkuRowData skuRowData);
+
     void click(SkuRowData skuRowData);
   }
 

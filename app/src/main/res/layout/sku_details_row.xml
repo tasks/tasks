@@ -32,10 +32,10 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:gravity="center"
-      android:orientation="horizontal"
       android:layout_marginTop="@dimen/keyline_first"
-      android:layout_marginBottom="@dimen/keyline_first">
+      android:layout_marginBottom="@dimen/keyline_first"
+      android:gravity="center"
+      android:orientation="horizontal">
 
       <TextView
         android:id="@+id/title"
@@ -43,10 +43,10 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingLeft="@dimen/keyline_first"
         android:paddingStart="@dimen/keyline_first"
-        android:paddingRight="@dimen/keyline_first"
         android:paddingEnd="@dimen/keyline_first"
+        android:paddingLeft="@dimen/keyline_first"
+        android:paddingRight="@dimen/keyline_first"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/text_primary"
@@ -57,12 +57,12 @@
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="0dp"
-        android:paddingStart="0dp"
-        android:paddingRight="@dimen/keyline_first"
-        android:paddingEnd="@dimen/keyline_first"
-        android:textAlignment="viewStart"
         android:layout_gravity="start"
+        android:paddingStart="0dp"
+        android:paddingEnd="@dimen/keyline_first"
+        android:paddingLeft="0dp"
+        android:paddingRight="@dimen/keyline_first"
+        android:textAlignment="viewStart"
         android:textColor="@color/text_secondary"
         android:textSize="@dimen/sku_details_row_text_size"/>
     </LinearLayout>
@@ -75,6 +75,16 @@
       android:padding="@dimen/keyline_first"
       android:textColor="@color/text_secondary"
       android:textSize="@dimen/sku_details_row_text_size"/>
+
+    <Button
+      android:id="@+id/aux_button"
+      style="@style/ButtonStyle"
+      android:layout_marginTop="@dimen/card_view_margin"
+      android:layout_marginBottom="@dimen/card_view_margin"
+      android:layout_marginStart="@dimen/card_view_margin"
+      android:layout_marginEnd="@dimen/card_view_margin"
+      android:text="@string/button_more_info"
+      android:contentDescription="@string/button_more_info"/>
 
     <Button
       android:id="@+id/buy_button"
