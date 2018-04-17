@@ -11,6 +11,7 @@ import com.google.ical.values.RRule;
 import com.mdimension.jchronic.AstridChronic;
 import com.mdimension.jchronic.Chronic;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.tags.TagService;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,31 +78,30 @@ public class TitleParser {
     task.setTitle(inputText.trim());
   }
 
-  // helper method for priorityHelper. converts the string to a Task Importance
   private static int strToPriority(String priorityStr) {
     if (priorityStr != null) {
       priorityStr.toLowerCase().trim();
     }
-    int priority = Task.IMPORTANCE_DO_OR_DIE;
+    int priority = Priority.HIGH;
     if ("0".equals(priorityStr)
         || "!0".equals(priorityStr)
         || "least".equals(priorityStr)
         || "lowest".equals(priorityStr)) {
-      priority = Task.IMPORTANCE_NONE;
+      priority = Priority.NONE;
     }
     if ("!".equals(priorityStr)
         || "!1".equals(priorityStr)
         || "bang".equals(priorityStr)
         || "1".equals(priorityStr)
         || "low".equals(priorityStr)) {
-      priority = Task.IMPORTANCE_SHOULD_DO;
+      priority = Priority.LOW;
     }
     if ("!!".equals(priorityStr)
         || "!2".equals(priorityStr)
         || "bang bang".equals(priorityStr)
         || "2".equals(priorityStr)
         || "high".equals(priorityStr)) {
-      priority = Task.IMPORTANCE_MUST_DO;
+      priority = Priority.MEDIUM;
     }
     return priority;
   }
@@ -121,7 +121,7 @@ public class TitleParser {
       while (true) {
         Matcher m = importancePattern.matcher(inputText);
         if (m.find()) {
-          task.setImportance(strToPriority(m.group(2).trim()));
+          task.setPriority(strToPriority(m.group(2).trim()));
           int start = m.start() == 0 ? 0 : m.start() + 1;
           inputText = inputText.substring(0, start) + inputText.substring(m.end());
 

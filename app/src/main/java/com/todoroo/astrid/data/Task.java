@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.data;
 
+import static java.lang.annotation.RetentionPolicy.SOURCE;
 import static org.tasks.date.DateTimeUtils.newDateTime;
 
 import android.arch.persistence.room.ColumnInfo;
@@ -16,6 +17,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.IntDef;
 import android.text.TextUtils;
 import com.google.common.base.Strings;
 import com.google.ical.values.RRule;
@@ -25,6 +27,7 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.utility.DateUtilities;
+import java.lang.annotation.Retention;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.tasks.backup.XmlReader;
@@ -96,10 +99,15 @@ public class Task implements Parcelable {
   /** reminder mode five times (exclusive with non-stop) */
   public static final int NOTIFY_MODE_FIVE = 1 << 4;
 
-  public static final int IMPORTANCE_DO_OR_DIE = 0;
-  public static final int IMPORTANCE_MUST_DO = 1;
-  public static final int IMPORTANCE_SHOULD_DO = 2;
-  public static final int IMPORTANCE_NONE = 3;
+  @Retention(SOURCE)
+  @IntDef({Priority.HIGH, Priority.MEDIUM, Priority.LOW, Priority.NONE})
+  public @interface Priority {
+    int HIGH = 0;
+    int MEDIUM = 1;
+    int LOW = 2;
+    int NONE = 3;
+  }
+
   public static final Creator<Task> CREATOR =
       new Creator<Task>() {
         @Override
@@ -145,9 +153,8 @@ public class Task implements Parcelable {
   /** Name of Task */
   @ColumnInfo(name = "title")
   public String title = "";
-  /** Importance of Task (see importance flags) */
   @ColumnInfo(name = "importance")
-  public Integer importance = IMPORTANCE_NONE;
+  public Integer priority = Priority.NONE;
   /** Unixtime Task is due, 0 if not set */
   @ColumnInfo(name = "dueDate")
   public Long dueDate = 0L;
@@ -251,9 +258,9 @@ public class Task implements Parcelable {
     }
     title = _cursor.getString(_cursorIndexOfTitle);
     if (_cursor.isNull(_cursorIndexOfImportance)) {
-      importance = null;
+      priority = null;
     } else {
-      importance = _cursor.getInt(_cursorIndexOfImportance);
+      priority = _cursor.getInt(_cursorIndexOfImportance);
     }
     if (_cursor.isNull(_cursorIndexOfDueDate)) {
       dueDate = null;
@@ -350,7 +357,7 @@ public class Task implements Parcelable {
     elapsedSeconds = reader.readInteger("elapsedSeconds");
     estimatedSeconds = reader.readInteger("estimatedSeconds");
     hideUntil = reader.readLong("hideUntil");
-    importance = reader.readInteger("importance");
+    priority = reader.readInteger("importance");
     modified = reader.readLong("modified");
     notes = reader.readString("notes");
     recurrence = reader.readString("recurrence");
@@ -375,7 +382,7 @@ public class Task implements Parcelable {
     estimatedSeconds = parcel.readInt();
     hideUntil = parcel.readLong();
     id = parcel.readLong();
-    importance = parcel.readInt();
+    priority = parcel.readInt();
     modified = parcel.readLong();
     notes = parcel.readString();
     recurrence = parcel.readString();
@@ -684,12 +691,12 @@ public class Task implements Parcelable {
     return calendarUri;
   }
 
-  public Integer getImportance() {
-    return importance;
+  public @Priority Integer getPriority() {
+    return priority;
   }
 
-  public void setImportance(Integer importance) {
-    this.importance = importance;
+  public void setPriority(@Priority Integer priority) {
+    this.priority = priority;
   }
 
   public Long getCompletionDate() {
@@ -790,7 +797,7 @@ public class Task implements Parcelable {
     dest.writeInt(estimatedSeconds);
     dest.writeLong(hideUntil);
     dest.writeLong(id);
-    dest.writeInt(importance);
+    dest.writeInt(priority);
     dest.writeLong(modified);
     dest.writeString(notes);
     dest.writeString(recurrence);
@@ -814,8 +821,8 @@ public class Task implements Parcelable {
         + ", title='"
         + title
         + '\''
-        + ", importance="
-        + importance
+        + ", priority="
+        + priority
         + ", dueDate="
         + dueDate
         + ", transitoryData="
@@ -883,7 +890,7 @@ public class Task implements Parcelable {
     if (title != null ? !title.equals(task.title) : task.title != null) {
       return false;
     }
-    if (importance != null ? !importance.equals(task.importance) : task.importance != null) {
+    if (priority != null ? !priority.equals(task.priority) : task.priority != null) {
       return false;
     }
     if (dueDate != null ? !dueDate.equals(task.dueDate) : task.dueDate != null) {
@@ -973,9 +980,7 @@ public class Task implements Parcelable {
     if (title != null ? !title.equals(original.title) : original.title != null) {
       return false;
     }
-    if (importance != null
-        ? !importance.equals(original.importance)
-        : original.importance != null) {
+    if (priority != null ? !priority.equals(original.priority) : original.priority != null) {
       return false;
     }
     if (dueDate != null ? !dueDate.equals(original.dueDate) : original.dueDate != null) {
@@ -1080,7 +1085,7 @@ public class Task implements Parcelable {
     if (title != null ? !title.equals(task.title) : task.title != null) {
       return false;
     }
-    if (importance != null ? !importance.equals(task.importance) : task.importance != null) {
+    if (priority != null ? !priority.equals(task.priority) : task.priority != null) {
       return false;
     }
     if (dueDate != null ? !dueDate.equals(task.dueDate) : task.dueDate != null) {
@@ -1154,7 +1159,7 @@ public class Task implements Parcelable {
   public int hashCode() {
     int result = id != null ? id.hashCode() : 0;
     result = 31 * result + (title != null ? title.hashCode() : 0);
-    result = 31 * result + (importance != null ? importance.hashCode() : 0);
+    result = 31 * result + (priority != null ? priority.hashCode() : 0);
     result = 31 * result + (dueDate != null ? dueDate.hashCode() : 0);
     result = 31 * result + (hideUntil != null ? hideUntil.hashCode() : 0);
     result = 31 * result + (created != null ? created.hashCode() : 0);

@@ -176,10 +176,10 @@ public class Astrid2TaskProvider extends InjectingContentProvider {
 
       Object[] values = new Object[7];
       values[0] = task.getTitle();
-      values[1] = importanceColors.get(task.getImportance());
+      values[1] = importanceColors.get(task.getPriority());
       values[2] = task.getDueDate();
       values[3] = task.getDueDate();
-      values[4] = task.getImportance();
+      values[4] = task.getPriority();
       values[5] = task.getId();
       values[6] = taskTags;
 

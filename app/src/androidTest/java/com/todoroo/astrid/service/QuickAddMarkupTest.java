@@ -9,6 +9,7 @@ import static junit.framework.Assert.assertEquals;
 
 import android.support.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 import java.util.ArrayList;
@@ -65,17 +66,17 @@ public class QuickAddMarkupTest extends InjectingTestCase {
   // --- helpers
 
   @Test
-  public void testImportances() {
+  public void testPriorities() {
     whenTitleIs("eat !1");
     assertTitleBecomes("eat");
-    assertImportanceIs(Task.IMPORTANCE_SHOULD_DO);
+    assertPriority(Priority.LOW);
 
     whenTitleIs("super cool!");
     assertTitleBecomes("super cool!");
 
     whenTitleIs("stay alive !4");
     assertTitleBecomes("stay alive");
-    assertImportanceIs(Task.IMPORTANCE_DO_OR_DIE);
+    assertPriority(Priority.HIGH);
   }
 
   @Test
@@ -83,7 +84,7 @@ public class QuickAddMarkupTest extends InjectingTestCase {
     whenTitleIs("eat #food !2");
     assertTitleBecomes("eat");
     assertTagsAre("food");
-    assertImportanceIs(Task.IMPORTANCE_MUST_DO);
+    assertPriority(Priority.MEDIUM);
   }
 
   private void assertTagsAre(String... expectedTags) {
@@ -102,7 +103,7 @@ public class QuickAddMarkupTest extends InjectingTestCase {
     TitleParser.parse(tagService, task, tags);
   }
 
-  private void assertImportanceIs(int importance) {
-    assertEquals(importance, (int) task.getImportance());
+  private void assertPriority(int priority) {
+    assertEquals(priority, (int) task.getPriority());
   }
 }

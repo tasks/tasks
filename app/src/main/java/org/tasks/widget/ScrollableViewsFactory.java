@@ -128,11 +128,11 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
   private Bitmap getCheckbox(Task task) {
     if (task.isCompleted()) {
-      return checkBoxes.getCompletedCheckbox(task.getImportance());
+      return checkBoxes.getCompletedCheckbox(task.getPriority());
     } else if (TextUtils.isEmpty(task.getRecurrence())) {
-      return checkBoxes.getCheckBox(task.getImportance());
+      return checkBoxes.getCheckBox(task.getPriority());
     } else {
-      return checkBoxes.getRepeatingCheckBox(task.getImportance());
+      return checkBoxes.getRepeatingCheckBox(task.getPriority());
     }
   }
 

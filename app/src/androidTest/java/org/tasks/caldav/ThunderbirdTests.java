@@ -4,7 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.tasks.TestUtilities.vtodo;
 
 import android.support.test.runner.AndroidJUnit4;
-import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import java.util.TimeZone;
 import org.junit.After;
 import org.junit.Before;
@@ -65,31 +65,26 @@ public class ThunderbirdTests {
 
   @Test
   public void priorityNotSet() {
-    assertEquals(
-        Task.IMPORTANCE_NONE, (int) vtodo("thunderbird/basic_no_due_date.txt").getImportance());
+    assertEquals(Priority.NONE, (int) vtodo("thunderbird/basic_no_due_date.txt").getPriority());
   }
 
   @Test
   public void priorityNotSpecified() {
-    assertEquals(
-        Task.IMPORTANCE_NONE, (int) vtodo("thunderbird/priority_unspecified.txt").getImportance());
+    assertEquals(Priority.NONE, (int) vtodo("thunderbird/priority_unspecified.txt").getPriority());
   }
 
   @Test
   public void lowPriority() {
-    assertEquals(
-        Task.IMPORTANCE_SHOULD_DO, (int) vtodo("thunderbird/priority_low.txt").getImportance());
+    assertEquals(Priority.LOW, (int) vtodo("thunderbird/priority_low.txt").getPriority());
   }
 
   @Test
   public void normalPriority() {
-    assertEquals(
-        Task.IMPORTANCE_MUST_DO, (int) vtodo("thunderbird/priority_normal.txt").getImportance());
+    assertEquals(Priority.MEDIUM, (int) vtodo("thunderbird/priority_normal.txt").getPriority());
   }
 
   @Test
   public void highPriority() {
-    assertEquals(
-        Task.IMPORTANCE_DO_OR_DIE, (int) vtodo("thunderbird/priority_high.txt").getImportance());
+    assertEquals(Priority.HIGH, (int) vtodo("thunderbird/priority_high.txt").getPriority());
   }
 }

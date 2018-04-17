@@ -245,11 +245,11 @@ class ViewHolder extends RecyclerView.ViewHolder {
     checkBoxView.setChecked(completed);
 
     if (completed) {
-      checkBoxView.setImageDrawable(checkBoxes.getCompletedCheckbox(task.getImportance()));
+      checkBoxView.setImageDrawable(checkBoxes.getCompletedCheckbox(task.getPriority()));
     } else if (TextUtils.isEmpty(task.getRecurrence())) {
-      checkBoxView.setImageDrawable(checkBoxes.getCheckBox(task.getImportance()));
+      checkBoxView.setImageDrawable(checkBoxes.getCheckBox(task.getPriority()));
     } else {
-      checkBoxView.setImageDrawable(checkBoxes.getRepeatingCheckBox(task.getImportance()));
+      checkBoxView.setImageDrawable(checkBoxes.getRepeatingCheckBox(task.getPriority()));
     }
     checkBoxView.invalidate();
   }

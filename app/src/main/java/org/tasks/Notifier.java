@@ -81,7 +81,7 @@ public class Notifier {
     int maxPriority = 3;
     for (Task task : tasks) {
       style.addLine(task.getTitle());
-      maxPriority = Math.min(maxPriority, task.getImportance());
+      maxPriority = Math.min(maxPriority, task.getPriority());
     }
 
     NotificationCompat.Builder builder =

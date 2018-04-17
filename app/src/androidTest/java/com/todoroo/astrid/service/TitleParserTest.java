@@ -15,6 +15,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 import java.util.ArrayList;
@@ -206,12 +207,12 @@ public class TitleParserTest extends InjectingTestCase {
     for (String acceptedString : acceptedStrings) {
       String title = "Jog " + acceptedString;
       Task task = taskCreator.createWithValues(null, title);
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_NONE);
+      assertEquals((int) task.getPriority(), Priority.NONE);
     }
     for (String acceptedString : acceptedStrings) {
       String title = acceptedString + " jog";
       Task task = taskCreator.createWithValues(null, title);
-      assertNotSame(task.getImportance(), Task.IMPORTANCE_NONE);
+      assertNotSame(task.getPriority(), Priority.NONE);
     }
   }
 
@@ -224,25 +225,25 @@ public class TitleParserTest extends InjectingTestCase {
       task =
           taskCreator.basicQuickAddTask(
               "Jog " + acceptedStringAtEnd); // test at end of task. should set importance.
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
+      assertEquals((int) task.getPriority(), Priority.LOW);
     }
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
       task =
           taskCreator.basicQuickAddTask(
               acceptedStringAtEnd
                   + " jog"); // test at beginning of task. should not set importance.
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
+      assertEquals((int) task.getPriority(), Priority.LOW);
     }
     for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
       task =
           taskCreator.basicQuickAddTask(
               "Jog " + acceptedStringAnywhere); // test at end of task. should set importance.
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
+      assertEquals((int) task.getPriority(), Priority.LOW);
 
       task =
           taskCreator.basicQuickAddTask(
               acceptedStringAnywhere + " jog"); // test at beginning of task. should set importance.
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_SHOULD_DO);
+      assertEquals((int) task.getPriority(), Priority.LOW);
     }
   }
 
@@ -253,20 +254,20 @@ public class TitleParserTest extends InjectingTestCase {
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
       String title = "Jog " + acceptedStringAtEnd;
       Task task = taskCreator.createWithValues(null, title);
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_MUST_DO);
+      assertEquals((int) task.getPriority(), Priority.MEDIUM);
 
       title = acceptedStringAtEnd + " jog";
       task = taskCreator.createWithValues(null, title);
-      assertNotSame(task.getImportance(), Task.IMPORTANCE_MUST_DO);
+      assertNotSame(task.getPriority(), Priority.MEDIUM);
     }
     for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
       String title = "Jog " + acceptedStringAnywhere;
       Task task = taskCreator.createWithValues(null, title);
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_MUST_DO);
+      assertEquals((int) task.getPriority(), Priority.MEDIUM);
 
       title = acceptedStringAnywhere + " jog";
       task = taskCreator.createWithValues(null, title);
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_MUST_DO);
+      assertEquals((int) task.getPriority(), Priority.MEDIUM);
     }
   }
 
@@ -283,20 +284,20 @@ public class TitleParserTest extends InjectingTestCase {
     for (String acceptedStringAtEnd : acceptedStringsAtEnd) {
       String title = "Jog " + acceptedStringAtEnd;
       Task task = taskCreator.createWithValues(null, title);
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
+      assertEquals((int) task.getPriority(), Priority.HIGH);
 
       title = acceptedStringAtEnd + " jog";
       task = taskCreator.createWithValues(null, title);
-      assertNotSame(task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
+      assertNotSame(task.getPriority(), Priority.HIGH);
     }
     for (String acceptedStringAnywhere : acceptedStringsAnywhere) {
       String title = "Jog " + acceptedStringAnywhere;
       Task task = taskCreator.createWithValues(null, title);
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
+      assertEquals((int) task.getPriority(), Priority.HIGH);
 
       title = acceptedStringAnywhere + " jog";
       task = taskCreator.createWithValues(null, title);
-      assertEquals((int) task.getImportance(), Task.IMPORTANCE_DO_OR_DIE);
+      assertEquals((int) task.getPriority(), Priority.HIGH);
     }
   }
 

@@ -32,10 +32,10 @@ public class CheckBoxes {
     completedCheckboxes = wrapDrawable(context, R.drawable.ic_check_box_24dp);
     priorityColors =
         ImmutableList.of(
-            getColor(context, R.color.importance_1),
-            getColor(context, R.color.importance_2),
-            getColor(context, R.color.importance_3),
-            getColor(context, R.color.importance_4));
+            getColor(context, R.color.priority_1),
+            getColor(context, R.color.priority_2),
+            getColor(context, R.color.priority_3),
+            getColor(context, R.color.priority_4));
     priorityColorsArray = Ints.toArray(priorityColors);
   }
 
@@ -50,20 +50,20 @@ public class CheckBoxes {
   private static Drawable getDrawable(Context context, int resId, int importance) {
     Drawable original = ContextCompat.getDrawable(context, resId);
     Drawable wrapped = DrawableCompat.wrap(original.mutate());
-    DrawableCompat.setTint(wrapped, getColor(context, getImportanceResId(importance)));
+    DrawableCompat.setTint(wrapped, getColor(context, getPriorityResId(importance)));
     return wrapped;
   }
 
-  private static int getImportanceResId(int importance) {
+  private static int getPriorityResId(int importance) {
     switch (importance) {
       case 0:
-        return R.color.importance_1;
+        return R.color.priority_1;
       case 1:
-        return R.color.importance_2;
+        return R.color.priority_2;
       case 2:
-        return R.color.importance_3;
+        return R.color.priority_3;
       default:
-        return R.color.importance_4;
+        return R.color.priority_4;
     }
   }
 

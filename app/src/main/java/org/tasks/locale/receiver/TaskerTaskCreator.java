@@ -5,6 +5,7 @@ import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.service.TaskCreator;
 import javax.inject.Inject;
 import org.tasks.locale.bundle.TaskCreationBundle;
@@ -63,7 +64,7 @@ public class TaskerTaskCreator {
     if (!isNullOrEmpty(priorityString)) {
       try {
         int priority = Integer.parseInt(priorityString);
-        task.setImportance(Math.max(0, Math.min(3, priority)));
+        task.setPriority(Math.max(Priority.HIGH, Math.min(Priority.NONE, priority)));
       } catch (NumberFormatException e) {
         Timber.e(e);
       }

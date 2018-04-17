@@ -7,6 +7,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 import at.bitfire.ical4android.InvalidCalendarException;
 import com.google.common.base.Strings;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import java.io.IOException;
 import java.io.StringReader;
 import java.text.DateFormat;
@@ -39,7 +40,7 @@ public class CaldavConverter {
     }
     local.setTitle(remote.getSummary());
     local.setNotes(remote.getDescription());
-    local.setImportance(fromRemote(remote.getPriority()));
+    local.setPriority(fromRemote(remote.getPriority()));
     RRule repeatRule = remote.getRRule();
     if (repeatRule == null) {
       local.setRecurrence("");
@@ -70,24 +71,24 @@ public class CaldavConverter {
     }
   }
 
-  private static int fromRemote(int remotePriority) {
+  private static @Priority int fromRemote(int remotePriority) {
     if (remotePriority == 0) {
-      return Task.IMPORTANCE_NONE;
+      return Priority.NONE;
     }
     if (remotePriority == 5) {
-      return Task.IMPORTANCE_MUST_DO;
+      return Priority.MEDIUM;
     }
-    return remotePriority < 5 ? Task.IMPORTANCE_DO_OR_DIE : Task.IMPORTANCE_SHOULD_DO;
+    return remotePriority < 5 ? Priority.HIGH : Priority.LOW;
   }
 
   private static int toRemote(int remotePriority, int localPriority) {
-    if (localPriority == Task.IMPORTANCE_NONE) {
+    if (localPriority == Priority.NONE) {
       return 0;
     }
-    if (localPriority == Task.IMPORTANCE_MUST_DO) {
+    if (localPriority == Priority.MEDIUM) {
       return 5;
     }
-    if (localPriority == Task.IMPORTANCE_DO_OR_DIE) {
+    if (localPriority == Priority.HIGH) {
       return remotePriority < 5 ? Math.max(1, remotePriority) : 1;
     }
     return remotePriority > 5 ? Math.min(9, remotePriority) : 9;
@@ -140,7 +141,7 @@ public class CaldavConverter {
       remote.setRRule(null);
     }
     remote.setLastModified(newDateTime(task.getModificationDate()).toUTC().getMillis());
-    remote.setPriority(toRemote(remote.getPriority(), task.getImportance()));
+    remote.setPriority(toRemote(remote.getPriority(), task.getPriority()));
     return remote;
   }
 }

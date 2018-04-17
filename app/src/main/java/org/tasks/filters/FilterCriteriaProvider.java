@@ -16,6 +16,7 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.tags.TagService;
 import java.util.HashMap;
@@ -65,7 +66,7 @@ public class FilterCriteriaProvider {
     result.add(getTagFilter());
     result.add(getTagNameContainsFilter());
     result.add(getDueDateFilter());
-    result.add(getImportanceFilter());
+    result.add(getPriorityFilter());
     result.add(getTaskTitleContainsFilter());
     if (syncAdapters.isGoogleTaskSyncEnabled()) {
       result.add(getGtasksFilterCriteria());
@@ -145,13 +146,13 @@ public class FilterCriteriaProvider {
         r.getString(R.string.CFC_dueBefore_name));
   }
 
-  private CustomFilterCriterion getImportanceFilter() {
+  private CustomFilterCriterion getPriorityFilter() {
     String[] entryValues =
         new String[] {
-          Integer.toString(Task.IMPORTANCE_DO_OR_DIE),
-          Integer.toString(Task.IMPORTANCE_MUST_DO),
-          Integer.toString(Task.IMPORTANCE_SHOULD_DO),
-          Integer.toString(Task.IMPORTANCE_NONE),
+          Integer.toString(Priority.HIGH),
+          Integer.toString(Priority.MEDIUM),
+          Integer.toString(Priority.LOW),
+          Integer.toString(Priority.NONE),
         };
     String[] entries = new String[] {"!!!", "!!", "!", "o"};
     Map<String, Object> values = new HashMap<>();

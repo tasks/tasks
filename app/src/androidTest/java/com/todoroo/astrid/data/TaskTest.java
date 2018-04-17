@@ -20,6 +20,7 @@ import static org.tasks.date.DateTimeUtils.newDateTime;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 
 import android.support.test.runner.AndroidJUnit4;
+import com.todoroo.astrid.data.Task.Priority;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import org.junit.After;
@@ -285,10 +286,11 @@ public class TaskTest {
   }
 
   @Test
+  @SuppressWarnings("ConstantConditions")
   public void testSanity() {
-    assertTrue(Task.IMPORTANCE_DO_OR_DIE < Task.IMPORTANCE_MUST_DO);
-    assertTrue(Task.IMPORTANCE_MUST_DO < Task.IMPORTANCE_SHOULD_DO);
-    assertTrue(Task.IMPORTANCE_SHOULD_DO < Task.IMPORTANCE_NONE);
+    assertTrue(Priority.HIGH < Priority.MEDIUM);
+    assertTrue(Priority.MEDIUM < Priority.LOW);
+    assertTrue(Priority.LOW < Priority.NONE);
 
     ArrayList<Integer> reminderFlags = new ArrayList<>();
     reminderFlags.add(Task.NOTIFY_AFTER_DEADLINE);

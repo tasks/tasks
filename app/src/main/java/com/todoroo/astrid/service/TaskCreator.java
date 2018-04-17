@@ -11,6 +11,7 @@ import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
@@ -125,9 +126,9 @@ public class TaskCreator {
 
     task.setUuid(UUIDHelper.newUUID());
 
-    task.setImportance(
+    task.setPriority(
         preferences.getIntegerFromString(
-            R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
+            R.string.p_default_importance_key, Priority.LOW));
     task.setDueDate(
         Task.createDueDate(
             preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),
@@ -163,7 +164,7 @@ public class TaskCreator {
                 task.setDueDate(Long.valueOf((String) value));
                 break;
               case "importance":
-                task.setImportance(Integer.valueOf((String) value));
+                task.setPriority(Integer.valueOf((String) value));
                 break;
               default:
                 tracker.reportEvent(Tracking.Events.TASK_CREATION_FAILED, "Unhandled key: " + key);

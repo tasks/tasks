@@ -106,10 +106,10 @@
   <color name="drawer_background_dark">#303030</color>
   <color name="drawer_background_dark_selected">#202020</color>
 
-  <color name="importance_1">@color/red_500</color>
-  <color name="importance_2">@color/amber_500</color>
-  <color name="importance_3">@color/blue_500</color>
-  <color name="importance_4">@color/grey_500</color>
+  <color name="priority_1">@color/red_500</color>
+  <color name="priority_2">@color/amber_500</color>
+  <color name="priority_3">@color/blue_500</color>
+  <color name="priority_4">@color/grey_500</color>
 
   <color name="snackbar_text_color">#f4b400</color>
   <color name="snackbar_background">@color/grey_800</color>

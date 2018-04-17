@@ -278,7 +278,7 @@ public class NotificationManager {
       String title = task.getTitle();
       style.addLine(title);
       titles.add(title);
-      maxPriority = Math.min(maxPriority, task.getImportance());
+      maxPriority = Math.min(maxPriority, task.getPriority());
     }
     for (org.tasks.notifications.Notification notification : newNotifications) {
       Task task = tryFind(tasks, t -> t.getId() == notification.taskId).orNull();
@@ -373,7 +373,7 @@ public class NotificationManager {
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setContentTitle(taskTitle)
             .setContentText(context.getString(R.string.app_name))
-            .setColor(checkBoxes.getPriorityColor(task.getImportance()))
+            .setColor(checkBoxes.getPriorityColor(task.getPriority()))
             .setSmallIcon(R.drawable.ic_check_white_24dp)
             .setWhen(when)
             .setOnlyAlertOnce(false)

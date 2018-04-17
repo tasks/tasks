@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.injection.FragmentComponent;
@@ -38,7 +39,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
   AppCompatRadioButton priorityNone;
 
   private OnPriorityChanged callback;
-  private int priority;
+  private @Priority int priority;
 
   @Override
   public void onAttach(Activity activity) {
@@ -53,7 +54,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
   }
 
   @OnClick({R.id.priority_high, R.id.priority_medium, R.id.priority_low, R.id.priority_none})
-  void onImportanceChanged(CompoundButton button) {
+  void onPriorityChanged(CompoundButton button) {
     priority = getPriority();
     callback.onPriorityChange(priority);
   }
@@ -64,7 +65,7 @@ public class PriorityControlSet extends TaskEditControlFragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     final View view = super.onCreateView(inflater, container, savedInstanceState);
     if (savedInstanceState == null) {
-      priority = task.getImportance();
+      priority = task.getPriority();
     } else {
       priority = savedInstanceState.getInt(EXTRA_PRIORITY);
     }
@@ -110,12 +111,12 @@ public class PriorityControlSet extends TaskEditControlFragment {
 
   @Override
   public void apply(Task task) {
-    task.setImportance(priority);
+    task.setPriority(priority);
   }
 
   @Override
   public boolean hasChanges(Task original) {
-    return original.getImportance() != priority;
+    return original.getPriority() != priority;
   }
 
   private void tintRadioButton(AppCompatRadioButton radioButton, int priority) {
@@ -129,17 +130,17 @@ public class PriorityControlSet extends TaskEditControlFragment {
             new int[] {color, color}));
   }
 
-  private int getPriority() {
+  private @Priority int getPriority() {
     if (priorityHigh.isChecked()) {
-      return 0;
+      return Priority.HIGH;
     }
     if (priorityMedium.isChecked()) {
-      return 1;
+      return Priority.MEDIUM;
     }
     if (priorityLow.isChecked()) {
-      return 2;
+      return Priority.LOW;
     }
-    return 3;
+    return Priority.NONE;
   }
 
   public interface OnPriorityChanged {

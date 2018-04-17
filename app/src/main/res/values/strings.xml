@@ -299,7 +299,6 @@ File %1$s contained %2$s.\n\n
   <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Default deadline</string>
 
-  <!-- slide 40a: Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Default priority</string>
 
   <!-- slide 42e: Preference: Default Hide Until Title -->

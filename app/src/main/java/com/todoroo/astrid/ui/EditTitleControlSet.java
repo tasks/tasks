@@ -72,7 +72,7 @@ public class EditTitleControlSet extends TaskEditControlFragment {
       isComplete = task.isCompleted();
       title = task.getTitle();
       isRepeating = !TextUtils.isEmpty(task.getRecurrence());
-      importanceValue = task.getImportance();
+      importanceValue = task.getPriority();
       showKeyboard = task.isNew() && Strings.isNullOrEmpty(title);
     } else {
       isComplete = savedInstanceState.getBoolean(EXTRA_COMPLETE);

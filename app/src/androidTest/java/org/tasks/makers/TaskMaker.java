@@ -45,7 +45,7 @@ public class TaskMaker {
 
         int priority = lookup.valueOf(PRIORITY, -1);
         if (priority >= 0) {
-          task.setImportance(priority);
+          task.setPriority(priority);
         }
 
         DateTime dueDate = lookup.valueOf(DUE_DATE, (DateTime) null);

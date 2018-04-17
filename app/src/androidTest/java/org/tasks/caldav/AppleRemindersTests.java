@@ -4,7 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.tasks.TestUtilities.vtodo;
 
 import android.support.test.runner.AndroidJUnit4;
-import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import java.util.TimeZone;
 import org.junit.After;
 import org.junit.Before;
@@ -65,24 +65,21 @@ public class AppleRemindersTests {
 
   @Test
   public void noPriority() {
-    assertEquals(Task.IMPORTANCE_NONE, (int) vtodo("apple/priority_none.txt").getImportance());
+    assertEquals(Priority.NONE, (int) vtodo("apple/priority_none.txt").getPriority());
   }
 
   @Test
   public void lowPriority() {
-    assertEquals(
-        Task.IMPORTANCE_SHOULD_DO, (int) vtodo("apple/priority_low.txt").getImportance());
+    assertEquals(Priority.LOW, (int) vtodo("apple/priority_low.txt").getPriority());
   }
 
   @Test
   public void mediumPriority() {
-    assertEquals(
-        Task.IMPORTANCE_MUST_DO, (int) vtodo("apple/priority_medium.txt").getImportance());
+    assertEquals(Priority.MEDIUM, (int) vtodo("apple/priority_medium.txt").getPriority());
   }
 
   @Test
   public void highPriority() {
-    assertEquals(
-        Task.IMPORTANCE_DO_OR_DIE, (int) vtodo("apple/priority_high.txt").getImportance());
+    assertEquals(Priority.HIGH, (int) vtodo("apple/priority_high.txt").getPriority());
   }
 }
