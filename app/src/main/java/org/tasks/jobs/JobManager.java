@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.CaldavDao;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -30,15 +31,18 @@ public class JobManager {
   private final com.evernote.android.job.JobManager jobManager;
   private final Preferences preferences;
   private final CaldavDao caldavDao;
+  private final GoogleTaskListDao googleTaskListDao;
 
   @Inject
   public JobManager(
       com.evernote.android.job.JobManager jobManager,
       Preferences preferences,
-      CaldavDao caldavDao) {
+      CaldavDao caldavDao,
+      GoogleTaskListDao googleTaskListDao) {
     this.jobManager = jobManager;
     this.preferences = preferences;
     this.caldavDao = caldavDao;
+    this.googleTaskListDao = googleTaskListDao;
   }
 
   public void scheduleNotification(long time) {
@@ -81,8 +85,7 @@ public class JobManager {
             : forceBackgroundEnabled;
     boolean accountsPresent =
         forceAccountPresent == null
-            ? (preferences.getBoolean(R.string.sync_gtasks, false)
-                || caldavDao.getAccounts().size() > 0)
+            ? (googleTaskListDao.getAccounts().size() > 0 || caldavDao.getAccounts().size() > 0)
             : forceAccountPresent;
     boolean onlyOnWifi =
         forceOnlyOnUnmetered == null

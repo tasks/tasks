@@ -5,12 +5,12 @@
  */
 package com.todoroo.astrid.gtasks.sync;
 
+import android.content.Context;
 import android.text.TextUtils;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
@@ -24,44 +24,53 @@ import javax.inject.Inject;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.gtasks.GtaskSyncAdapterHelper;
+import org.tasks.gtasks.PlayServices;
 import org.tasks.injection.ApplicationScope;
+import org.tasks.injection.ForApplication;
+import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
 @ApplicationScope
 public class GtasksSyncService {
 
+  private final Context context;
   private final TaskDao taskDao;
-  private final GtasksPreferenceService gtasksPreferenceService;
-  private final GtasksInvoker gtasksInvoker;
+  private final Preferences preferences;
   private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue =
       new LinkedBlockingQueue<>();
   private final GtaskSyncAdapterHelper gtaskSyncAdapterHelper;
   private final Tracker tracker;
   private final GoogleTaskDao googleTaskDao;
+  private final PlayServices playServices;
 
   @Inject
   public GtasksSyncService(
+      @ForApplication Context context,
       TaskDao taskDao,
-      GtasksPreferenceService gtasksPreferenceService,
-      GtasksInvoker gtasksInvoker,
+      Preferences preferences,
       GtaskSyncAdapterHelper gtaskSyncAdapterHelper,
       Tracker tracker,
-      GoogleTaskDao googleTaskDao) {
+      GoogleTaskDao googleTaskDao,
+      GoogleTaskListDao googleTaskListDao,
+      PlayServices playServices) {
+    this.context = context;
     this.taskDao = taskDao;
-    this.gtasksPreferenceService = gtasksPreferenceService;
-    this.gtasksInvoker = gtasksInvoker;
+    this.preferences = preferences;
     this.gtaskSyncAdapterHelper = gtaskSyncAdapterHelper;
     this.tracker = tracker;
     this.googleTaskDao = googleTaskDao;
+    this.playServices = playServices;
     new OperationPushThread(operationQueue).start();
   }
 
-  public void clearCompleted(String listId) {
-    operationQueue.offer(new ClearOp(listId));
+  public void clearCompleted(GoogleTaskList googleTaskList) {
+    operationQueue.offer(new ClearOp(googleTaskList));
   }
 
-  public void triggerMoveForMetadata(final GoogleTask googleTask) {
+  public void triggerMoveForMetadata(GoogleTaskList googleTaskList, GoogleTask googleTask) {
     if (googleTask == null) {
       return;
     }
@@ -69,16 +78,14 @@ public class GtasksSyncService {
       googleTask.setSuppressSync(false);
       return;
     }
-    if (gtasksPreferenceService
-        .isOngoing()) // Don't try and sync changes that occur during a normal sync
-    {
+    if (preferences.isSyncOngoing()) {
       return;
     }
     if (!gtaskSyncAdapterHelper.isEnabled()) {
       return;
     }
 
-    operationQueue.offer(new MoveOp(googleTask));
+    operationQueue.offer(new MoveOp(googleTaskList, googleTask));
   }
 
   private void pushMetadataOnSave(GoogleTask model, GtasksInvoker invoker) throws IOException {
@@ -154,34 +161,38 @@ public class GtasksSyncService {
 
   interface SyncOnSaveOperation {
 
-    void op(GtasksInvoker invoker) throws IOException;
+    void op() throws IOException;
   }
 
   private class MoveOp implements SyncOnSaveOperation {
 
+    private final GoogleTaskList googleTaskList;
     final GoogleTask googleTask;
 
-    MoveOp(GoogleTask googleTask) {
+    MoveOp(GoogleTaskList googleTaskList, GoogleTask googleTask) {
+      this.googleTaskList = googleTaskList;
       this.googleTask = googleTask;
     }
 
     @Override
-    public void op(GtasksInvoker invoker) throws IOException {
+    public void op() throws IOException {
+      GtasksInvoker invoker = new GtasksInvoker(context, playServices, googleTaskList.getAccount());
       pushMetadataOnSave(googleTask, invoker);
     }
   }
 
   private class ClearOp implements SyncOnSaveOperation {
 
-    private final String listId;
+    private GoogleTaskList googleTaskList;
 
-    ClearOp(String listId) {
-      this.listId = listId;
+    ClearOp(GoogleTaskList googleTaskList) {
+      this.googleTaskList = googleTaskList;
     }
 
     @Override
-    public void op(GtasksInvoker invoker) throws IOException {
-      invoker.clearCompleted(listId);
+    public void op() throws IOException {
+      GtasksInvoker invoker = new GtasksInvoker(context, playServices, googleTaskList.getAccount());
+      invoker.clearCompleted(googleTaskList.getRemoteId());
     }
   }
 
@@ -205,7 +216,7 @@ public class GtasksSyncService {
           continue;
         }
         try {
-          op.op(gtasksInvoker);
+          op.op();
         } catch (UserRecoverableAuthIOException ignored) {
 
         } catch (IOException e) {

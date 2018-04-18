@@ -301,11 +301,7 @@
 	<string name="tmrw">Huominen</string>
 	<string name="yest">Eilinen</string>
 	<string name="DLG_wait">Ole hyvä ja odota...</string>
-	<string name="sync_status_success">Viimeisin synkronointi:\n%s</string>
 	<string name="sync_SPr_interval_title">Tausta synkronointi</string>
-	<string name="sync_SPr_forget">Kirjaudu ulos</string>
-	<string name="sync_SPr_forget_description">Tyhjennä kaikki synkronointidata</string>
-	<string name="sync_forget_confirm">Kirjaudu ulos/tyhjennä synkronointidata</string>
 	<string name="widget_show_due_date">Näytä määräpäivät</string>
 	<string name="widget_show_checkboxes">Näytä valintaruudut</string>
 	<string name="widget_show_header">Näytä otsikot</string>

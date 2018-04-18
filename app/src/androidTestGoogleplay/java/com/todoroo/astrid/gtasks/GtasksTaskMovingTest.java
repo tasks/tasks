@@ -18,8 +18,10 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -33,6 +35,7 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
   @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
   @Inject TaskDao taskDao;
   @Inject GoogleTaskDao googleTaskDao;
+  @Inject GoogleTaskListDao googleTaskListDao;
 
   private Task A, B, C, D, E, F;
   private GoogleTaskList list;
@@ -265,9 +268,11 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
     taskList.setId("1");
     taskList.setTitle("Tim's Tasks");
     items.add(taskList);
-    gtasksListService.updateLists(items);
+    GoogleTaskAccount account = new GoogleTaskAccount("account");
+    googleTaskListDao.insert(account);
+    gtasksListService.updateLists(account, items);
 
-    list = gtasksListService.getLists().get(0);
+    list = googleTaskListDao.getActiveLists("account").get(0);
   }
 
   @Override

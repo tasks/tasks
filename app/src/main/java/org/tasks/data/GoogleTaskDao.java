@@ -49,9 +49,6 @@ public interface GoogleTaskDao {
   @Query("SELECT * FROM google_tasks WHERE task = :taskId")
   List<GoogleTask> getAllByTaskId(long taskId);
 
-  @Query("DELETE FROM google_tasks")
-  void deleteAll();
-
   @Query("SELECT DISTINCT list_id FROM google_tasks WHERE deleted = 0 AND task IN (:tasks)")
   List<String> getLists(List<Long> tasks);
 }

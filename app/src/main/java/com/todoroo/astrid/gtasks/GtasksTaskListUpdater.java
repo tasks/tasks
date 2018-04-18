@@ -58,8 +58,8 @@ public class GtasksTaskListUpdater {
     gtasksSyncService.iterateThroughList(listId, iterator, 0, false);
   }
 
-  private void onMovedOrIndented(GoogleTask googleTask) {
-    gtasksSyncService.triggerMoveForMetadata(googleTask);
+  private void onMovedOrIndented(GoogleTaskList googleTaskList, GoogleTask googleTask) {
+    gtasksSyncService.triggerMoveForMetadata(googleTaskList, googleTask);
   }
 
   // --- used during synchronization
@@ -176,7 +176,7 @@ public class GtasksTaskListUpdater {
 
           saveAndUpdateModifiedDate(googleTask);
         });
-    onMovedOrIndented(getTaskMetadata(targetTaskId));
+    onMovedOrIndented(list, getTaskMetadata(targetTaskId));
   }
 
   /**
@@ -242,7 +242,7 @@ public class GtasksTaskListUpdater {
     }
 
     traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
-    onMovedOrIndented(getTaskMetadata(targetTaskId));
+    onMovedOrIndented(list, getTaskMetadata(targetTaskId));
   }
 
   // --- task moving
@@ -273,7 +273,7 @@ public class GtasksTaskListUpdater {
       }
       saveAndUpdateModifiedDate(googleTask);
       if (parentChanged) {
-        onMovedOrIndented(googleTask);
+        onMovedOrIndented(list, googleTask);
       }
     }
 

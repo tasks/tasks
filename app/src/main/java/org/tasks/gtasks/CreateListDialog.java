@@ -3,6 +3,7 @@ package org.tasks.gtasks;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,21 +15,26 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
 import timber.log.Timber;
 
 public class CreateListDialog extends InjectingDialogFragment {
 
+  private static final String EXTRA_ACCOUNT = "extra_account";
   private static final String EXTRA_NAME = "extra_name";
   @Inject DialogBuilder dialogBuilder;
-  @Inject GtasksInvoker gtasksInvoker;
+  @Inject @ForApplication Context context;
+  @Inject PlayServices playServices;
   private CreateListDialogCallback callback;
   private ProgressDialog dialog;
+  private String account;
   private String name;
 
-  public static CreateListDialog newCreateListDialog(String name) {
+  public static CreateListDialog newCreateListDialog(String account, String name) {
     CreateListDialog dialog = new CreateListDialog();
     Bundle args = new Bundle();
+    args.putString(EXTRA_ACCOUNT, account);
     args.putString(EXTRA_NAME, name);
     dialog.setArguments(args);
     return dialog;
@@ -39,6 +45,7 @@ public class CreateListDialog extends InjectingDialogFragment {
     super.onCreate(savedInstanceState);
     setRetainInstance(true);
     Bundle arguments = getArguments();
+    account = arguments.getString(EXTRA_ACCOUNT);
     name = arguments.getString(EXTRA_NAME);
     dialog = dialogBuilder.newProgressDialog(R.string.creating_new_list);
     execute();
@@ -67,7 +74,7 @@ public class CreateListDialog extends InjectingDialogFragment {
       @Override
       protected TaskList doInBackground(Void... voids) {
         try {
-          return gtasksInvoker.createGtaskList(name);
+          return new GtasksInvoker(context, playServices, account).createGtaskList(name);
         } catch (IOException e) {
           Timber.e(e);
           return null;

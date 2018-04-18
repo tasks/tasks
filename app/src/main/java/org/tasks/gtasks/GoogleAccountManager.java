@@ -7,7 +7,6 @@ import static java.util.Arrays.asList;
 import android.accounts.Account;
 import android.content.Context;
 import com.google.common.base.Strings;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
@@ -18,17 +17,14 @@ public class GoogleAccountManager {
 
   private final PermissionChecker permissionChecker;
   private final android.accounts.AccountManager accountManager;
-  private final GtasksPreferenceService gtasksPreferenceService;
 
   @Inject
   public GoogleAccountManager(
       @ForApplication Context context,
-      PermissionChecker permissionChecker,
-      GtasksPreferenceService gtasksPreferenceService) {
+      PermissionChecker permissionChecker) {
     this.permissionChecker = permissionChecker;
 
     accountManager = android.accounts.AccountManager.get(context);
-    this.gtasksPreferenceService = gtasksPreferenceService;
   }
 
   public List<String> getAccounts() {
@@ -43,10 +39,6 @@ public class GoogleAccountManager {
     return permissionChecker.canAccessAccounts()
         ? asList(accountManager.getAccountsByType("com.google"))
         : Collections.emptyList();
-  }
-
-  public Account getSelectedAccount() {
-    return getAccount(gtasksPreferenceService.getUserName());
   }
 
   public Account getAccount(final String name) {

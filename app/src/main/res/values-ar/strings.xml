@@ -129,10 +129,7 @@
 	<string name="tmrw">غدا</string>
 	<string name="yest">أمس</string>
 	<string name="DLG_wait">إنتظر من فضلك...</string>
-	<string name="sync_status_success">آخر تحيين:\n%s</string>
 	<string name="sync_SPr_interval_title">تحيين في الخلفية</string>
-	<string name="sync_SPr_forget">خروج</string>
-	<string name="sync_forget_confirm">تسجيل الخروج/ مسح معلومات المزامنه؟</string>
 	<string name="widget_show_due_date">أظهر تواريخ الإستحقاق</string>
 	<string name="widget_show_checkboxes">إظهار مربعات التعليم</string>
 	<string name="widget_show_header">إظهار الهايدر</string>

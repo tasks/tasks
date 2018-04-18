@@ -297,11 +297,7 @@
 	<string name="tmrw">Ryt</string>
 	<string name="yest">Vakar</string>
 	<string name="DLG_wait">Prašome palaukti...</string>
-	<string name="sync_status_success">Paskutinė sinchronizacija:\n%s</string>
 	<string name="sync_SPr_interval_title">Foninis sinchronizavimas</string>
-	<string name="sync_SPr_forget">Atsijungti</string>
-	<string name="sync_SPr_forget_description">Išvalo visą sinchronizacijos informaciją</string>
-	<string name="sync_forget_confirm">Atsijungti/išvalyti sinchronizacijos informaciją?</string>
 	<string name="widget_show_due_date">Rodyti pabaigos terminus</string>
 	<string name="widget_show_checkboxes">Rodyti žymimus kvadratėlius</string>
 	<string name="widget_show_header">Rodyti antraštę</string>

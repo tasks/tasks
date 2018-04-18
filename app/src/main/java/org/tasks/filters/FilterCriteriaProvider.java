@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.Tag;
 import org.tasks.data.TagData;
 import org.tasks.injection.ForApplication;
@@ -42,8 +43,8 @@ public class FilterCriteriaProvider {
 
   private final Context context;
   private final TagService tagService;
-  private final GtasksListService gtasksListService;
   private final Resources r;
+  private final GoogleTaskListDao googleTaskListDao;
   private final SyncAdapters syncAdapters;
 
   @Inject
@@ -51,13 +52,14 @@ public class FilterCriteriaProvider {
       @ForApplication Context context,
       TagService tagService,
       GtasksListService gtasksListService,
-      SyncAdapters syncAdapters) {
+      SyncAdapters syncAdapters,
+      GoogleTaskListDao googleTaskListDao) {
     this.context = context;
     this.tagService = tagService;
-    this.gtasksListService = gtasksListService;
     this.syncAdapters = syncAdapters;
 
     r = context.getResources();
+    this.googleTaskListDao = googleTaskListDao;
   }
 
   public List<CustomFilterCriterion> getAll() {
@@ -186,7 +188,7 @@ public class FilterCriteriaProvider {
   }
 
   private CustomFilterCriterion getGtasksFilterCriteria() {
-    List<GoogleTaskList> lists = gtasksListService.getLists();
+    List<GoogleTaskList> lists = googleTaskListDao.getAllActiveLists();
 
     String[] listNames = new String[lists.size()];
     String[] listIds = new String[lists.size()];

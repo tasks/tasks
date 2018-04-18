@@ -223,11 +223,7 @@
 	<string name="tmrw">imorn</string>
 	<string name="yest">Igår</string>
 	<string name="DLG_wait">Var god vänta...</string>
-	<string name="sync_status_success">Synkroniserades senast:\n%s</string>
 	<string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
-	<string name="sync_SPr_forget">Logga ut</string>
-	<string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
-	<string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
 	<string name="widget_show_due_date">Visa förfallodatum</string>
 	<string name="widget_show_checkboxes">Visa kryssrutor</string>
 	<string name="widget_show_header">Visa rubrik</string>

@@ -220,11 +220,7 @@
 	<string name="tmrw">amanhã</string>
 	<string name="yest">ontem</string>
 	<string name="DLG_wait">Por favor, aguarde...</string>
-	<string name="sync_status_success">Última sincronização:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
-	<string name="sync_SPr_forget">Desconectar</string>
-	<string name="sync_SPr_forget_description">Limpar todos os dados de sincronização</string>
-	<string name="sync_forget_confirm">Desconectar / limpar dados de sincronização?</string>
 	<string name="widget_show_due_date">Mostrar vencimentos</string>
 	<string name="widget_show_checkboxes">Mostrar tarefas ocultas</string>
 	<string name="widget_show_header">Mostrar ocultas</string>

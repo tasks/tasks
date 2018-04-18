@@ -300,11 +300,7 @@
 	<string name="tmrw">Holn</string>
 	<string name="yest">Tegn</string>
 	<string name="DLG_wait">Kérlek, várj...</string>
-	<string name="sync_status_success">Utolsó szinkronizáció:\n%s</string>
 	<string name="sync_SPr_interval_title">Szinkronizáció a háttérben</string>
-	<string name="sync_SPr_forget">Kijelentkezés</string>
-	<string name="sync_SPr_forget_description">Az összes szinkronizációs adat törlése</string>
-	<string name="sync_forget_confirm">Kijelentkezés és szinkronizációs adatok törlése?</string>
 	<string name="widget_show_due_date">Határidők megjelenítése</string>
 	<string name="widget_show_checkboxes">Jelölőnégyzetek megjelenítése</string>
 	<string name="widget_show_header">Fejléc megjelenítése</string>

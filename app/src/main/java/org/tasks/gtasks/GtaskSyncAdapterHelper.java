@@ -1,20 +1,19 @@
 package org.tasks.gtasks;
 
-import android.accounts.Account;
 import android.app.Activity;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.preferences.Preferences;
 
 public class GtaskSyncAdapterHelper {
 
-  private static final String AUTHORITY = "org.tasks";
-
   private final GoogleAccountManager accountManager;
   private final Preferences preferences;
   private final PlayServices playServices;
+  private final GoogleTaskListDao googleTaskListDao;
   private final Tracker tracker;
 
   @Inject
@@ -22,25 +21,25 @@ public class GtaskSyncAdapterHelper {
       GoogleAccountManager accountManager,
       Preferences preferences,
       PlayServices playServices,
+      GoogleTaskListDao googleTaskListDao,
       Tracker tracker) {
     this.accountManager = accountManager;
     this.preferences = preferences;
     this.playServices = playServices;
+    this.googleTaskListDao = googleTaskListDao;
     this.tracker = tracker;
   }
 
   public boolean isEnabled() {
-    return preferences.getBoolean(R.string.sync_gtasks, false)
-        && playServices.isPlayServicesAvailable()
-        && getAccount() != null;
+    return hasAccounts() && playServices.isPlayServicesAvailable();
   }
 
-  private Account getAccount() {
-    return accountManager.getSelectedAccount();
+  private boolean hasAccounts() {
+    return !googleTaskListDao.getAccounts().isEmpty();
   }
 
   public void checkPlayServices(Activity activity) {
-    if (preferences.getBoolean(R.string.sync_gtasks, false)
+    if (hasAccounts()
         && !playServices.refreshAndCheck()
         && !preferences.getBoolean(R.string.warned_play_services, false)) {
       preferences.setBoolean(R.string.warned_play_services, true);

@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.LocalBroadcastManager;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
@@ -87,7 +88,7 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
     assertEquals(
         singletonList(newGtaskList(with(ID, 2L), with(REMOTE_ID, "2"))),
-        googleTaskListDao.getActiveLists());
+        googleTaskListDao.getActiveLists("account"));
   }
 
   @Test
@@ -122,6 +123,8 @@ public class GtasksListServiceTest extends InjectingTestCase {
   }
 
   private void setLists(TaskList... list) {
-    gtasksListService.updateLists(asList(list));
+    GoogleTaskAccount account = new GoogleTaskAccount("account");
+    googleTaskListDao.insert(account);
+    gtasksListService.updateLists(account, asList(list));
   }
 }

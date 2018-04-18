@@ -1,7 +1,6 @@
 package org.tasks;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.StartupService;
 import javax.inject.Inject;
 import org.tasks.analytics.Tracker;
@@ -24,7 +23,6 @@ public class Tasks extends InjectingApplication {
   @Inject Badger badger;
   @Inject JobManager jobManager;
   @Inject JobCreator jobCreator;
-  @Inject GtasksPreferenceService gtasksPreferenceService;
 
   @Override
   public void onCreate() {

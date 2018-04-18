@@ -669,19 +669,8 @@ File %1$s contained %2$s.\n\n
 
   <!-- ================================================== SyncPreferences == -->
 
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->
-  <string name="sync_status_success">Last sync:\n%s</string>
-
   <!-- Preference: Synchronization Interval Title -->
   <string name="sync_SPr_interval_title">Background sync</string>
-
-  <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">Log out</string>
-  <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
-
-  <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">Log out/clear synchronization data?</string>
 
   <string name="widget_show_due_date">Show due dates</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
@@ -877,7 +866,6 @@ File %1$s contained %2$s.\n\n
   <string name="tasker_list_notification">List notification</string>
   <string name="help">Help</string>
   <string name="caldav_home_set_not_found">Home set not found</string>
-  <string name="caldav_no_supported_calendars">Could not find any calendars with VTODO support</string>
   <string name="network_error">Connection failed</string>
   <string name="background_sync_unmetered_only">Only on unmetered connections</string>
   <string name="upgrade">Upgrade</string>

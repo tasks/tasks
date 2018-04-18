@@ -93,7 +93,5 @@
 	<string name="yesterday">I går</string>
 	<string name="DLG_wait">Vent venligst...</string>
 	<string name="sync_SPr_interval_title">Baggrunds Synk</string>
-	<string name="sync_SPr_forget">Log af</string>
-	<string name="sync_SPr_forget_description">Sletter al synkroniserings data</string>
 	<string name="source_code">Kildekode</string>
 </resources>

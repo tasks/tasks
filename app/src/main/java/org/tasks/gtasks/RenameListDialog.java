@@ -3,6 +3,7 @@ package org.tasks.gtasks;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,26 +13,29 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import java.io.IOException;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.DialogFragmentComponent;
+import org.tasks.injection.ForApplication;
 import org.tasks.injection.InjectingDialogFragment;
 import timber.log.Timber;
 
 public class RenameListDialog extends InjectingDialogFragment {
 
   private static final String EXTRA_NAME = "extra_name";
-  private static final String EXTRA_ID = "extra_id";
+  private static final String EXTRA_LIST = "extra_list";
+  @Inject @ForApplication Context context;
   @Inject DialogBuilder dialogBuilder;
-  @Inject GtasksInvoker gtasksInvoker;
+  @Inject PlayServices playServices;
   private RenameListDialogCallback callback;
   private ProgressDialog dialog;
-  private String id;
+  private GoogleTaskList googleTaskList;
   private String name;
 
-  public static RenameListDialog newRenameListDialog(String id, String name) {
+  public static RenameListDialog newRenameListDialog(GoogleTaskList googleTaskList, String name) {
     RenameListDialog dialog = new RenameListDialog();
     Bundle args = new Bundle();
-    args.putString(EXTRA_ID, id);
+    args.putParcelable(EXTRA_LIST, googleTaskList);
     args.putString(EXTRA_NAME, name);
     dialog.setArguments(args);
     return dialog;
@@ -42,7 +46,7 @@ public class RenameListDialog extends InjectingDialogFragment {
     super.onCreate(savedInstanceState);
     setRetainInstance(true);
     Bundle arguments = getArguments();
-    id = arguments.getString(EXTRA_ID);
+    googleTaskList = arguments.getParcelable(EXTRA_LIST);
     name = arguments.getString(EXTRA_NAME);
     dialog = dialogBuilder.newProgressDialog(R.string.renaming_list);
     execute();
@@ -71,7 +75,8 @@ public class RenameListDialog extends InjectingDialogFragment {
       @Override
       protected TaskList doInBackground(Void... voids) {
         try {
-          return gtasksInvoker.renameGtaskList(id, name);
+          return new GtasksInvoker(context, playServices, googleTaskList.getAccount())
+              .renameGtaskList(googleTaskList.getRemoteId(), name);
         } catch (IOException e) {
           Timber.e(e);
           return null;

@@ -16,7 +16,6 @@ public class Tracking {
     TIMER_START(R.string.tracking_category_timer, R.string.tracking_action_start),
     GTASK_ENABLED(R.string.tracking_category_google_tasks, R.string.tracking_action_on),
     GTASK_DISABLED(R.string.tracking_category_google_tasks, R.string.tracking_action_off),
-    GTASK_LOGOUT(R.string.tracking_category_google_tasks, R.string.tracking_action_clear),
     GTASK_NEW_LIST(R.string.tracking_category_google_tasks, R.string.tracking_action_new_list),
     GTASK_RENAME_LIST(
         R.string.tracking_category_google_tasks, R.string.tracking_action_rename_list),

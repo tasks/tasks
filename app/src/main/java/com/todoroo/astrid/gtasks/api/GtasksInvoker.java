@@ -13,15 +13,12 @@ import com.google.api.services.tasks.TasksScopes;
 import com.google.api.services.tasks.model.Task;
 import com.google.api.services.tasks.model.TaskList;
 import com.google.api.services.tasks.model.TaskLists;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.io.IOException;
 import java.util.Collections;
-import javax.inject.Inject;
 import org.tasks.BuildConfig;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.gtasks.GoogleTasksUnsuccessfulResponseHandler;
 import org.tasks.gtasks.PlayServices;
-import org.tasks.injection.ApplicationScope;
-import org.tasks.injection.ForApplication;
 import timber.log.Timber;
 
 /**
@@ -30,30 +27,21 @@ import timber.log.Timber;
  *
  * @author Sam Bosley
  */
-@ApplicationScope
 public class GtasksInvoker {
 
   private final GoogleAccountCredential credential;
   private final PlayServices playServices;
   private final Tasks service;
 
-  @Inject
-  public GtasksInvoker(
-      @ForApplication Context context,
-      GtasksPreferenceService preferenceService,
-      PlayServices playServices) {
-    credential =
-        GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS));
+  public GtasksInvoker(Context context, PlayServices playServices, String account) {
     this.playServices = playServices;
-    setUserName(preferenceService.getUserName());
+    credential =
+        GoogleAccountCredential.usingOAuth2(context, Collections.singletonList(TasksScopes.TASKS))
+            .setSelectedAccountName(account);
     service =
         new Tasks.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
             .setApplicationName(String.format("Tasks/%s", BuildConfig.VERSION_NAME))
             .build();
-  }
-
-  public void setUserName(String username) {
-    credential.setSelectedAccountName(username);
   }
 
   public TaskLists allGtaskLists(String pageToken) throws IOException {

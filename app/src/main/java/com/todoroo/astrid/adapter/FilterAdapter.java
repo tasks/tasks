@@ -20,7 +20,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.util.Pair;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +27,9 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.google.common.base.Strings;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -43,6 +40,7 @@ import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.caldav.CaldavCalendarSettingsActivity;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.filters.FilterCounter;
 import org.tasks.filters.FilterProvider;
 import org.tasks.filters.NavigationDrawerAction;
@@ -50,7 +48,6 @@ import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.BasicPreferences;
-import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -68,7 +65,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
   private final Theme theme;
   private final Locale locale;
   private final Inventory inventory;
-  private final Preferences preferences;
   private final FilterListUpdateReceiver filterListUpdateReceiver = new FilterListUpdateReceiver();
   private final List<FilterListItem> items = new ArrayList<>();
   private final LayoutInflater inflater;
@@ -84,8 +80,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       Theme theme,
       ThemeCache themeCache,
       Locale locale,
-      Inventory inventory,
-      Preferences preferences) {
+      Inventory inventory) {
     super(activity, 0);
     this.filterProvider = filterProvider;
     this.filterCounter = filterCounter;
@@ -93,7 +88,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     this.theme = theme;
     this.locale = locale;
     this.inventory = inventory;
-    this.preferences = preferences;
     this.inflater = theme.getLayoutInflater(activity);
     this.themeCache = themeCache;
   }
@@ -230,8 +224,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     return getView(position, convertView, parent);
   }
 
-  private void addSubMenu(
-      final int titleResource, List<Filter> filters, boolean hideIfEmpty) {
+  private void addSubMenu(final int titleResource, List<Filter> filters, boolean hideIfEmpty) {
     addSubMenu(activity.getResources().getString(titleResource), filters, hideIfEmpty);
   }
 
@@ -264,19 +257,12 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     item.icon = R.drawable.ic_cloud_off_black_24dp;
     add(item);
 
-    String googleTaskTitle = preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
-    if (Strings.isNullOrEmpty(googleTaskTitle)) {
-      googleTaskTitle = activity.getResources().getString(R.string.gtasks_GPr_header);
+    for (Pair<GoogleTaskAccount, List<Filter>> filters : filterProvider.getGoogleTaskFilters()) {
+      addSubMenu(filters.first.getAccount(), filters.second, true);
     }
-    addSubMenu(googleTaskTitle, filterProvider.getGoogleTaskFilters(), true);
 
     for (Pair<CaldavAccount, List<Filter>> filters : filterProvider.getCaldavFilters()) {
-      CaldavAccount account = filters.first;
-      String caldavTitle = account.getName();
-      if (TextUtils.isEmpty(caldavTitle)) {
-        caldavTitle = activity.getString(R.string.CalDAV);
-      }
-      addSubMenu(caldavTitle, filters.second, true);
+      addSubMenu(filters.first.getName(), filters.second, true);
     }
 
     notifyDataSetChanged();
@@ -309,31 +295,24 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
               NavigationDrawerFragment.REQUEST_NEW_LIST));
     }
 
-    List<Filter> googleTaskFilters = filterProvider.getGoogleTaskFilters();
-    if (!googleTaskFilters.isEmpty()) {
-      String title = preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
-      if (Strings.isNullOrEmpty(title)) {
-        title = activity.getResources().getString(R.string.gtasks_GPr_header);
-      }
-      addSubMenu(title, googleTaskFilters, true);
+    for (Pair<GoogleTaskAccount, List<Filter>> filters : filterProvider.getGoogleTaskFilters()) {
+      GoogleTaskAccount account = filters.first;
+      addSubMenu(account.getAccount(), filters.second, !navigationDrawer);
 
       if (navigationDrawer) {
         add(
             new NavigationDrawerAction(
                 activity.getResources().getString(R.string.new_list),
                 R.drawable.ic_add_24dp,
-                new Intent(activity, GoogleTaskListSettingsActivity.class),
+                new Intent(activity, GoogleTaskListSettingsActivity.class)
+                    .putExtra(GoogleTaskListSettingsActivity.EXTRA_ACCOUNT, account),
                 NavigationDrawerFragment.REQUEST_NEW_GTASK_LIST));
       }
     }
 
     for (Pair<CaldavAccount, List<Filter>> filters : filterProvider.getCaldavFilters()) {
       CaldavAccount account = filters.first;
-      String title = account.getName();
-      if (TextUtils.isEmpty(title)) {
-        title = activity.getString(R.string.CalDAV);
-      }
-      addSubMenu(title, filters.second, !navigationDrawer);
+      addSubMenu(account.getName(), filters.second, !navigationDrawer);
 
       if (navigationDrawer) {
         add(

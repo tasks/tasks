@@ -297,11 +297,7 @@
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
 	<string name="DLG_wait">请稍候...</string>
-	<string name="sync_status_success">上次同步：\n%s</string>
 	<string name="sync_SPr_interval_title">后台同步</string>
-	<string name="sync_SPr_forget">登出</string>
-	<string name="sync_SPr_forget_description">清除所有同步资料</string>
-	<string name="sync_forget_confirm">登出/清除同步资料?</string>
 	<string name="widget_show_due_date">显示截止日期</string>
 	<string name="widget_show_checkboxes">显示复选框</string>
 	<string name="widget_show_header">显示标题</string>

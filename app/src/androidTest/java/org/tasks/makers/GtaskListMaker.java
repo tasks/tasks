@@ -11,6 +11,7 @@ import org.tasks.data.GoogleTaskList;
 public class GtaskListMaker {
 
   public static final Property<GoogleTaskList, Long> ID = newProperty();
+  public static final Property<GoogleTaskList, String> ACCOUNT = newProperty();
   public static final Property<GoogleTaskList, String> REMOTE_ID = newProperty();
   public static final Property<GoogleTaskList, Long> LAST_SYNC = newProperty();
   public static final Property<GoogleTaskList, String> NAME = newProperty();
@@ -22,6 +23,7 @@ public class GtaskListMaker {
             {
               setDeleted(0L);
               setId(lookup.valueOf(GtaskListMaker.ID, 0L));
+              setAccount(lookup.valueOf(ACCOUNT, "account"));
               setRemoteId(lookup.valueOf(REMOTE_ID, "1"));
               setTitle(lookup.valueOf(NAME, "Default"));
               setRemoteOrder(lookup.valueOf(ORDER, 0));

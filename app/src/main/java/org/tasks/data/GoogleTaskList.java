@@ -27,6 +27,9 @@ public class GoogleTaskList implements Parcelable {
   @ColumnInfo(name = "_id")
   private transient long id;
 
+  @ColumnInfo(name = "account")
+  private String account;
+
   @ColumnInfo(name = "remote_id")
   private String remoteId;
 
@@ -50,6 +53,7 @@ public class GoogleTaskList implements Parcelable {
   @Ignore
   public GoogleTaskList(Parcel parcel) {
     id = parcel.readLong();
+    account = parcel.readString();
     remoteId = parcel.readString();
     title = parcel.readString();
     remoteOrder = parcel.readInt();
@@ -64,6 +68,14 @@ public class GoogleTaskList implements Parcelable {
 
   public void setId(long id) {
     this.id = id;
+  }
+
+  public String getAccount() {
+    return account;
+  }
+
+  public void setAccount(String account) {
+    this.account = account;
   }
 
   public String getRemoteId() {
@@ -137,6 +149,9 @@ public class GoogleTaskList implements Parcelable {
     if (deleted != that.deleted) {
       return false;
     }
+    if (account != null ? !account.equals(that.account) : that.account != null) {
+      return false;
+    }
     if (remoteId != null ? !remoteId.equals(that.remoteId) : that.remoteId != null) {
       return false;
     }
@@ -149,6 +164,7 @@ public class GoogleTaskList implements Parcelable {
   @Override
   public int hashCode() {
     int result = (int) (id ^ (id >>> 32));
+    result = 31 * result + (account != null ? account.hashCode() : 0);
     result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
     result = 31 * result + (title != null ? title.hashCode() : 0);
     result = 31 * result + remoteOrder;
@@ -163,6 +179,9 @@ public class GoogleTaskList implements Parcelable {
     return "GoogleTaskList{"
         + "id="
         + id
+        + ", account='"
+        + account
+        + '\''
         + ", remoteId='"
         + remoteId
         + '\''
@@ -188,6 +207,7 @@ public class GoogleTaskList implements Parcelable {
   @Override
   public void writeToParcel(Parcel parcel, int i) {
     parcel.writeLong(id);
+    parcel.writeString(account);
     parcel.writeString(remoteId);
     parcel.writeString(title);
     parcel.writeInt(remoteOrder);

@@ -6,13 +6,18 @@
 package com.todoroo.astrid.gtasks;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 import static java.util.Collections.emptyList;
 
+import android.support.v4.util.Pair;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.sync.SyncAdapters;
 
 /**
@@ -24,22 +29,20 @@ public class GtasksFilterExposer {
 
   private final GtasksListService gtasksListService;
   private final SyncAdapters syncAdapters;
+  private final GoogleTaskListDao googleTaskListDao;
 
   @Inject
-  public GtasksFilterExposer(GtasksListService gtasksListService, SyncAdapters syncAdapters) {
+  public GtasksFilterExposer(GtasksListService gtasksListService, SyncAdapters syncAdapters, GoogleTaskListDao googleTaskListDao) {
     this.gtasksListService = gtasksListService;
     this.syncAdapters = syncAdapters;
+    this.googleTaskListDao = googleTaskListDao;
   }
 
-  public List<Filter> getFilters() {
-    // if we aren't logged in (or we are logged in to astrid.com), don't expose features
-    if (!syncAdapters.isGoogleTaskSyncEnabled()) {
-      return emptyList();
-    }
-
-    List<Filter> listFilters = newArrayList();
-    for (GoogleTaskList list : gtasksListService.getLists()) {
-      listFilters.add(filterFromList(list));
+  public List<Pair<GoogleTaskAccount, List<Filter>>> getFilters() {
+    List<Pair<GoogleTaskAccount, List<Filter>>> listFilters = newArrayList();
+    for (GoogleTaskAccount account : googleTaskListDao.getAccounts()) {
+      List<GoogleTaskList> lists = googleTaskListDao.getActiveLists(account.getAccount());
+      listFilters.add(new Pair<>(account, transform(lists, GtasksFilter::new)));
     }
     return listFilters;
   }

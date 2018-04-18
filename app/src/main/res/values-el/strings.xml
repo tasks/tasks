@@ -181,8 +181,6 @@
 	<string name="tmrw">Αύριο</string>
 	<string name="yest">Χθές</string>
 	<string name="DLG_wait">Παρακαλώ περιμένετε...</string>
-	<string name="sync_status_success">Τελευταίος συγχρονισμός:\n%s</string>
 	<string name="sync_SPr_interval_title">Συγχρονισμός παρασκηνίου</string>
-	<string name="sync_SPr_forget">Αποσύνδεση</string>
 	<string name="TLA_menu_donate">Δωρίστε</string>
 </resources>

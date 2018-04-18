@@ -19,7 +19,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksListService;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
@@ -35,6 +34,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
@@ -50,50 +50,47 @@ public class GoogleTaskSynchronizer {
   private static final String DEFAULT_LIST = "@default"; // $NON-NLS-1$
 
   private final Context context;
-  private final GtasksPreferenceService gtasksPreferenceService;
   private final GoogleTaskListDao googleTaskListDao;
   private final GtasksSyncService gtasksSyncService;
   private final GtasksListService gtasksListService;
   private final GtasksTaskListUpdater gtasksTaskListUpdater;
   private final Preferences preferences;
-  private final GtasksInvoker gtasksInvoker;
   private final TaskDao taskDao;
   private final Tracker tracker;
   private final NotificationManager notificationManager;
   private final GoogleTaskDao googleTaskDao;
   private final TaskCreator taskCreator;
   private final DefaultFilterProvider defaultFilterProvider;
+  private final PlayServices playServices;
 
   @Inject
   public GoogleTaskSynchronizer(
       @ForApplication Context context,
-      GtasksPreferenceService gtasksPreferenceService,
       GoogleTaskListDao googleTaskListDao,
       GtasksSyncService gtasksSyncService,
       GtasksListService gtasksListService,
       GtasksTaskListUpdater gtasksTaskListUpdater,
       Preferences preferences,
-      GtasksInvoker gtasksInvoker,
       TaskDao taskDao,
       Tracker tracker,
       NotificationManager notificationManager,
       GoogleTaskDao googleTaskDao,
       TaskCreator taskCreator,
-      DefaultFilterProvider defaultFilterProvider) {
+      DefaultFilterProvider defaultFilterProvider,
+      PlayServices playServices) {
     this.context = context;
-    this.gtasksPreferenceService = gtasksPreferenceService;
     this.googleTaskListDao = googleTaskListDao;
     this.gtasksSyncService = gtasksSyncService;
     this.gtasksListService = gtasksListService;
     this.gtasksTaskListUpdater = gtasksTaskListUpdater;
     this.preferences = preferences;
-    this.gtasksInvoker = gtasksInvoker;
     this.taskDao = taskDao;
     this.tracker = tracker;
     this.notificationManager = notificationManager;
     this.googleTaskDao = googleTaskDao;
     this.taskCreator = taskCreator;
     this.defaultFilterProvider = defaultFilterProvider;
+    this.playServices = playServices;
   }
 
   public static void mergeDates(long remoteDueDate, Task local) {
@@ -112,23 +109,20 @@ public class GoogleTaskSynchronizer {
   }
 
   public void sync() {
-    String account = gtasksPreferenceService.getUserName();
-    if (TextUtils.isEmpty(account)) {
-      return;
-    }
-    Timber.d("%s: start sync", account);
-    try {
-      synchronize();
-      gtasksPreferenceService.recordSuccessfulSync();
-    } catch (UserRecoverableAuthIOException e) {
-      Timber.e(e);
-      sendNotification(context, e.getIntent());
-    } catch (IOException e) {
-      Timber.e(e);
-    } catch (Exception e) {
-      tracker.reportException(e);
-    } finally {
-      Timber.d("%s: end sync", account);
+    for (GoogleTaskAccount account : googleTaskListDao.getAccounts()) {
+      Timber.d("%s: start sync", account);
+      try {
+        synchronize(account);
+      } catch (UserRecoverableAuthIOException e) {
+        Timber.e(e);
+        sendNotification(context, e.getIntent());
+      } catch (IOException e) {
+        Timber.e(e);
+      } catch (Exception e) {
+        tracker.reportException(e);
+      } finally {
+        Timber.d("%s: end sync", account);
+      }
     }
   }
 
@@ -150,8 +144,9 @@ public class GoogleTaskSynchronizer {
     notificationManager.notify(Constants.NOTIFICATION_SYNC_ERROR, builder, true, false, false);
   }
 
-  private void synchronize() throws IOException {
-    pushLocalChanges();
+  private void synchronize(GoogleTaskAccount account) throws IOException {
+    GtasksInvoker gtasksInvoker = new GtasksInvoker(context, playServices, account.getAccount());
+    pushLocalChanges(gtasksInvoker);
 
     List<TaskList> gtaskLists = new ArrayList<>();
     String nextPageToken = null;
@@ -166,7 +161,7 @@ public class GoogleTaskSynchronizer {
       }
       nextPageToken = remoteLists.getNextPageToken();
     } while (nextPageToken != null);
-    gtasksListService.updateLists(gtaskLists);
+    gtasksListService.updateLists(account, gtaskLists);
     Filter defaultRemoteList = defaultFilterProvider.getDefaultRemoteList();
     if (defaultRemoteList instanceof GtasksFilter) {
       GoogleTaskList list =
@@ -176,11 +171,11 @@ public class GoogleTaskSynchronizer {
       }
     }
     for (final GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
-      fetchAndApplyRemoteChanges(list);
+      fetchAndApplyRemoteChanges(gtasksInvoker, list);
     }
   }
 
-  private void pushLocalChanges() throws UserRecoverableAuthIOException {
+  private void pushLocalChanges(GtasksInvoker gtasksInvoker) throws UserRecoverableAuthIOException {
     List<Task> tasks = taskDao.getGoogleTasksToPush();
     for (Task task : tasks) {
       try {
@@ -193,7 +188,7 @@ public class GoogleTaskSynchronizer {
     }
   }
 
-  private void pushTask(Task task, GtasksInvoker invoker) throws IOException {
+  private void pushTask(Task task, GtasksInvoker gtasksInvoker) throws IOException {
     for (GoogleTask deleted : googleTaskDao.getDeletedByTaskId(task.getId())) {
       gtasksInvoker.deleteGtask(deleted.getListId(), deleted.getRemoteId());
       googleTaskDao.delete(deleted);
@@ -257,7 +252,7 @@ public class GoogleTaskSynchronizer {
 
     if (!newlyCreated) {
       try {
-        invoker.updateGtask(listId, remoteModel);
+        gtasksInvoker.updateGtask(listId, remoteModel);
       } catch (HttpNotFoundException e) {
         Timber.e(e);
         googleTaskDao.delete(gtasksMetadata);
@@ -268,7 +263,7 @@ public class GoogleTaskSynchronizer {
       String priorSibling = gtasksSyncService.getRemoteSiblingId(listId, gtasksMetadata);
 
       com.google.api.services.tasks.model.Task created =
-          invoker.createGtask(listId, remoteModel, parent, priorSibling);
+          gtasksInvoker.createGtask(listId, remoteModel, parent, priorSibling);
 
       if (created != null) {
         // Update the metadata for the newly created task
@@ -290,7 +285,7 @@ public class GoogleTaskSynchronizer {
     taskDao.save(task);
   }
 
-  private synchronized void fetchAndApplyRemoteChanges(GoogleTaskList list)
+  private synchronized void fetchAndApplyRemoteChanges(GtasksInvoker gtasksInvoker, GoogleTaskList list)
       throws UserRecoverableAuthIOException {
     String listId = list.getRemoteId();
     long lastSyncDate = list.getLastSync();

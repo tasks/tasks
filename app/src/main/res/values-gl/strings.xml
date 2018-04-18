@@ -223,11 +223,7 @@
 	<string name="tmrw">Mñna</string>
 	<string name="yest">Ayer</string>
 	<string name="DLG_wait">Por favor, espere...</string>
-	<string name="sync_status_success">Ultima sincronización:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronización en segundo plano</string>
-	<string name="sync_SPr_forget">Cerrar sesión</string>
-	<string name="sync_SPr_forget_description">Limpia todos los datos de la sincronización</string>
-	<string name="sync_forget_confirm">Cerrar sesión/Limpiar datos de sincronización?</string>
 	<string name="widget_show_due_date">Mostrar fechas de vencimiento</string>
 	<string name="widget_show_checkboxes">Mostrar casillas de verificación</string>
 	<string name="widget_show_header">Mostrar encabezado</string>

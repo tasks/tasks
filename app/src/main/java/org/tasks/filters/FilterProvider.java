@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.caldav.CaldavFilterExposer;
 import org.tasks.data.CaldavAccount;
+import org.tasks.data.GoogleTaskAccount;
 
 public class FilterProvider {
 
@@ -56,7 +57,7 @@ public class FilterProvider {
     return tagFilterExposer.getFilters();
   }
 
-  public List<Filter> getGoogleTaskFilters() {
+  public List<Pair<GoogleTaskAccount, List<Filter>>> getGoogleTaskFilters() {
     return gtasksFilterExposer.getFilters();
   }
 

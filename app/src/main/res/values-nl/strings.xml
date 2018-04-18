@@ -296,11 +296,7 @@
 	<string name="tmrw">mrgn</string>
 	<string name="yest">gisteren</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>
-	<string name="sync_status_success">Vorige:\n%s</string>
 	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
-	<string name="sync_SPr_forget">Afmelden</string>
-	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
-	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
 	<string name="widget_show_due_date">Toon eind datums</string>
 	<string name="widget_show_checkboxes">Toon vinkboxjes</string>
 	<string name="widget_show_header">Toon titel</string>

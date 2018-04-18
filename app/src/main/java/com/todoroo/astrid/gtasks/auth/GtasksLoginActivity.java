@@ -10,10 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.GoogleTaskAccount;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
 import org.tasks.gtasks.PlayServices;
@@ -30,26 +30,20 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
 
   public static final int RC_REQUEST_OAUTH = 10987;
   private static final int RC_CHOOSE_ACCOUNT = 10988;
-  @Inject GtasksPreferenceService gtasksPreferenceService;
   @Inject DialogBuilder dialogBuilder;
   @Inject GoogleAccountManager accountManager;
-  @Inject GtasksInvoker gtasksInvoker;
   @Inject PlayServices playServices;
+  @Inject GoogleTaskListDao googleTaskListDao;
   private String accountName;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    final String existingUsername = gtasksPreferenceService.getUserName();
-    if (existingUsername != null && accountManager.hasAccount(existingUsername)) {
-      getAuthToken(existingUsername);
-    } else {
-      Intent chooseAccountIntent =
-          android.accounts.AccountManager.newChooseAccountIntent(
-              null, null, new String[] {"com.google"}, false, null, null, null, null);
-      startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT);
-    }
+    Intent chooseAccountIntent =
+        android.accounts.AccountManager.newChooseAccountIntent(
+            null, null, new String[] {"com.google"}, false, null, null, null, null);
+    startActivityForResult(chooseAccountIntent, RC_CHOOSE_ACCOUNT);
   }
 
   @Override
@@ -71,9 +65,12 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
         new AuthResultHandler() {
           @Override
           public void authenticationSuccessful(String accountName) {
-            gtasksPreferenceService.setUserName(accountName);
-            gtasksInvoker.setUserName(accountName);
-            setResult(RESULT_OK);
+            if (googleTaskListDao.getAccount(accountName) == null) {
+              GoogleTaskAccount googleTaskAccount = new GoogleTaskAccount();
+              googleTaskAccount.setAccount(accountName);
+              googleTaskListDao.insert(googleTaskAccount);
+              setResult(RESULT_OK);
+            }
             finish();
             DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
           }

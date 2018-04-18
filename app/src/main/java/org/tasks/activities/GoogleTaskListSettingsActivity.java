@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
@@ -46,6 +47,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         DeleteListDialog.DeleteListDialogCallback,
         RenameListDialog.RenameListDialogCallback {
 
+  public static final String EXTRA_ACCOUNT = "extra_account";
   public static final String EXTRA_STORE_DATA = "extra_store_data";
   public static final String ACTION_DELETED = "action_deleted";
   public static final String ACTION_RELOAD = "action_reload";
@@ -82,10 +84,13 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     setContentView(R.layout.activity_google_task_list_settings);
     ButterKnife.bind(this);
 
-    gtasksList = getIntent().getParcelableExtra(EXTRA_STORE_DATA);
+    Intent intent = getIntent();
+    gtasksList = intent.getParcelableExtra(EXTRA_STORE_DATA);
     if (gtasksList == null) {
       isNewList = true;
       gtasksList = new GoogleTaskList();
+      GoogleTaskAccount account = intent.getParcelableExtra(EXTRA_ACCOUNT);
+      gtasksList.setAccount(account.getAccount());
     }
 
     if (savedInstanceState == null) {
@@ -165,9 +170,9 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     }
 
     if (isNewList) {
-      newCreateListDialog(newName).show(getSupportFragmentManager(), FRAG_TAG_CREATE_LIST_DIALOG);
+      newCreateListDialog(gtasksList.getAccount(), newName).show(getSupportFragmentManager(), FRAG_TAG_CREATE_LIST_DIALOG);
     } else if (nameChanged()) {
-      newRenameListDialog(gtasksList.getRemoteId(), newName)
+      newRenameListDialog(gtasksList, newName)
           .show(getSupportFragmentManager(), FRAG_TAG_RENAME_LIST_DIALOG);
     } else {
       if (colorChanged()) {
@@ -204,7 +209,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         .setPositiveButton(
             R.string.delete,
             (dialog, which) ->
-                newDeleteListDialog(gtasksList.getRemoteId())
+                newDeleteListDialog(gtasksList)
                     .show(getSupportFragmentManager(), FRAG_TAG_DELETE_LIST_DIALOG))
         .setNegativeButton(android.R.string.cancel, null)
         .show();

@@ -21,6 +21,7 @@ import org.tasks.data.CaldavTask;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
@@ -56,9 +57,10 @@ import timber.log.Timber;
     GoogleTaskList.class,
     CaldavCalendar.class,
     CaldavTask.class,
-    CaldavAccount.class
+    CaldavAccount.class,
+    GoogleTaskAccount.class
   },
-  version = 58
+  version = 59
 )
 public abstract class Database extends RoomDatabase {
 

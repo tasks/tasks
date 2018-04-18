@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
@@ -44,10 +45,6 @@ public class GtasksListService {
     this.taskDao = taskDao;
   }
 
-  public List<GoogleTaskList> getLists() {
-    return googleTaskListDao.getActiveLists();
-  }
-
   public GoogleTaskList getList(long id) {
     return googleTaskListDao.getById(id);
   }
@@ -57,8 +54,8 @@ public class GtasksListService {
    *
    * @param remoteLists remote information about your lists
    */
-  public synchronized void updateLists(List<TaskList> remoteLists) {
-    List<GoogleTaskList> lists = getLists();
+  public synchronized void updateLists(GoogleTaskAccount account, List<TaskList> remoteLists) {
+    List<GoogleTaskList> lists = googleTaskListDao.getActiveLists(account.getAccount());
 
     Set<Long> previousLists = new HashSet<>();
     for (GoogleTaskList list : lists) {
@@ -79,9 +76,16 @@ public class GtasksListService {
 
       String title = remote.getTitle();
       if (local == null) {
-        Timber.d("Adding new gtask list %s", title);
-        local = new GoogleTaskList();
-        local.setRemoteId(id);
+        GoogleTaskList byRemoteId = googleTaskListDao.findExistingList(id);
+        if (byRemoteId != null) {
+          byRemoteId.setAccount(account.getAccount());
+          local = byRemoteId;
+        } else {
+          Timber.d("Adding new gtask list %s", title);
+          local = new GoogleTaskList();
+          local.setAccount(account.getAccount());
+          local.setRemoteId(id);
+        }
       }
 
       local.setTitle(title);
@@ -126,11 +130,6 @@ public class GtasksListService {
   }
 
   public GoogleTaskList getList(String listId) {
-    for (GoogleTaskList list : getLists()) {
-      if (list != null && list.getRemoteId().equals(listId)) {
-        return list;
-      }
-    }
-    return null;
+    return googleTaskListDao.getByRemoteId(listId);
   }
 }

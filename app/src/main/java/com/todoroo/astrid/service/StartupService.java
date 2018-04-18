@@ -5,10 +5,11 @@
  */
 package com.todoroo.astrid.service;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
 import android.os.Environment;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
@@ -26,6 +27,7 @@ import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.Tag;
@@ -43,7 +45,8 @@ public class StartupService {
   private static final int V4_8_0 = 380;
   private static final int V4_9_5 = 434;
   private static final int V5_3_0 = 491;
-  private static final int V5_3_1 = 501;
+  private static final int V6_0_beta_1 = 522;
+  private static final int V6_0_beta_2 = 523;
 
   private final Database database;
   private final Preferences preferences;
@@ -119,8 +122,11 @@ public class StartupService {
         if (from < V5_3_0) {
           migrateFilters();
         }
-        if (from < V5_3_1) {
+        if (from < V6_0_beta_1) {
           migrateDefaultSyncList();
+        }
+        if (from < V6_0_beta_2) {
+          migrateGoogleTaskAccount();
         }
         tracker.reportEvent(Tracking.Events.UPGRADE, Integer.toString(from));
       }
@@ -166,12 +172,28 @@ public class StartupService {
   }
 
   private void migrateDefaultSyncList() {
+    String account = preferences.getStringValue("gtasks_user");
+    if (isNullOrEmpty(account)) {
+      return;
+    }
+
     String defaultGoogleTaskList = preferences.getStringValue("gtasks_defaultlist");
-    if (!Strings.isNullOrEmpty(defaultGoogleTaskList)) {
+    if (isNullOrEmpty(defaultGoogleTaskList)) {
+      // TODO: look up default list
+    } else {
       GoogleTaskList googleTaskList = googleTaskListDao.getByRemoteId(defaultGoogleTaskList);
       if (googleTaskList != null) {
         defaultFilterProvider.setDefaultRemoteList(new GtasksFilter(googleTaskList));
       }
+    }
+  }
+
+  private void migrateGoogleTaskAccount() {
+    String account = preferences.getStringValue("gtasks_user");
+    if (!isNullOrEmpty(account)) {
+      GoogleTaskAccount googleTaskAccount = new GoogleTaskAccount();
+      googleTaskAccount.setAccount(account);
+      googleTaskListDao.insert(googleTaskAccount);
     }
   }
 

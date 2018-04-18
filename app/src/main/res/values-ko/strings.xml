@@ -302,11 +302,7 @@
 	<string name="tmrw">내일</string>
 	<string name="yest">어제</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
-	<string name="sync_status_success">마지막 동기화: \n%s</string>
 	<string name="sync_SPr_interval_title">백그라운드 동기화</string>
-	<string name="sync_SPr_forget">로그아웃</string>
-	<string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
-	<string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
 	<string name="widget_show_due_date">완료 예정일 표시</string>
 	<string name="widget_show_checkboxes">체크박스 표시</string>
 	<string name="widget_show_header">헤더 표시</string>

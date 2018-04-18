@@ -19,8 +19,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -34,6 +36,7 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
   @Inject GtasksListService gtasksListService;
   @Inject TaskDao taskDao;
   @Inject GoogleTaskDao googleTaskDao;
+  @Inject GoogleTaskListDao googleTaskListDao;
 
   @Test
   public void testBasicParentComputation() {
@@ -149,7 +152,9 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
     list.setId("1");
     list.setTitle("Tim's Tasks");
     items.add(list);
-    gtasksListService.updateLists(items);
+    GoogleTaskAccount account = new GoogleTaskAccount("account");
+    googleTaskListDao.insert(account);
+    gtasksListService.updateLists(account, items);
   }
 
   @Override
@@ -162,7 +167,7 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
   }
 
   private void createParentSiblingMaps() {
-    for (GoogleTaskList list : gtasksListService.getLists()) {
+    for (GoogleTaskList list : googleTaskListDao.getActiveLists("account")) {
       gtasksTaskListUpdater.updateParentSiblingMapsFor(list);
     }
   }

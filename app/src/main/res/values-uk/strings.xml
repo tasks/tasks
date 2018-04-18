@@ -226,11 +226,7 @@
 	<string name="tmrw">Звтр</string>
 	<string name="yest">Вчр</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
-	<string name="sync_status_success">Остання синхр.:\n%s</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
-	<string name="sync_SPr_forget">Вийти</string>
-	<string name="sync_SPr_forget_description">Очищує всю синхронізовану інформацію</string>
-	<string name="sync_forget_confirm">Вийти/очистити синхронізовану інофрмацію?</string>
 	<string name="widget_show_due_date">Показувати дату виконання</string>
 	<string name="widget_show_checkboxes">Показати галочки</string>
 	<string name="widget_show_header">Показати заголовок</string>

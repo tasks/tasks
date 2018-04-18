@@ -298,11 +298,7 @@
 	<string name="tmrw">Amanhã</string>
 	<string name="yest">Ontem</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
-	<string name="sync_status_success">Última sincronização:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
-	<string name="sync_SPr_forget">Sair</string>
-	<string name="sync_SPr_forget_description">Remove todos os dados de sincronização</string>
-	<string name="sync_forget_confirm">Sair/limpar dados de sincronização?</string>
 	<string name="widget_show_due_date">Mostrar datas limite</string>
 	<string name="widget_show_checkboxes">Mostrar caixas de seleção</string>
 	<string name="widget_show_header">Mostrar cabeçalho</string>

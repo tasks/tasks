@@ -207,11 +207,7 @@
 	<string name="tmrw">Zítra</string>
 	<string name="yest">Včera</string>
 	<string name="DLG_wait">Čekejte prosím...</string>
-	<string name="sync_status_success">Poslední synchronizace:\n%s</string>
 	<string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
-	<string name="sync_SPr_forget">Odhlásit se</string>
-	<string name="sync_SPr_forget_description">Smazat všechny synchronizační data</string>
-	<string name="sync_forget_confirm">Odhlásit se / vymazat synchronizační data?</string>
 	<string name="widget_show_due_date">Ukázat data splnění</string>
 	<string name="widget_show_checkboxes">Ukázat zaškrtávací políčka</string>
 	<string name="widget_show_header">Zobraz záhlaví</string>

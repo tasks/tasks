@@ -293,11 +293,7 @@
 	<string name="tmrw">Morg.</string>
 	<string name="yest">Gest.</string>
 	<string name="DLG_wait">Bitte warten...</string>
-	<string name="sync_status_success">Letzte Synchronisierung:\n%s</string>
 	<string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
-	<string name="sync_SPr_forget">Abmelden</string>
-	<string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
-	<string name="sync_forget_confirm">Ausloggen / Synchronisierte Daten löschen?</string>
 	<string name="widget_show_due_date">Zeige Fälligkeitsdaten</string>
 	<string name="widget_show_checkboxes">Checkboxen anzeigen</string>
 	<string name="widget_show_header">Kopf anzeigen</string>

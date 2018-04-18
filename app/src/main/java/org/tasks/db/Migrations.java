@@ -192,6 +192,17 @@ public class Migrations {
         }
       };
 
+  private static final Migration MIGRATION_58_59 =
+      new Migration(58, 59) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+          database.execSQL(
+              "CREATE TABLE IF NOT EXISTS `google_task_accounts` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account` TEXT)");
+          database.execSQL(
+              "ALTER TABLE `google_task_lists` ADD COLUMN `account` TEXT");
+        }
+      };
+
   public static final Migration[] MIGRATIONS =
       new Migration[] {
         MIGRATION_35_36,
@@ -207,7 +218,8 @@ public class Migrations {
         MIGRATION_51_52,
         MIGRATION_52_53,
         MIGRATION_53_54,
-        MIGRATION_54_58
+        MIGRATION_54_58,
+        MIGRATION_58_59
       };
 
   private static Migration NOOP(int from, int to) {

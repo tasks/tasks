@@ -41,7 +41,6 @@ import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.BuiltInFilterExposer;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksSubtaskListFragment;
 import com.todoroo.astrid.service.TaskCreator;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -95,7 +94,6 @@ public class TaskListFragment extends InjectingFragment
   @Inject TaskDeleter taskDeleter;
   @Inject @ForActivity Context context;
   @Inject Preferences preferences;
-  @Inject GtasksPreferenceService gtasksPreferenceService;
   @Inject DialogBuilder dialogBuilder;
   @Inject CheckBoxes checkBoxes;
   @Inject TaskCreator taskCreator;
@@ -414,7 +412,7 @@ public class TaskListFragment extends InjectingFragment
     // TODO: compare indents in diff callback, then animate this
     loadTaskListContent(!(this instanceof GtasksSubtaskListFragment));
 
-    setSyncOngoing(gtasksPreferenceService.isOngoing());
+    setSyncOngoing(preferences.isSyncOngoing());
   }
 
   /*

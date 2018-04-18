@@ -46,7 +46,7 @@ public class SyncV2Service {
           () -> {
             callback.started();
             try {
-              gtasksSyncService.clearCompleted(list.getRemoteId());
+              gtasksSyncService.clearCompleted(list);
             } finally {
               callback.finished();
             }

@@ -7,6 +7,7 @@ import static at.bitfire.dav4android.XmlUtils.NS_WEBDAV;
 import static java.util.Arrays.asList;
 
 import at.bitfire.dav4android.BasicDigestAuthHandler;
+import at.bitfire.dav4android.DavCalendar;
 import at.bitfire.dav4android.DavResource;
 import at.bitfire.dav4android.PropertyCollection;
 import at.bitfire.dav4android.XmlUtils;
@@ -158,18 +159,13 @@ class CaldavClient {
         Timber.d("%s does not support tasks", member);
         continue;
       }
-      Timber.d("Found %s", member);
       urls.add(member);
-    }
-    if (urls.isEmpty()) {
-      throw new DisplayableException(R.string.caldav_no_supported_calendars);
     }
     return urls;
   }
 
   public Completable deleteCollection() {
-    return Completable.fromAction(() ->
-        davResource.delete(null))
+    return Completable.fromAction(() -> davResource.delete(null))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread());
   }

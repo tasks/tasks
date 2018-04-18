@@ -22,9 +22,6 @@ import org.tasks.jobs.BackupServiceTests;
 @Component(modules = TestModule.class)
 public interface TestComponent {
 
-  GtasksMetadataServiceTest.GtasksMetadataServiceTestComponent plus(
-      GtasksMetadataServiceTest.GtasksMetadataServiceTestModule gtasksMetadataServiceTestModule);
-
   void inject(GtasksIndentActionTest gtasksIndentActionTest);
 
   void inject(GtasksTaskMovingTest gtasksTaskMovingTest);
@@ -54,4 +51,6 @@ public interface TestComponent {
   void inject(AlarmJobServiceTest alarmServiceTest);
 
   void inject(RepeatTaskHelperTest repeatTaskHelperTest);
+
+  void inject(GtasksMetadataServiceTest gtasksMetadataServiceTest);
 }

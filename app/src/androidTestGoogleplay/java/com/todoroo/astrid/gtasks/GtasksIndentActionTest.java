@@ -18,8 +18,10 @@ import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
@@ -28,6 +30,7 @@ import org.tasks.injection.TestComponent;
 public class GtasksIndentActionTest extends InjectingTestCase {
 
   @Inject GtasksListService gtasksListService;
+  @Inject GoogleTaskListDao googleTaskListDao;
   @Inject GtasksTaskListUpdater gtasksTaskListUpdater;
   @Inject TaskDao taskDao;
   @Inject GoogleTaskDao googleTaskDao;
@@ -159,9 +162,11 @@ public class GtasksIndentActionTest extends InjectingTestCase {
     list.setId("list");
     list.setTitle("Test Tasks");
     items.add(list);
-    gtasksListService.updateLists(items);
+    GoogleTaskAccount account = new GoogleTaskAccount("account");
+    googleTaskListDao.insert(account);
+    gtasksListService.updateLists(account, items);
 
-    storeList = gtasksListService.getLists().get(0);
+    storeList = googleTaskListDao.getActiveLists("account").get(0);
   }
 
   @Override
@@ -199,4 +204,5 @@ public class GtasksIndentActionTest extends InjectingTestCase {
     taskDao.createNew(task);
     return task;
   }
+
 }

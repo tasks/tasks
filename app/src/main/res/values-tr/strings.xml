@@ -302,11 +302,7 @@
 	<string name="tmrw">Yarın</string>
 	<string name="yest">Dün</string>
 	<string name="DLG_wait">Lütfen bekleyin...</string>
-	<string name="sync_status_success">Son eşzamanlama:\n%s</string>
 	<string name="sync_SPr_interval_title">Arka planda eşzamanla</string>
-	<string name="sync_SPr_forget">Çıkış Yap</string>
-	<string name="sync_SPr_forget_description">Tüm eşzamanlama verilerini temizle</string>
-	<string name="sync_forget_confirm">Çıkış yap/eşzamanlama verisini temizle?</string>
 	<string name="widget_show_due_date">Bitiş tarihlerini göster</string>
 	<string name="widget_show_checkboxes">Onay kutularını göster</string>
 	<string name="widget_show_header">Başlığı göster</string>
