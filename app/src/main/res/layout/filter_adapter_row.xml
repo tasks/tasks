@@ -57,7 +57,7 @@
     android:duplicateParentState="true"
     android:ellipsize="end"
     android:fontFamily="@string/font_fontFamily_medium"
-    android:gravity="start"
+    android:gravity="start|center_vertical"
     android:lines="1"
     android:singleLine="true"
     android:textAlignment="viewStart"
