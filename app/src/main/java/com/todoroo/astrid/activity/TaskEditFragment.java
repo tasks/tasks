@@ -216,7 +216,12 @@ public final class TaskEditFragment extends InjectingFragment implements Toolbar
                 ((TaskListActivity) getActivity())
                         .getTaskListFragment()
                         .onTaskCreated(model.getUuid());
+            } else {
+                ((TaskListActivity) getActivity())
+                    .getTaskListFragment()
+                    .onTaskSaved();
             }
+
             callback.taskEditFinished();
         } else {
             discard();

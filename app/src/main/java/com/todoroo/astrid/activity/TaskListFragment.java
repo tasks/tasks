@@ -483,6 +483,10 @@ public class TaskListFragment extends InjectingFragment implements
     public void onTaskCreated(String uuid) {
     }
 
+    public void onTaskSaved() {
+        recyclerAdapter.onTaskSaved();
+    }
+
     public void onTaskDelete(List<Task> tasks) {
         for (Task task : tasks) {
             onTaskDelete(task);

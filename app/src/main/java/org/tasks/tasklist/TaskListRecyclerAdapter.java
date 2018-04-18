@@ -261,6 +261,13 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
         }
     }
 
+    public void onTaskSaved() {
+        setAnimate(true);
+        int scrollY = recyclerView.getScrollY();
+        notifyDataSetChanged();
+        recyclerView.setScrollY(scrollY);
+    }
+
     public void setList(PagedList<Task> list) {
         adapterHelper.setList(list);
     }
