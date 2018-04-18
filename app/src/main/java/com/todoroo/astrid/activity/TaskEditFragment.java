@@ -214,6 +214,8 @@ public final class TaskEditFragment extends InjectingFragment
 
       if (isNewTask) {
         ((TaskListActivity) getActivity()).getTaskListFragment().onTaskCreated(model.getUuid());
+      } else {
+        ((TaskListActivity) getActivity()).getTaskListFragment().onTaskSaved();
       }
       callback.taskEditFinished();
     } else {
