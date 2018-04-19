@@ -25,6 +25,7 @@ import org.tasks.data.CaldavTask;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTask;
+import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
@@ -130,6 +131,11 @@ public class TasksJsonImporter {
       for (TagData tagData : backupContainer.tags) {
         if (tagDataDao.getByUuid(tagData.getRemoteId()) == null) {
           tagDataDao.createNew(tagData);
+        }
+      }
+      for (GoogleTaskAccount googleTaskAccount : backupContainer.getGoogleTaskAccounts()) {
+        if (googleTaskListDao.getAccount(googleTaskAccount.getAccount()) == null) {
+          googleTaskListDao.insert(googleTaskAccount);
         }
       }
       for (GoogleTaskList googleTaskList : backupContainer.googleTaskLists) {

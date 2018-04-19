@@ -8,7 +8,9 @@ package com.todoroo.astrid.dao;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 import android.content.Context;
 import android.database.Cursor;
@@ -23,6 +25,8 @@ import com.todoroo.astrid.helper.UUIDHelper;
 import java.util.ArrayList;
 import java.util.List;
 import org.tasks.BuildConfig;
+import org.tasks.data.GoogleTaskAccount;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.data.LimitOffsetDataSource;
 import org.tasks.jobs.AfterSaveIntentService;
 import timber.log.Timber;
@@ -58,7 +62,7 @@ public abstract class TaskDao {
   @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE _id IN (:taskIds)")
   public abstract List<Task> fetch(List<Long> taskIds);
 
-  @android.arch.persistence.room.Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0")
+  @android.arch.persistence.room.Query("SELECT COUNT(1) FROM tasks WHERE timerStart > 0 AND deleted = 0")
   public abstract int activeTimers();
 
   @android.arch.persistence.room.Query(
@@ -129,16 +133,6 @@ public abstract class TaskDao {
       "UPDATE tasks SET calendarUri = '' "
           + "WHERE completed > 0 AND calendarUri NOT NULL AND calendarUri != ''")
   public abstract int clearCompletedCalendarEvents();
-
-  @android.arch.persistence.room.Query("SELECT * FROM tasks WHERE deleted > 0")
-  public abstract List<Task> getDeleted();
-
-  @android.arch.persistence.room.Query("DELETE FROM tasks WHERE _id = :id")
-  public abstract int deleteById(long id);
-
-  @android.arch.persistence.room.Query(
-      "SELECT tasks.* FROM tasks INNER JOIN google_tasks ON google_tasks.task = tasks._id WHERE google_tasks.deleted = 0 AND google_tasks.list_id = :googleTaskList")
-  public abstract List<Task> getGoogleTasks(String googleTaskList);
 
   /**
    * Saves the given task to the database.getDatabase(). Task must already exist. Returns true on

@@ -188,7 +188,7 @@ public class FilterCriteriaProvider {
   }
 
   private CustomFilterCriterion getGtasksFilterCriteria() {
-    List<GoogleTaskList> lists = googleTaskListDao.getAllActiveLists();
+    List<GoogleTaskList> lists = googleTaskListDao.getAllLists();
 
     String[] listNames = new String[lists.size()];
     String[] listIds = new String[lists.size()];

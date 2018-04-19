@@ -80,7 +80,7 @@ public class TimerPlugin {
     updateNotifications();
   }
 
-  private void updateNotifications() {
+  public void updateNotifications() {
     int count = taskDao.activeTimers();
     if (count == 0) {
       notificationManager.cancel(Constants.NOTIFICATION_TIMER);

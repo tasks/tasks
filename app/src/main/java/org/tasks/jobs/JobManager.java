@@ -1,5 +1,6 @@
 package org.tasks.jobs;
 
+import static org.tasks.jobs.CleanupJob.EXTRA_TASK_IDS;
 import static org.tasks.time.DateTimeUtils.currentTimeMillis;
 import static org.tasks.time.DateTimeUtils.printTimestamp;
 
@@ -7,6 +8,9 @@ import com.evernote.android.job.DailyJob;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.JobRequest.Builder;
 import com.evernote.android.job.JobRequest.NetworkType;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
+import com.google.common.primitives.Longs;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -43,6 +47,12 @@ public class JobManager {
     this.preferences = preferences;
     this.caldavDao = caldavDao;
     this.googleTaskListDao = googleTaskListDao;
+  }
+
+  public void cleanup(List<Long> ids) {
+    PersistableBundleCompat extras = new PersistableBundleCompat();
+    extras.putLongArray(EXTRA_TASK_IDS, Longs.toArray(ids));
+    new JobRequest.Builder(JobCreator.TAG_CLEANUP).setExtras(extras).startNow().build().schedule();
   }
 
   public void scheduleNotification(long time) {

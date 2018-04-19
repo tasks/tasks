@@ -3,6 +3,7 @@ package org.tasks.injection;
 import dagger.Subcomponent;
 import org.tasks.jobs.AfterSaveIntentService;
 import org.tasks.jobs.BackupJob;
+import org.tasks.jobs.CleanupJob;
 import org.tasks.jobs.NotificationJob;
 import org.tasks.jobs.RefreshJob;
 import org.tasks.jobs.SyncJob;
@@ -23,4 +24,6 @@ public interface JobComponent {
   void inject(BackupJob backupJob);
 
   void inject(RefreshJob refreshJob);
+
+  void inject(CleanupJob cleanupJob);
 }

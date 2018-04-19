@@ -371,9 +371,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
   }
 
   private void onDeleted() {
-    taskDeleter.markDeleted(caldavDao.getTasksByCalendar(caldavCalendar.getUuid()));
-    caldavDao.deleteTasksForCalendar(caldavCalendar.getUuid());
-    caldavDao.delete(caldavCalendar);
+    taskDeleter.delete(caldavCalendar);
     tracker.reportEvent(Events.CALDAV_LIST_DELETED);
     setResult(RESULT_OK, new Intent(ACTION_DELETED));
     finish();

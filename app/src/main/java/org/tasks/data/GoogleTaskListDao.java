@@ -5,57 +5,46 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface GoogleTaskListDao {
+public abstract class GoogleTaskListDao {
 
   @Query("SELECT * FROM google_task_accounts")
-  List<GoogleTaskAccount> getAccounts();
+  public abstract List<GoogleTaskAccount> getAccounts();
 
   @Query("SELECT * FROM google_task_accounts WHERE account = :account COLLATE NOCASE LIMIT 1")
-  GoogleTaskAccount getAccount(String account);
+  public abstract GoogleTaskAccount getAccount(String account);
 
   @Query("SELECT * FROM google_task_lists WHERE _id = :id")
-  GoogleTaskList getById(long id);
+  public abstract GoogleTaskList getById(long id);
 
-  @Query("SELECT * FROM google_task_lists WHERE account = :account AND deleted = 0 ORDER BY title ASC")
-  List<GoogleTaskList> getActiveLists(String account);
+  @Query("SELECT * FROM google_task_lists WHERE account = :account ORDER BY title ASC")
+  public abstract List<GoogleTaskList> getLists(String account);
 
   @Query("SELECT * FROM google_task_lists WHERE remote_id = :remoteId LIMIT 1")
-  GoogleTaskList getByRemoteId(String remoteId);
+  public abstract GoogleTaskList getByRemoteId(String remoteId);
 
   @Query("SELECT * FROM google_task_lists WHERE remote_id = :remoteId AND IFNULL(account, '') = '' LIMIT 1")
-  GoogleTaskList findExistingList(String remoteId);
+  public abstract GoogleTaskList findExistingList(String remoteId);
 
   @Query("SELECT * FROM google_task_lists")
-  List<GoogleTaskList> getAll();
-
-  @Query("SELECT * FROM google_task_lists WHERE deleted = 0")
-  List<GoogleTaskList> getAllActiveLists();
-
-  @Query("DELETE FROM google_task_lists WHERE _id = :id")
-  void deleteById(long id);
+  public abstract List<GoogleTaskList> getAllLists();
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  long insertOrReplace(GoogleTaskList googleTaskList);
+  public abstract long insertOrReplace(GoogleTaskList googleTaskList);
 
   @Insert
-  void insert(GoogleTaskList googleTaskList);
+  public abstract void insert(GoogleTaskList googleTaskList);
 
   @Insert
-  void insert(GoogleTaskAccount googleTaskAccount);
+  public abstract void insert(GoogleTaskAccount googleTaskAccount);
 
   @Update
-  void update(GoogleTaskList googleTaskList);
+  public abstract void update(GoogleTaskList googleTaskList);
 
   @Update
-  void update(GoogleTaskAccount account);
-
-  @Delete
-  void delete(GoogleTaskList list);
-
-  @Delete
-  void delete(GoogleTaskAccount account);
+  public abstract void update(GoogleTaskAccount account);
 }

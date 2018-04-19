@@ -178,7 +178,8 @@ public class TasksJsonExporter {
             taskBackups,
             tagDataDao.getAll(),
             filterDao.getAll(),
-            googleTaskListDao.getAll(),
+            googleTaskListDao.getAccounts(),
+            googleTaskListDao.getAllLists(),
             caldavDao.getAccounts(),
             caldavDao.getCalendars()));
 

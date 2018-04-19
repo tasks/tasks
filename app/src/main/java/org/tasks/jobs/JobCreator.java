@@ -16,6 +16,7 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
   static final String TAG_NOTIFICATION = "tag_notification";
   static final String TAG_BACKGROUND_SYNC = "tag_background_sync";
   static final String TAG_SYNC = "tag_sync";
+  static final String TAG_CLEANUP = "tag_cleanup";
 
   @Inject
   public JobCreator() {}
@@ -34,6 +35,8 @@ public class JobCreator implements com.evernote.android.job.JobCreator {
       case TAG_MIDNIGHT_REFRESH:
       case TAG_REFRESH:
         return new RefreshJob();
+      case TAG_CLEANUP:
+        return new CleanupJob();
       default:
         Timber.e("Unhandled tag: %s", tag);
         return null;

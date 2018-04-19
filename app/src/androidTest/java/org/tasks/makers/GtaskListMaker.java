@@ -21,7 +21,6 @@ public class GtaskListMaker {
       lookup ->
           new GoogleTaskList() {
             {
-              setDeleted(0L);
               setId(lookup.valueOf(GtaskListMaker.ID, 0L));
               setAccount(lookup.valueOf(ACCOUNT, "account"));
               setRemoteId(lookup.valueOf(REMOTE_ID, "1"));

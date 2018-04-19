@@ -166,7 +166,7 @@ public class GtasksIndentActionTest extends InjectingTestCase {
     googleTaskListDao.insert(account);
     gtasksListService.updateLists(account, items);
 
-    storeList = googleTaskListDao.getActiveLists("account").get(0);
+    storeList = googleTaskListDao.getLists("account").get(0);
   }
 
   @Override

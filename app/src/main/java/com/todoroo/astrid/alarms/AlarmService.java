@@ -97,6 +97,12 @@ public class AlarmService {
     }
   }
 
+  public void cancelAlarms(long taskId) {
+    for (Alarm alarm : getActiveAlarmsForTask(taskId)) {
+      jobs.cancelAlarm(alarm.getId());
+    }
+  }
+
   /** Schedules alarms for a single task */
   private void scheduleAlarms(long taskId) {
     for (Alarm alarm : getActiveAlarmsForTask(taskId)) {

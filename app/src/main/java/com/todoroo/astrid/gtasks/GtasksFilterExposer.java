@@ -7,12 +7,10 @@ package com.todoroo.astrid.gtasks;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
-import static java.util.Collections.emptyList;
 
 import android.support.v4.util.Pair;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.GtasksFilter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.tasks.data.GoogleTaskAccount;
@@ -41,7 +39,7 @@ public class GtasksFilterExposer {
   public List<Pair<GoogleTaskAccount, List<Filter>>> getFilters() {
     List<Pair<GoogleTaskAccount, List<Filter>>> listFilters = newArrayList();
     for (GoogleTaskAccount account : googleTaskListDao.getAccounts()) {
-      List<GoogleTaskList> lists = googleTaskListDao.getActiveLists(account.getAccount());
+      List<GoogleTaskList> lists = googleTaskListDao.getLists(account.getAccount());
       listFilters.add(new Pair<>(account, transform(lists, GtasksFilter::new)));
     }
     return listFilters;

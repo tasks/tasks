@@ -9,6 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.CaldavDao;
+import org.tasks.data.DeletionDao;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
@@ -99,6 +100,11 @@ public class TestModule {
   @Provides
   public FilterDao getFilterDao(Database database) {
     return database.getFilterDao();
+  }
+
+  @Provides
+  public DeletionDao getDeletionDao(Database database) {
+    return database.getDeletionDao();
   }
 
   @Provides

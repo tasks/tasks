@@ -23,6 +23,7 @@ import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.gtasks.GtasksListService;
+import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -63,6 +64,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   @Inject Tracker tracker;
   @Inject ThemeCache themeCache;
   @Inject ThemeColor themeColor;
+  @Inject TaskDeleter taskDeleter;
 
   @BindView(R.id.name)
   TextInputEditText name;
@@ -273,7 +275,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
   @Override
   public void onListDeleted() {
     tracker.reportEvent(Tracking.Events.GTASK_DELETE_LIST);
-    gtasksListService.deleteList(gtasksList);
+    taskDeleter.delete(gtasksList);
     setResult(RESULT_OK, new Intent(ACTION_DELETED));
     finish();
   }

@@ -167,7 +167,7 @@ public class GtasksTaskListUpdaterTest extends InjectingTestCase {
   }
 
   private void createParentSiblingMaps() {
-    for (GoogleTaskList list : googleTaskListDao.getActiveLists("account")) {
+    for (GoogleTaskList list : googleTaskListDao.getLists("account")) {
       gtasksTaskListUpdater.updateParentSiblingMapsFor(list);
     }
   }

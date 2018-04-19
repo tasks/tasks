@@ -384,13 +384,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
         .setPositiveButton(
             R.string.remove,
             (dialog, which) -> {
-              for (CaldavCalendar calendar :
-                  caldavDao.getCalendarsByAccount(caldavAccount.getUuid())) {
-                taskDeleter.markDeleted(caldavDao.getTasksByCalendar(calendar.getUuid()));
-                caldavDao.deleteTasksForCalendar(calendar.getUuid());
-              }
-              caldavDao.deleteCalendarsForAccount(caldavAccount.getUuid());
-              caldavDao.delete(caldavAccount);
+              taskDeleter.delete(caldavAccount);
               tracker.reportEvent(Events.CALDAV_ACCOUNT_REMOVED);
               setResult(RESULT_OK);
               finish();

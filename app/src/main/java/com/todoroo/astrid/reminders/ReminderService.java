@@ -62,6 +62,10 @@ public final class ReminderService {
     }
   }
 
+  public void cancelReminder(long taskId) {
+    jobs.cancelReminder(taskId);
+  }
+
   public void scheduleAlarm(Task task) {
     if (task == null || !task.isSaved()) {
       return;
@@ -71,7 +75,7 @@ public final class ReminderService {
 
     // Make sure no alarms are scheduled other than the next one. When that one is shown, it
     // will schedule the next one after it, and so on and so forth.
-    jobs.cancelReminder(taskId);
+    cancelReminder(taskId);
 
     if (task.isCompleted() || task.isDeleted()) {
       return;

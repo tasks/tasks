@@ -10,9 +10,6 @@ import java.util.List;
 @Dao
 public interface GoogleTaskDao {
 
-  @Query("DELETE FROM google_tasks WHERE list_id = :remoteId")
-  void deleteList(String remoteId);
-
   @Insert
   void insert(GoogleTask task);
 
@@ -33,9 +30,6 @@ public interface GoogleTaskDao {
   @Query(
       "SELECT * FROM google_tasks WHERE list_id = :listId AND `order` < :startAtOrder ORDER BY `order` DESC")
   List<GoogleTask> getTasksFromReverse(String listId, long startAtOrder);
-
-  @Query("DELETE FROM google_tasks WHERE task = :taskId")
-  void deleteByTaskId(long taskId);
 
   @Delete
   void delete(GoogleTask deleted);

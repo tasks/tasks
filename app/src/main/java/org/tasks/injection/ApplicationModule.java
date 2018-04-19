@@ -16,6 +16,7 @@ import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.CaldavDao;
+import org.tasks.data.DeletionDao;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.GoogleTaskListDao;
@@ -147,6 +148,12 @@ public class ApplicationModule {
     TaskDao taskDao = database.getTaskDao();
     taskDao.initialize(context);
     return taskDao;
+  }
+
+  @Provides
+  @ApplicationScope
+  public DeletionDao getDeletionDao(Database database) {
+    return database.getDeletionDao();
   }
 
   @Provides

@@ -10,7 +10,6 @@ import static org.tasks.time.DateTimeUtils.printTimestamp;
 
 import com.google.api.services.tasks.model.TaskList;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskDeleter;
 import java.util.HashSet;
 import java.util.List;
@@ -55,7 +54,7 @@ public class GtasksListService {
    * @param remoteLists remote information about your lists
    */
   public synchronized void updateLists(GoogleTaskAccount account, List<TaskList> remoteLists) {
-    List<GoogleTaskList> lists = googleTaskListDao.getActiveLists(account.getAccount());
+    List<GoogleTaskList> lists = googleTaskListDao.getLists(account.getAccount());
 
     Set<Long> previousLists = new HashSet<>();
     for (GoogleTaskList list : lists) {
@@ -96,18 +95,10 @@ public class GtasksListService {
 
     // check for lists that aren't on remote server
     for (Long listId : previousLists) {
-      deleteList(googleTaskListDao.getById(listId));
+      taskDeleter.delete(googleTaskListDao.getById(listId));
     }
 
     localBroadcastManager.broadcastRefreshList();
-  }
-
-  public void deleteList(GoogleTaskList gtasksList) {
-    for (Task task : taskDao.getGoogleTasks(gtasksList.getRemoteId())) {
-      taskDeleter.markDeleted(task);
-    }
-    googleTaskDao.deleteList(gtasksList.getRemoteId());
-    googleTaskListDao.deleteById(gtasksList.getId());
   }
 
   public List<GoogleTaskList> getListsToUpdate(List<TaskList> remoteLists) {

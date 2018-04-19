@@ -18,6 +18,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
+import org.tasks.data.DeletionDao;
 import org.tasks.data.Filter;
 import org.tasks.data.FilterDao;
 import org.tasks.data.GoogleTask;
@@ -94,6 +95,8 @@ public abstract class Database extends RoomDatabase {
   public abstract TaskDao getTaskDao();
 
   public abstract CaldavDao getCaldavDao();
+
+  public abstract DeletionDao getDeletionDao();
 
   // --- implementation
 

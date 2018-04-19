@@ -88,7 +88,7 @@ public class GtasksListServiceTest extends InjectingTestCase {
 
     assertEquals(
         singletonList(newGtaskList(with(ID, 2L), with(REMOTE_ID, "2"))),
-        googleTaskListDao.getActiveLists("account"));
+        googleTaskListDao.getLists("account"));
   }
 
   @Test

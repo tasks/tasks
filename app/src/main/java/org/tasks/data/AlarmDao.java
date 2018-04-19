@@ -29,7 +29,4 @@ public interface AlarmDao {
 
   @Insert
   long insert(Alarm alarm);
-
-  @Query("DELETE FROM alarms WHERE task = :taskId")
-  void deleteByTaskId(long taskId);
 }

@@ -34,14 +34,6 @@ public class GtasksTaskContainer {
     task.setCreationDate(DateUtilities.now());
     task.setCompletionDate(
         GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted()));
-    if (remoteTask.getDeleted() == null || !remoteTask.getDeleted()) {
-      task.setDeletionDate(0L);
-    } else {
-      task.setDeletionDate(DateUtilities.now());
-    }
-    if (remoteTask.getHidden() != null && remoteTask.getHidden()) {
-      task.setDeletionDate(DateUtilities.now());
-    }
 
     long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue());
     mergeDates(Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate), task);

@@ -10,8 +10,10 @@ import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertNull;
 
 import android.support.test.runner.AndroidJUnit4;
+import com.google.common.collect.ImmutableList;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +24,7 @@ import org.tasks.injection.TestComponent;
 public class TaskDaoTests extends InjectingTestCase {
 
   @Inject TaskDao taskDao;
+  @Inject TaskDeleter taskDeleter;
 
   /** Test basic task creation, fetch, and save */
   @Test
@@ -113,8 +116,7 @@ public class TaskDaoTests extends InjectingTestCase {
     assertEquals(1, taskDao.getAll().size());
 
     // delete
-    long happyId = task.getId();
-    assertEquals(1, taskDao.deleteById(happyId));
+    taskDeleter.delete(task);
     assertEquals(0, taskDao.getAll().size());
   }
 
@@ -138,7 +140,7 @@ public class TaskDaoTests extends InjectingTestCase {
 
     assertNull(taskDao.fetch(1));
 
-    assertEquals(0, taskDao.deleteById(1));
+    taskDeleter.delete(ImmutableList.of(1L));
 
     // make sure db still works
     assertEquals(0, taskDao.getAll().size());

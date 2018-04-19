@@ -272,7 +272,7 @@ public class GtasksTaskMovingTest extends InjectingTestCase {
     googleTaskListDao.insert(account);
     gtasksListService.updateLists(account, items);
 
-    list = googleTaskListDao.getActiveLists("account").get(0);
+    list = googleTaskListDao.getLists("account").get(0);
   }
 
   @Override

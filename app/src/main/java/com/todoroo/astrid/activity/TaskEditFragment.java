@@ -292,7 +292,6 @@ public final class TaskEditFragment extends InjectingFragment
         .setPositiveButton(
             android.R.string.ok,
             (dialog, which) -> {
-              timerPlugin.stopTimer(model);
               taskDeleter.markDeleted(model);
               callback.taskEditFinished();
             })

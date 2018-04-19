@@ -43,7 +43,8 @@ public class GoogleTaskList implements Parcelable {
   private long lastSync;
 
   @ColumnInfo(name = "deleted")
-  private long deleted;
+  @Deprecated
+  private long deleted = 0;
 
   @ColumnInfo(name = "color")
   private Integer color;

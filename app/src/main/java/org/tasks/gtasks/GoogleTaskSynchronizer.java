@@ -26,6 +26,7 @@ import com.todoroo.astrid.gtasks.api.HttpNotFoundException;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 import com.todoroo.astrid.service.TaskCreator;
+import com.todoroo.astrid.service.TaskDeleter;
 import com.todoroo.astrid.utility.Constants;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import javax.inject.Inject;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
+import org.tasks.billing.Inventory;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
@@ -67,6 +69,8 @@ public class GoogleTaskSynchronizer {
   private final PermissionChecker permissionChecker;
   private final GoogleAccountManager googleAccountManager;
   private final LocalBroadcastManager localBroadcastManager;
+  private final Inventory inventory;
+  private final TaskDeleter taskDeleter;
 
   @Inject
   public GoogleTaskSynchronizer(
@@ -85,7 +89,9 @@ public class GoogleTaskSynchronizer {
       PlayServices playServices,
       PermissionChecker permissionChecker,
       GoogleAccountManager googleAccountManager,
-      LocalBroadcastManager localBroadcastManager) {
+      LocalBroadcastManager localBroadcastManager,
+      Inventory inventory,
+      TaskDeleter taskDeleter) {
     this.context = context;
     this.googleTaskListDao = googleTaskListDao;
     this.gtasksSyncService = gtasksSyncService;
@@ -102,6 +108,8 @@ public class GoogleTaskSynchronizer {
     this.permissionChecker = permissionChecker;
     this.googleAccountManager = googleAccountManager;
     this.localBroadcastManager = localBroadcastManager;
+    this.inventory = inventory;
+    this.taskDeleter = taskDeleter;
   }
 
   public static void mergeDates(long remoteDueDate, Task local) {
@@ -120,11 +128,16 @@ public class GoogleTaskSynchronizer {
   }
 
   public void sync() {
-    for (GoogleTaskAccount account : googleTaskListDao.getAccounts()) {
+    List<GoogleTaskAccount> accounts = googleTaskListDao.getAccounts();
+    for (int i = 0 ; i < accounts.size() ; i++) {
+      GoogleTaskAccount account = accounts.get(i);
       Timber.d("%s: start sync", account);
       try {
-        synchronize(account);
-        account.setError("");
+        if (i == 0 || inventory.hasPro()) {
+          synchronize(account);
+        } else {
+          account.setError(context.getString(R.string.requires_pro_subscription));
+        }
       } catch (UserRecoverableAuthIOException e) {
         Timber.e(e);
         sendNotification(context, e.getIntent());
@@ -196,6 +209,7 @@ public class GoogleTaskSynchronizer {
     for (final GoogleTaskList list : gtasksListService.getListsToUpdate(gtaskLists)) {
       fetchAndApplyRemoteChanges(gtasksInvoker, list);
     }
+    account.setError("");
   }
 
   private void pushLocalChanges(GtasksInvoker gtasksInvoker) throws UserRecoverableAuthIOException {
@@ -344,6 +358,14 @@ public class GoogleTaskSynchronizer {
             googleTask = new GoogleTask(0, "");
           } else if (googleTask.getTask() > 0) {
             task = taskDao.fetch(googleTask.getTask());
+          }
+          Boolean isDeleted = gtask.getDeleted();
+          Boolean isHidden = gtask.getHidden();
+          if ((isDeleted != null && isDeleted) || (isHidden != null && isHidden)) {
+            if (task != null) {
+              taskDeleter.delete(task);
+            }
+            continue;
           }
           if (task == null) {
             task = taskCreator.createWithValues(null, "");

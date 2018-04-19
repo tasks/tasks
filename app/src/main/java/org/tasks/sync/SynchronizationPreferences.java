@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.service.TaskDeleter;
-import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -28,7 +27,6 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
@@ -146,11 +144,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
             .setPositiveButton(
                 R.string.logout,
                 (dialog, which) -> {
-                  for (GoogleTaskList list : googleTaskListDao.getActiveLists(name)) {
-                    taskDeleter.markDeleted(googleTaskDao.getActiveTasks(list.getRemoteId()));
-                    googleTaskListDao.delete(list);
-                  }
-                  googleTaskListDao.delete(account);
+                  taskDeleter.delete(account);
                   restart();
                 })
             .setNegativeButton(android.R.string.cancel, null)
@@ -271,6 +265,11 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     } else {
       super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+  }
+
+  @Override
+  protected String getHelpUrl() {
+    return "http://tasks.org/subscribe";
   }
 
   @Override

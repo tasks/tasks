@@ -49,6 +49,7 @@ import okhttp3.ResponseBody;
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
+import org.tasks.billing.Inventory;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
@@ -70,6 +71,7 @@ public class CaldavSynchronizer {
   private final TaskCreator taskCreator;
   private final TaskDeleter taskDeleter;
   private final Encryption encryption;
+  private final Inventory inventory;
   private final Context context;
 
   @Inject
@@ -80,7 +82,8 @@ public class CaldavSynchronizer {
       LocalBroadcastManager localBroadcastManager,
       TaskCreator taskCreator,
       TaskDeleter taskDeleter,
-      Encryption encryption) {
+      Encryption encryption,
+      Inventory inventory) {
     this.context = context;
     this.caldavDao = caldavDao;
     this.taskDao = taskDao;
@@ -88,12 +91,19 @@ public class CaldavSynchronizer {
     this.taskCreator = taskCreator;
     this.taskDeleter = taskDeleter;
     this.encryption = encryption;
+    this.inventory = inventory;
   }
 
   public void sync() {
     // required for dav4android (ServiceLoader)
     Thread.currentThread().setContextClassLoader(context.getClassLoader());
     for (CaldavAccount account : caldavDao.getAccounts()) {
+      if (!inventory.hasPro()) {
+        account.setError(context.getString(R.string.requires_pro_subscription));
+        caldavDao.update(account);
+        localBroadcastManager.broadcastRefreshList();
+        continue;
+      }
       if (isNullOrEmpty(account.getPassword())) {
         account.setError(context.getString(R.string.password_required));
         caldavDao.update(account);
@@ -114,11 +124,9 @@ public class CaldavSynchronizer {
       }
       Set<String> urls = newHashSet(transform(resources, c -> c.getLocation().toString()));
       Timber.d("Found calendars: %s", urls);
-      for (CaldavCalendar deleted :
+      for (CaldavCalendar calendar :
           caldavDao.findDeletedCalendars(account.getUuid(), newArrayList(urls))) {
-        taskDeleter.markDeleted(caldavDao.getTasksByCalendar(deleted.getUuid()));
-        caldavDao.deleteTasksForCalendar(deleted.getUuid());
-        caldavDao.delete(deleted);
+        taskDeleter.delete(calendar);
       }
       for (DavResource resource : resources) {
         String url = resource.getLocation().toString();
@@ -239,8 +247,7 @@ public class CaldavSynchronizer {
                   newHashSet(remoteObjects)));
       if (deleted.size() > 0) {
         Timber.d("DELETED %s", deleted);
-        taskDeleter.markDeleted(caldavDao.getTasks(caldavCalendar.getUuid(), deleted));
-        caldavDao.deleteObjects(caldavCalendar.getUuid(), deleted);
+        taskDeleter.delete(caldavDao.getTasks(caldavCalendar.getUuid(), deleted));
       }
 
       caldavCalendar.setCtag(remoteCtag);

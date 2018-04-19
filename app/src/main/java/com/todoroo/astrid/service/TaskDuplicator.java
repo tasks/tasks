@@ -52,7 +52,6 @@ public class TaskDuplicator {
     clone.setCreationDate(now());
     clone.setModificationDate(now());
     clone.setCompletionDate(0L);
-    clone.setDeletionDate(0L);
     clone.setCalendarUri("");
     clone.setUuid(UUIDHelper.newUUID());
 
