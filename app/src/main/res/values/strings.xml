@@ -888,5 +888,8 @@ File %1$s contained %2$s.\n\n
   <string name="pro_dashclock_extension">Dashclock extension</string>
   <string name="caldav_create_new_collection">Create new collection</string>
   <string name="requires_pro_subscription">Requires pro subscription</string>
-
+  <string name="logout">Log out</string>
+  <string name="logout_warning">Log out of %s? All data for this account will be removed from your device</string>
+  <string name="cannot_access_account">Cannot access account</string>
+  <string name="reinitialize_account">Reinitialize</string>
 </resources>

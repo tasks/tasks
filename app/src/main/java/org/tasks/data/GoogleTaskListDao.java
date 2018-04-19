@@ -1,6 +1,7 @@
 package org.tasks.data;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -34,6 +35,9 @@ public interface GoogleTaskListDao {
   @Query("SELECT * FROM google_task_lists WHERE deleted = 0")
   List<GoogleTaskList> getAllActiveLists();
 
+  @Query("DELETE FROM google_task_lists WHERE _id = :id")
+  void deleteById(long id);
+
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   long insertOrReplace(GoogleTaskList googleTaskList);
 
@@ -46,6 +50,12 @@ public interface GoogleTaskListDao {
   @Update
   void update(GoogleTaskList googleTaskList);
 
-  @Query("DELETE FROM google_task_lists WHERE _id = :id")
-  void deleteById(long id);
+  @Update
+  void update(GoogleTaskAccount account);
+
+  @Delete
+  void delete(GoogleTaskList list);
+
+  @Delete
+  void delete(GoogleTaskAccount account);
 }

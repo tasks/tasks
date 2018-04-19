@@ -65,12 +65,16 @@ public class GtasksLoginActivity extends InjectingAppCompatActivity {
         new AuthResultHandler() {
           @Override
           public void authenticationSuccessful(String accountName) {
-            if (googleTaskListDao.getAccount(accountName) == null) {
-              GoogleTaskAccount googleTaskAccount = new GoogleTaskAccount();
-              googleTaskAccount.setAccount(accountName);
-              googleTaskListDao.insert(googleTaskAccount);
-              setResult(RESULT_OK);
+            GoogleTaskAccount account = googleTaskListDao.getAccount(accountName);
+            if (account == null) {
+              account = new GoogleTaskAccount();
+              account.setAccount(accountName);
+              googleTaskListDao.insert(account);
+            } else {
+              account.setError("");
+              googleTaskListDao.update(account);
             }
+            setResult(RESULT_OK);
             finish();
             DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
           }

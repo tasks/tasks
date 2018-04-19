@@ -8,7 +8,6 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.Arrays;
 
 @Entity(tableName = "caldav_account")
 public class CaldavAccount implements Parcelable {
@@ -46,6 +45,9 @@ public class CaldavAccount implements Parcelable {
   @ColumnInfo(name = "password")
   private transient String password = "";
 
+  @ColumnInfo(name = "error")
+  private transient String error = "";
+
   public CaldavAccount() {}
 
   @Ignore
@@ -56,6 +58,7 @@ public class CaldavAccount implements Parcelable {
     url = source.readString();
     username = source.readString();
     password = source.readString();
+    error = source.readString();
   }
 
   public long getId() {
@@ -106,16 +109,38 @@ public class CaldavAccount implements Parcelable {
     this.password = password;
   }
 
+  public String getError() {
+    return error;
+  }
+
+  public void setError(String error) {
+    this.error = error;
+  }
+
   @Override
   public String toString() {
-    return "CaldavAccount{" +
-        "id=" + id +
-        ", uuid='" + uuid + '\'' +
-        ", name='" + name + '\'' +
-        ", url='" + url + '\'' +
-        ", username='" + username + '\'' +
-        ", password='" + password + '\'' +
-        '}';
+    return "CaldavAccount{"
+        + "id="
+        + id
+        + ", uuid='"
+        + uuid
+        + '\''
+        + ", name='"
+        + name
+        + '\''
+        + ", url='"
+        + url
+        + '\''
+        + ", username='"
+        + username
+        + '\''
+        + ", password='"
+        + password
+        + '\''
+        + ", error='"
+        + error
+        + '\''
+        + '}';
   }
 
   @Override
@@ -144,7 +169,10 @@ public class CaldavAccount implements Parcelable {
     if (username != null ? !username.equals(that.username) : that.username != null) {
       return false;
     }
-    return password != null ? password.equals(that.password) : that.password == null;
+    if (password != null ? !password.equals(that.password) : that.password != null) {
+      return false;
+    }
+    return error != null ? error.equals(that.error) : that.error == null;
   }
 
   @Override
@@ -155,6 +183,7 @@ public class CaldavAccount implements Parcelable {
     result = 31 * result + (url != null ? url.hashCode() : 0);
     result = 31 * result + (username != null ? username.hashCode() : 0);
     result = 31 * result + (password != null ? password.hashCode() : 0);
+    result = 31 * result + (error != null ? error.hashCode() : 0);
     return result;
   }
 
@@ -171,5 +200,6 @@ public class CaldavAccount implements Parcelable {
     dest.writeString(url);
     dest.writeString(username);
     dest.writeString(password);
+    dest.writeString(error);
   }
 }

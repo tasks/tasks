@@ -48,6 +48,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import org.tasks.BuildConfig;
 import org.tasks.LocalBroadcastManager;
+import org.tasks.R;
 import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavCalendar;
 import org.tasks.data.CaldavDao;
@@ -94,12 +95,21 @@ public class CaldavSynchronizer {
     Thread.currentThread().setContextClassLoader(context.getClassLoader());
     for (CaldavAccount account : caldavDao.getAccounts()) {
       if (isNullOrEmpty(account.getPassword())) {
+        account.setError(context.getString(R.string.password_required));
+        caldavDao.update(account);
+        localBroadcastManager.broadcastRefreshList();
         Timber.e("Missing password for %s", account);
         continue;
       }
       CaldavClient caldavClient = new CaldavClient(account, encryption);
-      List<DavResource> resources = caldavClient.getCalendars();
-      if (resources == null) {
+      List<DavResource> resources;
+      try {
+        resources = caldavClient.getCalendars();
+      } catch (IOException | DavException | HttpException e) {
+        account.setError(e.getMessage());
+        caldavDao.update(account);
+        localBroadcastManager.broadcastRefreshList();
+        Timber.e(e);
         continue;
       }
       Set<String> urls = newHashSet(transform(resources, c -> c.getLocation().toString()));
@@ -109,7 +119,6 @@ public class CaldavSynchronizer {
         taskDeleter.markDeleted(caldavDao.getTasksByCalendar(deleted.getUuid()));
         caldavDao.deleteTasksForCalendar(deleted.getUuid());
         caldavDao.delete(deleted);
-        localBroadcastManager.broadcastRefreshList();
       }
       for (DavResource resource : resources) {
         String url = resource.getLocation().toString();
@@ -122,10 +131,12 @@ public class CaldavSynchronizer {
           calendar.setUrl(url);
           calendar.setUuid(UUIDHelper.newUUID());
           calendar.setId(caldavDao.insert(calendar));
-          localBroadcastManager.broadcastRefreshList();
         }
         sync(calendar, resource);
       }
+      account.setError("");
+      caldavDao.update(account);
+      localBroadcastManager.broadcastRefreshList();
     }
   }
 

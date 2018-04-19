@@ -197,9 +197,11 @@ public class Migrations {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
           database.execSQL(
-              "CREATE TABLE IF NOT EXISTS `google_task_accounts` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account` TEXT)");
+              "CREATE TABLE IF NOT EXISTS `google_task_accounts` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account` TEXT, `error` TEXT)");
           database.execSQL(
               "ALTER TABLE `google_task_lists` ADD COLUMN `account` TEXT");
+          database.execSQL(
+              "ALTER TABLE `caldav_account` ADD COLUMN `error` TEXT");
         }
       };
 

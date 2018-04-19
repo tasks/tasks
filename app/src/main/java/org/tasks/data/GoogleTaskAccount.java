@@ -16,12 +16,16 @@ public class GoogleTaskAccount implements Parcelable {
   @ColumnInfo(name = "account")
   private String account;
 
+  @ColumnInfo(name = "error")
+  private transient String error = "";
+
   public GoogleTaskAccount() {}
 
   @Ignore
   public GoogleTaskAccount(Parcel source) {
     id = source.readLong();
     account = source.readString();
+    error = source.readString();
   }
 
   @Ignore
@@ -45,6 +49,14 @@ public class GoogleTaskAccount implements Parcelable {
     this.account = account;
   }
 
+  public String getError() {
+    return error;
+  }
+
+  public void setError(String error) {
+    this.error = error;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -59,19 +71,32 @@ public class GoogleTaskAccount implements Parcelable {
     if (id != that.id) {
       return false;
     }
-    return account != null ? account.equals(that.account) : that.account == null;
+    if (account != null ? !account.equals(that.account) : that.account != null) {
+      return false;
+    }
+    return error != null ? error.equals(that.error) : that.error == null;
   }
 
   @Override
   public int hashCode() {
     int result = (int) (id ^ (id >>> 32));
     result = 31 * result + (account != null ? account.hashCode() : 0);
+    result = 31 * result + (error != null ? error.hashCode() : 0);
     return result;
   }
 
   @Override
   public String toString() {
-    return "GoogleTaskAccount{" + "id=" + id + ", account='" + account + '\'' + '}';
+    return "GoogleTaskAccount{"
+        + "id="
+        + id
+        + ", account='"
+        + account
+        + '\''
+        + ", error='"
+        + error
+        + '\''
+        + '}';
   }
 
   public static final Creator<GoogleTaskAccount> CREATOR =
@@ -96,5 +121,6 @@ public class GoogleTaskAccount implements Parcelable {
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeLong(id);
     dest.writeString(account);
+    dest.writeString(error);
   }
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 59,
-    "identityHash": "1320507f7cf294e38cdd2d22d1ce4496",
+    "identityHash": "d4c55b9b8440776e4eb5fdfc9bddaa76",
     "entities": [
       {
         "tableName": "notification",
@@ -820,7 +820,7 @@
       },
       {
         "tableName": "caldav_account",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `name` TEXT, `url` TEXT, `username` TEXT, `password` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uuid` TEXT, `name` TEXT, `url` TEXT, `username` TEXT, `password` TEXT, `error` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -857,6 +857,12 @@
             "columnName": "password",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "error",
+            "columnName": "error",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -870,7 +876,7 @@
       },
       {
         "tableName": "google_task_accounts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `account` TEXT, `error` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -881,6 +887,12 @@
           {
             "fieldPath": "account",
             "columnName": "account",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "error",
+            "columnName": "error",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -897,7 +909,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"1320507f7cf294e38cdd2d22d1ce4496\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"d4c55b9b8440776e4eb5fdfc9bddaa76\")"
     ]
   }
 }

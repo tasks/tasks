@@ -6,6 +6,7 @@
 package com.todoroo.astrid.adapter;
 
 import static android.support.v4.content.ContextCompat.getColor;
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.todoroo.andlib.utility.AndroidUtilities.preLollipop;
 import static org.tasks.caldav.CaldavCalendarSettingsActivity.EXTRA_CALDAV_ACCOUNT;
 
@@ -48,6 +49,7 @@ import org.tasks.filters.NavigationDrawerSeparator;
 import org.tasks.filters.NavigationDrawerSubheader;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.BasicPreferences;
+import org.tasks.sync.SynchronizationPreferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 import org.tasks.ui.NavigationDrawerFragment;
@@ -161,6 +163,9 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
         case SUBHEADER:
           convertView = inflater.inflate(R.layout.filter_adapter_subheader, parent, false);
           viewHolder.name = convertView.findViewById(R.id.subheader_text);
+          viewHolder.icon = convertView.findViewById(R.id.subheader_icon);
+          viewHolder.icon.setOnClickListener(
+              v -> activity.startActivity(new Intent(activity, SynchronizationPreferences.class)));
           break;
       }
       viewHolder.view = convertView;
@@ -224,20 +229,21 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     return getView(position, convertView, parent);
   }
 
-  private void addSubMenu(final int titleResource, List<Filter> filters, boolean hideIfEmpty) {
-    addSubMenu(activity.getResources().getString(titleResource), filters, hideIfEmpty);
+  private void addSubMenu(
+      final int titleResource, boolean error, List<Filter> filters, boolean hideIfEmpty) {
+    addSubMenu(activity.getResources().getString(titleResource), error, filters, hideIfEmpty);
   }
 
   /* ======================================================================
    * ============================================================= receiver
    * ====================================================================== */
 
-  private void addSubMenu(String title, List<Filter> filters, boolean hideIfEmpty) {
+  private void addSubMenu(String title, boolean error, List<Filter> filters, boolean hideIfEmpty) {
     if (hideIfEmpty && filters.isEmpty()) {
       return;
     }
 
-    add(new NavigationDrawerSubheader(title));
+    add(new NavigationDrawerSubheader(title, error));
 
     for (FilterListItem filterListItem : filters) {
       add(filterListItem);
@@ -258,11 +264,13 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     add(item);
 
     for (Pair<GoogleTaskAccount, List<Filter>> filters : filterProvider.getGoogleTaskFilters()) {
-      addSubMenu(filters.first.getAccount(), filters.second, true);
+      GoogleTaskAccount account = filters.first;
+      addSubMenu(account.getAccount(), !isNullOrEmpty(account.getError()), filters.second, true);
     }
 
     for (Pair<CaldavAccount, List<Filter>> filters : filterProvider.getCaldavFilters()) {
-      addSubMenu(filters.first.getName(), filters.second, true);
+      CaldavAccount account = filters.first;
+      addSubMenu(account.getName(), !isNullOrEmpty(account.getError()), filters.second, true);
     }
 
     notifyDataSetChanged();
@@ -273,7 +281,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     add(filterProvider.getMyTasksFilter());
 
-    addSubMenu(R.string.filters, filterProvider.getFilters(), false);
+    addSubMenu(R.string.filters, false, filterProvider.getFilters(), false);
 
     if (navigationDrawer) {
       add(
@@ -284,7 +292,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
               NavigationDrawerFragment.ACTIVITY_REQUEST_NEW_FILTER));
     }
 
-    addSubMenu(R.string.tags, filterProvider.getTags(), false);
+    addSubMenu(R.string.tags, false, filterProvider.getTags(), false);
 
     if (navigationDrawer) {
       add(
@@ -297,7 +305,11 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     for (Pair<GoogleTaskAccount, List<Filter>> filters : filterProvider.getGoogleTaskFilters()) {
       GoogleTaskAccount account = filters.first;
-      addSubMenu(account.getAccount(), filters.second, !navigationDrawer);
+      addSubMenu(
+          account.getAccount(),
+          !isNullOrEmpty(account.getError()),
+          filters.second,
+          !navigationDrawer);
 
       if (navigationDrawer) {
         add(
@@ -312,7 +324,8 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
 
     for (Pair<CaldavAccount, List<Filter>> filters : filterProvider.getCaldavFilters()) {
       CaldavAccount account = filters.first;
-      addSubMenu(account.getName(), filters.second, !navigationDrawer);
+      addSubMenu(
+          account.getName(), !isNullOrEmpty(account.getError()), filters.second, !navigationDrawer);
 
       if (navigationDrawer) {
         add(
@@ -382,12 +395,13 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
   }
 
   private void populateHeader(ViewHolder viewHolder) {
-    FilterListItem filter = viewHolder.item;
+    NavigationDrawerSubheader filter = (NavigationDrawerSubheader) viewHolder.item;
     if (filter == null) {
       return;
     }
 
     viewHolder.name.setText(filter.listingTitle);
+    viewHolder.icon.setVisibility(filter.error ? View.VISIBLE : View.GONE);
   }
 
   /* ======================================================================

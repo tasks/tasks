@@ -306,6 +306,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
     caldavAccount.setName(getNewName());
     caldavAccount.setUrl(principal);
     caldavAccount.setUsername(getNewUsername());
+    caldavAccount.setError("");
     if (passwordChanged()) {
       caldavAccount.setPassword(encryption.encrypt(getNewPassword()));
     }

@@ -7,7 +7,6 @@ import static at.bitfire.dav4android.XmlUtils.NS_WEBDAV;
 import static java.util.Arrays.asList;
 
 import at.bitfire.dav4android.BasicDigestAuthHandler;
-import at.bitfire.dav4android.DavCalendar;
 import at.bitfire.dav4android.DavResource;
 import at.bitfire.dav4android.PropertyCollection;
 import at.bitfire.dav4android.XmlUtils;
@@ -136,14 +135,9 @@ class CaldavClient {
         .observeOn(AndroidSchedulers.mainThread());
   }
 
-  public List<DavResource> getCalendars() {
-    try {
-      davResource.propfind(
-          1, ResourceType.NAME, DisplayName.NAME, SupportedCalendarComponentSet.NAME, GetCTag.NAME);
-    } catch (IOException | HttpException | DavException e) {
-      Timber.e(e);
-      return null;
-    }
+  public List<DavResource> getCalendars() throws IOException, HttpException, DavException {
+    davResource.propfind(
+        1, ResourceType.NAME, DisplayName.NAME, SupportedCalendarComponentSet.NAME, GetCTag.NAME);
     List<DavResource> urls = new ArrayList<>();
     for (DavResource member : davResource.getMembers()) {
       PropertyCollection properties = member.getProperties();

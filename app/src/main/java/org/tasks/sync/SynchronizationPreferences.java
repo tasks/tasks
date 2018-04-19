@@ -5,6 +5,7 @@
  */
 package org.tasks.sync;
 
+import static java.util.Arrays.asList;
 import static org.tasks.PermissionUtil.verifyPermissions;
 
 import android.content.Intent;
@@ -12,7 +13,10 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
+import com.todoroo.astrid.service.TaskDeleter;
+import java.util.List;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
@@ -24,6 +28,7 @@ import org.tasks.data.CaldavAccount;
 import org.tasks.data.CaldavDao;
 import org.tasks.data.GoogleTaskAccount;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.gtasks.GoogleAccountManager;
@@ -36,7 +41,6 @@ import org.tasks.preferences.ActivityPermissionRequestor;
 import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.PermissionRequestor;
 import org.tasks.preferences.Preferences;
-import timber.log.Timber;
 
 public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
@@ -61,6 +65,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   @Inject JobManager jobManager;
   @Inject CaldavDao caldavDao;
   @Inject Inventory inventory;
+  @Inject TaskDeleter taskDeleter;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
     for (CaldavAccount caldavAccount : caldavDao.getAccounts()) {
       Preference accountPreferences = new Preference(this);
       accountPreferences.setTitle(caldavAccount.getName());
-      accountPreferences.setSummary(caldavAccount.getUrl());
+      accountPreferences.setSummary(caldavAccount.getError());
       accountPreferences.setOnPreferenceClickListener(
           preference -> {
             Intent intent = new Intent(this, CaldavAccountSettingsActivity.class);
@@ -92,19 +97,24 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         (PreferenceCategory) findPreference(getString(R.string.gtasks_GPr_header));
     for (GoogleTaskAccount googleTaskAccount : googleTaskListDao.getAccounts()) {
       String account = googleTaskAccount.getAccount();
-      if (googleAccountManager.getAccount(account) == null) {
-        Timber.e("Can't access %s", account);
-        continue;
-      }
       Preference accountPreferences = new Preference(this);
       accountPreferences.setTitle(account);
+      accountPreferences.setSummary(googleTaskAccount.getError());
       accountPreferences.setOnPreferenceClickListener(
           preference -> {
-            if (!playServices.refreshAndCheck()) {
-              playServices.resolve(SynchronizationPreferences.this);
-            } else if (permissionRequestor.requestAccountPermissions()) {
-              requestLogin();
-            }
+            dialogBuilder
+                .newDialog()
+                .setTitle(account)
+                .setItems(
+                    asList(getString(R.string.reinitialize_account), getString(R.string.logout)),
+                    (dialog, which) -> {
+                      if (which == 0) {
+                        addGoogleTaskAccount();
+                      } else {
+                        logoutConfirmation(googleTaskAccount);
+                      }
+                    })
+                .showThemedListView();
             return false;
           });
       googleTaskPreferences.addPreference(accountPreferences);
@@ -128,6 +138,28 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
             });
   }
 
+  private void logoutConfirmation(GoogleTaskAccount account) {
+    String name = account.getAccount();
+    AlertDialog alertDialog =
+        dialogBuilder
+            .newMessageDialog(R.string.logout_warning, name)
+            .setPositiveButton(
+                R.string.logout,
+                (dialog, which) -> {
+                  for (GoogleTaskList list : googleTaskListDao.getActiveLists(name)) {
+                    taskDeleter.markDeleted(googleTaskDao.getActiveTasks(list.getRemoteId()));
+                    googleTaskListDao.delete(list);
+                  }
+                  googleTaskListDao.delete(account);
+                  restart();
+                })
+            .setNegativeButton(android.R.string.cancel, null)
+            .create();
+    alertDialog.setCanceledOnTouchOutside(false);
+    alertDialog.setCancelable(false);
+    alertDialog.show();
+  }
+
   private void requestLogin() {
     startActivityForResult(
         new Intent(SynchronizationPreferences.this, GtasksLoginActivity.class), REQUEST_LOGIN);
@@ -149,7 +181,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
           });
       addGoogleTasks.setOnPreferenceClickListener(
           preference -> {
-            requestLogin();
+            addGoogleTaskAccount();
             return false;
           });
     } else {
@@ -164,7 +196,7 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
         addGoogleTasks.setSummary(null);
         addGoogleTasks.setOnPreferenceClickListener(
             preference -> {
-              requestLogin();
+              addGoogleTaskAccount();
               return false;
             });
       } else {
@@ -180,6 +212,14 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
 
     if (!permissionChecker.canAccessAccounts()) {
       // TODO: clear google task preference category
+    }
+  }
+
+  private void addGoogleTaskAccount() {
+    if (!playServices.refreshAndCheck()) {
+      playServices.resolve(this);
+    } else if (permissionRequestor.requestAccountPermissions()) {
+      requestLogin();
     }
   }
 

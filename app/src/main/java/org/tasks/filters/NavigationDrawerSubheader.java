@@ -24,10 +24,25 @@ public class NavigationDrawerSubheader extends FilterListItem {
         }
       };
 
+  public boolean error;
+
   private NavigationDrawerSubheader() {}
 
-  public NavigationDrawerSubheader(String listingTitle) {
+  public NavigationDrawerSubheader(String listingTitle, boolean error) {
+    this.error = error;
     this.listingTitle = listingTitle;
+  }
+
+  @Override
+  protected void readFromParcel(Parcel source) {
+    super.readFromParcel(source);
+    error = source.readInt() == 1;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    super.writeToParcel(dest, flags);
+    dest.writeInt(error ? 1 : 0);
   }
 
   @Override

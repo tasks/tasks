@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.GoogleTask;
@@ -41,6 +42,7 @@ import org.tasks.data.GoogleTaskListDao;
 import org.tasks.injection.ForApplication;
 import org.tasks.notifications.NotificationManager;
 import org.tasks.preferences.DefaultFilterProvider;
+import org.tasks.preferences.PermissionChecker;
 import org.tasks.preferences.Preferences;
 import org.tasks.time.DateTime;
 import timber.log.Timber;
@@ -62,6 +64,9 @@ public class GoogleTaskSynchronizer {
   private final TaskCreator taskCreator;
   private final DefaultFilterProvider defaultFilterProvider;
   private final PlayServices playServices;
+  private final PermissionChecker permissionChecker;
+  private final GoogleAccountManager googleAccountManager;
+  private final LocalBroadcastManager localBroadcastManager;
 
   @Inject
   public GoogleTaskSynchronizer(
@@ -77,7 +82,10 @@ public class GoogleTaskSynchronizer {
       GoogleTaskDao googleTaskDao,
       TaskCreator taskCreator,
       DefaultFilterProvider defaultFilterProvider,
-      PlayServices playServices) {
+      PlayServices playServices,
+      PermissionChecker permissionChecker,
+      GoogleAccountManager googleAccountManager,
+      LocalBroadcastManager localBroadcastManager) {
     this.context = context;
     this.googleTaskListDao = googleTaskListDao;
     this.gtasksSyncService = gtasksSyncService;
@@ -91,6 +99,9 @@ public class GoogleTaskSynchronizer {
     this.taskCreator = taskCreator;
     this.defaultFilterProvider = defaultFilterProvider;
     this.playServices = playServices;
+    this.permissionChecker = permissionChecker;
+    this.googleAccountManager = googleAccountManager;
+    this.localBroadcastManager = localBroadcastManager;
   }
 
   public static void mergeDates(long remoteDueDate, Task local) {
@@ -113,14 +124,19 @@ public class GoogleTaskSynchronizer {
       Timber.d("%s: start sync", account);
       try {
         synchronize(account);
+        account.setError("");
       } catch (UserRecoverableAuthIOException e) {
         Timber.e(e);
         sendNotification(context, e.getIntent());
       } catch (IOException e) {
+        account.setError(e.getMessage());
         Timber.e(e);
       } catch (Exception e) {
+        account.setError(e.getMessage());
         tracker.reportException(e);
       } finally {
+        googleTaskListDao.update(account);
+        localBroadcastManager.broadcastRefreshList();
         Timber.d("%s: end sync", account);
       }
     }
@@ -145,6 +161,13 @@ public class GoogleTaskSynchronizer {
   }
 
   private void synchronize(GoogleTaskAccount account) throws IOException {
+    if (!permissionChecker.canAccessAccounts() || googleAccountManager.getAccount(account.getAccount()) == null) {
+      account.setError(context.getString(R.string.cannot_access_account));
+      googleTaskListDao.update(account);
+      localBroadcastManager.broadcastRefreshList();
+      return;
+    }
+
     GtasksInvoker gtasksInvoker = new GtasksInvoker(context, playServices, account.getAccount());
     pushLocalChanges(gtasksInvoker);
 
