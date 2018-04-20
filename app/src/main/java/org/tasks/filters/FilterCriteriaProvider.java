@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.CaldavCalendar;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskList;
 import org.tasks.data.GoogleTaskListDao;
@@ -38,6 +41,7 @@ public class FilterCriteriaProvider {
   private static final String IDENTIFIER_IMPORTANCE = "importance"; // $NON-NLS-1$
   private static final String IDENTIFIER_DUEDATE = "dueDate"; // $NON-NLS-1$
   private static final String IDENTIFIER_GTASKS = "gtaskslist"; // $NON-NLS-1$
+  private static final String IDENTIFIER_CALDAV = "caldavlist"; // $NON-NLS-1$
   private static final String IDENTIFIER_TAG_IS = "tag_is"; // $NON-NLS-1$
   private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; // $NON-NLS-1$
 
@@ -45,7 +49,7 @@ public class FilterCriteriaProvider {
   private final TagService tagService;
   private final Resources r;
   private final GoogleTaskListDao googleTaskListDao;
-  private final SyncAdapters syncAdapters;
+  private final CaldavDao caldavDao;
 
   @Inject
   public FilterCriteriaProvider(
@@ -53,13 +57,14 @@ public class FilterCriteriaProvider {
       TagService tagService,
       GtasksListService gtasksListService,
       SyncAdapters syncAdapters,
-      GoogleTaskListDao googleTaskListDao) {
+      GoogleTaskListDao googleTaskListDao,
+      CaldavDao caldavDao) {
     this.context = context;
     this.tagService = tagService;
-    this.syncAdapters = syncAdapters;
 
     r = context.getResources();
     this.googleTaskListDao = googleTaskListDao;
+    this.caldavDao = caldavDao;
   }
 
   public List<CustomFilterCriterion> getAll() {
@@ -70,10 +75,12 @@ public class FilterCriteriaProvider {
     result.add(getDueDateFilter());
     result.add(getPriorityFilter());
     result.add(getTaskTitleContainsFilter());
-    if (syncAdapters.isGoogleTaskSyncEnabled()) {
+    if (!googleTaskListDao.getAccounts().isEmpty()) {
       result.add(getGtasksFilterCriteria());
     }
-
+    if (!caldavDao.getAccounts().isEmpty()) {
+      result.add(getCaldavFilterCriteria());
+    }
     return result;
   }
 
@@ -215,5 +222,34 @@ public class FilterCriteriaProvider {
         listIds,
         null,
         context.getString(R.string.CFC_gtasks_list_name));
+  }
+
+  private CustomFilterCriterion getCaldavFilterCriteria() {
+    List<CaldavCalendar> calendars = caldavDao.getCalendars();
+
+    String[] names = new String[calendars.size()];
+    String[] ids = new String[calendars.size()];
+    for (int i = 0; i < calendars.size(); i++) {
+      names[i] = calendars.get(i).getName();
+      ids[i] = calendars.get(i).getUuid();
+    }
+    Map<String, Object> values = new HashMap<>();
+    values.put(CaldavTask.KEY, "?");
+
+    return new MultipleSelectCriterion(
+        IDENTIFIER_CALDAV,
+        context.getString(R.string.CFC_gtasks_list_text),
+        Query.select(Field.field("task"))
+            .from(CaldavTask.TABLE)
+            .join(Join.inner(Task.TABLE, Field.field("task").eq(Task.ID)))
+            .where(
+                Criterion.and(
+                    TaskDao.TaskCriteria.activeAndVisible(), Field.field("calendar").eq("?")))
+            .toString(),
+        values,
+        names,
+        ids,
+        null,
+        context.getString(R.string.CFC_caldav_list_name));
   }
 }
