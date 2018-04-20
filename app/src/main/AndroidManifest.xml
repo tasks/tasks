@@ -186,7 +186,7 @@
 
     <activity
       android:excludeFromRecents="true"
-      android:exported="false"
+      android:exported="true"
       android:label="@string/widget_settings"
       android:name=".widget.WidgetConfigActivity"
       android:taskAffinity=""
