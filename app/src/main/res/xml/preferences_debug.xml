@@ -8,6 +8,10 @@
       android:key="@string/p_strict_mode"
       android:title="@string/debug_strict_mode"/>
 
+    <CheckBoxPreference
+      android:key="@string/p_debug_pro"
+      android:title="@string/debug_pro" />
+
   </PreferenceCategory>
 
 </PreferenceScreen>

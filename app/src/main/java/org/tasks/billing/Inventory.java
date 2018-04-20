@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
+import org.tasks.BuildConfig;
+import org.tasks.R;
 import org.tasks.injection.ApplicationScope;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
@@ -71,7 +73,9 @@ public class Inventory {
   }
 
   public boolean hasPro() {
-    return purchases.containsKey(SKU_PRO) || purchases.containsKey(SKU_VIP);
+    return purchases.containsKey(SKU_PRO)
+        || purchases.containsKey(SKU_VIP)
+        || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false));
   }
 
   public boolean purchased(String sku) {
