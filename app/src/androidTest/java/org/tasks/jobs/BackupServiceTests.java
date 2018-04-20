@@ -77,7 +77,6 @@ public class BackupServiceTests extends InjectingTestCase {
     }
   }
 
-  @Ignore
   @Test
   public void testBackup() {
     assertEquals(0, temporaryDirectory.list().length);

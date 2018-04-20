@@ -6,18 +6,21 @@ import static java.util.Collections.emptyList;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import com.evernote.android.job.Job;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import javax.inject.Inject;
 import org.tasks.backup.TasksJsonExporter;
+import org.tasks.injection.ForApplication;
+import org.tasks.injection.InjectingJob;
+import org.tasks.injection.JobComponent;
 import org.tasks.preferences.Preferences;
 import timber.log.Timber;
 
-public class BackupJob extends Job {
+public class BackupJob extends InjectingJob {
 
   static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.json";
   static final FileFilter FILE_FILTER = f -> f.getName().matches(BACKUP_FILE_NAME_REGEX);
@@ -25,15 +28,9 @@ public class BackupJob extends Job {
       (f1, f2) -> Long.compare(f2.lastModified(), f1.lastModified());
 
   private static final int DAYS_TO_KEEP_BACKUP = 7;
-  private final Context context;
-  private final TasksJsonExporter tasksJsonExporter;
-  private final Preferences preferences;
-
-  BackupJob(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
-    this.context = context;
-    this.tasksJsonExporter = tasksJsonExporter;
-    this.preferences = preferences;
-  }
+  @Inject @ForApplication Context context;
+  @Inject TasksJsonExporter tasksJsonExporter;
+  @Inject Preferences preferences;
 
   static List<File> getDeleteList(File[] fileArray, int keepNewest) {
     if (fileArray == null) {
@@ -45,11 +42,28 @@ public class BackupJob extends Job {
     return newArrayList(skip(files, keepNewest));
   }
 
+  public BackupJob() {
+
+  }
+
+  BackupJob(Context context, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
+    this.context = context;
+    this.tasksJsonExporter = tasksJsonExporter;
+    this.preferences = preferences;
+  }
+
   @NonNull
   @Override
   protected Result onRunJob(@NonNull Params params) {
+    super.onRunJob(params);
+
     startBackup(context);
     return Result.SUCCESS;
+  }
+
+  @Override
+  protected void inject(JobComponent component) {
+    component.inject(this);
   }
 
   void startBackup(Context context) {
