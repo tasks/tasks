@@ -352,6 +352,7 @@
 	<string name="list_settings">Nastavenia zoznamu</string>
 	<string name="delete">Zmazať</string>
 	<string name="copy">Kopírovať</string>
+	<string name="move">Presunúť</string>
 	<string name="filter_settings">Nastavenie filtra</string>
 	<string name="show_hidden">Zobraziť skryté</string>
 	<string name="show_completed">Zobraziť dokončené</string>
@@ -366,6 +367,7 @@
 	<string name="send_anonymous_statistics">Pomôž zlepšiť Úlohy</string>
 	<string name="send_anonymous_statistics_summary">Zasielať anonymné štatistiky používania a správy o zlyhaní aplikácie pre zlepšenia Úloh. Žiadne osobné údaje nebudú zhromažďované.</string>
 	<string name="tag_already_exists">Štítok už jestvuje</string>
+	<string name="duplicate_name">Zopakovať meno</string>
 	<string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
 	<string name="username_required">Vyžaduje sa meno užívateľa </string>
 	<string name="password_required">Vyžaduje sa heslo</string>
@@ -422,6 +424,7 @@
 	<string name="widget_row_settings">Nastavenie riadka</string>
 	<string name="sync_error_permissions">Úlohy vyžadujú povolenia</string>
 	<string name="creating_new_list">Vytvorenie nového zoznamu</string>
+	<string name="contacting_server">Pripájanie sa na server</string>
 	<string name="deleting_list">Zmazať zoznam</string>
 	<string name="renaming_list">Premenovať zoznam</string>
 	<string name="clear_completed_tasks_confirmation">Vymazať dokončené úlohy?</string>
@@ -437,6 +440,7 @@
 	<string name="user">Užívateľ</string>
 	<string name="password">Heslo</string>
 	<string name="error_adding_account">Chyba pridania účtu</string>
+	<string name="calendar_settings">Nastavenia kalendára</string>
 	<string name="notification_channel_settings">Spravovať upozornenia</string>
 	<string name="battery_optimization_settings">Zníženie spotreby energie</string>
 	<string name="notification_disable_battery_optimizations_description">Zníženie spotreby môže spôsobiť oneskorenie upozornení</string>
@@ -478,5 +482,25 @@
 	<string name="tasker_create_task">Vytvor úlohu</string>
 	<string name="tasker_list_notification">Zoznam upozornení</string>
 	<string name="help">Pomoc</string>
+	<string name="caldav_home_set_not_found">Nastavenie Domov nenájdené</string>
+	<string name="network_error">Spojenie zlyhalo</string>
+	<string name="background_sync_unmetered_only">Iba na bezplatných pripojeniach</string>
+	<string name="upgrade">Nová verzia</string>
+	<string name="upgrade_to_pro">Rozšíriť na verziu pro</string>
+	<string name="refresh_purchases">Obnoviť nákupy</string>
+	<string name="button_subscribed">Prihlásený</string>
+	<string name="button_subscribe">Prihlásiť sa</string>
+	<string name="button_more_info">Podrobnosti</string>
+	<string name="owned">Vlastníctvo</string>
+	<string name="error_billing_unavailable">Platba nedostupná. Uistite sa, že aplikácia
+Google Play je správne nastavená</string>
+	<string name="error_billing_default">Platba nedostupná. Skontrolujte svoje zariadenie.</string>
+	<string name="about">O</string>
+	<string name="license_summary">Úlohy je bezplatný softvér s otvoreným kódom pod GNU Public Licence v3.0</string>
 	<string name="themes">Ďaľšie témy</string>
+	<string name="pro_caldav_sync">CaIDAV synchronizácia</string>
+	<string name="pro_multiple_google_task_accounts">Viac účtov Google Task</string>
+	<string name="pro_tasker_plugins">Zásuvný modul Tasker</string>
+	<string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
+	<string name="requires_pro_subscription">Vyžaduje platenú verziu pro</string>
 </resources>

@@ -354,6 +354,7 @@
 	<string name="list_settings">Настройки на списъка</string>
 	<string name="delete">Изтрий</string>
 	<string name="copy">Копирай</string>
+	<string name="move">Премести</string>
 	<string name="filter_settings">Настройки на филтъра</string>
 	<string name="show_hidden">Покажи скрити</string>
 	<string name="show_completed">Покажи завършени</string>
@@ -368,6 +369,7 @@
 	<string name="send_anonymous_statistics">Подобряване на Tasks</string>
 	<string name="send_anonymous_statistics_summary">Изпращане на анонимна статистика за използването и отчети за грешки, за да се подпомогне подобряването на Tasks. Няма да бъдат събирани персонални данни.</string>
 	<string name="tag_already_exists">Този таг вече съществува</string>
+	<string name="duplicate_name">Дублирано име</string>
 	<string name="name_cannot_be_empty">Името не може да е празно</string>
 	<string name="username_required">Потребителското име е задължително</string>
 	<string name="password_required">Паролата е задължителна</string>
@@ -425,6 +427,7 @@
 	<string name="widget_row_settings">Настройки на реда</string>
 	<string name="sync_error_permissions">Tasks изисква разрешения</string>
 	<string name="creating_new_list">Нов списък</string>
+	<string name="contacting_server">Свързване със сървъра</string>
 	<string name="deleting_list">Изтриване на списък</string>
 	<string name="renaming_list">Преименуване на списък</string>
 	<string name="clear_completed_tasks_confirmation">Изчистване на завършени задачи?</string>
@@ -440,6 +443,7 @@
 	<string name="user">Потребител</string>
 	<string name="password">Парола</string>
 	<string name="error_adding_account">Грешка при добавяне на акаунт</string>
+	<string name="calendar_settings">Настройки на календара</string>
 	<string name="notification_channel_settings">Управление на уведомления</string>
 	<string name="battery_optimization_settings">Управление на оптимизациите на батерията</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизациите на батерията могат да забавят уведомленията</string>
@@ -481,5 +485,24 @@
 	<string name="tasker_create_task">Създай задача</string>
 	<string name="tasker_list_notification">Списък с нотификации</string>
 	<string name="help">Помощ</string>
+	<string name="caldav_home_set_not_found">Home set не е намерен</string>
+	<string name="network_error">Свързването е неуспешно</string>
+	<string name="background_sync_unmetered_only">Само при неограничени връзки</string>
+	<string name="upgrade">Актуализация</string>
+	<string name="upgrade_to_pro">Обнови към pro</string>
+	<string name="refresh_purchases">Обнови покупки</string>
+	<string name="button_subscribed">Подписан</string>
+	<string name="button_subscribe">Подпиши се</string>
+	<string name="button_more_info">Повече информация</string>
+	<string name="owned">Притежавани</string>
+	<string name="error_billing_unavailable">Таксуването не е налице. Уверете се, че приложението ви в Google Play
+е настроено правилно</string>
+	<string name="error_billing_default">Таксуването не е налице. Моля, проверете устройството си.</string>
+	<string name="about">Относно</string>
 	<string name="themes">Допълнителни теми</string>
+	<string name="pro_caldav_sync">CalDAV синхранизация</string>
+	<string name="pro_multiple_google_task_accounts">Множество Google Tasks акаунти</string>
+	<string name="pro_tasker_plugins">Tasker добавки</string>
+	<string name="pro_dashclock_extension">Dashclock  разширение</string>
+	<string name="requires_pro_subscription">Изисква pro абонамент</string>
 </resources>

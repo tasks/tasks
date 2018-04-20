@@ -423,6 +423,7 @@
 	<string name="widget_row_settings">行設定</string>
 	<string name="sync_error_permissions">Tasks はアクセス許可が必要です</string>
 	<string name="creating_new_list">新しいリストを作成中</string>
+	<string name="contacting_server">サーバーに接続中</string>
 	<string name="deleting_list">リストの削除中</string>
 	<string name="renaming_list">リストの名前を変更中</string>
 	<string name="clear_completed_tasks_confirmation">完了したタスクをクリアしますか?</string>
@@ -479,5 +480,7 @@
 	<string name="tasker_create_task">タスクを作成</string>
 	<string name="tasker_list_notification">通知のリスト</string>
 	<string name="help">ヘルプ</string>
+	<string name="network_error">接続に失敗しました</string>
+	<string name="background_sync_unmetered_only">定額の接続時のみ</string>
 	<string name="themes">追加のテーマ</string>
 </resources>

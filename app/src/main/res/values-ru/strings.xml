@@ -158,6 +158,7 @@
 	<string name="gcal_completed_title">%s (выполнено)</string>
 	<string name="CFC_gtasks_list_text">В Списке: ?</string>
 	<string name="CFC_gtasks_list_name">В GTask Список...</string>
+	<string name="CFC_caldav_list_name">В списке CalDAV</string>
 	<string name="gtasks_GTA_clear_completed">Очистить завершенные</string>
 	<string name="gtasks_GLA_authenticating">Авторизация...</string>
 	<string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
@@ -352,6 +353,7 @@
 	<string name="list_settings">Настройки списка</string>
 	<string name="delete">Удалить</string>
 	<string name="copy">Копия</string>
+	<string name="move">Перенести</string>
 	<string name="filter_settings">Настройки фильтра</string>
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
@@ -366,6 +368,7 @@
 	<string name="send_anonymous_statistics">Содействовать улучшению</string>
 	<string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собираеться.</string>
 	<string name="tag_already_exists">Тег уже существует</string>
+	<string name="duplicate_name">Повторяющееся название</string>
 	<string name="name_cannot_be_empty">Необходимо задать имя</string>
 	<string name="username_required">Требуется имя пользователя</string>
 	<string name="password_required">Требуется пароль</string>
@@ -423,6 +426,7 @@
 	<string name="widget_row_settings">Настройки строк</string>
 	<string name="sync_error_permissions">Запрашиваемые разрешения</string>
 	<string name="creating_new_list">Создание нового списка</string>
+	<string name="contacting_server">Происходит контакт с сервером</string>
 	<string name="deleting_list">Удаление списка</string>
 	<string name="renaming_list">Переименование списка</string>
 	<string name="clear_completed_tasks_confirmation">Очистить завершенные задачи?</string>
@@ -438,6 +442,7 @@
 	<string name="user">Пользователь</string>
 	<string name="password">Пароль</string>
 	<string name="error_adding_account">Ошибка при добавлении учётной записи</string>
+	<string name="calendar_settings">Настройки календаря</string>
 	<string name="notification_channel_settings">Управление уведомлениями</string>
 	<string name="battery_optimization_settings">Управление расходом батареи</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
@@ -479,5 +484,28 @@
 	<string name="tasker_create_task">Создать задачу</string>
 	<string name="tasker_list_notification">Список уведомлений</string>
 	<string name="help">Помощь</string>
+	<string name="caldav_home_set_not_found">Домашний набор ненайден</string>
+	<string name="network_error">Соединение не удалось</string>
+	<string name="background_sync_unmetered_only">Только на метрических соединений</string>
+	<string name="upgrade">Обновить</string>
+	<string name="upgrade_to_pro">Обновить в версию Про</string>
+	<string name="refresh_purchases">Обновить покупки</string>
+	<string name="button_subscribed">Подписано</string>
+	<string name="button_subscribe">Подписаться</string>
+	<string name="button_more_info">По подробнее</string>
+	<string name="owned">Овладелено</string>
+	<string name="error_billing_unavailable">Счёт невозможен. Убедитесь, что приложение Google Play настроено правильно</string>
+	<string name="error_billing_default">Счёт невозможен. Проверьте устройство</string>
+	<string name="about">О...</string>
+	<string name="license_summary">Tasks является програмным обеспечением открытого кода, под лицензией GNU General Public License v3.0</string>
 	<string name="themes">Дополнительные темы</string>
+	<string name="pro_caldav_sync">Синхронизация CalDAV</string>
+	<string name="pro_multiple_google_task_accounts">Несколько учётных записей Google Task</string>
+	<string name="pro_tasker_plugins">Tasker плагин</string>
+	<string name="pro_dashclock_extension">Расширение Dashclock</string>
+	<string name="requires_pro_subscription">Требуется Про версия</string>
+	<string name="logout">Отключиться</string>
+	<string name="logout_warning">Отключиться от %s? Все данные учётной записи на этом устройстве будут удалены</string>
+	<string name="cannot_access_account">Учётная запись недоступна</string>
+	<string name="reinitialize_account">Инициализировать заного</string>
 </resources>

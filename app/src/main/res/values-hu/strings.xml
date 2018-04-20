@@ -160,6 +160,7 @@
 	<string name="gcal_completed_title">%s (befejezve)</string>
 	<string name="CFC_gtasks_list_text">Listában: ?</string>
 	<string name="CFC_gtasks_list_name">Ebben a GTasks listában...</string>
+	<string name="CFC_caldav_list_name">A CalDAV listában...</string>
 	<string name="gtasks_GTA_clear_completed">Elvégzettek törlése</string>
 	<string name="gtasks_GLA_authenticating">Azonosítás...</string>
 	<string name="gtasks_GLA_errorIOAuth">Sajnáljuk, de hiba történt a Google szervereival való kommunikálás során. Próbáld újra később.</string>
@@ -354,6 +355,7 @@
 	<string name="list_settings">Lista beállításai</string>
 	<string name="delete">Törlés</string>
 	<string name="copy">Másolás</string>
+	<string name="move">Mozgatás</string>
 	<string name="filter_settings">Szűrő beállítások</string>
 	<string name="show_hidden">Rejtettek megjelenítése</string>
 	<string name="show_completed">Elvégzettek megjelenítése</string>
@@ -368,6 +370,7 @@
 	<string name="send_anonymous_statistics">Tasks fejlesztése</string>
 	<string name="send_anonymous_statistics_summary">Anonim felhasználási statisztikák és hibajelentések küldése a Tasks fejlesztése érdekében. Személyes adatok gyűjtése nem történik.</string>
 	<string name="tag_already_exists">A címke már létezik</string>
+	<string name="duplicate_name">Duplikált név</string>
 	<string name="name_cannot_be_empty">A cím nem lehet üres</string>
 	<string name="username_required">Felhasználónév szükséges</string>
 	<string name="password_required">Jelszó szükséges</string>
@@ -425,6 +428,7 @@
 	<string name="widget_row_settings">Sorok beállíátsai</string>
 	<string name="sync_error_permissions">A Tasks engedélyre vár</string>
 	<string name="creating_new_list">Új lista létrehozása</string>
+	<string name="contacting_server">Kapcsolódás a szerverhez</string>
 	<string name="deleting_list">Lista törlése</string>
 	<string name="renaming_list">Lista átnevezése</string>
 	<string name="clear_completed_tasks_confirmation">Elvégzett feladatok törlése?</string>
@@ -441,6 +445,7 @@
 	<string name="password">Jelszó</string>
 	<string name="url">Link</string>
 	<string name="error_adding_account">Felhasználói fiók hozzáadása sikertelen</string>
+	<string name="calendar_settings">Naptár beállítások</string>
 	<string name="notification_channel_settings">Értesítések kezelése</string>
 	<string name="battery_optimization_settings">Akkumulátor optimalizálások kezelése</string>
 	<string name="notification_disable_battery_optimizations_description">Az akkumulátor optimalizálási funkciók késleltethetik az értesítéseket</string>
@@ -482,5 +487,18 @@
 	<string name="tasker_create_task">Feladat létrehozása</string>
 	<string name="tasker_list_notification">Lista értesítés</string>
 	<string name="help">Súgó</string>
+	<string name="network_error">Kapcsolódási hiba</string>
+	<string name="background_sync_unmetered_only">Csak forgalmidíj mentes kapcsolatoknál</string>
+	<string name="button_subscribed">Előfizetve</string>
+	<string name="button_subscribe">Előfizetés</string>
+	<string name="button_more_info">További információk</string>
+	<string name="about">Névjegy</string>
+	<string name="license_summary">A Tasks ingyenes és nyílt forráskódú program, a GNU Általános Nyilvános Licenc v3.0 alapján licenszelve</string>
 	<string name="themes">További témák</string>
+	<string name="pro_caldav_sync">CalDAV szinkronizáció</string>
+	<string name="pro_multiple_google_task_accounts">Több Google Task fiók</string>
+	<string name="pro_tasker_plugins">Tasker plugin-ok</string>
+	<string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
+	<string name="logout">Kijelentkezés</string>
+	<string name="cannot_access_account">Fiók nem elérhető</string>
 </resources>

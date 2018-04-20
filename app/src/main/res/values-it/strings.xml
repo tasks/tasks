@@ -157,6 +157,7 @@
 	<string name="gcal_completed_title">%s (completato)</string>
 	<string name="CFC_gtasks_list_text">Nella lista: ?</string>
 	<string name="CFC_gtasks_list_name">Nella lista GTasks...</string>
+	<string name="CFC_caldav_list_name">In lista CalDAV…</string>
 	<string name="gtasks_GTA_clear_completed">Elimina attività completate</string>
 	<string name="gtasks_GLA_authenticating">Autenticazione...</string>
 	<string name="gtasks_GLA_errorIOAuth">Ci scusiamo per il disagio, abbiamo dei problemi a comunicare con i server di Google. Per favore riprovare più tardi.</string>
@@ -351,6 +352,7 @@
 	<string name="list_settings">Impostazioni lista</string>
 	<string name="delete">Elimina</string>
 	<string name="copy">Copia</string>
+	<string name="move">Sposta</string>
 	<string name="filter_settings">Preferenze filtro</string>
 	<string name="show_hidden">Mostra nascoste</string>
 	<string name="show_completed">Mostra completate</string>
@@ -365,6 +367,7 @@
 	<string name="send_anonymous_statistics">Migliora Attività</string>
 	<string name="send_anonymous_statistics_summary">Invio anonimo di statistiche e problemi di funzionamento atti a migliorare \"Tasks\". Non verrà inviato nessun dato personale.</string>
 	<string name="tag_already_exists">Etichetta già presente</string>
+	<string name="duplicate_name">Nome già presente</string>
 	<string name="name_cannot_be_empty">Il nome non può essere omesso</string>
 	<string name="username_required">Necessario nome utente</string>
 	<string name="password_required">Necessaria password</string>
@@ -422,6 +425,7 @@
 	<string name="widget_row_settings">Impostazioni riga</string>
 	<string name="sync_error_permissions">L\'attività richiede l\'autorizzazione</string>
 	<string name="creating_new_list">Crea nuova lista</string>
+	<string name="contacting_server">Contatto il server...</string>
 	<string name="deleting_list">Cancella lista</string>
 	<string name="renaming_list">RInomina lista</string>
 	<string name="clear_completed_tasks_confirmation">Elimino le attività completate?</string>
@@ -436,6 +440,8 @@
 	<string name="add_account">Aggiungi account</string>
 	<string name="user">Utente</string>
 	<string name="error_adding_account">Aggiunta account fallita</string>
+	<string name="calendar_settings">Impostazioni calendario
+</string>
 	<string name="notification_channel_settings">Gestione notifiche</string>
 	<string name="battery_optimization_settings">Ottimizza consumo batteria</string>
 	<string name="notification_disable_battery_optimizations_description">L\'ottimizzazione consumi può ritardare le notifiche</string>
@@ -477,5 +483,29 @@
 	<string name="tasker_create_task">Crea attività</string>
 	<string name="tasker_list_notification">Elenca notifiche</string>
 	<string name="help">Aiuto</string>
+	<string name="caldav_home_set_not_found">Home set non trovato</string>
+	<string name="network_error">Connessione fallita</string>
+	<string name="background_sync_unmetered_only">Solo su connessioni non a consumo</string>
+	<string name="upgrade">Aggiorna</string>
+	<string name="upgrade_to_pro">Aggiorna a pro</string>
+	<string name="refresh_purchases">Aggiorna acquisti</string>
+	<string name="button_subscribed">Abbonato</string>
+	<string name="button_subscribe">Sottoscrivi</string>
+	<string name="button_more_info">Più informazioni</string>
+	<string name="owned">Acquisito</string>
+	<string name="error_billing_unavailable">Modalità addebito non disponibile. Accertati che 
+Google Play app sia impostata correttamente</string>
+	<string name="error_billing_default">Modalità addebito non disponibile. Verifica il tuo dispositivo</string>
+	<string name="about">A riguardo</string>
+	<string name="license_summary">Tasks è un software gratuito e open-source, rilasciato secondo la GNU General Public License v3.0</string>
 	<string name="themes">Ulteriori temi</string>
+	<string name="pro_caldav_sync">Sincronizzazione CalDAV</string>
+	<string name="pro_multiple_google_task_accounts"> Account attività Google multipli   </string>
+	<string name="pro_tasker_plugins">Plugin Tasker</string>
+	<string name="pro_dashclock_extension">Estensione Dashclock</string>
+	<string name="requires_pro_subscription">Richiede versione pro</string>
+	<string name="logout">Esci</string>
+	<string name="logout_warning">Esco da %s? Tutti i dati dell\'account saranno cancellati dal dispositivo.</string>
+	<string name="cannot_access_account">Impossibile accedere all\'account</string>
+	<string name="reinitialize_account">Reinizializza</string>
 </resources>

@@ -208,8 +208,8 @@
 		<item quantity="other">%d Aufgaben</item>
 	</plurals>
 	<plurals name="repeat_times">
-		<item quantity="one">Fälligkeitsuhrzeit</item>
-		<item quantity="other">Fünfmal</item>
+		<item quantity="one">mal</item>
+		<item quantity="other">mal</item>
 	</plurals>
 	<plurals name="repeat_minutes">
 		<item quantity="one">Minute</item>
@@ -256,14 +256,14 @@
 		<item quantity="other">Jahre</item>
 	</plurals>
 	<plurals name="repeat_n_years">
-		<item quantity="one">%d Jahr(e)</item>
-		<item quantity="other">%d Jahr(e)</item>
+		<item quantity="one">%d Jahr</item>
+		<item quantity="other">%d Jahre</item>
 	</plurals>
 	<string name="repeat_type_due">Fälligkeitsdatum</string>
 	<string name="repeat_type_completion">Erledigung</string>
 	<string name="repeat_forever">Endlos wiederholen</string>
 	<string name="repeat_until">Wiederhole bis %s</string>
-	<string name="repeat_number_of_times">Anzahl Vibrationen</string>
+	<string name="repeat_number_of_times">Wiederhole n-mal</string>
 	<string name="repeat_occurs">Tritt ein</string>
 	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>
 	<string name="new_tag">Neues Stichwort erstellen</string>
@@ -300,7 +300,7 @@
 	<string name="widget_show_settings">Einstellungen anzeigen</string>
 	<string name="notifications">Benachrichtigungen</string>
 	<string name="silent">Ohne Ton</string>
-	<string name="sound">Mit Ton</string>
+	<string name="sound">Ton</string>
 	<string name="vibrations">Vibration</string>
 	<string name="quiet_hours">Ruhezeit</string>
 	<string name="attachment_directory">Ordner für Anhänge</string>
@@ -333,7 +333,7 @@
 	<string name="tags">Schlagworte</string>
 	<string name="filters">Filter</string>
 	<string name="date_shortcut_hour">Für eine Stunde</string>
-	<string name="date_shortcut_morning">Morgen</string>
+	<string name="date_shortcut_morning">morgens</string>
 	<string name="date_shortcut_afternoon">Nachmittag</string>
 	<string name="date_shortcut_evening">Abend</string>
 	<string name="date_shortcut_night">Nacht</string>
@@ -365,6 +365,7 @@
 	<string name="username_required">Benutzername benötigt</string>
 	<string name="password_required">Passwort benötigt</string>
 	<string name="url_required">URL benötigt</string>
+	<string name="url_host_name_required">Hostname erforderlich</string>
 	<string name="url_invalid_scheme">URL muss it \"http(s)://\" beginnen</string>
 	<string name="no_title">(kein Titel)</string>
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
@@ -411,6 +412,7 @@
 	<string name="widget_row_settings">Reihen-Einstellungen</string>
 	<string name="sync_error_permissions">Tasks benötigt Zugriff</string>
 	<string name="creating_new_list">Erstelle neue Liste</string>
+	<string name="contacting_server">Kontaktiere Server</string>
 	<string name="deleting_list">Lösche Liste</string>
 	<string name="renaming_list">Benenne Liste um</string>
 	<string name="clear_completed_tasks_confirmation">Erledigte Aufgaben löschen?</string>
@@ -426,9 +428,10 @@
 	<string name="user">Benutzer</string>
 	<string name="password">Passwort</string>
 	<string name="error_adding_account">Fehler beim Hinzufügen des Accounts</string>
+	<string name="calendar_settings">Kalendereinstellungen</string>
 	<string name="notification_channel_settings">Verwalte Benachrichtigungen</string>
 	<string name="battery_optimization_settings">Energiespar-Optionen verwalten</string>
-	<string name="notification_disable_battery_optimizations_description">Energiesparfunktionen verwalten</string>
+	<string name="notification_disable_battery_optimizations_description">Energiesparmodus kann Benachrichtigungen verzögern</string>
 	<string name="bundle_notifications">Benachrichtigungen zusammenfassen</string>
 	<string name="badges">Button</string>
 	<string name="list">Liste</string>
@@ -436,25 +439,46 @@
 	<string name="repeats_single">Wiederhole %s</string>
 	<string name="repeats_single_on">Wiederhole %1$s am %2$s</string>
 	<string name="repeats_single_until">Wiederhole %1$s bis %2$s</string>
+	<string name="repeats_single_number_of_times">Wiederhole %1$s, genau %2$d %3$s</string>
+	<string name="repeats_single_on_until">Wiederhole %1$s am %2$s, bis %3$s</string>
+	<string name="repeats_single_on_number_of_times">Wiederhole %1$s am %2$s, genau %3$d %4$s</string>
 	<string name="repeats_minutely">minütlich</string>
 	<string name="repeats_hourly">stündlich</string>
 	<string name="repeats_daily">täglich</string>
 	<string name="repeats_weekly">wöchentlich</string>
-	<string name="repeats_monthly">Wiederhole monatlich</string>
+	<string name="repeats_monthly">monatlich</string>
 	<string name="repeats_yearly">jährlich</string>
 	<string name="repeats_plural">Wiederhole jede(n) %s</string>
 	<string name="repeats_plural_on">Wiederhole aller %1$s am %2$s</string>
 	<string name="repeats_plural_until">Wiederhole jede(n) %1$s bis %2$s</string>
+	<string name="repeats_plural_number_of_times">Wiederhole alle %1$s, genau %2$d %3$s</string>
+	<string name="repeats_plural_on_until">Wiederhole alle %1$s am %2$s, bis %3$s</string>
+	<string name="repeats_plural_on_number_of_times">Wiederhole alle %1$s am %2$s, genau %3$d %4$s</string>
 	<string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
 	<string name="default_calendar">Standardkalender</string>
 	<string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>
 	<string name="bundle_notifications_summary">Mehrer Benachrichtigungen in eine Benachrichtigung zusammenfassen</string>
 	<string name="repeat_monthly_same_day_each_month">Am selben Tag jeden Monats</string>
-	<string name="repeat_monthly_first_week">Vorname</string>
+	<string name="dont_sync">Nicht synchronisieren</string>
+	<string name="repeat_monthly_every_day_of_nth_week">jeden %1$s %2$s</string>
+	<string name="repeat_monthly_on_every_day_of_nth_week">an jedem %1$s %2$s</string>
+	<string name="repeat_monthly_first_week">ersten</string>
 	<string name="repeat_monthly_second_week">1 Sekunde</string>
-	<string name="repeat_monthly_third_week">dritte</string>
-	<string name="repeat_monthly_fourth_week">vierte</string>
+	<string name="repeat_monthly_third_week">dritten</string>
+	<string name="repeat_monthly_fourth_week">vierten</string>
 	<string name="repeat_monthly_last_week">Nachname</string>
+	<string name="tasker_create_task">Aufgabe erstellen</string>
 	<string name="help">Hilfe</string>
+	<string name="network_error">Verbindung fehlgeschlagen</string>
+	<string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
+	<string name="button_more_info">Weitere Informationen</string>
+	<string name="about">Über</string>
+	<string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist</string>
 	<string name="themes">Zusätzliche Themes</string>
+	<string name="pro_caldav_sync">CalDAV Synchronisierung</string>
+	<string name="pro_tasker_plugins">Tasker Plugins</string>
+	<string name="logout">Abmelden</string>
+	<string name="logout_warning">Von %s abmelden? Das wird alle Daten dieses Kontos von deinem Gerät löschen.</string>
+	<string name="cannot_access_account">Auf das Konto kann nicht zugegriffen werden</string>
+	<string name="reinitialize_account">Neu initialisieren</string>
 </resources>

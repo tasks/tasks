@@ -157,6 +157,7 @@
 	<string name="gcal_completed_title">%s (užbaigta)</string>
 	<string name="CFC_gtasks_list_text">Yra sąraše ?</string>
 	<string name="CFC_gtasks_list_name">Yra GTasks sąraše...</string>
+	<string name="CFC_caldav_list_name">CalDAV sąraše</string>
 	<string name="gtasks_GTA_clear_completed">Išvalyti užbaigtus</string>
 	<string name="gtasks_GLA_authenticating">Autorizuojama...</string>
 	<string name="gtasks_GLA_errorIOAuth">Atsiprašome, turime bėdų susisiekiant su Google serveriais. Prašome pabandyti vėliau.</string>
@@ -351,6 +352,7 @@
 	<string name="list_settings">Sąrašo nustatymai</string>
 	<string name="delete">Ištrinti</string>
 	<string name="copy">Kopijuoti</string>
+	<string name="move">Perkelti</string>
 	<string name="filter_settings">Filtrų nustatymai</string>
 	<string name="show_hidden">Rodyti paslėptus</string>
 	<string name="show_completed">Rodyti užbaigtus</string>
@@ -365,6 +367,7 @@
 	<string name="send_anonymous_statistics">Pagerinti Tasks</string>
 	<string name="send_anonymous_statistics_summary">Siųsti anoniminę naudojimo statistikos ir gedimų ataskaitas, kad pagerinti Tasks programą. Jokia asmeninė informacija nebus renkama.</string>
 	<string name="tag_already_exists">Etiketė jau egzistuoja</string>
+	<string name="duplicate_name">Besidubliuojantis pavadinimas</string>
 	<string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
 	<string name="username_required">Reikalingas vartotojo vardas</string>
 	<string name="password_required">Reikalingas slaptažodis</string>
@@ -437,6 +440,7 @@
 	<string name="user">Vartotojas</string>
 	<string name="password">Slaptažodis</string>
 	<string name="error_adding_account">Klaida kuriant paskyrą</string>
+	<string name="calendar_settings">Kalendoriaus nustatymai</string>
 	<string name="notification_channel_settings">Valdyti pranešimus</string>
 	<string name="battery_optimization_settings">Valdyti baterijos optimizacijas</string>
 	<string name="notification_disable_battery_optimizations_description">Baterijos optimizacijos gali uždelsti pranešimus</string>
@@ -478,6 +482,29 @@
 	<string name="tasker_create_task">Sukurti užduotį</string>
 	<string name="tasker_list_notification">Rodyti pranešimus</string>
 	<string name="help">Pagalba</string>
+	<string name="caldav_home_set_not_found">Namų rinkinys nerastas</string>
 	<string name="network_error">Sujungimas nepavyko</string>
+	<string name="background_sync_unmetered_only">Naudoti tik \"unmetered\" ryšius</string>
+	<string name="upgrade">Atnaujinti</string>
+	<string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
+	<string name="refresh_purchases">Atnaujinti pirkimus</string>
+	<string name="button_subscribed">Prenumeruoti</string>
+	<string name="button_subscribe">Prenumeruoti</string>
+	<string name="button_more_info">Daugiau informacijos</string>
+	<string name="owned">Valdomas</string>
+	<string name="error_billing_unavailable">Sąskaita negalima. Įsitikinkite, kad Google Play programėlė
+sukonfigūruota tinkamai.</string>
+	<string name="error_billing_default">Sąskaita negalima. Patikrinkite savo įrenginį.</string>
+	<string name="about">Apie</string>
+	<string name="license_summary">Tasks yra nemokama ir atviro kodo programinė įranga, licencijuota pagal GNU General Public License v3.0 licenciją.</string>
 	<string name="themes">Papildomos temos</string>
+	<string name="pro_caldav_sync">CalDAV sinchronizacija</string>
+	<string name="pro_multiple_google_task_accounts">Kelios Google Task paskyros</string>
+	<string name="pro_tasker_plugins">Tasker įskiepiai</string>
+	<string name="pro_dashclock_extension">Dashclock plėtinys</string>
+	<string name="requires_pro_subscription">Reikalinga \"pro\" prenumerata</string>
+	<string name="logout">Atsijungti</string>
+	<string name="logout_warning">Atsijungti nuo %s? Visi šios paskyros duomenys iš šio įrenginio bus pašalinti.</string>
+	<string name="cannot_access_account">Paskyra nepasiekiama.</string>
+	<string name="reinitialize_account">Inicijuoti iš naujo</string>
 </resources>

@@ -154,6 +154,7 @@
 	<string name="gcal_completed_title">%s (complété)</string>
 	<string name="CFC_gtasks_list_text">Dans la liste : ?</string>
 	<string name="CFC_gtasks_list_name">Dans la liste GTasks...</string>
+	<string name="CFC_caldav_list_name">Dans la liste CalDAV...</string>
 	<string name="gtasks_GTA_clear_completed">Effacer les tâches terminés</string>
 	<string name="gtasks_GLA_authenticating">Authentification en cours...</string>
 	<string name="gtasks_GLA_errorIOAuth">Erreur de communication avec les serveurs Google. Veuillez essayer plus tard.</string>
@@ -337,6 +338,7 @@
 	<string name="list_settings">Paramètres de la liste</string>
 	<string name="delete">Effacer</string>
 	<string name="copy">Copier</string>
+	<string name="move">Déplacer</string>
 	<string name="filter_settings">Paramètres du filtre</string>
 	<string name="show_hidden">Afficher les tâches cachées</string>
 	<string name="show_completed">Afficher les tâches terminées</string>
@@ -351,6 +353,7 @@
 	<string name="send_anonymous_statistics">Améliorer Tasks</string>
 	<string name="send_anonymous_statistics_summary">Envoyer des statistiques anonymes d\'usage et les rapports de plantage afin d\'aider à l\'amélioration de Tasks. Aucune donnée personnelle ne sera collectée.</string>
 	<string name="tag_already_exists">Le tag existe déjà</string>
+	<string name="duplicate_name">Nom dupliqué</string>
 	<string name="name_cannot_be_empty">Le nom ne peut pas être vide</string>
 	<string name="username_required">Nom d\'utilisateur requis</string>
 	<string name="password_required">Mot de passe requis</string>
@@ -421,6 +424,7 @@
 	<string name="password">Mot de passe</string>
 	<string name="url">Adresse URL</string>
 	<string name="error_adding_account">Erreur dans l\'ajout du compte</string>
+	<string name="calendar_settings">Paramètres du calendrier</string>
 	<string name="notification_channel_settings">Gérer les notifications</string>
 	<string name="battery_optimization_settings">Gérer les optimisations de la batterie</string>
 	<string name="notification_disable_battery_optimizations_description">Optimisations de la batterie avec des notifications par délais</string>
@@ -460,6 +464,29 @@
 	<string name="tasker_create_task">Créer tâche</string>
 	<string name="tasker_list_notification">Liste des notifications</string>
 	<string name="help">Aide</string>
+	<string name="caldav_home_set_not_found">Ensemble d\'accueil non trouvé</string>
 	<string name="network_error">Connexion échouée</string>
+	<string name="background_sync_unmetered_only">Uniquement sur les connexions illimitées</string>
+	<string name="upgrade">Améliorer</string>
+	<string name="upgrade_to_pro">Passer en professionnel</string>
+	<string name="refresh_purchases">Rafraîchir les achats</string>
+	<string name="button_subscribed">Abonné</string>
+	<string name="button_subscribe">S\'abonner</string>
+	<string name="button_more_info">Plus d\'info</string>
+	<string name="owned">Acquis</string>
+	<string name="error_billing_unavailable">Achat indisponible. Veuillez vérifier si Google Play est
+configuré correctement.</string>
+	<string name="error_billing_default">Achat indisponible. Veuillez vérifier votre appareil.</string>
+	<string name="about">À propos de</string>
+	<string name="license_summary">Tasks est gratuit et un programme en accès ouvert, licencié selon le GNU General Public License v3.0</string>
 	<string name="themes">Thèmes additionnels</string>
+	<string name="pro_caldav_sync">Synchronisation de CalDAV</string>
+	<string name="pro_multiple_google_task_accounts">Plusieurs comptes Google Task</string>
+	<string name="pro_tasker_plugins">Addons pour tâches</string>
+	<string name="pro_dashclock_extension">Extension Dashclock</string>
+	<string name="requires_pro_subscription">Abonnement professionnel requis</string>
+	<string name="logout">Se déconnecter</string>
+	<string name="logout_warning">Se déconnecter de %s ? Toutes les données liés à ce compte seront supprimés de votre appareil</string>
+	<string name="cannot_access_account">Impossible d\'accéder au compte</string>
+	<string name="reinitialize_account">Réinitialiser</string>
 </resources>
