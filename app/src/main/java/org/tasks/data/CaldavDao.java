@@ -52,10 +52,10 @@ public interface CaldavDao {
   @Query("SELECT * FROM caldav_tasks WHERE task = :taskId")
   List<CaldavTask> getTasks(long taskId);
 
-  @Query("SELECT * FROM caldav_calendar ORDER BY name")
+  @Query("SELECT * FROM caldav_calendar ORDER BY name COLLATE NOCASE")
   List<CaldavCalendar> getCalendars();
 
-  @Query("SELECT * FROM caldav_calendar WHERE account = :account ORDER BY name")
+  @Query("SELECT * FROM caldav_calendar WHERE account = :account ORDER BY name COLLATE NOCASE")
   List<CaldavCalendar> getCalendarsByAccount(String account);
 
   @Query("SELECT * FROM caldav_calendar WHERE uuid = :uuid LIMIT 1")
