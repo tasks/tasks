@@ -46,12 +46,11 @@ public class TaskDeleter {
   }
 
   public List<Task> markDeleted(List<Long> taskIds) {
-    List<Task> tasks = taskDao.fetch(taskIds);
     deletionDao.markDeleted(now(), taskIds);
     jobManager.cleanup(taskIds);
     jobManager.syncNow();
     localBroadcastManager.broadcastRefresh();
-    return tasks;
+    return taskDao.fetch(taskIds);
   }
 
   public void delete(Task task) {
