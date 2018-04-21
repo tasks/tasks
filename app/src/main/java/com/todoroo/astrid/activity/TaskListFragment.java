@@ -79,6 +79,8 @@ public class TaskListFragment extends InjectingFragment
     implements SwipeRefreshLayout.OnRefreshListener, Toolbar.OnMenuItemClickListener {
 
   public static final String TAGS_METADATA_JOIN = "for_tags"; // $NON-NLS-1$
+  public static final String GTASK_METADATA_JOIN = "for_gtask"; // $NON-NLS-1$
+  public static final String CALDAV_METADATA_JOIN = "for_caldav"; // $NON-NLS-1$
   public static final String FILE_METADATA_JOIN = "for_actions"; // $NON-NLS-1$
   private static final int VOICE_RECOGNITION_REQUEST_CODE = 1234;
   private static final String EXTRA_FILTER = "extra_filter";

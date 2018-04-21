@@ -64,7 +64,7 @@ public class GtasksFilter extends Filter {
             Criterion.and(
                 TaskDao.TaskCriteria.activeAndVisible(),
                 Field.field("google_tasks.deleted").eq(0),
-                Field.field("list_id").eq(list.getRemoteId())));
+                Field.field("google_tasks.list_id").eq(list.getRemoteId())));
   }
 
   private static Map<String, Object> getValuesForNewTasks(GoogleTaskList list) {

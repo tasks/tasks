@@ -153,6 +153,7 @@ public class Task implements Parcelable {
   /** Name of Task */
   @ColumnInfo(name = "title")
   public String title = "";
+
   @ColumnInfo(name = "importance")
   public Integer priority = Priority.NONE;
   /** Unixtime Task is due, 0 if not set */
@@ -220,6 +221,8 @@ public class Task implements Parcelable {
 
   @Ignore private transient int indent;
   @Ignore private transient String tags;
+  @Ignore private transient String googleTaskList;
+  @Ignore private transient String caldav;
   @Ignore private transient boolean hasFiles;
   @Ignore private transient HashMap<String, Object> transitoryData = null;
 
@@ -250,6 +253,8 @@ public class Task implements Parcelable {
     final int _cursorIndexOfRemoteId = _cursor.getColumnIndexOrThrow("remoteId");
     final int _cursorIndexOfIndent = _cursor.getColumnIndex("indent");
     final int _cursorIndexOfTags = _cursor.getColumnIndex("tags");
+    final int _cursorIndexOfGoogleTasks = _cursor.getColumnIndex("googletask");
+    final int _cursorIndexOfCaldav = _cursor.getColumnIndex("caldav");
     final int _cursorIndexOfFileId = _cursor.getColumnIndex("fileId");
     if (_cursor.isNull(_cursorIndexOfId)) {
       id = null;
@@ -341,6 +346,12 @@ public class Task implements Parcelable {
     }
     if (_cursorIndexOfTags >= 0) {
       tags = _cursor.getString(_cursorIndexOfTags);
+    }
+    if (_cursorIndexOfGoogleTasks >= 0) {
+      googleTaskList = _cursor.getString(_cursorIndexOfGoogleTasks);
+    }
+    if (_cursorIndexOfCaldav >= 0) {
+      caldav = _cursor.getString(_cursorIndexOfCaldav);
     }
     if (_cursorIndexOfFileId >= 0) {
       hasFiles = _cursor.getInt(_cursorIndexOfFileId) > 0;
@@ -1061,10 +1072,6 @@ public class Task implements Parcelable {
     return tags;
   }
 
-  public boolean hasFiles() {
-    return hasFiles;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -1076,6 +1083,9 @@ public class Task implements Parcelable {
 
     Task task = (Task) o;
 
+    if (indent != task.indent) {
+      return false;
+    }
     if (hasFiles != task.hasFiles) {
       return false;
     }
@@ -1152,7 +1162,15 @@ public class Task implements Parcelable {
     if (remoteId != null ? !remoteId.equals(task.remoteId) : task.remoteId != null) {
       return false;
     }
-    return tags != null ? tags.equals(task.tags) : task.tags == null;
+    if (tags != null ? !tags.equals(task.tags) : task.tags != null) {
+      return false;
+    }
+    if (googleTaskList != null
+        ? !googleTaskList.equals(task.googleTaskList)
+        : task.googleTaskList != null) {
+      return false;
+    }
+    return caldav != null ? caldav.equals(task.caldav) : task.caldav == null;
   }
 
   @Override
@@ -1180,7 +1198,21 @@ public class Task implements Parcelable {
     result = 31 * result + (remoteId != null ? remoteId.hashCode() : 0);
     result = 31 * result + indent;
     result = 31 * result + (tags != null ? tags.hashCode() : 0);
+    result = 31 * result + (googleTaskList != null ? googleTaskList.hashCode() : 0);
+    result = 31 * result + (caldav != null ? caldav.hashCode() : 0);
     result = 31 * result + (hasFiles ? 1 : 0);
     return result;
+  }
+
+  public String getGoogleTaskList() {
+    return googleTaskList;
+  }
+
+  public String getCaldav() {
+    return caldav;
+  }
+
+  public boolean hasFiles() {
+    return hasFiles;
   }
 }

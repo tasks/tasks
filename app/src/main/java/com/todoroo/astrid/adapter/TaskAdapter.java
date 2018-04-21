@@ -35,6 +35,13 @@ public class TaskAdapter {
                   + ".tag_uid, '')"
                   + ", ',')")
           .as("tags");
+  private static final StringProperty GTASK =
+      new StringProperty(null, "nullif(" + TaskListFragment.GTASK_METADATA_JOIN + ".list_id, '')")
+          .as("googletask");
+  private static final StringProperty CALDAV =
+      new StringProperty(null, "nullif(" + TaskListFragment.CALDAV_METADATA_JOIN + ".calendar, '')")
+          .as("caldav");
+
   private static final LongProperty FILE_ID_PROPERTY =
       TaskAttachment.ID.cloneAs(TaskListFragment.FILE_METADATA_JOIN, "fileId");
   public static final Property<?>[] PROPERTIES =
@@ -42,6 +49,8 @@ public class TaskAdapter {
           Task.PROPERTIES,
           new Property<?>[] {
             TAGS, // Concatenated list of tags
+            GTASK,
+            CALDAV,
             FILE_ID_PROPERTY // File id
           },
           Property.class);

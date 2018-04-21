@@ -55,7 +55,7 @@ public class CaldavFilter extends Filter {
             Criterion.and(
                 TaskDao.TaskCriteria.activeAndVisible(),
                 Field.field("caldav_tasks.deleted").eq(0),
-                Field.field("calendar").eq(caldavCalendar.getUuid())));
+                Field.field("caldav_tasks.calendar").eq(caldavCalendar.getUuid())));
   }
 
   private static Map<String, Object> getValuesForNewTask(CaldavCalendar caldavCalendar) {

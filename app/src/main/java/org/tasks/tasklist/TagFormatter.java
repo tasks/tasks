@@ -12,13 +12,20 @@ import android.text.style.ForegroundColorSpan;
 import android.util.TypedValue;
 import com.google.common.base.Function;
 import com.google.common.base.Predicates;
+import com.google.common.base.Strings;
 import com.google.common.collect.Ordering;
 import com.todoroo.astrid.tags.TagService;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import org.tasks.R;
+import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
+import org.tasks.data.CaldavDao;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.data.GoogleTaskListDao;
 import org.tasks.data.TagData;
 import org.tasks.injection.ForApplication;
 import org.tasks.themes.ThemeCache;
@@ -28,25 +35,30 @@ public class TagFormatter {
 
   private static final char SPACE = '\u0020';
   private static final char HAIR_SPACE = '\u200a';
+  private static final int MAX_TAGS = 4;
 
-  private final Map<String, TagData> tagMap = new HashMap<>();
+  private final Map<String, ColoredString> tagMap = new HashMap<>();
+  private final Map<String, ColoredString> googleTaskLists = new HashMap<>();
+  private final Map<String, ColoredString> caldavCalendars = new HashMap<>();
   private final TagService tagService;
   private final ThemeCache themeCache;
+  private final GoogleTaskListDao googleTaskListDao;
+  private final CaldavDao caldavDao;
   private final float tagCharacters;
-  private final Function<String, TagData> uuidToTag = this::getTag;
-  private final Ordering<TagData> orderByName =
-      new Ordering<TagData>() {
+  private final Function<String, ColoredString> uuidToTag = this::getTag;
+  private final Ordering<ColoredString> orderByName =
+      new Ordering<ColoredString>() {
         @Override
-        public int compare(TagData left, TagData right) {
-          return left.getName().compareTo(right.getName());
+        public int compare(ColoredString left, ColoredString right) {
+          return left.name.compareTo(right.name);
         }
       };
-  private final Ordering<TagData> orderByLength =
-      new Ordering<TagData>() {
+  private final Ordering<ColoredString> orderByLength =
+      new Ordering<ColoredString>() {
         @Override
-        public int compare(TagData left, TagData right) {
-          int leftLength = left.getName().length();
-          int rightLength = right.getName().length();
+        public int compare(ColoredString left, ColoredString right) {
+          int leftLength = left.name.length();
+          int rightLength = right.name.length();
           if (leftLength < rightLength) {
             return -1;
           } else if (rightLength < leftLength) {
@@ -59,31 +71,71 @@ public class TagFormatter {
 
   @Inject
   public TagFormatter(
-      @ForApplication Context context, TagService tagService, ThemeCache themeCache) {
+      @ForApplication Context context,
+      TagService tagService,
+      ThemeCache themeCache,
+      GoogleTaskListDao googleTaskListDao,
+      CaldavDao caldavDao) {
     this.tagService = tagService;
     this.themeCache = themeCache;
+    this.googleTaskListDao = googleTaskListDao;
+    this.caldavDao = caldavDao;
 
     TypedValue typedValue = new TypedValue();
     context.getResources().getValue(R.dimen.tag_characters, typedValue, true);
     tagCharacters = typedValue.getFloat();
 
     for (TagData tagData : tagService.getTagList()) {
-      tagMap.put(tagData.getRemoteId(), tagData);
+      tagMap.put(tagData.getRemoteId(), new ColoredString(tagData));
+    }
+    for (CaldavCalendar calendar : caldavDao.getCalendars()) {
+      caldavCalendars.put(calendar.getUuid(), new ColoredString(calendar));
+    }
+    for (GoogleTaskList list : googleTaskListDao.getAllLists()) {
+      googleTaskLists.put(list.getRemoteId(), new ColoredString(list));
     }
   }
 
-  CharSequence getTagString(List<String> tagUuids) {
-    Iterable<TagData> t = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
-    List<TagData> firstFourByName = orderByName.leastOf(t, 4);
-    int numTags = firstFourByName.size();
+  private class ColoredString {
+
+    final String name;
+    final int color;
+
+    ColoredString(TagData tagData) {
+      name = tagData.getName();
+      color = tagData.getColor();
+    }
+
+    ColoredString(GoogleTaskList googleTaskList) {
+      name = googleTaskList.getTitle();
+      color = googleTaskList.getColor();
+    }
+
+    ColoredString(CaldavCalendar caldavCalendar) {
+      name = caldavCalendar.getName();
+      color = caldavCalendar.getColor();
+    }
+  }
+
+  CharSequence getTagString(String caldav, String googleTask, List<String> tagUuids) {
+    List<ColoredString> strings = new ArrayList<>();
+    if (!Strings.isNullOrEmpty(googleTask)) {
+      strings.add(getGoogleTaskList(googleTask));
+    } else if (!Strings.isNullOrEmpty(caldav)) {
+      strings.add(getCaldavCalendar(caldav));
+    }
+
+    Iterable<ColoredString> tags = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
+    strings.addAll(0, orderByName.leastOf(tags, MAX_TAGS - strings.size()));
+    int numTags = strings.size();
     if (numTags == 0) {
       return null;
     }
-    List<TagData> firstFourByNameLength = orderByLength.sortedCopy(firstFourByName);
+    List<ColoredString> firstFourByNameLength = orderByLength.sortedCopy(strings);
     float maxLength = tagCharacters / numTags;
     for (int i = 0; i < numTags - 1; i++) {
-      TagData tagData = firstFourByNameLength.get(i);
-      String name = tagData.getName();
+      ColoredString tagData = firstFourByNameLength.get(i);
+      String name = tagData.name;
       if (name.length() >= maxLength) {
         break;
       }
@@ -92,7 +144,7 @@ public class TagFormatter {
       float additional = excess / beneficiaries;
       maxLength += additional;
     }
-    List<SpannableString> tagStrings = transform(firstFourByName, tagToString(maxLength));
+    List<SpannableString> tagStrings = transform(strings, tagToString(maxLength));
     SpannableStringBuilder builder = new SpannableStringBuilder();
     for (SpannableString tagString : tagStrings) {
       if (builder.length() > 0) {
@@ -103,12 +155,12 @@ public class TagFormatter {
     return builder;
   }
 
-  private Function<TagData, SpannableString> tagToString(final float maxLength) {
+  private Function<ColoredString, SpannableString> tagToString(final float maxLength) {
     return tagData -> {
-      String tagName = tagData.getName();
+      String tagName = tagData.name;
       tagName = tagName.substring(0, Math.min(tagName.length(), (int) maxLength));
       SpannableString string = new SpannableString(SPACE + tagName + SPACE);
-      int themeIndex = tagData.getColor();
+      int themeIndex = tagData.color;
       ThemeColor color =
           themeIndex >= 0 ? themeCache.getThemeColor(themeIndex) : themeCache.getUntaggedColor();
       string.setSpan(
@@ -125,10 +177,28 @@ public class TagFormatter {
     };
   }
 
-  private TagData getTag(String uuid) {
-    TagData tagData = tagMap.get(uuid);
+  private ColoredString getGoogleTaskList(String remoteId) {
+    ColoredString googleTaskList = googleTaskLists.get(remoteId);
+    if (googleTaskList == null) {
+      googleTaskList = new ColoredString(googleTaskListDao.getByRemoteId(remoteId));
+      googleTaskLists.put(remoteId, googleTaskList);
+    }
+    return googleTaskList;
+  }
+
+  private ColoredString getCaldavCalendar(String uuid) {
+    ColoredString calendar = caldavCalendars.get(uuid);
+    if (calendar == null) {
+      calendar = new ColoredString(caldavDao.getCalendar(uuid));
+      caldavCalendars.put(uuid, calendar);
+    }
+    return calendar;
+  }
+
+  private ColoredString getTag(String uuid) {
+    ColoredString tagData = tagMap.get(uuid);
     if (tagData == null) {
-      tagData = tagService.getTagByUuid(uuid);
+      tagData = new ColoredString(tagService.getTagByUuid(uuid));
       tagMap.put(uuid, tagData);
     }
     return tagData;

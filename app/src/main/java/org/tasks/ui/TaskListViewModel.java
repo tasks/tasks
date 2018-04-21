@@ -1,6 +1,8 @@
 package org.tasks.ui;
 
+import static com.todoroo.astrid.activity.TaskListFragment.CALDAV_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.FILE_METADATA_JOIN;
+import static com.todoroo.astrid.activity.TaskListFragment.GTASK_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
 
 import android.arch.lifecycle.LiveData;
@@ -12,12 +14,16 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
+import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import javax.inject.Inject;
+import org.tasks.data.CaldavTask;
+import org.tasks.data.GoogleTask;
 import org.tasks.data.LimitOffsetDataSource;
 import org.tasks.data.Tag;
 import org.tasks.data.TaskAttachment;
@@ -62,11 +68,23 @@ public class TaskListViewModel extends ViewModel {
   private LimitOffsetDataSource toDataSource(Filter filter, Property<?>[] properties) {
     Criterion tagsJoinCriterion =
         Criterion.and(Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
-
+    Criterion gtaskJoinCriterion =
+        Criterion.and(Task.ID.eq(Field.field(GTASK_METADATA_JOIN + ".task")));
+    Criterion caldavJoinCriterion =
+        Criterion.and(Task.ID.eq(Field.field(CALDAV_METADATA_JOIN + ".task")));
     if (filter instanceof TagFilter) {
       String uuid = ((TagFilter) filter).getUuid();
       tagsJoinCriterion =
           Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + ".tag_uid").neq(uuid));
+    } else if (filter instanceof GtasksFilter) {
+      String listId = ((GtasksFilter) filter).getRemoteId();
+      gtaskJoinCriterion =
+          Criterion.and(gtaskJoinCriterion, Field.field(GTASK_METADATA_JOIN + ".list_id").neq(listId));
+    } else if (filter instanceof CaldavFilter) {
+      String uuid = ((CaldavFilter) filter).getUuid();
+      caldavJoinCriterion =
+          Criterion.and(
+      caldavJoinCriterion, Field.field(CALDAV_METADATA_JOIN + ".calendar").neq(uuid));
     }
 
     // TODO: For now, we'll modify the query to join and include the things like tag data here.
@@ -77,6 +95,8 @@ public class TaskListViewModel extends ViewModel {
             + Join.left(
                 TaskAttachment.TABLE.as(FILE_METADATA_JOIN),
                 Task.UUID.eq(Field.field(FILE_METADATA_JOIN + ".task_id")))
+            + Join.left(GoogleTask.TABLE.as(GTASK_METADATA_JOIN), gtaskJoinCriterion).toString()
+            + Join.left(CaldavTask.TABLE.as(CALDAV_METADATA_JOIN), caldavJoinCriterion).toString()
             + filter.getSqlQuery();
 
     String query =

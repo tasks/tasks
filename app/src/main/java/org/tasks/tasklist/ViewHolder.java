@@ -281,9 +281,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
       tagBlock.setVisibility(View.GONE);
     } else {
       String tags = task.getTagsString();
-
       List<String> tagUuids = tags != null ? newArrayList(tags.split(",")) : Lists.newArrayList();
-      CharSequence tagString = tagFormatter.getTagString(tagUuids);
+      CharSequence tagString = tagFormatter.getTagString(task.getCaldav(), task.getGoogleTaskList(), tagUuids);
       if (TextUtils.isEmpty(tagString)) {
         tagBlock.setVisibility(View.GONE);
       } else {
