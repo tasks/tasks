@@ -69,9 +69,13 @@ public class TaskListViewModel extends ViewModel {
     Criterion tagsJoinCriterion =
         Criterion.and(Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
     Criterion gtaskJoinCriterion =
-        Criterion.and(Task.ID.eq(Field.field(GTASK_METADATA_JOIN + ".task")));
+        Criterion.and(
+            Task.ID.eq(Field.field(GTASK_METADATA_JOIN + ".task")),
+            Field.field(GTASK_METADATA_JOIN + ".deleted").eq(0));
     Criterion caldavJoinCriterion =
-        Criterion.and(Task.ID.eq(Field.field(CALDAV_METADATA_JOIN + ".task")));
+        Criterion.and(
+            Task.ID.eq(Field.field(CALDAV_METADATA_JOIN + ".task")),
+            Field.field(CALDAV_METADATA_JOIN + ".deleted").eq(0));
     if (filter instanceof TagFilter) {
       String uuid = ((TagFilter) filter).getUuid();
       tagsJoinCriterion =
@@ -79,12 +83,13 @@ public class TaskListViewModel extends ViewModel {
     } else if (filter instanceof GtasksFilter) {
       String listId = ((GtasksFilter) filter).getRemoteId();
       gtaskJoinCriterion =
-          Criterion.and(gtaskJoinCriterion, Field.field(GTASK_METADATA_JOIN + ".list_id").neq(listId));
+          Criterion.and(
+              gtaskJoinCriterion, Field.field(GTASK_METADATA_JOIN + ".list_id").neq(listId));
     } else if (filter instanceof CaldavFilter) {
       String uuid = ((CaldavFilter) filter).getUuid();
       caldavJoinCriterion =
           Criterion.and(
-      caldavJoinCriterion, Field.field(CALDAV_METADATA_JOIN + ".calendar").neq(uuid));
+              caldavJoinCriterion, Field.field(CALDAV_METADATA_JOIN + ".calendar").neq(uuid));
     }
 
     // TODO: For now, we'll modify the query to join and include the things like tag data here.
