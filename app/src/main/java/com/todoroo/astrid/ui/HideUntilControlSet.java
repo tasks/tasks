@@ -111,10 +111,6 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
               tv.setTextColor(getColor(context, R.color.text_tertiary));
             } else {
               String display = value.label;
-              if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY
-                  && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
-                display = display.toLowerCase();
-              }
               tv.setText(getString(R.string.TEA_hideUntil_display, display));
               tv.setTextColor(getColor(context, R.color.text_primary));
             }

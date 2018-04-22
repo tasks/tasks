@@ -164,10 +164,10 @@ File %1$s contained %2$s.\n\n
 
   <string name="TEA_no_time">No time</string>
 
-  <string name="due_date">Due date</string>
-  <string name="due_time">Due time</string>
-  <string name="day_before_due">Day before due</string>
-  <string name="week_before_due">Week before due</string>
+  <string name="due_date">due date</string>
+  <string name="due_time">due time</string>
+  <string name="day_before_due">day before due</string>
+  <string name="week_before_due">week before due</string>
 
   <!-- Task edit control set descriptors -->
 
