@@ -324,7 +324,6 @@
 	<string name="rate_tasks">A Tasks értékelése</string>
 	<string name="quiet_hours_summary">Emlékeztetők mellőzése csendes órák alatt</string>
 	<string name="TLA_menu_donate">Adakozás</string>
-	<string name="select_amount">Mennyiség kiválasztása</string>
 	<string name="add_reminder">Emlékeztető hozzáadása</string>
 	<string name="remove">Eltávolítás</string>
 	<string name="randomly_once">Véletlenszerűen egyszer</string>
@@ -379,7 +378,6 @@
 	<string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
 	<string name="default_list">Alapértelmezett lista</string>
 	<string name="default_sync">Alapértelmezett szinkronizáció</string>
-	<string name="donate_summary">Támogatását nagyra értékeljük</string>
 	<string name="filter">Szűrő</string>
 	<string name="opacity">Átlátszóság</string>
 	<string name="theme">Téma</string>

@@ -300,7 +300,6 @@
 	<string name="rate_tasks">Oceń zadania</string>
 	<string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
 	<string name="TLA_menu_donate">Wesprzyj</string>
-	<string name="select_amount">Wybierz sumę</string>
 	<string name="add_reminder">Dodaj przypomnienie</string>
 	<string name="remove">Usuń</string>
 	<string name="randomly_once">Losowo raz</string>
@@ -354,7 +353,6 @@
 	<string name="no_title">(Bez tytułu)</string>
 	<string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
 	<string name="default_list">Domyślna lista</string>
-	<string name="donate_summary">Dotacje są bardzo mile widziane</string>
 	<string name="filter">Filtr</string>
 	<string name="opacity">Nieprzezroczystość</string>
 	<string name="theme">Motyw</string>

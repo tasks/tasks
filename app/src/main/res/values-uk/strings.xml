@@ -249,7 +249,6 @@
 	<string name="rate_tasks">Оцінити Tasks</string>
 	<string name="quiet_hours_summary">Без нагадувань під час тихих годин</string>
 	<string name="TLA_menu_donate">Пожертвувати</string>
-	<string name="select_amount">Обрати кількість</string>
 	<string name="add_reminder">Додати нагадування</string>
 	<string name="remove">Вилучити</string>
 	<string name="randomly_once">Випадково раз</string>
@@ -298,7 +297,6 @@
 	<string name="no_title">(без назви)</string>
 	<string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
 	<string name="default_list">Типовий список</string>
-	<string name="donate_summary">Пожертви щиро вітаються</string>
 	<string name="filter">Фільтр</string>
 	<string name="opacity">Прозорість</string>
 	<string name="theme">Схема</string>

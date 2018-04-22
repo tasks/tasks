@@ -317,7 +317,6 @@
 	<string name="rate_tasks">Bewerte Tasks</string>
 	<string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>
 	<string name="TLA_menu_donate">Spenden</string>
-	<string name="select_amount">Menge auswählen</string>
 	<string name="add_reminder">Erinnerung hinzufügen</string>
 	<string name="remove">Entfernen</string>
 	<string name="randomly_once">Einmal zufällig</string>
@@ -370,7 +369,6 @@
 	<string name="no_title">(kein Titel)</string>
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
 	<string name="default_list">Standard-Liste</string>
-	<string name="donate_summary">Spenden sind sehr willkommen</string>
 	<string name="opacity">Durchsichtigkeit</string>
 	<string name="color">Farbe</string>
 	<string name="accent">Akzent</string>

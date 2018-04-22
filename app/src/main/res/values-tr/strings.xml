@@ -326,7 +326,6 @@
 	<string name="rate_tasks">Tasks\'i Oyla</string>
 	<string name="quiet_hours_summary">Sessiz saatlerde hatırlatıcı yok</string>
 	<string name="TLA_menu_donate">Bağış yap</string>
-	<string name="select_amount">Miktar seç</string>
 	<string name="add_reminder">Hatırlatıcı ekle</string>
 	<string name="remove">Kaldır</string>
 	<string name="randomly_once">Şunda rastgele bir kez</string>
@@ -381,7 +380,6 @@
 	<string name="back_button_saves_task">Geri düğmesi görevi kaydeder</string>
 	<string name="default_list">Öntanımlı liste</string>
 	<string name="default_sync">Öntanımlı eşzamanlama</string>
-	<string name="donate_summary">Bağışlar makbule geçer</string>
 	<string name="filter">Süzgeç</string>
 	<string name="opacity">Şeffaflık</string>
 	<string name="theme">Gövde</string>

@@ -322,7 +322,6 @@
 	<string name="rate_tasks">Ohodnotiť Úlohy</string>
 	<string name="quiet_hours_summary">Žiadne upozornenia počas obdobia ticha</string>
 	<string name="TLA_menu_donate">Darovať</string>
-	<string name="select_amount">Vybrať čiastku</string>
 	<string name="add_reminder">Pridať pripomienku</string>
 	<string name="remove">Odstrániť</string>
 	<string name="randomly_once">Raz náhodne</string>
@@ -377,7 +376,6 @@
 	<string name="back_button_saves_task">Uložiť úlohu tlačidlom Späť</string>
 	<string name="default_list">Predvolený zoznam</string>
 	<string name="default_sync">Predvolené synchronizácia </string>
-	<string name="donate_summary">Sme vďační za Vaše dary</string>
 	<string name="opacity">Nejasnosť</string>
 	<string name="theme">Téma</string>
 	<string name="color">Farba</string>

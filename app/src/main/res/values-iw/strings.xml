@@ -272,7 +272,6 @@
 	<string name="rate_tasks">דרג אפליקציה</string>
 	<string name="quiet_hours_summary">ללא התראות בשעות השקטות</string>
 	<string name="TLA_menu_donate">לתרומה</string>
-	<string name="select_amount">בחר כמות</string>
 	<string name="add_reminder">הוסף תזכורת</string>
 	<string name="remove">הסר</string>
 	<string name="randomly_once">אקראי יחיד</string>
@@ -327,7 +326,6 @@
 	<string name="back_button_saves_task">כפתור \"חזרה\" שומר שינויים במשימה</string>
 	<string name="default_list">רשימת ברירת מחדל</string>
 	<string name="default_sync">סנכרון ברירת מחדל</string>
-	<string name="donate_summary">תרומות יתקבלו בברכה</string>
 	<string name="filter">סינון</string>
 	<string name="opacity">אטימות</string>
 	<string name="theme">ערכת נושא</string>

@@ -246,7 +246,6 @@
 	<string name="rate_tasks">Betygsätt Tasks</string>
 	<string name="quiet_hours_summary">Inga påminnelser kommer att göras under under tyst period</string>
 	<string name="TLA_menu_donate">Donera</string>
-	<string name="select_amount">Välj antal</string>
 	<string name="add_reminder">Lägg till en påminnelse</string>
 	<string name="remove">Ta bort</string>
 	<string name="randomly_once">En gång slumpmässigt</string>
@@ -294,7 +293,6 @@
 	<string name="no_title">(Ingen titel)</string>
 	<string name="back_button_saves_task">Bakåtknapp sparar uppgift</string>
 	<string name="default_list">Standardlista</string>
-	<string name="donate_summary">Donationer uppskattas varmt</string>
 	<string name="opacity">Opacitet</string>
 	<string name="theme">Tema</string>
 	<string name="color">Färg</string>

@@ -322,7 +322,6 @@
 	<string name="rate_tasks">Avaliar o Tasks</string>
 	<string name="quiet_hours_summary">Sem lembretes nas horas de silêncio</string>
 	<string name="TLA_menu_donate">Donativos</string>
-	<string name="select_amount">Selecione o valor</string>
 	<string name="add_reminder">Adicionar lembrete</string>
 	<string name="remove">Remover</string>
 	<string name="randomly_once">Uma vez aleatória</string>
@@ -371,7 +370,6 @@
 	<string name="no_title">(Sem título)</string>
 	<string name="back_button_saves_task">O botão voltar guarda a tarefa</string>
 	<string name="default_list">Lista padrão</string>
-	<string name="donate_summary">Os donativos são muito apreciados</string>
 	<string name="filter">Filtro</string>
 	<string name="opacity">Opacidade</string>
 	<string name="theme">Tema</string>

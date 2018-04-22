@@ -321,7 +321,6 @@
 	<string name="rate_tasks">给Tasks打分</string>
 	<string name="quiet_hours_summary">静音期间不提醒</string>
 	<string name="TLA_menu_donate">捐献</string>
-	<string name="select_amount">选择金额</string>
 	<string name="add_reminder">添加提醒</string>
 	<string name="remove">移除</string>
 	<string name="randomly_once">随机一次</string>
@@ -376,7 +375,6 @@
 	<string name="back_button_saves_task">返回键保存任务</string>
 	<string name="default_list">默认列表</string>
 	<string name="default_sync">默认同步</string>
-	<string name="donate_summary">不胜感激</string>
 	<string name="filter">过滤器</string>
 	<string name="opacity">不透明度</string>
 	<string name="theme">主题</string>

@@ -322,7 +322,6 @@
 	<string name="rate_tasks">Оставить отзыв</string>
 	<string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
 	<string name="TLA_menu_donate">Поддержать разработку</string>
-	<string name="select_amount">Выберите количество</string>
 	<string name="add_reminder">Добавить напоминание</string>
 	<string name="remove">Удалить</string>
 	<string name="randomly_once">Случайно один раз</string>
@@ -377,7 +376,6 @@
 	<string name="back_button_saves_task">Кнопка «Назад» сохраняет задачу</string>
 	<string name="default_list">Список по умолчанию</string>
 	<string name="default_sync">Синхронизация по-умолчанию</string>
-	<string name="donate_summary">Благодарю за поддержку</string>
 	<string name="filter">Фильтр</string>
 	<string name="opacity">Прозрачность</string>
 	<string name="theme">Цветовая тема</string>

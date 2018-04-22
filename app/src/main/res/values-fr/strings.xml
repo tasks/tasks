@@ -308,7 +308,6 @@
 	<string name="rate_tasks">Noter Tasks</string>
 	<string name="quiet_hours_summary">Pas de rappels pendant les heures silencieuses</string>
 	<string name="TLA_menu_donate">Remercier</string>
-	<string name="select_amount">Choisir le montant</string>
 	<string name="add_reminder">Ajouter un rappel</string>
 	<string name="remove">Supprimer</string>
 	<string name="randomly_once">Une fois aléatoirement</string>
@@ -362,7 +361,6 @@
 	<string name="back_button_saves_task">Faire un retour-arrière sauvegarde la tâche</string>
 	<string name="default_list">Liste par défaut</string>
 	<string name="default_sync">Synchronisation par défaut</string>
-	<string name="donate_summary">Les donations sont grandement appréciées.</string>
 	<string name="filter">Filtre</string>
 	<string name="opacity">Transparence</string>
 	<string name="theme">Thème</string>

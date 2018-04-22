@@ -319,7 +319,6 @@
 	<string name="rate_tasks">Beoordeel Taken</string>
 	<string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>
 	<string name="TLA_menu_donate">Doneer</string>
-	<string name="select_amount">Selecteer aantal</string>
 	<string name="add_reminder">Voeg herinnering toe</string>
 	<string name="remove">Verwijder</string>
 	<string name="randomly_once">Willekeurig eenmalig</string>
@@ -370,7 +369,6 @@
 	<string name="no_title">(geen titel)</string>
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string name="default_list">Standaard lijst</string>
-	<string name="donate_summary">Donaties worden erg gewaardeerd</string>
 	<string name="opacity">Transparantie</string>
 	<string name="theme">Thema</string>
 	<string name="color">Kleur</string>

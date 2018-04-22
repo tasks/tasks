@@ -695,7 +695,6 @@ File %1$s contained %2$s.\n\n
   <string name="rate_tasks">Rate Tasks</string>
   <string name="quiet_hours_summary">No reminders during quiet hours</string>
   <string name="TLA_menu_donate">Donate</string>
-  <string name="select_amount">Select amount</string>
   <string name="add_reminder">Add reminder</string>
   <string name="remove">Remove</string>
   <string name="randomly_once">Randomly once</string>
@@ -752,7 +751,6 @@ File %1$s contained %2$s.\n\n
   <string name="back_button_saves_task">Back button saves task</string>
   <string name="default_list">Default list</string>
   <string name="default_sync">Default sync</string>
-  <string name="donate_summary">Donations are greatly appreciated</string>
   <string name="filter">Filter</string>
   <string name="opacity">Opacity</string>
 

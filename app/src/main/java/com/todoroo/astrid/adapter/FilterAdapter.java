@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -34,6 +35,7 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.activities.GoogleTaskListSettingsActivity;
 import org.tasks.activities.TagSettingsActivity;
@@ -341,7 +343,15 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     if (navigationDrawer) {
       add(new NavigationDrawerSeparator());
 
-      if (!inventory.hasPro()) {
+      //noinspection ConstantConditions
+      if (BuildConfig.FLAVOR.equals("generic")) {
+        add(
+            new NavigationDrawerAction(
+                activity.getResources().getString(R.string.TLA_menu_donate),
+                R.drawable.ic_attach_money_black_24dp,
+                new Intent(Intent.ACTION_VIEW, Uri.parse("http://tasks.org/donate")),
+                REQUEST_PURCHASE));
+      } else if (!inventory.hasPro()) {
         add(
             new NavigationDrawerAction(
                 activity.getResources().getString(R.string.upgrade_to_pro),

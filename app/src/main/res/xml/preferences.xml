@@ -113,16 +113,6 @@
     </Preference>
 
     <Preference
-      android:summary="@string/donate_summary"
-      android:title="@string/TLA_menu_donate">
-
-      <intent
-        android:targetClass="org.tasks.billing.PurchaseActivity"
-        android:targetPackage="org.tasks"/>
-
-    </Preference>
-
-    <Preference
       android:key="@string/rate_tasks"
       android:title="@string/rate_tasks">
       <intent

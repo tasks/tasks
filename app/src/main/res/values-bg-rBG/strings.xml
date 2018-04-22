@@ -324,7 +324,6 @@
 	<string name="rate_tasks">Гласувайте за Tasks</string>
 	<string name="quiet_hours_summary">Без напомняния по време на тихи часове</string>
 	<string name="TLA_menu_donate">Дарете</string>
-	<string name="select_amount">Изберете размер</string>
 	<string name="add_reminder">Добави напомняне</string>
 	<string name="remove">Изтрий</string>
 	<string name="randomly_once">Произволно веднъж</string>
@@ -379,7 +378,6 @@
 	<string name="back_button_saves_task">Бутон \"Назад\" запазва задачата</string>
 	<string name="default_list">Списък по подразбиране</string>
 	<string name="default_sync">Синхронизация по подразбиране</string>
-	<string name="donate_summary">Даренията са добре дошли</string>
 	<string name="filter">Филтър</string>
 	<string name="opacity">Непрозрачност</string>
 	<string name="theme">Тема</string>

@@ -325,7 +325,6 @@
 	<string name="rate_tasks">Arvostele Tasks</string>
 	<string name="quiet_hours_summary">Ei ilmoituksia hiljaisena aikana</string>
 	<string name="TLA_menu_donate">Lahjoita</string>
-	<string name="select_amount">Valitse määrä</string>
 	<string name="add_reminder">Lisää muistutus</string>
 	<string name="remove">Poista</string>
 	<string name="randomly_once">Satunnaisesti kerran</string>
@@ -375,7 +374,6 @@
 	<string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
 	<string name="default_list">Oletuslista</string>
 	<string name="default_sync">Oletus synkronointi</string>
-	<string name="donate_summary">Lahjoitukset ovat erittäin tervetulleita</string>
 	<string name="filter">Suodatin</string>
 	<string name="opacity">Läpinäkyvyys</string>
 	<string name="theme">Teema</string>

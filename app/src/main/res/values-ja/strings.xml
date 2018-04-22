@@ -322,7 +322,6 @@
 	<string name="rate_tasks">Tasks を評価</string>
 	<string name="quiet_hours_summary">消音時間の間はリマインダーは動作しません</string>
 	<string name="TLA_menu_donate">寄付</string>
-	<string name="select_amount">金額を選択</string>
 	<string name="add_reminder">リマインダーを追加</string>
 	<string name="remove">削除</string>
 	<string name="randomly_once">1回ランダムに</string>
@@ -377,7 +376,6 @@
 	<string name="back_button_saves_task">戻るボタンでタスクを保存します</string>
 	<string name="default_list">デフォルトリスト</string>
 	<string name="default_sync">デフォルトの同期</string>
-	<string name="donate_summary">寄付は大歓迎です</string>
 	<string name="filter">フィルター</string>
 	<string name="opacity">透明度</string>
 	<string name="theme">テーマ</string>

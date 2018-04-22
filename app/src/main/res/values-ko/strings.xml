@@ -326,7 +326,6 @@
 	<string name="rate_tasks">Tasks 평가하기</string>
 	<string name="quiet_hours_summary">무음 시간대에는 알림 해제</string>
 	<string name="TLA_menu_donate">기부하기</string>
-	<string name="select_amount">숫자 선택</string>
 	<string name="add_reminder">알림 추가</string>
 	<string name="remove">지우기</string>
 	<string name="randomly_once">무작위로 한 번</string>
@@ -380,7 +379,6 @@
 	<string name="no_title">(제목 없음)</string>
 	<string name="back_button_saves_task">뒤로가기 버튼으로 할일 저장</string>
 	<string name="default_list">기본 목록</string>
-	<string name="donate_summary">기부를 해주시면 감사하겠습니다</string>
 	<string name="filter">필터</string>
 	<string name="opacity">불투명도</string>
 	<string name="theme">테마</string>

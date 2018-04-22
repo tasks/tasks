@@ -321,7 +321,6 @@
 	<string name="rate_tasks">Įvertinti Tasks</string>
 	<string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>
 	<string name="TLA_menu_donate">Paaukoti</string>
-	<string name="select_amount">Pažymėti kiekį</string>
 	<string name="add_reminder">Pridėti priminimą</string>
 	<string name="remove">Išmesti</string>
 	<string name="randomly_once">Atsitiktinai vieną kartą</string>
@@ -376,7 +375,6 @@
 	<string name="back_button_saves_task">Mygtukas \"Atgal\" išsaugo pakitimus</string>
 	<string name="default_list">Numatytasis sąrašas</string>
 	<string name="default_sync">Numatytoji sinchronizacija</string>
-	<string name="donate_summary">Paaukojimai yra ypač vertinami</string>
 	<string name="filter">Filtras</string>
 	<string name="opacity">Permatomumas</string>
 	<string name="theme">Tema</string>
