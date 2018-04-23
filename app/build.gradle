@@ -58,6 +58,7 @@ android {
     productFlavors {
         generic {
             dimension 'store'
+            proguardFile 'generic.pro'
         }
         googleplay {
             dimension 'store'
