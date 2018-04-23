@@ -44,11 +44,6 @@
       android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
       android:theme="@style/TranslucentDialog"/>
 
-    <activity
-      android:label="@string/synchronization"
-      android:name=".sync.SynchronizationPreferences"
-      android:theme="@style/Tasks"/>
-
     <!-- Google Analytics -->
 
     <receiver

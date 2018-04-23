@@ -127,6 +127,11 @@
       android:name=".activities.CameraActivity"
       android:theme="@style/TranslucentDialog"/>
 
+    <activity
+      android:label="@string/synchronization"
+      android:name=".sync.SynchronizationPreferences"
+      android:theme="@style/Tasks"/>
+
     <!-- Activity that displays task list -->
     <activity
       android:launchMode="singleTask"

@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.service.TaskDeleter;
 import javax.inject.Inject;
+import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
@@ -69,58 +70,13 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    setTitle(R.string.synchronization);
+    //noinspection ConstantConditions
+    if (BuildConfig.FLAVOR.equals("googleplay")) {
+      addPreferencesFromResource(R.xml.preferences_google_tasks);
+    }
+
     addPreferencesFromResource(R.xml.preferences_synchronization);
-
-    PreferenceCategory caldavPreferences =
-        (PreferenceCategory) findPreference(getString(R.string.CalDAV));
-    for (CaldavAccount caldavAccount : caldavDao.getAccounts()) {
-      Preference accountPreferences = new Preference(this);
-      accountPreferences.setTitle(caldavAccount.getName());
-      accountPreferences.setSummary(caldavAccount.getError());
-      accountPreferences.setOnPreferenceClickListener(
-          preference -> {
-            Intent intent = new Intent(this, CaldavAccountSettingsActivity.class);
-            intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, caldavAccount);
-            startActivityForResult(intent, REQUEST_CALDAV_SETTINGS);
-            return false;
-          });
-      caldavPreferences.addPreference(accountPreferences);
-    }
-    Preference addCaldavAccount = new Preference(this);
-    addCaldavAccount.setKey(KEY_ADD_CALDAV);
-    addCaldavAccount.setTitle(R.string.add_account);
-    caldavPreferences.addPreference(addCaldavAccount);
-
-    PreferenceCategory googleTaskPreferences =
-        (PreferenceCategory) findPreference(getString(R.string.gtasks_GPr_header));
-    for (GoogleTaskAccount googleTaskAccount : googleTaskListDao.getAccounts()) {
-      String account = googleTaskAccount.getAccount();
-      Preference accountPreferences = new Preference(this);
-      accountPreferences.setTitle(account);
-      accountPreferences.setSummary(googleTaskAccount.getError());
-      accountPreferences.setOnPreferenceClickListener(
-          preference -> {
-            dialogBuilder
-                .newDialog()
-                .setTitle(account)
-                .setItems(
-                    asList(getString(R.string.reinitialize_account), getString(R.string.logout)),
-                    (dialog, which) -> {
-                      if (which == 0) {
-                        addGoogleTaskAccount();
-                      } else {
-                        logoutConfirmation(googleTaskAccount);
-                      }
-                    })
-                .showThemedListView();
-            return false;
-          });
-      googleTaskPreferences.addPreference(accountPreferences);
-    }
-    Preference addGoogleTaskAccount = new Preference(this);
-    addGoogleTaskAccount.setKey(KEY_ADD_GOOGLE_TASKS);
-    addGoogleTaskAccount.setTitle(R.string.add_account);
-    googleTaskPreferences.addPreference(addGoogleTaskAccount);
 
     findPreference(getString(R.string.p_background_sync_unmetered_only))
         .setOnPreferenceChangeListener(
@@ -163,19 +119,94 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
   protected void onResume() {
     super.onResume();
 
-    Preference addCaldavAccount = findPreference(KEY_ADD_CALDAV);
-    Preference addGoogleTasks = findPreference(KEY_ADD_GOOGLE_TASKS);
+    //noinspection ConstantConditions
+    if (BuildConfig.FLAVOR.equals("googleplay")) {
+      addGoogleTasksAccounts();
+    }
+
+    addCaldavAccounts();
+  }
+
+  private void addGoogleTasksAccounts() {
+    PreferenceCategory googleTaskPreferences =
+        (PreferenceCategory) findPreference(getString(R.string.gtasks_GPr_header));
+    googleTaskPreferences.removeAll();
+    for (GoogleTaskAccount googleTaskAccount : googleTaskListDao.getAccounts()) {
+      String account = googleTaskAccount.getAccount();
+      Preference accountPreferences = new Preference(this);
+      accountPreferences.setTitle(account);
+      accountPreferences.setSummary(googleTaskAccount.getError());
+      accountPreferences.setOnPreferenceClickListener(
+          preference -> {
+            dialogBuilder
+                .newDialog()
+                .setTitle(account)
+                .setItems(
+                    asList(getString(R.string.reinitialize_account), getString(R.string.logout)),
+                    (dialog, which) -> {
+                      if (which == 0) {
+                        addGoogleTaskAccount();
+                      } else {
+                        logoutConfirmation(googleTaskAccount);
+                      }
+                    })
+                .showThemedListView();
+            return false;
+          });
+      googleTaskPreferences.addPreference(accountPreferences);
+    }
+    Preference addGoogleTaskAccount = new Preference(this);
+    addGoogleTaskAccount.setKey(KEY_ADD_GOOGLE_TASKS);
+    addGoogleTaskAccount.setTitle(R.string.add_account);
+    if (inventory.hasPro() || googleTaskListDao.getAccounts().isEmpty()) {
+      addGoogleTaskAccount.setOnPreferenceClickListener(preference -> {
+        addGoogleTaskAccount();
+        return false;
+      });
+    } else {
+      addGoogleTaskAccount.setSummary(R.string.requires_pro_subscription);
+      addGoogleTaskAccount.setOnPreferenceClickListener(preference -> {
+        startActivityForResult(
+            new Intent(this, PurchaseActivity.class), REQUEST_GOOGLE_TASKS_SUBSCRIBE);
+        return false;
+      });
+    }
+    googleTaskPreferences.addPreference(addGoogleTaskAccount);
+  }
+
+  private void addGoogleTaskAccount() {
+    if (!playServices.refreshAndCheck()) {
+      playServices.resolve(this);
+    } else if (permissionRequestor.requestAccountPermissions()) {
+      requestLogin();
+    }
+  }
+
+  private void addCaldavAccounts() {
+    PreferenceCategory caldavPreferences =
+        (PreferenceCategory) findPreference(getString(R.string.CalDAV));
+    caldavPreferences.removeAll();
+    for (CaldavAccount caldavAccount : caldavDao.getAccounts()) {
+      Preference accountPreferences = new Preference(this);
+      accountPreferences.setTitle(caldavAccount.getName());
+      accountPreferences.setSummary(caldavAccount.getError());
+      accountPreferences.setOnPreferenceClickListener(
+          preference -> {
+            Intent intent = new Intent(this, CaldavAccountSettingsActivity.class);
+            intent.putExtra(CaldavAccountSettingsActivity.EXTRA_CALDAV_DATA, caldavAccount);
+            startActivityForResult(intent, REQUEST_CALDAV_SETTINGS);
+            return false;
+          });
+      caldavPreferences.addPreference(accountPreferences);
+    }
+    Preference addCaldavAccount = new Preference(this);
+    addCaldavAccount.setKey(KEY_ADD_CALDAV);
+    addCaldavAccount.setTitle(R.string.add_account);
+
     if (inventory.hasPro()) {
-      addCaldavAccount.setSummary(null);
-      addGoogleTasks.setSummary(null);
       addCaldavAccount.setOnPreferenceClickListener(
           preference -> {
             addCaldavAccount();
-            return false;
-          });
-      addGoogleTasks.setOnPreferenceClickListener(
-          preference -> {
-            addGoogleTaskAccount();
             return false;
           });
     } else {
@@ -186,35 +217,8 @@ public class SynchronizationPreferences extends InjectingPreferenceActivity {
                 new Intent(this, PurchaseActivity.class), REQUEST_CALDAV_SUBSCRIBE);
             return false;
           });
-      if (googleTaskListDao.getAccounts().isEmpty()) {
-        addGoogleTasks.setSummary(null);
-        addGoogleTasks.setOnPreferenceClickListener(
-            preference -> {
-              addGoogleTaskAccount();
-              return false;
-            });
-      } else {
-        addGoogleTasks.setSummary(R.string.requires_pro_subscription);
-        addGoogleTasks.setOnPreferenceClickListener(
-            preference -> {
-              startActivityForResult(
-                  new Intent(this, PurchaseActivity.class), REQUEST_GOOGLE_TASKS_SUBSCRIBE);
-              return false;
-            });
-      }
     }
-
-    if (!permissionChecker.canAccessAccounts()) {
-      // TODO: clear google task preference category
-    }
-  }
-
-  private void addGoogleTaskAccount() {
-    if (!playServices.refreshAndCheck()) {
-      playServices.resolve(this);
-    } else if (permissionRequestor.requestAccountPermissions()) {
-      requestLogin();
-    }
+    caldavPreferences.addPreference(addCaldavAccount);
   }
 
   private void addCaldavAccount() {
