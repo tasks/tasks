@@ -119,7 +119,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     final boolean backButtonSavesTask = preferences.backButtonSavesTask();
     toolbar.setTitle(
         caldavCalendar == null
-            ? getString(R.string.caldav_create_new_collection)
+            ? getString(R.string.new_list)
             : caldavCalendar.getName());
     toolbar.setNavigationIcon(
         ContextCompat.getDrawable(

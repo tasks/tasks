@@ -332,7 +332,7 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
       if (navigationDrawer) {
         add(
             new NavigationDrawerAction(
-                activity.getString(R.string.caldav_create_new_collection),
+                activity.getString(R.string.new_list),
                 R.drawable.ic_add_24dp,
                 new Intent(activity, CaldavCalendarSettingsActivity.class)
                     .putExtra(EXTRA_CALDAV_ACCOUNT, account),

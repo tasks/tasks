@@ -602,7 +602,6 @@ File %1$s contained %2$s.\n\n
   <string name="tag_FEx_untagged">Uncategorized</string>
 
   <string name="delete_tag_confirmation">Delete %s?</string>
-  <string name="remove_caldav_account_confirmation">Remove %s?</string>
 
   <!-- Android Notification Title (%s => # tasks) -->
   <string name="TPl_notification">Timers Active for %s!</string>
@@ -884,7 +883,6 @@ File %1$s contained %2$s.\n\n
   <string name="pro_multiple_google_task_accounts">Multiple Google Task accounts</string>
   <string name="pro_tasker_plugins">Tasker plugins</string>
   <string name="pro_dashclock_extension">Dashclock extension</string>
-  <string name="caldav_create_new_collection">Create new collection</string>
   <string name="requires_pro_subscription">Requires pro subscription</string>
   <string name="logout">Log out</string>
   <string name="logout_warning">Log out of %s? All data for this account will be removed from your device</string>

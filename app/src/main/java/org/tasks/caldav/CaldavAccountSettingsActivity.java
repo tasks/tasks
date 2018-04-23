@@ -380,7 +380,7 @@ public class CaldavAccountSettingsActivity extends ThemedInjectingAppCompatActiv
 
   private void removeAccount() {
     dialogBuilder
-        .newMessageDialog(R.string.remove_caldav_account_confirmation, caldavAccount.getName())
+        .newMessageDialog(R.string.logout_warning, caldavAccount.getName())
         .setPositiveButton(
             R.string.remove,
             (dialog, which) -> {
