@@ -120,9 +120,15 @@ public class TagFormatter {
   CharSequence getTagString(String caldav, String googleTask, List<String> tagUuids) {
     List<ColoredString> strings = new ArrayList<>();
     if (!Strings.isNullOrEmpty(googleTask)) {
-      strings.add(getGoogleTaskList(googleTask));
+      ColoredString googleTaskList = getGoogleTaskList(googleTask);
+      if (googleTaskList != null) {
+        strings.add(googleTaskList);
+      }
     } else if (!Strings.isNullOrEmpty(caldav)) {
-      strings.add(getCaldavCalendar(caldav));
+      ColoredString caldavCalendar = getCaldavCalendar(caldav);
+      if (caldavCalendar != null) {
+        strings.add(caldavCalendar);
+      }
     }
 
     Iterable<ColoredString> tags = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
@@ -180,7 +186,10 @@ public class TagFormatter {
   private ColoredString getGoogleTaskList(String remoteId) {
     ColoredString googleTaskList = googleTaskLists.get(remoteId);
     if (googleTaskList == null) {
-      googleTaskList = new ColoredString(googleTaskListDao.getByRemoteId(remoteId));
+      GoogleTaskList byRemoteId = googleTaskListDao.getByRemoteId(remoteId);
+      if (byRemoteId != null) {
+        googleTaskList = new ColoredString(byRemoteId);
+      }
       googleTaskLists.put(remoteId, googleTaskList);
     }
     return googleTaskList;
@@ -189,7 +198,10 @@ public class TagFormatter {
   private ColoredString getCaldavCalendar(String uuid) {
     ColoredString calendar = caldavCalendars.get(uuid);
     if (calendar == null) {
-      calendar = new ColoredString(caldavDao.getCalendar(uuid));
+      CaldavCalendar byUuid = caldavDao.getCalendar(uuid);
+      if (byUuid != null) {
+        calendar = new ColoredString(byUuid);
+      }
       caldavCalendars.put(uuid, calendar);
     }
     return calendar;

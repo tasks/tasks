@@ -1,6 +1,10 @@
 Change Log
 ---
 
+### 6.0.1 (2018-04-23)
+
+* Fix crash caused by missing Google Task metadata
+
 ### 6.0 (2018-04-23)
 
 * Change to [annual subscription](http://tasks.org/subscribe) pricing
