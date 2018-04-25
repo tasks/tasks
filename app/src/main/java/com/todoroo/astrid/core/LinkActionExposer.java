@@ -14,12 +14,14 @@ import android.net.Uri;
 import android.text.Spannable;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
+import android.util.AndroidRuntimeException;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
 import java.util.List;
 import org.tasks.R;
+import timber.log.Timber;
 
 /**
  * Exposes {@link TaskAction} for phone numbers, emails, urls, etc
@@ -36,7 +38,13 @@ public class LinkActionExposer {
     boolean hasNotes = task.hasNotes();
 
     Spannable titleSpan = Spannable.Factory.getInstance().newSpannable(task.getTitle());
-    Linkify.addLinks(titleSpan, Linkify.ALL);
+    try {
+      Linkify.addLinks(titleSpan, Linkify.ALL);
+    } catch (AndroidRuntimeException e) {
+      // This can happen if WebView is missing
+      Timber.w(e);
+      return null;
+    }
 
     URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
     if (urlSpans.length == 0 && !hasNotes && !hasAttachments) {
