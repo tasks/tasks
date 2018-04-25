@@ -110,7 +110,7 @@ final DAGGER_VERSION = '2.9'
 final BUTTERKNIFE_VERSION = '8.8.1'
 final GPS_VERSION = '12.0.1'
 final SUPPORT_VERSION = '27.1.1'
-final ROOM_VERSION = '1.1.0-beta2'
+final ROOM_VERSION = '1.1.0-beta3'
 final STETHO_VERSION = '1.5.0'
 final TESTING_SUPPORT_VERSION = '1.0.0'
 
@@ -125,7 +125,7 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:${ROOM_VERSION}"
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
-    implementation "android.arch.paging:runtime:1.0.0-beta1"
+    implementation "android.arch.paging:runtime:1.0.0-rc1"
 
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     implementation "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
@@ -147,7 +147,7 @@ dependencies {
     implementation "com.android.support:support-annotations:${SUPPORT_VERSION}"
     implementation "com.android.support:support-v13:${SUPPORT_VERSION}"
     implementation "com.android.support:cardview-v7:${SUPPORT_VERSION}"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     //noinspection GradleDependency
