@@ -125,11 +125,8 @@ public class BasicPreferences extends InjectingPreferenceActivity
     findPreference(getString(R.string.p_collect_statistics))
         .setOnPreferenceChangeListener(
             (preference, newValue) -> {
-              if (newValue != null) {
-                tracker.setTrackingEnabled((boolean) newValue);
-                return true;
-              }
-              return false;
+              showRestartDialog();
+              return true;
             });
 
     findPreference(R.string.backup_BAc_import)

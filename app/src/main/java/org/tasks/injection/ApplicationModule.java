@@ -10,9 +10,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import dagger.Module;
 import dagger.Provides;
-import java.util.concurrent.Executor;
-import javax.inject.Named;
-import org.tasks.ErrorReportingSingleThreadExecutor;
 import org.tasks.analytics.Tracker;
 import org.tasks.data.AlarmDao;
 import org.tasks.data.CaldavDao;
@@ -51,13 +48,6 @@ public class ApplicationModule {
   @ForApplication
   public Context getApplicationContext() {
     return context;
-  }
-
-  @Provides
-  @ApplicationScope
-  @Named("iab-executor")
-  public Executor getIabExecutor(Tracker tracker) {
-    return new ErrorReportingSingleThreadExecutor("iab-executor", tracker);
   }
 
   @Provides
