@@ -1,5 +1,5 @@
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
+    gradleVersion = '4.5'
 }
 
 buildscript {
@@ -9,6 +9,6 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
     }
 }
