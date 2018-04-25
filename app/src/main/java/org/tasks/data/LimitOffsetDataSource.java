@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
+import com.crashlytics.android.Crashlytics;
 import com.todoroo.astrid.data.Task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import timber.log.Timber;
 
 public class LimitOffsetDataSource extends PositionalDataSource<Task> {
 
@@ -25,7 +27,14 @@ public class LimitOffsetDataSource extends PositionalDataSource<Task> {
 
   @WorkerThread
   private int countItems() {
-    Cursor cursor = mDb.query(mCountQuery, null);
+    Cursor cursor;
+    try {
+    cursor = mDb.query(mCountQuery, null);
+    } catch (Exception e) {
+      Timber.e(e);
+      Crashlytics.logException(e);
+      return 0;
+    }
     try {
       if (cursor.moveToFirst()) {
         return cursor.getInt(0);
