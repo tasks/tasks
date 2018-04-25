@@ -45,7 +45,6 @@ public class TagFormatter {
   private final GoogleTaskListDao googleTaskListDao;
   private final CaldavDao caldavDao;
   private final float tagCharacters;
-  private final Function<String, ColoredString> uuidToTag = this::getTag;
   private final Ordering<ColoredString> orderByName =
       new Ordering<ColoredString>() {
         @Override
@@ -131,7 +130,7 @@ public class TagFormatter {
       }
     }
 
-    Iterable<ColoredString> tags = filter(transform(tagUuids, uuidToTag), Predicates.notNull());
+    Iterable<ColoredString> tags = filter(transform(tagUuids, this::getTag), Predicates.notNull());
     strings.addAll(0, orderByName.leastOf(tags, MAX_TAGS - strings.size()));
     int numTags = strings.size();
     if (numTags == 0) {
@@ -210,7 +209,10 @@ public class TagFormatter {
   private ColoredString getTag(String uuid) {
     ColoredString tagData = tagMap.get(uuid);
     if (tagData == null) {
-      tagData = new ColoredString(tagService.getTagByUuid(uuid));
+      TagData tagByUuid = tagService.getTagByUuid(uuid);
+      if (tagByUuid != null) {
+        tagData = new ColoredString(tagByUuid);
+      }
       tagMap.put(uuid, tagData);
     }
     return tagData;
