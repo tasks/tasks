@@ -14,14 +14,18 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import com.google.common.collect.ObjectArrays;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
 import org.tasks.BuildConfig;
 import org.tasks.R;
+import org.tasks.data.GoogleTask;
 import org.tasks.locale.Locale;
 import org.tasks.preferences.DefaultFilterProvider;
 import org.tasks.preferences.Preferences;
@@ -199,20 +203,20 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
   }
 
   private Cursor getCursor() {
-    return taskDao.getCursor(getQuery());
+    updateSettings();
+    Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
+    return taskDao.getCursor(getQuery(filter), getProperties(filter));
   }
 
   private Task getTask(int position) {
     return cursor.moveToPosition(position) ? new Task(cursor) : null;
   }
 
-  private String getQuery() {
+  private String getQuery(Filter filter) {
     int sort = preferences.getSortMode();
     if (sort == 0) {
       sort = SortHelper.SORT_WIDGET;
     }
-    updateSettings();
-    Filter filter = defaultFilterProvider.getFilterFromPreference(filterId);
     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
     RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scrollable_widget);
     rv.setTextViewText(R.id.widget_title, filter.listingTitle);
@@ -224,6 +228,12 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         SortHelper.adjustQueryForFlagsAndSort(preferences, filter.getSqlQuery(), sort)
             .replaceAll("LIMIT \\d+", "");
     return subtasksHelper.applySubtasksToWidgetFilter(filter, query);
+  }
+
+  private Property<?>[] getProperties(Filter filter) {
+    return filter instanceof GtasksFilter
+        ? ObjectArrays.concat(Task.PROPERTIES, new Property<?>[] {GoogleTask.ORDER}, Property.class)
+        : Task.PROPERTIES;
   }
 
   private void formatDueDate(RemoteViews row, Task task) {

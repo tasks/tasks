@@ -95,9 +95,10 @@ public abstract class TaskDao {
   @android.arch.persistence.room.Query(
       "SELECT tasks.* FROM tasks "
           + "LEFT JOIN google_tasks ON tasks._id = google_tasks.task "
-          + "WHERE tasks.modified > google_tasks.last_sync "
-          + "OR google_tasks.remote_id = ''")
-  public abstract List<Task> getGoogleTasksToPush();
+          + "WHERE list_id IN (SELECT remote_id FROM google_task_lists WHERE account = :account)"
+          + "AND (tasks.modified > google_tasks.last_sync "
+          + "OR google_tasks.remote_id = '')")
+  public abstract List<Task> getGoogleTasksToPush(String account);
 
   @android.arch.persistence.room.Query(
       "SELECT tasks.* FROM tasks "
@@ -226,8 +227,12 @@ public abstract class TaskDao {
   }
 
   public Cursor getCursor(String queryTemplate) {
+    return getCursor(queryTemplate, Task.PROPERTIES);
+  }
+
+  public Cursor getCursor(String queryTemplate, Property<?>... properties) {
     Query query =
-        Query.select(Task.PROPERTIES)
+        Query.select(properties)
             .withQueryTemplate(PermaSql.replacePlaceholdersForQuery(queryTemplate));
     String queryString = query.from(Task.TABLE).toString();
     if (BuildConfig.DEBUG) {

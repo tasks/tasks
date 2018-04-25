@@ -19,6 +19,10 @@ public class GoogleTask {
   public static final Property.IntegerProperty INDENT =
       new Property.IntegerProperty(GoogleTask.TABLE, "indent");
 
+  @Deprecated
+  public static final Property.IntegerProperty ORDER =
+      new Property.IntegerProperty(GoogleTask.TABLE, "`order`").as("gtasks_order");
+
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "_id")
   private transient long id;

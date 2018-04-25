@@ -1,6 +1,11 @@
 Change Log
 ---
 
+### 6.0.3 (2018-04-25)
+
+* Fix crash when manually sorting Google Task lists
+* Fix multi account Google Task sync issue
+
 ### 6.0.2 (2018-04-25)
 
 * Fix crash caused by missing tag metadata

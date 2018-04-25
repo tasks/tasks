@@ -70,7 +70,7 @@ public abstract class DeletionDao {
     return deleted;
   }
 
-  @Query("UPDATE tasks SET deleted = :timestamp WHERE _id IN(:ids)")
+  @Query("UPDATE tasks SET modified = :timestamp, deleted = :timestamp WHERE _id IN(:ids)")
   public abstract void markDeleted(long timestamp, List<Long> ids);
 
   @Query("SELECT task FROM caldav_tasks WHERE calendar = :calendar AND deleted = 0")

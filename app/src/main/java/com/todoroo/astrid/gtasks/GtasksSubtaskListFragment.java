@@ -49,6 +49,7 @@ public class GtasksSubtaskListFragment extends GtasksListFragment {
   public Property<?>[] taskProperties() {
     Property<?>[] baseProperties = TaskAdapter.PROPERTIES;
     ArrayList<Property<?>> properties = new ArrayList<>(Arrays.asList(baseProperties));
+    properties.add(GoogleTask.ORDER);
     properties.add(GoogleTask.INDENT);
     return properties.toArray(new Property<?>[properties.size()]);
   }

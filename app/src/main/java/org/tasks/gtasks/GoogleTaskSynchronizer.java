@@ -182,7 +182,7 @@ public class GoogleTaskSynchronizer {
     }
 
     GtasksInvoker gtasksInvoker = new GtasksInvoker(context, playServices, account.getAccount());
-    pushLocalChanges(gtasksInvoker);
+    pushLocalChanges(account, gtasksInvoker);
 
     List<TaskList> gtaskLists = new ArrayList<>();
     String nextPageToken = null;
@@ -212,8 +212,8 @@ public class GoogleTaskSynchronizer {
     account.setError("");
   }
 
-  private void pushLocalChanges(GtasksInvoker gtasksInvoker) throws UserRecoverableAuthIOException {
-    List<Task> tasks = taskDao.getGoogleTasksToPush();
+  private void pushLocalChanges(GoogleTaskAccount account, GtasksInvoker gtasksInvoker) throws UserRecoverableAuthIOException {
+    List<Task> tasks = taskDao.getGoogleTasksToPush(account.getAccount());
     for (Task task : tasks) {
       try {
         pushTask(task, gtasksInvoker);
