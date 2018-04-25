@@ -1,6 +1,13 @@
 Change Log
 ---
 
+### 6.0.2 (2018-04-25)
+
+* Fix crash caused by missing tag metadata
+* Fix crash caused by missing Android System WebView
+* Replace Google Analytics with Firebase Analytics
+* Add Crashlytics exception reporting
+
 ### 6.0.1 (2018-04-23)
 
 * Fix crash caused by missing Google Task metadata
