@@ -86,7 +86,7 @@
   <application
     android:allowBackup="true"
     android:fullBackupContent="@xml/backup_config"
-    android:icon="@mipmap/ic_launcher"
+    android:icon="@mipmap/ic_launcher_round"
     android:label="@string/app_name"
     android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences"
     android:name=".Tasks"
