@@ -156,6 +156,7 @@
 	<string name="gcal_completed_title">%s (voltooid)</string>
 	<string name="CFC_gtasks_list_text">In lijst: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks lijst...</string>
+	<string name="CFC_caldav_list_name">In CalDAV lijst...</string>
 	<string name="gtasks_GTA_clear_completed">Verwijderen Voltooid</string>
 	<string name="gtasks_GLA_authenticating">Verifiëren...</string>
 	<string name="gtasks_GLA_errorIOAuth">Sorry, we konden geen verbinding maken met de servers van Google. Probeer het later opnieuw.</string>
@@ -347,6 +348,7 @@
 	<string name="list_settings">Lijst instellingen</string>
 	<string name="delete">Verwijder</string>
 	<string name="copy">Kopiëer</string>
+	<string name="move">Verplaats</string>
 	<string name="filter_settings">Filter instellingen</string>
 	<string name="show_hidden">Toon verborgen</string>
 	<string name="show_completed">Toon voltooide</string>
@@ -479,6 +481,7 @@
 	<string name="refresh_purchases">Vernieuw aankopen</string>
 	<string name="button_subscribed">Aangemeld</string>
 	<string name="button_subscribe">Aanmelden</string>
+	<string name="button_more_info">Meer informatie</string>
 	<string name="owned">Beheerd</string>
 	<string name="error_billing_unavailable">Betaling onmogelijk. Zorg dat de Google Pay app goed is ingesteld</string>
 	<string name="error_billing_default">Betaling onmogelijk. Controleer je apparaat.</string>
@@ -488,4 +491,9 @@
 	<string name="pro_caldav_sync">CalDAV synchroniseren</string>
 	<string name="pro_multiple_google_task_accounts">Meerdere Google Task accounts</string>
 	<string name="pro_dashclock_extension">Dashclock extentie</string>
+	<string name="requires_pro_subscription">Pro aanmelding vereist</string>
+	<string name="logout">Uitloggen</string>
+	<string name="logout_warning">Uitloggen voor %s? Alle data voor dit account zal worden verwijderd van je toestel</string>
+	<string name="cannot_access_account">Geen toegang tot account</string>
+	<string name="reinitialize_account">Herinitialiseren</string>
 </resources>

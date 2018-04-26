@@ -1,6 +1,16 @@
 Change Log
 ---
 
+### 6.0.5 (2018-04-26)
+
+* Fix crash when deleting 1000+ tasks at once
+* Fix hidden dates in date picker
+* Fix crash on bad response from billing client
+* Report crash when database fails to open
+* Update translations
+  * Dutch - revdbrink
+  * German - marmo
+
 ### 6.0.4 (2018-04-25)
 
 * Fix crash caused by leftover Google Analytics campaign tracker
