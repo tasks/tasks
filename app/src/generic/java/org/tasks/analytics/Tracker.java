@@ -8,14 +8,8 @@ public class Tracker {
   @Inject
   public Tracker() {}
 
-  public void setTrackingEnabled(boolean enabled) {}
-
   public void reportException(Throwable t) {
-    Timber.e(t, t.getMessage());
-  }
-
-  public void reportException(Thread thread, Throwable t) {
-    Timber.e(t, t.getMessage());
+    Timber.e(t);
   }
 
   public void reportEvent(Tracking.Events event) {}
@@ -27,4 +21,8 @@ public class Tracker {
   public void reportEvent(Tracking.Events category, String action, String label) {}
 
   public void reportIabResult(int resultCode, String skus) {}
+
+  public static void report(Exception e) {
+    Timber.e(e);
+  }
 }

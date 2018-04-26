@@ -19,9 +19,10 @@ import timber.log.Timber;
 @ApplicationScope
 public class Tracker {
 
+  private static boolean enabled;
+
   private final FirebaseAnalytics analytics;
   private final Context context;
-  private final boolean enabled;
 
   @Inject
   public Tracker(@ForApplication Context context, Preferences preferences) {
@@ -35,11 +36,15 @@ public class Tracker {
     }
   }
 
-  public void reportException(Throwable t) {
+  public static void report(Throwable t) {
     Timber.e(t);
     if (enabled) {
       Crashlytics.logException(t);
     }
+  }
+
+  public void reportException(Throwable t) {
+    report(t);
   }
 
   public void reportEvent(Tracking.Events event) {
