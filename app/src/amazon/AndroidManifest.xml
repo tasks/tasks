@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
   package="org.tasks">
 
-  <application>
-    <!-- Google Analytics -->
-
-    <receiver
-      android:enabled="true"
-      android:name="com.google.android.gms.analytics.AnalyticsReceiver">
-      <intent-filter>
-        <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
-      </intent-filter>
-    </receiver>
-
-    <service
-      android:enabled="true"
-      android:exported="false"
-      android:name="com.google.android.gms.analytics.AnalyticsService"/>
-
-    <receiver
-      android:exported="true"
-      android:name="com.google.android.gms.analytics.CampaignTrackingReceiver">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER"/>
-      </intent-filter>
-    </receiver>
-
-  </application>
+  <application/>
 
 </manifest>

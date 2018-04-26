@@ -47,29 +47,6 @@
     <activity
       android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
       android:theme="@style/TranslucentDialog"/>
-
-    <!-- Google Analytics -->
-
-    <receiver
-      android:enabled="true"
-      android:name="com.google.android.gms.analytics.AnalyticsReceiver">
-      <intent-filter>
-        <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
-      </intent-filter>
-    </receiver>
-
-    <service
-      android:enabled="true"
-      android:exported="false"
-      android:name="com.google.android.gms.analytics.AnalyticsService"/>
-
-    <receiver
-      android:exported="true"
-      android:name="com.google.android.gms.analytics.CampaignTrackingReceiver">
-      <intent-filter>
-        <action android:name="com.android.vending.INSTALL_REFERRER"/>
-      </intent-filter>
-    </receiver>
   </application>
 
 </manifest>

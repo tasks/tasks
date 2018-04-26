@@ -1,6 +1,10 @@
 Change Log
 ---
 
+### 6.0.4 (2018-04-25)
+
+* Fix crash caused by leftover Google Analytics campaign tracker
+
 ### 6.0.3 (2018-04-25)
 
 * Fix crash when manually sorting Google Task lists
