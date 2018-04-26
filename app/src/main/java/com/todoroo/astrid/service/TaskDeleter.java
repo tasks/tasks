@@ -1,7 +1,6 @@
 package com.todoroo.astrid.service;
 
 import static com.todoroo.andlib.sql.Criterion.all;
-import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
 
@@ -46,7 +45,7 @@ public class TaskDeleter {
   }
 
   public List<Task> markDeleted(List<Long> taskIds) {
-    deletionDao.markDeleted(now(), taskIds);
+    deletionDao.markDeleted(taskIds);
     jobManager.cleanup(taskIds);
     jobManager.syncNow();
     localBroadcastManager.broadcastRefresh();

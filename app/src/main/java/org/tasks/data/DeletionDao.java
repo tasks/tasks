@@ -1,5 +1,8 @@
 package org.tasks.data;
 
+import static com.google.common.collect.Iterables.partition;
+import static com.todoroo.andlib.utility.DateUtilities.now;
+
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Query;
@@ -32,12 +35,24 @@ public abstract class DeletionDao {
 
   @Transaction
   public void delete(List<Long> ids) {
-    deleteAlarms(ids);
-    deleteGeofences(ids);
-    deleteTags(ids);
-    deleteGoogleTasks(ids);
-    deleteCaldavTasks(ids);
-    deleteTasks(ids);
+    for (List<Long> partition : partition(ids, 999)) {
+      deleteAlarms(partition);
+      deleteGeofences(partition);
+      deleteTags(partition);
+      deleteGoogleTasks(partition);
+      deleteCaldavTasks(partition);
+      deleteTasks(partition);
+    }
+  }
+
+  @Query("UPDATE tasks SET modified = :timestamp, deleted = :timestamp WHERE _id IN(:ids)")
+  abstract void markDeleted(long timestamp, List<Long> ids);
+
+  public void markDeleted(List<Long> ids) {
+    long now = now();
+    for (List<Long> partition : partition(ids, 997)) {
+      markDeleted(now, partition);
+    }
   }
 
   @Query("SELECT task FROM google_tasks WHERE deleted = 0 AND list_id = :listId")
@@ -69,9 +84,6 @@ public abstract class DeletionDao {
     deleteGoogleTaskAccount(googleTaskAccount);
     return deleted;
   }
-
-  @Query("UPDATE tasks SET modified = :timestamp, deleted = :timestamp WHERE _id IN(:ids)")
-  public abstract void markDeleted(long timestamp, List<Long> ids);
 
   @Query("SELECT task FROM caldav_tasks WHERE calendar = :calendar AND deleted = 0")
   abstract List<Long> getActiveCaldavTasks(String calendar);

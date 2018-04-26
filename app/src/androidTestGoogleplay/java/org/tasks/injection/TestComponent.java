@@ -16,6 +16,7 @@ import com.todoroo.astrid.subtasks.SubtasksHelperTest;
 import com.todoroo.astrid.subtasks.SubtasksTestCase;
 import com.todoroo.astrid.sync.NewSyncTestCase;
 import dagger.Component;
+import org.tasks.data.DeletionDaoTests;
 import org.tasks.jobs.BackupServiceTests;
 
 @ApplicationScope
@@ -53,4 +54,6 @@ public interface TestComponent {
   void inject(RepeatTaskHelperTest repeatTaskHelperTest);
 
   void inject(GtasksMetadataServiceTest gtasksMetadataServiceTest);
+
+  void inject(DeletionDaoTests deletionDaoTests);
 }
