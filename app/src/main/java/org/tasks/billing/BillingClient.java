@@ -69,7 +69,7 @@ public class BillingClient implements PurchasesUpdatedListener {
                 System.currentTimeMillis() - time);
             Timber.i(
                 "Querying subscriptions result code: %s res: %s",
-                subscriptionResult.getResponseCode(), subscriptionResult.getPurchasesList().size());
+                subscriptionResult.getResponseCode(), subscriptionResult.getPurchasesList());
             if (subscriptionResult.getResponseCode() == BillingResponse.OK) {
               purchasesResult.getPurchasesList().addAll(subscriptionResult.getPurchasesList());
             } else {
