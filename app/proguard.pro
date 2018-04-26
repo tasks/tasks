@@ -3,6 +3,13 @@
 -keep class com.rey.material.widget.Slider
 -dontwarn com.rey.material.**
 
+# remove logging statements
+-assumenosideeffects class timber.log.Timber* {
+    public static *** v(...);
+    public static *** d(...);
+    public static *** i(...);
+}
+
 # https://code.google.com/p/android/issues/detail?id=78293
 -keep public class android.support.v7.widget.** { *; }
 -keep public class android.support.v7.internal.widget.** { *; }
