@@ -30,7 +30,6 @@ public class Tracking {
     MULTISELECT_MOVE(R.string.tracking_category_event, R.string.tracking_event_multiselect_move),
     CLEAR_COMPLETED(R.string.tracking_category_event, R.string.tracking_action_clear_completed),
     UPGRADE(R.string.tracking_category_event, R.string.tracking_event_upgrade),
-    DB_OPEN_FAILED(R.string.tracking_category_error, R.string.tracking_event_db_open),
     TASK_CREATION_FAILED(R.string.tracking_category_error, R.string.tracking_event_task_creation),
     NIGHT_MODE_MISMATCH(
         R.string.tracking_category_event, R.string.tracking_event_night_mode_mismatch),

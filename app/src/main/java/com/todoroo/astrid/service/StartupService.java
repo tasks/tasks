@@ -88,12 +88,7 @@ public class StartupService {
 
   /** Called when this application is started up */
   public synchronized void onStartupApplication() {
-    try {
-      database.openForWriting();
-    } catch (SQLiteException e) {
-      tracker.reportException(e);
-      return;
-    }
+    database.openForWriting();
 
     // read current version
     final int lastVersion = preferences.getLastSetVersion();
