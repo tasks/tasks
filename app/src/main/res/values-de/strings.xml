@@ -135,7 +135,7 @@
 	<string name="CFA_context_chain">%s hat Kriterien</string>
 	<string name="CFA_context_delete">Zeile löschen</string>
 	<string name="CFA_help">Langes Drücken auf Elemente für zusätzliche Optionen</string>
-	<string name="CFA_button_add">Kriterien hinzufügen</string>
+	<string name="CFA_button_add">Kriterium hinzufügen</string>
 	<string name="CFC_dueBefore_text">Fällig am: ?</string>
 	<string name="CFC_dueBefore_name">Fällig am …</string>
 	<string name="no_due_date">Kein Fälligkeitsdatum</string>
@@ -470,13 +470,16 @@
 	<string name="tasker_create_task">Aufgabe erstellen</string>
 	<string name="help">Hilfe</string>
 	<string name="network_error">Verbindung fehlgeschlagen</string>
+	<string name="background_sync_unmetered_only">Nur bei unbeschränkter Verbindung</string>
 	<string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
+	<string name="refresh_purchases">Einkäufe aktualisieren</string>
 	<string name="button_more_info">Weitere Informationen</string>
 	<string name="about">Über</string>
 	<string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist</string>
 	<string name="themes">Zusätzliche Themes</string>
 	<string name="pro_caldav_sync">CalDAV Synchronisierung</string>
 	<string name="pro_tasker_plugins">Tasker Plugins</string>
+	<string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
 	<string name="logout">Abmelden</string>
 	<string name="logout_warning">Von %s abmelden? Das wird alle Daten dieses Kontos von deinem Gerät löschen.</string>
 	<string name="cannot_access_account">Auf das Konto kann nicht zugegriffen werden</string>

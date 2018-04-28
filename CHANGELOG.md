@@ -1,6 +1,14 @@
 Change Log
 ---
 
+### 6.0.6 (2018-04-28)
+
+* Fix crash when creating shortcuts on pre-Oreo devices
+* Fix crash when Google Task or CalDAV list is missing
+* Downgrade Play Services for compatibility with MicroG
+* Update translations
+  * German - marmo
+
 ### 6.0.5 (2018-04-26)
 
 * Fix crash when deleting 1000+ tasks at once
