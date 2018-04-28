@@ -466,7 +466,7 @@
     <activity
       android:enabled="true"
       android:exported="true"
-      android:icon="@mipmap/ic_launcher"
+      android:icon="@mipmap/ic_launcher_round"
       android:label="@string/tasker_create_task"
       android:name=".locale.ui.activity.TaskerCreateTaskActivity"
       android:theme="@style/Tasks"
@@ -493,7 +493,7 @@
     <activity-alias
       android:enabled="true"
       android:exported="true"
-      android:icon="@mipmap/ic_launcher"
+      android:icon="@mipmap/ic_launcher_round"
       android:label="@string/tasker_list_notification"
       android:name="com.twofortyfouram.locale.example.setting.toast.ui.activity.PluginActivity"
       android:targetActivity=".locale.ui.activity.TaskerSettingsActivity"
