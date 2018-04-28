@@ -26,6 +26,7 @@ import org.tasks.data.CaldavDao;
 import org.tasks.data.CaldavTask;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
+import org.tasks.data.GoogleTaskList;
 import org.tasks.injection.FragmentComponent;
 import org.tasks.preferences.DefaultFilterProvider;
 
@@ -61,11 +62,16 @@ public class RemoteListFragment extends TaskEditControlFragment {
     } else {
       if (task.isNew()) {
         if (task.hasTransitory(GoogleTask.KEY)) {
-          originalList =
-              new GtasksFilter(gtasksListService.getList(task.getTransitory(GoogleTask.KEY)));
+          GoogleTaskList googleTaskList =
+              gtasksListService.getList(task.getTransitory(GoogleTask.KEY));
+          if (googleTaskList != null) {
+            originalList = new GtasksFilter(googleTaskList);
+          }
         } else if (task.hasTransitory(CaldavTask.KEY)) {
-          originalList =
-              new CaldavFilter(caldavDao.getCalendarByUuid(task.getTransitory(CaldavTask.KEY)));
+          CaldavCalendar caldav = caldavDao.getCalendarByUuid(task.getTransitory(CaldavTask.KEY));
+          if (caldav != null) {
+            originalList = new CaldavFilter(caldav);
+          }
         } else {
           originalList = defaultFilterProvider.getDefaultRemoteList();
         }
@@ -73,7 +79,10 @@ public class RemoteListFragment extends TaskEditControlFragment {
         GoogleTask googleTask = googleTaskDao.getByTaskId(task.getId());
         CaldavTask caldavTask = caldavDao.getTask(task.getId());
         if (googleTask != null) {
-          originalList = new GtasksFilter(gtasksListService.getList(googleTask.getListId()));
+          GoogleTaskList googleTaskList = gtasksListService.getList(googleTask.getListId());
+          if (googleTaskList != null) {
+            originalList = new GtasksFilter(googleTaskList);
+          }
         } else if (caldavTask != null) {
           CaldavCalendar calendarByUuid = caldavDao.getCalendarByUuid(caldavTask.getCalendar());
           if (calendarByUuid != null) {
