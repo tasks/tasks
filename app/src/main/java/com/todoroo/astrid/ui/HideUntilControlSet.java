@@ -107,14 +107,10 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
             HideUntilValue value = getItem(selectedItemPosition);
             if (value.setting == Task.HIDE_UNTIL_NONE) {
               clearButton.setVisibility(View.GONE);
-              tv.setText(value.label);
+              tv.setText(value.labelDisplay);
               tv.setTextColor(getColor(context, R.color.text_tertiary));
             } else {
-              String display = value.label;
-              if (value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY
-                  && value.setting != Task.HIDE_UNTIL_SPECIFIC_DAY_TIME) {
-                display = display.toLowerCase();
-              }
+              String display = value.labelDisplay;
               tv.setText(getString(R.string.TEA_hideUntil_display, display));
               tv.setTextColor(getColor(context, R.color.text_primary));
             }
@@ -235,15 +231,17 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
   private void updateSpinnerOptions(long specificDate) {
     spinnerItems.clear();
     // set up base values
-    String[] labels = getResources().getStringArray(R.array.TEA_hideUntil);
+    String[] labelsSpinner = getResources().getStringArray(R.array.TEA_hideUntil_spinner);
+    String[] labelsDisplay = getResources().getStringArray(R.array.TEA_hideUntil_display);
+
     spinnerItems.addAll(
         new ArrayList<>(
             asList(
-                new HideUntilValue(labels[0], Task.HIDE_UNTIL_DUE),
-                new HideUntilValue(labels[1], Task.HIDE_UNTIL_DUE_TIME),
-                new HideUntilValue(labels[2], Task.HIDE_UNTIL_DAY_BEFORE),
-                new HideUntilValue(labels[3], Task.HIDE_UNTIL_WEEK_BEFORE),
-                new HideUntilValue(labels[4], Task.HIDE_UNTIL_SPECIFIC_DAY, -1))));
+                new HideUntilValue(labelsSpinner[0], labelsDisplay[0], Task.HIDE_UNTIL_DUE),
+                new HideUntilValue(labelsSpinner[1], labelsDisplay[1], Task.HIDE_UNTIL_DUE_TIME),
+                new HideUntilValue(labelsSpinner[2], labelsDisplay[2], Task.HIDE_UNTIL_DAY_BEFORE),
+                new HideUntilValue(labelsSpinner[3], labelsDisplay[3], Task.HIDE_UNTIL_WEEK_BEFORE),
+                new HideUntilValue(labelsSpinner[4], "", Task.HIDE_UNTIL_SPECIFIC_DAY, -1)))); // no need for a string for display here, since the chosen day will be displayed
 
     if (specificDate > 0) {
       spinnerItems.add(0, getHideUntilValue(specificDate));
@@ -323,23 +321,33 @@ public class HideUntilControlSet extends TaskEditControlFragment implements OnIt
    */
   private class HideUntilValue {
 
-    final String label;
+    final String labelSpinner;
+    final String labelDisplay;
     final int setting;
     final long date;
 
     HideUntilValue(String label, int setting) {
-      this(label, setting, 0);
+      this(label, label, setting, 0);
+    }
+
+    HideUntilValue(String labelSpinner, String labelDisplay, int setting) {
+      this(labelSpinner, labelDisplay, setting, 0);
     }
 
     HideUntilValue(String label, int setting, long date) {
-      this.label = label;
+      this(label, label, setting, date);
+    }
+
+    HideUntilValue(String labelSpinner, String labelDisplay, int setting, long date) {
+      this.labelSpinner = labelSpinner;
+      this.labelDisplay = labelDisplay;
       this.setting = setting;
       this.date = date;
     }
 
     @Override
     public String toString() {
-      return label;
+      return labelSpinner;
     }
   }
 }
