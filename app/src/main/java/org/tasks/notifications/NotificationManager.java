@@ -372,7 +372,6 @@ public class NotificationManager {
         new NotificationCompat.Builder(context, NotificationManager.NOTIFICATION_CHANNEL_DEFAULT)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
             .setContentTitle(taskTitle)
-            .setContentText(context.getString(R.string.app_name))
             .setColor(checkBoxes.getPriorityColor(task.getPriority()))
             .setSmallIcon(R.drawable.ic_check_white_24dp)
             .setWhen(when)
@@ -389,7 +388,9 @@ public class NotificationManager {
         PendingIntent.getActivity(context, (int) id, intent, PendingIntent.FLAG_UPDATE_CURRENT));
 
     if (!Strings.isNullOrEmpty(taskDescription)) {
-      builder.setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
+      builder
+          .setContentText(taskDescription)
+          .setStyle(new NotificationCompat.BigTextStyle().bigText(taskDescription));
     }
     Intent completeIntent = new Intent(context, CompleteTaskReceiver.class);
     completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id);
