@@ -88,12 +88,11 @@ public class RepeatConfirmationReceiver extends BroadcastReceiver {
   private String getRelativeDateAndTimeString(Context context, long date) {
     String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
     if (Task.hasDueTime(date)) {
-      // TODO: localize this
       dueString =
-          String.format(
-              "%s at %s",
+          context.getString(
+              R.string.repeat_snackbar_time
               dueString, // $NON-NLS-1$
-              DateUtilities.getTimeString(context, date));
+              DateUtilities.getTimeString(context, date));
     }
     return dueString;
   }
