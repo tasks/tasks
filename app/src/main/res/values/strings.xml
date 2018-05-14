@@ -590,6 +590,7 @@ File %1$s contained %2$s.\n\n
   <string name="repeat_occurs">Occurs</string>
 
   <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
+  <string comment="display new due date and time in snackbar after completing repeating task, e.g. 'Tomorrow at 8 AM' or '21 May at 8 AM'" name="repeat_snackbar_time">%1$s at %2$s</string>
 
   <!-- ========================================================== Extras == -->
 
