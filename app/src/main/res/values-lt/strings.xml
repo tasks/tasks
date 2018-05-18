@@ -64,7 +64,6 @@
 	<string name="TEA_control_importance">Pirmenybė</string>
 	<string name="TEA_control_notes">Aprašymas</string>
 	<string name="TEA_control_files">Failai</string>
-	<string name="TEA_control_google_task_list">Google Task sąrašas</string>
 	<string name="TEA_control_reminders">Priminimai</string>
 	<string name="TEA_control_timer">Laikmačio nustatymai</string>
 	<string name="TEA_control_hidden_section">----Visada slėpti----</string>

@@ -67,7 +67,6 @@
 	<string name="TEA_control_importance">우선순위</string>
 	<string name="TEA_control_notes">설명</string>
 	<string name="TEA_control_files">파일</string>
-	<string name="TEA_control_google_task_list">구글 할일 목록</string>
 	<string name="TEA_control_reminders">일정 알림</string>
 	<string name="TEA_control_timer">타이머 조절</string>
 	<string name="TEA_control_hidden_section">----항상 숨김----</string>

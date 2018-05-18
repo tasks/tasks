@@ -61,7 +61,6 @@
 	<string name="TEA_control_importance">Důležitost</string>
 	<string name="TEA_control_notes">Poznámky</string>
 	<string name="TEA_control_files">Soubory</string>
-	<string name="TEA_control_google_task_list">Seznam úkolů Google</string>
 	<string name="TEA_control_reminders">Upomínky</string>
 	<string name="TEA_control_timer">Ovladač časovače</string>
 	<string name="TEA_control_hidden_section">-----Vždy skrývat----</string>

@@ -159,7 +159,7 @@
     <item>@string/TEA_control_repeat</item>
     <item>@string/TEA_control_importance</item>
     <item>@string/tags</item>
-    <item>@string/TEA_control_google_task_list</item>
+    <item>@string/synchronization</item>
     <item>@string/TEA_control_reminders</item>
     <item>@string/TEA_control_files</item>
     <item>@string/TEA_control_notes</item>

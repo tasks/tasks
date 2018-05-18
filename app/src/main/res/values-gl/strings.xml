@@ -63,7 +63,6 @@
 	<string name="TEA_control_importance">Prioridad</string>
 	<string name="TEA_control_notes">Descripción</string>
 	<string name="TEA_control_files">Archivos</string>
-	<string name="TEA_control_google_task_list">Tareas de Google</string>
 	<string name="TEA_control_reminders">Recordatorios</string>
 	<string name="TEA_control_timer">Controles de tiempo</string>
 	<string name="TEA_control_hidden_section">---Ocultar Siempre---</string>

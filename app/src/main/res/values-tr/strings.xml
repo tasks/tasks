@@ -68,7 +68,6 @@
 	<string name="TEA_control_importance">Öncelik</string>
 	<string name="TEA_control_notes">Açıklama</string>
 	<string name="TEA_control_files">Dosyalar</string>
-	<string name="TEA_control_google_task_list">Google Görev Listesi</string>
 	<string name="TEA_control_reminders">Hatırlatmalar</string>
 	<string name="TEA_control_timer">Kronometre Denetimleri</string>
 	<string name="TEA_control_hidden_section">----Her Zaman Gizle----</string>

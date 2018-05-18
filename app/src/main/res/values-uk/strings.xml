@@ -67,7 +67,6 @@
 	<string name="TEA_control_importance">Пріоритет</string>
 	<string name="TEA_control_notes">Опис</string>
 	<string name="TEA_control_files">Файли</string>
-	<string name="TEA_control_google_task_list">Список Google Task</string>
 	<string name="TEA_control_reminders">Нагадування</string>
 	<string name="TEA_control_timer">Управління таймером</string>
 	<string name="TEA_control_hidden_section">----Приховувати завжди----</string>

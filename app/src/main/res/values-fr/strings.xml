@@ -62,7 +62,6 @@
 	<string name="TEA_control_gcal">Calendrier</string>
 	<string name="TEA_control_importance">Priorité</string>
 	<string name="TEA_control_files">Fichiers</string>
-	<string name="TEA_control_google_task_list">Liste de Google Task</string>
 	<string name="TEA_control_reminders">Rappels</string>
 	<string name="TEA_control_timer">Contrôles de rappel</string>
 	<string name="TEA_control_hidden_section">---- Toujours masquer ----</string>

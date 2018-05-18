@@ -67,7 +67,6 @@
 	<string name="TEA_control_importance">Prioritás</string>
 	<string name="TEA_control_notes">Leírás</string>
 	<string name="TEA_control_files">Fájlok</string>
-	<string name="TEA_control_google_task_list">Google Teendők Lista</string>
 	<string name="TEA_control_reminders">Emlékeztetők</string>
 	<string name="TEA_control_timer">Időzítő Beállítása</string>
 	<string name="TEA_control_hidden_section">---Elrejtve---</string>

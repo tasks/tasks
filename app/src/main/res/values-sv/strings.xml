@@ -64,7 +64,6 @@
 	<string name="TEA_control_importance">Prioritet</string>
 	<string name="TEA_control_notes">Beskrivning</string>
 	<string name="TEA_control_files">Filer</string>
-	<string name="TEA_control_google_task_list">Google Listor</string>
 	<string name="TEA_control_reminders">Påminnelser</string>
 	<string name="TEA_control_timer">Inställningar för tidtagarur</string>
 	<string name="TEA_control_hidden_section">----Göm alltid----</string>

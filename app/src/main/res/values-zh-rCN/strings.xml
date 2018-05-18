@@ -64,7 +64,6 @@
 	<string name="TEA_control_importance">优先级</string>
 	<string name="TEA_control_notes">描述</string>
 	<string name="TEA_control_files">文件</string>
-	<string name="TEA_control_google_task_list">Google Tasks列表</string>
 	<string name="TEA_control_reminders">提醒</string>
 	<string name="TEA_control_timer">定时器控件</string>
 	<string name="TEA_control_hidden_section">----始终隐藏----</string>

@@ -64,7 +64,6 @@
 	<string name="TEA_control_importance">優先順位</string>
 	<string name="TEA_control_notes">概要</string>
 	<string name="TEA_control_files">ファイル</string>
-	<string name="TEA_control_google_task_list">Google タスクリスト</string>
 	<string name="TEA_control_reminders">リマインダー</string>
 	<string name="TEA_control_timer">タイマーコントロール</string>
 	<string name="TEA_control_hidden_section">----常に隠す----</string>

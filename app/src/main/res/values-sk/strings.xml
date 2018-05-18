@@ -64,7 +64,6 @@
 	<string name="TEA_control_importance">Priorita</string>
 	<string name="TEA_control_notes">Popis</string>
 	<string name="TEA_control_files">Prílohy</string>
-	<string name="TEA_control_google_task_list">Zoznam Úloh Google</string>
 	<string name="TEA_control_reminders">Pripomienky</string>
 	<string name="TEA_control_timer">Stopky - nastavenie</string>
 	<string name="TEA_control_hidden_section">----Skryť vždy----</string>

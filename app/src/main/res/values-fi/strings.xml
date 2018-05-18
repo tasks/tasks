@@ -67,7 +67,6 @@
 	<string name="TEA_control_importance">Tärkeys</string>
 	<string name="TEA_control_notes">Kuvaus</string>
 	<string name="TEA_control_files">Tiedostot</string>
-	<string name="TEA_control_google_task_list">Google Tehtävä Lista</string>
 	<string name="TEA_control_reminders">Muistutukset</string>
 	<string name="TEA_control_timer">Ajastuksen säätimet</string>
 	<string name="TEA_control_hidden_section">----Piilota aina----</string>

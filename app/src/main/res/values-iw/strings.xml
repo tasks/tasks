@@ -64,7 +64,6 @@
 	<string name="TEA_control_importance">עדיפות</string>
 	<string name="TEA_control_notes">תיאור</string>
 	<string name="TEA_control_files">קבצים</string>
-	<string name="TEA_control_google_task_list">רשימת ״משימות גוגל״</string>
 	<string name="TEA_control_reminders">תזכורות</string>
 	<string name="TEA_control_timer">הערכת זמן</string>
 	<string name="TEA_control_hidden_section">----מוסתר תמיד----</string>
