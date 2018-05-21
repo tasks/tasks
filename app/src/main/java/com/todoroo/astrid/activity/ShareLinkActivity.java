@@ -1,6 +1,7 @@
 /** TODO: make this lightweight, don't extend the entire MainActivity */
 package com.todoroo.astrid.activity;
 
+import static com.todoroo.andlib.utility.AndroidUtilities.atLeastMarshmallow;
 import static org.tasks.intents.TaskIntents.getEditTaskStack;
 
 import android.content.Intent;
@@ -11,6 +12,7 @@ import com.todoroo.astrid.service.TaskCreator;
 import javax.inject.Inject;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
+import timber.log.Timber;
 
 /**
  * @author joshuagross
@@ -44,15 +46,24 @@ public final class ShareLinkActivity extends InjectingAppCompatActivity {
 
   private void readIntent() {
     Intent intent = getIntent();
-    String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
-    if (subject == null) {
-      subject = "";
-    }
 
-    Task task = taskCreator.createWithValues(null, subject);
-    if (task != null) {
+    if (atLeastMarshmallow() && Intent.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
+      CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_PROCESS_TEXT);
+      if (text != null) {
+        Task task = taskCreator.createWithValues(null, text.toString());
+        getEditTaskStack(this, null, task).startActivities();
+      }
+    } else if (Intent.ACTION_SEND.equals(intent.getAction())) {
+      String subject = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+      if (subject == null) {
+        subject = "";
+      }
+
+      Task task = taskCreator.createWithValues(null, subject);
       task.setNotes(intent.getStringExtra(Intent.EXTRA_TEXT));
       getEditTaskStack(this, null, task).startActivities();
+    } else {
+      Timber.e("Unhandled intent: %s", intent);
     }
     finish();
   }

@@ -155,7 +155,16 @@
     <!-- TODO: clearTaskOnLaunch probable cause of #275 -->
     <activity
       android:clearTaskOnLaunch="true"
-      android:name="com.todoroo.astrid.activity.ShareLinkActivity">
+      android:icon="@mipmap/ic_launcher_blue"
+      android:label="@string/action_create_new_task"
+      android:name="com.todoroo.astrid.activity.ShareLinkActivity"
+      android:roundIcon="@mipmap/ic_launcher_blue">
+      <intent-filter>
+        <action android:name="android.intent.action.PROCESS_TEXT"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:mimeType="text/plain"/>
+      </intent-filter>
+
       <intent-filter>
         <action android:name="android.intent.action.SEND"/>
         <category android:name="android.intent.category.DEFAULT"/>
