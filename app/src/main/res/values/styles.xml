@@ -72,7 +72,7 @@
     <item name="android:textColor">?attr/asTextColor</item>
   </style>
 
-  <!--=============================================== TaskListActivity == -->
+  <!--=============================================== MainActivity == -->
 
   <style name="divider">
     <item name="android:background">@color/divider</item>

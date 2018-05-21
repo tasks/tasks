@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TagFilter;
@@ -60,15 +60,15 @@ public class TagListFragment extends TaskListFragment {
     if (requestCode == REQUEST_EDIT_TAG) {
       if (resultCode == Activity.RESULT_OK) {
         String action = data.getAction();
-        TaskListActivity activity = (TaskListActivity) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         if (TagSettingsActivity.ACTION_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
         } else if (TagSettingsActivity.ACTION_RELOAD.equals(action)) {
           activity
               .getIntent()
               .putExtra(
-                  TaskListActivity.OPEN_FILTER,
-                  (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+                  MainActivity.OPEN_FILTER,
+                  (Filter) data.getParcelableExtra(MainActivity.OPEN_FILTER));
           activity.recreate();
         }
       }

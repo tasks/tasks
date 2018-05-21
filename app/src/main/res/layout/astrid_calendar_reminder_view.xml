@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dip"
         android:scaleType="fitCenter"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@mipmap/ic_launcher_blue"/>
 
 
       <LinearLayout

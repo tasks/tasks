@@ -27,7 +27,7 @@ import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.CustomFilter;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;
@@ -253,7 +253,7 @@ public class CustomFilterActivity extends ThemedInjectingAppCompatActivity
     Filter filter =
         new CustomFilter(
             title, sql.toString(), values, storeObject.getId(), storeObject.getCriterion());
-    setResult(RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, filter));
+    setResult(RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, filter));
     finish();
   }
 

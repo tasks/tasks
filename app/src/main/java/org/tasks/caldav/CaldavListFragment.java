@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.api.Filter;
@@ -59,7 +59,7 @@ public class CaldavListFragment extends TaskListFragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_ACCOUNT_SETTINGS) {
       if (resultCode == RESULT_OK) {
-        TaskListActivity activity = (TaskListActivity) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         String action = data.getAction();
         if (CaldavCalendarSettingsActivity.ACTION_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
@@ -67,8 +67,8 @@ public class CaldavListFragment extends TaskListFragment {
           activity
               .getIntent()
               .putExtra(
-                  TaskListActivity.OPEN_FILTER,
-                  (Filter) data.getParcelableExtra(TaskListActivity.OPEN_FILTER));
+                  MainActivity.OPEN_FILTER,
+                  (Filter) data.getParcelableExtra(MainActivity.OPEN_FILTER));
           activity.recreate();
         }
       }

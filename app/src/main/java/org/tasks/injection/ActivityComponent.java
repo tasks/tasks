@@ -1,8 +1,8 @@
 package org.tasks.injection;
 
 import com.todoroo.astrid.activity.BeastModePreferences;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.ShareLinkActivity;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.DefaultsPreferences;
 import com.todoroo.astrid.core.OldTaskPreferences;
@@ -76,7 +76,7 @@ public interface ActivityComponent {
 
   void inject(ShareLinkActivity shareLinkActivity);
 
-  void inject(TaskListActivity taskListActivity);
+  void inject(MainActivity mainActivity);
 
   void inject(BeastModePreferences beastModePreferences);
 

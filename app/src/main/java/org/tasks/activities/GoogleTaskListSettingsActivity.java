@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import com.google.api.services.tasks.model.TaskList;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.GtasksFilter;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -183,7 +183,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
         setResult(
             RESULT_OK,
             new Intent(ACTION_RELOAD)
-                .putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+                .putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
       }
       finish();
     }
@@ -268,7 +268,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     gtasksList.setId(googleTaskListDao.insertOrReplace(gtasksList));
     setResult(
         RESULT_OK,
-        new Intent().putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+        new Intent().putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
 
@@ -289,7 +289,7 @@ public class GoogleTaskListSettingsActivity extends ThemedInjectingAppCompatActi
     setResult(
         RESULT_OK,
         new Intent(ACTION_RELOAD)
-            .putExtra(TaskListActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
+            .putExtra(MainActivity.OPEN_FILTER, new GtasksFilter(gtasksList)));
     finish();
   }
 

@@ -52,7 +52,6 @@ import org.tasks.data.TagData;
 import org.tasks.data.TagDataDao;
 import org.tasks.dialogs.SortDialog;
 import org.tasks.fragments.CommentBarFragment;
-import org.tasks.gtasks.RemoteListSelectionHandler;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.InjectingAppCompatActivity;
 import org.tasks.intents.TaskIntents;
@@ -72,7 +71,7 @@ import org.tasks.ui.PriorityControlSet;
 import org.tasks.ui.TaskListViewModel;
 import timber.log.Timber;
 
-public class TaskListActivity extends InjectingAppCompatActivity
+public class MainActivity extends InjectingAppCompatActivity
     implements OnFilterItemClickedListener,
         TaskListFragment.TaskListFragmentCallbackHandler,
         PriorityControlSet.OnPriorityChanged,
@@ -282,7 +281,7 @@ public class TaskListActivity extends InjectingAppCompatActivity
 
   public void restart() {
     Intent intent = getIntent();
-    intent.putExtra(TaskListActivity.OPEN_FILTER, filter);
+    intent.putExtra(MainActivity.OPEN_FILTER, filter);
     finish();
     startActivity(intent);
   }
@@ -383,7 +382,7 @@ public class TaskListActivity extends InjectingAppCompatActivity
     if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
       final String listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME);
       intent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
-      Intent activityIntent = new Intent(TaskListActivity.this, TagSettingsActivity.class);
+      Intent activityIntent = new Intent(MainActivity.this, TagSettingsActivity.class);
       activityIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName);
       startActivityForResult(activityIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
     }

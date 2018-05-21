@@ -10,7 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -67,9 +67,9 @@ public class Notifier {
       return;
     }
 
-    Intent intent = new Intent(context, TaskListActivity.class);
+    Intent intent = new Intent(context, MainActivity.class);
     intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_MULTIPLE_TASK);
-    intent.putExtra(TaskListActivity.OPEN_FILTER, filter);
+    intent.putExtra(MainActivity.OPEN_FILTER, filter);
     PendingIntent pendingIntent =
         PendingIntent.getActivity(
             context, filter.listingTitle.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);

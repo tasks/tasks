@@ -11,6 +11,7 @@ public class Tracking {
     SET_THEME(R.string.tracking_category_preferences, R.string.p_theme),
     SET_COLOR(R.string.tracking_category_preferences, R.string.p_theme_color),
     SET_ACCENT(R.string.tracking_category_preferences, R.string.p_theme_accent),
+    SET_LAUNCHER(R.string.tracking_category_preferences, R.string.p_theme_launcher),
     SET_TAG_COLOR(R.string.tracking_category_tags, R.string.p_theme_color),
     WIDGET_ADD(R.string.tracking_category_widget, R.string.tracking_action_add),
     TIMER_START(R.string.tracking_category_timer, R.string.tracking_action_start),

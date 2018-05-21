@@ -266,7 +266,7 @@ public class TaskListFragment extends InjectingFragment
                                 Criterion.or(
                                     Task.NOTES.like("%" + query + "%"),
                                     Task.TITLE.like("%" + query + "%")))));
-            ((TaskListActivity) getActivity()).onFilterItemClicked(savedFilter);
+            ((MainActivity) getActivity()).onFilterItemClicked(savedFilter);
             MenuItemCompat.collapseActionView(item);
             return true;
           }
@@ -488,7 +488,7 @@ public class TaskListFragment extends InjectingFragment
   }
 
   protected void onTaskDelete(Task task) {
-    TaskListActivity activity = (TaskListActivity) getActivity();
+    MainActivity activity = (MainActivity) getActivity();
     TaskEditFragment tef = activity.getTaskEditFragment();
     if (tef != null) {
       if (task.getId() == tef.model.getId()) {
@@ -515,14 +515,14 @@ public class TaskListFragment extends InjectingFragment
     } else if (requestCode == REQUEST_EDIT_FILTER) {
       if (resultCode == RESULT_OK) {
         String action = data.getAction();
-        TaskListActivity activity = (TaskListActivity) getActivity();
+        MainActivity activity = (MainActivity) getActivity();
         if (FilterSettingsActivity.ACTION_FILTER_DELETED.equals(action)) {
           activity.onFilterItemClicked(null);
         } else if (FilterSettingsActivity.ACTION_FILTER_RENAMED.equals(action)) {
           activity
               .getIntent()
               .putExtra(
-                  TaskListActivity.OPEN_FILTER,
+                  MainActivity.OPEN_FILTER,
                   (Filter) data.getParcelableExtra(FilterSettingsActivity.TOKEN_FILTER));
           activity.recreate();
         }

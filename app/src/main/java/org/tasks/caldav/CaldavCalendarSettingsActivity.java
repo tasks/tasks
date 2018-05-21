@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.CaldavFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.service.TaskDeleter;
@@ -259,7 +259,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     tracker.reportEvent(Events.CALDAV_LIST_ADDED);
     setResult(
         RESULT_OK,
-        new Intent().putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
+        new Intent().putExtra(MainActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
     finish();
   }
 
@@ -270,7 +270,7 @@ public class CaldavCalendarSettingsActivity extends ThemedInjectingAppCompatActi
     setResult(
         RESULT_OK,
         new Intent(ACTION_RELOAD)
-            .putExtra(TaskListActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
+            .putExtra(MainActivity.OPEN_FILTER, new CaldavFilter(caldavCalendar)));
     finish();
   }
 

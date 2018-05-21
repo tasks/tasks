@@ -8,7 +8,7 @@ import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.Filter;
@@ -61,7 +61,7 @@ public class ActionModeProvider {
       TaskAdapter adapter,
       TaskListFragment taskList,
       TaskListRecyclerAdapter taskListRecyclerAdapter) {
-    return ((TaskListActivity) context)
+    return ((MainActivity) context)
         .startSupportActionMode(
             new ActionMode.Callback() {
               @Override

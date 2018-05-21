@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
@@ -142,8 +142,8 @@ public class CalendarReminderActivity extends ThemedInjectingAppCompatActivity {
   }
 
   private void createNewList(final String name) {
-    Intent intent = new Intent(CalendarReminderActivity.this, TaskListActivity.class);
-    intent.putExtra(TaskListActivity.TOKEN_CREATE_NEW_LIST_NAME, name);
+    Intent intent = new Intent(CalendarReminderActivity.this, MainActivity.class);
+    intent.putExtra(MainActivity.TOKEN_CREATE_NEW_LIST_NAME, name);
     startActivity(intent);
     dismissButton.performClick(); // finish with animation
   }

@@ -19,6 +19,30 @@ import org.tasks.ui.MenuColorizer;
 
 public class ThemeColor implements ColorPickerDialog.Pickable {
 
+  public static final String[] LAUNCHERS =
+      new String[] {
+        ".BlueGrey",
+        ".DarkGrey",
+        ".Red",
+        ".Pink",
+        ".Purple",
+        ".DeepPurple",
+        ".Indigo",
+        "",
+        ".LightBlue",
+        ".Cyan",
+        ".Teal",
+        ".Green",
+        ".LightGreen",
+        ".Lime",
+        ".Yellow",
+        ".Amber",
+        ".Orange",
+        ".DeepOrange",
+        ".Brown",
+        ".Grey"
+      };
+
   static final int[] COLORS =
       new int[] {
         R.style.BlueGrey,
@@ -42,6 +66,7 @@ public class ThemeColor implements ColorPickerDialog.Pickable {
         R.style.Brown,
         R.style.Grey
       };
+
   public static Creator<ThemeColor> CREATOR =
       new Creator<ThemeColor>() {
         @Override

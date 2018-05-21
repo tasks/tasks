@@ -4,9 +4,12 @@ import static com.todoroo.andlib.utility.AndroidUtilities.atLeastJellybeanMR1;
 import static org.tasks.dialogs.ExportTasksDialog.newExportTasksDialog;
 import static org.tasks.dialogs.ImportTasksDialog.newImportTasksDialog;
 import static org.tasks.locale.LocalePickerDialog.newLocalePickerDialog;
+import static org.tasks.themes.ThemeColor.LAUNCHERS;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import com.google.common.base.Strings;
@@ -17,8 +20,10 @@ import javax.inject.Inject;
 import org.tasks.BuildConfig;
 import org.tasks.R;
 import org.tasks.activities.ColorPickerActivity;
+import org.tasks.activities.ColorPickerActivity.ColorPalette;
 import org.tasks.analytics.Tracker;
 import org.tasks.analytics.Tracking;
+import org.tasks.analytics.Tracking.Events;
 import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.dialogs.DialogBuilder;
@@ -45,6 +50,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
   private static final int REQUEST_ACCENT_PICKER = 10004;
   private static final int REQUEST_CODE_BACKUP_DIR = 10005;
   private static final int REQUEST_PICKER = 10006;
+  private static final int REQUEST_LAUNCHER_PICKER = 10007;
   @Inject Tracker tracker;
   @Inject Preferences preferences;
   @Inject ThemeBase themeBase;
@@ -78,8 +84,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
     themePreference.setOnPreferenceClickListener(
         preference -> {
           Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
-          intent.putExtra(
-              ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.THEMES);
+          intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPalette.THEMES);
           startActivityForResult(intent, REQUEST_THEME_PICKER);
           return false;
         });
@@ -88,8 +93,7 @@ public class BasicPreferences extends InjectingPreferenceActivity
     colorPreference.setOnPreferenceClickListener(
         preference -> {
           Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
-          intent.putExtra(
-              ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.COLORS);
+          intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPalette.COLORS);
           startActivityForResult(intent, REQUEST_COLOR_PICKER);
           return false;
         });
@@ -98,9 +102,19 @@ public class BasicPreferences extends InjectingPreferenceActivity
     accentPreference.setOnPreferenceClickListener(
         preference -> {
           Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
-          intent.putExtra(
-              ColorPickerActivity.EXTRA_PALETTE, ColorPickerActivity.ColorPalette.ACCENTS);
+          intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPalette.ACCENTS);
           startActivityForResult(intent, REQUEST_ACCENT_PICKER);
+          return false;
+        });
+    Preference launcherPreference = findPreference(getString(R.string.p_theme_launcher));
+    ThemeColor launcherColor =
+        themeCache.getThemeColor(preferences.getInt(R.string.p_theme_launcher, 7));
+    launcherPreference.setSummary(launcherColor.getName());
+    launcherPreference.setOnPreferenceClickListener(
+        preference -> {
+          Intent intent = new Intent(BasicPreferences.this, ColorPickerActivity.class);
+          intent.putExtra(ColorPickerActivity.EXTRA_PALETTE, ColorPalette.LAUNCHER);
+          startActivityForResult(intent, REQUEST_LAUNCHER_PICKER);
           return false;
         });
     Preference languagePreference = findPreference(getString(R.string.p_language));
@@ -202,6 +216,14 @@ public class BasicPreferences extends InjectingPreferenceActivity
         result.putBoolean(AppearancePreferences.EXTRA_RESTART, true);
         recreate();
       }
+    } else if (requestCode == REQUEST_LAUNCHER_PICKER) {
+      if (resultCode == RESULT_OK) {
+        int index = data.getIntExtra(ColorPickerActivity.EXTRA_THEME_INDEX, 0);
+        setLauncherIcon(index);
+        preferences.setInt(R.string.p_theme_launcher, index);
+        tracker.reportEvent(Events.SET_LAUNCHER, Integer.toString(index));
+        recreate();
+      }
     } else if (requestCode == RC_PREFS) {
       if (resultCode == Activity.RESULT_OK && data != null) {
         result.putAll(data.getExtras());
@@ -271,6 +293,20 @@ public class BasicPreferences extends InjectingPreferenceActivity
   private String getBackupDirectory() {
     File dir = preferences.getBackupDirectory();
     return dir == null ? "" : dir.getAbsolutePath();
+  }
+
+  private void setLauncherIcon(int index) {
+    PackageManager packageManager = getPackageManager();
+    for (int i = 0; i < LAUNCHERS.length; i++) {
+      ComponentName componentName =
+          new ComponentName(this, "com.todoroo.astrid.activity.TaskListActivity" + LAUNCHERS[i]);
+      packageManager.setComponentEnabledSetting(
+          componentName,
+          index == i
+              ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+              : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+          PackageManager.DONT_KILL_APP);
+    }
   }
 
   @Override

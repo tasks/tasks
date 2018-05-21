@@ -78,7 +78,7 @@ File %1$s contained %2$s.\n\n
   <!-- Label for DateButtons with no value -->
   <string name="WID_dateButtonUnset">Click to set</string>
 
-  <!-- ================================================= TaskListActivity == -->
+  <!-- ================================================= MainActivity == -->
 
   <!-- slide 8b: Task List: Displayed instead of list when no items present -->
   <string name="TLA_no_items">There are no tasks here.</string>
@@ -762,6 +762,7 @@ File %1$s contained %2$s.\n\n
   <string name="theme">Theme</string>
   <string name="color">Color</string>
   <string name="accent">Accent</string>
+  <string name="launcher_icon">Launcher icon</string>
   <string name="theme_red">Red</string>
   <string name="theme_pink">Pink</string>
   <string name="theme_purple">Purple</string>

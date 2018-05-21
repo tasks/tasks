@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -68,19 +68,19 @@ public class NavigationDrawerFragment extends InjectingFragment {
     if (requestCode == FilterAdapter.REQUEST_SETTINGS) {
       if (resultCode == Activity.RESULT_OK && data != null) {
         if (data.getBooleanExtra(AppearancePreferences.EXTRA_RESTART, false)) {
-          ((TaskListActivity) getActivity()).restart();
+          ((MainActivity) getActivity()).restart();
         }
       }
     } else if (requestCode == FilterAdapter.REQUEST_PURCHASE) {
       if (resultCode == Activity.RESULT_OK) {
-        ((TaskListActivity) getActivity()).restart();
+        ((MainActivity) getActivity()).restart();
       }
     } else if (requestCode == REQUEST_NEW_LIST
         || requestCode == ACTIVITY_REQUEST_NEW_FILTER
         || requestCode == REQUEST_NEW_GTASK_LIST
         || requestCode == REQUEST_NEW_CALDAV_COLLECTION) {
       if (resultCode == RESULT_OK && data != null) {
-        Filter newList = data.getParcelableExtra(TaskListActivity.OPEN_FILTER);
+        Filter newList = data.getParcelableExtra(MainActivity.OPEN_FILTER);
         if (newList != null) {
           mCallbacks.onFilterItemClicked(newList);
         }

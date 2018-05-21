@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.TagFilter;
 import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.tags.TagService;
@@ -190,7 +190,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
       tagData.setColor(selectedTheme);
       tagDataDao.createNew(tagData);
       setResult(
-          RESULT_OK, new Intent().putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
+          RESULT_OK, new Intent().putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
     } else if (hasChanges()) {
       tagData.setName(newName);
       tagData.setColor(selectedTheme);
@@ -199,7 +199,7 @@ public class TagSettingsActivity extends ThemedInjectingAppCompatActivity
       tagDao.rename(tagData.getRemoteId(), newName);
       setResult(
           RESULT_OK,
-          new Intent(ACTION_RELOAD).putExtra(TaskListActivity.OPEN_FILTER, new TagFilter(tagData)));
+          new Intent(ACTION_RELOAD).putExtra(MainActivity.OPEN_FILTER, new TagFilter(tagData)));
     }
 
     finish();

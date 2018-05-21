@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import java.util.List;
 import javax.inject.Inject;
+import org.tasks.R;
 import org.tasks.billing.BillingClient;
 import org.tasks.billing.Inventory;
 import org.tasks.billing.PurchaseActivity;
 import org.tasks.dialogs.ColorPickerDialog;
 import org.tasks.injection.ActivityComponent;
 import org.tasks.injection.ThemedInjectingAppCompatActivity;
+import org.tasks.preferences.Preferences;
 import org.tasks.themes.Theme;
 import org.tasks.themes.ThemeCache;
 
@@ -27,6 +29,7 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
   @Inject ThemeCache themeCache;
   @Inject BillingClient billingClient;
   @Inject Inventory inventory;
+  @Inject Preferences preferences;
 
   private ColorPalette palette;
 
@@ -55,6 +58,7 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
       case ACCENTS:
         return themeCache.getAccents();
       case COLORS:
+      case LAUNCHER:
         return themeCache.getColors();
       case THEMES:
         return themeCache.getThemes();
@@ -106,6 +110,8 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
         return theme.getThemeColor().getIndex();
       case ACCENTS:
         return theme.getThemeAccent().getIndex();
+      case LAUNCHER:
+        return preferences.getInt(R.string.p_theme_launcher, 7);
       default:
         return theme.getThemeBase().getIndex();
     }
@@ -115,6 +121,7 @@ public class ColorPickerActivity extends ThemedInjectingAppCompatActivity
     THEMES,
     COLORS,
     ACCENTS,
+    LAUNCHER,
     WIDGET_BACKGROUND
   }
 }

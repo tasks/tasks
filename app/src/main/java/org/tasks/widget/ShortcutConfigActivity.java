@@ -50,7 +50,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, filter.listingTitle);
-        Drawable launcher = ContextCompat.getDrawable(this, R.mipmap.ic_launcher_round);
+        Drawable launcher = ContextCompat.getDrawable(this, R.mipmap.ic_launcher_blue);
         if (launcher instanceof BitmapDrawable) {
           intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, ((BitmapDrawable) launcher).getBitmap());
         } else if (atLeastOreo() && launcher instanceof AdaptiveIconDrawable) {

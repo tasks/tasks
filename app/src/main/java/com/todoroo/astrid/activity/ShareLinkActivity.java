@@ -1,4 +1,4 @@
-/** TODO: make this lightweight, don't extend the entire TaskListActivity */
+/** TODO: make this lightweight, don't extend the entire MainActivity */
 package com.todoroo.astrid.activity;
 
 import static org.tasks.intents.TaskIntents.getEditTaskStack;

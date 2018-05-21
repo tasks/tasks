@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import com.jakewharton.processphoenix.ProcessPhoenix;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import javax.inject.Inject;
 import org.tasks.R;
@@ -128,8 +128,8 @@ public abstract class InjectingPreferenceActivity extends AppCompatPreferenceAct
             R.string.restart_now,
             (dialogInterface, i) -> {
               Intent nextIntent =
-                  new Intent(InjectingPreferenceActivity.this, TaskListActivity.class);
-              nextIntent.putExtra(TaskListActivity.OPEN_FILTER, (Filter) null);
+                  new Intent(InjectingPreferenceActivity.this, MainActivity.class);
+              nextIntent.putExtra(MainActivity.OPEN_FILTER, (Filter) null);
               ProcessPhoenix.triggerRebirth(InjectingPreferenceActivity.this, nextIntent);
             })
         .setNegativeButton(R.string.restart_later, null)

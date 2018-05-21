@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import com.google.android.apps.dashclock.api.ExtensionData;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.MainActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -64,8 +64,8 @@ public class DashClockExtension extends com.google.android.apps.dashclock.api.Da
       if (count == 0) {
         publish(null);
       } else {
-        Intent clickIntent = new Intent(this, TaskListActivity.class);
-        clickIntent.putExtra(TaskListActivity.LOAD_FILTER, filterPreference);
+        Intent clickIntent = new Intent(this, MainActivity.class);
+        clickIntent.putExtra(MainActivity.LOAD_FILTER, filterPreference);
         ExtensionData extensionData =
             new ExtensionData()
                 .visible(true)

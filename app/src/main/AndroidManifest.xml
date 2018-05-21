@@ -86,11 +86,11 @@
   <application
     android:allowBackup="true"
     android:fullBackupContent="@xml/backup_config"
-    android:icon="@mipmap/ic_launcher_round"
+    android:icon="@mipmap/ic_launcher_blue"
     android:label="@string/app_name"
     android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences"
     android:name=".Tasks"
-    android:roundIcon="@mipmap/ic_launcher_round"
+    android:roundIcon="@mipmap/ic_launcher_blue"
     android:supportsRtl="true"
     android:theme="@style/Tasks"
     tools:ignore="GoogleAppIndexingWarning">
@@ -131,20 +131,6 @@
       android:label="@string/synchronization"
       android:name=".sync.SynchronizationPreferences"
       android:theme="@style/Tasks"/>
-
-    <!-- Activity that displays task list -->
-    <activity
-      android:launchMode="singleTask"
-      android:name="com.todoroo.astrid.activity.TaskListActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-    </activity>
 
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity">
       <intent-filter tools:ignore="AppLinkUrlError">
@@ -466,7 +452,7 @@
     <activity
       android:enabled="true"
       android:exported="true"
-      android:icon="@mipmap/ic_launcher_round"
+      android:icon="@mipmap/ic_launcher_blue"
       android:label="@string/tasker_create_task"
       android:name=".locale.ui.activity.TaskerCreateTaskActivity"
       android:theme="@style/Tasks"
@@ -493,7 +479,7 @@
     <activity-alias
       android:enabled="true"
       android:exported="true"
-      android:icon="@mipmap/ic_launcher_round"
+      android:icon="@mipmap/ic_launcher_blue"
       android:label="@string/tasker_list_notification"
       android:name="com.twofortyfouram.locale.example.setting.toast.ui.activity.PluginActivity"
       android:targetActivity=".locale.ui.activity.TaskerSettingsActivity"
@@ -512,6 +498,257 @@
         <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING"/>
       </intent-filter>
     </receiver>
+
+    <activity
+      android:launchMode="singleTask"
+      android:name="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+      </intent-filter>
+
+    </activity>
+
+    <!-- launcher icons -->
+
+    <activity-alias
+      android:enabled="true"
+      android:icon="@mipmap/ic_launcher_blue"
+      android:name="com.todoroo.astrid.activity.TaskListActivity"
+      android:roundIcon="@mipmap/ic_launcher_blue"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_blue_grey"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.BlueGrey"
+      android:roundIcon="@mipmap/ic_launcher_blue_grey"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_dark_grey"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.DarkGrey"
+      android:roundIcon="@mipmap/ic_launcher_dark_grey"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_red"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Red"
+      android:roundIcon="@mipmap/ic_launcher_red"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_pink"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Pink"
+      android:roundIcon="@mipmap/ic_launcher_pink"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_purple"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Purple"
+      android:roundIcon="@mipmap/ic_launcher_purple"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_deep_purple"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.DeepPurple"
+      android:roundIcon="@mipmap/ic_launcher_deep_purple"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_indigo"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Indigo"
+      android:roundIcon="@mipmap/ic_launcher_indigo"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_light_blue"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.LightBlue"
+      android:roundIcon="@mipmap/ic_launcher_light_blue"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_cyan"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Cyan"
+      android:roundIcon="@mipmap/ic_launcher_cyan"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_teal"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Teal"
+      android:roundIcon="@mipmap/ic_launcher_teal"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_green"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Green"
+      android:roundIcon="@mipmap/ic_launcher_green"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_light_green"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.LightGreen"
+      android:roundIcon="@mipmap/ic_launcher_light_green"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_lime"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Lime"
+      android:roundIcon="@mipmap/ic_launcher_lime"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_yellow"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Yellow"
+      android:roundIcon="@mipmap/ic_launcher_yellow"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_amber"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Amber"
+      android:roundIcon="@mipmap/ic_launcher_amber"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_orange"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Orange"
+      android:roundIcon="@mipmap/ic_launcher_orange"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_deep_orange"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.DeepOrange"
+      android:roundIcon="@mipmap/ic_launcher_deep_orange"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_brown"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Brown"
+      android:roundIcon="@mipmap/ic_launcher_brown"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
+
+    <activity-alias
+      android:enabled="false"
+      android:icon="@mipmap/ic_launcher_grey"
+      android:name="com.todoroo.astrid.activity.TaskListActivity.Grey"
+      android:roundIcon="@mipmap/ic_launcher_grey"
+      android:targetActivity="com.todoroo.astrid.activity.MainActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity-alias>
 
   </application>
 
