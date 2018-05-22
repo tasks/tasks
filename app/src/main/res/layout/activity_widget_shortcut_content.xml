@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/shortcut_list_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="@dimen/keyline_first"
+    android:layout_marginEnd="@dimen/keyline_first"
+    android:layout_marginLeft="@dimen/keyline_first"
+    android:layout_marginRight="@dimen/keyline_first"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/shortcut_list"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/list"/>
+  </android.support.design.widget.TextInputLayout>
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/shortcut_name_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="@dimen/keyline_first"
+    android:layout_marginEnd="@dimen/keyline_first"
+    android:layout_marginLeft="@dimen/keyline_first"
+    android:layout_marginRight="@dimen/keyline_first"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/shortcut_list_layout"
+    app:layout_constraintTop_toBottomOf="@+id/shortcut_list_layout">
+
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/shortcut_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/name"/>
+  </android.support.design.widget.TextInputLayout>
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/shortcut_color_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="@dimen/keyline_first"
+    android:layout_marginEnd="@dimen/keyline_first"
+    android:layout_marginLeft="@dimen/keyline_first"
+    android:layout_marginRight="@dimen/keyline_first"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="@+id/shortcut_name_layout"
+    app:layout_constraintTop_toBottomOf="@+id/shortcut_name_layout">
+
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/shortcut_color"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/color"/>
+  </android.support.design.widget.TextInputLayout>
+</android.support.constraint.ConstraintLayout>

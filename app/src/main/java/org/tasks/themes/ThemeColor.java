@@ -19,6 +19,32 @@ import org.tasks.ui.MenuColorizer;
 
 public class ThemeColor implements ColorPickerDialog.Pickable {
 
+  public static final int DEFAULT = 7;
+
+  public static final int[] ICONS =
+      new int[] {
+          R.mipmap.ic_launcher_blue_grey,
+          R.mipmap.ic_launcher_dark_grey,
+          R.mipmap.ic_launcher_red,
+          R.mipmap.ic_launcher_pink,
+          R.mipmap.ic_launcher_purple,
+          R.mipmap.ic_launcher_deep_purple,
+          R.mipmap.ic_launcher_indigo,
+          R.mipmap.ic_launcher_blue,
+          R.mipmap.ic_launcher_light_blue,
+          R.mipmap.ic_launcher_cyan,
+          R.mipmap.ic_launcher_teal,
+          R.mipmap.ic_launcher_green,
+          R.mipmap.ic_launcher_light_green,
+          R.mipmap.ic_launcher_lime,
+          R.mipmap.ic_launcher_yellow,
+          R.mipmap.ic_launcher_amber,
+          R.mipmap.ic_launcher_orange,
+          R.mipmap.ic_launcher_deep_orange,
+          R.mipmap.ic_launcher_brown,
+          R.mipmap.ic_launcher_grey
+      };
+
   public static final String[] LAUNCHERS =
       new String[] {
         ".BlueGrey",

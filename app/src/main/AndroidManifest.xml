@@ -144,7 +144,7 @@
     <activity
       android:label="@string/FSA_label"
       android:name=".widget.ShortcutConfigActivity"
-      android:theme="@style/TranslucentDialog">
+      android:theme="@style/Tasks">
       <intent-filter>
         <action android:name="android.intent.action.CREATE_SHORTCUT"/>
         <category android:name="android.intent.category.DEFAULT"/>
