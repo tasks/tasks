@@ -58,6 +58,10 @@
 	<string name="due_time">Eindtijd</string>
 	<string name="day_before_due">Dag voor einddatum</string>
 	<string name="week_before_due">Week voor einddatum</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">verval datum</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">verval tijd</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">dag voor verval</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">week voor verval</string>
 	<string name="TEA_control_when">Wanneer</string>
 	<string name="TEA_control_repeat">Herhaal</string>
 	<string name="TEA_control_gcal">Kalender</string>
@@ -270,6 +274,7 @@
 	<string name="repeat_number_of_times">Herhaal een aantal keer</string>
 	<string name="repeat_occurs">Keren</string>
 	<string name="repeat_snackbar">%1$s opnieuw ingepland op %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s om %2$s</string>
 	<string name="new_tag">Nieuwe tag aanmaken</string>
 	<string name="new_list">Nieuwe lijst aanmaken</string>
 	<string name="tag_FEx_untagged">Niet gecategoriseerd</string>
@@ -376,6 +381,7 @@
 	<string name="opacity">Transparantie</string>
 	<string name="theme">Thema</string>
 	<string name="color">Kleur</string>
+	<string name="launcher_icon">Start icon</string>
 	<string name="theme_red">Rood</string>
 	<string name="theme_pink">Roze</string>
 	<string name="theme_purple">Paars</string>
@@ -496,4 +502,5 @@
 	<string name="logout_warning">Uitloggen voor %s? Alle data voor dit account zal worden verwijderd van je toestel</string>
 	<string name="cannot_access_account">Geen toegang tot account</string>
 	<string name="reinitialize_account">Herinitialiseren</string>
+	<string name="action_create_new_task">Nieuwe taak maken</string>
 </resources>

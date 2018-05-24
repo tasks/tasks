@@ -56,6 +56,10 @@
 	<string name="due_time">Fälligkeits-Uhrzeit</string>
 	<string name="day_before_due">Tag vor Fälligkeit</string>
 	<string name="week_before_due">Woche vor Fälligkeit</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">Fälligkeitsdatum</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">Fälligkeits-Uhrzeit</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">Tag vor Fälligkeit</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">Woche vor Fälligkeit</string>
 	<string name="TEA_control_when">Wann</string>
 	<string name="TEA_control_repeat">Wiederholen</string>
 	<string name="TEA_control_gcal">Kalender</string>
@@ -109,8 +113,8 @@
 	<string name="EPr_manage_delete_all_gcal">Lösche alle Kalendereinträge von Aufgaben</string>
 	<string name="EPr_manage_delete_all_gcal_message">Möchtest du wirklich alle Kalendereintrage von Aufgaben löschen?</string>
 	<string name="EPr_manage_delete_all_gcal_status">%d Kalendereinträge gelöscht!</string>
-	<string name="task_defaults">Standards für Aufgaben</string>
-	<string name="EPr_default_urgency_title">Standard-Dringlichkeit</string>
+	<string name="task_defaults">Standardwerte für Aufgaben</string>
+	<string name="EPr_default_urgency_title">Standard-Fälligkeit</string>
 	<string name="EPr_default_importance_title">Standard-Priorität</string>
 	<string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
 	<string name="EPr_default_reminders_title">Standard-Erinnerungen</string>
@@ -141,6 +145,7 @@
 	<string name="next_month">Nächster Monat</string>
 	<string name="CFC_importance_text">Mindestpriorität ?</string>
 	<string name="CFC_importance_name">Priorität...</string>
+	<string name="CFC_tag_text">Schlagwort: ?</string>
 	<string name="CFC_tag_name">Tag...</string>
 	<string name="CFC_tag_contains_name">Tag-Name enthält...</string>
 	<string name="CFC_tag_contains_text">Tag-Name enthält: ?</string>
@@ -153,6 +158,7 @@
 	<string name="gcal_completed_title">%s (abgeschlossen)</string>
 	<string name="CFC_gtasks_list_text">In der Liste: ?</string>
 	<string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
+	<string name="CFC_caldav_list_name">In CalDAV-Liste…</string>
 	<string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
 	<string name="gtasks_GLA_authenticating">Authentifizierung ...</string>
 	<string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
@@ -265,6 +271,7 @@
 	<string name="repeat_number_of_times">Wiederhole n-mal</string>
 	<string name="repeat_occurs">Tritt ein</string>
 	<string name="repeat_snackbar">%1$s verschoben um %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s um %2$s</string>
 	<string name="new_tag">Neues Stichwort erstellen</string>
 	<string name="new_list">Neue Liste erstellen</string>
 	<string name="tag_FEx_untagged">Nicht kategorisiert</string>
@@ -309,7 +316,7 @@
 	<string name="enabled">Aktiviert</string>
 	<string name="font_size">Schriftgröße</string>
 	<string name="row_spacing">Zeilenabstand</string>
-	<string name="customize_edit_screen">Änderungsbildschirm anpassen</string>
+	<string name="customize_edit_screen">Bearbeitungsbildschirm anpassen</string>
 	<string name="source_code">Quelltext</string>
 	<string name="translations">Zur Übersetzung beitragen</string>
 	<string name="contact_developer">Entwickler kontaktieren</string>
@@ -332,12 +339,12 @@
 	<string name="tags">Schlagworte</string>
 	<string name="filters">Filter</string>
 	<string name="date_shortcut_hour">Für eine Stunde</string>
-	<string name="date_shortcut_morning">morgens</string>
+	<string name="date_shortcut_morning">Vormittag</string>
 	<string name="date_shortcut_afternoon">Nachmittag</string>
 	<string name="date_shortcut_evening">Abend</string>
 	<string name="date_shortcut_night">Nacht</string>
 	<string name="date_shortcut_tomorrow_morning">Morgenfrüh</string>
-	<string name="date_shortcut_tomorrow_afternoon">Morgennachmittag</string>
+	<string name="date_shortcut_tomorrow_afternoon">morgen Nachmittag</string>
 	<string name="date_shortcut_must_come_before">%1$s muss vor %2$s kommen</string>
 	<string name="date_shortcut_must_come_after">%1$s muss nach %2$s kommen</string>
 	<string name="discard_changes">Änderungen verwerfen?</string>
@@ -346,6 +353,7 @@
 	<string name="list_settings">Listeneinstellungen</string>
 	<string name="delete">Löschen</string>
 	<string name="copy">Kopieren</string>
+	<string name="move">Bewegen</string>
 	<string name="filter_settings">Filter-Einstellungen</string>
 	<string name="show_hidden">Ausgeblendete anzeigen</string>
 	<string name="show_completed">Erledigte anzeigen</string>
@@ -360,18 +368,21 @@
 	<string name="send_anonymous_statistics">Tasks verbessern</string>
 	<string name="send_anonymous_statistics_summary">Anonyme Nutzungsstatistiken und Absturzberichte zur Verbesserung von Tasks senden. Es werden keine persönlichen Daten gesammelt.</string>
 	<string name="tag_already_exists">Tag existiert bereits</string>
+	<string name="duplicate_name">Doppelter Name</string>
 	<string name="name_cannot_be_empty">Name darf nicht leer sein</string>
 	<string name="username_required">Benutzername benötigt</string>
 	<string name="password_required">Passwort benötigt</string>
 	<string name="url_required">URL benötigt</string>
 	<string name="url_host_name_required">Hostname erforderlich</string>
-	<string name="url_invalid_scheme">URL muss it \"http(s)://\" beginnen</string>
+	<string name="url_invalid_scheme">Muss mit \"http(s)://\" beginnen</string>
 	<string name="no_title">(kein Titel)</string>
 	<string name="back_button_saves_task">Zurück-Button speichert die Aufgabe</string>
 	<string name="default_list">Standard-Liste</string>
+	<string name="default_sync">Standardsynchronisation</string>
 	<string name="opacity">Durchsichtigkeit</string>
 	<string name="color">Farbe</string>
 	<string name="accent">Akzent</string>
+	<string name="launcher_icon">Startersymbol</string>
 	<string name="theme_red">Rot</string>
 	<string name="theme_purple">Lila</string>
 	<string name="theme_deep_purple">Dunkel-Lila</string>
@@ -467,20 +478,30 @@
 	<string name="repeat_monthly_fourth_week">vierten</string>
 	<string name="repeat_monthly_last_week">Nachname</string>
 	<string name="tasker_create_task">Aufgabe erstellen</string>
+	<string name="tasker_list_notification">Listenbenachrichtigung</string>
 	<string name="help">Hilfe</string>
 	<string name="network_error">Verbindung fehlgeschlagen</string>
 	<string name="background_sync_unmetered_only">Nur bei unbeschränkter Verbindung</string>
+	<string name="upgrade">Verbessern</string>
 	<string name="upgrade_to_pro">Pro-Funktionen freischalten</string>
 	<string name="refresh_purchases">Einkäufe aktualisieren</string>
+	<string name="button_subscribed">Abonniert</string>
+	<string name="button_subscribe">Abonnieren</string>
 	<string name="button_more_info">Weitere Informationen</string>
+	<string name="owned">Besessen</string>
+	<string name="error_billing_unavailable">Abrechnung nicht verfügbar. Stelle sicher, dass deine Google Play App korrekt installiert ist</string>
+	<string name="error_billing_default">Abrechnung nicht verfügbar. Bitte überprüfe dein Gerät.</string>
 	<string name="about">Über</string>
 	<string name="license_summary">Tasks ist freie, quelloffene Software, die unter der GNU General Public License v3.0 lizenziert ist</string>
 	<string name="themes">Zusätzliche Themes</string>
 	<string name="pro_caldav_sync">CalDAV Synchronisierung</string>
+	<string name="pro_multiple_google_task_accounts">Mehrere Google-Tasks-Konten</string>
 	<string name="pro_tasker_plugins">Tasker Plugins</string>
+	<string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
 	<string name="requires_pro_subscription">Pro-Freischaltung benötigt</string>
 	<string name="logout">Abmelden</string>
 	<string name="logout_warning">Von %s abmelden? Das wird alle Daten dieses Kontos von deinem Gerät löschen.</string>
 	<string name="cannot_access_account">Auf das Konto kann nicht zugegriffen werden</string>
 	<string name="reinitialize_account">Neu initialisieren</string>
+	<string name="action_create_new_task">Neue Aufgabe erstellen</string>
 </resources>

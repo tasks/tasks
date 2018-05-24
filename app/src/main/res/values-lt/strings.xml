@@ -58,6 +58,10 @@
 	<string name="due_time">Termino laikas</string>
 	<string name="day_before_due">Diena iki termino pabaigos</string>
 	<string name="week_before_due">Savaitė iki termino pabaigos</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">termino data</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">termino laikas</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">diena iki termino pabaigos</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">savaitė iki termino pabaigos</string>
 	<string name="TEA_control_when">Kada</string>
 	<string name="TEA_control_repeat">Kartoti</string>
 	<string name="TEA_control_gcal">Kalendorius</string>
@@ -269,6 +273,7 @@
 	<string name="repeat_number_of_times">Kartoti nustatytą kiekį kartų</string>
 	<string name="repeat_occurs">Įvyksta</string>
 	<string name="repeat_snackbar">%1$s perplanuotas šiai datai: %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s %2$s metu</string>
 	<string name="new_tag">Sukurti naują etiketę</string>
 	<string name="new_list">Sukurti naują sąrašą</string>
 	<string name="tag_FEx_untagged">Nekategorizuotos</string>
@@ -382,6 +387,7 @@
 	<string name="theme">Tema</string>
 	<string name="color">Spalva</string>
 	<string name="accent">Akcentas</string>
+	<string name="launcher_icon">Paleidimo ikona</string>
 	<string name="theme_red">Raudona</string>
 	<string name="theme_pink">Rožinė</string>
 	<string name="theme_purple">Violetinė</string>
@@ -481,7 +487,7 @@
 	<string name="tasker_create_task">Sukurti užduotį</string>
 	<string name="tasker_list_notification">Rodyti pranešimus</string>
 	<string name="help">Pagalba</string>
-	<string name="caldav_home_set_not_found">Namų rinkinys nerastas</string>
+	<string name="caldav_home_set_not_found">Kalendorių rinkinio direktorija nerasta</string>
 	<string name="network_error">Sujungimas nepavyko</string>
 	<string name="background_sync_unmetered_only">Naudoti tik \"unmetered\" ryšius</string>
 	<string name="upgrade">Atnaujinti</string>
@@ -506,4 +512,5 @@ sukonfigūruota tinkamai.</string>
 	<string name="logout_warning">Atsijungti nuo %s? Visi šios paskyros duomenys iš šio įrenginio bus pašalinti.</string>
 	<string name="cannot_access_account">Paskyra nepasiekiama.</string>
 	<string name="reinitialize_account">Inicijuoti iš naujo</string>
+	<string name="action_create_new_task">Sukurti naują užduotį</string>
 </resources>

@@ -62,6 +62,10 @@
 	<string name="due_time">Bitiş zamanı</string>
 	<string name="day_before_due">Bitişten önceki gün</string>
 	<string name="week_before_due">Bitişten önceki hafta</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">bitiş tarihi</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">bitiş zamanı</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">son günden bir gün önce</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">son günden bir hafta önce</string>
 	<string name="TEA_control_when">Ne Zaman</string>
 	<string name="TEA_control_repeat">Yinele</string>
 	<string name="TEA_control_gcal">Takvim</string>
@@ -274,6 +278,7 @@
 	<string name="repeat_number_of_times">Birkaç kez yinele</string>
 	<string name="repeat_occurs">Şu kadar gerçekleşir</string>
 	<string name="repeat_snackbar">%1$s, %2$s için yeniden zamanlandı</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s saat %2$s</string>
 	<string name="new_tag">Yeni etiket oluştur</string>
 	<string name="new_list">Yeni liste oluştur</string>
 	<string name="tag_FEx_untagged">Kategorilendirilmemiş</string>
@@ -387,6 +392,7 @@
 	<string name="theme">Gövde</string>
 	<string name="color">Renk</string>
 	<string name="accent">Ara renk</string>
+	<string name="launcher_icon">Başlatıcı simgesi</string>
 	<string name="theme_red">Kırmızı</string>
 	<string name="theme_pink">Pembe</string>
 	<string name="theme_purple">Mor</string>
@@ -512,4 +518,5 @@ uygulamanızın doğru kurulduğundan emin olun.</string>
 	<string name="logout_warning">%s oturumunu kapat? Bu hesapla ilgili tüm veri aygıtınızdan kaldırılacak</string>
 	<string name="cannot_access_account">Hesaba erişilemedi</string>
 	<string name="reinitialize_account">Yeniden başlat</string>
+	<string name="action_create_new_task">Yeni görev oluştur</string>
 </resources>

@@ -58,6 +58,10 @@
 	<string name="due_time">Намеченное время</string>
 	<string name="day_before_due">Сутки до намеченной даты</string>
 	<string name="week_before_due">Неделя до намеченной даты</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">намеченной даты</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">намеченного времени</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">сутки до намеченной даты</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">неделя до намеченной даты</string>
 	<string name="TEA_control_when">Когда</string>
 	<string name="TEA_control_repeat">Повтор</string>
 	<string name="TEA_control_gcal">Календарь</string>
@@ -270,6 +274,7 @@
 	<string name="repeat_number_of_times">Повторять несколько раз</string>
 	<string name="repeat_occurs">Повторять</string>
 	<string name="repeat_snackbar">«%1$s» перенесено на %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s в %2$s</string>
 	<string name="new_tag">Создать новый тег</string>
 	<string name="new_list">Создать новый список</string>
 	<string name="tag_FEx_untagged">Без тега</string>

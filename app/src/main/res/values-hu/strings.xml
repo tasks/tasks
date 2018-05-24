@@ -61,6 +61,10 @@
 	<string name="due_time">Esedékesség ideje</string>
 	<string name="day_before_due">Egy nappal a határidő előtt</string>
 	<string name="week_before_due">Egy héttel a határidő előtt</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">határidő</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">esedékesség ideje</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">egy nappal a határidő előtt</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">egy héttel a határidő előtt</string>
 	<string name="TEA_control_when">Mikor</string>
 	<string name="TEA_control_repeat">Ismétlés</string>
 	<string name="TEA_control_gcal">Naptár</string>
@@ -272,6 +276,7 @@
 	<string name="repeat_number_of_times">Ismétlés meghatározott alkalommal</string>
 	<string name="repeat_occurs">Előfordul</string>
 	<string name="repeat_snackbar">%1$s újraütemezve ekkorra: %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s ekkor: %2$s</string>
 	<string name="new_tag">Új címke létrehozása</string>
 	<string name="new_list">Új lista létrehozása</string>
 	<string name="tag_FEx_untagged">Kategória nélküli</string>
@@ -385,6 +390,7 @@
 	<string name="theme">Téma</string>
 	<string name="color">Szín</string>
 	<string name="accent">Kiemelés</string>
+	<string name="launcher_icon">Launcher ikon</string>
 	<string name="theme_red">Piros</string>
 	<string name="theme_pink">Rózsaszín</string>
 	<string name="theme_purple">Lila</string>
@@ -486,11 +492,17 @@
 	<string name="tasker_create_task">Feladat létrehozása</string>
 	<string name="tasker_list_notification">Lista értesítés</string>
 	<string name="help">Súgó</string>
+	<string name="caldav_home_set_not_found">Home set nem található</string>
 	<string name="network_error">Kapcsolódási hiba</string>
 	<string name="background_sync_unmetered_only">Csak forgalmidíj mentes kapcsolatoknál</string>
+	<string name="upgrade_to_pro">Upgrade pro verzióra</string>
+	<string name="refresh_purchases">Vásárlások frissítése</string>
 	<string name="button_subscribed">Előfizetve</string>
 	<string name="button_subscribe">Előfizetés</string>
 	<string name="button_more_info">További információk</string>
+	<string name="owned">Korábban megvásárolva</string>
+	<string name="error_billing_unavailable">Számlázási rendszer nem elérhető. Ellenőrizze a Google Play alkalmazás beállításait.</string>
+	<string name="error_billing_default">Számlázási rendszer nem elérhető. Ellenőrizze az eszközét.</string>
 	<string name="about">Névjegy</string>
 	<string name="license_summary">A Tasks ingyenes és nyílt forráskódú program, a GNU Általános Nyilvános Licenc v3.0 alapján licenszelve</string>
 	<string name="themes">További témák</string>
@@ -498,6 +510,10 @@
 	<string name="pro_multiple_google_task_accounts">Több Google Task fiók</string>
 	<string name="pro_tasker_plugins">Tasker plugin-ok</string>
 	<string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
+	<string name="requires_pro_subscription">Pro előfizetést igényel</string>
 	<string name="logout">Kijelentkezés</string>
+	<string name="logout_warning">Kijelentkezés ebből: %s? A fiókhoz tartozó összes adat törlésre kerül az eszközről.</string>
 	<string name="cannot_access_account">Fiók nem elérhető</string>
+	<string name="reinitialize_account">Újrainicializálás</string>
+	<string name="action_create_new_task">Új feladat létrehozása</string>
 </resources>

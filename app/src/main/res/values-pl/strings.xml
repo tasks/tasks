@@ -155,6 +155,7 @@
 	<string name="gcal_completed_title">%s (ukończono)</string>
 	<string name="CFC_gtasks_list_text">Na liście: ?</string>
 	<string name="CFC_gtasks_list_name">Na liście GTasks...</string>
+	<string name="CFC_caldav_list_name">Na liście CalDAV</string>
 	<string name="gtasks_GTA_clear_completed">Wyczyść zakończone</string>
 	<string name="gtasks_GLA_authenticating">Uwierzytelnianie...</string>
 	<string name="gtasks_GLA_errorIOAuth">Przepraszamy, mieliśmy problem z porozumieniem się z serwerami Google. Prosimy spróbować ponownie.</string>
@@ -209,12 +210,16 @@
 		<item quantity="one">minuta</item>
 		<item quantity="other">minut</item>
 	</plurals>
+	<plurals name="repeat_n_minutes">
+		<item quantity="one">%d minutę</item>
+		<item quantity="other">%d minut</item>
+	</plurals>
 	<plurals name="repeat_hours">
 		<item quantity="one">godzin</item>
 		<item quantity="other">godzin</item>
 	</plurals>
 	<plurals name="repeat_n_hours">
-		<item quantity="one">%d hour</item>
+		<item quantity="one">%d godzinę</item>
 		<item quantity="other">%d godzin</item>
 	</plurals>
 	<plurals name="repeat_days">
@@ -337,6 +342,7 @@
 	<string name="list_settings">Ustawienie listy</string>
 	<string name="delete">Usuń</string>
 	<string name="copy">Kopiuj</string>
+	<string name="move">Przenieś</string>
 	<string name="filter_settings">Ustawienia filtrów</string>
 	<string name="show_hidden">Pokaż ukryte</string>
 	<string name="show_completed">Pokaż ukończone</string>
@@ -360,6 +366,7 @@
 	<string name="no_title">(Bez tytułu)</string>
 	<string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
 	<string name="default_list">Domyślna lista</string>
+	<string name="default_sync">Domyślnie synchronizuj</string>
 	<string name="filter">Filtr</string>
 	<string name="opacity">Nieprzezroczystość</string>
 	<string name="theme">Motyw</string>
@@ -407,6 +414,7 @@
 	<string name="widget_row_settings">Ustawienia rzędu</string>
 	<string name="sync_error_permissions">Tasks wymaga uprawnienia</string>
 	<string name="creating_new_list">Tworzenie nowej listy</string>
+	<string name="contacting_server">Łączę z serwerem</string>
 	<string name="deleting_list">Usuwanie listy</string>
 	<string name="renaming_list">Zmiana nazwy listy</string>
 	<string name="clear_completed_tasks_confirmation">Wyczyścić ukończone zadania?</string>
@@ -436,9 +444,11 @@
 	<string name="repeats_weekly">raz w tygodniu</string>
 	<string name="repeats_monthly">raz w miesiącu</string>
 	<string name="repeats_yearly">raz w roku</string>
+	<string name="repeats_plural">Powtarzaj co %s</string>
 	<string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
 	<string name="default_calendar">Domyślny kalendarz</string>
 	<string name="repeat_monthly_same_day_each_month">tego samego dnia każdego miesiąca</string>
+	<string name="dont_sync">Nie synchronizowane</string>
 	<string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">pierwszy</string>
 	<string name="repeat_monthly_second_week">drugi</string>
@@ -447,4 +457,7 @@
 	<string name="repeat_monthly_last_week">ostatni</string>
 	<string name="help">Pomoc</string>
 	<string name="themes">Dodatkowe motywy</string>
+	<string name="logout">Wyloguj</string>
+	<string name="logout_warning">Wyloguj z %s? Wszystkie dane z tego konta zostaną usunięte z urządzenia</string>
+	<string name="cannot_access_account">Brak dostępu do konta</string>
 </resources>

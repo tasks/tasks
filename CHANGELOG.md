@@ -1,6 +1,29 @@
 Change Log
 ---
 
+### 6.1 (2018-05-24)
+
+* Customize launcher icon
+* Customize shortcut widget icon and label
+* Add custom text selection action (Android 6+)
+* Fix localization issues - marmo
+* Fix crash when calendar permissions are revoked
+* Fix crash when opening task from widget
+* Remove 'Tasks' from notification body
+* Update translations
+  * German - marmo, Strubbl
+  * Spanish - i2nm7s
+  * French - Florian_Dubois, MystEre84
+  * Hungarian - kaciokos
+  * Italian - dfdario
+  * Korean - timeforwarp
+  * Lithuanian - gacuxz
+  * Dutch - revdbrink
+  * Polish - hadogenes
+  * Brazilian Portuguese - douglaslmr
+  * Russian - uryevich
+  * Turkish - etc
+
 ### 6.0.6 (2018-04-28)
 
 * Fix crash when creating shortcuts on pre-Oreo devices

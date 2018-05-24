@@ -58,6 +58,10 @@
 	<string name="due_time">Ora scadenza</string>
 	<string name="day_before_due">Giorni alla scadenza</string>
 	<string name="week_before_due">Settimane alla scadenza</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_date, just without capitalization." name="TEA_hideUntil_due_date">data scadenza</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as due_time, just without capitalization." name="TEA_hideUntil_due_time">ora scadenza</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as day_before_due, just without capitalization." name="TEA_hideUntil_day_before_due">giorno prima della scadenza</string>
+	<string comment="Used for displaying the chosen hide until value in the task edit screen. Should be the same as week_before_due, just without capitalization." name="TEA_hideUntil_week_before_due">settimana prima della scadenza</string>
 	<string name="TEA_control_when">Quando</string>
 	<string name="TEA_control_repeat">Ripeti</string>
 	<string name="TEA_control_gcal">Calendario</string>
@@ -270,6 +274,7 @@
 	<string name="repeat_number_of_times">Ripeti un dato numero di volte</string>
 	<string name="repeat_occurs">Si verifica</string>
 	<string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
+	<string comment="display new due date and time in snackbar after completing repeating task, e.g. \'Tomorrow at 8 AM\' or \'21 May at 8 AM\'" name="repeat_snackbar_time">%1$s alle %2$s</string>
 	<string name="new_tag">Crea nuova etichetta</string>
 	<string name="new_list">Crea nuova lista</string>
 	<string name="tag_FEx_untagged">Non classificate</string>
@@ -382,6 +387,7 @@
 	<string name="theme">Tema</string>
 	<string name="color">Colore</string>
 	<string name="accent">Evidenzia</string>
+	<string name="launcher_icon">Icona lanciatore</string>
 	<string name="theme_red">Rosso</string>
 	<string name="theme_pink">Rosa</string>
 	<string name="theme_purple">Porpora</string>
@@ -507,4 +513,5 @@ Google Play app sia impostata correttamente</string>
 	<string name="logout_warning">Esco da %s? Tutti i dati dell\'account saranno cancellati dal dispositivo.</string>
 	<string name="cannot_access_account">Impossibile accedere all\'account</string>
 	<string name="reinitialize_account">Reinizializza</string>
+	<string name="action_create_new_task">Crea nuova attività</string>
 </resources>
