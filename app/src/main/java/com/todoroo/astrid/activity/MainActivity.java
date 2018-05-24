@@ -189,6 +189,34 @@ public class MainActivity extends InjectingAppCompatActivity
     } else {
       applyTheme(taskListFragment);
     }
+
+    if (intent.hasExtra(OPEN_TASK)) {
+      long taskId = intent.getLongExtra(OPEN_TASK, 0);
+      intent.removeExtra(OPEN_TASK);
+      navigationDrawer.closeDrawer();
+      if (taskId > 0) {
+        Task task = taskDao.fetch(taskId);
+        if (task != null) {
+          onTaskListItemClicked(task);
+        } else {
+          Timber.e("Failed to find task %s", taskId);
+        }
+      } else {
+        getSupportFragmentManager().executePendingTransactions();
+        Task task = getTaskListFragment().addTask("");
+        onTaskListItemClicked(task);
+      }
+    } else if (intent.hasExtra(OPEN_NEW_TASK)) {
+      Task task = intent.getParcelableExtra(OPEN_NEW_TASK);
+      intent.removeExtra(OPEN_NEW_TASK);
+      onTaskListItemClicked(task);
+    } else if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
+      final String listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME);
+      intent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
+      Intent activityIntent = new Intent(MainActivity.this, TagSettingsActivity.class);
+      activityIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName);
+      startActivityForResult(activityIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
+    }
   }
 
   private void showDetailFragment() {
@@ -350,42 +378,6 @@ public class MainActivity extends InjectingAppCompatActivity
     }
 
     return null;
-  }
-
-  @Override
-  protected void onPostResume() {
-    super.onPostResume();
-
-    Intent intent = getIntent();
-
-    if (intent.hasExtra(OPEN_TASK)) {
-      long taskId = intent.getLongExtra(OPEN_TASK, 0);
-      intent.removeExtra(OPEN_TASK);
-      navigationDrawer.closeDrawer();
-      if (taskId > 0) {
-        Task task = taskDao.fetch(taskId);
-        if (task != null) {
-          onTaskListItemClicked(task);
-        } else {
-          Timber.e("Failed to find task %s", taskId);
-        }
-      } else {
-        Task task = getTaskListFragment().addTask("");
-        onTaskListItemClicked(task);
-      }
-    } else if (intent.hasExtra(OPEN_NEW_TASK)) {
-      Task task = intent.getParcelableExtra(OPEN_NEW_TASK);
-      intent.removeExtra(OPEN_NEW_TASK);
-      onTaskListItemClicked(task);
-    }
-
-    if (intent.hasExtra(TOKEN_CREATE_NEW_LIST_NAME)) {
-      final String listName = intent.getStringExtra(TOKEN_CREATE_NEW_LIST_NAME);
-      intent.removeExtra(TOKEN_CREATE_NEW_LIST_NAME);
-      Intent activityIntent = new Intent(MainActivity.this, TagSettingsActivity.class);
-      activityIntent.putExtra(TagSettingsActivity.TOKEN_AUTOPOPULATE_NAME, listName);
-      startActivityForResult(activityIntent, NavigationDrawerFragment.REQUEST_NEW_LIST);
-    }
   }
 
   @Override
