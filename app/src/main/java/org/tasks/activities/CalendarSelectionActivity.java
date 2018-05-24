@@ -34,15 +34,11 @@ public class CalendarSelectionActivity extends ThemedInjectingAppCompatActivity
 
   private void showDialog() {
     FragmentManager fragmentManager = getSupportFragmentManager();
-    CalendarSelectionDialog fragmentByTag =
-        (CalendarSelectionDialog)
-            fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
-    if (fragmentByTag == null) {
+    if (fragmentManager.findFragmentByTag(FRAG_TAG_CALENDAR_PREFERENCE_SELECTION) == null) {
       Intent intent = getIntent();
-      fragmentByTag = newCalendarSelectionDialog(intent.getStringExtra(EXTRA_CALENDAR_NAME));
-      fragmentByTag.show(fragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
+      newCalendarSelectionDialog(intent.getStringExtra(EXTRA_CALENDAR_NAME))
+          .show(fragmentManager, FRAG_TAG_CALENDAR_PREFERENCE_SELECTION);
     }
-    fragmentByTag.setCalendarSelectionHandler(this);
   }
 
   @Override

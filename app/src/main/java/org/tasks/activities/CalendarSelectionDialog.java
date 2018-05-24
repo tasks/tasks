@@ -2,6 +2,7 @@ package org.tasks.activities;
 
 import static com.google.common.collect.Lists.transform;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -83,6 +84,13 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
   }
 
   @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
+
+    handler = (CalendarSelectionHandler) activity;
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
 
@@ -101,10 +109,6 @@ public class CalendarSelectionDialog extends InjectingDialogFragment {
   @Override
   protected void inject(DialogFragmentComponent component) {
     component.inject(this);
-  }
-
-  public void setCalendarSelectionHandler(CalendarSelectionHandler handler) {
-    this.handler = handler;
   }
 
   public interface CalendarSelectionHandler {
