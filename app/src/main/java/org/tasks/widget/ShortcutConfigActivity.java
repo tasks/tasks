@@ -1,15 +1,10 @@
 package org.tasks.widget;
 
-import static com.todoroo.andlib.utility.AndroidUtilities.atLeastOreo;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.AdaptiveIconDrawable;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.content.Intent.ShortcutIconResource;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +31,8 @@ import org.tasks.ui.MenuColorizer;
 
 public class ShortcutConfigActivity extends InjectingAppCompatActivity {
 
+  private static final String EXTRA_FILTER = "extra_filter";
+  private static final String EXTRA_THEME = "extra_theme";
   private static final int REQUEST_FILTER = 1019;
   private static final int REQUEST_COLOR_PICKER = 1020;
 
@@ -60,7 +57,7 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
   TextInputEditText shortcutColor;
 
   private Filter selectedFilter;
-  private int selectedTheme = -1;
+  private int selectedTheme;
 
   @Override
   public void onCreate(Bundle icicle) {
@@ -75,7 +72,13 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     toolbar.setNavigationOnClickListener(v -> save());
     MenuColorizer.colorToolbar(this, toolbar);
 
-    selectedFilter = defaultFilterProvider.getDefaultFilter();
+    if (icicle == null) {
+      selectedFilter = defaultFilterProvider.getDefaultFilter();
+      selectedTheme = -1;
+    } else {
+      selectedFilter = icicle.getParcelable(EXTRA_FILTER);
+      selectedTheme = icicle.getInt(EXTRA_THEME);
+    }
 
     updateFilterAndTheme();
   }
@@ -98,6 +101,14 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
     } else {
       super.onActivityResult(requestCode, resultCode, data);
     }
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    outState.putParcelable(EXTRA_FILTER, selectedFilter);
+    outState.putInt(EXTRA_THEME, selectedTheme);
   }
 
   @OnFocusChange(R.id.shortcut_list)
@@ -168,24 +179,12 @@ public class ShortcutConfigActivity extends InjectingAppCompatActivity {
 
     String filterId = defaultFilterProvider.getFilterPreferenceValue(selectedFilter);
     Intent shortcutIntent = TaskIntents.getTaskListByIdIntent(this, filterId);
+    Parcelable icon = ShortcutIconResource.fromContext(this, ThemeColor.ICONS[getThemeIndex()]);
 
     Intent intent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
     intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
     intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getShortcutName());
-    Drawable launcher = ContextCompat.getDrawable(this, ThemeColor.ICONS[getThemeIndex()]);
-    if (launcher instanceof BitmapDrawable) {
-      intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, ((BitmapDrawable) launcher).getBitmap());
-    } else if (atLeastOreo() && launcher instanceof AdaptiveIconDrawable) {
-      Bitmap bitmap =
-          Bitmap.createBitmap(
-              launcher.getIntrinsicWidth(), launcher.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-      Canvas canvas = new Canvas(bitmap);
-      launcher.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-      launcher.draw(canvas);
-      intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
-    } else {
-      throw new IllegalStateException("Launcher icon not found");
-    }
+    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
     setResult(RESULT_OK, intent);
     finish();
   }
