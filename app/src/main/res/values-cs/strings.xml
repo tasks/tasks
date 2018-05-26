@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Odebrat obrázek</string>
 	<string name="TVA_add_comment">Přidej comment...</string>
@@ -207,11 +207,7 @@
 	<string name="tmrw">Zítra</string>
 	<string name="yest">Včera</string>
 	<string name="DLG_wait">Čekejte prosím...</string>
-	<string name="sync_status_success">Poslední synchronizace:\n%s</string>
 	<string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
-	<string name="sync_SPr_forget">Odhlásit se</string>
-	<string name="sync_SPr_forget_description">Smazat všechny synchronizační data</string>
-	<string name="sync_forget_confirm">Odhlásit se / vymazat synchronizační data?</string>
 	<string name="widget_show_due_date">Ukázat data splnění</string>
 	<string name="widget_show_checkboxes">Ukázat zaškrtávací políčka</string>
 	<string name="widget_show_header">Zobraz záhlaví</string>
@@ -228,8 +224,6 @@
 	<string name="font_size">Velikost písma</string>
 	<string name="source_code">Zdrojový kód</string>
 	<string name="translations">Přispějte k překladu</string>
-	<string name="report_an_issue">Nahlásit problém</string>
-	<string name="help_and_feedback">Pomoc &amp; zpětná vazba</string>
 	<string name="contact_developer">Kontaktuj vývojáře</string>
 	<string name="rate_tasks">Ohodnotit Tasks</string>
 	<string name="quiet_hours_summary">Žádné připomínky během tichých hodin</string>
@@ -266,9 +260,6 @@
 	<string name="no_title">(Bez názvu)</string>
 	<string name="back_button_saves_task">Tlačítko zpět uloží úkol</string>
 	<string name="default_list">Výchozí seznam</string>
-	<string name="plugin_description">Tasks je open source projekt udržovaný jedním programátorem. Některé funkce jsou nabízeny za nákup v aplikaci, což slouží k podpoře dalšího vývoje.</string>
-	<string name="donate_summary">Dary jsou velmi ceněny</string>
-	<string name="buy">Koupit</string>
 	<string name="filter">Filtr</string>
 	<string name="opacity">Průhlednost</string>
 	<string name="theme">Vzhled</string>
@@ -293,8 +284,6 @@
 	<string name="theme_dark">Tmavý</string>
 	<string name="theme_wallpaper">Tapeta</string>
 	<string name="theme_day_night">Den/Noc</string>
-	<string name="default_value">Výchozí</string>
-	<string name="master_sync_warning">Automatická synchronizace je právě zakázána Androidem</string>
 	<string name="settings_general">Všeobecný</string>
 	<string name="language">Jazyk</string>
 	<string name="restart_required">Úkoly musí být restartovány, aby se změny projevily</string>

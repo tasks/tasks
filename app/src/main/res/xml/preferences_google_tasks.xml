@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory
+    android:key="@string/gtasks_GPr_header"
+    android:title="@string/gtasks_GPr_header"/>
+
+</PreferenceScreen>

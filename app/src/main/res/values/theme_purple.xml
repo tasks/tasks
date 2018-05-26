@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Purple" parent="WhiteToolbarTheme">
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-    </style>
+  <style name="Purple" parent="WhiteToolbarTheme">
+    <item name="colorPrimary">@color/purple_500</item>
+    <item name="colorPrimaryDark">@color/purple_700</item>
+  </style>
 
-    <style name="PurpleAccent" parent="WhiteTint">
-        <item name="colorAccent">@color/purple_a400</item>
-        <item name="colorAccentDialog">@color/purple_a400</item>
-    </style>
+  <style name="PurpleAccent" parent="WhiteTint">
+    <item name="colorAccent">@color/purple_a400</item>
+    <item name="colorAccentDialog">@color/purple_a400</item>
+  </style>
 
 </resources>

@@ -30,4 +30,7 @@ before_install:
 
 script:
   - ./gradlew :app:lintGoogleplayDebug
-  - ./gradlew :app:connectedGoogleplayDebugAndroidTest
+  - ./gradlew :app:createGoogleplayDebugAndroidTestCoverageReport
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

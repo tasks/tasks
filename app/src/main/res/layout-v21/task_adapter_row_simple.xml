@@ -4,16 +4,16 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/row"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="1px"
-    app:cardBackgroundColor="?attr/asContentBackground"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="?attr/card_elevation"
-    app:cardPreventCornerOverlap="false">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/row"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="1px"
+  app:cardBackgroundColor="?attr/asContentBackground"
+  app:cardCornerRadius="0dp"
+  app:cardElevation="?attr/card_elevation"
+  app:cardPreventCornerOverlap="false">
 
-    <include layout="@layout/task_adapter_row_body" />
+  <include layout="@layout/task_adapter_row_body"/>
 
 </android.support.v7.widget.CardView>

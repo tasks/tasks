@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="navigation_drawer_width">260dp</dimen>
-    <dimen name="keyline_first">16dp</dimen>
-    <dimen name="keyline_second">32dp</dimen>
-    <dimen name="keyline_content_inset">72dp</dimen>
+  <dimen name="navigation_drawer_width">260dp</dimen>
+  <dimen name="keyline_first">16dp</dimen>
+  <dimen name="keyline_second">32dp</dimen>
+  <dimen name="keyline_content_inset">72dp</dimen>
 
-    <dimen name="task_list_footer_height">88dp</dimen>
-    <dimen name="task_list_fab_margin">16dp</dimen>
+  <dimen name="task_list_footer_height">88dp</dimen>
+  <dimen name="task_list_fab_margin">16dp</dimen>
 
-    <dimen name="task_edit_double_padding_top_bottom">18dp</dimen>
-    <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
-    <dimen name="task_edit_text_size">16sp</dimen>
+  <dimen name="task_edit_double_padding_top_bottom">18dp</dimen>
+  <dimen name="task_edit_drawable_padding_top_bottom">17dp</dimen>
+  <dimen name="task_edit_text_size">16sp</dimen>
 
-    <item name="tag_characters" format="float" type="dimen">12</item>
+  <item format="float" name="tag_characters" type="dimen">12</item>
 
-    <item name="alpha_secondary" format="float" type="dimen">0.54</item>
-    <item name="alpha_disabled" format="float" type="dimen">0.38</item>
+  <item format="float" name="alpha_secondary" type="dimen">0.54</item>
+  <item format="float" name="alpha_disabled" type="dimen">0.38</item>
 
-    <dimen name="elevation_toolbar">8dp</dimen>
-    <dimen name="elevation_task_list">2dp</dimen>
-    <dimen name="elevation_refresh_indicator">3dp</dimen>
-    <dimen name="elevation_padding">0dp</dimen>
+  <dimen name="elevation_toolbar">8dp</dimen>
+  <dimen name="elevation_task_list">2dp</dimen>
+  <dimen name="elevation_refresh_indicator">3dp</dimen>
+  <dimen name="elevation_padding">0dp</dimen>
 
-    <dimen name="widget_padding">10dp</dimen>
-    <dimen name="week_button_inset">6dp</dimen>
-    <dimen name="week_button_state_on_circle_size">48dp</dimen>
+  <dimen name="widget_padding">10dp</dimen>
+  <dimen name="week_button_inset">6dp</dimen>
+  <dimen name="week_button_state_on_circle_size">48dp</dimen>
+
+  <dimen name="sku_details_row_text_size">14sp</dimen>
+
+  <dimen name="card_view_margin">8dp</dimen>
+  <dimen name="card_view_card_corner_radius">2dp</dimen>
+  <dimen name="card_view_card_elevation">2sp</dimen>
+
+  <dimen name="button_width">152dp</dimen>
+  <dimen name="button_height">48dp</dimen>
+
+  <dimen name="header_gap">8dp</dimen>
+  <dimen name="row_gap">1px</dimen>
+
 </resources>

@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Zbriši fotografijo</string>
 	<string name="TVA_add_comment">Dodaj komentar...</string>
@@ -187,10 +187,6 @@
 	<string name="tmrw">Jutr</string>
 	<string name="yest">Včer</string>
 	<string name="DLG_wait">Prosimo, počakajte...</string>
-	<string name="sync_status_success">Najnovejše usklajevanje:\n%s</string>
 	<string name="sync_SPr_interval_title">Usklajevanje v ozadju</string>
-	<string name="sync_SPr_forget">Odjava</string>
-	<string name="sync_SPr_forget_description">Zbriše vse usklajene podatke</string>
-	<string name="sync_forget_confirm">Odjava/brisanje usklajenih podatkov?</string>
 	<string name="TLA_menu_donate">Donirajte</string>
 </resources>

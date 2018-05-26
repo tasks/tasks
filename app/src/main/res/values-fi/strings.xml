@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Tyhjennä kuva</string>
 	<string name="TVA_add_comment">Lisää kommentti...</string>
@@ -301,11 +301,7 @@
 	<string name="tmrw">Huominen</string>
 	<string name="yest">Eilinen</string>
 	<string name="DLG_wait">Ole hyvä ja odota...</string>
-	<string name="sync_status_success">Viimeisin synkronointi:\n%s</string>
 	<string name="sync_SPr_interval_title">Tausta synkronointi</string>
-	<string name="sync_SPr_forget">Kirjaudu ulos</string>
-	<string name="sync_SPr_forget_description">Tyhjennä kaikki synkronointidata</string>
-	<string name="sync_forget_confirm">Kirjaudu ulos/tyhjennä synkronointidata</string>
 	<string name="widget_show_due_date">Näytä määräpäivät</string>
 	<string name="widget_show_checkboxes">Näytä valintaruudut</string>
 	<string name="widget_show_header">Näytä otsikot</string>
@@ -325,13 +321,10 @@
 	<string name="customize_edit_screen">Saadä muokkaus -näkymää</string>
 	<string name="source_code">Lähdekoodi</string>
 	<string name="translations">Osallistu kääntämiseen</string>
-	<string name="report_an_issue">Ilmoita virheestä</string>
-	<string name="help_and_feedback">Apu &amp; palaute</string>
 	<string name="contact_developer">Ota yhteyttä kehittäjään</string>
 	<string name="rate_tasks">Arvostele Tasks</string>
 	<string name="quiet_hours_summary">Ei ilmoituksia hiljaisena aikana</string>
 	<string name="TLA_menu_donate">Lahjoita</string>
-	<string name="select_amount">Valitse määrä</string>
 	<string name="add_reminder">Lisää muistutus</string>
 	<string name="remove">Poista</string>
 	<string name="randomly_once">Satunnaisesti kerran</string>
@@ -366,7 +359,6 @@
 	<string name="show_hidden">Näytä piilotetut</string>
 	<string name="show_completed">Näytä valmiit</string>
 	<string name="reverse">Käänteinen</string>
-	<string name="get_plugins">Sovelluksen sisäiset ostot</string>
 	<string name="no_application_found">Liitteen avaamiseksi ei löydy sovellusta</string>
 	<string name="add_attachment">Lisää liite</string>
 	<string name="take_a_picture">Ota kuva</string>
@@ -381,20 +373,12 @@
 	<string name="no_title">(Ei nimikettä)</string>
 	<string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
 	<string name="default_list">Oletuslista</string>
-	<string name="plugin_description">Tasks on avoimen koodin projekti jota ylläpitää yksi kehittäjä. Jotkut ominaisuudet ovat saatavina sovelluksen sisäisinä ostoksina joilla tuetaan kehitystyötä.</string>
-	<string name="themes_purchase_description">Avaa kaikki teemat ja lisää väriä Tasks -ohjelmaan</string>
-	<string name="tasker_description">Kontekstiriippuvainen listaus ilmoituksille. Vaatii Tasker tai Locale -sovelluksen</string>
-	<string name="donate_summary">Lahjoitukset ovat erittäin tervetulleita</string>
-	<string name="dashclock_purchase_description">Näytä aktiivisten tehtävien määrä. Vaatii DashClock Widgetin</string>
-	<string name="buy">Osta</string>
-	<string name="buy_dashclock_extension">Osta laajennusosa</string>
-	<string name="billing_service_busy">Sovelluksen sisäinen laskutuspalvelu on varattu, yritä myöhemmin uudelleen</string>
+	<string name="default_sync">Oletus synkronointi</string>
 	<string name="filter">Suodatin</string>
 	<string name="opacity">Läpinäkyvyys</string>
 	<string name="theme">Teema</string>
 	<string name="color">Väri</string>
 	<string name="accent">Sävy</string>
-	<string name="themes">Lisäteemat</string>
 	<string name="theme_red">Pun.</string>
 	<string name="theme_pink">Pinkki</string>
 	<string name="theme_purple">Purppura</string>
@@ -420,8 +404,6 @@
 	<string name="theme_dark">Tumma</string>
 	<string name="theme_wallpaper">Taustakuva</string>
 	<string name="theme_day_night">Päivä/Yö</string>
-	<string name="default_value">Oletus</string>
-	<string name="master_sync_warning">Android on estänyt automaattisen synkronoinnin</string>
 	<string name="settings_general">Yleinen</string>
 	<string name="language">Kieli</string>
 	<string name="restart_required">Tasks on uudelleen käynnistettävä muutoksien käyttöönottamiseksi</string>
@@ -480,6 +462,7 @@
 	<string name="badges_description">Näytä tehtävien lukumäärä tehtävien käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>
 	<string name="bundle_notifications_summary">Yhdistä useita ilmoituksia yhteen ilmoitukseen</string>
 	<string name="repeat_monthly_same_day_each_month">sama päivä joka kuukausi</string>
+	<string name="dont_sync">Älä synkronoi</string>
 	<string name="repeat_monthly_every_day_of_nth_week">joka %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">jokaisella %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">ensimmäinen</string>
@@ -490,4 +473,5 @@
 	<string name="tasker_create_task">Luo tehtävä</string>
 	<string name="tasker_list_notification">Ilmoituslista</string>
 	<string name="help">Apua</string>
+	<string name="themes">Lisäteemat</string>
 </resources>

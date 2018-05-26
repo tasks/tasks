@@ -5,68 +5,71 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="55dip"
-    android:background="?attr/selectableItemBackground"
-    android:paddingLeft="4dip"
-    android:paddingStart="4dip"
-    android:paddingRight="6dip"
-    android:paddingEnd="6dip"
+  android:layout_width="fill_parent"
+  android:layout_height="55dip"
+  android:paddingStart="4dip"
+  android:paddingEnd="6dip"
+  android:paddingLeft="4dip"
+  android:paddingRight="6dip"
+  android:background="?attr/selectableItemBackground"
+  android:orientation="horizontal">
+
+  <TextView
+    android:id="@+id/filter_count"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip"
+    android:gravity="center_vertical|end"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_toLeftOf="@id/filter_count"
+    android:layout_toStartOf="@id/filter_count"
+    android:gravity="center_vertical|start"
     android:orientation="horizontal">
 
+    <!-- filter intersection type icon -->
+    <ImageView
+      android:id="@+id/type"
+      android:layout_width="32dip"
+      android:layout_height="fill_parent"
+      android:paddingStart="5dp"
+      android:paddingEnd="5dp"
+      android:paddingLeft="5dip"
+      android:paddingRight="5dip"
+      android:scaleType="center"/>
+
+    <!-- filter icon -->
+    <ImageView
+      android:id="@+id/icon"
+      android:layout_width="32dip"
+      android:layout_height="fill_parent"
+      android:paddingStart="5dp"
+      android:paddingEnd="5dp"
+      android:paddingLeft="5dip"
+      android:paddingRight="5dip"
+      android:visibility="gone"/>
+
+    <!-- filter text -->
     <TextView
-        android:id="@+id/filter_count"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="center_vertical|end"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent" />
+      android:id="@+id/name"
+      style="@style/TextAppearance"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:paddingStart="5dip"
+      android:paddingEnd="5dp"
+      android:paddingLeft="5dip"
+      android:paddingRight="5dp"
+      android:gravity="start|center_vertical"
+      android:textAlignment="viewStart"
+      android:textSize="18sp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_toLeftOf="@id/filter_count"
-        android:layout_toStartOf="@id/filter_count"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:gravity="center_vertical|start"
-        android:orientation="horizontal">
-
-        <!-- filter intersection type icon -->
-        <ImageView android:id="@+id/type"
-            android:layout_width="32dip"
-            android:layout_height="fill_parent"
-            android:paddingLeft="5dip"
-            android:paddingStart="5dp"
-            android:paddingRight="5dip"
-            android:paddingEnd="5dp"
-            android:scaleType="center"/>
-
-        <!-- filter icon -->
-        <ImageView android:id="@+id/icon"
-            android:layout_width="32dip"
-            android:layout_height="fill_parent"
-            android:paddingLeft="5dip"
-            android:paddingStart="5dp"
-            android:paddingRight="5dip"
-            android:paddingEnd="5dp"
-            android:visibility="gone"/>
-
-        <!-- filter text -->
-        <TextView android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:paddingLeft="5dip"
-            android:paddingStart="5dip"
-            android:paddingRight="5dp"
-            android:paddingEnd="5dp"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            android:gravity="start|center_vertical"
-            style="@style/TextAppearance"/>
-
-    </LinearLayout>
+  </LinearLayout>
 
 </RelativeLayout>

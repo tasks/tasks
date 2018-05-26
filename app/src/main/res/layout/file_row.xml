@@ -4,26 +4,26 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingBottom="@dimen/task_edit_double_padding_top_bottom">
+
+  <include layout="@layout/control_set_clear_button"/>
+
+  <TextView
+    android:id="@+id/file_text"
+    style="@android:style/TextAppearance"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/task_edit_double_padding_top_bottom">
-
-    <include layout="@layout/control_set_clear_button" />
-
-    <TextView
-        android:id="@+id/file_text"
-        style="@android:style/TextAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_gravity="start"
-        android:layout_toLeftOf="@id/clear"
-        android:layout_toStartOf="@id/clear"
-        android:gravity="start"
-        android:textDirection="locale"
-        android:textColor="?attr/asTextColor"
-        tools:ignore="UnusedAttribute" />
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_gravity="start"
+    android:layout_toLeftOf="@id/clear"
+    android:layout_toStartOf="@id/clear"
+    android:gravity="start"
+    android:textColor="?attr/asTextColor"
+    android:textDirection="locale"
+    tools:ignore="UnusedAttribute"/>
 
 </RelativeLayout>

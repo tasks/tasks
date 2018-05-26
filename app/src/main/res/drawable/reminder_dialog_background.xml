@@ -4,10 +4,10 @@
 **
 ** See the file "LICENSE" for the full license governing this code. 
 -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:shape="rectangle">
-    <corners 
-        android:radius="5dip"/>
-    <solid 
-        android:color="@color/reminder_background"/>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <corners
+    android:radius="5dip"/>
+  <solid
+    android:color="@color/reminder_background"/>
 </shape>

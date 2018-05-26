@@ -79,7 +79,7 @@ def clean(path)
     f.puts "<!-- ******** http://www.getlocalization.com/tasks_android ******** -->"
     f.puts "<!-- ******************* DO NOT MODIFY MANUALLY ******************* -->"
     f.puts "<!-- ************************************************************** -->"
-    f.puts "<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->"
+    f.puts "<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->"
     f.print tail.join("\n")
   end
 end

@@ -1,101 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="org.tasks">
+  xmlns:tools="http://schemas.android.com/tools"
+  package="org.tasks">
 
-    <!-- **************** -->
-    <!-- in-app donations -->
-    <!-- **************** -->
-    <uses-permission android:name="com.android.vending.BILLING" />
+  <!-- ************************ -->
+  <!-- location based reminders -->
+  <!-- ************************ -->
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+  <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
-    <!-- ************************ -->
-    <!-- location based reminders -->
-    <!-- ************************ -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    <uses-feature android:name="android.hardware.location" android:required="false" />
-    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+  <uses-feature
+    android:name="android.hardware.location"
+    android:required="false"/>
+  <uses-feature
+    android:name="android.hardware.location.gps"
+    android:required="false"/>
 
+  <!-- **************** -->
+  <!-- google task sync -->
+  <!-- **************** -->
+  <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
-    <!-- **************** -->
-    <!-- google task sync -->
-    <!-- **************** -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.READ_SYNC_STATS"/>
-    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+  <application tools:ignore="GoogleAppIndexingWarning">
 
-    <application tools:ignore="GoogleAppIndexingWarning">
+    <meta-data
+      android:name="com.google.android.backup.api_key"
+      android:value="AEdPqrEAAAAI49v5bBusi_bq1bgLBB1LIsepNV0eBrFkQrBZkw"/>
 
-        <meta-data
-            android:name="com.google.android.backup.api_key"
-            android:value="AEdPqrEAAAAI49v5bBusi_bq1bgLBB1LIsepNV0eBrFkQrBZkw" />
+    <meta-data
+      android:name="com.google.android.gms.version"
+      android:value="@integer/google_play_services_version"/>
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+    <meta-data
+      android:name="com.google.android.geo.API_KEY"
+      android:value="AIzaSyBq82FiK4U8Ke2TV_F8UjDZwgtSy8K9cyQ"/>
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBq82FiK4U8Ke2TV_F8UjDZwgtSy8K9cyQ"/>
+    <service android:name=".location.GeofenceTransitionsIntentService"/>
 
-        <service android:name=".location.GeofenceTransitionsIntentService"/>
+    <activity android:name=".activities.GoogleTaskListSettingsActivity"/>
 
-        <activity android:name=".activities.GoogleTaskListSettingsActivity" />
+    <activity
+      android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
+      android:theme="@style/TranslucentDialog"/>
 
-        <activity
-            android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
-            android:theme="@style/TranslucentDialog" />
+    <!-- Google Analytics -->
 
-        <activity
-            android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
-            android:label="@string/synchronization"
-            android:theme="@style/Tasks" />
+    <receiver
+      android:enabled="true"
+      android:name="com.google.android.gms.analytics.AnalyticsReceiver">
+      <intent-filter>
+        <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
+      </intent-filter>
+    </receiver>
 
-        <!-- Google Analytics -->
+    <service
+      android:enabled="true"
+      android:exported="false"
+      android:name="com.google.android.gms.analytics.AnalyticsService"/>
 
-        <receiver
-            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.google.android.gms.analytics.AnalyticsService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <receiver
-            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
-
-        <!-- SyncService for Google Tasks -->
-
-        <service
-            android:name=".gtasks.GoogleTaskSyncService"
-            android:exported="true"
-            android:permission="signature">
-            <intent-filter>
-                <action android:name="android.content.SyncAdapter" />
-            </intent-filter>
-            <meta-data
-                android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter" />
-        </service>
-
-    </application>
+    <receiver
+      android:exported="true"
+      android:name="com.google.android.gms.analytics.CampaignTrackingReceiver">
+      <intent-filter>
+        <action android:name="com.android.vending.INSTALL_REFERRER"/>
+      </intent-filter>
+    </receiver>
+  </application>
 
 </manifest>

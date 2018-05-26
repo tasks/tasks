@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="tag_characters" format="float" type="dimen">16</item>
+  <item format="float" name="tag_characters" type="dimen">16</item>
 </resources>

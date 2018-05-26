@@ -1,117 +1,138 @@
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- ========================================================== General  -->
+  <!-- ========================================================== General  -->
 
-    <style name="popup_overlay" parent="ThemeOverlay.AppCompat.Light" />
+  <style name="popup_overlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="SpinnerNoPadding" parent="Widget.AppCompat.TextView.SpinnerItem">
-        <item name="android:paddingLeft">0dp</item>
-        <item name="android:paddingRight">0dp</item>
-    </style>
+  <style name="SpinnerNoPadding" parent="Widget.AppCompat.TextView.SpinnerItem">
+    <item name="android:paddingLeft">0dp</item>
+    <item name="android:paddingRight">0dp</item>
+  </style>
 
-    <style name="TranslucentDialog" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
+  <style name="TranslucentDialog" parent="Theme.AppCompat.Light.Dialog">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowIsTranslucent">true</item>
+  </style>
 
-    <style name="TextBoxText">
-        <item name="android:textColor">?attr/asTextColor</item>
-    </style>
+  <style name="TextBoxText">
+    <item name="android:textColor">?attr/asTextColor</item>
+  </style>
 
-    <style name="TaskEditTextPrimary">
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
-        <item name="android:textColorHint">?android:attr/textColorTertiary</item>
-        <item name="android:textSize">@dimen/task_edit_text_size</item>
-    </style>
+  <style name="TaskEditTextPrimary">
+    <item name="android:textColor">?android:attr/textColorPrimary</item>
+    <item name="android:textColorHint">?android:attr/textColorTertiary</item>
+    <item name="android:textSize">@dimen/task_edit_text_size</item>
+  </style>
 
-    <style name="TaskEditTextHint" parent="TaskEditTextPrimary">
-        <item name="android:textColor">?android:attr/textColorTertiary</item>
-    </style>
+  <style name="WhiteToolbarTheme">
+    <item name="dark_status_bar">false</item>
+    <item name="overlay_theme">@style/WhiteToolbarOverlay</item>
+    <item name="actionBarPrimaryText">@color/white_100</item>
+    <item name="actionBarSecondaryText">@color/white_70</item>
+  </style>
 
-    <style name="WhiteToolbarTheme">
-        <item name="dark_status_bar">false</item>
-        <item name="overlay_theme">@style/WhiteToolbarOverlay</item>
-        <item name="actionBarPrimaryText">@color/white_100</item>
-        <item name="actionBarSecondaryText">@color/white_70</item>
-    </style>
+  <style name="BlackToolbarTheme">
+    <item name="dark_status_bar">true</item>
+    <item name="overlay_theme">@style/BlackToolbarOverlay</item>
+    <item name="actionBarPrimaryText">@color/black_87</item>
+    <item name="actionBarSecondaryText">@color/black_54</item>
+  </style>
 
-    <style name="BlackToolbarTheme">
-        <item name="dark_status_bar">true</item>
-        <item name="overlay_theme">@style/BlackToolbarOverlay</item>
-        <item name="actionBarPrimaryText">@color/black_87</item>
-        <item name="actionBarSecondaryText">@color/black_54</item>
-    </style>
+  <style name="WhiteTint">
+    <item name="fab_text">@color/white_100</item>
+  </style>
 
-    <style name="WhiteTint">
-        <item name="fab_text">@color/white_100</item>
-    </style>
+  <style name="BlackTint">
+    <item name="fab_text">@color/black_87</item>
+  </style>
 
-    <style name="BlackTint">
-        <item name="fab_text">@color/black_87</item>
-    </style>
+  <style name="WhiteToolbarOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="colorControlNormal">@color/white_100</item>
+  </style>
 
-    <style name="WhiteToolbarOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="colorControlNormal">@color/white_100</item>
-    </style>
+  <style name="BlackToolbarOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="colorControlNormal">@color/black_87</item>
+  </style>
 
-    <style name="BlackToolbarOverlay" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="colorControlNormal">@color/black_87</item>
-    </style>
+  <style name="TagSettingsRow">
+    <item name="android:paddingLeft">@dimen/keyline_first</item>
+    <item name="android:paddingRight">@dimen/keyline_first</item>
+    <item name="android:paddingStart" tools:ignore="NewApi">@dimen/keyline_first</item>
+    <item name="android:paddingEnd" tools:ignore="NewApi">@dimen/keyline_first</item>
+    <item name="android:paddingTop">@dimen/keyline_first</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+  </style>
 
-    <style name="TagSettingsRow">
-        <item name="android:paddingLeft">@dimen/keyline_first</item>
-        <item name="android:paddingRight">@dimen/keyline_first</item>
-        <item name="android:paddingStart" tools:ignore="NewApi">@dimen/keyline_first</item>
-        <item name="android:paddingEnd" tools:ignore="NewApi">@dimen/keyline_first</item>
-        <item name="android:paddingTop">@dimen/keyline_first</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
+  <!--================================================== General == -->
 
-    <!--================================================== General == -->
+  <style name="TextAppearance" parent="android:TextAppearance">
+    <item name="android:textColor">?attr/asTextColor</item>
+  </style>
 
-    <style name="TextAppearance" parent="android:TextAppearance">
-        <item name="android:textColor">?attr/asTextColor</item>    
-    </style>
+  <!--=============================================== TaskListActivity == -->
 
-    <!--=============================================== TaskListActivity == -->
+  <style name="divider">
+    <item name="android:background">@color/divider</item>
+  </style>
 
-    <style name="divider">
-        <item name="android:background">@color/divider</item>
-    </style>
+  <style name="vertical_divider" parent="divider">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">1dp</item>
+  </style>
 
-    <style name="vertical_divider" parent="divider">
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">1dp</item>
-    </style>
+  <style name="horizontal_divider" parent="divider">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+  </style>
 
-    <style name="horizontal_divider" parent="divider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-    </style>
+  <style name="task_edit_row_divider" parent="horizontal_divider">
+    <item name="android:layout_marginLeft">@dimen/keyline_content_inset</item>
+    <item name="android:layout_marginStart" tools:ignore="NewApi">@dimen/keyline_content_inset
+    </item>
+    <item name="android:layout_gravity">end|bottom</item>
+  </style>
 
-    <style name="task_edit_row_divider" parent="horizontal_divider">
-        <item name="android:layout_marginLeft">@dimen/keyline_content_inset</item>
-        <item name="android:layout_marginStart" tools:ignore="NewApi">@dimen/keyline_content_inset</item>
-        <item name="android:layout_gravity">end|bottom</item>
-    </style>
+  <style name="task_list_container">
+    <item name="android:elevation" tools:ignore="NewApi">@dimen/elevation_refresh_indicator</item>
+  </style>
 
-    <style name="task_list_container">
-        <item name="android:elevation" tools:ignore="NewApi">@dimen/elevation_refresh_indicator</item>
-    </style>
+  <style name="priority_button_base">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:width">0dp</item>
+  </style>
 
-    <style name="priority_button_base">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:width">0dp</item>
-    </style>
+  <style name="priority_button" parent="priority_button_base">
+    <!-- hide janky selected item background on pre-lollipop devices -->
+    <item name="android:background">@android:color/transparent</item>
+  </style>
 
-    <style name="priority_button" parent="priority_button_base">
-        <!-- hide janky selected item background on pre-lollipop devices -->
-        <item name="android:background">@android:color/transparent</item>
-    </style>
+  <style name="CardViewStyle" parent="CardView">
+    <item name="android:layout_marginTop">0dp</item>
+    <item name="android:layout_marginBottom">0dp</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginRight">@dimen/card_view_margin</item>
+    <item name="android:layout_marginEnd" tools:ignore="NewApi">@dimen/card_view_margin</item>
+    <item name="android:layout_marginLeft">@dimen/card_view_margin</item>
+    <item name="android:layout_marginStart" tools:ignore="NewApi">@dimen/card_view_margin</item>
+    <item name="cardCornerRadius">@dimen/card_view_card_corner_radius</item>
+    <item name="cardElevation">@dimen/card_view_card_elevation</item>
+    <item name="cardPreventCornerOverlap">false</item>
+  </style>
+
+  <style name="BaseButtonStyle" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:layout_width">@dimen/button_width</item>
+    <item name="android:layout_height">@dimen/button_height</item>
+  </style>
+
+  <style name="ButtonStyle" parent="BaseButtonStyle">
+    <item name="android:background">?attr/colorAccent</item>
+    <item name="android:textColor">@android:color/white</item>
+    <item name="android:layout_gravity">bottom|end</item>
+  </style>
 
 </resources>

@@ -1,42 +1,42 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_layout_empty"
-    style="@style/task_list_container"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:visibility="invisible"
-    tools:ignore="UnusedAttribute">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/swipe_layout_empty"
+  style="@style/task_list_container"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:visibility="invisible"
+  tools:ignore="UnusedAttribute">
 
-    <ScrollView
+  <ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?attr/asWindowBackground"
+    android:elevation="@dimen/elevation_task_list">
+
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:orientation="vertical">
+
+      <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/elevation_task_list"
-        android:background="?attr/asWindowBackground">
+        android:layout_gravity="center"
+        android:alpha="?attr/alpha_disabled"
+        android:src="@drawable/ic_inbox_168px"
+        android:tint="?attr/icon_tint"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/TLA_no_items"
+        android:textColor="?android:attr/textColorTertiary"
+        android:textSize="20sp"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:alpha="?attr/alpha_disabled"
-                android:src="@drawable/ic_inbox_168px"
-                android:tint="?attr/icon_tint" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/TLA_no_items"
-                android:textColor="?android:attr/textColorTertiary"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-    </ScrollView>
+  </ScrollView>
 
 </android.support.v4.widget.SwipeRefreshLayout>

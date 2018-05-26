@@ -1,5 +1,3 @@
 package org.tasks.location;
 
-public class GeofenceTransitionsIntentService {
-
-}
+public class GeofenceTransitionsIntentService {}

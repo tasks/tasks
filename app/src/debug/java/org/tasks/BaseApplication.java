@@ -2,5 +2,4 @@ package org.tasks;
 
 import android.support.multidex.MultiDexApplication;
 
-public class BaseApplication extends MultiDexApplication {
-}
+public abstract class BaseApplication extends MultiDexApplication {}

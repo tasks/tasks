@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">پاک کردن عکس</string>
 	<string name="TVA_add_comment">اضافه کردن نظر</string>
@@ -194,7 +194,6 @@
 	<string name="yest">دیروز</string>
 	<string name="DLG_wait">لطفا منتظر بمانید...</string>
 	<string name="sync_SPr_interval_title">سینک پیش زمینه</string>
-	<string name="sync_SPr_forget">خروج از حساب کاربری</string>
 	<string name="widget_show_due_date">نمایش تاریخ موعود</string>
 	<string name="widget_show_checkboxes">نمایش محل تیک</string>
 	<string name="widget_show_header">نمایش سربرگ</string>
@@ -212,13 +211,10 @@
 	<string name="row_spacing">فاصله سطرها</string>
 	<string name="source_code">کد مبدا</string>
 	<string name="translations">مشارکت در ترجمه</string>
-	<string name="report_an_issue">گزارش یک مطلب</string>
-	<string name="help_and_feedback">کمک و بازخورد</string>
 	<string name="contact_developer">تماس با توسعه دهنده</string>
 	<string name="rate_tasks">ارزیابی وظیفه</string>
 	<string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
 	<string name="TLA_menu_donate">کمک مالی</string>
-	<string name="select_amount">انتخاب مقدار</string>
 	<string name="add_reminder">اضافه کردن یادآورد</string>
 	<string name="remove">حذف</string>
 	<string name="randomly_once">به طور تصادفی یک دفعه</string>
@@ -249,14 +245,12 @@
 	<string name="show_hidden">نمایش مخفی ها</string>
 	<string name="show_completed">نمایش انجام شده ها</string>
 	<string name="reverse">برعکس</string>
-	<string name="get_plugins">خرید داخل برنامه</string>
 	<string name="add_attachment">الصاق پیوست</string>
 	<string name="take_a_picture">گرفتن عکس</string>
 	<string name="send_anonymous_statistics">بهبود وظیفه</string>
 	<string name="tag_already_exists">این تگ قبلاً ایجاد شده است</string>
 	<string name="no_title">(بدون عنوان)</string>
 	<string name="default_list">لیست پیش فرض</string>
-	<string name="plugin_description">Tasks پروژه‌ای متن‌باز است که عمدتاً توسط یک‌نفر توسعه داده می‌شود. برای حمایت از این تلاش، برخی ویژگی‌ها به‌صورت خریدهای داخل برنامه ارائه شده‌اند.</string>
 	<string name="opacity">شفافیت</string>
 	<string name="theme">تم</string>
 	<string name="color">رنگ</string>
@@ -271,8 +265,6 @@
 	<string name="theme_grey">خاکستری</string>
 	<string name="theme_light">روشن</string>
 	<string name="theme_dark">تیره</string>
-	<string name="default_value">پیش فرض</string>
-	<string name="master_sync_warning">درحال‌حاضر هماهنگ‌سازی خودکار توسط اندروید غیرفعال است</string>
 	<string name="settings_general">عمومی</string>
 	<string name="language">زبان</string>
 	<string name="restart_now">اکنون ریست کن</string>

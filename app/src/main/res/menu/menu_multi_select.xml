@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/copy_tasks"
-        android:title="@string/copy"
-        android:icon="@drawable/ic_content_copy_black_24dp"
-        app:showAsAction="ifRoom" />
+  <item
+    android:id="@+id/move_tasks"
+    android:icon="@drawable/ic_cloud_black_24dp"
+    android:title="@string/move"
+    app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/delete"
-        android:title="@string/delete"
-        android:icon="@drawable/ic_delete_24dp"
-        app:showAsAction="ifRoom" />
+  <item
+    android:id="@+id/copy_tasks"
+    android:icon="@drawable/ic_content_copy_black_24dp"
+    android:title="@string/copy"
+    app:showAsAction="ifRoom"/>
+
+  <item
+    android:id="@+id/delete"
+    android:icon="@drawable/ic_delete_24dp"
+    android:title="@string/delete"
+    app:showAsAction="ifRoom"/>
 
 </menu>

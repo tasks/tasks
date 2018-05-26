@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <PreferenceCategory
+    android:key="@string/CalDAV"
+    android:title="@string/CalDAV"/>
+
+  <PreferenceCategory android:title="@string/sync_SPr_interval_title">
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_background_sync"
+      android:title="@string/enabled"/>
+    <CheckBoxPreference
+      android:defaultValue="false"
+      android:dependency="@string/p_background_sync"
+      android:key="@string/p_background_sync_unmetered_only"
+      android:title="@string/background_sync_unmetered_only"/>
+  </PreferenceCategory>
+
+</PreferenceScreen>  

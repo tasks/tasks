@@ -1,90 +1,109 @@
 package com.todoroo.astrid.service;
 
-import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.data.Task;
-
-import org.tasks.calendars.CalendarEventProvider;
-import org.tasks.data.AlarmDao;
-import org.tasks.data.GoogleTaskDao;
-import org.tasks.data.LocationDao;
-import org.tasks.data.TagDao;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import static com.todoroo.andlib.sql.Criterion.all;
 import static com.todoroo.andlib.utility.DateUtilities.now;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.isVisible;
 import static com.todoroo.astrid.dao.TaskDao.TaskCriteria.notCompleted;
 
+import com.google.common.collect.ImmutableList;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.Task;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import org.tasks.LocalBroadcastManager;
+import org.tasks.data.CaldavAccount;
+import org.tasks.data.CaldavCalendar;
+import org.tasks.data.DeletionDao;
+import org.tasks.data.GoogleTaskAccount;
+import org.tasks.data.GoogleTaskList;
+import org.tasks.jobs.JobManager;
+
 public class TaskDeleter {
 
-    private final TaskDao taskDao;
-    private final CalendarEventProvider calendarEventProvider;
-    private final AlarmDao alarmDao;
-    private final LocationDao locationDao;
-    private final TagDao tagDao;
-    private final GoogleTaskDao googleTaskDao;
+  private final JobManager jobManager;
+  private final TaskDao taskDao;
+  private final LocalBroadcastManager localBroadcastManager;
+  private final DeletionDao deletionDao;
 
-    @Inject
-    public TaskDeleter(TaskDao taskDao, CalendarEventProvider calendarEventProvider,
-                       AlarmDao alarmDao, LocationDao locationDao, TagDao tagDao,
-                       GoogleTaskDao googleTaskDao) {
-        this.taskDao = taskDao;
-        this.calendarEventProvider = calendarEventProvider;
-        this.alarmDao = alarmDao;
-        this.locationDao = locationDao;
-        this.tagDao = tagDao;
-        this.googleTaskDao = googleTaskDao;
+  @Inject
+  public TaskDeleter(DeletionDao deletionDao, JobManager jobManager, TaskDao taskDao, LocalBroadcastManager localBroadcastManager) {
+    this.deletionDao = deletionDao;
+    this.jobManager = jobManager;
+    this.taskDao = taskDao;
+    this.localBroadcastManager = localBroadcastManager;
+  }
+
+  public int purgeDeleted() {
+    List<Long> deleted = deletionDao.getDeleted();
+    deletionDao.delete(deleted);
+    return deleted.size();
+  }
+
+  public void markDeleted(Task item) {
+    markDeleted(ImmutableList.of(item.getId()));
+  }
+
+  public List<Task> markDeleted(List<Long> taskIds) {
+    deletionDao.markDeleted(now(), taskIds);
+    jobManager.cleanup(taskIds);
+    jobManager.syncNow();
+    localBroadcastManager.broadcastRefresh();
+    return taskDao.fetch(taskIds);
+  }
+
+  public void delete(Task task) {
+    delete(ImmutableList.of(task.getId()));
+  }
+
+  public void delete(List<Long> tasks) {
+    deletionDao.delete(tasks);
+    jobManager.cleanup(tasks);
+    localBroadcastManager.broadcastRefresh();
+  }
+
+  public int clearCompleted(Filter filter) {
+    List<Long> completed = new ArrayList<>();
+    String query =
+        filter
+            .getSqlQuery()
+            .replace(isVisible().toString(), all.toString())
+            .replace(notCompleted().toString(), all.toString());
+    for (Task task : taskDao.fetchFiltered(query)) {
+      if (task.isCompleted()) {
+        completed.add(task.getId());
+      }
     }
+    markDeleted(completed);
+    return completed.size();
+  }
 
-    public int purgeDeleted() {
-        List<Task> deleted = taskDao.getDeleted();
-        for (Task task : deleted) {
-            calendarEventProvider.deleteEvent(task);
-            long id = task.getId();
-            taskDao.deleteById(id);
-            alarmDao.deleteByTaskId(id);
-            locationDao.deleteByTaskId(id);
-            tagDao.deleteByTaskId(id);
-            googleTaskDao.deleteByTaskId(id);
-        }
-        return deleted.size();
-    }
+  public void delete(GoogleTaskList googleTaskList) {
+    List<Long> ids = deletionDao.delete(googleTaskList);
+    jobManager.cleanup(ids);
+    localBroadcastManager.broadcastRefresh();
+    localBroadcastManager.broadcastRefreshList();
+  }
 
-    public void markDeleted(Task item) {
-        if(!item.isSaved()) {
-            return;
-        }
+  public void delete(GoogleTaskAccount googleTaskAccount) {
+    List<Long> ids = deletionDao.delete(googleTaskAccount);
+    jobManager.cleanup(ids);
+    localBroadcastManager.broadcastRefresh();
+    localBroadcastManager.broadcastRefreshList();
+  }
 
-        item.setDeletionDate(now());
-        taskDao.save(item);
-    }
+  public void delete(CaldavCalendar caldavCalendar) {
+    List<Long> ids = deletionDao.delete(caldavCalendar);
+    jobManager.cleanup(ids);
+    localBroadcastManager.broadcastRefresh();
+    localBroadcastManager.broadcastRefreshList();
+  }
 
-    public List<Task> markDeleted(List<Long> taskIds) {
-        List<Task> tasks = taskDao.fetch(taskIds);
-        for (Task task : tasks) {
-            markDeleted(task);
-        }
-        return tasks;
-    }
-
-    public int clearCompleted(Filter filter) {
-        List<Task> completed = new ArrayList<>();
-        String query = filter.getSqlQuery()
-                .replace(isVisible().toString(), all.toString())
-                .replace(notCompleted().toString(), all.toString());
-        for (Task task : taskDao.fetchFiltered(query)) {
-            if (task.isCompleted()) {
-                completed.add(task);
-            }
-        }
-        for (Task task : completed) {
-            markDeleted(task);
-        }
-        return completed.size();
-    }
+  public void delete(CaldavAccount caldavAccount) {
+    List<Long> ids = deletionDao.delete(caldavAccount);
+    jobManager.cleanup(ids);
+    localBroadcastManager.broadcastRefresh();
+    localBroadcastManager.broadcastRefreshList();
+  }
 }

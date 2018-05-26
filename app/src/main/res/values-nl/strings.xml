@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Verwijder Foto</string>
 	<string name="TVA_add_comment">Voeg een opmerking toe</string>
@@ -296,11 +296,7 @@
 	<string name="tmrw">mrgn</string>
 	<string name="yest">gisteren</string>
 	<string name="DLG_wait">Even geduld a.u.b.</string>
-	<string name="sync_status_success">Vorige:\n%s</string>
 	<string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
-	<string name="sync_SPr_forget">Afmelden</string>
-	<string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
-	<string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
 	<string name="widget_show_due_date">Toon eind datums</string>
 	<string name="widget_show_checkboxes">Toon vinkboxjes</string>
 	<string name="widget_show_header">Toon titel</string>
@@ -319,13 +315,10 @@
 	<string name="customize_edit_screen">Edit scherm aanpassen</string>
 	<string name="source_code">Bron code</string>
 	<string name="translations">Help vertalen</string>
-	<string name="report_an_issue">Meld een probleem</string>
-	<string name="help_and_feedback">Help &amp; Terugkoppeling</string>
 	<string name="contact_developer">Contact ontwikkelaar</string>
 	<string name="rate_tasks">Beoordeel Taken</string>
 	<string name="quiet_hours_summary">Geen herinneringen tijdens stille uren</string>
 	<string name="TLA_menu_donate">Doneer</string>
-	<string name="select_amount">Selecteer aantal</string>
 	<string name="add_reminder">Voeg herinnering toe</string>
 	<string name="remove">Verwijder</string>
 	<string name="randomly_once">Willekeurig eenmalig</string>
@@ -358,7 +351,6 @@
 	<string name="show_hidden">Toon verborgen</string>
 	<string name="show_completed">Toon voltooide</string>
 	<string name="reverse">Omgekeerde</string>
-	<string name="get_plugins">In-app aankopen</string>
 	<string name="no_application_found">Geen applicatie gevonden om de bijlage te openen</string>
 	<string name="add_attachment">Bijlage toevoegen</string>
 	<string name="take_a_picture">Maak een foto</string>
@@ -368,22 +360,20 @@
 	<string name="send_anonymous_statistics">Taak verbeteren</string>
 	<string name="send_anonymous_statistics_summary">Verstuur anoniem gebruikersstatistieken en crash rapporten om Tasks te verbeteren. Er worden geen persoonlijke gegevens verzameld.</string>
 	<string name="tag_already_exists">Label bestaat reeds</string>
+	<string name="duplicate_name">Dubbele naam</string>
 	<string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
+	<string name="username_required">Gebruikersnaam verplicht</string>
+	<string name="password_required">Wachtwoord verplicht</string>
+	<string name="url_required">URL verplicht</string>
+	<string name="url_host_name_required">Website naam verplicht</string>
+	<string name="url_invalid_scheme">Moet beginnen met http(s)://</string>
 	<string name="no_title">(geen titel)</string>
 	<string name="back_button_saves_task">Terug knop slaat taak op</string>
 	<string name="default_list">Standaard lijst</string>
-	<string name="plugin_description">Tasks is een open source project onderhouden bij een ontwikkelaar. Sommige functionaliteit worden als in-app aankopen aangeboden om de ontwikkeling te ondersteunen.</string>
-	<string name="themes_purchase_description">Ontlock alle thema\'s en voeg kleuren toe aan Tasks</string>
-	<string name="tasker_description"> Contextbewuste notificaties. Vereist Tasker of Locale</string>
-	<string name="donate_summary">Donaties worden erg gewaardeerd</string>
-	<string name="dashclock_purchase_description">Toon een teller van actieve taken. Vereist DashClock Widget</string>
-	<string name="buy">Kopen</string>
-	<string name="buy_dashclock_extension">Koop uitbreiding</string>
-	<string name="billing_service_busy">In-app rekening service is bezig, probeer later opnieuw</string>
+	<string name="default_sync">Standaard synchronisatie</string>
 	<string name="opacity">Transparantie</string>
 	<string name="theme">Thema</string>
 	<string name="color">Kleur</string>
-	<string name="themes">Extra thema\'s</string>
 	<string name="theme_red">Rood</string>
 	<string name="theme_pink">Roze</string>
 	<string name="theme_purple">Paars</string>
@@ -408,8 +398,6 @@
 	<string name="theme_dark">Donker</string>
 	<string name="theme_wallpaper">Achtergrond</string>
 	<string name="theme_day_night">Dag/Nacht</string>
-	<string name="default_value">Standaard</string>
-	<string name="master_sync_warning">Automatische synchronisatie is momenteel uitgezet door Android</string>
 	<string name="settings_general">Globaal</string>
 	<string name="language">Taal</string>
 	<string name="restart_required">Tasks moet opnieuw gestart worden om de nieuwe wijzingen te activeren</string>
@@ -426,6 +414,7 @@
 	<string name="widget_row_settings">Regel instellingen</string>
 	<string name="sync_error_permissions">Tasks vereist permissie</string>
 	<string name="creating_new_list">Nieuwe lijst aanmaken</string>
+	<string name="contacting_server">Verbinden met de server</string>
 	<string name="deleting_list">Verwijder lijst</string>
 	<string name="renaming_list">Hernoem lijst</string>
 	<string name="clear_completed_tasks_confirmation">Verwijder voltooide taken?</string>
@@ -437,6 +426,11 @@
 	<string name="start_of_week">Begin van de week</string>
 	<string name="use_locale_default">Gebruik lokale instellingen</string>
 	<string name="use_native_datetime_pickers">Gebruik standaard datum- en tijd selectie</string>
+	<string name="add_account">Account toevoegen</string>
+	<string name="user">Gebruiker</string>
+	<string name="password">Wachtwoord</string>
+	<string name="error_adding_account">Fout bij account toevoegen</string>
+	<string name="calendar_settings">Kalender instellingen</string>
 	<string name="notification_channel_settings">Beheer notificaties</string>
 	<string name="battery_optimization_settings">Beheer batterij optimalisatie</string>
 	<string name="notification_disable_battery_optimizations_description">Batterij optimalisatie kan meldingen vertragen</string>
@@ -467,6 +461,7 @@
 	<string name="badges_description">Toon een taken teller bij de Task app icon. Niet alle lauchners ondersteunen dit.</string>
 	<string name="bundle_notifications_summary">Combineer meerdere notificaties samen in een</string>
 	<string name="repeat_monthly_same_day_each_month">Op dezelfde dag elke maand</string>
+	<string name="dont_sync">Niet synchroniseren</string>
 	<string name="repeat_monthly_every_day_of_nth_week">elke %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">op elke %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">eerste</string>
@@ -476,4 +471,21 @@
 	<string name="repeat_monthly_last_week">laatste</string>
 	<string name="tasker_create_task">Taak maken</string>
 	<string name="tasker_list_notification">Notificatie lijst</string>
+	<string name="caldav_home_set_not_found">Home set niet gevonden</string>
+	<string name="network_error">Verbinding mislukt</string>
+	<string name="background_sync_unmetered_only">Alleen bij onbeperkte verbindingen</string>
+	<string name="upgrade">Opwaardeer</string>
+	<string name="upgrade_to_pro">Opwaarderen naar pro</string>
+	<string name="refresh_purchases">Vernieuw aankopen</string>
+	<string name="button_subscribed">Aangemeld</string>
+	<string name="button_subscribe">Aanmelden</string>
+	<string name="owned">Beheerd</string>
+	<string name="error_billing_unavailable">Betaling onmogelijk. Zorg dat de Google Pay app goed is ingesteld</string>
+	<string name="error_billing_default">Betaling onmogelijk. Controleer je apparaat.</string>
+	<string name="about">Over</string>
+	<string name="license_summary">Tasks is gratis open-source software, gelicensieerd onder de GNU General Public License v3.0</string>
+	<string name="themes">Extra thema\'s</string>
+	<string name="pro_caldav_sync">CalDAV synchroniseren</string>
+	<string name="pro_multiple_google_task_accounts">Meerdere Google Task accounts</string>
+	<string name="pro_dashclock_extension">Dashclock extentie</string>
 </resources>

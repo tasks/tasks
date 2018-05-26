@@ -12,54 +12,56 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/weekGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+  <LinearLayout
+    android:id="@+id/weekGroup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
 
-        <include
-            android:id="@+id/week_day_1"
-            layout="@layout/week_day_button" />
+    <include
+      android:id="@+id/week_day_1"
+      layout="@layout/week_day_button"/>
 
-        <include
-            android:id="@+id/week_day_2"
-            layout="@layout/week_day_button" />
+    <include
+      android:id="@+id/week_day_2"
+      layout="@layout/week_day_button"/>
 
-        <include
-            android:id="@+id/week_day_3"
-            layout="@layout/week_day_button" />
+    <include
+      android:id="@+id/week_day_3"
+      layout="@layout/week_day_button"/>
 
-        <include
-            android:id="@+id/week_day_4"
-            layout="@layout/week_day_button" />
-    </LinearLayout>
+    <include
+      android:id="@+id/week_day_4"
+      layout="@layout/week_day_button"/>
+  </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/weekGroup2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+  <LinearLayout
+    android:id="@+id/weekGroup2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    tools:ignore="InconsistentLayout">
 
-        <include
-            android:id="@+id/week_day_5"
-            layout="@layout/week_day_button" />
+    <include
+      android:id="@+id/week_day_5"
+      layout="@layout/week_day_button"/>
 
-        <include
-            android:id="@+id/week_day_6"
-            layout="@layout/week_day_button" />
+    <include
+      android:id="@+id/week_day_6"
+      layout="@layout/week_day_button"/>
 
-        <include
-            android:id="@+id/week_day_7"
-            layout="@layout/week_day_button" />
+    <include
+      android:id="@+id/week_day_7"
+      layout="@layout/week_day_button"/>
 
-        <include
-            android:visibility="invisible"
-            layout="@layout/week_day_button" />
-    </LinearLayout>
+    <include
+      layout="@layout/week_day_button"
+      android:visibility="invisible"/>
+  </LinearLayout>
 
 </merge>

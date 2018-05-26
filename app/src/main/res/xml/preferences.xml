@@ -1,104 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/theme">
+  <PreferenceCategory android:title="@string/theme">
 
-        <Preference
-            android:key="@string/p_theme"
-            android:title="@string/theme" />
+    <Preference
+      android:key="@string/p_theme"
+      android:title="@string/theme"/>
 
-        <Preference
-            android:key="@string/p_theme_color"
-            android:title="@string/color" />
+    <Preference
+      android:key="@string/p_theme_color"
+      android:title="@string/color"/>
 
-        <Preference
-            android:key="@string/p_theme_accent"
-            android:title="@string/accent" />
+    <Preference
+      android:key="@string/p_theme_accent"
+      android:title="@string/accent"/>
 
-    </PreferenceCategory>
+  </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="@string/settings_general"
-        android:title="@string/settings_general">
+  <PreferenceCategory
+    android:key="@string/settings_general"
+    android:title="@string/settings_general">
 
-        <Preference
-            android:key="@string/EPr_appearance_header"
-            android:title="@string/EPr_appearance_header" />
+    <Preference
+      android:key="@string/EPr_appearance_header"
+      android:title="@string/EPr_appearance_header"/>
 
-        <Preference
-            android:key="@string/notifications"
-            android:title="@string/notifications" />
+    <Preference
+      android:key="@string/notifications"
+      android:title="@string/notifications"/>
 
-        <Preference android:title="@string/task_defaults">
-            <intent
-                android:targetClass="com.todoroo.astrid.core.DefaultsPreferences"
-                android:targetPackage="org.tasks" />
-        </Preference>
+    <Preference android:title="@string/task_defaults">
+      <intent
+        android:targetClass="com.todoroo.astrid.core.DefaultsPreferences"
+        android:targetPackage="org.tasks"/>
+    </Preference>
 
-        <Preference android:title="@string/date_and_time">
-            <intent
-                android:targetClass="org.tasks.preferences.DateTimePreferences"
-                android:targetPackage="org.tasks" />
-        </Preference>
+    <Preference android:title="@string/date_and_time">
+      <intent
+        android:targetClass="org.tasks.preferences.DateTimePreferences"
+        android:targetPackage="org.tasks"/>
+    </Preference>
 
-        <Preference
-            android:key="@string/synchronization"
-            android:title="@string/synchronization">
-            <intent
-                android:targetClass="com.todoroo.astrid.gtasks.GtasksPreferences"
-                android:targetPackage="org.tasks" />
-        </Preference>
+    <Preference
+      android:key="@string/synchronization"
+      android:title="@string/synchronization">
+      <intent
+        android:targetClass="org.tasks.sync.SynchronizationPreferences"
+        android:targetPackage="org.tasks"/>
+    </Preference>
 
-        <Preference
-            android:key="@string/EPr_manage_header"
-            android:title="@string/EPr_manage_header" />
+    <Preference
+      android:key="@string/EPr_manage_header"
+      android:title="@string/EPr_manage_header"/>
 
-        <Preference android:title="@string/miscellaneous">
-            <intent
-                android:targetClass="org.tasks.preferences.MiscellaneousPreferences"
-                android:targetPackage="org.tasks" />
-        </Preference>
+    <Preference android:title="@string/miscellaneous">
+      <intent
+        android:targetClass="org.tasks.preferences.MiscellaneousPreferences"
+        android:targetPackage="org.tasks"/>
+    </Preference>
 
-    </PreferenceCategory>
+  </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/backup_BPr_header">
+  <PreferenceCategory
+    android:title="@string/backup_BPr_header">
 
-        <Preference
-            android:key="@string/p_backup_dir"
-            android:title="@string/backup_directory" />
+    <Preference
+      android:key="@string/p_backup_dir"
+      android:title="@string/backup_directory"/>
 
-        <Preference
-            android:key="@string/backup_BAc_import"
-            android:title="@string/backup_BAc_import" />
+    <Preference
+      android:key="@string/backup_BAc_import"
+      android:title="@string/backup_BAc_import"/>
 
-        <Preference
-            android:key="@string/backup_BAc_export"
-            android:title="@string/backup_BAc_export" />
+    <Preference
+      android:key="@string/backup_BAc_export"
+      android:title="@string/backup_BAc_export"/>
 
-    </PreferenceCategory>
+  </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="@string/settings_localization"
-        android:title="@string/settings_localization">
+  <PreferenceCategory
+    android:key="@string/settings_localization"
+    android:title="@string/settings_localization">
 
-        <Preference
-            android:key="@string/p_language"
-            android:title="@string/language" />
+    <Preference
+      android:key="@string/p_language"
+      android:title="@string/language"/>
 
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:defaultValue="-1"
-            android:key="@string/p_layout_direction"
-            android:title="@string/layout_direction"
-            android:entries="@array/layout_direction_entries"
-            android:entryValues="@array/layout_direction_values" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+      android:defaultValue="-1"
+      android:entries="@array/layout_direction_entries"
+      android:entryValues="@array/layout_direction_values"
+      android:key="@string/p_layout_direction"
+      android:title="@string/layout_direction"/>
 
-        <Preference android:title="@string/translations">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="http://tasks.org/translations" />
-        </Preference>
+    <Preference android:title="@string/translations">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="http://tasks.org/translations"/>
+    </Preference>
 
-    </PreferenceCategory>
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:title="@string/about">
+
+    <Preference
+      android:summary="@string/license_summary"
+      android:title="@string/source_code">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="https://github.com/tasks/tasks"/>
+    </Preference>
+
+    <Preference
+      android:key="@string/rate_tasks"
+      android:title="@string/rate_tasks">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="market://details?id=org.tasks"/>
+    </Preference>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="@string/privacy"
+    android:title="@string/privacy">
+
+    <Preference android:title="@string/privacy_policy">
+      <intent
+        android:action="android.intent.action.VIEW"
+        android:data="http://tasks.org/privacy.html"/>
+    </Preference>
+
+    <CheckBoxPreference
+      android:defaultValue="true"
+      android:key="@string/p_collect_statistics"
+      android:summary="@string/send_anonymous_statistics_summary"
+      android:title="@string/send_anonymous_statistics"/>
+
+  </PreferenceCategory>
 
 </PreferenceScreen>

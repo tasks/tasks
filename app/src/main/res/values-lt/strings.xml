@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Išvalyti paveiksliuką</string>
 	<string name="TVA_add_comment">Pridėti komentarą...</string>
@@ -157,6 +157,7 @@
 	<string name="gcal_completed_title">%s (užbaigta)</string>
 	<string name="CFC_gtasks_list_text">Yra sąraše ?</string>
 	<string name="CFC_gtasks_list_name">Yra GTasks sąraše...</string>
+	<string name="CFC_caldav_list_name">CalDAV sąraše</string>
 	<string name="gtasks_GTA_clear_completed">Išvalyti užbaigtus</string>
 	<string name="gtasks_GLA_authenticating">Autorizuojama...</string>
 	<string name="gtasks_GLA_errorIOAuth">Atsiprašome, turime bėdų susisiekiant su Google serveriais. Prašome pabandyti vėliau.</string>
@@ -297,11 +298,7 @@
 	<string name="tmrw">Ryt</string>
 	<string name="yest">Vakar</string>
 	<string name="DLG_wait">Prašome palaukti...</string>
-	<string name="sync_status_success">Paskutinė sinchronizacija:\n%s</string>
 	<string name="sync_SPr_interval_title">Foninis sinchronizavimas</string>
-	<string name="sync_SPr_forget">Atsijungti</string>
-	<string name="sync_SPr_forget_description">Išvalo visą sinchronizacijos informaciją</string>
-	<string name="sync_forget_confirm">Atsijungti/išvalyti sinchronizacijos informaciją?</string>
 	<string name="widget_show_due_date">Rodyti pabaigos terminus</string>
 	<string name="widget_show_checkboxes">Rodyti žymimus kvadratėlius</string>
 	<string name="widget_show_header">Rodyti antraštę</string>
@@ -321,13 +318,10 @@
 	<string name="customize_edit_screen">Pritaikyti redagavimo ekraną</string>
 	<string name="source_code">Pirminis kodas</string>
 	<string name="translations">Padėti išversti</string>
-	<string name="report_an_issue">Pranešti apie problemą</string>
-	<string name="help_and_feedback">Pagalba ir atsiliepimai</string>
 	<string name="contact_developer">Susisiekti su programuotoju</string>
 	<string name="rate_tasks">Įvertinti Tasks</string>
 	<string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>
 	<string name="TLA_menu_donate">Paaukoti</string>
-	<string name="select_amount">Pažymėti kiekį</string>
 	<string name="add_reminder">Pridėti priminimą</string>
 	<string name="remove">Išmesti</string>
 	<string name="randomly_once">Atsitiktinai vieną kartą</string>
@@ -358,11 +352,11 @@
 	<string name="list_settings">Sąrašo nustatymai</string>
 	<string name="delete">Ištrinti</string>
 	<string name="copy">Kopijuoti</string>
+	<string name="move">Perkelti</string>
 	<string name="filter_settings">Filtrų nustatymai</string>
 	<string name="show_hidden">Rodyti paslėptus</string>
 	<string name="show_completed">Rodyti užbaigtus</string>
 	<string name="reverse">Atvirkščiai</string>
-	<string name="get_plugins">Apsipirkimas programoje</string>
 	<string name="no_application_found">Nerasta programa, kuri galėtų atidaryti prisegtą failą</string>
 	<string name="add_attachment">Pridėti failą</string>
 	<string name="take_a_picture">Nufotografuoti</string>
@@ -373,24 +367,22 @@
 	<string name="send_anonymous_statistics">Pagerinti Tasks</string>
 	<string name="send_anonymous_statistics_summary">Siųsti anoniminę naudojimo statistikos ir gedimų ataskaitas, kad pagerinti Tasks programą. Jokia asmeninė informacija nebus renkama.</string>
 	<string name="tag_already_exists">Etiketė jau egzistuoja</string>
+	<string name="duplicate_name">Besidubliuojantis pavadinimas</string>
 	<string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
+	<string name="username_required">Reikalingas vartotojo vardas</string>
+	<string name="password_required">Reikalingas slaptažodis</string>
+	<string name="url_required">Reikalingas URL</string>
+	<string name="url_host_name_required">Reikalingas serverio vardas</string>
+	<string name="url_invalid_scheme">Turi prasidėti http(s)://</string>
 	<string name="no_title">(Be pavadinimo)</string>
 	<string name="back_button_saves_task">Mygtukas \"Atgal\" išsaugo pakitimus</string>
 	<string name="default_list">Numatytasis sąrašas</string>
-	<string name="plugin_description">Tasks yra atviro pirminio kodo projektas, išlaikomas vienintelio programuotojo. \'Kai kurios funkcijos yra siūlomos kaip papildomos ir mokamos, kad būtų išlaikytas projekto vystymas.</string>
-	<string name="themes_purchase_description">Atrakinti visas Tasks temas ir pridėti kelias spalvas</string>
-	<string name="tasker_description">Pranešimai atsižvelgiant į sąrašo turinį. Reikalingas Tasker arba Locale.</string>
-	<string name="donate_summary">Paaukojimai yra ypač vertinami</string>
-	<string name="dashclock_purchase_description">Rodyti aktyvių užduočių skaičių. Reikalingas DashClock Widget</string>
-	<string name="buy">Pirkti</string>
-	<string name="buy_dashclock_extension">Pirkti plėtinį</string>
-	<string name="billing_service_busy">Programos sąskaitų paslauga užimta, pabandykite vėliau</string>
+	<string name="default_sync">Numatytoji sinchronizacija</string>
 	<string name="filter">Filtras</string>
 	<string name="opacity">Permatomumas</string>
 	<string name="theme">Tema</string>
 	<string name="color">Spalva</string>
 	<string name="accent">Akcentas</string>
-	<string name="themes">Papildomos temos</string>
 	<string name="theme_red">Raudona</string>
 	<string name="theme_pink">Rožinė</string>
 	<string name="theme_purple">Violetinė</string>
@@ -415,8 +407,6 @@
 	<string name="theme_dark">Tamsi</string>
 	<string name="theme_wallpaper">Fono vaizdas</string>
 	<string name="theme_day_night">Diena/Naktis</string>
-	<string name="default_value">Numatytasis</string>
-	<string name="master_sync_warning">Automatinis sinchronizavimas šiuo metu yra išjungtas Android sistemos</string>
 	<string name="settings_general">Pagrindiniai</string>
 	<string name="language">Kalba</string>
 	<string name="restart_required">Kad nustatymai įsigaliotų, Tasks turi būti perkrauta</string>
@@ -434,6 +424,7 @@
 	<string name="widget_row_settings">Eilutės nustatymai</string>
 	<string name="sync_error_permissions">Tasks reikalingas leidimas</string>
 	<string name="creating_new_list">Kuriant naują sąrašą</string>
+	<string name="contacting_server">Susisiekiama su serveriu</string>
 	<string name="deleting_list">Trinamas sąrašas</string>
 	<string name="renaming_list">Pervadinamas sąrašas</string>
 	<string name="clear_completed_tasks_confirmation">Išvalyti užbaigtas užduotis?</string>
@@ -445,6 +436,11 @@
 	<string name="start_of_week">Savaitės pradžia</string>
 	<string name="use_locale_default">Naudoti įprastą vietovę</string>
 	<string name="use_native_datetime_pickers">Naudoti įprastą datos ir laiko pasirinkimą</string>
+	<string name="add_account">Pridėti paskyrą</string>
+	<string name="user">Vartotojas</string>
+	<string name="password">Slaptažodis</string>
+	<string name="error_adding_account">Klaida kuriant paskyrą</string>
+	<string name="calendar_settings">Kalendoriaus nustatymai</string>
 	<string name="notification_channel_settings">Valdyti pranešimus</string>
 	<string name="battery_optimization_settings">Valdyti baterijos optimizacijas</string>
 	<string name="notification_disable_battery_optimizations_description">Baterijos optimizacijos gali uždelsti pranešimus</string>
@@ -475,6 +471,7 @@
 	<string name="badges_description">Rodyti užduočių kiekį Tasks paleidimo piktogramoje. Ne visos sistemos palaiko šią funkciją.</string>
 	<string name="bundle_notifications_summary">Sujungti kelis pranešimus į vieną pranešimą</string>
 	<string name="repeat_monthly_same_day_each_month">Tą pačią mėnesio dieną</string>
+	<string name="dont_sync">Nesinchronizuoti</string>
 	<string name="repeat_monthly_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">pirmą</string>
@@ -485,4 +482,29 @@
 	<string name="tasker_create_task">Sukurti užduotį</string>
 	<string name="tasker_list_notification">Rodyti pranešimus</string>
 	<string name="help">Pagalba</string>
+	<string name="caldav_home_set_not_found">Namų rinkinys nerastas</string>
+	<string name="network_error">Sujungimas nepavyko</string>
+	<string name="background_sync_unmetered_only">Naudoti tik \"unmetered\" ryšius</string>
+	<string name="upgrade">Atnaujinti</string>
+	<string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
+	<string name="refresh_purchases">Atnaujinti pirkimus</string>
+	<string name="button_subscribed">Prenumeruoti</string>
+	<string name="button_subscribe">Prenumeruoti</string>
+	<string name="button_more_info">Daugiau informacijos</string>
+	<string name="owned">Valdomas</string>
+	<string name="error_billing_unavailable">Sąskaita negalima. Įsitikinkite, kad Google Play programėlė
+sukonfigūruota tinkamai.</string>
+	<string name="error_billing_default">Sąskaita negalima. Patikrinkite savo įrenginį.</string>
+	<string name="about">Apie</string>
+	<string name="license_summary">Tasks yra nemokama ir atviro kodo programinė įranga, licencijuota pagal GNU General Public License v3.0 licenciją.</string>
+	<string name="themes">Papildomos temos</string>
+	<string name="pro_caldav_sync">CalDAV sinchronizacija</string>
+	<string name="pro_multiple_google_task_accounts">Kelios Google Task paskyros</string>
+	<string name="pro_tasker_plugins">Tasker įskiepiai</string>
+	<string name="pro_dashclock_extension">Dashclock plėtinys</string>
+	<string name="requires_pro_subscription">Reikalinga \"pro\" prenumerata</string>
+	<string name="logout">Atsijungti</string>
+	<string name="logout_warning">Atsijungti nuo %s? Visi šios paskyros duomenys iš šio įrenginio bus pašalinti.</string>
+	<string name="cannot_access_account">Paskyra nepasiekiama.</string>
+	<string name="reinitialize_account">Inicijuoti iš naujo</string>
 </resources>

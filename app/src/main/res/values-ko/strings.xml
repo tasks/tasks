@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">사진 제거하기</string>
 	<string name="TVA_add_comment">댓글 쓰기...</string>
@@ -302,11 +302,7 @@
 	<string name="tmrw">내일</string>
 	<string name="yest">어제</string>
 	<string name="DLG_wait">잠시 기다리세요...</string>
-	<string name="sync_status_success">마지막 동기화: \n%s</string>
 	<string name="sync_SPr_interval_title">백그라운드 동기화</string>
-	<string name="sync_SPr_forget">로그아웃</string>
-	<string name="sync_SPr_forget_description">모든 동기화 자료 삭제</string>
-	<string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
 	<string name="widget_show_due_date">완료 예정일 표시</string>
 	<string name="widget_show_checkboxes">체크박스 표시</string>
 	<string name="widget_show_header">헤더 표시</string>
@@ -326,13 +322,10 @@
 	<string name="customize_edit_screen">일정 편집화면 레이아웃 설정하기</string>
 	<string name="source_code">소스 코드</string>
 	<string name="translations">번역 참여하기</string>
-	<string name="report_an_issue">문제점 보고하기</string>
-	<string name="help_and_feedback">도움말 &amp; 피드백</string>
 	<string name="contact_developer">개발자와 연락</string>
 	<string name="rate_tasks">Tasks 평가하기</string>
 	<string name="quiet_hours_summary">무음 시간대에는 알림 해제</string>
 	<string name="TLA_menu_donate">기부하기</string>
-	<string name="select_amount">숫자 선택</string>
 	<string name="add_reminder">알림 추가</string>
 	<string name="remove">지우기</string>
 	<string name="randomly_once">무작위로 한 번</string>
@@ -367,7 +360,6 @@
 	<string name="show_hidden">숨겨진 할일 표시</string>
 	<string name="show_completed">완료한 할일 표시</string>
 	<string name="reverse">역순</string>
-	<string name="get_plugins">인앱 결제</string>
 	<string name="no_application_found">첨부 파일을 열 수 있는 앱이 발견되지 않았습니다</string>
 	<string name="add_attachment">첨부파일 추가</string>
 	<string name="take_a_picture">사진 촬영</string>
@@ -379,23 +371,19 @@
 	<string name="send_anonymous_statistics_summary">Tasks를 향상시키기 위해 사용 기록과 충돌 보고서를 익명으로 전송합니다. 개인 정보는 수집되지 않습니다.</string>
 	<string name="tag_already_exists">태그가 이미 존재합니다</string>
 	<string name="name_cannot_be_empty">이름은 필수 입력항목입니다.</string>
+	<string name="username_required">계정명 필수</string>
+	<string name="password_required">비밀번호 필수</string>
+	<string name="url_required">URL 필수</string>
+	<string name="url_host_name_required">호스트명 필수</string>
+	<string name="url_invalid_scheme">반드시 http(s):// 로 시작해야 합니다. </string>
 	<string name="no_title">(제목 없음)</string>
 	<string name="back_button_saves_task">뒤로가기 버튼으로 할일 저장</string>
 	<string name="default_list">기본 목록</string>
-	<string name="plugin_description">Tasks는 한 명의 개발자에 의해 유지되고 있는 오픈 소스 프로젝트입니다. 개발을 지속하기 위해 몇몇 기능들은 인앱 결제를 통해 제공되고 있습니다.</string>
-	<string name="themes_purchase_description">모든 테마 잠금 해제 및 색상 추가</string>
-	<string name="tasker_description">컨텍스트 기반의 리스트 알림. Tasker 또는 Locale이 필요합니다.</string>
-	<string name="donate_summary">기부를 해주시면 감사하겠습니다</string>
-	<string name="dashclock_purchase_description">활성화된 할일의 개수를 표시합니다. DashClock Widget을 필요로 합니다.</string>
-	<string name="buy">구매</string>
-	<string name="buy_dashclock_extension">확장팩 구매</string>
-	<string name="billing_service_busy">인앱 결제 서비스가 혼잡합니다, 나중에 다시 시도하세요</string>
 	<string name="filter">필터</string>
 	<string name="opacity">불투명도</string>
 	<string name="theme">테마</string>
 	<string name="color">색상</string>
 	<string name="accent">강조</string>
-	<string name="themes">추가적인 테마</string>
 	<string name="theme_red">빨강</string>
 	<string name="theme_pink">분홍</string>
 	<string name="theme_purple">보라</string>
@@ -421,8 +409,6 @@
 	<string name="theme_dark">어둡게</string>
 	<string name="theme_wallpaper">바탕화면</string>
 	<string name="theme_day_night">주간/야간</string>
-	<string name="default_value">기본값</string>
-	<string name="master_sync_warning">현재 자동 동기화는 안드로이드에 의해 사용이 불가합니다. </string>
 	<string name="settings_general">일반</string>
 	<string name="language">언어</string>
 	<string name="restart_required">이 변경을 적용하려면 Tasks 앱을 재시작해야 합니다. </string>
@@ -451,6 +437,10 @@
 	<string name="start_of_week">한 주의 시작</string>
 	<string name="use_locale_default">기본으로 설정된 언어 사용하기</string>
 	<string name="use_native_datetime_pickers">시스템 날짜와 시간 입력창 사용하기</string>
+	<string name="add_account">계정 추가</string>
+	<string name="user">사용자</string>
+	<string name="password">비밀번호</string>
+	<string name="error_adding_account">계정 추가 오류</string>
 	<string name="notification_channel_settings">알림 관리</string>
 	<string name="battery_optimization_settings">배터리 최적화 관리</string>
 	<string name="notification_disable_battery_optimizations_description">배터리 최적화 시 알림이 지연될 수 있습니다. </string>
@@ -488,4 +478,5 @@
 	<string name="repeat_monthly_third_week">세번째</string>
 	<string name="repeat_monthly_fourth_week">네번째</string>
 	<string name="repeat_monthly_last_week">마지막</string>
+	<string name="themes">추가적인 테마</string>
 </resources>

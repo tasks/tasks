@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Καθαρή εικόνα</string>
 	<string name="TVA_add_comment">Προσθήκη σχόλιου...</string>
@@ -181,8 +181,6 @@
 	<string name="tmrw">Αύριο</string>
 	<string name="yest">Χθές</string>
 	<string name="DLG_wait">Παρακαλώ περιμένετε...</string>
-	<string name="sync_status_success">Τελευταίος συγχρονισμός:\n%s</string>
 	<string name="sync_SPr_interval_title">Συγχρονισμός παρασκηνίου</string>
-	<string name="sync_SPr_forget">Αποσύνδεση</string>
 	<string name="TLA_menu_donate">Δωρίστε</string>
 </resources>

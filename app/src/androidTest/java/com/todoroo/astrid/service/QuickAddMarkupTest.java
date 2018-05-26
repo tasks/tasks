@@ -1,113 +1,109 @@
 /**
  * Copyright (c) 2012 Todoroo Inc
  *
- * See the file "LICENSE" for the full license governing this code.
+ * <p>See the file "LICENSE" for the full license governing this code.
  */
 package com.todoroo.astrid.service;
 
-import android.support.test.runner.AndroidJUnit4;
+import static junit.framework.Assert.assertEquals;
 
+import android.support.test.runner.AndroidJUnit4;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Task.Priority;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.inject.Inject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import static junit.framework.Assert.assertEquals;
-
 @RunWith(AndroidJUnit4.class)
 public class QuickAddMarkupTest extends InjectingTestCase {
 
-    @Inject TagService tagService;
+  private final ArrayList<String> tags = new ArrayList<>();
+  @Inject TagService tagService;
+  private Task task;
 
-    @Override
-    protected void inject(TestComponent component) {
-        component.inject(this);
-    }
+  @Override
+  protected void inject(TestComponent component) {
+    component.inject(this);
+  }
 
-    @Test
-    public void testTags() {
-        whenTitleIs("this #cool");
-        assertTitleBecomes("this");
-        assertTagsAre("cool");
+  @Test
+  public void testTags() {
+    whenTitleIs("this #cool");
+    assertTitleBecomes("this");
+    assertTagsAre("cool");
 
-        whenTitleIs("#cool task");
-        assertTitleBecomes("task");
-        assertTagsAre("cool");
+    whenTitleIs("#cool task");
+    assertTitleBecomes("task");
+    assertTagsAre("cool");
 
-        whenTitleIs("doggie #nice #cute");
-        assertTitleBecomes("doggie");
-        assertTagsAre("nice", "cute");
-    }
+    whenTitleIs("doggie #nice #cute");
+    assertTitleBecomes("doggie");
+    assertTagsAre("nice", "cute");
+  }
 
-    @Test
-    public void testContexts() {
-        whenTitleIs("eat @home");
-        assertTitleBecomes("eat");
-        assertTagsAre("home");
+  @Test
+  public void testContexts() {
+    whenTitleIs("eat @home");
+    assertTitleBecomes("eat");
+    assertTagsAre("home");
 
-        whenTitleIs("buy oatmeal @store @morning");
-        assertTitleBecomes("buy oatmeal");
-        assertTagsAre("store", "morning");
+    whenTitleIs("buy oatmeal @store @morning");
+    assertTitleBecomes("buy oatmeal");
+    assertTagsAre("store", "morning");
 
-        whenTitleIs("look @ me");
-        assertTitleBecomes("look @ me");
-        assertTagsAre();
-    }
+    whenTitleIs("look @ me");
+    assertTitleBecomes("look @ me");
+    assertTagsAre();
+  }
 
-    @Test
-    public void testImportances() {
-        whenTitleIs("eat !1");
-        assertTitleBecomes("eat");
-        assertImportanceIs(Task.IMPORTANCE_SHOULD_DO);
+  // --- helpers
 
-        whenTitleIs("super cool!");
-        assertTitleBecomes("super cool!");
+  @Test
+  public void testPriorities() {
+    whenTitleIs("eat !1");
+    assertTitleBecomes("eat");
+    assertPriority(Priority.LOW);
 
-        whenTitleIs("stay alive !4");
-        assertTitleBecomes("stay alive");
-        assertImportanceIs(Task.IMPORTANCE_DO_OR_DIE);
-    }
+    whenTitleIs("super cool!");
+    assertTitleBecomes("super cool!");
 
-    @Test
-    public void testMixed() {
-        whenTitleIs("eat #food !2");
-        assertTitleBecomes("eat");
-        assertTagsAre("food");
-        assertImportanceIs(Task.IMPORTANCE_MUST_DO);
-    }
+    whenTitleIs("stay alive !4");
+    assertTitleBecomes("stay alive");
+    assertPriority(Priority.HIGH);
+  }
 
-    // --- helpers
+  @Test
+  public void testMixed() {
+    whenTitleIs("eat #food !2");
+    assertTitleBecomes("eat");
+    assertTagsAre("food");
+    assertPriority(Priority.MEDIUM);
+  }
 
-    private Task task;
-    private final ArrayList<String> tags = new ArrayList<>();
+  private void assertTagsAre(String... expectedTags) {
+    List<String> expected = Arrays.asList(expectedTags);
+    assertEquals(expected.toString(), tags.toString());
+  }
 
-    private void assertTagsAre(String... expectedTags) {
-        List<String> expected = Arrays.asList(expectedTags);
-        assertEquals(expected.toString(), tags.toString());
-    }
+  private void assertTitleBecomes(String title) {
+    assertEquals(title, task.getTitle());
+  }
 
-    private void assertTitleBecomes(String title) {
-        assertEquals(title, task.getTitle());
-    }
+  private void whenTitleIs(String title) {
+    task = new Task();
+    task.setTitle(title);
+    tags.clear();
+    TitleParser.parse(tagService, task, tags);
+  }
 
-    private void whenTitleIs(String title) {
-        task = new Task();
-        task.setTitle(title);
-        tags.clear();
-        TitleParser.parse(tagService, task, tags);
-    }
-
-    private void assertImportanceIs(int importance) {
-        assertEquals(importance, (int)task.getImportance());
-    }
+  private void assertPriority(int priority) {
+    assertEquals(priority, (int) task.getPriority());
+  }
 }

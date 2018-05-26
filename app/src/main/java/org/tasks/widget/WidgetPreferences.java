@@ -1,78 +1,78 @@
 package org.tasks.widget;
 
 import android.content.Context;
-
 import org.tasks.R;
 import org.tasks.preferences.Preferences;
 
 class WidgetPreferences {
-    private final Context context;
-    private final Preferences preferences;
-    private final int widgetId;
 
-    WidgetPreferences(Context context, Preferences preferences, int widgetId) {
-        this.context = context;
-        this.preferences = preferences;
-        this.widgetId = widgetId;
-    }
+  private final Context context;
+  private final Preferences preferences;
+  private final int widgetId;
 
-    boolean showDueDate() {
-        return preferences.getBoolean(getKey(R.string.p_widget_show_due_date), true);
-    }
+  WidgetPreferences(Context context, Preferences preferences, int widgetId) {
+    this.context = context;
+    this.preferences = preferences;
+    this.widgetId = widgetId;
+  }
 
-    boolean showHeader() {
-        return preferences.getBoolean(getKey(R.string.p_widget_show_header), true);
-    }
+  boolean showDueDate() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_due_date), true);
+  }
 
-    boolean showCheckboxes() {
-        return preferences.getBoolean(getKey(R.string.p_widget_show_checkboxes), true);
-    }
+  boolean showHeader() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_header), true);
+  }
 
-    boolean showSettings() {
-        return preferences.getBoolean(getKey(R.string.p_widget_show_settings), true);
-    }
+  boolean showCheckboxes() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_checkboxes), true);
+  }
 
-    int getFontSize() {
-        return preferences.getInt(getKey(R.string.p_widget_font_size), 16);
-    }
+  boolean showSettings() {
+    return preferences.getBoolean(getKey(R.string.p_widget_show_settings), true);
+  }
 
-    String getFilterId() {
-        return preferences.getStringValue(getKey(R.string.p_widget_filter));
-    }
+  int getFontSize() {
+    return preferences.getInt(getKey(R.string.p_widget_font_size), 16);
+  }
 
-    int getThemeIndex() {
-        return preferences.getInt(getKey(R.string.p_widget_theme), 0);
-    }
+  void setFontSize(int value) {
+    preferences.setInt(getKey(R.string.p_widget_font_size), value);
+  }
 
-    int getColorIndex() {
-        return preferences.getInt(getKey(R.string.p_widget_color), 0);
-    }
+  String getFilterId() {
+    return preferences.getStringValue(getKey(R.string.p_widget_filter));
+  }
 
-    public int getOpacity() {
-        return  preferences.getInt(getKey(R.string.p_widget_opacity), 100);
-    }
+  int getThemeIndex() {
+    return preferences.getInt(getKey(R.string.p_widget_theme), 0);
+  }
 
-    public void setOpacity(int value) {
-        preferences.setInt(getKey(R.string.p_widget_opacity), value);
-    }
+  int getColorIndex() {
+    return preferences.getInt(getKey(R.string.p_widget_color), 0);
+  }
 
-    void setFontSize(int value) {
-        preferences.setInt(getKey(R.string.p_widget_font_size), value);
-    }
+  public int getOpacity() {
+    return preferences.getInt(getKey(R.string.p_widget_opacity), 100);
+  }
 
-    public void setColor(int index) {
-        preferences.setInt(getKey(R.string.p_widget_color), index);
-    }
+  public void setOpacity(int value) {
+    preferences.setInt(getKey(R.string.p_widget_opacity), value);
+  }
 
-    public void setTheme(int index) {
-        preferences.setInt(getKey(R.string.p_widget_theme), index);
-    }
+  public void setColor(int index) {
+    preferences.setInt(getKey(R.string.p_widget_color), index);
+  }
 
-    private String getKey(int resId) {
-        return context.getString(resId) + widgetId;
-    }
+  public void setTheme(int index) {
+    preferences.setInt(getKey(R.string.p_widget_theme), index);
+  }
 
-    public void setFilter(String filterPreferenceValue) {
-        preferences.setString(getKey(R.string.p_widget_filter), filterPreferenceValue);
-    }
+  private String getKey(int resId) {
+    return context.getString(resId) + widgetId;
+  }
+
+  public void setFilter(String filterPreferenceValue) {
+    preferences.setString(getKey(R.string.p_widget_filter), filterPreferenceValue);
+  }
 }
