@@ -2,9 +2,9 @@ package org.tasks.backup;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import static com.todoroo.astrid.backup.TasksXmlExporter.XML_NULL;
-
 public class XmlReader {
+
+    private static final String XML_NULL = "null"; //$NON-NLS-1$
 
     public interface ValueWriter<T> {
         void write(T value);

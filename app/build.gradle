@@ -33,8 +33,8 @@ android {
     defaultConfig {
         testApplicationId "org.tasks.test"
         applicationId "org.tasks"
-        versionCode 490
-        versionName "5.2.1"
+        versionCode 508
+        versionName "5.3.6"
         targetSdkVersion 27
         minSdkVersion 15
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -113,6 +113,7 @@ dependencies {
     compile "android.arch.persistence.room:rxjava2:${ROOM_VERSION}"
     annotationProcessor "android.arch.persistence.room:compiler:${ROOM_VERSION}"
     compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+    compile "android.arch.paging:runtime:1.0.0-alpha5"
 
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
@@ -125,6 +126,7 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     debugCompile 'com.android.support:multidex:1.0.2'
 
+    compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.nononsenseapps:filepicker:4.1.0'
     compile "com.android.support:design:${SUPPORT_VERSION}"
@@ -139,7 +141,6 @@ dependencies {
     compile 'com.jakewharton:process-phoenix:2.0.0'
     compile 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     compile 'com.twofortyfouram:android-plugin-api-for-locale:1.0.2'
-    compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
     compile ('com.rubiconproject.oss:jchronic:0.2.6') {
         transitive = false
     }

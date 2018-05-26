@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.adapter;
 
+import android.arch.paging.PagedListAdapterHelper;
+
 import com.google.common.collect.ObjectArrays;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -14,13 +16,12 @@ import com.todoroo.astrid.data.Task;
 
 import org.tasks.data.TaskAttachment;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.todoroo.astrid.data.Task.NO_ID;
-import static com.todoroo.astrid.data.Task.NO_UUID;
+import static com.google.common.primitives.Longs.asList;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -30,25 +31,23 @@ import static com.todoroo.astrid.data.Task.NO_UUID;
  */
 public class TaskAdapter {
 
-    private final List<Task> tasks = new ArrayList<>();
-
-    public List<Integer> getTaskPositions(List<Long> longs) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0 ; i < tasks.size() ; i++) {
-            if (longs.contains(tasks.get(i).getId())) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks.clear();
-        this.tasks.addAll(tasks);
-    }
+    private PagedListAdapterHelper<Task> helper;
+    private Set<Long> selected = new HashSet<>();
 
     public int getCount() {
-        return tasks.size();
+        return helper.getItemCount();
+    }
+
+    public void setHelper(PagedListAdapterHelper<Task> helper) {
+        this.helper = helper;
+    }
+
+    public List<Long> getSelected() {
+        return newArrayList(selected);
+    }
+
+    public void clearSelections() {
+        selected.clear();
     }
 
     public interface OnCompletedTaskListener {
@@ -75,6 +74,24 @@ public class TaskAdapter {
         return false;
     }
 
+    public void setSelected(long... ids) {
+        selected.clear();
+        selected.addAll(asList(ids));
+    }
+
+    public boolean isSelected(Task task) {
+        return selected.contains(task.getId());
+    }
+
+    public void toggleSelection(Task task) {
+        long id = task.getId();
+        if (selected.contains(id)) {
+            selected.remove(id);
+        } else {
+            selected.add(id);
+        }
+    }
+
     public boolean isManuallySorted() {
         return false;
     }
@@ -87,20 +104,16 @@ public class TaskAdapter {
 
     }
 
-    public List<Task> getTasks() {
-        return newArrayList(tasks);
-    }
-
     public long getTaskId(int position) {
-        return position < tasks.size() ? tasks.get(position).getId() : NO_ID;
+        return getTask(position).getId();
     }
 
     public Task getTask(int position) {
-        return position < tasks.size() ? tasks.get(position) : null;
+        return helper.getItem(position);
     }
 
     protected String getItemUuid(int position) {
-        return position < tasks.size() ? tasks.get(position).getUuid() : NO_UUID;
+        return getTask(position).getUuid();
     }
 
     public void onCompletedTask(Task task, boolean newState) {

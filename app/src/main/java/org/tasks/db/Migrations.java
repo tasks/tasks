@@ -2,7 +2,10 @@ package org.tasks.db;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.migration.Migration;
+import android.database.sqlite.SQLiteException;
 import android.support.annotation.NonNull;
+
+import timber.log.Timber;
 
 public class Migrations {
     private static final Migration MIGRATION_35_36 = new Migration(35, 36) {
@@ -22,7 +25,11 @@ public class Migrations {
     private static final Migration MIGRATION_37_38 = new Migration(37, 38) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE `store` ADD COLUMN `value4` TEXT DEFAULT -1");
+            try {
+                database.execSQL("ALTER TABLE `store` ADD COLUMN `value4` TEXT DEFAULT -1");
+            } catch (SQLiteException e) {
+                Timber.w(e, e.getMessage());
+            }
         }
     };
 
@@ -37,7 +44,7 @@ public class Migrations {
     private static final Migration MIGRATION_46_47 = new Migration(46, 47) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE IF NOT EXISTS `alarms` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `task` INTEGER, `time` INTEGER)");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `alarms` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `time` INTEGER NOT NULL)");
             database.execSQL("INSERT INTO `alarms` (`task`, `time`) SELECT `task`, `value` FROM `metadata` WHERE `key` = 'alarm' AND `deleted` = 0");
             database.execSQL("DELETE FROM `metadata` WHERE `key` = 'alarm'");
         }
@@ -68,7 +75,7 @@ public class Migrations {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS `google_tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `task` INTEGER NOT NULL, `remote_id` TEXT, `list_id` TEXT, `parent` INTEGER NOT NULL, `indent` INTEGER NOT NULL, `order` INTEGER NOT NULL, `remote_order` INTEGER NOT NULL, `last_sync` INTEGER NOT NULL, `deleted` INTEGER NOT NULL)");
             database.execSQL("INSERT INTO `google_tasks` (`task`, `remote_id`, `list_id`, `parent`, `indent`, `order`, `remote_order`, `last_sync`, `deleted`) " +
-                    "SELECT `task`, `value`, `value2`, `value3`, `value4`, `value5`, `value6`, `value7`, `deleted` FROM `metadata` WHERE `key` = 'gtasks'");
+                    "SELECT `task`, `value`, `value2`, IFNULL(`value3`, 0), IFNULL(`value4`, 0), IFNULL(`value5`, 0), IFNULL(`value6`, 0), IFNULL(`value7`, 0), IFNULL(`deleted`, 0) FROM `metadata` WHERE `key` = 'gtasks'");
             database.execSQL("DROP TABLE IF EXISTS `metadata`");
         }
     };
@@ -93,6 +100,49 @@ public class Migrations {
         }
     };
 
+    private static final Migration MIGRATION_52_53 = new Migration(52, 53) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE `tagdata` RENAME TO `tagdata-temp`");
+            database.execSQL("CREATE TABLE `tagdata` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `name` TEXT, `color` INTEGER, `tagOrdering` TEXT)");
+            database.execSQL("INSERT INTO `tagdata` (`remoteId`, `name`, `color`, `tagOrdering`) " +
+                    "SELECT `remoteId`, `name`, `color`, `tagOrdering` FROM `tagdata-temp`");
+            database.execSQL("DROP TABLE `tagdata-temp`");
+
+            database.execSQL("ALTER TABLE `userActivity` RENAME TO `userActivity-temp`");
+            database.execSQL("CREATE TABLE `userActivity` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `message` TEXT, `picture` TEXT, `target_id` TEXT, `created_at` INTEGER)");
+            database.execSQL("INSERT INTO `userActivity` (`remoteId`, `message`, `picture`, `target_id`, `created_at`) " +
+                    "SELECT `remoteId`, `message`, `picture`, `target_id`, `created_at` FROM `userActivity-temp`");
+            database.execSQL("DROP TABLE `userActivity-temp`");
+
+            database.execSQL("ALTER TABLE `task_attachments` RENAME TO `task_attachments-temp`");
+            database.execSQL("CREATE TABLE `task_attachments` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `task_id` TEXT, `name` TEXT, `path` TEXT, `content_type` TEXT)");
+            database.execSQL("INSERT INTO `task_attachments` (`remoteId`, `task_id`, `name`, `path`, `content_type`) " +
+                    "SELECT `remoteId`, `task_id`, `name`, `path`, `content_type` FROM `task_attachments-temp`");
+            database.execSQL("DROP TABLE `task_attachments-temp`");
+        }
+    };
+
+    private static final Migration MIGRATION_53_54 = new Migration(53, 54) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            // need to drop columns that were removed in the past
+            database.execSQL("ALTER TABLE `task_list_metadata` RENAME TO `task_list_metadata-temp`");
+            database.execSQL("CREATE TABLE `task_list_metadata` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `remoteId` TEXT, `tag_uuid` TEXT, `filter` TEXT, `task_ids` TEXT)");
+            database.execSQL("INSERT INTO `task_list_metadata` (`remoteId`, `tag_uuid`, `filter`, `task_ids`) " +
+                    "SELECT `remoteId`, `tag_uuid`, `filter`, `task_ids` FROM `task_list_metadata-temp`");
+            database.execSQL("DROP TABLE `task_list_metadata-temp`");
+
+            database.execSQL("ALTER TABLE `tasks` RENAME TO `tasks-temp`");
+            database.execSQL("CREATE TABLE `tasks` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT, `importance` INTEGER, `dueDate` INTEGER, `hideUntil` INTEGER, `created` INTEGER, `modified` INTEGER, `completed` INTEGER, `deleted` INTEGER, `notes` TEXT, `estimatedSeconds` INTEGER, `elapsedSeconds` INTEGER, `timerStart` INTEGER, `notificationFlags` INTEGER, `notifications` INTEGER, `lastNotified` INTEGER, `snoozeTime` INTEGER, `recurrence` TEXT, `repeatUntil` INTEGER, `calendarUri` TEXT, `remoteId` TEXT)");
+            database.execSQL("DROP INDEX `t_rid`");
+            database.execSQL("CREATE UNIQUE INDEX `t_rid` ON `tasks` (`remoteId`)");
+            database.execSQL("INSERT INTO `tasks` (`_id`, `title`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `notes`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `notifications`, `lastNotified`, `snoozeTime`, `recurrence`, `repeatUntil`, `calendarUri`, `remoteId`) " +
+                    "SELECT `_id`, `title`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `notes`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `notifications`, `lastNotified`, `snoozeTime`, `recurrence`, `repeatUntil`, `calendarUri`, `remoteId` FROM `tasks-temp`");
+            database.execSQL("DROP TABLE `tasks-temp`");
+        }
+    };
+
     private static Migration NOOP(int from, int to) {
         return new Migration(from, to) {
             @Override
@@ -113,6 +163,8 @@ public class Migrations {
             MIGRATION_48_49,
             MIGRATION_49_50,
             MIGRATION_50_51,
-            MIGRATION_51_52
+            MIGRATION_51_52,
+            MIGRATION_52_53,
+            MIGRATION_53_54,
     };
 }

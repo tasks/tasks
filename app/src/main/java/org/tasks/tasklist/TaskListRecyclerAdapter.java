@@ -1,8 +1,12 @@
 package org.tasks.tasklist;
 
 import android.app.Activity;
+import android.arch.paging.PagedList;
+import android.arch.paging.PagedListAdapterHelper;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.support.v7.recyclerview.extensions.ListAdapterConfig;
+import android.support.v7.util.ListUpdateCallback;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -12,8 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
-import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback;
-import com.bignerdranch.android.multiselector.MultiSelector;
 import com.google.common.primitives.Longs;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -31,14 +33,10 @@ import org.tasks.ui.MenuColorizer;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.transform;
-
-public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> implements ViewHolder.ViewHolderCallbacks {
+public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder>
+        implements ViewHolder.ViewHolderCallbacks, ListUpdateCallback {
 
     private static final String EXTRA_SELECTED_TASK_IDS = "extra_selected_task_ids";
-
-    private final MultiSelector multiSelector = new MultiSelector();
 
     private final Activity activity;
     private final TaskAdapter adapter;
@@ -49,9 +47,12 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     private final Tracker tracker;
     private final DialogBuilder dialogBuilder;
     private final ItemTouchHelper itemTouchHelper;
+    private final PagedListAdapterHelper<Task> adapterHelper;
 
     private ActionMode mode = null;
     private boolean dragging;
+    private boolean animate;
+    private RecyclerView recyclerView;
 
     public TaskListRecyclerAdapter(Activity activity, TaskAdapter adapter,
                                    ViewHolderFactory viewHolderFactory,
@@ -67,29 +68,27 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         this.tracker = tracker;
         this.dialogBuilder = dialogBuilder;
         itemTouchHelper = new ItemTouchHelper(new ItemTouchHelperCallback());
+        adapterHelper = new PagedListAdapterHelper<>(this, new ListAdapterConfig.Builder<Task>().setDiffCallback(new DiffCallback(adapter)).build());
     }
 
     public void applyToRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
         recyclerView.setAdapter(this);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     public Bundle getSaveState() {
         Bundle information = new Bundle();
-        List<Long> selectedTaskIds = transform(multiSelector.getSelectedPositions(), adapter::getTaskId);
+        List<Long> selectedTaskIds = adapter.getSelected();
         information.putLongArray(EXTRA_SELECTED_TASK_IDS, Longs.toArray(selectedTaskIds));
         return information;
     }
 
     public void restoreSaveState(Bundle savedState) {
         long[] longArray = savedState.getLongArray(EXTRA_SELECTED_TASK_IDS);
-        if (longArray.length > 0) {
+        if (longArray != null && longArray.length > 0) {
             mode = ((TaskListActivity) activity).startSupportActionMode(actionModeCallback);
-            multiSelector.setSelectable(true);
-
-            for (int position : adapter.getTaskPositions(Longs.asList(longArray))) {
-                multiSelector.setSelected(position, 0L, true);
-            }
+            adapter.setSelected(longArray);
 
             updateModeTitle();
         }
@@ -99,19 +98,25 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewGroup view = (ViewGroup) LayoutInflater.from(activity)
                 .inflate(R.layout.task_adapter_row_simple, parent, false);
-        return viewHolderFactory.newViewHolder(view, this, multiSelector);
+        return viewHolderFactory.newViewHolder(view, this);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bindView(adapter.getTask(position));
-        holder.setMoving(false);
-        holder.setIndent(adapter.getIndent(holder.task));
+        Task task = adapterHelper.getItem(position);
+        if (task != null) {
+            holder.bindView(task);
+            holder.setMoving(false);
+            int indent = adapter.getIndent(task);
+            task.setIndent(indent);
+            holder.setIndent(indent);
+            holder.setSelected(adapter.isSelected(task));
+        }
     }
 
     @Override
     public int getItemCount() {
-        return adapter.getCount();
+        return adapterHelper.getItemCount();
     }
 
     @Override
@@ -135,9 +140,9 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
     }
 
     private void toggle(ViewHolder viewHolder) {
-        multiSelector.setSelectable(true);
-        multiSelector.tapSelection(viewHolder);
-        if (multiSelector.getSelectedPositions().isEmpty()) {
+        adapter.toggleSelection(viewHolder.task);
+        notifyItemChanged(viewHolder.getAdapterPosition());
+        if (adapter.getSelected().isEmpty()) {
             dragging = false;
             if (mode != null) {
                 mode.finish();
@@ -158,22 +163,18 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
         }
     }
 
-    private List<Task> getTasks() {
-        return newArrayList(transform(multiSelector.getSelectedPositions(), adapter::getTask));
-    }
-
     private void deleteSelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_DELETE);
-        List<Task> tasks = getTasks();
+        List<Long> tasks = adapter.getSelected();
         mode.finish();
-        int result = taskDeleter.markDeleted(tasks);
-        taskList.onTaskDelete(tasks);
-        taskList.makeSnackbar(activity.getString(R.string.delete_multiple_tasks_confirmation, Integer.toString(result))).show();
+        List<Task> result = taskDeleter.markDeleted(tasks);
+        taskList.onTaskDelete(result);
+        taskList.makeSnackbar(activity.getString(R.string.delete_multiple_tasks_confirmation, Integer.toString(result.size()))).show();
     }
 
     private void copySelectedItems() {
         tracker.reportEvent(Tracking.Events.MULTISELECT_CLONE);
-        List<Task> tasks = getTasks();
+        List<Long> tasks = adapter.getSelected();
         mode.finish();
         List<Task> duplicates = taskDuplicator.duplicate(tasks);
         taskList.onTaskCreated(duplicates);
@@ -182,17 +183,22 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
 
     private void updateModeTitle() {
         if (mode != null) {
-            mode.setTitle(Integer.toString(multiSelector.getSelectedPositions().size()));
+            mode.setTitle(Integer.toString(adapter.getSelected().size()));
         }
     }
 
-    private ModalMultiSelectorCallback actionModeCallback = new ModalMultiSelectorCallback(multiSelector) {
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
             MenuInflater inflater = actionMode.getMenuInflater();
             inflater.inflate(R.menu.menu_multi_select, menu);
             MenuColorizer.colorMenu(activity, menu);
             return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
         }
 
         @Override
@@ -217,11 +223,62 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
 
         @Override
         public void onDestroyActionMode(ActionMode actionMode) {
-            super.onDestroyActionMode(actionMode);
-            multiSelector.clearSelections();
+            adapter.clearSelections();
             TaskListRecyclerAdapter.this.mode = null;
+            if (!dragging) {
+                notifyDataSetChanged();
+            }
         }
     };
+
+    @Override
+    public void onInserted(int position, int count) {
+        notifyItemRangeInserted(position, count);
+    }
+
+    @Override
+    public void onRemoved(int position, int count) {
+        notifyItemRangeRemoved(position, count);
+    }
+
+    @Override
+    public void onMoved(int fromPosition, int toPosition) {
+        if (animate) {
+            notifyItemChanged(fromPosition);
+            notifyItemMoved(fromPosition, toPosition);
+            recyclerView.scrollToPosition(fromPosition);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onChanged(int position, int count, Object payload) {
+        if (animate) {
+            notifyItemRangeChanged(position, count, payload);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    public void onTaskSaved() {
+        setAnimate(true);
+        int scrollY = recyclerView.getScrollY();
+        notifyDataSetChanged();
+        recyclerView.setScrollY(scrollY);
+    }
+
+    public void setList(PagedList<Task> list) {
+        adapterHelper.setList(list);
+    }
+
+    public void setAnimate(boolean animate) {
+        this.animate = animate;
+    }
+
+    public PagedListAdapterHelper<Task> getHelper() {
+        return adapterHelper;
+    }
 
     private class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
@@ -267,6 +324,7 @@ public class TaskListRecyclerAdapter extends RecyclerView.Adapter<ViewHolder> im
             int fromPosition = source.getAdapterPosition();
             int toPosition = target.getAdapterPosition();
             if (from == -1) {
+                ((ViewHolder) source).setSelected(false);
                 from = fromPosition;
             }
             to = toPosition;

@@ -15,6 +15,8 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 
 import org.tasks.R;
+import org.tasks.analytics.Tracker;
+import org.tasks.analytics.Tracking;
 import org.tasks.data.GoogleTask;
 import org.tasks.data.GoogleTaskDao;
 import org.tasks.data.Tag;
@@ -38,13 +40,15 @@ public class TaskCreator {
     private final Preferences preferences;
     private final TagDao tagDao;
     private final GoogleTaskDao googleTaskDao;
+    private final Tracker tracker;
     private final TagDataDao tagDataDao;
     private final TaskDao taskDao;
     private final TagService tagService;
 
     @Inject
     public TaskCreator(GCalHelper gcalHelper, Preferences preferences, TagDataDao tagDataDao,
-                       TaskDao taskDao, TagService tagService, TagDao tagDao, GoogleTaskDao googleTaskDao) {
+                       TaskDao taskDao, TagService tagService, TagDao tagDao,
+                       GoogleTaskDao googleTaskDao, Tracker tracker) {
         this.gcalHelper = gcalHelper;
         this.preferences = preferences;
         this.tagDataDao = tagDataDao;
@@ -52,6 +56,7 @@ public class TaskCreator {
         this.tagService = tagService;
         this.tagDao = tagDao;
         this.googleTaskDao = googleTaskDao;
+        this.tracker = tracker;
     }
 
     public Task basicQuickAddTask(String title) {
@@ -109,17 +114,18 @@ public class TaskCreator {
                     tags.add((String) value);
                 } else if (key.equals(GoogleTask.KEY)) {
                     task.putTransitory(key, value);
-                } else if (value instanceof String) {
-                    value = PermaSql.replacePlaceholders((String) value);
+                } else {
+                    if (value instanceof String) {
+                        value = PermaSql.replacePlaceholders((String) value);
+                    }
+
                     if (key.equals("dueDate")) {
                         task.setDueDate(Long.valueOf((String) value));
                     } else if (key.equals("importance")) {
                         task.setImportance(Integer.valueOf((String) value));
                     } else {
-                        throw new RuntimeException("Unhandled key: " + key);
+                        tracker.reportEvent(Tracking.Events.TASK_CREATION_FAILED, "Unhandled key: " + key);
                     }
-                } else {
-                    throw new RuntimeException("Unhandled key: " + key);
                 }
             }
         }
@@ -135,7 +141,7 @@ public class TaskCreator {
         return task;
     }
 
-    public static void setDefaultReminders(Preferences preferences, Task task) {
+    private static void setDefaultReminders(Preferences preferences, Task task) {
         task.setReminderPeriod(DateUtilities.ONE_HOUR *
                 preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
                         0));
@@ -148,7 +154,7 @@ public class TaskCreator {
             if (tagData == null) {
                 tagData = new TagData();
                 tagData.setName(tag);
-                tagDataDao.persist(tagData);
+                tagDataDao.createNew(tagData);
             }
             Tag link = new Tag(task.getId(), task.getUuid(), tagData.getName(), tagData.getRemoteId());
             tagDao.insert(link);

@@ -183,11 +183,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
     public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
         return getView(position, convertView, parent);
     }
-    /* ======================================================================
-     * ============================================================ selection
-     * ====================================================================== */
-
-    private final FilterListItem selection = null;
 
     /* ======================================================================
      * ============================================================= receiver
@@ -297,10 +292,6 @@ public class FilterAdapter extends ArrayAdapter<FilterListItem> {
             viewHolder.size.setText(locale.formatNumber(countInt));
         }
         viewHolder.size.setVisibility(countInt > 0 ? View.VISIBLE : View.INVISIBLE);
-
-        if (selection == viewHolder.item) {
-            viewHolder.view.setBackgroundColor(getColor(activity, R.color.drawer_color_selected));
-        }
     }
 
     private void populateHeader(ViewHolder viewHolder) {

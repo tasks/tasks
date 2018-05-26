@@ -8,7 +8,7 @@ package org.tasks.jobs;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.backup.TasksXmlExporter;
+import org.tasks.backup.TasksJsonExporter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
@@ -42,7 +42,7 @@ public class BackupServiceTests extends InjectingTestCase {
 
     File temporaryDirectory = null;
 
-    @Inject TasksXmlExporter xmlExporter;
+    @Inject TasksJsonExporter xmlExporter;
     @Inject TaskDao taskDao;
     @Inject Preferences preferences;
 
@@ -88,7 +88,7 @@ public class BackupServiceTests extends InjectingTestCase {
     public void testBackup() {
         assertEquals(0, temporaryDirectory.list().length);
 
-        preferences.setLong(TasksXmlExporter.PREF_BACKUP_LAST_DATE, 0);
+        preferences.setLong(TasksJsonExporter.PREF_BACKUP_LAST_DATE, 0);
 
         // create a backup
         BackupJob service = new BackupJob(getTargetContext(), new JobManager(getTargetContext(), mock(AlarmManager.class)), xmlExporter, preferences);
@@ -102,7 +102,7 @@ public class BackupServiceTests extends InjectingTestCase {
         assertTrue(files[0].getName().matches(BackupJob.BACKUP_FILE_NAME_REGEX));
 
         // assert summary updated
-        assertTrue(preferences.getLong(TasksXmlExporter.PREF_BACKUP_LAST_DATE, 0) > 0);
+        assertTrue(preferences.getLong(TasksJsonExporter.PREF_BACKUP_LAST_DATE, 0) > 0);
     }
 
     @Test

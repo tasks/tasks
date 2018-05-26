@@ -1,4 +1,10 @@
-package org.tasks.data;
+package org.tasks.ui;
+
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.LivePagedListProvider;
+import android.arch.paging.PagedList;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.sql.Criterion;
@@ -10,32 +16,52 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 
+import org.tasks.data.LimitOffsetDataSource;
+import org.tasks.data.Tag;
+import org.tasks.data.TaskAttachment;
 import org.tasks.preferences.Preferences;
-
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javax.inject.Inject;
 
 import static com.todoroo.astrid.activity.TaskListFragment.FILE_METADATA_JOIN;
 import static com.todoroo.astrid.activity.TaskListFragment.TAGS_METADATA_JOIN;
 
-public class TaskListDataProvider {
+public class TaskListViewModel extends ViewModel {
 
-    private final TaskDao taskDao;
-    private final Preferences preferences;
+    @Inject TaskDao taskDao;
+    @Inject Preferences preferences;
 
-    @Inject
-    public TaskListDataProvider(TaskDao taskDao, Preferences preferences) {
-        this.taskDao = taskDao;
-        this.preferences = preferences;
+    private LimitOffsetDataSource latest;
+    private LiveData<PagedList<Task>> tasks;
+    private Filter filter;
+
+    public void clear() {
+        tasks = null;
+        latest = null;
+        filter = null;
     }
 
-    public List<Task> toList(Filter filter) {
-        return toList(filter, Task.PROPERTIES);
+    public LiveData<PagedList<Task>> getTasks(Filter filter, Property<?>[] properties) {
+        if (tasks == null || !filter.equals(this.filter)) {
+            this.filter = filter;
+            tasks = getLiveData(filter, properties);
+        }
+        return tasks;
     }
 
-    public List<Task> toList(Filter filter, Property<?>[] properties) {
+    private LiveData<PagedList<Task>> getLiveData(Filter filter, Property<?>[] properties) {
+        return new LivePagedListBuilder<>(
+                new LivePagedListProvider<Integer, Task>() {
+                    @Override
+                    protected LimitOffsetDataSource createDataSource() {
+                        latest = toDataSource(filter, properties);
+                        return latest;
+                    }
+                }, 20)
+                .build();
+    }
+
+    private LimitOffsetDataSource toDataSource(Filter filter, Property<?>[] properties) {
         Criterion tagsJoinCriterion = Criterion.and(
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + ".task")));
 
@@ -64,6 +90,12 @@ public class TaskListDataProvider {
             groupedQuery = query + " GROUP BY " + Task.ID;
         }
 
-        return taskDao.fetchFiltered(groupedQuery, properties);
+        return taskDao.getLimitOffsetDataSource(groupedQuery, properties);
+    }
+
+    public void invalidate() {
+        if (latest != null) {
+            latest.invalidate();
+        }
     }
 }

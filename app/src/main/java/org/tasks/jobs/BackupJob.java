@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.JobIntentService;
 
-import com.todoroo.astrid.backup.TasksXmlExporter;
+import org.tasks.backup.TasksJsonExporter;
 
 import org.tasks.injection.ForApplication;
 import org.tasks.injection.IntentServiceComponent;
@@ -35,7 +35,7 @@ public class BackupJob extends MidnightJob {
 
     @Inject @ForApplication Context context;
     @Inject JobManager jobManager;
-    @Inject TasksXmlExporter tasksXmlExporter;
+    @Inject TasksJsonExporter tasksJsonExporter;
     @Inject Preferences preferences;
 
     @SuppressWarnings("unused")
@@ -43,10 +43,10 @@ public class BackupJob extends MidnightJob {
 
     }
 
-    BackupJob(Context context, JobManager jobManager, TasksXmlExporter tasksXmlExporter, Preferences preferences) {
+    BackupJob(Context context, JobManager jobManager, TasksJsonExporter tasksJsonExporter, Preferences preferences) {
         this.context = context;
         this.jobManager = jobManager;
-        this.tasksXmlExporter = tasksXmlExporter;
+        this.tasksJsonExporter = tasksJsonExporter;
         this.preferences = preferences;
     }
 
@@ -68,7 +68,7 @@ public class BackupJob extends MidnightJob {
         }
 
         try {
-            tasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE, null);
+            tasksJsonExporter.exportTasks(context, TasksJsonExporter.ExportType.EXPORT_TYPE_SERVICE, null);
         } catch (Exception e) {
             Timber.e(e, e.getMessage());
         }

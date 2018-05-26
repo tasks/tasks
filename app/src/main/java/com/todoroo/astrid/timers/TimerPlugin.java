@@ -49,6 +49,10 @@ public class TimerPlugin {
         updateTimer(task, true);
     }
 
+    public void stopTimer(Long task) {
+        stopTimer(taskDao.fetch(task));
+    }
+
     public void stopTimer(Task task) {
         updateTimer(task, false);
     }

@@ -13,7 +13,6 @@ import com.todoroo.astrid.data.Task;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.tasks.backup.XmlReader;
-import org.tasks.backup.XmlWriter;
 
 import java.io.File;
 
@@ -22,17 +21,12 @@ import timber.log.Timber;
 @Entity(tableName = "userActivity")
 public class UserActivity implements Parcelable {
 
-    public static final String ACTION_TASK_COMMENT = "task_comment";
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private Long id;
+    private transient Long id;
 
     @ColumnInfo(name = "remoteId")
     private String remoteId = Task.NO_UUID;
-
-    @ColumnInfo(name = "action")
-    private String action = "";
 
     @ColumnInfo(name = "message")
     private String message = "";
@@ -41,13 +35,10 @@ public class UserActivity implements Parcelable {
     private String picture = "";
 
     @ColumnInfo(name = "target_id")
-    private String targetId = Task.NO_UUID;
+    private transient String targetId = Task.NO_UUID;
 
     @ColumnInfo(name = "created_at")
     private Long created = 0L;
-
-    @ColumnInfo(name = "deleted_at")
-    private Long deleted = 0L;
 
     public UserActivity() {
     }
@@ -55,34 +46,20 @@ public class UserActivity implements Parcelable {
     @Ignore
     public UserActivity(XmlReader reader) {
         reader.readString("remoteId", this::setRemoteId);
-        reader.readString("action", this::setAction);
         reader.readString("message", this::setMessage);
         reader.readString("picture", this::setPicture);
         reader.readString("target_id", this::setTargetId);
         reader.readLong("created_at", this::setCreated);
-        reader.readLong("deleted_at", this::setDeleted);
     }
 
     @Ignore
     private UserActivity(Parcel parcel) {
         id = parcel.readLong();
         remoteId = parcel.readString();
-        action = parcel.readString();
         message = parcel.readString();
         picture = parcel.readString();
         targetId = parcel.readString();
         created = parcel.readLong();
-        deleted = parcel.readLong();
-    }
-
-    public void writeToXml(XmlWriter writer) {
-        writer.writeString("remoteId", remoteId);
-        writer.writeString("action", action);
-        writer.writeString("message", message);
-        writer.writeString("picture", picture);
-        writer.writeString("target_id", targetId);
-        writer.writeLong("created_at", created);
-        writer.writeLong("deleted_at", deleted);
     }
 
     public Long getId() {
@@ -99,14 +76,6 @@ public class UserActivity implements Parcelable {
 
     public void setRemoteId(String remoteId) {
         this.remoteId = remoteId;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
     }
 
     public String getMessage() {
@@ -141,14 +110,6 @@ public class UserActivity implements Parcelable {
         this.created = created;
     }
 
-    public Long getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Long deleted) {
-        this.deleted = deleted;
-    }
-
     public Uri getPictureUri() {
         return getPictureUri(picture);
     }
@@ -174,12 +135,10 @@ public class UserActivity implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeString(remoteId);
-        dest.writeString(action);
         dest.writeString(message);
         dest.writeString(picture);
         dest.writeString(targetId);
         dest.writeLong(created);
-        dest.writeLong(deleted);
     }
 
     private static Uri getPictureUri(String value) {

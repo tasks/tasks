@@ -21,7 +21,7 @@ public final class TaskAttachment {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private Long id;
+    private transient Long id;
 
     @ColumnInfo(name = "remoteId")
     private String remoteId = Task.NO_UUID;
@@ -37,9 +37,6 @@ public final class TaskAttachment {
 
     @ColumnInfo(name = "content_type")
     private String contentType = "";
-
-    @ColumnInfo(name = "deleted_at")
-    private Long deleted = 0L;
 
     // -- Constants
     /** default directory for files on external storage */
@@ -57,7 +54,6 @@ public final class TaskAttachment {
         attachment.setName(fileName);
         attachment.setPath(filePath);
         attachment.setContentType(fileType);
-        attachment.setDeleted(0L);
         return attachment;
     }
 
@@ -107,13 +103,5 @@ public final class TaskAttachment {
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
-    }
-
-    public Long getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Long deleted) {
-        this.deleted = deleted;
     }
 }

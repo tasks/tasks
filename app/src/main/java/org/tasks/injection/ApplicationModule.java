@@ -58,13 +58,13 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    public Database getAppDatabase() {
+    public Database getAppDatabase(Tracker tracker) {
         return Room
                 .databaseBuilder(context, Database.class, Database.NAME)
                 .allowMainThreadQueries() // TODO: remove me
                 .addMigrations(Migrations.MIGRATIONS)
                 .build()
-                .setOnDatabaseUpdated(() -> Astrid2TaskProvider.notifyDatabaseModification(context));
+                .init(tracker, () -> Astrid2TaskProvider.notifyDatabaseModification(context));
     }
 
     @Provides

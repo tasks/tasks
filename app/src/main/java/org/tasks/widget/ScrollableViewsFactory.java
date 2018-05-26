@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.text.TextUtils;
@@ -14,7 +15,6 @@ import android.widget.RemoteViewsService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.SubtasksHelper;
@@ -40,7 +40,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private final WidgetCheckBoxes checkBoxes;
     private final ThemeCache themeCache;
     private final int widgetId;
-    private final Database database;
     private final TaskDao taskDao;
     private final DefaultFilterProvider defaultFilterProvider;
     private final SubtasksHelper subtasksHelper;
@@ -56,14 +55,13 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private int textColorPrimary;
     private int textColorSecondary;
 
-    private List<Task> tasks;
+    private Cursor cursor;
 
     ScrollableViewsFactory(
             SubtasksHelper subtasksHelper,
             Preferences preferences,
             Context context,
             int widgetId,
-            Database database,
             TaskDao taskDao,
             DefaultFilterProvider defaultFilterProvider,
             WidgetCheckBoxes checkBoxes,
@@ -72,7 +70,6 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         this.preferences = preferences;
         this.context = context;
         this.widgetId = widgetId;
-        this.database = database;
         this.taskDao = taskDao;
         this.defaultFilterProvider = defaultFilterProvider;
         this.checkBoxes = checkBoxes;
@@ -85,22 +82,27 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onCreate() {
-        database.openForReading();
-        tasks = getTasks();
+        cursor = getCursor();
     }
 
     @Override
     public void onDataSetChanged() {
-        tasks = getTasks();
+        if (cursor != null) {
+            cursor.close();
+        }
+        cursor = getCursor();
     }
 
     @Override
     public void onDestroy() {
+        if (cursor != null) {
+            cursor.close();
+        }
     }
 
     @Override
     public int getCount() {
-        return tasks.size();
+        return cursor.getCount();
     }
 
     @Override
@@ -199,13 +201,12 @@ class ScrollableViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         return null;
     }
 
-    private List<Task> getTasks() {
-        String query = getQuery();
-        return taskDao.fetchFiltered(query);
+    private Cursor getCursor() {
+        return taskDao.getCursor(getQuery());
     }
 
     private Task getTask(int position) {
-        return position < tasks.size() ? tasks.get(position) : null;
+        return cursor.moveToPosition(position) ? new Task(cursor) : null;
     }
 
     private String getQuery() {

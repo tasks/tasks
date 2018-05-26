@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
@@ -15,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bignerdranch.android.multiselector.MultiSelector;
-import com.bignerdranch.android.multiselector.MultiSelectorBindingHolder;
 import com.google.common.collect.Lists;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.TaskAction;
@@ -43,21 +42,9 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastKitKat;
 import static com.todoroo.andlib.utility.AndroidUtilities.atLeastLollipop;
 
-class ViewHolder extends MultiSelectorBindingHolder {
+class ViewHolder extends RecyclerView.ViewHolder {
 
-    @Override
-    public void setSelectable(boolean selectable) {
-        this.selectable = selectable;
-        updateBackground();
-    }
-
-    @Override
-    public boolean isSelectable() {
-        return selectable;
-    }
-
-    @Override
-    public void setActivated(boolean selected) {
+    public void setSelected(boolean selected) {
         this.selected = selected;
         updateBackground();
     }
@@ -70,16 +57,13 @@ class ViewHolder extends MultiSelectorBindingHolder {
     private void updateBackground() {
         if (selected || moving) {
             rowBody.setBackgroundColor(selectedColor);
-        } else if (selectable) {
-            rowBody.setBackgroundColor(0);
         } else {
             rowBody.setBackgroundResource(background);
             rowBody.getBackground().jumpToCurrentState();
         }
     }
 
-    @Override
-    public boolean isActivated() {
+    public boolean isSelected() {
         return selected;
     }
 
@@ -114,7 +98,6 @@ class ViewHolder extends MultiSelectorBindingHolder {
     private final int selectedColor;
     private final int textColorOverdue;
     private int indent;
-    private boolean selectable = false;
     private boolean selected;
     private boolean moving;
 
@@ -122,9 +105,8 @@ class ViewHolder extends MultiSelectorBindingHolder {
                CheckBoxes checkBoxes, TagFormatter tagFormatter,
                int textColorOverdue, int textColorSecondary, int textColorHint, TaskDao taskDao,
                DialogBuilder dialogBuilder, ViewHolderCallbacks callback,
-               DisplayMetrics metrics, int background, int selectedColor, MultiSelector multiSelector,
-               int rowPadding) {
-        super(view, multiSelector);
+               DisplayMetrics metrics, int background, int selectedColor, int rowPadding) {
+        super(view);
         this.context = context;
         this.checkBoxes = checkBoxes;
         this.tagFormatter = tagFormatter;

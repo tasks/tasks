@@ -8,7 +8,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.tasks.backup.XmlReader;
-import org.tasks.backup.XmlWriter;
 
 import java.io.Serializable;
 
@@ -16,10 +15,10 @@ import java.io.Serializable;
 public class Location implements Serializable, Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private long id;
+    private transient long id;
 
     @ColumnInfo(name = "task")
-    private long task;
+    private transient long task;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -53,13 +52,6 @@ public class Location implements Serializable, Parcelable {
         xml.readDouble("latitude", this::setLatitude);
         xml.readDouble("longitude", this::setLongitude);
         xml.readInteger("radius", this::setRadius);
-    }
-
-    public void writeToXml(XmlWriter xmlWriter) {
-        xmlWriter.writeString("name", name);
-        xmlWriter.writeDouble("latitude", latitude);
-        xmlWriter.writeDouble("longitude", longitude);
-        xmlWriter.writeInteger("radius", radius);
     }
 
     public long getId() {

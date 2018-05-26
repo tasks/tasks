@@ -383,7 +383,7 @@ public final class TagsControlSet extends TaskEditControlFragment {
     private boolean synchronizeTags(long taskId, String taskUuid) {
         for (TagData tagData : selectedTags) {
             if (Task.NO_UUID.equals(tagData.getRemoteId())) {
-                tagDataDao.persist(tagData);
+                tagDataDao.createNew(tagData);
             }
         }
         Set<TagData> existingHash = newHashSet(tagService.getTagDataForTask(taskUuid));
