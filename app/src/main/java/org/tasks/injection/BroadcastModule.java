@@ -3,5 +3,4 @@ package org.tasks.injection;
 import dagger.Module;
 
 @Module
-public class BroadcastModule {
-}
+public class BroadcastModule {}

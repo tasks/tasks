@@ -4,36 +4,36 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:padding="@dimen/keyline_first"
+  android:background="?attr/selectableItemBackground"
+  android:orientation="vertical">
+
+  <TextView
+    android:id="@+id/title"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="vertical"
-    android:padding="@dimen/keyline_first">
+    android:textColor="?android:attr/textColorPrimary"
+    android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="16sp" />
+  <TextView
+    android:id="@+id/date"
+    android:textStyle="normal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:singleLine="true"
+    android:textColor="?android:attr/textColorSecondary"
+    android:textSize="12sp"/>
 
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="?android:attr/textColorSecondary"
-        android:textSize="12sp"
-        android:textStyle="normal" />
-
-    <ImageView
-        android:id="@+id/comment_picture"
-        android:layout_width="50dip"
-        android:layout_height="50dip"
-        android:scaleType="fitCenter"
-        android:visibility="gone"
-        tools:ignore="ContentDescription" />
+  <ImageView
+    android:id="@+id/comment_picture"
+    android:layout_width="50dip"
+    android:layout_height="50dip"
+    android:scaleType="fitCenter"
+    android:visibility="gone"
+    tools:ignore="ContentDescription"/>
 
 </LinearLayout>

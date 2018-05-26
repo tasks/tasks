@@ -4,45 +4,46 @@
 ** See the file "LICENSE" for the full license governing this code.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:baselineAligned="false"
+  android:orientation="vertical">
+
+  <TextView
+    android:id="@+id/display_row_edit"
+    style="@style/TaskEditTextPrimary"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:baselineAligned="false"
-    android:orientation="vertical">
+    android:layout_gravity="top"
+    android:gravity="start"
+    android:hint="@string/repeat_option_does_not_repeat"
+    android:textAlignment="viewStart"/>
+
+  <LinearLayout
+    android:id="@+id/repeatTypeContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
+    android:orientation="horizontal"
+    android:visibility="gone">
 
     <TextView
-        android:id="@+id/display_row_edit"
-        style="@style/TaskEditTextPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:gravity="start"
-        android:textAlignment="viewStart" />
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingStart="0dp"
+      android:paddingEnd="5dp"
+      android:paddingLeft="0dp"
+      android:paddingRight="5dp"
+      android:text="@string/repeats_from"
+      android:textAppearance="@style/TextAppearance"/>
 
-    <LinearLayout
-        android:id="@+id/repeatTypeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
-        android:visibility="gone">
+    <Spinner
+      android:id="@+id/repeatType"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@null"
+      android:textColor="?attr/colorPrimary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingEnd="5dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="5dp"
-            android:paddingStart="0dp"
-            android:text="@string/repeats_from"
-            android:textAppearance="@style/TextAppearance" />
-
-        <Spinner
-            android:id="@+id/repeatType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:textColor="?attr/colorPrimary" />
-
-    </LinearLayout>
+  </LinearLayout>
 
 </LinearLayout>

@@ -17,33 +17,33 @@
 */
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="?attr/dropdownListPreferredItemHeight"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+  android:layout_width="fill_parent"
+  android:layout_height="?attr/dropdownListPreferredItemHeight"
+  android:gravity="center_vertical"
+  android:orientation="horizontal">
 
-    <CheckedTextView
-        android:id="@+id/text1"
-        style="?attr/spinnerDropDownItemStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="marquee"
-        android:singleLine="true" />
+  <CheckedTextView
+    android:id="@+id/text1"
+    style="?attr/spinnerDropDownItemStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ellipsize="marquee"
+    android:singleLine="true"/>
 
-    <TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical|end"
-        android:layout_alignBaseline="@id/text1"
-        android:paddingLeft="8dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingRight="8dp"
-        android:layout_toRightOf="@id/text1"
-        android:layout_toEndOf="@id/text1"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:textSize="12sp" />
+  <TextView
+    android:id="@+id/text2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@id/text1"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:layout_toEndOf="@id/text1"
+    android:layout_toRightOf="@id/text1"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:gravity="center_vertical|end"
+    android:textSize="12sp"/>
 
 </RelativeLayout>

@@ -6,119 +6,117 @@
 -->
 <resources>
 
-    <drawable name="transparent_drawable">@android:color/transparent</drawable>
+  <color name="red_500">#f44336</color>
+  <color name="red_700">#d32f2f</color>
+  <color name="red_a400">#ff1744</color>
 
-    <color name="red_500">#f44336</color>
-    <color name="red_700">#d32f2f</color>
-    <color name="red_a400">#ff1744</color>
+  <color name="pink_500">#e91e63</color>
+  <color name="pink_700">#c2185b</color>
+  <color name="pink_a400">#f50057</color>
 
-    <color name="pink_500">#e91e63</color>
-    <color name="pink_700">#c2185b</color>
-    <color name="pink_a400">#f50057</color>
+  <color name="purple_500">#9c27b0</color>
+  <color name="purple_700">#7b1fa2</color>
+  <color name="purple_a400">#d500f9</color>
 
-    <color name="purple_500">#9c27b0</color>
-    <color name="purple_700">#7b1fa2</color>
-    <color name="purple_a400">#d500f9</color>
+  <color name="deep_purple_500">#673ab7</color>
+  <color name="deep_purple_700">#512da8</color>
+  <color name="deep_purple_a400">#651fff</color>
 
-    <color name="deep_purple_500">#673ab7</color>
-    <color name="deep_purple_700">#512da8</color>
-    <color name="deep_purple_a400">#651fff</color>
+  <color name="indigo_500">#3f51b5</color>
+  <color name="indigo_700">#303f9f</color>
+  <color name="indigo_a400">#3d5afe</color>
 
-    <color name="indigo_500">#3f51b5</color>
-    <color name="indigo_700">#303f9f</color>
-    <color name="indigo_a400">#3d5afe</color>
+  <color name="blue_500">#2196f3</color>
+  <color name="blue_700">#1976d2</color>
+  <color name="blue_a400">#2979ff</color>
 
-    <color name="blue_500">#2196f3</color>
-    <color name="blue_700">#1976d2</color>
-    <color name="blue_a400">#2979ff</color>
+  <color name="light_blue_500">#03a9f4</color>
+  <color name="light_blue_700">#0288d1</color>
+  <color name="light_blue_a400">#00b0ff</color>
 
-    <color name="light_blue_500">#03a9f4</color>
-    <color name="light_blue_700">#0288d1</color>
-    <color name="light_blue_a400">#00b0ff</color>
+  <color name="cyan_500">#00bcd4</color>
+  <color name="cyan_700">#0097a7</color>
+  <color name="cyan_a400">#00e5ff</color>
 
-    <color name="cyan_500">#00bcd4</color>
-    <color name="cyan_700">#0097a7</color>
-    <color name="cyan_a400">#00e5ff</color>
+  <color name="teal_500">#009688</color>
+  <color name="teal_700">#00796b</color>
+  <color name="teal_a400">#1de9b6</color>
 
-    <color name="teal_500">#009688</color>
-    <color name="teal_700">#00796b</color>
-    <color name="teal_a400">#1de9b6</color>
+  <color name="green_500">#4caf50</color>
+  <color name="green_700">#388e3c</color>
+  <color name="green_a400">#00e676</color>
 
-    <color name="green_500">#4caf50</color>
-    <color name="green_700">#388e3c</color>
-    <color name="green_a400">#00e676</color>
+  <color name="light_green_500">#8bc34a</color>
+  <color name="light_green_700">#689f38</color>
+  <color name="light_green_a400">#76ff03</color>
 
-    <color name="light_green_500">#8bc34a</color>
-    <color name="light_green_700">#689f38</color>
-    <color name="light_green_a400">#76ff03</color>
+  <color name="lime_500">#cddc39</color>
+  <color name="lime_700">#afb42b</color>
+  <color name="lime_a400">#c6ff00</color>
 
-    <color name="lime_500">#cddc39</color>
-    <color name="lime_700">#afb42b</color>
-    <color name="lime_a400">#c6ff00</color>
+  <color name="yellow_500">#ffeb3b</color>
+  <color name="yellow_700">#fbc02d</color>
+  <color name="yellow_a400">#ffea00</color>
 
-    <color name="yellow_500">#ffeb3b</color>
-    <color name="yellow_700">#fbc02d</color>
-    <color name="yellow_a400">#ffea00</color>
+  <color name="amber_500">#ffc107</color>
+  <color name="amber_700">#ffa000</color>
+  <color name="amber_a400">#ffc400</color>
 
-    <color name="amber_500">#ffc107</color>
-    <color name="amber_700">#ffa000</color>
-    <color name="amber_a400">#ffc400</color>
+  <color name="orange_500">#ff9800</color>
+  <color name="orange_700">#f57c00</color>
+  <color name="orange_a400">#ff9100</color>
 
-    <color name="orange_500">#ff9800</color>
-    <color name="orange_700">#f57c00</color>
-    <color name="orange_a400">#ff9100</color>
+  <color name="deep_orange_500">#ff5722</color>
+  <color name="deep_orange_700">#e64a19</color>
+  <color name="deep_orange_a400">#ff3d00</color>
 
-    <color name="deep_orange_500">#ff5722</color>
-    <color name="deep_orange_700">#e64a19</color>
-    <color name="deep_orange_a400">#ff3d00</color>
+  <color name="brown_500">#795548</color>
+  <color name="brown_700">#5d4037</color>
 
-    <color name="brown_500">#795548</color>
-    <color name="brown_700">#5d4037</color>
+  <color name="grey_50">#fafafa</color>
+  <color name="grey_500">#9e9e9e</color>
+  <color name="grey_700">#616161</color>
+  <color name="grey_800">#424242</color>
+  <color name="grey_900">#212121</color>
+  <color name="grey_statusbar">#111111</color>
 
-    <color name="grey_50">#fafafa</color>
-    <color name="grey_500">#9e9e9e</color>
-    <color name="grey_700">#616161</color>
-    <color name="grey_800">#424242</color>
-    <color name="grey_900">#212121</color>
-    <color name="grey_statusbar">#111111</color>
+  <color name="blue_grey_400">#78909c</color>
+  <color name="blue_grey_500">#607d8b</color>
+  <color name="blue_grey_700">#455a64</color>
 
-    <color name="blue_grey_400">#78909c</color>
-    <color name="blue_grey_500">#607d8b</color>
-    <color name="blue_grey_700">#455a64</color>
+  <color name="black_87">#de000000</color>
+  <color name="black_54">#8a000000</color>
+  <color name="black_38">#61000000</color>
+  <color name="black_12">#1f000000</color>
 
-    <color name="black_87">#de000000</color>
-    <color name="black_54">#8a000000</color>
-    <color name="black_38">#61000000</color>
-    <color name="black_12">#1f000000</color>
+  <color name="white_100">#ffffffff</color>
+  <color name="white_70">#b3ffffff</color>
+  <color name="white_50">#80ffffff</color>
+  <color name="white_12">#1fffffff</color>
 
-    <color name="white_100">#ffffffff</color>
-    <color name="white_70">#b3ffffff</color>
-    <color name="white_50">#80ffffff</color>
-    <color name="white_12">#1fffffff</color>
+  <color name="overdue">@color/red_500</color>
 
-    <color name="overdue">@color/red_500</color>
+  <color name="md_background_dark">#303030</color>
+  <color name="widget_background_black">#000000</color>
+  <color name="icon_tint_light">@android:color/black</color>
+  <color name="icon_tint_dark">@android:color/white</color>
 
-    <color name="md_background_dark">#303030</color>
-    <color name="widget_background_black">#000000</color>
-    <color name="icon_tint_light">@android:color/black</color>
-    <color name="icon_tint_dark">@android:color/white</color>
+  <color name="drawer_background_light">#f9f9f9</color>
+  <color name="drawer_background_light_selected">#e8e8e8</color>
+  <color name="drawer_background_dark">#303030</color>
+  <color name="drawer_background_dark_selected">#202020</color>
 
-    <color name="drawer_background_light">#f9f9f9</color>
-    <color name="drawer_background_light_selected">#e8e8e8</color>
-    <color name="drawer_background_dark">#303030</color>
-    <color name="drawer_background_dark_selected">#202020</color>
+  <color name="priority_1">@color/red_500</color>
+  <color name="priority_2">@color/amber_500</color>
+  <color name="priority_3">@color/blue_500</color>
+  <color name="priority_4">@color/grey_500</color>
 
-    <color name="importance_1">@color/red_500</color>
-    <color name="importance_2">@color/amber_500</color>
-    <color name="importance_3">@color/blue_500</color>
-    <color name="importance_4">@color/grey_500</color>
+  <color name="snackbar_text_color">#f4b400</color>
+  <color name="snackbar_background">@color/grey_800</color>
+  <color name="tag_color_none_background">#e1e1e1</color>
 
-    <color name="snackbar_text_color">#f4b400</color>
-    <color name="snackbar_background">@color/grey_800</color>
-    <color name="tag_color_none_background">#e1e1e1</color>
-
-    <!-- deprecated -->
-    <color name="reminder_background">#262626</color>
+  <!-- deprecated -->
+  <color name="reminder_background">#262626</color>
 
 </resources>
 

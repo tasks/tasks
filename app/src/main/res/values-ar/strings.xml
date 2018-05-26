@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">مسح الصورة</string>
 	<string name="TVA_add_comment">إضافة تعليق ...</string>
@@ -129,10 +129,7 @@
 	<string name="tmrw">غدا</string>
 	<string name="yest">أمس</string>
 	<string name="DLG_wait">إنتظر من فضلك...</string>
-	<string name="sync_status_success">آخر تحيين:\n%s</string>
 	<string name="sync_SPr_interval_title">تحيين في الخلفية</string>
-	<string name="sync_SPr_forget">خروج</string>
-	<string name="sync_forget_confirm">تسجيل الخروج/ مسح معلومات المزامنه؟</string>
 	<string name="widget_show_due_date">أظهر تواريخ الإستحقاق</string>
 	<string name="widget_show_checkboxes">إظهار مربعات التعليم</string>
 	<string name="widget_show_header">إظهار الهايدر</string>
@@ -148,13 +145,10 @@
 	<string name="customize_edit_screen">تعديل الشاشه</string>
 	<string name="source_code">مصدر الكود</string>
 	<string name="translations">أسهم في الترجمة</string>
-	<string name="report_an_issue">بلغ عن مشكل</string>
-	<string name="help_and_feedback">المساعدة والتقييم</string>
 	<string name="contact_developer">الاتصال بالمطورين</string>
 	<string name="rate_tasks">تقييم المهمات</string>
 	<string name="quiet_hours_summary">لا تذكير أثناء أوقات الراحة</string>
 	<string name="TLA_menu_donate">تبرع</string>
-	<string name="select_amount">أختر الكمية</string>
 	<string name="add_reminder">أضف منبه</string>
 	<string name="remove">حذف</string>
 	<string name="randomly">عشوائياً</string>
@@ -164,9 +158,7 @@
 	<string name="filter_settings">إعدادات التصفية</string>
 	<string name="show_hidden">عرض المهام المخفية</string>
 	<string name="show_completed">إظهار المكتملة</string>
-	<string name="plugin_description">تاسكس هو مشروع مفتوح المصدر مدموع من طرف مطور واحد. بعض الخيارات متوفرة عن الطريق الدفع من داخل التطبيق من أجل دعم التطوير</string>
 	<string name="opacity">التعتيم</string>
-	<string name="master_sync_warning">المزامنة التلقائية معطلة الآن من طرف أندرويد</string>
 	<string name="settings_localization">تخصيص اللغة و الجهة</string>
 	<string name="layout_direction">إتجاه التنسيق</string>
 	<string name="layout_direction_left_to_right">من اليمين إلى اليسار</string>

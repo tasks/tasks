@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Очистити картинку</string>
 	<string name="TVA_add_comment">Додати коментар...</string>
@@ -226,11 +226,7 @@
 	<string name="tmrw">Звтр</string>
 	<string name="yest">Вчр</string>
 	<string name="DLG_wait">Будь ласка, зачекайте...</string>
-	<string name="sync_status_success">Остання синхр.:\n%s</string>
 	<string name="sync_SPr_interval_title">Фонова синхронізація</string>
-	<string name="sync_SPr_forget">Вийти</string>
-	<string name="sync_SPr_forget_description">Очищує всю синхронізовану інформацію</string>
-	<string name="sync_forget_confirm">Вийти/очистити синхронізовану інофрмацію?</string>
 	<string name="widget_show_due_date">Показувати дату виконання</string>
 	<string name="widget_show_checkboxes">Показати галочки</string>
 	<string name="widget_show_header">Показати заголовок</string>
@@ -249,13 +245,10 @@
 	<string name="customize_edit_screen">Налаштувати вікно редагування</string>
 	<string name="source_code">Вихідний код</string>
 	<string name="translations">Допомогти перекласти</string>
-	<string name="report_an_issue">Повідомити про помилку</string>
-	<string name="help_and_feedback">Допомога і відгуки</string>
 	<string name="contact_developer">Зв\'язатися з розробником</string>
 	<string name="rate_tasks">Оцінити Tasks</string>
 	<string name="quiet_hours_summary">Без нагадувань під час тихих годин</string>
 	<string name="TLA_menu_donate">Пожертвувати</string>
-	<string name="select_amount">Обрати кількість</string>
 	<string name="add_reminder">Додати нагадування</string>
 	<string name="remove">Вилучити</string>
 	<string name="randomly_once">Випадково раз</string>
@@ -290,7 +283,6 @@
 	<string name="show_hidden">Показати приховані</string>
 	<string name="show_completed">Показати завершені</string>
 	<string name="reverse">Реверс</string>
-	<string name="get_plugins">Покупки в застосунку</string>
 	<string name="no_application_found">Не знайдено програми для відкриття вкладення</string>
 	<string name="add_attachment">Додати вкладення</string>
 	<string name="take_a_picture">Зробити фото</string>
@@ -305,20 +297,11 @@
 	<string name="no_title">(без назви)</string>
 	<string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
 	<string name="default_list">Типовий список</string>
-	<string name="plugin_description">Tasks це проект з відкритим кодом, що обслуговується одним розробником. З метою підтримки розробки, деякі функції доступні лише після придбання через додаток.</string>
-	<string name="themes_purchase_description">Розблокувати усі схеми та додати кольори до Tasks</string>
-	<string name="tasker_description">Контекстні сповіщення списку. Потрібен Tasker або Locale</string>
-	<string name="donate_summary">Пожертви щиро вітаються</string>
-	<string name="dashclock_purchase_description">Показати кількість активних завдань. Потрібен DashClock Widget</string>
-	<string name="buy">Придбати</string>
-	<string name="buy_dashclock_extension">Придбати розширення</string>
-	<string name="billing_service_busy">Сервіс оплати застосунку перевантажено, спробуйте пізніше.</string>
 	<string name="filter">Фільтр</string>
 	<string name="opacity">Прозорість</string>
 	<string name="theme">Схема</string>
 	<string name="color">Колір</string>
 	<string name="accent">Акцент</string>
-	<string name="themes">Додаткові схеми</string>
 	<string name="theme_red">Червоний</string>
 	<string name="theme_pink">Рожевий</string>
 	<string name="theme_purple">Пурпуровий</string>
@@ -344,8 +327,6 @@
 	<string name="theme_dark">Темний</string>
 	<string name="theme_wallpaper">Шпалери</string>
 	<string name="theme_day_night">День/Ніч</string>
-	<string name="default_value">Типово</string>
-	<string name="master_sync_warning">Автоматична синхронізація наразі недоступна в Android</string>
 	<string name="settings_general">Загальні</string>
 	<string name="language">Мова</string>
 	<string name="restart_required">Tasks має бути перезавантажено для вступу змін в дію.</string>
@@ -370,4 +351,5 @@
 	<string name="delete_multiple_tasks_confirmation">%s видалено</string>
 	<string name="delete_selected_tasks">Видалити вибрані завдання?</string>
 	<string name="copy_selected_tasks">Копіювати вибрані завдання?</string>
+	<string name="themes">Додаткові схеми</string>
 </resources>

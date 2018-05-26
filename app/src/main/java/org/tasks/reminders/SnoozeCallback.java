@@ -4,8 +4,7 @@ import org.tasks.time.DateTime;
 
 interface SnoozeCallback {
 
-    void snoozeForTime(DateTime time);
+  void snoozeForTime(DateTime time);
 
-    void pickDateTime();
-
+  void pickDateTime();
 }

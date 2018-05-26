@@ -5,30 +5,36 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "notification",
-        indices = {@Index(value = "task", unique = true)})
+@Entity(
+  tableName = "notification",
+  indices = {@Index(value = "task", unique = true)}
+)
 public class Notification {
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "uid")
-    public int uid;
+  @PrimaryKey(autoGenerate = true)
+  @ColumnInfo(name = "uid")
+  public int uid;
 
-    @ColumnInfo(name = "task")
-    public long taskId;
+  @ColumnInfo(name = "task")
+  public long taskId;
 
-    @ColumnInfo(name = "timestamp")
-    public long timestamp;
+  @ColumnInfo(name = "timestamp")
+  public long timestamp;
 
-    @ColumnInfo(name = "type")
-    public int type;
+  @ColumnInfo(name = "type")
+  public int type;
 
-    @Override
-    public String toString() {
-        return "Notification{" +
-                "uid=" + uid +
-                ", taskId=" + taskId +
-                ", timestamp=" + timestamp +
-                ", type=" + type +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "Notification{"
+        + "uid="
+        + uid
+        + ", taskId="
+        + taskId
+        + ", timestamp="
+        + timestamp
+        + ", type="
+        + type
+        + '}';
+  }
 }

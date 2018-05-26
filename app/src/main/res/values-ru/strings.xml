@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Убрать изображение</string>
 	<string name="TVA_add_comment">Добавить комментарий...</string>
@@ -158,6 +158,7 @@
 	<string name="gcal_completed_title">%s (выполнено)</string>
 	<string name="CFC_gtasks_list_text">В Списке: ?</string>
 	<string name="CFC_gtasks_list_name">В GTask Список...</string>
+	<string name="CFC_caldav_list_name">В списке CalDAV</string>
 	<string name="gtasks_GTA_clear_completed">Очистить завершенные</string>
 	<string name="gtasks_GLA_authenticating">Авторизация...</string>
 	<string name="gtasks_GLA_errorIOAuth">При обращении к серверам Google возникли проблемы. Пожалуйста, попробуйте позже.</string>
@@ -216,7 +217,7 @@
 		<item quantity="other">раз</item>
 	</plurals>
 	<plurals name="repeat_minutes">
-		<item quantity="one">минуту</item>
+		<item quantity="one">минута</item>
 		<item quantity="other">минуты/минут</item>
 	</plurals>
 	<plurals name="repeat_n_minutes">
@@ -298,11 +299,7 @@
 	<string name="tmrw">Завт</string>
 	<string name="yest">Вчера</string>
 	<string name="DLG_wait">Пожалуйста, подождите…</string>
-	<string name="sync_status_success">Последняя синхр.:\n%s</string>
 	<string name="sync_SPr_interval_title">Фоновая синхр.</string>
-	<string name="sync_SPr_forget">Выйти</string>
-	<string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
-	<string name="sync_forget_confirm">Выйти и очистить данные синхронизации?</string>
 	<string name="widget_show_due_date">Показать даты</string>
 	<string name="widget_show_checkboxes">Показать флажки</string>
 	<string name="widget_show_header">Показать заголовок</string>
@@ -322,13 +319,10 @@
 	<string name="customize_edit_screen">Порядок полей в задаче...</string>
 	<string name="source_code">Исходный код</string>
 	<string name="translations">Участвовать в переводе программы</string>
-	<string name="report_an_issue">Сообщить о проблеме</string>
-	<string name="help_and_feedback">Помощь и обратная связь</string>
 	<string name="contact_developer">Связь с разработчиком</string>
 	<string name="rate_tasks">Оставить отзыв</string>
 	<string name="quiet_hours_summary">Выкл. напоминания в тихие часы</string>
 	<string name="TLA_menu_donate">Поддержать разработку</string>
-	<string name="select_amount">Выберите количество</string>
 	<string name="add_reminder">Добавить напоминание</string>
 	<string name="remove">Удалить</string>
 	<string name="randomly_once">Случайно один раз</string>
@@ -354,16 +348,16 @@
 	<string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
 	<string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
 	<string name="discard_changes">Отменить изменения?</string>
-	<string name="discard">Не сохранять</string>
+	<string name="discard">Отмена</string>
 	<string name="tag_settings">Настройки тегов</string>
 	<string name="list_settings">Настройки списка</string>
 	<string name="delete">Удалить</string>
 	<string name="copy">Копия</string>
+	<string name="move">Перенести</string>
 	<string name="filter_settings">Настройки фильтра</string>
 	<string name="show_hidden">Показать скрытые</string>
 	<string name="show_completed">Показать выполненные</string>
 	<string name="reverse">Наоборот</string>
-	<string name="get_plugins">Покупки в приложении</string>
 	<string name="no_application_found">Не найдено приложение для открытия прикреплённого файла</string>
 	<string name="add_attachment">Прикрепить файл</string>
 	<string name="take_a_picture">Сделать снимок</string>
@@ -374,24 +368,22 @@
 	<string name="send_anonymous_statistics">Содействовать улучшению</string>
 	<string name="send_anonymous_statistics_summary">Отправлять анонимную статистику и отчёты об ошибках для содействия улучшению программы. Персональная информация не собираеться.</string>
 	<string name="tag_already_exists">Тег уже существует</string>
+	<string name="duplicate_name">Повторяющееся название</string>
 	<string name="name_cannot_be_empty">Необходимо задать имя</string>
+	<string name="username_required">Требуется имя пользователя</string>
+	<string name="password_required">Требуется пароль</string>
+	<string name="url_required">Требуется URL</string>
+	<string name="url_host_name_required">Требуется имя хоста</string>
+	<string name="url_invalid_scheme">Должно начинаться с http(s)://</string>
 	<string name="no_title">(Без заголовка)</string>
 	<string name="back_button_saves_task">Кнопка «Назад» сохраняет задачу</string>
 	<string name="default_list">Список по умолчанию</string>
-	<string name="plugin_description">Tasks развивается как проект с открытым исходным кодом и поддерживается единственным разработчиком. Некоторые функции приложения предлагаются как платные для дальнейшего развития программы</string>
-	<string name="themes_purchase_description">Разблокировать все темы и добавить цвета в оформление Tasks</string>
-	<string name="tasker_description">Уведомления списка контекстного подбора. Требуется Tasker или Locale</string>
-	<string name="donate_summary">Благодарю за поддержку</string>
-	<string name="dashclock_purchase_description">Вывести счетчик активных задач. Нужен DashClock-виджет</string>
-	<string name="buy">Купить</string>
-	<string name="buy_dashclock_extension">Купить расширение</string>
-	<string name="billing_service_busy">Встроенный сервис перегружен, попробуйте позже</string>
+	<string name="default_sync">Синхронизация по-умолчанию</string>
 	<string name="filter">Фильтр</string>
 	<string name="opacity">Прозрачность</string>
 	<string name="theme">Цветовая тема</string>
 	<string name="color">Цвет</string>
 	<string name="accent">Акцент</string>
-	<string name="themes">Дополнительные темы</string>
 	<string name="theme_red">Красный</string>
 	<string name="theme_pink">Розовый</string>
 	<string name="theme_purple">Пурпурный</string>
@@ -417,8 +409,6 @@
 	<string name="theme_dark">Тёмная</string>
 	<string name="theme_wallpaper">Как обои</string>
 	<string name="theme_day_night">День / ночь</string>
-	<string name="default_value">По умолчанию</string>
-	<string name="master_sync_warning">Автосинхронизация в Android выключена</string>
 	<string name="settings_general">Общие</string>
 	<string name="language">Язык</string>
 	<string name="restart_required">Для применения изменений программа должна быть перезапущена</string>
@@ -436,6 +426,7 @@
 	<string name="widget_row_settings">Настройки строк</string>
 	<string name="sync_error_permissions">Запрашиваемые разрешения</string>
 	<string name="creating_new_list">Создание нового списка</string>
+	<string name="contacting_server">Происходит контакт с сервером</string>
 	<string name="deleting_list">Удаление списка</string>
 	<string name="renaming_list">Переименование списка</string>
 	<string name="clear_completed_tasks_confirmation">Очистить завершенные задачи?</string>
@@ -447,6 +438,11 @@
 	<string name="start_of_week">Начало недели</string>
 	<string name="use_locale_default">Как в системе</string>
 	<string name="use_native_datetime_pickers">Встроенные элементы даты/времени</string>
+	<string name="add_account">Добавить учётную запись</string>
+	<string name="user">Пользователь</string>
+	<string name="password">Пароль</string>
+	<string name="error_adding_account">Ошибка при добавлении учётной записи</string>
+	<string name="calendar_settings">Настройки календаря</string>
 	<string name="notification_channel_settings">Управление уведомлениями</string>
 	<string name="battery_optimization_settings">Управление расходом батареи</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизация расхода может задерживать уведомления</string>
@@ -477,6 +473,7 @@
 	<string name="badges_description">Отображать количество задач на иконке приложения (не все лаунчеры это поддерживают)</string>
 	<string name="bundle_notifications_summary">Группировать несколько уведомлений в одно общее</string>
 	<string name="repeat_monthly_same_day_each_month">в тот же день ежеимесячно</string>
+	<string name="dont_sync">Не синхронизировать</string>
 	<string name="repeat_monthly_every_day_of_nth_week">каждый %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">в каждый %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">первая</string>
@@ -487,4 +484,28 @@
 	<string name="tasker_create_task">Создать задачу</string>
 	<string name="tasker_list_notification">Список уведомлений</string>
 	<string name="help">Помощь</string>
+	<string name="caldav_home_set_not_found">Домашний набор ненайден</string>
+	<string name="network_error">Соединение не удалось</string>
+	<string name="background_sync_unmetered_only">Только на метрических соединений</string>
+	<string name="upgrade">Обновить</string>
+	<string name="upgrade_to_pro">Обновить в версию Про</string>
+	<string name="refresh_purchases">Обновить покупки</string>
+	<string name="button_subscribed">Подписано</string>
+	<string name="button_subscribe">Подписаться</string>
+	<string name="button_more_info">По подробнее</string>
+	<string name="owned">Овладелено</string>
+	<string name="error_billing_unavailable">Счёт невозможен. Убедитесь, что приложение Google Play настроено правильно</string>
+	<string name="error_billing_default">Счёт невозможен. Проверьте устройство</string>
+	<string name="about">О...</string>
+	<string name="license_summary">Tasks является програмным обеспечением открытого кода, под лицензией GNU General Public License v3.0</string>
+	<string name="themes">Дополнительные темы</string>
+	<string name="pro_caldav_sync">Синхронизация CalDAV</string>
+	<string name="pro_multiple_google_task_accounts">Несколько учётных записей Google Task</string>
+	<string name="pro_tasker_plugins">Tasker плагин</string>
+	<string name="pro_dashclock_extension">Расширение Dashclock</string>
+	<string name="requires_pro_subscription">Требуется Про версия</string>
+	<string name="logout">Отключиться</string>
+	<string name="logout_warning">Отключиться от %s? Все данные учётной записи на этом устройстве будут удалены</string>
+	<string name="cannot_access_account">Учётная запись недоступна</string>
+	<string name="reinitialize_account">Инициализировать заного</string>
 </resources>

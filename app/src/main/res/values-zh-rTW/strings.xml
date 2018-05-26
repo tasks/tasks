@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">清除圖片</string>
 	<string name="TVA_add_comment">添加評論</string>
@@ -189,11 +189,7 @@
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
 	<string name="DLG_wait">請稍候...</string>
-	<string name="sync_status_success">上次同步：\n%s</string>
 	<string name="sync_SPr_interval_title">後台同步</string>
-	<string name="sync_SPr_forget">登出</string>
-	<string name="sync_SPr_forget_description">清除所有同步資料</string>
-	<string name="sync_forget_confirm">登出/清除同步資料?</string>
 	<string name="widget_show_due_date">顯示到期日</string>
 	<string name="widget_show_checkboxes">顯示核取方塊</string>
 	<string name="widget_show_header">顯示標頭</string>
@@ -207,7 +203,6 @@
 	<string name="enabled">啟用</string>
 	<string name="row_spacing">行距</string>
 	<string name="translations">貢獻翻譯</string>
-	<string name="help_and_feedback">說明與回饋</string>
 	<string name="rate_tasks">為 Tasks 評分</string>
 	<string name="TLA_menu_donate">贊助</string>
 	<string name="geofence_radius_title">半徑 (公尺)</string>
@@ -221,17 +216,11 @@
 	<string name="filter_settings">過濾器設定</string>
 	<string name="show_hidden">顯示隱藏</string>
 	<string name="show_completed">顯示已完成</string>
-	<string name="get_plugins">程式內購買</string>
 	<string name="default_list">預設清單</string>
-	<string name="themes_purchase_description">解鎖全部主題並為工作增加一些色彩</string>
-	<string name="donate_summary">非常歡迎您的贊助!</string>
 	<string name="opacity">透明度</string>
 	<string name="theme">主題</string>
 	<string name="color">色彩</string>
 	<string name="accent">強調色</string>
-	<string name="themes">其他主題</string>
-	<string name="default_value">預設</string>
-	<string name="master_sync_warning">自動同步功能目前在 Android 上是無效的。</string>
 	<string name="settings_general">一般</string>
 	<string name="language">語言</string>
 	<string name="restart_required">Tasks 必須重新啟動以使變更生效</string>
@@ -250,4 +239,5 @@
 	<string name="repeats_monthly">每月</string>
 	<string name="repeats_yearly">每年</string>
 	<string name="repeats_plural">每 %s 重複</string>
+	<string name="themes">其他主題</string>
 </resources>

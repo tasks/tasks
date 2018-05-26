@@ -4,20 +4,21 @@
 ** See the file "LICENSE" for the full license governing this code.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+
+  <TextView
+    android:id="@+id/calendar_display_which"
+    style="@style/TaskEditTextPrimary"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_weight="100"
+    android:layout_gravity="top"
+    android:gravity="start"
+    android:hint="@string/dont_add_to_calendar"
+    android:textAlignment="viewStart"/>
 
-    <TextView
-        android:id="@+id/calendar_display_which"
-        style="@style/TaskEditTextPrimary"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_weight="100"
-        android:gravity="start"
-        android:textAlignment="viewStart" />
-
-    <include layout="@layout/control_set_clear_button" />
+  <include layout="@layout/control_set_clear_button"/>
 
 </LinearLayout>

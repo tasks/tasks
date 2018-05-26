@@ -1,10 +1,14 @@
 package org.tasks.locale;
 
+import static com.google.common.collect.Lists.transform;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
 import org.tasks.R;
 import org.tasks.dialogs.DialogBuilder;
 import org.tasks.injection.ForActivity;
@@ -13,58 +17,54 @@ import org.tasks.injection.NativeDialogFragmentComponent;
 import org.tasks.themes.ThemeAccent;
 import org.tasks.ui.SingleCheckedArrayAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import static com.google.common.collect.Lists.transform;
-
-
 public class LocalePickerDialog extends InjectingNativeDialogFragment {
 
-    public static LocalePickerDialog newLocalePickerDialog() {
-        return new LocalePickerDialog();
+  @Inject @ForActivity Context context;
+  @Inject DialogBuilder dialogBuilder;
+  @Inject ThemeAccent themeAccent;
+  @Inject Locale locale;
+  private LocaleSelectionHandler callback;
+
+  public static LocalePickerDialog newLocalePickerDialog() {
+    return new LocalePickerDialog();
+  }
+
+  @Override
+  public Dialog onCreateDialog(Bundle savedInstanceState) {
+    final List<Locale> locales = new ArrayList<>();
+    locales.add(locale.withLanguage(null)); // device locale
+    for (String override : getResources().getStringArray(R.array.localization)) {
+      locales.add(locale.withLanguage(override));
     }
+    final List<String> display = transform(locales, Locale::getDisplayName);
+    SingleCheckedArrayAdapter adapter =
+        new SingleCheckedArrayAdapter(context, display, themeAccent);
+    return dialogBuilder
+        .newDialog()
+        .setSingleChoiceItems(
+            adapter,
+            display.indexOf(locale.getDisplayName()),
+            (dialogInterface, i) -> {
+              callback.onLocaleSelected(locales.get(i));
+              dialogInterface.dismiss();
+            })
+        .show();
+  }
 
-    public interface LocaleSelectionHandler {
-        void onLocaleSelected(Locale locale);
-    }
+  @Override
+  public void onAttach(Activity activity) {
+    super.onAttach(activity);
 
-    @Inject @ForActivity Context context;
-    @Inject DialogBuilder dialogBuilder;
-    @Inject ThemeAccent themeAccent;
-    @Inject Locale locale;
+    callback = (LocaleSelectionHandler) activity;
+  }
 
-    private LocaleSelectionHandler callback;
+  @Override
+  protected void inject(NativeDialogFragmentComponent component) {
+    component.inject(this);
+  }
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final List<Locale> locales = new ArrayList<>();
-        locales.add(locale.withLanguage(null)); // device locale
-        for (String override : getResources().getStringArray(R.array.localization)) {
-            locales.add(locale.withLanguage(override));
-        }
-        final List<String> display = transform(locales, Locale::getDisplayName);
-        SingleCheckedArrayAdapter adapter = new SingleCheckedArrayAdapter(context, display, themeAccent);
-        adapter.setChecked(display.indexOf(locale.getDisplayName()));
-        return dialogBuilder.newDialog()
-                .setSingleChoiceItems(adapter, -1, (dialogInterface, i) -> {
-                    callback.onLocaleSelected(locales.get(i));
-                    dialogInterface.dismiss();
-                })
-                .show();
-    }
+  public interface LocaleSelectionHandler {
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-        callback = (LocaleSelectionHandler) activity;
-    }
-
-    @Override
-    protected void inject(NativeDialogFragmentComponent component) {
-        component.inject(this);
-    }
+    void onLocaleSelected(Locale locale);
+  }
 }

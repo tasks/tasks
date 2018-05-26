@@ -6,67 +6,67 @@
 -->
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:paddingLeft="5dip"
-  android:paddingRight="5dip">
-        
-    <!-- estimated time -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-	    <TextView
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:text="@string/TEA_estimatedDuration_label"
-	      style="@style/TextAppearance" />
-	    <TextView
-             android:id="@+id/estimatedDuration"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:gravity="end"
-             android:paddingLeft="10dip"
-            android:paddingStart="10dp"
-			android:paddingEnd="0dp"
-			android:paddingRight="0dp"
-             android:textColor="?attr/asTextColor" />
-    </LinearLayout>
+  android:paddingRight="5dip"
+  android:orientation="vertical">
 
-    <View style="@style/horizontal_divider" />
+  <!-- estimated time -->
+  <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="50dip"
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="10dip"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+    <TextView
+      style="@style/TextAppearance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/TEA_estimatedDuration_label"/>
+    <TextView
+      android:id="@+id/estimatedDuration"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:paddingStart="10dp"
+      android:paddingEnd="0dp"
+      android:paddingLeft="10dip"
+      android:paddingRight="0dp"
+      android:gravity="end"
+      android:textColor="?attr/asTextColor"/>
+  </LinearLayout>
 
-    <!-- elapsed time -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+  <View style="@style/horizontal_divider"/>
 
-        <TextView
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:text="@string/TEA_elapsedDuration_label"
-	      style="@style/TextAppearance" />
+  <!-- elapsed time -->
+  <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="50dip"
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="10dip"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
-	    <TextView
-             android:id="@+id/elapsedDuration"
-             android:layout_width="0dp"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:gravity="end"
-             android:paddingLeft="10dip"
-			android:paddingStart="10dp"
-			android:paddingRight="0dp"
-			android:paddingEnd="0dp"
-             android:textColor="?attr/asTextColor" />
-    </LinearLayout>
+    <TextView
+      style="@style/TextAppearance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/TEA_elapsedDuration_label"/>
+
+    <TextView
+      android:id="@+id/elapsedDuration"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:paddingStart="10dp"
+      android:paddingEnd="0dp"
+      android:paddingLeft="10dip"
+      android:paddingRight="0dp"
+      android:gravity="end"
+      android:textColor="?attr/asTextColor"/>
+  </LinearLayout>
 
 </LinearLayout>
 

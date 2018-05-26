@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Amber" parent="BlackToolbarTheme">
-        <item name="colorPrimary">@color/amber_500</item>
-        <item name="colorPrimaryDark">@color/amber_700</item>
-    </style>
+  <style name="Amber" parent="BlackToolbarTheme">
+    <item name="colorPrimary">@color/amber_500</item>
+    <item name="colorPrimaryDark">@color/amber_700</item>
+  </style>
 
-    <style name="AmberAccent" parent="BlackTint">
-        <item name="colorAccent">@color/amber_a400</item>
-        <item name="colorAccentDialog">@color/amber_a400</item>
-    </style>
+  <style name="AmberAccent" parent="BlackTint">
+    <item name="colorAccent">@color/amber_a400</item>
+    <item name="colorAccentDialog">@color/amber_a400</item>
+  </style>
 
 </resources>

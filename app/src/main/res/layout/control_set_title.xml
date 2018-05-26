@@ -4,58 +4,58 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom"
+    android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/task_edit_drawable_padding_top_bottom"
-        android:paddingTop="@dimen/task_edit_drawable_padding_top_bottom">
+    <com.todoroo.astrid.ui.CheckableImageView
+      android:id="@+id/completeBox"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_gravity="top"
+      android:paddingStart="@dimen/keyline_first"
+      android:paddingEnd="@dimen/keyline_second"
+      android:paddingLeft="@dimen/keyline_first"
+      android:paddingRight="@dimen/keyline_second"
+      android:scaleType="center"/>
 
-        <com.todoroo.astrid.ui.CheckableImageView
-            android:id="@+id/completeBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="top"
-            android:paddingRight="@dimen/keyline_second"
-            android:paddingEnd="@dimen/keyline_second"
-            android:paddingStart="@dimen/keyline_first"
-            android:paddingLeft="@dimen/keyline_first"
-            android:scaleType="center" />
+    <EditText
+      android:id="@+id/title"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_toEndOf="@id/completeBox"
+      android:layout_toRightOf="@id/completeBox"
+      android:paddingStart="0dp"
+      android:paddingEnd="@dimen/keyline_first"
+      android:paddingLeft="0dp"
+      android:paddingRight="@dimen/keyline_first"
+      android:background="@null"
+      android:freezesText="true"
+      android:gravity="start"
+      android:hint="@string/TEA_title_hint"
+      android:imeOptions="flagNoExtractUi"
+      android:inputType="textCapSentences|textAutoCorrect"
+      android:nextFocusLeft="@id/title"
+      android:nextFocusUp="@id/title"
+      android:scrollbars="vertical"
+      android:textAlignment="viewStart"
+      android:textColor="?attr/asTextColor"
+      android:textColorHint="?attr/asTextColorHint"/>
 
-        <EditText
-            android:id="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/completeBox"
-            android:layout_toEndOf="@id/completeBox"
-            android:gravity="start"
-            android:textAlignment="viewStart"
-            android:paddingLeft="0dp"
-            android:paddingStart="0dp"
-            android:paddingRight="@dimen/keyline_first"
-            android:paddingEnd="@dimen/keyline_first"
-            android:background="@null"
-            android:freezesText="true"
-            android:hint="@string/TEA_title_hint"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="textCapSentences|textAutoCorrect"
-            android:nextFocusLeft="@id/title"
-            android:nextFocusUp="@id/title"
-            android:scrollbars="vertical"
-            android:textColor="?attr/asTextColor"
-            android:textColorHint="?attr/asTextColorHint" />
+  </RelativeLayout>
 
-    </RelativeLayout>
-
-    <View style="@style/horizontal_divider" />
+  <View style="@style/horizontal_divider"/>
 
 </LinearLayout>
 

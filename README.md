@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks)
+[![Build Status](https://travis-ci.org/tasks/tasks.svg?branch=master)](https://travis-ci.org/tasks/tasks) [![codecov](https://codecov.io/gh/tasks/tasks/branch/master/graph/badge.svg)](https://codecov.io/gh/tasks/tasks)
 
 [![Donate with Bitcoin](https://img.shields.io/badge/bitcoin-donate-yellow.svg)](https://en.cryptobadges.io/donate/136mW34jW3cmZKhxuTDn3tHXMRwbbaRU8s)
 [![PayPal donate button](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=alex@tasks.org)
@@ -8,6 +8,6 @@
 [![Get it on Amazon App Store](https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-underground-app-us-black.png)](https://www.amazon.com/gp/product/B00QHGTL7O/ref=mas_pm_tasks_astrid_to_do_list_clone)
 
 Visit the wiki to
-* [help with translations](https://github.com/tasks/tasks/wiki/Translations)
-* [become a beta tester](https://github.com/tasks/tasks/wiki/Beta-Testing)
-* [get started with development](https://github.com/tasks/tasks/wiki/Getting-Started-with-Development)
+* [help with translations](http://tasks.org/docs/translations.html)
+* [become a beta tester](http://tasks.org/docs/pre_release_testing.html)
+* [get started with development](http://tasks.org/docs/develop.html)

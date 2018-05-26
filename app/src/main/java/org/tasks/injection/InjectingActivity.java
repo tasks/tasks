@@ -1,7 +1,8 @@
 package org.tasks.injection;
 
 public interface InjectingActivity {
-    void inject(ActivityComponent component);
 
-    ActivityComponent getComponent();
+  void inject(ActivityComponent component);
+
+  ActivityComponent getComponent();
 }

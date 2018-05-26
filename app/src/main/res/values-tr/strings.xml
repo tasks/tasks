@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Resmi sil</string>
 	<string name="TVA_add_comment">Yorum Gir</string>
@@ -161,6 +161,7 @@
 	<string name="gcal_completed_title">%s (tamamlandı)</string>
 	<string name="CFC_gtasks_list_text">Liste içinde: ?</string>
 	<string name="CFC_gtasks_list_name">Gtasks Listesi içinde...</string>
+	<string name="CFC_caldav_list_name">CalDAV listesinde...</string>
 	<string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
 	<string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor...</string>
 	<string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
@@ -302,11 +303,7 @@
 	<string name="tmrw">Yarın</string>
 	<string name="yest">Dün</string>
 	<string name="DLG_wait">Lütfen bekleyin...</string>
-	<string name="sync_status_success">Son eşzamanlama:\n%s</string>
 	<string name="sync_SPr_interval_title">Arka planda eşzamanla</string>
-	<string name="sync_SPr_forget">Çıkış Yap</string>
-	<string name="sync_SPr_forget_description">Tüm eşzamanlama verilerini temizle</string>
-	<string name="sync_forget_confirm">Çıkış yap/eşzamanlama verisini temizle?</string>
 	<string name="widget_show_due_date">Bitiş tarihlerini göster</string>
 	<string name="widget_show_checkboxes">Onay kutularını göster</string>
 	<string name="widget_show_header">Başlığı göster</string>
@@ -326,13 +323,10 @@
 	<string name="customize_edit_screen">Düzenleme ekranını özelleştir</string>
 	<string name="source_code">Kaynak kodu</string>
 	<string name="translations">Çeviri katkıları</string>
-	<string name="report_an_issue">Sorun bildir</string>
-	<string name="help_and_feedback">Yardım ve geri bildirim</string>
 	<string name="contact_developer">Geliştiriciyle iletişime geç</string>
 	<string name="rate_tasks">Tasks\'i Oyla</string>
 	<string name="quiet_hours_summary">Sessiz saatlerde hatırlatıcı yok</string>
 	<string name="TLA_menu_donate">Bağış yap</string>
-	<string name="select_amount">Miktar seç</string>
 	<string name="add_reminder">Hatırlatıcı ekle</string>
 	<string name="remove">Kaldır</string>
 	<string name="randomly_once">Şunda rastgele bir kez</string>
@@ -363,11 +357,11 @@
 	<string name="list_settings">Liste ayarları</string>
 	<string name="delete">Sil</string>
 	<string name="copy">Kopyala</string>
+	<string name="move">Taşı</string>
 	<string name="filter_settings">Süzgeç Ayarları</string>
 	<string name="show_hidden">Gizlenenleri göster</string>
 	<string name="show_completed">Tamamlananları göster</string>
 	<string name="reverse">Ters</string>
-	<string name="get_plugins">Uygulama içi satın almalar</string>
 	<string name="no_application_found">Ek dosyasını açmak için hiçbir uygulama bulunamadı</string>
 	<string name="add_attachment">Ek ekle</string>
 	<string name="take_a_picture">Bir fotoğraf çek</string>
@@ -378,24 +372,22 @@
 	<string name="send_anonymous_statistics">Task\'ı İyileştir</string>
 	<string name="send_anonymous_statistics_summary">Tasks\'ı iyileştirmeye yardımcı olmak için anonim kullanım istatistiklerini ve kilitlenme raporlarını gönderin. Hiçbir kişisel veri toplanmayacak.</string>
 	<string name="tag_already_exists">Etiket zaten var</string>
+	<string name="duplicate_name">Yinelenen ad</string>
 	<string name="name_cannot_be_empty">Ad boş olamaz</string>
+	<string name="username_required">Kullanıcı adı gerekli</string>
+	<string name="password_required">Parola gerekli</string>
+	<string name="url_required">URL gerekli</string>
+	<string name="url_host_name_required">Ana makine adı gerekli</string>
+	<string name="url_invalid_scheme">http(s):// ile başlamalı</string>
 	<string name="no_title">(Başlıksız)</string>
 	<string name="back_button_saves_task">Geri düğmesi görevi kaydeder</string>
 	<string name="default_list">Öntanımlı liste</string>
-	<string name="plugin_description">Tasks, bir geliştirici tarafından sürdürülen açık kaynaklı tasarıdır. Bazı özellikleri gelişimi desteklemek için uygulama içi satın alma olarak sunulmaktadır.</string>
-	<string name="themes_purchase_description">Tüm gövdeleri açar ve Tasks\'e birkaç renk ekler</string>
-	<string name="tasker_description">Bağlam bilinçli liste bildirimleri. Tasker veya Locale gerekir</string>
-	<string name="donate_summary">Bağışlar makbule geçer</string>
-	<string name="dashclock_purchase_description">Etkin görevlerin sayısını gösterir. DashClock Widget gerekir</string>
-	<string name="buy">Satın al</string>
-	<string name="buy_dashclock_extension">Eklenti satın al</string>
-	<string name="billing_service_busy">Uygulama içi faturalama hizmeti meşgul, daha sonra yeniden deneyin</string>
+	<string name="default_sync">Öntanımlı eşzamanlama</string>
 	<string name="filter">Süzgeç</string>
 	<string name="opacity">Şeffaflık</string>
 	<string name="theme">Gövde</string>
 	<string name="color">Renk</string>
 	<string name="accent">Ara renk</string>
-	<string name="themes">Ek gövdeler</string>
 	<string name="theme_red">Kırmızı</string>
 	<string name="theme_pink">Pembe</string>
 	<string name="theme_purple">Mor</string>
@@ -421,8 +413,6 @@
 	<string name="theme_dark">Koyu</string>
 	<string name="theme_wallpaper">Duvar kağıdı</string>
 	<string name="theme_day_night">Gündüz/Gece</string>
-	<string name="default_value">Öntanımlı</string>
-	<string name="master_sync_warning">Kendiliğinden eşzamanlama şu anda Android tarafından devre dışı bırakıldı</string>
 	<string name="settings_general">Genel</string>
 	<string name="language">Dil</string>
 	<string name="restart_required">Değişikliklerin etkili olması için Tasks yeniden başlatılmalıdır</string>
@@ -440,6 +430,7 @@
 	<string name="widget_row_settings">Satır ayarları</string>
 	<string name="sync_error_permissions">Tasks izne gereksiniyor</string>
 	<string name="creating_new_list">Yeni liste oluşturuluyor</string>
+	<string name="contacting_server">Sunucuya bağlanılıyor</string>
 	<string name="deleting_list">Liste siliniyor</string>
 	<string name="renaming_list">Liste yeniden adlandırılıyor</string>
 	<string name="clear_completed_tasks_confirmation">Tamamlanan görevleri temizle?</string>
@@ -451,6 +442,11 @@
 	<string name="start_of_week">Hafta başlangıcı</string>
 	<string name="use_locale_default">Yerel öntanımlısını kullan</string>
 	<string name="use_native_datetime_pickers">Yerli tarih ve zaman seçicileri kullan</string>
+	<string name="add_account">Hesap ekle</string>
+	<string name="user">Kullanıcı</string>
+	<string name="password">Parola</string>
+	<string name="error_adding_account">Hesap eklenirken hata</string>
+	<string name="calendar_settings">Takvim ayarları</string>
 	<string name="notification_channel_settings">Bildirimleri yönet</string>
 	<string name="battery_optimization_settings">Pil optimizasyonlarını yönet</string>
 	<string name="notification_disable_battery_optimizations_description">Pil optimizasyonları bildirimleri geciktirebilir</string>
@@ -481,6 +477,7 @@
 	<string name="badges_description">Tasks başlatıcı simgesinde görev sayısı göster. Tüm başlatıcılar rozetleri desteklemez.</string>
 	<string name="bundle_notifications_summary">Birden çok bildirimi tek bildirime birleştir</string>
 	<string name="repeat_monthly_same_day_each_month">her ayın aynı gününde</string>
+	<string name="dont_sync">Eşzamanlama yapma</string>
 	<string name="repeat_monthly_every_day_of_nth_week">her %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">her %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">birinci</string>
@@ -491,4 +488,29 @@
 	<string name="tasker_create_task">Görev oluştur</string>
 	<string name="tasker_list_notification">Bildirimi listele</string>
 	<string name="help">Yardım</string>
+	<string name="caldav_home_set_not_found">Ev takımı (home set) bulunamadı</string>
+	<string name="network_error">Bağlantı başarısız</string>
+	<string name="background_sync_unmetered_only">Yalnızca ölçülmeyen bağlantılarda</string>
+	<string name="upgrade">Yükselt</string>
+	<string name="upgrade_to_pro">Pro\'ya yükselt</string>
+	<string name="refresh_purchases">Satın alımları yenile</string>
+	<string name="button_subscribed">Abone olundu</string>
+	<string name="button_subscribe">Abone ol</string>
+	<string name="button_more_info">Daha çok bilgi</string>
+	<string name="owned">Edinildi</string>
+	<string name="error_billing_unavailable">Faturalama kullanılabilir değil. Google Play
+uygulamanızın doğru kurulduğundan emin olun.</string>
+	<string name="error_billing_default">Faturalama kullanılabilir değil. Lütfen aygıtınızı denetleyin.</string>
+	<string name="about">Hakkında</string>
+	<string name="license_summary">Tasks özgür ve açık kaynaklı yazılımdır, GNU Genel Kamu Lisansı sürüm 3.0 altında lisanslanmıştır</string>
+	<string name="themes">Ek gövdeler</string>
+	<string name="pro_caldav_sync">CalDAV eşzamanlama</string>
+	<string name="pro_multiple_google_task_accounts">Çoklu Google Görev hesabı</string>
+	<string name="pro_tasker_plugins">Tasker eklentileri</string>
+	<string name="pro_dashclock_extension">Dashclock eklentisi</string>
+	<string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
+	<string name="logout">Oturumu kapat</string>
+	<string name="logout_warning">%s oturumunu kapat? Bu hesapla ilgili tüm veri aygıtınızdan kaldırılacak</string>
+	<string name="cannot_access_account">Hesaba erişilemedi</string>
+	<string name="reinitialize_account">Yeniden başlat</string>
 </resources>

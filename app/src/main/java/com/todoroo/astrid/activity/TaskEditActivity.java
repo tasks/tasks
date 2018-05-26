@@ -6,18 +6,18 @@ import android.os.Bundle;
 
 public class TaskEditActivity extends Activity {
 
-    private static final String TOKEN_ID = "id";
+  private static final String TOKEN_ID = "id";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-        final long taskId = getIntent().getLongExtra(TOKEN_ID, 0);
+    final long taskId = getIntent().getLongExtra(TOKEN_ID, 0);
 
-        Intent intent = new Intent(this, TaskListActivity.class);
-        intent.putExtra(TaskListActivity.OPEN_TASK, taskId);
-        startActivity(intent);
+    Intent intent = new Intent(this, TaskListActivity.class);
+    intent.putExtra(TaskListActivity.OPEN_TASK, taskId);
+    startActivity(intent);
 
-        finish();
-    }
+    finish();
+  }
 }

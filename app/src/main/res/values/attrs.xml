@@ -5,28 +5,28 @@
 -->
 <resources>
 
-    <!-- theme attributes -->
-    <attr name="asWindowBackground" format="color" />
-    <attr name="asContentBackground" format="color" />
-    <attr name="asTextColor" format="color" />
-    <attr name="asTextColorHint" format="color" />
-    <attr name="icon_tint" format="color"/>
-    <attr name="overlay_theme" format="reference" />
-    <attr name="actionBarPrimaryText" format="color" />
-    <attr name="actionBarSecondaryText" format="color" />
-    <attr name="dark_status_bar" format="boolean" />
-    <attr name="alpha_secondary" format="dimension" />
-    <attr name="alpha_disabled" format="dimension" />
-    <attr name="fab_text" format="color" />
-    <attr name="colorAccentDialog" format="color" />
-    <attr name="card_elevation" format="dimension" />
+  <!-- theme attributes -->
+  <attr format="color" name="asWindowBackground"/>
+  <attr format="color" name="asContentBackground"/>
+  <attr format="color" name="asTextColor"/>
+  <attr format="color" name="asTextColorHint"/>
+  <attr format="color" name="icon_tint"/>
+  <attr format="reference" name="overlay_theme"/>
+  <attr format="color" name="actionBarPrimaryText"/>
+  <attr format="color" name="actionBarSecondaryText"/>
+  <attr format="boolean" name="dark_status_bar"/>
+  <attr format="dimension" name="alpha_secondary"/>
+  <attr format="dimension" name="alpha_disabled"/>
+  <attr format="color" name="fab_text"/>
+  <attr format="color" name="colorAccentDialog"/>
+  <attr format="dimension" name="card_elevation"/>
 
-    <declare-styleable name="TimePreference">
-        <attr name="summary" format="string" />
-    </declare-styleable>
+  <declare-styleable name="TimePreference">
+    <attr format="string" name="summary"/>
+  </declare-styleable>
 
-    <declare-styleable name="ScrimInsetsFrameLayout">
-        <attr name="insetForeground" format="reference|color" />
-    </declare-styleable>
+  <declare-styleable name="ScrimInsetsFrameLayout">
+    <attr format="reference|color" name="insetForeground"/>
+  </declare-styleable>
 
 </resources>

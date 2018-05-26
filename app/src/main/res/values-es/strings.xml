@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Borrar imagen</string>
 	<string name="TVA_add_comment">Añadir un comentario...</string>
@@ -156,6 +156,7 @@
 	<string name="gcal_completed_title">%s (completado)</string>
 	<string name="CFC_gtasks_list_text">En la Lista: ?</string>
 	<string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
+	<string name="CFC_caldav_list_name">En lista CalDAV…</string>
 	<string name="gtasks_GTA_clear_completed">Quitar finalizadas</string>
 	<string name="gtasks_GLA_authenticating">Autenticando...</string>
 	<string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
@@ -296,11 +297,7 @@
 	<string name="tmrw">Mñna</string>
 	<string name="yest">Ayer</string>
 	<string name="DLG_wait">Por favor, espere...</string>
-	<string name="sync_status_success">Ultima sincronización:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronización en segundo plano</string>
-	<string name="sync_SPr_forget">Cerrar sesión</string>
-	<string name="sync_SPr_forget_description">Limpia todos los datos de la sincronización</string>
-	<string name="sync_forget_confirm">Cerrar sesión/Limpiar datos de sincronización?</string>
 	<string name="widget_show_due_date">Mostrar fechas de vencimiento</string>
 	<string name="widget_show_checkboxes">Mostrar casillas de verificación</string>
 	<string name="widget_show_header">Mostrar encabezado</string>
@@ -320,13 +317,10 @@
 	<string name="customize_edit_screen">Personalizar pantalla de edición</string>
 	<string name="source_code">Código fuente</string>
 	<string name="translations">Contribuye con la traducción</string>
-	<string name="report_an_issue">Informa de un error</string>
-	<string name="help_and_feedback">Ayuda y valoraciones</string>
 	<string name="contact_developer">Contactar con el desarrollador </string>
 	<string name="rate_tasks">Valorar Tasks</string>
 	<string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
 	<string name="TLA_menu_donate">Haz una donación</string>
-	<string name="select_amount">Elegir cantidad</string>
 	<string name="add_reminder">Añadir recordatorio</string>
 	<string name="remove">Eliminar</string>
 	<string name="randomly_once">Aleatorio, una sola vez</string>
@@ -357,11 +351,11 @@
 	<string name="list_settings">Configuración de lista</string>
 	<string name="delete">Eliminar</string>
 	<string name="copy">Copiar</string>
+	<string name="move">Mover</string>
 	<string name="filter_settings">Configuración de Filtros</string>
 	<string name="show_hidden">Mostrar oculto</string>
 	<string name="show_completed">Mostrar completado</string>
 	<string name="reverse">Invertir</string>
-	<string name="get_plugins">Compras en la aplicación</string>
 	<string name="no_application_found">No se ha encontrado una aplicación para abrir el archivo adjunto</string>
 	<string name="add_attachment">Adjuntar archivo</string>
 	<string name="take_a_picture">Tomar fotografía</string>
@@ -372,23 +366,21 @@
 	<string name="send_anonymous_statistics">Mejorar Tasks</string>
 	<string name="send_anonymous_statistics_summary">Enviar de forma anónima estadísticas de uso e informes de error para ayudar a mejorar Task. No se recogerán datos personales.</string>
 	<string name="tag_already_exists">La etiqueta ya existe</string>
+	<string name="duplicate_name">Nombre duplicar</string>
 	<string name="name_cannot_be_empty">El nombre no puede estar vacío</string>
+	<string name="username_required">Nombre de usuario requerido</string>
+	<string name="password_required">Contraseña requerida</string>
+	<string name="url_required">URL requerida</string>
+	<string name="url_host_name_required">Nombre de servidor requerido</string>
+	<string name="url_invalid_scheme">Debe comenzar por http(s)://</string>
 	<string name="no_title">(Sin título)</string>
 	<string name="back_button_saves_task">Botón atrás guarda la tarea</string>
 	<string name="default_list">Lista por defecto</string>
-	<string name="plugin_description">Tasks es un proyecto de código abierto mantenido por un único desarrollador. Algunas características especializadas se podrán comprar desde la aplicación para mantener su desarrollo.</string>
-	<string name="themes_purchase_description">Desbloquea todos los temas y añade color a Tasks</string>
-	<string name="tasker_description">Notificaciones dependientes del contexto. Requiere Tasker o Locale.</string>
-	<string name="donate_summary">Se agradecen enormemente las donaciones</string>
-	<string name="dashclock_purchase_description">Muestra una cuenta de las tareas activas. Requiere DashClock Widget</string>
-	<string name="buy">Comprar</string>
-	<string name="buy_dashclock_extension">Comprar extensión</string>
-	<string name="billing_service_busy">El servicio de compra desde la aplicación está ocupado, inténtelo más tarde.</string>
+	<string name="default_sync">Sincronización predeterminada</string>
 	<string name="filter">Filtro</string>
 	<string name="opacity">Opacidad</string>
 	<string name="theme">Tema</string>
 	<string name="accent">Acentuado</string>
-	<string name="themes">Temas adicionales</string>
 	<string name="theme_red">Rojo</string>
 	<string name="theme_pink">Rosa</string>
 	<string name="theme_purple">Morado</string>
@@ -414,8 +406,6 @@
 	<string name="theme_dark">Oscuro</string>
 	<string name="theme_wallpaper">Fondo de pantalla</string>
 	<string name="theme_day_night">Día/Noche</string>
-	<string name="default_value">Predeterminado</string>
-	<string name="master_sync_warning">La sincronización automática está actualmente deshabilitada por Android</string>
 	<string name="language">Idioma</string>
 	<string name="restart_required">Debe reiniciar Tasks para que los cambios tengan efecto</string>
 	<string name="restart_now">Reiniciar ahora</string>
@@ -432,6 +422,7 @@
 	<string name="widget_row_settings">Configuración de fila</string>
 	<string name="sync_error_permissions">Tasks requiere permisos</string>
 	<string name="creating_new_list">Creando nueva lista</string>
+	<string name="contacting_server">Contactando servidor</string>
 	<string name="deleting_list">Borrando lista</string>
 	<string name="renaming_list">Renombrando lista</string>
 	<string name="clear_completed_tasks_confirmation">¿Borrar tareas completadas?</string>
@@ -443,6 +434,11 @@
 	<string name="start_of_week">Inicio de semana</string>
 	<string name="use_locale_default">Usar configuración regional</string>
 	<string name="use_native_datetime_pickers">Usar fecha y hora nativas</string>
+	<string name="add_account">Añadir cuenta</string>
+	<string name="user">Usuario</string>
+	<string name="password">Contraseña</string>
+	<string name="error_adding_account">Error añadiendo cuenta</string>
+	<string name="calendar_settings">Configuración de calendario</string>
 	<string name="notification_channel_settings">Gestionar notificaciones</string>
 	<string name="battery_optimization_settings">Optimizaciones en gestión de batería</string>
 	<string name="notification_disable_battery_optimizations_description">Optimizaciones de batería pueden retrasar notificaciones</string>
@@ -473,6 +469,7 @@
 	<string name="badges_description">Mostrar número de tareas en icono de Task. No todos los launchers lo soportan.</string>
 	<string name="bundle_notifications_summary">Combinar múltiples notificaciones en una sola</string>
 	<string name="repeat_monthly_same_day_each_month">el mismo día cada mes</string>
+	<string name="dont_sync">No sincronizar</string>
 	<string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">cada %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">primer</string>
@@ -483,4 +480,28 @@
 	<string name="tasker_create_task">Crear tarea</string>
 	<string name="tasker_list_notification">Listar notificación</string>
 	<string name="help">Ayuda</string>
+	<string name="caldav_home_set_not_found">Origen no encontrado</string>
+	<string name="network_error">La conexión ha fallado</string>
+	<string name="background_sync_unmetered_only">Sólo en conexiones sin cargos</string>
+	<string name="upgrade">Actualizar</string>
+	<string name="upgrade_to_pro">Actualizar a profesional</string>
+	<string name="refresh_purchases">Actualizar los acquisiciones</string>
+	<string name="button_subscribed">Suscribió</string>
+	<string name="button_subscribe">Suscribe</string>
+	<string name="button_more_info">Más información</string>
+	<string name="owned">Pertenece</string>
+	<string name="error_billing_unavailable">Pago no disponible. Asegúrese de que Google Play está bien configurado</string>
+	<string name="error_billing_default">Pago no disponible. Comprueba su dispositivo.</string>
+	<string name="about">Sobre</string>
+	<string name="license_summary">Tasks es libre y de código abierto, según licencia GNU General Public License v3.0</string>
+	<string name="themes">Temas adicionales</string>
+	<string name="pro_caldav_sync">Sincronización de CalDAV</string>
+	<string name="pro_multiple_google_task_accounts">Múltiples cuentas de Google Task</string>
+	<string name="pro_tasker_plugins">Extensiones los trabajo</string>
+	<string name="pro_dashclock_extension">Extensión Dashclock</string>
+	<string name="requires_pro_subscription">Requiere suscripción profesional</string>
+	<string name="logout">Cerrar sesión</string>
+	<string name="logout_warning">¿Cerrar sesión %s? Todos los datos de esta cuenta se borrarán del dispositivo</string>
+	<string name="cannot_access_account">No se puede acceder a la cuenta</string>
+	<string name="reinitialize_account">Reinicializar</string>
 </resources>

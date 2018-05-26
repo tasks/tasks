@@ -1,27 +1,27 @@
 <org.tasks.ui.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrim_layout"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/scrim_layout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/drawer_color"
+  android:fitsSystemWindows="true"
+  app:insetForeground="#4000">
+
+  <ListView
+    android:id="@android:id/list"
+    android:scrollbarStyle="outsideOverlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/drawer_color"
-    app:insetForeground="#4000">
-
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay"
-        android:clipToPadding="false"
-        android:listSelector="?attr/selectableItemBackground"
-        android:drawSelectorOnTop="true"
-        tools:context=".NavigationDrawerFragment"
-        android:cacheColorHint="@android:color/transparent"
-        android:scrollingCache="false" />
+    android:layout_weight="1"
+    android:cacheColorHint="@android:color/transparent"
+    android:choiceMode="singleChoice"
+    android:clipToPadding="false"
+    android:divider="@android:color/transparent"
+    android:drawSelectorOnTop="true"
+    android:listSelector="?attr/selectableItemBackground"
+    android:scrollbars="vertical"
+    android:scrollingCache="false"
+    tools:context=".NavigationDrawerFragment"/>
 
 </org.tasks.ui.ScrimInsetsFrameLayout>

@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Изчисти Картинка</string>
 	<string name="TVA_add_comment">Добави коментар...</string>
@@ -300,11 +300,7 @@
 	<string name="tmrw">Утре</string>
 	<string name="yest">Вчера</string>
 	<string name="DLG_wait">Моля, изчакайте...</string>
-	<string name="sync_status_success">Последна синхронизация:\n%s</string>
 	<string name="sync_SPr_interval_title">Синхронзиране във фонов режим</string>
-	<string name="sync_SPr_forget">Излизане</string>
-	<string name="sync_SPr_forget_description">Изчистване на всички данни от синхронзация</string>
-	<string name="sync_forget_confirm">Изход/изчистване на данните от синхронизация?</string>
 	<string name="widget_show_due_date">Покажи крайните дати</string>
 	<string name="widget_show_checkboxes">Покажи отметки</string>
 	<string name="widget_show_header">Покажи хедър</string>
@@ -324,13 +320,10 @@
 	<string name="customize_edit_screen">Настройване на екрана за редактиране</string>
 	<string name="source_code">Source код</string>
 	<string name="translations">Подпомагане с преводи</string>
-	<string name="report_an_issue">Съобщи за проблем</string>
-	<string name="help_and_feedback">Помощ &amp; Обратна връзка</string>
 	<string name="contact_developer">Свържи се с разработчика</string>
 	<string name="rate_tasks">Гласувайте за Tasks</string>
 	<string name="quiet_hours_summary">Без напомняния по време на тихи часове</string>
 	<string name="TLA_menu_donate">Дарете</string>
-	<string name="select_amount">Изберете размер</string>
 	<string name="add_reminder">Добави напомняне</string>
 	<string name="remove">Изтрий</string>
 	<string name="randomly_once">Произволно веднъж</string>
@@ -361,11 +354,11 @@
 	<string name="list_settings">Настройки на списъка</string>
 	<string name="delete">Изтрий</string>
 	<string name="copy">Копирай</string>
+	<string name="move">Премести</string>
 	<string name="filter_settings">Настройки на филтъра</string>
 	<string name="show_hidden">Покажи скрити</string>
 	<string name="show_completed">Покажи завършени</string>
 	<string name="reverse">Обратно</string>
-	<string name="get_plugins">Покупки в приложението</string>
 	<string name="no_application_found">Не е намерено приложение за отваряне на прикачения файл</string>
 	<string name="add_attachment">Добавяне на прикачен файл</string>
 	<string name="take_a_picture">Заснемане</string>
@@ -376,24 +369,22 @@
 	<string name="send_anonymous_statistics">Подобряване на Tasks</string>
 	<string name="send_anonymous_statistics_summary">Изпращане на анонимна статистика за използването и отчети за грешки, за да се подпомогне подобряването на Tasks. Няма да бъдат събирани персонални данни.</string>
 	<string name="tag_already_exists">Този таг вече съществува</string>
+	<string name="duplicate_name">Дублирано име</string>
 	<string name="name_cannot_be_empty">Името не може да е празно</string>
+	<string name="username_required">Потребителското име е задължително</string>
+	<string name="password_required">Паролата е задължителна</string>
+	<string name="url_required">URL е задължително</string>
+	<string name="url_host_name_required">Името на хоста е задължително</string>
+	<string name="url_invalid_scheme">Трябва да започва с http(s)://</string>
 	<string name="no_title">(Без заглавие)</string>
 	<string name="back_button_saves_task">Бутон \"Назад\" запазва задачата</string>
 	<string name="default_list">Списък по подразбиране</string>
-	<string name="plugin_description">Tasks е проект с отворен код поддържан от един разработчик. Някои от функциите се предлагат като покупки в приложението за да се подпомогне процеса на разработка.</string>
-	<string name="themes_purchase_description">Отключете всички теми и да добавите малко цвят към Tasks</string>
-	<string name="tasker_description">Context-Aware списък уведомления. Изисква Tasker или Locale</string>
-	<string name="donate_summary">Даренията са добре дошли</string>
-	<string name="dashclock_purchase_description">Показване на броя активни задачи. Изисква DashClock Widget</string>
-	<string name="buy">Купи</string>
-	<string name="buy_dashclock_extension">Купи разширение</string>
-	<string name="billing_service_busy">Услугата за таксуване в приложението е заета, опитайте отново по-късно</string>
+	<string name="default_sync">Синхронизация по подразбиране</string>
 	<string name="filter">Филтър</string>
 	<string name="opacity">Непрозрачност</string>
 	<string name="theme">Тема</string>
 	<string name="color">Цвят</string>
 	<string name="accent">Акцент</string>
-	<string name="themes">Допълнителни теми</string>
 	<string name="theme_red">Червен</string>
 	<string name="theme_pink">Розов</string>
 	<string name="theme_purple">Лилав</string>
@@ -419,8 +410,6 @@
 	<string name="theme_dark">Тъмна</string>
 	<string name="theme_wallpaper">Тапет</string>
 	<string name="theme_day_night">Ден/Нощ</string>
-	<string name="default_value">По подразбиране</string>
-	<string name="master_sync_warning">Автоматичната синхронизация в момента е деактивирана от Android</string>
 	<string name="settings_general">Общи</string>
 	<string name="language">Език</string>
 	<string name="restart_required">Tasks трябва да бъде рестартиран за да влязат промените в сила</string>
@@ -438,6 +427,7 @@
 	<string name="widget_row_settings">Настройки на реда</string>
 	<string name="sync_error_permissions">Tasks изисква разрешения</string>
 	<string name="creating_new_list">Нов списък</string>
+	<string name="contacting_server">Свързване със сървъра</string>
 	<string name="deleting_list">Изтриване на списък</string>
 	<string name="renaming_list">Преименуване на списък</string>
 	<string name="clear_completed_tasks_confirmation">Изчистване на завършени задачи?</string>
@@ -449,6 +439,11 @@
 	<string name="start_of_week">Начало на седмицата</string>
 	<string name="use_locale_default">Локализация по подразбиране</string>
 	<string name="use_native_datetime_pickers">Контроли за избор на дата и време по подразбиране </string>
+	<string name="add_account">Добави акаунт</string>
+	<string name="user">Потребител</string>
+	<string name="password">Парола</string>
+	<string name="error_adding_account">Грешка при добавяне на акаунт</string>
+	<string name="calendar_settings">Настройки на календара</string>
 	<string name="notification_channel_settings">Управление на уведомления</string>
 	<string name="battery_optimization_settings">Управление на оптимизациите на батерията</string>
 	<string name="notification_disable_battery_optimizations_description">Оптимизациите на батерията могат да забавят уведомленията</string>
@@ -479,6 +474,7 @@
 	<string name="badges_description">Показвай броя задачи върху икона на Tasks в лаунчера. Не всички лаунчери поддържат значки.</string>
 	<string name="bundle_notifications_summary">Комбинирай множество нотификации в една</string>
 	<string name="repeat_monthly_same_day_each_month">на един и същ ден всеки месец</string>
+	<string name="dont_sync">Не синхронизирай</string>
 	<string name="repeat_monthly_every_day_of_nth_week">всеки %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">на всеки %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">първи</string>
@@ -489,4 +485,24 @@
 	<string name="tasker_create_task">Създай задача</string>
 	<string name="tasker_list_notification">Списък с нотификации</string>
 	<string name="help">Помощ</string>
+	<string name="caldav_home_set_not_found">Home set не е намерен</string>
+	<string name="network_error">Свързването е неуспешно</string>
+	<string name="background_sync_unmetered_only">Само при неограничени връзки</string>
+	<string name="upgrade">Актуализация</string>
+	<string name="upgrade_to_pro">Обнови към pro</string>
+	<string name="refresh_purchases">Обнови покупки</string>
+	<string name="button_subscribed">Подписан</string>
+	<string name="button_subscribe">Подпиши се</string>
+	<string name="button_more_info">Повече информация</string>
+	<string name="owned">Притежавани</string>
+	<string name="error_billing_unavailable">Таксуването не е налице. Уверете се, че приложението ви в Google Play
+е настроено правилно</string>
+	<string name="error_billing_default">Таксуването не е налице. Моля, проверете устройството си.</string>
+	<string name="about">Относно</string>
+	<string name="themes">Допълнителни теми</string>
+	<string name="pro_caldav_sync">CalDAV синхранизация</string>
+	<string name="pro_multiple_google_task_accounts">Множество Google Tasks акаунти</string>
+	<string name="pro_tasker_plugins">Tasker добавки</string>
+	<string name="pro_dashclock_extension">Dashclock  разширение</string>
+	<string name="requires_pro_subscription">Изисква pro абонамент</string>
 </resources>

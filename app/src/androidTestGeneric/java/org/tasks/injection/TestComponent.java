@@ -13,39 +13,39 @@ import com.todoroo.astrid.service.TitleParserTest;
 import com.todoroo.astrid.subtasks.SubtasksHelperTest;
 import com.todoroo.astrid.subtasks.SubtasksTestCase;
 import com.todoroo.astrid.sync.NewSyncTestCase;
-
-import org.tasks.jobs.BackupServiceTests;
-
 import dagger.Component;
+import org.tasks.jobs.BackupServiceTests;
 
 @ApplicationScope
 @Component(modules = TestModule.class)
 public interface TestComponent {
-    Database getDatabase();
 
-    void inject(ReminderServiceTest reminderServiceTest);
+  Database getDatabase();
 
-    void inject(TaskTest taskTest);
+  void inject(ReminderServiceTest reminderServiceTest);
 
-    void inject(TaskDaoTests taskDaoTests);
+  void inject(TaskTest taskTest);
 
-    void inject(MetadataDaoTests metadataDaoTests);
+  void inject(TaskDaoTests taskDaoTests);
 
-    void inject(Astrid3ProviderTests astrid3ProviderTests);
+  void inject(MetadataDaoTests metadataDaoTests);
 
-    void inject(NewSyncTestCase newSyncTestCase);
+  void inject(Astrid3ProviderTests astrid3ProviderTests);
 
-    void inject(SubtasksTestCase subtasksTestCase);
+  void inject(NewSyncTestCase newSyncTestCase);
 
-    void inject(SubtasksHelperTest subtasksHelperTest);
+  void inject(SubtasksTestCase subtasksTestCase);
 
-    void inject(QuickAddMarkupTest quickAddMarkupTest);
+  void inject(SubtasksHelperTest subtasksHelperTest);
 
-    void inject(TitleParserTest titleParserTest);
+  void inject(QuickAddMarkupTest quickAddMarkupTest);
 
-    void inject(NewRepeatTests newRepeatTests);
+  void inject(TitleParserTest titleParserTest);
 
-    void inject(BackupServiceTests backupServiceTests);
+  void inject(NewRepeatTests newRepeatTests);
 
-    NotificationTests.NotificationTestsComponent plus(NotificationTests.NotificationTestsModule notificationTestsModule);
+  void inject(BackupServiceTests backupServiceTests);
+
+  NotificationTests.NotificationTestsComponent plus(
+      NotificationTests.NotificationTestsModule notificationTestsModule);
 }

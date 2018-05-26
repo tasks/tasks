@@ -2,31 +2,27 @@ package org.tasks.injection;
 
 import com.todoroo.astrid.calls.PhoneStateChangedReceiver;
 import com.todoroo.astrid.gcal.CalendarAlarmReceiver;
-
-import org.tasks.locale.receiver.FireReceiver;
+import dagger.Subcomponent;
 import org.tasks.notifications.NotificationClearedReceiver;
 import org.tasks.receivers.BootCompletedReceiver;
 import org.tasks.receivers.CompleteTaskReceiver;
 import org.tasks.receivers.MyPackageReplacedReceiver;
 import org.tasks.widget.TasksWidget;
 
-import dagger.Subcomponent;
-
 @Subcomponent(modules = BroadcastModule.class)
 public interface BroadcastComponent {
-    void inject(FireReceiver fireReceiver);
 
-    void inject(PhoneStateChangedReceiver phoneStateChangedReceiver);
+  void inject(PhoneStateChangedReceiver phoneStateChangedReceiver);
 
-    void inject(CalendarAlarmReceiver calendarAlarmReceiver);
+  void inject(CalendarAlarmReceiver calendarAlarmReceiver);
 
-    void inject(MyPackageReplacedReceiver myPackageReplacedReceiver);
+  void inject(MyPackageReplacedReceiver myPackageReplacedReceiver);
 
-    void inject(CompleteTaskReceiver completeTaskReceiver);
+  void inject(CompleteTaskReceiver completeTaskReceiver);
 
-    void inject(BootCompletedReceiver bootCompletedReceiver);
+  void inject(BootCompletedReceiver bootCompletedReceiver);
 
-    void inject(TasksWidget tasksWidget);
+  void inject(TasksWidget tasksWidget);
 
-    void inject(NotificationClearedReceiver notificationClearedReceiver);
+  void inject(NotificationClearedReceiver notificationClearedReceiver);
 }

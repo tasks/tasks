@@ -29,90 +29,92 @@ import android.view.ViewGroup;
 /**
  * A {@link android.preference.PreferenceActivity} which implements and proxies the necessary calls
  * to be used with AppCompat.
- * <p/>
- * This technique can be used with an {@link android.app.Activity} class, not just
- * {@link android.preference.PreferenceActivity}.
+ *
+ * <p>This technique can be used with an {@link android.app.Activity} class, not just {@link
+ * android.preference.PreferenceActivity}.
  */
 public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
-    private AppCompatDelegate mDelegate;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        getDelegate().installViewFactory();
-        getDelegate().onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
-    }
+  private AppCompatDelegate mDelegate;
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        getDelegate().onPostCreate(savedInstanceState);
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    getDelegate().installViewFactory();
+    getDelegate().onCreate(savedInstanceState);
+    super.onCreate(savedInstanceState);
+  }
 
-    @NonNull
-    @Override
-    public MenuInflater getMenuInflater() {
-        return getDelegate().getMenuInflater();
-    }
+  @Override
+  protected void onPostCreate(Bundle savedInstanceState) {
+    super.onPostCreate(savedInstanceState);
+    getDelegate().onPostCreate(savedInstanceState);
+  }
 
-    @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        getDelegate().setContentView(layoutResID);
-    }
+  @NonNull
+  @Override
+  public MenuInflater getMenuInflater() {
+    return getDelegate().getMenuInflater();
+  }
 
-    @Override
-    public void setContentView(View view) {
-        getDelegate().setContentView(view);
-    }
+  @Override
+  public void setContentView(@LayoutRes int layoutResID) {
+    getDelegate().setContentView(layoutResID);
+  }
 
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        getDelegate().setContentView(view, params);
-    }
+  @Override
+  public void setContentView(View view) {
+    getDelegate().setContentView(view);
+  }
 
-    @Override
-    public void addContentView(View view, ViewGroup.LayoutParams params) {
-        getDelegate().addContentView(view, params);
-    }
+  @Override
+  public void setContentView(View view, ViewGroup.LayoutParams params) {
+    getDelegate().setContentView(view, params);
+  }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        getDelegate().onPostResume();
-    }
+  @Override
+  public void addContentView(View view, ViewGroup.LayoutParams params) {
+    getDelegate().addContentView(view, params);
+  }
 
-    @Override
-    protected void onTitleChanged(CharSequence title, int color) {
-        super.onTitleChanged(title, color);
-        getDelegate().setTitle(title);
-    }
+  @Override
+  protected void onPostResume() {
+    super.onPostResume();
+    getDelegate().onPostResume();
+  }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        getDelegate().onConfigurationChanged(newConfig);
-    }
+  @Override
+  protected void onTitleChanged(CharSequence title, int color) {
+    super.onTitleChanged(title, color);
+    getDelegate().setTitle(title);
+  }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        getDelegate().onStop();
-    }
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    getDelegate().onConfigurationChanged(newConfig);
+  }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getDelegate().onDestroy();
-    }
+  @Override
+  protected void onStop() {
+    super.onStop();
+    getDelegate().onStop();
+  }
 
-    public void invalidateOptionsMenu() {
-        getDelegate().invalidateOptionsMenu();
-    }
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    getDelegate().onDestroy();
+  }
 
-    protected AppCompatDelegate getDelegate() {
-        if (mDelegate == null) {
-            mDelegate = AppCompatDelegate.create(this, null);
-        }
-        return mDelegate;
+  @Override
+  public void invalidateOptionsMenu() {
+    getDelegate().invalidateOptionsMenu();
+  }
+
+  protected AppCompatDelegate getDelegate() {
+    if (mDelegate == null) {
+      mDelegate = AppCompatDelegate.create(this, null);
     }
+    return mDelegate;
+  }
 }

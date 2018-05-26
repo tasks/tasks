@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">取消选择</string>
 	<string name="TVA_add_comment">添加注释...</string>
@@ -297,11 +297,7 @@
 	<string name="tmrw">明天</string>
 	<string name="yest">昨天</string>
 	<string name="DLG_wait">请稍候...</string>
-	<string name="sync_status_success">上次同步：\n%s</string>
 	<string name="sync_SPr_interval_title">后台同步</string>
-	<string name="sync_SPr_forget">登出</string>
-	<string name="sync_SPr_forget_description">清除所有同步资料</string>
-	<string name="sync_forget_confirm">登出/清除同步资料?</string>
 	<string name="widget_show_due_date">显示截止日期</string>
 	<string name="widget_show_checkboxes">显示复选框</string>
 	<string name="widget_show_header">显示标题</string>
@@ -321,13 +317,10 @@
 	<string name="customize_edit_screen">自定义编辑屏幕</string>
 	<string name="source_code">源代码</string>
 	<string name="translations">贡献翻译</string>
-	<string name="report_an_issue">报告个问题</string>
-	<string name="help_and_feedback">帮助和反馈</string>
 	<string name="contact_developer">联系开发者</string>
 	<string name="rate_tasks">给Tasks打分</string>
 	<string name="quiet_hours_summary">静音期间不提醒</string>
 	<string name="TLA_menu_donate">捐献</string>
-	<string name="select_amount">选择金额</string>
 	<string name="add_reminder">添加提醒</string>
 	<string name="remove">移除</string>
 	<string name="randomly_once">随机一次</string>
@@ -362,7 +355,6 @@
 	<string name="show_hidden">显示隐藏的任务</string>
 	<string name="show_completed">显示已完成任务</string>
 	<string name="reverse">反向</string>
-	<string name="get_plugins">应用内购买</string>
 	<string name="no_application_found">没有能打开附件的应用</string>
 	<string name="add_attachment">添加附件</string>
 	<string name="take_a_picture">拍张照片</string>
@@ -374,23 +366,20 @@
 	<string name="send_anonymous_statistics_summary">发送匿名使用情况统计信息和崩溃报告，以帮助改进Tasks。不会收集个人资料。</string>
 	<string name="tag_already_exists">标签已存在</string>
 	<string name="name_cannot_be_empty">名字不能为空</string>
+	<string name="username_required">请填用户名</string>
+	<string name="password_required">请填密码</string>
+	<string name="url_required">请填网址</string>
+	<string name="url_host_name_required">请填主机名</string>
+	<string name="url_invalid_scheme">必须以http(s)://开头</string>
 	<string name="no_title">（无标题）</string>
 	<string name="back_button_saves_task">返回键保存任务</string>
 	<string name="default_list">默认列表</string>
-	<string name="plugin_description">Tasks是一个开发人员维护的开源项目。有些功能是作为应用内购提供的，以此支持开发。</string>
-	<string name="themes_purchase_description">解锁所有Tasks的主题和颜色</string>
-	<string name="tasker_description">上下文感知列表通知。需要Tasks或Locale</string>
-	<string name="donate_summary">不胜感激</string>
-	<string name="dashclock_purchase_description">显示活动任务的计数。需要安装DashClock Widget</string>
-	<string name="buy">购买</string>
-	<string name="buy_dashclock_extension">购买扩展</string>
-	<string name="billing_service_busy">应用内结算服务繁忙，请稍后重试</string>
+	<string name="default_sync">默认同步</string>
 	<string name="filter">过滤器</string>
 	<string name="opacity">不透明度</string>
 	<string name="theme">主题</string>
 	<string name="color">颜色</string>
 	<string name="accent">强调色</string>
-	<string name="themes">其他主题</string>
 	<string name="theme_red">红色</string>
 	<string name="theme_pink">粉色</string>
 	<string name="theme_purple">紫色</string>
@@ -416,8 +405,6 @@
 	<string name="theme_dark">暗色</string>
 	<string name="theme_wallpaper">壁纸</string>
 	<string name="theme_day_night">日/夜</string>
-	<string name="default_value">默认</string>
-	<string name="master_sync_warning">自动同步目前被Android禁用</string>
 	<string name="settings_general">一般</string>
 	<string name="language">语言</string>
 	<string name="restart_required">必须重新启动Tasks才能使更改生效</string>
@@ -446,6 +433,11 @@
 	<string name="start_of_week">每周始于</string>
 	<string name="use_locale_default">设备默认值</string>
 	<string name="use_native_datetime_pickers">使用本机日期和时间选择器</string>
+	<string name="add_account">添加帐号</string>
+	<string name="user">用户</string>
+	<string name="password">密码</string>
+	<string name="url">网址</string>
+	<string name="error_adding_account">添加帐号错误</string>
 	<string name="notification_channel_settings">管理通知</string>
 	<string name="battery_optimization_settings">电池优化管理</string>
 	<string name="notification_disable_battery_optimizations_description">电池优化可能会延迟通知</string>
@@ -476,6 +468,7 @@
 	<string name="badges_description">在Tasks启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
 	<string name="bundle_notifications_summary">将多个通知合并为一个通知</string>
 	<string name="repeat_monthly_same_day_each_month">在每月的同一天</string>
+	<string name="dont_sync">不同步</string>
 	<string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
 	<string name="repeat_monthly_on_every_day_of_nth_week">在每 %1$s 个 %2$s</string>
 	<string name="repeat_monthly_first_week">第一个</string>
@@ -486,4 +479,5 @@
 	<string name="tasker_create_task">创建任务</string>
 	<string name="tasker_list_notification">列出通知</string>
 	<string name="help">帮助</string>
+	<string name="themes">其他主题</string>
 </resources>

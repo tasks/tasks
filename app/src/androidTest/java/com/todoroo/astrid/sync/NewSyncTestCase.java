@@ -1,50 +1,48 @@
 package com.todoroo.astrid.sync;
 
-import org.tasks.data.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
-import org.tasks.data.TagData;
 import com.todoroo.astrid.data.Task;
-
+import com.todoroo.astrid.data.Task.Priority;
+import javax.inject.Inject;
+import org.tasks.data.TagData;
+import org.tasks.data.TagDataDao;
 import org.tasks.injection.InjectingTestCase;
 import org.tasks.injection.TestComponent;
 
-import javax.inject.Inject;
-
 public class NewSyncTestCase extends InjectingTestCase {
 
-    @Inject TaskDao taskDao;
-	@Inject TagDataDao tagDataDao;
+  private static final String SYNC_TASK_TITLE = "new title";
+  private static final int SYNC_TASK_IMPORTANCE = Priority.MEDIUM;
+  @Inject TaskDao taskDao;
+  @Inject TagDataDao tagDataDao;
 
-	protected Task createTask(String title) {
-		Task task = new Task();
-		task.setTitle(title);
-		task.setImportance(SYNC_TASK_IMPORTANCE);
+  private Task createTask(String title) {
+    Task task = new Task();
+    task.setTitle(title);
+    task.setPriority(SYNC_TASK_IMPORTANCE);
 
-        taskDao.createNew(task);
-		return task;
-	}
+    taskDao.createNew(task);
+    return task;
+  }
 
-	public static final String SYNC_TASK_TITLE = "new title";
-	public static final int SYNC_TASK_IMPORTANCE = Task.IMPORTANCE_MUST_DO;
+  Task createTask() {
+    return createTask(SYNC_TASK_TITLE);
+  }
 
-	protected Task createTask() {
-		return createTask(SYNC_TASK_TITLE);
-	}
+  private TagData createTagData(String name) {
+    TagData tag = new TagData();
+    tag.setName(name);
 
-	protected TagData createTagData(String name) {
-		TagData tag = new TagData();
-		tag.setName(name);
+    tagDataDao.createNew(tag);
+    return tag;
+  }
 
-		tagDataDao.createNew(tag);
-		return tag;
-	}
+  TagData createTagData() {
+    return createTagData("new tag");
+  }
 
-	protected TagData createTagData() {
-		return createTagData("new tag");
-	}
-
-	@Override
-	protected void inject(TestComponent component) {
-		component.inject(this);
-	}
+  @Override
+  protected void inject(TestComponent component) {
+    component.inject(this);
+  }
 }

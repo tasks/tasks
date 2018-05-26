@@ -4,101 +4,101 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical">
+
+  <include layout="@layout/toolbar"/>
+
+  <ScrollView
+    android:scrollbarStyle="outsideOverlay"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:layout_height="0dp"
+    android:layout_weight="100"
+    android:background="?attr/asContentBackground"
+    android:elevation="0dp"
+    android:overScrollMode="never">
 
-    <include layout="@layout/toolbar" />
+    <LinearLayout
+      android:id="@+id/control_sets"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_horizontal"
+      android:orientation="vertical">
 
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="100"
-        android:background="?attr/asContentBackground"
-        android:elevation="0dp"
-        android:overScrollMode="never"
-        android:scrollbarStyle="outsideOverlay">
-
-        <LinearLayout
-            android:id="@+id/control_sets"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/row_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@+id/row_11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:id="@+id/comments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-
-        </LinearLayout>
-    </ScrollView>
-
-    <FrameLayout
-        android:id="@+id/comment_bar"
-        android:elevation="@dimen/elevation_toolbar"
+      <FrameLayout
+        android:id="@+id/row_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <FrameLayout
+        android:id="@+id/row_11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+      <LinearLayout
+        android:id="@+id/comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+    </LinearLayout>
+  </ScrollView>
+
+  <FrameLayout
+    android:id="@+id/comment_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/elevation_toolbar"/>
 
 </LinearLayout>

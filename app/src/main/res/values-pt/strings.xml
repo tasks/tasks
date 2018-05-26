@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Limpar imagem</string>
 	<string name="TVA_add_comment">Adicionar um comentário...</string>
@@ -298,11 +298,7 @@
 	<string name="tmrw">Amanhã</string>
 	<string name="yest">Ontem</string>
 	<string name="DLG_wait">Por favor aguarde...</string>
-	<string name="sync_status_success">Última sincronização:\n%s</string>
 	<string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
-	<string name="sync_SPr_forget">Sair</string>
-	<string name="sync_SPr_forget_description">Remove todos os dados de sincronização</string>
-	<string name="sync_forget_confirm">Sair/limpar dados de sincronização?</string>
 	<string name="widget_show_due_date">Mostrar datas limite</string>
 	<string name="widget_show_checkboxes">Mostrar caixas de seleção</string>
 	<string name="widget_show_header">Mostrar cabeçalho</string>
@@ -322,13 +318,10 @@
 	<string name="customize_edit_screen">Personalizar ecrã de edição</string>
 	<string name="source_code">Código fonte</string>
 	<string name="translations">Contribuir nas traduções</string>
-	<string name="report_an_issue">Reportar um erro</string>
-	<string name="help_and_feedback">Ajuda e comentários</string>
 	<string name="contact_developer">Contacte o programador</string>
 	<string name="rate_tasks">Avaliar o Tasks</string>
 	<string name="quiet_hours_summary">Sem lembretes nas horas de silêncio</string>
 	<string name="TLA_menu_donate">Donativos</string>
-	<string name="select_amount">Selecione o valor</string>
 	<string name="add_reminder">Adicionar lembrete</string>
 	<string name="remove">Remover</string>
 	<string name="randomly_once">Uma vez aleatória</string>
@@ -363,7 +356,6 @@
 	<string name="show_hidden">Mostrar ocultas</string>
 	<string name="show_completed">Mostrar terminadas</string>
 	<string name="reverse">Reverter</string>
-	<string name="get_plugins">Compras na aplicação</string>
 	<string name="no_application_found">Nenhuma aplicação encontrada para abrir o anexo</string>
 	<string name="add_attachment">Adicionar anexo</string>
 	<string name="take_a_picture">Tirar uma foto</string>
@@ -378,17 +370,11 @@
 	<string name="no_title">(Sem título)</string>
 	<string name="back_button_saves_task">O botão voltar guarda a tarefa</string>
 	<string name="default_list">Lista padrão</string>
-	<string name="plugin_description">Tasks é um projeto de código aberto mantido por um programador. Alguns recursos são oferecidos através de compras no aplicativo para apoiar o desenvolvimento.</string>
-	<string name="themes_purchase_description">Desbloqueie todos os temas e adicione alguma cor ao Tasks</string>
-	<string name="donate_summary">Os donativos são muito apreciados</string>
-	<string name="buy">Comprar</string>
-	<string name="buy_dashclock_extension">Comprar extensão</string>
 	<string name="filter">Filtro</string>
 	<string name="opacity">Opacidade</string>
 	<string name="theme">Tema</string>
 	<string name="color">Cor</string>
 	<string name="accent">Realçe</string>
-	<string name="themes">Temas adicionais</string>
 	<string name="theme_red">Vermelho</string>
 	<string name="theme_pink">Rosa</string>
 	<string name="theme_purple">Púrpura</string>
@@ -405,8 +391,6 @@
 	<string name="theme_dark">Escuro</string>
 	<string name="theme_wallpaper">Fundo</string>
 	<string name="theme_day_night">Dia/Noite</string>
-	<string name="default_value">Padrão</string>
-	<string name="master_sync_warning">A sincronização automática está atualmente desabilitada pelo Android</string>
 	<string name="settings_general">Geral</string>
 	<string name="language">Linguagem</string>
 	<string name="restart_required">O Tasks precisa ser reiniciado para que a mudança entre em vigor</string>
@@ -467,4 +451,5 @@
 	<string name="repeat_monthly_third_week">terceiro</string>
 	<string name="repeat_monthly_fourth_week">quarto</string>
 	<string name="repeat_monthly_last_week">último</string>
+	<string name="themes">Temas adicionais</string>
 </resources>

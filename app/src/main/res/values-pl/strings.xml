@@ -4,7 +4,7 @@
 <!-- ******** http://www.getlocalization.com/tasks_android ******** -->
 <!-- ******************* DO NOT MODIFY MANUALLY ******************* -->
 <!-- ************************************************************** -->
-<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes-->
+<!--suppress AndroidLintTypographyEllipsis,AndroidLintTypographyDashes,AndroidLintTypos-->
 <resources>
 	<string name="actfm_picture_clear">Usuń obrazek</string>
 	<string name="TVA_add_comment">Dodaj komentarz...</string>
@@ -194,11 +194,18 @@
 	<string name="default_random_reminder_monthly">raz w miesiącu</string>
 	<string name="default_random_reminder_bi_monthly">raz na dwa miesiące</string>
 	<string name="repeat_every">Każdy</string>
+	<string name="repeat_option_does_not_repeat">Nie powtarza się</string>
 	<string name="repeat_option_every_day">Każdego dnia</string>
 	<string name="repeat_option_every_week">Każdego tygodnia</string>
 	<string name="repeat_option_every_month">Każdego miesiąca</string>
 	<string name="repeat_option_every_year">Każdego roku</string>
-	<string name="repeat_yearly">Powtarzaj co roku</string>
+	<string name="repeat_option_custom">Własne ustawienie...</string>
+	<string name="repeat_minutely">Powtarzaj co ileś minut</string>
+	<string name="repeat_hourly">Powtarzaj co ileś godzin</string>
+	<string name="repeat_daily">Powtarzaj co ileś dni</string>
+	<string name="repeat_weekly">Powtarzaj co ileś tygodni</string>
+	<string name="repeat_monthly">Powtarzaj co ileś miesięcy</string>
+	<string name="repeat_yearly">Powtarzaj co ileś lat</string>
 	<plurals name="repeat_minutes">
 		<item quantity="one">minuta</item>
 		<item quantity="other">minut</item>
@@ -247,6 +254,7 @@
 	<string name="repeat_type_completion">data zakoµczenia</string>
 	<string name="repeat_forever">Powtarzaj bez końca</string>
 	<string name="repeat_until">Powtarzaj do %s</string>
+	<string name="repeat_number_of_times">Powtarzaj ilość razy.</string>
 	<string name="repeat_snackbar">%1$s przełożone na %2$s</string>
 	<string name="new_tag">Stwórz nowy tag</string>
 	<string name="new_list">Utwórz nową listę</string>
@@ -276,11 +284,7 @@
 	<string name="tmrw">jtr</string>
 	<string name="yest">wcz</string>
 	<string name="DLG_wait">Proszę czekać...</string>
-	<string name="sync_status_success">Ostatnia synchronizacja:\n%s</string>
 	<string name="sync_SPr_interval_title">Synchronizacja w tle</string>
-	<string name="sync_SPr_forget">Wyloguj</string>
-	<string name="sync_SPr_forget_description">Czyści wszystkie dane synchronizacji</string>
-	<string name="sync_forget_confirm">Wyloguj / wyczyść dane synchronizacji?</string>
 	<string name="widget_show_due_date">Pokaż terminy</string>
 	<string name="widget_show_checkboxes">Pokaż przyciski wyboru</string>
 	<string name="widget_show_header">Pokaż nagłówek</string>
@@ -300,13 +304,10 @@
 	<string name="customize_edit_screen">Dostosuj ekran edycji</string>
 	<string name="source_code">Kod źródłowy</string>
 	<string name="translations">Wspomóż tłumaczenie</string>
-	<string name="report_an_issue">Zgłoś błąd</string>
-	<string name="help_and_feedback">Pomoc i opinia</string>
 	<string name="contact_developer">Skontaktuj się z twórcą</string>
 	<string name="rate_tasks">Oceń zadania</string>
 	<string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
 	<string name="TLA_menu_donate">Wesprzyj</string>
-	<string name="select_amount">Wybierz sumę</string>
 	<string name="add_reminder">Dodaj przypomnienie</string>
 	<string name="remove">Usuń</string>
 	<string name="randomly_once">Losowo raz</string>
@@ -333,7 +334,7 @@
 	<string name="date_shortcut_must_come_after">%1$s musi być po %2$s</string>
 	<string name="discard_changes">Odrzuć zmiany</string>
 	<string name="discard">Odrzuć</string>
-	<string name="tag_settings">Ustawienia tagów</string>
+	<string name="tag_settings">Ustawienia taga</string>
 	<string name="list_settings">Ustawienie listy</string>
 	<string name="delete">Usuń</string>
 	<string name="copy">Kopiuj</string>
@@ -341,7 +342,6 @@
 	<string name="show_hidden">Pokaż ukryte</string>
 	<string name="show_completed">Pokaż ukończone</string>
 	<string name="reverse">Odwrotnie</string>
-	<string name="get_plugins">Zakupy w aplikacji</string>
 	<string name="no_application_found">Nie znaleziono aplikacji do otwarcia załącznika</string>
 	<string name="add_attachment">Dodaj załącznik</string>
 	<string name="take_a_picture">Wybierz obrazek</string>
@@ -353,22 +353,19 @@
 	<string name="send_anonymous_statistics_summary">Wyślij anonimowe statyki użycia i raporty o awariach celem ulepszenia Tasks. Żadne prywatne dane nie będą gromadzone.</string>
 	<string name="tag_already_exists">Tag już istnieje</string>
 	<string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
+	<string name="username_required">Wymagana nazwa użytkownika</string>
+	<string name="password_required">Wymagane hasło</string>
+	<string name="url_required">Wymagany URL</string>
+	<string name="url_host_name_required">Wymagana nazwa hosta</string>
+	<string name="url_invalid_scheme">Musi rozpoczynać się od http(s)://</string>
 	<string name="no_title">(Bez tytułu)</string>
 	<string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
 	<string name="default_list">Domyślna lista</string>
-	<string name="plugin_description">Tasks jest projektem na licencji open source utrzymywanym przez jednego developera. Płatne funkcje wspierają rozwój aplikacji.</string>
-	<string name="themes_purchase_description">Odblokuj wszystkie motywy i dodaj trochę kolorów do Tasks</string>
-	<string name="donate_summary">Dotacje są bardzo mile widziane</string>
-	<string name="dashclock_purchase_description">Wyświetla liczbę aktywnych zadań. Wymaga DashClock Widget</string>
-	<string name="buy">Kup</string>
-	<string name="buy_dashclock_extension">Kup rozszerzenie</string>
-	<string name="billing_service_busy">Serwis zakupów w aplikacji jest zajęty, spróbuj później</string>
 	<string name="filter">Filtr</string>
 	<string name="opacity">Nieprzezroczystość</string>
 	<string name="theme">Motyw</string>
 	<string name="color">Kolor</string>
 	<string name="accent">Akcent</string>
-	<string name="themes">Dodatkowe motywy</string>
 	<string name="theme_red">Czerwony</string>
 	<string name="theme_pink">Różowy</string>
 	<string name="theme_purple">Fioletowy</string>
@@ -394,8 +391,6 @@
 	<string name="theme_dark">Ciemny</string>
 	<string name="theme_wallpaper">Tapeta</string>
 	<string name="theme_day_night">Dzień/noc</string>
-	<string name="default_value">Domyślny</string>
-	<string name="master_sync_warning">Automatyczna synchronizacja jest obecnie wyłączona przez Androida</string>
 	<string name="settings_general">Podstawowe</string>
 	<string name="language">Język</string>
 	<string name="restart_required">Tasks muszą zostać zrestartowane aby zmiany zostały wprowadzone</string>
@@ -423,6 +418,10 @@
 	<string name="date_and_time">Data i czas</string>
 	<string name="start_of_week">Początek tygodnia</string>
 	<string name="use_locale_default">Użyj domyślnych</string>
+	<string name="add_account">Dodaj konto</string>
+	<string name="user">Użytkownik</string>
+	<string name="password">Hasło</string>
+	<string name="error_adding_account">Błąd przy dodawaniu konta</string>
 	<string name="notification_channel_settings">Zarządzaj powiadamieniami</string>
 	<string name="battery_optimization_settings">Zarządzaj zużyciem energii</string>
 	<string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
@@ -430,6 +429,8 @@
 	<string name="list">Lista</string>
 	<string name="repeats_from">Powtarzaj od</string>
 	<string name="repeats_single">Powtarza się %s</string>
+	<string name="repeats_single_on">Powtarza się %1$s w: %2$s</string>
+	<string name="repeats_single_until">Powtarza się %1$s do %2$s</string>
 	<string name="repeats_minutely">co minutę</string>
 	<string name="repeats_hourly">co godzinę</string>
 	<string name="repeats_daily">raz dziennie</string>
@@ -438,9 +439,13 @@
 	<string name="repeats_yearly">raz w roku</string>
 	<string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
 	<string name="default_calendar">Domyślny kalendarz</string>
+	<string name="repeat_monthly_same_day_each_month">tego samego dnia każdego miesiąca</string>
+	<string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
 	<string name="repeat_monthly_first_week">pierwszy</string>
 	<string name="repeat_monthly_second_week">drugi</string>
 	<string name="repeat_monthly_third_week">trzeci</string>
 	<string name="repeat_monthly_fourth_week">czwarty</string>
 	<string name="repeat_monthly_last_week">ostatni</string>
+	<string name="help">Pomoc</string>
+	<string name="themes">Dodatkowe motywy</string>
 </resources>

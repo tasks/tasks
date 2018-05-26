@@ -4,115 +4,115 @@
 ** See the file "LICENSE" for the full license governing this code. 
 -->
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tasks="http://schemas.android.com/apk/res-auto"
-    android:title="@string/notifications">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tasks="http://schemas.android.com/apk/res-auto"
+  android:title="@string/notifications">
 
+  <CheckBoxPreference
+    android:defaultValue="true"
+    android:key="@string/p_rmd_enabled"
+    android:title="@string/enabled"/>
+  <Preference
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/notification_channel_settings"
+    android:title="@string/notification_channel_settings"/>
+  <Preference
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/battery_optimization_settings"
+    android:summary="@string/notification_disable_battery_optimizations_description"
+    android:title="@string/battery_optimization_settings"/>
+  <RingtonePreference
+    android:defaultValue="content://settings/system/notification_sound"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_ringtone"
+    android:ringtoneType="notification"
+    android:showDefault="true"
+    android:showSilent="true"
+    android:title="@string/sound"/>
+  <com.todoroo.astrid.ui.MultilineCheckboxPreference
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_persistent"
+    android:summary="@string/persistent_notifications_description"
+    android:title="@string/persistent_notifications"/>
+  <CheckBoxPreference
+    android:defaultValue="@bool/default_bundle_notifications"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_bundle_notifications"
+    android:summary="@string/bundle_notifications_summary"
+    android:title="@string/bundle_notifications"/>
+  <CheckBoxPreference
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_vibrate"
+    android:title="@string/vibrations"/>
+  <CheckBoxPreference
+    android:defaultValue="true"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_led_notification"
+    android:summary="@string/hardware_support_required"
+    android:title="@string/led_notification"/>
+  <CheckBoxPreference
+    android:defaultValue="false"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_field_missed_calls"
+    android:title="@string/missed_calls"/>
+  <org.tasks.ui.TimePreference
+    android:defaultValue="@integer/default_remind_time"
+    android:dependency="@string/p_rmd_enabled"
+    android:key="@string/p_rmd_time"
+    android:title="@string/rmd_EPr_rmd_time_title"
+    tasks:summary="@string/rmd_EPr_rmd_time_desc"/>
+
+  <PreferenceCategory android:title="@string/badges">
     <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="@string/p_rmd_enabled"
-        android:title="@string/enabled" />
-    <Preference
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/notification_channel_settings"
-        android:title="@string/notification_channel_settings" />
-    <Preference
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/battery_optimization_settings"
-        android:title="@string/battery_optimization_settings"
-        android:summary="@string/notification_disable_battery_optimizations_description" />
-    <RingtonePreference
-        android:defaultValue="content://settings/system/notification_sound"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_rmd_ringtone"
-        android:ringtoneType="notification"
-        android:showDefault="true"
-        android:showSilent="true"
-        android:title="@string/sound" />
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:defaultValue="true"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_rmd_persistent"
-        android:summary="@string/persistent_notifications_description"
-        android:title="@string/persistent_notifications" />
+      android:defaultValue="false"
+      android:key="@string/p_badges_enabled"
+      android:summary="@string/badges_description"
+      android:title="@string/enabled"/>
+    <com.todoroo.astrid.ui.MultilinePreference
+      android:dependency="@string/p_badges_enabled"
+      android:key="@string/p_badge_list"
+      android:title="@string/list"/>
+  </PreferenceCategory>
+
+  <PreferenceCategory
+    android:key="@string/geolocation_reminders"
+    android:title="@string/geolocation_reminders">
+    <com.todoroo.astrid.ui.MultilineListPreference
+      android:defaultValue="250"
+      android:dependency="@string/p_rmd_enabled"
+      android:entries="@array/geofence_radius_values"
+      android:entryValues="@array/geofence_radius_values"
+      android:key="@string/p_geofence_radius"
+      android:title="@string/geofence_radius_title"/>
+    <com.todoroo.astrid.ui.MultilineListPreference
+      android:defaultValue="60"
+      android:dependency="@string/p_rmd_enabled"
+      android:entries="@array/geofence_responsiveness"
+      android:entryValues="@array/geofence_responsiveness_values"
+      android:key="@string/p_geofence_responsiveness"
+      android:title="@string/geofence_responsiveness_title"/>
+  </PreferenceCategory>
+
+  <PreferenceCategory android:title="@string/quiet_hours">
     <CheckBoxPreference
-        android:defaultValue="@bool/default_bundle_notifications"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_bundle_notifications"
-        android:title="@string/bundle_notifications"
-        android:summary="@string/bundle_notifications_summary" />
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_rmd_vibrate"
-        android:title="@string/vibrations" />
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_led_notification"
-        android:title="@string/led_notification"
-        android:summary="@string/hardware_support_required"/>
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_field_missed_calls"
-        android:title="@string/missed_calls" />
+      android:defaultValue="false"
+      android:dependency="@string/p_rmd_enabled"
+      android:key="@string/p_rmd_enable_quiet"
+      android:summary="@string/quiet_hours_summary"
+      android:title="@string/enabled"/>
     <org.tasks.ui.TimePreference
-        android:defaultValue="@integer/default_remind_time"
-        android:dependency="@string/p_rmd_enabled"
-        android:key="@string/p_rmd_time"
-        android:title="@string/rmd_EPr_rmd_time_title"
-        tasks:summary="@string/rmd_EPr_rmd_time_desc" />
-
-    <PreferenceCategory android:title="@string/badges">
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/p_badges_enabled"
-            android:title="@string/enabled"
-            android:summary="@string/badges_description" />
-        <com.todoroo.astrid.ui.MultilinePreference
-            android:dependency="@string/p_badges_enabled"
-            android:key="@string/p_badge_list"
-            android:title="@string/list" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="@string/geolocation_reminders"
-        android:title="@string/geolocation_reminders">
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:defaultValue="250"
-            android:dependency="@string/p_rmd_enabled"
-            android:entries="@array/geofence_radius_values"
-            android:entryValues="@array/geofence_radius_values"
-            android:key="@string/p_geofence_radius"
-            android:title="@string/geofence_radius_title" />
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:defaultValue="60"
-            android:dependency="@string/p_rmd_enabled"
-            android:entries="@array/geofence_responsiveness"
-            android:entryValues="@array/geofence_responsiveness_values"
-            android:key="@string/p_geofence_responsiveness"
-            android:title="@string/geofence_responsiveness_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/quiet_hours">
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:dependency="@string/p_rmd_enabled"
-            android:key="@string/p_rmd_enable_quiet"
-            android:summary="@string/quiet_hours_summary"
-            android:title="@string/enabled" />
-        <org.tasks.ui.TimePreference
-            android:defaultValue="@integer/default_quiet_hours_start"
-            android:dependency="@string/p_rmd_enable_quiet"
-            android:key="@string/p_rmd_quietStart"
-            android:title="@string/rmd_EPr_quiet_hours_start_title" />
-        <org.tasks.ui.TimePreference
-            android:defaultValue="@integer/default_quiet_hours_end"
-            android:dependency="@string/p_rmd_enable_quiet"
-            android:key="@string/p_rmd_quietEnd"
-            android:title="@string/rmd_EPr_quiet_hours_end_title" />
-    </PreferenceCategory>
+      android:defaultValue="@integer/default_quiet_hours_start"
+      android:dependency="@string/p_rmd_enable_quiet"
+      android:key="@string/p_rmd_quietStart"
+      android:title="@string/rmd_EPr_quiet_hours_start_title"/>
+    <org.tasks.ui.TimePreference
+      android:defaultValue="@integer/default_quiet_hours_end"
+      android:dependency="@string/p_rmd_enable_quiet"
+      android:key="@string/p_rmd_quietEnd"
+      android:title="@string/rmd_EPr_quiet_hours_end_title"/>
+  </PreferenceCategory>
 
 
 </PreferenceScreen>
